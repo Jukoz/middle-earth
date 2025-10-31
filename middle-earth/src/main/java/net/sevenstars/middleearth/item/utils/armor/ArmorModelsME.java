@@ -95,8 +95,6 @@ public class ArmorModelsME {
 
         WARDEN_OF_THE_GLADE(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, new WardenGladeHelmetModel(WardenGladeHelmetModel.getTexturedModelData().createModel())),
 
-        SILVAN_LORD_HELMET(EquipmentItemsME.SILVAN_LORD_HELMET, new SilvanLordHelmetModel(SilvanLordHelmetModel.getTexturedModelData().createModel())),
-
         ORCISH_BRACED_HELMET(EquipmentItemsME.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
         ORCISH_SALLET(EquipmentItemsME.ORCISH_SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
 

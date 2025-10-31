@@ -33,6 +33,12 @@ public class SilvanLordHelmetModel extends HelmetAddonModel {
                 .mirrored().cuboid(-5.0F, -6.0F + Y_OFFSET, 0.0F, 9.0F, 12.0F, 0.0F, new Dilation(0.0F)).mirrored(false),
                 ModelTransform.of(-3.404F, -14.8899F, -1.4963F, -0.4363F, 0.6109F, -0.2094F));
 
+        ModelPartData fin = addon.addChild("fin", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -0.5F, 1.08F));
+
+        ModelPartData fin_1 = fin.addChild("fin_1", ModelPartBuilder.create().uv(0, 0)
+                .cuboid(-11.0F, -2.0F + Y_OFFSET, -3.75F, 21.0F, 0.0F, 11.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.5F, -7.25F, -0.968F, 0.6021F, 0.0F, 0.0F));
+
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));

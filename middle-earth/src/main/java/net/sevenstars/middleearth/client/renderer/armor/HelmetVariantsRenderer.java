@@ -50,7 +50,6 @@ public class HelmetVariantsRenderer implements ArmorRenderer {
             int variant = 0;
             if(armorVariantDataComponent != null) variant = armorVariantDataComponent.id();
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            System.out.println(texture);
 
             ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customHelmetModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
             if (this.helmetAddonModel != null) {
