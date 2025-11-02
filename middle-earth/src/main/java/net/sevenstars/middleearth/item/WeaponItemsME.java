@@ -448,6 +448,9 @@ public class WeaponItemsME {
     public static final Item WOODLAND_REALM_AXE = registerItemWithModel("woodland_realm_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_SPEAR = registerItemWithSpearModel("woodland_realm_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
     public static final Item WOODLAND_REALM_NOBLE_SWORD = registerItemWithModel("woodland_realm_noble_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
@@ -461,6 +464,9 @@ public class WeaponItemsME {
     public static final Item WOODLAND_REALM_NOBLE_AXE = registerItemWithModel("woodland_realm_noble_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_NOBLE_SPEAR = registerItemWithSpearModel("woodland_realm_noble_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
 
     //region EREBOR
