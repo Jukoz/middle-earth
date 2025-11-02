@@ -44,14 +44,10 @@ public class UnarmoredCapeWideModel extends CloakCapeModel {
         left_arm.addChild("left_arm_shoulder_cape", ModelPartBuilder.create().uv(40, 16).mirrored().cuboid(0.0F, -2.5F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.35F)).mirrored(false),
                 ModelTransform.origin(0.0F, -0.0F, 0.0F));
 
-        ModelPartData right_leg = modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        right_leg.addChild("right_leg", ModelPartBuilder.create().uv(72, 16).cuboid(-2.1F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.55F)),
+        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData left_leg = modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        left_leg.addChild("left_leg", ModelPartBuilder.create().uv(56, 16).mirrored().cuboid(-1.968F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.55F)).mirrored(false),
+        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 128, 128);
