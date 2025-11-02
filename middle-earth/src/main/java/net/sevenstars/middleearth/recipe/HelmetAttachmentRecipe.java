@@ -32,6 +32,9 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
                     if (!itemStackHelmet.isEmpty()) {
                         return false;
                     }
+                    if (itemStack2.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA) != null){
+                        return false;
+                    }
                     itemStackHelmet = itemStack2;
                 } else {
                     if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)) {

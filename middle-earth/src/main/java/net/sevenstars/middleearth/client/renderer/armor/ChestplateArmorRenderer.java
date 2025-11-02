@@ -34,7 +34,6 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        CustomChestplateItem item = (CustomChestplateItem)stack.getItem();
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.CHEST) {
@@ -72,7 +71,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                //capeModel.setAngles(bipedEntityRenderState);
+                capeModel.setAngles(bipedEntityRenderState);
 
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(capeDataComponent.getBackAttachment())) {
                     BackAttachmentRenderer.renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"), true);
