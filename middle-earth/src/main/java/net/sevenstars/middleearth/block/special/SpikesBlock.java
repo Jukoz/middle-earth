@@ -86,6 +86,6 @@ public class SpikesBlock extends Block {
     }
 
     public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
-        entity.handleFallDamage(fallDistance + 2.5, 2.0F, world.getDamageSources().stalagmite());
+        entity.handleFallDamage(fallDistance + 2.5, 2.0F, world.getDamageSources().fall());
     }
 }
