@@ -46,6 +46,7 @@ public interface ArmorMaterialsME {
     ExtendedArmorMaterial BRONZE_T1 = registerArmor("bronze_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_BRONZE_ARMOR);
     ExtendedArmorMaterial BRONZE_T2 = registerArmor("bronze_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_BRONZE_ARMOR);
 
+    ExtendedArmorMaterial CRUDE_T1 = registerArmor("crude_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
     ExtendedArmorMaterial CRUDE_T2 = registerArmor("crude_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
     ExtendedArmorMaterial CRUDE_T3 = registerArmor("crude_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
 

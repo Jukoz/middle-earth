@@ -244,6 +244,10 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.DWARF_CROWN_PATTERN_ITEM));
 
+    public static final Item SPIDER_BANNER_PATTERN = registerItem("spider_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SPIDER_PATTERN_ITEM));
+
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.DRAGON_PATTERN_ITEM));

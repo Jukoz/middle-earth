@@ -644,6 +644,23 @@ public class WeaponItemsME {
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    //region DOL GULDUR
+    public static final Item DOL_GULDUR_MACHETE = registerItemWithModel("dol_guldur_machete",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+    public static final Item DOL_GULDUR_AXE = registerItemWithModel("dol_guldur_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+
+    public static final Item DOL_GULDUR_PAVISE = registerShield("dol_guldur_pavise",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+
+    public static final Item DOL_GULDUR_SHIELD = registerShield("dol_guldur_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+    //endregion
     //endregion
 
     //region ISENGARD

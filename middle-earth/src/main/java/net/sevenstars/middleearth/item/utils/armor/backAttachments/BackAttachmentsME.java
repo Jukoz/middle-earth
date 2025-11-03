@@ -53,7 +53,6 @@ public enum BackAttachmentsME implements StringIdentifiable {
     GALADHRIM_LORD_SURCOAT(33,"galadhrim_lord_surcoat"),
     GALADHRIM_LORD_CLOAK(34,"galadhrim_lord_cloak"),
 
-
     ORCISH_CAPE(35,"orcish_cape"),
     ORCISH_LONG_CAPE(36,"orcish_long_cape"),
     ORCISH_SHOULDERS(37,"orcish_shoulders"),
@@ -66,10 +65,13 @@ public enum BackAttachmentsME implements StringIdentifiable {
 
     MORDOR_BLACK_NUMENOREAN_CAPE(43,"mordor_black_numenorean_cape"),
     NAZGUL_ROBES(44,"nazgul_robes"),
+    BLACK_CASTELLAN_CAPE(45,"black_castellan_cape"),
+    BLACK_REAVER_SHOULDER_CAPE(46,"black_reaver_shoulder_cape"),
+    DOL_GULDUR_STALKER_CAPE(47,"dol_guldur_stalker_cape"),
 
-    ORTHANC_GUARD_CAPE(45,"orthanc_guard_cape"),
+    ORTHANC_GUARD_CAPE(48,"orthanc_guard_cape"),
 
-    SKULL_SPIKES(46,"skull_spikes"),
+    SKULL_SPIKES(49,"skull_spikes"),
     ;
 
     private static final IntFunction<BackAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(BackAttachmentsME::getId, BackAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;

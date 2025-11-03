@@ -25,6 +25,7 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.iseng
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorBNHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSnoutHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSpikyHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.dolguldur.*;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentModelsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
@@ -108,6 +109,17 @@ public class ArmorModelsME {
 
         MORDOR_BLACK_NUMENOREAN_PLATE_HELMET(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET, new MordorBNHelmetModel(MordorBNHelmetModel.getTexturedModelData().createModel())),
 
+        DOL_GULDUR_EXECUTIONER_HOOD(EquipmentItemsME.DOL_GULDUR_EXECUTIONER_HOOD, new FlapHelmetModel(FlapHelmetModel.getTexturedModelData().createModel())),
+        DOL_GULDUR_RAIDER_HELMET(EquipmentItemsME.DOL_GULDUR_RAIDER_HELMET, new DGRaiderHelmetModel(DGRaiderHelmetModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_RAIDER_HELMET(EquipmentItemsME.WEATHERED_DOL_GULDUR_RAIDER_HELMET, new DGRaiderHelmetModel(DGRaiderHelmetModel.getTexturedModelData().createModel())),
+        DOL_GULDUR_HUNTER_HELMET(EquipmentItemsME.DOL_GULDUR_HUNTER_HELMET, new DGHunterHelmetModel(DGHunterHelmetModel.getTexturedModelData().createModel())),
+        BLACK_REAVER_HELMET(EquipmentItemsME.BLACK_REAVER_HELMET, new BlackReaverHelmetModel(BlackReaverHelmetModel.getTexturedModelData().createModel())),
+        BLACK_CASTELLAN_HELMET(EquipmentItemsME.BLACK_CASTELLAN_HELMET, new BlackCastellanHelmetModel(BlackCastellanHelmetModel.getTexturedModelData().createModel())),
+        GULDUR_MARAUDER_HELMET(EquipmentItemsME.DOL_GULDUR_MARAUDER_HELMET, new DGMarauderHelmetModel(DGMarauderHelmetModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_MARAUDER_HELMET(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_HELMET, new DGMarauderHelmetModel(DGMarauderHelmetModel.getTexturedModelData().createModel())),
+        DOL_GULDUR_STALKER_HELMET(EquipmentItemsME.DOL_GULDUR_STALKER_HELMET, new DGStalkerHelmetModel(DGStalkerHelmetModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_STALKER_HELMET(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_HELMET, new DGStalkerHelmetModel(DGStalkerHelmetModel.getTexturedModelData().createModel())),
+
         URUK_HAI_LEATHER_SCOUT_CAP(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukScoutHelmetModel(IsenUrukScoutHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_LIGHT_HELMET, new IsenUrukCrestHelmetModel(IsenUrukCrestHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PAINTED_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukCrestHelmetModel(IsenUrukCrestHelmetModel.getTexturedModelData().createModel())),
@@ -173,6 +185,14 @@ public class ArmorModelsME {
         BLACK_URUK_COMMANDER_CHESTPLATE(EquipmentItemsME.BLACK_URUK_COMMANDER_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
         MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE, new MordorBNChestplateModel(MordorBNChestplateModel.getTexturedModelData().createModel())),
+
+        DOL_GULDUR_MARAUDER_CHESTPLATE(EquipmentItemsME.DOL_GULDUR_MARAUDER_CHESTPLATE, new DGMarauderChestplateModel(DGMarauderChestplateModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_MARAUDER_CHESTPLATE(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_CHESTPLATE, new DGMarauderChestplateModel(DGMarauderChestplateModel.getTexturedModelData().createModel())),
+
+        DOL_GULDUR_STALKER_CHESTPLATE(EquipmentItemsME.DOL_GULDUR_STALKER_CHESTPLATE, new DGStalkerChestplateModel(DGStalkerChestplateModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_STALKER_CHESTPLATE(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_CHESTPLATE, new DGStalkerChestplateModel(DGStalkerChestplateModel.getTexturedModelData().createModel())),
+
+        BLACK_CASTELLAN_CHESTPLATE(EquipmentItemsME.BLACK_CASTELLAN_CHESTPLATE, new BlackCastellanChestplateModel(BlackCastellanChestplateModel.getTexturedModelData().createModel())),
 
         URUK_HAI_PLATE_CHESTPLATE(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
@@ -252,6 +272,9 @@ public class ArmorModelsME {
 
         MORDOR_BLACK_NUMENOREAN_CAPE(BackAttachmentsME.MORDOR_BLACK_NUMENOREAN_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         NAZGUL_ROBES(BackAttachmentsME.NAZGUL_ROBES, BackAttachmentModelsME.NAZGUL_ROBES_MODEL),
+        BLACK_CASTELLAN_CAPE(BackAttachmentsME.BLACK_CASTELLAN_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        BLACK_REAVER_SHOULDER_CAPE(BackAttachmentsME.BLACK_REAVER_SHOULDER_CAPE, BackAttachmentModelsME.WIDE_MODELS),
+        DOL_GULDUR_STALKER_CAPE(BackAttachmentsME.DOL_GULDUR_STALKER_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
 
         ORTHANC_GUARD_CAPE(BackAttachmentsME.ORTHANC_GUARD_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
 

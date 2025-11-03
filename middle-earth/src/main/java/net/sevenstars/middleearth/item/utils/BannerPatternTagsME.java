@@ -23,6 +23,7 @@ public class BannerPatternTagsME {
     public static final TagKey<BannerPattern> ANVIL_PATTERN_ITEM = of("anvil");
     public static final TagKey<BannerPattern> BELL_PATTERN_ITEM = of("bell");
     public static final TagKey<BannerPattern> DWARF_CROWN_PATTERN_ITEM = of("dwarf_crown");
+    public static final TagKey<BannerPattern> SPIDER_PATTERN_ITEM = of("spider");
     public static final TagKey<BannerPattern> BOW_PATTERN_ITEM = of("bow");
 
     private static TagKey<BannerPattern> of(String name) {
