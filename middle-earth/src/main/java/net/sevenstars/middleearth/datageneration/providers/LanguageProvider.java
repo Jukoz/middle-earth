@@ -19,25 +19,32 @@ import java.util.concurrent.CompletableFuture;
 
 public class LanguageProvider extends FabricLanguageProvider {
 
-    private Map<String, String> specialNames = new HashMap<>();
+    private final Map<String, String> specialNames = new HashMap<>();
 
     public LanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, "en_us", registryLookup);
 
         specialNames.put("Izheraban", "Izhêr'Aban");
+        specialNames.put("Khagalaban", "Khagal'Aban");
+        specialNames.put("Burzulaban", "Burzul'Aban");
         specialNames.put("Nurgon", "Núrgon");
         specialNames.put("Zigilaban", "Zigil'Aban");
+        specialNames.put("Simbelmyne", "Simbelmynë");
         specialNames.put("Numenorean", "Númenórean");
         specialNames.put("Uruk Hai", "Uruk-Hai");
         specialNames.put("Burzum Steel", "Búrzum-Steel");
+        specialNames.put("Burzum", "Búrzum");
         specialNames.put("Edhel Steel", "Edhel-Steel");
         specialNames.put("Khazad Steel", "Khazâd-Steel");
+        specialNames.put("Druwaith", "Drúwaith");
         specialNames.put("Lothlorien", "Lothlórien");
         specialNames.put("Nurn", "Núrn");
         specialNames.put("Rhun", "Rhûn");
         specialNames.put("Lorien", "Lórien");
         specialNames.put("Nazgul", "Nazgûl");
         specialNames.put("Capital", "Dale Capital");
+        specialNames.put("Kings Guard", "King's Guard");
+        specialNames.put("Weaver Sting", "Weaver's Sting");
     }
 
     @Override

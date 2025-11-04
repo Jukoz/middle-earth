@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.client.renderer.armor;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.registry.tag.ItemTags;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
@@ -9,7 +10,6 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
-import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -44,7 +44,7 @@ public class HelmetArmorRenderer implements ArmorRenderer {
             customHelmetModel.leftArm.visible = true;
             customHelmetModel.rightArm.visible = true;
 
-            if(stack.isIn(ModTags.DYEABLE)) {
+            if(stack.isIn(ItemTags.DYEABLE)) {
                 dyeable = true;
             }
 

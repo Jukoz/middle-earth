@@ -7,9 +7,11 @@ import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.model.RangeDispatchItemModel;
 import net.minecraft.client.render.item.model.SelectItemModel;
 import net.minecraft.client.render.item.property.bool.BrokenProperty;
+import net.minecraft.client.render.item.property.bool.UsingItemProperty;
 import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
 import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
 import net.minecraft.client.render.item.property.select.ChargeTypeProperty;
+import net.minecraft.client.render.item.property.select.CustomModelDataStringProperty;
 import net.minecraft.client.render.item.property.select.DisplayContextProperty;
 import net.minecraft.client.render.item.property.select.TrimMaterialProperty;
 import net.minecraft.client.render.item.tint.DyeTintSource;
@@ -25,13 +27,17 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
+import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.ModSmithingTrimMaterials;
+import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
+import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
+import net.sevenstars.middleearth.resources.NpcME;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import static net.minecraft.client.data.ItemModelGenerator.createModelWithInHandVariant;
 
@@ -62,17 +68,17 @@ public class ItemModelProvider extends FabricModelProvider {
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.LAPIS, ArmorTrimMaterials.LAPIS),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.AMETHYST, ArmorTrimMaterials.AMETHYST),
             new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.RESIN, ArmorTrimMaterials.RESIN),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("jade"), ModSmithingTrimMaterials.JADE),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("lead"), ModSmithingTrimMaterials.LEAD),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("tin"), ModSmithingTrimMaterials.TIN),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("bronze"), ModSmithingTrimMaterials.BRONZE),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("crude"), ModSmithingTrimMaterials.CRUDE),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("silver"), ModSmithingTrimMaterials.SILVER),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("steel"), ModSmithingTrimMaterials.STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("khazad_steel"), ModSmithingTrimMaterials.KHAZAD_STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("edhel_steel"), ModSmithingTrimMaterials.EDHEL_STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("burzum_steel"), ModSmithingTrimMaterials.BURZUM_STEEL),
-            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("mithril"), ModSmithingTrimMaterials.MITHRIL)
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("jade"), SmithingTrimMaterialsME.JADE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("lead"), SmithingTrimMaterialsME.LEAD),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("tin"), SmithingTrimMaterialsME.TIN),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("bronze"), SmithingTrimMaterialsME.BRONZE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("crude"), SmithingTrimMaterialsME.CRUDE),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("silver"), SmithingTrimMaterialsME.SILVER),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("steel"), SmithingTrimMaterialsME.STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("khazad_steel"), SmithingTrimMaterialsME.KHAZAD_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("edhel_steel"), SmithingTrimMaterialsME.EDHEL_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("burzum_steel"), SmithingTrimMaterialsME.BURZUM_STEEL),
+            new ItemModelGenerator.TrimMaterial(ArmorTrimAssets.of("mithril"), SmithingTrimMaterialsME.MITHRIL)
     );
 
 
@@ -162,12 +168,45 @@ public class ItemModelProvider extends FabricModelProvider {
         registerPalettedItem(ResourceItemsME.HELMET_PLATE, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.SHIELD_BORDER, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.SHIELD_PLATE, itemModelGenerator);
+
+        int index = 0;
+
+        List<SelectItemModel.SwitchCase> models = new ArrayList<>(List.of());
+
+        NpcME.allNpcDatas.forEach(npcDataRegistryKey -> {
+            String id = npcDataRegistryKey.getValue().getPath().replaceAll("npc_data.middle-earth.", "").replaceAll("\\.", "_") + "_spawn_egg";
+            models.add(ItemModels.switchCase(id,
+                    ItemModels.basic(Models.GENERATED.upload(Identifier.of(MiddleEarth.MOD_ID, "item/" + id),
+                            TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/" + id)),
+                            itemModelGenerator.modelCollector
+                    ))));
+        });
+
+        ItemModel.Unbaked fallbackModel = ItemModels.basic(itemModelGenerator.upload(EggItemsME.NPC_SPAWN_EGG, Models.GENERATED));
+
+        itemModelGenerator.output.accept(EggItemsME.NPC_SPAWN_EGG,
+                new SelectItemModel.Unbaked(new SelectItemModel.UnbakedSwitch(new CustomModelDataStringProperty(0), models), Optional.of(fallbackModel)));
     }
 
     public final void registerWeaponBigItemModels(ItemModelGenerator itemModelGenerator, Item item) {
-        ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
+        ItemModel.Unbaked unbakedHand;
+        if (Registries.ITEM.getId(item).getPath().contains("staff")){
+            unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON_STAFF));
+        } else {
+            unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
+        }
         ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
-        itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
+
+        if (item instanceof CustomLongswordWeaponItem longswordWeaponItem){
+            ItemModel.Unbaked unbakedHandBlocking = ItemModels.basic(CustomItemModels.BIG_WEAPON_BLOCKING.upload(ModelIds.getItemSubModelId(item, "_blocking"), TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
+            itemModelGenerator.output.accept(longswordWeaponItem, ItemModels.condition(new UsingItemProperty(),
+                    ItemModels.select(new DisplayContextProperty(), unbakedHandBlocking,
+                            ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory)),
+                    ItemModels.select(new DisplayContextProperty(), unbakedHand,
+                            ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory))));
+        } else {
+            itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
+        }
     }
 
     public final void registerGenericBigModels(ItemModelGenerator itemModelGenerator, Item item) {
@@ -177,6 +216,7 @@ public class ItemModelProvider extends FabricModelProvider {
         itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
     }
 
+    //TODO longsword artefact blocking datagen
     public final void registerArtefact(ItemModelGenerator itemModelGenerator, Item item, Boolean dualModel) {
         if (dualModel) {
             ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));

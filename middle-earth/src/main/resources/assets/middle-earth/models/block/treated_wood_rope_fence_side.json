@@ -1,0 +1,23 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "middle-earth:block/treated_wood_rope_fence",
+		"particle": "middle-earth:block/treated_wood_rope_fence"
+	},
+	"elements": [
+		{
+			"from": [8, 8, 0],
+			"to": [8, 15, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 12, 6]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 16], "texture": "#0"},
+				"east": {"uv": [10, 1, 16, 8], "texture": "#0"},
+				"south": {"uv": [0, 0, 0, 16], "texture": "#0"},
+				"west": {"uv": [16, 9, 10, 16], "texture": "#0"},
+				"up": {"uv": [0, 0, 6, 0], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [0, 0, 6, 0], "rotation": 270, "texture": "#0"}
+			}
+		}
+	]
+}

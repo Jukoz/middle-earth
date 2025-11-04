@@ -6,6 +6,7 @@ import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class PetrifiedTrollRenderer extends MobEntityRenderer<PetrifiedTrollEntity, LivingEntityRenderState, PetrifiedTrollModel> {
     private static final String PATH = "textures/entities/trolls/stone/";
@@ -16,7 +17,7 @@ public class PetrifiedTrollRenderer extends MobEntityRenderer<PetrifiedTrollEnti
 
     @Override
     public LivingEntityRenderState createRenderState() {
-        return null;
+        return new TrollEntityRenderState();
     }
 
     @Override

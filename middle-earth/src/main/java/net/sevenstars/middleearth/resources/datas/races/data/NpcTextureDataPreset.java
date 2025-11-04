@@ -4,7 +4,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -30,7 +30,7 @@ public class NpcTextureDataPreset {
     List<String> eyeMaterials;
     List<String> hairMaterials;
     List<String> clothingMaterials;
-    
+
     private boolean haveEmissiveEyes;
 
     public NpcTextureDataPreset(){
@@ -86,6 +86,12 @@ public class NpcTextureDataPreset {
         fetchElements(compound, NpcTextureType.EYEBROW);
         fetchElements(compound, NpcTextureType.BEARD);
         fetchElements(compound, NpcTextureType.CLOTHING);
+
+        loadHeadPool(compound);
+    }
+
+    private void loadHeadPool(NbtCompound compound) {
+
     }
 
     public NbtCompound getNbt(){
@@ -239,7 +245,17 @@ public class NpcTextureDataPreset {
                     addToPattern(type, x.getValue().getPath());
                 }
             });
-
+        return this;
+    }
+    public NpcTextureDataPreset withPatternValues(NpcTextureType type, List<String> patterns){
+        if(patterns != null)
+            patterns.forEach(x -> {
+                if(x == null){
+                    addToPattern(type, EMPTY_VALUE_KEY);
+                } else {
+                    addToPattern(type, Identifier.of(x).getPath());
+                }
+            });
         return this;
     }
     public NpcTextureDataPreset overwritePatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
@@ -253,6 +269,10 @@ public class NpcTextureDataPreset {
     }
     public NpcTextureDataPreset withMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
         materials.forEach(x -> addToMaterial(type, x.getValue().getPath()));
+        return this;
+    }
+    public NpcTextureDataPreset withMaterialValues(NpcTextureType type, List<String> materials){
+        materials.forEach(x -> addToMaterial(type, Identifier.of(x).getPath()));
         return this;
     }
     public NpcTextureDataPreset overwriteMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
@@ -327,7 +347,7 @@ public class NpcTextureDataPreset {
             case EYEBROW -> eyebrowPatterns;
             case BEARD -> beardPatterns;
             case CLOTHING -> clothingPatterns;
-            default -> throw new IllegalStateException("Unexpected value: " + npcTextureType);
+            default -> new ArrayList<String>();
         };
     }
     public List<String> getMaterials(NpcTextureType npcTextureType) {
@@ -336,6 +356,7 @@ public class NpcTextureDataPreset {
             case EYE -> eyeMaterials;
             case HAIR, EYEBROW, BEARD -> hairMaterials;
             case CLOTHING -> clothingMaterials;
+            default -> new ArrayList<String>();
         };
     }
 
@@ -347,6 +368,8 @@ public class NpcTextureDataPreset {
         var copiedNpcTextureDataPreset = new NpcTextureDataPreset();
         for(String value : getMaterials(NpcTextureType.SKIN))
             copiedNpcTextureDataPreset.addToMaterial(NpcTextureType.SKIN, value);
+        for(String value : getPatterns(NpcTextureType.HEAD))
+            copiedNpcTextureDataPreset.addToPattern(NpcTextureType.HEAD, value);
         for(String value : getPatterns(NpcTextureType.BODY))
             copiedNpcTextureDataPreset.addToPattern(NpcTextureType.BODY, value);
         for(String value : getPatterns(NpcTextureType.NOSE))

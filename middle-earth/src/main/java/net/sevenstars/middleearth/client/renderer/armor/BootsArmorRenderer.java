@@ -2,9 +2,9 @@ package net.sevenstars.middleearth.client.renderer.armor;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.registry.tag.ItemTags;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
-import net.sevenstars.middleearth.recipe.ModTags;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -30,7 +30,7 @@ public class BootsArmorRenderer implements ArmorRenderer {
             customBootsModel.rightLeg.visible = true;
             customBootsModel.leftLeg.visible = true;
 
-            if (stack.isIn(ModTags.DYEABLE)) {
+            if (stack.isIn(ItemTags.DYEABLE)) {
                 dyeable = true;
             }
 

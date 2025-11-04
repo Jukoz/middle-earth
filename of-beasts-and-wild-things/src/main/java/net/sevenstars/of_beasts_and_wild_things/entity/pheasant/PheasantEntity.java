@@ -1,6 +1,7 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -9,31 +10,35 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import org.jetbrains.annotations.Nullable;
 
 public class PheasantEntity extends AnimalEntity {
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(PheasantEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState diggingAnimationState = new AnimationState();
+    public final AnimationState flapAnimationState = new AnimationState();
 
     public PheasantEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+        this.getNavigation().setCanSwim(true);
     }
 
     public static DefaultAttributeContainer.Builder createPheasantAttributes() {
@@ -69,7 +74,7 @@ public class PheasantEntity extends AnimalEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.PHEASANT.create(world, SpawnReason.BREEDING);
+        return EntitiesWT.PHEASANT.create(world, SpawnReason.BREEDING);
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
@@ -130,6 +135,45 @@ public class PheasantEntity extends AnimalEntity {
         else {
             idleAnimationState.stop();
         }
+
+        if(!this.isOnGround()) {
+            this.flapAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.flapAnimationState.stop();
+        }
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_PARROT_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.ENTITY_PARROT_HURT;
+    }
+    @Override
+    protected void playHurtSound(DamageSource damageSource) {
+        this.playSound(this.getHurtSound(damageSource), 1.0f, 0.9f);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_PARROT_AMBIENT;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        this.playSound(this.getAmbientSound(), 1.0f, 0.9f);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 1.0f, 0.9f);
     }
 
     public PheasantEntityVariant getVariant() {

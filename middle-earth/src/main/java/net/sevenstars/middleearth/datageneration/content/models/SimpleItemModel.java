@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.minecraft.item.Item;
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -61,6 +61,8 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.DWARF_CROWN_BANNER_PATTERN);
 
+            add(ResourceItemsME.SPIDER_BANNER_PATTERN);
+
             add(ResourceItemsME.DRAGON_BANNER_PATTERN);
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
@@ -77,17 +79,13 @@ public class SimpleItemModel {
             add(FoodItemsME.COOKED_VEGETABLE_SKEWER);
             add(FoodItemsME.VEGETABLE_SOUP);
             add(FoodItemsME.SACK_OF_HORSEFEED);
-            add(FoodItemsME.RAW_VENISON);
-            add(FoodItemsME.COOKED_VENISON);
             add(FoodItemsME.RAW_HORSE);
             add(FoodItemsME.COOKED_HORSE);
 
             add(FoodItemsME.LEMBAS);
-            add(FoodItemsME.RAW_SWAN);
-            add(FoodItemsME.COOKED_SWAN);
             add(FoodItemsME.MAGGOTY_BREAD);
             add(FoodItemsME.TOUGH_BERRIES);
-            add(FoodItemsME.STRAWBERRY);
+            add(FoodItemsME.STRAWBERRIES);
 
             add(ResourceItemsME.GLOWWORM_BOTTLE);
 
@@ -106,6 +104,7 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.DIRTY_BONE);
             add(ResourceItemsME.FANG);
+            add(ResourceItemsME.SPIDER_STINGER);
 
             add(ResourceItemsME.SWAN_FEATHER);
 
@@ -168,6 +167,7 @@ public class SimpleItemModel {
             add(DecorativeItemsME.RICKETY_SIMPLE_LARCH_DOOR.asItem());
             add(DecorativeItemsME.SPRUCE_STABLE_DOOR.asItem());
             add(DecorativeItemsME.LARGE_STURDY_DOOR.asItem());
+            add(DecorativeItemsME.LARGE_BEECH_FENCE_GATE.asItem());
             add(DecorativeItemsME.GREAT_GONDORIAN_GATE.asItem());
             add(DecorativeItemsME.GREAT_DWARVEN_GATE.asItem());
             add(DecorativeItemsME.VARNISHED_DWARVEN_DOOR.asItem());

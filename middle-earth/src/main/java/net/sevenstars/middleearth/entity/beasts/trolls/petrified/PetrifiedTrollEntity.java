@@ -54,7 +54,6 @@ public class PetrifiedTrollEntity extends MobEntity {
             }
             ItemStack itemStack = playerEntity.getMainHandStack();
             if(itemStack.getComponents().contains(DataComponentTypes.TOOL) && !this.getWorld().isClient) {
-                // TODO test it
                 TagKey tagKey = TagKey.of(RegistryKeys.ITEM, Identifier.of("pickaxes"));
                 if(itemStack.isIn(tagKey)) {
                     return super.damage(world, source, 10.0f);

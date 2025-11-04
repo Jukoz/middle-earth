@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "middle-earth:block/large_lily_pad"
+  }
+}

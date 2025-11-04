@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHan
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
+import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 
@@ -42,7 +43,7 @@ public class ModScreenHandlers {
             = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, StructureManagerScreenData.PACKET_CODEC.cast());
 
     public static final ScreenHandlerType<StructureNestScreenHandler> STRUCTURE_NEST_SCREEN_HANDLER
-            = new ExtendedScreenHandlerType<>(StructureNestScreenHandler::new, Identifier.PACKET_CODEC.cast());
+            = new ExtendedScreenHandlerType<>(StructureNestScreenHandler::new, StructureNestScreenData.PACKET_CODEC.cast());
 
 
     public static void registerAllScreenHandlers() {

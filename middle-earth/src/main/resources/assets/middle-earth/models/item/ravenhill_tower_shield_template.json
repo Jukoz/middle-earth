@@ -3,7 +3,8 @@
 	"texture_size": [64, 64],
 	"gui_light": "front",
 	"textures": {
-		"1": "middle-earth:item/ravenhill_ornamented_tower_shield"
+		"1": "middle-earth:item/ravenhill_ornamented_tower_shield",
+		"particle": "block/dark_oak_planks"
 	},
 	"elements": [
 		{

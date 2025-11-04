@@ -14,7 +14,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -38,8 +37,8 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.deer.DeerEntity;
 import net.sevenstars.middleearth.entity.goals.*;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
@@ -92,20 +91,17 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 2, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 0.9, (stack) ->  stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food"))), false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(7, new WanderAroundFarGoal(this, 0.5));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
         this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
         this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
         this.targetSelector.add(11, new BeastActiveTargetGoal<>(this, SheepEntity.class, true));
         this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
-        this.targetSelector.add(13, new BeastActiveTargetGoal<>(this, DeerEntity.class, true));
-        // TOOD : this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
     }
 
     @Override
@@ -139,6 +135,10 @@ public class WargEntity extends AbstractBeastEntity {
         return ((double)0.5 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.3;
     }
 
+    private WolfSoundVariant getSoundVariant() {
+        return SoundEvents.WOLF_SOUNDS.get(WolfSoundVariants.Type.ANGRY);
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -162,7 +162,7 @@ public class WargEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
-            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+            if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;
             }
         }
@@ -209,13 +209,18 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
+    public Disposition getDisposition() {
         return Disposition.EVIL;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
+    public List<RaceType> getCompatibleRaces() {
         return List.of(RaceType.ORC, RaceType.URUK);
+    }
+
+    @Override
+    public boolean usesTameness() {
+        return false;
     }
 
     @Override
@@ -236,10 +241,19 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         if(!this.isSitting()) {
-            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f);
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.25f);
         }
 
         return super.getSaddledSpeed(controllingPlayer);
+    }
+
+    @Override
+    protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
+        if(!this.isSitting()) {
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.25f);
+        }
+
+        return super.getNpcSaddledSpeed(controllingNpc);
     }
 
     @Override
@@ -249,11 +263,21 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        float f = this.limbAnimator.getSpeed();
-        float g = this.limbAnimator.getSpeed() * (MathHelper.PI / 180) * 18; // TODO : Before, was getPos()
-        float h = passenger.isSprinting() ? 1 : 0;
+        float animationSpeed = this.limbAnimator.getSpeed();
+        float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
 
-        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * (0.06 + (0.035 * h)));
+        boolean sprinting = passenger.isSprinting();
+
+        // frequency is calculated by dividing the speed of the animation by the duration of the animation.
+        float frequency = sprinting ? (1.2f/0.5f) : (2f/1.25f);
+
+        double y = sprinting ?
+                MathHelper.cos(animationProgress * frequency) * 0.095 * animationSpeed :
+                MathHelper.sin(animationProgress * frequency * 2f) * 0.06 * animationSpeed;
+
+        if(this.isSitting()) {
+            y = -0.5;
+        }
 
         return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
     }
@@ -296,6 +320,11 @@ public class WargEntity extends AbstractBeastEntity {
 
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
     }
 
     @Override
@@ -422,13 +451,13 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_VILLAGER_DEATH; // TODO : Use wolf sound event
+        return this.getSoundVariant().deathSound().value();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_VILLAGER_HURT; // TODO : Use wolf sound event
+        return this.getSoundVariant().hurtSound().value();
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
@@ -438,7 +467,7 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_VILLAGER_AMBIENT; // TODO : Use wolf sound event
+        return this.getSoundVariant().ambientSound().value();
 
     }
 
@@ -450,13 +479,13 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     public SoundEvent getAmbientStandSound() {
-        return SoundEvents.ENTITY_DOLPHIN_AMBIENT_WATER; // TODO : Use wolf sound event (ENTITY_WOLF_HOWL)
+        return this.getSoundVariant().pantSound().value();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAngrySound() {
-        return SoundEvents.ENTITY_ENDER_DRAGON_GROWL; // TODO : Use wolf sound event (ENTITY_WOLF_GROWL)
+        return this.getSoundVariant().growlSound().value();
     }
 
     @Override

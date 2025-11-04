@@ -30,7 +30,7 @@ public class NoseModel  extends EntityModel<NpcEntityRenderState>  {
 
         ModelPartData cubeRootPart = modelPartData.addChild("noseRoot", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         ModelPartData cubeNosePart = cubeRootPart.addChild("squareCube", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        cubeNosePart.addChild("cube", ModelPartBuilder.create().uv(0, 2).cuboid(-1.0f, -4f, -5f, 2, 2, 1, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        cubeNosePart.addChild("cube", ModelPartBuilder.create().uv(0, 2).cuboid(-1.0f, -4f, -4.5f, 2, 2, 1, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         ModelPartData villagerCubePart = cubeRootPart.addChild("villagerCube", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         villagerCubePart.addChild("cube", ModelPartBuilder.create().uv(0, 6).cuboid(-1.0f, -4f, -6f, 2, 4, 2, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));

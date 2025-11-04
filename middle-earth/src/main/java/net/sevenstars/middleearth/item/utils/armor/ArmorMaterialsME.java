@@ -1,28 +1,41 @@
 package net.sevenstars.middleearth.item.utils.armor;
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.sevenstars.middleearth.recipe.ModTags;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.function.ValueLists;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.EnumMap;
+import java.util.function.IntFunction;
 
 public interface ArmorMaterialsME {
+    RegistryKey<? extends Registry<EquipmentAsset>> REGISTRY_KEY = RegistryKey.ofRegistry(Identifier.ofVanilla("equipment_asset"));
 
-    ExtendedArmorMaterial STRAW_T1 = registerArmor("straw_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_STRAW_ARMOR);
+    ExtendedArmorMaterial STRAW_T1 = registerArmor("straw_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_STRAW_ARMOR);
 
-    ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_WOOL_ARMOR);
+    ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_WOOL_ARMOR);
 
-    ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_FUR_ARMOR);
+    ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_FUR_ARMOR);
 
-    ExtendedArmorMaterial FABRIC_T0 = registerArmor("fabric_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_FABRIC_ARMOR);
-    ExtendedArmorMaterial FABRIC_T1 = registerArmor("fabric_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ModTags.REPAIRS_FABRIC_ARMOR);
+    ExtendedArmorMaterial FABRIC_T0 = registerArmor("fabric_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_FABRIC_ARMOR);
+    ExtendedArmorMaterial FABRIC_T1 = registerArmor("fabric_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_FABRIC_ARMOR);
 
     ExtendedArmorMaterial LEATHER_T1 = registerArmor("leather_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
     ExtendedArmorMaterial LEATHER_T2 = registerArmor("leather_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
@@ -30,33 +43,41 @@ public interface ArmorMaterialsME {
     ExtendedArmorMaterial IRON_T2 = registerArmor("iron_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
     ExtendedArmorMaterial IRON_T3 = registerArmor("iron_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
 
-    ExtendedArmorMaterial BRONZE_T1 = registerArmor("bronze_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_BRONZE_ARMOR);
-    ExtendedArmorMaterial BRONZE_T2 = registerArmor("bronze_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_BRONZE_ARMOR);
+    ExtendedArmorMaterial BRONZE_T1 = registerArmor("bronze_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_BRONZE_ARMOR);
+    ExtendedArmorMaterial BRONZE_T2 = registerArmor("bronze_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_BRONZE_ARMOR);
 
-    ExtendedArmorMaterial CRUDE_T2 = registerArmor("crude_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_CRUDE_ARMOR);
-    ExtendedArmorMaterial CRUDE_T3 = registerArmor("crude_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_CRUDE_ARMOR);
+    ExtendedArmorMaterial CRUDE_T1 = registerArmor("crude_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
+    ExtendedArmorMaterial CRUDE_T2 = registerArmor("crude_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
+    ExtendedArmorMaterial CRUDE_T3 = registerArmor("crude_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
 
-    ExtendedArmorMaterial STEEL_T4 = registerArmor("straw_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModTags.REPAIRS_STEEL_ARMOR);
-    ExtendedArmorMaterial STEEL_T5 = registerArmor("straw_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModTags.REPAIRS_STEEL_ARMOR);
+    ExtendedArmorMaterial STEEL_T4 = registerArmor("straw_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_STEEL_ARMOR);
+    ExtendedArmorMaterial STEEL_T5 = registerArmor("straw_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ItemTagsME.REPAIRS_STEEL_ARMOR);
 
-    ExtendedArmorMaterial DWARVEN_STEEL_T4 = registerArmor("dwarven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModTags.REPAIRS_KHAZAD_STEEL_ARMOR);
-    ExtendedArmorMaterial DWARVEN_STEEL_T5 = registerArmor("dwarven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModTags.REPAIRS_KHAZAD_STEEL_ARMOR);
+    ExtendedArmorMaterial DWARVEN_STEEL_T4 = registerArmor("dwarven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_KHAZAD_STEEL_ARMOR);
+    ExtendedArmorMaterial DWARVEN_STEEL_T5 = registerArmor("dwarven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ItemTagsME.REPAIRS_KHAZAD_STEEL_ARMOR);
 
-    ExtendedArmorMaterial ELVEN_STEEL_T4 = registerArmor("elven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModTags.REPAIRS_EDHEL_STEEL_ARMOR);
-    ExtendedArmorMaterial ELVEN_STEEL_T5 = registerArmor("elven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModTags.REPAIRS_EDHEL_STEEL_ARMOR);
+    ExtendedArmorMaterial ELVEN_STEEL_T4 = registerArmor("elven_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
+    ExtendedArmorMaterial ELVEN_STEEL_T5 = registerArmor("elven_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
 
-    ExtendedArmorMaterial BURZUM_STEEL_T3 = registerArmor("burzum_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_BURZUM_STEEL_ARMOR);
-    ExtendedArmorMaterial BURZUM_STEEL_T4 = registerArmor("burzum_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ModTags.REPAIRS_BURZUM_STEEL_ARMOR);
-    ExtendedArmorMaterial BURZUM_STEEL_T5 = registerArmor("burzum_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ModTags.REPAIRS_BURZUM_STEEL_ARMOR);
+    ExtendedArmorMaterial BURZUM_STEEL_T3 = registerArmor("burzum_steel_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
+    ExtendedArmorMaterial BURZUM_STEEL_T4 = registerArmor("burzum_steel_t4", Tiers.STURDY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
+    ExtendedArmorMaterial BURZUM_STEEL_T5 = registerArmor("burzum_steel_t5", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
 
-    ExtendedArmorMaterial LEATHER = registerArmor("leather", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_LEATHER_ARMOR);
-    ExtendedArmorMaterial MAIL = registerArmor("mail", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
-    ExtendedArmorMaterial PLATE = registerArmor("plate", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_STEEL_ARMOR);
+    ExtendedArmorMaterial BROADHOOF_GOAT_LEATHER_ARMOR = registerArmor("broadhoof_goat_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial BROADHOOF_GOAT_ORNAMENTED_LEATHER_ARMOR = registerArmor("broadhoof_goat_ornamented_leather_armor", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial BROADHOOF_GOAT_PLATE_ARMOR = registerArmor("broadhoof_goat_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_KHAZAD_STEEL_ARMOR);
 
-    ExtendedArmorMaterial GONDORIAN_HORSE_ARMOR = registerArmor("gondorian_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_STEEL_ARMOR);
-    ExtendedArmorMaterial ROHIRRIC_HORSE_ARMOR = registerArmor("rohirric_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_STEEL_ARMOR);
-    ExtendedArmorMaterial DALISH_HORSE_ARMOR = registerArmor("dalish_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_STEEL_ARMOR);
-    ExtendedArmorMaterial LORIEN_HORSE_ARMOR = registerArmor("lorien_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ModTags.REPAIRS_EDHEL_STEEL_ARMOR);
+    ExtendedArmorMaterial WARG_LEATHER_ARMOR = registerArmor("warg_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial WARG_REINFORCED_LEATHER_ARMOR = registerArmor("warg_reinforced_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
+    ExtendedArmorMaterial WARG_MORDOR_MAIL_ARMOR = registerArmor("warg_mordor_mail_armor", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
+    ExtendedArmorMaterial WARG_MORDOR_PLATE_ARMOR = registerArmor("warg_mordor_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
+    ExtendedArmorMaterial WARG_ISENGARD_PLATE_ARMOR = registerArmor("warg_isengard_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
+    ExtendedArmorMaterial WARG_GUNDABAD_PLATE_ARMOR = registerArmor("warg_gundabad_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_BURZUM_STEEL_ARMOR);
+
+    ExtendedArmorMaterial GONDORIAN_HORSE_ARMOR = registerArmor("gondorian_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_STEEL_ARMOR);
+    ExtendedArmorMaterial ROHIRRIC_HORSE_ARMOR = registerArmor("rohirric_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_STEEL_ARMOR);
+    ExtendedArmorMaterial DALISH_HORSE_ARMOR = registerArmor("dalish_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_STEEL_ARMOR);
+    ExtendedArmorMaterial LORIEN_HORSE_ARMOR = registerArmor("lorien_horse_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
 
     private static ExtendedArmorMaterial registerArmor(String name, Tiers tier, RegistryEntry<SoundEvent> equipSound, TagKey<Item> repairTag) {
         EnumMap<EquipmentType, Integer> map = new EnumMap<>(EquipmentType.class);
@@ -155,17 +176,48 @@ public interface ArmorMaterialsME {
         for (EquipmentType type : EquipmentType.values()) {
             enumMap.put(type, defense.get(type));
         }
-        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, EquipmentAssetKeys.register(name));
+        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, RegistryKey.of(REGISTRY_KEY, Identifier.of(MiddleEarth.MOD_ID, name)));
         return new ExtendedArmorMaterial(material, durabilityMultiplier, tier);
     }
 
-    enum Tiers {
-        CLOTHING,
-        BASIC,
-        LIGHT,
-        MEDIUM,
-        STURDY,
-        HEAVY,
+    enum Tiers implements StringIdentifiable {
+        CLOTHING(0, "tier_clothing",11184810),
+        BASIC(1, "tier_basic", 16777215),
+        LIGHT(2, "tier_light", 5635925),
+        MEDIUM(3, "tier_medium", 5592575),
+        STURDY(4, "tier_sturdy",11141290),
+        HEAVY(5, "tier_heavy",11141120),
         ;
+
+        private static final IntFunction<Tiers> BY_ID = ValueLists.createIndexToValueFunction(Tiers::getId, Tiers.values(), ValueLists.OutOfBoundsHandling.ZERO);;
+        private final String name;
+        private final int id;
+        private final int color;
+
+        public static final Codec<Tiers> CODEC = StringIdentifiable.createBasicCodec(Tiers::values);
+        public static final PacketCodec<ByteBuf, Tiers> PACKET_CODEC = PacketCodecs.indexed(BY_ID, Tiers::getId);
+
+        Tiers(int id, String name, int color){
+            this.name = name;
+            this.id = id;
+            this.color = color;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getColor() {
+            return color;
+        }
+
+        @Override
+        public String asString() {
+            return this.name;
+        }
     }
 }

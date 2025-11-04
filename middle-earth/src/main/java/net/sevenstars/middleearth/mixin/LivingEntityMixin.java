@@ -1,25 +1,35 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -31,6 +41,13 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Shadow public abstract ItemStack getStackInHand(Hand hand);
+
+    @Shadow public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
+
+    @Shadow public abstract @NotNull ItemStack getWeaponStack();
+
+    @Shadow
+    protected abstract float getMovementSpeed(float slipperiness);
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -105,6 +122,15 @@ public abstract class LivingEntityMixin extends Entity {
         return effect;
     }
 
+    @Inject(method = "addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z", at = @At("TAIL"))
+    public final void addStatusEffect(StatusEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
+        if(!this.getWorld().isClient) {
+            for (ServerPlayerEntity player : ((ServerWorld) this.getWorld()).getPlayers()) {
+                ServerPlayNetworking.send(player, new PacketLivingEntityData(this.getId(), effect));
+            }
+        }
+    }
+
     private static int getAilmentProtectionLevel(ItemStack itemStack, World world) {
         int level = 0;
         RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT)
@@ -114,5 +140,29 @@ public abstract class LivingEntityMixin extends Entity {
             level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, itemStack);
         }
         return level;
+    }
+
+    @Inject(at = @At("HEAD"), method = "drop")
+    protected void drop(ServerWorld world, DamageSource damageSource, CallbackInfo callbackInfo) {
+        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity){
+            this.equipment.clear();
+        }
+    }
+
+    @Inject(method = "getMovementSpeed()F", at = @At("RETURN"), cancellable = true)
+    private void getMovementSpeed(CallbackInfoReturnable<Float> cir) {
+        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity npcEntity){
+            float currentValue = cir.getReturnValue();
+            float modifier = 1f;
+            float fightingModifier = 1f;
+            if(getControllingPassenger().getVehicle() instanceof HorseEntity){
+                currentValue = 0.5f;
+                fightingModifier = 2f;
+            }
+            if(npcEntity.isFighting()){
+                cir.setReturnValue(Math.max(currentValue * fightingModifier, 0.5f));
+            }
+            cir.setReturnValue(Math.max(currentValue * modifier, 0.25f));
+        }
     }
 }

@@ -1,9 +1,12 @@
 package net.sevenstars.middleearth.item.items;
 
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.ActionResult;
+import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,13 +24,14 @@ import net.sevenstars.middleearth.utils.item.ItemSearchUtils;
 import net.sevenstars.middleearth.utils.sounds.SoundUtils;
 
 public class PipeItem extends Item {
-    private final int USAGE_TIME = 60;
-    private boolean smoking;
+    private static final int MAX_USE_TIME_TICKS = 200; // Total time for using the pipe (10 seconds)
+    private static final int MIN_SMOKE_TIME_FOR_RING_SPAWN_TICKS = 40; // Time before the smoke ring spawns (2 seconds)
+    private static final int BLINDNESS_DEBUFF_DURATION_TICKS = 60; // Time for the blindness debuff
+    private static final int NAUSEA_DEBUFF_DURATION_TICKS = 200; // Time for the nausea debuff
 
     public PipeItem(Settings settings, int amountOfUses) {
         super(settings.maxDamage(amountOfUses));
     }
-
 
     @Override
     public int getItemBarColor(ItemStack stack) {
@@ -56,74 +60,49 @@ public class PipeItem extends Item {
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack pipe, World world, LivingEntity user, int remainingUseTicks) {
-
-        this.smoking = false;
-        applyCooldown((PlayerEntity) user, pipe);
-
-        // "a final breath" -- froosty
+    public boolean onStoppedUsing(
+            ItemStack pipe,
+            World world,
+            LivingEntity user,
+            int remainingUseTicks) {
         if (world.isClient()) return false;
-        if (remainingUseTicks < USAGE_TIME / 2 && smoking) {
-            spawnSmoke(remainingUseTicks, user, world);
-            return true;
+
+        int elapsedTicks = MAX_USE_TIME_TICKS - remainingUseTicks;
+
+        if (smokedLongEnoughForSmokeRing(elapsedTicks)) {
+            spawnSmokeRing(user, world);
         }
 
+        applyCooldown((PlayerEntity) user, pipe);
         return false;
     }
 
     @Override
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-        if (!smoking) return;
+        if (!isSmoking(user)) return;
 
-        int elapsedTicks = USAGE_TIME - remainingUseTicks;
+        int elapsedTicks = MAX_USE_TIME_TICKS - remainingUseTicks;
         int frequency = Math.max(4, (int) Math.pow(elapsedTicks / 10.0, 2));
 
         if (remainingUseTicks % frequency != 0) return;
 
         if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            Vec3d direction = user.getRotationVec(1.0F);
-            double x = user.getX() + direction.x * 0.5;
-            double y = user.getY() + user.getEyeHeight(user.getPose()) + direction.y * 0.5 + 0.04;
-            double z = user.getZ() + direction.z * 0.5;
-
-            serverWorld.spawnParticles(ParticleTypes.SMOKE, x, y, z, 1,       // count
-                    0,       // offsetX
-                    0.02,    // offsetY
-                    0,       // offsetZ
-                    0        // speed
-            );
+            spawnPassiveSmokePuff(serverWorld, user);
         }
     }
 
     public ItemStack finishUsing(ItemStack item, World world, LivingEntity user) {
         if (!world.isClient()) {
-            spawnSmoke(0, user, world);
+            startCoughing(user);
         }
 
-        this.smoking = false;
         ((PlayerEntity) user).getItemCooldownManager().set(item, 20);
         return item;
     }
 
-    public void spawnSmoke(int remainingUseTicks, LivingEntity user, World world) {
-        float f = (float) (USAGE_TIME - remainingUseTicks) / 500;
-        Vec3d vec = user.getRotationVec(1.0F);
-        if (!world.isClient()) {
-            ServerWorld serverWorld = (ServerWorld) world;
-            serverWorld.spawnParticles(ModParticleTypes.RING_OF_SMOKE, user.getX() + vec.x * 0.5, user.getY() + user.getEyeHeight(user.getPose()) + vec.y * 0.5, user.getZ() + vec.z * 0.5, 1, vec.x * f, vec.y * f, vec.z * f, 1.0);
-        }
-
-        /*
-         * Sound License
-         * https://pixabay.com/service/license-summary/
-         * https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654
-         */
-        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS);
-    }
-
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return USAGE_TIME;
+        return MAX_USE_TIME_TICKS;
     }
 
     @Override
@@ -131,12 +110,9 @@ public class PipeItem extends Item {
         return UseAction.TOOT_HORN;
     }
 
-    public boolean isSmoking() {
-        return this.smoking;
-    }
-
     private boolean tryRefillPipe(ItemStack pipe, PlayerEntity user, World world) {
-        ItemStack pipeweed = ItemSearchUtils.findFirstInInventory(user, ResourceItemsME.DRIED_PIPEWEED);
+        ItemStack pipeweed = ItemSearchUtils.findFirstInInventory(user,
+                ResourceItemsME.DRIED_PIPEWEED);
 
         if (pipeweed.isEmpty() && !user.isCreative()) {
             return false;
@@ -157,12 +133,75 @@ public class PipeItem extends Item {
     private void startSmoking(ItemStack pipe, PlayerEntity user, World world, Hand hand) {
         SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_IGNITE, SoundCategory.PLAYERS);
         user.setCurrentHand(hand);
-        this.smoking = true;
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         DamageableItemUtils.incrementDamage(pipe, 1);
     }
 
     private void applyCooldown(PlayerEntity user, ItemStack pipe) {
         user.getItemCooldownManager().set(pipe, 20);
+    }
+
+    private boolean isSmoking(LivingEntity user) {
+        return user.isUsingItem() && user.getActiveItem().isOf(this);
+    }
+
+    /**
+     * Spawns a light puff of smoke particles during active smoking.
+     * Frequency increases over time.
+     */
+    private void spawnPassiveSmokePuff(ServerWorld world, LivingEntity user) {
+        Vec3d direction = user.getRotationVec(1.0F);
+        double x = user.getX() + direction.x * 0.5;
+        double y = user.getY() + user.getEyeHeight(user.getPose()) + direction.y * 0.5 + 0.04;
+        double z = user.getZ() + direction.z * 0.5;
+
+        world.spawnParticles(ParticleTypes.SMOKE, x, y, z, 1, 0, 0.02, 0, 0);
+    }
+
+    /**
+     * Spawns the smoke ring projectile and plays the "exhale" sound.
+     * Called when smoking completes.
+     */
+    public void spawnSmokeRing(LivingEntity user, World world) {
+        /*
+         * Sound License
+         * https://pixabay.com/service/license-summary/
+         * https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654
+         */
+        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS);
+
+        if (world.isClient()) return;
+
+        SmokeRingProjectileEntity smoke = new SmokeRingProjectileEntity(ModEntities.SMOKE_RING_PROJECTILE,
+                world,
+                user);
+
+        smoke.refreshPositionAndAngles(user.getX(),
+                user.getEyeY() - 0.1,
+                user.getZ(),
+                user.getYaw(1.0F),
+                user.getPitch(1.0F));
+
+        Vec3d dir = user.getRotationVec(1.0F).normalize().multiply(0.25);
+        smoke.setVelocity(dir.x, dir.y, dir.z);
+
+        world.spawnEntity(smoke);
+    }
+
+    private void startCoughing(LivingEntity user) {
+        if (user instanceof PlayerEntity player) {
+            /*
+             * Sound License
+             * double_cough_01.wav by joedeshon -- https://freesound.org/s/266019/ -- License: Attribution 4.0
+             */
+            SoundUtils.playSoundAtEntity(player.getWorld(),
+                    player,
+                    ModSounds.PIPE_COUGH,
+                    SoundCategory.PLAYERS);
+        }
+    }
+
+    private boolean smokedLongEnoughForSmokeRing(int elapsedTicks) {
+        return elapsedTicks >= MIN_SMOKE_TIME_FOR_RING_SPAWN_TICKS;
     }
 }

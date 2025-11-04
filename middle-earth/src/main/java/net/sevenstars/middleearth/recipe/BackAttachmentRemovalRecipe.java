@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.recipe;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.DyedColorComponent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -37,7 +38,7 @@ public class BackAttachmentRemovalRecipe extends SpecialCraftingRecipe {
             } else if (itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA) != null){
                 ItemStack backAttachment = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachment().getName())));
                 backAttachment.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA));
-                backAttachment.set(DataComponentTypesME.DYE_DATA, new CustomDyeableDataComponent(itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachmentColor()));
+                backAttachment.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachmentColor()));
                 defaultedList.set(i, backAttachment);
             }
         }

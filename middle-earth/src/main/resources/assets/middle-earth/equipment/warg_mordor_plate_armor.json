@@ -1,0 +1,9 @@
+{
+  "layers": {
+    "horse_body": [
+      {
+        "texture": "middle-earth:beast_armor/warg_mordor_plate_armor"
+      }
+    ]
+  }
+}

@@ -1,9 +1,22 @@
 {
+  "block.wild-things.bird_nest": "鸟巢",
   "entity.wild-things.deer": "鹿",
   "entity.wild-things.pheasant": "野鸡",
   "entity.wild-things.snail": "蜗牛",
+  "entity.wild-things.swan": "天鹅",
+  "entity.wild-things.swan_egg": "天鹅蛋",
+  "item.wild-things.bird_nest": "鸟巢",
+  "item.wild-things.cooked_poultry": "熟禽肉",
+  "item.wild-things.cooked_swan": "熟天鹅肉",
+  "item.wild-things.cooked_venison": "熟鹿肉",
   "item.wild-things.deer_spawn_egg": "鹿刷怪蛋",
   "item.wild-things.pheasant_spawn_egg": "野鸡刷怪蛋",
+  "item.wild-things.raw_poultry": "生禽肉",
+  "item.wild-things.raw_swan": "生天鹅肉",
+  "item.wild-things.raw_venison": "生鹿肉",
   "item.wild-things.snail_spawn_egg": "蜗牛刷怪蛋",
-  "itemGroup.wild-things.spawn_egg_items": "荒灵野物刷怪蛋"
+  "item.wild-things.swan_egg": "天鹅蛋",
+  "item.wild-things.swan_feather": "天鹅羽毛",
+  "item.wild-things.swan_spawn_egg": "天鹅刷怪蛋",
+  "itemGroup.wild-things.wild_things": "荒灵野物"
 }

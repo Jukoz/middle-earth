@@ -2,11 +2,11 @@ package net.sevenstars.middleearth.client.renderer.armor;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.component.type.DyedColorComponent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
-import net.sevenstars.middleearth.item.dataComponents.CustomDyeableDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.minecraft.client.model.Model;
@@ -33,7 +33,7 @@ public class BackAttachmentRenderer implements ArmorRenderer {
         if (chestplate){
             color =  ColorHelper.fullAlpha(stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachmentColor());
         } else {
-            color = CustomDyeableDataComponent.getColor(stack, CustomDyeableDataComponent.DEFAULT_COLOR);
+            color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
         }
         model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
     }
@@ -52,7 +52,7 @@ public class BackAttachmentRenderer implements ArmorRenderer {
                 backAttachmentModel.leftArm.visible = true;
                 backAttachmentModel.rightLeg.visible = true;
                 backAttachmentModel.leftLeg.visible = true;
-                //this.capeModel.setAngles(bipedEntityRenderState);
+                backAttachmentModel.setAngles(bipedEntityRenderState);
 
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(backAttachmentDataComponent.getBackAttachment())) {
                     renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, backAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + ".png"), false);

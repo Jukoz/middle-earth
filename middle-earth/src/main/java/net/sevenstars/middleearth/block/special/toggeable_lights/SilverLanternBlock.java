@@ -24,7 +24,7 @@ import java.util.function.ToIntFunction;
 public class SilverLanternBlock extends AbstractToggeableLightBlock {
     public static final BooleanProperty HANGING;
     public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
-    private static final VoxelShape STANDING_SHAPE, HANGING_SHAPE;
+    private static final VoxelShape STANDING_SHAPE;
 
     public SilverLanternBlock(Settings settings) {
         super(settings);
@@ -63,7 +63,7 @@ public class SilverLanternBlock extends AbstractToggeableLightBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return state.get(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
+        return STANDING_SHAPE;
     }
 
     @Override
@@ -75,11 +75,6 @@ public class SilverLanternBlock extends AbstractToggeableLightBlock {
         HANGING = Properties.HANGING;
         STATE_TO_LUMINANCE = (state) -> { return state.get(LIT) ? state.get(LEVEL_15) : 0; };
 
-        STANDING_SHAPE = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 7.0, 11.0),
-                Block.createCuboidShape(6.0, 7.0, 6.0, 10.0, 9.0, 10.0));
-        HANGING_SHAPE = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 1.0, 5.0, 11.0, 8.0, 11.0),
-                Block.createCuboidShape(6.0, 8.0, 6.0, 10.0, 10.0, 10.0));
+        STANDING_SHAPE = Block.createCuboidShape(6, 0, 6, 10, 13, 10);
     }
 }

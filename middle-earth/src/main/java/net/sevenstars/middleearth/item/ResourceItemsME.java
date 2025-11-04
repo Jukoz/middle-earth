@@ -2,16 +2,16 @@ package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.items.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.LitPineconeItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PineconeItem;
-import net.sevenstars.middleearth.item.utils.ModBannerPatternTags;
-import net.sevenstars.middleearth.item.utils.ModItemGroups;
+import net.sevenstars.middleearth.item.utils.BannerPatternTagsME;
+import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -21,6 +21,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.Function;
 
@@ -116,6 +117,8 @@ public class ResourceItemsME {
             Item::new, new Item.Settings());
     public static final Item FANG = registerItem("fang",
             Item::new, new Item.Settings());
+    public static final Item SPIDER_STINGER = registerItem("spider_stinger",
+            Item::new, new Item.Settings());
 
     public static final Item ASH = registerItem("ash",
             Item::new, new Item.Settings());
@@ -130,7 +133,7 @@ public class ResourceItemsME {
     public static final Item STRAW = registerItem("straw",
             Item::new, new Item.Settings());
     public static final Block REEDS = ModBlocks.registerBlock("reeds",
-            (settings) -> new CustomWaterloggableTallPlantBlock(settings, false), AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false, ModItemGroups.RESOURCES_CONTENTS);
+            (settings) -> new CustomWaterloggableTallPlantBlock(settings, false), AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), false, ItemGroupsME.RESOURCES_CONTENTS);
     public static final Item SWAN_FEATHER = registerItem("swan_feather",
             Item::new, new Item.Settings());
 
@@ -214,51 +217,56 @@ public class ResourceItemsME {
 
     public static final Item PIPEWEED_BANNER_PATTERN = registerItem("pipeweed_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.PIPEWEED_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.PIPEWEED_PATTERN_ITEM));
     public static final Item GONDOR_BANNER_PATTERN = registerItem("gondor_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.GONDOR_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.GONDOR_PATTERN_ITEM));
     public static final Item ROHAN_BANNER_PATTERN = registerItem("rohan_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.ROHAN_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ROHAN_PATTERN_ITEM));
     public static final Item LOTHLORIEN_BANNER_PATTERN = registerItem("lothlorien_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.LOTHLORIEN_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.LOTHLORIEN_PATTERN_ITEM));
     public static final Item MORDOR_BANNER_PATTERN = registerItem("mordor_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.MORDOR_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.MORDOR_PATTERN_ITEM));
     public static final Item MISTY_MOUNTAINS_ORCS_BANNER_PATTERN = registerItem("misty_mountains_orcs_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.MISTY_MOUNTAINS_ORCS_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.MISTY_MOUNTAINS_ORCS_PATTERN_ITEM));
     public static final Item ISENGARD_BANNER_PATTERN = registerItem("isengard_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.ISENGARD_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ISENGARD_PATTERN_ITEM));
 
     public static final Item ANVIL_BANNER_PATTERN = registerItem("anvil_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.ANVIL_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ANVIL_PATTERN_ITEM));
     public static final Item BELL_BANNER_PATTERN = registerItem("bell_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.BELL_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.BELL_PATTERN_ITEM));
     public static final Item BOW_BANNER_PATTERN = registerItem("bow_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.BOW_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.BOW_PATTERN_ITEM));
 
     public static final Item DWARF_CROWN_BANNER_PATTERN = registerItem("dwarf_crown_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.DWARF_CROWN_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.DWARF_CROWN_PATTERN_ITEM));
+
+    public static final Item SPIDER_BANNER_PATTERN = registerItem("spider_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SPIDER_PATTERN_ITEM));
 
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.DRAGON_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.DRAGON_PATTERN_ITEM));
     public static final Item SNAIL_BANNER_PATTERN = registerItem("snail_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
-                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, ModBannerPatternTags.SNAIL_PATTERN_ITEM));
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SNAIL_PATTERN_ITEM));
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
-        ModItemGroups.RESOURCES_CONTENTS.add(item.getDefaultStack());
+        ItemGroupsME.RESOURCES_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

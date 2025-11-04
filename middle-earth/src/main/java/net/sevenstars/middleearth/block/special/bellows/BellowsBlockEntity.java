@@ -1,12 +1,11 @@
 package net.sevenstars.middleearth.block.special.bellows;
 
-import net.minecraft.registry.RegistryKey;
+
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.ModBlockEntities;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.minecraft.block.BlockState;

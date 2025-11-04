@@ -3,9 +3,11 @@ package net.sevenstars.middleearth.gui.artisantable;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.recipe.ServerRecipeManager;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.ModRecipes;
 import net.sevenstars.middleearth.resources.datas.Disposition;
@@ -240,7 +242,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             RecipeEntry<ArtisanRecipe> recipeEntry = this.availableRecipes.get(this.selectedRecipe.get());
 
             ItemStack itemStack = recipeEntry.value().craft(new MultipleStackRecipeInput(inputs), this.world.getRegistryManager());
-            itemStack.set(DataComponentTypes.PROFILE, new ProfileComponent(new GameProfile(player.getUuid(), player.getName().getString())));
+            itemStack.set(DataComponentTypesME.ARTISAN_DATA, new ArtisanDataComponent(player.getUuid()));
 
             if (itemStack.get(DataComponentTypes.MAX_DAMAGE) != null){
                 int maxDamage = (int) (itemStack.getMaxDamage() + itemStack.getMaxDamage() * 0.25);
