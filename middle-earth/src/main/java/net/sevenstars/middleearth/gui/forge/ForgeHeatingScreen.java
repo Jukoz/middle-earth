@@ -94,7 +94,7 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 52 && mouseX <= x + 72 && mouseY >= y + 50 && mouseY <= y + 74){
+        if (mouseX >= x + 52 && mouseX <= x + 72 && mouseY >= y + 47 && mouseY <= y + 71){
             context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
                     List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating"),
                     Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating_switch").formatted(Formatting.GOLD),

@@ -60,6 +60,15 @@ public class ToolItemsME {
             (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.MITHRIL_HAMMER, -2.5f), new Item.Settings()
                     .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
 
+    public static final Item BRONZE_CHISEL = registerItemHandheld("bronze_chisel",
+            Item::new, new Item.Settings().maxCount(1)
+                    .component(DataComponentTypes.MAX_DAMAGE, 10));
+    public static final Item STEEL_CHISEL = registerItemHandheld("steel_chisel",
+            Item::new, new Item.Settings().maxCount(1)
+                    .component(DataComponentTypes.MAX_DAMAGE, 3));
+    public static final Item MITHRIL_CHISEL = registerItemHandheld("mithril_chisel",
+            Item::new, new Item.Settings().maxCount(1));
+
     public static final Item BRONZE_PICKAXE = registerItemHandheld("bronze_pickaxe",
             Item::new, new Item.Settings().pickaxe(ToolMaterialsME.BRONZE, 0.5f, -2.8f));
     public static final Item BRONZE_AXE = registerItemHandheld("bronze_axe",

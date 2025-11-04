@@ -199,7 +199,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 13 && mouseX <= x + 33 && mouseY >= y + 51 && mouseY <= y + 75){
+        if (mouseX >= x + 13 && mouseX <= x + 33 && mouseY >= y + 48 && mouseY <= y + 72){
             context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_alloying"), mouseX, mouseY);
         }
     }
