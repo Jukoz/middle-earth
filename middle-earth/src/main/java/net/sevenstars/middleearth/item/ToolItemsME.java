@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Unit;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -55,7 +57,8 @@ public class ToolItemsME {
             (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BURZUM_NOBLE_STEEL_HAMMER, -3.0f), new Item.Settings());
 
     public static final Item MITHRIL_SMITHING_HAMMER = registerItemHandheld("mithril_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.MITHRIL_HAMMER, -2.5f), new Item.Settings());
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.MITHRIL_HAMMER, -2.5f), new Item.Settings()
+                    .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
 
     public static final Item BRONZE_PICKAXE = registerItemHandheld("bronze_pickaxe",
             Item::new, new Item.Settings().pickaxe(ToolMaterialsME.BRONZE, 0.5f, -2.8f));
@@ -112,13 +115,17 @@ public class ToolItemsME {
             (settings) -> new HoeItem(ToolMaterialsME.KHAZAD_STEEL, -2.0f, -1.0f, settings), new Item.Settings());
 
     public static final Item MITHRIL_PICKAXE = registerItemHandheld("mithril_pickaxe",
-            Item::new, new Item.Settings().fireproof().pickaxe(ToolMaterialsME.MITHRIL, 1.0f, -2.7f));
-    public static final Item MITHRIL_AXE = registerItemHandheld("mithril_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.MITHRIL, settings), new Item.Settings().fireproof());
+            Item::new, new Item.Settings().fireproof().pickaxe(ToolMaterialsME.MITHRIL, 1.0f, -2.7f)
+                    .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
+    public static final Item MITHRIL_AXE = registerItemDualModel("mithril_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.MITHRIL, settings), new Item.Settings().fireproof()
+                    .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
     public static final Item MITHRIL_SHOVEL = registerItemHandheld("mithril_shovel",
-            (settings) -> new ShovelItem(ToolMaterialsME.MITHRIL, 1.5f, -3.0f, settings), new Item.Settings().fireproof());
+            (settings) -> new ShovelItem(ToolMaterialsME.MITHRIL, 1.5f, -3.0f, settings), new Item.Settings().fireproof()
+                    .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
     public static final Item MITHRIL_HOE = registerItemHandheld("mithril_hoe",
-            (settings) -> new HoeItem(ToolMaterialsME.MITHRIL, -2.0f, -1.0f, settings), new Item.Settings().fireproof());
+            (settings) -> new HoeItem(ToolMaterialsME.MITHRIL, -2.0f, -1.0f, settings), new Item.Settings().fireproof()
+                    .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
 
     public static final Item PIPE = registerItem2dGUI3dPerson("pipe",
             (settings) -> new PipeItem(settings, 3), new Item.Settings().maxCount(1));
