@@ -63,6 +63,8 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.DWARF_CROWN_BANNER_PATTERN);
 
+            add(ResourceItemsME.SPIDER_BANNER_PATTERN);
+
             add(ResourceItemsME.DRAGON_BANNER_PATTERN);
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
@@ -104,6 +106,7 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.DIRTY_BONE);
             add(ResourceItemsME.FANG);
+            add(ResourceItemsME.SPIDER_STINGER);
 
             add(ResourceItemsME.SWAN_FEATHER);
 

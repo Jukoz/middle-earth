@@ -43,6 +43,8 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Lorien", "Lórien");
         specialNames.put("Nazgul", "Nazgûl");
         specialNames.put("Capital", "Dale Capital");
+        specialNames.put("Kings Guard", "King's Guard");
+        specialNames.put("Weaver Sting", "Weaver's Sting");
     }
 
     @Override

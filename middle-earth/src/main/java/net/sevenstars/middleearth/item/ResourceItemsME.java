@@ -99,7 +99,6 @@ public class ResourceItemsME {
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             Item::new, new Item.Settings().fireproof());
 
-
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             Item::new, new Item.Settings());
     public static final Item CITRINE_SHARD = registerItem("citrine_shard",
@@ -110,6 +109,8 @@ public class ResourceItemsME {
     public static final Item DIRTY_BONE = registerItem("dirty_bone",
             Item::new, new Item.Settings());
     public static final Item FANG = registerItem("fang",
+            Item::new, new Item.Settings());
+    public static final Item SPIDER_STINGER = registerItem("spider_stinger",
             Item::new, new Item.Settings());
 
     public static final Item ASH = registerItem("ash",
@@ -250,6 +251,10 @@ public class ResourceItemsME {
     public static final Item DWARF_CROWN_BANNER_PATTERN = registerItem("dwarf_crown_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.DWARF_CROWN_PATTERN_ITEM));
+
+    public static final Item SPIDER_BANNER_PATTERN = registerItem("spider_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SPIDER_PATTERN_ITEM));
 
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)

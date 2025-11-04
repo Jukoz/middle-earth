@@ -1299,6 +1299,13 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(Items.STICK))
                         .offerTo(exporter, Registries.ITEM.getId(ToolItemsME.LONGBOTTOM_PIPE).getPath() + "_artisan");
 
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, new ItemStack(WeaponItemsME.WEAVER_STING), "sword", Disposition.NEUTRAL)
+                        .input(ResourceItemsME.SPIDER_STINGER)
+                        .input(ResourceItemsME.SPIDER_STINGER)
+                        .input(Items.STICK)
+                        .criterion(hasItem(ResourceItemsME.SPIDER_STINGER),
+                                conditionsFromItem(ResourceItemsME.SPIDER_STINGER))
+                        .offerTo(exporter);
             }
         };
     }

@@ -263,6 +263,7 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".dragon_banner_pattern.desc", "A great Dragon");
             put("item."+ MiddleEarth.MOD_ID +".pipeweed_banner_pattern.desc", "A delicacy from the shire");
             put("item."+ MiddleEarth.MOD_ID +".snail_banner_pattern.desc", "The Slimy Overlord");
+            put("item."+ MiddleEarth.MOD_ID +".spider_banner_pattern.desc", "Spider of Mirkwood");
 
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
 
@@ -413,7 +414,7 @@ public class TranslationEntries {
 
             put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath,");
+            put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".dagamarth_lore_0", "A storied blade forged by Narvi and Celebrimbor,");
