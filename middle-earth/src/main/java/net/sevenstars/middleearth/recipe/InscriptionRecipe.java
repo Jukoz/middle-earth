@@ -3,21 +3,19 @@ package net.sevenstars.middleearth.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 
 import java.util.List;
@@ -25,12 +23,14 @@ import java.util.List;
 public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
     public final RegistryEntry<Enchantment> enchant;
     public final int level;
-    public final List<Ingredient> inputs;
+    public final Ingredient inputCatalyst;
+    public final Ingredient inputChisel;
 
-    public InscriptionRecipe(RegistryEntry<Enchantment> enchant, int level, List<Ingredient> recipeItems) {
+    public InscriptionRecipe(RegistryEntry<Enchantment> enchant, int level, Ingredient inputCatalyst, Ingredient inputChisel) {
         this.enchant = enchant;
         this.level = level;
-        this.inputs = recipeItems;
+        this.inputCatalyst = inputCatalyst;
+        this.inputChisel = inputChisel;
     }
 
     public ItemStack createIcon() {
@@ -39,7 +39,7 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
 
     @Override
     public boolean matches(MultipleStackRecipeInput input, World world) {
-        int i = 0;
+        /*int i = 0;
         for (int j = 0; j < input.size(); j++) {
             ItemStack itemStack = input.getStackInSlot(j);
             if (itemStack.isEmpty()) continue;
@@ -58,7 +58,7 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
         ItemEnchantmentsComponent enchants = input.getStackInSlot(0).getEnchantments();
         if(enchants.getLevel(this.enchant) != this.level - 1) {
             return false;
-        }
+        }*/
 
         return true;
     }
@@ -71,12 +71,6 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
             result.addEnchantment(this.enchant, this.level);
         }
         return result;
-    }
-
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> defaultedList = DefaultedList.of();
-        defaultedList.addAll(this.inputs);
-        return defaultedList;
     }
 
     @Override
@@ -120,7 +114,8 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Enchantment.ENTRY_CODEC.fieldOf("enchant").forGetter(recipe -> recipe.enchant),
                     Codec.INT.fieldOf("level").forGetter(recipe -> recipe.level),
-                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
+                    Ingredient.CODEC.fieldOf("ingredientCatalyst").forGetter(recipe -> recipe.inputCatalyst),
+                    Ingredient.CODEC.fieldOf("ingredientChisel").forGetter(recipe -> recipe.inputChisel)
             ).apply(instance, InscriptionRecipe::new));
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
         }
@@ -138,18 +133,16 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
         private static InscriptionRecipe read(RegistryByteBuf buf) {
             RegistryEntry<Enchantment> enchantment = Enchantment.ENTRY_PACKET_CODEC.decode(buf);
             int level = PacketCodecs.INTEGER.decode(buf);
-            int i = buf.readVarInt();
-            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i);
-            defaultedList.replaceAll(empty -> CustomIngredientImpl.PACKET_CODEC.decode(buf));
-            return new InscriptionRecipe(enchantment, level, defaultedList);
+            return new InscriptionRecipe(enchantment, level, Ingredient.ofItem(Items.ACACIA_LOG), Ingredient.ofItem(Items.ACACIA_LOG));
         }
 
         private static void write(RegistryByteBuf buf, InscriptionRecipe recipe) {
             Enchantment.ENTRY_PACKET_CODEC.encode(buf, recipe.enchant);
-            buf.writeVarInt(recipe.inputs.size());
+            buf.writeVarInt(buf.readVarInt());
+            /*buf.writeVarInt(buf.read());
             for (Ingredient ingredient : recipe.inputs) {
                 CustomIngredientImpl.PACKET_CODEC.encode(buf, ingredient);
-            }
+            }*/
         }
     }
 }

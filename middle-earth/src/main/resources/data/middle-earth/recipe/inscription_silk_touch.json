@@ -1,9 +1,0 @@
-{
-  "type": "middle-earth:inscription_table",
-  "enchant": "minecraft:silk_touch",
-  "level": 1,
-  "ingredients": [
-    "#minecraft:enchantable/mining_loot",
-    "minecraft:cobweb"
-  ]
-}

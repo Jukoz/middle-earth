@@ -1,8 +1,5 @@
 package net.sevenstars.middleearth.gui.inscriptiontable;
 
-import com.mojang.authlib.GameProfile;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -15,27 +12,19 @@ import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableInputsShape;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableSlot;
 import net.sevenstars.middleearth.recipe.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.ModRecipes;
-import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class InscriptionTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
@@ -44,10 +33,8 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     private ItemStack inputStack;
     long lastTakeTime;
     private ArtisanTableSlot[][] inputSlots;
-    Runnable contentsChangedListener;
     public final Inventory input;
     final CraftingResultInventory output;
-    final Slot outputSlot;
     private PlayerEntity playerEntity;
     private ArtisanTableInputsShape inputsShape = null;
 
@@ -68,43 +55,9 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         };
         this.output = new CraftingResultInventory();
 
-        this.addSlot(new Slot(this.input, 0, 47, 35));
-        this.addSlot(new Slot(this.input, 1, 47, 15));
-        this.addSlot(new Slot(this.input, 2, 68, 25));
-        this.addSlot(new Slot(this.input, 3, 68, 45));
-        this.addSlot(new Slot(this.input, 4, 47, 55));
-        this.addSlot(new Slot(this.input, 5, 27, 45));
-        this.addSlot(new Slot(this.input, 6, 27, 25));
-
-        this.outputSlot = this.addSlot(new Slot(this.output, 7, 129, 35) {
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return false;
-            }
-
-            @Override
-            public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
-                itemStack.onCraftByPlayer(player, itemStack.getCount());
-
-                for(int y = 0; y <= 6; y++) {
-                    slots.get(y).takeStack(1);
-                }
-
-                long l = world.getTime();
-                if (InscriptionTableScreenHandler.this.lastTakeTime != l) {
-                    world.playSound(null, (BlockPos)player.getBlockPos(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                    InscriptionTableScreenHandler.this.lastTakeTime = l;
-                }
-
-                super.onTakeItem(player, itemStack);
-            }
-
-            private List<ItemStack> getInputStacks() {
-                return Arrays.stream(inputSlots)
-                        .flatMap(slots -> Arrays.stream(slots).map(Slot::getStack))
-                        .collect(Collectors.toList());
-            }
-        });
+        this.addSlot(new Slot(this.input, 0, 135, 53));
+        this.addSlot(new Slot(this.input, 1, 225, 53));
+        this.addSlot(new Slot(this.input, 2, 180, 53));
 
         this.context = context;
         this.world = playerInventory.player.getWorld();
@@ -124,7 +77,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         for (int i = 0; i < inventory.size(); i++) {
             inputs.add(inventory.getStack(i));
         }
-        this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+        //this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         if (!inputs.isEmpty()) {
             if (inputs.size() >= 2 && !this.world.isClient){
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
@@ -138,7 +91,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     void populateResult() {
-        if (this.outputRecipe != null && this.outputRecipe.value() != null) {
+        /*if (this.outputRecipe != null && this.outputRecipe.value() != null) {
             List<ItemStack> inputs = new ArrayList<>();
             for (int i = 0; i < this.input.size(); i++) {
                 inputs.add(this.input.getStack(i));
@@ -154,7 +107,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             }
         } else {
             this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
-        }
+        }*/
         this.sendContentUpdates();
     }
 
@@ -210,14 +163,14 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 108 + j * 18, 102 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(PlayerInventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new Slot(playerInventory, i, 108 + i * 18, 160));
         }
     }
 }
