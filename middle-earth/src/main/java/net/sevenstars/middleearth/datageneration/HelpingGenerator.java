@@ -191,6 +191,22 @@ public class HelpingGenerator {
                 SimpleBlockModel.blocks.add(set.mithril_ore());
                 MineablePickaxe.blocks.add(set.mithril_ore());
             }
+            if(set.adamant_ore() != null){
+                SimpleBlockModel.blocks.add(set.adamant_ore());
+                MineablePickaxe.blocks.add(set.adamant_ore());
+            }
+            if(set.emerald_ore() != null){
+                SimpleBlockModel.blocks.add(set.emerald_ore());
+                MineablePickaxe.blocks.add(set.emerald_ore());
+            }
+            if(set.ruby_ore() != null){
+                SimpleBlockModel.blocks.add(set.ruby_ore());
+                MineablePickaxe.blocks.add(set.ruby_ore());
+            }
+            if(set.sapphire_ore() != null){
+                SimpleBlockModel.blocks.add(set.sapphire_ore());
+                MineablePickaxe.blocks.add(set.sapphire_ore());
+            }
         }
     }
 
