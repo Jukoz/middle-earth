@@ -1,14 +1,8 @@
 package net.sevenstars.middleearth.gui.forge;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.RenderLayer;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -20,6 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.forge.MetalTypes;
+import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 
 import java.util.List;
 
@@ -201,7 +199,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 13 && mouseX <= x + 27 && mouseY >= y + 57 && mouseY <= y + 71){
+        if (mouseX >= x + 13 && mouseX <= x + 33 && mouseY >= y + 51 && mouseY <= y + 75){
             context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_alloying"), mouseX, mouseY);
         }
     }

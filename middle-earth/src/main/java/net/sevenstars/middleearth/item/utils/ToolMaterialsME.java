@@ -17,7 +17,7 @@ public class ToolMaterialsME {
     public static final ToolMaterial NOBLE_EDHEL_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ItemTagsME.EDHEL_STEEL_TOOL_MATERIALS);
     public static final ToolMaterial KHAZAD_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ItemTagsME.KHAZAD_STEEL_TOOL_MATERIALS);
     public static final ToolMaterial NOBLE_KHAZAD_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ItemTagsME.KHAZAD_STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial MITHRIL = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 1.5f, 15, ItemTagsME.MITHRIL_TOOL_MATERIALS);
+    public static final ToolMaterial MITHRIL = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 1.0f, 15, ItemTagsME.MITHRIL_TOOL_MATERIALS);
 
     public static final ToolMaterial WEAVER_STING = new ToolMaterial(BlockTags.INCORRECT_FOR_STONE_TOOL, 3, 4.0f, 1.0f, 5, ItemTagsME.SPIDER_TOOL_MATERIALS);
     public static final ToolMaterial MORGUL_KNIFE = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2, 7.0f, 2.0f, 10, ItemTagsME.BURZUM_STEEL_TOOL_MATERIALS);
