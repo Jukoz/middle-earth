@@ -17,12 +17,14 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.network.packets.C2S.ForgeModSwitchPacket;
 import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 
 import java.util.List;
 
 public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
+
     private static final Identifier EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "extract");
     private static final Identifier EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "extract_focused");
     private static final ButtonTextures EXTRACT_BUTTON_TEXTURES = new ButtonTextures(EXTRACT_BUTTON, EXTRACT_BUTTON_FOCUSED);
@@ -35,6 +37,10 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "right_cycle_arrow_focused");
     private static final ButtonTextures RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES = new ButtonTextures(RIGHT_CYCLE_EXTRACT_BUTTON, RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED);
 
+    private static final Identifier ALLOYING_SWITCH_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "alloying_mode");
+    private static final Identifier ALLOYING_SWITCH_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "alloying_mode_highlighted");
+    private static final ButtonTextures ALLOYING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(ALLOYING_SWITCH_BUTTON, ALLOYING_SWITCH_BUTTON_FOCUSED);
+
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
     private static final int LIQUID_HEIGHT = 60;
@@ -42,6 +48,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     public TexturedButtonWidget extractButton;
     public ToggleButtonWidget leftExtractCycleButton;
     public ToggleButtonWidget rightExtractCycleButton;
+
+    public TexturedButtonWidget modeSwitchButton;
 
     private int outputMode = 0;
     private Boolean heatingMode = null;
@@ -75,6 +83,12 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
         this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
 
+        this.modeSwitchButton = new TexturedButtonWidget(x + 13, y + 48, 20 ,24, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
+            ClientPlayNetworking.send(new ForgeModSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+        }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
+
+        this.modeSwitchButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));
+
         this.rightExtractCycleButton = new ToggleButtonWidget(x + 163, y + 56, 7,11, true);
         this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
         this.rightExtractCycleButton.visible = false;
@@ -82,6 +96,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         addDrawableChild(leftExtractCycleButton);
         addDrawableChild(extractButton);
         addDrawableChild(rightExtractCycleButton);
+
+        addDrawableChild(modeSwitchButton);
     }
 
     @Override
@@ -113,7 +129,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         if(handler.checkMaxOutput() == 0 && outputMode >= 1){
             outputMode = 0;
         }
-        if(handler.checkMaxOutput() >= 1 && outputMode ==0){
+        if(handler.checkMaxOutput() >= 1 && outputMode == 0){
             outputMode = 1;
         }
         if(handler.checkMaxOutput() <= 1){
@@ -123,8 +139,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             this.leftExtractCycleButton.visible = true;
             this.rightExtractCycleButton.visible = true;
         }
-        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
 
+        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
     }
 
     @Override
@@ -195,15 +211,6 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         }
     }
 
-    private void renderModeTooltip(DrawContext context, int mouseX, int mouseY) {
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-
-        if (mouseX >= x + 13 && mouseX <= x + 33 && mouseY >= y + 48 && mouseY <= y + 72){
-            context.drawTooltip(this.client.textRenderer, Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_alloying"), mouseX, mouseY);
-        }
-    }
-
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context, mouseX,mouseY,delta);
@@ -212,7 +219,6 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int y = (height - backgroundHeight) / 2;
         drawMouseoverTooltip(context, mouseX, mouseY);
         renderLiquidStorageTooltip(context, mouseX, mouseY);
-        renderModeTooltip(context, mouseX, mouseY);
 
         ItemStack itemstack;
         switch (outputMode){
@@ -225,7 +231,6 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
                 break;
             case 2:
                 itemstack = new ItemStack(Items.IRON_INGOT);
-
                 context.drawItem(itemstack, x + 143, y + 54);
                 break;
             case 3:

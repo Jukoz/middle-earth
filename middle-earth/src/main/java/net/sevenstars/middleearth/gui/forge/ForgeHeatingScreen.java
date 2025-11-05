@@ -1,25 +1,36 @@
 package net.sevenstars.middleearth.gui.forge;
 
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.tooltip.Tooltip;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
+import net.sevenstars.middleearth.network.packets.C2S.ForgeModSwitchPacket;
 
 import java.util.List;
 
 public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge_heating.png");
 
+    private static final Identifier HEATING_SWITCH_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "heating_mode");
+    private static final Identifier HEATING_SWITCH_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "heating_mode_highlighted");
+    private static final ButtonTextures HEATING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(HEATING_SWITCH_BUTTON, HEATING_SWITCH_BUTTON_FOCUSED);
+
+
     private static final int PROGRESS_FIRE_SIZE = 21;
     private static final int COOKING_FIRE_SIZE = 14;
     private static final int LIQUID_HEIGHT = 60;
     private Boolean heatingMode = null;
+
+    public TexturedButtonWidget modeSwitchButton;
 
     public ForgeHeatingScreen(ForgeHeatingScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -29,6 +40,14 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
     protected void init() {
         super.init();
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
+
+        this.modeSwitchButton = new TexturedButtonWidget(x + 52, y + 48, 20 ,24, HEATING_SWITCH_BUTTON_TEXTURES, (button)-> {
+            ClientPlayNetworking.send(new ForgeModSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+        }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
+
+        this.modeSwitchButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_heating")));
+
+        addDrawableChild(modeSwitchButton);
     }
 
     @Override
@@ -90,18 +109,6 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         }
     }
 
-    private void renderModeTooltip(DrawContext context, int mouseX, int mouseY) {
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-
-        if (mouseX >= x + 52 && mouseX <= x + 72 && mouseY >= y + 47 && mouseY <= y + 71){
-            context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
-                    List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating"),
-                    Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating_switch").formatted(Formatting.GOLD),
-                            Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_mode_heating_switch_2").formatted(Formatting.GOLD)
-                    ), Text::asOrderedText), mouseX, mouseY);
-        }
-    }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -111,6 +118,5 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         int y = (height - backgroundHeight) / 2;
         drawMouseoverTooltip(context, mouseX, mouseY);
         renderLiquidStorageTooltip(context, mouseX, mouseY);
-        renderModeTooltip(context, mouseX, mouseY);
     }
 }

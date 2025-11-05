@@ -371,10 +371,8 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer", "Left click the anvil with a");
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer_2", "Smithing Hammer to shape the metal.");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_alloying", "Alloying Mode");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating", "Heating Mode");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating_switch", "To go into alloying mode, add bellows to the");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating_switch_2", "sides of the forge containing a small vent.");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_switch_alloying", "Click to switch to Heating Mode");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_switch_heating", "Click to switch to Alloying Mode");
             put("tooltip."+ MiddleEarth.MOD_ID +".ingots_number", "Ingots");
             put("tooltip."+ MiddleEarth.MOD_ID +".nuggets_number", "Nuggets");
 

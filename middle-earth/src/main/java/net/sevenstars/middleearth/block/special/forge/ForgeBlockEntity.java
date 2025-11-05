@@ -145,7 +145,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        if(hasBellows(player.getWorld(), this.pos, player.getWorld().getBlockState(this.pos)) == 1) {
+        if(this.mode == 1) {
             return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
         } else {
             return new ForgeHeatingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
@@ -326,6 +326,22 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         update();
     }
 
+    public static void switchMode(Vec3d coords, ServerPlayerEntity player){
+        BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
+
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
+
+        if(forgeBlockEntity.isPresent()){
+            ForgeBlockEntity entity = forgeBlockEntity.get();
+            System.out.println("switching mode");
+            if (entity.mode == 1){
+                entity.mode = 0;
+            } else if (entity.mode == 0) {
+                entity.mode = 1;
+            }
+        }
+    }
+
     public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
 
@@ -432,7 +448,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         boolean progress = false;
 
-        entity.mode = entity.hasBellows(world, blockPos, blockState);
         entity.update();
 
         if(entity.mode == 1) { // Alloying mode
