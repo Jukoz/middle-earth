@@ -21,6 +21,7 @@ import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestB
 import net.sevenstars.middleearth.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.ElvenTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
+import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
@@ -90,6 +91,9 @@ public class ModDecorativeBlocks {
             ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
     public static final Block ORCISH_FORGE = registerBlock("orcish_forge",
             ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
+
+    public static final Block STONE_ANVIL = registerBlock("stone_anvil",
+            StoneAnvilBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
 
     public static final Block TREATED_ANVIL = registerBlock("treated_anvil",
             TreatedAnvilblock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.65f).requiresTool().nonOpaque());

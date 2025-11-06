@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
+import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.minecraft.network.RegistryByteBuf;
@@ -63,7 +63,7 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
         try{
             context.player().getServer().execute(() -> {
                 Vec3d coordinates = new Vec3d(x, y, z);
-                TreatedAnvilBlockEntity.updateIndex(left, coordinates, context.player());
+                ShapingAnvilBlockEntity.updateIndex(left, coordinates, context.player());
             });
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketAnvilIndex error: ", e);

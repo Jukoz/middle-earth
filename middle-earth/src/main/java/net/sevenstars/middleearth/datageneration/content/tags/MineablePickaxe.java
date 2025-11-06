@@ -90,6 +90,7 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.ELVEN_FORGE);
             add(ModDecorativeBlocks.ORCISH_FORGE);
 
+            add(ModDecorativeBlocks.STONE_ANVIL);
             add(ModDecorativeBlocks.TREATED_ANVIL);
             add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
             add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);

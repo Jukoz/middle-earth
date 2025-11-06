@@ -121,6 +121,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
+            add(ModDecorativeBlocks.STONE_ANVIL);
             add(ModDecorativeBlocks.TREATED_ANVIL);
             add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
             add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);

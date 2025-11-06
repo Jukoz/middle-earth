@@ -24,10 +24,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
+public abstract class AbstractShapingAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
-    public AbstractTreatedAnvilBlock(Settings settings) {
+    public AbstractShapingAnvilBlock(Settings settings) {
         super(settings);
         this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)));
     }
@@ -96,7 +96,7 @@ public abstract class AbstractTreatedAnvilBlock extends BlockWithEntity implemen
                 player.incrementStat(Stats.USED.getOrCreateStat(hammer));
                 stack.use(world, player, player.getActiveHand());
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
-                if (blockEntity instanceof TreatedAnvilBlockEntity shapingAnvilBlockEntity) {
+                if (blockEntity instanceof ShapingAnvilBlockEntity shapingAnvilBlockEntity) {
                     ServerWorld serverWorld = (ServerWorld) world;
                     shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld);
                 }

@@ -263,6 +263,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.MEDGON.ruby_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.sapphire_ore());
 
+        needsStoneTools.add(ModDecorativeBlocks.STONE_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.TREATED_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);
