@@ -9,14 +9,10 @@ public class ToolMaterialsME {
     public static final ToolMaterial BONE = new ToolMaterial(BlockTags.INCORRECT_FOR_STONE_TOOL, 150, 4.0F, 1.0F, 5, ItemTagsME.BONE_TOOL_MATERIALS);
     public static final ToolMaterial BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ItemTagsME.BRONZE_TOOL_MATERIALS);
     public static final ToolMaterial CRUDE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ItemTagsME.CRUDE_TOOL_MATERIALS);
-    public static final ToolMaterial STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial NOBLE_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial BURZUM_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ItemTagsME.BURZUM_STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial NOBLE_BURZUM_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ItemTagsME.BURZUM_STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial EDHEL_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ItemTagsME.EDHEL_STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial NOBLE_EDHEL_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ItemTagsME.EDHEL_STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial KHAZAD_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 750, 7.0f, 2.0f, 10, ItemTagsME.KHAZAD_STEEL_TOOL_MATERIALS);
-    public static final ToolMaterial NOBLE_KHAZAD_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 7.0f, 2.0f, 10, ItemTagsME.KHAZAD_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial BURZUM_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 7.0f, 2.0f, 10, ItemTagsME.BURZUM_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial EDHEL_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 7.0f, 2.0f, 10, ItemTagsME.EDHEL_STEEL_TOOL_MATERIALS);
+    public static final ToolMaterial KHAZAD_STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 7.0f, 2.0f, 10, ItemTagsME.KHAZAD_STEEL_TOOL_MATERIALS);
     public static final ToolMaterial MITHRIL = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 1.0f, 15, ItemTagsME.MITHRIL_TOOL_MATERIALS);
 
     public static final ToolMaterial WEAVER_STING = new ToolMaterial(BlockTags.INCORRECT_FOR_STONE_TOOL, 3, 4.0f, 1.0f, 5, ItemTagsME.SPIDER_TOOL_MATERIALS);

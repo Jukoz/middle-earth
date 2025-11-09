@@ -29,6 +29,9 @@ public class ItemTagsME {
 
     public static TagKey<Item> SPIDER_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("spider_tool_materials"));
 
+    public static TagKey<Item> CHISELS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("chisels"));
+    public static TagKey<Item> INSCRIPTION_CATALYSTS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("inscription_catalysts"));
+
     public static TagKey<Item> HORSE_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("horse_armor"));
     public static TagKey<Item> WARG_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("warg_armor"));
 

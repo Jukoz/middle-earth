@@ -1,13 +1,8 @@
 package net.sevenstars.middleearth.gui.shapinganvil;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.RenderLayer;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.ToolItemsME;
-import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -15,12 +10,14 @@ import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.item.ToolItemsME;
+import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
 
 import java.util.List;
 
 public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/shaping_anvil.png");
-    private static final int PROGRESS_ARROW_SIZE = 24;
 
     private static final Identifier LEFT_CYCLE_OUTPUT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow");
     private static final Identifier LEFT_CYCLE_OUTPUT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow_focused");
@@ -87,10 +84,10 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
 
         renderHammerTooltip(context, mouseX, mouseY);
 
-        if (this.handler.getOutput().isEmpty()){
+        if (this.handler.getOutputStack().isEmpty()){
             context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 79, y + 15, 177, 115,18, 18, 256, 256);
         } else {
-            context.drawItem(this.handler.getOutput(), x + 80, y + 16);
+            context.drawItem(this.handler.getOutputStack(), x + 80, y + 16);
             renderOutputTooltip(context, mouseX, mouseY);
         }
     }
@@ -100,7 +97,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int y = (height - backgroundHeight) / 2;
 
         if (mouseX >= x + 79 && mouseX <= x + 96 && mouseY >= y + 16 && mouseY <= y + 33){
-            context.drawTooltip(this.client.textRenderer, handler.getOutput().getItem().getName(), mouseX, mouseY);
+            context.drawTooltip(this.client.textRenderer, handler.getOutputStack().getItem().getName(), mouseX, mouseY);
         }
     }
 

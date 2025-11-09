@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.recipe;
+package net.sevenstars.middleearth.recipe.inscription;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -17,8 +17,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-
-import java.util.List;
 
 public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
     public final RegistryEntry<Enchantment> enchant;

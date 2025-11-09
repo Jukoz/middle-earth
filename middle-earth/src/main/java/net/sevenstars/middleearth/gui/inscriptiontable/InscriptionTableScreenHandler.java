@@ -19,8 +19,9 @@ import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableInputsShape;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableSlot;
-import net.sevenstars.middleearth.recipe.InscriptionRecipe;
+import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +56,29 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         };
         this.output = new CraftingResultInventory();
 
-        this.addSlot(new Slot(this.input, 0, 135, 53));
-        this.addSlot(new Slot(this.input, 1, 225, 53));
+        this.addSlot(new Slot(this.input, 0, 135, 53){
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return stack.isIn(ItemTagsME.INSCRIPTION_CATALYSTS);
+            }
+
+            @Override
+            public int getMaxItemCount() {
+                return 1;
+            }
+        });
+        this.addSlot(new Slot(this.input, 1, 225, 53){
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return stack.isIn(ItemTagsME.CHISELS);
+            }
+
+            @Override
+            public int getMaxItemCount() {
+                return 1;
+            }
+        });
+        
         this.addSlot(new Slot(this.input, 2, 180, 53));
 
         this.context = context;

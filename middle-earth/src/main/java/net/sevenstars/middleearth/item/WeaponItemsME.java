@@ -161,19 +161,19 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
 
     public static final Item GONDORIAN_NOBLE_SWORD = registerItemWithModel("gondorian_noble_sword",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL,settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL,settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
     public static final Item GONDORIAN_NOBLE_LONGSWORD = registerItemWithModel("gondorian_noble_longsword",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
     public static final Item GONDORIAN_NOBLE_DAGGER = registerItemWithModel("gondorian_noble_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), false);
     public static final Item GONDORIAN_NOBLE_AXE = registerItemWithModel("gondorian_noble_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
     public static final Item GONDORIAN_NOBLE_SPEAR = registerItemWithSpearModel("gondorian_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
 
     public static final Item GONDORIAN_NOBLE_LONGBOW = registerBigBowItem("gondorian_noble_longbow",
@@ -181,7 +181,7 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
 
     public static final Item GONDORIAN_FOUNTAIN_GUARD_SPEAR = registerItemWithSpearModel("gondorian_fountain_guard_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
 
     public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
@@ -232,19 +232,19 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
 
     public static final Item ROHIRRIC_NOBLE_SWORD = registerItemWithModel("rohirric_noble_sword",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
     public static final Item ROHIRRIC_NOBLE_LONGSWORD = registerItemWithModel("rohirric_noble_longsword",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
     public static final Item ROHIRRIC_NOBLE_DAGGER = registerItemWithModel("rohirric_noble_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), false);
     public static final Item ROHIRRIC_NOBLE_AXE = registerItemWithModel("rohirric_noble_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
     public static final Item ROHIRRIC_NOBLE_SPEAR = registerItemWithSpearModel("rohirric_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
 
     public static final Item ROHIRRIC_NOBLE_BOW = registerBigBowItem("rohirric_noble_bow",
@@ -302,19 +302,19 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
 
     public static final Item DALISH_NOBLE_SWORD = registerItemWithModel("dalish_noble_sword",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
     public static final Item DALISH_NOBLE_LONGSWORD = registerItemWithModel("dalish_noble_longsword",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
     public static final Item DALISH_NOBLE_DAGGER = registerItemWithModel("dalish_noble_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), false);
     public static final Item DALISH_NOBLE_AXE = registerItemWithModel("dalish_noble_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
     public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
 
     public static final Item DALISH_NOBLE_LONGBOW = registerBigBowItem("dalish_noble_longbow",
@@ -322,22 +322,22 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
 
     public static final Item DALISH_HEYDAY_SWORD = registerItemWithModel("dalish_heyday_sword",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
     public static final Item DALISH_HEYDAY_LONGSWORD = registerItemWithModel("dalish_heyday_longsword",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
     public static final Item DALISH_HEYDAY_SCIMITAR = registerItemWithModel("dalish_heyday_scimitar",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
     public static final Item DALISH_HEYDAY_DAGGER = registerItemWithModel("dalish_heyday_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), false);
     public static final Item DALISH_HEYDAY_AXE = registerItemWithModel("dalish_heyday_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
     public static final Item DALISH_HEYDAY_SPEAR = registerItemWithSpearModel("dalish_heyday_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
 
     public static final Item DALISH_HEYDAY_LONGBOW = registerBigBowItem("dalish_heyday_longbow",
@@ -402,19 +402,19 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
     public static final Item LORIEN_NOBLE_SWORD = registerItemWithModel("lorien_noble_sword",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
     public static final Item LORIEN_NOBLE_GLAIVE = registerItemWithModel("lorien_noble_glaive",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
     public static final Item LORIEN_NOBLE_DAGGER = registerItemWithModel("lorien_noble_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), false);
     public static final Item LORIEN_NOBLE_AXE = registerItemWithModel("lorien_noble_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
     public static final Item LORIEN_NOBLE_SPEAR = registerItemWithSpearModel("lorien_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
     public static final Item LORIEN_NOBLE_LONGBOW = registerBigBowItem("lorien_noble_longbow",
@@ -463,19 +463,19 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
 
     public static final Item EREBOR_NOBLE_SWORD = registerItemWithModel("erebor_noble_sword",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
     public static final Item EREBOR_NOBLE_LONGSWORD = registerItemWithModel("erebor_noble_longsword",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
     public static final Item EREBOR_NOBLE_DAGGER = registerItemWithModel("erebor_noble_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), false);
     public static final Item EREBOR_NOBLE_AXE = registerItemWithModel("erebor_noble_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
     public static final Item EREBOR_NOBLE_SPEAR = registerItemWithSpearModel("erebor_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
 
     public static final Item EREBOR_NOBLE_BOW = registerBigBowItem("erebor_noble_bow",
@@ -559,19 +559,19 @@ public class WeaponItemsME {
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings());
 
     public static final Item MORDOR_ELITE_CLEAVER = registerItemWithModel("mordor_elite_cleaver",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
     public static final Item MORDOR_ELITE_WARBLADE = registerItemWithModel("mordor_elite_warblade",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
     public static final Item MORDOR_ELITE_DAGGER = registerItemWithModel("mordor_elite_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), false);
     public static final Item MORDOR_ELITE_AXE = registerItemWithModel("mordor_elite_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
     public static final Item MORDOR_ELITE_SPEAR = registerItemWithSpearModel("mordor_elite_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
 
     public static final Item MORDOR_ELITE_LONGBOW = registerBigBowItem("mordor_elite_longbow",
@@ -579,19 +579,19 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
     public static final Item BLACK_NUMENOREAN_LONGSWORD = registerItemWithModel("black_numenorean_longsword",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
     public static final Item BLACK_NUMENOREAN_DAGGER = registerItemWithModel("black_numenorean_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), false);
     public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
     public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
 
     public static final Item MORDOR_WOODEN_SHIELD = registerShield("mordor_wooden_shield",
@@ -647,10 +647,10 @@ public class WeaponItemsME {
 
     //region DOL GULDUR
     public static final Item DOL_GULDUR_MACHETE = registerItemWithModel("dol_guldur_machete",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
     public static final Item DOL_GULDUR_AXE = registerItemWithModel("dol_guldur_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
 
     public static final Item DOL_GULDUR_PAVISE = registerShield("dol_guldur_pavise",
@@ -681,19 +681,19 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
 
     public static final Item URUK_HAI_FALCHION = registerItemWithModel("uruk_hai_falchion",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
     public static final Item URUK_HAI_WARBLADE = registerItemWithModel("uruk_hai_warblade",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
     public static final Item URUK_HAI_KNIFE = registerItemWithModel("uruk_hai_knife",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), false);
     public static final Item URUK_HAI_AXE = registerItemWithModel("uruk_hai_axe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
     public static final Item URUK_HAI_SPEAR = registerItemWithSpearModel("uruk_hai_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
 
     public static final Item URUK_HAI_BOW = registerBigBowItem("uruk_hai_bow",
@@ -732,31 +732,31 @@ public class WeaponItemsME {
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
     public static final Item GUNDABAD_ELITE_CLEAVER = registerItemWithModel("gundabad_elite_cleaver",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
     public static final Item GUNDABAD_WARBLADE = registerItemWithModel("gundabad_warblade",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
     public static final Item GUNDABAD_ELITE_SCIMITAR = registerItemWithModel("gundabad_elite_scimitar",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
     public static final Item GUNDABAD_SHANK = registerItemWithModel("gundabad_shank",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
     public static final Item GUNDABAD_ELITE_DAGGER = registerItemWithModel("gundabad_elite_dagger",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
     public static final Item GUNDABAD_AXE = registerItemWithModel("gundabad_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
     public static final Item GUNDABAD_ELITE_BATTLEAXE = registerItemWithModel("gundabad_elite_battleaxe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
     public static final Item GUNDABAD_SPEAR = registerItemWithSpearModel("gundabad_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
 
     public static final Item GUNDABAD_BOW = registerBigBowItem("gundabad_bow",
@@ -796,64 +796,64 @@ public class WeaponItemsME {
 
     //region ARTEFACTS
     public static final Item DAGAMARTH = registerArtefact("dagamarth",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("dagamarth")), true);
     public static final Item HERUGRIM = registerArtefact("herugrim",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("herugrim")), true);
     public static final Item NAZGUL_SWORD = registerArtefact("nazgul_sword",
-            (settings) -> new ArtefactCustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("nazgul_sword")), true);
 
     public static final Item HAMMER_OF_HELM_HAMMERHAND = registerArtefact("hammer_of_helm_hammerhand",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("hammer_of_helm_hammerhand")), true);
     public static final Item MACE_OF_SAURON = registerArtefact("mace_of_sauron",
-            (settings) -> new ArtefactCustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("mace_of_sauron")), true);
 
     public static final Item ANGUIREL = registerArtefact("anguirel",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("anguirel")), true);
     public static final Item GLAMDRING = registerArtefact("glamdring",
-            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) ->  new ArtefactCustomGlowingLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("glamdring")), true);
     public static final Item LONG_FORGOTTEN_LONGSWORD = registerArtefact("long_forgotten_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("long_forgotten_longsword")), true);
     public static final Item LONGSWORD_OF_ELDER_KINGS = registerArtefact("longsword_of_elder_kings",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("longsword_of_elder_kings")), true);
     public static final Item NARSIL = registerArtefact("narsil",
-            (settings) -> new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("narsil")), true);
     public static final Item NOLDORIN_LONGSWORD = registerArtefact("noldorin_longsword",
-            (settings) ->  new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) ->  new ArtefactCustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("noldorin_longsword")), true);
     public static final Item ORCRIST = registerArtefact("orcrist",
-            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomGlowingLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("orcrist")), true);
 
     public static final Item BARROW_BLADE = registerArtefact("barrow_blade",
-            (settings) -> new ArtefactCustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("barrow_blade")), false);
     public static final Item MORGUL_KNIFE = registerArtefact("morgul_knife",
             (settings) -> new MorgulKnifeItem(ToolMaterialsME.MORGUL_KNIFE, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("morgul_knife")), false);
     public static final Item STING = registerArtefact("sting",
-            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomGlowingDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("sting")), false);
 
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("aeglos")));
 
     public static final Item GUARDIAN_OF_THE_GREENWOOD_STAFF = registerItemWithModel("guardian_of_the_greenwood_staff",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item KEEPER_OF_ORTHANC_STAFF = registerItemWithModel("keeper_of_orthanc_staff",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item WANDERER_STAFF = registerItemWithModel("wanderer_staff",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
 
     public static final Item ANORTHANN = registerShield("anorthann",
             (settings) -> new ArtefactCustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)
