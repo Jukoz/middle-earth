@@ -16,6 +16,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.custom.InscriptionRecipeJsonBuilder;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 
 import java.util.concurrent.CompletableFuture;
@@ -56,12 +57,77 @@ public class InscriptionRecipeProvider extends RecipeProvider{
             public void generate() {
                 RegistryWrapper.Impl<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
 
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC, getEnchantment(Enchantments.UNBREAKING), 1, Ingredient.ofItem(ToolItemsME.IRON_CHISEL))
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.UNBREAKING), 1,
+                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
                         .addWord("resilient")
                         .addWord("blessing")
                         .criterion(hasItem(Items.LAPIS_LAZULI),
                                 conditionsFromItem(Items.LAPIS_LAZULI))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_unbreaking_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.UNBREAKING), 2,
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.1f)
+                        .addWord("resilient")
+                        .addWord("blessing")
+                        .criterion(hasItem(Items.LAPIS_LAZULI),
+                                conditionsFromItem(Items.LAPIS_LAZULI))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_unbreaking_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.UNBREAKING), 3,
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.5f)
+                        .addWord("resilient")
+                        .addWord("blessing")
+                        .criterion(hasItem(Items.LAPIS_LAZULI),
+                                conditionsFromItem(Items.LAPIS_LAZULI))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_unbreaking_3")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.SHARPNESS), 1,
+                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                        .addWord("cutter")
+                        .addWord("edge")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.SHARPNESS), 2,
+                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                        .addWord("cutter")
+                        .addWord("edge")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.SHARPNESS), 3,
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
+                        .addWord("cutter")
+                        .addWord("edge")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_3")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.SHARPNESS), 4,
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
+                        .addWord("cutter")
+                        .addWord("edge")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_4")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.SHARPNESS), 5,
+                                Ingredient.ofItem(ToolItemsME.MITHRIL_CHISEL), 1.0f)
+                        .addWord("cutter")
+                        .addWord("edge")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_5")));
             }
         };
     }

@@ -28,12 +28,14 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
     public final int level;
     public final List<String> inputWords;
     public final Ingredient inputChisel;
+    public final float expModifier;
 
-    public InscriptionRecipe(RegistryEntry<Enchantment> enchant, int level, List<String> inputWords, Ingredient inputChisel) {
+    public InscriptionRecipe(RegistryEntry<Enchantment> enchant, int level, List<String> inputWords, Ingredient inputChisel, float expModifier) {
         this.enchant = enchant;
         this.level = level;
         this.inputWords = inputWords;
         this.inputChisel = inputChisel;
+        this.expModifier = expModifier;
     }
 
     public ItemStack createIcon() {
@@ -46,11 +48,7 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
         if (!this.inputChisel.test(input.getStackInSlot(1))) return false;
 
         ItemEnchantmentsComponent enchants = input.getStackInSlot(0).getEnchantments();
-        if(enchants.getLevel(this.enchant) != this.level - 1) {
-            return false;
-        }
-
-        return true;
+        return enchants.getLevel(this.enchant) == this.level - 1;
     }
 
     @Override
@@ -105,7 +103,8 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
                     Enchantment.ENTRY_CODEC.fieldOf("enchantment").forGetter(recipe -> recipe.enchant),
                     Codec.INT.fieldOf("level").forGetter(recipe -> recipe.level),
                     Codec.STRING.listOf().fieldOf("words").forGetter(recipe -> recipe.inputWords),
-                    Ingredient.CODEC.fieldOf("chisel").forGetter(recipe -> recipe.inputChisel)
+                    Ingredient.CODEC.fieldOf("chisel").forGetter(recipe -> recipe.inputChisel),
+                    Codec.FLOAT.fieldOf("exp_modifier").forGetter(recipe -> recipe.expModifier)
             ).apply(instance, InscriptionRecipe::new));
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
         }
@@ -130,7 +129,9 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
 
             Ingredient chisel = Ingredient.PACKET_CODEC.decode(buf);
 
-            return new InscriptionRecipe(enchantment, level, defaultedList, chisel);
+            float expModifier = PacketCodecs.FLOAT.decode(buf);
+
+            return new InscriptionRecipe(enchantment, level, defaultedList, chisel, expModifier);
         }
 
         private static void write(RegistryByteBuf buf, InscriptionRecipe recipe) {
@@ -142,6 +143,7 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
             }
 
             Ingredient.PACKET_CODEC.encode(buf, recipe.inputChisel);
+            PacketCodecs.FLOAT.encode(buf, recipe.expModifier);
         }
     }
 }
