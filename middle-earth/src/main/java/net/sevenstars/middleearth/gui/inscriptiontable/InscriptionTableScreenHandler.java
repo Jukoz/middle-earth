@@ -78,7 +78,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 return 1;
             }
         });
-        
+
         this.addSlot(new Slot(this.input, 2, 180, 53));
 
         this.context = context;
