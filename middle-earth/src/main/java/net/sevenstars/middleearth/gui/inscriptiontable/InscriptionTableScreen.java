@@ -2,21 +2,31 @@ package net.sevenstars.middleearth.gui.inscriptiontable;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.impl.item.EnchantmentUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ButtonTextures;
+import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screen.ingame.MerchantScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.screen.MerchantScreenHandler;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.TradeOfferList;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
+
+import java.util.Iterator;
+import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
 public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreenHandler> {
@@ -28,30 +38,18 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
     private static final Identifier FONT_ID = Identifier.ofVanilla("alt");
     private static final Style STYLE = Style.EMPTY.withFont(FONT_ID);
 
-    private final StringBuilder words;
-
     private int selectedIndex;
     int indexStartOffset;
     private boolean scrolling;
+
+    private final WidgetInscriptionButtonPage[] words = new WidgetInscriptionButtonPage[11];
 
     public InscriptionTableScreen(InscriptionTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
         this.backgroundWidth = 275;
         this.backgroundHeight = 183;
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        Random random = Random.create();
-        int k = random.nextInt(12);
-        stringBuilder.append(InscriptionWordBank.wordBank.get(null).get(k));
-        stringBuilder.append(" ");
-        k = random.nextInt(12);
-        stringBuilder.append(InscriptionWordBank.wordBank.get(null).get(k));
-
-        System.out.println(stringBuilder);
-
-        this.words = stringBuilder;
     }
+
 
     @Override
     protected void init() {
@@ -59,19 +57,44 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         titleX = 6;
         playerInventoryTitleX = 108;
         playerInventoryTitleY = 92;
+
+        int i = (this.width - this.backgroundWidth) / 2;
+        int j = (this.height - this.backgroundHeight) / 2;
+        int k = j + 22;
+
+        for(int l = 0; l < 11; ++l) {
+            this.words[l] = this.addDrawableChild(new WidgetInscriptionButtonPage(i + 5, k, l, (button) -> {
+                if (button instanceof WidgetInscriptionButtonPage) {
+                    this.selectedIndex = ((WidgetInscriptionButtonPage) button).getIndex() + this.indexStartOffset;
+                }
+            }));
+            k += 14;
+        }
     }
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
+
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 512, 256);
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 104, j + 7, 282, 134, 166, 16, 512, 256);
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 170, j + 26, 282, 174, 36, 16, 512, 256);
 
-        StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(Text.literal(this.words.toString()).fillStyle(STYLE), 100, Style.EMPTY);
-        context.drawWrappedText(this.textRenderer, stringVisitable, i + 107, j + 12, 100, ColorHelper.fullAlpha((-9937334 & 16711422) >> 1), false);
+        if (this.handler.hasGem()){
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 130, j + 48, 310, 88, 26, 26, 512, 256);
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        handler.getWords().forEach(word -> {
+            stringBuilder.append(word);
+            stringBuilder.append(" ");
+        });
+
+        StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(Text.literal(stringBuilder.toString()), 159, Style.EMPTY);
+        context.drawWrappedText(this.textRenderer, stringVisitable, i + 107, j + 12, 159, ColorHelper.fullAlpha((-9937334 & 16711422) >> 1), false);
     }
 
     @Override
@@ -81,9 +104,29 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        int k = j + 16 + 1;
-        int l = i + 5 + 5;
         this.renderScrollbar(context, i, j);
+
+        Iterator words = this.handler.getWords().iterator();
+
+        String word;
+        int m = 0;
+        int n = j + 24;
+        while(words.hasNext()) {
+            word = (String) words.next();
+            if (this.canScroll(this.handler.getWords().size()) && (m < this.indexStartOffset || m >= 11 + this.indexStartOffset)) {
+                ++m;
+            } else {
+                context.drawText(this.textRenderer, word, i + 11, n, Colors.WHITE, false);
+                n += 14;
+                ++m;
+            }
+        }
+
+        for (WidgetInscriptionButtonPage widgetButtonPage : this.words) {
+            widgetButtonPage.visible = widgetButtonPage.index < this.handler.getWords().size();
+        }
+
+        drawMouseoverTooltip(context, mouseX, mouseY);
 
         drawMouseoverTooltip(context, mouseX, mouseY);
     }
@@ -93,13 +136,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
     }
 
     private void renderScrollbar(DrawContext context, int x, int y) {
-        int i = 3;
+        int i = this.handler.getWords().size() + 1 - 11;
         if (i > 1) {
-            int j = 139 - (27 + (i - 1) * 139 / i);
-            int k = 1 + j / i + 139 / i;
-            int m = Math.min(113, this.indexStartOffset * k);
+            int j = 153 - (27 + (i - 1) * 153 / i);
+            int k = 1 + j / i + 153 / i;
+            int m = Math.min(127, this.indexStartOffset * k);
             if (this.indexStartOffset == i - 1) {
-                m = 113;
+                m = 127;
             }
 
             context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SCROLLER_TEXTURE, x + 94, y + 22 + m, 6, 27);
@@ -109,24 +152,22 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount)) {
-            return true;
-        } else {
-            int i = 13; //((InscriptionTableScreenHandler)this.handler).getRecipes().size();
+        if (!super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount)) {
+            int i = this.handler.getWords().size();
             if (this.canScroll(i)) {
                 int j = i - 11;
-                this.indexStartOffset = MathHelper.clamp((int)((double)this.indexStartOffset - verticalAmount), 0, j);
+                this.indexStartOffset = MathHelper.clamp((int) ((double) this.indexStartOffset - verticalAmount), 0, j);
             }
 
-            return true;
         }
+        return true;
     }
 
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        int i = 13; //((MerchantScreenHandler)this.handler).getRecipes().size();
+        int i = this.handler.getWords().size();
         if (this.scrolling) {
             int j = this.y + 18;
-            int k = j + 139;
+            int k = j + 153;
             int l = i - 11;
             float f = ((float)mouseY - (float)j - 13.5F) / ((float)(k - j) - 27.0F);
             f = f * (float)l + 0.5F;
@@ -141,10 +182,34 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         this.scrolling = false;
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        if (this.canScroll(13) && mouseX > (double)(i + 94) && mouseX < (double)(i + 94 + 6) && mouseY > (double)(j + 18) && mouseY <= (double)(j + 18 + 139 + 1)) {
+        if (this.canScroll((this.handler).getWords().size()) && mouseX > (double)(i + 94) && mouseX < (double)(i + 94 + 6) && mouseY > (double)(j + 22) && mouseY <= (double)(j + 22 + 153 + 1)) {
             this.scrolling = true;
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    static class WidgetInscriptionButtonPage extends ButtonWidget {
+        final int index;
+
+        private static final ButtonTextures TEXTURES = new ButtonTextures(IdentifierUtil.create("word_button"), IdentifierUtil.create("word_button_selected"), IdentifierUtil.create("word_button_highlighted"));
+
+        public WidgetInscriptionButtonPage(final int x, final int y, final int index, final ButtonWidget.PressAction onPress) {
+            super(x, y, 86, 14, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);
+            this.index = index;
+            this.visible = false;
+        }
+
+        public int getIndex() {
+            return this.index;
+        }
+
+        @Override
+        protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+            MinecraftClient minecraftClient = MinecraftClient.getInstance();
+            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, TEXTURES.get(this.active, this.isSelected()), this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+            int i = ColorHelper.withAlpha(this.alpha, this.active ? -1 : -6250336);
+            this.drawMessage(context, minecraftClient.textRenderer, i);
+        }
     }
 }
