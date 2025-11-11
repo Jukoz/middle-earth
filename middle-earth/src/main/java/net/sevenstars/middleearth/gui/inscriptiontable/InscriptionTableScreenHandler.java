@@ -39,8 +39,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     public final Inventory input;
     final CraftingResultInventory output;
 
-    private static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.ofVanilla("container/slot/lapis_lazuli");
-    private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = IdentifierUtil.create("container/slot/chisel_slot");
+    private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = IdentifierUtil.create("container/slot/chisel");
 
     public InscriptionTableScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -67,11 +66,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             public int getMaxItemCount() {
                 return 1;
             }
-
-            public Identifier getBackgroundSprite() {
-                return EMPTY_SLOT_LAPIS_LAZULI_TEXTURE;
-            }
-
         });
         this.addSlot(new Slot(this.input, 1, 225, 53){
             @Override

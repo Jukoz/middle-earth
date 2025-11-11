@@ -2,18 +2,15 @@ package net.sevenstars.middleearth.gui.inscriptiontable;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.impl.item.EnchantmentUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.ingame.MerchantScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.SmithingTemplateItem;
-import net.minecraft.screen.MerchantScreenHandler;
+import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Style;
@@ -35,12 +32,21 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
     private static final Identifier SCROLLER_TEXTURE = Identifier.ofVanilla("container/villager/scroller");
     private static final Identifier SCROLLER_DISABLED_TEXTURE = Identifier.ofVanilla("container/villager/scroller_disabled");
 
+    private static final Identifier EMPTY_SLOT_EMERALD_TEXTURE = Identifier.ofVanilla("container/slot/emerald");
+    private static final Identifier EMPTY_SLOT_DIAMOND_TEXTURE = Identifier.ofVanilla("container/slot/diamond");
+    private static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.ofVanilla("container/slot/lapis_lazuli");
+    private static final Identifier EMPTY_SLOT_ADAMANT_TEXTURE = IdentifierUtil.create("container/slot/adamant");
+    private static final Identifier EMPTY_SLOT_RUBY_TEXTURE = IdentifierUtil.create("container/slot/ruby");
+    private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = IdentifierUtil.create("container/slot/sapphire");
+
     private static final Identifier FONT_ID = Identifier.ofVanilla("alt");
     private static final Style STYLE = Style.EMPTY.withFont(FONT_ID);
 
     private int selectedIndex;
     int indexStartOffset;
     private boolean scrolling;
+
+    private final CyclingSlotIcon catalystSlotIcon = new CyclingSlotIcon(0);
 
     private final WidgetInscriptionButtonPage[] words = new WidgetInscriptionButtonPage[11];
 
@@ -50,6 +56,17 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         this.backgroundHeight = 183;
     }
 
+    @Override
+    protected void handledScreenTick() {
+        super.handledScreenTick();
+        this.catalystSlotIcon.updateTexture(List.of(
+                EMPTY_SLOT_LAPIS_LAZULI_TEXTURE,
+                EMPTY_SLOT_EMERALD_TEXTURE,
+                EMPTY_SLOT_DIAMOND_TEXTURE,
+                EMPTY_SLOT_ADAMANT_TEXTURE,
+                EMPTY_SLOT_RUBY_TEXTURE,
+                EMPTY_SLOT_SAPPHIRE_TEXTURE));
+    }
 
     @Override
     protected void init() {
@@ -85,6 +102,8 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         if (this.handler.hasGem()){
             context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 130, j + 48, 310, 88, 26, 26, 512, 256);
         }
+
+        this.catalystSlotIcon.render(this.handler, context, delta, this.x, this.y);
 
         StringBuilder stringBuilder = new StringBuilder();
 

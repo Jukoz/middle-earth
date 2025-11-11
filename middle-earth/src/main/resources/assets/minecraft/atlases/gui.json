@@ -7,6 +7,9 @@
     {"type": "single", "resource": "middle-earth:gui/sprites/alloying_mode_highlighted"},
     {"type": "single", "resource": "middle-earth:gui/sprites/heating_mode"},
     {"type": "single", "resource": "middle-earth:gui/sprites/heating_mode_highlighted"},
-    {"type": "single", "resource": "middle-earth:gui/sprites/container/slot/chisel_slot"}
+    {"type": "single", "resource": "middle-earth:gui/sprites/container/slot/chisel"},
+    {"type": "single", "resource": "middle-earth:gui/sprites/container/slot/adamant"},
+    {"type": "single", "resource": "middle-earth:gui/sprites/container/slot/ruby"},
+    {"type": "single", "resource": "middle-earth:gui/sprites/container/slot/sapphire"}
   ]
 }
