@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.gui.utils.widgets.map.types.MapMarkerType;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.minecraft.client.gui.DrawContext;
@@ -43,6 +44,9 @@ public class FactionSelectionMapWidget extends MapWidget {
 
     public void selectSpawn(int index){
         addCooldown();
+        if(OnboardingFactionScreenController.getInstance() != null)
+            OnboardingFactionScreenController.getInstance().assignNewSpawnIndex(index);
+        updateSelectedSpawn(index);
     }
 
     public void updateSelectedSpawn(int index){

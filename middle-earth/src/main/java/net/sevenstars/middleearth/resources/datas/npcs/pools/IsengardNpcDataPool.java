@@ -2,25 +2,30 @@ package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.RacesME;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class IsengardNpcDataPool {
-    private final static String FACTION_BASE = "isengard.";
+    private final static RegistryKey<Faction> FACTION = FactionsME.ISENGARD;
+    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
+
     private static List<Integer> allColors;
     private static final int DARK = 0x302b28;
     private static final int DARK_BROWN = 0x655147;
@@ -49,14 +54,14 @@ public class IsengardNpcDataPool {
     static {
         allColors = List.of(DARK, DARK_BROWN);
 
-        ISENGARD_ORTHANC_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orthanc_guard"), RacesME.HUMAN, List.of(
+        ISENGARD_ORTHANC_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orthanc_guard")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_HELMET).withWeight(4))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_CHESTPLATE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_CHESTPLATE).withCape(ModCapes.ORTHANC_GUARD_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_CHESTPLATE).withCape(BackAttachmentsME.ORTHANC_GUARD_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_LEGGINGS))
@@ -65,9 +70,9 @@ public class IsengardNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_SPEAR))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orc_snaga"), RacesME.ORC, List.of(
+        ISENGARD_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_snaga")), RacesME.ORC, FACTION, NpcTextureDatasME.ISENGARD_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -78,13 +83,13 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.CAPE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_CAPE))
                         )
@@ -109,10 +114,10 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
 
-        ISENGARD_ORC_WARRIOR = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "orc_warrior"), RacesME.ORC, List.of(
+        ISENGARD_ORC_WARRIOR = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_warrior")), RacesME.ORC, FACTION, NpcTextureDatasME.ISENGARD_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(4))
@@ -124,13 +129,13 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.CAPE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT).withColors(allColors))
@@ -157,9 +162,9 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "uruk_hai_soldier"), RacesME.URUK, List.of(
+        ISENGARD_URUK_HAI_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_soldier")), RacesME.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_HELMET).withWeight(5))
@@ -171,13 +176,13 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.CAPE, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(ModCapes.ORCISH_SHOULDERS, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT).withColors(allColors))
@@ -199,9 +204,9 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "uruk_hai_scout"), RacesME.URUK, List.of(
+        ISENGARD_URUK_HAI_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_scout")), RacesME.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(4))
@@ -225,9 +230,9 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_FALCHION))
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_SPEAR).withWeight(2))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "uruk_hai_veteran"), RacesME.URUK, List.of(
+        ISENGARD_URUK_HAI_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_veteran")), RacesME.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PAINTED_PLATE_HELMET).withWeight(5))
@@ -253,10 +258,10 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_WHITE_HAND_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
 
-        ISENGARD_URUK_HAI_BERSERKER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "uruk_hai_berserker"), RacesME.URUK, List.of(
+        ISENGARD_URUK_HAI_BERSERKER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_berserker")), RacesME.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PAINTED_BERSERKER_HELMET))
@@ -276,16 +281,16 @@ public class IsengardNpcDataPool {
                                 .add(NpcGearItemData.create(DecorativeItemsME.TORCH_OF_ORTHANC).withWeight(4))
                                 .add(NpcGearItemData.create(Items.AIR))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "uruk_hai_leader"), RacesME.URUK, List.of(
+        ISENGARD_URUK_HAI_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_leader")), RacesME.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PAINTED_COMMANDER_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withCape(ModCapes.CAPE, allColors))
+                                .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withCape(BackAttachmentsME.CAPE, allColors))
                         )
                         .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.MAIL_SKIRT)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_BOOTS)))
@@ -298,6 +303,6 @@ public class IsengardNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.URUK_HAI_HEATER_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
     }
 }

@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:harad_desert",
+    "middle-earth:harad",
+    "middle-earth:harad_woods",
+    "middle-earth:umbar",
+    "middle-earth:umbar_woods",
+    "middle-earth:corsair_coasts",
+    "middle-earth:harondor",
+    "middle-earth:ethir_anduin",
+    "middle-earth:ethir_anduin_river_delta",
+    "middle-earth:lebennin",
+    "middle-earth:lebennin_hills",
+    "middle-earth:lebennin_shores",
+    "middle-earth:tolfalas",
+    "middle-earth:belfalas",
+    "middle-earth:belfalas_forest",
+    "middle-earth:belfalas_hills",
+    "middle-earth:belfalas_beach",
+    "middle-earth:nurn",
+    "middle-earth:nurn_forest",
+    "middle-earth:nurn_hill",
+    "middle-earth:nurn_edge",
+    "middle-earth:nurn_edge_woods",
+    "middle-earth:eastern_nurn",
+    "middle-earth:torogwaith",
+    "middle-earth:gorgoroth"
+    ]
+}

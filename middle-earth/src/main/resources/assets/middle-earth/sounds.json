@@ -39,5 +39,11 @@
     "sounds": [
       "minecraft:fire/ignite"
     ]
+  },
+  "pipe_cough": {
+    "subtitle": "sounds.middle-earth.pipe_cough",
+    "sounds": [
+      "middle-earth:pipe/pipe_cough1"
+    ]
   }
 }

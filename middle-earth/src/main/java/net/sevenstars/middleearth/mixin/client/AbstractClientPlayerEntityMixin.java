@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
-import net.sevenstars.middleearth.utils.HallucinationData;
+import net.sevenstars.middleearth.statusEffects.HallucinationData;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;

@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -11,6 +11,8 @@ public class LeavesDrops {
     public record LeavesDrop(Block block, Block drop) {}
     public static List<LeavesDrop> blocks = new ArrayList<>() {
         {
+            add(new LeavesDrop(ModNatureBlocks.LEBETHRON_LEAVES, ModNatureBlocks.LEBETHRON_SAPLING));
+
             add(new LeavesDrop(ModNatureBlocks.LEBETHRON_LEAVES, ModNatureBlocks.LEBETHRON_SAPLING));
 
             add(new LeavesDrop(ModNatureBlocks.BERRY_HOLLY_LEAVES, ModNatureBlocks.HOLLY_SAPLING));

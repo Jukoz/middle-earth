@@ -10,11 +10,13 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -72,9 +74,12 @@ public class RacesME {
     static {
         DWARF = new Race(Identifier.of(MiddleEarth.MOD_ID, "dwarf"), RaceType.DWARF,
                 new AttributePool()
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.CLIMBING_STRENGTH, 80.0f))
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.POWDERED_SNOW_IMMUNITY, 1.0f))
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81).withBuffReversed())
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
-                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)
+                                .withModifier(IdentifierUtil.create("dwarven_damage_modifier"), 10.0))
                         .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
                         .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
                         .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)),
@@ -143,7 +148,8 @@ public class RacesME {
                 HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
                         new AttributePool(),
                         new HashMap<>(){{
-                            put(EntityCategory.SHARED, new AttributePool());
+                            put(EntityCategory.SHARED, new AttributePool()
+                                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
                             put(EntityCategory.FEMALE, new AttributePool()
                                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0)));
                             put(EntityCategory.MALE, new AttributePool()

@@ -363,4 +363,21 @@ public class PheasantEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.9583434f, AnimationHelper.createRotationalVector(10f, 0f, -5f),
                                     Transformation.Interpolations.CUBIC))).build();
+    public static final AnimationDefinition FLAP = AnimationDefinition.Builder.create(0.5f).looping()
+            .addBoneAnimation("left_wing",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(0f, 0f, -65f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC)))
+            .addBoneAnimation("right_wing",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(0f, 0f, 65f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC))).build();
 }

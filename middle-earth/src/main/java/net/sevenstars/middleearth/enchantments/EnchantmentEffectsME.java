@@ -15,7 +15,19 @@ import net.sevenstars.middleearth.MiddleEarth;
  * <hr>
  */
 public class EnchantmentEffectsME {
+    public static final RegistryKey<Enchantment> AILMENT_PROTECTION = of("ailment_protection");
+    public static final RegistryKey<Enchantment> BANE_OF_GIANTS = of("bane_of_giants");
+    public static final RegistryKey<Enchantment> BEHEADING = of("beheading");
+    public static final RegistryKey<Enchantment> CELERITY = of("celerity");
+    public static final RegistryKey<Enchantment> FIRST_STRIKE = of("first_strike");
+    public static final RegistryKey<Enchantment> GROUNDED = of("grounded");
     public static final RegistryKey<Enchantment> HEWING = of("hewing");
+    public static final RegistryKey<Enchantment> HIGH_STEP = of("high_step");
+    public static final RegistryKey<Enchantment> MINER_REACH = of("miner_reach");
+    public static final RegistryKey<Enchantment> STEALTHY_TRAIL = of("stealthy_trail");
+    public static final RegistryKey<Enchantment> STRIDE = of("stride");
+    public static final RegistryKey<Enchantment> TREE_FELLER = of("tree_feller");
+    public static final RegistryKey<Enchantment> VANTAGE = of("vantage");
 
     private static RegistryKey<Enchantment> of(String path) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, path);

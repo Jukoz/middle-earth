@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special.verticalSlabs;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -18,7 +19,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +42,11 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
     @Override
     public boolean hasSidedTransparency(BlockState state) {
         return !state.get(DOUBLE);
+    }
+
+    @Override
+    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+        return false;
     }
 
     @Nullable

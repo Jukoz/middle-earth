@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.List;
 public class PotDrops {
     public static List<Block> pots = new ArrayList<>() {
         {
+            add(ModDecorativeBlocks.POTTED_ASPEN_SAPLING);
             add(ModDecorativeBlocks.POTTED_BEECH_SAPLING);
             add(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING);
             add(ModDecorativeBlocks.POTTED_HOLLY_SAPLING);
@@ -24,14 +25,19 @@ public class PotDrops {
             add(ModDecorativeBlocks.POTTED_WHITE_PALM_SAPLING);
             add(ModDecorativeBlocks.POTTED_PINE_SAPLING);
             add(ModDecorativeBlocks.POTTED_BLACK_PINE_SAPLING);
+            add(ModDecorativeBlocks.POTTED_WHITE_SPRUCE_SAPLING);
             add(ModDecorativeBlocks.POTTED_WILLOW_SAPLING);
 
             add(ModDecorativeBlocks.POTTED_GREEN_SHRUB);
+            add(ModDecorativeBlocks.POTTED_ELANOR);
             add(ModDecorativeBlocks.POTTED_MALLOS);
+            add(ModDecorativeBlocks.POTTED_NIPHREDIL);
+            add(ModDecorativeBlocks.POTTED_SIMBELMYNE);
             add(ModDecorativeBlocks.POTTED_YELLOW_FLOWER);
             add(ModDecorativeBlocks.POTTED_YELLOW_TROLLIUS);
             add(ModDecorativeBlocks.POTTED_TAN_SHRUB);
             add(ModDecorativeBlocks.POTTED_GREEN_JEWEL_CORNFLOWER);
+            add(ModDecorativeBlocks.POTTED_NOBLEWHITE);
             add(ModDecorativeBlocks.POTTED_SCORCHED_SHRUB);
             add(ModDecorativeBlocks.POTTED_FROZEN_SHRUB);
 

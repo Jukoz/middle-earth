@@ -1,67 +1,28 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
-import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.item.BowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
+import net.sevenstars.middleearth.item.utils.RangedWeaponTypesME;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class CustomBowWeaponItem extends BowItem implements EquipmentTooltipME {
-    private final ModFactions faction;
-    private final ModSubFactions subFaction;
-    public ModRangedWeaponTypes type;
+public class CustomBowWeaponItem extends BowItem {
+    public RangedWeaponTypesME type;
 
-    public CustomBowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability));
-        this.faction = null;
-        this.subFaction = null;
-        this.type = type;
-    }
-
-    public CustomBowWeaponItem(ModFactions faction, ModRangedWeaponTypes type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability));
-        this.faction = faction;
-        this.subFaction = null;
-        this.type = type;
-    }
-
-    public CustomBowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability));
-        this.faction = subFaction.getParent();
-        this.subFaction = subFaction;
+    public CustomBowWeaponItem(RangedWeaponTypesME type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability)
+                .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;
     }
 
     public Predicate<ItemStack> getProjectiles() {
         return BOW_PROJECTILES;
-    }
-
-    @Override
-    public List<Text> getAdditionalShiftLines(ItemStack stack) {
-        List<Text> list = new ArrayList<>(List.of());
-
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-
-        return list;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override

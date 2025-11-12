@@ -38,10 +38,10 @@
   "depends": {
     "fabricloader": ">=0.16.0",
     "fabric-api": "*",
-    "minecraft": "~1.21.7",
+    "minecraft": "~1.21.8",
     "java": ">=21",
-    "sevenstars-api": "1.0.0-1.21.7-beta-dev",
-    "wild-things": "1.0.0-1.21.7-beta-dev"
+    "sevenstars-api": "1.0.0-1.21.8-beta-dev",
+    "wild-things": "1.0.0-1.21.8-beta-dev"
   },
   "recommends": {
     "modmenu": "*"

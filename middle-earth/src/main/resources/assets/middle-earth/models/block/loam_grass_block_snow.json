@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/cube_bottom_top",
+	"textures": {
+		"bottom": "middle-earth:block/loam",
+		"particle": "middle-earth:block/loam",
+		"side": "minecraft:block/grass_block_snow",
+		"top": "middle-earth:block/loam_grass_block_top"
+	}
+}

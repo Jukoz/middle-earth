@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.world.features.columns;
 
 import com.mojang.serialization.Codec;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
-import net.sevenstars.middleearth.block.WoodBlockSets;
+import net.minecraft.state.property.Properties;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.minecraft.block.AbstractPlantStemBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
@@ -30,7 +31,7 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
             return false;
         } else {
             BlockState blockState = structureWorldAccess.getBlockState(blockPos.up());
-            if (!blockState.isOf(WoodBlockSets.MIRKWOOD.leaves()) && !blockState.isSolidBlock(context.getWorld(), blockPos.up())) {
+            if (!blockState.isOf(WoodBlockSets.MIRKWOOD_SET.leaves) && !blockState.isSolidBlock(context.getWorld(), blockPos.up())) {
                 return false;
             } else {
                 this.generateVinesInArea(structureWorldAccess, random, blockPos);
@@ -56,31 +57,29 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
                     length = 1;
                 }
 
-                generateVineColumn(world, random, mutable, length, 3, 24);
+                generateVineColumn(world, mutable, length);
             }
         }
     }
 
-    public static void generateVineColumn(WorldAccess world, Random random, BlockPos.Mutable pos, int length, int minAge, int maxAge) {
+    public static void generateVineColumn(WorldAccess world, BlockPos.Mutable pos, int length) {
         for(int i = 0; i <= length; ++i) {
             if (world.isAir(pos)) {
                 BlockState blockStateAbove = world.getBlockState(pos.up());
 
-                if(blockStateAbove.isOf(ModNatureBlocks.MIRKWOOD_VINES))
-                    break;
                 if(blockStateAbove.isAir())
                     break;
 
-                if(blockStateAbove.isOf(WoodBlockSets.MIRKWOOD.leaves())){
-                    world.setBlockState(pos.up(), WoodBlockSets.MIRKWOOD.leaves().getDefaultState().with(LeavesBlock.PERSISTENT, true), 2);
+                if(blockStateAbove.isOf(WoodBlockSets.MIRKWOOD_SET.leaves)){
+                    world.setBlockState(pos.up(), WoodBlockSets.MIRKWOOD_SET.leaves.getDefaultState().with(LeavesBlock.PERSISTENT, false), 2);
                 }
 
                 if (i == length || !world.getBlockState(pos.down()).isAir()) {
-                    world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(AbstractPlantStemBlock.AGE, MathHelper.nextInt(random, minAge, maxAge)), 2);
+                    world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, true), 2);
                     break;
                 }
 
-                world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES_PLANT.getDefaultState(), 2);
+                world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, false), 2);
             }
 
             pos.move(Direction.DOWN);
@@ -89,7 +88,6 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
 
     private static boolean validateRoot(WorldAccess world, BlockPos.Mutable mutable) {
         BlockState blockState = world.getBlockState(mutable.up());
-        return (blockState.isOf(WoodBlockSets.MIRKWOOD.log()));
-        // WoodBlockSets.MIRKWOOD.leaves()) ||
+        return (blockState.isOf(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()) || blockState.isOf(WoodBlockSets.MIRKWOOD_SET.leaves));
     }
 }

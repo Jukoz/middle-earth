@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "middle-earth:block/grassy_chalksoil_slab"
+    },
+    "type=double": {
+      "model": "middle-earth:block/grassy_chalksoil"
+    },
+    "type=top": {
+      "model": "middle-earth:block/grassy_chalksoil_slab_top"
+    }
+  }
+}

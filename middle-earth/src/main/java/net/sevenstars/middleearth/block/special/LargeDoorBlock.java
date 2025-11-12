@@ -65,6 +65,11 @@ public class LargeDoorBlock extends Block {
         this.setDefaultState((((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH)).with(getPart(), 0)).with(OPEN, false).with(HINGE, DoorHinge.LEFT));
     }
 
+    //TODO improve this door to door invisibility
+    protected boolean isSideInvisible(BlockState state, BlockState stateFrom, Direction direction) {
+        return stateFrom.isOf(this) || super.isSideInvisible(state, stateFrom, direction);
+    }
+
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(getPart(), HORIZONTAL_FACING, OPEN, HINGE);

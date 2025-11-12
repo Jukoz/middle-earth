@@ -1,6 +1,8 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.deer;
 
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
@@ -8,22 +10,33 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.of_beasts_and_wild_things.entity.ModEntities;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantBrain;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import org.jetbrains.annotations.Nullable;
 
 public class DeerEntity extends AnimalEntity {
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(DeerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
     public DeerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
+        this.getNavigation().setCanSwim(true);
     }
 
     public static DefaultAttributeContainer.Builder createDeerAttributes() {
@@ -64,6 +77,75 @@ public class DeerEntity extends AnimalEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.DEER.create(world, SpawnReason.BREEDING);
+        return EntitiesWT.DEER.create(world, SpawnReason.BREEDING);
+    }
+
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
+                                 @Nullable EntityData entityData) {
+        DeerEntityVariant variant = Util.getRandom(DeerEntityVariant.values(), this.random);
+        setVariant(variant);
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_CAMEL_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.ENTITY_CAMEL_HURT;
+    }
+    @Override
+    protected void playHurtSound(DamageSource damageSource) {
+        this.playSound(this.getHurtSound(damageSource), 1.0f, 1.4f);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_CAMEL_AMBIENT;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        this.playSound(this.getAmbientSound(), 1.0f, 1.8f);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.ENTITY_CAMEL_STEP, 0.7f, 1.8f);
+    }
+
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(VARIANT, 0);
+    }
+
+    @Override
+    public void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    public void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+    }
+
+    public DeerEntityVariant getVariant() {
+        return DeerEntityVariant.byId(this.getTypeVariant() & 255);
+    }
+
+    private int getTypeVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(DeerEntityVariant variant) {
+        this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 }

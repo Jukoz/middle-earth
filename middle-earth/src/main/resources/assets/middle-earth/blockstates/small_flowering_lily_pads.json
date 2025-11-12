@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "middle-earth:block/pink_small_flowering_lily_pads"
+      },
+      {
+        "model": "middle-earth:block/pink_small_flowering_lily_pads",
+        "y": 90
+      },
+      {
+        "model": "middle-earth:block/pink_small_flowering_lily_pads",
+        "y": 180
+      },
+      {
+        "model": "middle-earth:block/pink_small_flowering_lily_pads",
+        "y": 270
+      },
+      {
+        "model": "middle-earth:block/white_small_flowering_lily_pads"
+      },
+      {
+        "model": "middle-earth:block/white_small_flowering_lily_pads",
+        "y": 90
+      },
+      {
+        "model": "middle-earth:block/white_small_flowering_lily_pads",
+        "y": 180
+      },
+      {
+        "model": "middle-earth:block/white_small_flowering_lily_pads",
+        "y": 270
+      }
+    ]
+  }
+}

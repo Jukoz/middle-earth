@@ -1,25 +1,29 @@
 package net.sevenstars.middleearth.resources.datas.npcs.pools;
 
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.resources.FactionsME;
 import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.RacesME;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class RohirricNpcDataPool {
-    private final static String FACTION_BASE = "rohan.";
+    private final static RegistryKey<Faction> FACTION = FactionsME.ROHAN;
+    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
 
     private final static int LIGHT_GREEN = 0x516c42;
     private final static int DARK_GREEN = 0x2d4122;
@@ -49,7 +53,7 @@ public class RohirricNpcDataPool {
     }
 
     static {
-        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "militia"), RacesME.HUMAN, List.of(
+        ROHAN_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_LEATHER_HELMET).withWeight(6))
@@ -58,12 +62,12 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_ORNAMENTED_LEATHER_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_GREEN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_GREEN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_BROWN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_BROWN).withWeight(4))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(LIGHT_BEIGE).withWeight(2))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(ModCapes.ROHIRRIC_CAPE).withColor(DARK_BEIGE).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(LIGHT_GREEN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(DARK_GREEN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(LIGHT_BROWN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(DARK_BROWN).withWeight(4))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(LIGHT_BEIGE).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.ARMING_COAT).withCape(BackAttachmentsME.ROHIRRIC_CAPE).withColor(DARK_BEIGE).withWeight(2))
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_GREEN))
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_REINFORCED_COAT).withColor(DARK_GREEN))
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_REINFORCED_COAT).withColor(LIGHT_BEIGE))
@@ -90,8 +94,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "soldier"), RacesME.HUMAN, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_MILITIA_HELMET).withWeight(6))
@@ -139,8 +144,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(10))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "knight"), RacesME.HUMAN, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_SOLDIER_HELMET).withWeight(6))
@@ -180,8 +186,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_PLAINSMAN_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_ROYAL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "royal_guard"), RacesME.HUMAN, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_ROYAL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("royal_guard")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.ROHIRRIC_ROYAL_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -195,8 +202,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_NOBLE_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_ROYAL_GUARD_SHIELD)))
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_EORLING_MARSHAL = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "eorling_marhsal"), RacesME.HUMAN, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_EORLING_MARSHAL = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("eorling_marshal")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.EORLING_MARSHAL_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.EORLING_MARSHAL_CHESTPLATE)))
@@ -210,8 +218,9 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_EORLING_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
-        ROHAN_HORSE_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE + "horse_lord"), RacesME.HUMAN, List.of(
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
+
+        ROHAN_HORSE_LORD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("horse_lord")), RacesME.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.HORSE_LORD_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.HORSE_LORD_CHESTPLATE)))
@@ -224,7 +233,7 @@ public class RohirricNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.ROHIRRIC_ORNAMENTED_SHIELD))
                                 .add(NpcGearItemData.create().withWeight(3))
                         )
-        ), new HashMap<>(), NpcME.COMMON_TEXTURE_TEST);
+        ), NpcME.COMMON_NPC_ATTRIBUTES);
 
     }
 }

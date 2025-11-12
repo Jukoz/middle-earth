@@ -3,14 +3,11 @@ package net.sevenstars.middleearth.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredientSerializer;
 import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
-import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -19,7 +16,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     public final String category;

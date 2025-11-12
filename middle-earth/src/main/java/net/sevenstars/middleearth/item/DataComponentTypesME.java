@@ -6,6 +6,7 @@ import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.registries.RegistryAliases;
 
 import java.util.function.UnaryOperator;
 
@@ -18,16 +19,37 @@ public class DataComponentTypesME {
     public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);
     });
-    public static final ComponentType<CapeDataComponent> CAPE_DATA = register("cape", (builder) -> {
-        return builder.codec(CapeDataComponent.CODEC).packetCodec(CapeDataComponent.PACKET_CODEC);
+
+    public static final ComponentType<ArtisanDataComponent> ARTISAN_DATA = register("artisan", (builder) -> {
+        return builder.codec(ArtisanDataComponent.CODEC).packetCodec(ArtisanDataComponent.PACKET_CODEC);
     });
 
-    public static final ComponentType<HoodDataComponent> HOOD_DATA = register("hood", (builder) -> {
-        return builder.codec(HoodDataComponent.CODEC).packetCodec(HoodDataComponent.PACKET_CODEC);
+    public static final ComponentType<FactionDataComponent> FACTION_DATA = register("faction", (builder) -> {
+        return builder.codec(FactionDataComponent.CODEC).packetCodec(FactionDataComponent.PACKET_CODEC);
     });
 
-    public static final ComponentType<CustomDyeableDataComponent> DYE_DATA = register("dye", (builder) -> {
-        return builder.codec(CustomDyeableDataComponent.CODEC).packetCodec(CustomDyeableDataComponent.PACKET_CODEC);
+    public static final ComponentType<RaceDataComponent> RACE_DATA = register("race", (builder) -> {
+        return builder.codec(RaceDataComponent.CODEC).packetCodec(RaceDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<ArmorTierDataComponent> ARMOR_TIER_DATA = register("armor_tier", (builder) -> {
+        return builder.codec(ArmorTierDataComponent.CODEC).packetCodec(ArmorTierDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<WeaponTypeDataComponent> WEAPON_TYPE_DATA = register("weapon_type", (builder) -> {
+        return builder.codec(WeaponTypeDataComponent.CODEC).packetCodec(WeaponTypeDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<BlockAuthorDataComponent> BLOCK_AUTHOR_DATA = register("block_author", (builder) -> {
+        return builder.codec(BlockAuthorDataComponent.CODEC).packetCodec(BlockAuthorDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<BackAttachmentDataComponent> BACK_ATTACHMENT_DATA = register("back_attachment", (builder) -> {
+        return builder.codec(BackAttachmentDataComponent.CODEC).packetCodec(BackAttachmentDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<HelmetAttachmentDataComponent> HELMET_ATTACHMENT_DATA = register("helmet_attachment", (builder) -> {
+        return builder.codec(HelmetAttachmentDataComponent.CODEC).packetCodec(HelmetAttachmentDataComponent.PACKET_CODEC);
     });
 
     public static final ComponentType<MountArmorAddonComponent> MOUNT_ARMOR_DATA = register("mount_armor_addon", (builder) -> {
@@ -35,6 +57,7 @@ public class DataComponentTypesME {
     });
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
+        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.DATA_COMPONENT_TYPE, id));
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), ((ComponentType.Builder)builderOperator.apply(ComponentType.builder())).build());
     }
 

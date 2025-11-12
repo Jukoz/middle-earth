@@ -1,0 +1,9 @@
+{
+  "asset_id": "wild-things:entity/chicken/brown",
+  "model": "cold",
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
+}
