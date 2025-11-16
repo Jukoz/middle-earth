@@ -32,12 +32,6 @@ public class ModScreenHandlers {
     
     public static final ScreenHandlerType<CrockpotScreenHandler> CROCKPOT_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(CrockpotScreenHandler::new, BlockPos.PACKET_CODEC.cast());
-    public static final ScreenHandlerType<ForgeAlloyingScreenHandler> FORGE_ALLOYING_SCREEN_HANDLER
-            = new ExtendedScreenHandlerType<>(ForgeAlloyingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
-    public static final ScreenHandlerType<ForgeHeatingScreenHandler> FORGE_HEATING_SCREEN_HANDLER
-            = new ExtendedScreenHandlerType<>(ForgeHeatingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
-    public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER
-            = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, BlockPos.PACKET_CODEC.cast());
 
     public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(ArtisanTableScreenHandler::new, PacketCodecs.STRING.cast());

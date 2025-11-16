@@ -201,8 +201,6 @@ public class MiddleEarthClient implements ClientModInitializer {
             pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(Identifier.of(MiddleEarth.MOD_ID, "item/plate_apple")));
         });
 
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MALLORN_LEAVES_PARTICLE, LeavesParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MIRKWOOD_LEAVES_PARTICLE, LeavesParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.BIOME_FOG_PARTICLE, BiomeFogParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.RING_OF_SMOKE, RingOfSmokeParticle.Factory::new);
