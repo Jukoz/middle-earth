@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.block.special.crockpot;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -30,10 +29,7 @@ public class CrockpotScreen extends HandledScreen<CrockpotScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        //int x = (width - backgroundWidth) / 2;
-        //int y = (height - backgroundHeight) / 2;
-        //context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
-        //context.drawTexture(RenderLayer::getGuiTextured, WATER_TEXTURE, this.x + 120, this.y + 31, 0, 0, 24, 24, 16, 16, 0xFF66AAEE);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, WATER_TEXTURE, this.x + 120, this.y + 31, 0, 0, 24, 24, 16, 16, 0xFF66AAEE);
     }
 }
