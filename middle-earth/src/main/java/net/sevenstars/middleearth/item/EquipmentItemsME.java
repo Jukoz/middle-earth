@@ -843,6 +843,15 @@ public class EquipmentItemsME {
 
     public static final Item ELVEN_MAIL_SKIRT = registerArmorPiece("elven_mail_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
+
+    public static final Item BRONZED_ELVEN_MAIL_COIF = registerArmorPiece("bronzed_elven_mail_coif",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BRONZE_T2, settings), new Item.Settings());
+
+    public static final Item BRONZED_ELVEN_MAIL_HAUBERK = registerArmorPiece("bronzed_elven_mail_hauberk",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BRONZE_T2, settings), new Item.Settings());
+
+    public static final Item BRONZED_ELVEN_MAIL_SKIRT = registerArmorPiece("bronzed_elven_mail_skirt",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BRONZE_T2, settings), new Item.Settings());
     //endregion
 
     //region LOTHLORIEN
