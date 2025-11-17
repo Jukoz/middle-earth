@@ -993,16 +993,16 @@ public class EquipmentItemsME {
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
-    public static final Item WOODLAND_WATCHWARDEN_HELMET = registerCustomModelArmorPiece("woodland_watchwarden_helmet",
+    public static final Item ERYN_GALEN_WATCHWARDEN_HELMET = registerCustomModelArmorPiece("eryn_galen_watchwarden_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
-    public static final Item WOODLAND_WATCHWARDEN_CHESTPLATE = registerArmorPiece("woodland_watchwarden_chestplate",
+    public static final Item ERYN_GALEN_WATCHWARDEN_CHESTPLATE = registerArmorPiece("eryn_galen_watchwarden_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
-    public static final Item WOODLAND_WATCHWARDEN_LEGGINGS = registerArmorPiece("woodland_watchwarden_leggings",
+    public static final Item ERYN_GALEN_WATCHWARDEN_LEGGINGS = registerArmorPiece("eryn_galen_watchwarden_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
-    public static final Item WOODLAND_WATCHWARDEN_BOOTS = registerArmorPiece("woodland_watchwarden_boots",
+    public static final Item ERYN_GALEN_WATCHWARDEN_BOOTS = registerArmorPiece("eryn_galen_watchwarden_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
