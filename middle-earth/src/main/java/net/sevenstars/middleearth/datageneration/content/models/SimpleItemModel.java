@@ -54,6 +54,8 @@ public class SimpleItemModel {
             add(ResourceItemsME.MORDOR_BANNER_PATTERN);
             add(ResourceItemsME.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN);
             add(ResourceItemsME.ISENGARD_BANNER_PATTERN);
+            add(ResourceItemsME.SCREECHING_SKULL_BANNER_PATTERN);
+            add(ResourceItemsME.GOBLIN_SKULL_BANNER_PATTERN);
 
             add(ResourceItemsME.ANVIL_BANNER_PATTERN);
             add(ResourceItemsME.BELL_BANNER_PATTERN);

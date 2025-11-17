@@ -7,6 +7,7 @@ import net.minecraft.registry.tag.TagKey;
 public class ItemTagsME {
     //TODO actually gen the tags
     public static TagKey<Item> REPAIRS_STRAW_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_straw_armor"));
+    public static TagKey<Item> REPAIRS_BONE_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_bone_armor"));
     public static TagKey<Item> REPAIRS_WOOL_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_wool_armor"));
     public static TagKey<Item> REPAIRS_FUR_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_fur_armor"));
     public static TagKey<Item> REPAIRS_FABRIC_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_fabric_armor"));

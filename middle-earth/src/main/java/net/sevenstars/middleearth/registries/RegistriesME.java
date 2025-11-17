@@ -432,6 +432,8 @@ public class RegistriesME {
             builder.add(WeaponItemsME.GUNDABAD_BOW, 300);
             builder.add(WeaponItemsME.GUNDABAD_CROSSBOW, 400);
 
+            builder.add(WeaponItemsME.MORIA_GOBLIN_BOW, 300);
+
             builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
         }));
     }

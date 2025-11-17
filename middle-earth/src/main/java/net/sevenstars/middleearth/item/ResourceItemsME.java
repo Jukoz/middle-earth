@@ -230,6 +230,14 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ISENGARD_PATTERN_ITEM));
 
+    public static final Item SCREECHING_SKULL_BANNER_PATTERN = registerItem("screeching_skull_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SCREECHING_SKULL_PATTERN_ITEM));
+
+    public static final Item GOBLIN_SKULL_BANNER_PATTERN = registerItem("goblin_skull_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.GOBLIN_SKULL_PATTERN_ITEM));
+
     public static final Item ANVIL_BANNER_PATTERN = registerItem("anvil_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ANVIL_PATTERN_ITEM));

@@ -118,6 +118,13 @@ public class DyeablePiecesME {
         dyeablePieces.put(EquipmentItemsME.GUNDABAD_REINFORCED_LEATHER_VEST, true);
         dyeablePieces.put(EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET, true);
 
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_SNAGA_NASAL_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_SNAGA_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_CLOTH_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_HAUBERK, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_REINFORCED_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_LEGGINGS, true);
+
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR, true);
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
         dyeablePieces.put(EquipmentItemsME.WARG_LEATHER_ARMOR, true);
