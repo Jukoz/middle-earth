@@ -8,8 +8,8 @@ import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.item.utils.armor.capes.ModCapes;
-import net.sevenstars.middleearth.item.utils.armor.hoods.ModHoods;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.Arrays;
@@ -19,25 +19,32 @@ import java.util.concurrent.CompletableFuture;
 
 public class LanguageProvider extends FabricLanguageProvider {
 
-    private Map<String, String> specialNames = new HashMap<>();
+    private final Map<String, String> specialNames = new HashMap<>();
 
     public LanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, "en_us", registryLookup);
 
         specialNames.put("Izheraban", "Izhêr'Aban");
+        specialNames.put("Khagalaban", "Khagal'Aban");
+        specialNames.put("Burzulaban", "Burzul'Aban");
         specialNames.put("Nurgon", "Núrgon");
         specialNames.put("Zigilaban", "Zigil'Aban");
+        specialNames.put("Simbelmyne", "Simbelmynë");
         specialNames.put("Numenorean", "Númenórean");
         specialNames.put("Uruk Hai", "Uruk-Hai");
         specialNames.put("Burzum Steel", "Búrzum-Steel");
+        specialNames.put("Burzum", "Búrzum");
         specialNames.put("Edhel Steel", "Edhel-Steel");
         specialNames.put("Khazad Steel", "Khazâd-Steel");
+        specialNames.put("Druwaith", "Drúwaith");
         specialNames.put("Lothlorien", "Lothlórien");
         specialNames.put("Nurn", "Núrn");
         specialNames.put("Rhun", "Rhûn");
         specialNames.put("Lorien", "Lórien");
         specialNames.put("Nazgul", "Nazgûl");
         specialNames.put("Capital", "Dale Capital");
+        specialNames.put("Kings Guard", "King's Guard");
+        specialNames.put("Weaver Sting", "Weaver's Sting");
     }
 
     @Override
@@ -67,11 +74,11 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "tooltip", "liquid_" + metalTypes.getName());
         }
 
-        for (ModCapes cape : ModCapes.values()){
+        for (BackAttachmentsME cape : BackAttachmentsME.values()){
             createTranslation(translationBuilder, "tooltip", cape.getName());
         }
 
-        for (ModHoods hood : ModHoods.values()){
+        for (HelmetAttachmentsME hood : HelmetAttachmentsME.values()){
             createTranslation(translationBuilder, "tooltip", hood.getName());
         }
 

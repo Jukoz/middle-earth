@@ -9,11 +9,13 @@
     "BlockMixin",
     "ChunkGenerationStepMixin",
     "ChunkGeneratorMixin",
+    "CropBlockMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
     "GrassBlockMixin",
+    "LivingEntityMixin",
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PotionEntityMixin",
@@ -28,10 +30,18 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.BakedModelManagerMixin",
+    "client.BipedEntityModelMixin",
+    "client.BipedEntityRendererMixin",
+    "client.BipedEntityRenderStateMixin",
+    "client.GuiRendererMixin",
     "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
+    "client.LivingEntityRendererMixin",
+    "client.LivingEntityRenderStateMixin",
     "client.MouseMixin",
-    "client.BakedModelManagerMixin"
+    "client.PlayerEntityModelMixin",
+    "client.PlayerEntityRendererMixin"
   ],
   "server": [
   ],

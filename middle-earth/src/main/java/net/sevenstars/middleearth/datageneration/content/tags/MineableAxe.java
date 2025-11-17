@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.sevenstars.middleearth.block.ModBlocks;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -37,6 +37,7 @@ public class MineableAxe {
             add(ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR);
             add(ModDecorativeBlocks.SPRUCE_STABLE_DOOR);
             add(ModDecorativeBlocks.LARGE_STURDY_DOOR);
+            add(ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE);
             add(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
             add(ModDecorativeBlocks.RUINED_DWARVEN_DOOR);
             add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
@@ -47,6 +48,8 @@ public class MineableAxe {
             add(ModBlocks.RED_WATTLE_TRAPDOOR);
             add(ModBlocks.WATTLE_TRAPDOOR);
 
+            add(ModBlocks.TREATED_WOOD_ROPE_FENCE);
+
             add(ModDecorativeBlocks.BELLOWS);
 
             add(ModDecorativeBlocks.TREATED_WOOD_LADDER);
@@ -54,18 +57,6 @@ public class MineableAxe {
             add(ModDecorativeBlocks.TREATED_WOOD_CHAIR);
             add(ModDecorativeBlocks.TREATED_WOOD_TABLE);
             add(ModDecorativeBlocks.TREATED_WOOD_BENCH);
-
-            add(ModDecorativeBlocks.OAK_LADDER);
-            add(ModDecorativeBlocks.SPRUCE_LADDER);
-            add(ModDecorativeBlocks.BIRCH_LADDER);
-            add(ModDecorativeBlocks.JUNGLE_LADDER);
-            add(ModDecorativeBlocks.ACACIA_LADDER);
-            add(ModDecorativeBlocks.DARK_OAK_LADDER);
-            add(ModDecorativeBlocks.MANGROVE_LADDER);
-            add(ModDecorativeBlocks.CHERRY_LADDER);
-            add(ModDecorativeBlocks.BAMBOO_LADDER);
-            add(ModDecorativeBlocks.CRIMSON_LADDER);
-            add(ModDecorativeBlocks.WARPED_LADDER);
 
             add(ModDecorativeBlocks.THIN_BARREL);
             add(ModDecorativeBlocks.SMALL_CRATE);
@@ -84,6 +75,7 @@ public class MineableAxe {
             add(ModNatureBlocks.LILAC_FLOWER_GROWTH);
             add(ModNatureBlocks.PINK_FLOWER_GROWTH);
             add(ModNatureBlocks.RED_FLOWER_GROWTH);
+            add(ModNatureBlocks.THORNY_GROWTH);
             add(ModNatureBlocks.WHITE_FLOWER_GROWTH);
             add(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
         }

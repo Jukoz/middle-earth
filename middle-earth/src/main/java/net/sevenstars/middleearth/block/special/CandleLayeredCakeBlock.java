@@ -9,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Property;
@@ -27,7 +26,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 
 import java.util.List;
 import java.util.Map;

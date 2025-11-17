@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.block.special.bellows;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.state.property.EnumProperty;
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

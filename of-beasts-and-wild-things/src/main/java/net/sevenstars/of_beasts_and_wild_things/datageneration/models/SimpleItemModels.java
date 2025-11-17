@@ -1,6 +1,7 @@
 package net.sevenstars.of_beasts_and_wild_things.datageneration.models;
 
 import net.minecraft.item.Item;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.List;
 public class SimpleItemModels {
     public static List<Item> items = new ArrayList<>() {
         {
-
         }
     };
 }

@@ -7,6 +7,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
 public class ModCaveBiomeFeatures {
 
@@ -30,19 +31,20 @@ public class ModCaveBiomeFeatures {
         spawnSettings.spawn(SpawnGroup.AXOLOTLS,12, new SpawnSettings.SpawnEntry(EntityType.AXOLOTL, 2, 5));
     }
     public static void addBats(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AMBIENT, 3, new SpawnSettings.SpawnEntry(EntityType.BAT, 1, 2));
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 1, new SpawnSettings.SpawnEntry(EntityType.BAT, 1, 2));
     }
     public static void addFrogs(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.CREATURE, 4, new SpawnSettings.SpawnEntry(EntityType.FROG, 1, 4));
     }
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 1, 3));
+        spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesWT.SNAIL, 1, 3));
     }
     public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
         //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
     }
     public static void addSpiders(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER,  2,new SpawnSettings.SpawnEntry(EntityType.CAVE_SPIDER, 1, 2));
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 2, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 1, 2))
+                .spawnCost(ModEntities.SHELOBITE_SCUTTLER, 0.7, 0.3);
     }
 
     public static void addSnowTrolls(SpawnSettings.Builder spawnSettings) {

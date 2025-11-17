@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.entity.npcs.features.hair;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -10,6 +9,7 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -20,6 +20,7 @@ import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
+import net.sevenstars.middleearth.resources.AtlasesME;
 
 
 @Environment(EnvType.CLIENT)
@@ -30,8 +31,7 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     public HairFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.hairModel = new HairModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_HAIR));
-        MinecraftClient client = MinecraftClient.getInstance();
-        hairAtlasTexture = client.getBakedModelManager().getAtlas(ModTexturedRenderLayers.NPC_HAIR_TEXTURES_ATLAS_TEXTURE);
+        hairAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE);
     }
 
     @Override
@@ -55,26 +55,38 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         entityModel.setAngles(state);
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getNpcHairTexturesRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterHairsRenderLayer());
 
-        boolean bl = !state.invisible;
+        boolean bl = state.invisible;
         boolean bl2 = !bl && !state.invisibleToPlayer;
         int k = bl2 ? 654311423 : -1;
-        int color = ColorHelper.mix(k, (state.hurt) ? NpcEntityRenderer.HURT_COLOR : -1);
+        int color = ColorHelper.mix(k, this.getMixColor(state));
+        int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
-        if(hairAddonTextureId != null)
-            render(entityModel, vertexConsumer, matrices, light, hairAddonTextureId, color);
-        if(beardAddonTextureId != null)
-            render(entityModel, vertexConsumer, matrices, light, beardAddonTextureId, color);
+        if(hairAddonTextureId != null && state.canShowHair){
+            Sprite sprite = hairAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.hairAddonId, AtlasesME.CHARACTER_HAIRS));
+            renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
+        }
+        if(beardAddonTextureId != null && state.canShowBeard){
+            Sprite sprite = hairAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.beardAddonId, AtlasesME.CHARACTER_HAIRS));
+            renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
+        }
     }
 
-    private void render(EntityModel<NpcEntityRenderState> entityModel, VertexConsumer vertexConsumer, MatrixStack matrices, int light, Identifier baseIdentifier, int color){
-        Identifier id = Identifier.of(baseIdentifier.getNamespace(), "npc_hair_textures/" + baseIdentifier.getPath());
-        Sprite sprite = hairAtlasTexture.getSprite(id);
-
+    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color){
         if(sprite != null){
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            entityModel.render(matrices, newLayerVertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
+            hairModel.render(matrices, newLayerVertexConsumer, light, overlay, color);
         }
+    }
+
+    protected int getMixColor(NpcEntityRenderState state) {
+        if(state.hurt)
+            return NpcEntityRenderer.HURT_COLOR;
+        return -1;
+    }
+
+    public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {
+        return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(state.hurt));
     }
 }

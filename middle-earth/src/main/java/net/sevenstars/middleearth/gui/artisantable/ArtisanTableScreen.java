@@ -1,11 +1,9 @@
 package net.sevenstars.middleearth.gui.artisantable;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -106,8 +104,8 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("misc"), EquipmentItemsME.STRAW_HAT.getDefaultStack()));
         tabs.put(index, new ArrayList<>());
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("hat"), EquipmentItemsME.STRAW_HAT.getDefaultStack(), ArtisanTableInputsShape.HAT));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("hood"), EquipmentItemsME.HOOD.getDefaultStack(), ArtisanTableInputsShape.HOOD));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("cape"), EquipmentItemsME.CAPE.getDefaultStack(), ArtisanTableInputsShape.CAPE));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("helmetAttachment"), EquipmentItemsME.HOOD.getDefaultStack(), ArtisanTableInputsShape.HELMET_ATTACHMENT));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("backAttachment"), EquipmentItemsME.CAPE.getDefaultStack(), ArtisanTableInputsShape.BACK_ATTACHMENT));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("pipe"), ToolItemsME.CLAY_PIPE.getDefaultStack(), ArtisanTableInputsShape.PIPE));
         index++;
 

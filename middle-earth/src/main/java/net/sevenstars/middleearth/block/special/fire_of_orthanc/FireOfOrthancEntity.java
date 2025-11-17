@@ -1,22 +1,17 @@
 package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 

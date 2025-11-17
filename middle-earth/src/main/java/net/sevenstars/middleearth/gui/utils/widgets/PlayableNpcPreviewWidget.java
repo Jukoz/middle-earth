@@ -3,18 +3,17 @@ package net.sevenstars.middleearth.gui.utils.widgets;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.entity.npcs.NpcEntityBuilder;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -114,41 +113,22 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         }
     }
 
-    public void updateEntity(NpcGearData data, Race race, World world) {
+    public void updateEntity(Identifier npcDataIdentifier, Race race, World world) {
         if(world != null)
             haveBeenInitialized = true;
 
-        updateEntityRace(race, world);
-        updateEquipment(data);
-    }
-    public void setEntity(NpcEntity npcEntity) {
+        NpcEntity npcEntity = new NpcEntityBuilder(world, null)
+                .withNpcData(npcDataIdentifier)
+                .forceBuild();
+
+        npcEntity.setAiDisabled(true);
+
+        npcEntity.setBodyYaw(currentAngle);
+        npcEntity.setPitch(0f);
+        npcEntity.headYaw = npcEntity.getBodyYaw();
+        npcEntity.lastHeadYaw =npcEntity.getBodyYaw();
+
         this.entity = npcEntity;
-    }
-    public void updateToDefaultEntity(World world) {
-        //BanditHumanEntity entity = new BanditHumanEntity(ModEntities.BANDIT_MILITIA, world);
-        //entity.setAiDisabled(true);
-
-        //this.entity = new NpcEntity(ModEntities.NPC, world);
-        this.entity = NpcEntity.create(world);
-    }
-
-    private void updateEquipment(NpcGearData data){
-        if(data == null) {
-            this.entity = null;
-            return;
-        }
-        if(this.entity == null) return;
-
-        this.entity.setBodyYaw(currentAngle);
-        this.entity.setPitch(0f);
-        this.entity.headYaw = this.entity.getBodyYaw();
-        this.entity.lastHeadYaw = this.entity.getBodyYaw();
-
-        NpcUtil.equipAll(entity, data);
-    }
-
-    private void updateEntityRace(Race race, World world) {
-        this.entity = race.getModel(world);
     }
 
     public void drawCenteredAnchoredBottom(DrawContext context, int centerX, int endY) {
@@ -156,8 +136,6 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         int x = centerX;
         int y = endY;
 
-        //DiffuseLighting.disableGuiDepthLighting();
-        //DiffuseLighting.disableForLevel();
         if(this.entity == null) return;
 
         if(currentButtonClicked != null){
@@ -170,10 +148,12 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             }
         }
 
-        // TODO : Find a way to display the entity behind the buttons.
-        //TODO also fix
-        InventoryScreen.drawEntity(context, x, y, x, y - 9, size, VECTOR, ENTITY_ROTATION, (Quaternionf)null, this.entity);
+        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(entity);
+        EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
 
+        int entityY = y + 85;
+        context.addEntity(entityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 60, entityY - 200, x + 60, entityY);
 
         int horizontalMargin = MINIMAL_MARGIN + 1;
 

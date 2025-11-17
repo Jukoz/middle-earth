@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
+import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
 
 import java.util.function.BiConsumer;
@@ -19,8 +20,13 @@ public class ModServerNetworkHandler {
         // REGISTRY : Server to client
         PayloadTypeRegistry.playS2C().register(PacketOnboardingResult.ID, PacketOnboardingResult.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
+        PayloadTypeRegistry.playS2C().register(PacketLivingEntityData.ID, PacketLivingEntityData.CODEC);
 
         // REGISTRY : Client to server
+        PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketStructureManagerShowAllEntities.ID, PacketStructureManagerShowAllEntities.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketStructureNestUpdateBlockEntityRequest.ID, PacketStructureNestUpdateBlockEntityRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketStructureManagerUpdateBlockEntityRequest.ID, PacketStructureManagerUpdateBlockEntityRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetRace.ID, PacketSetRace.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketTeleportToDynamicWorldCoordinate.ID, PacketTeleportToDynamicWorldCoordinate.CODEC);
@@ -36,6 +42,10 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(Codec.unit(new HoodStateTogglePacket())));
 
         // Application [SERVER SIDE]
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerRespawnEntities.ID, wrapServerHandler(connection, PacketStructureManagerRespawnEntities::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerShowAllEntities.ID, wrapServerHandler(connection, PacketStructureManagerShowAllEntities::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureNestUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureNestUpdateBlockEntityRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureManagerUpdateBlockEntityRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetAffiliation.ID, wrapServerHandler(connection, PacketSetAffiliation::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetRace.ID, wrapServerHandler(connection, PacketSetRace::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToCurrentOverworldSpawn.ID, wrapServerHandler(connection, PacketTeleportToCurrentOverworldSpawn::process));

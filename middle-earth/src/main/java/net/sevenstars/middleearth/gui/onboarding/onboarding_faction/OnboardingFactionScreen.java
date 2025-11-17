@@ -9,22 +9,18 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.model.ModelBaker;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.render.states.BannerResultWithScaleGuiElementRenderState;
 import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 import net.sevenstars.middleearth.gui.utils.widgets.CycledSelectionWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
@@ -34,6 +30,7 @@ import net.sevenstars.middleearth.gui.utils.widgets.map.FactionSelectionMapWidge
 import net.sevenstars.middleearth.gui.utils.widgets.text.TextBlockWidget;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +38,7 @@ import java.util.List;
 public class OnboardingFactionScreen extends Screen {
     private static final Identifier MAP_UI_IDENTIFIER = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
     private static final Identifier BUTTON_UI_IDENTIFIER = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_buttons.png");
+    private static final int TEXT_COLOR = Color.BLACK.getRGB();
 
     public class OnboardingFactionScreenElements {
         //region [Event Senders]
@@ -99,7 +97,6 @@ public class OnboardingFactionScreen extends Screen {
         }
     }
 
-
     private static final Text TITLE = Text.translatable("screen." + MiddleEarth.MOD_ID + ".onboarding_faction_screen");
 
 
@@ -107,11 +104,11 @@ public class OnboardingFactionScreen extends Screen {
     public OnboardingFactionScreenElements elements;
 
     // Private fields
-    private OnboardingFactionScreenController _controller;
+    private OnboardingFactionScreenController controller;
 
     public OnboardingFactionScreen(OnboardingFactionScreenController controller) {
         super(TITLE);
-        this._controller = controller;
+        this.controller = controller;
     }
 
     @Override
@@ -126,46 +123,46 @@ public class OnboardingFactionScreen extends Screen {
 
         elements.bannerField = this.client.getLoadedEntityModels().getModelPart(EntityModelLayers.STANDING_BANNER_FLAG).getChild("flag");
 
-        ButtonWidget.PressAction searchBarWidgetPress = this::doNothingButton;
-        elements.searchBarWidget = new SearchBarWidget(9, searchBarWidgetPress);
+        elements.searchBarWidget = new SearchBarWidget(9, controller.getAllSearchBarResults(), x -> controller.updateScreenInformation(), CycledSelectionWidget.TOTAL_WIDTH);
         addDrawableChild(elements.searchBarWidget.getSearchBarToggleButton());
         elements.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
+        addDrawableChild(elements.searchBarWidget.getScreenClickButton());
 
         elements.npcPreviewWidget = new PlayableNpcPreviewWidget();
         elements.npcPreviewWidget.getButtons().forEach(this::addDrawableChild);
 
         // Disposition
         elements.dispositionSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateDisposition(-1),
-                x -> this._controller.updateDisposition(1),
+                x -> this.controller.updateDisposition(-1),
+                x -> this.controller.updateDisposition(1),
                 null,
                 CycledSelectionButtonType.GOLD);
         elements.dispositionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // PlayerFactionPayload
         elements.factionSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateFaction(-1),
-                x -> this._controller.updateFaction(1),
+                x -> this.controller.updateFaction(-1),
+                x -> this.controller.updateFaction(1),
                 null,
                 CycledSelectionButtonType.SILVER);
         elements.factionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // Subfaction
         elements.subfactionSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateSubfaction(-1),
-                x -> this._controller.updateSubfaction(1),
+                x -> this.controller.updateSubfaction(-1),
+                x -> this.controller.updateSubfaction(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         elements.subfactionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // PlayerFactionPayload Randomizer
         elements.factionRandomizerButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.faction_randomizer"),
-                x -> this._controller.randomizeFaction()).build();
+                x -> this.controller.randomizeFaction()).build();
         elements.factionRandomizerButton.setDimensions(52, 18);
         addDrawableChild(elements.factionRandomizerButton);
 
         // Map Widget
-        elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.focus_current"), this::doNothingButton).build(); // TODO
+        elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.focus_current"), this::mapFocusToggle).build(); // TODO
         elements.mapFocusButton.setDimensions(10, 10);
         addDrawableChild(elements.mapFocusButton);
 
@@ -180,16 +177,16 @@ public class OnboardingFactionScreen extends Screen {
 
         // Race
         elements.raceSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateRace(-1),
-                x -> this._controller.updateRace(1),
+                x -> this.controller.updateRace(-1),
+                x -> this.controller.updateRace(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         elements.raceSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // Spawn Point
         elements.spawnPointSelectionWidget = new CycledSelectionWidget(
-                x -> this._controller.updateSpawnPoint(-1),
-                x -> this._controller.updateSpawnPoint(1),
+                x -> this.controller.updateSpawnPoint(-1),
+                x -> this.controller.updateSpawnPoint(1),
                 null,
                 CycledSelectionButtonType.NORMAL);
         elements.spawnPointSelectionWidget.getButtons().forEach(this::addDrawableChild);
@@ -197,13 +194,12 @@ public class OnboardingFactionScreen extends Screen {
 
         // Random spawn selection
         elements.fullRandomizerButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.full_randomizer"),
-                x -> _controller.randomizeAll()).build();
+                x -> controller.randomizeAll()).build();
         addDrawableChild(elements.fullRandomizerButton);
 
         elements.spawnConfirmButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.confirm"),
-                x -> _controller.confirmSelection()).build();
+                x -> controller.confirmSelection()).build();
         addDrawableChild(elements.spawnConfirmButton);
-
 
         elements.factionName = ((MutableText)Text.of("N/A")).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
         elements.subfactionName = Text.of("N/A");
@@ -211,7 +207,7 @@ public class OnboardingFactionScreen extends Screen {
         elements.descriptionTextBlock = new TextBlockWidget(0,0, elements.informationPanel.width - 9,textRenderer.fontHeight * 10);
         elements.descriptionTextBlock.setText(List.of(Text.of("N/A")));
 
-        this.elements.mapWidget = new FactionSelectionMapWidget(114, 114, this._controller.getMaxSpawnAmount());
+        this.elements.mapWidget = new FactionSelectionMapWidget(114, 114, this.controller.getMaxSpawnAmount());
         Arrays.stream(this.elements.mapWidget.getButtons()).forEach(this::addDrawableChild);
     }
 
@@ -220,14 +216,12 @@ public class OnboardingFactionScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         ModWidget.updateMouse(mouseX, mouseY);
 
-        this.renderBackground(context, mouseX, mouseY, delta);
         this.renderDisplays(context, mouseX, mouseY, delta);
     }
 
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         //DiffuseLighting.disableGuiDepthLighting();
-
         super.renderBackground(context,mouseX,mouseY, deltaTicks);
 
         // Display center panel
@@ -253,15 +247,19 @@ public class OnboardingFactionScreen extends Screen {
         int startY = elements.informationPanel.startY + 5;
 
         int factionStartX = startX + ((elements.informationPanel.width - 50) / 2 - (textRenderer.getWidth(elements.factionName) / 2));
-        context.drawText(textRenderer, elements.factionName, factionStartX, startY, 0, false);
+
+        context.drawText(textRenderer, elements.factionName, factionStartX, startY, TEXT_COLOR, false);
+        if(isMouseOver(factionStartX, textRenderer.getWidth(elements.factionName), startY, textRenderer.fontHeight)){
+            context.drawTooltip(textRenderer, List.of(controller.getCurrentFactionFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
+        }
 
         // Subfaction
         if(elements.subfactionName != null){
             startY += textRenderer.fontHeight + 3;
             Text subfactionTitle = Text.translatable("screen." + MiddleEarth.MOD_ID + ".information.subfaction");
 
-            context.drawText(textRenderer, subfactionTitle, startX, startY, 0, false);
-            context.drawText(textRenderer, elements.subfactionName, startX + textRenderer.getWidth(subfactionTitle), startY, 0, false);
+            context.drawText(textRenderer, subfactionTitle, startX, startY, TEXT_COLOR, false);
+            context.drawText(textRenderer, elements.subfactionName, startX + textRenderer.getWidth(subfactionTitle), startY, TEXT_COLOR, false);
         }
         // Race.s
         if(elements.raceList != null){
@@ -271,7 +269,7 @@ public class OnboardingFactionScreen extends Screen {
             Text raceTitle = Text.translatable((hasManyRaces)
                     ? "screen." + MiddleEarth.MOD_ID + ".information.races.many"
                     : "screen." + MiddleEarth.MOD_ID + ".information.races").formatted(Formatting.UNDERLINE);
-            context.drawText(client.textRenderer, raceTitle, startX, startY, 0, false);
+            context.drawText(client.textRenderer, raceTitle, startX, startY, TEXT_COLOR, false);
             startY += textRenderer.fontHeight + 3;
 
             elements.raceList.setStartX(startX);
@@ -283,7 +281,7 @@ public class OnboardingFactionScreen extends Screen {
         startY =  elements.informationPanel.startY + 90;
 
         context.drawText(client.textRenderer, Text.translatable("screen." + MiddleEarth.MOD_ID + ".information.description").formatted(Formatting.UNDERLINE),
-                startX,startY - textRenderer.fontHeight, 0, false);
+                startX,startY - textRenderer.fontHeight, TEXT_COLOR, false);
         startY += 3;
         elements.descriptionTextBlock.setStartX(startX);
         elements.descriptionTextBlock.setStartY(startY);
@@ -291,14 +289,6 @@ public class OnboardingFactionScreen extends Screen {
 
         // Banner
         if(elements.bannerComponents != null && !elements.bannerComponents.isEmpty()) {
-            float size = 32f;
-            // Positioning
-            MatrixStack matrixStack = new MatrixStack();
-            matrixStack.translate(startX  + (size / 2f) + 120, startY + 3, 1f);
-            matrixStack.push();
-            matrixStack.scale(-size, size, 0.1f);
-            this.elements.bannerField.pitch = 0.0F;
-
             var bannerPatternRegistry = this.client.world.getRegistryManager().getOptional(RegistryKeys.BANNER_PATTERN);
             BannerPatternsComponent.Builder bannerBuilder = new BannerPatternsComponent.Builder();
             for(BannerData.BannerPatternWithColor entry : elements.bannerComponents){
@@ -306,19 +296,12 @@ public class OnboardingFactionScreen extends Screen {
                 RegistryEntry<BannerPattern> pattern = bannerPatternRegistry.get().getEntry(entry.pattern);
                 bannerBuilder.add(pattern, entry.color);
             }
-
-            //TODO crab fix
-
-            //context.addBannerResult(this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
-
-            /*context.((vertexConsumers) -> {
-                BannerBlockEntityRenderer.renderCanvas(matrixStack, vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV, this.elements.bannerField, ModelBaker.BANNER_BASE, true, DyeColor.GRAY, bannerBuilder.build());
-            });
-            matrixStack.pop();
-            context.draw();*/
+            int bannerX = elements.informationPanel.startX + elements.informationPanel.width - 48;
+            int bannerY = elements.informationPanel.startY + 8;
+            context.state.addSpecialElement(new BannerResultWithScaleGuiElementRenderState(this.elements.bannerField, DyeColor.GRAY, bannerBuilder.build(), bannerX, 0, bannerX + 40, bannerY + 80, 32f, context.scissorStack.peekLast()));
         }
-        // Right panel
 
+        // Right panel
         startX = this.elements.mapPanel.startX;
         startY = this.elements.mapPanel.startY;
 
@@ -328,8 +311,9 @@ public class OnboardingFactionScreen extends Screen {
         startY = this.elements.mapPanel.startY + this.elements.mapPanel.height - 16;
 
         this.elements.mapFocusButton.setPosition(startX, startY);
+
         context.drawTexture(RenderPipelines.GUI_TEXTURED, MAP_UI_IDENTIFIER,
-                startX, startY, 235, (true /*this.elements.mapWidget.isForcingTargetMovement*/) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
+                startX, startY, 235, (this.elements.mapWidget.isForcingTargetMovement) ? 20 : elements.mapFocusButton.isFocused() || elements.mapFocusButton.isMouseOver(mouseX, mouseY) ? 10 : 0,
                 elements.mapFocusButton.getWidth(), elements.mapFocusButton.getHeight(), 256, 256);
 
         startX = this.elements.mapPanel.startX + this.elements.mapPanel.width - 16;
@@ -354,6 +338,9 @@ public class OnboardingFactionScreen extends Screen {
         startY += elements.spawnPointSelectionWidget.TOTAL_HEIGHT + 4;
 
         elements.raceSelectionWidget.drawAnchored(context, startX,  startY,true, textRenderer);
+        if(isMouseOver(startX, CycledSelectionWidget.TOTAL_WIDTH, startY, CycledSelectionWidget.TOTAL_HEIGHT)){
+            controller.drawRaceTooltip(client.player, context, textRenderer, mouseX, mouseY);
+        }
 
         startX = this.elements.mapPanel.startX + 4;
         startY = this.elements.informationPanel.startY + this.elements.informationPanel.height - elements.fullRandomizerButton.getHeight();
@@ -371,13 +358,35 @@ public class OnboardingFactionScreen extends Screen {
         this.elements.spawnConfirmButton.setPosition(startX, startY);
         this.elements.spawnConfirmButton.setDimensions(52, 18);
 
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
-                this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 103, this.elements.spawnConfirmButton.isFocused() || this.elements.spawnConfirmButton.isMouseOver(mouseX, mouseY) ? 37 : 19,
-                this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
+        if(elements.spawnConfirmButton.active){
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
+                    this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 103, this.elements.spawnConfirmButton.isFocused() || this.elements.spawnConfirmButton.isMouseOver(mouseX, mouseY) ? 37 : 19,
+                    this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
+        } else {
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
+                    this.elements.spawnConfirmButton.getX(), this.elements.spawnConfirmButton.getY(), 156, 55,
+                    this.elements.spawnConfirmButton.getWidth(), this.elements.spawnConfirmButton.getHeight(), 256, 256);
+
+            Text delayText = Text.literal(String.valueOf(controller.getCurrentDelay()));
+            context.drawText(textRenderer, delayText,
+                    this.elements.spawnConfirmButton.getX() + (52 / 2) - (textRenderer.getWidth(delayText) / 2),
+                    this.elements.spawnConfirmButton.getY() + 5, Colors.LIGHT_RED, true);
+        }
 
         // Left panel
         startX = this.elements.informationPanel.startX - 6;
         startY = this.elements.informationPanel.startY;
+
+        int endY = (int) ((context.getScaledWindowHeight() / 2f) - (this.elements.informationPanel.height / 2f)) + this.elements.informationPanel.height;
+
+        // Search Bar Widget
+        startY += elements.searchBarWidget.drawSearchBarCentered(context, startX - (CycledSelectionWidget.TOTAL_WIDTH / 2), startY, textRenderer);
+        elements.searchBarWidget.setEndY(elements.informationPanel.startY + elements.informationPanel.height);
+
+        if(this.elements.searchBarWidget.searchIsToggled()) {
+            this.elements.searchBarWidget.drawSearchResultsCentered(context, startX - (CycledSelectionWidget.TOTAL_WIDTH / 2), startY - 20);
+            return;
+        }
 
         this.elements.dispositionSelectionWidget.drawAnchored(context, startX, startY, false, textRenderer);
 
@@ -401,9 +410,11 @@ public class OnboardingFactionScreen extends Screen {
     }
     //endregion
 
+
     //region [Button Events]
-    private void doNothingButton(ButtonWidget button) {
-        MiddleEarth.LOGGER.logDebugMsg(button.getMessage().toString());
+    private void mapFocusToggle(ButtonWidget buttonWidget) {
+        elements.mapWidget.isForcingTargetMovement = !elements.mapWidget.isForcingTargetMovement;
+        controller.moveToCurrentSpawn();
     }
 
     private void mapZoomIn(ButtonWidget buttonWidget) {
@@ -416,12 +427,13 @@ public class OnboardingFactionScreen extends Screen {
     @Override
     public void resize(MinecraftClient client, int width, int height) {
         super.resize(client, width, height);
-        _controller.screenResize();
+        controller.screenResize();
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         this.elements.mapWidget.keyPressed(keyCode, scanCode, modifiers);
+        this.elements.searchBarWidget.keyPressed(keyCode, scanCode, modifiers);
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
@@ -429,6 +441,7 @@ public class OnboardingFactionScreen extends Screen {
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         this.elements.npcPreviewWidget.mouseReleased(mouseX, mouseY, button);
         this.elements.mapWidget.mouseReleased(mouseX, mouseY, button);
+        this.elements.searchBarWidget.mouseReleased(mouseX, mouseY, button);
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
@@ -436,20 +449,37 @@ public class OnboardingFactionScreen extends Screen {
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         this.elements.npcPreviewWidget.keyReleased(keyCode, scanCode, modifiers);
         this.elements.mapWidget.keyReleased(keyCode, scanCode, modifiers);
+        this.elements.searchBarWidget.keyReleased(keyCode, scanCode, modifiers);
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         this.elements.mapWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+        this.elements.searchBarWidget.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         this.elements.mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        this.elements.searchBarWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        this.elements.searchBarWidget.charTyped(chr, modifiers);
+        return super.charTyped(chr, modifiers);
+    }
+
+    @Override
+    public void tick() {
+        controller.tick();
+        super.tick();
+    }
+    private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
+        return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
+    }
     //endregion
 }

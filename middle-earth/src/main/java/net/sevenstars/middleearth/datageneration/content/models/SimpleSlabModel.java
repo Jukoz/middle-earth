@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 
@@ -11,17 +11,22 @@ public class SimpleSlabModel {
     public record Slab(Block origin, Block slab) {}
     public static List<Slab> slabs = new ArrayList<>() {
         {
-            add(new Slab(ModBlocks.REED_BLOCK, ModBlocks.REED_SLAB));
             add(new Slab(ModBlocks.MIRE, ModBlocks.MIRE_SLAB));
             add(new Slab(ModBlocks.DRY_DIRT, ModBlocks.DRY_DIRT_SLAB));
+            add(new Slab(ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_SLAB));
+            add(new Slab(ModBlocks.COARSE_CHALKSOIL, ModBlocks.COARSE_CHALKSOIL_SLAB));
+            add(new Slab(ModBlocks.LOAM, ModBlocks.LOAM_SLAB));
+            add(new Slab(ModBlocks.COARSE_LOAM, ModBlocks.COARSE_LOAM_SLAB));
+            add(new Slab(ModBlocks.PEAT, ModBlocks.PEAT_SLAB));
+            add(new Slab(ModBlocks.COARSE_PEAT, ModBlocks.COARSE_PEAT_SLAB));
+            add(new Slab(ModBlocks.SILT, ModBlocks.SILT_SLAB));
+            add(new Slab(ModBlocks.COARSE_SILT, ModBlocks.COARSE_SILT_SLAB));
+            add(new Slab(ModBlocks.FOUL_DIRT, ModBlocks.FOUL_DIRT_SLAB));
             add(new Slab(ModBlocks.DIRTY_ROOTS, ModBlocks.DIRTY_ROOTS_SLAB));
             add(new Slab(ModBlocks.ASHEN_DIRT, ModBlocks.ASHEN_DIRT_SLAB));
             add(new Slab(ModBlocks.COBBLY_ASHEN_DIRT, ModBlocks.COBBLY_ASHEN_DIRT_SLAB));
             add(new Slab(ModBlocks.COBBLY_DIRT, ModBlocks.COBBLY_DIRT_SLAB));
             add(new Slab(ModBlocks.SNOWY_DIRT, ModBlocks.SNOWY_DIRT_SLAB));
-            add(new Slab(ModBlocks.STRAW_BLOCK, ModBlocks.STRAW_SLAB));
-            add(new Slab(ModBlocks.CUT_LEAD, ModBlocks.CUT_LEAD_SLAB));
-            add(new Slab(ModBlocks.CUT_SILVER, ModBlocks.CUT_SILVER_SLAB));
         }
     };
 
@@ -39,27 +44,11 @@ public class SimpleSlabModel {
 
     public static List<Slab> vanillaWoodSlabs = new ArrayList<>() {
         {
-            add(new Slab(Blocks.OAK_WOOD, ModBlocks.OAK_WOOD_SLAB));
-            add(new Slab(Blocks.SPRUCE_WOOD, ModBlocks.SPRUCE_WOOD_SLAB));
-            add(new Slab(Blocks.BIRCH_WOOD, ModBlocks.BIRCH_WOOD_SLAB));
-            add(new Slab(Blocks.JUNGLE_WOOD, ModBlocks.JUNGLE_WOOD_SLAB));
-            add(new Slab(Blocks.ACACIA_WOOD, ModBlocks.ACACIA_WOOD_SLAB));
-            add(new Slab(Blocks.DARK_OAK_WOOD, ModBlocks.DARK_OAK_WOOD_SLAB));
-            add(new Slab(Blocks.MANGROVE_WOOD, ModBlocks.MANGROVE_WOOD_SLAB));
-            add(new Slab(Blocks.CHERRY_WOOD, ModBlocks.CHERRY_WOOD_SLAB));
         }
     };
 
     public static List<Slab> vanillaStrippedSlab = new ArrayList<>() {
         {
-            add(new Slab(Blocks.STRIPPED_OAK_WOOD, ModBlocks.STRIPPED_OAK_WOOD_SLAB));
-            add(new Slab(Blocks.STRIPPED_SPRUCE_WOOD, ModBlocks.STRIPPED_SPRUCE_WOOD_SLAB));
-            add(new Slab(Blocks.STRIPPED_BIRCH_WOOD, ModBlocks.STRIPPED_BIRCH_WOOD_SLAB));
-            add(new Slab(Blocks.STRIPPED_JUNGLE_WOOD, ModBlocks.STRIPPED_JUNGLE_WOOD_SLAB));
-            add(new Slab(Blocks.STRIPPED_ACACIA_WOOD, ModBlocks.STRIPPED_ACACIA_WOOD_SLAB));
-            add(new Slab(Blocks.STRIPPED_DARK_OAK_WOOD, ModBlocks.STRIPPED_DARK_OAK_WOOD_SLAB));
-            add(new Slab(Blocks.STRIPPED_MANGROVE_WOOD, ModBlocks.STRIPPED_MANGROVE_WOOD_SLAB));
-            add(new Slab(Blocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD_SLAB));
         }
     };
 
@@ -72,8 +61,6 @@ public class SimpleSlabModel {
             add(new Slab(Blocks.MOSS_BLOCK, ModBlocks.MOSS_SLAB));
 
             add(new Slab(Blocks.PACKED_MUD, ModBlocks.PACKED_MUD_SLAB));
-            add(new Slab(Blocks.CALCITE, ModBlocks.CALCITE_SLAB));
-            add(new Slab(Blocks.SMOOTH_BASALT, ModBlocks.SMOOTH_BASALT_SLAB));
 
             add(new Slab(Blocks.BLACK_WOOL, ModBlocks.BLACK_WOOL_SLAB));
             add(new Slab(Blocks.BLUE_WOOL, ModBlocks.BLUE_WOOL_SLAB));

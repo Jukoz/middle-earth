@@ -1,17 +1,10 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.EquipmentTooltipME;
-import net.sevenstars.middleearth.item.utils.ModRangedWeaponTypes;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -20,39 +13,22 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
+import net.sevenstars.middleearth.item.utils.RangedWeaponTypesME;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
-public class CustomLongbowWeaponItem extends BowItem implements EquipmentTooltipME {
-    private final ModFactions faction;
-    private final ModSubFactions subFaction;
-    public ModRangedWeaponTypes type;
+public class CustomLongbowWeaponItem extends BowItem {
+    public RangedWeaponTypesME type;
 
     public static final int RANGE = 25;
 
-    public CustomLongbowWeaponItem(ModRangedWeaponTypes type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability));
-        this.faction = null;
-        this.subFaction = null;
+    public CustomLongbowWeaponItem(RangedWeaponTypesME type, Item.Settings settings) {
+        super(settings.maxDamage(type.durability)
+                .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;
     }
-
-    public CustomLongbowWeaponItem(ModFactions faction, ModRangedWeaponTypes type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability));
-        this.faction = faction;
-        this.subFaction = null;
-        this.type = type;
-    }
-
-    public CustomLongbowWeaponItem(ModSubFactions subFaction, ModRangedWeaponTypes type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability));
-        this.faction = subFaction.getParent();
-        this.subFaction = subFaction;
-        this.type = type;
-    }
-
 
     @Override
     public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
@@ -86,21 +62,6 @@ public class CustomLongbowWeaponItem extends BowItem implements EquipmentTooltip
         }
 
         return f;
-    }
-
-    @Override
-    public List<Text> getAdditionalShiftLines(ItemStack stack) {
-        List<Text> list = new ArrayList<>(List.of());
-
-        list.add(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".weapon_type").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + this.type.name)));
-
-        return list;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        appendBaseTooltip(textConsumer, stack, this.faction, this.subFaction);
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override

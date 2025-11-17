@@ -20,7 +20,6 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -28,7 +27,7 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderEntity;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 
 public class BarrowWightEntity extends HostileEntity {
@@ -72,7 +71,7 @@ public class BarrowWightEntity extends HostileEntity {
         this.targetSelector.add(++i, new RevengeGoal(this));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(++i, new ActiveTargetGoal<>(this, TrollEntity.class, true));
-        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, MirkwoodSpiderEntity.class, true));
+        this.targetSelector.add(++i, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {

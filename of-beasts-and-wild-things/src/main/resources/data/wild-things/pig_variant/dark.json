@@ -1,0 +1,8 @@
+{
+  "asset_id": "wild-things:entity/pig/dark",
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
+}

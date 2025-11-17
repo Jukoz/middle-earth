@@ -1,0 +1,48 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "middle-earth:block/treated_wood_rope_fence_post"
+      }
+    },
+    {
+      "apply": {
+        "model": "middle-earth:block/treated_wood_rope_fence_side",
+        "uvlock": false
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "middle-earth:block/treated_wood_rope_fence_side",
+        "uvlock": false,
+        "y": 90
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "middle-earth:block/treated_wood_rope_fence_side",
+        "uvlock": false,
+        "y": 180
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "middle-earth:block/treated_wood_rope_fence_side",
+        "uvlock": false,
+        "y": 270
+      },
+      "when": {
+        "west": "true"
+      }
+    }
+  ]
+}

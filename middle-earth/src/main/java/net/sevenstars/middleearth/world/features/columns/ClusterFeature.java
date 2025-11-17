@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.features.columns;
 
 import com.mojang.serialization.Codec;
-import net.sevenstars.middleearth.block.special.PointedDolomiteBlock;
+import net.sevenstars.middleearth.block.special.pointedBlocks.PointedDolomiteBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.Thickness;

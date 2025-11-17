@@ -9,13 +9,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -25,8 +23,6 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -35,13 +31,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import net.sevenstars.middleearth.block.ModBlockEntities;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
-import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class CrockpotBlock extends BlockWithEntity {
     public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;

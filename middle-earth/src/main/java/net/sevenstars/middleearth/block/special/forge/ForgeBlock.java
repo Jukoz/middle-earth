@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special.forge;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.minecraft.block.*;

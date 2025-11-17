@@ -1,9 +1,15 @@
 package net.sevenstars.middleearth.resources.datas.attributes;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.DefaultAttributeRegistry;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -45,25 +51,50 @@ public class AttributePool {
     }
 
     public boolean apply(LivingEntity entity){
+        boolean couldResolveOneAttribute = false;
         for(var element : pool){
-            var attributeInstance = entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(element.getIdentifier()).get());
-            if(attributeInstance != null){
-                attributeInstance.setBaseValue(element.getValue());
-            } else {
-                return false;
+            var optAttributeEntry = Registries.ATTRIBUTE.getEntry(element.getIdentifier());
+            if(optAttributeEntry.isPresent()){
+                var attributeEntry = optAttributeEntry.get();
+
+                var attributeInstance = entity.getAttributeInstance(attributeEntry);
+                if(attributeInstance != null){
+                    attributeInstance.setBaseValue(element.getValue());
+                    if(element.hasModifier() && !attributeInstance.hasModifier(element.getModifierIdentifier())){
+                        attributeInstance.addPersistentModifier(new EntityAttributeModifier(
+                                element.getModifierIdentifier(),
+                                element.getModifierValue(),
+                                EntityAttributeModifier.Operation.valueOf(element.getModifierType())));
+                    }
+                    couldResolveOneAttribute = true;
+                }
             }
         }
-        return true;
+        return couldResolveOneAttribute;
     }
 
     public static boolean reverse(LivingEntity entity){
-        for(var identifier : Registries.ATTRIBUTE.getIds()){
+        for (var identifier : Registries.ATTRIBUTE.getIds()) {
             var attributeInstance = entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(identifier).get());
-            if(attributeInstance != null){
-                var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
-                if(defaultAttribute != null)
-                    attributeInstance.setBaseValue(defaultAttribute.getDefaultValue());
+            if (attributeInstance == null) {
+                continue;
             }
+
+            var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
+            if (defaultAttribute == null) {
+                continue;
+            }
+
+            var defaultAttributeEntry = Registries.ATTRIBUTE.getEntry(identifier);
+            if (defaultAttributeEntry.isEmpty()) {
+                continue;
+            }
+
+            var defaultAttributeContainer = DefaultAttributeRegistry.get((EntityType<? extends LivingEntity>) entity.getType());
+            var defaultBaseValue = defaultAttributeContainer.getBaseValue(defaultAttributeEntry.get());
+
+            attributeInstance.setBaseValue(defaultBaseValue);
+            attributeInstance.clearModifiers();
         }
         return true;
     }
@@ -73,7 +104,10 @@ public class AttributePool {
     }
 
     public Double getEntityCurrentAttributeValue(LivingEntity entity, Identifier id) {
-        return entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(id).get()).getValue();
+        if(Registries.ATTRIBUTE.getEntry(id).isPresent()){
+            return entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(id).get()).getValue();
+        }
+        return null;
     }
 
     public List<AttributePoolElement> getPool() {

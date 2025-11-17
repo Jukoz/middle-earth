@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -16,7 +17,7 @@ import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 
-public class NpcEntityData {
+public class NpcEntityData extends PassiveEntity.PassiveData {
     public Identifier factionId;
     public Identifier npcDataId;
     public EntityCategory category;
@@ -29,20 +30,22 @@ public class NpcEntityData {
 
     public static final PacketCodec<RegistryByteBuf, NpcEntityData> PACKET_CODEC;
 
-
     public NpcEntityData() {
+        super(false, 0);
         this.factionId = null;
         this.category = EntityCategory.SHARED;
         this.npcDataId = null;
     }
 
     public NpcEntityData(Identifier factionId, Identifier npcDataId, String category) {
+        super(false, 0);
         this.factionId = factionId;
         this.npcDataId = npcDataId;
         this.category = EntityCategory.valueOf(category.toUpperCase());
     }
 
     public NpcEntityData(Identifier factionId, Identifier npcDataId, EntityCategory category) {
+        super(false, 0);
         this.factionId = factionId;
         this.npcDataId = npcDataId;
         this.category = category;
@@ -56,7 +59,7 @@ public class NpcEntityData {
     }
     public Race getRaceValue(World world){
         NpcData npcData = NpcDataLookup.getNpcData(world, this.npcDataId);
-        return RaceLookup.getRace(world, npcData.getRaceId());
+        return RaceLookup.getRace(world, npcData.getRace());
     }
 
     static {

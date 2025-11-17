@@ -5,7 +5,7 @@
     "minecraft:baked_potato",
     "minecraft:cooked_rabbit",
     "minecraft:carrot",
-    "middle-earth:mushroom_stew_ingredient",
+    "#middle-earth:mushroom_stew_ingredient",
     "minecraft:water_bucket"
   ],
   "output": {
