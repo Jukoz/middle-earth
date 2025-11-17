@@ -538,6 +538,20 @@ public class WeaponItemsME {
     public static final Item ORCISH_BOW = registerBigBowItem("orcish_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings());
 
+    public static final Item RUINED_DWARVEN_SHIELD = registerShield("ruined_dwarven_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_CROSS_SHIELD = registerShield("ruined_dwarven_cross_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_ORNAMENTED_SHIELD = registerShield("ruined_dwarven_ornamented_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_REINFORCED_SHIELD = registerShield("ruined_dwarven_reinforced_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+
+    public static final Item RUINED_DWARVEN_ORNAMENTED_TOWER_SHIELD = registerShield("ruined_dwarven_ornamented_tower_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_REINFORCED_TOWER_SHIELD = registerShield("ruined_dwarven_reinforced_tower_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+
     //region MORDOR
     public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
@@ -787,6 +801,76 @@ public class WeaponItemsME {
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
+    //endregion
+
+    //region MORIA GOBS
+    public static final Item MORIA_GOBLIN_FALCHION = registerItemWithModel("moria_goblin_falchion",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item MORIA_GOBLIN_HOOKBLADE = registerItemWithModel("moria_goblin_hookblade",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item MORIA_GOBLIN_SHANK = registerItemWithModel("moria_goblin_shank",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
+    public static final Item MORIA_GOBLIN_HOOKAXE = registerItemWithModel("moria_goblin_hookaxe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item MORIA_GOBLIN_SPEAR = registerItemWithSpearModel("moria_goblin_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item MORIA_GOBLIN_BOW = registerBigBowItem("moria_goblin_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item MORIA_GOBLINS_BUCKLER_SHIELD = registerShield("moria_goblins_buckler_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item MORIA_GOBLINS_HEAVY_SHIELD = registerShield("moria_goblins_heavy_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    //endregion
+
+    //region GOBLIN TOWN
+    public static final Item GOBLIN_TOWN_FALCHION = registerItemWithModel("goblin_town_falchion",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item GOBLIN_TOWN_SCIMITAR = registerItemWithModel("goblin_town_scimitar",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item GOBLIN_TOWN_SHANK = registerItemWithModel("goblin_town_shank",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
+    public static final Item GOBLIN_TOWN_AXE = registerItemWithModel("goblin_town_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+    public static final Item GOBLIN_TOWN_SPEAR = registerItemWithSpearModel("goblin_town_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_BOW = registerBigBowItem("goblin_town_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_BONE_SHIELD = registerShield("goblin_town_bone_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_TOWN_WOODEN_SHIELD = registerShield("goblin_town_wooden_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_BONE_TOWN_WOODEN_SHIELD = registerShield("goblin_town_bone_wooden_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+    public static final Item GOBLIN_LEATHER_TOWN_WOODEN_SHIELD = registerShield("goblin_town_leather_wooden_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+
+    public static final Item GOBLIN_LEATHER_HEAVY_SHIELD = registerShield("goblin_town_heavy_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
     //endregion
 
     //region TROLL WEAPONS
