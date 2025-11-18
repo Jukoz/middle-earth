@@ -418,6 +418,8 @@ public class RegistriesME {
 
             builder.add(WeaponItemsME.WOODLAND_REALM_BOW, 300);
             builder.add(WeaponItemsME.WOODLAND_REALM_LONGBOW, 400);
+            builder.add(WeaponItemsME.WOODLAND_REALM_NOBLE_BOW, 300);
+            builder.add(WeaponItemsME.WOODLAND_REALM_NOBLE_LONGBOW, 400);
 
             builder.add(WeaponItemsME.EREBOR_BOW, 300);
             builder.add(WeaponItemsME.EREBOR_NOBLE_BOW, 300);

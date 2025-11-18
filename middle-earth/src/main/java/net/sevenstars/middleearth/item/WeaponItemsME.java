@@ -473,6 +473,12 @@ public class WeaponItemsME {
     public static final Item WOODLAND_REALM_NOBLE_SPEAR = registerItemWithSpearModel("woodland_realm_noble_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_NOBLE_BOW = registerBigBowItem("woodland_realm_noble_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_NOBLE_LONGBOW = registerBigBowItem("woodland_realm_noble_longbow",
+            (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
 
     //region EREBOR
