@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.Er
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.EgladilSentinelHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.LorienHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.WardenGladeHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.WoodlandRealmRoyalGuardHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleFeatherHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleSpikeFurHelmetModel;
@@ -91,6 +92,7 @@ public class ArmorModelsME {
         EGLADIL_COMMANDER_HELMET(EquipmentItemsME.EGLADIL_COMMANDER_HELMET, new EgladilSentinelHelmetModel(EgladilSentinelHelmetModel.getTexturedModelData().createModel())),
         GALADHRIM_LORD_HELMET(EquipmentItemsME.GALADHRIM_LORD_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
 
+        WOODLAND_REALM_ROYAL_GUARD(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET, new WoodlandRealmRoyalGuardHelmetModel(WoodlandRealmRoyalGuardHelmetModel.getTexturedModelData().createModel())),
         WARDEN_OF_THE_GLADE(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, new WardenGladeHelmetModel(WardenGladeHelmetModel.getTexturedModelData().createModel())),
 
         ORCISH_BRACED_HELMET(EquipmentItemsME.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel(OrcSpikeHelmetModel.getTexturedModelData().createModel())),

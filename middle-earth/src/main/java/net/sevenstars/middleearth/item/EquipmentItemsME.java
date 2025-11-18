@@ -987,6 +987,16 @@ public class EquipmentItemsME {
     //endregion
 
     //region WOODLAND_REALM
+    public static final Item WOODLAND_REALM_ROYAL_GUARD_HELMET = registerCustomModelArmorPiece("woodland_realm_royal_guard_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_ROYAL_GUARD_HAUBERK = registerArmorPiece("woodland_realm_royal_guard_hauberk",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_ROYAL_GUARD_SCALE_SKIRT = registerArmorPiece("woodland_realm_royal_guard_scale_skirt",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+
     public static final Item WARDEN_OF_THE_GLADE_HELMET = registerDyeableCustomModelArmorPiece("warden_of_the_glade_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue()))
