@@ -13,7 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.network.packets.C2S.ForgeModSwitchPacket;
+import net.sevenstars.middleearth.network.packets.C2S.ForgeModeSwitchPacket;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class ForgeHeatingScreen extends HandledScreen<ForgeHeatingScreenHandler>
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
 
         this.modeSwitchButton = new TexturedButtonWidget(x + 52, y + 48, 20 ,24, HEATING_SWITCH_BUTTON_TEXTURES, (button)-> {
-            ClientPlayNetworking.send(new ForgeModSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+            ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
         }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
 
         this.modeSwitchButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_heating")));

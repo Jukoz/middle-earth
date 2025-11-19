@@ -57,6 +57,7 @@ public class InscriptionRecipeProvider extends RecipeProvider{
             public void generate() {
                 RegistryWrapper.Impl<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
 
+                //UNBREAKING
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.UNBREAKING), 1,
                                 Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
@@ -84,6 +85,7 @@ public class InscriptionRecipeProvider extends RecipeProvider{
                                 conditionsFromItem(Items.LAPIS_LAZULI))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_unbreaking_3")));
 
+                //SHARPNESS
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.SHARPNESS), 1,
                                 Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
@@ -128,6 +130,80 @@ public class InscriptionRecipeProvider extends RecipeProvider{
                         .criterion(hasItem(ResourceItemsME.RUBY),
                                 conditionsFromItem(ResourceItemsME.RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_5")));
+
+                //EFFICIENCY
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.EFFICIENCY), 1,
+                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                        .addWord("swift")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.EFFICIENCY), 2,
+                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                        .addWord("swift")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.EFFICIENCY), 3,
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
+                        .addWord("swift")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_3")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.EFFICIENCY), 4,
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
+                        .addWord("swift")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_4")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.EFFICIENCY), 5,
+                                Ingredient.ofItem(ToolItemsME.MITHRIL_CHISEL), 1.0f)
+                        .addWord("swift")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_5")));
+                
+                //FORTUNE
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.FORTUNE), 1,
+                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                        .addWord("blessing")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.LAPIS_LAZULI),
+                                conditionsFromItem(Items.LAPIS_LAZULI))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_fortune_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.FORTUNE), 2,
+                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                        .addWord("blessing")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.LAPIS_LAZULI),
+                                conditionsFromItem(Items.LAPIS_LAZULI))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_fortune_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.FORTUNE), 3,
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
+                        .addWord("blessing")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.LAPIS_LAZULI),
+                                conditionsFromItem(Items.LAPIS_LAZULI))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_fortune_3")));
             }
         };
     }

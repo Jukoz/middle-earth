@@ -10,13 +10,13 @@ import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 
-public class ForgeModSwitchPacket extends ClientToServerPacket<ForgeModSwitchPacket> {
-    public static final Id<ForgeModSwitchPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "forge_mode_switch_packet"));
-    public static final PacketCodec<RegistryByteBuf, ForgeModSwitchPacket> CODEC = PacketCodec.tuple(
+public class ForgeModeSwitchPacket extends ClientToServerPacket<ForgeModeSwitchPacket> {
+    public static final Id<ForgeModeSwitchPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "forge_mode_switch_packet"));
+    public static final PacketCodec<RegistryByteBuf, ForgeModeSwitchPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.DOUBLE, p -> p.x,
             PacketCodecs.DOUBLE, p -> p.y,
             PacketCodecs.DOUBLE, p -> p.z,
-            ForgeModSwitchPacket::new
+            ForgeModeSwitchPacket::new
     );
 
     public double getX() {
@@ -35,19 +35,19 @@ public class ForgeModSwitchPacket extends ClientToServerPacket<ForgeModSwitchPac
     private final double y;
     private final double z;
 
-    public ForgeModSwitchPacket(double x, double y, double z) {
+    public ForgeModeSwitchPacket(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
     @Override
-    public Id<ForgeModSwitchPacket> getId() {
+    public Id<ForgeModeSwitchPacket> getId() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, ForgeModSwitchPacket> streamCodec() {
+    public PacketCodec<RegistryByteBuf, ForgeModeSwitchPacket> streamCodec() {
         return CODEC;
     }
 

@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.network;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.sevenstars.middleearth.network.connections.IConnectionToServer;
 import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
+import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
 import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
@@ -16,6 +17,7 @@ public class ModClientNetworkHandler {
         ClientPlayNetworking.registerGlobalReceiver(PacketForceOnboardingScreen.ID, wrapClientHandler(connection, PacketForceOnboardingScreen::process));
         ClientPlayNetworking.registerGlobalReceiver(PacketOnboardingResult.ID, wrapClientHandler(connection, PacketOnboardingResult::process));
         ClientPlayNetworking.registerGlobalReceiver(PacketLivingEntityData.ID, wrapClientHandler(connection, PacketLivingEntityData::process));
+        ClientPlayNetworking.registerGlobalReceiver(InscriptionEnchantInfoPacket.ID, wrapClientHandler(connection, InscriptionEnchantInfoPacket::process));
     }
 
     private static <T extends ServerToClientPacket<T>> ClientPlayNetworking.PlayPayloadHandler<T> wrapClientHandler(IConnectionToServer connection, BiConsumer<T, ClientPacketContext> consumer) {

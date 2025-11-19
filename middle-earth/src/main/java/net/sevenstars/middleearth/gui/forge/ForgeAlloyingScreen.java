@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.network.packets.C2S.ForgeModSwitchPacket;
+import net.sevenstars.middleearth.network.packets.C2S.ForgeModeSwitchPacket;
 import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 
 import java.util.List;
@@ -84,7 +84,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
 
         this.modeSwitchButton = new TexturedButtonWidget(x + 13, y + 48, 20 ,24, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
-            ClientPlayNetworking.send(new ForgeModSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+            ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
         }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
 
         this.modeSwitchButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));

@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.gui.inscriptiontable;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -12,11 +14,13 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.recipe.ModRecipes;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
@@ -32,6 +36,8 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     public List<RecipeEntry<InscriptionRecipe>> outputRecipes;
     public final Inventory input;
 
+    public PlayerEntity player;
+
     public List<String> selectedWords;
 
     private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = IdentifierUtil.create("container/slot/chisel");
@@ -45,6 +51,8 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
         this.outputRecipes = new ArrayList<>();
         this.selectedWords = new ArrayList<>();
+
+        this.player = playerInventory.player;
 
         this.input = new SimpleInventory(3) {
             @Override
@@ -107,6 +115,31 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         return words;
     }
 
+    public void updateWords(boolean add, String word){
+        if (add){
+            this.selectedWords.add(word);
+        } else {
+            this.selectedWords.remove(word);
+        }
+        if (!this.outputRecipes.isEmpty()){
+            for (RecipeEntry<InscriptionRecipe> recipe : this.outputRecipes){
+                System.out.println("------------------------");
+                System.out.println("recipes: " + recipe);
+                System.out.println("input words: " + recipe.value().inputWords);
+                System.out.println("selected words: " + this.selectedWords);
+                InscriptionEnchantInfoPacket newPacket;
+                if (recipe.value().inputWords.equals(this.selectedWords)){
+                    newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(recipe.value().enchant, recipe.value().level).getString(), recipe.value().level);
+                    System.out.println("enchant name: " + Enchantment.getName(recipe.value().enchant, recipe.value().level).getString());
+                } else {
+                    newPacket = new InscriptionEnchantInfoPacket("", 0);
+                    System.out.println("not sent");
+                }
+                ServerPlayNetworking.send((ServerPlayerEntity) player, newPacket);
+            }
+        }
+    }
+
     private void updateInput(Inventory inventory) {
         List<ItemStack> inputs = new ArrayList<>();
         for (int i = 0; i < inventory.size(); i++) {
@@ -116,27 +149,12 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             if (!this.world.isClient){
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
                 this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
-                System.out.println("update input: " + this.outputRecipes);
             }
         }
     }
 
     public boolean hasGem(){
          return !this.input.getStack(0).isEmpty();
-    }
-
-    public String getEnchantAndLevel(){
-        String result = "none found";
-        if (!this.outputRecipes.isEmpty()){
-            System.out.println("hi");
-            for (RecipeEntry<InscriptionRecipe> recipe : this.outputRecipes){
-                if (recipe.value().inputWords.equals(this.selectedWords)){
-                    result = recipe.value().enchant.value().toString() + " " + recipe.value().level;
-                    System.out.println("result: " + result);
-                }
-            }
-        }
-        return result;
     }
 
     public ScreenHandlerType<?> getType() {

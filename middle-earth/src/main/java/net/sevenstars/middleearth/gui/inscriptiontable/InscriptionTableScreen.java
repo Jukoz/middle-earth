@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.gui.inscriptiontable;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -19,6 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.network.packets.C2S.InscriptionWordUpdatePacket;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -46,6 +48,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
     int indexStartOffset;
     private boolean scrolling;
+
+    private String enchant;
+    private int level;
 
     private final CyclingSlotIcon catalystSlotIcon = new CyclingSlotIcon(0);
 
@@ -78,7 +83,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         if (!this.handler.hasGem()){
             this.selectedWords.clear();
             this.selectedButtons.clear();
+            this.enchant = null;
         }
+    }
+
+    public void updateInfo(String enchant, int level){
+        this.enchant = enchant;
+        this.level = level;
     }
 
     @Override
@@ -98,15 +109,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                     if (button.isSelected()){
                         if (!((WidgetInscriptionButtonPage) button).selected && this.selectedWords.size() <= 2){
                             this.selectedWords.add(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
-                            handler.selectedWords.add(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
+                            ClientPlayNetworking.send(new InscriptionWordUpdatePacket(true, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
                             this.selectedButtons.add(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset);
-                            System.out.println("current words: " + this.selectedWords);
                         } else {
                             this.selectedWords.remove(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
-                            handler.selectedWords.remove(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
+                            ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
                             Object buttonIndex = ((WidgetInscriptionButtonPage) button).index + this.indexStartOffset;
                             this.selectedButtons.remove(buttonIndex);
-                            System.out.println("current words: " + this.selectedWords);
                         }
                     }
                 }
@@ -128,11 +137,11 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 104, j + 7, 282, 134, 166, 16, 512, 256);
         }
 
-        if (Objects.equals(this.handler.getEnchantAndLevel(), "none found")){
+        if (enchant == null || enchant.isEmpty()){
             context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 170, j + 26, 282, 174, 36, 16, 512, 256);
         } else {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 26, 282, 174, 130, 16, 512, 256);
-            context.drawCenteredTextWithShadow(this.textRenderer, this.handler.getEnchantAndLevel(), i + 186, j + 12, Colors.WHITE);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 26, 282, 154, 130, 16, 512, 256);
+            context.drawCenteredTextWithShadow(this.textRenderer, this.enchant, i + 186, j + 29, Colors.WHITE);
         }
 
         if (this.handler.hasGem()){
@@ -153,7 +162,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         }
 
         StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(Text.literal(stringBuilder.toString()), 159, Style.EMPTY);
-        context.drawCenteredTextWithShadow(this.textRenderer, stringVisitable.getString(), i + 186, j + 12, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, stringVisitable.getString(), i + 186, j + 11, Colors.WHITE);
     }
 
     @Override
@@ -169,7 +178,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
         String word;
         int m = 0;
-        int n = j + 24;
+        int n = j + 25;
         while(words.hasNext()) {
             word = (String) words.next();
             if (this.canScroll(this.handler.getWords().size()) && (m < this.indexStartOffset || m >= 11 + this.indexStartOffset)) {

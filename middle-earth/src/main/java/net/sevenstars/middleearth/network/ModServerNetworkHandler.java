@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
 import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
@@ -21,6 +22,7 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playS2C().register(PacketOnboardingResult.ID, PacketOnboardingResult.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketLivingEntityData.ID, PacketLivingEntityData.CODEC);
+        PayloadTypeRegistry.playS2C().register(InscriptionEnchantInfoPacket.ID, InscriptionEnchantInfoPacket.CODEC);
 
         // REGISTRY : Client to server
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
@@ -37,7 +39,8 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playC2S().register(PacketSetSpawnData.ID, PacketSetSpawnData.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketOnboardingRequest.ID, PacketCodecs.codec(Codec.unit(new PacketOnboardingRequest())));
         PayloadTypeRegistry.playC2S().register(ForgeOutputPacket.ID, ForgeOutputPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(ForgeModSwitchPacket.ID, ForgeModSwitchPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(ForgeModeSwitchPacket.ID, ForgeModeSwitchPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(InscriptionWordUpdatePacket.ID, InscriptionWordUpdatePacket.CODEC);
         PayloadTypeRegistry.playC2S().register(AnvilIndexPacket.ID, AnvilIndexPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(ArtisanTableTabPacket.ID, ArtisanTableTabPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(Codec.unit(new HoodStateTogglePacket())));
@@ -57,7 +60,8 @@ public class ModServerNetworkHandler {
         ServerPlayNetworking.registerGlobalReceiver(PacketSetSpawnData.ID, wrapServerHandler(connection, PacketSetSpawnData::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketOnboardingRequest.ID, wrapServerHandler(connection, PacketOnboardingRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(ForgeOutputPacket.ID, wrapServerHandler(connection, ForgeOutputPacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(ForgeModSwitchPacket.ID, wrapServerHandler(connection, ForgeModSwitchPacket::process));
+        ServerPlayNetworking.registerGlobalReceiver(ForgeModeSwitchPacket.ID, wrapServerHandler(connection, ForgeModeSwitchPacket::process));
+        ServerPlayNetworking.registerGlobalReceiver(InscriptionWordUpdatePacket.ID, wrapServerHandler(connection, InscriptionWordUpdatePacket::process));
         ServerPlayNetworking.registerGlobalReceiver(AnvilIndexPacket.ID, wrapServerHandler(connection, AnvilIndexPacket::process));
         ServerPlayNetworking.registerGlobalReceiver(ArtisanTableTabPacket.ID, wrapServerHandler(connection, ArtisanTableTabPacket::process));
         ServerPlayNetworking.registerGlobalReceiver(HoodStateTogglePacket.ID, wrapServerHandler(connection, HoodStateTogglePacket::process));
