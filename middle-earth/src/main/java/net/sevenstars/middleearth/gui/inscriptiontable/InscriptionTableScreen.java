@@ -27,8 +27,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Environment(value= EnvType.CLIENT)
 public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreenHandler> {
@@ -80,10 +78,11 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         }
 
         //That too
-        if (!this.handler.hasGem()){
+        if (!this.handler.hasGem() || !this.handler.hasChisel()){
             this.selectedWords.clear();
             this.selectedButtons.clear();
             this.enchant = null;
+            this.level = 0;
         }
     }
 
@@ -174,13 +173,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         int j = (this.height - this.backgroundHeight) / 2;
         this.renderScrollbar(context, i, j);
 
-        Iterator words = this.handler.getWords().iterator();
+        Iterator<String> words = this.handler.getWords().iterator();
 
         String word;
         int m = 0;
         int n = j + 25;
         while(words.hasNext()) {
-            word = (String) words.next();
+            word = words.next();
             if (this.canScroll(this.handler.getWords().size()) && (m < this.indexStartOffset || m >= 11 + this.indexStartOffset)) {
                 ++m;
             } else {
@@ -263,7 +262,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         private static final ButtonTextures TEXTURES = new ButtonTextures(IdentifierUtil.create("word_button"), IdentifierUtil.create("word_button_selected"), IdentifierUtil.create("word_button_highlighted"));
         private static final Identifier BUTTON_TEXTURE = IdentifierUtil.create("word_button");
         private static final Identifier SELECTED_BUTTON_TEXTURE = IdentifierUtil.create("word_button_selected");
-        private static final Identifier HIGHLITHED_BUTTON_TEXTURE = IdentifierUtil.create("word_button_highlighted");
+        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = IdentifierUtil.create("word_button_highlighted");
 
         public WidgetInscriptionButtonPage(final int x, final int y, final int index, final ButtonWidget.PressAction onPress) {
             super(x, y, 86, 14, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);
@@ -285,7 +284,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             if (this.selected){
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SELECTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             } else if (this.isHovered()) {
-                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLITHED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLIGHTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             } else {
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             }

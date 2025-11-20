@@ -14,6 +14,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.collection.DefaultedList;
@@ -23,7 +24,7 @@ import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 
 import java.util.List;
 
-public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
+public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
     public final RegistryEntry<Enchantment> enchant;
     public final int level;
     public final List<String> inputWords;
@@ -43,16 +44,12 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
     }
 
     @Override
-    public boolean matches(MultipleStackRecipeInput input, World world) {
-
-        if (!this.inputChisel.test(input.getStackInSlot(1))) return false;
-
-        ItemEnchantmentsComponent enchants = input.getStackInSlot(0).getEnchantments();
-        return enchants.getLevel(this.enchant) == this.level - 1;
+    public boolean matches(SingleStackRecipeInput input, World world) {
+        return this.inputChisel.test(input.getStackInSlot(0));
     }
 
     @Override
-    public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack craft(SingleStackRecipeInput input, RegistryWrapper.WrapperLookup registries) {
         ItemStack result = input.getStackInSlot(0).copy();
         ItemEnchantmentsComponent enchants = result.getEnchantments();
         if(enchants.getLevel(this.enchant) == this.level - 1) {
@@ -62,12 +59,12 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
+    public RecipeSerializer<? extends Recipe<SingleStackRecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<? extends Recipe<MultipleStackRecipeInput>> getType() {
+    public RecipeType<? extends Recipe<SingleStackRecipeInput>> getType() {
         return Type.INSTANCE;
     }
 
@@ -86,6 +83,8 @@ public class InscriptionRecipe implements Recipe<MultipleStackRecipeInput> {
         public static final Type INSTANCE = new Type();
         public static final String ID = "inscription_table";
     }
+
+
 
     @Override
     public boolean isIgnoredInRecipeBook() {

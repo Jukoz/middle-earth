@@ -10,6 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -18,7 +20,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.recipe.ModRecipes;
@@ -116,6 +117,10 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     public void updateWords(boolean add, String word){
+        boolean foundEnchant = false;
+        RegistryEntry<Enchantment> resultEnchant = null;
+        int resultLevel = 0;
+
         if (add){
             this.selectedWords.add(word);
         } else {
@@ -127,34 +132,44 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 System.out.println("recipes: " + recipe);
                 System.out.println("input words: " + recipe.value().inputWords);
                 System.out.println("selected words: " + this.selectedWords);
-                InscriptionEnchantInfoPacket newPacket;
                 if (recipe.value().inputWords.equals(this.selectedWords)){
-                    newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(recipe.value().enchant, recipe.value().level).getString(), recipe.value().level);
-                    System.out.println("enchant name: " + Enchantment.getName(recipe.value().enchant, recipe.value().level).getString());
-                } else {
-                    newPacket = new InscriptionEnchantInfoPacket("", 0);
-                    System.out.println("not sent");
+                    foundEnchant = true;
+                    resultEnchant = recipe.value().enchant;
+                    resultLevel = recipe.value().level;
                 }
-                ServerPlayNetworking.send((ServerPlayerEntity) player, newPacket);
             }
+
+            InscriptionEnchantInfoPacket newPacket;
+            if (foundEnchant){
+                newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(resultEnchant, resultLevel).getString(), resultLevel);
+                System.out.println("enchant name: " + Enchantment.getName(resultEnchant, resultLevel).getString());
+            } else {
+                newPacket = new InscriptionEnchantInfoPacket("", 0);
+                System.out.println("none found");
+            }
+            ServerPlayNetworking.send((ServerPlayerEntity) player, newPacket);
         }
     }
 
     private void updateInput(Inventory inventory) {
-        List<ItemStack> inputs = new ArrayList<>();
-        for (int i = 0; i < inventory.size(); i++) {
-            inputs.add(inventory.getStack(i));
-        }
-        if (!inputs.isEmpty()) {
-            if (!this.world.isClient){
+        ItemStack input = inventory.getStack(1);
+        if (!this.world.isClient){
+            if (!input.isEmpty() || !inventory.getStack(0).isEmpty() || !inventory.getStack(2).isEmpty()) {
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-                this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
+                this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(input), this.world).toList();
+            } else {
+                this.outputRecipes = new ArrayList<>();
+                this.selectedWords = new ArrayList<>();
             }
         }
     }
 
     public boolean hasGem(){
          return !this.input.getStack(0).isEmpty();
+    }
+
+    public boolean hasChisel(){
+        return !this.input.getStack(1).isEmpty();
     }
 
     public ScreenHandlerType<?> getType() {

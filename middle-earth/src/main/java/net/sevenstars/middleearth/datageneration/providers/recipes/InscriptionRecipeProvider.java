@@ -180,7 +180,7 @@ public class InscriptionRecipeProvider extends RecipeProvider{
                 //FORTUNE
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.FORTUNE), 1,
-                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
                         .addWord("blessing")
                         .addWord("collector")
                         .criterion(hasItem(Items.LAPIS_LAZULI),
@@ -189,7 +189,7 @@ public class InscriptionRecipeProvider extends RecipeProvider{
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.FORTUNE), 2,
-                                Ingredient.ofItem(ToolItemsME.IRON_CHISEL), 1.0f)
+                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
                         .addWord("blessing")
                         .addWord("collector")
                         .criterion(hasItem(Items.LAPIS_LAZULI),
@@ -198,7 +198,7 @@ public class InscriptionRecipeProvider extends RecipeProvider{
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.FORTUNE), 3,
-                                Ingredient.ofItem(ToolItemsME.STEEL_CHISEL), 1.0f)
+                                Ingredient.ofItem(ToolItemsME.MITHRIL_CHISEL), 1.0f)
                         .addWord("blessing")
                         .addWord("collector")
                         .criterion(hasItem(Items.LAPIS_LAZULI),
