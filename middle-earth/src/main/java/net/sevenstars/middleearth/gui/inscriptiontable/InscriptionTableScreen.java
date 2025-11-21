@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.StringVisitable;
@@ -20,6 +21,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.network.packets.C2S.InscriptionConfirmationPacket;
 import net.sevenstars.middleearth.network.packets.C2S.InscriptionWordUpdatePacket;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -52,6 +54,8 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
     private final CyclingSlotIcon catalystSlotIcon = new CyclingSlotIcon(0);
 
+    private WidgetScrollButtonPage confirmationButton;
+
     private final WidgetInscriptionButtonPage[] words = new WidgetInscriptionButtonPage[11];
     private final List<String> selectedWords = new ArrayList<>();
     private final List<Integer> selectedButtons = new ArrayList<>();
@@ -78,7 +82,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         }
 
         //That too
-        if (!this.handler.hasGem() || !this.handler.hasChisel()){
+        if (!this.handler.hasAll()){
             this.selectedWords.clear();
             this.selectedButtons.clear();
             this.enchant = null;
@@ -103,7 +107,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         int k = j + 22;
 
         for(int l = 0; l < 11; ++l) {
-            this.words[l] = this.addDrawableChild(new WidgetInscriptionButtonPage(i + 5, k, l, (button) -> {
+            this.words[l] = this.addDrawableChild(new WidgetInscriptionButtonPage(i + 5, k, l, button -> {
                 if (button instanceof WidgetInscriptionButtonPage) {
                     if (button.isSelected()){
                         if (!((WidgetInscriptionButtonPage) button).selected && this.selectedWords.size() <= 2){
@@ -121,6 +125,15 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             }));
             k += 14;
         }
+
+        this.confirmationButton = new WidgetScrollButtonPage(i + 123, j + 26, button -> {
+            if (button instanceof WidgetScrollButtonPage){
+                ClientPlayNetworking.send(new InscriptionConfirmationPacket());
+            }
+        });
+        this.confirmationButton.active = false;
+
+        this.addDrawableChild(this.confirmationButton);
     }
 
     @Override
@@ -136,11 +149,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 104, j + 7, 282, 134, 166, 16, 512, 256);
         }
 
-        if (enchant == null || enchant.isEmpty()){
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 170, j + 26, 282, 174, 36, 16, 512, 256);
+        if (!(enchant == null || enchant.isEmpty())){
+            this.confirmationButton.active = true;
+            this.confirmationButton.setMessage(Text.of(this.enchant));
+            //context.drawCenteredTextWithShadow(this.textRenderer, this.enchant, i + 186, j + 29, Colors.WHITE);
         } else {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 26, 282, 154, 130, 16, 512, 256);
-            context.drawCenteredTextWithShadow(this.textRenderer, this.enchant, i + 186, j + 29, Colors.WHITE);
+            this.confirmationButton.active = false;
+            this.confirmationButton.setMessage(Text.of(""));
         }
 
         if (this.handler.hasGem()){
@@ -287,6 +302,31 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLIGHTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             } else {
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+            }
+            int i = ColorHelper.withAlpha(this.alpha, this.active ? -1 : -6250336);
+            this.drawMessage(context, minecraftClient.textRenderer, i);
+        }
+    }
+
+    static class WidgetScrollButtonPage extends ButtonWidget {
+
+        private static final Identifier BUTTON_TEXTURE = IdentifierUtil.create("scroll_button");
+        private static final Identifier BUTTON_EMPTY_TEXTURE = IdentifierUtil.create("scroll_button_empty");
+        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = IdentifierUtil.create("scroll_button_highlighted");
+
+        public WidgetScrollButtonPage(final int x, final int y, final ButtonWidget.PressAction onPress) {
+            super(x, y, 132, 18, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);
+        }
+
+        @Override
+        protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+            MinecraftClient minecraftClient = MinecraftClient.getInstance();
+            if (this.isHovered() && this.active){
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLIGHTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+            } else if (this.active) {
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+            } else {
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_EMPTY_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             }
             int i = ColorHelper.withAlpha(this.alpha, this.active ? -1 : -6250336);
             this.drawMessage(context, minecraftClient.textRenderer, i);

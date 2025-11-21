@@ -1,13 +1,16 @@
 package net.sevenstars.middleearth.gui.inscriptiontable;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
@@ -27,6 +30,8 @@ import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.middleearth.utils.ItemUtil;
+import net.sevenstars.middleearth.utils.item.ItemSearchUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +40,8 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
     private final World world;
     public List<RecipeEntry<InscriptionRecipe>> outputRecipes;
+    public RegistryEntry<Enchantment> enchant;
+    public int level;
     public final Inventory input;
 
     public PlayerEntity player;
@@ -90,13 +97,34 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(this.input, 2, 180, 53));
+        this.addSlot(new Slot(this.input, 2, 180, 53){
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return (stack.isEnchantable() || stack.hasEnchantments()) && !stack.isOf(Items.BOOK);
+            }
+        });
 
         this.context = context;
         this.world = playerInventory.player.getWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
+    }
+
+    public boolean hasGem(){
+        return !this.input.getStack(0).isEmpty();
+    }
+
+    public boolean hasChisel(){
+        return !this.input.getStack(1).isEmpty();
+    }
+
+    public boolean hasInput(){
+        return !this.input.getStack(2).isEmpty();
+    }
+
+    public boolean hasAll(){
+        return this.hasGem() && this.hasChisel() && this.hasInput();
     }
 
     public boolean canUse(PlayerEntity player) {
@@ -108,7 +136,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
         List<String> words = new ArrayList<>();
 
-        if (!catalyst.isEmpty()){
+        if (this.hasAll()){
             words.addAll(InscriptionWordBank.wordBank.get(catalyst.getItem()));
             words.addAll(InscriptionWordBank.wordBank.get(null));
         }
@@ -133,18 +161,24 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 System.out.println("input words: " + recipe.value().inputWords);
                 System.out.println("selected words: " + this.selectedWords);
                 if (recipe.value().inputWords.equals(this.selectedWords)){
-                    foundEnchant = true;
-                    resultEnchant = recipe.value().enchant;
-                    resultLevel = recipe.value().level;
+                    if (canEnchant(input.getStack(2), recipe.value().enchant, recipe.value().level)){
+                        foundEnchant = true;
+                        resultEnchant = recipe.value().enchant;
+                        resultLevel = recipe.value().level;
+                    }
                 }
             }
 
             InscriptionEnchantInfoPacket newPacket;
             if (foundEnchant){
                 newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(resultEnchant, resultLevel).getString(), resultLevel);
+                this.enchant = resultEnchant;
+                this.level = resultLevel;
                 System.out.println("enchant name: " + Enchantment.getName(resultEnchant, resultLevel).getString());
             } else {
                 newPacket = new InscriptionEnchantInfoPacket("", 0);
+                this.enchant = null;
+                this.level = 0;
                 System.out.println("none found");
             }
             ServerPlayNetworking.send((ServerPlayerEntity) player, newPacket);
@@ -164,12 +198,43 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         }
     }
 
-    public boolean hasGem(){
-         return !this.input.getStack(0).isEmpty();
+    private boolean canEnchant(ItemStack stack, RegistryEntry<Enchantment> enchant, int level){
+        if (EnchantmentHelper.isCompatible(stack.getEnchantments().getEnchantments(), enchant)){
+            return stack.getEnchantments().getLevel(enchant) == level - 1;
+        } else {
+            return false;
+        }
     }
 
-    public boolean hasChisel(){
-        return !this.input.getStack(1).isEmpty();
+    public void enchantItem(){
+        ItemStack stackCatalyst = this.input.getStack(0);
+        ItemStack stackChisel = this.input.getStack(1);
+        ItemStack stack = this.input.getStack(2);
+
+        if(stackCatalyst.get(DataComponentTypes.MAX_DAMAGE) == null){
+            stackCatalyst.set(DataComponentTypes.MAX_DAMAGE, 3);
+            stackCatalyst.setDamage(stackCatalyst.getDamage() + 1);
+        } else {
+            if (stackCatalyst.getDamage() == stackCatalyst.getMaxDamage()){
+                this.input.setStack(0, ItemStack.EMPTY);
+            } else {
+                stackCatalyst.setDamage(stackCatalyst.getDamage() + 1);
+            }
+        }
+
+        if (stackChisel.getDamage() == stackChisel.getMaxDamage()){
+            this.input.setStack(1, ItemStack.EMPTY);
+        } else {
+            stackChisel.setDamage(stackChisel.getDamage() + 1);
+        }
+
+        if (this.enchant != null && this.level != 0){
+            stack.addEnchantment(this.enchant, this.level);
+        }
+
+        this.enchant = null;
+        this.level = 0;
+        System.out.println("enchanted");
     }
 
     public ScreenHandlerType<?> getType() {
