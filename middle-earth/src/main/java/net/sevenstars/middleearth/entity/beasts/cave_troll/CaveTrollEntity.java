@@ -166,7 +166,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                         player.giveOrDropStack(this.getMainHandStack().copyAndEmpty());
                         return ActionResult.SUCCESS_SERVER;
                     }
-                    else if(canAddPassenger(player) && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
+                    else if(canAddPassenger(player) && isTame() && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
                         putPlayerOnBack(player);
                         return ActionResult.SUCCESS_SERVER;
                     }
@@ -197,6 +197,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected boolean isTamable() {
         return this.isSleeping();
+    }
+
+    @Override
+    public boolean isMountable() { // This method only determines whether the entity is mountable via the usual horse method
+        return false;
     }
 
     @Override
