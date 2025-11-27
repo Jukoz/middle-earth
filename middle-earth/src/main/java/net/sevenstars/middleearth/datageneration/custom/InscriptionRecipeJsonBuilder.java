@@ -29,19 +29,19 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     public int level;
     private List<String> inputWords;
     private Ingredient chiselInput;
-    private float expModifier;
+    private int levelCost;
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
     private String group;
 
     private final RegistryEntryLookup<Item> registryLookup;
 
-    public InscriptionRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, Ingredient chiselInput, float expModifier) {
+    public InscriptionRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, Ingredient chiselInput, int levelCost) {
         this.registryLookup = registryLookup;
         this.category = category;
         this.enchant = enchant;
         this.level = level;
         this.chiselInput = chiselInput;
-        this.expModifier = expModifier;
+        this.levelCost = levelCost;
 
         this.inputWords = new ArrayList<>();
     }
@@ -63,12 +63,12 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey)).rewards(AdvancementRewards.Builder.recipe(recipeKey)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        InscriptionRecipe inscriptionRecipeBuilder = new InscriptionRecipe(this.enchant, this.level, this.inputWords, this.chiselInput, this.expModifier);
+        InscriptionRecipe inscriptionRecipeBuilder = new InscriptionRecipe(this.enchant, this.level, this.inputWords, this.chiselInput, this.levelCost);
         exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(IdentifierUtil.create("recipes/" + this.category.getName() + "/" + "inscription_" + this.enchant.getKey().get().getRegistry().getPath() + "_" + this.level)));
     }
 
-    public static InscriptionRecipeJsonBuilder createInscriptionRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, Ingredient chisel, float expModifier) {
-        return new InscriptionRecipeJsonBuilder(registryLookup, category, enchant, level, chisel, expModifier);
+    public static InscriptionRecipeJsonBuilder createInscriptionRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, Ingredient chisel, int levelCost) {
+        return new InscriptionRecipeJsonBuilder(registryLookup, category, enchant, level, chisel, levelCost);
     }
 
     public InscriptionRecipeJsonBuilder addWord(String word) {
@@ -85,7 +85,7 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
 
     private void validate(RegistryKey<Recipe<?>> recipeKey) {
         if (this.criteria.isEmpty()) {
-            throw new IllegalStateException("No way of obtaining recipe " + String.valueOf(recipeKey));
+            throw new IllegalStateException("No way of obtaining recipe " + recipeKey);
         }
     }
 }

@@ -29,14 +29,14 @@ public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
     public final int level;
     public final List<String> inputWords;
     public final Ingredient inputChisel;
-    public final float expModifier;
+    public final int levelCost;
 
-    public InscriptionRecipe(RegistryEntry<Enchantment> enchant, int level, List<String> inputWords, Ingredient inputChisel, float expModifier) {
+    public InscriptionRecipe(RegistryEntry<Enchantment> enchant, int level, List<String> inputWords, Ingredient inputChisel, int levelCost) {
         this.enchant = enchant;
         this.level = level;
         this.inputWords = inputWords;
         this.inputChisel = inputChisel;
-        this.expModifier = expModifier;
+        this.levelCost = levelCost;
     }
 
     public ItemStack createIcon() {
@@ -103,7 +103,7 @@ public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
                     Codec.INT.fieldOf("level").forGetter(recipe -> recipe.level),
                     Codec.STRING.listOf().fieldOf("words").forGetter(recipe -> recipe.inputWords),
                     Ingredient.CODEC.fieldOf("chisel").forGetter(recipe -> recipe.inputChisel),
-                    Codec.FLOAT.fieldOf("exp_modifier").forGetter(recipe -> recipe.expModifier)
+                    Codec.INT.fieldOf("level_cost").forGetter(recipe -> recipe.levelCost)
             ).apply(instance, InscriptionRecipe::new));
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
         }
@@ -128,9 +128,9 @@ public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
 
             Ingredient chisel = Ingredient.PACKET_CODEC.decode(buf);
 
-            float expModifier = PacketCodecs.FLOAT.decode(buf);
+            int levelCost = PacketCodecs.INTEGER.decode(buf);
 
-            return new InscriptionRecipe(enchantment, level, defaultedList, chisel, expModifier);
+            return new InscriptionRecipe(enchantment, level, defaultedList, chisel, levelCost);
         }
 
         private static void write(RegistryByteBuf buf, InscriptionRecipe recipe) {
@@ -142,7 +142,7 @@ public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
             }
 
             Ingredient.PACKET_CODEC.encode(buf, recipe.inputChisel);
-            PacketCodecs.FLOAT.encode(buf, recipe.expModifier);
+            PacketCodecs.INTEGER.encode(buf, recipe.levelCost);
         }
     }
 }

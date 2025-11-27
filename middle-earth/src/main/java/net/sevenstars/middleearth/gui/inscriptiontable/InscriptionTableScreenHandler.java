@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.gui.inscriptiontable;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,23 +16,22 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.recipe.ModRecipes;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.ItemTagsME;
-import net.sevenstars.middleearth.utils.ItemUtil;
-import net.sevenstars.middleearth.utils.item.ItemSearchUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +47,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     public PlayerEntity player;
 
     public List<String> selectedWords;
+    private final Property levelCost;
 
     private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = IdentifierUtil.create("container/slot/chisel");
 
@@ -70,7 +71,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             }
         };
 
-        this.addSlot(new Slot(this.input, 0, 135, 53) {
+        this.addSlot(new Slot(this.input, 0, 135, 48) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return stack.isIn(ItemTagsME.INSCRIPTION_CATALYSTS);
@@ -81,7 +82,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 return 1;
             }
         });
-        this.addSlot(new Slot(this.input, 1, 225, 53) {
+        this.addSlot(new Slot(this.input, 1, 225, 48) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return stack.isIn(ItemTagsME.CHISELS);
@@ -97,7 +98,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(this.input, 2, 180, 53){
+        this.addSlot(new Slot(this.input, 2, 180, 48){
             @Override
             public boolean canInsert(ItemStack stack) {
                 return (stack.isEnchantable() || stack.hasEnchantments()) && !stack.isOf(Items.BOOK);
@@ -107,8 +108,19 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         this.context = context;
         this.world = playerInventory.player.getWorld();
 
+        this.levelCost = Property.create();
+        this.addProperty(this.levelCost);
+
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
+    }
+
+    public int getLevelCost() {
+        return this.levelCost.get();
+    }
+
+    public int getPlayerLevels(){
+        return this.player.experienceLevel;
     }
 
     public boolean hasGem(){
@@ -148,6 +160,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         boolean foundEnchant = false;
         RegistryEntry<Enchantment> resultEnchant = null;
         int resultLevel = 0;
+        int resultLevelCost = 0;
 
         if (add){
             this.selectedWords.add(word);
@@ -156,15 +169,12 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         }
         if (!this.outputRecipes.isEmpty()){
             for (RecipeEntry<InscriptionRecipe> recipe : this.outputRecipes){
-                System.out.println("------------------------");
-                System.out.println("recipes: " + recipe);
-                System.out.println("input words: " + recipe.value().inputWords);
-                System.out.println("selected words: " + this.selectedWords);
                 if (recipe.value().inputWords.equals(this.selectedWords)){
                     if (canEnchant(input.getStack(2), recipe.value().enchant, recipe.value().level)){
                         foundEnchant = true;
                         resultEnchant = recipe.value().enchant;
                         resultLevel = recipe.value().level;
+                        resultLevelCost = recipe.value().levelCost;
                     }
                 }
             }
@@ -174,12 +184,12 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(resultEnchant, resultLevel).getString(), resultLevel);
                 this.enchant = resultEnchant;
                 this.level = resultLevel;
-                System.out.println("enchant name: " + Enchantment.getName(resultEnchant, resultLevel).getString());
+                calculateCost(resultLevelCost, resultEnchant);
             } else {
                 newPacket = new InscriptionEnchantInfoPacket("", 0);
                 this.enchant = null;
                 this.level = 0;
-                System.out.println("none found");
+                this.levelCost.set(0);
             }
             ServerPlayNetworking.send((ServerPlayerEntity) player, newPacket);
         }
@@ -199,10 +209,14 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     private boolean canEnchant(ItemStack stack, RegistryEntry<Enchantment> enchant, int level){
-        if (EnchantmentHelper.isCompatible(stack.getEnchantments().getEnchantments(), enchant)){
+        if (EnchantmentHelper.isCompatible(stack.getEnchantments().getEnchantments(), enchant) && enchant.value().isAcceptableItem(stack)){
             return stack.getEnchantments().getLevel(enchant) == level - 1;
         } else {
-            return false;
+            if (stack.getEnchantments().getEnchantments().contains(enchant)){
+                return stack.getEnchantments().getLevel(enchant) == level - 1;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -212,7 +226,8 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         ItemStack stack = this.input.getStack(2);
 
         if(stackCatalyst.get(DataComponentTypes.MAX_DAMAGE) == null){
-            stackCatalyst.set(DataComponentTypes.MAX_DAMAGE, 3);
+            if (stackCatalyst.isOf(Items.LAPIS_LAZULI)) this.input.setStack(0, ItemStack.EMPTY);
+            stackCatalyst.set(DataComponentTypes.MAX_DAMAGE, 2);
             stackCatalyst.setDamage(stackCatalyst.getDamage() + 1);
         } else {
             if (stackCatalyst.getDamage() == stackCatalyst.getMaxDamage()){
@@ -222,19 +237,43 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             }
         }
 
-        if (stackChisel.getDamage() == stackChisel.getMaxDamage()){
+        if ((stackChisel.getDamage() == stackChisel.getMaxDamage()) && !stackChisel.isOf(ToolItemsME.MITHRIL_CHISEL)){
             this.input.setStack(1, ItemStack.EMPTY);
         } else {
             stackChisel.setDamage(stackChisel.getDamage() + 1);
         }
 
         if (this.enchant != null && this.level != 0){
+            if (!player.isInCreativeMode()) {
+                player.addExperienceLevels(-this.levelCost.get());
+            }
+            this.levelCost.set(0);
+
             stack.addEnchantment(this.enchant, this.level);
+            world.playSound(null, this.player.getBlockPos(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         }
 
         this.enchant = null;
         this.level = 0;
-        System.out.println("enchanted");
+        this.selectedWords = new ArrayList<>();
+        ServerPlayNetworking.send((ServerPlayerEntity) player, new InscriptionEnchantInfoPacket("", 0));
+    }
+
+    public void calculateCost(int levelCost, RegistryEntry<Enchantment> enchant) {
+        ItemStack itemStack = this.input.getStack(2);
+        int k = 0;
+
+        if (!itemStack.isEmpty()){
+            ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(EnchantmentHelper.getEnchantments(itemStack));
+
+            for (RegistryEntry<Enchantment> enchantEntry : builder.getEnchantments()) {
+                if (enchantEntry != enchant) {
+                    k++;
+                }
+            }
+
+            this.levelCost.set(levelCost + k);
+        }
     }
 
     public ScreenHandlerType<?> getType() {
@@ -251,7 +290,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             stack = originalStack.copy();
             if (slot == 6){
                 item.onCraft(originalStack, player.getWorld());
-                if (!this.insertItem(originalStack, 7, this.slots.size(), true)) {
+                if (!this.insertItem(originalStack, 4, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
                 invSlot.onQuickTransfer(originalStack, stack);
