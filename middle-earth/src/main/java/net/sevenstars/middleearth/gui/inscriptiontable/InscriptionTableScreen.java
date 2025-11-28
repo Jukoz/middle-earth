@@ -113,14 +113,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                             this.selectedWords.add(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
                             ClientPlayNetworking.send(new InscriptionWordUpdatePacket(true, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
                             this.selectedButtons.add(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset);
-                            this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
                         } else {
                             this.selectedWords.remove(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
                             ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
                             Object buttonIndex = ((WidgetInscriptionButtonPage) button).index + this.indexStartOffset;
                             this.selectedButtons.remove(buttonIndex);
-                            this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
                         }
+                        this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
                     }
                 }
             }));
@@ -161,12 +160,15 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             int k = this.handler.getLevelCost();
             int l = this.handler.getPlayerLevels();
 
-            int color = -40864;
+            int color;
             Text text = Text.of(k + " Levels");
 
             if (this.client.player.isInCreativeMode() || (l >= k && k != 0)){
                 color = -8323296;
                 this.confirmationButton.active = true;
+            } else{
+                color = -40864;
+                this.confirmationButton.active = false;
             }
 
             context.drawText(this.textRenderer, text, i + 188 - textRenderer.getWidth(text) / 2, j + 71, color, true);

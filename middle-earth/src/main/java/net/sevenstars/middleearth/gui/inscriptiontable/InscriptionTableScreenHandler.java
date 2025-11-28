@@ -74,7 +74,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(this.input, 0, 135, 48) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return stack.isIn(ItemTagsME.INSCRIPTION_CATALYSTS);
+                return stack.isIn(ItemTagsME.INSCRIPTION_CATALYSTS) && !this.hasStack();
             }
 
             @Override
@@ -201,11 +201,15 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     private void updateInput(Inventory inventory) {
-        ItemStack input = inventory.getStack(1);
+        ItemStack inputGem = inventory.getStack(0);
+        ItemStack inputChisel = inventory.getStack(1);
+        ItemStack inputStack = inventory.getStack(2);
+        System.out.println("update input");
         if (!this.world.isClient){
-            if (!input.isEmpty() || !inventory.getStack(0).isEmpty() || !inventory.getStack(2).isEmpty()) {
+            if (!inputGem.isEmpty() || !inputChisel.isEmpty() || !inputStack.isEmpty()) {
+                updateWords(false, "", true);
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-                this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(input), this.world).toList();
+                this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
             } else {
                 this.outputRecipes = new ArrayList<>();
                 this.selectedWords = new ArrayList<>();
