@@ -304,14 +304,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 front += 0.5;
             }
 
-            if(this.getWorld().isClient()) {
+            if(this.getWorld().isClient() && this.smashingAnimationState.isRunning()) {
                 float time = (this.smashingAnimationState.getTimeInMilliseconds(this.age) / 2000.0F) * 2 * MathHelper.PI; // Goes from 0 to 2Pi over the duration of the animation
                 if(this.smashingAnimationState.getTimeInMilliseconds(this.age) < 1000) {
                     front -= MathHelper.sin(time) * 0.3;
                 }
                 else {
-                    front -= MathHelper.sin(time) * 1.8f;
-                    y += MathHelper.sin(time) * 0.5f;
+                    front -= MathHelper.sin(time) * 2f;
+                    y += MathHelper.sin(time) * 0.3f;
                 }
 
             }
@@ -339,6 +339,18 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             }
 
             y = sprinting ? y + 0.15 : y; // Add offset if sprinting
+
+            if(this.getWorld().isClient()) {
+                float time = (this.smashingAnimationState.getTimeInMilliseconds(this.age) / 2000.0F) * 2 * MathHelper.PI; // Goes from 0 to 2Pi over the duration of the animation
+                if(this.smashingAnimationState.getTimeInMilliseconds(this.age) < 1000) {
+                    front -= MathHelper.sin(time) * 0.3;
+                }
+                else {
+                    front -= MathHelper.sin(time) * 1.8f;
+                    y += MathHelper.sin(time) * 0.3f;
+                }
+
+            }
 
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
@@ -448,7 +460,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             }
         }
-        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        //this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
     }
 
     public void smashAttack(float strength) { // Strength goes from 0 to 100
