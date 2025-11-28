@@ -201,19 +201,19 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     private void updateInput(Inventory inventory) {
-        ItemStack inputGem = inventory.getStack(0);
         ItemStack inputChisel = inventory.getStack(1);
-        ItemStack inputStack = inventory.getStack(2);
         System.out.println("update input");
-        if (!this.world.isClient){
-            if (!inputGem.isEmpty() || !inputChisel.isEmpty() || !inputStack.isEmpty()) {
+        if (this.hasAll()) {
+             if (!this.world.isClient){
                 updateWords(false, "", true);
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
                 this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
-            } else {
-                this.outputRecipes = new ArrayList<>();
-                this.selectedWords = new ArrayList<>();
             }
+        } else {
+            System.out.println("missing item");
+            updateWords(false, "", true);
+            this.outputRecipes = new ArrayList<>();
+            this.selectedWords = new ArrayList<>();
         }
     }
 

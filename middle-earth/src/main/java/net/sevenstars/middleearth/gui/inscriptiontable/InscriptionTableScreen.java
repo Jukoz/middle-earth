@@ -203,7 +203,6 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
         StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(Text.literal(stringBuilder.toString()), 159, Style.EMPTY);
         context.drawCenteredTextWithShadow(this.textRenderer, stringVisitable.getString(), i + 186, j + 11, Colors.WHITE);
-
     }
 
     @Override
