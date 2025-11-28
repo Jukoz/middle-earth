@@ -12,6 +12,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryFixedCodec;
 import net.minecraft.util.AssetInfo;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
 import java.util.List;
 
@@ -24,9 +25,9 @@ public record SpiderVariant(SpiderAssetInfo assetInfo, SpawnConditionSelectors s
 					.apply(instance, SpiderVariant::new)
 	);
 
-	public static final Codec<RegistryEntry<SpiderVariant>> ENTRY_CODEC = RegistryFixedCodec.of(SpiderVariants.KEY);
+	public static final Codec<RegistryEntry<SpiderVariant>> ENTRY_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.SPIDER_VARIANT);
 
-	public static final PacketCodec<RegistryByteBuf, RegistryEntry<SpiderVariant>> PACKET_CODEC = PacketCodecs.registryEntry(SpiderVariants.KEY);
+	public static final PacketCodec<RegistryByteBuf, RegistryEntry<SpiderVariant>> PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.SPIDER_VARIANT);
 
 	private SpiderVariant(SpiderAssetInfo assetInfo) {
 		this(assetInfo, SpawnConditionSelectors.EMPTY);

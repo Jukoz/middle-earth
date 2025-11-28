@@ -4,7 +4,11 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
-import net.sevenstars.middleearth.datageneration.providers.*;
+import net.sevenstars.middleearth.datageneration.providers.BlockLootTableProvider;
+import net.sevenstars.middleearth.datageneration.providers.DataWorldGenerator;
+import net.sevenstars.middleearth.datageneration.providers.EnchantmentProvider;
+import net.sevenstars.middleearth.datageneration.providers.LanguageProvider;
+import net.sevenstars.middleearth.datageneration.providers.dynamic.*;
 import net.sevenstars.middleearth.datageneration.providers.models.BlockModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableArmorRecipeProvider;
@@ -12,9 +16,9 @@ import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableH
 import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
-import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.world.biomes.caves.ModCaveBiomes;
 import net.sevenstars.middleearth.world.biomes.surface.ModBiomes;
@@ -45,7 +49,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ItemTagProvider::new);
-        pack.addProvider(NpcTextureProvider::new);
+        pack.addProvider(CharacterAtlasTexturesProvider::new);
         pack.addProvider(BlockModelProvider::new);
         pack.addProvider(ItemModelProvider::new);
         pack.addProvider(RecipeProvider::new);
@@ -95,14 +99,10 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(CharacterPatternsME.Keys.EYE_KEY, CharacterPatternsME::bootstrapEyes);
 
         // Mod Dynamic
-        registryBuilder.addRegistry(SpiderVariants.KEY, SpiderVariants::bootstrap);
+        DynamicRegistriesME.prepareBoostrap(registryBuilder);
 
-        registryBuilder.addRegistry(RacesME.KEY, RacesME::bootstrap);
         registryBuilder.addRegistry(NpcTextureDatasME.KEY, NpcTextureDatasME::bootstrap);
-        registryBuilder.addRegistry(NpcME.KEY, NpcME::bootstrap);
-        registryBuilder.addRegistry(FactionsME.KEY, FactionsME::bootstrap);
         registryBuilder.addRegistry(StructureManagerDatasME.KEY, StructureManagerDatasME::bootstrap);
-        registryBuilder.addRegistry(BiomeEventsME.KEY, BiomeEventsME::bootstrap);
 
         // Vanilla registries
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, SmithingTrimMaterialsME::bootstrap);

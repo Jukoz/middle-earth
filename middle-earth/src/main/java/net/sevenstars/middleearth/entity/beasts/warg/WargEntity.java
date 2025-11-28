@@ -35,7 +35,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -58,7 +58,7 @@ public class WargEntity extends AbstractBeastEntity {
     private static final float MAX_HEALTH_BONUS = WargEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
-    private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.WARG.getDimensions().scaled(0.5f);
+    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.WARG.getDimensions().scaled(0.5f);
 
     public WargEntity(EntityType<? extends WargEntity> entityType, World world) {
         super(entityType, world);
@@ -191,7 +191,7 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         WargEntity wargEntity = (WargEntity) entity;
-        WargEntity wargEntity2 = ModEntities.WARG.create(world, SpawnReason.BREEDING);
+        WargEntity wargEntity2 = EntitiesME.WARG.create(world, SpawnReason.BREEDING);
         if (wargEntity2 != null) {
             int i = this.random.nextInt(9);
             WargVariant wargVariant = i < 4 ? this.getVariant() : (i < 8 ? wargEntity.getVariant() : Util.getRandom(WargVariant.values(), this.random));

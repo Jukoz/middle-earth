@@ -26,7 +26,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -66,8 +66,8 @@ public class Faction {
     });
 
     public static final PacketCodec<ByteBuf, Faction> PACKET_CODEC = PacketCodecs.codec(CODEC);
-    public static final Codec<RegistryEntry<Faction>> ENTRY_CODEC = RegistryElementCodec.of(FactionsME.KEY, CODEC);
-    public static final PacketCodec<RegistryByteBuf, RegistryEntry<Faction>> ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(FactionsME.KEY, PACKET_CODEC);
+    public static final Codec<RegistryEntry<Faction>> ENTRY_CODEC = RegistryElementCodec.of(DynamicRegistriesME.FACTION, CODEC);
+    public static final PacketCodec<RegistryByteBuf, RegistryEntry<Faction>> ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.FACTION, PACKET_CODEC);
 
     private final Identifier id;
     private final Integer factionSelectionOrderIndex;
@@ -147,12 +147,12 @@ public class Faction {
         verifyData();
     }
 
-    public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId,
+    public Faction(RegistryKey<Faction> faction, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId,
                    List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
                    List<String> joinCommand, List<String> leaveCommand,
                    List<RegistryKey<Faction>> diplomaticAllies, List<RegistryKey<Faction>> diplomaticNeutrals, List<RegistryKey<Faction>> diplomaticEnemies)
     {
-        this.id = IdentifierUtil.getIdentifierFromString(name);
+        this.id = faction.getValue();
 
         if(FactionSelectionOrderIndexPerDisposition == null)
             FactionSelectionOrderIndexPerDisposition = new HashMap<>();
@@ -273,7 +273,7 @@ public class Faction {
         if(factionType != FactionType.SUBFACTION || parentFactionId == null)
             return null;
         try{
-            Faction test = lookup.getOrThrow(FactionsME.KEY).getOrThrow(RegistryKey.of(FactionsME.KEY, this.parentFactionId)).value();
+            Faction test = lookup.getOrThrow(DynamicRegistriesME.FACTION).getOrThrow(RegistryKey.of(DynamicRegistriesME.FACTION, this.parentFactionId)).value();
             return test;
         } catch (Exception e){
             return null;
@@ -444,7 +444,7 @@ public class Faction {
     public Faction getSubfactionById(World world, Identifier id) {
         if(subFactions == null)
             return null;
-        return world.getRegistryManager().getOrThrow(FactionsME.KEY).get(id);
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.FACTION).get(id);
     }
 
     public List<Race> getRaces(World world) {

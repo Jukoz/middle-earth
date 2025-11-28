@@ -50,7 +50,7 @@ import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.RaceType;
@@ -406,7 +406,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         var id = getNpcDataId();
         if(id == null)
             return null;
-        return getWorld().getRegistryManager().getOrThrow(NpcME.KEY).get(id);
+        return getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC).get(id);
     }
 
     @Override

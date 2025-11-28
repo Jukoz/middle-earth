@@ -13,7 +13,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
@@ -120,13 +120,13 @@ public class Race {
 
     public LivingEntity getModel(World world) {
         NpcEntity entity = switch (raceType) {
-            case RaceType.HUMAN -> new NpcEntity(ModEntities.NPC, world);
-            case RaceType.DWARF -> new NpcEntity(ModEntities.NPC, world);
-            case RaceType.HOBBIT -> new NpcEntity(ModEntities.NPC, world);
-            case RaceType.ELF -> new NpcEntity(ModEntities.NPC, world);
-            case RaceType.ORC -> new NpcEntity(ModEntities.NPC, world);
-            case RaceType.URUK -> new NpcEntity(ModEntities.NPC, world);
-            default -> new NpcEntity(ModEntities.NPC, world);
+            case RaceType.HUMAN -> new NpcEntity(EntitiesME.NPC, world);
+            case RaceType.DWARF -> new NpcEntity(EntitiesME.NPC, world);
+            case RaceType.HOBBIT -> new NpcEntity(EntitiesME.NPC, world);
+            case RaceType.ELF -> new NpcEntity(EntitiesME.NPC, world);
+            case RaceType.ORC -> new NpcEntity(EntitiesME.NPC, world);
+            case RaceType.URUK -> new NpcEntity(EntitiesME.NPC, world);
+            default -> new NpcEntity(EntitiesME.NPC, world);
         };
         entity.setAiDisabled(true);
         return entity;

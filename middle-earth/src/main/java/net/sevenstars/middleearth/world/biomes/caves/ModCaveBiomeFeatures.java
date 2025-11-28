@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.biomes.caves;
 
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.world.features.underground.CavesPlacedFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -40,15 +40,15 @@ public class ModCaveBiomeFeatures {
         spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesWT.SNAIL, 1, 3));
     }
     public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
-        //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
+        //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntitiesME.WILD_GOBLIN, 5, 1, 2));
     }
     public static void addSpiders(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AMBIENT, 2, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 1, 2))
-                .spawnCost(ModEntities.SHELOBITE_SCUTTLER, 0.7, 0.3);
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 2, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 1, 2))
+                .spawnCost(EntitiesME.SHELOBITE_SCUTTLER, 0.7, 0.3);
     }
 
     public static void addSnowTrolls(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(ModEntities.SNOW_TROLL, 1, 2));
+        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(EntitiesME.SNOW_TROLL, 1, 2));
     }
 
 }

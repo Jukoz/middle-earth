@@ -1,6 +1,11 @@
 package net.sevenstars.middleearth.world.biomes.surface;
 
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.*;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
@@ -8,11 +13,6 @@ import net.sevenstars.middleearth.world.features.boulder.BoulderPlacedFeatures;
 import net.sevenstars.middleearth.world.features.misc.ModMiscPlacedFeatures;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationPlacedFeatures;
 import net.sevenstars.middleearth.world.spawners.ModSpawnSettingsBuilder;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -4308,6 +4308,10 @@ public class ModBiomes {
 
         BiomeColorsDTO biomeColorsDTO = MapBiomeData.getBiome(biomeRegistryKey).getBiomeColors();
 
+        /*
+        spawnSettings.spawnCost(EntitiesME.NPC, 0.15, 0.7);
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 4, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 4));
+         */
         Biome biome = (new Biome.Builder())
                 .precipitation(precipitation)
                 .temperature(temperature)

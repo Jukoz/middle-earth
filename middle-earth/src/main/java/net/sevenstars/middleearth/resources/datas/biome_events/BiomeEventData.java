@@ -12,7 +12,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class BiomeEventData {
             return null;
 
         BiomeNpcSpawningData spawningData = weightedData.get(Random.create().nextInt(weightedData.size()));
-        Registry<NpcData> npcDataRegistry = manager.getOrThrow(NpcME.KEY);
+        Registry<NpcData> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC);
         NpcData foundNpcData = npcDataRegistry.get(spawningData.getNpcDataIdentifier());
 
         EntityType entityType = null;

@@ -24,7 +24,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -99,7 +99,7 @@ public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         super.onEntityCollision(state, world, pos, entity, handler);
-        if (entity.getType() != ModEntities.SHELOBITE_SCUTTLER && state.get(BLOCK_HALF) == BlockHalf.BOTTOM){
+        if (entity.getType() != EntitiesME.SHELOBITE_SCUTTLER && state.get(BLOCK_HALF) == BlockHalf.BOTTOM){
             breakEgg(world, pos, state);
         }
     }

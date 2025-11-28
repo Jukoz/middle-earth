@@ -24,7 +24,7 @@ import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
@@ -177,7 +177,7 @@ public class ItemGroupsME {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
                 };
-                displayContext.lookup().getOptional(NpcME.KEY)
+                displayContext.lookup().getOptional(DynamicRegistriesME.NPC)
                         .ifPresent(registryWrapper -> addNpcEggs(
                                 entries,
                                 displayContext.lookup(),

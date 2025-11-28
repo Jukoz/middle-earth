@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.entity.spider.larva;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.spawn.SpawnContext;
 import net.minecraft.registry.RegistryKeys;
@@ -13,7 +12,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -36,11 +34,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.goals.FollowDifferentMobGoal;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
-import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
-import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -87,7 +84,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         if (entityData instanceof ShelobiteScuttlerEntity.SpiderData spiderData) {
             this.setVariant(spiderData.variant);
         } else {
-            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), SpiderVariants.KEY);
+            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), DynamicRegistriesME.SPIDER_VARIANT);
             if (optional.isPresent()) {
                 this.setVariant(optional.get());
                 entityData = new ShelobiteScuttlerEntity.SpiderData(optional.get());
@@ -107,7 +104,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
+        RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariantRegistry.DEFAULT);
         builder.add(VARIANT, spiderVariantRegistryEntry);
         builder.add(ATTACK_FLAG, false);
         builder.add(SPIDER_FLAGS, (byte)0);
@@ -227,7 +224,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, SpiderVariants.KEY).ifPresent(this::setVariant);
+        Variants.readVariantFromNbt(view, DynamicRegistriesME.SPIDER_VARIANT).ifPresent(this::setVariant);
     }
 
     static {

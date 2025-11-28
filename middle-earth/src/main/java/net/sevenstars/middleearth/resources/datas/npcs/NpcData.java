@@ -61,9 +61,9 @@ public class NpcData {
         }
     }
 
-    public NpcData(Identifier id, Race race, RegistryKey<Faction> faction, RegistryKey<NpcTextureData> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategory, AttributePool> npcAttributePools){
+    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<NpcTextureData> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategory, AttributePool> npcAttributePools){
         this.id = id;
-        this.raceId = race.getId();
+        this.raceId = race.getValue();
         this.factionId = faction.getValue();
         this.npcTextureKey = npcTextureKey.getValue();
         this.gearDatas = gearDatas;

@@ -26,10 +26,14 @@ public class TranslationEntries {
 
     public static List<String> bannerPatternEntries = new ArrayList<>() {
     };
-
+    public static List<String> raceEntries = new ArrayList<>() {
+    };
     public static List<String> factionEntries = new ArrayList<>() {
     };
-
+    public static List<String> npcDataEntries = new ArrayList<>() {
+    };
+    public static List<String> structureManagerEntries = new ArrayList<>() {
+    };
     public static List<String> spawnEntries = new ArrayList<>() {
     };
 
@@ -403,13 +407,6 @@ public class TranslationEntries {
             put("spawn."+ MiddleEarth.MOD_ID +".coordinates_base_values.custom", "%s, %s, %s");
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
-
-            put("race."+ MiddleEarth.MOD_ID +".dwarf", "Dwarf");
-            put("race."+ MiddleEarth.MOD_ID +".elf", "Elf");
-            put("race."+ MiddleEarth.MOD_ID +".human", "Human");
-            put("race."+ MiddleEarth.MOD_ID +".hobbit", "Hobbit");
-            put("race."+ MiddleEarth.MOD_ID +".orc", "Orc");
-            put("race."+ MiddleEarth.MOD_ID +".uruk", "Uruk");
 
             put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
 

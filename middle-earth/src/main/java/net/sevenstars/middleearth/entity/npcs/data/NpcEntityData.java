@@ -8,8 +8,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
@@ -52,10 +51,10 @@ public class NpcEntityData extends PassiveEntity.PassiveData {
     }
 
     public Faction getFactionValue(World world) {
-        return world.getRegistryManager().getOrThrow(FactionsME.KEY).get(factionId);
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.FACTION).get(factionId);
     }
     public NpcData getNpcDataValue(World world) {
-        return world.getRegistryManager().getOrThrow(NpcME.KEY).get(npcDataId);
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC).get(npcDataId);
     }
     public Race getRaceValue(World world){
         NpcData npcData = NpcDataLookup.getNpcData(world, this.npcDataId);

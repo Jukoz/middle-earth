@@ -90,6 +90,18 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "faction", faction);
         });
 
+        TranslationEntries.npcDataEntries.forEach(npcData -> {
+            createTranslation(translationBuilder, "npc_data", npcData);
+        });
+
+        TranslationEntries.structureManagerEntries.forEach(structureManager -> {
+            createTranslation(translationBuilder, "structure_manager", structureManager);
+        });
+
+        TranslationEntries.raceEntries.forEach(race -> {
+            createTranslation(translationBuilder, "race", race);
+        });
+
         TranslationEntries.spawnEntries.forEach(faction -> {
             createTranslation(translationBuilder, "spawn", faction);
         });

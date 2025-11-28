@@ -32,7 +32,7 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -173,7 +173,7 @@ public class ItemModelProvider extends FabricModelProvider {
 
         List<SelectItemModel.SwitchCase> models = new ArrayList<>(List.of());
 
-        NpcME.allNpcDatas.forEach(npcDataRegistryKey -> {
+        NpcRegistry.allNpcDatas.forEach(npcDataRegistryKey -> {
             String id = npcDataRegistryKey.getValue().getPath().replaceAll("npc_data.middle-earth.", "").replaceAll("\\.", "_") + "_spawn_egg";
             models.add(ItemModels.switchCase(id,
                     ItemModels.basic(Models.GENERATED.upload(Identifier.of(MiddleEarth.MOD_ID, "item/" + id),

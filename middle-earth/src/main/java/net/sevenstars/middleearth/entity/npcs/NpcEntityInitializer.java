@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
@@ -28,7 +28,7 @@ public class NpcEntityInitializer {
     public static void initializeNpcEntity(ServerWorld serverWorld, NpcEntity npcEntity){
         Identifier currentNpcDataId = npcEntity.getNpcDataId();
         DynamicRegistryManager registryManager = serverWorld.getRegistryManager();
-        var optionalEntry = registryManager.getOptional(NpcME.KEY).get().getEntry(currentNpcDataId);
+        var optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId);
         if (optionalEntry.isEmpty()) {
             BlockPos blockPos = npcEntity.getBlockPos();
             RegistryEntry<Biome> biome = serverWorld.getBiome(blockPos);
@@ -65,7 +65,7 @@ public class NpcEntityInitializer {
 
         // Get npc data
         try{
-            var npcData = registryManager.getOptional(NpcME.KEY).get().getEntry(currentNpcDataId).get().value();
+            var npcData = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId).get().value();
             npcEntity.setNpcData(currentNpcDataId);
             npcEntity.setFactionId(npcData.getFaction());
             npcEntity.setNpcCategory(npcData.getNpcTextureData(serverWorld).getRandomCategory());
@@ -95,7 +95,7 @@ public class NpcEntityInitializer {
         if(currentNpcDataId == null)
             return true;
         DynamicRegistryManager registryManager = serverWorld.getRegistryManager();
-        var optionalEntry = registryManager.getOptional(NpcME.KEY).get().getEntry(currentNpcDataId);
+        var optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId);
         if(!npcEntity.hasTextureData())
             return true;
         return optionalEntry.isEmpty();

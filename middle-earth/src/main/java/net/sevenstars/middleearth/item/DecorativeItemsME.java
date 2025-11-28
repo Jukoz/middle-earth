@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.utils.BlockAuthor;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
@@ -167,7 +167,7 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.TORCH_OF_ORTHANC, settings), new Item.Settings());
 
     public static final Item TROLL_STATUE = registerItem("troll_statue",
-            (settings) -> new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
+            (settings) -> new CustomSpawnEggItem(EntitiesME.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
 
     public static final Item ARKENSTONE = registerItem("arkenstone",
             (settings) -> new VerticallyAttachableBlockItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, Direction.DOWN, settings), new Item.Settings().rarity(Rarity.EPIC).fireproof()

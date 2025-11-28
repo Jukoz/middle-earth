@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.gui.onboarding.onboarding_faction;
 
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 
@@ -14,7 +14,7 @@ public class OnboardingFactionScreenService {
     private List<Faction> factions = new ArrayList<>();
     public OnboardingFactionScreenService(World world){
         DynamicRegistryManager registryManager = world.getRegistryManager();
-        this.factions = registryManager.getOrThrow(FactionsME.KEY).stream().toList();
+        this.factions = registryManager.getOrThrow(DynamicRegistriesME.FACTION).stream().toList();
     }
 
     public List<Faction> getFactionsByDisposition(Disposition disposition){
