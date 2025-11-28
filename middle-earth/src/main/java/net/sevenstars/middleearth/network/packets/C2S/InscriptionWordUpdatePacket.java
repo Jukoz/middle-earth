@@ -42,7 +42,7 @@ public class InscriptionWordUpdatePacket extends ClientToServerPacket<Inscriptio
         try{
             context.player().getServer().execute(() -> {
                 InscriptionTableScreenHandler screenHandler = (InscriptionTableScreenHandler) context.player().currentScreenHandler;
-                screenHandler.updateWords(this.add, this.word);
+                screenHandler.updateWords(this.add, this.word, false);
             });
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("InscriptionWordUpdate error: ", e);

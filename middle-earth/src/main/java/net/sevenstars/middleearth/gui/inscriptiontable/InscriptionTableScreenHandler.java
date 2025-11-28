@@ -156,18 +156,22 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         return words;
     }
 
-    public void updateWords(boolean add, String word){
+    public void updateWords(boolean add, String word, boolean reset){
         boolean foundEnchant = false;
         RegistryEntry<Enchantment> resultEnchant = null;
         int resultLevel = 0;
         int resultLevelCost = 0;
 
-        if (add){
-            this.selectedWords.add(word);
-        } else {
-            this.selectedWords.remove(word);
+        if (!reset){
+            if (add){
+                this.selectedWords.add(word);
+            } else {
+                this.selectedWords.remove(word);
+            }
         }
         if (!this.outputRecipes.isEmpty()){
+            System.out.println("current recipes: " + this.outputRecipes);
+            System.out.println("current words: " + this.selectedWords);
             for (RecipeEntry<InscriptionRecipe> recipe : this.outputRecipes){
                 if (recipe.value().inputWords.equals(this.selectedWords)){
                     if (canEnchant(input.getStack(2), recipe.value().enchant, recipe.value().level)){
@@ -175,6 +179,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                         resultEnchant = recipe.value().enchant;
                         resultLevel = recipe.value().level;
                         resultLevelCost = recipe.value().levelCost;
+                        System.out.println("enchant: " + resultEnchant.toString() + " " + resultLevel + " " + resultLevelCost);
                     }
                 }
             }
@@ -253,10 +258,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             world.playSound(null, this.player.getBlockPos(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         }
 
-        this.enchant = null;
-        this.level = 0;
-        this.selectedWords = new ArrayList<>();
-        ServerPlayNetworking.send((ServerPlayerEntity) player, new InscriptionEnchantInfoPacket("", 0));
+        updateWords(false, "", true);
     }
 
     public void calculateCost(int levelCost, RegistryEntry<Enchantment> enchant) {
@@ -271,7 +273,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                     k++;
                 }
             }
-
             this.levelCost.set(levelCost + k);
         }
     }

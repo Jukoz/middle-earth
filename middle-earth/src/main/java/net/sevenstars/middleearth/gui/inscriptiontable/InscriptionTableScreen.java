@@ -49,6 +49,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
     private String enchant;
     private int level;
+    private Text enchantText;
 
     private final CyclingSlotIcon catalystSlotIcon = new CyclingSlotIcon(0);
 
@@ -112,11 +113,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                             this.selectedWords.add(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
                             ClientPlayNetworking.send(new InscriptionWordUpdatePacket(true, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
                             this.selectedButtons.add(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset);
+                            this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
                         } else {
                             this.selectedWords.remove(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
                             ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
                             Object buttonIndex = ((WidgetInscriptionButtonPage) button).index + this.indexStartOffset;
                             this.selectedButtons.remove(buttonIndex);
+                            this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
                         }
                     }
                 }
@@ -127,6 +130,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         this.confirmationButton = new WidgetArrowButtonPage(i + 204, j + 50, button -> {
             if (button instanceof WidgetArrowButtonPage){
                 ClientPlayNetworking.send(new InscriptionConfirmationPacket());
+                this.enchantText = Text.of(this.enchant);
             }
         });
         this.confirmationButton.active = false;
@@ -160,13 +164,10 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             int color = -40864;
             Text text = Text.of(k + " Levels");
 
-            if (l >= k){
+            if (this.client.player.isInCreativeMode() || (l >= k && k != 0)){
                 color = -8323296;
                 this.confirmationButton.active = true;
             }
-
-            System.out.println("cost levels: " + k);
-            System.out.println("player levels: " + l);
 
             context.drawText(this.textRenderer, text, i + 188 - textRenderer.getWidth(text) / 2, j + 71, color, true);
         } else {
@@ -176,7 +177,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                 context.drawText(this.textRenderer, "???", i + 188 - textRenderer.getWidth("???") / 2, j + 29, ColorHelper.fullAlpha(0xad6b3f), false);
             } else {
                 context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 25, 282, 154, 130, 16, 512, 256);
-                StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true)), 159, Style.EMPTY);
+                StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(this.enchantText, 159, Style.EMPTY);
                 context.drawWrappedText(this.textRenderer, stringVisitable, i + 188 - textRenderer.getWidth(stringVisitable.getString()) / 2, j + 29, 159, ColorHelper.fullAlpha(0xad6b3f),false);
             }
         }
