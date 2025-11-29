@@ -45,10 +45,12 @@ public class DyeablePiecesME {
         dyeablePieces.put(EquipmentItemsME.ELVEN_ARMING_SKIRT, true);
         dyeablePieces.put(EquipmentItemsME.ELVEN_OPEN_ARMING_SKIRT, true);
 
-        dyeablePieces.put(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, true);
         dyeablePieces.put(EquipmentItemsME.EGLADIL_SENTINEL_HELMET, true);
         dyeablePieces.put(EquipmentItemsME.EGLADIL_SENTINEL_CHESTPLATE, true);
         dyeablePieces.put(EquipmentItemsME.EGLADIL_SENTINEL_LEGGINGS, true);
+
+        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, true);
 
         dyeablePieces.put(EquipmentItemsME.DWARVEN_MINER_HELMET, true);
         dyeablePieces.put(EquipmentItemsME.DWARVEN_GAMBESON, true);

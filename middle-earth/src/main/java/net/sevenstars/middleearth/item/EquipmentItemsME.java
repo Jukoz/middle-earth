@@ -989,9 +989,10 @@ public class EquipmentItemsME {
     //endregion
 
     //region WOODLAND_REALM
-    public static final Item WOODLAND_REALM_ROYAL_GUARD_HELMET = registerCustomModelArmorPiece("woodland_realm_royal_guard_helmet",
+    public static final Item WOODLAND_REALM_ROYAL_GUARD_HELMET = registerDyeableCustomModelArmorPiece("woodland_realm_royal_guard_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue()))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x532e29)));
     public static final Item WOODLAND_REALM_ROYAL_GUARD_HAUBERK = registerArmorPiece("woodland_realm_royal_guard_hauberk",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_ROYAL_GUARD_CAPE))
