@@ -22,12 +22,16 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.hob
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.HammerhandHelmModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHairHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.MandibleHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.OrcSpikeHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.goblintown.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.hobgoblins.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.isengard.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorBNHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSnoutHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.MordorSpikyHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.moria.*;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.mordor.dolguldur.*;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentModelsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
@@ -45,6 +49,7 @@ public class ArmorModelsME {
         KETTLE_HAT(EquipmentItemsME.KETTLE_HAT, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_COIF(EquipmentItemsME.KETTLE_HAT_WITH_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
         KETTLE_HAT_WITH_CLOSED_COIF(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF, new KettleHelmetModel(KettleHelmetModel.getTexturedModelData().createModel())),
+        COOKING_POT_HELMET(EquipmentItemsME.COOKING_POT_HELMET, new CookingPotHelmetModel(CookingPotHelmetModel.getTexturedModelData().createModel())),
         WINGED_HELMET(EquipmentItemsME.WINGED_HELMET, new WingedHelmetModel(WingedHelmetModel.getTexturedModelData().createModel())),
         SALLET(EquipmentItemsME.SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
 
@@ -115,6 +120,17 @@ public class ArmorModelsME {
 
         MORDOR_BLACK_NUMENOREAN_PLATE_HELMET(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET, new MordorBNHelmetModel(MordorBNHelmetModel.getTexturedModelData().createModel())),
 
+        DOL_GULDUR_EXECUTIONER_HOOD(EquipmentItemsME.DOL_GULDUR_EXECUTIONER_HOOD, new FlapHelmetModel(FlapHelmetModel.getTexturedModelData().createModel())),
+        DOL_GULDUR_RAIDER_HELMET(EquipmentItemsME.DOL_GULDUR_RAIDER_HELMET, new DGRaiderHelmetModel(DGRaiderHelmetModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_RAIDER_HELMET(EquipmentItemsME.WEATHERED_DOL_GULDUR_RAIDER_HELMET, new DGRaiderHelmetModel(DGRaiderHelmetModel.getTexturedModelData().createModel())),
+        DOL_GULDUR_HUNTER_HELMET(EquipmentItemsME.DOL_GULDUR_HUNTER_HELMET, new DGHunterHelmetModel(DGHunterHelmetModel.getTexturedModelData().createModel())),
+        BLACK_REAVER_HELMET(EquipmentItemsME.BLACK_REAVER_HELMET, new BlackReaverHelmetModel(BlackReaverHelmetModel.getTexturedModelData().createModel())),
+        BLACK_CASTELLAN_HELMET(EquipmentItemsME.BLACK_CASTELLAN_HELMET, new BlackCastellanHelmetModel(BlackCastellanHelmetModel.getTexturedModelData().createModel())),
+        GULDUR_MARAUDER_HELMET(EquipmentItemsME.DOL_GULDUR_MARAUDER_HELMET, new DGMarauderHelmetModel(DGMarauderHelmetModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_MARAUDER_HELMET(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_HELMET, new DGMarauderHelmetModel(DGMarauderHelmetModel.getTexturedModelData().createModel())),
+        DOL_GULDUR_STALKER_HELMET(EquipmentItemsME.DOL_GULDUR_STALKER_HELMET, new DGStalkerHelmetModel(DGStalkerHelmetModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_STALKER_HELMET(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_HELMET, new DGStalkerHelmetModel(DGStalkerHelmetModel.getTexturedModelData().createModel())),
+
         URUK_HAI_LEATHER_SCOUT_CAP(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP, new IsenUrukScoutHelmetModel(IsenUrukScoutHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_LIGHT_HELMET, new IsenUrukCrestHelmetModel(IsenUrukCrestHelmetModel.getTexturedModelData().createModel())),
         URUK_HAI_PAINTED_LIGHT_HELMET(EquipmentItemsME.URUK_HAI_PAINTED_LIGHT_HELMET, new IsenUrukCrestHelmetModel(IsenUrukCrestHelmetModel.getTexturedModelData().createModel())),
@@ -145,6 +161,27 @@ public class ArmorModelsME {
         GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET, new HobgoblinLargeCrestHelmetModel(HobgoblinLargeCrestHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET, new HobgoblinCrestHelmetModel(HobgoblinCrestHelmetModel.getTexturedModelData().createModel())),
         GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_SMALL_HORN_HELMET, new HobgoblinSmallHornHelmetModel(HobgoblinSmallHornHelmetModel.getTexturedModelData().createModel())),
+
+        MORIA_GOBLIN_SNAGA_NASAL_HELMET(EquipmentItemsME.MORIA_GOBLIN_SNAGA_NASAL_HELMET, new MoriaNasalHelmetModel(MoriaNasalHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SNAGA_HELMET(EquipmentItemsME.MORIA_GOBLIN_SNAGA_HELMET, new MoriaSnagaHelmetModel(MoriaSnagaHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CHARGER_HELMET(EquipmentItemsME.MORIA_GOBLIN_CHARGER_HELMET, new MoriaChargerHelmetModel(MoriaChargerHelmetModel.getTexturedModelData().createModel())),
+        MORIA_RUINED_DWARVEN_HELMET(EquipmentItemsME.MORIA_RUINED_DWARVEN_HELMET, new MoriaNasalHelmetModel(MoriaNasalHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_BITER_HELMET(EquipmentItemsME.MORIA_GOBLIN_BITER_HELMET, new MoriaScreecherHelmetModel(MoriaScreecherHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_MANDIBLE_HELMET(EquipmentItemsME.MORIA_GOBLIN_MANDIBLE_HELMET, new MandibleHelmetModel(MandibleHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CAPTAIN_HELMET(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET, new MoriaCaptainHelmetModel(MoriaCaptainHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SCREECHER_HELMET(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_HELMET, new MoriaScreecherHelmetModel(MoriaScreecherHelmetModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CHIEF_HELMET(EquipmentItemsME.MORIA_GOBLIN_CHIEF_HELMET, new MoriaChiefHelmetModel(MoriaChiefHelmetModel.getTexturedModelData().createModel())),
+
+        GOBLIN_KING_CROWN(EquipmentItemsME.GOBLIN_KING_CROWN, new GoblinKingCrownModel(GoblinKingCrownModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CAP(EquipmentItemsME.GOBLIN_TOWN_CAP, new FlapHelmetModel(FlapHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_BONE_MANDIBLE_CAP(EquipmentItemsME.GOBLIN_TOWN_BONE_MANDIBLE_CAP, new GoblinTownBoneMandibleModel(GoblinTownBoneMandibleModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CROSSBONES_HELMET(EquipmentItemsME.GOBLIN_TOWN_CROSSBONES_HELMET, new GoblinTownCrossbonesHelmetModel(GoblinTownCrossbonesHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_NASAL_HELMET(EquipmentItemsME.GOBLIN_TOWN_NASAL_HELMET, new MoriaSnagaHelmetModel(MoriaSnagaHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_SKULL_CAP(EquipmentItemsME.GOBLIN_TOWN_SKULL_CAP, new GoblinTownSkullHelmetModel(GoblinTownSkullHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_TUNNELER_HELMET(EquipmentItemsME.GOBLIN_TOWN_TUNNELER_HELMET, new GoblinTownTunnelerHelmetModel(GoblinTownTunnelerHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_SKULKER_GUARD_HELMET(EquipmentItemsME.GOBLIN_TOWN_SKULKER_GUARD_HELMET, new SkulkerGuardHelmetModel(SkulkerGuardHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_HEAVY_NASAL_HELMET(EquipmentItemsME.GOBLIN_TOWN_HEAVY_NASAL_HELMET, new GoblinTownNasalHelmetModel(GoblinTownNasalHelmetModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_MANDIBLE_HELMET(EquipmentItemsME.GOBLIN_TOWN_MANDIBLE_HELMET, new MandibleHelmetModel(MandibleHelmetModel.getTexturedModelData().createModel())),
 
         HELMET_OF_HELM_HAMMERHAND(EquipmentItemsME.HELMET_OF_HELM_HAMMERHAND, new HammerhandHelmModel(HammerhandHelmModel.getTexturedModelData().createModel())),
         ;
@@ -181,9 +218,31 @@ public class ArmorModelsME {
 
         MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE, new MordorBNChestplateModel(MordorBNChestplateModel.getTexturedModelData().createModel())),
 
+        DOL_GULDUR_MARAUDER_CHESTPLATE(EquipmentItemsME.DOL_GULDUR_MARAUDER_CHESTPLATE, new DGMarauderChestplateModel(DGMarauderChestplateModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_MARAUDER_CHESTPLATE(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_CHESTPLATE, new DGMarauderChestplateModel(DGMarauderChestplateModel.getTexturedModelData().createModel())),
+
+        DOL_GULDUR_STALKER_CHESTPLATE(EquipmentItemsME.DOL_GULDUR_STALKER_CHESTPLATE, new DGStalkerChestplateModel(DGStalkerChestplateModel.getTexturedModelData().createModel())),
+        WEATHERED_DOL_GULDUR_STALKER_CHESTPLATE(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_CHESTPLATE, new DGStalkerChestplateModel(DGStalkerChestplateModel.getTexturedModelData().createModel())),
+
+        BLACK_CASTELLAN_CHESTPLATE(EquipmentItemsME.BLACK_CASTELLAN_CHESTPLATE, new BlackCastellanChestplateModel(BlackCastellanChestplateModel.getTexturedModelData().createModel())),
+
         URUK_HAI_PLATE_CHESTPLATE(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
 
         GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_CHESTPLATE, new HobgoblinPlateChestplateModel(HobgoblinPlateChestplateModel.getTexturedModelData().createModel())),
+
+        MORIA_GOBLIN_SNAGA_CUIRASS(EquipmentItemsME.MORIA_GOBLIN_SNAGA_CUIRASS, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_SNAGA_BELLY_PLATE(EquipmentItemsME.MORIA_GOBLIN_SNAGA_BELLY_PLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_HAUBERK(EquipmentItemsME.MORIA_GOBLIN_HAUBERK, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_RUINED_DWARVEN_HAUBERK(EquipmentItemsME.MORIA_RUINED_DWARVEN_HAUBERK, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_REINFORCED_COAT(EquipmentItemsME.MORIA_GOBLIN_REINFORCED_COAT, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+
+        MORIA_GOBLIN_SCREECHER_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_CHESTPLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        MORIA_GOBLIN_CHIEF_CHESTPLATE(EquipmentItemsME.MORIA_GOBLIN_CHIEF_CHESTPLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+
+        GOBLIN_TOWN_BONE_SCALE_COAT(EquipmentItemsME.GOBLIN_TOWN_BONE_SCALE_COAT, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CARAPACE_HARNESS(EquipmentItemsME.GOBLIN_TOWN_CARAPACE_HARNESS, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_CRUDE_SCALE_CHESTPLATE(EquipmentItemsME.GOBLIN_TOWN_CRUDE_SCALE_CHESTPLATE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
+        GOBLIN_TOWN_REINFORCED_CARAPACE(EquipmentItemsME.GOBLIN_TOWN_REINFORCED_CARAPACE, new GoblinChestplateModel(GoblinChestplateModel.getTexturedModelData().createModel())),
         ;
 
         private final Item item;
@@ -265,6 +324,9 @@ public class ArmorModelsME {
 
         MORDOR_BLACK_NUMENOREAN_CAPE(BackAttachmentsME.MORDOR_BLACK_NUMENOREAN_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         NAZGUL_ROBES(BackAttachmentsME.NAZGUL_ROBES, BackAttachmentModelsME.NAZGUL_ROBES_MODEL),
+        BLACK_CASTELLAN_CAPE(BackAttachmentsME.BLACK_CASTELLAN_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        BLACK_REAVER_SHOULDER_CAPE(BackAttachmentsME.BLACK_REAVER_SHOULDER_CAPE, BackAttachmentModelsME.WIDE_MODELS),
+        DOL_GULDUR_STALKER_CAPE(BackAttachmentsME.DOL_GULDUR_STALKER_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
 
         ORTHANC_GUARD_CAPE(BackAttachmentsME.ORTHANC_GUARD_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
 

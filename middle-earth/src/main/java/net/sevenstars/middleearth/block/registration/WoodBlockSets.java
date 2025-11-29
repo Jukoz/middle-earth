@@ -359,6 +359,11 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
 
+    public static WoodBlockSetBuilder DEAD_SET = registerWoodSet(new WoodBlockSetBuilder("dead",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS));
+
     public static WoodBlockSetBuilder MUSHROOM_SET = registerWoodSet(new WoodBlockSetBuilder("mushroom",
             2f, 0f, MapColor.WHITE_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
             .addToSet(WoodBlockTypes.MUSHROOM_STEM_BLOCKS)

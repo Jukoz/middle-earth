@@ -23,7 +23,7 @@ public class EreborHelmetModel extends HelmetAddonModel {
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         head.addChild("addon_eye", ModelPartBuilder.create()
-                .uv(46, 63).cuboid(-4.5F, -3.55F, -4.475F, 9.0F, 1.0F, 0.0F, new Dilation(0.0F)),
+                .uv(46, 63).cuboid(-4.5F, -3.55F, -4.5F, 9.0F, 1.0F, 0.0F, new Dilation(0.0F)),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));

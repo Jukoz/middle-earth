@@ -75,6 +75,7 @@ public class MineableAxe {
             add(ModNatureBlocks.LILAC_FLOWER_GROWTH);
             add(ModNatureBlocks.PINK_FLOWER_GROWTH);
             add(ModNatureBlocks.RED_FLOWER_GROWTH);
+            add(ModNatureBlocks.THORNY_GROWTH);
             add(ModNatureBlocks.WHITE_FLOWER_GROWTH);
             add(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
         }

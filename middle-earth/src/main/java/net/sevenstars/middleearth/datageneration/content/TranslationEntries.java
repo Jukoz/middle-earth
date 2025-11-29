@@ -255,6 +255,7 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".mordor_banner_pattern.desc", "The Great Eye of Sauron");
             put("item."+ MiddleEarth.MOD_ID +".misty_mountains_orcs_banner_pattern.desc", "The symbols of the Orcs of the Misty Mountains");
             put("item."+ MiddleEarth.MOD_ID +".isengard_banner_pattern.desc", "The White Hand of Saruman");
+            put("item."+ MiddleEarth.MOD_ID +".goblin_skull_banner_pattern.desc", "The Skull of a Goblin");
             put("item."+ MiddleEarth.MOD_ID +".anvil_banner_pattern.desc", "Anvil Icons");
             put("item."+ MiddleEarth.MOD_ID +".bell_banner_pattern.desc", "Bell Icons");
             put("item."+ MiddleEarth.MOD_ID +".bow_banner_pattern.desc", "Bow Icons");
@@ -262,6 +263,7 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".dragon_banner_pattern.desc", "A great Dragon");
             put("item."+ MiddleEarth.MOD_ID +".pipeweed_banner_pattern.desc", "A delicacy from the shire");
             put("item."+ MiddleEarth.MOD_ID +".snail_banner_pattern.desc", "The Slimy Overlord");
+            put("item."+ MiddleEarth.MOD_ID +".spider_banner_pattern.desc", "Spider of Mirkwood");
 
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
 

@@ -312,6 +312,10 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.OLD_BLOCKS)
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
+    public static StoneBlockSetBuilder BURZUM_GABBRO_SET = registerStoneSet(new StoneBlockSetBuilder("burzum_gabbro",
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS_NO_RESTRICTION));
+
     public static StoneBlockSetBuilder ASHENSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("ashenstone",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DEEPSLATE, false, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
