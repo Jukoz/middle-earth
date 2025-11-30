@@ -1035,6 +1035,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item WARRIOR_OF_THE_NIGHTSHADE_CHESTPLATE = registerArmorPiece("warrior_of_nightshade_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARRIOR_OF_NIGHTSHADE_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item WARRIOR_OF_THE_NIGHTSHADE_LEGGINGS = registerArmorPiece("warrior_of_nightshade_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
@@ -1085,6 +1086,10 @@ public class EquipmentItemsME {
     public static final Item WARDEN_OF_THE_GLADE_CAPE = registerBackAttachment("warden_of_the_glade_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARDEN_OF_THE_GLADE_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WARRIOR_OF_NIGHTSHADE_CAPE = registerBackAttachment("warrior_of_nightshade_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARRIOR_OF_NIGHTSHADE_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item SILVAN_LORD_CAPE = registerBackAttachment("silvan_lord_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
