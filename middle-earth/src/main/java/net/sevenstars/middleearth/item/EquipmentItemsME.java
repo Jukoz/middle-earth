@@ -1006,6 +1006,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item WOODLAND_REALM_SOLDIER_CHESTPLATE = registerArmorPiece("woodland_realm_soldier_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item WOODLAND_REALM_SOLDIER_LEGGINGS = registerArmorPiece("woodland_realm_soldier_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
@@ -1059,6 +1060,10 @@ public class EquipmentItemsME {
     public static final Item AUTUMN_LEAF_CAPE = registerBackAttachment("autumn_leaf_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.AUTUMN_LEAF_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_SOLDIER_CAPE = registerBackAttachment("woodland_realm_soldier_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item WOODLAND_REALM_ROYAL_GUARD_CAPE = registerBackAttachment("woodland_realm_royal_guard_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
