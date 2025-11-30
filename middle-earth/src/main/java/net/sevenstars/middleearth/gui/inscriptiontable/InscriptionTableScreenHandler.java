@@ -160,6 +160,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         boolean foundEnchant = false;
         RegistryEntry<Enchantment> resultEnchant = null;
         int resultLevel = 0;
+        int resultMaxLevel = 0;
         int resultLevelCost = 0;
 
         if (!reset){
@@ -178,6 +179,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                         foundEnchant = true;
                         resultEnchant = recipe.value().enchant;
                         resultLevel = recipe.value().level;
+                        resultMaxLevel = recipe.value().enchant.value().getMaxLevel();
                         resultLevelCost = recipe.value().levelCost;
                         System.out.println("enchant: " + resultEnchant.toString() + " " + resultLevel + " " + resultLevelCost);
                     }
@@ -186,12 +188,12 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
             InscriptionEnchantInfoPacket newPacket;
             if (foundEnchant){
-                newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(resultEnchant, resultLevel).getString(), resultLevel);
+                newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(resultEnchant, resultLevel).getString(), resultLevel, resultMaxLevel);
                 this.enchant = resultEnchant;
                 this.level = resultLevel;
                 calculateCost(resultLevelCost, resultEnchant);
             } else {
-                newPacket = new InscriptionEnchantInfoPacket("", 0);
+                newPacket = new InscriptionEnchantInfoPacket("", 0, 0);
                 this.enchant = null;
                 this.level = 0;
                 this.levelCost.set(0);

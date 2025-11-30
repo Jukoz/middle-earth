@@ -21,15 +21,18 @@ public class InscriptionEnchantInfoPacket extends ServerToClientPacket<Inscripti
     public static final PacketCodec<RegistryByteBuf, InscriptionEnchantInfoPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.enchant,
             PacketCodecs.INTEGER, p -> p.level,
+            PacketCodecs.INTEGER, p -> p.maxLevel,
             InscriptionEnchantInfoPacket::new
     );
 
     private final String enchant;
     private final int level;
+    private final int maxLevel;
 
-    public InscriptionEnchantInfoPacket(String enchant, int level) {
+    public InscriptionEnchantInfoPacket(String enchant, int level, int maxLevel) {
         this.enchant = enchant;
         this.level = level;
+        this.maxLevel = maxLevel;
     }
 
     @Override
@@ -47,6 +50,6 @@ public class InscriptionEnchantInfoPacket extends ServerToClientPacket<Inscripti
     public void process(ClientPacketContext context) {
         MinecraftClient client = MinecraftClient.getInstance();
         InscriptionTableScreen screen = (InscriptionTableScreen)client.currentScreen;
-        if (screen != null) screen.updateInfo(this.enchant, this.level);
+        if (screen != null) screen.updateInfo(this.enchant, this.level, this.maxLevel);
     }
 }

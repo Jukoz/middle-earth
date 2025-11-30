@@ -16,7 +16,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
@@ -59,7 +59,7 @@ public abstract class LivingEntityMixin extends Entity {
             ItemStack chestplate = this.getEquippedStack(EquipmentSlot.CHEST);
             if(!chestplate.isEmpty()) {
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = entity.getWorld().getRegistryManager()
-                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.STEALTHY_TRAIL).orElseThrow();
+                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.STEALTHY_TRAIL).orElseThrow();
                 boolean hasEnchant = chestplate.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
                 int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, chestplate);
                 if(hasEnchant) {
@@ -134,7 +134,7 @@ public abstract class LivingEntityMixin extends Entity {
     private static int getAilmentProtectionLevel(ItemStack itemStack, World world) {
         int level = 0;
         RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT)
-                .getOptional(EnchantmentEffectsME.AILMENT_PROTECTION).orElseThrow();
+                .getOptional(EnchantmentsME.AILMENT_PROTECTION).orElseThrow();
         boolean hasEnchant = itemStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
         if(hasEnchant) {
             level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, itemStack);

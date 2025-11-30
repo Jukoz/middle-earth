@@ -1,19 +1,15 @@
 package net.sevenstars.middleearth.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -23,8 +19,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ModEntityAttributes;
-import net.sevenstars.middleearth.utils.IEntityDataSaver;
-import net.sevenstars.middleearth.utils.PlayerMovementData;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -58,7 +52,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         float newDamage = damage;
         ItemStack mainStack = getStackInHand(getActiveHand());
         RegistryEntry<Enchantment> enchantmentRegistryEntry = getWorld().getRegistryManager()
-                .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.FIRST_STRIKE).orElseThrow();
+                .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.FIRST_STRIKE).orElseThrow();
         boolean hasEnchant = mainStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
         if(hasEnchant) {
             if(target instanceof LivingEntity livingEntity) {

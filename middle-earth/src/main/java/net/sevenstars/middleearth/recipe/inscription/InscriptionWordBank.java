@@ -37,6 +37,7 @@ public class InscriptionWordBank {
         wordBank.put(Items.EMERALD, "broad");
         wordBank.put(Items.EMERALD, "careful");
         wordBank.put(Items.EMERALD, "long");
+        wordBank.put(Items.EMERALD, "gifted");
 
         wordBank.put(ResourceItemsME.ADAMANT, "swift");
     }

@@ -49,6 +49,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
     private String enchant;
     private int level;
+    private int maxLevel;
     private Text enchantText;
 
     private final CyclingSlotIcon catalystSlotIcon = new CyclingSlotIcon(0);
@@ -86,12 +87,14 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             this.selectedButtons.clear();
             this.enchant = null;
             this.level = 0;
+            this.maxLevel = 0;
         }
     }
 
-    public void updateInfo(String enchant, int level){
+    public void updateInfo(String enchant, int level, int maxLevel){
         this.enchant = enchant;
         this.level = level;
+        this.maxLevel = maxLevel;
     }
 
     @Override
@@ -145,16 +148,31 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 512, 256);
 
         if (this.selectedWords.isEmpty()){
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 104, j + 7, 282, 116, 166, 16, 512, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 104, j + 7, 347, 1, 164, 16, 512, 256);
         } else {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 104, j + 7, 282, 134, 166, 16, 512, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 104, j + 7, 347, 19, 164, 16, 512, 256);
         }
 
         if (!(enchant == null || enchant.isEmpty())){
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 141, j + 81, 282, 59, 19 * this.level, 11, 512, 256);
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 141 + (19 * (this.level - 1)), j + 81, 282 + (19 * (this.level  - 1)), 11, 19, 4, 512, 256);
+            int m = 19;
+            if (this.maxLevel == 1) m = 21;
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+                    i + 188 - m * this.maxLevel /2, j + 81,
+                    282, 33 * (this.maxLevel - 1) + 1,
+                    m * this.maxLevel, 12,
+                    512, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+                    i + 188 - m * this.maxLevel /2, j + 81,
+                    282, 33 * (this.maxLevel - 1) + 21,
+                    m * this.level, 12,
+                    512, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+                    i + 188 + (m * (this.level - 1)) - m * this.maxLevel /2, j + 81,
+                    282 + (m * (this.level  - 1)), 33 * (this.maxLevel - 1) + 14,
+                    m, 6,
+                    512, 256);
 
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 25, 282, 154, 130, 16, 512, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 25, 347, 39, 130, 16, 512, 256);
             context.drawText(this.textRenderer, enchant, i + 188 - textRenderer.getWidth(enchant) / 2, j + 29, ColorHelper.fullAlpha(0xad6b3f), false);
 
             int k = this.handler.getLevelCost();
@@ -171,21 +189,23 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                 this.confirmationButton.active = false;
             }
 
+            context.fill(i + 156, j + 71, i + 221, j + 79, 1325400064);
+
             context.drawText(this.textRenderer, text, i + 188 - textRenderer.getWidth(text) / 2, j + 71, color, true);
         } else {
             this.confirmationButton.active = false;
             if(this.selectedWords.isEmpty()){
-                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 170, j + 25, 282, 174, 36, 16, 512, 256);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 170, j + 25, 347, 59, 36, 16, 512, 256);
                 context.drawText(this.textRenderer, "???", i + 188 - textRenderer.getWidth("???") / 2, j + 29, ColorHelper.fullAlpha(0xad6b3f), false);
             } else {
-                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 25, 282, 154, 130, 16, 512, 256);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 25, 347, 39, 130, 16, 512, 256);
                 StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(this.enchantText, 159, Style.EMPTY);
                 context.drawWrappedText(this.textRenderer, stringVisitable, i + 188 - textRenderer.getWidth(stringVisitable.getString()) / 2, j + 29, 159, ColorHelper.fullAlpha(0xad6b3f),false);
             }
         }
 
         if (this.handler.hasGem()){
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 130, j + 43, 310, 88, 26, 26, 512, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 130, j + 43, 282, 166, 26, 26, 512, 256);
         }
 
         this.catalystSlotIcon.render(this.handler, context, delta, this.x, this.y);
