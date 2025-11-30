@@ -1030,6 +1030,19 @@ public class EquipmentItemsME {
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
+    public static final Item WARRIOR_OF_THE_NIGHTSHADE_HELMET = registerCustomModelArmorPiece("warrior_of_nightshade_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WARRIOR_OF_THE_NIGHTSHADE_CHESTPLATE = registerArmorPiece("warrior_of_nightshade_chestplate",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WARRIOR_OF_THE_NIGHTSHADE_LEGGINGS = registerArmorPiece("warrior_of_nightshade_leggings",
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WARRIOR_OF_THE_NIGHTSHADE_BOOTS = registerArmorPiece("warrior_of_nightshade_boots",
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+
     public static final Item ERYN_GALEN_WATCHWARDEN_HELMET = registerCustomModelArmorPiece("eryn_galen_watchwarden_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
