@@ -1097,6 +1097,10 @@ public class EquipmentItemsME {
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_ROYAL_GUARD_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item LORD_OF_THE_GREENWOOD_CAPE = registerBackAttachment("lord_of_the_greenwood_cape",
+            (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LORD_OF_THE_GREENWOOD_CAPE))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item WARDEN_OF_THE_GLADE_CAPE = registerBackAttachment("warden_of_the_glade_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARDEN_OF_THE_GLADE_CAPE))
