@@ -314,6 +314,8 @@ public class ArmorModelsME {
         WOODLAND_REALM_ROYAL_GUARD_CAPE(BackAttachmentsME.WOODLAND_REALM_ROYAL_GUARD_CAPE, BackAttachmentModelsME.WIDE_PAULDRON_MODELS),
         WOODLAND_REALM_SOLDIER_CAPE(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
 
+        MANTLE_OF_YAVANNA(BackAttachmentsME.MANTLE_OF_YAVANNA, BackAttachmentModelsME.MEDIUM_MODELS),
+
         ORCISH_CAPE(BackAttachmentsME.ORCISH_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         ORCISH_LONG_CAPE(BackAttachmentsME.ORCISH_LONG_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         ORCISH_SHOULDERS(BackAttachmentsME.ORCISH_SHOULDERS, BackAttachmentModelsME.SURCOAT_MODELS),

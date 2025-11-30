@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.item.items.armor;
 
-import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;

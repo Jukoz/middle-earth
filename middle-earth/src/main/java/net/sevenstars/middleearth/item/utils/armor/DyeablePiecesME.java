@@ -145,6 +145,7 @@ public class DyeablePiecesME {
         dyeableBackAttachments.put(BackAttachmentsME.GRAY_FUR_CLOAK, true);
         dyeableBackAttachments.put(BackAttachmentsME.TAN_FUR_CLOAK, true);
         dyeableBackAttachments.put(BackAttachmentsME.WHITE_FUR_CLOAK, true);
+        dyeableBackAttachments.put(BackAttachmentsME.MANTLE_OF_YAVANNA, true);
 
         dyeableBackAttachments.put(BackAttachmentsME.ORCISH_SHOULDERS, false);
 

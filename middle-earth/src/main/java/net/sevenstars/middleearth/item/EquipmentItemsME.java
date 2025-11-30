@@ -854,6 +854,11 @@ public class EquipmentItemsME {
 
     public static final Item BRONZED_ELVEN_MAIL_SKIRT = registerArmorPiece("bronzed_elven_mail_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BRONZE_T2, settings), new Item.Settings());
+
+    public static final Item MANTLE_OF_YAVANNA = registerDyeableBackAttachment("mantle_of_yavanna",
+            (settings) -> new MantleOfYavannaItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MANTLE_OF_YAVANNA))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x375729)));
     //endregion
 
     //region LOTHLORIEN
