@@ -171,8 +171,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             }
         }
         if (!this.outputRecipes.isEmpty()){
-            System.out.println("current recipes: " + this.outputRecipes);
-            System.out.println("current words: " + this.selectedWords);
             for (RecipeEntry<InscriptionRecipe> recipe : this.outputRecipes){
                 if (recipe.value().inputWords.equals(this.selectedWords)){
                     if (canEnchant(input.getStack(2), recipe.value().enchant, recipe.value().level)){
@@ -181,7 +179,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                         resultLevel = recipe.value().level;
                         resultMaxLevel = recipe.value().enchant.value().getMaxLevel();
                         resultLevelCost = recipe.value().levelCost;
-                        System.out.println("enchant: " + resultEnchant.toString() + " " + resultLevel + " " + resultLevelCost);
                     }
                 }
             }
@@ -204,7 +201,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
     private void updateInput(Inventory inventory) {
         ItemStack inputChisel = inventory.getStack(1);
-        System.out.println("update input");
         if (this.hasAll()) {
              if (!this.world.isClient){
                 updateWords(false, "", true);
@@ -212,7 +208,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
             }
         } else {
-            System.out.println("missing item");
             updateWords(false, "", true);
             this.outputRecipes = new ArrayList<>();
             this.selectedWords = new ArrayList<>();
