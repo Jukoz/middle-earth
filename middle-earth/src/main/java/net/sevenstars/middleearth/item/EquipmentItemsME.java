@@ -1020,6 +1020,10 @@ public class EquipmentItemsME {
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
+    public static final Item WOODLAND_REALM_CAVALRY_HELMET = registerDyeableCustomModelArmorPiece("woodland_realm_cavalry_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue()))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x515638)));
     public static final Item WOODLAND_REALM_GILDED_SCALE_HAUBERK = registerArmorPiece("woodland_realm_gilded_scale_hauberk",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));

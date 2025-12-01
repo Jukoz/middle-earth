@@ -32,9 +32,13 @@ public class WoodlandRealmRoyalGuardHelmetModel extends HelmetAddonModel {
                 .cuboid(-11.0F, -2.0F + Y_OFFSET, -4.0F, 21.0F, 0.0F, 11.0F, new Dilation(0.0F)),
                 ModelTransform.of(0.5F, -6.25F, -0.388F, 0.6021F, 0.0F, 0.0F));
 
+        //ModelPartData lowerExtension = addon.addChild("lower_extension", ModelPartBuilder.create().uv(0, 11)
+        //        .cuboid(-4.0F, -7.8F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.5F)).uv(32, 11)
+        //        .cuboid(-4.0F, -7.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.9F)), ModelTransform.origin(0.0F, 10.8F, 0.0F));
         ModelPartData lowerExtension = addon.addChild("lower_extension", ModelPartBuilder.create().uv(0, 11)
-                .cuboid(-4.0F, -10.8F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.5F)).uv(32, 11)
+                .cuboid(-4.0F, -13.8F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.5F)).uv(32, 11)
                 .cuboid(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.9F)), ModelTransform.origin(0.0F, 10.8F, 0.0F));
+
 
         head.addChild("addon_eye", ModelPartBuilder.create()
                         .uv(46, 63).cuboid(-4.5F, -3.55F, -4.475F, 9.0F, 1.0F, 0.0F, new Dilation(0.0F)),

@@ -99,6 +99,7 @@ public class ArmorModelsME {
         WOODLAND_REALM_BRONZE_TRIMMED_RANGER(EquipmentItemsME.WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET, new WoodlandRealmRangerHelmetModel(WoodlandRealmRangerHelmetModel.getTexturedModelData().createModel())),
         WOODLAND_REALM_SILVER_TRIMMED_RANGER(EquipmentItemsME.WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET, new WoodlandRealmRangerHelmetModel(WoodlandRealmRangerHelmetModel.getTexturedModelData().createModel())),
         WOODLAND_REALM_SOLDIER(EquipmentItemsME.WOODLAND_REALM_SOLDIER_HELMET, new WoodlandRealmSoldierHelmetModel(WoodlandRealmSoldierHelmetModel.getTexturedModelData().createModel())),
+        WOODLAND_REALM_CAVALRY_HELMET(EquipmentItemsME.WOODLAND_REALM_CAVALRY_HELMET, new WoodlandRealmRoyalGuardHelmetModel(WoodlandRealmRoyalGuardHelmetModel.getTexturedModelData().createModel())),
         WOODLAND_REALM_ROYAL_GUARD(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET, new WoodlandRealmRoyalGuardHelmetModel(WoodlandRealmRoyalGuardHelmetModel.getTexturedModelData().createModel())),
         WARDEN_OF_THE_GLADE(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, new WardenGladeHelmetModel(WardenGladeHelmetModel.getTexturedModelData().createModel())),
         WARRIOR_OF_THE_NIGHTSHADE(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET, new WarriorOfTheNightshadeHelmetModel(WarriorOfTheNightshadeHelmetModel.getTexturedModelData().createModel())),
