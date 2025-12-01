@@ -80,8 +80,9 @@ public enum BackAttachmentsME implements StringIdentifiable {
     WOODLAND_REALM_ROYAL_GUARD_CAPE(54,"woodland_realm_royal_guard_cape"),
     WOODLAND_REALM_SOLDIER_CAPE(55,"woodland_realm_soldier_cape"),
 
-    AUTUMN_LEAF_CAPE(56,"autumn_leaf_cape"),
-    MANTLE_OF_YAVANNA(57,"mantle_of_yavanna")
+    LEAF_CAPE(56,"leaf_cape"),
+    AUTUMN_LEAF_CAPE(57,"autumn_leaf_cape"),
+    MANTLE_OF_YAVANNA(58,"mantle_of_yavanna")
     ;
 
     private static final IntFunction<BackAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(BackAttachmentsME::getId, BackAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;
