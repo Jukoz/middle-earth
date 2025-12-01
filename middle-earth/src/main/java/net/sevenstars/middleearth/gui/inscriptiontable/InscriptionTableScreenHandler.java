@@ -85,7 +85,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(this.input, 1, 225, 48) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return stack.isIn(ItemTagsME.CHISELS);
+                return stack.isIn(ItemTagsME.EARLY_CHISELS);
             }
 
             @Override
@@ -206,7 +206,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 updateWords(false, "", true);
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
                 this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
-            }
+             }
         } else {
             updateWords(false, "", true);
             this.outputRecipes = new ArrayList<>();

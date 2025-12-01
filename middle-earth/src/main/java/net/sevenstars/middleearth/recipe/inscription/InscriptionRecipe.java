@@ -84,8 +84,6 @@ public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
         public static final String ID = "inscription_table";
     }
 
-
-
     @Override
     public boolean isIgnoredInRecipeBook() {
         return true;

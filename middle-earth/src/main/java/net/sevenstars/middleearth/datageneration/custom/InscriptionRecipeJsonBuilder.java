@@ -9,12 +9,14 @@ import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -35,7 +37,7 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
 
     private final RegistryEntryLookup<Item> registryLookup;
 
-    public InscriptionRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, Ingredient chiselInput, int levelCost) {
+    public InscriptionRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, int levelCost) {
         this.registryLookup = registryLookup;
         this.category = category;
         this.enchant = enchant;
@@ -44,6 +46,11 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         this.levelCost = levelCost;
 
         this.inputWords = new ArrayList<>();
+    }
+
+    public InscriptionRecipeJsonBuilder chisel(TagKey<Item> tag) {
+        this.chiselInput = Ingredient.ofTag(this.registryLookup.getOrThrow(tag));
+        return this;
     }
 
     @Override
@@ -67,8 +74,8 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(IdentifierUtil.create("recipes/" + this.category.getName() + "/" + "inscription_" + this.enchant.getKey().get().getRegistry().getPath() + "_" + this.level)));
     }
 
-    public static InscriptionRecipeJsonBuilder createInscriptionRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, Ingredient chisel, int levelCost) {
-        return new InscriptionRecipeJsonBuilder(registryLookup, category, enchant, level, chisel, levelCost);
+    public static InscriptionRecipeJsonBuilder createInscriptionRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, int levelCost) {
+        return new InscriptionRecipeJsonBuilder(registryLookup, category, enchant, level, levelCost);
     }
 
     public InscriptionRecipeJsonBuilder addWord(String word) {

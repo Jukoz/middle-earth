@@ -76,12 +76,10 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                 EMPTY_SLOT_RUBY_TEXTURE,
                 EMPTY_SLOT_SAPPHIRE_TEXTURE));
 
-        //Update that to be better later
         for (WidgetInscriptionButtonPage button : this.words){
             button.setSelected(this.selectedButtons.contains(button.index + this.indexStartOffset));
         }
 
-        //That too
         if (!this.handler.hasAll()){
             this.selectedWords.clear();
             this.selectedButtons.clear();
