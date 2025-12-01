@@ -1012,6 +1012,9 @@ public class EquipmentItemsME {
     public static final Item WOODLAND_REALM_LEATHER_ARMING_COAT = registerDyeableArmorPiece("woodland_realm_leather_arming_coat",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x4a5110)));
+    public static final Item WOODLAND_REALM_LEATHER_BRONZED_ARMING_COAT = registerDyeableArmorPiece("woodland_realm_leather_bronzed_arming_coat",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x4a5110)));
 
     public static final Item WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET = registerCustomModelArmorPiece("woodland_realm_bronze_trimmed_ranger_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
