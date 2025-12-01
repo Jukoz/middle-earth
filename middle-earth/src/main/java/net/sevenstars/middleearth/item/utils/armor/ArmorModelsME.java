@@ -272,8 +272,12 @@ public class ArmorModelsME {
         SURCOAT(BackAttachmentsME.SURCOAT, BackAttachmentModelsME.SURCOAT_MODELS),
         CLOAK(BackAttachmentsME.CLOAK, BackAttachmentModelsME.WIDE_MODELS),
         WANDERER_ROBES(BackAttachmentsME.WANDERER_ROBES, BackAttachmentModelsME.SURCOAT_MODELS),
-        AUTUMN_LEAF_CAPE(BackAttachmentsME.AUTUMN_LEAF_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+
         LEAF_CAPE(BackAttachmentsME.LEAF_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        LEAF_LITTER_CAPE(BackAttachmentsME.LEAF_LITTER_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        MIRK_LEAF_CAPE(BackAttachmentsME.MIRK_LEAF_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        MIRK_BARK_CAPE(BackAttachmentsME.MIRK_BARK_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        AUTUMN_LEAF_CAPE(BackAttachmentsME.AUTUMN_LEAF_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
 
         BLACK_FUR_CLOAK(BackAttachmentsME.BLACK_FUR_CLOAK, BackAttachmentModelsME.FUR_MODELS),
         BROWN_FUR_CLOAK(BackAttachmentsME.BROWN_FUR_CLOAK, BackAttachmentModelsME.FUR_MODELS),
