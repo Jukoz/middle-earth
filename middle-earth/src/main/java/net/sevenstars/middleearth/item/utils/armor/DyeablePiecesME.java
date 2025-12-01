@@ -51,7 +51,6 @@ public class DyeablePiecesME {
 
         dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_ARMING_COAT, true);
         dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_LEATHER_ARMING_COAT, true);
-        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET, true);
         dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET, true);
         dyeablePieces.put(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, true);
 

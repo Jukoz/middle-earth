@@ -864,6 +864,9 @@ public class EquipmentItemsME {
     public static final Item BRONZED_ELVEN_MAIL_SKIRT = registerArmorPiece("bronzed_elven_mail_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BRONZE_T2, settings), new Item.Settings());
 
+    public static final Item BRONZED_ELVEN_PADDED_MAIL_HAUBERK = registerArmorPiece("bronzed_elven_padded_mail_hauberk",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
+
     public static final Item MANTLE_OF_YAVANNA = registerDyeableBackAttachment("mantle_of_yavanna",
             (settings) -> new MantleOfYavannaItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MANTLE_OF_YAVANNA))
@@ -1010,6 +1013,9 @@ public class EquipmentItemsME {
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x4a5110)));
 
+    public static final Item WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET = registerCustomModelArmorPiece("woodland_realm_bronze_trimmed_ranger_helmet",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     public static final Item WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET = registerCustomModelArmorPiece("woodland_realm_silver_trimmed_ranger_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
@@ -1025,11 +1031,10 @@ public class EquipmentItemsME {
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue()))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x532e29)));
-    public static final Item WOODLAND_REALM_ROYAL_GUARD_HAUBERK = registerArmorPiece("woodland_realm_royal_guard_hauberk",
+    public static final Item WOODLAND_REALM_SCALE_HAUBERK = registerArmorPiece("woodland_realm_scale_hauberk",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_ROYAL_GUARD_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
-    public static final Item WOODLAND_REALM_ROYAL_GUARD_SCALE_SKIRT = registerArmorPiece("woodland_realm_royal_guard_scale_skirt",
+    public static final Item WOODLAND_REALM_SCALE_SKIRT = registerArmorPiece("woodland_realm_scale_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
 
