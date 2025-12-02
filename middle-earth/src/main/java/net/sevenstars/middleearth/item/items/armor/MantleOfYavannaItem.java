@@ -18,9 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 
 public class MantleOfYavannaItem extends BackAttachmentItem {
-    private static final float COLOR_LERP = 0.07f;
-    private int currentColor = 0x375729;
-    private int targetColor = 0x375729;
+    private static final float COLOR_LERP = 0.06f;
 
     public MantleOfYavannaItem( Settings settings, ExtendedArmorMaterial material) {
         super(settings.armor(material.material(), EquipmentType.CHESTPLATE).maxCount(1), material);
@@ -29,17 +27,20 @@ public class MantleOfYavannaItem extends BackAttachmentItem {
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(stack, world, entity, slot);
+        DyedColorComponent dyedColorComponent = stack.get(DataComponentTypes.DYED_COLOR);
+        if(dyedColorComponent == null) return;
+
+        int targetColor = 4624722;
+        int currentColor = dyedColorComponent.rgb();
         RegistryEntry<Biome> biomeEntry = world.getBiome(entity.getBlockPos());
 
         if(biomeEntry.getKey().isPresent()) {
             int color = biomeEntry.value().getFoliageColor();
-            if(targetColor != color) {
-                targetColor = color;
-            }
+            targetColor = color;
         }
 
         if(currentColor != targetColor) {
-            Color colorA = new Color(currentColor);
+            Color colorA = new Color(stack.get(DataComponentTypes.DYED_COLOR).rgb());
             Color colorB = new Color(targetColor);
             Color lerpColor = new Color(MathHelper.lerp(COLOR_LERP, colorA.getRed(), colorB.getRed()),
                     MathHelper.lerp(COLOR_LERP, colorA.getGreen(), colorB.getGreen()),
