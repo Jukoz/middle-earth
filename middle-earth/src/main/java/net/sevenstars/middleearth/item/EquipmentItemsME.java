@@ -879,6 +879,8 @@ public class EquipmentItemsME {
 
     public static final Item BRONZED_ELVEN_PADDED_MAIL_HAUBERK = registerArmorPiece("bronzed_elven_padded_mail_hauberk",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
+    public static final Item BRONZED_ELVEN_GORGET_MAIL_HAUBERK = registerArmorPiece("bronzed_elven_gorget_mail_hauberk",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
 
     public static final Item MANTLE_OF_YAVANNA = registerDyeableBackAttachment("mantle_of_yavanna",
             (settings) -> new MantleOfYavannaItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings().rarity(Rarity.EPIC)
