@@ -110,7 +110,12 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             this.words[l] = this.addDrawableChild(new WidgetInscriptionButtonPage(i + 5, k, l, button -> {
                 if (button instanceof WidgetInscriptionButtonPage) {
                     if (button.isSelected()){
-                        if (!((WidgetInscriptionButtonPage) button).selected && this.selectedWords.size() <= 2){
+                        if (!((WidgetInscriptionButtonPage) button).selected){
+                            if (this.selectedWords.size() == 3){
+                                this.selectedWords.remove(this.selectedWords.getLast());
+                                ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, this.selectedWords.getLast()));
+                                this.selectedButtons.remove(this.selectedButtons.getLast());
+                            }
                             this.selectedWords.add(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
                             ClientPlayNetworking.send(new InscriptionWordUpdatePacket(true, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
                             this.selectedButtons.add(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset);
@@ -120,8 +125,8 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                             Object buttonIndex = ((WidgetInscriptionButtonPage) button).index + this.indexStartOffset;
                             this.selectedButtons.remove(buttonIndex);
                         }
-                        this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
                     }
+                    this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
                 }
             }));
             k += 14;
@@ -192,10 +197,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             context.drawText(this.textRenderer, text, i + 188 - textRenderer.getWidth(text) / 2, j + 71, color, true);
         } else {
             this.confirmationButton.active = false;
-            if(this.selectedWords.isEmpty()){
-                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 170, j + 25, 347, 59, 36, 16, 512, 256);
-                context.drawText(this.textRenderer, "???", i + 188 - textRenderer.getWidth("???") / 2, j + 29, ColorHelper.fullAlpha(0xad6b3f), false);
-            } else {
+            if(!this.selectedWords.isEmpty()){
                 context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i + 123, j + 25, 347, 39, 130, 16, 512, 256);
                 StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(this.enchantText, 159, Style.EMPTY);
                 context.drawWrappedText(this.textRenderer, stringVisitable, i + 188 - textRenderer.getWidth(stringVisitable.getString()) / 2, j + 29, 159, ColorHelper.fullAlpha(0xad6b3f),false);

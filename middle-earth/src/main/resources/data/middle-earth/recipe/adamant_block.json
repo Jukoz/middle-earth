@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "RRR",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "fabric:type": "fabric:difference",
+      "base": "middle-earth:adamant",
+      "subtracted": {
+        "fabric:type": "fabric:components",
+        "base":  "middle-earth:adamant",
+        "components": {
+          "minecraft:max_damage": 2
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "middle-earth:adamant_block",
+    "count": 1
+  }
+}
