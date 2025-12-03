@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " H ",
     "PWP",
+    "LSL",
     "L L"
   ],
   "key": {
-    "H": "#middle-earth:smithing_hammers",
+    "S": "#minecraft:wooden_slabs",
     "P": "#minecraft:planks",
-    "W": "middle-earth:fabric",
+    "W": "minecraft:blue_wool",
     "L": "#minecraft:logs"
   },
   "result": {

@@ -30,6 +30,7 @@ import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -354,6 +355,13 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         Items.NETHERITE_SHOVEL.getDefaultStack(),
                         Items.NETHERITE_HOE.getDefaultStack(),
                         Optional.empty(), Disposition.NEUTRAL);
+
+                createArtisanTableChiselRecipe(itemLookup, exporter, MetalTypes.IRON, Items.IRON_NUGGET, ToolItemsME.IRON_CHISEL.getDefaultStack());
+                createArtisanTableChiselRecipe(itemLookup, exporter, MetalTypes.STEEL, Items.GOLD_NUGGET, ToolItemsME.STEEL_CHISEL.getDefaultStack());
+                createArtisanTableChiselRecipe(itemLookup, exporter, MetalTypes.KHAZAD_STEEL, Items.GOLD_NUGGET, ToolItemsME.STEEL_CHISEL.getDefaultStack());
+                createArtisanTableChiselRecipe(itemLookup, exporter, MetalTypes.EDHEL_STEEL, Items.GOLD_NUGGET, ToolItemsME.STEEL_CHISEL.getDefaultStack());
+                createArtisanTableChiselRecipe(itemLookup, exporter, MetalTypes.BURZUM_STEEL, Items.GOLD_NUGGET, ToolItemsME.STEEL_CHISEL.getDefaultStack());
+                createArtisanTableChiselRecipe(itemLookup, exporter, MetalTypes.MITHRIL, ResourceItemsME.MITHRIL_NUGGET, ToolItemsME.MITHRIL_CHISEL.getDefaultStack());
                 //endregion
 
                 //region SHIELDS
@@ -1630,6 +1638,20 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                             conditionsFromItem(hoeHead.getItem(), itemLookup))
                     .offerTo(exporter);
         }
+    }
+
+    private void createArtisanTableChiselRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, Item nugget, ItemStack output) {
+        ItemStack shortBlade = new ItemStack(ResourceItemsME.SHORT_BLADE);
+        shortBlade.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                getMetalIdentifier(metal))), getPattern()));
+
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "chisel", Disposition.NEUTRAL)
+                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(shortBlade.getItem()), shortBlade.getComponentChanges()))
+                    .input(nugget)
+                    .input(Items.STICK)
+                    .criterion(hasItem(shortBlade.getItem()),
+                            conditionsFromItem(shortBlade.getItem(), itemLookup))
+                    .offerTo(exporter);
     }
 
     public AdvancementCriterion<InventoryChangedCriterion.Conditions> conditionsFromItem(ItemConvertible item, RegistryEntryLookup<Item> itemLookup) {

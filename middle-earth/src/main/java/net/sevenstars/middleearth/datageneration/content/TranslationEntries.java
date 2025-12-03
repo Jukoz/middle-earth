@@ -297,6 +297,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.pickaxe", "Pickaxe");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.shovel", "Shovel");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.hoe", "Hoe");
+            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.chisel", "Chisel");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.armors", "Armors");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.helmet", "Helmet");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.chestplate", "Chestplate");

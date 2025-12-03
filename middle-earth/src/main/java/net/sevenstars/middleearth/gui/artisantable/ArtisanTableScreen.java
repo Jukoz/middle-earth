@@ -83,6 +83,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("pickaxe"), ToolItemsME.STEEL_PICKAXE.getDefaultStack(), ArtisanTableInputsShape.PICKAXE));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("shovel"), ToolItemsME.STEEL_SHOVEL.getDefaultStack(), ArtisanTableInputsShape.SHOVEL));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("hoe"), ToolItemsME.STEEL_HOE.getDefaultStack(), ArtisanTableInputsShape.HOE));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("chisel"), ToolItemsME.STEEL_CHISEL.getDefaultStack(), ArtisanTableInputsShape.CHISEL));
         index++;
 
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("armors"), EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE.getDefaultStack()));
