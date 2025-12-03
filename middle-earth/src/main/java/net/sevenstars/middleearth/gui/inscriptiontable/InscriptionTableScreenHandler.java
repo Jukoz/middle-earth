@@ -21,6 +21,10 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Texts;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
@@ -185,7 +189,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
             InscriptionEnchantInfoPacket newPacket;
             if (foundEnchant){
-                newPacket = new InscriptionEnchantInfoPacket(Enchantment.getName(resultEnchant, resultLevel).getString(), resultLevel, resultMaxLevel);
+                newPacket = new InscriptionEnchantInfoPacket(resultEnchant.value().description().copy().getString(), resultLevel, resultMaxLevel);
                 this.enchant = resultEnchant;
                 this.level = resultLevel;
                 calculateCost(resultLevelCost, resultEnchant);
