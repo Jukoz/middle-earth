@@ -42,7 +42,7 @@ public class EquipmentItemsME {
     public static List<Item> armorPiecesListBoots = new ArrayList<>();
 
     public static List<Item> backAttachments = new ArrayList<>();
-    public static List<Item> helmetAtttachments = new ArrayList<>();
+    public static List<Item> helmetAttachments = new ArrayList<>();
 
     //region GENERIC
     //Hoods
@@ -1824,7 +1824,7 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
-        helmetAtttachments.add(item);
+        helmetAttachments.add(item);
         return registerItem(item, name);
     }
 
@@ -1832,7 +1832,7 @@ public class EquipmentItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
-        helmetAtttachments.add(item);
+        helmetAttachments.add(item);
         return registerItem(item, name);
     }
 
@@ -1910,6 +1910,14 @@ public class EquipmentItemsME {
                 case MEDIUM -> ArmorTags.mediumArmors.add(item);
                 case STURDY -> ArmorTags.sturdyArmors.add(item);
                 case HEAVY -> ArmorTags.heavyArmors.add(item);
+            }
+
+            switch (item){
+                case CustomHelmetItem helmetItem -> ArmorTags.headArmors.add(helmetItem);
+                case CustomChestplateItem chestplateItem -> ArmorTags.chestArmors.add(chestplateItem);
+                case CustomLeggingsItem leggingsItem -> ArmorTags.legArmors.add(leggingsItem);
+                case CustomBootsItem bootsItem -> ArmorTags.footArmors.add(bootsItem);
+                default -> {}
             }
         }
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
