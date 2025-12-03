@@ -86,9 +86,6 @@ public class MineablePickaxe {
             add(ModBlocks.GILDED_BARS);
 
             add(ModDecorativeBlocks.FORGE);
-            add(ModDecorativeBlocks.DWARVEN_FORGE);
-            add(ModDecorativeBlocks.ELVEN_FORGE);
-            add(ModDecorativeBlocks.ORCISH_FORGE);
 
             add(ModDecorativeBlocks.STONE_ANVIL);
             add(ModDecorativeBlocks.TREATED_ANVIL);

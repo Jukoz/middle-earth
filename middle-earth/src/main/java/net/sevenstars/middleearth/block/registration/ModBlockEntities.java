@@ -22,10 +22,7 @@ import net.sevenstars.middleearth.registries.RegistryAliases;
 
 public class ModBlockEntities {
     public static BlockEntityType<ForgeBlockEntity> FORGE = register("forge", ForgeBlockEntity::new,
-            ModDecorativeBlocks.FORGE,
-            ModDecorativeBlocks.DWARVEN_FORGE,
-            ModDecorativeBlocks.ELVEN_FORGE,
-            ModDecorativeBlocks.ORCISH_FORGE);
+            ModDecorativeBlocks.FORGE);
     public static BlockEntityType<StoneAnvilBlockEntity> STONE_ANVIL = register("stone_anvil", StoneAnvilBlockEntity::new,
             ModDecorativeBlocks.STONE_ANVIL);
     public static BlockEntityType<ShapingAnvilBlockEntity> TREATED_ANVIL = register("treated_anvil", ShapingAnvilBlockEntity::new,

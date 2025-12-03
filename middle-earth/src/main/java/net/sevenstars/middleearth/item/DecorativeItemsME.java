@@ -56,12 +56,6 @@ public class DecorativeItemsME {
 
     public static final Item FORGE = registerItem("forge",
             (settings) -> new BlockItem(ModDecorativeBlocks.FORGE, settings), new Item.Settings());
-    public static final Item DWARVEN_FORGE = registerItem("dwarven_forge",
-            (settings) -> new BlockItem(ModDecorativeBlocks.DWARVEN_FORGE, settings), new Item.Settings());
-    public static final Item ELVEN_FORGE = registerItem("elven_forge",
-            (settings) -> new BlockItem(ModDecorativeBlocks.ELVEN_FORGE, settings), new Item.Settings());
-    public static final Item ORCISH_FORGE = registerItem("orcish_forge",
-            (settings) -> new BlockItem(ModDecorativeBlocks.ORCISH_FORGE, settings), new Item.Settings());
 
     public static final Item STONE_ANVIL = registerItem("stone_anvil",
             (settings) -> new BlockItem(ModDecorativeBlocks.STONE_ANVIL, settings), new Item.Settings());

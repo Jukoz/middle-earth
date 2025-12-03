@@ -85,12 +85,6 @@ public class ModDecorativeBlocks {
 
     public static final Block FORGE = registerBlock("forge",
             ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
-    public static final Block DWARVEN_FORGE = registerBlock("dwarven_forge",
-            ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
-    public static final Block ELVEN_FORGE = registerBlock("elven_forge",
-            ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
-    public static final Block ORCISH_FORGE = registerBlock("orcish_forge",
-            ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
 
     public static final Block STONE_ANVIL = registerBlock("stone_anvil",
             StoneAnvilBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
