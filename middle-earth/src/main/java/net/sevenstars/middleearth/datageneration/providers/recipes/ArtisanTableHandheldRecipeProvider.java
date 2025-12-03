@@ -1651,7 +1651,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                     .input(Items.STICK)
                     .criterion(hasItem(shortBlade.getItem()),
                             conditionsFromItem(shortBlade.getItem(), itemLookup))
-                    .offerTo(exporter);
+                    .offerTo(exporter, Registries.ITEM.getId(output.getItem()).getPath() + "_" + metal.getName() + "_artisan");
     }
 
     public AdvancementCriterion<InventoryChangedCriterion.Conditions> conditionsFromItem(ItemConvertible item, RegistryEntryLookup<Item> itemLookup) {
