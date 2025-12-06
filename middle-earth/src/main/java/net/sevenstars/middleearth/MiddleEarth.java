@@ -27,7 +27,7 @@ import net.sevenstars.middleearth.recipe.ModRecipes;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.resources.*;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
@@ -115,7 +115,7 @@ public class MiddleEarth implements ModInitializer {
 		ActivitiesME.registerModActivities();
 		MemoryModulesME.registerModMemoryModules();
 
-		ModSounds.registerModSounds();
+		SoundsME.registerModSounds();
 		ModParticleTypes.registerParticleTypes();
 		ModStatusEffects.registerStatusEffects();
 

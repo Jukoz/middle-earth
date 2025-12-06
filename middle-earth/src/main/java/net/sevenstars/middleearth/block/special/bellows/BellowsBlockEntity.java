@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -61,7 +61,7 @@ public class BellowsBlockEntity extends BlockEntity {
                             forgeBlockEntity.bellowsBoost();
                         }
                     }
-                    world.playSound((PlayerEntity)null,  pos, ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 2.0F, 1.0F);
+                    world.playSound((PlayerEntity)null,  pos, SoundsME.BELLOWS_PUSH, SoundCategory.BLOCKS, 2.0F, 1.0F);
                     world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
                     return true;
                 }

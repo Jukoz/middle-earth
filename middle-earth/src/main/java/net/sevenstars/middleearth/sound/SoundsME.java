@@ -6,10 +6,12 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
-public class ModSounds {
+public class SoundsME {
     public static SoundEvent BELLOWS_PUSH = registerSoundEvent("bellows_push");
+
     public static SoundEvent NAZGUL_FADE = registerSoundEvent("nazgul_fade");
     public static SoundEvent NAZGUL_SCREAM = registerSoundEvent("nazgul_scream");
+
     public static SoundEvent PIPE_EXHALE = registerSoundEvent("pipe_exhale");
     public static SoundEvent PIPE_REFILL = registerSoundEvent("pipe_refill");
     public static SoundEvent PIPE_IGNITE = registerSoundEvent( "pipe_ignite");

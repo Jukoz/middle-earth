@@ -39,6 +39,7 @@ import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class InscriptionTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
@@ -169,6 +170,9 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
         if (!reset){
             if (add){
+                if (this.selectedWords.isEmpty()){
+                    world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_SNIFFER_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                }
                 this.selectedWords.add(word);
             } else {
                 this.selectedWords.remove(word);
@@ -176,8 +180,16 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         }
         if (!this.outputRecipes.isEmpty()){
             for (RecipeEntry<InscriptionRecipe> recipe : this.outputRecipes){
+                if (this.selectedWords.size() == 2 && recipe.value().inputWords.size() == 3 && add){
+                    if (Objects.equals(this.selectedWords.get(1), recipe.value().inputWords.get(1))
+                            && recipe.value().enchant.value().isAcceptableItem(input.getStack(2))
+                            && this.selectedWords.get(0).equals(recipe.value().inputWords.get(0))){
+                        world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_PARROT_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                    }
+                }
                 if (recipe.value().inputWords.equals(this.selectedWords)){
                     if (canEnchant(input.getStack(2), recipe.value().enchant, recipe.value().level)){
+                        world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_CAMEL_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
                         foundEnchant = true;
                         resultEnchant = recipe.value().enchant;
                         resultLevel = recipe.value().level;
@@ -194,6 +206,9 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 this.level = resultLevel;
                 calculateCost(resultLevelCost, resultEnchant);
             } else {
+                if (this.selectedWords.size() == 3){
+                    world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_PANDA_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                }
                 newPacket = new InscriptionEnchantInfoPacket("", 0, 0);
                 this.enchant = null;
                 this.level = 0;
