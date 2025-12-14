@@ -15,18 +15,18 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
 public class FactionRegistry {
     private static final RegistryKey<Registry<Faction>> FACTION_KEY = DynamicRegistriesME.FACTION;
 
-    public final static RegistryKey<Faction> GONDOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("gondor"));
-    public final static RegistryKey<Faction> ROHAN = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("rohan"));
-    public final static RegistryKey<Faction> DALE = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("dale"));
-    public final static RegistryKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("longbeards"));
-    public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("longbeards.erebor"));
-    public final static RegistryKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("lothlorien"));
-    public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("mordor"));
-    public final static RegistryKey<Faction> MISTY_MOUNTAINS_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("misty_mountains_goblins"));
-    public final static RegistryKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("isengard"));
-    public final static RegistryKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("shire"));
-    public final static RegistryKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("brigand"));
-    public final static RegistryKey<Faction> WILD_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.create("wild_goblins"));
+    public final static RegistryKey<Faction> GONDOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("gondor"));
+    public final static RegistryKey<Faction> ROHAN = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("rohan"));
+    public final static RegistryKey<Faction> DALE = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("dale"));
+    public final static RegistryKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("longbeards"));
+    public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("longbeards.erebor"));
+    public final static RegistryKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("lothlorien"));
+    public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("mordor"));
+    public final static RegistryKey<Faction> MISTY_MOUNTAINS_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("misty_mountains_goblins"));
+    public final static RegistryKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("isengard"));
+    public final static RegistryKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("shire"));
+    public final static RegistryKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("brigand"));
+    public final static RegistryKey<Faction> WILD_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("wild_goblins"));
 
     public static void bootstrap(Registerable<Faction> context) {
         RegistryEntryLookup<Faction> registryEntryLookup = context.getRegistryLookup(FACTION_KEY);

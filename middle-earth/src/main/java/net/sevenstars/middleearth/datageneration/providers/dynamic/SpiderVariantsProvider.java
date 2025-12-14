@@ -19,6 +19,6 @@ public class SpiderVariantsProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.SPIDER_VARIANT.getRegistry().getPath();
+        return DynamicRegistriesME.SPIDER_VARIANT.getValue().getPath();
     }
 }

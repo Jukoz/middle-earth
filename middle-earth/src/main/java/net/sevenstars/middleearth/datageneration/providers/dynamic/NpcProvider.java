@@ -19,5 +19,5 @@ public class NpcProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.NPC.getRegistry().getPath();
+        return DynamicRegistriesME.NPC.getValue().getPath();
     }}

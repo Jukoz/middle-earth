@@ -30,7 +30,7 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81).withBuffReversed())
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
                 .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)
-                    .withModifier(IdentifierUtil.create("dwarven_damage_modifier"), 10.0))
+                    .withModifier(IdentifierUtil.build("dwarven_damage_modifier"), 10.0))
                 .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
                 .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)),

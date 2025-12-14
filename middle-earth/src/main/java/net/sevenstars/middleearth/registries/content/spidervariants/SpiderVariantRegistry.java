@@ -12,9 +12,9 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
 public class SpiderVariantRegistry {
     private static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS_KEY = DynamicRegistriesME.SPIDER_VARIANT;
 
-    public static final RegistryKey<SpiderVariant> MIRKWOOD = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, IdentifierUtil.create("mirkwood"));
-    public static final RegistryKey<SpiderVariant> CAVE = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, IdentifierUtil.create("cave"));
-    public static final RegistryKey<SpiderVariant> MORDOR = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, IdentifierUtil.create("mordor"));
+    public static final RegistryKey<SpiderVariant> MIRKWOOD = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, IdentifierUtil.build("mirkwood"));
+    public static final RegistryKey<SpiderVariant> CAVE = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, IdentifierUtil.build("cave"));
+    public static final RegistryKey<SpiderVariant> MORDOR = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, IdentifierUtil.build("mordor"));
     public static final RegistryKey<SpiderVariant> DEFAULT = MIRKWOOD;
 
 

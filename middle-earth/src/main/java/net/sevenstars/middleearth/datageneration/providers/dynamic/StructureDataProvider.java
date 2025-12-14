@@ -20,6 +20,6 @@ public class StructureDataProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.STRUCTURE_MANAGER_DATA.getRegistry().getPath();
+        return DynamicRegistriesME.STRUCTURE_MANAGER_DATA.getValue().getPath();
     }
 }

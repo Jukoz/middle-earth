@@ -19,5 +19,5 @@ public class RaceProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.RACE.getRegistry().getPath();
+        return DynamicRegistriesME.RACE.getValue().getPath();
     }}

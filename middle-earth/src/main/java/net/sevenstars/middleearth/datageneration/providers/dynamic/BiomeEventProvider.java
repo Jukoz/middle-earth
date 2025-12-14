@@ -19,6 +19,6 @@ public class BiomeEventProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.BIOME_EVENT.getRegistry().getPath();
+        return DynamicRegistriesME.BIOME_EVENT.getValue().getPath();
     }
 }

@@ -254,11 +254,11 @@ public class CharacterPatternsME {
     }
 
     private static RegistryKey<NpcTexturePattern> of(String id, NpcTextureType type) {
-        return RegistryKey.of(getKey(type), IdentifierUtil.create(id));
+        return RegistryKey.of(getKey(type), IdentifierUtil.build(id));
     }
 
     private static <T> RegistryKey<Registry<T>> ofRegistry(String id) {
-        return RegistryKey.ofRegistry(IdentifierUtil.create(id));
+        return RegistryKey.ofRegistry(IdentifierUtil.build(id));
     }
 
     public static void register() {

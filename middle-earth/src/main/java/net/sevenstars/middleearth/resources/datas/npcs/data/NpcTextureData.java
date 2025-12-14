@@ -49,11 +49,11 @@ public class NpcTextureData {
     public static Identifier buildId(Identifier pattern, Identifier material) {
         if(pattern == null || material == null)
             return null;
-        return IdentifierUtil.create(pattern.getPath() + "_" + material.getPath());
+        return IdentifierUtil.build(pattern.getPath() + "_" + material.getPath());
     }
 
     public static Identifier buildAddonId(Identifier pattern, Identifier material) {
-        return IdentifierUtil.create(pattern.getPath() + "_addon_" + material.getPath());
+        return IdentifierUtil.build(pattern.getPath() + "_addon_" + material.getPath());
     }
 
     public NbtCompound getNbt() {

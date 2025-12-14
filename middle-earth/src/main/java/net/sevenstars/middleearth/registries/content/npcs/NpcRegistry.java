@@ -83,7 +83,7 @@ public class NpcRegistry {
     }
 
     private static Identifier createID(RegistryKey<Faction> faction, String name){
-        return IdentifierUtil.create(String.format(FACTION_BASE, faction.getValue().getPath(), name));
+        return IdentifierUtil.buildAggregate(faction.getValue().getPath(), name);
     }
 
     public record RegisterableNpcData (RegistryKey<NpcData> npcDataRegistryKey, NpcData content){ }

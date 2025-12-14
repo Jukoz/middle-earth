@@ -43,7 +43,7 @@ public class ItemGroupsME {
             ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
             NbtCompound compound = new NbtCompound();
             NpcData npcData = reference.value();
-            compound.putString("id", IdentifierUtil.create("npc").toString());
+            compound.putString("id", IdentifierUtil.build("npc").toString());
             compound.putString("NpcDataId", npcData.getId().toString());
             itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
             itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcData.getFaction()));

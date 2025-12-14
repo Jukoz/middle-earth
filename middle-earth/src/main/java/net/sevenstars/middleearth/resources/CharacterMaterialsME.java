@@ -267,11 +267,11 @@ public class CharacterMaterialsME {
     }
 
     private static RegistryKey<NpcTextureMaterial> of(String id, NpcTextureType type) {
-        return RegistryKey.of(getKey(type), IdentifierUtil.create(id));
+        return RegistryKey.of(getKey(type), IdentifierUtil.build(id));
     }
 
     private static <T> RegistryKey<Registry<T>> ofRegistry(String id) {
-        return RegistryKey.ofRegistry(IdentifierUtil.create(id));
+        return RegistryKey.ofRegistry(IdentifierUtil.build(id));
     }
 
     public static RegistryKey<Registry<NpcTextureMaterial>> getKey(NpcTextureType category){

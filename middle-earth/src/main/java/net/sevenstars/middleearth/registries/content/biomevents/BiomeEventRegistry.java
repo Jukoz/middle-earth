@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 public class BiomeEventRegistry {
     private static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT_KEY = DynamicRegistriesME.BIOME_EVENT;
 
-    public final static RegistryKey<BiomeEventData> DEFAULT = DynamicRegistriesME.of(BIOME_EVENT_KEY, IdentifierUtil.create("default"));
+    public final static RegistryKey<BiomeEventData> DEFAULT = DynamicRegistriesME.of(BIOME_EVENT_KEY, IdentifierUtil.build("default"));
 
     public final static RegistryKey<BiomeEventData> CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BASIC_CAVE.getValue());
 

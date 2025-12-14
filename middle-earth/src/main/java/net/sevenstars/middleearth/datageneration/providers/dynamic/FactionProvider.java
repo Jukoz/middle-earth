@@ -19,6 +19,6 @@ public class FactionProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.FACTION.getRegistry().getPath();
+        return DynamicRegistriesME.FACTION.getValue().getPath();
     }
 }

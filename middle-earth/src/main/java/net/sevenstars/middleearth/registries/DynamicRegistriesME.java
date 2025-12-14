@@ -1,10 +1,12 @@
 package net.sevenstars.middleearth.registries;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.datageneration.providers.dynamic.*;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -21,12 +23,12 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRegistries {
 
-    public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(IdentifierUtil.create( "race"));
-    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(IdentifierUtil.create( "faction"));
-    public static final RegistryKey<Registry<NpcData>> NPC = RegistryKey.ofRegistry(IdentifierUtil.create( "npc"));
-    public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(IdentifierUtil.create( "biome_event"));
-    public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANT = RegistryKey.ofRegistry(IdentifierUtil.create( "spider_variant"));
-    public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA = RegistryKey.ofRegistry(IdentifierUtil.create( "structure_manager_data"));
+    public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(IdentifierUtil.build( "race"));
+    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(IdentifierUtil.build( "faction"));
+    public static final RegistryKey<Registry<NpcData>> NPC = RegistryKey.ofRegistry(IdentifierUtil.build( "npc"));
+    public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(IdentifierUtil.build( "biome_event"));
+    public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANT = RegistryKey.ofRegistry(IdentifierUtil.build( "spider_variant"));
+    public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA = RegistryKey.ofRegistry(IdentifierUtil.build( "structure_manager_data"));
 
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
@@ -45,8 +47,17 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
         registryBuilder.addRegistry(SPIDER_VARIANT, SpiderVariantRegistry::bootstrap);
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
-
         //registryBuilder.addRegistry(NpcTextureDatasME.KEY, NpcTextureDatasME::bootstrap);
+    }
 
+    public static void addProviders(FabricDataGenerator.Pack pack) {
+        pack.addProvider(SpiderVariantsProvider::new);
+        pack.addProvider(NpcTextureDataProvider::new);
+
+        pack.addProvider(RaceProvider::new);
+        pack.addProvider(NpcProvider::new);
+        pack.addProvider(FactionProvider::new);
+        pack.addProvider(StructureDataProvider::new);
+        pack.addProvider(BiomeEventProvider::new);
     }
 }

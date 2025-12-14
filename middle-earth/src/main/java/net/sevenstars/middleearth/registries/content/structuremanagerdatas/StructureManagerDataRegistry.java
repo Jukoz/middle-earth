@@ -11,9 +11,9 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
 public class StructureManagerDataRegistry {
     private static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA_KEY = DynamicRegistriesME.STRUCTURE_MANAGER_DATA;
 
-    public final static RegistryKey<StructureManagerData> GONDOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.create("gondor_generic_nests"));
-    public final static RegistryKey<StructureManagerData> EREBOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.create("erebor_generic_nests"));
-    public final static RegistryKey<StructureManagerData> DALE_KEEP_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.create("dale_keep_nests"));
+    public final static RegistryKey<StructureManagerData> GONDOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.build("gondor_generic_nests"));
+    public final static RegistryKey<StructureManagerData> EREBOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.build("erebor_generic_nests"));
+    public final static RegistryKey<StructureManagerData> DALE_KEEP_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.build("dale_keep_nests"));
 
     public static void bootstrap(Registerable<StructureManagerData> context) {
         RegistryEntryLookup<StructureManagerData> registryEntryLookup = context.getRegistryLookup(STRUCTURE_MANAGER_DATA_KEY);

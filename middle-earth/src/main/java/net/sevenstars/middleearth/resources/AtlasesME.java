@@ -2,20 +2,22 @@ package net.sevenstars.middleearth.resources;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.datageneration.providers.dynamic.CharacterAtlasTexturesProvider;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 /**
  * Middle-earth mod atlases<br>
  */
 public class AtlasesME {
-    public static final Identifier CHARACTER_SKINS = IdentifierUtil.create("character_skins");
-    public static final Identifier CHARACTER_HAIRS = IdentifierUtil.create("character_hairs");
-    public static final Identifier CHARACTER_EYES = IdentifierUtil.create("character_eyes");
-    public static final Identifier CHARACTER_CLOTHINGS = IdentifierUtil.create("character_clothings");
+    public static final Identifier CHARACTER_SKINS = IdentifierUtil.build("character_skins");
+    public static final Identifier CHARACTER_HAIRS = IdentifierUtil.build("character_hairs");
+    public static final Identifier CHARACTER_EYES = IdentifierUtil.build("character_eyes");
+    public static final Identifier CHARACTER_CLOTHINGS = IdentifierUtil.build("character_clothings");
 
     public static Identifier prefixAtlas(Identifier sprite, Identifier atlas) {
         return sprite.withPrefixedPath(String.format("%s/", atlas.getPath()));
@@ -29,5 +31,9 @@ public class AtlasesME {
     public static SpriteAtlasTexture getAtlasFromPath(Identifier atlasPath){
         MinecraftClient client = MinecraftClient.getInstance();
         return client.getBakedModelManager().getAtlas(atlasPath);
+    }
+
+    public static void addProviders(FabricDataGenerator.Pack pack) {
+        pack.addProvider(CharacterAtlasTexturesProvider::new);
     }
 }

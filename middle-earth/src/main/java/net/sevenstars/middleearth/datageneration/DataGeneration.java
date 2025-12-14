@@ -46,22 +46,19 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         HelpingGenerator.generateFiles();
 
         var pack = fabricDataGenerator.createPack();
+        // Atlases
+        AtlasesME.addProviders(pack);
+        // Custom Dynamic Registries
+        DynamicRegistriesME.addProviders(pack);
+        // Others
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ItemTagProvider::new);
-        pack.addProvider(CharacterAtlasTexturesProvider::new);
         pack.addProvider(BlockModelProvider::new);
         pack.addProvider(ItemModelProvider::new);
         pack.addProvider(RecipeProvider::new);
         pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
         pack.addProvider(ArtisanTableArmorRecipeProvider::new);
-        pack.addProvider(SpiderVariantsProvider::new);
-        pack.addProvider(RaceProvider::new);
-        pack.addProvider(NpcTextureDataProvider::new);
-        pack.addProvider(NpcProvider::new);
-        pack.addProvider(FactionProvider::new);
-        pack.addProvider(StructureDataProvider::new);
-        pack.addProvider(BiomeEventProvider::new);
         pack.addProvider(DataWorldGenerator::new);
         pack.addProvider(LanguageProvider::new);
         pack.addProvider(EnchantmentProvider::new);

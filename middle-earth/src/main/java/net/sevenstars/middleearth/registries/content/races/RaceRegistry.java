@@ -12,12 +12,12 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
 public class RaceRegistry {
     private static final RegistryKey<Registry<Race>> RACE_KEY = DynamicRegistriesME.RACE;
 
-    public final static RegistryKey<Race> DWARF = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.create("dwarf"));
-    public final static RegistryKey<Race> ELF = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.create("elf"));
-    public final static RegistryKey<Race> HOBBIT = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.create("hobbit"));
-    public final static RegistryKey<Race> HUMAN = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.create("human"));
-    public final static RegistryKey<Race> ORC = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.create("orc"));
-    public final static RegistryKey<Race> URUK = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.create("uruk"));
+    public final static RegistryKey<Race> DWARF = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.build("dwarf"));
+    public final static RegistryKey<Race> ELF = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.build("elf"));
+    public final static RegistryKey<Race> HOBBIT = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.build("hobbit"));
+    public final static RegistryKey<Race> HUMAN = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.build("human"));
+    public final static RegistryKey<Race> ORC = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.build("orc"));
+    public final static RegistryKey<Race> URUK = DynamicRegistriesME.of(RACE_KEY, IdentifierUtil.build("uruk"));
 
     public static void bootstrap(Registerable<Race> context) {
         RegistryEntryLookup<Race> registryEntryLookup = context.getRegistryLookup(RACE_KEY);
