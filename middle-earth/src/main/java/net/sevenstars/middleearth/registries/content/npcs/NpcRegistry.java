@@ -25,7 +25,6 @@ import java.util.List;
 
 public class NpcRegistry {
     private static final RegistryKey<Registry<NpcData>> NPC_KEY = DynamicRegistriesME.NPC;
-    private final static String FACTION_BASE = "%s.%s";
 
     public static final HashMap<EntityCategory, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
         put(EntityCategory.SHARED, new AttributePool().addElement(

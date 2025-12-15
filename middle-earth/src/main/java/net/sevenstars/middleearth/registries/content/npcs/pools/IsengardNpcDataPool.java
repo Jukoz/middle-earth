@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -54,7 +55,7 @@ public class IsengardNpcDataPool {
     static {
         allColors = List.of(DARK, DARK_BROWN);
 
-        ISENGARD_ORTHANC_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orthanc_guard")), RaceRegistry.HUMAN, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
+        ISENGARD_ORTHANC_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orthanc_guard")), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_HELMET).withWeight(4))

@@ -12,13 +12,14 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
-import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearSlotData;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.List;
 
@@ -57,8 +58,12 @@ public class EreborNpcDataPool {
                 EREBOR_LEADER);
     }
 
+    private static Identifier createId(String idName) {
+        return IdentifierUtil.buildAggregate(FACTION.getValue().getPath(), idName);
+    }
+
     static {
-        EREBOR_CIVILIAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("civilian")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF, List.of(
+        EREBOR_CIVILIAN = new NpcData(createId("civilian"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(4))
@@ -78,7 +83,7 @@ public class EreborNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        EREBOR_MINER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("miner")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF,  List.of(
+        EREBOR_MINER = new NpcData(createId("miner"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF,  List.of(
             NpcGearData.create()
                 .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                         .add(NpcGearItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(4))
@@ -108,7 +113,7 @@ public class EreborNpcDataPool {
                 )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        EREBOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF, List.of(
+        EREBOR_MILITIA = new NpcData(createId("militia"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LONGBEARD_SEGMENTED_HELMET))
@@ -137,7 +142,7 @@ public class EreborNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        EREBOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF, List.of(
+        EREBOR_SOLDIER = new NpcData(createId("soldier"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_HELMET).withWeight(3))
@@ -178,7 +183,7 @@ public class EreborNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        EREBOR_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("archer")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF_MIGHTY, List.of(
+        EREBOR_ARCHER = new NpcData(createId("archer"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_HELMET).withWeight(3))
@@ -212,7 +217,7 @@ public class EreborNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        EREBOR_ELITE = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("elite")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF, List.of(
+        EREBOR_ELITE = new NpcData(createId("elite"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_GUARD_HELMET).withWeight(8))
@@ -252,7 +257,7 @@ public class EreborNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        EREBOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF, List.of(
+        EREBOR_VETERAN = new NpcData(createId("veteran"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_PLATE_HELMET))
@@ -283,7 +288,7 @@ public class EreborNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        EREBOR_GATEWARDEN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("gatewarden")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF, List.of(
+        EREBOR_GATEWARDEN = new NpcData(createId("gatewarden"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_MIGHTY_DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_HELMET))
@@ -313,7 +318,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
 
-        EREBOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("leader")), RaceRegistry.DWARF, FACTION, NpcTextureDatasME.LONGBEARDS_EREBOR_DWARF, List.of(
+        EREBOR_LEADER = new NpcData(createId("leader"), RaceRegistry.DWARF, FACTION, NpcTextureDataRegistry.LONGBEARDS_EREBOR_MIGHTY_DWARF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.EREBOR_CAPTAIN_HELMET))

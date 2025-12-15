@@ -3,6 +3,10 @@ package net.sevenstars.middleearth.utils;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.Identifier;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 public class IdentifierUtil {
     public static Identifier getIdentifierFromString(String id){
         if(id.contains(":") && id.split(":").length == 2){
@@ -34,4 +38,5 @@ public class IdentifierUtil {
         }
         return fullValue.toString();
     }
+
 }

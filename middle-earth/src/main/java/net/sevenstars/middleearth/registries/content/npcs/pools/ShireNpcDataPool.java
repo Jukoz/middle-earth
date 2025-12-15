@@ -11,8 +11,8 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
-import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
@@ -41,7 +41,7 @@ public class ShireNpcDataPool {
     }
 
     static {
-        SHIRE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RaceRegistry.HOBBIT, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
+        SHIRE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RaceRegistry.HOBBIT, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
@@ -69,7 +69,7 @@ public class ShireNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-    SHIRE_SHIRRIFF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("shirriff")), RaceRegistry.HOBBIT, FACTION, NpcTextureDatasME.GENERIC_HUMAN, List.of(
+    SHIRE_SHIRRIFF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("shirriff")), RaceRegistry.HOBBIT, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.SHIRRIFF_HAT)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()

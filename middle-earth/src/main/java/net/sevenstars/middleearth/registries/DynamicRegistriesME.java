@@ -11,12 +11,14 @@ import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -29,6 +31,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
     public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(IdentifierUtil.build( "biome_event"));
     public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANT = RegistryKey.ofRegistry(IdentifierUtil.build( "spider_variant"));
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA = RegistryKey.ofRegistry(IdentifierUtil.build( "structure_manager_data"));
+    public static final RegistryKey<Registry<NpcTextureData>> NPC_TEXTURE_DATA = RegistryKey.ofRegistry(IdentifierUtil.build( "npc_texture_data"));
 
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
@@ -38,6 +41,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(SPIDER_VARIANT, SpiderVariant.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
+        DynamicRegistries.registerSynced(NPC_TEXTURE_DATA, NpcTextureData.CODEC);
     }
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {
@@ -47,14 +51,13 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
         registryBuilder.addRegistry(SPIDER_VARIANT, SpiderVariantRegistry::bootstrap);
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
-        //registryBuilder.addRegistry(NpcTextureDatasME.KEY, NpcTextureDatasME::bootstrap);
+        registryBuilder.addRegistry(NPC_TEXTURE_DATA, NpcTextureDataRegistry::bootstrap);
     }
 
     public static void addProviders(FabricDataGenerator.Pack pack) {
         pack.addProvider(SpiderVariantsProvider::new);
-        pack.addProvider(NpcTextureDataProvider::new);
-
         pack.addProvider(RaceProvider::new);
+        pack.addProvider(NpcTextureDataProvider::new);
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
