@@ -16,6 +16,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -86,6 +87,7 @@ public class NpcEntityInitializer {
 
             NpcUtil.equipAll(npcEntity, npcData.getGear());
         } catch (Exception exception){
+            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s", currentNpcDataId, exception.getLocalizedMessage()));
             npcEntity.discard();
         }
     }

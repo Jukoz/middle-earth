@@ -19,18 +19,18 @@ import java.util.Random;
 public class NpcTextureData {
     public static final Codec<NpcTextureData> CODEC = RecordCodecBuilder.create(instance -> {
         return instance.group(
-            NbtCompound.CODEC.fieldOf("compound").forGetter(NpcTextureData::getNbt)
+            NbtCompound.CODEC.fieldOf("categories").forGetter(NpcTextureData::getNbt)
         ).apply(instance, NpcTextureData::new);
     });
 
     HashMap<EntityCategory, List<NpcTextureDataPreset>> presetsByCategory;
 
-    public NpcTextureData(NbtCompound compound) {
-        if(compound == null) return;
+    public NpcTextureData(NbtCompound categories) {
+        if(categories == null) return;
         presetsByCategory = new HashMap<>();
 
         for(EntityCategory category : EntityCategory.values()){
-            var optList = compound.getList(category.name());
+            var optList = categories.getList(category.name());
             if(optList.isEmpty()) continue;;
             NbtList nbtListPresets = optList.get();
             List<NpcTextureDataPreset> dataPresetList = new ArrayList<>();

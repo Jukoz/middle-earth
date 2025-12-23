@@ -53,58 +53,9 @@ public class DalishNpcDataPool {
     }
 
     static {
-        NpcTextureDataPreset BASE_MALE_DALE_TEXTURE_PRESET = NpcTextureDataPool.HUMAN_MALE.copy()
-                .clearMaterials(NpcTextureType.SKIN)
-                .withMaterials(NpcTextureType.SKIN, List.of(
-                        CharacterMaterialsME.Skin.PALE,
-                        CharacterMaterialsME.Skin.BEIGE
-                ))
-                .clearMaterials(NpcTextureType.HAIR)
-                .withMaterials(NpcTextureType.HAIR, List.of(
-                        CharacterMaterialsME.Hair.COLD_BLACK_COPPER,
-                        CharacterMaterialsME.Hair.BLACK_COPPER,
-                        CharacterMaterialsME.Hair.DARK_BROWN_COPPER,
-                        CharacterMaterialsME.Hair.DARK_BROWN_BEADS,
-                        CharacterMaterialsME.Hair.GREASY_BEADS,
-                        CharacterMaterialsME.Hair.GREASY_COPPER,
-                        CharacterMaterialsME.Hair.BROWN_COPPER,
-                        CharacterMaterialsME.Hair.BROWN_BEADS,
-                        CharacterMaterialsME.Hair.GRAY_BEADS,
-                        CharacterMaterialsME.Hair.GRAY_COPPER,
-                        CharacterMaterialsME.Hair.WHITE_COPPER,
-                        CharacterMaterialsME.Hair.WHITE_BEADS
-                ))
-                .clearPatterns(NpcTextureType.HAIR)
-                .withPatterns(NpcTextureType.HAIR, List.of(
-                        CharacterPatternsME.Hairs.Hair.BOWL,
-                        CharacterPatternsME.Hairs.Hair.SHORT,
-                        CharacterPatternsME.Hairs.Hair.SHARP,
-                        CharacterPatternsME.Hairs.Hair.BALD_SIDES,
-                        CharacterPatternsME.Hairs.Hair.UNCUT,
-                        CharacterPatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED
-                ))
-                .clearPatterns(NpcTextureType.BEARD)
-                .withPatterns(NpcTextureType.BEARD, Stream.of(
-                        null,
-                        CharacterPatternsME.Hairs.Beard.SHORT,
-                        CharacterPatternsME.Hairs.Beard.SINGLE,
-                        CharacterPatternsME.Hairs.Beard.SEMI_LONG
-                ).toList())
-                .clearPatterns(NpcTextureType.CLOTHING)
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS
-                ));
 
-        NpcTextureDataPreset BASE_FEMALE_DALE_TEXTURE_PRESET = BASE_MALE_DALE_TEXTURE_PRESET.copy()
-                .clearPatterns(NpcTextureType.HAIR)
-                .clearPatterns(NpcTextureType.BEARD)
-                .withPatterns(NpcTextureType.HAIR, List.of(
-                        CharacterPatternsME.Hairs.Hair.LONG,
-                        CharacterPatternsME.Hairs.Hair.FLAT_LONG,
-                        CharacterPatternsME.Hairs.Hair.SEMI_LONG
-                ));
 
-        CIVILIAN = new NpcData(NpcRegistry.DALE_CIVILIAN.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        CIVILIAN = new NpcData(NpcRegistry.DALE_CIVILIAN.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_PEASANT, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT))
@@ -121,7 +72,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        WORKER = new NpcData(NpcRegistry.DALE_WORKER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        WORKER = new NpcData(NpcRegistry.DALE_WORKER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_PEASANT, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT))
@@ -139,7 +90,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        MILITIA = new NpcData(NpcRegistry.DALE_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        MILITIA = new NpcData(NpcRegistry.DALE_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_PEASANT, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_HELMET))
@@ -163,7 +114,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        SOLDIER = new NpcData(NpcRegistry.DALE_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        SOLDIER = new NpcData(NpcRegistry.DALE_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.KETTLE_HAT))
@@ -194,7 +145,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        ARCHER = new NpcData(NpcRegistry.DALE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        ARCHER = new NpcData(NpcRegistry.DALE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_HELMET))
@@ -219,7 +170,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        KNIGHT = new NpcData(NpcRegistry.DALE_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        KNIGHT = new NpcData(NpcRegistry.DALE_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF))
@@ -253,7 +204,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        ELITE_ARCHER = new NpcData(NpcRegistry.DALE_ELITE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        ELITE_ARCHER = new NpcData(NpcRegistry.DALE_ELITE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.DALISH_HELMET_BROWN_FUR))
@@ -275,7 +226,7 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(WeaponItemsME.DALISH_NOBLE_LONGBOW))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-        VETERAN = new NpcData(NpcRegistry.DALE_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        VETERAN = new NpcData(NpcRegistry.DALE_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_LORD, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_HELMET))
@@ -308,7 +259,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        SERGEANT = new NpcData(NpcRegistry.DALE_SERGEANT.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        SERGEANT = new NpcData(NpcRegistry.DALE_SERGEANT.getValue(), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.DALE_LORD, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.BARDING_SOLDIER_HELMET))

@@ -8,6 +8,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -119,7 +120,7 @@ public class NpcData {
         return npcTextureKey;
     }
     public NpcTextureData getNpcTextureData(World world) {
-        return world.getRegistryManager().getOrThrow(NpcTextureDatasME.KEY).get(npcTextureKey);
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_TEXTURE_DATA).get(npcTextureKey);
     }
 
 

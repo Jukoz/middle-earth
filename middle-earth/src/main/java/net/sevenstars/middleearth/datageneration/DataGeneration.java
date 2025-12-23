@@ -98,9 +98,6 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         // Mod Dynamic
         DynamicRegistriesME.prepareBoostrap(registryBuilder);
 
-        registryBuilder.addRegistry(NpcTextureDatasME.KEY, NpcTextureDatasME::bootstrap);
-        registryBuilder.addRegistry(StructureManagerDatasME.KEY, StructureManagerDatasME::bootstrap);
-
         // Vanilla registries
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, SmithingTrimMaterialsME::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, SmithingTrimPatternsME::bootstrap);

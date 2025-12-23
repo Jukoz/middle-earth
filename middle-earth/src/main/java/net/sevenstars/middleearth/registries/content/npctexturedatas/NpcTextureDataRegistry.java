@@ -7,6 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctexturedatas.pools.GenericNpcTextureDataPool;
+import net.sevenstars.middleearth.registries.content.npctexturedatas.pools.dale.DaleNpcTextureDataPool;
 import net.sevenstars.middleearth.registries.content.npctexturedatas.pools.longbeards.LongbeardsNpcTextureDataPool;
 import net.sevenstars.middleearth.registries.content.npctexturedatas.pools.longbeards.erebor.EreborNpcTextureDataPool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -24,6 +25,11 @@ public class NpcTextureDataRegistry {
 
     /* [GENERIC] */
     public final static RegistryKey<NpcTextureData> GENERIC_HUMAN = of("generic_human");
+
+    /* [DALE] */
+    public final static RegistryKey<NpcTextureData> DALE_PEASANT = of(FactionRegistry.DALE, "peasant");
+    public final static RegistryKey<NpcTextureData> DALE_SOLDIER = of(FactionRegistry.DALE, "soldier");
+    public final static RegistryKey<NpcTextureData> DALE_LORD = of(FactionRegistry.DALE, "lord");
 
     /* [LONGBEARDS.EREBOR] */
     public final static RegistryKey<NpcTextureData> LONGBEARDS_EREBOR_DWARF         = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf");
@@ -55,6 +61,7 @@ public class NpcTextureDataRegistry {
         registerAll(context, registryEntryLookup, GenericNpcTextureDataPool.fetchAll());
         registerAll(context, registryEntryLookup, EreborNpcTextureDataPool.fetchAll());
         registerAll(context, registryEntryLookup, LongbeardsNpcTextureDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, DaleNpcTextureDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcTextureData> context, RegistryEntryLookup<NpcTextureData> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {
