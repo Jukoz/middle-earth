@@ -44,6 +44,7 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> WILD_GOBLIN_GATHERER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WILD_GOBLINS, "gatherer"));
     public final static RegistryKey<NpcData> WILD_GOBLIN_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WILD_GOBLINS, "warrior"));
     public final static RegistryKey<NpcData> WILD_GOBLIN_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WILD_GOBLINS, "scout"));
+    public final static RegistryKey<NpcData> WILD_GOBLIN_RIDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WILD_GOBLINS, "rider"));
     public final static RegistryKey<NpcData> WILD_GOBLIN_BRUTE = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WILD_GOBLINS, "brute"));
 
     // [DALE]

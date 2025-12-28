@@ -82,14 +82,15 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.leftArmPose = getArmPose(npcEntity, npcEntity.getStackInHand(Hand.OFF_HAND), Hand.OFF_HAND);
         npcEntityRenderState.rightArmPose = getArmPose(npcEntity, npcEntity.getStackInHand(Hand.MAIN_HAND), Hand.MAIN_HAND);
 
+        float currentLightLevel = npcEntity.getWorld().getLightLevel(npcEntity.getBlockPos());
+
         npcEntityRenderState.skinId = npcTextureData.getBodyTexture();
         npcEntityRenderState.headId = npcTextureData.getHeadTexture();
         npcEntityRenderState.earId = npcTextureData.getEarTexture();
         npcEntityRenderState.noseId = npcTextureData.getNoseTexture();
         npcEntityRenderState.eyesId = npcTextureData.getEyeTexture();
         npcEntityRenderState.eyesEmissiveId = npcTextureData.getEyeEmissiveTexture();
-        npcEntityRenderState.haveEmissiveEyes = npcTextureData.isEyeEmissive() &&
-             npcEntity.getWorld().getLightLevel(npcEntity.getBlockPos(), npcEntity.getWorld().getAmbientDarkness()) < 6;
+        npcEntityRenderState.haveEmissiveEyes = npcTextureData.isEyeEmissive() && currentLightLevel < 8;
         npcEntityRenderState.eyebrowId = npcTextureData.getEyebrowTexture();
         npcEntityRenderState.scarId = npcTextureData.getScarTexture();
         npcEntityRenderState.beardId = npcTextureData.getBeardTexture();

@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmen
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
-import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -59,7 +59,7 @@ public class MordorNpcDataPool {
     static {
         allColors = List.of(DARK_RED, DARK_BROWN, DARK);
 
-        MORDOR_BLACK_NUMENOREAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_numenorean")), RaceRegistry.HUMAN, FACTION, NpcTextureDataRegistry.GENERIC_HUMAN, List.of(
+        MORDOR_BLACK_NUMENOREAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_numenorean")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET).withWeight(4))

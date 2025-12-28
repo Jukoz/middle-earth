@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcText
 import java.util.ArrayList;
 import java.util.List;
 
-public class NpcTextureDataPreset {
+public class TexturePresetData {
     public final static String EMPTY_VALUE_KEY = "NONE";
     private int weight;
     List<String> bodyPatterns;
@@ -33,7 +33,7 @@ public class NpcTextureDataPreset {
 
     private boolean haveEmissiveEyes;
 
-    public NpcTextureDataPreset(){
+    public TexturePresetData(){
         this.weight = 1;
         bodyPatterns = new ArrayList<>();
         headPatterns = new ArrayList<>();
@@ -54,7 +54,7 @@ public class NpcTextureDataPreset {
         clothingMaterials = new ArrayList<>();
     }
 
-    public NpcTextureDataPreset(NbtCompound compound) {
+    public TexturePresetData(NbtCompound compound) {
         this.weight = compound.contains("weight") ? compound.getInt("weight").get() : 1;
 
         bodyPatterns = new ArrayList<>();
@@ -226,17 +226,17 @@ public class NpcTextureDataPreset {
         return fetchedValues;
     }
 
-    public NpcTextureDataPreset withWeight(int weight){
+    public TexturePresetData withWeight(int weight){
         this.weight = weight;
         return this;
     }
 
-    public NpcTextureDataPreset withEmissiveEyes(boolean value){
+    public TexturePresetData withEmissiveEyes(boolean value){
         this.haveEmissiveEyes = value;
         return this;
     }
 
-    public NpcTextureDataPreset withPatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
+    public TexturePresetData withPatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
         if(patterns != null)
             patterns.forEach(x -> {
                 if(x == null){
@@ -247,7 +247,7 @@ public class NpcTextureDataPreset {
             });
         return this;
     }
-    public NpcTextureDataPreset withPatternValues(NpcTextureType type, List<String> patterns){
+    public TexturePresetData withPatternValues(NpcTextureType type, List<String> patterns){
         if(patterns != null)
             patterns.forEach(x -> {
                 if(x == null){
@@ -258,29 +258,29 @@ public class NpcTextureDataPreset {
             });
         return this;
     }
-    public NpcTextureDataPreset overwritePatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
+    public TexturePresetData overwritePatterns(NpcTextureType type, List<RegistryKey<NpcTexturePattern>> patterns){
         clearAllPatterns(type);
         withPatterns(type, patterns);
         return this;
     }
-    public NpcTextureDataPreset clearPatterns(NpcTextureType type) {
+    public TexturePresetData clearPatterns(NpcTextureType type) {
         clearAllPatterns(type);
         return this;
     }
-    public NpcTextureDataPreset withMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
+    public TexturePresetData withMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
         materials.forEach(x -> addToMaterial(type, x.getValue().getPath()));
         return this;
     }
-    public NpcTextureDataPreset withMaterialValues(NpcTextureType type, List<String> materials){
+    public TexturePresetData withMaterialValues(NpcTextureType type, List<String> materials){
         materials.forEach(x -> addToMaterial(type, Identifier.of(x).getPath()));
         return this;
     }
-    public NpcTextureDataPreset overwriteMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
+    public TexturePresetData overwriteMaterials(NpcTextureType type, List<RegistryKey<NpcTextureMaterial>> materials){
         clearAllMaterials(type);
         withMaterials(type, materials);
         return this;
     }
-    public NpcTextureDataPreset clearMaterials(NpcTextureType type) {
+    public TexturePresetData clearMaterials(NpcTextureType type) {
         clearAllMaterials(type);
         return this;
     }
@@ -364,8 +364,8 @@ public class NpcTextureDataPreset {
         return haveEmissiveEyes;
     }
 
-    public NpcTextureDataPreset copy() {
-        var copiedNpcTextureDataPreset = new NpcTextureDataPreset();
+    public TexturePresetData copy() {
+        var copiedNpcTextureDataPreset = new TexturePresetData();
         for(String value : getMaterials(NpcTextureType.SKIN))
             copiedNpcTextureDataPreset.addToMaterial(NpcTextureType.SKIN, value);
         for(String value : getPatterns(NpcTextureType.HEAD))

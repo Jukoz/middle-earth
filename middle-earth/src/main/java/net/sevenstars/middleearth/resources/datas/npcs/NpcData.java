@@ -9,11 +9,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.NpcTextureDatasME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
@@ -62,7 +61,7 @@ public class NpcData {
         }
     }
 
-    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<NpcTextureData> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategory, AttributePool> npcAttributePools){
+    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresets> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategory, AttributePool> npcAttributePools){
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
@@ -119,8 +118,8 @@ public class NpcData {
     private Identifier getNpcTextureDataValue() {
         return npcTextureKey;
     }
-    public NpcTextureData getNpcTextureData(World world) {
-        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_TEXTURE_DATA).get(npcTextureKey);
+    public TexturePresets getNpcTextureData(World world) {
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.TEXTURE_PRESETS).get(npcTextureKey);
     }
 
 

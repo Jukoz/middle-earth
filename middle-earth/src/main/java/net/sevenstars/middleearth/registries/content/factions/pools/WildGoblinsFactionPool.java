@@ -28,7 +28,8 @@ public class WildGoblinsFactionPool {
                     put(NpcRank.SOLDIER, List.of(
                         WildGoblinNpcDataPool.GATHERER,
                         WildGoblinNpcDataPool.WARRIOR,
-                        WildGoblinNpcDataPool.SCOUT
+                        WildGoblinNpcDataPool.SCOUT,
+                        WildGoblinNpcDataPool.RIDER
                     ));
                     put(NpcRank.KNIGHT, List.of(
                         WildGoblinNpcDataPool.WARRIOR

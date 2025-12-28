@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.minecraft.entity.EntityType;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npcs.pools.BrigandNpcDataPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.WildGoblinNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
@@ -24,6 +25,8 @@ public class GenericHostilesBiomeEventPool {
         CAVE = new BiomeEventData(List.of(
             new BiomeNpcSpawningData(WildGoblinNpcDataPool.GATHERER),
             new BiomeNpcSpawningData(WildGoblinNpcDataPool.SCOUT),
+            new BiomeNpcSpawningData(WildGoblinNpcDataPool.WARRIOR),
+            new BiomeNpcSpawningData(WildGoblinNpcDataPool.RIDER).withMount(EntitiesME.CAVE_TROLL),
             new BiomeNpcSpawningData(WildGoblinNpcDataPool.BRUTE)
         ));
     }

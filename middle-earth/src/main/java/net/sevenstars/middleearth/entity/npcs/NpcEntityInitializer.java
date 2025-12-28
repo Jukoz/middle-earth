@@ -23,7 +23,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 
 public class NpcEntityInitializer {
     public static void initializeNpcEntity(ServerWorld serverWorld, NpcEntity npcEntity){
@@ -72,11 +72,11 @@ public class NpcEntityInitializer {
             npcEntity.setNpcCategory(npcData.getNpcTextureData(serverWorld).getRandomCategory());
             npcData.applyAttributes(npcEntity);
 
-            NpcTextureData textureData = npcData.getNpcTextureData(serverWorld);
+            TexturePresets textureData = npcData.getNpcTextureData(serverWorld);
 
-            NpcTextureData.Identity identity = NpcTextureData.Identity.create(textureData, npcEntity.getNpcCategory());
+            TexturePresets.Identity identity = TexturePresets.Identity.create(textureData, npcEntity.getNpcCategory());
             if(identity == null)
-                identity = NpcTextureData.Identity.create(textureData);
+                identity = TexturePresets.Identity.create(textureData);
 
             NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
             entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);

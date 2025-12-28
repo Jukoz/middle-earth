@@ -7,7 +7,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
@@ -16,16 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class NpcTextureData {
-    public static final Codec<NpcTextureData> CODEC = RecordCodecBuilder.create(instance -> {
-        return instance.group(
-            NbtCompound.CODEC.fieldOf("categories").forGetter(NpcTextureData::getNbt)
-        ).apply(instance, NpcTextureData::new);
-    });
+public class TexturePresets {
+    public static final Codec<TexturePresets> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        NbtCompound.CODEC.fieldOf("categories").forGetter(TexturePresets::getNbt)
+    ).apply(instance, TexturePresets::new));
 
-    HashMap<EntityCategory, List<NpcTextureDataPreset>> presetsByCategory;
+    HashMap<EntityCategory, List<TexturePresetData>> presetsByCategory;
 
-    public NpcTextureData(NbtCompound categories) {
+    public TexturePresets(NbtCompound categories) {
         if(categories == null) return;
         presetsByCategory = new HashMap<>();
 
@@ -33,16 +31,16 @@ public class NpcTextureData {
             var optList = categories.getList(category.name());
             if(optList.isEmpty()) continue;;
             NbtList nbtListPresets = optList.get();
-            List<NpcTextureDataPreset> dataPresetList = new ArrayList<>();
+            List<TexturePresetData> dataPresetList = new ArrayList<>();
             for(int i = 0; i < nbtListPresets.size(); i++){
-                NpcTextureDataPreset fetchedPreset = new NpcTextureDataPreset(nbtListPresets.getCompound(i).get());
+                TexturePresetData fetchedPreset = new TexturePresetData(nbtListPresets.getCompound(i).get());
                 dataPresetList.add(fetchedPreset);
             }
             presetsByCategory.put(category, dataPresetList);
         }
     }
 
-    public NpcTextureData(HashMap<EntityCategory, List<NpcTextureDataPreset>> sourceDatas) {
+    public TexturePresets(HashMap<EntityCategory, List<TexturePresetData>> sourceDatas) {
         presetsByCategory = sourceDatas;
     }
 
@@ -59,10 +57,10 @@ public class NpcTextureData {
     public NbtCompound getNbt() {
         NbtCompound newNbt = new NbtCompound();
         for(EntityCategory category : presetsByCategory.keySet()){
-            List<NpcTextureDataPreset> presets = presetsByCategory.get(category);
+            List<TexturePresetData> presets = presetsByCategory.get(category);
             if(presets != null && !presets.isEmpty()){
                 NbtList newNbtList = new NbtList();
-                for (NpcTextureDataPreset preset : presets) {
+                for (TexturePresetData preset : presets) {
                     newNbtList.add(preset.getNbt());
                 }
                 newNbt.put(category.name(), newNbtList);
@@ -86,7 +84,7 @@ public class NpcTextureData {
             return null;
         Random random = new Random();
         String value = patterns.get(random.nextInt(patterns.size()));
-        if(value.equals(NpcTextureDataPreset.EMPTY_VALUE_KEY))
+        if(value.equals(TexturePresetData.EMPTY_VALUE_KEY))
             return null;
         return Identifier.of(MiddleEarth.MOD_ID, value);
     }
@@ -130,37 +128,37 @@ public class NpcTextureData {
         return EntityCategory.MALE;
     }
 
-    public record Identity(EntityCategory category, NpcTextureDataPreset preset){
-        public static Identity create(NpcTextureData data, EntityCategory entityCategory){
+    public record Identity(EntityCategory category, TexturePresetData preset){
+        public static Identity create(TexturePresets data, EntityCategory entityCategory){
             if(!data.presetsByCategory.containsKey(entityCategory))
                 return null;
 
             // TODO : get the right preset based on weight
-            List<NpcTextureDataPreset> presets = data.presetsByCategory.get(entityCategory);
+            List<TexturePresetData> presets = data.presetsByCategory.get(entityCategory);
             presets = feedSharedToPresets(data, presets);
 
             Random random = new Random();
             return new Identity(entityCategory, presets.get(random.nextInt(presets.size())));
         }
 
-        public static Identity create(NpcTextureData data){
+        public static Identity create(TexturePresets data){
             EntityCategory entityCategory = data.getRandomCategory();
             if(!data.presetsByCategory.containsKey(entityCategory))
                 return null;
 
             // TODO : get the right preset based on weight
-            List<NpcTextureDataPreset> presets = data.presetsByCategory.get(entityCategory);
+            List<TexturePresetData> presets = data.presetsByCategory.get(entityCategory);
             presets = feedSharedToPresets(data, presets);
 
             Random random = new Random();
             return new Identity(entityCategory, presets.get(random.nextInt(presets.size())));
         }
 
-        private static List<NpcTextureDataPreset> feedSharedToPresets(NpcTextureData data, List<NpcTextureDataPreset> presets) {
+        private static List<TexturePresetData> feedSharedToPresets(TexturePresets data, List<TexturePresetData> presets) {
             if(data.presetsByCategory.containsKey(EntityCategory.SHARED)){
                 var shared = data.presetsByCategory.get(EntityCategory.SHARED).getFirst();
                 if(shared != null){
-                    for (NpcTextureDataPreset preset : presets) {
+                    for (TexturePresetData preset : presets) {
                         preset.withMaterialValues(NpcTextureType.SKIN, shared.getMaterials(NpcTextureType.SKIN));
                         preset.withPatternValues(NpcTextureType.BODY, shared.getPatterns(NpcTextureType.BODY));
                         preset.withPatternValues(NpcTextureType.HEAD, shared.getPatterns(NpcTextureType.HEAD));

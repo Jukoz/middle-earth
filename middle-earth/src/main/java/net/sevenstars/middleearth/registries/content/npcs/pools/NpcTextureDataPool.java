@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.registries.content.npcs.pools;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
@@ -13,16 +13,16 @@ import java.util.stream.Stream;
 public class NpcTextureDataPool {
 public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
 
-    public final static NpcTextureDataPreset HUMAN_COMMON;
-    public final static NpcTextureDataPreset HUMAN_MALE;
-    public final static NpcTextureDataPreset HUMAN_FEMALE;
+    public final static TexturePresetData HUMAN_COMMON;
+    public final static TexturePresetData HUMAN_MALE;
+    public final static TexturePresetData HUMAN_FEMALE;
 
     public static class Dwarves{
-        public final static NpcTextureDataPreset DWARF_MALE;
-        public final static NpcTextureDataPreset DWARF_FEMALE;
+        public final static TexturePresetData DWARF_MALE;
+        public final static TexturePresetData DWARF_FEMALE;
 
         static {
-            DWARF_MALE = new NpcTextureDataPreset()
+            DWARF_MALE = new TexturePresetData()
                     .withMaterials(NpcTextureType.SKIN, List.of(
                             CharacterMaterialsME.Skin.TAN,
                             CharacterMaterialsME.Skin.TAN_DESATURATED,
@@ -91,7 +91,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                             CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS,
                             CharacterPatternsME.Clothing.PANTS
                     ));
-            DWARF_FEMALE = new NpcTextureDataPreset()
+            DWARF_FEMALE = new TexturePresetData()
                     .withMaterials(NpcTextureType.SKIN, List.of(
                             CharacterMaterialsME.Skin.TAN,
                             CharacterMaterialsME.Skin.TAN_DESATURATED,
@@ -201,7 +201,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
         // endregion
 
         // region HUMAN
-        HUMAN_COMMON = new NpcTextureDataPreset()
+        HUMAN_COMMON = new TexturePresetData()
                 .withMaterials(NpcTextureType.SKIN, List.of(
                         CharacterMaterialsME.Skin.TAN,
                         CharacterMaterialsME.Skin.TAN_DESATURATED,
@@ -233,7 +233,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         CharacterPatternsME.Clothing.FULL_TOGA,
                         CharacterPatternsME.Clothing.SKIRT
                 ));
-        HUMAN_MALE = new NpcTextureDataPreset()
+        HUMAN_MALE = new TexturePresetData()
                 .withPatterns(NpcTextureType.BODY, List.of(
                         CharacterPatternsME.Skins.Body.MUSCULAR
                 ))
@@ -260,7 +260,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         CharacterPatternsME.Hairs.Beard.SINGLE,
                         CharacterPatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
                         null).toList());
-        HUMAN_FEMALE = new NpcTextureDataPreset()
+        HUMAN_FEMALE = new TexturePresetData()
                 .withPatterns(NpcTextureType.BODY, List.of(
                         CharacterPatternsME.Skins.Body.FEMALE
                 ))

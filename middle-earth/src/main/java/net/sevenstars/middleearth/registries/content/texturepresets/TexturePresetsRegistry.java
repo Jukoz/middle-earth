@@ -1,0 +1,107 @@
+package net.sevenstars.middleearth.registries.content.texturepresets;
+
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.GenericTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.brigand.BrigandTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.dale.DaleTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.LongbeardsTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor.EreborTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class TexturePresetsRegistry {
+    private static final RegistryKey<Registry<TexturePresets>> NPC_TEXTURE_DATA_KEY = DynamicRegistriesME.TEXTURE_PRESETS;
+
+    /* [GENERIC] */
+    public final static RegistryKey<TexturePresets> GENERIC_HUMAN       = of("generic_human");
+
+    /* [BRIGAND] */
+    public final static RegistryKey<TexturePresets> BRIGAND_THUG        = of(FactionRegistry.BRIGAND, "thug");
+    public final static RegistryKey<TexturePresets> BRIGAND_MERCENARY   = of(FactionRegistry.BRIGAND, "mercenary");
+    public final static RegistryKey<TexturePresets> BRIGAND_CHIEF       = of(FactionRegistry.BRIGAND, "chief");
+
+    /* [WILD GOBLINS] */
+    public final static RegistryKey<TexturePresets> WILD_GOBLIN_WEAK    = of(FactionRegistry.WILD_GOBLINS, "weak");
+    public final static RegistryKey<TexturePresets> WILD_GOBLIN_WARRIOR = of(FactionRegistry.WILD_GOBLINS, "warrior");
+    public final static RegistryKey<TexturePresets> WILD_GOBLIN_BRUTE   = of(FactionRegistry.WILD_GOBLINS, "brute");
+
+    /* [DALE] */
+    public final static RegistryKey<TexturePresets> DALE_PEASANT        = of(FactionRegistry.DALE, "peasant");
+    public final static RegistryKey<TexturePresets> DALE_SOLDIER        = of(FactionRegistry.DALE, "soldier");
+    public final static RegistryKey<TexturePresets> DALE_LORD           = of(FactionRegistry.DALE, "lord");
+
+    /* [LONGBEARDS.EREBOR] */
+    public final static RegistryKey<TexturePresets> LONGBEARDS_EREBOR_DWARF         = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf");
+    public final static RegistryKey<TexturePresets> LONGBEARDS_EREBOR_DWARF_SOLDIER = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf_soldier");
+    public final static RegistryKey<TexturePresets> LONGBEARDS_EREBOR_MIGHTY_DWARF  = of(FactionRegistry.LONGBEARDS_EREBOR, "mighty_dwarf");
+
+
+
+    /* [LOTHLORIEN] */
+    public final static RegistryKey<TexturePresets> LORIEN_ELF = of("lothlorien_elf");
+
+    /* [MORDOR] */
+    public final static RegistryKey<TexturePresets> MORDOR_ORC = of("mordor_orc");
+    public final static RegistryKey<TexturePresets> MORDOR_BLACK_URUK = of("mordor_black_uruk");
+
+    /* [HOBGOBLIN TRIBES] */
+    public final static RegistryKey<TexturePresets> HOBGOBLIN_TRIBES_GOBLIN = of("hobgoblin_tribes_goblin");
+    public final static RegistryKey<TexturePresets> HOBGOBLIN_TRIBES_HOBGOBLIN = of("hobgoblin_tribes_hobgoblin");
+
+    /* [ISENGARD] */
+    public final static RegistryKey<TexturePresets> ISENGARD_ORC = of("isengard_orc");
+    public final static RegistryKey<TexturePresets> ISENGARD_URUK_HAI = of("isengard_uruk_hai");
+
+
+
+    public static void bootstrap(Registerable<TexturePresets> context) {
+        RegistryEntryLookup<TexturePresets> registryEntryLookup = context.getRegistryLookup(NPC_TEXTURE_DATA_KEY);
+
+        /* [ADD ALL POOLS BELOW] */
+        registerAll(context, registryEntryLookup, GenericTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, BrigandTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, WildGoblinTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, LongbeardsTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, EreborTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, DaleTexturePresetsPool.fetchAll());
+    }
+
+    private static void registerAll(Registerable<TexturePresets> context, RegistryEntryLookup<TexturePresets> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {
+        for(RegisterableNpcTextureData registerable : npcTextureDatas){
+            register(context, registryEntryLookup, registerable.npcTextureDataRegistryKey, registerable.content);
+        }
+    }
+
+    private static void register(Registerable<TexturePresets> context, RegistryEntryLookup<TexturePresets> registryEntryLookup, RegistryKey<TexturePresets> registryKey, TexturePresets element){
+        DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
+        // [LANG datagen]
+        // N/A
+    }
+
+    private static RegistryKey<TexturePresets> of(String... names) {
+        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, IdentifierUtil.buildAggregate(names));
+    }
+
+    private static RegistryKey<TexturePresets> of(RegistryKey<Faction> base, String... names) {
+
+        ArrayList<String> aggregateNames = new ArrayList<String>();
+        aggregateNames.add(base.getValue().getPath());
+        aggregateNames.addAll(Arrays.stream(names).toList());
+
+        String[] stringArray = aggregateNames.toArray(new String[0]);
+        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, IdentifierUtil.buildAggregate(stringArray));
+    }
+
+    public record RegisterableNpcTextureData (RegistryKey<TexturePresets> npcTextureDataRegistryKey, TexturePresets content){ }
+}

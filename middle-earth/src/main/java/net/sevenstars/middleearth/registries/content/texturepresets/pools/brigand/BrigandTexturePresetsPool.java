@@ -1,42 +1,43 @@
-package net.sevenstars.middleearth.registries.content.npctexturedatas.pools.dale;
+package net.sevenstars.middleearth.registries.content.texturepresets.pools.brigand;
 
-import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class DaleNpcTextureDataPool {
+public class BrigandTexturePresetsPool {
+    private final static TexturePresetData BASE_PRESET;
+    private final static TexturePresetData MALE_PRESET;
+    private final static TexturePresetData FEMALE_PRESET;
+    private final static TexturePresetData CHIEF_PRESET;
 
-    private final static NpcTextureDataPreset BASE_PRESET;
-    private final static NpcTextureDataPreset MALE_PRESET;
-    private final static NpcTextureDataPreset FEMALE_PRESET;
-    private final static NpcTextureDataPreset LORD_PRESET;
+    public final static TexturePresets THUG;
+    public final static TexturePresets MERCENARY;
+    public final static TexturePresets CHIEF;
 
-    public final static NpcTextureData COMMON;
-    public final static NpcTextureData SOLDIER;
-    public final static NpcTextureData LORD;
-
-    public static List<NpcTextureDataRegistry.RegisterableNpcTextureData> fetchAll() {
+    public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
-                new NpcTextureDataRegistry.RegisterableNpcTextureData(NpcTextureDataRegistry.DALE_PEASANT, COMMON),
-                new NpcTextureDataRegistry.RegisterableNpcTextureData(NpcTextureDataRegistry.DALE_SOLDIER, SOLDIER),
-                new NpcTextureDataRegistry.RegisterableNpcTextureData(NpcTextureDataRegistry.DALE_LORD, LORD)
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.BRIGAND_THUG, THUG),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.BRIGAND_MERCENARY, MERCENARY),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.BRIGAND_CHIEF, CHIEF)
         );
     }
 
     //region [PRESETS]
     static {
-        BASE_PRESET = new NpcTextureDataPreset()
+        BASE_PRESET = new TexturePresetData()
                 .withMaterials(NpcTextureType.SKIN, List.of(
                         CharacterMaterialsME.Skin.PALE,
-                        CharacterMaterialsME.Skin.BEIGE
+                        CharacterMaterialsME.Skin.BEIGE,
+                        CharacterMaterialsME.Skin.TAN_DESATURATED,
+                        CharacterMaterialsME.Skin.DARK_BEIGE
                 ))
                 .withPatterns(NpcTextureType.EAR, List.of(
                         CharacterPatternsME.Skins.Ear.SQUARE,
@@ -46,20 +47,20 @@ public class DaleNpcTextureDataPool {
                         CharacterPatternsME.Eyes.Eye.COMMON
                 ))
                 .withMaterials(NpcTextureType.EYE, List.of(
-                        CharacterMaterialsME.Eye.BLUE,
                         CharacterMaterialsME.Eye.GREEN,
                         CharacterMaterialsME.Eye.DARK_GREEN,
                         CharacterMaterialsME.Eye.BLACK,
-                        CharacterMaterialsME.Eye.NAVY,
                         CharacterMaterialsME.Eye.BROWN
                 ))
                 .withMaterials(NpcTextureType.HAIR, List.of(
-                        CharacterMaterialsME.Hair.GREASY_COPPER,
-                        CharacterMaterialsME.Hair.GRAY_COPPER,
-                        CharacterMaterialsME.Hair.BROWN_COPPER,
-                        CharacterMaterialsME.Hair.DARK_BROWN_COPPER,
-                        CharacterMaterialsME.Hair.BLACK_COPPER,
-                        CharacterMaterialsME.Hair.COLD_BLACK_COPPER
+                        CharacterMaterialsME.Hair.DIRTY_BROWN_SILVER,
+                        CharacterMaterialsME.Hair.GREASY_SILVER,
+                        CharacterMaterialsME.Hair.GRAY_BEADS,
+                        CharacterMaterialsME.Hair.BROWN_SILVER,
+                        CharacterMaterialsME.Hair.BROWN_BEADS,
+                        CharacterMaterialsME.Hair.DARK_BROWN_SILVER,
+                        CharacterMaterialsME.Hair.BLACK_SILVER,
+                        CharacterMaterialsME.Hair.COLD_BLACK_SILVER
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         CharacterPatternsME.Hairs.Eyebrow.BASIC
@@ -68,7 +69,7 @@ public class DaleNpcTextureDataPool {
                         CharacterMaterialsME.Clothing.BROWN
                 ));
 
-        MALE_PRESET = new NpcTextureDataPreset()
+        MALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.MALE
                 ))
@@ -83,27 +84,27 @@ public class DaleNpcTextureDataPool {
                         CharacterPatternsME.Hairs.Eyebrow.THICK
                 ))
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
-                        null,
-                        CharacterPatternsME.Hairs.Hair.SHORT,
-                        CharacterPatternsME.Hairs.Hair.BALD_SIDES,
-                        CharacterPatternsME.Hairs.Hair.TOP_BALDING,
-                        CharacterPatternsME.Hairs.Hair.SIDE_BALDING,
-                        CharacterPatternsME.Hairs.Hair.BOWL
-                    ).toList()
+                                null,
+                                CharacterPatternsME.Hairs.Hair.SHORT,
+                                CharacterPatternsME.Hairs.Hair.BALD_SIDES,
+                                CharacterPatternsME.Hairs.Hair.TOP_BALDING,
+                                CharacterPatternsME.Hairs.Hair.SIDE_BALDING,
+                                CharacterPatternsME.Hairs.Hair.BOWL
+                        ).toList()
                 )
                 .withPatterns(NpcTextureType.BEARD, Stream.of(
-                null,
-                        null,
-                        null,
-                        CharacterPatternsME.Hairs.Beard.SHORT,
-                        CharacterPatternsME.Hairs.Beard.SINGLE
-                    ).toList()
+                                null,
+                                null,
+                                null,
+                                CharacterPatternsME.Hairs.Beard.SHORT,
+                                CharacterPatternsME.Hairs.Beard.SINGLE
+                        ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
                         CharacterPatternsME.Clothing.PANTS
                 ));
 
-        FEMALE_PRESET = new NpcTextureDataPreset()
+        FEMALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.FEMALE
                 ))
@@ -112,16 +113,16 @@ public class DaleNpcTextureDataPool {
                         CharacterPatternsME.Skins.Body.SKIN_TO_BONE
                 ))
                 .withPatterns(NpcTextureType.HAIR, List.of(
-                        CharacterPatternsME.Hairs.Hair.LONG,
-                        CharacterPatternsME.Hairs.Hair.UNCUT,
-                        CharacterPatternsME.Hairs.Hair.SEMI_LONG
-                    )
+                                CharacterPatternsME.Hairs.Hair.LONG,
+                                CharacterPatternsME.Hairs.Hair.UNCUT,
+                                CharacterPatternsME.Hairs.Hair.SEMI_LONG
+                        )
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
                         CharacterPatternsME.Clothing.ROBE
                 ));
 
-        LORD_PRESET = MALE_PRESET.copy()
+        CHIEF_PRESET = MALE_PRESET.copy()
                 .clearPatterns(NpcTextureType.BODY)
                 .withPatterns(NpcTextureType.BODY, List.of(
                         CharacterPatternsME.Skins.Body.MUSCULAR,
@@ -132,27 +133,30 @@ public class DaleNpcTextureDataPool {
                 ))
                 .clearMaterials(NpcTextureType.HAIR)
                 .withMaterials(NpcTextureType.HAIR, List.of(
+                        CharacterMaterialsME.Hair.DIRTY_BROWN_GOLD,
+                        CharacterMaterialsME.Hair.GREASY_GOLD,
+                        CharacterMaterialsME.Hair.GRAY_GOLD,
                         CharacterMaterialsME.Hair.BROWN_GOLD,
                         CharacterMaterialsME.Hair.DARK_BROWN_GOLD,
                         CharacterMaterialsME.Hair.BLACK_GOLD,
                         CharacterMaterialsME.Hair.COLD_BLACK_GOLD,
-                        CharacterMaterialsME.Hair.GRAY_GOLD
+                        CharacterMaterialsME.Hair.WHITE_GOLD
                 ))
                 .clearPatterns(NpcTextureType.HAIR)
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
-                null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        CharacterPatternsME.Hairs.Hair.SHORT,
-                        CharacterPatternsME.Hairs.Hair.BALD_SIDES,
-                        CharacterPatternsME.Hairs.Hair.TOP_BALDING,
-                        CharacterPatternsME.Hairs.Hair.SIDE_BALDING
-                    ).toList()
+                            null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                CharacterPatternsME.Hairs.Hair.SHORT,
+                                CharacterPatternsME.Hairs.Hair.BALD_SIDES,
+                                CharacterPatternsME.Hairs.Hair.TOP_BALDING,
+                                CharacterPatternsME.Hairs.Hair.SIDE_BALDING
+                        ).toList()
                 )
                 .withPatterns(NpcTextureType.SCAR, Stream.of(
-                null,
+                        null,
                         null,
                         CharacterPatternsME.Skins.Scar.EYE_LEFT,
                         CharacterPatternsME.Skins.Scar.EYE_RIGHT
@@ -163,30 +167,31 @@ public class DaleNpcTextureDataPool {
 
     // region [DATAS]
     static {
-        COMMON = new NpcTextureData( new HashMap<>(){{
+        THUG = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(BASE_PRESET));
             put(EntityCategory.MALE, List.of(MALE_PRESET));
             put(EntityCategory.FEMALE, List.of(FEMALE_PRESET));
         }});
 
-        SOLDIER = new NpcTextureData( new HashMap<>(){{
+        MERCENARY = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(BASE_PRESET));
             put(EntityCategory.MALE, List.of(MALE_PRESET));
+            put(EntityCategory.FEMALE, List.of(FEMALE_PRESET));
         }});
 
-        LORD = new NpcTextureData( new HashMap<>(){{
+        CHIEF = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(BASE_PRESET));
             put(EntityCategory.MALE, List.of(
-                    LORD_PRESET.copy(),
-                    LORD_PRESET.copy()
+                    CHIEF_PRESET.copy(),
+                    CHIEF_PRESET.copy()
                             .clearPatterns(NpcTextureType.EYE)
                             .withPatterns(NpcTextureType.EYE, List.of(CharacterPatternsME.Eyes.Eye.BLIND_LEFT))
                             .withPatterns(NpcTextureType.SCAR, List.of(CharacterPatternsME.Skins.Scar.EYE_LEFT)),
-                    LORD_PRESET.copy()
+                    CHIEF_PRESET.copy()
                             .clearPatterns(NpcTextureType.EYE)
                             .withPatterns(NpcTextureType.EYE, List.of(CharacterPatternsME.Eyes.Eye.BLIND_RIGHT))
                             .withPatterns(NpcTextureType.SCAR, List.of(CharacterPatternsME.Skins.Scar.EYE_RIGHT))
-                    ));
+            ));
         }});
     }
     // endregion

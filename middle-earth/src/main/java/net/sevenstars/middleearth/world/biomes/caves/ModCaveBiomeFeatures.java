@@ -40,7 +40,8 @@ public class ModCaveBiomeFeatures {
         spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesWT.SNAIL, 1, 3));
     }
     public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
-        //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntitiesME.WILD_GOBLIN, 5, 1, 2));
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 2, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 2))
+                .spawnCost(EntitiesME.NPC, 0.7, 0.3);
     }
     public static void addSpiders(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.AMBIENT, 2, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 1, 2))

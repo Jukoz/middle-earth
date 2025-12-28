@@ -1,39 +1,39 @@
-package net.sevenstars.middleearth.registries.content.npctexturedatas.pools.longbeards.erebor;
+package net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor;
 
-import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class EreborNpcTextureDataPool {
+public class EreborTexturePresetsPool {
 
-    private final static NpcTextureDataPreset BASE_PRESET;
-    private final static NpcTextureDataPreset MALE_PRESET;
-    private final static NpcTextureDataPreset FEMALE_PRESET;
-    private final static NpcTextureDataPreset MIGHTY_PRESET;
+    private final static TexturePresetData BASE_PRESET;
+    private final static TexturePresetData MALE_PRESET;
+    private final static TexturePresetData FEMALE_PRESET;
+    private final static TexturePresetData MIGHTY_PRESET;
 
-    public final static NpcTextureData COMMON;
-    public final static NpcTextureData SOLDIER;
-    public final static NpcTextureData MIGHTY;
+    public final static TexturePresets COMMON;
+    public final static TexturePresets SOLDIER;
+    public final static TexturePresets MIGHTY;
 
-    public static List<NpcTextureDataRegistry.RegisterableNpcTextureData> fetchAll() {
+    public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
-                new NpcTextureDataRegistry.RegisterableNpcTextureData(NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF, COMMON),
-                new NpcTextureDataRegistry.RegisterableNpcTextureData(NpcTextureDataRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, SOLDIER),
-                new NpcTextureDataRegistry.RegisterableNpcTextureData(NpcTextureDataRegistry.LONGBEARDS_EREBOR_MIGHTY_DWARF, MIGHTY)
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, COMMON),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, SOLDIER),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.LONGBEARDS_EREBOR_MIGHTY_DWARF, MIGHTY)
         );
     }
 
     //region [PRESETS]
     static {
-        BASE_PRESET = new NpcTextureDataPreset()
+        BASE_PRESET = new TexturePresetData()
                 .withMaterials(NpcTextureType.SKIN, List.of(
                         CharacterMaterialsME.Skin.PALE,
                         CharacterMaterialsME.Skin.BEIGE
@@ -89,7 +89,7 @@ public class EreborNpcTextureDataPool {
                         CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                 ));
 
-        MALE_PRESET = new NpcTextureDataPreset()
+        MALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.MALE
                 ))
@@ -118,7 +118,7 @@ public class EreborNpcTextureDataPool {
                         CharacterPatternsME.Clothing.PANTS
                 ));
 
-        FEMALE_PRESET = new NpcTextureDataPreset()
+        FEMALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.FEMALE
                 ))
@@ -169,18 +169,18 @@ public class EreborNpcTextureDataPool {
 
     // region [DATAS]
     static {
-        COMMON = new NpcTextureData( new HashMap<>(){{
+        COMMON = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(BASE_PRESET));
             put(EntityCategory.MALE, List.of(MALE_PRESET));
             put(EntityCategory.FEMALE, List.of(FEMALE_PRESET));
         }});
 
-        SOLDIER = new NpcTextureData( new HashMap<>(){{
+        SOLDIER = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(BASE_PRESET));
             put(EntityCategory.MALE, List.of(MALE_PRESET));
         }});
 
-        MIGHTY = new NpcTextureData( new HashMap<>(){{
+        MIGHTY = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(BASE_PRESET));
             put(EntityCategory.MALE, List.of(MIGHTY_PRESET));
         }});

@@ -1,12 +1,12 @@
-package net.sevenstars.middleearth.registries.content.npctexturedatas.pools;
+package net.sevenstars.middleearth.registries.content.texturepresets.pools;
 
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.registries.content.npctexturedatas.NpcTextureDataRegistry;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.NpcTextureDataPreset;
+import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class GenericNpcTextureDataPool {
+public class GenericTexturePresetsPool {
     private static final class UtilData {
         public static final List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR = List.of(
                 CharacterMaterialsME.Hair.COLD_BLACK_COPPER,
@@ -61,20 +61,20 @@ public class GenericNpcTextureDataPool {
         );
     }
 
-    private final static NpcTextureDataPreset BASE_PRESET;
-    private final static NpcTextureDataPreset HUMAN_MALE_PRESET;
-    private final static NpcTextureDataPreset HUMAN_FEMALE_PRESET;
+    private final static TexturePresetData BASE_PRESET;
+    private final static TexturePresetData HUMAN_MALE_PRESET;
+    private final static TexturePresetData HUMAN_FEMALE_PRESET;
 
-    private final static NpcTextureData COMMON;
+    private final static TexturePresets COMMON;
 
-    public static List<NpcTextureDataRegistry.RegisterableNpcTextureData> fetchAll() {
+    public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
-            new NpcTextureDataRegistry.RegisterableNpcTextureData(NpcTextureDataRegistry.GENERIC_HUMAN, COMMON)
+            new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.GENERIC_HUMAN, COMMON)
         );
     }
     //region [PRESETS]
     static {
-        BASE_PRESET = new NpcTextureDataPreset()
+        BASE_PRESET = new TexturePresetData()
             .withMaterials(NpcTextureType.SKIN, List.of(
                     CharacterMaterialsME.Skin.TAN,
                     CharacterMaterialsME.Skin.TAN_DESATURATED,
@@ -107,7 +107,7 @@ public class GenericNpcTextureDataPool {
                     CharacterPatternsME.Clothing.SKIRT
             ));
 
-        HUMAN_MALE_PRESET = new NpcTextureDataPreset()
+        HUMAN_MALE_PRESET = new TexturePresetData()
             .withPatterns(NpcTextureType.BODY, List.of(
                     CharacterPatternsME.Skins.Body.MUSCULAR
             ))
@@ -133,7 +133,7 @@ public class GenericNpcTextureDataPool {
                     CharacterPatternsME.Hairs.Beard.SINGLE,
                     CharacterPatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
                     null).toList());
-        HUMAN_FEMALE_PRESET = new NpcTextureDataPreset()
+        HUMAN_FEMALE_PRESET = new TexturePresetData()
             .withPatterns(NpcTextureType.BODY, List.of(
                     CharacterPatternsME.Skins.Body.FEMALE
             ))
@@ -157,7 +157,7 @@ public class GenericNpcTextureDataPool {
 
     // region [DATAS]
     static {
-        COMMON= new NpcTextureData(
+        COMMON= new TexturePresets(
             new HashMap<>(){{
                 put(EntityCategory.SHARED, List.of(BASE_PRESET));
                 put(EntityCategory.MALE, List.of(HUMAN_MALE_PRESET));

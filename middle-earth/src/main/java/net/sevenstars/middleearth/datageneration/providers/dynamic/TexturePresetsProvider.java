@@ -7,18 +7,18 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
 import java.util.concurrent.CompletableFuture;
 
-public class NpcTextureDataProvider extends FabricDynamicRegistryProvider {
-    public NpcTextureDataProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+public class TexturePresetsProvider extends FabricDynamicRegistryProvider {
+    public TexturePresetsProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.NPC_TEXTURE_DATA));
+        entries.addAll(registries.getOrThrow(DynamicRegistriesME.TEXTURE_PRESETS));
     }
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.NPC_TEXTURE_DATA.getValue().getPath();
+        return DynamicRegistriesME.TEXTURE_PRESETS.getValue().getPath();
     }
 }
