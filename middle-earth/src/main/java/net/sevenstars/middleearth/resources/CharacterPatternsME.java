@@ -159,6 +159,7 @@ public class CharacterPatternsME {
         public final static RegistryKey<NpcTexturePattern> TOGA                             = of("clothing_toga", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTexturePattern> THONG                            = of("clothing_thong", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTexturePattern> PANTS                            = of("clothing_pants", NpcTextureType.CLOTHING);
+        public final static RegistryKey<NpcTexturePattern> PANTS_WITH_SCARF                 = of("clothing_pants_with_scarf", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTexturePattern> DWARVEN_GARMENT                  = of("clothing_dwarven_garment", NpcTextureType.CLOTHING);
         public final static RegistryKey<NpcTexturePattern> DWARVEN_GARMENT_WITH_PANTS       = of("clothing_dwarven_garment_with_pants", NpcTextureType.CLOTHING);
 
@@ -258,6 +259,7 @@ public class CharacterPatternsME {
         register(registry, Clothing.SKIRT_WITH_STROPHIUM, NpcTextureType.CLOTHING);
         register(registry, Clothing.TOGA, NpcTextureType.CLOTHING);
         register(registry, Clothing.PANTS, NpcTextureType.CLOTHING);
+        register(registry, Clothing.PANTS_WITH_SCARF, NpcTextureType.CLOTHING);
         register(registry, Clothing.DWARVEN_GARMENT, NpcTextureType.CLOTHING);
         register(registry, Clothing.DWARVEN_GARMENT_WITH_PANTS, NpcTextureType.CLOTHING);
         register(registry, Clothing.THONG, NpcTextureType.CLOTHING);

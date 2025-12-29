@@ -101,7 +101,10 @@ public class BrigandTexturePresetsPool {
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS
+                        CharacterPatternsME.Clothing.PANTS,
+                        CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
+                        CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
+                        CharacterPatternsME.Clothing.PANTS_WITH_SCARF
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
