@@ -91,7 +91,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         });
 
         TranslationEntries.npcDataEntries.forEach(npcData -> {
-            createTranslation(translationBuilder, "npc_data", npcData);
+            createNpcDataTranslation(translationBuilder, "npc_data", npcData);
         });
 
         TranslationEntries.structureManagerEntries.forEach(structureManager -> {
@@ -127,6 +127,27 @@ public class LanguageProvider extends FabricLanguageProvider {
             suffixSplit = Arrays.stream(sub).toList().getLast();
         }
         translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generateName(suffixSplit));
+    }
+
+    public void createNpcDataTranslation(TranslationBuilder translationBuilder, String prefix, String suffix) {
+
+        StringBuilder generatedName = new StringBuilder();
+        if (suffix.contains(".")){
+            String [] sub = suffix.split("\\.");
+            var splitId = Arrays.stream(sub).toList();
+
+            if(splitId.size() == 3) // Removes the faction when it's a subfaction (Longbeards Erebor Soldier -> Erebor Soldier)
+                splitId.removeFirst();
+
+            for(String rawName : splitId){
+                if(!generatedName.isEmpty() && !generatedName.toString().endsWith(" ") || !generatedName.toString().endsWith("-"))
+                    generatedName.append(" ");
+
+                generatedName.append(generateName(rawName));
+            }
+        }
+
+        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generatedName.toString());
     }
 
     public void createBannerTranslation(TranslationBuilder translationBuilder, String prefix, String suffix){
