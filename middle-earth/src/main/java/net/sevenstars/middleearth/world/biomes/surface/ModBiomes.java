@@ -4308,10 +4308,9 @@ public class ModBiomes {
 
         BiomeColorsDTO biomeColorsDTO = MapBiomeData.getBiome(biomeRegistryKey).getBiomeColors();
 
-        /*
-        spawnSettings.spawnCost(EntitiesME.NPC, 0.15, 0.7);
-        spawnSettings.spawn(SpawnGroup.AMBIENT, 4, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 4));
-         */
+
+        ModSpawnSettingsBuilder.addNpcs(spawnSettings);
+
         Biome biome = (new Biome.Builder())
                 .precipitation(precipitation)
                 .temperature(temperature)

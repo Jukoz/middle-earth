@@ -140,7 +140,7 @@ public class LanguageProvider extends FabricLanguageProvider {
                 splitId.removeFirst();
 
             for(String rawName : splitId){
-                if(!generatedName.isEmpty() && !generatedName.toString().endsWith(" ") || !generatedName.toString().endsWith("-"))
+                if(!generatedName.isEmpty() && (!generatedName.toString().endsWith(" ") || !generatedName.toString().endsWith("-")))
                     generatedName.append(" ");
 
                 generatedName.append(generateName(rawName));

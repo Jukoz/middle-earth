@@ -129,4 +129,9 @@ public class ModSpawnSettingsBuilder {
     public static void addDeer(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, 10, new SpawnSettings.SpawnEntry(EntitiesWT.DEER, 1, 4));
     }
+
+    public static void addNpcs(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 2))
+                .spawnCost(EntitiesME.NPC, 0.7, 0.3);
+    }
 }
