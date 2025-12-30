@@ -59,14 +59,14 @@ public class StructureManagerDatasME {
     static {
         GONDOR_GENERIC_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gondor_generic_nests"), List.of(
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("gondor_generic_nests.captain_nest"), 1500, List.of(
-                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.GONDOR_LEADER.getId()).SetFixAmount(1),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.GONDOR_KNIGHT.getId()).SetFixAmount(1),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.GONDOR_VETERAN.getId()).SetFixAmount(1)
+                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.LEADER.getId()).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.KNIGHT.getId()).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.VETERAN.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("gondor_generic_nests.barrack_nest"), 1500, List.of(
-                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.GONDOR_SOLDIER.getId()).SetRangeAmount(2,3),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.GONDOR_VETERAN.getId()).SetRangeAmount(2,3),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.GONDOR_MILITIA.getId()).SetRangeAmount(2,4)
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.SOLDIER.getId()).SetRangeAmount(2,3),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.VETERAN.getId()).SetRangeAmount(2,3),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.MILITIA.getId()).SetRangeAmount(2,4)
             )),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("gondor_generic_nests.worker_nest"), 1500, List.of(
                     new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.DALE_WORKER.getValue()).SetRangeAmount(1,3)

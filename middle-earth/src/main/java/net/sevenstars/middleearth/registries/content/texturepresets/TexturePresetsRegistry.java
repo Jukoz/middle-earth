@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.GenericTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.brigand.BrigandTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.dale.DaleTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor.GondorTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.LongbeardsTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor.EreborTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
@@ -40,6 +41,11 @@ public class TexturePresetsRegistry {
     public final static RegistryKey<TexturePresets> DALE_PEASANT        = of(FactionRegistry.DALE, "peasant");
     public final static RegistryKey<TexturePresets> DALE_SOLDIER        = of(FactionRegistry.DALE, "soldier");
     public final static RegistryKey<TexturePresets> DALE_LORD           = of(FactionRegistry.DALE, "lord");
+
+    /* [GONDOR] */
+    public final static RegistryKey<TexturePresets> GONDOR_PEASANT        = of(FactionRegistry.GONDOR, "peasant");
+    public final static RegistryKey<TexturePresets> GONDOR_SOLDIER        = of(FactionRegistry.GONDOR, "soldier");
+    public final static RegistryKey<TexturePresets> GONDOR_LORD           = of(FactionRegistry.GONDOR, "lord");
 
     /* [LONGBEARDS.EREBOR] */
     public final static RegistryKey<TexturePresets> LONGBEARDS_EREBOR_DWARF         = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf");
@@ -75,6 +81,7 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, LongbeardsTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, EreborTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, DaleTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, GondorTexturePresetsPool.fetchAll());
     }
 
     private static void registerAll(Registerable<TexturePresets> context, RegistryEntryLookup<TexturePresets> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {

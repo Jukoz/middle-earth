@@ -36,31 +36,31 @@ public class GondorianNpcDataPool {
     private final static int LIGHT_GREEN = 0x435353;
     private final static int DARK_GREEN = 0x262f2f;
 
-    public final static NpcData GONDOR_MILITIA;
-    public final static NpcData GONDOR_SOLDIER;
-    public final static NpcData GONDOR_KNIGHT;
-    public final static NpcData GONDOR_VETERAN;
-    public final static NpcData GONDOR_FOUNTAIN_GUARD;
-    public final static NpcData GONDOR_CITADEL_GUARD;
-    public final static NpcData GONDOR_KING_GUARD;
-    public final static NpcData GONDOR_LEADER;
+    public final static NpcData MILITIA;
+    public final static NpcData SOLDIER;
+    public final static NpcData KNIGHT;
+    public final static NpcData VETERAN;
+    public final static NpcData FOUNTAIN_GUARD;
+    public final static NpcData CITADEL_GUARD;
+    public final static NpcData KING_GUARD;
+    public final static NpcData LEADER;
 
-    public static List<NpcData> fetchAll() {
+    public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
-                GONDOR_MILITIA,
-                GONDOR_SOLDIER,
-                GONDOR_KNIGHT,
-                GONDOR_VETERAN,
-                GONDOR_FOUNTAIN_GUARD,
-                GONDOR_CITADEL_GUARD,
-                GONDOR_KING_GUARD,
-                GONDOR_LEADER
-                );
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_MILITIA, MILITIA),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_SOLDIER, SOLDIER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_KNIGHT, KNIGHT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_VETERAN, VETERAN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_FOUNTAIN_GUARD, FOUNTAIN_GUARD),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_CITADEL_GUARD, CITADEL_GUARD),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_KING_GUARD, KING_GUARD),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_LEADER, LEADER)
+        );
     }
 
     static {
 
-        GONDOR_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        MILITIA = new NpcData(NpcRegistry.GONDOR_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_PEASANT, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
@@ -149,7 +149,7 @@ public class GondorianNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        GONDOR_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("soldier")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        SOLDIER = new NpcData(NpcRegistry.GONDOR_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CABASSET_HELMET))
@@ -178,7 +178,7 @@ public class GondorianNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        GONDOR_KNIGHT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("knight")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        KNIGHT = new NpcData(NpcRegistry.GONDOR_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -213,7 +213,7 @@ public class GondorianNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        GONDOR_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("veteran")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        VETERAN = new NpcData(NpcRegistry.GONDOR_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET).withWeight(10))
@@ -232,7 +232,47 @@ public class GondorianNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        GONDOR_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("leader")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        CITADEL_GUARD = new NpcData(NpcRegistry.GONDOR_CITADEL_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET)))
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_SWORD))
+                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_AXE))
+                        )
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+
+        FOUNTAIN_GUARD = new NpcData(NpcRegistry.GONDOR_FOUNTAIN_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET)))
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.GONDORIAN_FOUNTAIN_GUARD_SPEAR)))
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+
+        KING_GUARD = new NpcData(NpcRegistry.GONDOR_KING_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET)))
+                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE)))
+                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_SPEAR).withWeight(3))
+                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_LONGSWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
+                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+
+        LEADER = new NpcData(NpcRegistry.GONDOR_LEADER.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_LORD, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
@@ -249,46 +289,6 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
-                        )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-
-        GONDOR_CITADEL_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("citadel_guard")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
-                NpcGearData.create()
-                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET)))
-                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
-                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_LEGGINGS)))
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_SWORD))
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_AXE))
-                        )
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD))
-                        )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-
-        GONDOR_FOUNTAIN_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("fountain_guard")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
-                NpcGearData.create()
-                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET)))
-                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE)))
-                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create(NpcGearItemData.create(WeaponItemsME.GONDORIAN_FOUNTAIN_GUARD_SPEAR)))
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-
-        GONDOR_KING_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("king_guard")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
-                NpcGearData.create()
-                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET)))
-                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE)))
-                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_LEGGINGS)))
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_SPEAR).withWeight(3))
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_NOBLE_LONGSWORD))
-                        )
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
     }

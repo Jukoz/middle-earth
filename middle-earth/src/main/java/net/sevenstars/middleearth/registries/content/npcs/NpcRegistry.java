@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.BrigandNpcDataPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.DalishNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.WildGoblinNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
@@ -58,6 +59,16 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> DALE_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "veteran"));
     public final static RegistryKey<NpcData> DALE_SERGEANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "sergeant"));
 
+    // [GONDOR]
+    public final static RegistryKey<NpcData> GONDOR_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "militia"));
+    public final static RegistryKey<NpcData> GONDOR_SOLDIER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "soldier"));
+    public final static RegistryKey<NpcData> GONDOR_KNIGHT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "knight"));
+    public final static RegistryKey<NpcData> GONDOR_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "veteran"));
+    public final static RegistryKey<NpcData> GONDOR_FOUNTAIN_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "fountain_guard"));
+    public final static RegistryKey<NpcData> GONDOR_CITADEL_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "citadel_guard"));
+    public final static RegistryKey<NpcData> GONDOR_KING_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "king_guard"));
+    public final static RegistryKey<NpcData> GONDOR_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "leader"));
+
 
     public static void bootstrap(Registerable<NpcData> context) {
         RegistryEntryLookup<NpcData> registryEntryLookup = context.getRegistryLookup(NPC_KEY);
@@ -67,6 +78,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, BrigandNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, WildGoblinNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, DalishNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, GondorianNpcDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> registryEntryLookup, List<RegisterableNpcData> npcDatas) {

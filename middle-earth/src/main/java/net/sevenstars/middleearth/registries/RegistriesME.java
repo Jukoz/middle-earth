@@ -66,13 +66,12 @@ public class RegistriesME {
                 File aliases = new File("aliases.txt");
 
                 if (aliases.createNewFile()) {
-                    System.out.println("File created: " + aliases.getName());
+                    MiddleEarth.LOGGER.logInfoMsg("File created: " + aliases.getName());
                 } else {
-                    System.out.println("File already exists.");
+                    MiddleEarth.LOGGER.logWarn("File already exists.");
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("An error occurred.", e);
             }
 
             try {
@@ -92,10 +91,9 @@ public class RegistriesME {
                 }
 
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                MiddleEarth.LOGGER.logTrace("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("RegistriesME :: An error occurred.", e);
             }
         } else {
             for (RegistryAliases.Alias alias: RegistryAliases.aliases) {

@@ -29,21 +29,21 @@ public class DaleFactionPool {
                         DalishNpcDataPool.MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            DalishNpcDataPool.MILITIA
+                        DalishNpcDataPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            DalishNpcDataPool.SOLDIER,
-                            DalishNpcDataPool.ARCHER
+                        DalishNpcDataPool.SOLDIER,
+                        DalishNpcDataPool.ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            DalishNpcDataPool.KNIGHT,
-                            DalishNpcDataPool.ELITE_ARCHER
+                        DalishNpcDataPool.KNIGHT,
+                        DalishNpcDataPool.ELITE_ARCHER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            DalishNpcDataPool.VETERAN
+                        DalishNpcDataPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            DalishNpcDataPool.SERGEANT
+                        DalishNpcDataPool.SERGEANT
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
