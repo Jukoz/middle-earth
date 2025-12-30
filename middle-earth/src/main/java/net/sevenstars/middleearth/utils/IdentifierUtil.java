@@ -38,5 +38,4 @@ public class IdentifierUtil {
         }
         return fullValue.toString();
     }
-
 }

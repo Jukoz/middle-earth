@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.registries.content.npcs.pools.DalishNpcDataPool;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -21,12 +22,13 @@ import java.util.List;
 
 public class DaleFactionPool {
     public final static Faction DALE;
+    private final static String FACTION_PATH = FactionRegistry.DALE.getValue().getPath();
 
     static {
         DALE = new Faction(FactionRegistry.DALE, true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        DalishNpcDataPool.MILITIA
+                        DalishNpcDataPool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
                         DalishNpcDataPool.MILITIA
@@ -52,8 +54,8 @@ public class DaleFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.BELL, DyeColor.YELLOW)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "dale.capital"), new Vector2d(2021, 727)),
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "dale.esgaroth"), new Vector2d(2007, 757))
+                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "capital"), new Vector2d(2021, 727)),
+                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "esgaroth"), new Vector2d(2007, 757))
                 )), List.of(), List.of(),
                 List.of(FactionRegistry.LONGBEARDS_EREBOR), List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.LONGBEARDS, FactionRegistry.GONDOR, FactionRegistry.ROHAN,
                 FactionRegistry.SHIRE), List.of(FactionRegistry.ISENGARD, FactionRegistry.MORDOR, FactionRegistry.MISTY_MOUNTAINS_GOBLINS, FactionRegistry.BRIGAND)

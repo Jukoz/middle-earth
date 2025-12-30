@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor;
+package net.sevenstars.middleearth.registries.content.texturepresets.pools.rohan;
 
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class GondorTexturePresetsPool {
+public class RohanTexturePresetsPool {
     private final static TexturePresetData BASE_PRESET;
     private final static TexturePresetData MALE_PRESET;
     private final static TexturePresetData FEMALE_PRESET;
@@ -24,9 +24,9 @@ public class GondorTexturePresetsPool {
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
-                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.GONDOR_PEASANT, COMMON),
-                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.GONDOR_SOLDIER, SOLDIER),
-                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.GONDOR_LORD, LORD)
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.ROHAN_PEASANT, COMMON),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.ROHAN_SOLDIER, SOLDIER),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.ROHAN_LORD, LORD)
         );
     }
     // region [PRESETS]
@@ -35,8 +35,7 @@ public class GondorTexturePresetsPool {
                 .withMaterials(NpcTextureType.SKIN, List.of(
                         CharacterMaterialsME.Skin.PALE,
                         CharacterMaterialsME.Skin.BEIGE,
-                        CharacterMaterialsME.Skin.TAN,
-                        CharacterMaterialsME.Skin.TAN_DESATURATED
+                        CharacterMaterialsME.Skin.TAN
                 ))
                 .withPatterns(NpcTextureType.EAR, List.of(
                         CharacterPatternsME.Skins.Ear.SQUARE,
@@ -47,17 +46,21 @@ public class GondorTexturePresetsPool {
                 ))
                 .withMaterials(NpcTextureType.EYE, List.of(
                         CharacterMaterialsME.Eye.BLUE,
+                        CharacterMaterialsME.Eye.NAVY,
                         CharacterMaterialsME.Eye.GREEN,
                         CharacterMaterialsME.Eye.DARK_GREEN,
                         CharacterMaterialsME.Eye.BLACK,
-                        CharacterMaterialsME.Eye.NAVY,
                         CharacterMaterialsME.Eye.BROWN
                 ))
                 .withMaterials(NpcTextureType.HAIR, List.of(
-                        CharacterMaterialsME.Hair.GREASY_SILVER,
-                        CharacterMaterialsME.Hair.GRAY_BEADS,
-                        CharacterMaterialsME.Hair.BLACK_SILVER,
-                        CharacterMaterialsME.Hair.COLD_BLACK_SILVER
+                        CharacterMaterialsME.Hair.STRAW_ALMANDINE,
+                        CharacterMaterialsME.Hair.STRAW_COPPER,
+                        CharacterMaterialsME.Hair.BLONDE_ALMANDINE,
+                        CharacterMaterialsME.Hair.BLONDE_COPPER,
+                        CharacterMaterialsME.Hair.DIRTY_BLONDE_ALMANDINE,
+                        CharacterMaterialsME.Hair.DIRTY_BLONDE_COPPER,
+                        CharacterMaterialsME.Hair.GINGER_ALMANDINE,
+                        CharacterMaterialsME.Hair.GINGER_COPPER
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         CharacterPatternsME.Hairs.Eyebrow.BASIC
@@ -81,19 +84,13 @@ public class GondorTexturePresetsPool {
                         CharacterPatternsME.Hairs.Eyebrow.THICK
                 ))
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
-                null,
                         CharacterPatternsME.Hairs.Hair.SHORT,
-                        CharacterPatternsME.Hairs.Hair.SHARP,
-                        CharacterPatternsME.Hairs.Hair.BOWL,
-                        CharacterPatternsME.Hairs.Hair.BALD_SIDES,
-                        CharacterPatternsME.Hairs.Hair.TOP_BALDING,
-                        CharacterPatternsME.Hairs.Hair.SIDE_BALDING
+                        CharacterPatternsME.Hairs.Hair.LONG,
+                        CharacterPatternsME.Hairs.Hair.UNCUT
                     ).toList()
                 )
                 .withPatterns(NpcTextureType.BEARD, Stream.of(
                         null,
-                                null,
-                                null,
                                 CharacterPatternsME.Hairs.Beard.SHORT,
                                 CharacterPatternsME.Hairs.Beard.SINGLE
                         ).toList()
@@ -131,21 +128,20 @@ public class GondorTexturePresetsPool {
                 ))
                 .clearMaterials(NpcTextureType.HAIR)
                 .withMaterials(NpcTextureType.HAIR, List.of(
-                        CharacterMaterialsME.Hair.WHITE_GOLD,
-                        CharacterMaterialsME.Hair.BLACK_GOLD,
-                        CharacterMaterialsME.Hair.COLD_BLACK_GOLD
+                        CharacterMaterialsME.Hair.STRAW_SILVER,
+                        CharacterMaterialsME.Hair.STRAW_GOLD,
+                        CharacterMaterialsME.Hair.BLONDE_SILVER,
+                        CharacterMaterialsME.Hair.BLONDE_GOLD,
+                        CharacterMaterialsME.Hair.DIRTY_BLONDE_SILVER,
+                        CharacterMaterialsME.Hair.DIRTY_BLONDE_GOLD,
+                        CharacterMaterialsME.Hair.GINGER_SILVER,
+                        CharacterMaterialsME.Hair.GINGER_GOLD
                 ))
                 .clearPatterns(NpcTextureType.HAIR)
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                null,
-                                null,
-                                null,
-                                null,
-                                null,
                                 CharacterPatternsME.Hairs.Hair.SHORT,
-                                CharacterPatternsME.Hairs.Hair.BALD_SIDES,
-                                CharacterPatternsME.Hairs.Hair.TOP_BALDING,
-                                CharacterPatternsME.Hairs.Hair.SIDE_BALDING
+                                CharacterPatternsME.Hairs.Hair.LONG,
+                                CharacterPatternsME.Hairs.Hair.UNCUT
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.SCAR, Stream.of(

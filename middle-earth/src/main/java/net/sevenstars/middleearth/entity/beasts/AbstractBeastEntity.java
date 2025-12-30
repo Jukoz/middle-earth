@@ -395,12 +395,17 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    protected void tameBeast(PlayerEntity player) {
+    public void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
             this.setOwner(player);
             this.setTame(true);
             Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
         }
+    }
+
+    public void tameBeast(LivingEntity livingEntity) {
+        this.setOwner(livingEntity);
+        this.setTame(true);
     }
 
     @Override

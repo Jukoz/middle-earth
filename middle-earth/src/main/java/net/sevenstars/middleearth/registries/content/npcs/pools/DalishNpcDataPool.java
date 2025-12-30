@@ -22,8 +22,7 @@ import java.util.List;
 public class DalishNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.DALE;
 
-    public final static NpcData CIVILIAN;
-    public final static NpcData WORKER;
+    public final static NpcData PEASANT;
 
     public final static NpcData MILITIA;
     public final static NpcData SOLDIER;
@@ -35,8 +34,7 @@ public class DalishNpcDataPool {
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
-            new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_CIVILIAN, CIVILIAN),
-            new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_WORKER, WORKER),
+            new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_PEASANT, PEASANT),
             new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_MILITIA, MILITIA),
             new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_SOLDIER, SOLDIER),
             new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_ARCHER, ARCHER),
@@ -48,9 +46,7 @@ public class DalishNpcDataPool {
     }
 
     static {
-
-
-        CIVILIAN = new NpcData(NpcRegistry.DALE_CIVILIAN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
+        PEASANT = new NpcData(NpcRegistry.DALE_PEASANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT))
@@ -58,24 +54,6 @@ public class DalishNpcDataPool {
                                 .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET))
                                 .add(NpcGearItemData.create().withWeight(5))
                         )
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.DALISH_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(Items.STONE_AXE))
-                                .add(NpcGearItemData.create(ToolItemsME.SMITHING_HAMMER))
-                                .add(NpcGearItemData.create(ToolItemsME.PIPE))
-                                .add(NpcGearItemData.create().withWeight(3))
-                        )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-
-        WORKER = new NpcData(NpcRegistry.DALE_WORKER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
-                NpcGearData.create()
-                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT))
-                                .add(NpcGearItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
-                                .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET))
-                                .add(NpcGearItemData.create().withWeight(3))
-                        )
-                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.ARMING_SKIRT)))
                         .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.DALISH_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.STONE_AXE))

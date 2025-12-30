@@ -9,10 +9,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.pools.BrigandNpcDataPool;
-import net.sevenstars.middleearth.registries.content.npcs.pools.DalishNpcDataPool;
-import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
-import net.sevenstars.middleearth.registries.content.npcs.pools.WildGoblinNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npcs.pools.*;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -49,8 +46,7 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> WILD_GOBLIN_BRUTE = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WILD_GOBLINS, "brute"));
 
     // [DALE]
-    public final static RegistryKey<NpcData> DALE_CIVILIAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "civilian"));
-    public final static RegistryKey<NpcData> DALE_WORKER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "worker"));
+    public final static RegistryKey<NpcData> DALE_PEASANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "peasant"));
     public final static RegistryKey<NpcData> DALE_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "militia"));
     public final static RegistryKey<NpcData> DALE_SOLDIER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "soldier"));
     public final static RegistryKey<NpcData> DALE_ARCHER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "archer"));
@@ -60,6 +56,7 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> DALE_SERGEANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.DALE, "sergeant"));
 
     // [GONDOR]
+    public final static RegistryKey<NpcData> GONDOR_PEASANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "peasant"));
     public final static RegistryKey<NpcData> GONDOR_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "militia"));
     public final static RegistryKey<NpcData> GONDOR_SOLDIER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "soldier"));
     public final static RegistryKey<NpcData> GONDOR_KNIGHT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "knight"));
@@ -69,6 +66,14 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> GONDOR_KING_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "king_guard"));
     public final static RegistryKey<NpcData> GONDOR_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GONDOR, "leader"));
 
+    // [ROHAN]
+    public final static RegistryKey<NpcData> ROHAN_PEASANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "peasant"));
+    public final static RegistryKey<NpcData> ROHAN_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "militia"));
+    public final static RegistryKey<NpcData> ROHAN_SOLDIER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "soldier"));
+    public final static RegistryKey<NpcData> ROHAN_KNIGHT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "knight"));
+    public final static RegistryKey<NpcData> ROHAN_ROYAL_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "royal_guard"));
+    public final static RegistryKey<NpcData> ROHAN_EORLING_MARSHAL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "eorling_marshal"));
+    public final static RegistryKey<NpcData> ROHAN_HORSE_LORD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "horse_lord"));
 
     public static void bootstrap(Registerable<NpcData> context) {
         RegistryEntryLookup<NpcData> registryEntryLookup = context.getRegistryLookup(NPC_KEY);
@@ -79,6 +84,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, WildGoblinNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, DalishNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, GondorianNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, RohirricNpcDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> registryEntryLookup, List<RegisterableNpcData> npcDatas) {

@@ -55,6 +55,10 @@ public class NpcEntityInitializer {
                     abstractHorseEntity.setTame(true);
                     if(foundNpcReturn.mountArmor() != null)
                         abstractHorseEntity.equipBodyArmor(foundNpcReturn.mountArmor());
+
+                    if(mount instanceof AbstractBeastEntity abstractBeastEntity){
+                        abstractBeastEntity.tameBeast(npcEntity);
+                    }
                 }
                 if(foundNpcReturn.mountEntity().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("can_equip_saddle"))) && mount instanceof EquipmentHolder equipmentHolder){
                     equipmentHolder.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));

@@ -23,7 +23,6 @@ import java.util.List;
 
 public class GondorianNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.GONDOR;
-    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
 
     private final static int LIGHT_BLUE = 0x2b3965;
     private final static int DARK_BLUE = 0x182038;
@@ -36,6 +35,7 @@ public class GondorianNpcDataPool {
     private final static int LIGHT_GREEN = 0x435353;
     private final static int DARK_GREEN = 0x262f2f;
 
+    public final static NpcData PEASANT;
     public final static NpcData MILITIA;
     public final static NpcData SOLDIER;
     public final static NpcData KNIGHT;
@@ -47,6 +47,7 @@ public class GondorianNpcDataPool {
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_PEASANT, PEASANT),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_MILITIA, MILITIA),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_SOLDIER, SOLDIER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_KNIGHT, KNIGHT),
@@ -59,6 +60,22 @@ public class GondorianNpcDataPool {
     }
 
     static {
+        PEASANT = new NpcData(NpcRegistry.GONDOR_PEASANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_PEASANT, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT))
+                                .add(NpcGearItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
+                                .add(NpcGearItemData.create(EquipmentItemsME.BYCOCKET))
+                                .add(NpcGearItemData.create().withWeight(5))
+                        )
+                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.GONDORIAN_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(Items.STONE_AXE))
+                                .add(NpcGearItemData.create(ToolItemsME.SMITHING_HAMMER))
+                                .add(NpcGearItemData.create(ToolItemsME.PIPE))
+                                .add(NpcGearItemData.create().withWeight(3))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MILITIA = new NpcData(NpcRegistry.GONDOR_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_PEASANT, List.of(
                 NpcGearData.create()

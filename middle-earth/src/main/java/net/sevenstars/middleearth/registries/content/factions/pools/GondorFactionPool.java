@@ -28,7 +28,7 @@ public class GondorFactionPool {
         GONDOR = new Faction(FactionRegistry.GONDOR, true, Disposition.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        GondorianNpcDataPool.MILITIA
+                        GondorianNpcDataPool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
                         GondorianNpcDataPool.MILITIA
