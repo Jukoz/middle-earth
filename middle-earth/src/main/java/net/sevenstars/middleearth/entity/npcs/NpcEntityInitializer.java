@@ -69,6 +69,7 @@ public class NpcEntityInitializer {
         }
 
         // Get npc data
+        String currentStep = "Fetching datas";
         try{
             var npcData = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId).get().value();
             npcEntity.setNpcData(currentNpcDataId);
@@ -83,16 +84,21 @@ public class NpcEntityInitializer {
                 identity = TexturePresets.Identity.create(textureData);
 
             NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
+            currentStep = "Generating skin...";
             entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
+            currentStep = "Generating eyes...";
             entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, npcData.getNpcTextureData(serverWorld).haveEmissiveEyes(identity));
+            currentStep = "Generating hair...";
             entityTextureData = NpcEntityHelper.generateHairTextureData(entityTextureData, identity, serverWorld.getRegistryManager());
+            currentStep = "Generating clothing...";
             entityTextureData = NpcEntityHelper.generateClothingTextureData(entityTextureData, identity);
             npcEntity.setNpcTextureData(entityTextureData);
 
             NpcUtil.equipAll(npcEntity, npcData.getGear());
         } catch (Exception exception){
-            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s", currentNpcDataId, exception.getLocalizedMessage()));
-            npcEntity.discard();
+            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s | Triggered by %s", currentNpcDataId, exception.getLocalizedMessage(), currentStep));
+            if(!npcEntity.isRemoved())
+                npcEntity.discard();
         }
     }
 

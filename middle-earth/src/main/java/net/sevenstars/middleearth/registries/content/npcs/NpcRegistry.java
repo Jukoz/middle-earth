@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.factions.pools.LothlorienFactionPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.*;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
@@ -75,6 +76,26 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> ROHAN_EORLING_MARSHAL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "eorling_marshal"));
     public final static RegistryKey<NpcData> ROHAN_HORSE_LORD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "horse_lord"));
 
+    // [LONGBEARDS]
+    // [EREBOR]
+    public final static RegistryKey<NpcData> EREBOR_PEASANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "peasant"));
+    public final static RegistryKey<NpcData> EREBOR_MINER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "miner"));
+    public final static RegistryKey<NpcData> EREBOR_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "militia"));
+    public final static RegistryKey<NpcData> EREBOR_SOLDIER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "soldier"));
+    public final static RegistryKey<NpcData> EREBOR_ARCHER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "archer"));
+    public final static RegistryKey<NpcData> EREBOR_ELITE = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "elite"));
+    public final static RegistryKey<NpcData> EREBOR_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "veteran"));
+    public final static RegistryKey<NpcData> EREBOR_GATEWARDEN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "gatewarden"));
+    public final static RegistryKey<NpcData> EREBOR_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "leader"));
+
+    // [LOTHLORIEN]
+    public final static RegistryKey<NpcData> LOTHLORIEN_SENTINEL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "sentinel"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_RANGER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "ranger"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "warrior"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_KNIGHT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "knight"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "guard"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_LORD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "lord"));
+
     public static void bootstrap(Registerable<NpcData> context) {
         RegistryEntryLookup<NpcData> registryEntryLookup = context.getRegistryLookup(NPC_KEY);
 
@@ -85,6 +106,8 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, DalishNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, GondorianNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, RohirricNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, EreborNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> registryEntryLookup, List<RegisterableNpcData> npcDatas) {

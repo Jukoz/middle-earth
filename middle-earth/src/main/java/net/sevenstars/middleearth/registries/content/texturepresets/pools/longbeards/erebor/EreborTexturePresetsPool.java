@@ -132,6 +132,7 @@ public class EreborTexturePresetsPool {
                 ));
 
         MIGHTY_PRESET = MALE_PRESET.copy()
+                .clearMaterials(NpcTextureType.HAIR)
                 .withPatterns(NpcTextureType.BODY, List.of(
                         CharacterPatternsME.Skins.Body.MUSCULAR,
                         CharacterPatternsME.Skins.Body.FAT
@@ -139,7 +140,6 @@ public class EreborTexturePresetsPool {
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.MALE
                 ))
-                .clearMaterials(NpcTextureType.HAIR)
                 .withMaterials(NpcTextureType.HAIR, List.of(
                         CharacterMaterialsME.Hair.COLD_BLACK_GOLD,
                         CharacterMaterialsME.Hair.BLACK_GOLD,
@@ -181,7 +181,9 @@ public class EreborTexturePresetsPool {
         }});
 
         MIGHTY = new TexturePresets(new HashMap<>(){{
-            put(EntityCategory.SHARED, List.of(BASE_PRESET));
+            put(EntityCategory.SHARED, List.of(
+                    BASE_PRESET.clearMaterials(NpcTextureType.HAIR)
+            ));
             put(EntityCategory.MALE, List.of(MIGHTY_PRESET));
         }});
     }

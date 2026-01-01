@@ -500,7 +500,7 @@ public class Faction {
     }
 
     public int getSpawnAmount(){
-        if(spawnDataHandler == null)
+        if(spawnDataHandler == null || spawnDataHandler.getSpawnList() == null)
             return 0;
         return spawnDataHandler.getSpawnList().size();
     }

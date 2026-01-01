@@ -49,18 +49,18 @@ public class StructureManagerDataPools {
 
         EREBOR_GENERIC_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "erebor_generic_nests"), List.of(
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("erebor_generic_nests.captain_nest"), 1500, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_LEADER.getId()).SetFixAmount(1),
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_GATEWARDEN.getId()).SetFixAmount(1),
-                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_ELITE.getId()).SetFixAmount(1)
+                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.LEADER.getId()).SetFixAmount(1),
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.GATEWARDEN.getId()).SetFixAmount(1),
+                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ELITE.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("erebor_generic_nests.barrack_nest"), 1500, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_SOLDIER.getId()).SetRangeAmount(2,3),
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_ARCHER.getId()).SetRangeAmount(2,3),
-                new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_MILITIA.getId()).SetRangeAmount(2,4)
+                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.SOLDIER.getId()).SetRangeAmount(2,3),
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ARCHER.getId()).SetRangeAmount(2,3),
+                new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MILITIA.getId()).SetRangeAmount(2,4)
             )),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("erebor_generic_nests.worker_nest"), 1500, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_MINER.getId()).SetRangeAmount(1,3),
-                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.EREBOR_CIVILIAN.getId()).SetRangeAmount(1,3)
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetRangeAmount(1,3),
+                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.PEASANT.getId()).SetRangeAmount(1,3)
             )),
             new SpawnNestNodeData(IdentifierUtil.getIdentifierFromString("erebor_generic_nests.prisoner_nest"), 1500, List.of(
                 new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.MORDOR, MordorNpcDataPool.MORDOR_ORC_SNAGA.getId()).SetFixAmount(1),

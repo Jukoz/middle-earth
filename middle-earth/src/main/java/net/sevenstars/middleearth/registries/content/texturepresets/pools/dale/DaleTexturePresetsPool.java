@@ -154,8 +154,7 @@ public class DaleTexturePresetsPool {
                         null,
                         CharacterPatternsME.Skins.Scar.EYE_LEFT,
                         CharacterPatternsME.Skins.Scar.EYE_RIGHT
-                ).toList())
-        ;
+                ).toList());
     }
     // endregion
 

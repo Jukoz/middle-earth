@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.pools.dale.D
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor.GondorTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.LongbeardsTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor.EreborTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.lothlorien.LothlorienTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.rohan.RohanTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -60,10 +61,9 @@ public class TexturePresetsRegistry {
     public final static RegistryKey<TexturePresets> LONGBEARDS_EREBOR_DWARF_SOLDIER = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf_soldier");
     public final static RegistryKey<TexturePresets> LONGBEARDS_EREBOR_MIGHTY_DWARF  = of(FactionRegistry.LONGBEARDS_EREBOR, "mighty_dwarf");
 
-
-
     /* [LOTHLORIEN] */
-    public final static RegistryKey<TexturePresets> LORIEN_ELF = of("lothlorien_elf");
+    public final static RegistryKey<TexturePresets> LOTHLORIEN_ELF  = of(FactionRegistry.LOTHLORIEN, "elf");
+    public final static RegistryKey<TexturePresets> LOTHLORIEN_LORD  = of(FactionRegistry.LOTHLORIEN, "lord");
 
     /* [MORDOR] */
     public final static RegistryKey<TexturePresets> MORDOR_ORC = of("mordor_orc");
@@ -91,6 +91,7 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, DaleTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, GondorTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, RohanTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, LothlorienTexturePresetsPool.fetchAll());
     }
 
     private static void registerAll(Registerable<TexturePresets> context, RegistryEntryLookup<TexturePresets> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {
