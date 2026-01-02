@@ -23,25 +23,35 @@ import java.util.List;
 
 public class ShireNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.SHIRE;
-    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
 
     private final static int DARK_BEIGE = 0xa89371;
     private final static int DARK_GREEN = 0x336339;
     private final static int BROWN = 0x59341e;
     private final static int DARK = 0x342c27;
 
-    public final static NpcData SHIRE_MILITIA;
-    public final static NpcData SHIRE_SHIRRIFF;
+    public final static NpcData PEASANT;
+    public final static NpcData MILITIA;
+    public final static NpcData SHIRRIFF;
 
-    public static List<NpcData> fetchAll() {
+    public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
-                SHIRE_MILITIA,
-                SHIRE_SHIRRIFF
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.SHIRE_PEASANT, PEASANT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.SHIRE_MILITIA, MILITIA),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.SHIRE_SHIRRIFF, SHIRRIFF)
         );
     }
 
     static {
-        SHIRE_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("militia")), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        PEASANT = new NpcData(NpcRegistry.SHIRE_PEASANT.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_PEASANT, List.of(
+                NpcGearData.create()
+                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
+                                .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
+                                .add(NpcGearItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
+                                .add(NpcGearItemData.create().withWeight(10))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+
+        MILITIA = new NpcData(NpcRegistry.SHIRE_MILITIA.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
@@ -69,7 +79,7 @@ public class ShireNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-    SHIRE_SHIRRIFF = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("shirriff")), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        SHIRRIFF = new NpcData(NpcRegistry.SHIRE_SHIRRIFF.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_SHIRRIFF, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.SHIRRIFF_HAT)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()

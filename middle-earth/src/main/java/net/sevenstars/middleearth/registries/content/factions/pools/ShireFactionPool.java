@@ -26,22 +26,22 @@ public class ShireFactionPool {
         SHIRE = new Faction(FactionRegistry.SHIRE, true, Disposition.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        ShireNpcDataPool.SHIRE_MILITIA
+                        ShireNpcDataPool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            ShireNpcDataPool.SHIRE_MILITIA
+                            ShireNpcDataPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            ShireNpcDataPool.SHIRE_SHIRRIFF
+                            ShireNpcDataPool.SHIRRIFF
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            ShireNpcDataPool.SHIRE_SHIRRIFF
+                            ShireNpcDataPool.SHIRRIFF
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            ShireNpcDataPool.SHIRE_SHIRRIFF
+                            ShireNpcDataPool.SHIRRIFF
                     ));
                     put(NpcRank.LEADER, List.of(
-                            ShireNpcDataPool.SHIRE_SHIRRIFF
+                            ShireNpcDataPool.SHIRRIFF
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

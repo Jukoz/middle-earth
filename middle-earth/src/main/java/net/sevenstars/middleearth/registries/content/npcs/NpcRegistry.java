@@ -76,6 +76,11 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> ROHAN_EORLING_MARSHAL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "eorling_marshal"));
     public final static RegistryKey<NpcData> ROHAN_HORSE_LORD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ROHAN, "horse_lord"));
 
+    // [SHIRE]
+    public final static RegistryKey<NpcData> SHIRE_PEASANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.SHIRE, "peasant"));
+    public final static RegistryKey<NpcData> SHIRE_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.SHIRE, "militia"));
+    public final static RegistryKey<NpcData> SHIRE_SHIRRIFF = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.SHIRE, "shirriff"));
+
     // [LONGBEARDS]
     // [EREBOR]
     public final static RegistryKey<NpcData> EREBOR_PEASANT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "peasant"));
@@ -106,6 +111,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, DalishNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, GondorianNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, RohirricNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, ShireNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, EreborNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
     }

@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
@@ -342,6 +343,8 @@ public class OnboardingFactionScreenController {
         }
 
         selectedRace = currentFaction.getRaces(world).get(index);
+        currentNpcEntity = new NpcEntity(EntitiesME.NPC, world);
+        currentNpcEntity.setNpcData(currentFaction.getRandomNpcDataIdentifier());
     }
 
     public void updateNpcPreview(){
