@@ -71,11 +71,13 @@
   "advancements.smithing.tin_cauldron.title": "淬火加钢",
   "advancements.smithing.treated_anvil.description": "制作出普通精制铁砧，以锻造大部分通用装备",
   "advancements.smithing.treated_anvil.title": "钢与火的交响乐",
+
   "alert.middle-earth.hood_down": "摘下兜帽。",
   "alert.middle-earth.hood_up": "套上兜帽。",
   "alert.middle-earth.large_door.blocked": "似乎有东西挡住了门，没法打开。",
   "alert.middle-earth.seat.occupied": "该座位已经有人坐了。",
   "alert.middle-earth.seat.space_not_empty": "该座位上方被堵住了。",
+
   "biome.middle-earth.anduin_vales": "安都因河谷",
   "biome.middle-earth.anduin_vales_forest": "安都因河谷森林",
   "biome.middle-earth.anorien": "阿诺瑞恩",
@@ -342,6 +344,7 @@
   "biome.middle-earth.woodland_glade": "树林地空地",
   "biome.middle-earth.woodland_hills": "树林地丘陵",
   "biome.middle-earth.woodland_realm": "黑森林王国",
+
   "block.middle-earth.acacia_bench": "金合欢木长椅",
   "block.middle-earth.acacia_chair": "金合欢木椅子",
   "block.middle-earth.acacia_ladder": "金合欢木梯子",
@@ -6472,6 +6475,7 @@
   "block.middle-earth.zigilaban_trapdoor": "齐吉尔岩活板门",
   "block.middle-earth.zigilaban_vertical_slab": "齐吉尔岩竖台阶",
   "block.middle-earth.zigilaban_wall": "齐吉尔岩墙",
+
   "command.middle-earth.back_attachment.fail": "加装背部附件失败了。",
   "command.middle-earth.back_attachment.hand_empty": "你当前双手空空。请主手拿上一件中洲模组的胸甲以加装背部附件。",
   "command.middle-earth.back_attachment.success": "已成功加装背部附件，",
@@ -6539,9 +6543,11 @@
   "command.middle-earth.teleport.spawn.overworld.success": "你已传送到返回主世界的重生点坐标处",
   "command.middle-earth.teleport.to.spawn.middle_earth.error": "你无法传送到<%s>",
   "command.middle-earth.teleport.to.spawn.middle_earth.success": "你已传送至<%s>，坐标为[%s, %s, %s](xyz)",
+
   "container.middle-earth.artisan_table": "工匠台",
   "container.middle-earth.small_crate": "小型板条箱",
   "container.middle-earth.thin_barrel": "窄木桶",
+
   "description.middle-earth.dale.description_0": "河谷邦邻近埃瑞博，自斯毛格的毁灭后重建，如今往来熙熙攘攘，由巴德一族所统治。河谷邦的人类精于射术，也擅长贸易，他们同埃瑞博的矮人往来密切。",
   "description.middle-earth.gondor.description_0": "此处作为西方人类的最后堡垒，刚铎的统治者长久以来于此处监视相邻的黑暗之地。尽管他们的防线已被突破，刚铎人民仍然于此坚定同魔多作着顽强斗争。",
   "description.middle-earth.isengard.description_0": "此处曾是努门诺尔人的要塞。第三纪元，黑塔欧尔桑克的钥匙传到了白袍巫师萨茹曼手中。受黑暗力量蛊惑，他开始编织阴谋诡计，对艾森加德周遭的自由人民谋划袭击。",
@@ -6552,15 +6558,19 @@
   "description.middle-earth.mordor.description_0": "此处魔多暗影充斥，环绕着末日山的是一片充满灰烬与尘埃的不毛之地。黑色军团等待着巴拉督尔塔中的黑暗魔君指令挥师开拔，那兹古尔也在四处搜寻至尊戒，为即将到来的大战做准备。",
   "description.middle-earth.rohan.description_0": "洛汗也称里德马克，位于刚铎王国的北面，由埃奥尔一族所统治，这座人类王国中的人民精于驭马。尽管洛汗曾是刚铎的强力盟友，现今却面临内忧外患。",
   "description.middle-earth.shire.description_0": "夏尔位于中洲西北部，是一片宁静的世外桃源，霍比特人在此定居。此处居民安居乐业，并不寻求刺激冒险。因而这里与世隔绝，邪恶混乱远离此处。",
+
   "disposition.middle-earth.evil": "邪恶",
   "disposition.middle-earth.good": "良善",
   "disposition.middle-earth.neutral": "平凡",
+
   "effect.middle-earth.enshrouded": "遮蔽",
   "effect.middle-earth.hallucination": "迷幻",
   "effect.middle-earth.restrained": "束缚",
+
   "emi.category.middle-earth.anvil_shaping": "铁砧加工",
   "emi.category.middle-earth.artisan_table": "工匠台",
   "emi.category.middle-earth.forge": "锻造炉",
+
   "enchantment.middle-earth.ailment_protection": "疾病保护",
   "enchantment.middle-earth.bane_of_giants": "巨人克星",
   "enchantment.middle-earth.beheading": "斩首",
@@ -6574,6 +6584,7 @@
   "enchantment.middle-earth.stride": "阔步",
   "enchantment.middle-earth.tree_feller": "伐木大师",
   "enchantment.middle-earth.vantage": "先发制敌",
+
   "entity.middle-earth.barrow_wight": "古冢尸妖",
   "entity.middle-earth.broadhoof_goat": "宽蹄山羊",
   "entity.middle-earth.cave_troll": "洞穴食人妖",
@@ -6586,14 +6597,17 @@
   "entity.middle-earth.spawn_of_shelob": "希洛布后裔",
   "entity.middle-earth.stone_troll": "岩石食人妖",
   "entity.middle-earth.warg": "座狼",
+
   "event.middle-earth.join.faction.success": "你加入了%s",
   "event.middle-earth.leave.faction.success": "你离开了%s",
+
   "exception.middle-earth.faction_identifier": "%s并非任一派系代码",
   "exception.middle-earth.identical_faction.source": "你已经加入了%s",
   "exception.middle-earth.identical_faction.target": "%s已经加入了%s",
   "exception.middle-earth.no_faction.source": "你尚未加入派系",
   "exception.middle-earth.no_faction.target": "%s尚未加入派系",
   "exception.middle-earth.spawn_identifier": "%s并非任一重生点代码",
+
   "faction.middle-earth.brigand": "匪盗",
   "faction.middle-earth.dale": "河谷邦",
   "faction.middle-earth.example.fallback": "样例",
@@ -6608,6 +6622,7 @@
   "faction.middle-earth.rohan": "洛汗",
   "faction.middle-earth.shire": "夏尔",
   "faction.middle-earth.wild_goblins": "荒原半兽人",
+
   "item.middle-earth.acacia_bench": "金合欢木长椅",
   "item.middle-earth.acacia_chair": "金合欢木椅子",
   "item.middle-earth.acacia_ladder": "金合欢木梯子",
@@ -13012,6 +13027,7 @@
   "item.middle-earth.zigilaban_trapdoor": "齐吉尔岩活板门",
   "item.middle-earth.zigilaban_vertical_slab": "齐吉尔岩竖台阶",
   "item.middle-earth.zigilaban_wall": "齐吉尔岩墙",
+
   "itemGroup.middle-earth.decorative_blocks": "中洲装饰方块",
   "itemGroup.middle-earth.equipment_items": "中洲装备",
   "itemGroup.middle-earth.food_items": "中洲食物",
@@ -13023,13 +13039,16 @@
   "itemGroup.middle-earth.tool_items": "中洲工具",
   "itemGroup.middle-earth.weapon_items": "中洲武器",
   "itemGroup.middle-earth.wood_blocks": "中洲木类方块",
+
   "key.category.middle-earth.me": "中洲",
   "key.middle-earth.hood_state_toggle": "切换兜帽状态",
   "key.middle-earth.map_fullscreen_toggle": "切换地图全屏显示",
   "key.middle-earth.map_teleport": "在地图界面中传送",
+
   "modmenu.descriptionTranslation.me": "在托尔金的传说故事集中沉浸冒险！",
   "modmenu.nameTranslation.me": "中洲",
   "modmenu.summaryTranslation.me": "在托尔金的传说故事集中沉浸冒险！",
+
   "npc_data.middle-earth.brigand.chieftain": "匪盗头领",
   "npc_data.middle-earth.brigand.mercenary": "匪盗佣兵",
   "npc_data.middle-earth.brigand.thief": "匪盗小偷",
@@ -13085,6 +13104,7 @@
   "npc_data.middle-earth.wild_goblins.rider": "荒原半兽人骑手",
   "npc_data.middle-earth.wild_goblins.scout": "荒原半兽人斥候",
   "npc_data.middle-earth.wild_goblins.warrior": "荒原半兽人战士",
+
   "painting.middle-earth.author.boenndal": "Boenndal",
   "painting.middle-earth.author.scosher": "Scosher",
   "painting.middle-earth.dwarf_portrait.title": "矮人肖像",
@@ -13101,13 +13121,16 @@
   "painting.middle-earth.small_mirror.title": "小镜子",
   "painting.middle-earth.tall_mirror.title": "高镜子",
   "painting.middle-earth.tool_board.title": "工具架",
+
   "race.middle-earth.dwarf": "矮人",
   "race.middle-earth.elf": "精灵",
   "race.middle-earth.hobbit": "霍比特人",
   "race.middle-earth.human": "人类",
   "race.middle-earth.orc": "奥克",
   "race.middle-earth.uruk": "乌鲁克",
+
   "race_tooltip.middle-earth.attribute_header": "属性：",
+
   "screen.middle-earth.artisan_table.armors": "盔甲",
   "screen.middle-earth.artisan_table.axe": "斧",
   "screen.middle-earth.artisan_table.back_attachment": "背部附件",
@@ -13149,12 +13172,14 @@
   "screen.middle-earth.shaping_anvil": "铁砧塑形",
   "screen.middle-earth.structure_manager": "建筑结构管理器",
   "screen.middle-earth.wood_pile": "木堆",
+
   "sounds.middle-earth.bellows_push": "风箱：吹气",
   "sounds.middle-earth.nazgul_fade": "那兹古尔：消逝",
   "sounds.middle-earth.nazgul_scream": "那兹古尔：嚎叫",
   "sounds.middle-earth.pipe_exhale": "烟斗：吸烟",
   "sounds.middle-earth.pipe_ignite": "烟斗：点燃",
   "sounds.middle-earth.pipe_refill": "烟斗：填充",
+
   "spawn.middle-earth.coordinates_base.custom": "[x,y,z] ",
   "spawn.middle-earth.coordinates_base.dynamic": "[x,z] ",
   "spawn.middle-earth.coordinates_base_values.custom": "%s, %s, %s",
@@ -13193,6 +13218,7 @@
   "spawn.middle-earth.rohan.westemnet": "西埃姆内特",
   "spawn.middle-earth.shire.hobbiton": "霍比屯",
   "spawn.middle-earth.shire.willowbottom": "柳谷镇",
+
   "structure_manager_data.middle-earth.dale_keep_nests": "河谷邦要塞据点",
   "structure_manager_data.middle-earth.erebor_generic_nests": "埃瑞博常规据点",
   "structure_manager_data.middle-earth.gondor_generic_nests": "刚铎常规据点",
@@ -13213,6 +13239,7 @@
   "structure_nest.middle-earth.gondor_generic_nests.prisoner_nest": "囚室",
   "structure_nest.middle-earth.gondor_generic_nests.stable_nest": "马厩房间",
   "structure_nest.middle-earth.gondor_generic_nests.worker_nest": "工人房间",
+
   "tag.item.middle-earth.anvil_items": "铁砧物品",
   "tag.item.middle-earth.bones": "骨头",
   "tag.item.middle-earth.cloaks": "斗篷",
@@ -13236,6 +13263,7 @@
   "tag.item.middle-earth.tin_ores": "锡矿石",
   "tag.item.middle-earth.warg_food": "座狼饲料",
   "tag.item.middle-earth.worm": "蠕虫",
+
   "tooltip.middle-earth.aeglos_lore_0": "意为“雪尖”，多年以前",
   "tooltip.middle-earth.aeglos_lore_1": "作为至高王吉尔-加拉德的佩剑随之征战。",
   "tooltip.middle-earth.anguirel_lore_0": "一把绝无仅有的漆黑宝剑，",
@@ -13415,6 +13443,7 @@
   "tooltip.middle-earth.white_fur": "白色毛皮",
   "tooltip.middle-earth.white_fur_cloak": "白色毛皮斗篷",
   "tooltip.middle-earth.white_fur_hood": "白色毛皮兜帽",
+
   "trim_material.middle-earth.bronze": "青铜",
   "trim_material.middle-earth.burzum_steel": "布祖姆钢",
   "trim_material.middle-earth.crude": "晦铜",
@@ -13428,6 +13457,7 @@
   "trim_material.middle-earth.steel": "钢",
   "trim_material.middle-earth.tin": "锡",
   "trim_pattern.middle-earth.smithing_part": "锻造部件",
+
   "ui.middle-earth.continue_character": "继续中洲旅途",
   "ui.middle-earth.map_screen.button.fullscreen_toggle": "切换全屏按钮",
   "ui.middle-earth.map_screen.button.map_overlay_toggle": "切换地图遮罩按钮",
@@ -13454,6 +13484,7 @@
   "ui.middle-earth.structure_manager.label_enable_status": "已启用：%s",
   "ui.middle-earth.structure_manager.label_runtime_id": "运行中：%s",
   "ui.middle-earth.structure_manager.label_selected_id": "已选中：%s",
+
   "widget.middle-earth.marker.margin_front": "   ",
   "widget.middle-earth.marker.more": "更多……",
   "widget.middle-earth.marker.selected_title_container.after": "]",
