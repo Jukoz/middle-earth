@@ -6,6 +6,8 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.registry.Registry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -20,21 +22,21 @@ import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
 import net.sevenstars.middleearth.network.packets.C2S.*;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
@@ -306,6 +308,7 @@ public class OnboardingFactionScreenController {
         selectedSubfaction = selectedFaction.getSubfaction(world, index);
         setSpawnPoint(0);
         setRace(0);
+        updateNpcPreview();
     }
 
     public void updateRace(int indexDifference){
@@ -345,12 +348,50 @@ public class OnboardingFactionScreenController {
         selectedRace = currentFaction.getRaces(world).get(index);
         currentNpcEntity = new NpcEntity(EntitiesME.NPC, world);
         currentNpcEntity.setNpcData(currentFaction.getRandomNpcDataIdentifier());
+
+        updateNpcPreview();
     }
 
     public void updateNpcPreview(){
         Faction currentFaction = getCurrentFaction();
-        Identifier id =  currentFaction.getAllNpcDatas().get(NpcRank.SOLDIER).getFirst();
-        this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, world);
+
+        if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionId() == currentFaction.getId() && currentNpcEntity.getNpcData().getRace() == selectedRace.getId())
+            return;
+
+        if(currentFaction == null)
+            return;
+
+        var idList = currentFaction.getAllNpcDatas().values().stream().flatMap(List::stream).toList();
+
+        // filter list by race
+        var optionalNpcRegistry = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC);
+        if(optionalNpcRegistry.isEmpty())
+            return;
+
+        var npcRegistry = optionalNpcRegistry.get();
+
+        var filteredList = new ArrayList<Identifier>();
+        for(Identifier idToFilter : idList){
+            if(filterNpc(npcRegistry, idToFilter))
+                filteredList.add(idToFilter);
+        }
+
+        if(filteredList.isEmpty())
+            return;
+
+        Identifier id = filteredList.get((new Random()).nextInt(filteredList.size()));
+        if(world instanceof ClientWorld clientWorld)
+            this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, clientWorld, false);
+    }
+
+    private boolean filterNpc(Registry<NpcData> registry, Identifier elementToFilter){
+        NpcData foundData = registry.get(elementToFilter);
+        if(foundData == null) return false;
+
+        if(selectedRace == null)
+            return true;
+
+        return foundData.getRace().toString().equals(selectedRace.getId().toString());
     }
 
     public void updateSpawnPoint(int indexDifference){

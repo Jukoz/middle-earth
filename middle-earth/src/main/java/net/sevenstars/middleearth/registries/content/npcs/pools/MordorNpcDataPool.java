@@ -33,33 +33,30 @@ public class MordorNpcDataPool {
 
     private static List<Integer> allColors;
 
-    public final static NpcData MORDOR_BLACK_NUMENOREAN;
-    public final static NpcData MORDOR_ORC_SNAGA;
-    public final static NpcData MORDOR_ORC_MILITIA;
-    public final static NpcData MORDOR_ORC_SCOUT;
-    public final static NpcData MORDOR_ORC_SOLDIER;
-    public final static NpcData MORDOR_BLACK_URUK_SOLDIER;
-    public final static NpcData MORDOR_BLACK_URUK_VETERAN;
-    public final static NpcData MORDOR_BLACK_URUK_LEADER;
-    public final static NpcData MORDOR_BLACK_URUK_VETERAN_ARCHER;
+    public final static NpcData BLACK_NUMENOREAN;
+    public final static NpcData SNAGA;
+    public final static NpcData SCOUT;
+    public final static NpcData MILITIA;
+    public final static NpcData WARRIOR;
+    public final static NpcData VETERAN;
+    public final static NpcData CAPTAIN;
 
-    public static List<NpcData> fetchAll() {
+    public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
-                MORDOR_BLACK_NUMENOREAN,
-                MORDOR_ORC_SNAGA,
-                MORDOR_ORC_MILITIA,
-                MORDOR_ORC_SCOUT,
-                MORDOR_ORC_SOLDIER,
-                MORDOR_BLACK_URUK_SOLDIER,
-                MORDOR_BLACK_URUK_VETERAN,
-                MORDOR_BLACK_URUK_VETERAN_ARCHER,
-                MORDOR_BLACK_URUK_LEADER
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_SNAGA, SNAGA),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_SCOUT, SCOUT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_MILITIA, MILITIA),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_WARRIOR, WARRIOR),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_VETERAN, VETERAN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_CAPTAIN, CAPTAIN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_BLACK_NUMENOREAN, BLACK_NUMENOREAN)
         );
     }
+
     static {
         allColors = List.of(DARK_RED, DARK_BROWN, DARK);
 
-        MORDOR_BLACK_NUMENOREAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_numenorean")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        BLACK_NUMENOREAN = new NpcData(NpcRegistry.MORDOR_BLACK_NUMENOREAN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.MORDOR_BLACK_NUMENOREAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET).withWeight(4))
@@ -80,7 +77,7 @@ public class MordorNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_snaga")), RaceRegistry.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC, List.of(
+        SNAGA = new NpcData(NpcRegistry.MORDOR_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -123,7 +120,7 @@ public class MordorNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_ORC_MILITIA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_militia")), RaceRegistry.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC, List.of(
+        MILITIA = new NpcData(NpcRegistry.MORDOR_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -184,7 +181,7 @@ public class MordorNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_ORC_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_scout")), RaceRegistry.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC,  List.of(
+        SCOUT = new NpcData(NpcRegistry.MORDOR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -237,92 +234,7 @@ public class MordorNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_ORC_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_soldier")), RaceRegistry.ORC, FACTION, NpcTextureDatasME.MORDOR_ORC,  List.of(
-                NpcGearData.create()
-                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(Items.AIR).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_HELMET).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_HELMET).withWeight(2).withHood(HelmetAttachmentsME.HOOD, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_NASAL_HELMET).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_NASAL_HELMET).withWeight(2).withHood(HelmetAttachmentsME.HOOD, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_KETTLE_HAT).withWeight(2))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_KETTLE_HAT_WITH_COIF).withWeight(2))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_MANDIBLE_HELMET))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_SALLET).withHood(HelmetAttachmentsME.HOOD, allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CREST_HELMET))
-                        )
-                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CUIRASS).withColors(allColors).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CUIRASS).withColors(allColors).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_PAINTED_CUIRASS).withColors(allColors).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_PAINTED_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_PAINTED_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_PAINTED_CUIRASS).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CHESTPLATE).withColors(allColors).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CHESTPLATE).withColors(allColors).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_GORGET_HAUBERK).withColors(allColors).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_GORGET_HAUBERK).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_GORGET_HAUBERK).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_GORGET_HAUBERK).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_GORGET_HAUBERK).withColors(allColors).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_GORGET_HAUBERK).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_GORGET_HAUBERK).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.RUSTED_MORDOR_GORGET_HAUBERK).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE).withColors(allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(NpcGearItemData.create(EquipmentItemsME.MORDOR_DEGRADED_GONDORIAN_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
-                        )
-                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_STRIP_LEATHER_SKIRT).withColors(allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEATHER_SKIRT).withColors(allColors))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_LEG_BRACER).withColors(allColors))
-                        )
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_SANDALS))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_BLACK_FUR_BOOTS))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_BROWN_FUR_BOOTS))
-                        )
-                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_SPEAR).withWeight(3))
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_AXE).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_FALCHION).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.ORC_SWORD).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.ORC_AXE).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.ORC_SPEAR).withWeight(2))
-                        )
-                        .add(EquipmentSlot.OFFHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD).withWeight(3))
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_BRACED_SHIELD).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_PAINTED_BRACED_SHIELD).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_LARGE_SHIELD).withWeight(3))
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_BLACK_LARGE_SHIELD).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_PAINTED_LARGE_SHIELD).withWeight(2))
-                                .add(NpcGearItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
-                                .add(NpcGearItemData.create(Items.AIR))
-                        )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-
-        MORDOR_BLACK_URUK_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_soldier")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
+        WARRIOR = new NpcData(NpcRegistry.MORDOR_WARRIOR.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -392,7 +304,7 @@ public class MordorNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_BLACK_URUK_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_veteran")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
+        VETERAN = new NpcData(NpcRegistry.MORDOR_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE)))
@@ -412,21 +324,7 @@ public class MordorNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        MORDOR_BLACK_URUK_VETERAN_ARCHER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_veteran_archer")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
-                NpcGearData.create()
-                        .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_HELMET)))
-                        .add(EquipmentSlot.CHEST, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE)))
-                        .add(EquipmentSlot.LEGS, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_LEGGINGS).withWeight(3))
-                                .add(NpcGearItemData.create(EquipmentItemsME.ORCISH_REINFORCED_LEATHER_SKIRT))
-                        )
-                        .add(EquipmentSlot.FEET, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, NpcGearSlotData.create()
-                                .add(NpcGearItemData.create(WeaponItemsME.MORDOR_ELITE_LONGBOW))
-                        )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-
-        MORDOR_BLACK_URUK_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("black_uruk_leader")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.MORDOR_BLACK_URUK, List.of(
+        CAPTAIN = new NpcData(NpcRegistry.MORDOR_CAPTAIN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create(NpcGearItemData.create(EquipmentItemsME.BLACK_URUK_COMMANDER_HELMET)))
                         .add(EquipmentSlot.CHEST, NpcGearSlotData.create()

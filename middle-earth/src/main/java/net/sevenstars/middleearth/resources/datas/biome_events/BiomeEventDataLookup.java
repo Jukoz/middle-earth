@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 
 public class BiomeEventDataLookup {
-    public static BiomeEventData.FoundNpcReturn findNpcDataForBiome(World world, RegistryEntry<Biome> biome, NpcEntity entity) {
+    public static BiomeEventData.ContextualizedBiomeData findNpcDataForBiome(World world, RegistryEntry<Biome> biome, NpcEntity entity) {
         Identifier biomeEventId = Identifier.of(biome.getIdAsString());
         BiomeEventData eventData = world.getRegistryManager().getOrThrow(DynamicRegistriesME.BIOME_EVENT).get(biomeEventId);
         if(eventData != null){

@@ -101,6 +101,15 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> LOTHLORIEN_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "guard"));
     public final static RegistryKey<NpcData> LOTHLORIEN_LORD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "lord"));
 
+    // [MORDOR]
+    public final static RegistryKey<NpcData> MORDOR_BLACK_NUMENOREAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "black_numenorean"));
+    public final static RegistryKey<NpcData> MORDOR_SNAGA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "snaga"));
+    public final static RegistryKey<NpcData> MORDOR_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "scout"));
+    public final static RegistryKey<NpcData> MORDOR_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "militia"));
+    public final static RegistryKey<NpcData> MORDOR_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "warrior"));
+    public final static RegistryKey<NpcData> MORDOR_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "veteran"));
+    public final static RegistryKey<NpcData> MORDOR_CAPTAIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "captain"));
+
     public static void bootstrap(Registerable<NpcData> context) {
         RegistryEntryLookup<NpcData> registryEntryLookup = context.getRegistryLookup(NPC_KEY);
 
@@ -114,6 +123,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, ShireNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, EreborNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, MordorNpcDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> registryEntryLookup, List<RegisterableNpcData> npcDatas) {

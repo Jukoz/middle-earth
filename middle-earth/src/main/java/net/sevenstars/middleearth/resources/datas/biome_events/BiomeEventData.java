@@ -45,7 +45,7 @@ public class BiomeEventData {
         return wildNpcs;
     }
 
-    public FoundNpcReturn findNpcData(World world, NpcEntity entity) {
+    public ContextualizedBiomeData findNpcData(World world, NpcEntity entity) {
         List<BiomeNpcSpawningData> weightedData = new ArrayList<BiomeNpcSpawningData>();
         DynamicRegistryManager manager = world.getRegistryManager();
 
@@ -74,10 +74,10 @@ public class BiomeEventData {
                 }
             }
         }
-        return new FoundNpcReturn(foundNpcData, entityType, mountArmorItemStack);
+        return new ContextualizedBiomeData(foundNpcData, entityType, mountArmorItemStack);
     }
 
-    public record FoundNpcReturn(NpcData npcData, EntityType mountEntity, ItemStack mountArmor){
+    public record ContextualizedBiomeData(NpcData npcData, EntityType hasMount, ItemStack mountArmor){
 
     }
 }

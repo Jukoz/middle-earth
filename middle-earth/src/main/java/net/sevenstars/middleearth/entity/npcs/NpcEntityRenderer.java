@@ -98,7 +98,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.hairId = npcTextureData.getHairTexture();
         npcEntityRenderState.hairAddonId = npcTextureData.getHairAddonTexture();
         npcEntityRenderState.clothingId = npcTextureData.getClothingTexture();
-        npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.age) % 80 <= 2;
+        npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.age) % 80 >= 80 - 2;
 
         ItemStack helmet = npcEntity.getEquippedStack(EquipmentSlot.HEAD);
         if(helmet == null || helmet.isEmpty()){

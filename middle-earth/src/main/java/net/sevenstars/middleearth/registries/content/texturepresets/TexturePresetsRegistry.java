@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.LongbeardsTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor.EreborTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.lothlorien.LothlorienTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.mordor.MordorTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.rohan.RohanTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.shire.ShireTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
@@ -72,8 +73,9 @@ public class TexturePresetsRegistry {
     public final static RegistryKey<TexturePresets> LOTHLORIEN_LORD     = of(FactionRegistry.LOTHLORIEN, "lord");
 
     /* [MORDOR] */
-    public final static RegistryKey<TexturePresets> MORDOR_ORC = of("mordor_orc");
-    public final static RegistryKey<TexturePresets> MORDOR_BLACK_URUK = of("mordor_black_uruk");
+    public final static RegistryKey<TexturePresets> MORDOR_BLACK_NUMENOREAN     = of(FactionRegistry.MORDOR, "black_numenorean");
+    public final static RegistryKey<TexturePresets> MORDOR_ORC                  = of(FactionRegistry.MORDOR, "orc");
+    public final static RegistryKey<TexturePresets> MORDOR_BLACK_URUK           = of(FactionRegistry.MORDOR, "black_uruk");
 
     /* [HOBGOBLIN TRIBES] */
     public final static RegistryKey<TexturePresets> HOBGOBLIN_TRIBES_GOBLIN = of("hobgoblin_tribes_goblin");
@@ -100,6 +102,7 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, ShireTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, LothlorienTexturePresetsPool.fetchAll());
 
+        registerAll(context, registryEntryLookup, MordorTexturePresetsPool.fetchAll());
     }
 
     private static void registerAll(Registerable<TexturePresets> context, RegistryEntryLookup<TexturePresets> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {

@@ -26,26 +26,24 @@ public class MordorFactionPool {
         MORDOR = new Faction(FactionRegistry.MORDOR, true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_SNAGA
+                            MordorNpcDataPool.SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MordorNpcDataPool.MORDOR_BLACK_NUMENOREAN,
-                            MordorNpcDataPool.MORDOR_ORC_SNAGA
+                            MordorNpcDataPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MordorNpcDataPool.MORDOR_ORC_MILITIA,
-                            MordorNpcDataPool.MORDOR_ORC_SCOUT,
-                            MordorNpcDataPool.MORDOR_ORC_SOLDIER
+                            MordorNpcDataPool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_SOLDIER
+                            MordorNpcDataPool.WARRIOR,
+                            MordorNpcDataPool.VETERAN
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_VETERAN,
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_VETERAN_ARCHER
+                            MordorNpcDataPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MordorNpcDataPool.MORDOR_BLACK_URUK_LEADER
+                            MordorNpcDataPool.CAPTAIN,
+                            MordorNpcDataPool.BLACK_NUMENOREAN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

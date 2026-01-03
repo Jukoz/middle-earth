@@ -36,10 +36,10 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     static {
         CHARACTER_SKINS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_SKIN_ATLAS_TEXTURE);
         CHARACTER_EYES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_EYES_ATLAS_TEXTURE);
-        CHARACTER_EYES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_EYES_ATLAS_TEXTURE);
-        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(CHARACTER_HAIRS_ATLAS_TEXTURE);
-        CHARACTER_CLOTHINGS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
+        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_HAIRS_ATLAS_TEXTURE);
+        CHARACTER_CLOTHINGS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
 
+        CHARACTER_EYES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_EYES_ATLAS_TEXTURE);
 
         HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/heater_shield/base"));
         KITE_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/kite_shield/base"));

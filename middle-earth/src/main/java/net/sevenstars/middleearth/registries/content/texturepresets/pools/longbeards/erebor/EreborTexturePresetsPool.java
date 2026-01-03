@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class EreborTexturePresetsPool {
-
     private final static TexturePresetData BASE_PRESET;
     private final static TexturePresetData MALE_PRESET;
     private final static TexturePresetData FEMALE_PRESET;
@@ -74,7 +73,7 @@ public class EreborTexturePresetsPool {
                 .withPatterns(NpcTextureType.HAIR, Stream.of(
                                 CharacterPatternsME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED,
                                 CharacterPatternsME.Hairs.Hair.SHARP
-                        ).toList()
+                ).toList()
                 ).withPatterns(NpcTextureType.BEARD, List.of(
                         CharacterPatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
                         CharacterPatternsME.Hairs.Beard.DUAL_LARGE_ORNAMENTED,
@@ -182,7 +181,7 @@ public class EreborTexturePresetsPool {
 
         MIGHTY = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(
-                    BASE_PRESET.clearMaterials(NpcTextureType.HAIR)
+                    BASE_PRESET.copy().clearMaterials(NpcTextureType.HAIR)
             ));
             put(EntityCategory.MALE, List.of(MIGHTY_PRESET));
         }});
