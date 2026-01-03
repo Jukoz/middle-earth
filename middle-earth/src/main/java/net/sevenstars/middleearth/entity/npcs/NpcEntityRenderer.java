@@ -149,13 +149,13 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             matrices.translate(0, -0.5F, 0);
         }
 
-        float g = ((NpcEntityRenderState)state).baseScale;
+        float g = state.baseScale;
         matrices.scale(g, g, g);
-        this.setupTransforms(state, matrices, ((NpcEntityRenderState)state).bodyYaw, g);
+        this.setupTransforms(state, matrices, state.bodyYaw, g);
         matrices.scale(-1.0f, -1.0f, 1.0f);
         this.scale(state, matrices);
         matrices.translate(0.0f, -1.501f, 0.0f);
-        ((EntityModel)this.model).setAngles(state);
+        this.model.setAngles(state);
 
         this.model.setAngles(state);
         boolean bl = this.isVisible(state);

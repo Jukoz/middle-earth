@@ -20,7 +20,7 @@ public class OnboardingFactionScreenService {
     public List<Faction> getFactionsByDisposition(Disposition disposition){
         List<Faction> foundFactions = new ArrayList<>();
         for(Faction faction : factions){
-            if(faction.getDisposition() == disposition)
+            if(faction.getDisposition() == disposition && faction.isJoinable())
                 foundFactions.add(faction);
         }
         foundFactions.sort(Comparator.comparingInt(Faction::getFactionSelectionOrderIndex));

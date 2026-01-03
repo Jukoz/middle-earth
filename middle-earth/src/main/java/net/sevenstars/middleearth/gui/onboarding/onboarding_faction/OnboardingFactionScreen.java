@@ -157,7 +157,7 @@ public class OnboardingFactionScreen extends Screen {
 
         // PlayerFactionPayload Randomizer
         elements.factionRandomizerButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.faction_randomizer"),
-                x -> this.controller.randomizeFaction()).build();
+                x -> this.controller.randomizeNpc()).build();
         elements.factionRandomizerButton.setDimensions(52, 18);
         addDrawableChild(elements.factionRandomizerButton);
 

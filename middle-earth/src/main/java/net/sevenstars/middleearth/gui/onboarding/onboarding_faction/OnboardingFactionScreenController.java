@@ -30,13 +30,11 @@ import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
@@ -352,11 +350,17 @@ public class OnboardingFactionScreenController {
         updateNpcPreview();
     }
 
-    public void updateNpcPreview(){
+    public void updateNpcPreview() {
+        updateNpcPreview(false);
+    }
+
+    public void updateNpcPreview(boolean forced){
         Faction currentFaction = getCurrentFaction();
 
-        if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionId() == currentFaction.getId() && currentNpcEntity.getNpcData().getRace() == selectedRace.getId())
-            return;
+        if(!forced){
+            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionId() == currentFaction.getId() && currentNpcEntity.getNpcData().getRace() == selectedRace.getId())
+                return;
+        }
 
         if(currentFaction == null)
             return;
@@ -453,16 +457,16 @@ public class OnboardingFactionScreenController {
         }
     }
 
-    public void randomizeFaction(){
-        randomize(false, false);
-        updateScreenInformation();
+    public void randomizeNpc(){
+        updateNpcPreview(true);
     }
+
     public void randomizeAll(){
-        randomize( true, true);
+        randomize();
         updateScreenInformation();
     }
 
-    private void randomize(boolean spawn, boolean race){
+    private void randomize(){
         Random random = new Random();
         setDisposition(factions.keySet().stream().toList().get(random.nextInt(factions.keySet().size())));
         setFaction(random.nextInt(factions.get(selectedDisposition).size()));
@@ -471,15 +475,11 @@ public class OnboardingFactionScreenController {
         else
             selectedSubfaction = null;
 
-        if(spawn){
-            Faction factionToUse = getCurrentFaction();
-            setSpawnPoint(random.nextInt(factionToUse.getSpawnAmount()));
-        }
-        if(race){
-            Faction factionToUse = getCurrentFaction();
-            List<Race> races = factionToUse.getRaces(world);
-            setRace((races == null || races.isEmpty()) ? 0 : random.nextInt(races.size()));
-        }
+        Faction factionToUse = getCurrentFaction();
+        setSpawnPoint(random.nextInt(factionToUse.getSpawnAmount()));
+
+        List<Race> races = factionToUse.getRaces(world);
+        setRace((races == null || races.isEmpty()) ? 0 : random.nextInt(races.size()));
     }
 
     public void confirmSelection(){
