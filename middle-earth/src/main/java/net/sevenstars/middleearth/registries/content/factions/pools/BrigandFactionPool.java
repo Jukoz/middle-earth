@@ -48,7 +48,7 @@ public class BrigandFactionPool {
                 List.of(),
                 List.of(),
                 List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.GONDOR, FactionRegistry.ROHAN, FactionRegistry.SHIRE, FactionRegistry.LONGBEARDS,
-                        FactionRegistry.DALE, FactionRegistry.MISTY_MOUNTAINS_GOBLINS, FactionRegistry.MORDOR, FactionRegistry.ISENGARD, FactionRegistry.WILD_GOBLINS)
+                        FactionRegistry.DALE, FactionRegistry.HOBGOBLIN_TRIBES, FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, FactionRegistry.MORDOR, FactionRegistry.ISENGARD, FactionRegistry.WILD_GOBLINS)
         );
     }
 }

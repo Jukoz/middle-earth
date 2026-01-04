@@ -55,7 +55,7 @@ public class IsengardFactionPool {
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2d(1402, 1467))
                 )), List.of(), List.of(),
-                List.of(FactionRegistry.MISTY_MOUNTAINS_GOBLINS, FactionRegistry.MORDOR), List.of(),
+                List.of(FactionRegistry.HOBGOBLIN_TRIBES, FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, FactionRegistry.MORDOR), List.of(),
                 List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.GONDOR, FactionRegistry.ROHAN, FactionRegistry.SHIRE, FactionRegistry.LONGBEARDS, FactionRegistry.DALE, FactionRegistry.BRIGAND)
         );
     }

@@ -2,10 +2,9 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.npcs.pools.GundabadNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -13,36 +12,41 @@ import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
-import net.sevenstars.middleearth.registries.content.npcs.pools.MistyMountainsGoblinsNpcDataPool;
+import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class MistyMountainsGoblinsFactionPool {
-    public final static Faction MISTY_MOUNTAINS_GOBLINS;
+public class HobgoblinTribesFactionPool {
+    public final static Faction HOBGOBLIN_TRIBES;
+    public final static Faction GUNDABAD;
+    private final static String FACTION_PATH = FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.getValue().getPath();
 
     static {
-        MISTY_MOUNTAINS_GOBLINS = new Faction(FactionRegistry.MISTY_MOUNTAINS_GOBLINS, true, Disposition.EVIL, FactionType.FACTION, null,null,
+        HOBGOBLIN_TRIBES = new Faction(FactionRegistry.HOBGOBLIN_TRIBES, true, Disposition.EVIL, FactionType.FACTION, null,
+                List.of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.getValue()),
+                null, null, null, List.of(), List.of(), List.of(), List.of(), List.of());
+
+        GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, Disposition.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_SNAGA
+                            GundabadNpcDataPool.SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_SNAGA
+                            GundabadNpcDataPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_WARRIOR,
-                            MistyMountainsGoblinsNpcDataPool.MISTY_GOBLIN_ARCHER
+                            GundabadNpcDataPool.SCOUT
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_SOLDIER
+                            GundabadNpcDataPool.WARRIOR
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_VETERAN
+                            GundabadNpcDataPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MistyMountainsGoblinsNpcDataPool.MISTY_HOBGOBLIN_LEADER
+                            GundabadNpcDataPool.LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
@@ -53,14 +57,14 @@ public class MistyMountainsGoblinsFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.EVIL_EYE, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.gundabad"), new Vector2d(1595, 640)),
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.grey_mountains"), new Vector2d(1652, 640)),
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.goblin_town"), new Vector2d(1581.5, 874.5)),
-                        new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "misty_mountains_goblins.moria"), new Vector2d(1521, 1138))
+                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "gundabad"), new Vector2d(1595, 640)),
+                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "grey_mountains"), new Vector2d(1652, 640)),
+                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "goblin_town"), new Vector2d(1581.5, 874.5)),
+                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "moria"), new Vector2d(1521, 1138))
                 )), List.of(), List.of(),
                 List.of(FactionRegistry.ISENGARD), List.of(FactionRegistry.MORDOR),
                 List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.GONDOR, FactionRegistry.ROHAN, FactionRegistry.SHIRE, FactionRegistry.LONGBEARDS, FactionRegistry.DALE, FactionRegistry.BRIGAND)
         );
-    }
 
+    }
 }

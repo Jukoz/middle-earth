@@ -730,62 +730,62 @@ public class WeaponItemsME {
     //region GUNDABAD
     public static final Item GUNDABAD_FALCHION = registerItemWithModel("gundabad_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), true);
     public static final Item GUNDABAD_ELITE_CLEAVER = registerItemWithModel("gundabad_elite_cleaver",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), true);
     public static final Item GUNDABAD_WARBLADE = registerItemWithModel("gundabad_warblade",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), true);
     public static final Item GUNDABAD_ELITE_SCIMITAR = registerItemWithModel("gundabad_elite_scimitar",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), true);
     public static final Item GUNDABAD_SHANK = registerItemWithModel("gundabad_shank",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), false);
     public static final Item GUNDABAD_ELITE_DAGGER = registerItemWithModel("gundabad_elite_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), false);
     public static final Item GUNDABAD_AXE = registerItemWithModel("gundabad_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), true);
     public static final Item GUNDABAD_ELITE_BATTLEAXE = registerItemWithModel("gundabad_elite_battleaxe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())), true);
     public static final Item GUNDABAD_SPEAR = registerItemWithSpearModel("gundabad_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
     public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
 
     public static final Item GUNDABAD_BOW = registerBigBowItem("gundabad_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
     public static final Item GUNDABAD_CROSSBOW = registerCrossbowItem("gundabad_crossbow",
             (settings) -> new CustomCrossbowWeaponItem(RangedWeaponTypesME.CROSSBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
 
     public static final Item GUNDABAD_WOODEN_SHIELD = registerShield("gundabad_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
     public static final Item GUNDABAD_PAINTED_WOODEN_SHIELD = registerShield("gundabad_painted_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
     public static final Item GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD = registerShield("gundabad_great_eye_painted_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
     public static final Item GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD = registerShield("gundabad_peaks_painted_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
 
     public static final Item GUNDABAD_REINFORCED_SHIELD = registerShield("gundabad_reinforced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
 
     public static final Item GUNDABAD_HEAVY_SHIELD = registerShield("gundabad_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES.getValue())));
     //endregion
     //endregion
 

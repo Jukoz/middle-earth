@@ -91,17 +91,14 @@ public class OnboardingFactionScreenController {
     private void setupInitialDatas() {
         factions = new HashMap<>();
         for(Disposition disposition : Disposition.values()){
-            List<Faction> foundFactions = service.getFactionsByDisposition(disposition);
-            for(int i = 0; i < foundFactions.size(); i++){
-                if(!foundFactions.get(i).isJoinable()){
-                    foundFactions.remove(i);
-                    continue;
-                }
-                if(foundFactions.get(i).getFactionType() == FactionType.SUBFACTION)
-                    foundFactions.remove(i);
+            var unfilteredFactions = service.getFactionsByDisposition(disposition);
+            List<Faction> filteredFactions = new ArrayList<>();
+            for(Faction faction : unfilteredFactions){
+                if(faction.isJoinable() && faction.getFactionType() == FactionType.FACTION)
+                    filteredFactions.add(faction);
             }
-            if(!foundFactions.isEmpty())
-                factions.put(disposition, foundFactions);
+            if(!filteredFactions.isEmpty())
+                factions.put(disposition, filteredFactions);
         }
 
         this.searchBarResults = fetchAllPossibleSearchBarResults();
@@ -128,7 +125,7 @@ public class OnboardingFactionScreenController {
 
         if(this.selectedDisposition != null){
             this.screen.elements.dispositionSelectionWidget.enableVisuals(true);
-            this.screen.elements.dispositionSelectionWidget.enableArrows(factions.keySet().size() > 1);
+            this.screen.elements.dispositionSelectionWidget.enableArrows(factions.size() > 1);
             this.screen.elements.dispositionSelectionWidget.setText(selectedDisposition.getName());
         } else {
             this.screen.elements.dispositionSelectionWidget.enableVisuals(false);

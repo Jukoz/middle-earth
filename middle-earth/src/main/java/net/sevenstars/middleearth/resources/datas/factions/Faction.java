@@ -467,20 +467,20 @@ public class Faction {
     }
 
     public List<Text> getDescription() {
-        if(descriptions == null){
-            descriptions = new ArrayList<>();
-            boolean hasDescription = true;
-            String base = "description.%s.%s.description_%s".formatted(MiddleEarth.MOD_ID, id.getPath(), "%s");
-            while(hasDescription){
-                String langPath = base.formatted(descriptions.size());
-                Text text = Text.translatable(langPath);
-                if(!Objects.equals(text.getString(), langPath)){
-                    descriptions.add(text);
-                } else {
-                    hasDescription = false;
-                }
+        descriptions = new ArrayList<>();
+        boolean hasDescription = true;
+
+        String base = IdentifierUtil.createAggregateValue("description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
+        while(hasDescription){
+            String langPath = base.formatted(descriptions.size());
+            Text text = Text.translatable(langPath);
+            if(!Objects.equals(text.getString(), langPath)){
+                descriptions.add(text);
+            } else {
+                hasDescription = false;
             }
         }
+
         return descriptions;
     }
 

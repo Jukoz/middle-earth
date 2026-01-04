@@ -60,7 +60,7 @@ public class MordorFactionPool {
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "mordor.nurn"), new Vector2d(2345, 1915)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "mordor.dol_guldur"), new Vector2d(1793, 1210))
                 )), List.of(), List.of(),
-                List.of(FactionRegistry.ISENGARD), List.of(FactionRegistry.MISTY_MOUNTAINS_GOBLINS),
+                List.of(FactionRegistry.ISENGARD), List.of(FactionRegistry.HOBGOBLIN_TRIBES, FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD),
                 List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.GONDOR, FactionRegistry.ROHAN, FactionRegistry.SHIRE, FactionRegistry.LONGBEARDS, FactionRegistry.DALE, FactionRegistry.BRIGAND)
         );
     }

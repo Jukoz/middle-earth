@@ -19,10 +19,11 @@ public class FactionRegistry {
     public final static RegistryKey<Faction> ROHAN = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("rohan"));
     public final static RegistryKey<Faction> DALE = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("dale"));
     public final static RegistryKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("longbeards"));
-    public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("longbeards.erebor"));
+    public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.buildAggregate(LONGBEARDS.getValue().getPath(), "erebor"));
     public final static RegistryKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("lothlorien"));
     public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("mordor"));
-    public final static RegistryKey<Faction> MISTY_MOUNTAINS_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("misty_mountains_goblins"));
+    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("hobgoblin_tribes"));
+    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES_GUNDABAD =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.buildAggregate(HOBGOBLIN_TRIBES.getValue().getPath(), "gundabad"));
     public final static RegistryKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("isengard"));
     public final static RegistryKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("shire"));
     public final static RegistryKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, IdentifierUtil.build("brigand"));
@@ -38,7 +39,8 @@ public class FactionRegistry {
         register(context, registryEntryLookup, LONGBEARDS_EREBOR, LongbeardsFactionPool.EREBOR);
         register(context, registryEntryLookup, LOTHLORIEN, LothlorienFactionPool.LOTHLORIEN);
         register(context, registryEntryLookup, MORDOR, MordorFactionPool.MORDOR);
-        register(context, registryEntryLookup, MISTY_MOUNTAINS_GOBLINS, MistyMountainsGoblinsFactionPool.MISTY_MOUNTAINS_GOBLINS);
+        register(context, registryEntryLookup, HOBGOBLIN_TRIBES, HobgoblinTribesFactionPool.HOBGOBLIN_TRIBES);
+        register(context, registryEntryLookup, HOBGOBLIN_TRIBES_GUNDABAD, HobgoblinTribesFactionPool.GUNDABAD);
         register(context, registryEntryLookup, ISENGARD, IsengardFactionPool.ISENGARD);
         register(context, registryEntryLookup, SHIRE, ShireFactionPool.SHIRE);
         register(context, registryEntryLookup, BRIGAND, BrigandFactionPool.BRIGAND);

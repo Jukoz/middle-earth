@@ -6,11 +6,12 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.factions.pools.GondorFactionPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.GenericTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.brigand.BrigandTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.dale.DaleTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor.GondorTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.hobgoblintribes.GundabadTexturePresetsPool.GundabadTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.hobgoblintribes.HobgoblinTribesTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.LongbeardsTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor.EreborTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.lothlorien.LothlorienTexturePresetsPool;
@@ -77,9 +78,9 @@ public class TexturePresetsRegistry {
     public final static RegistryKey<TexturePresets> MORDOR_ORC                  = of(FactionRegistry.MORDOR, "orc");
     public final static RegistryKey<TexturePresets> MORDOR_BLACK_URUK           = of(FactionRegistry.MORDOR, "black_uruk");
 
-    /* [HOBGOBLIN TRIBES] */
-    public final static RegistryKey<TexturePresets> HOBGOBLIN_TRIBES_GOBLIN = of("hobgoblin_tribes_goblin");
-    public final static RegistryKey<TexturePresets> HOBGOBLIN_TRIBES_HOBGOBLIN = of("hobgoblin_tribes_hobgoblin");
+    /* [HOBGOBLIN TRIBES.GUNDABAD] */
+    public final static RegistryKey<TexturePresets> GUNDABAD_GOBLIN         = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "goblin");
+    public final static RegistryKey<TexturePresets> GUNDABAD_HOBGOBLIN      = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "hobgoblin");
 
     /* [ISENGARD] */
     public final static RegistryKey<TexturePresets> ISENGARD_ORC = of("isengard_orc");
@@ -103,6 +104,8 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, LothlorienTexturePresetsPool.fetchAll());
 
         registerAll(context, registryEntryLookup, MordorTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, HobgoblinTribesTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, GundabadTexturePresetsPool.fetchAll());
     }
 
     private static void registerAll(Registerable<TexturePresets> context, RegistryEntryLookup<TexturePresets> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {

@@ -2,8 +2,6 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
@@ -66,7 +64,7 @@ public class GondorFactionPool {
                         new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "dol_amroth"),  new Vector2d(1500, 1930))
                 )), List.of(), List.of(),
                 List.of(FactionRegistry.ROHAN), List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.LONGBEARDS, FactionRegistry.DALE,
-                FactionRegistry.SHIRE), List.of(FactionRegistry.ISENGARD, FactionRegistry.MORDOR, FactionRegistry.MISTY_MOUNTAINS_GOBLINS, FactionRegistry.BRIGAND)
+                FactionRegistry.SHIRE), List.of(FactionRegistry.ISENGARD, FactionRegistry.MORDOR, FactionRegistry.HOBGOBLIN_TRIBES, FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, FactionRegistry.BRIGAND)
         );
     }
 }

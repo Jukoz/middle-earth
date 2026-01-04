@@ -9,7 +9,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.factions.pools.LothlorienFactionPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.*;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
@@ -110,6 +109,17 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> MORDOR_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "veteran"));
     public final static RegistryKey<NpcData> MORDOR_CAPTAIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "captain"));
 
+    // [HOBGOBLINS TRIBES]
+    // [GUNDABAD]
+    public final static RegistryKey<NpcData> GUNDABAD_SNAGA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "snaga"));
+    public final static RegistryKey<NpcData> GUNDABAD_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "militia"));
+    public final static RegistryKey<NpcData> GUNDABAD_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "scout"));
+    public final static RegistryKey<NpcData> GUNDABAD_RIDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "rider"));
+    public final static RegistryKey<NpcData> GUNDABAD_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "warrior"));
+    public final static RegistryKey<NpcData> GUNDABAD_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "veteran"));
+    public final static RegistryKey<NpcData> GUNDABAD_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "leader"));
+
+
     public static void bootstrap(Registerable<NpcData> context) {
         RegistryEntryLookup<NpcData> registryEntryLookup = context.getRegistryLookup(NPC_KEY);
 
@@ -124,6 +134,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, EreborNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, MordorNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, GundabadNpcDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> registryEntryLookup, List<RegisterableNpcData> npcDatas) {
