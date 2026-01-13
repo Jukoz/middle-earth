@@ -9,9 +9,8 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec2f;
+import net.minecraft.structure.StructureStart;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.CheckedRandom;
 import net.minecraft.util.math.random.ChunkRandom;
 import net.minecraft.util.math.random.RandomSeed;
@@ -20,10 +19,15 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.gen.StructureTerrainAdaptation;
+import net.minecraft.world.gen.StructureWeightSampler;
 import net.minecraft.world.gen.chunk.Blender;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
+import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseConfig;
+import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.config.ModServerConfigs;
@@ -40,6 +44,7 @@ import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
@@ -356,11 +361,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     }
 
-
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
         long seed = region.getSeed();
+        List<StructureStart> structureStarts = structures.getStructureStarts(chunk.getPos(), s -> true);
+
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
                 int posX = (chunk.getPos().x * 16) + x;
@@ -402,6 +408,28 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     height = MiddleEarthHeightMap.lerp(height, oldHeight, percentage);
                 }
 
+                for (StructureStart structureStart : structureStarts) {
+                    Structure structure = structureStart.getStructure();
+                    StructureTerrainAdaptation adaptation = structure.getTerrainAdaptation();
+                    if (adaptation == StructureTerrainAdaptation.BEARD_BOX) {
+                        float minStructureHeight = structureStart.getBoundingBox().getMinY() + 12;
+                        if(structureStart.getBoundingBox().expand(7, 15, 7).contains(posX,(int)(DIRT_HEIGHT + height), posZ)) {
+                            int minX = structureStart.getBoundingBox().getMinX() + 12;
+                            int maxX = structureStart.getBoundingBox().getMaxX() - 12;
+                            int minZ = structureStart.getBoundingBox().getMinZ() + 12;
+                            int maxZ = structureStart.getBoundingBox().getMaxZ() - 12;
+
+                            double dx = Math.max(0, Math.max(minX - posX, posX - maxX));
+                            double dz = Math.max(0, Math.max(minZ - posZ, posZ - maxZ));
+                            float distanceToEdge = (float) Math.sqrt(dx * dx + dz * dz);
+
+                            float influence = 1.0f - Math.min(1.0f, distanceToEdge / 8);
+                            height = MathHelper.lerp(influence, height, minStructureHeight - DIRT_HEIGHT);
+                            break;
+                        }
+                    }
+                }
+
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), 0);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y, z), Blocks.LAVA.getDefaultState(), 0);
@@ -432,7 +460,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getLast().block.getDefaultState());
                 BlockState surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().slopeDatas.getFirst().block.getDefaultState();
                 BlockState underSurfaceBlock;
-
 
                 if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
@@ -501,6 +528,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         float highestSlope = (eastSlope + southSlope) / 2;
 
         return (float) Math.toDegrees(Math.atan(highestSlope));
+    }
+
+    public double getStructureWeightAt(StructureAccessor structures, Chunk chunk, int x, int y, int z) {
+        StructureWeightSampler sampler = StructureWeightSampler.createStructureWeightSampler(structures, chunk.getPos());
+        DensityFunction.UnblendedNoisePos unblendedNoisePos = new DensityFunction.UnblendedNoisePos(x, y, z);
+        return sampler.sample(unblendedNoisePos);
     }
 
     private void trySetBlock(Chunk chunk, BlockPos blockPos, BlockState blockState) {

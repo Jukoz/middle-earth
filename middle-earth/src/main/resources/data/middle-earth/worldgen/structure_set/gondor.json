@@ -7,6 +7,10 @@
 	{
       "structure": "middle-earth:gondor_watch_tower",
       "weight": 2
+    },
+	{
+      "structure": "middle-earth:gondor_keep",
+      "weight": 1
     }
   ],
   "placement": {
