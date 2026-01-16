@@ -7,6 +7,10 @@
 	{
       "structure": "middle-earth:mordor_watch_tower",
       "weight": 1
+    },
+	{
+      "structure": "middle-earth:mordor_firecamp",
+      "weight": 5
     }
   ],
   "placement": {

@@ -1,0 +1,15 @@
+{
+  "name": "middle-earth:mordor_firecamp",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mordor_camp_ground",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_mordor_road"
+      }
+    }
+  ]
+}
