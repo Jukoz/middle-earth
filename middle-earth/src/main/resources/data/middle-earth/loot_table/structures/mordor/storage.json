@@ -19,6 +19,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:orcish_sandals"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:crude_dagger"
         },
         {
@@ -31,8 +35,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:mordor_painted_wooden_shield",
-          "weight": 2
+          "name": "middle-earth:mordor_painted_wooden_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:black_bundle"
         },
         {
           "type": "minecraft:empty",

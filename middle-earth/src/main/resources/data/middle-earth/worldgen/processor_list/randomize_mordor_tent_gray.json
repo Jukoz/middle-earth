@@ -1,0 +1,126 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+	  	{
+          "input_predicate": {
+            "block": "minecraft:black_wool",
+            "probability": 0.05,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:air"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "minecraft:black_wool",
+            "probability": 1.0,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:gray_wool"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "middle-earth:rotten_fence",
+            "probability": 0.35,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:scorched_fence"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "middle-earth:rotten_fence",
+            "probability": 0.65,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:air"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "middle-earth:ashen_dirt",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:coarse_peat"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "middle-earth:ashen_dirt",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:foul_dirt"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "middle-earth:ashen_dirt",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:ashen_sand"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "middle-earth:ashen_dirt",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:ashen_gravel"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "middle-earth:ashen_dirt",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:ashen_dirt"
+          }
+        }
+      ]
+    }
+  ]
+}

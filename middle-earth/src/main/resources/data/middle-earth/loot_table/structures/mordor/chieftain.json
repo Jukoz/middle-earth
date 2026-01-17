@@ -1,0 +1,156 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_banner_pattern",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:orcish_sconce",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_leather_cuirass"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_painted_leather_cuirass"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_dagger"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:orc_spear"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_kettle_hat_with_coif"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_round_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_black_round_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:orcish_cape"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    },
+	{
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:brambles_of_mordor"
+        },
+        {
+          "type": "minecraft:item",
+		  "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "middle-earth:crude_nugget"
+        },
+		{
+          "type": "minecraft:item",
+		  "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 7,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "middle-earth:ash_block"
+        },
+		{
+          "type": "minecraft:item",
+		  "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:coal"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:crude_ingot"
+        },
+        {
+          "type": "minecraft:item",
+		  "name": "minecraft:lead"
+        },
+        {
+          "type": "minecraft:item",
+		  "name": "minecraft:skeleton_skull"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3,
+        "min": 2
+      }
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:tough_berries"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:maggoty_bread"
+        }
+      ]
+    }
+  ]
+}
