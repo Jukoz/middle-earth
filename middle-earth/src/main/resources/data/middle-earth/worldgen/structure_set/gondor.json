@@ -2,7 +2,7 @@
   "structures": [
 	{
       "structure": "middle-earth:gondor_house",
-      "weight": 4
+      "weight": 1
     },
 	{
       "structure": "middle-earth:gondor_watch_tower",
@@ -11,6 +11,10 @@
 	{
       "structure": "middle-earth:gondor_keep",
       "weight": 1
+    },
+	{
+      "structure": "middle-earth:gondor_village",
+      "weight": 10
     }
   ],
   "placement": {
