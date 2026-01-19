@@ -1,12 +1,21 @@
 {
-  "name": "middle-earth:gondor_village_road",
+  "name": "middle-earth:gondor_village_house",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 6,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:gondor/gondor_village_road_end",
+        "location": "middle-earth:gondor/gondor_village_farmer_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_lumber_entrance",
         "projection": "terrain_matching",
         "processors": "middle-earth:randomize_gondor_road"
       }
@@ -15,19 +24,16 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:gondor/gondor_village_road",
-        "projection": "terrain_matching",
+        "location": "middle-earth:gondor/gondor_village_windmill",
+        "projection": "rigid",
         "processors": "middle-earth:randomize_gondor_road"
       }
     },
-	{
-      "weight": 1,
+    {
       "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:gondor/gondor_village_road_1",
-        "projection": "terrain_matching",
-        "processors": "middle-earth:randomize_gondor_road"
-      }
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 2
     }
   ]
 }

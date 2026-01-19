@@ -1,13 +1,13 @@
 {
-  "name": "middle-earth:gondor_village",
+  "name": "middle-earth:gondor_lumber_house",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:gondor/gondor_village",
-        "projection": "terrain_matching",
+        "location": "middle-earth:gondor/gondor_village_lumber_house",
+        "projection": "rigid",
         "processors": "middle-earth:randomize_gondor_road"
       }
     }
