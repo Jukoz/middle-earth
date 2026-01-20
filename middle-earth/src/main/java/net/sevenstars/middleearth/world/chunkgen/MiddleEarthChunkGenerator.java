@@ -9,7 +9,11 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.structure.PoolStructurePiece;
+import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructureStart;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.CheckedRandom;
 import net.minecraft.util.math.random.ChunkRandom;
@@ -361,6 +365,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     }
 
+    private static final int STRUCTURE_MARGIN_ADAPT = 15;
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
@@ -408,27 +413,47 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     height = MiddleEarthHeightMap.lerp(height, oldHeight, percentage);
                 }
 
+                float newHeight = height;
+                float bestInfluence = 0f;
                 for (StructureStart structureStart : structureStarts) {
                     Structure structure = structureStart.getStructure();
                     StructureTerrainAdaptation adaptation = structure.getTerrainAdaptation();
                     if (adaptation == StructureTerrainAdaptation.BEARD_BOX) {
-                        float minStructureHeight = structureStart.getBoundingBox().getMinY() + 12;
-                        if(structureStart.getBoundingBox().expand(7, 15, 7).contains(posX,(int)(DIRT_HEIGHT + height), posZ)) {
-                            int minX = structureStart.getBoundingBox().getMinX() + 12;
-                            int maxX = structureStart.getBoundingBox().getMaxX() - 12;
-                            int minZ = structureStart.getBoundingBox().getMinZ() + 12;
-                            int maxZ = structureStart.getBoundingBox().getMaxZ() - 12;
+                        for (StructurePiece piece : structureStart.getChildren()) {
+                            if (piece instanceof PoolStructurePiece poolPiece) {
+                                StructurePoolElement element = poolPiece.getPoolElement();
+                                StructurePool.Projection projection = element.getProjection();
+                                if (projection == StructurePool.Projection.RIGID) {
+                                    float minStructureHeight = poolPiece.getBoundingBox().getMinY();
+                                    BlockBox expandedBox = poolPiece.getBoundingBox().expand(STRUCTURE_MARGIN_ADAPT + 1, STRUCTURE_MARGIN_ADAPT + 1, STRUCTURE_MARGIN_ADAPT + 1);
+                                    if(expandedBox.contains(posX,(int)(DIRT_HEIGHT + height), posZ)) {
+                                        int minX = poolPiece.getBoundingBox().getMinX();
+                                        int maxX = poolPiece.getBoundingBox().getMaxX();
+                                        int minZ = poolPiece.getBoundingBox().getMinZ();
+                                        int maxZ = poolPiece.getBoundingBox().getMaxZ();
 
-                            double dx = Math.max(0, Math.max(minX - posX, posX - maxX));
-                            double dz = Math.max(0, Math.max(minZ - posZ, posZ - maxZ));
-                            float distanceToEdge = (float) Math.sqrt(dx * dx + dz * dz);
+                                        if (posX >= minX && posX <= maxX && posZ >= minZ && posZ <= maxZ) {
+                                            bestInfluence = 1.0f;
+                                            newHeight = minStructureHeight - DIRT_HEIGHT;
+                                            break;
+                                        } else {
+                                            double dx = Math.max(0, Math.max(minX - posX, posX - maxX));
+                                            double dz = Math.max(0, Math.max(minZ - posZ, posZ - maxZ));
+                                            float distanceToEdge = (float) Math.sqrt(dx * dx + dz * dz);
 
-                            float influence = 1.0f - Math.min(1.0f, distanceToEdge / 8);
-                            height = MathHelper.lerp(influence, height, minStructureHeight - DIRT_HEIGHT);
-                            break;
+                                            float influence = 1.0f - Math.min(1.0f, distanceToEdge / STRUCTURE_MARGIN_ADAPT);
+                                            if(influence > bestInfluence) {
+                                                bestInfluence = influence;
+                                                newHeight = MathHelper.lerp(influence, height, minStructureHeight - DIRT_HEIGHT);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+                height = newHeight;
 
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, bottomY, z), Blocks.BEDROCK.getDefaultState(), 0);
                 for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {

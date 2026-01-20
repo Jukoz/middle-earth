@@ -21,6 +21,24 @@
       }
     },
 	{
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_pottery_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_smith_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
