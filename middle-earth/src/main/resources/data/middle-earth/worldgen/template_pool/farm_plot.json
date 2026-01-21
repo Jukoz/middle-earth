@@ -1,0 +1,30 @@
+{
+  "name": "middle-earth:barn_animals",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 1
+    }
+  ]
+}

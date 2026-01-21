@@ -6,7 +6,7 @@
         {
           "input_predicate": {
             "block": "middle-earth:dry_dirt",
-            "probability": 0.21,
+            "probability": 0.2,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {
@@ -19,7 +19,7 @@
         {
           "input_predicate": {
             "block": "middle-earth:dry_dirt",
-            "probability": 0.21,
+            "probability": 0.2,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {
@@ -32,7 +32,7 @@
         {
           "input_predicate": {
             "block": "middle-earth:dry_dirt",
-            "probability": 0.16,
+            "probability": 0.1,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {
@@ -58,7 +58,46 @@
 		{
           "input_predicate": {
             "block": "middle-earth:dry_dirt",
-            "probability": 0.22,
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:dry_dirt"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "middle-earth:dry_dirt",
+            "probability": 0.1,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:grassy_dirt"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "middle-earth:grassy_dirt",
+            "probability": 0.45,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:grass_block"
+          }
+        },
+		{
+          "input_predicate": {
+            "block": "middle-earth:grassy_dirt",
+            "probability": 0.1,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {

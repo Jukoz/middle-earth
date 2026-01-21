@@ -3,7 +3,7 @@
   "biomes": "#middle-earth:has_structure/gondor_biomes",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "beard_box",
   "start_pool": "middle-earth:gondor_village",
   "size": 12,
   "start_height": {
