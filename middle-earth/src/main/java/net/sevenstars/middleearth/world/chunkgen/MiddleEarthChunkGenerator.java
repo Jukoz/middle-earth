@@ -365,7 +365,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     }
 
-    private static final int STRUCTURE_MARGIN_ADAPT = 15;
+    private static final int STRUCTURE_MARGIN_ADAPT = 10;
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();

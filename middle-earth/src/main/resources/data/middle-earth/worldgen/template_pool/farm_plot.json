@@ -1,9 +1,9 @@
 {
-  "name": "middle-earth:barn_animals",
+  "name": "middle-earth:farm_plot",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 2,
+      "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:farm_plot",
@@ -12,7 +12,7 @@
       }
     },
 	{
-      "weight": 2,
+      "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:farm_plot_1",
@@ -21,10 +21,118 @@
       }
     },
     {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_carrot"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_carrot"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_potato"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_potato"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_cucumber"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_cucumber"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_garlic"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_garlic"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_leek"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_leek"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_onion"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_onion"
+      }
+    },
+    {
       "element": {
         "element_type": "minecraft:empty_pool_element"
       },
-      "weight": 1
+      "weight": 3
     }
   ]
 }
