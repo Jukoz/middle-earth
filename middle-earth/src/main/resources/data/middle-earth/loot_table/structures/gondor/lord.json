@@ -1,0 +1,90 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_tabbard"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin_pile"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_dagger"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_boots"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 7
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book"
+        }
+      ]
+    }
+  ]
+}

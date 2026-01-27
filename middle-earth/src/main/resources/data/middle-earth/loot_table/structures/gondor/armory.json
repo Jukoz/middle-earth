@@ -1,0 +1,227 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:kettle_hat",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gambeson",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 1973792
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:arming_coat",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 1973792
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:arming_skirt",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 1973792
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_boots",
+          "weight": 7
+        },
+		
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_cabasset_helmet",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_mail_hauberk",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_tabbard",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_leather_cuirass",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_leather_chestplate",
+          "weight": 1
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_mail_coat",
+          "weight": 4
+        },
+		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_soldier_helmet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_soldier_chestplate",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
+        }
+      ],
+      "rolls": 2
+    },
+	{		
+	  "bonus_rolls": 0.5,
+	  "entries": [
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:gondorian_tower_shield"
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:gondorian_shield",
+		  "weight": 2
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:heater_shield",
+		  "functions": [
+			{
+			  "function": "minecraft:set_banner_pattern",
+			  "patterns": [
+				{
+				  "pattern": "minecraft:base",
+				  "color": "black"
+				},
+				{
+				  "pattern": "middle-earth:tree",
+				  "color": "white"
+				}
+			  ],
+			  "append": true
+			}
+		  ]
+		},
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+	  ],
+	  "rolls": 1
+	},
+    {
+      "rolls": {
+        "min": 0,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mail_ring",
+		  "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:iron",
+                  "pattern": "middle-earth:smithing_part"
+                }
+              }
+            }
+		  ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:tin_ingot"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fabric"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:black_dye"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather"
+        }
+      ]
+    }
+  ]
+}
