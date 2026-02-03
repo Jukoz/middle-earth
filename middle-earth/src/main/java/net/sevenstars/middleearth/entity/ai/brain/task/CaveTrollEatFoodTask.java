@@ -65,6 +65,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
                 count -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, count + 1), // If present
                 () -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, 1)); // If absent
 
+        entity.getBrain().remember(MemoryModulesME.ACTION_TIMEOUT, 200);
         entity.setSitting(false);
 
         entity.getMainHandStack().decrement(1);
