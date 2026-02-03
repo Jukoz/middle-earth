@@ -59,6 +59,7 @@ public class TrollEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.ATTACK_SPEED, 0.9)
                 .add(EntityAttributes.FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 10.0)
+                .add(EntityAttributes.STEP_HEIGHT, 1.25)
                 .add(EntityAttributes.JUMP_STRENGTH, 0.0);
     }
 
