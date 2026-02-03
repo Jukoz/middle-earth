@@ -159,6 +159,11 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean canBeLeashed() {
+        return false;
+    }
+
+    @Override
     public Disposition getDisposition() {
         return Disposition.EVIL;
     }

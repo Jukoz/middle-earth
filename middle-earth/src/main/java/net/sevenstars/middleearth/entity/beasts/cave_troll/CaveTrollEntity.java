@@ -186,6 +186,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean canBeLeashed() {
+        return false;
+    }
+
+    @Override
     public boolean usesTameness() {
         return true;
     }
