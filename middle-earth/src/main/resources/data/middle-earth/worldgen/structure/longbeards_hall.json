@@ -4,7 +4,7 @@
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "middle-earth:longbeards_hall_road",
+  "start_pool": "middle-earth:longbeards/hall_road",
   "size": 12,
   "start_height": {
     "absolute": 0
