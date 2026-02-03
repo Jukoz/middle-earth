@@ -157,6 +157,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
                 if(PlayerUtil.isOfRace(player, race) || player.isCreative()) {
+
                     if(isTrollWeapon(itemStack) && isOwner(player) && this.getMainHandStack().isEmpty()) { // Give the troll a weapon
                         this.equipStack(EquipmentSlot.MAINHAND, itemStack.copyAndEmpty());
                         itemStack.decrementUnlessCreative(1, player);
