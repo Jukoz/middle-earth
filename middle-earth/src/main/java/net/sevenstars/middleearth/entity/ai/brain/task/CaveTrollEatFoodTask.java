@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
+import net.minecraft.item.Item;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
@@ -19,6 +20,8 @@ import java.util.Optional;
 
 public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
     private long startTime;
+    public static TagKey<Item> TROLL_FOOD = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food"));
+
     public CaveTrollEatFoodTask() {
         super(
                 ImmutableMap.of(
@@ -35,7 +38,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
 
     @Override
     protected boolean shouldRun(ServerWorld world, CaveTrollEntity entity) {
-        return !entity.getMainHandStack().isEmpty() && entity.getMainHandStack().isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
+        return !entity.getMainHandStack().isEmpty() && entity.getMainHandStack().isIn(TROLL_FOOD);
     }
 
     @Override
