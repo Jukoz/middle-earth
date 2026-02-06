@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/woodland_realm_heavy_shield",
+	"parent": "middle-earth:item/woodland_realm_heavy_ornamented_shield",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [45, -45, 0],
