@@ -501,6 +501,9 @@ public class WeaponItemsME {
     public static final Item WOODLAND_REALM_GLADE_SHIELD = registerShield("woodland_realm_glade_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_LEAF_SHIELD = registerShield("woodland_realm_leaf_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
 
     //region EREBOR
