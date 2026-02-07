@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/woodland_realm_leaf_shield",
+	"parent": "middle-earth:item/woodland_realm_nightshade_ornamented_shield",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [45, -45, 0],
