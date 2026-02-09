@@ -14,20 +14,11 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
     private final ModelPart root;
     private final ModelPart body;
     private final ModelPart frontHalf;
-    private final ModelPart saddle;
-    private final ModelPart frontBody;
-    private final ModelPart frontLeftLeg;
-    private final ModelPart frontRightLeg;
     private final ModelPart headNeck;
-    private final ModelPart neck;
     private final ModelPart topHead;
     private final ModelPart rightAntler;
     private final ModelPart leftAntler;
     private final ModelPart beard;
-    private final ModelPart backBody;
-    private final ModelPart tail;
-    private final ModelPart backLeftLeg;
-    private final ModelPart backRightLeg;
 
     private final Animation idleAnimation;
     private final Animation earWiggleAnimation;
@@ -40,20 +31,11 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
         this.root = root.getChild("root");
         this.body = this.root.getChild("body");
         this.frontHalf = this.body.getChild("front_half");
-        this.frontBody = this.frontHalf.getChild("front_body");
-        this.saddle = this.frontBody.getChild("saddle");
-        this.frontLeftLeg = this.frontHalf.getChild("front_left_leg");
-        this.frontRightLeg = this.frontHalf.getChild("front_right_leg");
         this.headNeck = this.frontHalf.getChild("head_neck");
-        this.neck = this.headNeck.getChild("neck");
         this.topHead = this.headNeck.getChild("top_head");
         this.rightAntler = this.topHead.getChild("right_antler");
         this.leftAntler = this.topHead.getChild("left_antler");
         this.beard = this.topHead.getChild("beard");
-        this.backBody = this.frontHalf.getChild("back_body");
-        this.tail = this.backBody.getChild("tail");
-        this.backLeftLeg = this.root.getChild("back_left_leg");
-        this.backRightLeg = this.root.getChild("back_right_leg");
 
         this.idleAnimation = GreatHornAnimations.IDLE.createAnimation(root);
         this.earWiggleAnimation = GreatHornAnimations.EAR_WIGGLE.createAnimation(root);
@@ -167,15 +149,6 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
                 this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.75F, 2.5F);
             }
         }
-
-        boolean showSaddle = state.saddle != ItemStack.EMPTY;
-        saddle.hidden = showSaddle;
-
-        /*if(!state.hasRider) {
-            reins.pitch = -12.5f * 0.017453292F;
-        } else {
-            reins.pitch = 0f;
-        }*/
 
         if(state.baby) {
             leftAntler.visible = false;

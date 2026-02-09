@@ -20,7 +20,7 @@ public class GreatHornSaddleFeatureRenderer extends FeatureRenderer<GreatHornEnt
 
     public GreatHornSaddleFeatureRenderer(FeatureRendererContext<GreatHornEntityRenderState, GreatHornModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
-        this.model = new GreatHornSaddleModel(loader.getModelPart(ModEntityModelLayers.GREAT_HORN));
+        this.model = new GreatHornSaddleModel(loader.getModelPart(ModEntityModelLayers.GREAT_HORN_SADDLE));
     }
 
     @Override
