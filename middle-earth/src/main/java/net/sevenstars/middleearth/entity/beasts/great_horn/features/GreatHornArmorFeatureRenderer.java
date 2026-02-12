@@ -39,7 +39,7 @@ public class GreatHornArmorFeatureRenderer extends FeatureRenderer<GreatHornEnti
             model.setAngles(state);
             String path = equippableComponent.assetId().get().getValue().getPath();
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers,
-                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/great_horn/feature/" + path)), itemStack.hasGlint());
+                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/great_horn/feature/" + path + ".png")), itemStack.hasGlint());
             model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
         }
     }
