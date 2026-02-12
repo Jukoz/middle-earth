@@ -146,6 +146,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         great_horn_armor.add(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR);
         great_horn_armor.add(EquipmentItemsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_GREEN_PLATE_ARMOR);
 
         bones.add(Items.BONE);
         bones.add(ResourceItemsME.DIRTY_BONE);

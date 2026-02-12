@@ -836,7 +836,9 @@ public class EquipmentItemsME {
     public static final Item GREAT_HORN_PLATE_ARMOR = registerDyeableArmorPiece("great_horn_plate_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.material()));
     public static final Item GREAT_HORN_ORNAMENTED_PLATE_ARMOR = registerDyeableArmorPiece("great_horn_ornamented_plate_armor",
-            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.material()));
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR.material()));
+    public static final Item GREAT_HORN_GREEN_PLATE_ARMOR = registerDyeableArmorPiece("great_horn_green_plate_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_GREEN_PLATE_ARMOR.material()));
     //endregion
 
     //region LOTHLORIEN
