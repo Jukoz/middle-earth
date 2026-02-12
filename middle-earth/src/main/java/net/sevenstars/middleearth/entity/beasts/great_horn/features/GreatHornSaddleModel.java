@@ -1,9 +1,9 @@
-package net.sevenstars.middleearth.entity.beasts.great_horn;
+package net.sevenstars.middleearth.entity.beasts.great_horn.features;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.item.ItemStack;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 
 public class GreatHornSaddleModel extends GreatHornModel {
     private final ModelPart root;

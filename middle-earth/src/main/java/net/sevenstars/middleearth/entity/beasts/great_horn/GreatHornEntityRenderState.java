@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 public class GreatHornEntityRenderState extends LivingEntityRenderState {
     public GreatHornVariant variant;
     public ItemStack saddle;
+    public ItemStack armor;
     public boolean hasRider;
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -19,6 +20,7 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
 
     public GreatHornEntityRenderState() {
         saddle = ItemStack.EMPTY;
+        armor = ItemStack.EMPTY;
         hasRider = false;
     }
 

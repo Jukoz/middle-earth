@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.beasts.great_horn;
+package net.sevenstars.middleearth.entity.beasts.great_horn.features;
 
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 
 public class GreatHornSaddleFeatureRenderer extends FeatureRenderer<GreatHornEntityRenderState, GreatHornModel> {
     private final GreatHornSaddleModel model;

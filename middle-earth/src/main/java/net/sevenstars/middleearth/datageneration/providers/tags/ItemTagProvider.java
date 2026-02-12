@@ -38,6 +38,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var warg_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
         var warg_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
         var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
+        var great_horn_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "great_horn_armor")));
         var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
         var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
         var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
@@ -142,6 +143,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_PLATE_ARMOR);
         broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR);
         broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
+
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR);
 
         bones.add(Items.BONE);
         bones.add(ResourceItemsME.DIRTY_BONE);

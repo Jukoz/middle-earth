@@ -3,15 +3,13 @@ package net.sevenstars.middleearth.entity.beasts.great_horn;
 import com.google.common.collect.Maps;
 import net.minecraft.client.render.entity.AgeableMobEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
-import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.PigEntityModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornArmorFeatureRenderer;
+import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornSaddleFeatureRenderer;
 
 import java.util.Map;
 
@@ -23,6 +21,7 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
         super(context, new GreatHornModel(context.getPart(ModEntityModelLayers.GREAT_HORN)),
                 new GreatHornModel(context.getPart(ModEntityModelLayers.GREAT_HORN_BABY)), 0.95f);
         this.addFeature(new GreatHornSaddleFeatureRenderer(this,  context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new GreatHornArmorFeatureRenderer(this,  context.getEntityModels(), context.getEquipmentRenderer()));
     }
 
     protected float getShadowRadius(GreatHornEntityRenderState greatHornEntityRenderState) {
@@ -65,6 +64,7 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
         state.gallopAnimationState.copyFrom(greatHornEntity.gallopAnimationState);
         state.bowAnimationState.copyFrom(greatHornEntity.bowAnimationState);
         state.saddle = greatHornEntity.getEquippedStack(EquipmentSlot.SADDLE);
+        state.armor = greatHornEntity.getEquippedStack(EquipmentSlot.BODY);
         state.hasRider = greatHornEntity.hasPlayerRider();
     }
 }
