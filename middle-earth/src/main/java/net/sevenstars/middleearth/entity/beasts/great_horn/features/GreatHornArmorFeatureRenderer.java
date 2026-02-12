@@ -23,21 +23,23 @@ import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 
 public class GreatHornArmorFeatureRenderer extends FeatureRenderer<GreatHornEntityRenderState, GreatHornModel> {
     private final GreatHornArmorModel model;
+    private final EquipmentRenderer equipmentRenderer;
 
     public GreatHornArmorFeatureRenderer(FeatureRendererContext<GreatHornEntityRenderState, GreatHornModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
         this.model = new GreatHornArmorModel(loader.getModelPart(ModEntityModelLayers.GREAT_HORN_ARMOR));
+        this.equipmentRenderer = equipmentRenderer;
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, GreatHornEntityRenderState state, float limbAngle, float limbDistance) {
         ItemStack itemStack = state.armor;
         EquippableComponent equippableComponent = (EquippableComponent)itemStack.get(DataComponentTypes.EQUIPPABLE);
-        if (equippableComponent != null && !itemStack.isEmpty()) {
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers,
-                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/great_horn/feature/great_horn_armor.png")), itemStack.hasGlint());
-
+        if (equippableComponent != null && !equippableComponent.assetId().isEmpty()) {
             model.setAngles(state);
+            String path = equippableComponent.assetId().get().getValue().getPath();
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers,
+                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/great_horn/feature/" + path)), itemStack.hasGlint());
             model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
         }
     }
