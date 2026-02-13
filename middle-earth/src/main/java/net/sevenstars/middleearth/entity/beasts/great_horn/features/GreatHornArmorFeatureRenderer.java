@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts.great_horn.features;
 
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -12,14 +13,18 @@ import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.client.renderer.armor.ModArmorRenderer;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
+import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 
 public class GreatHornArmorFeatureRenderer extends FeatureRenderer<GreatHornEntityRenderState, GreatHornModel> {
     private final GreatHornArmorModel model;
@@ -37,10 +42,24 @@ public class GreatHornArmorFeatureRenderer extends FeatureRenderer<GreatHornEnti
         EquippableComponent equippableComponent = (EquippableComponent)itemStack.get(DataComponentTypes.EQUIPPABLE);
         if (equippableComponent != null && !equippableComponent.assetId().isEmpty()) {
             model.setAngles(state);
-            String path = equippableComponent.assetId().get().getValue().getPath();
+            String path = "textures/entities/great_horn/feature/" + equippableComponent.assetId().get().getValue().getPath() + ".png";
+            boolean dyeable = false;
+            if (itemStack.isIn(ItemTags.DYEABLE)) {
+                dyeable = true;
+            }
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers,
-                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/great_horn/feature/" + path + ".png")), itemStack.hasGlint());
-            model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, path)), itemStack.hasGlint());
+
+            if(dyeable){
+                int color = DyedColorComponent.getColor(itemStack, DyedColorComponent.DEFAULT_COLOR);
+                model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
+                if(DyeablePiecesME.dyeablePieces.get(itemStack.getItem())) {
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, itemStack, model,
+                            Identifier.of(MiddleEarth.MOD_ID, path.replaceAll(".png", "_overlay.png")));
+                }
+            } else {
+                model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+            }
         }
     }
 }

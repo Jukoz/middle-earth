@@ -833,11 +833,14 @@ public class EquipmentItemsME {
     public static final Item ELVEN_MAIL_SKIRT = registerArmorPiece("elven_mail_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.IRON_T3, settings), new Item.Settings());
 
-    public static final Item GREAT_HORN_PLATE_ARMOR = registerDyeableArmorPiece("great_horn_plate_armor",
+    public static final Item GREAT_HORN_LIGHT_ARMOR = registerDyeableArmorPiece("great_horn_light_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_ARMOR.material())
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3491893)));
+    public static final Item GREAT_HORN_PLATE_ARMOR = registerGeneratedItem("great_horn_plate_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.material()));
-    public static final Item GREAT_HORN_ORNAMENTED_PLATE_ARMOR = registerDyeableArmorPiece("great_horn_ornamented_plate_armor",
+    public static final Item GREAT_HORN_ORNAMENTED_PLATE_ARMOR = registerGeneratedItem("great_horn_ornamented_plate_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR.material()));
-    public static final Item GREAT_HORN_GREEN_PLATE_ARMOR = registerDyeableArmorPiece("great_horn_green_plate_armor",
+    public static final Item GREAT_HORN_GREEN_PLATE_ARMOR = registerGeneratedItem("great_horn_green_plate_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_GREEN_PLATE_ARMOR.material()));
     //endregion
 

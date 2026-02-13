@@ -66,6 +66,7 @@ public interface ArmorMaterialsME {
     ExtendedArmorMaterial BROADHOOF_GOAT_ORNAMENTED_LEATHER_ARMOR = registerArmor("broadhoof_goat_ornamented_leather_armor", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
     ExtendedArmorMaterial BROADHOOF_GOAT_PLATE_ARMOR = registerArmor("broadhoof_goat_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_KHAZAD_STEEL_ARMOR);
 
+    ExtendedArmorMaterial GREAT_HORN_LIGHT_ARMOR = registerArmor("great_horn_light_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_FABRIC_ARMOR);
     ExtendedArmorMaterial GREAT_HORN_PLATE_ARMOR = registerArmor("great_horn_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
     ExtendedArmorMaterial GREAT_HORN_ORNAMENTED_PLATE_ARMOR = registerArmor("great_horn_ornamented_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
     ExtendedArmorMaterial GREAT_HORN_GREEN_PLATE_ARMOR = registerArmor("great_horn_green_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
