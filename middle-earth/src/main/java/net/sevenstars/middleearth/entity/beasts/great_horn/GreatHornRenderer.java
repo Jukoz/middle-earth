@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornArmorFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornSaddleFeatureRenderer;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
 import java.util.Map;
 
@@ -34,31 +35,31 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
         return new GreatHornEntityRenderState();
     }
 
-    public static final Map<GreatHornVariant, Identifier> LOCATION_BY_VARIANT =
-            Util.make(Maps.newEnumMap(GreatHornVariant.class), (map) -> {
-                map.put(GreatHornVariant.BROWN,
+    public static final Map<GreatHornVariantDep, Identifier> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(GreatHornVariantDep.class), (map) -> {
+                map.put(GreatHornVariantDep.BROWN,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "brown_great_horn.png"));
-                map.put(GreatHornVariant.TEMPERATE,
+                map.put(GreatHornVariantDep.TEMPERATE,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "temperate_great_horn.png"));
-                map.put(GreatHornVariant.COLD,
+                map.put(GreatHornVariantDep.COLD,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "cold_great_horn.png"));
-                map.put(GreatHornVariant.WARM,
+                map.put(GreatHornVariantDep.WARM,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "warm_great_horn.png"));
-                map.put(GreatHornVariant.WHITE,
+                map.put(GreatHornVariantDep.WHITE,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "white_great_horn.png"));
 
             });
 
+
     @Override
     public Identifier getTexture(GreatHornEntityRenderState state) {
-        return LOCATION_BY_VARIANT.get(state.variant);
+        return state.greatHornVariant.assetInfo().id().texturePath();
     }
 
     @Override
     public void updateRenderState(GreatHornEntity greatHornEntity, GreatHornEntityRenderState state, float f) {
         super.updateRenderState(greatHornEntity, state, f);
 
-        state.variant = greatHornEntity.getVariant();
         state.idleAnimationState.copyFrom(greatHornEntity.idleAnimationState);
         state.earWiggleAnimationState.copyFrom(greatHornEntity.earWigglingAnimationState);
         state.gallopAnimationState.copyFrom(greatHornEntity.gallopAnimationState);
@@ -66,5 +67,6 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
         state.saddle = greatHornEntity.getEquippedStack(EquipmentSlot.SADDLE);
         state.armor = greatHornEntity.getEquippedStack(EquipmentSlot.BODY);
         state.hasRider = greatHornEntity.hasPlayerRider();
+        state.greatHornVariant = greatHornEntity.getVariant();
     }
 }

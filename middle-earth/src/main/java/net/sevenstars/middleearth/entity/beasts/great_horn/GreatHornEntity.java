@@ -13,9 +13,11 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.spawn.SpawnContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -25,7 +27,6 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -35,6 +36,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
@@ -49,6 +51,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
@@ -57,7 +60,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 1.0);
     private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, ModTrackedDataHandlerRegistry.GREAT_HORN_VARIANT);;
     private static final TrackedData<Integer> BOW = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> EVADING = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -114,23 +117,24 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        builder.add(VARIANT, 0);
+        RegistryEntry<GreatHornVariant> greatHornVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), GreatHornVariants.DEFAULT);
         builder.add(BOW, 0);
         builder.add(MOUNTABLE, true);
         builder.add(EVADING, false);
+        builder.add(VARIANT, greatHornVariantRegistryEntry);
     }
 
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        view.putInt("Variant", this.getTypeVariant());
+        //Variants.writeVariantToNbt(view, this.getRegistryVariant());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
-        this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+        //Variants.readVariantFromNbt(view, GreatHornVariants.KEY).ifPresent(this::setVariant);
+        //this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -454,30 +458,28 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     /* VARIANTS */
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
                                  @Nullable EntityData entityData) {
-        GreatHornVariant variant = Util.getRandom(GreatHornVariant.values(), this.random);
-        this.setVariant(variant);
-
-        if(!this.getWorld().isClient()) {
-            this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
-        }
-
+        /*if (entityData instanceof GreatHornData greatHornData) {
+            this.setVariant(greatHornData.variant);
+        } else {
+            Optional<? extends RegistryEntry<GreatHornVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), GreatHornVariants.KEY);
+            if (optional.isPresent()) {
+                this.setVariant(optional.get());
+                entityData = new GreatHornData(optional.get());
+            }
+        }*/
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
-    private void setGreatHornVariant(GreatHornVariant variant) {
-        this.setVariant(variant);
+    private void setVariant(RegistryEntry<GreatHornVariant> variant) {
+        this.dataTracker.set(VARIANT, variant);
     }
 
     public GreatHornVariant getVariant() {
-        return GreatHornVariant.byId(this.getTypeVariant() & 255);
+        return getRegistryVariant().value();
     }
 
-    private int getTypeVariant() {
+    private RegistryEntry<GreatHornVariant> getRegistryVariant() {
         return this.dataTracker.get(VARIANT);
-    }
-
-    private void setVariant(GreatHornVariant variant) {
-        this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 
     @Nullable
@@ -516,5 +518,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected void playJumpSound() {
         this.playSound(SoundEvents.ENTITY_GOAT_LONG_JUMP, 1.0f, 0.7f);
+    }
+
+    public static class GreatHornData implements EntityData {
+        public final RegistryEntry<GreatHornVariant> variant;
+
+        public GreatHornData(RegistryEntry<GreatHornVariant> variant) {
+            this.variant = variant;
+        }
     }
 }

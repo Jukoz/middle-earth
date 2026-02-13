@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariants;
 import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
@@ -128,6 +129,7 @@ public class MiddleEarth implements ModInitializer {
 
 		// Dynamic Data
 		SpiderVariants.register();
+		GreatHornVariants.register();
 		RacesME.register();
 		NpcME.register();
 		FactionsME.register();

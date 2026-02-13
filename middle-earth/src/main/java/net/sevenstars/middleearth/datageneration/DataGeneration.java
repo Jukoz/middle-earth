@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvi
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableArmorRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableHandheldRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariants;
 import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
@@ -52,6 +53,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
         pack.addProvider(ArtisanTableArmorRecipeProvider::new);
         pack.addProvider(SpiderVariantsProvider::new);
+        pack.addProvider(GreatHornVariantsProvider::new);
         pack.addProvider(RaceProvider::new);
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
@@ -94,6 +96,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
 
         // Mod Dynamic
         registryBuilder.addRegistry(SpiderVariants.KEY, SpiderVariants::bootstrap);
+        registryBuilder.addRegistry(GreatHornVariants.KEY, GreatHornVariants::bootstrap);
 
         registryBuilder.addRegistry(RacesME.KEY, RacesME::bootstrap);
         registryBuilder.addRegistry(NpcME.KEY, NpcME::bootstrap);

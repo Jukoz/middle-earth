@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 @Environment(EnvType.CLIENT)
 public class GreatHornEntityRenderState extends LivingEntityRenderState {
-    public GreatHornVariant variant;
+    public GreatHornVariantDep variant;
     public ItemStack saddle;
     public ItemStack armor;
     public boolean hasRider;
@@ -17,6 +17,8 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
     public final AnimationState earWiggleAnimationState = new AnimationState();
     public final AnimationState gallopAnimationState = new AnimationState();
     public final AnimationState bowAnimationState = new AnimationState();
+
+    public GreatHornVariant greatHornVariant;
 
     public GreatHornEntityRenderState() {
         saddle = ItemStack.EMPTY;
