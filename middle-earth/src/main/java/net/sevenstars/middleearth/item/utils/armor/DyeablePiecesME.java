@@ -136,6 +136,8 @@ public class DyeablePiecesME {
         dyeableHelmetAttachments.put(HelmetAttachmentsME.WHITE_FUR_HOOD, true);
 
         dyeablePieces.put(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR, true);
+        dyeablePieces.put(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR, true);
+        dyeablePieces.put(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR, true);
 
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR, true);
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);

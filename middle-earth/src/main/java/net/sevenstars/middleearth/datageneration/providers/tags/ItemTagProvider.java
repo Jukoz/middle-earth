@@ -145,6 +145,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
         great_horn_armor.add(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
         great_horn_armor.add(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR);
         great_horn_armor.add(EquipmentItemsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR);
         great_horn_armor.add(EquipmentItemsME.GREAT_HORN_GREEN_PLATE_ARMOR);
@@ -166,6 +168,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         dyeable.add(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR);
 
         dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR);
+        dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR);
+        dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
 
         chains.add(Items.CHAIN);
         chains.add(ModDecorativeBlocks.BRONZE_CHAIN.asItem());

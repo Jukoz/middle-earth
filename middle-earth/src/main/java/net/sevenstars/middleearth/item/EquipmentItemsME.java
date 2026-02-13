@@ -835,6 +835,12 @@ public class EquipmentItemsME {
 
     public static final Item GREAT_HORN_LIGHT_ARMOR = registerDyeableArmorPiece("great_horn_light_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_ARMOR.material())
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3879204)));
+    public static final Item GREAT_HORN_LIGHT_GRAY_ARMOR = registerDyeableArmorPiece("great_horn_light_gray_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_GRAY_ARMOR.material())
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(5464949)));
+    public static final Item GREAT_HORN_LIGHT_GREEN_ARMOR = registerDyeableArmorPiece("great_horn_light_green_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_GREEN_ARMOR.material())
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3491893)));
     public static final Item GREAT_HORN_PLATE_ARMOR = registerGeneratedItem("great_horn_plate_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.material()));
