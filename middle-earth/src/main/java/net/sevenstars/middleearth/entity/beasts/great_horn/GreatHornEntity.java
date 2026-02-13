@@ -127,14 +127,14 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        //Variants.writeVariantToNbt(view, this.getRegistryVariant());
+        Variants.writeVariantToNbt(view, this.getRegistryVariant());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        //Variants.readVariantFromNbt(view, GreatHornVariants.KEY).ifPresent(this::setVariant);
-        //this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+        Variants.readVariantFromNbt(view, GreatHornVariants.KEY).ifPresent(this::setVariant);
+        this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -458,7 +458,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     /* VARIANTS */
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
                                  @Nullable EntityData entityData) {
-        /*if (entityData instanceof GreatHornData greatHornData) {
+        if (entityData instanceof GreatHornData greatHornData) {
             this.setVariant(greatHornData.variant);
         } else {
             Optional<? extends RegistryEntry<GreatHornVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), GreatHornVariants.KEY);
@@ -466,7 +466,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                 this.setVariant(optional.get());
                 entityData = new GreatHornData(optional.get());
             }
-        }*/
+        }
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
@@ -475,7 +475,8 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     public GreatHornVariant getVariant() {
-        return getRegistryVariant().value();
+        GreatHornVariant variant = getRegistryVariant().value();
+        return variant;
     }
 
     private RegistryEntry<GreatHornVariant> getRegistryVariant() {
@@ -520,10 +521,11 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         this.playSound(SoundEvents.ENTITY_GOAT_LONG_JUMP, 1.0f, 0.7f);
     }
 
-    public static class GreatHornData implements EntityData {
+    public static class GreatHornData extends PassiveEntity.PassiveData {
         public final RegistryEntry<GreatHornVariant> variant;
 
         public GreatHornData(RegistryEntry<GreatHornVariant> variant) {
+            super(0.075f);
             this.variant = variant;
         }
     }

@@ -21,7 +21,6 @@ public class GreatHornVariants {
 	public static final RegistryKey<Registry<GreatHornVariant>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, KEY_PATH));
 
 	public static final RegistryKey<GreatHornVariant> BROWN = of("brown");
-	public static final RegistryKey<GreatHornVariant> BLACK = of("black");
 	public static final RegistryKey<GreatHornVariant> TEMPERATE = of("temperate");
 	public static final RegistryKey<GreatHornVariant> WHITE = of("white");
 	public static final RegistryKey<GreatHornVariant> DEFAULT = BROWN;
@@ -46,7 +45,6 @@ public class GreatHornVariants {
 
 	public static void bootstrap(Registerable<GreatHornVariant> registry) {
 		register(registry, BROWN, "brown", SpawnConditionSelectors.createFallback(0));
-		register(registry, BLACK, "black", SpawnConditionSelectors.createFallback(0));
 		register(registry, TEMPERATE, "temperate", SpawnConditionSelectors.createFallback(0));
 		register(registry, WHITE, "white", SpawnConditionSelectors.createFallback(0));
 	}
