@@ -22,7 +22,8 @@ public class GreatHornVariants {
 
 	public static final RegistryKey<GreatHornVariant> BROWN = of("brown");
 	public static final RegistryKey<GreatHornVariant> TEMPERATE = of("temperate");
-	public static final RegistryKey<GreatHornVariant> WHITE = of("white");
+	public static final RegistryKey<GreatHornVariant> WARM = of("warm");
+	public static final RegistryKey<GreatHornVariant> COLD = of("cold");
 	public static final RegistryKey<GreatHornVariant> DEFAULT = BROWN;
 
 	private static RegistryKey<GreatHornVariant> of(String id) {
@@ -43,10 +44,15 @@ public class GreatHornVariants {
 		return SpawnConditionSelectors.createSingle(new BiomeSpawnCondition(requiredBiomes), priority);
 	}
 
+	private static SpawnConditionSelectors createSpawnConditions(RegistryEntryList<Biome> requiredBiomes, int a, int priority) {
+		return SpawnConditionSelectors.createSingle(new BiomeSpawnCondition(requiredBiomes), priority);
+	}
+
 	public static void bootstrap(Registerable<GreatHornVariant> registry) {
 		register(registry, BROWN, "brown", SpawnConditionSelectors.createFallback(0));
 		register(registry, TEMPERATE, "temperate", SpawnConditionSelectors.createFallback(0));
-		register(registry, WHITE, "white", SpawnConditionSelectors.createFallback(0));
+		register(registry, WARM, "warm", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "spawns_warm_variant_great_horn")), 0);
+		register(registry, COLD, "cold", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "spawns_cold_variant_great_horn")), 0);
 	}
 
 	public static void register(){
