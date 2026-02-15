@@ -52,7 +52,7 @@ public class GreatHornVariants {
 		register(registry, BROWN, "brown", SpawnConditionSelectors.createFallback(0));
 		register(registry, TEMPERATE, "temperate", SpawnConditionSelectors.createFallback(0));
 		register(registry, WARM, "warm", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "spawns_warm_variant_great_horn")), 0);
-		register(registry, COLD, "cold", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "spawns_cold_variant_great_horn")), 0);
+		register(registry, COLD, "cold", TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "spawns_cold_variant_great_horn")), 1);
 	}
 
 	public static void register(){

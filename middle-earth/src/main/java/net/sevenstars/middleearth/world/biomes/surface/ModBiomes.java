@@ -933,6 +933,7 @@ public class ModBiomes {
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addGreenGrowth(vegetation);
         } else if (step == 1) {
+            ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
@@ -1093,6 +1094,8 @@ public class ModBiomes {
     public static void createFangornBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
+        ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         ModBiomeFeatures.addDisks(undergroundOres);
@@ -1752,6 +1755,8 @@ public class ModBiomes {
     public static void createLothlorienBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
+        ModSpawnSettingsBuilder.addDeer(spawnSettings);
+        ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
         ModSpawnSettingsBuilder.addSwan(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -1924,6 +1929,8 @@ public class ModBiomes {
 
         if(hasWarg){
             ModSpawnSettingsBuilder.addUncommonWarg(spawnSettings);
+        } else {
+            ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
         }
 
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
@@ -2486,6 +2493,7 @@ public class ModBiomes {
         ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
+        ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         vegetation.add(VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
@@ -3353,6 +3361,7 @@ public class ModBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addDeer(spawnSettings);
+        ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         ModSpawnSettingsBuilder.addRareStoneTroll(spawnSettings);
 
