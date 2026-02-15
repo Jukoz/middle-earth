@@ -222,6 +222,11 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         GreatHornEntity greatHornEntity2 = ModEntities.GREAT_HORN.create(world, SpawnReason.BREEDING);
         if (greatHornEntity2 != null) {
             this.setChildAttributes(entity, greatHornEntity2);
+            if (this.random.nextBoolean()) {
+                greatHornEntity2.setVariant(this.getRegistryVariant());
+            } else {
+                greatHornEntity2.setVariant(((GreatHornEntity)entity).getRegistryVariant());
+            }
         }
         return greatHornEntity2;
     }
@@ -475,8 +480,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     public GreatHornVariant getVariant() {
-        GreatHornVariant variant = getRegistryVariant().value();
-        return variant;
+        return getRegistryVariant().value();
     }
 
     private RegistryEntry<GreatHornVariant> getRegistryVariant() {
