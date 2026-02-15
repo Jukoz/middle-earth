@@ -85,7 +85,8 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                 .add(EntityAttributes.ATTACK_DAMAGE, 4.0d)
                 .add(EntityAttributes.WATER_MOVEMENT_EFFICIENCY, 0.5f)
                 .add(EntityAttributes.STEP_HEIGHT, 1.15d)
-                .add(EntityAttributes.SAFE_FALL_DISTANCE, 7.0d);
+                .add(EntityAttributes.SAFE_FALL_DISTANCE, 7.0d)
+                .add(EntityAttributes.JUMP_STRENGTH, 0.75d);
     }
 
     @Override
@@ -259,24 +260,6 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public void chargeAttack() {
-        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2,0,0.2));
-
-        for(Entity entity : entities) {
-            if(this.getOwner() != null && entity.getUuid() != this.getOwner().getUuid() && entity != this
-                    && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
-                entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
-
-                double dx = entity.getX() - this.getX();
-                double dz = entity.getZ() - this.getZ();
-
-                Vec3d velocity = new Vec3d(dx, 2.25 + getRandom().nextFloat() * 0.75f, dz).normalize();
-                velocity = velocity.multiply(1.5, 1, 1.5);
-                entity.addVelocity(velocity);
-
-                this.setCharging(false);
-            }
-        }
-
         if(!this.isTame() && !this.getWorld().isClient) {
             if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
                 targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
@@ -284,41 +267,51 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                         this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
             }
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
-            this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
+            this.setVelocity(targetDir.multiply(1,1,1).normalize().multiply(1.0d -
+                    ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration()))
+                    .add(0, this.getVelocity().y + 2, 0));
         }
         else if (this.getWorld().isClient) {
-            this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
+            this.setVelocity(this.getRotationVector().multiply(1,1,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 
-        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         this.chargeAnimationState.startIfNotRunning(this.age);
     }
 
     @Override
     protected void jump(float strength, Vec3d movementInput) {
-        if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
-            this.setChargeTimeout(30);
-            double d = this.getJumpVelocity(strength);
-            Vec3d vec3d = this.getVelocity().multiply(4);
-            this.setVelocity(vec3d.x, d, vec3d.z);
-            this.setOnGround(false);
-            this.velocityDirty = true;
-            if (movementInput.z > 0.0) {
-                float f = MathHelper.sin(this.getYaw() * ((float)Math.PI / 180));
-                float g = MathHelper.cos(this.getYaw() * ((float)Math.PI / 180));
-                this.setVelocity(this.getVelocity().add(-0.4f * f * strength, 0.0, 0.4f * g * strength));
-            }
-        }
-        else {
-            super.jump(strength, movementInput);
+        if(this.chargeTimeout <= 0 && this.hasControllingPassenger()
+                && this.getControllingPassenger().isSprinting()) {
+            this.setCharging(true);
+            this.chargeTimeout = maxChargeCooldown();
         }
     }
 
     @Override
     public void startJumping(int height) {
-        if(this.hasControllingPassenger() && !this.getControllingPassenger().isSprinting()) {
+        if(this.hasControllingPassenger()) {
             this.jumping = true;
             this.playJumpSound();
+            if(!this.getControllingPassenger().isSprinting()) {
+                this.setChargeTimeout(30);
+                List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(2.5,2,2.5));
+
+                for(Entity entity : entities) {
+                    if(!this.getPassengerList().contains(entity)) {
+                        if(!this.getWorld().isClient()) {
+                            entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
+                        }
+                        double dx = entity.getX() - this.getX();
+                        double dz = entity.getZ() - this.getZ();
+
+                        Vec3d velocity = new Vec3d(dx, 1.5f + getRandom().nextFloat() * 0.5f, dz).normalize();
+                        velocity = velocity.multiply(1.5, 1, 1.5);
+                        entity.addVelocity(velocity);
+
+                        this.setCharging(false);
+                    }
+                }
+            }
         }
         else {
             super.startJumping(height);
