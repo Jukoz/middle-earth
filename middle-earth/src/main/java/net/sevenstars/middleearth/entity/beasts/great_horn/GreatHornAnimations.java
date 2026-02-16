@@ -354,4 +354,19 @@ public class GreatHornAnimations {
                 ))
                 .build();
     // endregion
+    
+    // region ATTACK
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.create(0.8333F)
+		.addBoneAnimation("head_neck", new Transformation(Transformation.Targets.ROTATE, 
+			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+            new Keyframe(0.0833F, AnimationHelper.createRotationalVector(54.06F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+            new Keyframe(0.2083F, AnimationHelper.createRotationalVector(95.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+            new Keyframe(0.3333F, AnimationHelper.createRotationalVector(28.33F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+            new Keyframe(0.4167F, AnimationHelper.createRotationalVector(-5.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+            new Keyframe(0.5F, AnimationHelper.createRotationalVector(-12.16F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+            new Keyframe(0.6667F, AnimationHelper.createRotationalVector(-13.52F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+            new Keyframe(0.8333F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
+            ))
+            .build();
+    // endregion
 }

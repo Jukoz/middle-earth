@@ -25,6 +25,7 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
     private final Animation walkingAnimation;
     private final Animation gallopAnimation;
     private final Animation bowAnimation;
+    private final Animation attackAnimation;
 
     public GreatHornModel(ModelPart root) {
         super(root);
@@ -42,6 +43,7 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
         this.walkingAnimation = GreatHornAnimations.WALK.createAnimation(root);
         this.gallopAnimation = GreatHornAnimations.GALLOP.createAnimation(root);
         this.bowAnimation = GreatHornAnimations.BOW.createAnimation(root);
+        this.attackAnimation = GreatHornAnimations.ATTACK.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -139,6 +141,10 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
 
         this.idleAnimation.apply(state.idleAnimationState, state.age);
         this.earWiggleAnimation.apply(state.earWiggleAnimationState, state.age);
+
+        if(state.attackAnimationState.isRunning()) {
+            this.attackAnimation.apply(state.attackAnimationState, state.age);
+        }
 
         if(state.bowAnimationState.isRunning()) {
             this.bowAnimation.apply(state.bowAnimationState, state.age);

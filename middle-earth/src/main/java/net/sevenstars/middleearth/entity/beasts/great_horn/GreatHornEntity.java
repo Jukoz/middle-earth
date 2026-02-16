@@ -56,18 +56,22 @@ import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
 public class GreatHornEntity extends AbstractBeastEntity implements Evader {
+    private static final int HORNS_ATTACK_COOLDOWN = 30;
     private static final float MIN_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 0.0);
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 1.0);
     private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, ModTrackedDataHandlerRegistry.GREAT_HORN_VARIANT);;
     private static final TrackedData<Integer> BOW = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> ATTACK = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> EVADING = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState earWigglingAnimationState = new AnimationState();
     public final AnimationState gallopAnimationState = new AnimationState();
     public final AnimationState bowAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
     private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.GREAT_HORN.getDimensions().scaled(0.5f);
+    protected int attackAnimationCooldown = 0;
     protected int bowAnimationTimeout = 0;
 
     public GreatHornEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
@@ -122,6 +126,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         builder.add(BOW, 0);
         builder.add(MOUNTABLE, true);
         builder.add(EVADING, false);
+        builder.add(ATTACK, 0);
         builder.add(VARIANT, greatHornVariantRegistryEntry);
     }
 
@@ -269,7 +274,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
             this.setVelocity(targetDir.multiply(1,1,1).normalize().multiply(1.0d -
                     ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration()))
-                    .add(0, this.getVelocity().y + 2, 0));
+                    .add(0, this.getVelocity().y + 4, 0));
         }
         else if (this.getWorld().isClient) {
             this.setVelocity(this.getRotationVector().multiply(1,1,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
@@ -293,7 +298,9 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             this.jumping = true;
             this.playJumpSound();
             if(!this.getControllingPassenger().isSprinting()) {
-                this.setChargeTimeout(30);
+                this.setChargeTimeout(HORNS_ATTACK_COOLDOWN);
+                dataTracker.set(ATTACK, HORNS_ATTACK_COOLDOWN);
+                attackAnimationCooldown = HORNS_ATTACK_COOLDOWN;
                 List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(2.5,2,2.5));
 
                 for(Entity entity : entities) {
@@ -305,7 +312,6 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                         double dz = entity.getZ() - this.getZ();
 
                         Vec3d velocity = new Vec3d(dx, 1.5f + getRandom().nextFloat() * 0.5f, dz).normalize();
-                        velocity = velocity.multiply(1.5, 1, 1.5);
                         entity.addVelocity(velocity);
 
                         this.setCharging(false);
@@ -321,6 +327,11 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     public boolean canUseSlot(EquipmentSlot slot) {
         return true;
+    }
+
+    @Override
+    public int getJumpCooldown() {
+        return Math.max(super.getJumpCooldown(), this.dataTracker.get(ATTACK));
     }
 
     @Override
@@ -341,6 +352,10 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             if(bowAnimationTimeout == 0) {
                 dataTracker.set(BOW, -1);
             }
+        }
+        if(attackAnimationCooldown > 0) {
+            attackAnimationCooldown = Math.max(attackAnimationCooldown - 1, 0);
+            dataTracker.set(ATTACK, attackAnimationCooldown);
         }
         if (this.getWorld().isClient && bowAnimationState.isRunning()) {
             if(random.nextInt(2) == 0) {
@@ -374,6 +389,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         } else if(bowState == -1) {
             this.bowAnimationState.stop();
             dataTracker.set(BOW, 0);
+        }
+
+        int attack = dataTracker.get(ATTACK);
+        if(attack == HORNS_ATTACK_COOLDOWN) {
+            this.attackAnimationState.start(this.age);
+        } else if(attack == 0) {
+            this.attackAnimationState.stop();
         }
 
         if(hasControllingPassenger()) {
