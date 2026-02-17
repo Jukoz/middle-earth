@@ -65,6 +65,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, ModTrackedDataHandlerRegistry.GREAT_HORN_VARIANT);;
     private static final TrackedData<Integer> BOW = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> ATTACK = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> BLUE_SADDLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> EVADING = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState earWigglingAnimationState = new AnimationState();
@@ -125,6 +126,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         super.initDataTracker(builder);
         RegistryEntry<GreatHornVariant> greatHornVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), GreatHornVariants.DEFAULT);
         builder.add(BOW, 0);
+        builder.add(BLUE_SADDLE, false);
         builder.add(MOUNTABLE, true);
         builder.add(EVADING, false);
         builder.add(ATTACK, 0);
@@ -171,6 +173,10 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         return false;
     }
 
+    public boolean hasBlueSaddle() {
+        return this.dataTracker.get(BLUE_SADDLE);
+    }
+
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
@@ -198,6 +204,12 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                     return ActionResult.SUCCESS;
                 }
             }
+        }
+
+        if(itemStack.getItem().equals(Items.BLUE_DYE) && !this.dataTracker.get(BLUE_SADDLE)) {
+            this.dataTracker.set(BLUE_SADDLE, true);
+        } else if(itemStack.getItem().equals(Items.RED_DYE) && this.dataTracker.get(BLUE_SADDLE)) {
+            this.dataTracker.set(BLUE_SADDLE, false);
         }
 
         return super.interactMob(player, hand);

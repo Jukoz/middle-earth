@@ -67,6 +67,7 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
         state.attackAnimationState.copyFrom(greatHornEntity.attackAnimationState);
         state.saddle = greatHornEntity.getEquippedStack(EquipmentSlot.SADDLE);
         state.armor = greatHornEntity.getEquippedStack(EquipmentSlot.BODY);
+        state.blueSaddle = greatHornEntity.hasBlueSaddle();
         state.hasRider = greatHornEntity.hasPlayerRider();
         state.greatHornVariant = greatHornEntity.getVariant();
     }
