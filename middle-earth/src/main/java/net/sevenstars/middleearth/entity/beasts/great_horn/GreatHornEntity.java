@@ -29,6 +29,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
@@ -264,31 +265,20 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     @Override
-    public void chargeAttack() {
-        if(!this.isTame() && !this.getWorld().isClient) {
-            if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
-                targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
-                        this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
-                        this.getTarget().getBlockPos().getZ() - this.getBlockPos().getZ());
-            }
-            this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
-            this.setVelocity(targetDir.multiply(1,1,1).normalize().multiply(1.0d -
-                    ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration()))
-                    .add(0, this.getVelocity().y + 4, 0));
-        }
-        else if (this.getWorld().isClient) {
-            this.setVelocity(this.getRotationVector().multiply(1,1,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
-        }
-
-        this.chargeAnimationState.startIfNotRunning(this.age);
-    }
-
-    @Override
     protected void jump(float strength, Vec3d movementInput) {
         if(this.chargeTimeout <= 0 && this.hasControllingPassenger()
                 && this.getControllingPassenger().isSprinting()) {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
+            float entitySpeed = (float) this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue();
+            if(!this.getWorld().isClient) {
+                Vec2f vec2f = this.getControlledRotation(this.getControllingPassenger());
+                this.setVelocity(new Vec3d(vec2f.x,0,vec2f.y).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
+            }
+            else if (this.getWorld().isClient) {
+                this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
+            }
+            this.chargeAnimationState.startIfNotRunning(this.age);
         }
     }
 
@@ -297,6 +287,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         if(this.hasControllingPassenger()) {
             this.jumping = true;
             this.playJumpSound();
+            float jumpPercentage = (float)height/100;
             if(!this.getControllingPassenger().isSprinting()) {
                 this.setChargeTimeout(HORNS_ATTACK_COOLDOWN);
                 dataTracker.set(ATTACK, HORNS_ATTACK_COOLDOWN);
@@ -306,12 +297,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                 for(Entity entity : entities) {
                     if(!this.getPassengerList().contains(entity)) {
                         if(!this.getWorld().isClient()) {
-                            entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
+                            entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), jumpPercentage * getAttackDamage());
                         }
                         double dx = entity.getX() - this.getX();
                         double dz = entity.getZ() - this.getZ();
 
-                        Vec3d velocity = new Vec3d(dx, 1.5f + getRandom().nextFloat() * 0.5f, dz).normalize();
+                        Vec3d velocity = new Vec3d(dx, 1.25f + getRandom().nextFloat() * 0.5f, dz).normalize();
+                        velocity.multiply(jumpPercentage);
                         entity.addVelocity(velocity);
 
                         this.setCharging(false);
@@ -336,7 +328,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public int maxChargeCooldown() {
-        return 120;
+        return 80;
     }
 
     @Override
@@ -347,6 +339,14 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     public void tick() {
         super.tick();
+
+        if(this.isCharging()) {
+            if(this.chargeTimeout <= maxChargeCooldown() - 10 && this.isOnGround()) {
+                this.setCharging(false);
+                this.setHasCharged(false);
+            }
+        }
+
         if(bowAnimationTimeout > 0) {
             bowAnimationTimeout = Math.max(bowAnimationTimeout - 1, 0);
             if(bowAnimationTimeout == 0) {
