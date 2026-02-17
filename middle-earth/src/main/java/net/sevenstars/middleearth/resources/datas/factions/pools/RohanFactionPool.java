@@ -59,7 +59,9 @@ public class RohanFactionPool {
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.aldburg"), new Vector2d(1600, 1660)), // Eastfold
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.eastemnet"), new Vector2d(1715, 1575)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "rohan.the_wold"), new Vector2d(1675, 1475))
-                )), List.of(), List.of()
+                )), List.of(), List.of(),
+                List.of(FactionsME.GONDOR), List.of(FactionsME.LOTHLORIEN, FactionsME.LONGBEARDS, FactionsME.DALE,
+                FactionsME.SHIRE), List.of(FactionsME.ISENGARD, FactionsME.MORDOR, FactionsME.MISTY_MOUNTAINS_GOBLINS, FactionsME.BRIGAND)
         );
     }
 }

@@ -4,13 +4,10 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.data.TrackedDataHandler;
-import net.minecraft.entity.passive.WolfVariant;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -33,13 +30,14 @@ import net.sevenstars.middleearth.entity.projectile.pinecone.PineconeEntity;
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileEntity;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
-import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.registries.RegistryAliases;
 
 public class ModEntities {
+    // Npc
+    public static final EntityType<NpcEntity> NPC = register("npc", EntityType.Builder.create(NpcEntity::new, SpawnGroup.CREATURE).dimensions(0.8f, 1.8f));
 
     // Barrow Wights
     public static final EntityType<BarrowWightEntity> BARROW_WIGHT = register("barrow_wight", EntityType.Builder.create(BarrowWightEntity::new, SpawnGroup.CREATURE).dimensions(0.9f, 2.1f));
@@ -73,10 +71,8 @@ public class ModEntities {
 
     /// * Projectiles *///
     public static final EntityType<SmokeRingProjectileEntity> SMOKE_RING_PROJECTILE = registerEntity("smoke_ring_projectile", SmokeRingProjectileEntity::new, SpawnGroup.MISC, 0.5F, 0.5F);
-    public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 1f, 1f);
 
-    // Npcs
-    public static final EntityType<NpcEntity> NPC = register("npc", EntityType.Builder.create(NpcEntity::new, SpawnGroup.CREATURE).dimensions(0.8f, 1.8f));
+    public static final EntityType<SpearEntity> SPEAR = registerEntity("spear", SpearEntity::new, SpawnGroup.MISC, 1f, 1f);
 
     // Seat
     public static final EntityType<SeatEntity> SEAT_ENTITY = register("seat_entity", EntityType.Builder.create(SeatEntity::new, SpawnGroup.MISC).dimensions(0.1F, 0.1F));

@@ -8,9 +8,10 @@ import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ActivitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SchedulesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SensorsWT;
-import net.sevenstars.of_beasts_and_wild_things.item.ModEggItems;
-import net.sevenstars.of_beasts_and_wild_things.item.ModItemGroups;
-import net.sevenstars.of_beasts_and_wild_things.item.ModItems;
+import net.sevenstars.of_beasts_and_wild_things.item.EggItemsWT;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemGroupsWT;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
+import net.sevenstars.of_beasts_and_wild_things.world.gen.WorldGenerationWT;
 
 public class OfBeastsAndWildThings implements ModInitializer {
 	public static final String MOD_ID = "wild-things";
@@ -24,9 +25,10 @@ public class OfBeastsAndWildThings implements ModInitializer {
 		ActivitiesWT.registerModActivities();
 		SensorsWT.registerModSensors();
 		MemoryModulesWT.registerModMemoryModules();
-		ModItemGroups.register();
+		ItemGroupsWT.register();
 		ModBlocks.registerModBlocks();
-		ModItems.registerModItems();
-		ModEggItems.registerModItems();
+		ItemsWT.registerModItems();
+		EggItemsWT.registerModItems();
+		WorldGenerationWT.generateModWorldGen();
 	}
 }

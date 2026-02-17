@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -19,8 +20,10 @@ import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
+import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
+import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -770,6 +773,16 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 createToolSetRecipes(exporter, Items.STICK, ResourceItemsME.CRUDE_INGOT, ToolItemsME.CRUDE_PICKAXE, ToolItemsME.CRUDE_AXE, ToolItemsME.CRUDE_SHOVEL, ToolItemsME.CRUDE_HOE);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WEAVER_STING, 1)
+                        .pattern("  S")
+                        .pattern(" S ")
+                        .pattern("W  ")
+                        .input('S', ResourceItemsME.SPIDER_STINGER)
+                        .input('W', Items.STICK)
+                        .criterion(hasItem(ResourceItemsME.SPIDER_STINGER),
+                                conditionsFromItem(ResourceItemsME.SPIDER_STINGER))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC, ResourceItemsME.FABRIC, 2)
                         .pattern("sss")
                         .pattern("sss")
@@ -803,7 +816,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
                 //region FOOD
-                createCookedFoodRecipes(exporter, FoodItemsME.RAW_VENISON, FoodItemsME.COOKED_VENISON);
                 createCookedFoodRecipes(exporter, FoodItemsME.RAW_HORSE, FoodItemsME.COOKED_HORSE);
                 createCookedFoodRecipes(exporter, FoodItemsME.MEAT_SKEWER, FoodItemsME.COOKED_MEAT_SKEWER);
                 createCookedFoodRecipes(exporter, FoodItemsME.VEGETABLE_SKEWER, FoodItemsME.COOKED_VEGETABLE_SKEWER);
@@ -1820,6 +1832,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBannerPatternRecipe(exporter, ToolItemsME.DWARVEN_SMITHING_HAMMER, ResourceItemsME.ANVIL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, ResourceItemsME.BRONZE_INGOT, ResourceItemsME.BELL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.GOLD_NUGGET, ResourceItemsME.DWARF_CROWN_BANNER_PATTERN);
+                createBannerPatternRecipe(exporter, Items.SPIDER_EYE, ResourceItemsME.SPIDER_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.BOW, ResourceItemsME.BOW_BANNER_PATTERN);
 
                 createBrickRecipe(exporter, ModBlocks.POINTED_DOLOMITE.asItem(), StoneBlockSets.DOLOMITE_SET.baseBlocks.base(), 1);

@@ -32,6 +32,9 @@ public class BackAttachmentRecipe extends SpecialCraftingRecipe {
                     if (!itemStackChest.isEmpty()) {
                         return false;
                     }
+                    if (itemStack2.get(DataComponentTypesME.BACK_ATTACHMENT_DATA) != null){
+                        return false;
+                    }
                     itemStackChest = itemStack2;
                 } else {
                     if (!(itemStack2.getItem() instanceof BackAttachmentItem)) {

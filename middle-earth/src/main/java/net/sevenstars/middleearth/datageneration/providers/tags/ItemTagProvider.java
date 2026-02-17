@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
         var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
         var troll_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
+
+        var characterHideHair = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_HIDE_HAIR);
+        var characterHideBeard = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_HIDE_BEARD);
+        var characterShowEars = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_SHOW_EARS);
 
         TagKey<Item> iron_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("iron_ores"));
         TagKey<Item> gold_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of("gold_ores"));
@@ -131,7 +136,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         warg_food.add(Items.BEEF);
         warg_food.add(Items.MUTTON);
         warg_food.add(FoodItemsME.RAW_HORSE);
-        warg_food.add(FoodItemsME.RAW_VENISON);
+        warg_food.add(ItemsWT.RAW_VENISON);
 
         warg_armor.add(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR);
         warg_armor.add(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR);
@@ -182,9 +187,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         troll_weapons.add(WeaponItemsME.MACE_OF_SAURON);
 
         troll_food.add(FoodItemsME.RAW_HORSE);
-        troll_food.add(FoodItemsME.RAW_VENISON);
         troll_food.add(FoodItemsME.COOKED_HORSE);
-        troll_food.add(FoodItemsME.COOKED_VENISON);
+        troll_food.add(ItemsWT.RAW_VENISON);
+        troll_food.add(ItemsWT.COOKED_VENISON);
         troll_food.add(FoodItemsME.COOKED_MEAT_SKEWER);
         troll_food.add(Items.PORKCHOP);
         troll_food.add(Items.COOKED_PORKCHOP);
@@ -198,6 +203,32 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         troll_food.add(Items.MUSHROOM_STEW);
         troll_food.add(Items.BROWN_MUSHROOM);
         troll_food.add(Items.RED_MUSHROOM);
+
+        // SHOW Ears
+        characterShowEars.add(EquipmentItemsME.LORIEN_DIADEM);
+        characterShowEars.add(EquipmentItemsME.KETTLE_HAT);
+        characterShowEars.add(EquipmentItemsME.MORDOR_KETTLE_HAT);
+        characterShowEars.add(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT);
+        characterShowEars.add(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR);
+        characterShowEars.add(EquipmentItemsME.WEATHERED_DOL_GULDUR_JAILER_COLLAR);
+
+        // HIDE Hairs
+        characterHideHair.add(EquipmentItemsME.MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.CLOSED_MAIL_COIF);
+
+        characterHideHair.add(EquipmentItemsME.ELVEN_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.LORIEN_MAIL_COIF_DIADEM);
+
+        characterHideHair.add(EquipmentItemsME.DWARVEN_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.EREBOR_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.EREBOR_GILDED_MAIL_COIF);
+
+        characterHideHair.add(EquipmentItemsME.ORCISH_MAIL_COIF);
+        characterHideHair.add(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF);
+
+        // HIDE Beards
+        characterHideBeard.add(EquipmentItemsME.CLOSED_MAIL_COIF);
+        characterHideBeard.add(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF);
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

@@ -67,20 +67,19 @@ public class MirkwoodVinesFeature  extends Feature<DefaultFeatureConfig> {
             if (world.isAir(pos)) {
                 BlockState blockStateAbove = world.getBlockState(pos.up());
 
-                //if(blockStateAbove.isOf(ModNatureBlocks.MIRKWOOD_VINES)) break;
                 if(blockStateAbove.isAir())
                     break;
 
                 if(blockStateAbove.isOf(WoodBlockSets.MIRKWOOD_SET.leaves)){
-                    world.setBlockState(pos.up(), WoodBlockSets.MIRKWOOD_SET.leaves.getDefaultState().with(LeavesBlock.PERSISTENT, true), 2);
+                    world.setBlockState(pos.up(), WoodBlockSets.MIRKWOOD_SET.leaves.getDefaultState().with(LeavesBlock.PERSISTENT, false), 2);
                 }
 
                 if (i == length || !world.getBlockState(pos.down()).isAir()) {
-                    world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, false), 2);
+                    world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, true), 2);
                     break;
                 }
 
-                world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, true), 2);
+                world.setBlockState(pos, ModNatureBlocks.MIRKWOOD_VINES.getDefaultState().with(Properties.TIP, false), 2);
             }
 
             pos.move(Direction.DOWN);

@@ -22,7 +22,7 @@ public class FlapHelmetModel extends HelmetAddonModel {
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         head.addChild("flaps", ModelPartBuilder.create()
-                .uv(0, 0).cuboid(-4.0F, 0.75F, -4.0F, 8.0F, 9.0F, 3.0F, new Dilation(0.55F)),
+                .uv(0, 0).cuboid(-4.0F, 0.90F, -4.0F, 8.0F, 9.0F, 3.0F, new Dilation(0.55F)),
                 ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));

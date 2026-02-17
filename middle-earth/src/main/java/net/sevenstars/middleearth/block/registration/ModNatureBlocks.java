@@ -296,6 +296,9 @@ public class ModNatureBlocks {
     public static final Block RED_FLOWER_GROWTH = registerBlock("red_flower_growth",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable(), true);
+    public static final Block THORNY_GROWTH = registerBlock("thorny_growth",
+            GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
+                    .mapColor(DyeColor.GREEN).burnable(), true);
     public static final Block WHITE_FLOWER_GROWTH = registerBlock("white_flower_growth",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).burnable(), true);
@@ -442,7 +445,7 @@ public class ModNatureBlocks {
     public static final Block YELLOW_AMANITA_BLOCK = registerBlock("yellow_amanita_block",
             MushroomBlock::new, AbstractBlock.Settings.copy(Blocks.BROWN_MUSHROOM_BLOCK), true);
 
-    public static final Block ASPEN_SAPLING = registerSimpleSapling("aspen_sapling", ModTreeConfiguredFeatures.WILLOW_TREE_KEY);
+    public static final Block ASPEN_SAPLING = registerSimpleSapling("aspen_sapling", ModTreeConfiguredFeatures.ASPEN_TREE_KEY);
     public static final Block BEECH_SAPLING = registerSimpleSapling("beech_sapling", ModTreeConfiguredFeatures.BEECH_TREE_KEY);
     public static final Block CHESTNUT_SAPLING = registerSimpleSapling("chestnut_sapling", ModTreeConfiguredFeatures.CHESTNUT_TREE_KEY);
     public static final Block HOLLY_SAPLING = registerSimpleSapling("holly_sapling", ModTreeConfiguredFeatures.HOLLY_TREE_KEY);

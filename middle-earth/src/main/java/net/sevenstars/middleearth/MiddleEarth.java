@@ -102,10 +102,10 @@ public class MiddleEarth implements ModInitializer {
 
 		ModTrackedDataHandlerRegistry.register();
 
-		NpcTextureMaterialsME.register();
-		NpcTexturePatternsME.register();
+		CharacterMaterialsME.register();
+		CharacterPatternsME.register();
 		StructureManagerDatasME.register();
-
+		BiomeEventsME.register();
 
 		ModEntities.registerModEntities();
 		ModEntitySpawning.addSpawns();
@@ -130,7 +130,8 @@ public class MiddleEarth implements ModInitializer {
 		// Dynamic Data
 		SpiderVariants.register();
 		GreatHornVariants.register();
-		RacesME.register();
+        NpcTextureDatasME.register();
+        RacesME.register();
 		NpcME.register();
 		FactionsME.register();
 

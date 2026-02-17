@@ -33,14 +33,18 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Numenorean", "Númenórean");
         specialNames.put("Uruk Hai", "Uruk-Hai");
         specialNames.put("Burzum Steel", "Búrzum-Steel");
+        specialNames.put("Burzum", "Búrzum");
         specialNames.put("Edhel Steel", "Edhel-Steel");
         specialNames.put("Khazad Steel", "Khazâd-Steel");
+        specialNames.put("Druwaith", "Drúwaith");
         specialNames.put("Lothlorien", "Lothlórien");
         specialNames.put("Nurn", "Núrn");
         specialNames.put("Rhun", "Rhûn");
         specialNames.put("Lorien", "Lórien");
         specialNames.put("Nazgul", "Nazgûl");
         specialNames.put("Capital", "Dale Capital");
+        specialNames.put("Kings Guard", "King's Guard");
+        specialNames.put("Weaver Sting", "Weaver's Sting");
     }
 
     @Override

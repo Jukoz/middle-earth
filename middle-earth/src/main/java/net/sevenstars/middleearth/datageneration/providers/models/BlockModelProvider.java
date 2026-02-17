@@ -788,6 +788,7 @@ public class BlockModelProvider extends FabricModelProvider {
         registerPaneModel(blockStateModelGenerator, ModBlocks.BRONZE_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.CRUDE_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.TREATED_STEEL_BARS);
+        registerPaneModel(blockStateModelGenerator, ModBlocks.BURZUM_BARS);
         registerPaneModel(blockStateModelGenerator, ModBlocks.SILVER_BARS);
 
         registerOrientableThickLadder(blockStateModelGenerator, ModDecorativeBlocks.ROPE_LADDER);
@@ -800,6 +801,7 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.LILAC_FLOWER_GROWTH);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.PINK_FLOWER_GROWTH);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.RED_FLOWER_GROWTH);
+        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.THORNY_GROWTH);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WHITE_FLOWER_GROWTH);
         blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
 
