@@ -14,7 +14,6 @@ import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariants;
 import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
-import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
 import net.sevenstars.middleearth.resources.*;

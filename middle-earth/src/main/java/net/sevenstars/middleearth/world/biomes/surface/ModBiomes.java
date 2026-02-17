@@ -993,11 +993,11 @@ public class ModBiomes {
             ModBiomeFeatures.addSpruceBushes(vegetation);
             ModBiomeFeatures.addGreenGrowth(vegetation);
         } else if (step == 1) {
+            ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModSpawnSettingsBuilder.addWolves(spawnSettings);
-            ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
-            ModBiomeFeatures.addNettles(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addNettles(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
             ModBiomeFeatures.addGravelOre(vegetation);
