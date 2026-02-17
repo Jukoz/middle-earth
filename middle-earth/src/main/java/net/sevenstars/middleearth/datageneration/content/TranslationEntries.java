@@ -271,6 +271,10 @@ public class TranslationEntries {
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_refill", "Pipe refills");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_exhale", "Pipe exhales");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_ignite", "Pipe ignites");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_idle", "Great Horn grunts");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_hurt", "Great Horn hurts");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_call", "Great Horn bugles");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_death", "Great Horn dies");
 
             put("screen."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("screen."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");

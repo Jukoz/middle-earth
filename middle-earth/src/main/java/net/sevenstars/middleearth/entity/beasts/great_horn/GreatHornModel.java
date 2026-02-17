@@ -156,10 +156,15 @@ public class GreatHornModel extends EntityModel<GreatHornEntityRenderState> {
             }
         }
 
+        leftAntler.visible = true;
+        rightAntler.visible = true;
         if(state.baby) {
             leftAntler.visible = false;
             rightAntler.visible = false;
             beard.hidden = true;
+        } else if(state.isElkebies()) {
+            leftAntler.visible = false;
+            rightAntler.visible = false;
         }
     }
 }

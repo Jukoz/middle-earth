@@ -36,4 +36,8 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
         }
         return false;
     }
+
+    public boolean isElkebies() {
+        return (this.customName != null && "elkebies".equalsIgnoreCase(this.customName.getString()));
+    }
 }
