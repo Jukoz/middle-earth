@@ -321,6 +321,8 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                         this.setCharging(false);
                     }
                 }
+            } else {
+                this.playSound(ModSounds.GREAT_HORN_CALL, 1.0f, 1.0f);
             }
         }
         else {

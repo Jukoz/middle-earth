@@ -62,6 +62,14 @@
       "middle-earth:great_horn/great_horn_hurt3"
     ]
   },
+  "great_horn_call": {
+    "subtitle": "sounds.middle-earth.great_horn_call",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_call1",
+      "middle-earth:great_horn/great_horn_call2",
+      "middle-earth:great_horn/great_horn_call3"
+    ]
+  },
   "great_horn_death": {
     "subtitle": "sounds.middle-earth.great_horn_death",
     "sounds": [
