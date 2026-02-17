@@ -29,5 +29,11 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
         hasRider = false;
     }
 
-
+    public boolean hasRedNose() {
+        if(this.customName != null) {
+            String name = this.customName.getString();
+            return ("rudolph".equalsIgnoreCase(name) || "rudolf".equalsIgnoreCase(name));
+        }
+        return false;
+    }
 }

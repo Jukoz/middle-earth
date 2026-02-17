@@ -9,6 +9,7 @@ import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornArmorFeatureRenderer;
+import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornNoseFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornSaddleFeatureRenderer;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
@@ -23,6 +24,7 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
                 new GreatHornModel(context.getPart(ModEntityModelLayers.GREAT_HORN_BABY)), 0.95f);
         this.addFeature(new GreatHornSaddleFeatureRenderer(this,  context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new GreatHornArmorFeatureRenderer(this,  context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new GreatHornNoseFeatureRenderer(this,  context.getEntityModels()));
     }
 
     protected float getShadowRadius(GreatHornEntityRenderState greatHornEntityRenderState) {
