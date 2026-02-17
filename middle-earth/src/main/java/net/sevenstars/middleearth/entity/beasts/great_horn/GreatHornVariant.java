@@ -1,26 +1,45 @@
 package net.sevenstars.middleearth.entity.beasts.great_horn;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.entity.VariantSelectorProvider;
+import net.minecraft.entity.spawn.SpawnCondition;
+import net.minecraft.entity.spawn.SpawnConditionSelectors;
+import net.minecraft.entity.spawn.SpawnContext;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryFixedCodec;
+import net.minecraft.util.AssetInfo;
 
-public enum GreatHornVariant {
-    BROWN(0),
-    COLD(1),
-    TEMPERATE(2),
-    WHITE(3);
+import java.util.List;
 
-    private static final GreatHornVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(GreatHornVariant::getId)).toArray(GreatHornVariant[]::new);
-    private final int id;
+public record GreatHornVariant(GreatHornAssetInfo assetInfo, SpawnConditionSelectors spawnConditions) implements VariantSelectorProvider<SpawnContext, SpawnCondition> {
+	public static final Codec<GreatHornVariant> CODEC = RecordCodecBuilder.create(
+			instance -> instance.group(
+							GreatHornAssetInfo.CODEC.fieldOf("assets").forGetter(GreatHornVariant::assetInfo),
+							SpawnConditionSelectors.CODEC.fieldOf("spawn_conditions").forGetter(GreatHornVariant::spawnConditions)
+					)
+					.apply(instance, GreatHornVariant::new)
+	);
 
-    GreatHornVariant(int id) {
-        this.id = id;
-    }
+	public static final Codec<RegistryEntry<GreatHornVariant>> ENTRY_CODEC = RegistryFixedCodec.of(GreatHornVariants.KEY);
 
-    public int getId() {
-        return this.id;
-    }
+	public static final PacketCodec<RegistryByteBuf, RegistryEntry<GreatHornVariant>> PACKET_CODEC = PacketCodecs.registryEntry(GreatHornVariants.KEY);
 
-    public static GreatHornVariant byId(int id) {
-        return BY_ID[id % BY_ID.length];
-    }
+	private GreatHornVariant(GreatHornAssetInfo assetInfo) {
+		this(assetInfo, SpawnConditionSelectors.EMPTY);
+	}
+
+	@Override
+	public List<Selector<SpawnContext, SpawnCondition>> getSelectors() {
+		return this.spawnConditions.selectors();
+	}
+
+	public record GreatHornAssetInfo(AssetInfo id) {
+		public static final Codec<GreatHornAssetInfo> CODEC = RecordCodecBuilder.create(
+				instance -> instance.group(AssetInfo.CODEC.fieldOf("id").forGetter(GreatHornAssetInfo::id)).apply(instance, GreatHornAssetInfo::new)
+		);
+	}
 }

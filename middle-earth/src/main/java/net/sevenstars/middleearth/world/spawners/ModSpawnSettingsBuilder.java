@@ -129,4 +129,8 @@ public class ModSpawnSettingsBuilder {
     public static void addDeer(SpawnSettings.Builder builder) {
         builder.spawn(SpawnGroup.CREATURE, 10, new SpawnSettings.SpawnEntry(EntitiesWT.DEER, 1, 4));
     }
+
+    public static void addGreatHorn(SpawnSettings.Builder builder) {
+        builder.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(ModEntities.GREAT_HORN, 1, 2));
+    }
 }

@@ -16,6 +16,7 @@ public class ModSounds {
     public static SoundEvent PIPE_COUGH = registerSoundEvent("pipe_cough");
 
     public static SoundEvent GREAT_HORN_IDLE = registerSoundEvent("great_horn_idle");
+    public static SoundEvent GREAT_HORN_CALL = registerSoundEvent("great_horn_call");
     public static SoundEvent GREAT_HORN_HURT = registerSoundEvent("great_horn_hurt");
     public static SoundEvent GREAT_HORN_DEATH = registerSoundEvent("great_horn_death");
 

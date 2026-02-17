@@ -886,6 +886,21 @@ public class EquipmentItemsME {
             (settings) -> new MantleOfYavannaItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings().rarity(Rarity.EPIC)
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MANTLE_OF_YAVANNA))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x375729)));
+    public static final Item GREAT_HORN_LIGHT_ARMOR = registerDyeableArmorPiece("great_horn_light_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_ARMOR.material())
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3879204)));
+    public static final Item GREAT_HORN_LIGHT_GRAY_ARMOR = registerDyeableArmorPiece("great_horn_light_gray_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_GRAY_ARMOR.material())
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(5464949)));
+    public static final Item GREAT_HORN_LIGHT_GREEN_ARMOR = registerDyeableArmorPiece("great_horn_light_green_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_GREEN_ARMOR.material())
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3491893)));
+    public static final Item GREAT_HORN_PLATE_ARMOR = registerGeneratedItem("great_horn_plate_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.material()));
+    public static final Item GREAT_HORN_ORNAMENTED_PLATE_ARMOR = registerGeneratedItem("great_horn_ornamented_plate_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR.material()));
+    public static final Item GREAT_HORN_GREEN_PLATE_ARMOR = registerGeneratedItem("great_horn_green_plate_armor",
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_GREEN_PLATE_ARMOR.material()));
     //endregion
 
     //region LOTHLORIEN
