@@ -971,15 +971,12 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addDefaultVegetation(generationSettings);
-
         ModBiomeFeatures.addGrassyDirtOre(vegetation);
-
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
         ModBiomeFeatures.addFlowerGreenJewel(vegetation);
         ModBiomeFeatures.addOakBushes(vegetation);
         ModBiomeFeatures.addBushes(vegetation);
-        ModBiomeFeatures.addFalseOatgrass(vegetation);
 
         if(step == 0) {
             ModBiomeFeatures.addTurfOre(vegetation);
