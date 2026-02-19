@@ -9,9 +9,11 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.state.BoatEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.ThinBarrelBlock;
+import org.joml.Quaternionf;
 
 public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntityRenderState> {
     private final BlockRenderManager blockRenderManager;
@@ -35,7 +37,17 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
         matrices.push();
         matrices.scale(1.35f, 1.35f, 1.35f);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - state.yaw));
-        matrices.translate(-0.5f, -0.1f, -0.6f);
+
+        float f = state.damageWobbleTicks;
+        if (f > 0.0F) {
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(MathHelper.sin(f) * f * state.damageWobbleStrength / 10.0F * (float)state.damageWobbleSide));
+        }
+
+        if (!state.submergedInWater && !MathHelper.approximatelyEquals(state.bubbleWobble, 0.0F)) {
+            matrices.multiply((new Quaternionf()).setAngleAxis(state.bubbleWobble * 0.017453292F, 1.0F, 0.0F, 1.0F));
+        }
+
+        matrices.translate(-0.5f, -0.1f, -0.5f);
         this.blockRenderManager.renderBlockAsEntity(blockState, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV);
         matrices.pop();
     }

@@ -55,7 +55,7 @@ public class ModEntities {
     public static final EntityType<GreatHornEntity> GREAT_HORN = register("great_horn", EntityType.Builder.create(GreatHornEntity::new, SpawnGroup.CREATURE).dimensions(1.3f, 1.8f));
 
     public static final EntityType<BarrelEntity> REINFORCED_BARREL = register("reinforced_barrel", EntityType.Builder.create(getBoatFactory(ModDecorativeBlocks.THIN_BARREL::asItem),
-                    SpawnGroup.MISC).dropsNothing().dimensions(1.05F, 1.1F).eyeHeight(0.625F).maxTrackingRange(10));
+                    SpawnGroup.MISC).dropsNothing().dimensions(1.2F, 1.2F).eyeHeight(0.625F).maxTrackingRange(10));
 
     // Spiders
     public static final EntityType<ShelobiteLarvaEntity> SHELOBITE_LARVA = register("shelobite_larva", EntityType.Builder.create(ShelobiteLarvaEntity::new, SpawnGroup.CREATURE).dimensions(0.4f, 0.3f));
