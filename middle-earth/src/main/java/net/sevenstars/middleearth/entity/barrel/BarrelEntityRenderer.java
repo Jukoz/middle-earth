@@ -19,10 +19,14 @@ import org.joml.Quaternionf;
 public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntityRenderState> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/reinforced_barrel/reinforced_barrel.png");
     private ModelPart modelPart;
+    private final Model waterMaskModel;
 
     public BarrelEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
         modelPart = context.getPart(ModEntityModelLayers.REINFORCED_BARREL);
+        this.waterMaskModel = new Model.SinglePartModel(context.getPart(ModEntityModelLayers.REINFORCED_BARREL_WATER_MASK), (id) -> {
+            return RenderLayer.getWaterMask();
+        });
         this.shadowRadius = 0.6F;
     }
 
@@ -47,8 +51,9 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
             matrices.multiply((new Quaternionf()).setAngleAxis(state.bubbleWobble * 0.017453292F, 1.0F, 0.0F, 1.0F));
         }
 
-        matrices.translate(0f, -1.3f, 0f);
+        matrices.translate(0f, -1.4f, 0f);
         modelPart.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutout(TEXTURE)), light, OverlayTexture.DEFAULT_UV);
+        this.renderWaterMask(state, matrices, vertexConsumers, light);
         matrices.pop();
     }
 
@@ -62,5 +67,12 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
         boatEntityRenderState.submergedInWater = barrelEntity.isSubmergedInWater();
         boatEntityRenderState.leftPaddleAngle = barrelEntity.lerpPaddlePhase(0, f);
         boatEntityRenderState.rightPaddleAngle = barrelEntity.lerpPaddlePhase(1, f);
+    }
+
+    protected void renderWaterMask(BoatEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        if (!state.submergedInWater) {
+            this.waterMaskModel.render(matrices, vertexConsumers.getBuffer(this.waterMaskModel.getLayer(TEXTURE)), light, OverlayTexture.DEFAULT_UV);
+        }
+
     }
 }

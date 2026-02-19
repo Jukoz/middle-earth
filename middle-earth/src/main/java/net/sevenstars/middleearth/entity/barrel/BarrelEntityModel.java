@@ -21,4 +21,14 @@ public class BarrelEntityModel extends EntityModel<BoatEntityRenderState> {
                         new Dilation(0.0F)), ModelTransform.origin(0.0F, 24.0F, 0.0F));
         return TexturedModelData.of(modelData, 64, 64);
     }
+
+    public static TexturedModelData getBaseTexturedModelData() {
+        ModelData modelData = new ModelData();
+        ModelPartData modelPartData = modelData.getRoot();
+        modelPartData.addChild("water_patch", ModelPartBuilder.create().uv(0, 0)
+                        .cuboid(-6.0F, 0.0F, -6.0F, 12.0F, 6.0F, 12.0F),
+                ModelTransform.of(0.0F, 10.0F, 0.0F, 0F, 0.0F, 0.0F));
+
+        return TexturedModelData.of(modelData, 0, 0);
+    }
 }

@@ -43,6 +43,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.REINFORCED_BARREL, BarrelEntityModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.REINFORCED_BARREL_WATER_MASK, BarrelEntityModel.getBaseTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;

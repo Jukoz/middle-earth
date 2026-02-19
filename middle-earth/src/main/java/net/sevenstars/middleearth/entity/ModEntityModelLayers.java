@@ -74,6 +74,8 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer REINFORCED_CHEST = ModEntityModelLayers.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
 
     public static final EntityModelLayer REINFORCED_BARREL = ModEntityModelLayers.registerEntityModelLayer("reinforced_barrel", BarrelEntityModel.getTexturedModelData());
+    public static final EntityModelLayer REINFORCED_BARREL_WATER_MASK = ModEntityModelLayers.registerEntityModelLayer("reinforced_barrel_water_mask", BarrelEntityModel.getBaseTexturedModelData());
+
 
     /**
      * The modelData is used to know the UV map to use for the 3D model
