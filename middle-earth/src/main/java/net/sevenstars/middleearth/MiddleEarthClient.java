@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -37,6 +38,7 @@ import net.sevenstars.middleearth.client.renderer.handheld.RoundShieldModelRende
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
 import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.barrel.BarrelEntityRenderer;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatRenderer;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornRenderer;
@@ -107,6 +109,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.BROADHOOF_GOAT, BroadhoofGoatRenderer::new);
         EntityRendererRegistry.register(ModEntities.GREAT_HORN, GreatHornRenderer::new);
         EntityRendererRegistry.register(ModEntities.WARG, WargRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.REINFORCED_BARREL, BarrelEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.SHELOBITE_LARVA, ShelobiteLarvaRenderer::new);
         EntityRendererRegistry.register(ModEntities.SHELOBITE_SCUTTLER, ShelobiteScuttlerRenderer::new);
