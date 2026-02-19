@@ -1,29 +1,28 @@
 package net.sevenstars.middleearth.entity.barrel;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.state.BoatEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.special.ThinBarrelBlock;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import org.joml.Quaternionf;
 
 public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntityRenderState> {
-    private final BlockRenderManager blockRenderManager;
-    private BlockState blockState;
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/reinforced_barrel/reinforced_barrel.png");
+    private ModelPart modelPart;
 
     public BarrelEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.blockState = ModDecorativeBlocks.THIN_BARREL.getDefaultState()
-                .with(ThinBarrelBlock.FACING, Direction.UP).with(ThinBarrelBlock.OPEN, true);
-        this.blockRenderManager = context.getBlockRenderManager();
+        modelPart = context.getPart(ModEntityModelLayers.REINFORCED_BARREL);
         this.shadowRadius = 0.6F;
     }
 
@@ -37,6 +36,7 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
         matrices.push();
         matrices.scale(1.35f, 1.35f, 1.35f);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - state.yaw));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));
 
         float f = state.damageWobbleTicks;
         if (f > 0.0F) {
@@ -47,8 +47,8 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
             matrices.multiply((new Quaternionf()).setAngleAxis(state.bubbleWobble * 0.017453292F, 1.0F, 0.0F, 1.0F));
         }
 
-        matrices.translate(-0.5f, -0.1f, -0.5f);
-        this.blockRenderManager.renderBlockAsEntity(blockState, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV);
+        matrices.translate(0f, -1.3f, 0f);
+        modelPart.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutout(TEXTURE)), light, OverlayTexture.DEFAULT_UV);
         matrices.pop();
     }
 
