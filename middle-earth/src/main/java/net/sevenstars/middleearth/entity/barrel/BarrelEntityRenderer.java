@@ -33,9 +33,9 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
     @Override
     public void render(BoatEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
-        matrices.scale(1.3f, 1.3f, 1.3f);
+        matrices.scale(1.35f, 1.35f, 1.35f);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - state.yaw));
-        matrices.translate(-0.5f, 0f, -0.6f);
+        matrices.translate(-0.5f, -0.1f, -0.6f);
         this.blockRenderManager.renderBlockAsEntity(blockState, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV);
         matrices.pop();
     }
