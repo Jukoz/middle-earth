@@ -90,13 +90,13 @@ public class DeerEntity extends AnimalEntity {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CAMEL_DEATH;
+        return SoundEvents.ENTITY_CAMEL_DEATH;  // Update sounds
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_CAMEL_HURT;
+        return SoundEvents.ENTITY_CAMEL_HURT; // Update sounds
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
@@ -106,7 +106,7 @@ public class DeerEntity extends AnimalEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_CAMEL_AMBIENT;
+        return SoundEvents.ENTITY_CAMEL_AMBIENT; // Update sounds
     }
 
     @Override
@@ -116,7 +116,7 @@ public class DeerEntity extends AnimalEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_CAMEL_STEP, 0.7f, 1.8f);
+        this.playSound(SoundEvents.ENTITY_CAMEL_STEP, 0.7f, 1.8f); // Update sounds
     }
 
     @Override
