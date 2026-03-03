@@ -7,10 +7,7 @@ import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.world.features.tree.foliages.OvalFoliagePlacer;
 import net.sevenstars.middleearth.world.features.tree.foliages.PalmFoliagePlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.ArcTrunkPlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.CanopyTrunkPlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.LargeTrunkPlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.SpruceTrunkPlacer;
+import net.sevenstars.middleearth.world.features.tree.trunks.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -60,6 +57,7 @@ public class ModTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> MALLORN_BUSH_KEY = registerKey("mallorn_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MALLORN_FLOWERING_BUSH_KEY = registerKey("mallorn_flowering_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_MALLORN_TREE_KEY = registerKey("mega_mallorn_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_MALLORN_STRUCTURE_TREE_KEY = registerKey("mega_mallorn_structure_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MAPLE_TREE_KEY = registerKey("maple_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> YELLOW_MAPLE_TREE_KEY = registerKey("yellow_maple_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORANGE_MAPLE_TREE_KEY = registerKey("orange_maple_tree");
@@ -205,6 +203,14 @@ public class ModTreeConfiguredFeatures {
         register(context, MEGA_MALLORN_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.MALLORN_SET.logBlocks.log()),
             new CanopyTrunkPlacer(34, 3, 1.6f, 0.56f, 8.3f, 4, 0.48f, 0f, 2,1),
+            BlockStateProvider.of(WoodBlockSets.MALLORN_SET.leaves),
+            new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), emptyList,  0.7f),
+            new TwoLayersFeatureSize(1, 0, 2))
+            .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+        register(context, MEGA_MALLORN_STRUCTURE_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(WoodBlockSets.MALLORN_SET.logBlocks.log()),
+            new CanopyTrunkStructurePlacer(35, 3, 1.6f, 0.56f, 8.3f, 4,
+                    0.48f, 0f, 2,1, 0.39f),
             BlockStateProvider.of(WoodBlockSets.MALLORN_SET.leaves),
             new OvalFoliagePlacer(3, ConstantIntProvider.create(-1), ConstantIntProvider.create(4), emptyList,  0.7f),
             new TwoLayersFeatureSize(1, 0, 2))
