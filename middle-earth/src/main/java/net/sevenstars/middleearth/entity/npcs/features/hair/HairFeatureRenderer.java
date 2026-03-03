@@ -43,7 +43,7 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         // TODO : Disable the beard based on the helmet
         /*
-                if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
+                if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagK°.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
          */
 
         if(hairAddonTextureId == null && beardAddonTextureId == null){
@@ -52,38 +52,27 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         } else if (!entityModel.getRootPart().visible){
             entityModel.getRootPart().visible = true;
         }
-
         entityModel.setAngles(state);
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterHairsRenderLayer());
 
-        boolean bl = state.invisible;
-        boolean bl2 = !bl && !state.invisibleToPlayer;
-        int k = bl2 ? 654311423 : -1;
-        int color = ColorHelper.mix(k, this.getMixColor(state));
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
         if(hairAddonTextureId != null && state.canShowHair){
             Sprite sprite = hairAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.hairAddonId, AtlasesME.CHARACTER_HAIRS));
-            renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
+            renderModel(sprite, matrices, vertexConsumer, light, overlay);
         }
         if(beardAddonTextureId != null && state.canShowBeard){
             Sprite sprite = hairAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.beardAddonId, AtlasesME.CHARACTER_HAIRS));
-            renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
+            renderModel(sprite, matrices, vertexConsumer, light, overlay);
         }
     }
 
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color){
+    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
         if(sprite != null){
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            hairModel.render(matrices, newLayerVertexConsumer, light, overlay, color);
+            hairModel.render(matrices, newLayerVertexConsumer, light, overlay);
         }
-    }
-
-    protected int getMixColor(NpcEntityRenderState state) {
-        if(state.hurt)
-            return NpcEntityRenderer.HURT_COLOR;
-        return -1;
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {

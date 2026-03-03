@@ -36,33 +36,22 @@ public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         noseModel.setAngles(state);
 
-
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterSkinsRenderLayer());
 
-        boolean bl = state.invisible;
-        boolean bl2 = !bl && !state.invisibleToPlayer;
-        int k = bl2 ? 654311423 : -1;
-        int color = ColorHelper.mix(k, this.getMixColor(state));
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
         Sprite sprite = skinAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.noseId, AtlasesME.CHARACTER_SKINS));
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-
-    protected int getMixColor(NpcEntityRenderState state) {
-        if(state.hurt)
-            return NpcEntityRenderer.HURT_COLOR;
-        return -1;
+        renderModel(sprite, matrices, vertexConsumer, light, overlay);
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {
         return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(state.hurt));
     }
 
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color){
+    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
         if(sprite != null){
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            noseModel.render(matrices, newLayerVertexConsumer, light, overlay, color);
+            noseModel.render(matrices, newLayerVertexConsumer, light, overlay);
         }
     }
 }

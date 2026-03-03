@@ -43,8 +43,8 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
         this.haveEmissiveEyes = false;
         this.blinking = false;
 
-        this.canShowEars = false;
-        this.canShowBeard = false;
-        this.canShowHair = false;
+        this.canShowEars = true;
+        this.canShowBeard = true;
+        this.canShowHair = true;
     }
 }

@@ -1,15 +1,20 @@
 package net.sevenstars.middleearth.client;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.sevenstars.middleearth.resources.AtlasesME;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public class ModTexturedRenderLayers extends TexturedRenderLayers {
     public static final SpriteIdentifier HEATER_SHIELD_BASE;
@@ -34,10 +39,10 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     private static final RenderLayer CHARACTER_CLOTHINGS_RENDER_LAYER;
 
     static {
-        CHARACTER_SKINS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_SKIN_ATLAS_TEXTURE);
-        CHARACTER_EYES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_EYES_ATLAS_TEXTURE);
-        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_HAIRS_ATLAS_TEXTURE);
-        CHARACTER_CLOTHINGS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
+        CHARACTER_SKINS_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_SKIN_ATLAS_TEXTURE);
+        CHARACTER_EYES_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_EYES_ATLAS_TEXTURE);
+        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_HAIRS_ATLAS_TEXTURE);
+        CHARACTER_CLOTHINGS_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
 
         CHARACTER_EYES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_EYES_ATLAS_TEXTURE);
 
@@ -68,21 +73,21 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
 
 
     public static SpriteIdentifier getHeaterShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
-        return (SpriteIdentifier)HEATER_SHIELD_PATTERN_TEXTURES.computeIfAbsent(((BannerPattern)pattern.value()).assetId(), (id) -> {
+        return HEATER_SHIELD_PATTERN_TEXTURES.computeIfAbsent((pattern.value()).assetId(), (id) -> {
             Identifier identifier = id.withPrefixedPath("entity/heater_shield/");
             return new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, identifier);
         });
     }
 
     public static SpriteIdentifier getKiteShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
-        return (SpriteIdentifier)KITE_SHIELD_PATTERN_TEXTURES.computeIfAbsent(((BannerPattern)pattern.value()).assetId(), (id) -> {
+        return KITE_SHIELD_PATTERN_TEXTURES.computeIfAbsent((pattern.value()).assetId(), (id) -> {
             Identifier identifier = id.withPrefixedPath("entity/kite_shield/");
             return new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, identifier);
         });
     }
 
     public static SpriteIdentifier getRoundShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
-        return (SpriteIdentifier)ROUND_SHIELD_PATTERN_TEXTURES.computeIfAbsent(((BannerPattern)pattern.value()).assetId(), (id) -> {
+        return ROUND_SHIELD_PATTERN_TEXTURES.computeIfAbsent((pattern.value()).assetId(), (id) -> {
             Identifier identifier = id.withPrefixedPath("entity/round_shield/");
             return new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, identifier);
         });
