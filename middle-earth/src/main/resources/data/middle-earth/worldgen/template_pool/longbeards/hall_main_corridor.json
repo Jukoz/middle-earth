@@ -3,16 +3,7 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:longbeards/hall_main_corridor",
-        "projection": "rigid",
-        "processors": "middle-earth:randomize_dolomite"
-      }
-    },
-    {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:longbeards/hall_main_corridor_left",
