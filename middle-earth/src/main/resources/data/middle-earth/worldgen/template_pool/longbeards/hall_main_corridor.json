@@ -21,10 +21,19 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:longbeards/hall_main_corridor_right",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dolomite"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:longbeards/hall_main_corridor_bridge",
         "projection": "rigid",
         "processors": "middle-earth:randomize_dolomite"
       }
