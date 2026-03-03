@@ -15,11 +15,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
           "name": "middle-earth:crystal_lamp"
         },
         {
@@ -28,7 +23,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:silver_coin"
+          "name": "middle-earth:erebor_cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:broadhoof_goat_leather_armor"
         },
         {
           "type": "minecraft:item",
