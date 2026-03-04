@@ -1,50 +1,22 @@
 package net.sevenstars.middleearth.world.features.tree.trunks;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.JigsawBlock;
-import net.minecraft.block.enums.Orientation;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.StructureTemplate;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePoolBasedGenerator;
-import net.minecraft.structure.processor.BlockRotStructureProcessor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.StringHelper;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.TestableWorld;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
-import net.minecraft.world.gen.structure.StructureKeys;
-import net.minecraft.world.gen.structure.Structures;
-import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
-import net.sevenstars.middleearth.world.gen.ModStructureKeys;
 import net.sevenstars.middleearth.world.gen.ModTreeGeneration;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class CanopyTrunkStructurePlacer extends CanopyTrunkPlacer {
     protected final float structureStart;
-    protected final Identifier structureName = IdentifierUtil.create("talan");
 
     public static final MapCodec<CanopyTrunkStructurePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
         return instance.group(
@@ -87,18 +59,23 @@ public class CanopyTrunkStructurePlacer extends CanopyTrunkPlacer {
 
     @Override
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
-        if(world instanceof ServerWorld serverWorld) {
+        // Deprecated, although it can be useful later on, so keeping it there
+        /*if(world instanceof ServerWorld serverWorld) {
             StructureTemplate template = getStructureTemplate(serverWorld);
-            StructurePlacementData structurePlacementData = (new StructurePlacementData());
-            BlockPos blockPos = startPos.add(new Vec3i(-template.getSize().getX() / 2, (int)(this.structureStart * height), -template.getSize().getZ() / 2));
-            template.place(serverWorld, blockPos, blockPos, structurePlacementData, random, 2);
+            generateStructurePool(serverWorld, startPos, height);
         } else if(world instanceof ChunkRegion chunkRegion) {
             StructureTemplate template = getStructureTemplate(chunkRegion);
-            StructurePlacementData structurePlacementData = (new StructurePlacementData());
-            BlockPos blockPos = startPos.add(new Vec3i(-template.getSize().getX() / 2, (int)(this.structureStart * height), -template.getSize().getZ() / 2));
-            template.place(chunkRegion, blockPos, blockPos, structurePlacementData, random, 2);
-        }
+            generateStructurePool(chunkRegion.toServerWorld(), startPos, height, template);
+        }*/
         return super.generate(world, replacer, random, height, startPos, config);
+    }
+
+    /*private void generateStructurePool(ServerWorld world, BlockPos startPos, int height) {
+        RegistryKey<StructurePool> pool = ModStructureKeys.LOTHLORIEN_TALAN_KEY;
+        Registry<StructurePool> registry = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
+        RegistryEntry<StructurePool> registryEntry = registry.getOrThrow(pool);
+        BlockPos blockPos = startPos.mutableCopy().add(new Vec3i(0, (int)(this.structureStart * height), 0));
+        StructurePoolBasedGenerator.generate(world, registryEntry, ModStructureKeys.LOTHLORIEN_TALAN_KEY.getValue(), 8, blockPos, false);
     }
 
     @Nullable
@@ -109,5 +86,5 @@ public class CanopyTrunkStructurePlacer extends CanopyTrunkPlacer {
     @Nullable
     private StructureTemplate getStructureTemplate(ChunkRegion world) {
         return structureName == null ? null : world.toServerWorld().getStructureTemplateManager().getTemplate(this.structureName).orElse(null);
-    }
+    }*/
 }

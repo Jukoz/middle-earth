@@ -7,12 +7,16 @@
 	{
       "structure": "middle-earth:lothlorien_watch_tower",
       "weight": 1
+    },
+	{
+      "structure": "middle-earth:lothlorien_tree_talan",
+      "weight": 3
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 16,
-    "separation": 8,
+    "spacing": 14,
+    "separation": 7,
     "salt": 13238135
   }
 }
