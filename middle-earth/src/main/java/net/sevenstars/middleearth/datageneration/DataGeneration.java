@@ -20,6 +20,7 @@ import net.sevenstars.middleearth.world.biomes.caves.ModCaveBiomes;
 import net.sevenstars.middleearth.world.biomes.surface.ModBiomes;
 import net.sevenstars.middleearth.world.features.boulder.BoulderConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.boulder.BoulderPlacedFeatures;
+import net.sevenstars.middleearth.world.features.chain.ChainConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.misc.ModMiscConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.misc.ModMiscPlacedFeatures;
 import net.sevenstars.middleearth.world.features.ores.OreConfiguredFeatures;
@@ -75,6 +76,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, CavesConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModMiscConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, MushroomTreeConfiguredFeatures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ChainConfiguredFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModTreePlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModVegetationPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, BoulderPlacedFeatures::bootstrap);

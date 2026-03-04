@@ -5,10 +5,17 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.JigsawBlock;
+import net.minecraft.block.enums.Orientation;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.StructureTemplate;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.structure.processor.BlockRotStructureProcessor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringHelper;
@@ -17,6 +24,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -26,6 +34,7 @@ import net.minecraft.world.gen.structure.Structures;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
+import net.sevenstars.middleearth.world.gen.ModStructureKeys;
 import net.sevenstars.middleearth.world.gen.ModTreeGeneration;
 import org.jetbrains.annotations.Nullable;
 
@@ -78,16 +87,27 @@ public class CanopyTrunkStructurePlacer extends CanopyTrunkPlacer {
 
     @Override
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
-        StructureTemplate template = getStructureTemplate((ServerWorld) world);
-        StructurePlacementData structurePlacementData = (new StructurePlacementData());
-        BlockPos blockPos = startPos.add(new Vec3i(-template.getSize().getX() / 2, (int)(this.structureStart * height), -template.getSize().getZ() / 2));
-        template.place((ServerWorld)world, blockPos, blockPos, structurePlacementData, random, 2);
-
+        if(world instanceof ServerWorld serverWorld) {
+            StructureTemplate template = getStructureTemplate(serverWorld);
+            StructurePlacementData structurePlacementData = (new StructurePlacementData());
+            BlockPos blockPos = startPos.add(new Vec3i(-template.getSize().getX() / 2, (int)(this.structureStart * height), -template.getSize().getZ() / 2));
+            template.place(serverWorld, blockPos, blockPos, structurePlacementData, random, 2);
+        } else if(world instanceof ChunkRegion chunkRegion) {
+            StructureTemplate template = getStructureTemplate(chunkRegion);
+            StructurePlacementData structurePlacementData = (new StructurePlacementData());
+            BlockPos blockPos = startPos.add(new Vec3i(-template.getSize().getX() / 2, (int)(this.structureStart * height), -template.getSize().getZ() / 2));
+            template.place(chunkRegion, blockPos, blockPos, structurePlacementData, random, 2);
+        }
         return super.generate(world, replacer, random, height, startPos, config);
     }
 
     @Nullable
     private StructureTemplate getStructureTemplate(ServerWorld world) {
-        return structureName == null ? null : (StructureTemplate)world.getStructureTemplateManager().getTemplate(this.structureName).orElse(null);
+        return structureName == null ? null : world.getStructureTemplateManager().getTemplate(this.structureName).orElse(null);
+    }
+
+    @Nullable
+    private StructureTemplate getStructureTemplate(ChunkRegion world) {
+        return structureName == null ? null : world.toServerWorld().getStructureTemplateManager().getTemplate(this.structureName).orElse(null);
     }
 }

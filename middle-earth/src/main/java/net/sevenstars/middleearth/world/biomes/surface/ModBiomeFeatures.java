@@ -170,6 +170,7 @@ public class ModBiomeFeatures {
     }
     public static void addMegaMallornTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MEGA_MALLORN_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.MEGA_MALLORN_STRUCTURE_PLACED_TREE_KEY);
     }
     public static void addMallornBushes(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MALLORN_BUSH_PLACED_TREE_KEY);
