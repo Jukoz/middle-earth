@@ -4,6 +4,9 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -13,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.entity.barrel.BarrelEntity;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
@@ -33,7 +37,10 @@ import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.RegistryAliases;
+
+import java.util.function.Supplier;
 
 public class ModEntities {
     // Npc
@@ -46,6 +53,8 @@ public class ModEntities {
     public static final EntityType<WargEntity> WARG = register("warg", EntityType.Builder.create(WargEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.4f));
     public static final EntityType<BroadhoofGoatEntity> BROADHOOF_GOAT = register("broadhoof_goat", EntityType.Builder.create(BroadhoofGoatEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.4f));
     public static final EntityType<GreatHornEntity> GREAT_HORN = register("great_horn", EntityType.Builder.create(GreatHornEntity::new, SpawnGroup.CREATURE).dimensions(1.3f, 1.8f));
+
+    public static final EntityType<BarrelEntity> REINFORCED_BARREL;
 
     // Spiders
     public static final EntityType<ShelobiteLarvaEntity> SHELOBITE_LARVA = register("shelobite_larva", EntityType.Builder.create(ShelobiteLarvaEntity::new, SpawnGroup.CREATURE).dimensions(0.4f, 0.3f));
@@ -91,6 +100,10 @@ public class ModEntities {
         return entityType;
     }
 
+    private static EntityType.EntityFactory<BarrelEntity> getBoatFactory(Supplier<Item> itemSupplier) {
+        return (type, world) -> new BarrelEntity(type, world, itemSupplier);
+    }
+
     private static <T> RegistryKey<Registry<T>> registerRegistry(String id) {
         return RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, id));
     }
@@ -127,5 +140,12 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(NPC, NpcEntity.createAttributes());
+    }
+
+    static {
+        REINFORCED_BARREL = register("reinforced_barrel", EntityType.Builder.create(getBoatFactory(() -> {
+            return ResourceItemsME.REINFORCED_BARREL;
+        }), SpawnGroup.MISC).dropsNothing().dimensions(1.2F, 1.2F).eyeHeight(0.625F).maxTrackingRange(10));
+
     }
 }

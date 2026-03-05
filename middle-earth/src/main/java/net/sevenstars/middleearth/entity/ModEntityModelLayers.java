@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
@@ -71,6 +72,9 @@ public final class ModEntityModelLayers {
     // Blocks
     public static final EntityModelLayer BELLOWS = ModEntityModelLayers.registerEntityModelLayer("bellows", BellowsBlockEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_CHEST = ModEntityModelLayers.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
+
+    public static final EntityModelLayer REINFORCED_BARREL = ModEntityModelLayers.registerEntityModelLayer("reinforced_barrel", BarrelEntityModel.getTexturedModelData());
+    public static final EntityModelLayer REINFORCED_BARREL_WATER_MASK = ModEntityModelLayers.registerEntityModelLayer("reinforced_barrel_water_mask", BarrelEntityModel.getBaseTexturedModelData());
 
 
     /**
