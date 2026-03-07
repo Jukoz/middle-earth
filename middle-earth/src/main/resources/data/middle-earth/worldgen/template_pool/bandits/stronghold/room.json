@@ -78,7 +78,52 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:bandits/stronghold/cross_junction_prison_library",
+        "location": "middle-earth:bandits/stronghold/corridor_prison_library",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:bandits/stronghold/double_floor_junction",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:bandits/stronghold/double_floor_long_stairs",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:bandits/stronghold/double_floor_prison",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:bandits/stronghold/double_floor_ruins",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:bandits/stronghold/double_floor_tjunction",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
