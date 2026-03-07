@@ -8,7 +8,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -17,7 +17,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/feast_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -26,7 +26,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/corridor",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -35,7 +35,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/corridor_prison",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -44,7 +44,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/corridor_split",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -53,7 +53,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/corridor_storage",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -62,7 +62,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/cross_junction",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -71,7 +71,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/cross_junction_prison",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -80,7 +80,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/corridor_prison_library",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -89,7 +89,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/double_floor_junction",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -98,7 +98,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/double_floor_long_stairs",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -107,7 +107,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/double_floor_prison",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -116,7 +116,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/double_floor_ruins",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     },
 	{
@@ -125,7 +125,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:bandits/stronghold/double_floor_tjunction",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_dolomite_tiles"
       }
     }
   ]
