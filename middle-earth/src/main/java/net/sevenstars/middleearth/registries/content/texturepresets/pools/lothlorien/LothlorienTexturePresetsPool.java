@@ -10,7 +10,6 @@ import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcText
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class LothlorienTexturePresetsPool {
     private final static TexturePresetData BASE_PRESET;
@@ -67,7 +66,7 @@ public class LothlorienTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.UNCUT,
                                 CharacterPatternsME.Hairs.Hair.SEMI_LONG
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.TOGA,
                         //CharacterPatternsME.Clothing.PANTS
                 ));
@@ -85,7 +84,7 @@ public class LothlorienTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.FLAT_LONG,
                                 CharacterPatternsME.Hairs.Hair.VERY_LONG
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.ROBE,
                         //CharacterPatternsME.Clothing.FULL_TOGA
                 ));

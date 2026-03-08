@@ -95,7 +95,7 @@ public class GondorTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Beard.SINGLE
                         ).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.PANTS
                 ));
 
@@ -113,7 +113,7 @@ public class GondorTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.SEMI_LONG
                         )
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.ROBE
                 ));
 

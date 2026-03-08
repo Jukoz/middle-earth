@@ -97,7 +97,7 @@ public class BrigandTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Beard.SINGLE
                         ).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.PANTS,
                         //CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
                         //CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
@@ -118,7 +118,7 @@ public class BrigandTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.SEMI_LONG
                         )
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.ROBE
                 ));
 

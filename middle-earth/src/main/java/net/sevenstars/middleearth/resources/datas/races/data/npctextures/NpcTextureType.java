@@ -11,5 +11,5 @@ public enum NpcTextureType {
     HAIR,
     EYEBROW,
     BEARD,
-    CLOTHING;
+    CLOTHE_PRESETS;
 }

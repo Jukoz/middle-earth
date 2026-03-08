@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor;
 
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
+import net.sevenstars.middleearth.resources.CharacterClothesME;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
+import net.sevenstars.middleearth.resources.datas.npcs.data.ClothePresets;
 import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
@@ -80,7 +82,7 @@ public class EreborTexturePresetsPool {
                         CharacterPatternsME.Hairs.Beard.DUAL_ORNAMENTED,
                         CharacterPatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                 ));
 
@@ -109,7 +111,7 @@ public class EreborTexturePresetsPool {
                         CharacterPatternsME.Hairs.Beard.VERY_LARGE_MUSTACHE,
                         CharacterPatternsME.Hairs.Beard.VERY_LONG
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.PANTS
                 ));
 
@@ -117,7 +119,7 @@ public class EreborTexturePresetsPool {
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.FEMALE
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
@@ -154,10 +156,24 @@ public class EreborTexturePresetsPool {
                         CharacterPatternsME.Hairs.Beard.LONG_BRAIDS_ORNAMENTED,
                         CharacterPatternsME.Hairs.Beard.CHUNKY_BRAIDS
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        //CharacterPatternsME.Clothing.TOGA,
-                        //CharacterPatternsME.Clothing.FULL_TOGA,
-                        //CharacterPatternsME.Clothing.SKIRT
+                .withClothes(List.of(
+                        new ClothePresets(
+                                List.of(
+                                        CharacterClothesME.Base.PANTS_BROWN,
+                                        CharacterClothesME.Base.PANTS_DARK_BROWN
+                                ),
+                                List.of(
+                                        CharacterClothesME.Over.SHIRT_BEIGE,
+                                        CharacterClothesME.Over.SHIRT_BURGUNDY
+                                ),
+                                3
+                        ),
+                        new ClothePresets(
+                                List.of(
+                                        CharacterClothesME.Base.PANTS_BROWN,
+                                        CharacterClothesME.Base.PANTS_DARK_BROWN
+                                )
+                        )
                 ));
     }
     // endregion

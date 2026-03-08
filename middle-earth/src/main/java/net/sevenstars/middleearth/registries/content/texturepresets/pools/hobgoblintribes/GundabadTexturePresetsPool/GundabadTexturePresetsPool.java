@@ -49,7 +49,7 @@ public class GundabadTexturePresetsPool {
                         CharacterMaterialsME.Hair.GRAY_BEADS,
                         CharacterMaterialsME.Hair.GRAY_COPPER
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.THONG
                 ));
 
@@ -66,7 +66,7 @@ public class GundabadTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.BALD_SMALL_DREADLOCKS
                         ).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.THONG,
                         //CharacterPatternsME.Clothing.PANTS
                 ));

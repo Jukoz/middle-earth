@@ -51,7 +51,7 @@ public class WildGoblinTexturePresetsPool {
                         CharacterMaterialsME.Hair.GREASY_ALMANDINE,
                         CharacterMaterialsME.Hair.BLACK_ALMANDINE
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         // CharacterPatternsME.Clothing.THONG
                 ));
 
@@ -69,7 +69,7 @@ public class WildGoblinTexturePresetsPool {
                         CharacterPatternsME.Hairs.Hair.BALD_SMALL_DREADLOCKS
                         ).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.PANTS
                 ));
 
@@ -90,7 +90,7 @@ public class WildGoblinTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.BALD_SMALL_DREADLOCKS
                         ).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.ROBE
                 ));
 

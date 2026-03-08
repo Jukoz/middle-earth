@@ -55,9 +55,8 @@ public class TexturePresets {
         return IdentifierUtil.build(pattern.getPath() + "_addon_" + material.getPath());
     }
 
-    public static ClothingData getClothing(Identity textureIdentity) {
-        // TODO : Make this custom using textureIdentity
-        return new ClothingData(CharacterPatternsME.Clothing.Base.PANTS_BROWN, CharacterPatternsME.Clothing.Over.SHIRT_BEIGE, null);
+    public static CharacterClothingData getClothing(Identity textureIdentity) {
+        return textureIdentity.preset.getClothingData();
     }
 
 
@@ -95,26 +94,6 @@ public class TexturePresets {
             return null;
         return Identifier.of(MiddleEarth.MOD_ID, value);
     }
-
-    public static Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType) {
-        List<String> patterns = identity.preset.getPatterns(npcTextureType);
-        List<String> materials = identity.preset.getMaterials(npcTextureType);
-        if(patterns == null || patterns.isEmpty() || materials == null || materials.isEmpty())
-            return null;
-
-        Random random = new Random();
-        int patternIndex = random.nextInt(patterns.size());
-        int materialIndex = random.nextInt(materials.size());
-        return  Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + materials.get(materialIndex));
-    }
-
-    public Identifier getTextureWithMaterial(Identity identity, NpcTextureType npcTextureType, Identifier material) {
-        List<String> patterns = identity.preset.getPatterns(npcTextureType);
-        Random random = new Random();
-        int patternIndex = random.nextInt(patterns.size());
-        return Identifier.of(MiddleEarth.MOD_ID, patterns.get(patternIndex) + "_" + material.getPath());
-    }
-
 
     public Boolean haveEmissiveEyes(Identity identity) {
         return identity.preset.haveEmissiveEyes();
@@ -182,17 +161,12 @@ public class TexturePresets {
                         preset.withMaterialValues(NpcTextureType.EYE, shared.getMaterials(NpcTextureType.EYE));
                         preset.withPatternValues(NpcTextureType.EYE, shared.getPatterns(NpcTextureType.EYE));
 
-                        preset.withMaterialValues(NpcTextureType.CLOTHING, shared.getMaterials(NpcTextureType.CLOTHING));
-                        preset.withPatternValues(NpcTextureType.CLOTHING, shared.getPatterns(NpcTextureType.CLOTHING));
+                        preset.withMaterialValues(NpcTextureType.CLOTHE_PRESETS, shared.getMaterials(NpcTextureType.CLOTHE_PRESETS));
+                        preset.withPatternValues(NpcTextureType.CLOTHE_PRESETS, shared.getPatterns(NpcTextureType.CLOTHE_PRESETS));
                     }
                 }
             }
             return presets;
         }
-    }
-
-
-    public record ClothingData(Identifier base, Identifier over, Identifier extra){
-
     }
 }

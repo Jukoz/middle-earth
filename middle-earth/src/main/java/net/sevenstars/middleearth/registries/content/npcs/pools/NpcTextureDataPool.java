@@ -82,7 +82,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                             CharacterPatternsME.Hairs.Beard.SINGLE,
                             CharacterPatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
                             CharacterPatternsME.Hairs.Beard.VERY_BROAD).toList())
-                    .withPatterns(NpcTextureType.CLOTHING, List.of(
+                    .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                             //CharacterPatternsME.Clothing.DWARVEN_GARMENT,
                             //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS,
                             //CharacterPatternsME.Clothing.PANTS
@@ -136,7 +136,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                             CharacterPatternsME.Hairs.Beard.CLEAN,
                             CharacterPatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED,
                             CharacterPatternsME.Hairs.Beard.SHORT).toList())
-                    .withPatterns(NpcTextureType.CLOTHING, List.of(
+                    .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                             //CharacterPatternsME.Clothing.DWARVEN_GARMENT,
                             //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                     ));
@@ -215,7 +215,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         CharacterPatternsME.Hairs.Eyebrow.BASIC,
                         CharacterPatternsME.Hairs.Eyebrow.SHORT
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.TOGA,
                         //CharacterPatternsME.Clothing.FULL_TOGA,
                         //CharacterPatternsME.Clothing.SKIRT
@@ -266,7 +266,7 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         CharacterPatternsME.Hairs.Hair.VERY_LONG,
                         null).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.ROBE
                 ));
         // endregion

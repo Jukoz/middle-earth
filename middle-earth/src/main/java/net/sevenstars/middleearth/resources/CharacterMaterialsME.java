@@ -263,7 +263,7 @@ public class CharacterMaterialsME {
             case NpcTextureType.SKIN -> Keys.SKIN_KEY;
             case NpcTextureType.EYE -> Keys.EYE_KEY;
             case NpcTextureType.HAIR -> Keys.HAIR_KEY;
-            case NpcTextureType.CLOTHING -> Keys.CLOTHING_KEY;
+            case NpcTextureType.CLOTHE_PRESETS -> Keys.CLOTHING_KEY;
             default -> null;
         };
     }

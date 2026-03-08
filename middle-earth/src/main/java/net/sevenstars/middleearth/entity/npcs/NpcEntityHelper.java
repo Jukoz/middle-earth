@@ -5,6 +5,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
+import net.sevenstars.middleearth.resources.datas.npcs.data.CharacterClothingData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -76,7 +77,7 @@ public class NpcEntityHelper {
     }
 
     public static NpcEntityTextureData generateClothingTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresets.Identity textureIdentity) {
-        TexturePresets.ClothingData data = TexturePresets.getClothing(textureIdentity);
+        CharacterClothingData data = TexturePresets.getClothing(textureIdentity);
         npcEntityTextureData = npcEntityTextureData.withClothingTexture(data.base(), data.over(), data.extra());
 
         return npcEntityTextureData;

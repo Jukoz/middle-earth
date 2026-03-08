@@ -54,7 +54,7 @@ public class MordorTexturePresetsPool {
                         CharacterMaterialsME.Hair.GREASY_ALMANDINE,
                         CharacterMaterialsME.Hair.BLACK_ALMANDINE
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.THONG
                 ));
 
@@ -100,7 +100,7 @@ public class MordorTexturePresetsPool {
                         null,
                         CharacterPatternsME.Hairs.Beard.SHORT
                 ).toList())
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.PANTS,
                         //CharacterPatternsME.Clothing.FULL_TOGA
                 ));
@@ -118,7 +118,7 @@ public class MordorTexturePresetsPool {
                             CharacterPatternsME.Hairs.Hair.BALD_SMALL_DREADLOCKS
                         ).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                         //CharacterPatternsME.Clothing.THONG,
                         //CharacterPatternsME.Clothing.PANTS
                 ));

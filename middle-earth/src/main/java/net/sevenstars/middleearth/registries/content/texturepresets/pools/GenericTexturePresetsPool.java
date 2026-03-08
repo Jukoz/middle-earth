@@ -97,7 +97,7 @@ public class GenericTexturePresetsPool {
                     CharacterPatternsME.Hairs.Eyebrow.BASIC,
                     CharacterPatternsME.Hairs.Eyebrow.SHORT
             ))
-            .withPatterns(NpcTextureType.CLOTHING, List.of(
+            .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                     //CharacterPatternsME.Clothing.TOGA,
                     //CharacterPatternsME.Clothing.FULL_TOGA,
                     //CharacterPatternsME.Clothing.SKIRT
@@ -147,7 +147,7 @@ public class GenericTexturePresetsPool {
                     CharacterPatternsME.Hairs.Hair.VERY_LONG,
                     null).toList()
             )
-            .withPatterns(NpcTextureType.CLOTHING, List.of(
+            .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
                     //CharacterPatternsME.Clothing.ROBE
             ));
     }

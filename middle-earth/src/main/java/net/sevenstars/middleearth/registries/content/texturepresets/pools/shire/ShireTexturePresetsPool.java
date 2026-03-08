@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.shire;
 
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
+import net.sevenstars.middleearth.resources.CharacterClothesME;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
+import net.sevenstars.middleearth.resources.datas.npcs.data.ClothePresets;
 import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
@@ -10,7 +12,6 @@ import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcText
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ShireTexturePresetsPool {
     private final static TexturePresetData BASE_PRESET;
@@ -85,8 +86,24 @@ public class ShireTexturePresetsPool {
                         CharacterPatternsME.Hairs.Hair.SHARP,
                         CharacterPatternsME.Hairs.Hair.BALD_SIDES
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        //CharacterPatternsME.Clothing.PANTS
+                .withClothes(List.of(
+                        new ClothePresets(
+                                List.of(
+                                        CharacterClothesME.Base.PANTS_BROWN,
+                                        CharacterClothesME.Base.PANTS_DARK_BROWN
+                                ),
+                                List.of(
+                                        CharacterClothesME.Over.SHIRT_BEIGE,
+                                        CharacterClothesME.Over.SHIRT_BURGUNDY
+                                ),
+                                3
+                        ),
+                        new ClothePresets(
+                                List.of(
+                                        CharacterClothesME.Base.PANTS_BROWN,
+                                        CharacterClothesME.Base.PANTS_DARK_BROWN
+                                )
+                        )
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
@@ -101,8 +118,16 @@ public class ShireTexturePresetsPool {
                         CharacterPatternsME.Hairs.Hair.UNCUT,
                         CharacterPatternsME.Hairs.Hair.SEMI_LONG
                 ))
-                .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        //CharacterPatternsME.Clothing.ROBE
+                .withClothes(List.of(
+                        new ClothePresets(
+                                List.of(
+                                        CharacterClothesME.Base.PANTS_BROWN,
+                                        CharacterClothesME.Base.PANTS_DARK_BROWN
+                                ),
+                                List.of(
+                                        CharacterClothesME.Over.DRESS_BURGUNDY_AND_WHITE
+                                )
+                        )
                 ));
 
         SHIRRIFF_PRESET = MALE_PRESET.copy()

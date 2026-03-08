@@ -66,7 +66,6 @@ public class NpcEntityTextureData {
         if(compound.contains("eyebrow"))
             this.eyebrowTexture = Identifier.of(compound.getString("eyebrow").get());
 
-
         if(compound.contains("beard")){
             this.beardTexture = Identifier.of(compound.getString("beard").get());
             if(compound.contains("beard_addon")){
