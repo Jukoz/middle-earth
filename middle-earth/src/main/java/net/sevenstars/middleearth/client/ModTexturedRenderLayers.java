@@ -34,10 +34,10 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     private static final RenderLayer CHARACTER_CLOTHES_RENDER_LAYER;
 
     static {
-        CHARACTER_SKINS_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_SKIN_ATLAS_TEXTURE);
-        CHARACTER_EYES_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_EYES_ATLAS_TEXTURE);
-        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_HAIRS_ATLAS_TEXTURE);
-        CHARACTER_CLOTHES_RENDER_LAYER = RenderLayer.getEntityCutout(CHARACTER_CLOTHES_ATLAS_TEXTURE);
+        CHARACTER_SKINS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_SKIN_ATLAS_TEXTURE);
+        CHARACTER_EYES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_EYES_ATLAS_TEXTURE);
+        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_HAIRS_ATLAS_TEXTURE);
+        CHARACTER_CLOTHES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_CLOTHES_ATLAS_TEXTURE);
 
         CHARACTER_EYES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_EYES_ATLAS_TEXTURE);
 
