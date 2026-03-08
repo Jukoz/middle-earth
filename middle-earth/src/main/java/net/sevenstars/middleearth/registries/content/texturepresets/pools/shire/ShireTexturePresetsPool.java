@@ -64,9 +64,6 @@ public class ShireTexturePresetsPool {
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         CharacterPatternsME.Hairs.Eyebrow.BASIC
-                ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.BROWN
                 ));
 
         MALE_PRESET = new TexturePresetData()
@@ -89,7 +86,7 @@ public class ShireTexturePresetsPool {
                         CharacterPatternsME.Hairs.Hair.BALD_SIDES
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS
+                        //CharacterPatternsME.Clothing.PANTS
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
@@ -105,7 +102,7 @@ public class ShireTexturePresetsPool {
                         CharacterPatternsME.Hairs.Hair.SEMI_LONG
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.ROBE
+                        //CharacterPatternsME.Clothing.ROBE
                 ));
 
         SHIRRIFF_PRESET = MALE_PRESET.copy()

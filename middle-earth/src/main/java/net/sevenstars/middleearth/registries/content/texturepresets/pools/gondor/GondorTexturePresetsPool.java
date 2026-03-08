@@ -61,9 +61,6 @@ public class GondorTexturePresetsPool {
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         CharacterPatternsME.Hairs.Eyebrow.BASIC
-                ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.BROWN
                 ));
 
         MALE_PRESET = new TexturePresetData()
@@ -99,7 +96,7 @@ public class GondorTexturePresetsPool {
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS
+                        //CharacterPatternsME.Clothing.PANTS
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
@@ -117,7 +114,7 @@ public class GondorTexturePresetsPool {
                         )
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.ROBE
+                        //CharacterPatternsME.Clothing.ROBE
                 ));
 
         LORD_PRESET = MALE_PRESET.copy()

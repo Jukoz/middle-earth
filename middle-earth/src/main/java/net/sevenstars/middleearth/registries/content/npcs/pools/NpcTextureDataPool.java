@@ -82,14 +82,10 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                             CharacterPatternsME.Hairs.Beard.SINGLE,
                             CharacterPatternsME.Hairs.Beard.UNCLEAN_ORNAMENTED,
                             CharacterPatternsME.Hairs.Beard.VERY_BROAD).toList())
-                    .withMaterials(NpcTextureType.CLOTHING, List.of(
-                            CharacterMaterialsME.Clothing.BLUE_AND_COPPER,
-                            CharacterMaterialsME.Clothing.BROWN
-                    ))
                     .withPatterns(NpcTextureType.CLOTHING, List.of(
-                            CharacterPatternsME.Clothing.DWARVEN_GARMENT,
-                            CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS,
-                            CharacterPatternsME.Clothing.PANTS
+                            //CharacterPatternsME.Clothing.DWARVEN_GARMENT,
+                            //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS,
+                            //CharacterPatternsME.Clothing.PANTS
                     ));
             DWARF_FEMALE = new TexturePresetData()
                     .withMaterials(NpcTextureType.SKIN, List.of(
@@ -140,14 +136,9 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                             CharacterPatternsME.Hairs.Beard.CLEAN,
                             CharacterPatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED,
                             CharacterPatternsME.Hairs.Beard.SHORT).toList())
-                    .withMaterials(NpcTextureType.CLOTHING, List.of(
-                            CharacterMaterialsME.Clothing.BLUE_AND_COPPER,
-                            CharacterMaterialsME.Clothing.WHITE,
-                            CharacterMaterialsME.Clothing.GRAY
-                    ))
                     .withPatterns(NpcTextureType.CLOTHING, List.of(
-                            CharacterPatternsME.Clothing.DWARVEN_GARMENT,
-                            CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
+                            //CharacterPatternsME.Clothing.DWARVEN_GARMENT,
+                            //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                     ));
         }
     }
@@ -224,14 +215,10 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         CharacterPatternsME.Hairs.Eyebrow.BASIC,
                         CharacterPatternsME.Hairs.Eyebrow.SHORT
                 ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.WHITE,
-                        CharacterMaterialsME.Clothing.BROWN
-                ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.TOGA,
-                        CharacterPatternsME.Clothing.FULL_TOGA,
-                        CharacterPatternsME.Clothing.SKIRT
+                        //CharacterPatternsME.Clothing.TOGA,
+                        //CharacterPatternsME.Clothing.FULL_TOGA,
+                        //CharacterPatternsME.Clothing.SKIRT
                 ));
         HUMAN_MALE = new TexturePresetData()
                 .withPatterns(NpcTextureType.BODY, List.of(
@@ -279,7 +266,9 @@ public final static List<RegistryKey<NpcTextureMaterial>> DEFAULT_HAIR;
                         CharacterPatternsME.Hairs.Hair.VERY_LONG,
                         null).toList()
                 )
-                .withPatterns(NpcTextureType.CLOTHING, List.of(CharacterPatternsME.Clothing.ROBE));
+                .withPatterns(NpcTextureType.CLOTHING, List.of(
+                        //CharacterPatternsME.Clothing.ROBE
+                ));
         // endregion
     }
 }

@@ -126,14 +126,6 @@ public class CharacterMaterialsME {
         public final static RegistryKey<NpcTextureMaterial> GINGER_SILVER = of("ginger_and_silver", NpcTextureType.HAIR);
     }
 
-    public record Clothing() {
-        public final static RegistryKey<NpcTextureMaterial> WHITE = of("white", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTextureMaterial> BROWN = of("brown", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTextureMaterial> ROT_GREEN = of("rot_green", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTextureMaterial> GRAY = of("gray", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTextureMaterial> BLUE_AND_COPPER = of("blue_and_copper", NpcTextureType.CLOTHING);
-    }
-
     public static void bootstrapSkins(Registerable<NpcTextureMaterial> registry) {
         register(registry, Skin.BEIGE, NpcTextureType.SKIN);
         register(registry, Skin.BROWN, NpcTextureType.SKIN);
@@ -238,14 +230,6 @@ public class CharacterMaterialsME {
         register(registry, Hair.GINGER_SILVER, NpcTextureType.HAIR);
         register(registry, Hair.WHITE_SILVER, NpcTextureType.HAIR);
         register(registry, Hair.GRAY_SILVER, NpcTextureType.HAIR);
-    }
-
-    public static void bootstrapClothings(Registerable<NpcTextureMaterial> registry) {
-        register(registry, Clothing.WHITE, NpcTextureType.CLOTHING);
-        register(registry, Clothing.BROWN, NpcTextureType.CLOTHING);
-        register(registry, Clothing.ROT_GREEN, NpcTextureType.CLOTHING);
-        register(registry, Clothing.GRAY, NpcTextureType.CLOTHING);
-        register(registry, Clothing.BLUE_AND_COPPER, NpcTextureType.CLOTHING);
     }
 
     public static void register() {

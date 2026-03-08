@@ -26,7 +26,7 @@ public class CharacterPatternsME {
         public static final RegistryKey<Registry<NpcTexturePattern>> SKIN_KEY = ofRegistry("character_skin_pattern");
         public static final RegistryKey<Registry<NpcTexturePattern>> EYE_KEY = ofRegistry("character_eye_pattern");
         public static final RegistryKey<Registry<NpcTexturePattern>> HAIR_KEY = ofRegistry("character_hair_pattern");
-        public static final RegistryKey<Registry<NpcTexturePattern>> CLOTHING_KEY = ofRegistry("character_clothing_pattern");
+        public static final RegistryKey<Registry<NpcTexturePattern>> CLOTHING_KEY = ofRegistry("character_clothes");
     }
 
     public record Skins() {
@@ -152,17 +152,29 @@ public class CharacterPatternsME {
     }
 
     public record Clothing(){
-        public final static RegistryKey<NpcTexturePattern> FULL_TOGA                        = of("clothing_full_toga", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> ROBE                             = of("clothing_robe", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> SKIRT                            = of("clothing_skirt", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> SKIRT_WITH_STROPHIUM             = of("clothing_skirt_with_strophium", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> TOGA                             = of("clothing_toga", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> THONG                            = of("clothing_thong", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> PANTS                            = of("clothing_pants", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> PANTS_WITH_SCARF                 = of("clothing_pants_with_scarf", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> DWARVEN_GARMENT                  = of("clothing_dwarven_garment", NpcTextureType.CLOTHING);
-        public final static RegistryKey<NpcTexturePattern> DWARVEN_GARMENT_WITH_PANTS       = of("clothing_dwarven_garment_with_pants", NpcTextureType.CLOTHING);
+        private final static String base = "character_clothes/base/";
+        private final static String over = "character_clothes/over/";
+        private final static String extra = "character_clothes/extra/";
 
+        public record Base(){
+            public final static Identifier PANTS_BEIGE                                      = IdentifierUtil.build(base + "pants_beige");
+            public final static Identifier PANTS_BROWN                                      = IdentifierUtil.build(base + "pants_brown");
+            public final static Identifier PANTS_DARK_BROWN                                 = IdentifierUtil.build(base + "pants_dark_brown");
+
+            public final static Identifier THONG_BEIGE                                      = IdentifierUtil.build(base + "thong_beige");
+            public final static Identifier THONG_BROWN                                      = IdentifierUtil.build(base + "thong_brown");
+            public final static Identifier THONG_DARK_BROWN                                 = IdentifierUtil.build(base + "thong_dark_brown");
+        }
+
+        public record Over(){
+            public final static Identifier SHIRT_BEIGE                                      = IdentifierUtil.build(over + "shirt_beige");
+            public final static Identifier SHIRT_BURGUNDY                                   = IdentifierUtil.build(over + "shirt_burgundy");
+        }
+
+        public record Extra(){
+            public final static Identifier SCARF_BROWN                                      = IdentifierUtil.build(extra + "scarf_brown");
+            public final static Identifier SCARF_DARK_BROWN                                 = IdentifierUtil.build(extra + "scarf_dark_brown");
+        }
     }
 
     public static void bootstrapSkins(Registerable<NpcTexturePattern> registry) {
@@ -250,19 +262,6 @@ public class CharacterPatternsME {
         register(registry, Hairs.Beard.VERY_LARGE_MUSTACHE, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.VERY_LONG, NpcTextureType.BEARD, true);
         register(registry, Hairs.Beard.SEMI_LONG, NpcTextureType.BEARD, true);
-    }
-
-    public static void bootstrapClothings(Registerable<NpcTexturePattern> registry) {
-        register(registry, Clothing.FULL_TOGA, NpcTextureType.CLOTHING);
-        register(registry, Clothing.ROBE, NpcTextureType.CLOTHING);
-        register(registry, Clothing.SKIRT, NpcTextureType.CLOTHING);
-        register(registry, Clothing.SKIRT_WITH_STROPHIUM, NpcTextureType.CLOTHING);
-        register(registry, Clothing.TOGA, NpcTextureType.CLOTHING);
-        register(registry, Clothing.PANTS, NpcTextureType.CLOTHING);
-        register(registry, Clothing.PANTS_WITH_SCARF, NpcTextureType.CLOTHING);
-        register(registry, Clothing.DWARVEN_GARMENT, NpcTextureType.CLOTHING);
-        register(registry, Clothing.DWARVEN_GARMENT_WITH_PANTS, NpcTextureType.CLOTHING);
-        register(registry, Clothing.THONG, NpcTextureType.CLOTHING);
     }
 
     private static void register(Registerable<NpcTexturePattern> registry, RegistryKey<NpcTexturePattern> key, NpcTextureType type) {

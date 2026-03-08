@@ -12,9 +12,7 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -26,9 +24,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarFeatureRenderer;
@@ -43,7 +39,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     private final SpriteAtlasTexture skinAtlasTexture;
     private final SpriteAtlasTexture eyeAtlasTexture;
     private final SpriteAtlasTexture hairAtlasTexture;
-    private final SpriteAtlasTexture clothingAtlasTexture;
+    private final SpriteAtlasTexture clothesAtlasTexture;
 
     public final static int HURT_COLOR = 0xff7e75;
 
@@ -61,7 +57,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
         eyeAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE);
         hairAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE);
-        clothingAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
+        clothesAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_CLOTHES_ATLAS_TEXTURE);
 
         this.shadowRadius = 0.5f;
     }
@@ -99,7 +95,11 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.beardAddonId = npcTextureData.getBeardAddonTexture();
         npcEntityRenderState.hairId = npcTextureData.getHairTexture();
         npcEntityRenderState.hairAddonId = npcTextureData.getHairAddonTexture();
-        npcEntityRenderState.clothingId = npcTextureData.getClothingTexture();
+
+        npcEntityRenderState.clothingBase = npcTextureData.getClothingBaseTexture();
+        npcEntityRenderState.clothingOver = npcTextureData.getClothingOverTexture();
+        npcEntityRenderState.clothingExtra = npcTextureData.getClothingExtraTexture();
+
         npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.getBreedingAge()) % 80 >= 80 - 2;
 
         ItemStack currentHelmet = npcEntity.getEquippedStack(EquipmentSlot.HEAD);
@@ -161,43 +161,50 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         int overlay = state.hurt ? getOverlay(state, this.getAnimationCounter(state)) : OverlayTexture.DEFAULT_UV;
 
         // Will always be shown
-        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
+        renderTexture(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
             AtlasesME.prefixAtlas(state.skinId, AtlasesME.CHARACTER_SKINS), light, overlay);
 
-        renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
+        renderTexture(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
             AtlasesME.prefixAtlas(state.headId, AtlasesME.CHARACTER_SKINS), light, overlay);
 
         if(!state.blinking){
-            renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(false),
+            renderTexture(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(false),
                 AtlasesME.prefixAtlas(state.eyesId, AtlasesME.CHARACTER_EYES), light, overlay);
             if(state.haveEmissiveEyes){
-                renderPart(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(true),
+                renderTexture(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(true),
                     AtlasesME.prefixAtlas(state.eyesEmissiveId, AtlasesME.CHARACTER_EYES), light, overlay);
             }
         }
 
         // Optionally shown, only if the value is present
         if(state.eyebrowId != null){
-            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
+            renderTexture(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
                 AtlasesME.prefixAtlas(state.eyebrowId, AtlasesME.CHARACTER_HAIRS), light, overlay);
         }
 
         if(state.scarId != null){
-            renderPart(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
+            renderTexture(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
                     AtlasesME.prefixAtlas(state.scarId, AtlasesME.CHARACTER_SKINS), light, overlay);
         }
         if(state.beardId != null){
-            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
+            renderTexture(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
                 AtlasesME.prefixAtlas(state.beardId, AtlasesME.CHARACTER_HAIRS), light, overlay);
         }
         if(state.hairId != null){
-            renderPart(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
+            renderTexture(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
                 AtlasesME.prefixAtlas(state.hairId, AtlasesME.CHARACTER_HAIRS), light, overlay);
         }
 
-        if(state.clothingId != null){
-            renderPart(matrices, vertexConsumers, clothingAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(),
-                AtlasesME.prefixAtlas(state.clothingId, AtlasesME.CHARACTER_CLOTHINGS), light, overlay);
+        if(state.clothingBase != null){
+            renderTexture(matrices, vertexConsumers, clothesAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(), state.clothingBase, light, overlay);
+        }
+
+        if(state.clothingOver != null){
+            renderTexture(matrices, vertexConsumers, clothesAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(), state.clothingOver, light, overlay);
+        }
+
+        if(state.clothingExtra != null){
+            renderTexture(matrices, vertexConsumers, clothesAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(), state.clothingExtra, light, overlay);
         }
 
         if (this.shouldRenderFeatures(state)) {
@@ -221,7 +228,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         }
     }
 
-    private void renderPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, SpriteAtlasTexture atlasTexture, RenderLayer renderLayer, Identifier textureId, int light, int overlay){
+    private void renderTexture(MatrixStack matrices, VertexConsumerProvider vertexConsumers, SpriteAtlasTexture atlasTexture, RenderLayer renderLayer, Identifier textureId, int light, int overlay){
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
         Sprite sprite = atlasTexture.getSprite(textureId);
         renderModel(sprite, matrices, vertexConsumer, light, overlay);

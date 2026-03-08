@@ -80,12 +80,8 @@ public class EreborTexturePresetsPool {
                         CharacterPatternsME.Hairs.Beard.DUAL_ORNAMENTED,
                         CharacterPatternsME.Hairs.Beard.LONG_SINGLE_ORNAMENTED
                 ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.BLUE_AND_COPPER,
-                        CharacterMaterialsME.Clothing.BROWN
-                ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
+                        //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                 ));
 
         MALE_PRESET = new TexturePresetData()
@@ -114,7 +110,7 @@ public class EreborTexturePresetsPool {
                         CharacterPatternsME.Hairs.Beard.VERY_LONG
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS
+                        //CharacterPatternsME.Clothing.PANTS
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
@@ -122,7 +118,7 @@ public class EreborTexturePresetsPool {
                         CharacterPatternsME.Skins.Head.FEMALE
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
+                        //CharacterPatternsME.Clothing.DWARVEN_GARMENT_WITH_PANTS
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
                         CharacterPatternsME.Skins.Body.FEMALE,
@@ -159,9 +155,9 @@ public class EreborTexturePresetsPool {
                         CharacterPatternsME.Hairs.Beard.CHUNKY_BRAIDS
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.TOGA,
-                        CharacterPatternsME.Clothing.FULL_TOGA,
-                        CharacterPatternsME.Clothing.SKIRT
+                        //CharacterPatternsME.Clothing.TOGA,
+                        //CharacterPatternsME.Clothing.FULL_TOGA,
+                        //CharacterPatternsME.Clothing.SKIRT
                 ));
     }
     // endregion

@@ -89,9 +89,6 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(CharacterMaterialsME.Keys.HAIR_KEY, CharacterMaterialsME::bootstrapHairs);
         registryBuilder.addRegistry(CharacterPatternsME.Keys.HAIR_KEY, CharacterPatternsME::bootstrapHairs);
 
-        registryBuilder.addRegistry(CharacterMaterialsME.Keys.CLOTHING_KEY, CharacterMaterialsME::bootstrapClothings);
-        registryBuilder.addRegistry(CharacterPatternsME.Keys.CLOTHING_KEY, CharacterPatternsME::bootstrapClothings);
-
         registryBuilder.addRegistry(CharacterMaterialsME.Keys.EYE_KEY, CharacterMaterialsME::bootstrapEyes);
         registryBuilder.addRegistry(CharacterPatternsME.Keys.EYE_KEY, CharacterPatternsME::bootstrapEyes);
 

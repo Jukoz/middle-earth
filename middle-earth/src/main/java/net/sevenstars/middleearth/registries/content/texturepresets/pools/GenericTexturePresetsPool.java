@@ -97,14 +97,10 @@ public class GenericTexturePresetsPool {
                     CharacterPatternsME.Hairs.Eyebrow.BASIC,
                     CharacterPatternsME.Hairs.Eyebrow.SHORT
             ))
-            .withMaterials(NpcTextureType.CLOTHING, List.of(
-                    CharacterMaterialsME.Clothing.WHITE,
-                    CharacterMaterialsME.Clothing.BROWN
-            ))
             .withPatterns(NpcTextureType.CLOTHING, List.of(
-                    CharacterPatternsME.Clothing.TOGA,
-                    CharacterPatternsME.Clothing.FULL_TOGA,
-                    CharacterPatternsME.Clothing.SKIRT
+                    //CharacterPatternsME.Clothing.TOGA,
+                    //CharacterPatternsME.Clothing.FULL_TOGA,
+                    //CharacterPatternsME.Clothing.SKIRT
             ));
 
         HUMAN_MALE_PRESET = new TexturePresetData()
@@ -151,7 +147,9 @@ public class GenericTexturePresetsPool {
                     CharacterPatternsME.Hairs.Hair.VERY_LONG,
                     null).toList()
             )
-            .withPatterns(NpcTextureType.CLOTHING, List.of(CharacterPatternsME.Clothing.ROBE));
+            .withPatterns(NpcTextureType.CLOTHING, List.of(
+                    //CharacterPatternsME.Clothing.ROBE
+            ));
     }
     // endregion
 

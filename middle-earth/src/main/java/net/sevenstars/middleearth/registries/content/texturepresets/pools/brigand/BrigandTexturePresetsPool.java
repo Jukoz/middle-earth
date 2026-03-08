@@ -64,9 +64,6 @@ public class BrigandTexturePresetsPool {
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         CharacterPatternsME.Hairs.Eyebrow.BASIC
-                ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.BROWN
                 ));
 
         MALE_PRESET = new TexturePresetData()
@@ -101,10 +98,10 @@ public class BrigandTexturePresetsPool {
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS,
-                        CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
-                        CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
-                        CharacterPatternsME.Clothing.PANTS_WITH_SCARF
+                        //CharacterPatternsME.Clothing.PANTS,
+                        //CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
+                        //CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
+                        //CharacterPatternsME.Clothing.PANTS_WITH_SCARF
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
@@ -122,7 +119,7 @@ public class BrigandTexturePresetsPool {
                         )
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.ROBE
+                        //CharacterPatternsME.Clothing.ROBE
                 ));
 
         CHIEF_PRESET = MALE_PRESET.copy()

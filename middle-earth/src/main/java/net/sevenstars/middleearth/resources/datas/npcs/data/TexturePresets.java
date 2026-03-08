@@ -6,6 +6,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.CharacterPatternsME;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
@@ -53,6 +54,12 @@ public class TexturePresets {
     public static Identifier buildAddonId(Identifier pattern, Identifier material) {
         return IdentifierUtil.build(pattern.getPath() + "_addon_" + material.getPath());
     }
+
+    public static ClothingData getClothing(Identity textureIdentity) {
+        // TODO : Make this custom using textureIdentity
+        return new ClothingData(CharacterPatternsME.Clothing.Base.PANTS_BROWN, CharacterPatternsME.Clothing.Over.SHIRT_BEIGE, null);
+    }
+
 
     public NbtCompound getNbt() {
         NbtCompound newNbt = new NbtCompound();
@@ -182,5 +189,10 @@ public class TexturePresets {
             }
             return presets;
         }
+    }
+
+
+    public record ClothingData(Identifier base, Identifier over, Identifier extra){
+
     }
 }

@@ -52,10 +52,7 @@ public class WildGoblinTexturePresetsPool {
                         CharacterMaterialsME.Hair.BLACK_ALMANDINE
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.THONG
-                ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.BROWN
+                        // CharacterPatternsME.Clothing.THONG
                 ));
 
         WEAK_PRESET = new TexturePresetData()
@@ -73,7 +70,7 @@ public class WildGoblinTexturePresetsPool {
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS
+                        //CharacterPatternsME.Clothing.PANTS
                 ));
 
         WARRIOR_PRESET = new TexturePresetData()
@@ -94,7 +91,7 @@ public class WildGoblinTexturePresetsPool {
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.ROBE
+                        //CharacterPatternsME.Clothing.ROBE
                 ));
 
         BRUTE_PRESET = WARRIOR_PRESET.copy()

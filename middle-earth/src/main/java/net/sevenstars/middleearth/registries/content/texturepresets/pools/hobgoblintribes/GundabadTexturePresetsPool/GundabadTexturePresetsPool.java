@@ -50,10 +50,7 @@ public class GundabadTexturePresetsPool {
                         CharacterMaterialsME.Hair.GRAY_COPPER
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.THONG
-                ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.BROWN
+                        //CharacterPatternsME.Clothing.THONG
                 ));
 
         GOBLIN_PRESET = new TexturePresetData()
@@ -70,8 +67,8 @@ public class GundabadTexturePresetsPool {
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.THONG,
-                        CharacterPatternsME.Clothing.PANTS
+                        //CharacterPatternsME.Clothing.THONG,
+                        //CharacterPatternsME.Clothing.PANTS
                 ));
 
         HOBGOBLIN_PRESET = GOBLIN_PRESET.copy()

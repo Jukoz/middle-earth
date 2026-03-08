@@ -33,7 +33,7 @@ public class BakedModelManagerMixin{
         map.put(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE, AtlasesME.CHARACTER_SKINS);
         map.put(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE, AtlasesME.CHARACTER_EYES);
         map.put(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE, AtlasesME.CHARACTER_HAIRS);
-        map.put(ModTexturedRenderLayers.CHARACTER_CLOTHINGS_ATLAS_TEXTURE, AtlasesME.CHARACTER_CLOTHINGS);
+        map.put(ModTexturedRenderLayers.CHARACTER_CLOTHES_ATLAS_TEXTURE, AtlasesME.CHARACTER_CLOTHES);
 
         /*
          * Load custom sprites' atlas. Used for direct render animations.

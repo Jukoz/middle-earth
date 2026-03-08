@@ -53,9 +53,6 @@ public class LothlorienTexturePresetsPool {
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
                         CharacterPatternsME.Hairs.Eyebrow.BASIC
-                ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.WHITE
                 ));
 
         MALE_PRESET = new TexturePresetData()
@@ -71,8 +68,8 @@ public class LothlorienTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.SEMI_LONG
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.TOGA,
-                        CharacterPatternsME.Clothing.PANTS
+                        //CharacterPatternsME.Clothing.TOGA,
+                        //CharacterPatternsME.Clothing.PANTS
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
@@ -89,8 +86,8 @@ public class LothlorienTexturePresetsPool {
                                 CharacterPatternsME.Hairs.Hair.VERY_LONG
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.ROBE,
-                        CharacterPatternsME.Clothing.FULL_TOGA
+                        //CharacterPatternsME.Clothing.ROBE,
+                        //CharacterPatternsME.Clothing.FULL_TOGA
                 ));
 
         LORD_PRESET = MALE_PRESET.copy()

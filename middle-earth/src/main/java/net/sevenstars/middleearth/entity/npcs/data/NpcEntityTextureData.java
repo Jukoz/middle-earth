@@ -21,7 +21,10 @@ public class NpcEntityTextureData {
     private Identifier beardAddonTexture;
     private Identifier hairTexture;
     private Identifier hairAddonTexture;
-    private Identifier clothingTexture;
+    private Identifier clothingBaseTexture;
+    private Identifier clothingOverTexture;
+    private Identifier clothingExtraTexture;
+
     private Boolean eyeEmissive;
 
     public static final Codec<NpcEntityTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -71,8 +74,14 @@ public class NpcEntityTextureData {
             }
         }
 
-        if(compound.contains("clothing"))
-            this.clothingTexture = Identifier.of(compound.getString("clothing").get());
+        if(compound.contains("clothing_base"))
+            this.clothingBaseTexture = Identifier.of(compound.getString("clothing_base").get());
+
+        if(compound.contains("clothing_over"))
+            this.clothingOverTexture = Identifier.of(compound.getString("clothing_over").get());
+
+        if(compound.contains("clothing_extra"))
+            this.clothingExtraTexture = Identifier.of(compound.getString("clothing_extra").get());
     }
 
     public NpcEntityTextureData() {
@@ -131,8 +140,10 @@ public class NpcEntityTextureData {
         this.beardAddonTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withClothingTexture(Identifier texture){
-        this.clothingTexture = texture;
+    public NpcEntityTextureData withClothingTexture(Identifier textureBase, Identifier textureOver, Identifier textureExtra){
+        this.clothingBaseTexture = textureBase;
+        this.clothingOverTexture = textureOver;
+        this.clothingExtraTexture = textureOver;
         return this;
     }
 
@@ -173,8 +184,12 @@ public class NpcEntityTextureData {
                 nbt.putString("beard_addon", beardAddonTexture.toString());
         }
 
-        if(clothingTexture != null)
-            nbt.putString("clothing", clothingTexture.toString());
+        if(clothingBaseTexture != null)
+            nbt.putString("clothing_base", clothingBaseTexture.toString());
+        if(clothingOverTexture != null)
+            nbt.putString("clothing_over", clothingOverTexture.toString());
+        if(clothingExtraTexture != null)
+            nbt.putString("clothing_extra", clothingExtraTexture.toString());
 
         return nbt;
     }
@@ -217,9 +232,12 @@ public class NpcEntityTextureData {
     public Identifier getBeardAddonTexture() {
         return this.beardAddonTexture;
     }
-    public Identifier getClothingTexture() {
-        return this.clothingTexture;
+    public Identifier getClothingBaseTexture() { return this.clothingBaseTexture; }
+    public Identifier getClothingOverTexture() {
+        return this.clothingOverTexture;
     }
+    public Identifier getClothingExtraTexture() { return this.clothingExtraTexture; }
+
     static {
         PACKET_CODEC = PacketCodec.tuple(
                 PacketCodecs.NBT_COMPOUND, NpcEntityTextureData::writeNbt,

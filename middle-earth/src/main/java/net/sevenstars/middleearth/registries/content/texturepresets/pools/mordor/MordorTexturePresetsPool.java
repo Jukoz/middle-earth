@@ -55,10 +55,7 @@ public class MordorTexturePresetsPool {
                         CharacterMaterialsME.Hair.BLACK_ALMANDINE
                 ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.THONG
-                ))
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.BROWN
+                        //CharacterPatternsME.Clothing.THONG
                 ));
 
         BLACK_NUMENOREAN_PRESET = new TexturePresetData()
@@ -103,12 +100,9 @@ public class MordorTexturePresetsPool {
                         null,
                         CharacterPatternsME.Hairs.Beard.SHORT
                 ).toList())
-                .withMaterials(NpcTextureType.CLOTHING, List.of(
-                        CharacterMaterialsME.Clothing.GRAY
-                ))
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.PANTS,
-                        CharacterPatternsME.Clothing.FULL_TOGA
+                        //CharacterPatternsME.Clothing.PANTS,
+                        //CharacterPatternsME.Clothing.FULL_TOGA
                 ));
 
 
@@ -125,8 +119,8 @@ public class MordorTexturePresetsPool {
                         ).toList()
                 )
                 .withPatterns(NpcTextureType.CLOTHING, List.of(
-                        CharacterPatternsME.Clothing.THONG,
-                        CharacterPatternsME.Clothing.PANTS
+                        //CharacterPatternsME.Clothing.THONG,
+                        //CharacterPatternsME.Clothing.PANTS
                 ));
 
         BLACK_URUK_PRESET = ORC_PRESET.copy()

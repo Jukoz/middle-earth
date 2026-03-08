@@ -76,7 +76,8 @@ public class NpcEntityHelper {
     }
 
     public static NpcEntityTextureData generateClothingTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresets.Identity textureIdentity) {
-        npcEntityTextureData = npcEntityTextureData.withClothingTexture(TexturePresets.getTextureWithMaterial(textureIdentity, NpcTextureType.CLOTHING));
+        TexturePresets.ClothingData data = TexturePresets.getClothing(textureIdentity);
+        npcEntityTextureData = npcEntityTextureData.withClothingTexture(data.base(), data.over(), data.extra());
 
         return npcEntityTextureData;
     }

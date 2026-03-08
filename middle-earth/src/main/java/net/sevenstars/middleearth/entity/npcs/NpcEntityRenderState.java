@@ -16,7 +16,9 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public Identifier beardAddonId;
     public Identifier hairId;
     public Identifier hairAddonId;
-    public Identifier clothingId;
+    public Identifier clothingBase;
+    public Identifier clothingOver;
+    public Identifier clothingExtra;
 
     public boolean haveEmissiveEyes;
     public boolean blinking;
@@ -38,7 +40,10 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
         this.beardAddonId = null;
         this.hairId = null;
         this.hairAddonId = null;
-        this.clothingId = null;
+
+        this.clothingBase = null;
+        this.clothingOver = null;
+        this.clothingExtra = null;
 
         this.haveEmissiveEyes = false;
         this.blinking = false;
