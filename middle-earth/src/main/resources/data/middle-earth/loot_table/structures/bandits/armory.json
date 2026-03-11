@@ -1,0 +1,260 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:kettle_hat",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gambeson_cowl",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:arming_coat",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 3486001
+              }
+            }
+          ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:arming_skirt",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 3486001
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:open_face_helmet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mail_coif",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:kettle_hat_with_coif",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:sallet",
+          "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.6,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:mail_hauberk",
+          "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.35
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:mail_shirt",
+          "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.35
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 2
+    },
+	{		
+	  "bonus_rolls": 0.25,
+	  "entries": [
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:round_shield",
+          "weight": 2,
+		  "functions": [
+			{
+			  "function": "minecraft:set_banner_pattern",
+			  "patterns": [
+				{
+				  "pattern": "minecraft:base",
+				  "color": "gray"
+				},
+				{
+				  "pattern": "middle-earth:bow",
+				  "color": "light_gray"
+				}
+			  ],
+			  "append": true
+			}
+		  ]
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:heater_shield",
+          "weight": 2,
+		  "functions": [
+			{
+			  "function": "minecraft:set_banner_pattern",
+			  "patterns": [
+				{
+				  "pattern": "minecraft:base",
+				  "color": "gray"
+				},
+				{
+				  "pattern": "middle-earth:bow",
+				  "color": "light_gray"
+				}
+			  ],
+			  "append": true
+			}
+		  ]
+		},
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+	  ],
+	  "rolls": 1
+	},
+    {
+      "rolls": {
+        "min": 0,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mail_ring",
+		  "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:iron",
+                  "pattern": "middle-earth:smithing_part"
+                }
+              }
+            }
+		  ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:lead_ingot"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_copper"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fur"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gray_wool"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather"
+        }
+      ]
+    }
+  ]
+}
