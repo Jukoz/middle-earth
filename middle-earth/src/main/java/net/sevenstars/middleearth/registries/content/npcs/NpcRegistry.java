@@ -119,6 +119,17 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> GUNDABAD_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "veteran"));
     public final static RegistryKey<NpcData> GUNDABAD_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "leader"));
 
+    // [ISENGARD]
+    public final static RegistryKey<NpcData> ISENGARD_ORC_SNAGA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "snaga"));
+    public final static RegistryKey<NpcData> ISENGARD_ORC_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "warrior"));
+    public final static RegistryKey<NpcData> ISENGARD_URUK_HAI_SOLDIER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "soldier"));
+    public final static RegistryKey<NpcData> ISENGARD_URUK_HAI_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "scout"));
+    public final static RegistryKey<NpcData> ISENGARD_URUK_HAI_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "veteran"));
+    public final static RegistryKey<NpcData> ISENGARD_URUK_HAI_BERSERKER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "berserker"));
+    public final static RegistryKey<NpcData> ISENGARD_URUK_HAI_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "leader"));
+    public final static RegistryKey<NpcData> ISENGARD_ORTHANC_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "orthanc_guard"));
+
+
 
     public static void bootstrap(Registerable<NpcData> context) {
         RegistryEntryLookup<NpcData> registryEntryLookup = context.getRegistryLookup(NPC_KEY);
@@ -135,6 +146,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, MordorNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, GundabadNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, IsengardNpcDataPool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcData> context, RegistryEntryLookup<NpcData> registryEntryLookup, List<RegisterableNpcData> npcDatas) {

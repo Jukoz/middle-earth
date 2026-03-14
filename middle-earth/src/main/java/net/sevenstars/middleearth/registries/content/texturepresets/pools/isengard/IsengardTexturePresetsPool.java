@@ -1,8 +1,10 @@
-package net.sevenstars.middleearth.registries.content.texturepresets.pools.mordor;
+package net.sevenstars.middleearth.registries.content.texturepresets.pools.isengard;
 
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
+import net.sevenstars.middleearth.resources.CharacterClothesME;
 import net.sevenstars.middleearth.resources.CharacterMaterialsME;
 import net.sevenstars.middleearth.resources.CharacterPatternsME;
+import net.sevenstars.middleearth.resources.datas.npcs.data.ClothePresets;
 import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
@@ -12,22 +14,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class MordorTexturePresetsPool {
+public class IsengardTexturePresetsPool {
     private final static TexturePresetData BASE_PRESET;
     private final static TexturePresetData BLACK_NUMENOREAN_PRESET;
     private final static TexturePresetData ORC_PRESET;
     private final static TexturePresetData BLACK_URUK_PRESET;
 
-    public final static TexturePresets BLACK_NUMENOREAN;
+    public final static TexturePresets HUMAN;
     public final static TexturePresets ORC;
-    public final static TexturePresets BLACK_URUK;
+    public final static TexturePresets URUK_HAI;
 
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
-                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.MORDOR_BLACK_NUMENOREAN, BLACK_NUMENOREAN),
-                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.MORDOR_ORC, ORC),
-                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.MORDOR_BLACK_URUK, BLACK_URUK)
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.ISENGARD_ORC, ORC),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.ISENGARD_URUK_HAI, URUK_HAI),
+                new TexturePresetsRegistry.RegisterableNpcTextureData(TexturePresetsRegistry.ISENGARD_HUMAN, HUMAN)
         );
     }
 
@@ -35,9 +37,9 @@ public class MordorTexturePresetsPool {
     static {
         BASE_PRESET = new TexturePresetData()
                 .withMaterials(NpcTextureType.SKIN, List.of(
-                        CharacterMaterialsME.Skin.BROWN,
-                        CharacterMaterialsME.Skin.GREY,
-                        CharacterMaterialsME.Skin.SLIGHT_BROWN
+                        CharacterMaterialsME.Skin.RUST,
+                        CharacterMaterialsME.Skin.RED,
+                        CharacterMaterialsME.Skin.WINE
                 ))
                 .withPatterns(NpcTextureType.EAR, List.of(
                         CharacterPatternsME.Skins.Ear.LARGE_POINTY,
@@ -45,8 +47,7 @@ public class MordorTexturePresetsPool {
                         CharacterPatternsME.Skins.Ear.SQUARE_POINTY
                 ))
                 .withMaterials(NpcTextureType.EYE, List.of(
-                        CharacterMaterialsME.Eye.YELLOW,
-                        CharacterMaterialsME.Eye.RED
+                        CharacterMaterialsME.Eye.YELLOW
                 ))
                 .withEmissiveEyes(true)
                 .withMaterials(NpcTextureType.HAIR, List.of(
@@ -54,8 +55,12 @@ public class MordorTexturePresetsPool {
                         CharacterMaterialsME.Hair.GREASY_ALMANDINE,
                         CharacterMaterialsME.Hair.BLACK_ALMANDINE
                 ))
-                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
-                        //CharacterPatternsME.Clothing.THONG
+                .withClothes(List.of(
+                        new ClothePresets[]{
+                                new ClothePresets(List.of(
+                                        CharacterClothesME.Base.THONG_BROWN
+                                ))
+                        }
                 ));
 
         BLACK_NUMENOREAN_PRESET = new TexturePresetData()
@@ -100,9 +105,13 @@ public class MordorTexturePresetsPool {
                         null,
                         CharacterPatternsME.Hairs.Beard.SHORT
                 ).toList())
-                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
-                        //CharacterPatternsME.Clothing.PANTS,
-                        //CharacterPatternsME.Clothing.FULL_TOGA
+                .withClothes(List.of(
+                        new ClothePresets[]{
+                                new ClothePresets(List.of(
+                                        CharacterClothesME.Base.PANTS_BROWN,
+                                        CharacterClothesME.Base.PANTS_DARK_BROWN
+                                ))
+                        }
                 ));
 
 
@@ -141,7 +150,7 @@ public class MordorTexturePresetsPool {
 
     // region [DATAS]
     static {
-        BLACK_NUMENOREAN  = new TexturePresets(new HashMap<>(){{
+        HUMAN  = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.MALE, List.of(BLACK_NUMENOREAN_PRESET));
         }});
 
@@ -180,7 +189,7 @@ public class MordorTexturePresetsPool {
             ));
         }});
 
-        BLACK_URUK = new TexturePresets(new HashMap<>(){{
+        URUK_HAI = new TexturePresets(new HashMap<>(){{
             put(EntityCategory.SHARED, List.of(BASE_PRESET));
             put(EntityCategory.MALE, List.of(
                     BLACK_URUK_PRESET.copy()

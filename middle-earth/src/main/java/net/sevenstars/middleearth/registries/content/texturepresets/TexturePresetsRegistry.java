@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.pools.dale.D
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor.GondorTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.hobgoblintribes.GundabadTexturePresetsPool.GundabadTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.hobgoblintribes.HobgoblinTribesTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.isengard.IsengardTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.LongbeardsTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor.EreborTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.lothlorien.LothlorienTexturePresetsPool;
@@ -83,9 +84,9 @@ public class TexturePresetsRegistry {
     public final static RegistryKey<TexturePresets> GUNDABAD_HOBGOBLIN      = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "hobgoblin");
 
     /* [ISENGARD] */
-    public final static RegistryKey<TexturePresets> ISENGARD_ORC = of("isengard_orc");
-    public final static RegistryKey<TexturePresets> ISENGARD_URUK_HAI = of("isengard_uruk_hai");
-
+    public final static RegistryKey<TexturePresets> ISENGARD_ORC = of(FactionRegistry.ISENGARD, "orc");
+    public final static RegistryKey<TexturePresets> ISENGARD_URUK_HAI = of(FactionRegistry.ISENGARD, "uruk_hai");
+    public final static RegistryKey<TexturePresets> ISENGARD_HUMAN = of(FactionRegistry.ISENGARD, "human");
 
 
     public static void bootstrap(Registerable<TexturePresets> context) {
@@ -106,6 +107,7 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, MordorTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, HobgoblinTribesTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, GundabadTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, IsengardTexturePresetsPool.fetchAll());
     }
 
     private static void registerAll(Registerable<TexturePresets> context, RegistryEntryLookup<TexturePresets> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {

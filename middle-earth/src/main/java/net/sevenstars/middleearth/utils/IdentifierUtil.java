@@ -21,10 +21,11 @@ public class IdentifierUtil {
     }
 
     public static Identifier buildAggregate(String... names) {
-        return build(createAggregateValue(names));
+        return build(createAggregateValue('.', names));
     }
 
-    public static String createAggregateValue(String... names){
+
+    public static String createAggregateValue(char character, String... names){
         if(names.length == 0)
             return "not_enough_parameters";
         if(names.length == 1)
@@ -34,7 +35,7 @@ public class IdentifierUtil {
         for(int i = 0; i < names.length; i++){
             fullValue.append(names[i]);
             if(i < names.length - 1)
-                fullValue.append(".");
+                fullValue.append(character);
         }
         return fullValue.toString();
     }

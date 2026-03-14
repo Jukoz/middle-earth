@@ -20,22 +20,31 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
 import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
+import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRegistries {
-    private static final String CORE = "core";
-    private static final String CHARACTER = "character";
 
-    public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate(CORE, "race"));
-    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate( CORE, "faction"));
-    public static final RegistryKey<Registry<NpcData>> NPC = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate( CORE, "npc"));
-    public static final RegistryKey<Registry<TexturePresets>> TEXTURE_PRESETS = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate( CORE, CHARACTER, "texture_presets"));
+    public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("race"));
+    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("faction"));
+    public static final RegistryKey<Registry<NpcData>> NPC = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("npc"));
+    public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("structure_manager_data"));
+    public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("biome_event"));
 
-    public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(IdentifierUtil.build( "biome_event"));
-    public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANT = RegistryKey.ofRegistry(IdentifierUtil.build( "spider_variant"));
-    public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA = RegistryKey.ofRegistry(IdentifierUtil.build( "structure_manager_data"));
 
+    public static final RegistryKey<Registry<TexturePresets>> TEXTURE_PRESETS = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate( "texture_presets"));
+
+    public static final RegistryKey<Registry<NpcTextureMaterial>> SKIN_MATERIAL = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("skin_material"));
+    public static final RegistryKey<Registry<NpcTextureMaterial>> EYE_MATERIAL = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("eye_material"));
+    public static final RegistryKey<Registry<NpcTextureMaterial>> HAIR_MATERIAL = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("hair_material"));
+
+    public static final RegistryKey<Registry<NpcTexturePattern>> SKIN_PATTERN = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("skin_pattern"));
+    public static final RegistryKey<Registry<NpcTexturePattern>> EYE_PATTERN = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("eye_pattern"));
+    public static final RegistryKey<Registry<NpcTexturePattern>> HAIR_PATTERN = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("hair_pattern"));
+
+    public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANT = RegistryKey.ofRegistry(IdentifierUtil.buildAggregate("spider_variant"));
 
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
@@ -46,6 +55,14 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         DynamicRegistries.registerSynced(SPIDER_VARIANT, SpiderVariant.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
         DynamicRegistries.registerSynced(TEXTURE_PRESETS, TexturePresets.CODEC);
+
+        DynamicRegistries.registerSynced(SKIN_PATTERN, NpcTexturePattern.CODEC);
+        DynamicRegistries.registerSynced(EYE_PATTERN, NpcTexturePattern.CODEC);
+        DynamicRegistries.registerSynced(HAIR_PATTERN, NpcTexturePattern.CODEC);
+
+        DynamicRegistries.registerSynced(SKIN_MATERIAL, NpcTextureMaterial.CODEC);
+        DynamicRegistries.registerSynced(EYE_MATERIAL, NpcTextureMaterial.CODEC);
+        DynamicRegistries.registerSynced(HAIR_MATERIAL, NpcTextureMaterial.CODEC);
     }
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {

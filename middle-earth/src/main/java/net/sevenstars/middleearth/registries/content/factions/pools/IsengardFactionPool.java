@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.npcs.pools.DalishNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.Disposition;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -25,28 +26,26 @@ public class IsengardFactionPool {
         ISENGARD = new Faction(FactionRegistry.ISENGARD, true, Disposition.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_SNAGA
+                            IsengardNpcDataPool.SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_SNAGA,
-                            IsengardNpcDataPool.ISENGARD_ORTHANC_GUARD
+                            IsengardNpcDataPool.WARRIOR
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            IsengardNpcDataPool.ISENGARD_ORC_WARRIOR
+                            IsengardNpcDataPool.URUK_HAI_SOLDIER,
+                            IsengardNpcDataPool.URUK_HAI_SCOUT
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_SOLDIER,
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_SCOUT
+                            IsengardNpcDataPool.URUK_HAI_BERSERKER,
+                            IsengardNpcDataPool.ORTHANC_GUARD
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_VETERAN,
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_BERSERKER
+                            IsengardNpcDataPool.URUK_HAI_VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            IsengardNpcDataPool.ISENGARD_URUK_HAI_LEADER
+                            IsengardNpcDataPool.URUK_HAI_LEADER
                     ));
                 }},
-                // TODO : add humans? No proper assets for them
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.BLACK),

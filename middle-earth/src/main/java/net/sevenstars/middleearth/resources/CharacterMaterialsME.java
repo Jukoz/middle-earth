@@ -6,6 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -17,13 +18,6 @@ import net.sevenstars.middleearth.utils.IdentifierUtil;
  * <hr>
  */
 public class CharacterMaterialsME {
-    public record Keys(){
-        public static final RegistryKey<Registry<NpcTextureMaterial>> SKIN_KEY = ofRegistry("character_skin_material");
-        public static final RegistryKey<Registry<NpcTextureMaterial>> EYE_KEY = ofRegistry("character_eye_material");
-        public static final RegistryKey<Registry<NpcTextureMaterial>> HAIR_KEY = ofRegistry("character_hair_material");
-        public static final RegistryKey<Registry<NpcTextureMaterial>> CLOTHING_KEY = ofRegistry("character_clothing_material");
-    }
-
     public record Skin(){
         public final static RegistryKey<NpcTextureMaterial> BEIGE = of("beige", NpcTextureType.SKIN);
         public final static RegistryKey<NpcTextureMaterial> BROWN = of("brown", NpcTextureType.SKIN);
@@ -232,14 +226,6 @@ public class CharacterMaterialsME {
         register(registry, Hair.GRAY_SILVER, NpcTextureType.HAIR);
     }
 
-    public static void register() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Npc Texture Materials for " + MiddleEarth.MOD_ID);
-        DynamicRegistries.registerSynced(Keys.SKIN_KEY, NpcTextureMaterial.CODEC);
-        DynamicRegistries.registerSynced(Keys.EYE_KEY, NpcTextureMaterial.CODEC);
-        DynamicRegistries.registerSynced(Keys.HAIR_KEY, NpcTextureMaterial.CODEC);
-        DynamicRegistries.registerSynced(Keys.CLOTHING_KEY, NpcTextureMaterial.CODEC);
-    }
-
     private static void register(Registerable<NpcTextureMaterial> registry, RegistryKey<NpcTextureMaterial> key, NpcTextureType type) {
         NpcTextureMaterial pattern = new NpcTextureMaterial(key.getValue(), type);
         register(registry, key, pattern,  getKey(type));
@@ -254,16 +240,11 @@ public class CharacterMaterialsME {
         return RegistryKey.of(getKey(type), IdentifierUtil.build(id));
     }
 
-    private static <T> RegistryKey<Registry<T>> ofRegistry(String id) {
-        return RegistryKey.ofRegistry(IdentifierUtil.build(id));
-    }
-
     public static RegistryKey<Registry<NpcTextureMaterial>> getKey(NpcTextureType category){
         return switch (category) {
-            case NpcTextureType.SKIN -> Keys.SKIN_KEY;
-            case NpcTextureType.EYE -> Keys.EYE_KEY;
-            case NpcTextureType.HAIR -> Keys.HAIR_KEY;
-            case NpcTextureType.CLOTHE_PRESETS -> Keys.CLOTHING_KEY;
+            case NpcTextureType.SKIN -> DynamicRegistriesME.SKIN_MATERIAL;
+            case NpcTextureType.EYE -> DynamicRegistriesME.EYE_MATERIAL;
+            case NpcTextureType.HAIR -> DynamicRegistriesME.HAIR_MATERIAL;
             default -> null;
         };
     }

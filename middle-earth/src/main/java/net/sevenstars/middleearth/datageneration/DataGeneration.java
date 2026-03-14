@@ -83,14 +83,14 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
 
-        registryBuilder.addRegistry(CharacterMaterialsME.Keys.SKIN_KEY, CharacterMaterialsME::bootstrapSkins);
-        registryBuilder.addRegistry(CharacterPatternsME.Keys.SKIN_KEY, CharacterPatternsME::bootstrapSkins);
+        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsME::bootstrapSkins);
+        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsME::bootstrapSkins);
 
-        registryBuilder.addRegistry(CharacterMaterialsME.Keys.HAIR_KEY, CharacterMaterialsME::bootstrapHairs);
-        registryBuilder.addRegistry(CharacterPatternsME.Keys.HAIR_KEY, CharacterPatternsME::bootstrapHairs);
+        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_MATERIAL, CharacterMaterialsME::bootstrapHairs);
+        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_PATTERN, CharacterPatternsME::bootstrapHairs);
 
-        registryBuilder.addRegistry(CharacterMaterialsME.Keys.EYE_KEY, CharacterMaterialsME::bootstrapEyes);
-        registryBuilder.addRegistry(CharacterPatternsME.Keys.EYE_KEY, CharacterPatternsME::bootstrapEyes);
+        registryBuilder.addRegistry(DynamicRegistriesME.EYE_MATERIAL, CharacterMaterialsME::bootstrapEyes);
+        registryBuilder.addRegistry(DynamicRegistriesME.EYE_PATTERN, CharacterPatternsME::bootstrapEyes);
 
         // Mod Dynamic
         DynamicRegistriesME.prepareBoostrap(registryBuilder);

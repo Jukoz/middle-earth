@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.*;
@@ -19,25 +20,18 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnN
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
+import org.spongepowered.asm.mixin.Dynamic;
 
 import java.util.List;
 import java.util.Optional;
 
 public class StructureManagerDatasME {
-    public final static String PATH = "structure_manager_datas";
-    public static final RegistryKey<Registry<StructureManagerData>> KEY = RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, PATH));
-
-    public static void register(){
-        MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Structure Manager Datas for " + MiddleEarth.MOD_ID);
-        DynamicRegistries.registerSynced(KEY, StructureManagerData.CODEC);
-    }
-
     public final static StructureManagerData GONDOR_GENERIC_NESTS;
     public final static StructureManagerData EREBOR_GENERIC_NESTS;
     public final static StructureManagerData DALE_KEEP_NESTS;
 
     public static void bootstrap(Registerable<StructureManagerData> context) {
-        RegistryEntryLookup<StructureManagerData> structureDataRegistryEntryLookup = context.getRegistryLookup(KEY);
+        RegistryEntryLookup<StructureManagerData> structureDataRegistryEntryLookup = context.getRegistryLookup(DynamicRegistriesME.STRUCTURE_MANAGER_DATA);
         // [TEMPLATE]
         register(context, structureDataRegistryEntryLookup, GONDOR_GENERIC_NESTS);
         register(context, structureDataRegistryEntryLookup, EREBOR_GENERIC_NESTS);
@@ -45,9 +39,9 @@ public class StructureManagerDatasME {
     }
 
     private static StructureManagerData register(Registerable<StructureManagerData> context, RegistryEntryLookup<StructureManagerData> registryEntryLookup, StructureManagerData structureManagerData) {
-        RegistryKey<StructureManagerData> registryKey = RegistryKey.of(KEY, structureManagerData.getId());
+        RegistryKey<StructureManagerData> registryKey = RegistryKey.of(DynamicRegistriesME.STRUCTURE_MANAGER_DATA, structureManagerData.getId());
         String name = registryKey.getValue().getPath();
-        RegistryKey<StructureManagerData> structureDataKey = RegistryKey.of(KEY,Identifier.of(MiddleEarth.MOD_ID,name));
+        RegistryKey<StructureManagerData> structureDataKey = RegistryKey.of(DynamicRegistriesME.STRUCTURE_MANAGER_DATA, Identifier.of(MiddleEarth.MOD_ID,name));
 
         Optional<RegistryEntry.Reference<StructureManagerData>> optionalStructureDataReference = registryEntryLookup.getOptional(registryKey);
         optionalStructureDataReference.ifPresent(biomeReference -> context.register(structureDataKey, structureManagerData));

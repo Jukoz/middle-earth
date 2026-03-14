@@ -15,7 +15,7 @@ public class StructureDataProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(StructureManagerDatasME.KEY));
+        entries.addAll(registries.getOrThrow(DynamicRegistriesME.STRUCTURE_MANAGER_DATA));
     }
 
     @Override

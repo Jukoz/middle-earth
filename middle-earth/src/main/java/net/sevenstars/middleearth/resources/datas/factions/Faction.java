@@ -470,7 +470,7 @@ public class Faction {
         descriptions = new ArrayList<>();
         boolean hasDescription = true;
 
-        String base = IdentifierUtil.createAggregateValue("description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
+        String base = IdentifierUtil.createAggregateValue('.', "description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
         while(hasDescription){
             String langPath = base.formatted(descriptions.size());
             Text text = Text.translatable(langPath);

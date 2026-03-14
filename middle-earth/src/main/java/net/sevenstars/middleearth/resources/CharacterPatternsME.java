@@ -8,6 +8,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
 import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
@@ -21,14 +22,6 @@ import java.util.Optional;
  * <hr>
  */
 public class CharacterPatternsME {
-
-    public record Keys(){
-        public static final RegistryKey<Registry<NpcTexturePattern>> SKIN_KEY = ofRegistry("character_skin_pattern");
-        public static final RegistryKey<Registry<NpcTexturePattern>> EYE_KEY = ofRegistry("character_eye_pattern");
-        public static final RegistryKey<Registry<NpcTexturePattern>> HAIR_KEY = ofRegistry("character_hair_pattern");
-        public static final RegistryKey<Registry<NpcTexturePattern>> CLOTHING_KEY = ofRegistry("character_clothes");
-    }
-
     public record Skins() {
         public record Body(){
             public final static RegistryKey<NpcTexturePattern> FAT                          = of("body_fat",  NpcTextureType.BODY);
@@ -251,18 +244,6 @@ public class CharacterPatternsME {
         return RegistryKey.of(getKey(type), IdentifierUtil.build(id));
     }
 
-    private static <T> RegistryKey<Registry<T>> ofRegistry(String id) {
-        return RegistryKey.ofRegistry(IdentifierUtil.build(id));
-    }
-
-    public static void register() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Npc Texture Patterns for " + MiddleEarth.MOD_ID);
-        DynamicRegistries.registerSynced(Keys.SKIN_KEY, NpcTexturePattern.CODEC);
-        DynamicRegistries.registerSynced(Keys.EYE_KEY, NpcTexturePattern.CODEC);
-        DynamicRegistries.registerSynced(Keys.HAIR_KEY, NpcTexturePattern.CODEC);
-        DynamicRegistries.registerSynced(Keys.CLOTHING_KEY, NpcTexturePattern.CODEC);
-    }
-
     private static void register(Registerable<NpcTexturePattern> registerable, RegistryKey<NpcTexturePattern> registryKey, NpcTexturePattern content, RegistryKey<Registry<NpcTexturePattern>> registryRegistryKey) {
         String name = registryKey.getValue().getPath();
         RegistryKey<NpcTexturePattern> key = RegistryKey.of(registryRegistryKey,Identifier.of(MiddleEarth.MOD_ID,name));
@@ -271,10 +252,10 @@ public class CharacterPatternsME {
 
     public static RegistryKey<Registry<NpcTexturePattern>> getKey(NpcTextureType category){
         return switch (category) {
-            case NpcTextureType.SKIN, NpcTextureType.BODY, NpcTextureType.HEAD, NpcTextureType.SCAR, NpcTextureType.EAR, NpcTextureType.NOSE -> Keys.SKIN_KEY;
-            case NpcTextureType.EYE -> Keys.EYE_KEY;
-            case NpcTextureType.HAIR, NpcTextureType.EYEBROW, NpcTextureType.BEARD -> Keys.HAIR_KEY;
-            case NpcTextureType.CLOTHE_PRESETS -> Keys.CLOTHING_KEY;
+            case NpcTextureType.SKIN, NpcTextureType.BODY, NpcTextureType.HEAD, NpcTextureType.SCAR, NpcTextureType.EAR, NpcTextureType.NOSE -> DynamicRegistriesME.SKIN_PATTERN;
+            case NpcTextureType.EYE -> DynamicRegistriesME.EYE_PATTERN;
+            case NpcTextureType.HAIR, NpcTextureType.EYEBROW, NpcTextureType.BEARD -> DynamicRegistriesME.HAIR_PATTERN;
+            case CLOTHE_PRESETS -> null;
         };
     }
 

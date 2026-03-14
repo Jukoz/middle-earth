@@ -125,11 +125,6 @@ public class MiddleEarth implements ModInitializer {
 
 		// Dynamic Data
         DynamicRegistriesME.register();
-
-        CharacterMaterialsME.register();
-        CharacterPatternsME.register();
-        StructureManagerDatasME.register();
-
 		RegistriesME.registerRegistryAliases();
 
 		try {

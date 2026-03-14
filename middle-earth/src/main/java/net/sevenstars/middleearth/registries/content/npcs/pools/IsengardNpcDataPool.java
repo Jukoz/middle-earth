@@ -25,37 +25,40 @@ import java.util.List;
 
 public class IsengardNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.ISENGARD;
-    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
 
     private static List<Integer> allColors;
     private static final int DARK = 0x302b28;
     private static final int DARK_BROWN = 0x655147;
-    public final static NpcData ISENGARD_ORTHANC_GUARD;
-    public final static NpcData ISENGARD_ORC_SNAGA;
-    public final static NpcData ISENGARD_ORC_WARRIOR;
-    public final static NpcData ISENGARD_URUK_HAI_SOLDIER;
-    public final static NpcData ISENGARD_URUK_HAI_SCOUT;
-    public final static NpcData ISENGARD_URUK_HAI_VETERAN;
-    public final static NpcData ISENGARD_URUK_HAI_BERSERKER;
-    public final static NpcData ISENGARD_URUK_HAI_LEADER;
 
-    public static List<NpcData> fetchAll() {
+    public final static NpcData SNAGA;
+    public final static NpcData WARRIOR;
+
+    public final static NpcData URUK_HAI_SOLDIER;
+    public final static NpcData URUK_HAI_SCOUT;
+    public final static NpcData URUK_HAI_VETERAN;
+    public final static NpcData URUK_HAI_BERSERKER;
+    public final static NpcData URUK_HAI_LEADER;
+
+    public final static NpcData ORTHANC_GUARD;
+
+
+    public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
-                ISENGARD_ORTHANC_GUARD,
-                ISENGARD_ORC_SNAGA,
-                ISENGARD_ORC_WARRIOR,
-                ISENGARD_URUK_HAI_SOLDIER,
-                ISENGARD_URUK_HAI_SCOUT,
-                ISENGARD_URUK_HAI_VETERAN,
-                ISENGARD_URUK_HAI_BERSERKER,
-                ISENGARD_URUK_HAI_LEADER
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_ORC_SNAGA, SNAGA),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_ORC_WARRIOR, WARRIOR),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_URUK_HAI_SOLDIER, URUK_HAI_SOLDIER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT, URUK_HAI_SCOUT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_URUK_HAI_VETERAN, URUK_HAI_VETERAN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_URUK_HAI_BERSERKER, URUK_HAI_BERSERKER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_URUK_HAI_LEADER, URUK_HAI_LEADER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.ISENGARD_ORTHANC_GUARD, ORTHANC_GUARD)
         );
     }
 
     static {
         allColors = List.of(DARK, DARK_BROWN);
 
-        ISENGARD_ORTHANC_GUARD = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orthanc_guard")), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GENERIC_HUMAN, List.of(
+        ORTHANC_GUARD = new NpcData(NpcRegistry.ISENGARD_ORTHANC_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ISENGARD_HUMAN, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.ORTHANC_GUARD_HELMET).withWeight(4))
@@ -73,7 +76,7 @@ public class IsengardNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_ORC_SNAGA = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_snaga")), RaceRegistry.ORC, FACTION, NpcTextureDatasME.ISENGARD_ORC, List.of(
+        SNAGA = new NpcData(NpcRegistry.ISENGARD_ORC_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(Items.AIR).withWeight(3))
@@ -118,7 +121,7 @@ public class IsengardNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
 
-        ISENGARD_ORC_WARRIOR = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("orc_warrior")), RaceRegistry.ORC, FACTION, NpcTextureDatasME.ISENGARD_ORC, List.of(
+        WARRIOR = new NpcData(NpcRegistry.ISENGARD_ORC_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(4))
@@ -165,7 +168,7 @@ public class IsengardNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_SOLDIER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_soldier")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
+        URUK_HAI_SOLDIER = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_SOLDIER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PLATE_HELMET).withWeight(5))
@@ -207,7 +210,7 @@ public class IsengardNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_SCOUT = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_scout")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
+        URUK_HAI_SCOUT = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(4))
@@ -233,7 +236,7 @@ public class IsengardNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_VETERAN = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_veteran")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
+        URUK_HAI_VETERAN = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PAINTED_PLATE_HELMET).withWeight(5))
@@ -262,7 +265,7 @@ public class IsengardNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
 
-        ISENGARD_URUK_HAI_BERSERKER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_berserker")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
+        URUK_HAI_BERSERKER = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_BERSERKER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PAINTED_BERSERKER_HELMET))
@@ -284,7 +287,7 @@ public class IsengardNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        ISENGARD_URUK_HAI_LEADER = new NpcData(Identifier.of(MiddleEarth.MOD_ID, FACTION_BASE.formatted("uruk_hai_leader")), RaceRegistry.URUK, FACTION, NpcTextureDatasME.ISENGARD_URUK_HAI, List.of(
+        URUK_HAI_LEADER = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_LEADER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 NpcGearData.create()
                         .add(EquipmentSlot.HEAD, NpcGearSlotData.create()
                                 .add(NpcGearItemData.create(EquipmentItemsME.URUK_HAI_PAINTED_COMMANDER_HELMET))
