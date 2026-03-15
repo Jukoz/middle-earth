@@ -11,6 +11,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SensorsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.EggItemsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemGroupsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
+import net.sevenstars.of_beasts_and_wild_things.sound.ModSounds;
 import net.sevenstars.of_beasts_and_wild_things.world.gen.WorldGenerationWT;
 
 public class OfBeastsAndWildThings implements ModInitializer {
@@ -25,6 +26,7 @@ public class OfBeastsAndWildThings implements ModInitializer {
 		ActivitiesWT.registerModActivities();
 		SensorsWT.registerModSensors();
 		MemoryModulesWT.registerModMemoryModules();
+		ModSounds.registerModSounds();
 		ItemGroupsWT.register();
 		ModBlocks.registerModBlocks();
 		ItemsWT.registerModItems();

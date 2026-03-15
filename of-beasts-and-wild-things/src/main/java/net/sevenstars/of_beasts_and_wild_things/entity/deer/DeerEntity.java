@@ -101,7 +101,7 @@ public class DeerEntity extends AnimalEntity {
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
-        this.playSound(this.getHurtSound(damageSource), 1.0f, 1.4f);
+        this.playSound(this.getHurtSound(damageSource), 1.0f, 1.0f);
     }
 
     @Nullable
@@ -112,12 +112,12 @@ public class DeerEntity extends AnimalEntity {
 
     @Override
     public void playAmbientSound() {
-        this.playSound(this.getAmbientSound(), 1.0f, 1.8f);
+        this.playSound(this.getAmbientSound(), 1.0f, 1.0f);
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_COW_STEP, 0.7f, 1.8f);
+        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 1.0f, 1.0f);
     }
 
     @Override
