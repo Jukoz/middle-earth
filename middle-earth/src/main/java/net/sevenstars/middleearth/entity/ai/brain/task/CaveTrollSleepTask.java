@@ -48,5 +48,6 @@ public class CaveTrollSleepTask extends MultiTickTask<CaveTrollEntity> {
     protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
         entity.stopSleeping();
         entity.getBrain().remember(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN, 600);
+        entity.getBrain().remember(MemoryModulesME.ACTION_TIMEOUT, 200);
     }
 }

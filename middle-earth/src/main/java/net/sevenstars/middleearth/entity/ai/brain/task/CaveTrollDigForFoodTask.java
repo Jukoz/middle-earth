@@ -49,6 +49,7 @@ public class CaveTrollDigForFoodTask extends MultiTickTask<CaveTrollEntity> {
     protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
         entity.setScavenging(false);
         entity.getBrain().remember(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN, 2400 + entity.getRandom().nextInt(1200));
+        entity.getBrain().remember(MemoryModulesME.ACTION_TIMEOUT, 200);
 
         List<ItemStack> items = entity.scavengeLootTable.generateLoot(entity.lootWorldContext);
 
