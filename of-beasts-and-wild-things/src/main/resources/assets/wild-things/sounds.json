@@ -1,0 +1,24 @@
+{
+  "deer_death": {
+    "subtitle": "sounds.middle-earth.deer_death",
+    "sounds": [
+      "wild-things:deer/deer_death"
+    ]
+  },
+  "deer_grunt": {
+    "subtitle": "sounds.middle-earth.deer_grunt",
+    "sounds": [
+      "wild-things:deer/deer_grunt1",
+      "wild-things:deer/deer_grunt2",
+      "wild-things:deer/deer_grunt3"
+    ]
+  },
+  "deer_idle": {
+    "subtitle": "sounds.middle-earth.deer_idle",
+    "sounds": [
+      "wild-things:deer/deer_idle1",
+      "wild-things:deer/deer_idle2",
+      "wild-things:deer/deer_idle3"
+    ]
+  }
+}
