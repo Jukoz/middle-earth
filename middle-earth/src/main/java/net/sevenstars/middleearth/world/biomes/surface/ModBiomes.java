@@ -973,7 +973,6 @@ public class ModBiomes {
         addDefaultVegetation(generationSettings);
 
         ModBiomeFeatures.addGrassyDirtOre(vegetation);
-
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addWilderGrass(vegetation);
         ModBiomeFeatures.addFlowerGreenJewel(vegetation);
@@ -996,7 +995,6 @@ public class ModBiomes {
             ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModSpawnSettingsBuilder.addWolves(spawnSettings);
-            ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addNettles(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
