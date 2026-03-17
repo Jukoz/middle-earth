@@ -993,7 +993,6 @@ public class ModBiomes {
             ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
             ModSpawnSettingsBuilder.addDeer(spawnSettings);
             ModSpawnSettingsBuilder.addWolves(spawnSettings);
-            ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addNettles(vegetation);
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);

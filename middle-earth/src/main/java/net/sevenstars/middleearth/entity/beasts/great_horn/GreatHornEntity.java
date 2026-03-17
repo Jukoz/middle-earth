@@ -57,7 +57,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
 public class GreatHornEntity extends AbstractBeastEntity implements Evader {
-    private static final int HORNS_ATTACK_COOLDOWN = 30;
+    private static final int HORNS_ATTACK_COOLDOWN = 50;
     private static final float MIN_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 0.0);
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 1.0);
     private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
