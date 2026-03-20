@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:elk",
+    "middle-earth:elk_antlers",
+    "middle-earth:elk_shed",
+    "middle-earth:stag",
+    "middle-earth:stag_antlers",
+    "middle-earth:stag_shed"
+  ]
+}

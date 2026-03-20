@@ -35,6 +35,8 @@ public class ItemTagsME {
     public static TagKey<Item> LATE_CHISELS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("late_chisels"));
     public static TagKey<Item> INSCRIPTION_CATALYSTS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("inscription_catalysts"));
 
+    public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("elk_food"));
+
     public static TagKey<Item> HORSE_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("horse_armor"));
     public static TagKey<Item> WARG_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("warg_armor"));
 

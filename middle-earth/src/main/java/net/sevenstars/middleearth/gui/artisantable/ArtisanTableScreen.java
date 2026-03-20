@@ -105,8 +105,8 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("misc"), EquipmentItemsME.STRAW_HAT.getDefaultStack()));
         tabs.put(index, new ArrayList<>());
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("hat"), EquipmentItemsME.STRAW_HAT.getDefaultStack(), ArtisanTableInputsShape.HAT));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("helmetAttachment"), EquipmentItemsME.HOOD.getDefaultStack(), ArtisanTableInputsShape.HELMET_ATTACHMENT));
-        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("backAttachment"), EquipmentItemsME.CAPE.getDefaultStack(), ArtisanTableInputsShape.BACK_ATTACHMENT));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("helmet_attachment"), EquipmentItemsME.HOOD.getDefaultStack(), ArtisanTableInputsShape.HELMET_ATTACHMENT));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("back_attachment"), EquipmentItemsME.CAPE.getDefaultStack(), ArtisanTableInputsShape.BACK_ATTACHMENT));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("pipe"), ToolItemsME.CLAY_PIPE.getDefaultStack(), ArtisanTableInputsShape.PIPE));
         index++;
 

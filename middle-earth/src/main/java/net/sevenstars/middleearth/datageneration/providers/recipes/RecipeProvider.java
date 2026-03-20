@@ -1852,6 +1852,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBannerPatternRecipe(exporter, Items.GOLD_NUGGET, ResourceItemsME.DWARF_CROWN_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.SPIDER_EYE, ResourceItemsME.SPIDER_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.BOW, ResourceItemsME.BOW_BANNER_PATTERN);
+                createBannerPatternRecipe(exporter, Items.OAK_LEAVES, ResourceItemsME.OAK_LEAF_BANNER_PATTERN);
 
                 createBrickRecipe(exporter, ModBlocks.POINTED_DOLOMITE.asItem(), StoneBlockSets.DOLOMITE_SET.baseBlocks.base(), 1);
                 createBrickRecipe(exporter, ModBlocks.POINTED_GALONN.asItem(), StoneBlockSets.GALONN_SET.baseBlocks.base(), 1);

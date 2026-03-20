@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.Er
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.dwarves.EreborWingsHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.EgladilSentinelHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.LorienHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.*;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleFeatherHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.dale.DaleSpikeFurHelmetModel;
@@ -94,6 +95,15 @@ public class ArmorModelsME {
         EGLADIL_SENTINEL_HELMET(EquipmentItemsME.EGLADIL_SENTINEL_HELMET, new EgladilSentinelHelmetModel(EgladilSentinelHelmetModel.getTexturedModelData().createModel())),
         EGLADIL_COMMANDER_HELMET(EquipmentItemsME.EGLADIL_COMMANDER_HELMET, new EgladilSentinelHelmetModel(EgladilSentinelHelmetModel.getTexturedModelData().createModel())),
         GALADHRIM_LORD_HELMET(EquipmentItemsME.GALADHRIM_LORD_HELMET, new LorienHelmetModel(LorienHelmetModel.getTexturedModelData().createModel())),
+
+        WOODLAND_REALM_BRONZE_TRIMMED_RANGER(EquipmentItemsME.WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET, new WoodlandRealmRangerHelmetModel(WoodlandRealmRangerHelmetModel.getTexturedModelData().createModel())),
+        WOODLAND_REALM_SILVER_TRIMMED_RANGER(EquipmentItemsME.WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET, new WoodlandRealmRangerHelmetModel(WoodlandRealmRangerHelmetModel.getTexturedModelData().createModel())),
+        WOODLAND_REALM_SOLDIER(EquipmentItemsME.WOODLAND_REALM_SOLDIER_HELMET, new WoodlandRealmSoldierHelmetModel(WoodlandRealmSoldierHelmetModel.getTexturedModelData().createModel())),
+        WOODLAND_REALM_CAVALRY_HELMET(EquipmentItemsME.WOODLAND_REALM_CAVALRY_HELMET, new WoodlandRealmRoyalGuardHelmetModel(WoodlandRealmRoyalGuardHelmetModel.getTexturedModelData().createModel())),
+        WOODLAND_REALM_ROYAL_GUARD(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET, new WoodlandRealmRoyalGuardHelmetModel(WoodlandRealmRoyalGuardHelmetModel.getTexturedModelData().createModel())),
+        WARDEN_OF_THE_GLADE(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, new WardenGladeHelmetModel(WardenGladeHelmetModel.getTexturedModelData().createModel())),
+        WARRIOR_OF_THE_NIGHTSHADE(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET, new WarriorOfTheNightshadeHelmetModel(WarriorOfTheNightshadeHelmetModel.getTexturedModelData().createModel())),
+        WOODLAND_REALM_COMMANDER_HELMET(EquipmentItemsME.WOODLAND_REALM_COMMANDER_HELMET, new WoodlandRealmCommanderHelmetModel(WoodlandRealmCommanderHelmetModel.getTexturedModelData().createModel())),
 
         ORCISH_BRACED_HELMET(EquipmentItemsME.ORCISH_BRACED_HELMET, new OrcSpikeHelmetModel(OrcSpikeHelmetModel.getTexturedModelData().createModel())),
         ORCISH_SALLET(EquipmentItemsME.ORCISH_SALLET, new SalletHelmetModel(SalletHelmetModel.getTexturedModelData().createModel())),
@@ -263,6 +273,12 @@ public class ArmorModelsME {
         CLOAK(BackAttachmentsME.CLOAK, BackAttachmentModelsME.WIDE_MODELS),
         WANDERER_ROBES(BackAttachmentsME.WANDERER_ROBES, BackAttachmentModelsME.SURCOAT_MODELS),
 
+        LEAF_CAPE(BackAttachmentsME.LEAF_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        LEAF_LITTER_CAPE(BackAttachmentsME.LEAF_LITTER_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        MIRK_LEAF_CAPE(BackAttachmentsME.MIRK_LEAF_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        MIRK_BARK_CAPE(BackAttachmentsME.MIRK_BARK_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        AUTUMN_LEAF_CAPE(BackAttachmentsME.AUTUMN_LEAF_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+
         BLACK_FUR_CLOAK(BackAttachmentsME.BLACK_FUR_CLOAK, BackAttachmentModelsME.FUR_MODELS),
         BROWN_FUR_CLOAK(BackAttachmentsME.BROWN_FUR_CLOAK, BackAttachmentModelsME.FUR_MODELS),
         GRAY_FUR_CLOAK(BackAttachmentsME.GRAY_FUR_CLOAK, BackAttachmentModelsME.FUR_MODELS),
@@ -298,6 +314,15 @@ public class ArmorModelsME {
         EGLADIL_SENTINEL_CAPE(BackAttachmentsME.EGLADIL_SENTINEL_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         GALADHRIM_LORD_SURCOAT(BackAttachmentsME.GALADHRIM_LORD_SURCOAT, BackAttachmentModelsME.SURCOAT_MODELS),
         GALADHRIM_LORD_CLOAK(BackAttachmentsME.GALADHRIM_LORD_CLOAK, BackAttachmentModelsME.WIDE_PAULDRON_MODELS),
+
+        SILVAN_LORD_CAPE(BackAttachmentsME.SILVAN_LORD_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        WARDEN_OF_THE_GLADE_CAPE(BackAttachmentsME.WARDEN_OF_THE_GLADE_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        WARRIOR_OF_NIGHTSHADE_CAPE(BackAttachmentsME.WARRIOR_OF_NIGHTSHADE_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        LORD_OF_THE_GREENWOOD_CAPE(BackAttachmentsME.LORD_OF_THE_GREENWOOD_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+        WOODLAND_REALM_ROYAL_GUARD_CAPE(BackAttachmentsME.WOODLAND_REALM_ROYAL_GUARD_CAPE, BackAttachmentModelsME.WIDE_PAULDRON_MODELS),
+        WOODLAND_REALM_SOLDIER_CAPE(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
+
+        MANTLE_OF_YAVANNA(BackAttachmentsME.MANTLE_OF_YAVANNA, BackAttachmentModelsME.MEDIUM_MODELS),
 
         ORCISH_CAPE(BackAttachmentsME.ORCISH_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         ORCISH_LONG_CAPE(BackAttachmentsME.ORCISH_LONG_CAPE, BackAttachmentModelsME.MEDIUM_MODELS),

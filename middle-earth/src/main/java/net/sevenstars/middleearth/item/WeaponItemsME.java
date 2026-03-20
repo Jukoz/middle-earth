@@ -438,6 +438,89 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
     //endregion
 
+    //region WOODLAND_REALM
+    public static final Item WOODLAND_REALM_SWORD = registerItemWithModel("woodland_realm_sword",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_LONGSWORD = registerItemWithModel("woodland_realm_longsword",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_AXE = registerItemWithModel("woodland_realm_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_SPEAR = registerItemWithSpearModel("woodland_realm_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_BOW = registerBigBowItem("woodland_realm_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_LONGBOW = registerBigBowItem("woodland_realm_longbow",
+            (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+
+    public static final Item WOODLAND_REALM_NOBLE_SWORD = registerItemWithModel("woodland_realm_noble_sword",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_NOBLE_LONGSWORD = registerItemWithModel("woodland_realm_noble_longsword",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_NOBLE_DAGGER = registerItemWithModel("woodland_realm_noble_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), false);
+    public static final Item WOODLAND_REALM_NOBLE_AXE = registerItemWithModel("woodland_realm_noble_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+    public static final Item WOODLAND_REALM_NOBLE_SPEAR = registerItemWithSpearModel("woodland_realm_noble_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_NOBLE_BOW = registerBigBowItem("woodland_realm_noble_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_NOBLE_LONGBOW = registerBigBowItem("woodland_realm_noble_longbow",
+            (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+
+    public static final Item WOODLAND_REALM_BUCKLER_SHIELD = registerShield("woodland_realm_buckler_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_SCOUT_SHIELD = registerShield("woodland_realm_scout_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_SCOUT_BRONZE_SHIELD = registerShield("woodland_realm_scout_bronze_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_HEAVY_SHIELD = registerShield("woodland_realm_heavy_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_HEAVY_GREEN_SHIELD = registerShield("woodland_realm_heavy_green_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_HEAVY_BLUE_SHIELD = registerShield("woodland_realm_heavy_blue_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD = registerShield("woodland_realm_heavy_ornamented_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD = registerShield("woodland_realm_heavy_ornamented_green_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_GLADE_SHIELD = registerShield("woodland_realm_glade_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_NIGHTSHADE_SHIELD = registerShield("woodland_realm_nightshade_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item WOODLAND_REALM_NIGHTSHADE_ORNAMENTED_SHIELD = registerShield("woodland_realm_nightshade_ornamented_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item ERYN_GALEN_SHIELD = registerShield("eryn_galen_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    public static final Item ERYN_GALEN_TARNISHED_SHIELD = registerShield("eryn_galen_tarnished_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+    //endregion
+
     //region EREBOR
     public static final Item EREBOR_SWORD = registerItemWithModel("erebor_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
