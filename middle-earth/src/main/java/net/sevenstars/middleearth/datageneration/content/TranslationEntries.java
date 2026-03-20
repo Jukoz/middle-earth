@@ -260,6 +260,9 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".bell_banner_pattern.desc", "Bell Icons");
             put("item."+ MiddleEarth.MOD_ID +".bow_banner_pattern.desc", "Bow Icons");
             put("item."+ MiddleEarth.MOD_ID +".dwarf_crown_banner_pattern.desc", "Dwarf Crown Icons");
+            put("item."+ MiddleEarth.MOD_ID +".great_horn_pattern.desc", "Elk and Stag");
+            put("item."+ MiddleEarth.MOD_ID +".oak_leaf.desc", "Oak Leaf");
+            put("item."+ MiddleEarth.MOD_ID +".antlers.desc", "Lost Antlers");
             put("item."+ MiddleEarth.MOD_ID +".dragon_banner_pattern.desc", "A great Dragon");
             put("item."+ MiddleEarth.MOD_ID +".pipeweed_banner_pattern.desc", "A delicacy from the shire");
             put("item."+ MiddleEarth.MOD_ID +".snail_banner_pattern.desc", "The Slimy Overlord");
@@ -383,6 +386,8 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".temp_3", "Very Hot");
             put("tooltip."+ MiddleEarth.MOD_ID +".temp_4", "Searing Hot");
             put("tooltip."+ MiddleEarth.MOD_ID +".temp_5", "Blazing Hot");
+
+            put("tooltip."+ MiddleEarth.MOD_ID +".biome", "Biome");
 
             //TODO try to automate
             put("trim_pattern."+ MiddleEarth.MOD_ID +".smithing_part", "Smithing Part");

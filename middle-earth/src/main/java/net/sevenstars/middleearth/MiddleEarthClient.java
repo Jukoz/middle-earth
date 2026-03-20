@@ -24,6 +24,9 @@ import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.backAttachments.armored.CapeMediumModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.ErynGalenWatchwardenHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.SilvanLordHelmetModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.WoodlandRealmCrownModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.armored.HoodModel;
 import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
@@ -168,6 +171,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         for(ArmorModelsME.ModHelmetModels model : ArmorModelsME.ModHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
         }
+        ArmorRenderer.register(new HelmetVariantsRenderer(new SilvanLordHelmetModel(SilvanLordHelmetModel.getTexturedModelData().createModel())), EquipmentItemsME.SILVAN_LORD_HELMET);
+        ArmorRenderer.register(new HelmetVariantsRenderer(new ErynGalenWatchwardenHelmetModel(ErynGalenWatchwardenHelmetModel.getTexturedModelData().createModel())), EquipmentItemsME.ERYN_GALEN_WATCHWARDEN_HELMET);
+        ArmorRenderer.register(new HelmetVariantsRenderer(new ErynGalenWatchwardenHelmetModel(ErynGalenWatchwardenHelmetModel.getTexturedModelData().createModel())), EquipmentItemsME.OXIDISED_ERYN_GALEN_WATCHWARDEN_HELMET);
+        ArmorRenderer.register(new WoodlandCrownRenderer(new WoodlandRealmCrownModel(WoodlandRealmCrownModel.getTexturedModelData().createModel())), EquipmentItemsME.WOODLAND_REALM_CROWN);
 
         for(ArmorModelsME.ModChestplateModels model : ArmorModelsME.ModChestplateModels.values()){
             ArmorRenderer.register(new ChestplateArmorRenderer(model.getModel()), model.getItem());
