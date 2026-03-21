@@ -45,6 +45,7 @@ import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
@@ -620,7 +621,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.ATTACK_DAMAGE, 2.0);
+                .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
+                .add(ModEntityAttributes.WIDTH_SCALE, 1.0);
     }
 
     @Nullable
@@ -641,5 +643,14 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public void releaseTicketFor(MemoryModuleType<GlobalPos> destination) {
         this.releaseTicketFor(MemoryModuleType.HOME);
+    }
+
+    public float getWidthScale() {
+        try{
+            return (float) this.getAttributeValue(ModEntityAttributes.WIDTH_SCALE);
+        }
+        catch (Exception ignored){
+            return 1.0f;
+        }
     }
 }

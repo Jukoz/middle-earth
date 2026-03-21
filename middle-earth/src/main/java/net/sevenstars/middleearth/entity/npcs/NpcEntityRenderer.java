@@ -82,6 +82,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.leftArmPose = getArmPose(npcEntity, npcEntity.getStackInHand(Hand.OFF_HAND), Hand.OFF_HAND);
         npcEntityRenderState.rightArmPose = getArmPose(npcEntity, npcEntity.getStackInHand(Hand.MAIN_HAND), Hand.MAIN_HAND);
 
+        npcEntityRenderState.widthScale = npcEntity.getWidthScale();
+
         npcEntityRenderState.skinId = npcTextureData.getBodyTexture();
         npcEntityRenderState.headId = npcTextureData.getHeadTexture();
         npcEntityRenderState.earId = npcTextureData.getEarTexture();
@@ -150,9 +152,11 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         }
 
         float g = state.baseScale;
-        matrices.scale(g, g, g);
+        float widthScale = state.widthScale;
+
+        matrices.scale(g * widthScale, g, g * widthScale);
         this.setupTransforms(state, matrices, state.bodyYaw, g);
-        matrices.scale(-1.0f, -1.0f, 1.0f);
+        matrices.scale(-widthScale, -1.0f, widthScale);
         this.scale(state, matrices);
         matrices.translate(0.0f, -1.501f, 0.0f);
         this.model.setAngles(state);

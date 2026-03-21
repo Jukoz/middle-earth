@@ -82,17 +82,21 @@ public class Race {
     public Identifier getId() {
         return id;
     }
+
     private String getIdValue() {
         return this.id.toString();
     }
+
     private String getRaceTypeValue() {
         return raceType.toString().toUpperCase();
     }
+
     private NbtCompound getPlayerAttributePool() {
         if(playerAttributePool == null)
             return null;
         return playerAttributePool.getNbt();
     }
+
     private NbtCompound getNpcAttributePool() {
         if(npcAttributePools == null)
             return null;
@@ -108,6 +112,7 @@ public class Race {
             return Optional.empty();
         return Optional.of(this.joinCommands);
     }
+    
     public Optional<List<String>> getLeaveCommands() {
         if(this.leaveCommands == null)
             return Optional.empty();
@@ -118,23 +123,10 @@ public class Race {
         return Text.translatable(translatableKey);
     }
 
-    public LivingEntity getModel(World world) {
-        NpcEntity entity = switch (raceType) {
-            case RaceType.HUMAN -> new NpcEntity(EntitiesME.NPC, world);
-            case RaceType.DWARF -> new NpcEntity(EntitiesME.NPC, world);
-            case RaceType.HOBBIT -> new NpcEntity(EntitiesME.NPC, world);
-            case RaceType.ELF -> new NpcEntity(EntitiesME.NPC, world);
-            case RaceType.ORC -> new NpcEntity(EntitiesME.NPC, world);
-            case RaceType.URUK -> new NpcEntity(EntitiesME.NPC, world);
-            default -> new NpcEntity(EntitiesME.NPC, world);
-        };
-        entity.setAiDisabled(true);
-        return entity;
-    }
-
     public void applyPlayerAttributes(PlayerEntity playerEntity){
         playerAttributePool.apply(playerEntity);
     }
+
     public void reverseAttributes(PlayerEntity playerEntity){
         AttributePool.reverse(playerEntity);
     }

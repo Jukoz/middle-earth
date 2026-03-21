@@ -4,6 +4,8 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.util.Identifier;
 
 public class NpcEntityRenderState extends BipedEntityRenderState {
+    public float widthScale;
+
     public Identifier skinId;
     public Identifier headId;
     public Identifier earId;
@@ -28,6 +30,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public boolean canShowHair;
 
     public NpcEntityRenderState() {
+        this.widthScale = 1.0f;
         this.skinId = null;
         this.headId = null;
         this.earId = null;

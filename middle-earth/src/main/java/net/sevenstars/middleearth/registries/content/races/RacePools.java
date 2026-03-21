@@ -43,9 +43,11 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
                     .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)));
                 put(EntityCategory.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75, 0.81)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75, 0.81))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1.05, 1.1)));
                 put(EntityCategory.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71, 0.78)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71, 0.78))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1, 1.03)));
             }},
             List.of(), List.of());
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
@@ -65,9 +67,11 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75)));
                 put(EntityCategory.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.02, 1.06)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.02, 1.06))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.93, 0.97)));
                 put(EntityCategory.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.00, 1.03)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.00, 1.03))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.91, 0.94)));
             }},
             List.of(), List.of());
 
@@ -89,9 +93,11 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90)));
                 put(EntityCategory.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.58, 0.62)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.58, 0.62))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
                 put(EntityCategory.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.55, 0.58)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.55, 0.58))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
             }},
 
             List.of(), List.of());
@@ -102,9 +108,11 @@ public class RacePools {
                 put(EntityCategory.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
                 put(EntityCategory.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
                 put(EntityCategory.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98))
+                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
