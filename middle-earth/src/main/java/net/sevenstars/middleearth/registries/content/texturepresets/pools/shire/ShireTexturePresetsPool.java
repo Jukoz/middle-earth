@@ -43,6 +43,9 @@ public class ShireTexturePresetsPool {
                         CharacterPatternsME.Skins.Ear.SQUARE,
                         CharacterPatternsME.Skins.Ear.NORMAL
                 ))
+                .withPatterns(NpcTextureType.FEET, List.of(
+                        CharacterPatternsME.Skins.Feet.NORMAL
+                ))
                 .withPatterns(NpcTextureType.EYE, List.of(
                         CharacterPatternsME.Eyes.Eye.COMMON
                 ))
@@ -70,6 +73,9 @@ public class ShireTexturePresetsPool {
         MALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.MALE
+                ))
+                .withPatterns(NpcTextureType.FEET, List.of(
+                        CharacterPatternsME.Skins.Feet.NORMAL
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
                         CharacterPatternsME.Skins.Body.FAT,
@@ -109,6 +115,9 @@ public class ShireTexturePresetsPool {
         FEMALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
                         CharacterPatternsME.Skins.Head.FEMALE
+                ))
+                .withPatterns(NpcTextureType.FEET, List.of(
+                        CharacterPatternsME.Skins.Feet.NORMAL
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
                         CharacterPatternsME.Skins.Body.FEMALE

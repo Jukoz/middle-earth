@@ -5,6 +5,7 @@ public enum NpcTextureType {
     BODY,
     HEAD,
     SCAR,
+    FEET,
     EAR,
     NOSE,
     EYE,

@@ -81,7 +81,7 @@ public class TexturePresets {
             return null;
         Random random = new Random();
         int materialIndex = random.nextInt(materials.size());
-        return Identifier.of(MiddleEarth.MOD_ID, materials.get(materialIndex));
+        return IdentifierUtil.build(materials.get(materialIndex));
     }
 
     public static Identifier getRawPattern(Identity identity, NpcTextureType npcTextureType) {
@@ -92,7 +92,7 @@ public class TexturePresets {
         String value = patterns.get(random.nextInt(patterns.size()));
         if(value.equals(TexturePresetData.EMPTY_VALUE_KEY))
             return null;
-        return Identifier.of(MiddleEarth.MOD_ID, value);
+        return IdentifierUtil.build(value);
     }
 
     public Boolean haveEmissiveEyes(Identity identity) {
@@ -151,6 +151,7 @@ public class TexturePresets {
                         preset.withPatternValues(NpcTextureType.EAR, shared.getPatterns(NpcTextureType.EAR));
                         preset.withPatternValues(NpcTextureType.NOSE, shared.getPatterns(NpcTextureType.NOSE));
                         preset.withPatternValues(NpcTextureType.SCAR, shared.getPatterns(NpcTextureType.SCAR));
+                        preset.withPatternValues(NpcTextureType.FEET, shared.getPatterns(NpcTextureType.FEET));
 
                         preset.withMaterialValues(NpcTextureType.HAIR, shared.getMaterials(NpcTextureType.HAIR));
                         preset.withPatternValues(NpcTextureType.HAIR, shared.getPatterns(NpcTextureType.HAIR));

@@ -31,6 +31,10 @@ public class CharacterPatternsME {
             public final static RegistryKey<NpcTexturePattern> SLIM                         = of("body_slim",  NpcTextureType.BODY);
         }
 
+        public record Feet(){
+            public final static RegistryKey<NpcTexturePattern> NORMAL                       = of("feet_normal", NpcTextureType.FEET);
+        }
+
         public record Head(){
             ///  Eyes Level : 4 <br> Type : Normal
             public final static RegistryKey<NpcTexturePattern> FEMALE                       = of("head_female", NpcTextureType.HEAD);
@@ -252,7 +256,7 @@ public class CharacterPatternsME {
 
     public static RegistryKey<Registry<NpcTexturePattern>> getKey(NpcTextureType category){
         return switch (category) {
-            case NpcTextureType.SKIN, NpcTextureType.BODY, NpcTextureType.HEAD, NpcTextureType.SCAR, NpcTextureType.EAR, NpcTextureType.NOSE -> DynamicRegistriesME.SKIN_PATTERN;
+            case NpcTextureType.SKIN, NpcTextureType.BODY, NpcTextureType.FEET, NpcTextureType.HEAD, NpcTextureType.SCAR, NpcTextureType.EAR, NpcTextureType.NOSE -> DynamicRegistriesME.SKIN_PATTERN;
             case NpcTextureType.EYE -> DynamicRegistriesME.EYE_PATTERN;
             case NpcTextureType.HAIR, NpcTextureType.EYEBROW, NpcTextureType.BEARD -> DynamicRegistriesME.HAIR_PATTERN;
             case CLOTHE_PRESETS -> null;

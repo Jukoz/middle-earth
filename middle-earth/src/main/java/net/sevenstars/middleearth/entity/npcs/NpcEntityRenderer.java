@@ -28,6 +28,7 @@ import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.features.feet.FeetFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseFeatureRenderer;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
@@ -53,6 +54,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.addFeature(new HairFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new EarFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new NoseFeatureRenderer(this, context.getEntityModels()));
+        this.addFeature(new FeetFeatureRenderer(this, context.getEntityModels()));
 
         skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
         eyeAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE);
@@ -85,6 +87,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.widthScale = npcEntity.getWidthScale();
 
         npcEntityRenderState.skinId = npcTextureData.getBodyTexture();
+        npcEntityRenderState.feetId = npcTextureData.getFeetTexture();
         npcEntityRenderState.headId = npcTextureData.getHeadTexture();
         npcEntityRenderState.earId = npcTextureData.getEarTexture();
         npcEntityRenderState.noseId = npcTextureData.getNoseTexture();
@@ -117,6 +120,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             npcEntityRenderState.canShowBeard = !currentHelmet.isIn(ItemTagsME.CHARACTER_HELMET_HIDE_BEARD);
             npcEntityRenderState.canShowHair = !currentHelmet.isIn(ItemTagsME.CHARACTER_HELMET_HIDE_HAIR) && hasHoodDown;
         }
+        ItemStack currentShoes = npcEntity.getEquippedStack(EquipmentSlot.FEET);
+        npcEntityRenderState.canShowFeet = currentShoes == null || currentShoes.isEmpty();
     }
     // endregion
 
@@ -174,54 +179,47 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if(!state.blinking){
             renderTexture(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(false),
                 AtlasesME.prefixAtlas(state.eyesId, AtlasesME.CHARACTER_EYES), light, overlay);
-            if(state.haveEmissiveEyes){
+            if(state.haveEmissiveEyes)
                 renderTexture(matrices, vertexConsumers, eyeAtlasTexture, ModTexturedRenderLayers.getCharacterEyesTexturesRenderLayer(true),
                     AtlasesME.prefixAtlas(state.eyesEmissiveId, AtlasesME.CHARACTER_EYES), light, overlay);
-            }
         }
 
         // Optionally shown, only if the value is present
-        if(state.eyebrowId != null){
+        if(state.eyebrowId != null)
             renderTexture(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
                 AtlasesME.prefixAtlas(state.eyebrowId, AtlasesME.CHARACTER_HAIRS), light, overlay);
-        }
 
-        if(state.scarId != null){
+        if(state.scarId != null)
             renderTexture(matrices, vertexConsumers, skinAtlasTexture, ModTexturedRenderLayers.getCharacterSkinsRenderLayer(),
                     AtlasesME.prefixAtlas(state.scarId, AtlasesME.CHARACTER_SKINS), light, overlay);
-        }
-        if(state.beardId != null){
+
+        if(state.beardId != null)
             renderTexture(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
                 AtlasesME.prefixAtlas(state.beardId, AtlasesME.CHARACTER_HAIRS), light, overlay);
-        }
-        if(state.hairId != null){
+
+        if(state.hairId != null)
             renderTexture(matrices, vertexConsumers, hairAtlasTexture, ModTexturedRenderLayers.getCharacterHairsRenderLayer(),
                 AtlasesME.prefixAtlas(state.hairId, AtlasesME.CHARACTER_HAIRS), light, overlay);
-        }
 
-        if(state.clothingBase != null){
+        if(state.clothingBase != null)
             renderTexture(matrices, vertexConsumers, clothesAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(), state.clothingBase, light, overlay);
-        }
 
-        if(state.clothingOver != null){
+        if(state.clothingOver != null)
             renderTexture(matrices, vertexConsumers, clothesAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(), state.clothingOver, light, overlay);
-        }
 
-        if(state.clothingExtra != null){
+        if(state.clothingExtra != null)
             renderTexture(matrices, vertexConsumers, clothesAtlasTexture, ModTexturedRenderLayers.getCharacterClothingsRenderLayer(), state.clothingExtra, light, overlay);
-        }
 
         if (this.shouldRenderFeatures(state)) {
             for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
-                if (feature instanceof EarFeatureRenderer) {
+                if (feature instanceof EarFeatureRenderer)
                     if (state.earId == null) continue;
-                }
-                if (feature instanceof NoseFeatureRenderer) {
+                if (feature instanceof NoseFeatureRenderer)
                     if (state.noseId == null) continue;
-                }
-                if (feature instanceof HairFeatureRenderer) {
+                if (feature instanceof HairFeatureRenderer)
                     if (state.hairAddonId == null && state.beardAddonId == null) continue;
-                }
+                if(feature instanceof FeetFeatureRenderer)
+                    if(state.feetId == null) continue;
                 feature.render(matrices, vertexConsumers, light, state, state.relativeHeadYaw, state.pitch);
             }
         }

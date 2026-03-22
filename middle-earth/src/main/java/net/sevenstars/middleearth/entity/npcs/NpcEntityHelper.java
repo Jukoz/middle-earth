@@ -17,6 +17,7 @@ public class NpcEntityHelper {
         Identifier materialId = TexturePresets.getRawMaterial(textureIdentity, NpcTextureType.SKIN);
         Identifier bodyPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.BODY);
         Identifier headPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.HEAD);
+        Identifier feetPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.FEET);
         Identifier earPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.EAR);
         Identifier nosePatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.NOSE);
         Identifier scarPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.SCAR);
@@ -32,6 +33,9 @@ public class NpcEntityHelper {
         }
         if(nosePatternId != null){
             npcTextureData = npcTextureData.withNoseTexture(TexturePresets.buildId(nosePatternId, materialId));
+        }
+        if(feetPatternId != null){
+            npcTextureData = npcTextureData.withFeetTexture(TexturePresets.buildId(feetPatternId, materialId));
         }
 
         return npcTextureData;

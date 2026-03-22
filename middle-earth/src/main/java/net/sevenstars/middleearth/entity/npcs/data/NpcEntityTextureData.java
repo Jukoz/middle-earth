@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class NpcEntityTextureData {
     private Identifier bodyTexture;
+    private Identifier feetTexture;
     private Identifier headTexture;
     private Identifier earTexture;
     private Identifier noseTexture;
@@ -39,6 +40,8 @@ public class NpcEntityTextureData {
             this.bodyTexture = Identifier.of(compound.getString("body").get());
         if(compound.contains("head"))
             this.headTexture = Identifier.of(compound.getString("head").get());
+        if(compound.contains("feet"))
+            this.feetTexture = Identifier.of(compound.getString("feet").get());
 
         if(compound.contains("ear"))
             this.earTexture = Identifier.of(compound.getString("ear").get());
@@ -93,6 +96,10 @@ public class NpcEntityTextureData {
     }
     public NpcEntityTextureData withHeadTexture(Identifier texture){
         this.headTexture = texture;
+        return this;
+    }
+    public NpcEntityTextureData withFeetTexture(Identifier texture){
+        this.feetTexture = texture;
         return this;
     }
     public NpcEntityTextureData withScarTexture(Identifier texture){
@@ -160,6 +167,8 @@ public class NpcEntityTextureData {
             nbt.putString("ear", earTexture.toString());
         if(noseTexture != null)
             nbt.putString("nose", noseTexture.toString());
+        if(feetTexture != null)
+            nbt.putString("feet", feetTexture.toString());
 
         if(eyeTexture != null)
             nbt.putString("eye", eyeTexture.toString());
@@ -196,6 +205,9 @@ public class NpcEntityTextureData {
 
     public Identifier getBodyTexture() {
         return this.bodyTexture;
+    }
+    public Identifier getFeetTexture() {
+        return this.feetTexture;
     }
     public Identifier getHeadTexture() {
         return this.headTexture;
