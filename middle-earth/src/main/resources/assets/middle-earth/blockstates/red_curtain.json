@@ -5,9 +5,20 @@
         "model": "middle-earth:block/red_curtain"
       },
       "when": {
-        "north": "true"
+        "north": "true",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end"
+      },
+      "when": {
+        "north": "true",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain"
@@ -16,9 +27,23 @@
         "east": "false",
         "north": "false",
         "south": "false",
-        "west": "false"
+        "west": "false",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end"
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -26,9 +51,22 @@
         "y": 90
       },
       "when": {
-        "east": "true"
+        "east": "true",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -39,9 +77,25 @@
         "east": "false",
         "north": "false",
         "south": "false",
-        "west": "false"
+        "west": "false",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -49,9 +103,22 @@
         "y": 180
       },
       "when": {
-        "south": "true"
+        "south": "true",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "true",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -65,6 +132,7 @@
         "west": "false"
       }
     },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -72,9 +140,22 @@
         "y": 270
       },
       "when": {
-        "west": "true"
+        "west": "true",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "true",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -85,9 +166,25 @@
         "east": "false",
         "north": "false",
         "south": "false",
-        "west": "false"
+        "west": "false",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -98,9 +195,25 @@
         "east": "false",
         "north": "false",
         "south": "false",
-        "west": "false"
+        "west": "false",
+        "tip": "false"
       }
     },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false",
+        "tip": "true"
+      }
+    },
+
     {
       "apply": {
         "model": "middle-earth:block/red_curtain",
@@ -111,7 +224,22 @@
         "east": "false",
         "north": "false",
         "south": "false",
-        "west": "false"
+        "west": "false",
+        "tip": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "middle-earth:block/red_curtain_end",
+        "uvlock": true,
+        "x": 90
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false",
+        "tip": "true"
       }
     }
   ]

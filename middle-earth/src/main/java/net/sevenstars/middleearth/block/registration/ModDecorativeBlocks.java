@@ -10,7 +10,6 @@ import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
 import net.sevenstars.middleearth.block.special.curtains.SmallCurtainsBlock;
-import net.sevenstars.middleearth.block.special.curtains.TallCurtainsBlock;
 import net.sevenstars.middleearth.block.special.doors.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancBlock;
