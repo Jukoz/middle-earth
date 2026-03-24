@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.tags;
 
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.minecraft.block.Block;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +60,7 @@ public class Wool {
         add(ModBlocks.GREEN_WOOL_STAIRS);
         add(ModBlocks.RED_WOOL_STAIRS);
         add(ModBlocks.BLACK_WOOL_STAIRS);
+
+        add(ModDecorativeBlocks.SMALL_RED_CURTAIN);
     }};
 }

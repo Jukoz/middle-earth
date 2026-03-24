@@ -80,6 +80,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GREEN_CUSHION);
             add(ModDecorativeBlocks.RED_CUSHION);
 
+            add(ModDecorativeBlocks.SMALL_RED_CURTAIN);
+
             add(ModNatureBlocks.BROWN_BOLETE);
             add(ModNatureBlocks.CAVE_AMANITA);
             add(ModNatureBlocks.DEEP_FIRECAP);

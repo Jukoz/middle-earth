@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -153,6 +154,8 @@ public class SimpleItemModel {
             add(ResourceItemsME.PEBBLE);
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
+
+            add(ModDecorativeBlocks.SMALL_RED_CURTAIN.asItem());
 
             add(DecorativeItemsME.BLUE_HOBBIT_DOOR.asItem());
             add(DecorativeItemsME.GREEN_HOBBIT_DOOR.asItem());

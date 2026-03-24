@@ -1188,6 +1188,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createCushionRecipe(exporter, Blocks.RED_WOOL, ModDecorativeBlocks.RED_CUSHION);
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.RED_CUSHION, Items.GRAY_DYE, ModDecorativeBlocks.DARK_RED_CUSHION);
 
+                createSmallCurtainRecipe(exporter, Blocks.RED_WOOL, ModDecorativeBlocks.SMALL_RED_CURTAIN);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROPE_LADDER, 3)
                         .pattern("R R")
                         .pattern("RSR")
@@ -2673,6 +2675,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("PP")
                         .input('W', woolBlock)
                         .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .criterion(hasItem(woolBlock),
+                                conditionsFromItem(woolBlock))
+                        .offerTo(exporter);
+            }
+
+            private void createSmallCurtainRecipe(RecipeExporter exporter, Block woolBlock, Block output) {
+                ShapedRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 2)
+                        .pattern("SSS")
+                        .pattern("W W")
+                        .input('W', woolBlock)
+                        .input('S', Items.STICK)
                         .criterion(hasItem(woolBlock),
                                 conditionsFromItem(woolBlock))
                         .offerTo(exporter);
