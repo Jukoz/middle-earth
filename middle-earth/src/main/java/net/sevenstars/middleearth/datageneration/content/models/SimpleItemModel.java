@@ -157,6 +157,8 @@ public class SimpleItemModel {
 
             add(ModDecorativeBlocks.SMALL_RED_CURTAIN.asItem());
 
+            add(ModDecorativeBlocks.RED_CURTAIN.asItem());
+
             add(DecorativeItemsME.BLUE_HOBBIT_DOOR.asItem());
             add(DecorativeItemsME.GREEN_HOBBIT_DOOR.asItem());
             add(DecorativeItemsME.LIGHT_BLUE_HOBBIT_DOOR.asItem());

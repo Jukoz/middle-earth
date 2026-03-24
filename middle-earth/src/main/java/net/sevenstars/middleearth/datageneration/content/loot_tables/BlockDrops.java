@@ -82,6 +82,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.SMALL_RED_CURTAIN);
 
+            add(ModDecorativeBlocks.RED_CURTAIN);
+
             add(ModNatureBlocks.BROWN_BOLETE);
             add(ModNatureBlocks.CAVE_AMANITA);
             add(ModNatureBlocks.DEEP_FIRECAP);

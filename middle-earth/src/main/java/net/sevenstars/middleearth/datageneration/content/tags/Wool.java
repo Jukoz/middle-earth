@@ -62,5 +62,7 @@ public class Wool {
         add(ModBlocks.BLACK_WOOL_STAIRS);
 
         add(ModDecorativeBlocks.SMALL_RED_CURTAIN);
+
+        add(ModDecorativeBlocks.RED_CURTAIN);
     }};
 }

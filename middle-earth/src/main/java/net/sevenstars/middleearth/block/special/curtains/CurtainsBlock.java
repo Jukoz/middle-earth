@@ -43,27 +43,14 @@ public class CurtainsBlock extends MultifaceBlock {
 
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        boolean bl = false;
-        Direction[] var5 = DIRECTIONS;
-        int var6 = var5.length;
-
-        for(int var7 = 0; var7 < var6; ++var7) {
-            Direction direction = var5[var7];
-            if (hasDirection(state, direction)) {
-                if (!canGrowOn(world, pos, direction)) {
-                    return false;
-                }
-
-                bl = true;
-            }
-        }
-
-        return bl;
+        return true;
     }
 
     @Override
     protected boolean canReplace(BlockState state, ItemPlacementContext context) {
-        return !context.getStack().isOf(this.asItem()) || isNotFullBlock(state);
+        boolean sneaking = false;
+        if(context.getPlayer() != null) sneaking = context.getPlayer().isSneaking();
+        return isNotFullBlock(state) && !sneaking && context.getStack().isOf(this.asItem());
     }
 
     @Override
