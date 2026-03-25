@@ -1197,6 +1197,9 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.BROWN_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.DARK_BROWN_CURTAIN);
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.GREEN_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.DARK_GREEN_CURTAIN);
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.RED_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.DARK_RED_CURTAIN);
+                createFancyCurtainRecipe(exporter, Blocks.BLUE_WOOL, ModDecorativeBlocks.FANCY_BLUE_CURTAIN);
+                createFancyCurtainRecipe(exporter, Blocks.GREEN_WOOL, ModDecorativeBlocks.FANCY_GREEN_CURTAIN);
+                createFancyCurtainRecipe(exporter, Blocks.RED_WOOL, ModDecorativeBlocks.FANCY_RED_CURTAIN);
                 createCurtainRecipe(exporter, Blocks.GRAY_WOOL, ModDecorativeBlocks.GRAY_CURTAIN);
                 createCurtainRecipe(exporter, Blocks.GREEN_WOOL, ModDecorativeBlocks.GREEN_CURTAIN);
                 createCurtainRecipe(exporter, Blocks.PURPLE_WOOL, ModDecorativeBlocks.PURPLE_CURTAIN);
@@ -2711,6 +2714,18 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("W W")
                         .pattern("W W")
                         .input('W', woolBlock)
+                        .input('S', Items.STICK)
+                        .criterion(hasItem(woolBlock),
+                                conditionsFromItem(woolBlock))
+                        .offerTo(exporter);
+            }
+            private void createFancyCurtainRecipe(RecipeExporter exporter, Block woolBlock, Block output) {
+                ShapedRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 4)
+                        .pattern("SGS")
+                        .pattern("W W")
+                        .pattern("W W")
+                        .input('W', woolBlock)
+                        .input('G', Items.GOLD_NUGGET)
                         .input('S', Items.STICK)
                         .criterion(hasItem(woolBlock),
                                 conditionsFromItem(woolBlock))

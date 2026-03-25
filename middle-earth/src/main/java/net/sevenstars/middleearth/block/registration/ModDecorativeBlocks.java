@@ -319,6 +319,12 @@ public class ModDecorativeBlocks {
             CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block DARK_RED_CURTAIN = registerBlockWithItem("dark_red_curtain",
             CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block FANCY_BLUE_CURTAIN = registerBlockWithItem("fancy_blue_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block FANCY_GREEN_CURTAIN = registerBlockWithItem("fancy_green_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block FANCY_RED_CURTAIN = registerBlockWithItem("fancy_red_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block GRAY_CURTAIN = registerBlockWithItem("gray_curtain",
             CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block GREEN_CURTAIN = registerBlockWithItem("green_curtain",

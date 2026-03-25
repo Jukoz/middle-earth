@@ -17,7 +17,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -50,7 +50,8 @@ public class CurtainsBlock extends MultifaceBlock {
         BlockState returnState = (BlockState) Arrays.stream(ctx.getPlacementDirections()).map((direction) -> {
             return this.withDirection(blockState, world, blockPos, direction);
         }).filter(Objects::nonNull).findFirst().orElse((BlockState) null);
-        if(returnState != null) returnState = returnState.with(TIP, !world.getBlockState(blockPos.down()).isOf(this));
+        if(returnState != null) returnState = returnState.with(TIP,
+                !world.getBlockState(blockPos.down()).isIn(BlockTagsME.CURTAINS));
         return returnState;
     }
 
@@ -78,11 +79,10 @@ public class CurtainsBlock extends MultifaceBlock {
 
     @Override
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if ((Boolean)state.get(WATERLOGGED)) {
+        if (state.get(WATERLOGGED)) {
             tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
-        BlockState bottomState = world.getBlockState(pos.offset(Direction.DOWN));
-        return (BlockState)state.with(TIP, !world.getBlockState(pos.down()).isOf(this));
+        return state.with(TIP, !world.getBlockState(pos.down()).isIn(BlockTagsME.CURTAINS));
     }
 
     private static boolean isNotFullBlock(BlockState state) {
@@ -104,7 +104,7 @@ public class CurtainsBlock extends MultifaceBlock {
     }
 
     private Function<BlockState, VoxelShape> createShapeFunction() {
-        Map<Direction, VoxelShape> map = VoxelShapes.createFacingShapeMap(Block.createCuboidZShape(16.0, 0.0, 4.0));
+        Map<Direction, VoxelShape> map = VoxelShapes.createFacingShapeMap(Block.createCuboidZShape(16.0, 0.0, 3.0));
         return this.createShapeFunction((state) -> {
             VoxelShape voxelShape = VoxelShapes.empty();
             Direction[] var3 = DIRECTIONS;

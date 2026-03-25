@@ -91,6 +91,9 @@ public class BlockDrops {
             add(ModDecorativeBlocks.DARK_BROWN_CURTAIN);
             add(ModDecorativeBlocks.DARK_GREEN_CURTAIN);
             add(ModDecorativeBlocks.DARK_RED_CURTAIN);
+            add(ModDecorativeBlocks.FANCY_BLUE_CURTAIN);
+            add(ModDecorativeBlocks.FANCY_GREEN_CURTAIN);
+            add(ModDecorativeBlocks.FANCY_RED_CURTAIN);
             add(ModDecorativeBlocks.GRAY_CURTAIN);
             add(ModDecorativeBlocks.GREEN_CURTAIN);
             add(ModDecorativeBlocks.PURPLE_CURTAIN);
