@@ -303,7 +303,35 @@ public class ModDecorativeBlocks {
     public static final Block SMALL_RED_CURTAIN = registerBlockWithItem("small_red_curtain",
             SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
 
+    public static final Block BLACK_CURTAIN = registerBlockWithItem("black_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block BLUE_CURTAIN = registerBlockWithItem("blue_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block BROWN_CURTAIN = registerBlockWithItem("brown_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block BURNT_CURTAIN = registerBlockWithItem("burnt_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block DARK_BLUE_CURTAIN = registerBlockWithItem("dark_blue_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block DARK_BROWN_CURTAIN = registerBlockWithItem("dark_brown_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block DARK_GREEN_CURTAIN = registerBlockWithItem("dark_green_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block DARK_RED_CURTAIN = registerBlockWithItem("dark_red_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block GRAY_CURTAIN = registerBlockWithItem("gray_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block GREEN_CURTAIN = registerBlockWithItem("green_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block PURPLE_CURTAIN = registerBlockWithItem("purple_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block RED_CURTAIN = registerBlockWithItem("red_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block ROTTEN_CURTAIN = registerBlockWithItem("rotten_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block WHITE_CURTAIN = registerBlockWithItem("white_curtain",
+            CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block YELLOW_CURTAIN = registerBlockWithItem("yellow_curtain",
             CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block TREATED_WOOD_STOOL = registerBlockWithItem("treated_wood_stool",

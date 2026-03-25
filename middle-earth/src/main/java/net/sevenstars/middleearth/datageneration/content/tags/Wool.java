@@ -63,6 +63,20 @@ public class Wool {
 
         add(ModDecorativeBlocks.SMALL_RED_CURTAIN);
 
+        add(ModDecorativeBlocks.BLACK_CURTAIN);
+        add(ModDecorativeBlocks.BLUE_CURTAIN);
+        add(ModDecorativeBlocks.BROWN_CURTAIN);
+        add(ModDecorativeBlocks.BURNT_CURTAIN);
+        add(ModDecorativeBlocks.DARK_BLUE_CURTAIN);
+        add(ModDecorativeBlocks.DARK_BROWN_CURTAIN);
+        add(ModDecorativeBlocks.DARK_GREEN_CURTAIN);
+        add(ModDecorativeBlocks.DARK_RED_CURTAIN);
+        add(ModDecorativeBlocks.GRAY_CURTAIN);
+        add(ModDecorativeBlocks.GREEN_CURTAIN);
+        add(ModDecorativeBlocks.PURPLE_CURTAIN);
         add(ModDecorativeBlocks.RED_CURTAIN);
+        add(ModDecorativeBlocks.ROTTEN_CURTAIN);
+        add(ModDecorativeBlocks.WHITE_CURTAIN);
+        add(ModDecorativeBlocks.YELLOW_CURTAIN);
     }};
 }

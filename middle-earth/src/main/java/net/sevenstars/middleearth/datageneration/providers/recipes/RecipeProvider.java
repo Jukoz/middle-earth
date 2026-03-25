@@ -1189,7 +1189,20 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.RED_CUSHION, Items.GRAY_DYE, ModDecorativeBlocks.DARK_RED_CUSHION);
 
                 createSmallCurtainRecipe(exporter, Blocks.RED_WOOL, ModDecorativeBlocks.SMALL_RED_CURTAIN);
+
+                createCurtainRecipe(exporter, Blocks.BLACK_WOOL, ModDecorativeBlocks.BLACK_CURTAIN);
+                createCurtainRecipe(exporter, Blocks.BLUE_WOOL, ModDecorativeBlocks.BLUE_CURTAIN);
+                createCurtainRecipe(exporter, Blocks.BROWN_WOOL, ModDecorativeBlocks.BROWN_CURTAIN);
+                createDyeableItemRecipe(exporter, ModDecorativeBlocks.BLUE_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.DARK_BLUE_CURTAIN);
+                createDyeableItemRecipe(exporter, ModDecorativeBlocks.BROWN_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.DARK_BROWN_CURTAIN);
+                createDyeableItemRecipe(exporter, ModDecorativeBlocks.GREEN_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.DARK_GREEN_CURTAIN);
+                createDyeableItemRecipe(exporter, ModDecorativeBlocks.RED_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.DARK_RED_CURTAIN);
+                createCurtainRecipe(exporter, Blocks.GRAY_WOOL, ModDecorativeBlocks.GRAY_CURTAIN);
+                createCurtainRecipe(exporter, Blocks.GREEN_WOOL, ModDecorativeBlocks.GREEN_CURTAIN);
+                createCurtainRecipe(exporter, Blocks.PURPLE_WOOL, ModDecorativeBlocks.PURPLE_CURTAIN);
                 createCurtainRecipe(exporter, Blocks.RED_WOOL, ModDecorativeBlocks.RED_CURTAIN);
+                createCurtainRecipe(exporter, Blocks.WHITE_WOOL, ModDecorativeBlocks.WHITE_CURTAIN);
+                createCurtainRecipe(exporter, Blocks.YELLOW_WOOL, ModDecorativeBlocks.YELLOW_CURTAIN);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROPE_LADDER, 3)
                         .pattern("R R")

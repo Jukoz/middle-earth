@@ -435,7 +435,21 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_RED_CURTAIN, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BLACK_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BURNT_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GRAY_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.PURPLE_CURTAIN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ROTTEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.WHITE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.YELLOW_CURTAIN, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DWARVEN_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, BlockRenderLayer.CUTOUT);
