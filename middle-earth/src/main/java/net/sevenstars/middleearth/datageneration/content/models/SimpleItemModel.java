@@ -54,6 +54,8 @@ public class SimpleItemModel {
             add(ResourceItemsME.MORDOR_BANNER_PATTERN);
             add(ResourceItemsME.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN);
             add(ResourceItemsME.ISENGARD_BANNER_PATTERN);
+            add(ResourceItemsME.SCREECHING_SKULL_BANNER_PATTERN);
+            add(ResourceItemsME.GOBLIN_SKULL_BANNER_PATTERN);
 
             add(ResourceItemsME.ANVIL_BANNER_PATTERN);
             add(ResourceItemsME.BELL_BANNER_PATTERN);
@@ -61,6 +63,12 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.DWARF_CROWN_BANNER_PATTERN);
 
+            add(ResourceItemsME.SPIDER_BANNER_PATTERN);
+
+            add(ResourceItemsME.GREAT_HORN_BANNER_PATTERN);
+            add(ResourceItemsME.OAK_LEAF_BANNER_PATTERN);
+
+            add(ResourceItemsME.ANTLERS_BANNER_PATTERN);
             add(ResourceItemsME.DRAGON_BANNER_PATTERN);
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
@@ -102,6 +110,7 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.DIRTY_BONE);
             add(ResourceItemsME.FANG);
+            add(ResourceItemsME.SPIDER_STINGER);
 
             add(ResourceItemsME.SWAN_FEATHER);
 

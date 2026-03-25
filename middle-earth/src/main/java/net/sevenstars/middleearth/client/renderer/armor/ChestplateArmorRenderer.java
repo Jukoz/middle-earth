@@ -34,7 +34,6 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
-        CustomChestplateItem item = (CustomChestplateItem)stack.getItem();
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.CHEST) {
@@ -59,7 +58,11 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 this.chestplateAddonModel.body.visible = true;
                 this.chestplateAddonModel.rightArm.visible = true;
                 this.chestplateAddonModel.leftArm.visible = true;
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+                if(texture.contains("_chestplate.png")){
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+                } else {
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                }
             }
 
             BackAttachmentDataComponent capeDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
@@ -72,7 +75,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                //capeModel.setAngles(bipedEntityRenderState);
+                capeModel.setAngles(bipedEntityRenderState);
 
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(capeDataComponent.getBackAttachment())) {
                     BackAttachmentRenderer.renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"), true);

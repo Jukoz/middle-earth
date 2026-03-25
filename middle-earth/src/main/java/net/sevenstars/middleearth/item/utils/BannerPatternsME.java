@@ -21,6 +21,17 @@ public class BannerPatternsME {
     public static final RegistryKey<BannerPattern> EVIL_EYE = key("evil_eye");
     public static final RegistryKey<BannerPattern> EVIL_PEAKS = key("evil_peaks");
     public static final RegistryKey<BannerPattern> HAND = key("hand");
+    public static final RegistryKey<BannerPattern> SCREECHING_SKULL = key("screeching_skull");
+    public static final RegistryKey<BannerPattern> GOBLIN_SKULL = key("goblin_skull");
+    public static final RegistryKey<BannerPattern> ANTLERS = key("antlers");
+    public static final RegistryKey<BannerPattern> ANTLERS_TOP = key("antlers_top");
+    public static final RegistryKey<BannerPattern> ELK = key("elk");
+    public static final RegistryKey<BannerPattern> ELK_ANTLERS = key("elk_antlers");
+    public static final RegistryKey<BannerPattern> ELK_SHED = key("elk_shed");
+    public static final RegistryKey<BannerPattern> STAG = key("stag");
+    public static final RegistryKey<BannerPattern> STAG_ANTLERS = key("stag_antlers");
+    public static final RegistryKey<BannerPattern> STAG_SHED = key("stag_shed");
+    public static final RegistryKey<BannerPattern> OAK_LEAF = key("oak_leaf");
 
     public static final RegistryKey<BannerPattern> DRAGON = key("dragon");
     public static final RegistryKey<BannerPattern> SNAIL = key("snail");
@@ -74,6 +85,16 @@ public class BannerPatternsME {
         register(registry, EVIL_EYE);
         register(registry, EVIL_PEAKS);
         register(registry, HAND);
+        register(registry, SCREECHING_SKULL);
+        register(registry, GOBLIN_SKULL);
+        register(registry, ANTLERS);
+        register(registry, ELK);
+        register(registry, ELK_ANTLERS);
+        register(registry, ELK_SHED);
+        register(registry, STAG);
+        register(registry, STAG_ANTLERS);
+        register(registry, STAG_SHED);
+        register(registry, OAK_LEAF);
 
         register(registry, DRAGON);
         register(registry, SNAIL);

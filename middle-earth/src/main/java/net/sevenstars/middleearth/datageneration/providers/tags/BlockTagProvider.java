@@ -277,22 +277,23 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModDecorativeBlocks.GILDED_SMALL_BRAZIER);
         needsIronTools.add(ModDecorativeBlocks.FIRE_BOWL);
 
-        needsIronTools.add(ModDecorativeBlocks.CRUDE_ROD);
-        needsIronTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+        needsStoneTools.add(ModDecorativeBlocks.CRUDE_ROD);
+        needsStoneTools.add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
-        needsIronTools.add(ModBlocks.BRONZE_DOOR);
-        needsIronTools.add(ModBlocks.CRUDE_DOOR);
+        needsStoneTools.add(ModBlocks.BRONZE_DOOR);
+        needsStoneTools.add(ModBlocks.CRUDE_DOOR);
         needsIronTools.add(ModBlocks.TREATED_STEEL_DOOR);
-        needsIronTools.add(ModBlocks.BRONZE_TRAPDOOR);
-        needsIronTools.add(ModBlocks.CRUDE_TRAPDOOR);
+        needsStoneTools.add(ModBlocks.BRONZE_TRAPDOOR);
+        needsStoneTools.add(ModBlocks.CRUDE_TRAPDOOR);
         needsIronTools.add(ModBlocks.TREATED_STEEL_TRAPDOOR);
 
-        needsIronTools.add(ModBlocks.BRONZE_BARS);
-        needsIronTools.add(ModBlocks.CRUDE_BARS);
+        needsStoneTools.add(ModBlocks.BRONZE_BARS);
+        needsStoneTools.add(ModBlocks.CRUDE_BARS);
         needsIronTools.add(ModBlocks.TREATED_STEEL_BARS);
+        needsIronTools.add(ModBlocks.BURZUM_BARS);
         needsIronTools.add(ModBlocks.GILDED_BARS);
 
-        needsIronTools.add(ModDecorativeBlocks.SPIKY_CHAIN);
+        needsStoneTools.add(ModDecorativeBlocks.SPIKY_CHAIN);
 
         needsStoneTools.add(ModDecorativeBlocks.WATERING_CAN);
 

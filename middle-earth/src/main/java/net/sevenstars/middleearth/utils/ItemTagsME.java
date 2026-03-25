@@ -7,6 +7,7 @@ import net.minecraft.registry.tag.TagKey;
 public class ItemTagsME {
     //TODO actually gen the tags
     public static TagKey<Item> REPAIRS_STRAW_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_straw_armor"));
+    public static TagKey<Item> REPAIRS_BONE_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_bone_armor"));
     public static TagKey<Item> REPAIRS_WOOL_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_wool_armor"));
     public static TagKey<Item> REPAIRS_FUR_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_fur_armor"));
     public static TagKey<Item> REPAIRS_FABRIC_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("repairs_fabric_armor"));
@@ -27,6 +28,9 @@ public class ItemTagsME {
     public static TagKey<Item> BURZUM_STEEL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("burzum_steel_tool_materials"));
     public static TagKey<Item> MITHRIL_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("mithril_tool_materials"));
 
+    public static TagKey<Item> SPIDER_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("spider_tool_materials"));
+
+    public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("elk_food"));
     public static TagKey<Item> HORSE_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("horse_armor"));
     public static TagKey<Item> WARG_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.create("warg_armor"));
 

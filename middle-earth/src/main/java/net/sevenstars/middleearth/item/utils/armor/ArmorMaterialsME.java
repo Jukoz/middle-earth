@@ -40,12 +40,17 @@ public interface ArmorMaterialsME {
     ExtendedArmorMaterial LEATHER_T1 = registerArmor("leather_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
     ExtendedArmorMaterial LEATHER_T2 = registerArmor("leather_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
 
+    ExtendedArmorMaterial BONE_T0 = registerArmor("bone_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_BONE_ARMOR);
+    ExtendedArmorMaterial BONE_T1 = registerArmor("bone_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_BONE_ARMOR);
+    ExtendedArmorMaterial BONE_T2 = registerArmor("bone_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_BONE_ARMOR);
+
     ExtendedArmorMaterial IRON_T2 = registerArmor("iron_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
     ExtendedArmorMaterial IRON_T3 = registerArmor("iron_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTags.REPAIRS_IRON_ARMOR);
 
     ExtendedArmorMaterial BRONZE_T1 = registerArmor("bronze_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_BRONZE_ARMOR);
     ExtendedArmorMaterial BRONZE_T2 = registerArmor("bronze_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_BRONZE_ARMOR);
 
+    ExtendedArmorMaterial CRUDE_T1 = registerArmor("crude_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
     ExtendedArmorMaterial CRUDE_T2 = registerArmor("crude_t2", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
     ExtendedArmorMaterial CRUDE_T3 = registerArmor("crude_t3", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, ItemTagsME.REPAIRS_CRUDE_ARMOR);
 
@@ -65,6 +70,13 @@ public interface ArmorMaterialsME {
     ExtendedArmorMaterial BROADHOOF_GOAT_LEATHER_ARMOR = registerArmor("broadhoof_goat_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
     ExtendedArmorMaterial BROADHOOF_GOAT_ORNAMENTED_LEATHER_ARMOR = registerArmor("broadhoof_goat_ornamented_leather_armor", Tiers.MEDIUM, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
     ExtendedArmorMaterial BROADHOOF_GOAT_PLATE_ARMOR = registerArmor("broadhoof_goat_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_KHAZAD_STEEL_ARMOR);
+
+    ExtendedArmorMaterial GREAT_HORN_LIGHT_ARMOR = registerArmor("great_horn_light_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_FABRIC_ARMOR);
+    ExtendedArmorMaterial GREAT_HORN_LIGHT_GRAY_ARMOR = registerArmor("great_horn_light_gray_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_FABRIC_ARMOR);
+    ExtendedArmorMaterial GREAT_HORN_LIGHT_GREEN_ARMOR = registerArmor("great_horn_light_green_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_FABRIC_ARMOR);
+    ExtendedArmorMaterial GREAT_HORN_PLATE_ARMOR = registerArmor("great_horn_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
+    ExtendedArmorMaterial GREAT_HORN_ORNAMENTED_PLATE_ARMOR = registerArmor("great_horn_ornamented_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
+    ExtendedArmorMaterial GREAT_HORN_GREEN_PLATE_ARMOR = registerArmor("great_horn_green_plate_armor", Tiers.HEAVY, SoundEvents.ITEM_ARMOR_EQUIP_IRON, ItemTagsME.REPAIRS_EDHEL_STEEL_ARMOR);
 
     ExtendedArmorMaterial WARG_LEATHER_ARMOR = registerArmor("warg_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);
     ExtendedArmorMaterial WARG_REINFORCED_LEATHER_ARMOR = registerArmor("warg_reinforced_leather_armor", Tiers.LIGHT, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.REPAIRS_LEATHER_ARMOR);

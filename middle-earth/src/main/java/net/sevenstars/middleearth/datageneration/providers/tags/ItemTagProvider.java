@@ -39,6 +39,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var warg_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
         var warg_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
         var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
+        var great_horn_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "great_horn_armor")));
         var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
         var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
         var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
@@ -148,6 +149,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR);
         broadhoof_goat_armor.add(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR);
 
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR);
+        great_horn_armor.add(EquipmentItemsME.GREAT_HORN_GREEN_PLATE_ARMOR);
+
         bones.add(Items.BONE);
         bones.add(ResourceItemsME.DIRTY_BONE);
         bones.add(ResourceItemsME.FANG);
@@ -163,6 +171,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         dyeable.add(EquipmentItemsME.WARG_LEATHER_ARMOR);
         dyeable.add(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR);
+
+        dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR);
+        dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR);
+        dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
 
         chains.add(Items.CHAIN);
         chains.add(ModDecorativeBlocks.BRONZE_CHAIN.asItem());
@@ -197,6 +209,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         characterShowEars.add(EquipmentItemsME.KETTLE_HAT);
         characterShowEars.add(EquipmentItemsME.MORDOR_KETTLE_HAT);
         characterShowEars.add(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT);
+        characterShowEars.add(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR);
+        characterShowEars.add(EquipmentItemsME.WEATHERED_DOL_GULDUR_JAILER_COLLAR);
 
         // HIDE Hairs
         characterHideHair.add(EquipmentItemsME.MAIL_COIF);
@@ -211,10 +225,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         characterHideHair.add(EquipmentItemsME.ORCISH_MAIL_COIF);
         characterHideHair.add(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF);
+
         // HIDE Beards
         characterHideBeard.add(EquipmentItemsME.CLOSED_MAIL_COIF);
         characterHideBeard.add(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF);
-
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null) {

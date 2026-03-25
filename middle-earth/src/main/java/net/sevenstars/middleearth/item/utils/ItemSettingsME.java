@@ -86,4 +86,19 @@ public interface ItemSettingsME {
                 )
                 .maxCount(1);
     }
+
+    static Item.Settings greatHornArmor(ArmorMaterial material) {
+        RegistryEntryLookup<EntityType<?>> registryEntryLookup = Registries.createEntryLookup(Registries.ENTITY_TYPE);
+        return new Item.Settings().attributeModifiers(material.createAttributeModifiers(EquipmentType.BODY))
+                .component(
+                        DataComponentTypes.EQUIPPABLE,
+                        EquippableComponent.builder(EquipmentSlot.BODY)
+                                .equipSound(SoundEvents.ENTITY_HORSE_ARMOR)
+                                .model(material.assetId())
+                                .allowedEntities(registryEntryLookup.getOrThrow(EntityTypeTagsME.CAN_WEAR_GREAT_HORN_ARMOR))
+                                .damageOnHurt(false)
+                                .build()
+                )
+                .maxCount(1);
+    }
 }
