@@ -300,7 +300,35 @@ public class ModDecorativeBlocks {
     public static final Block RED_CUSHION = registerBlockWithItem("red_cushion",
             CushionBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).nonOpaque());
 
+    public static final Block SMALL_BLACK_CURTAIN = registerBlockWithItem("small_black_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_BLUE_CURTAIN = registerBlockWithItem("small_blue_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_BROWN_CURTAIN = registerBlockWithItem("small_brown_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_BURNT_CURTAIN = registerBlockWithItem("small_burnt_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_DARK_BLUE_CURTAIN = registerBlockWithItem("small_dark_blue_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_DARK_BROWN_CURTAIN = registerBlockWithItem("small_dark_brown_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_DARK_GREEN_CURTAIN = registerBlockWithItem("small_dark_green_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_DARK_RED_CURTAIN = registerBlockWithItem("small_dark_red_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_GRAY_CURTAIN = registerBlockWithItem("small_gray_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_GREEN_CURTAIN = registerBlockWithItem("small_green_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_PURPLE_CURTAIN = registerBlockWithItem("small_purple_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block SMALL_RED_CURTAIN = registerBlockWithItem("small_red_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_ROTTEN_CURTAIN = registerBlockWithItem("small_rotten_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_WHITE_CURTAIN = registerBlockWithItem("small_white_curtain",
+            SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+    public static final Block SMALL_YELLOW_CURTAIN = registerBlockWithItem("small_yellow_curtain",
             SmallCurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block BLACK_CURTAIN = registerBlockWithItem("black_curtain",

@@ -433,7 +433,21 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.MEDIUM_GLOWSTONE_BUD, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.LARGE_GLOWSTONE_BUD, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BLACK_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BURNT_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_GRAY_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_ROTTEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_WHITE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_YELLOW_CURTAIN, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BLACK_CURTAIN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BLUE_CURTAIN, BlockRenderLayer.CUTOUT);

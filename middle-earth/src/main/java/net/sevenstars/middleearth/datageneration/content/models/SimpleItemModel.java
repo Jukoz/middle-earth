@@ -155,7 +155,21 @@ public class SimpleItemModel {
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
 
+            add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BURNT_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_GRAY_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_ROTTEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_WHITE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_YELLOW_CURTAIN.asItem());
 
             add(ModDecorativeBlocks.BLACK_CURTAIN.asItem());
             add(ModDecorativeBlocks.BLUE_CURTAIN.asItem());
