@@ -416,6 +416,11 @@ public class RegistriesME {
             builder.add(WeaponItemsME.LORIEN_LONGBOW, 400);
             builder.add(WeaponItemsME.LORIEN_NOBLE_LONGBOW, 400);
 
+            builder.add(WeaponItemsME.WOODLAND_REALM_BOW, 300);
+            builder.add(WeaponItemsME.WOODLAND_REALM_LONGBOW, 400);
+            builder.add(WeaponItemsME.WOODLAND_REALM_NOBLE_BOW, 300);
+            builder.add(WeaponItemsME.WOODLAND_REALM_NOBLE_LONGBOW, 400);
+
             builder.add(WeaponItemsME.EREBOR_BOW, 300);
             builder.add(WeaponItemsME.EREBOR_NOBLE_BOW, 300);
             builder.add(WeaponItemsME.EREBOR_CROSSBOW, 400);
@@ -685,6 +690,10 @@ public class RegistriesME {
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.WARG_LEATHER_ARMOR, CLEAN_EQUIPMENT);
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR, CLEAN_EQUIPMENT);
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR, CLEAN_EQUIPMENT);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR, CLEAN_EQUIPMENT);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR, CLEAN_EQUIPMENT);
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ResourceItemsME.DIRTY_BONE, CLEAN_ITEM);
     }
