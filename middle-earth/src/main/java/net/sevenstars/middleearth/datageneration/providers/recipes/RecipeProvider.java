@@ -1195,6 +1195,9 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.SMALL_BROWN_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN);
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.SMALL_GREEN_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN);
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.SMALL_RED_CURTAIN, Items.GRAY_DYE, ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN);
+                createSmallFancyCurtainRecipe(exporter, Blocks.BLUE_WOOL, ModDecorativeBlocks.SMALL_FANCY_BLUE_CURTAIN);
+                createSmallFancyCurtainRecipe(exporter, Blocks.GREEN_WOOL, ModDecorativeBlocks.SMALL_FANCY_GREEN_CURTAIN);
+                createSmallFancyCurtainRecipe(exporter, Blocks.RED_WOOL, ModDecorativeBlocks.SMALL_FANCY_RED_CURTAIN);
                 createSmallCurtainRecipe(exporter, Blocks.GRAY_WOOL, ModDecorativeBlocks.SMALL_GRAY_CURTAIN);
                 createSmallCurtainRecipe(exporter, Blocks.GREEN_WOOL, ModDecorativeBlocks.SMALL_GREEN_CURTAIN);
                 createSmallCurtainRecipe(exporter, Blocks.PURPLE_WOOL, ModDecorativeBlocks.SMALL_PURPLE_CURTAIN);
@@ -2715,6 +2718,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("W W")
                         .input('W', woolBlock)
                         .input('S', Items.STICK)
+                        .criterion(hasItem(woolBlock),
+                                conditionsFromItem(woolBlock))
+                        .offerTo(exporter);
+            }
+            private void createSmallFancyCurtainRecipe(RecipeExporter exporter, Block woolBlock, Block output) {
+                ShapedRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 2)
+                        .pattern("SGS")
+                        .pattern("W W")
+                        .input('W', woolBlock)
+                        .input('S', Items.STICK)
+                        .input('G', Items.GOLD_NUGGET)
                         .criterion(hasItem(woolBlock),
                                 conditionsFromItem(woolBlock))
                         .offerTo(exporter);

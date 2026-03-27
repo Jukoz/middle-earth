@@ -163,6 +163,9 @@ public class SimpleItemModel {
             add(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_RED_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_GRAY_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_GREEN_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN.asItem());
