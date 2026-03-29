@@ -1,11 +1,13 @@
 package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.EntityType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.item.items.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.LitPineconeItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
@@ -40,6 +42,11 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1));
     public static final Item STARLIGHT_PHIAL = registerItem("starlight_phial",
             StarlightPhialItem::new, new Item.Settings().maxCount(1));
+
+    public static final Item REINFORCED_BARREL = registerItem("reinforced_barrel",
+            (settings) -> {
+                return new BoatItem(ModEntities.REINFORCED_BARREL, settings);
+            }, new Item.Settings().maxCount(1));
 
     public static final Item RAW_TIN = registerItem("raw_tin",
             Item::new, new Item.Settings());
@@ -256,6 +263,16 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SPIDER_PATTERN_ITEM));
 
+    public static final Item GREAT_HORN_BANNER_PATTERN = registerItem("great_horn_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.GREAT_HORN_PATTERN_ITEM));
+    public static final Item OAK_LEAF_BANNER_PATTERN = registerItem("oak_leaf_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.OAK_LEAF_PATTERN_ITEM));
+
+    public static final Item ANTLERS_BANNER_PATTERN = registerItem("antlers_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ANTLERS_PATTERN_ITEM));
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.DRAGON_PATTERN_ITEM));
