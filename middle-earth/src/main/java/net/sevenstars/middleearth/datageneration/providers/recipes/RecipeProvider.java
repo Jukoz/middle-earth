@@ -994,6 +994,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AGED_WOOD_TRAPDOOR, 2)
+                        .pattern("WWW")
+                        .pattern("WWW")
+                        .input('W', GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base())
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base()))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.BRONZE_TRAPDOOR, 2)
                         .pattern("NSN")
                         .pattern("NSN")
@@ -1019,6 +1027,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AGED_WOOD_DOOR, 3)
+                        .pattern("SS")
+                        .pattern("SS")
+                        .pattern("SS")
+                        .input('S', GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base())
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.BRONZE_DOOR, 3)
