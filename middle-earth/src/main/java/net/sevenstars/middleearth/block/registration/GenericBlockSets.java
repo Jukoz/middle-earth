@@ -240,6 +240,28 @@ public class GenericBlockSets {
             "treated_wood_tiling", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
+    public static GenericBlockSetBuilder AGED_WOOD_BOARDS = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_boards", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_CARVING = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_PLANKS = registerBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_planks", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_FISH_CARVING = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_fish_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_PANELS = registerBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_panels", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_SHINGLES = registerBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_shingles", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+
     public static OxidizableBlockSetBuilder THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(
             "thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
             ItemGroupsME.MISC_BLOCKS_CONTENTS, Oxidizable.OxidationLevel.UNAFFECTED));
@@ -345,7 +367,7 @@ public class GenericBlockSets {
 
         genericSetsList.add(set);
 
-        if(set.setName.contains("wood")){
+        if(set.setName.contains("wood") && !set.setName.contains("aged_wood")){
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.base(), 5, 20);
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.slab(), 5, 20);
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.verticalSlab(), 5, 20);

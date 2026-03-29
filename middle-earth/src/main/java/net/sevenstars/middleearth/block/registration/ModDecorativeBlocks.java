@@ -382,6 +382,15 @@ public class ModDecorativeBlocks {
             WoodTableBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block TREATED_WOOD_CHAIR = registerBlockWithItem("treated_wood_chair",
             WoodChairBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+
+    public static final Block AGED_WOOD_STOOL = registerBlockWithItem("aged_wood_stool",
+            WoodStoolBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+    public static final Block AGED_WOOD_BENCH = registerBlockWithItem("aged_wood_bench",
+            WoodBenchBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+    public static final Block AGED_WOOD_TABLE = registerBlockWithItem("aged_wood_table",
+            WoodTableBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+    public static final Block AGED_WOOD_CHAIR = registerBlockWithItem("aged_wood_chair",
+            WoodChairBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     //endregion
 
     public static final Block WATERING_CAN = registerBlockWithItem("watering_can",
