@@ -187,6 +187,18 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public boolean isOwner(LivingEntity entity) {
         return this.getOwner() != null && this.getOwner() == entity;
     }
+
+    /**
+     * Checks an entity for beast-specific targeting criteria (LivingEntity, not a passenger, not its owner, not a creative player)
+     * @param entity
+     * @return isValidTarget
+     */
+    public boolean isValidTarget(Entity entity) {
+        return entity instanceof LivingEntity livingEntity &&                           // Entity is LivingEntity
+                !this.getPassengerList().contains(livingEntity) &&                      // Is not a passenger
+                !(this.getOwner() != null && this.getOwner().equals(livingEntity)) &&   // Is not its owner
+                !(livingEntity instanceof PlayerEntity player && player.isCreative());  // Is not a creative player
+    }
     // endregion
 
     // region DataTracker
