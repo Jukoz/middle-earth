@@ -15,6 +15,7 @@ import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleModel;
+import net.sevenstars.middleearth.entity.beasts.experimental_mount.ExperimentalMountModel;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollSaddleModel;
@@ -66,6 +67,9 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer SHELOBITE_LARVA = ModEntityModelLayers.registerEntityModelLayer("shelobite_larva", ShelobiteLarvaModel.getTexturedModelData());
     public static final EntityModelLayer SHELOBITE_SCUTTLER = ModEntityModelLayers.registerEntityModelLayer("shelobite_scuttler", ShelobiteScuttlerModel.getTexturedModelData());
     public static final EntityModelLayer SPAWN_OF_SHELOB = ModEntityModelLayers.registerEntityModelLayer("spawn_of_shelob", SpawnOfShelobModel.getTexturedModelData());
+
+    public static final EntityModelLayer EXPERIMENTAL_ENTITY = ModEntityModelLayers.registerEntityModelLayer("experimental_entity", ExperimentalMountModel.getTexturedModelData());
+
 
     public static final EntityModelLayer ENWEBBED = ModEntityModelLayers.registerEntityModelLayer("enwebbed", EnwebbedModel.getTexturedModelData());
 

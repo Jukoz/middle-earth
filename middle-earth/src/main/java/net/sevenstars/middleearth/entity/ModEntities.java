@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntity;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.sevenstars.middleearth.entity.beasts.experimental_mount.ExperimentalMountEntity;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
@@ -69,6 +70,9 @@ public class ModEntities {
                     .passengerAttachments(new Vec3d(0, 3.825, -0.65), new Vec3d(-0.8, 3.4, -1.2), new Vec3d(0.8, 3.4, -1.2)));
     public static final EntityType<StoneTrollEntity> STONE_TROLL = register("stone_troll", EntityType.Builder.create(StoneTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
     public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = register("petrified_troll", EntityType.Builder.create(PetrifiedTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
+
+    public static final EntityType<ExperimentalMountEntity> EXPERIMENTAL_ENTITY = register("experimental_entity", EntityType.Builder.create(ExperimentalMountEntity::new, SpawnGroup.CREATURE).dimensions(1.0f, 1.0f));
+
 
     ///* Weapons *///
     public static final EntityType<FireOfOrthancEntity> FIRE_OF_ORTHANC = registerEntity("fire_of_orthanc", FireOfOrthancEntity::new, SpawnGroup.MISC, 0.65F, 0.65F);
@@ -125,6 +129,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(EXPERIMENTAL_ENTITY, ExperimentalMountEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(BROADHOOF_GOAT, BroadhoofGoatEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(GREAT_HORN, GreatHornEntity.setAttributes());
