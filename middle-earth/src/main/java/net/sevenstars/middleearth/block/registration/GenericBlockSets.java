@@ -9,6 +9,7 @@ import net.minecraft.block.*;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.OxidizableBlockSetBuilder;
+import net.sevenstars.middleearth.datageneration.content.tags.WoodenSlabs;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.ArrayList;
@@ -240,6 +241,9 @@ public class GenericBlockSets {
             "treated_wood_tiling", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
+    public static GenericBlockSetBuilder AGED_WOOD = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_BOARDS = registerPillarBlockSet(new GenericBlockSetBuilder(
             "aged_wood_boards", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
@@ -367,7 +371,7 @@ public class GenericBlockSets {
 
         genericSetsList.add(set);
 
-        if(set.setName.contains("wood") && !set.setName.contains("aged_wood")){
+        if(set.setName.contains("wood")){
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.base(), 5, 20);
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.slab(), 5, 20);
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.verticalSlab(), 5, 20);
