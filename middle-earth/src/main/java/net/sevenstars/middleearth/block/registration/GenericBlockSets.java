@@ -266,6 +266,19 @@ public class GenericBlockSets {
             "aged_wood_shingles", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
+    public static GenericBlockSetBuilder AGED_WOOD_GILDED_CARVED_PILLAR = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_gilded_carved_pillar", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_GILDED_CARVING = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_gilded_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_GILDED_HORSES = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_gilded_horses", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_GILDED_TRIM = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_gilded_trim", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+
     public static OxidizableBlockSetBuilder THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(
             "thatch", 0.5f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
             ItemGroupsME.MISC_BLOCKS_CONTENTS, Oxidizable.OxidationLevel.UNAFFECTED));
