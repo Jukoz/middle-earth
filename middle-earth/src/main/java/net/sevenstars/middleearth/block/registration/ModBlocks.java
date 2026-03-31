@@ -486,12 +486,16 @@ public class ModBlocks {
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.COPPER), true);
 
+    public static final Block AGED_WOOD_DOOR = registerMiscBlock("aged_wood_door",
+            (settings) -> new DoorBlock(BlockSetType.DARK_OAK, settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_DOOR), true);
     public static final Block BRONZE_DOOR = registerMiscBlock("bronze_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block CRUDE_DOOR = registerMiscBlock("crude_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block TREATED_STEEL_DOOR = registerMiscBlock("treated_steel_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
+    public static final Block AGED_WOOD_TRAPDOOR = registerMiscBlock("aged_wood_trapdoor",
+            (settings) -> new TrapdoorBlock(BlockSetType.DARK_OAK, settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_TRAPDOOR), true);
     public static final Block BRONZE_TRAPDOOR = registerMiscBlock("bronze_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     public static final Block CRUDE_TRAPDOOR = registerMiscBlock("crude_trapdoor",

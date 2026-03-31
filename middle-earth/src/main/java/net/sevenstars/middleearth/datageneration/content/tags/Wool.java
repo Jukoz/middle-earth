@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.tags;
 
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.minecraft.block.Block;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +60,43 @@ public class Wool {
         add(ModBlocks.GREEN_WOOL_STAIRS);
         add(ModBlocks.RED_WOOL_STAIRS);
         add(ModBlocks.BLACK_WOOL_STAIRS);
+
+        add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_BROWN_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_BURNT_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_DARK_BLUE_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_FANCY_BLUE_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_FANCY_GREEN_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_FANCY_RED_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_GRAY_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_GREEN_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_RED_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_ROTTEN_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_WHITE_CURTAIN);
+        add(ModDecorativeBlocks.SMALL_YELLOW_CURTAIN);
+
+        add(ModDecorativeBlocks.BLACK_CURTAIN);
+        add(ModDecorativeBlocks.BLUE_CURTAIN);
+        add(ModDecorativeBlocks.BROWN_CURTAIN);
+        add(ModDecorativeBlocks.BURNT_CURTAIN);
+        add(ModDecorativeBlocks.DARK_BLUE_CURTAIN);
+        add(ModDecorativeBlocks.DARK_BROWN_CURTAIN);
+        add(ModDecorativeBlocks.DARK_GREEN_CURTAIN);
+        add(ModDecorativeBlocks.DARK_RED_CURTAIN);
+        add(ModDecorativeBlocks.FANCY_BLUE_CURTAIN);
+        add(ModDecorativeBlocks.FANCY_GREEN_CURTAIN);
+        add(ModDecorativeBlocks.FANCY_RED_CURTAIN);
+        add(ModDecorativeBlocks.GRAY_CURTAIN);
+        add(ModDecorativeBlocks.GREEN_CURTAIN);
+        add(ModDecorativeBlocks.PURPLE_CURTAIN);
+        add(ModDecorativeBlocks.RED_CURTAIN);
+        add(ModDecorativeBlocks.ROTTEN_CURTAIN);
+        add(ModDecorativeBlocks.WHITE_CURTAIN);
+        add(ModDecorativeBlocks.YELLOW_CURTAIN);
     }};
 }
