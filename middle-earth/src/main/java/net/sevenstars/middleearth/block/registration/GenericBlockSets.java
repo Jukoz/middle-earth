@@ -266,6 +266,16 @@ public class GenericBlockSets {
             "aged_wood_shingles", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
+    public static GenericBlockSetBuilder AGED_WOOD_CARVED_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_carved_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_KNOTTED_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_knotted_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+    public static GenericBlockSetBuilder AGED_WOOD_REDDISH_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "aged_wood_reddish_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            ItemGroupsME.WOOD_BLOCKS_CONTENTS));
+
     public static GenericBlockSetBuilder AGED_WOOD_GILDED_CARVED_PILLAR = registerPillarBlockSet(new GenericBlockSetBuilder(
             "aged_wood_gilded_carved_pillar", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
