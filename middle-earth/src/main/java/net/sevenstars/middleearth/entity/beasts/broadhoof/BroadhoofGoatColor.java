@@ -21,46 +21,6 @@ public enum BroadhoofGoatColor implements StringIdentifiable {
     GRAY(5, "gray"),
     BLACK(6, "black");
 
-    private static final Map<BroadhoofGoatColor, Set<BroadhoofGoatPattern>> PATTERN_COMBINATIONS = Maps.newEnumMap(
-            Map.of(
-                    WHITE,
-                    Set.of(BroadhoofGoatPattern.NONE,
-                            BroadhoofGoatPattern.BLACK_MASK, BroadhoofGoatPattern.BLACK_PATCHES, BroadhoofGoatPattern.BLACK_SIDE_PATCH, BroadhoofGoatPattern.BLACK_SPOTS, BroadhoofGoatPattern.BLACK_STRIPS,
-                            BroadhoofGoatPattern.BROWN_MASK, BroadhoofGoatPattern.BROWN_PATCHES, BroadhoofGoatPattern.BROWN_SIDE_PATCH, BroadhoofGoatPattern.BROWN_SPOTS, BroadhoofGoatPattern.BROWN_STRIPS),
-                    LIGHT_GRAY,
-                    Set.of(BroadhoofGoatPattern.NONE,
-                            BroadhoofGoatPattern.BLACK_MASK, BroadhoofGoatPattern.BLACK_PATCHES, BroadhoofGoatPattern.BLACK_SIDE_PATCH, BroadhoofGoatPattern.BLACK_SPOTS, BroadhoofGoatPattern.BLACK_STRIPS,
-                            BroadhoofGoatPattern.BROWN_MASK, BroadhoofGoatPattern.BROWN_PATCHES, BroadhoofGoatPattern.BROWN_SIDE_PATCH, BroadhoofGoatPattern.BROWN_SPOTS, BroadhoofGoatPattern.BROWN_STRIPS),
-                    PALE,
-                    Set.of(BroadhoofGoatPattern.NONE,
-                            BroadhoofGoatPattern.BLACK_MASK, BroadhoofGoatPattern.BLACK_PATCHES, BroadhoofGoatPattern.BLACK_SIDE_PATCH, BroadhoofGoatPattern.BLACK_SPOTS, BroadhoofGoatPattern.BLACK_STRIPS,
-                            BroadhoofGoatPattern.BROWN_MASK, BroadhoofGoatPattern.BROWN_PATCHES, BroadhoofGoatPattern.BROWN_SIDE_PATCH, BroadhoofGoatPattern.BROWN_SPOTS, BroadhoofGoatPattern.BROWN_STRIPS),
-                    RED,
-                    Set.of(BroadhoofGoatPattern.NONE,
-                            BroadhoofGoatPattern.BLACK_MASK, BroadhoofGoatPattern.BLACK_PATCHES, BroadhoofGoatPattern.BLACK_SIDE_PATCH, BroadhoofGoatPattern.BLACK_SPOTS, BroadhoofGoatPattern.BLACK_STRIPS,
-                            BroadhoofGoatPattern.PALE_MASK, BroadhoofGoatPattern.PALE_PATCHES, BroadhoofGoatPattern.PALE_SIDE_PATCH, BroadhoofGoatPattern.PALE_SPOTS, BroadhoofGoatPattern.PALE_STRIPS),
-                    BROWN,
-                    Set.of(BroadhoofGoatPattern.NONE,
-                            BroadhoofGoatPattern.BLACK_MASK, BroadhoofGoatPattern.BLACK_PATCHES, BroadhoofGoatPattern.BLACK_SIDE_PATCH, BroadhoofGoatPattern.BLACK_SPOTS, BroadhoofGoatPattern.BLACK_STRIPS,
-                            BroadhoofGoatPattern.PALE_MASK, BroadhoofGoatPattern.PALE_PATCHES, BroadhoofGoatPattern.PALE_SIDE_PATCH, BroadhoofGoatPattern.PALE_SPOTS, BroadhoofGoatPattern.PALE_STRIPS),
-                    GRAY,
-                    Set.of(BroadhoofGoatPattern.NONE,
-                            BroadhoofGoatPattern.BLACK_MASK, BroadhoofGoatPattern.BLACK_PATCHES, BroadhoofGoatPattern.BLACK_SIDE_PATCH, BroadhoofGoatPattern.BLACK_SPOTS, BroadhoofGoatPattern.BLACK_STRIPS,
-                            BroadhoofGoatPattern.BROWN_MASK, BroadhoofGoatPattern.BROWN_PATCHES, BroadhoofGoatPattern.BROWN_SIDE_PATCH, BroadhoofGoatPattern.BROWN_SPOTS, BroadhoofGoatPattern.BROWN_STRIPS,
-                            BroadhoofGoatPattern.PALE_MASK, BroadhoofGoatPattern.PALE_PATCHES, BroadhoofGoatPattern.PALE_SIDE_PATCH, BroadhoofGoatPattern.PALE_SPOTS, BroadhoofGoatPattern.PALE_STRIPS),
-                    BLACK,
-                    Set.of(BroadhoofGoatPattern.NONE,
-                            BroadhoofGoatPattern.BROWN_MASK, BroadhoofGoatPattern.BROWN_PATCHES, BroadhoofGoatPattern.BROWN_SIDE_PATCH, BroadhoofGoatPattern.BROWN_SPOTS, BroadhoofGoatPattern.BROWN_STRIPS,
-                            BroadhoofGoatPattern.PALE_MASK, BroadhoofGoatPattern.PALE_PATCHES, BroadhoofGoatPattern.PALE_SIDE_PATCH, BroadhoofGoatPattern.PALE_SPOTS, BroadhoofGoatPattern.PALE_STRIPS)
-            )
-    );
-
-    public boolean isValidCombination(BroadhoofGoatPattern pattern) {
-        Set<BroadhoofGoatPattern> validPatterns = PATTERN_COMBINATIONS.get(this);
-
-        return validPatterns.contains(pattern);
-    }
-
     public static final Codec<BroadhoofGoatColor> CODEC = StringIdentifiable.createCodec(BroadhoofGoatColor::values);
     private static final IntFunction<BroadhoofGoatColor> INDEX_MAPPER = ValueLists.createIndexToValueFunction(
             BroadhoofGoatColor::getIndex, values(), ValueLists.OutOfBoundsHandling.WRAP
