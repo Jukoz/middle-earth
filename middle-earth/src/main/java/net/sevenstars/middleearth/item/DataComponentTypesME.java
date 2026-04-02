@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.entity.passive.HorseColor;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatColor;
 import net.sevenstars.middleearth.item.dataComponents.*;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
@@ -63,6 +65,10 @@ public class DataComponentTypesME {
     public static final ComponentType<MountArmorAddonComponent> MOUNT_ARMOR_DATA = register("mount_armor_addon", (builder) -> {
         return builder.codec(MountArmorAddonComponent.CODEC).packetCodec(MountArmorAddonComponent.PACKET_CODEC);
     });
+
+    public static final ComponentType<BroadhoofGoatColor> GOAT_VARIANT = register(
+            "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)
+    );
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.DATA_COMPONENT_TYPE, id));

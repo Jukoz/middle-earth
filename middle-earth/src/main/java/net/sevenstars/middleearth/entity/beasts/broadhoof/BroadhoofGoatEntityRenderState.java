@@ -4,12 +4,16 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.passive.HorseColor;
+import net.minecraft.entity.passive.HorseMarking;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.entity.beasts.BeastEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class BroadhoofGoatEntityRenderState extends BeastEntityRenderState {
-    BroadhoofGoatVariant variant = BroadhoofGoatVariant.GRAY;
+
+    public BroadhoofGoatColor color = BroadhoofGoatColor.WHITE;
+    public BroadhoofGoatPattern pattern = BroadhoofGoatPattern.NONE;
     BroadhoofGoatHorns horns = BroadhoofGoatHorns.TINY;
     public boolean hasLeftHorn = false;
     public boolean hasRightHorn = false;
