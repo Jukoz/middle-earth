@@ -476,11 +476,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     /* VARIANTS */
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         BroadhoofGoatColor color = Util.getRandom(BroadhoofGoatColor.values(), this.random);
-        BroadhoofGoatPattern pattern = Util.getRandom(BroadhoofGoatPattern.values(), this.random);
-
-        while(!color.isValidCombination(pattern)) {
-            pattern = Util.getRandom(BroadhoofGoatPattern.values(), this.random);
-        }
+        BroadhoofGoatPattern pattern = WeightedBroadhoofGoatPattern.randomWeightedSelect(BroadhoofGoatPattern.PATTERN_COMBINATIONS.get(color));
 
         BroadhoofGoatHorns horns = Util.getRandom(BroadhoofGoatHorns.values(), this.random);
         this.setGoatVariant(color, pattern, horns);
