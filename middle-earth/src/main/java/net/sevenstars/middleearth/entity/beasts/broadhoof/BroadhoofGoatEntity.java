@@ -114,7 +114,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
-        //builder.add(HORNS, 0);
         builder.add(HAIR, false);
         builder.add(LEFT_HORN, true);
         builder.add(RIGHT_HORN, true);
@@ -126,7 +125,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
         view.putInt("Variant", this.getGoatVariant());
-        //view.putInt("Horns", this.getTypeHorns());
         view.putBoolean("Hair", this.hasHair());
         view.putBoolean("HasLeftHorn", this.hasLeftHorn());
         view.putBoolean("HasRightHorn", this.hasRightHorn());
@@ -137,7 +135,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
-        //this.dataTracker.set(HORNS, view.getInt("Horns", 0));
         this.dataTracker.set(HAIR, view.getBoolean("Hair", false));
         this.dataTracker.set(LEFT_HORN, view.getBoolean("HasLeftHorn", true));
         this.dataTracker.set(RIGHT_HORN, view.getBoolean("HasRightHorn", true));
@@ -258,6 +255,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.setChildAttribute(other, child, EntityAttributes.JUMP_STRENGTH, MIN_JUMP_STRENGTH_BONUS, MAX_JUMP_STRENGTH_BONUS);
         this.setChildAttribute(other, child, EntityAttributes.MOVEMENT_SPEED, MIN_MOVEMENT_SPEED_BONUS, MAX_MOVEMENT_SPEED_BONUS);
     }
+
 
     @Override
     public EntityDimensions getBaseDimensions(EntityPose pose) {
@@ -464,11 +462,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
 
         return super.getNpcSaddledSpeed(controllingNpc);
-    }
-
-    @Override
-    public boolean canUseSlot(EquipmentSlot slot) {
-        return true;
     }
 
     @Override
