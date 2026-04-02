@@ -16,10 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorFeatureRenderer;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatPatternFeatureRenderer;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleFeatureRenderer;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.features.*;
 
 import java.util.Map;
 
@@ -30,6 +27,7 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
     public BroadhoofGoatRenderer(EntityRendererFactory.Context context) {
         super(context, new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT)), 0.8f);
         this.addFeature(new BroadhoofGoatPatternFeatureRenderer(this));
+        this.addFeature(new BroadhoofGoatBeadsFeatureRenderer(this));
         this.addFeature(
                 new SaddleFeatureRenderer<>(
                         this,
@@ -87,6 +85,7 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
         state.pattern = goat.getPattern();
         state.armor = goat.getBodyArmor().copy();
 
+        state.beads = goat.getGoatBeads();
         state.horns = goat.getHorns();
         state.hair = goat.hasHair();
         state.hasLeftHorn = goat.hasLeftHorn();
