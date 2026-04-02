@@ -65,6 +65,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final float MAX_HEALTH_BONUS = BroadhoofGoatEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> HORNS = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> HAIR = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> BRUSHED_BEARD = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -115,6 +116,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
         builder.add(HORNS, 0);
+        builder.add(HAIR, false);
         builder.add(LEFT_HORN, true);
         builder.add(RIGHT_HORN, true);
         builder.add(BRUSHED_BEARD, false);
@@ -126,6 +128,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.writeCustomData(view);
         view.putInt("Variant", this.getGoatVariant());
         view.putInt("Horns", this.getTypeHorns());
+        view.putBoolean("Hair", this.hasHair());
         view.putBoolean("HasLeftHorn", this.hasLeftHorn());
         view.putBoolean("HasRightHorn", this.hasRightHorn());
         view.putBoolean("HasBrushedBeard", this.hasBrushedBeard());
@@ -136,6 +139,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
         this.dataTracker.set(HORNS, view.getInt("Horns", 0));
+        this.dataTracker.set(HAIR, view.getBoolean("Hair", false));
         this.dataTracker.set(LEFT_HORN, view.getBoolean("HasLeftHorn", true));
         this.dataTracker.set(RIGHT_HORN, view.getBoolean("HasRightHorn", true));
         this.dataTracker.set(BRUSHED_BEARD, view.getBoolean("HasBrushedBeard", false));
@@ -481,6 +485,8 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         BroadhoofGoatHorns horns = Util.getRandom(BroadhoofGoatHorns.values(), this.random);
         this.setGoatVariant(color, pattern, horns);
 
+        this.setHair(this.random.nextBoolean());
+
         if(!this.getWorld().isClient()) {
             this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
         }
@@ -547,6 +553,14 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     private void setHorns(BroadhoofGoatHorns horns) {
         this.dataTracker.set(HORNS, horns.getId() & 255);
+    }
+
+    public boolean hasHair() {
+        return this.dataTracker.get(HAIR);
+    }
+
+    public void setHair(boolean hair) {
+        this.dataTracker.set(HAIR, hair);
     }
 
     public boolean hasRightHorn() {

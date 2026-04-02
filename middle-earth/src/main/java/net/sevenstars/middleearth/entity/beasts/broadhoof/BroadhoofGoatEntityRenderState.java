@@ -14,7 +14,8 @@ public class BroadhoofGoatEntityRenderState extends BeastEntityRenderState {
 
     public BroadhoofGoatColor color = BroadhoofGoatColor.WHITE;
     public BroadhoofGoatPattern pattern = BroadhoofGoatPattern.NONE;
-    BroadhoofGoatHorns horns = BroadhoofGoatHorns.TINY;
+    public BroadhoofGoatHorns horns = BroadhoofGoatHorns.TINY;
+    public boolean hair = false;
     public boolean hasLeftHorn = false;
     public boolean hasRightHorn = false;
     public ItemStack armor = ItemStack.EMPTY;

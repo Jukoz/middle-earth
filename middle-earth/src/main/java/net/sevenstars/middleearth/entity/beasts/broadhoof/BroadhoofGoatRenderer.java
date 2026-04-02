@@ -88,6 +88,7 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
         state.armor = goat.getBodyArmor().copy();
 
         state.horns = goat.getHorns();
+        state.hair = goat.hasHair();
         state.hasLeftHorn = goat.hasLeftHorn();
         state.hasRightHorn = goat.hasRightHorn();
         state.beardBrushed = goat.hasBrushedBeard();
