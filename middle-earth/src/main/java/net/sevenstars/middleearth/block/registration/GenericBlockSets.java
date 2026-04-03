@@ -44,6 +44,10 @@ public class GenericBlockSets {
             "mire_bricks", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.PACKED_MUD, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
+    public static GenericBlockSetBuilder FRAMED_DRYSTONE = registerPillarBlockSet(new GenericBlockSetBuilder(
+            "framed_drystone", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            ItemGroupsME.STONE_BLOCKS_CONTENTS));
+
     public static GenericBlockSetBuilder OLD_BRICKS = registerBlockSet(new GenericBlockSetBuilder(
             "old_bricks", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.DULL_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
