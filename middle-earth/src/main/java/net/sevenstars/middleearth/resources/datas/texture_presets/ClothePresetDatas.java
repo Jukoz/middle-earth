@@ -1,49 +1,49 @@
-package net.sevenstars.middleearth.resources.datas.npcs.data;
+package net.sevenstars.middleearth.resources.datas.texture_presets;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
+import net.sevenstars.middleearth.resources.datas.texture_presets.entities.TextureElementData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClothePresets {
+public class ClothePresetDatas {
 
-    private List<Identifier> bases;
-    private List<Identifier> overs;
-    private List<Identifier> extras;
+    private List<TextureElementData> bases;
+    private List<TextureElementData> overs;
+    private List<TextureElementData> extras;
     private int weight;
 
-    public ClothePresets(List<Identifier> bases){
+    public ClothePresetDatas(List<TextureElementData> bases){
         this(bases, null, null, 1);
     }
-    public ClothePresets(List<Identifier> bases, List<Identifier> overs){
+    public ClothePresetDatas(List<TextureElementData> bases, List<TextureElementData> overs){
         this(bases, overs, null, 1);
     }
-    public ClothePresets(List<Identifier> bases, List<Identifier> overs, int weight){
+    public ClothePresetDatas(List<TextureElementData> bases, List<TextureElementData> overs, int weight){
         this(bases, overs, null, weight);
     }
-    public ClothePresets(List<Identifier> bases, List<Identifier> overs, List<Identifier> extras){
+    public ClothePresetDatas(List<TextureElementData> bases, List<TextureElementData> overs, List<TextureElementData> extras){
         this(bases, overs, extras, 1);
     }
-    public ClothePresets(List<Identifier> bases, List<Identifier> overs, List<Identifier> extras, int weight){
+    public ClothePresetDatas(List<TextureElementData> bases, List<TextureElementData> overs, List<TextureElementData> extras, int weight){
         this.bases = bases;
         this.overs = overs;
         this.extras = extras;
         this.weight = weight;
     }
 
-    public List<Identifier> getBases(){
+    public List<TextureElementData> getBases(){
         return bases;
     }
-    public List<Identifier> getOvers(){
+    public List<TextureElementData> getOvers(){
         return overs;
     }
-    public List<Identifier> getExtras(){
+    public List<TextureElementData> getExtras(){
         return extras;
     }
+
     public int getWeight(){
         return weight;
     }
@@ -53,21 +53,24 @@ public class ClothePresets {
         if(bases != null){
             var baseList = new NbtList();
             for(int i = 0; i < bases.size(); i++){
-                baseList.add(i, NbtString.of(bases.get(i).toString()));
+                NbtCompound element = bases.get(i).getNbt();
+                baseList.add(i, element);
             }
             newSource.put("bases", baseList);
         }
         if(overs != null){
             var overList = new NbtList();
             for(int i = 0; i < overs.size(); i++){
-                overList.add(i, NbtString.of(overs.get(i).toString()));
+                NbtCompound element = overs.get(i).getNbt();
+                overList.add(i, element);
             }
             newSource.put("overs", overList);
         }
         if(extras != null){
             var extraList = new NbtList();
             for(int i = 0; i < extras.size(); i++){
-                extraList.add(i, NbtString.of(extras.get(i).toString()));
+                NbtCompound element = extras.get(i).getNbt();
+                extraList.add(i, element);
             }
             newSource.put("extras", extraList);
         }
@@ -77,7 +80,7 @@ public class ClothePresets {
         return newSource;
     }
 
-    public ClothePresets(NbtCompound source){
+    public ClothePresetDatas(NbtCompound source){
         if(source.getInt("weight").isPresent())
             this.weight = source.getInt("weight").get();
         else
@@ -88,7 +91,7 @@ public class ClothePresets {
             this.bases = new ArrayList<>();
             baseList.forEach( x -> {
                 if(x.asString().isPresent())
-                    this.bases.add(Identifier.of(x.asString().get()));
+                    this.bases.add(new TextureElementData(Identifier.of(x.toString())));
             });
         }
 
@@ -97,7 +100,7 @@ public class ClothePresets {
             this.overs = new ArrayList<>();
             overList.forEach( x -> {
                 if(x.asString().isPresent())
-                    this.overs.add(Identifier.of(x.asString().get()));
+                    this.overs.add(new TextureElementData(Identifier.of(x.asString().get())));
             });
         }
 
@@ -106,7 +109,7 @@ public class ClothePresets {
             this.extras = new ArrayList<>();
             extraList.forEach( x -> {
                 if(x.asString().isPresent())
-                    this.extras.add(Identifier.of(x.asString().get()));
+                    this.extras.add(new TextureElementData(Identifier.of(x.asString().get())));
             });
         }
 

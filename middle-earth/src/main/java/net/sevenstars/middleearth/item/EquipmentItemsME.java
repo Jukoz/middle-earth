@@ -23,7 +23,7 @@ import net.sevenstars.middleearth.item.utils.ItemSettingsME;
 import net.sevenstars.middleearth.item.utils.armor.ArmorMaterialsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 
 import java.util.ArrayList;
@@ -1746,7 +1746,7 @@ public class EquipmentItemsME {
                 case HEAVY -> ArmorTags.heavyArmors.add(item);
             }
         }
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 

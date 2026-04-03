@@ -1,9 +1,7 @@
-package net.sevenstars.middleearth.resources;
+package net.sevenstars.middleearth.registries;
 
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -11,21 +9,18 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.*;
-import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
-import org.spongepowered.asm.mixin.Dynamic;
 
 import java.util.List;
 import java.util.Optional;
 
-public class StructureManagerDatasME {
+public class StructureManagerDataRegistryME {
     public final static StructureManagerData GONDOR_GENERIC_NESTS;
     public final static StructureManagerData EREBOR_GENERIC_NESTS;
     public final static StructureManagerData DALE_KEEP_NESTS;

@@ -4,84 +4,84 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
-import net.sevenstars.middleearth.resources.CharacterPatternsME;
-import net.sevenstars.middleearth.resources.datas.npcs.data.CharacterClothingData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTexturePattern;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
+import net.sevenstars.middleearth.resources.datas.texture_presets.ClothingData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.entities.CharacterTexturePattern;
+import net.sevenstars.middleearth.resources.datas.common.NpcTextureType;
 
 import java.util.Optional;
 
 public class NpcEntityHelper {
-    public static NpcEntityTextureData generateSkinTextureData(NpcEntityTextureData npcTextureData, TexturePresets.Identity textureIdentity) {
-        Identifier materialId = TexturePresets.getRawMaterial(textureIdentity, NpcTextureType.SKIN);
-        Identifier bodyPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.BODY);
-        Identifier headPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.HEAD);
-        Identifier feetPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.FEET);
-        Identifier earPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.EAR);
-        Identifier nosePatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.NOSE);
-        Identifier scarPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.SCAR);
+    public static NpcEntityTextureData generateSkinTextureData(NpcEntityTextureData npcTextureData, TexturePresetDatas.Identity textureIdentity) {
+        Identifier materialId = TexturePresetDatas.getRawMaterial(textureIdentity, NpcTextureType.SKIN);
+        Identifier bodyPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.BODY);
+        Identifier headPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.HEAD);
+        Identifier feetPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.FEET);
+        Identifier earPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.EAR);
+        Identifier nosePatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.NOSE);
+        Identifier scarPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.SCAR);
 
-        npcTextureData = npcTextureData.withSkinTexture(TexturePresets.buildId(bodyPatternId, materialId));
-        npcTextureData = npcTextureData.withHeadTexture(TexturePresets.buildId(headPatternId, materialId));
+        npcTextureData = npcTextureData.withSkinTexture(TexturePresetDatas.buildId(bodyPatternId, materialId));
+        npcTextureData = npcTextureData.withHeadTexture(TexturePresetDatas.buildId(headPatternId, materialId));
 
         if(scarPatternId != null){
-            npcTextureData = npcTextureData.withScarTexture(TexturePresets.buildId(scarPatternId, materialId));
+            npcTextureData = npcTextureData.withScarTexture(TexturePresetDatas.buildId(scarPatternId, materialId));
         }
         if(earPatternId != null){
-            npcTextureData = npcTextureData.withEarTexture(TexturePresets.buildId(earPatternId, materialId));
+            npcTextureData = npcTextureData.withEarTexture(TexturePresetDatas.buildId(earPatternId, materialId));
         }
         if(nosePatternId != null){
-            npcTextureData = npcTextureData.withNoseTexture(TexturePresets.buildId(nosePatternId, materialId));
+            npcTextureData = npcTextureData.withNoseTexture(TexturePresetDatas.buildId(nosePatternId, materialId));
         }
         if(feetPatternId != null){
-            npcTextureData = npcTextureData.withFeetTexture(TexturePresets.buildId(feetPatternId, materialId));
+            npcTextureData = npcTextureData.withFeetTexture(TexturePresetDatas.buildId(feetPatternId, materialId));
         }
 
         return npcTextureData;
     }
 
-    public static NpcEntityTextureData generateEyeTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresets.Identity textureIdentity, boolean haveEmissiveEyes) {
-        Identifier materialId = TexturePresets.getRawMaterial(textureIdentity, NpcTextureType.EYE);
-        Identifier patternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.EYE);
+    public static NpcEntityTextureData generateEyeTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDatas.Identity textureIdentity, boolean haveEmissiveEyes) {
+        Identifier materialId = TexturePresetDatas.getRawMaterial(textureIdentity, NpcTextureType.EYE);
+        Identifier patternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.EYE);
 
-        npcEntityTextureData = npcEntityTextureData.withEyeTexture(TexturePresets.buildId(patternId, materialId), TexturePresets.buildId(Identifier.of(patternId.getPath() + "_emissive"), materialId), haveEmissiveEyes);
+        npcEntityTextureData = npcEntityTextureData.withEyeTexture(TexturePresetDatas.buildId(patternId, materialId), TexturePresetDatas.buildId(Identifier.of(patternId.getPath() + "_emissive"), materialId), haveEmissiveEyes);
 
         return npcEntityTextureData;
     }
 
-    public static NpcEntityTextureData generateHairTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresets.Identity textureIdentity, DynamicRegistryManager manager) {
-        Identifier globalHairMaterialId = TexturePresets.getRawMaterial(textureIdentity, NpcTextureType.HAIR);
+    public static NpcEntityTextureData generateHairTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDatas.Identity textureIdentity, DynamicRegistryManager manager) {
+        Identifier globalHairMaterialId = TexturePresetDatas.getRawMaterial(textureIdentity, NpcTextureType.HAIR);
 
         // Hair
-        Identifier hairPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.HAIR);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundHairPattern = CharacterPatternsME.get(manager, NpcTextureType.HAIR, hairPatternId);
-        if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof NpcTexturePattern pattern){
-            npcEntityTextureData = npcEntityTextureData.withHairTexture(TexturePresets.buildId(hairPatternId, globalHairMaterialId));
+        Identifier hairPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.HAIR);
+        Optional<RegistryEntry.Reference<CharacterTexturePattern>> foundHairPattern = CharacterPatternsRegistryME.get(manager, NpcTextureType.HAIR, hairPatternId);
+        if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof CharacterTexturePattern pattern){
+            npcEntityTextureData = npcEntityTextureData.withHairTexture(TexturePresetDatas.buildId(hairPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){
-                npcEntityTextureData = npcEntityTextureData.withHairAddonTexture(TexturePresets.buildAddonId(hairPatternId, globalHairMaterialId));
+                npcEntityTextureData = npcEntityTextureData.withHairAddonTexture(TexturePresetDatas.buildAddonId(hairPatternId, globalHairMaterialId));
             }
         }
         // Eyebrow
-        Identifier eyebrowPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.EYEBROW);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundEyebrowPattern = CharacterPatternsME.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
+        Identifier eyebrowPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.EYEBROW);
+        Optional<RegistryEntry.Reference<CharacterTexturePattern>> foundEyebrowPattern = CharacterPatternsRegistryME.get(manager, NpcTextureType.EYEBROW, eyebrowPatternId);
         if(foundEyebrowPattern.isPresent()){
-            npcEntityTextureData = npcEntityTextureData.withEyebrowTexture(TexturePresets.buildId(eyebrowPatternId, globalHairMaterialId));
+            npcEntityTextureData = npcEntityTextureData.withEyebrowTexture(TexturePresetDatas.buildId(eyebrowPatternId, globalHairMaterialId));
         }
         // Beard
-        Identifier beardPatternId = TexturePresets.getRawPattern(textureIdentity, NpcTextureType.BEARD);
-        Optional<RegistryEntry.Reference<NpcTexturePattern>> foundBeardPattern = CharacterPatternsME.get(manager, NpcTextureType.BEARD, beardPatternId);
-        if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof NpcTexturePattern pattern){
-            npcEntityTextureData = npcEntityTextureData.withBeardTexture(TexturePresets.buildId(beardPatternId, globalHairMaterialId));
+        Identifier beardPatternId = TexturePresetDatas.getRawPattern(textureIdentity, NpcTextureType.BEARD);
+        Optional<RegistryEntry.Reference<CharacterTexturePattern>> foundBeardPattern = CharacterPatternsRegistryME.get(manager, NpcTextureType.BEARD, beardPatternId);
+        if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof CharacterTexturePattern pattern){
+            npcEntityTextureData = npcEntityTextureData.withBeardTexture(TexturePresetDatas.buildId(beardPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){
-                npcEntityTextureData = npcEntityTextureData.withBeardAddonTexture(TexturePresets.buildAddonId(beardPatternId, globalHairMaterialId));
+                npcEntityTextureData = npcEntityTextureData.withBeardAddonTexture(TexturePresetDatas.buildAddonId(beardPatternId, globalHairMaterialId));
             }
         }
         return npcEntityTextureData;
     }
 
-    public static NpcEntityTextureData generateClothingTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresets.Identity textureIdentity) {
-        CharacterClothingData data = TexturePresets.getClothing(textureIdentity);
+    public static NpcEntityTextureData generateClothingTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDatas.Identity textureIdentity) {
+        ClothingData data = TexturePresetDatas.getClothing(textureIdentity);
         npcEntityTextureData = npcEntityTextureData.withClothingTexture(data.base(), data.over(), data.extra());
 
         return npcEntityTextureData;

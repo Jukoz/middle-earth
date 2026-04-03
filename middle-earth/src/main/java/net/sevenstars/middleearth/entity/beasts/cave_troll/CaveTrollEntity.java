@@ -44,8 +44,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.jetbrains.annotations.Nullable;
@@ -612,8 +611,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public Disposition getDisposition() {
-        return Disposition.EVIL;
+    public DispositionType getDisposition() {
+        return DispositionType.EVIL;
     }
 
     @Override

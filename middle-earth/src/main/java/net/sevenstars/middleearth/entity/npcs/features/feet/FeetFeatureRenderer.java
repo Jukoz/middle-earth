@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
-import net.sevenstars.middleearth.resources.AtlasesME;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 @Environment(EnvType.CLIENT)
 public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {

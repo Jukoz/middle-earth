@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.resources;
+package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

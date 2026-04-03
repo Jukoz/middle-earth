@@ -4,7 +4,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 
 import java.util.ArrayList;
@@ -23,11 +23,11 @@ public class FactionLookup {
         return faction;
     }
 
-    public static HashMap<Identifier, Faction> getFactionsByDisposition(World world, Disposition disposition){
+    public static HashMap<Identifier, Faction> getFactionsByDisposition(World world, DispositionType dispositionType){
         Stream<Faction> factions = getAllJoinableFaction(world).stream();
         HashMap<Identifier, Faction> foundFactions = new HashMap<>();
 
-        for(Faction faction : factions.filter(x -> x.getDisposition() == disposition).toList()){
+        for(Faction faction : factions.filter(x -> x.getDisposition() == dispositionType).toList()){
             if(faction.getFactionType() == FactionType.FACTION)
                 foundFactions.put(faction.getId(), faction);
         }

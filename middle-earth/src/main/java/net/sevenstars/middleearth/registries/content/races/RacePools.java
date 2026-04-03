@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.HashMap;
@@ -35,21 +35,22 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
                 .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)),
             new HashMap<>(){{
-                put(EntityCategory.SHARED, new AttributePool()
+                put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81))
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.09))
                     .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)));
-                put(EntityCategory.MALE, new AttributePool()
+                put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75, 0.81))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1.05, 1.1)));
-                put(EntityCategory.FEMALE, new AttributePool()
+                put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71, 0.78))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1, 1.03)));
             }},
             List.of(), List.of());
+
         ELF = new Race(Identifier.of(MiddleEarth.MOD_ID, "elf"), RaceType.ELF,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.06))
@@ -59,17 +60,17 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.1))
                 .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75).withBuffReversed()),
             new HashMap<>(){{
-                put(EntityCategory.SHARED, new AttributePool()
+                put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 0.9))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.115))
                     .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75)));
-                put(EntityCategory.MALE, new AttributePool()
+                put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.02, 1.06))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.93, 0.97)));
-                put(EntityCategory.FEMALE, new AttributePool()
+                put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.00, 1.03))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.91, 0.94)));
             }},
@@ -85,36 +86,36 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90).withBuffReversed())
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.6).withBuffReversed()),
             new HashMap<>(){{
-                put(EntityCategory.SHARED, new AttributePool()
+                put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 0.9))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.115))
                     .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90)));
-                put(EntityCategory.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.58, 0.62))
+                put(EntityCategories.MALE, new AttributePool()
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.62, 0.68))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
-                put(EntityCategory.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.55, 0.58))
+                put(EntityCategories.FEMALE, new AttributePool()
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.61, 0.65))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
             }},
-
             List.of(), List.of());
 
         HUMAN = new Race(Identifier.of(MiddleEarth.MOD_ID, "human"), RaceType.HUMAN,
             new AttributePool(),
             new HashMap<>(){{
-                put(EntityCategory.SHARED, new AttributePool()
+                put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
-                put(EntityCategory.FEMALE, new AttributePool()
+                put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
-                put(EntityCategory.MALE, new AttributePool()
+                put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98))
                     .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
+
         ORC = new Race(Identifier.of(MiddleEarth.MOD_ID, "orc"), RaceType.ORC,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.83).withBuffReversed())
@@ -124,18 +125,21 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.11))
                 .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 1.0)),
             new HashMap<>(){{
-                put(EntityCategory.SHARED, new AttributePool()
+                put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 16.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.75))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.11))
                     .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 1.0)));
-                put(EntityCategory.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.74, 0.79)));
-                put(EntityCategory.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.78, 0.83)));
+                put(EntityCategories.MALE, new AttributePool()
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.65, 0.72))
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
+                put(EntityCategories.FEMALE, new AttributePool()
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.63, 0.70))
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
+
         URUK = new Race(Identifier.of(MiddleEarth.MOD_ID, "uruk"), RaceType.URUK,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.0))
@@ -145,17 +149,17 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.09))
                 .addElement(AttributePoolElement.create(EntityAttributes.BURNING_TIME, 0.70).withBuffReversed()),
             new HashMap<>(){{
-                put(EntityCategory.SHARED, new AttributePool()
+                put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.09))
                     .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 0.70)));
-                put(EntityCategory.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.92, 0.98)));
-                put(EntityCategory.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.96, 1.0)));
+                put(EntityCategories.MALE, new AttributePool()
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
+                put(EntityCategories.FEMALE, new AttributePool()
+                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
     }

@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -24,11 +24,11 @@ public class LongbeardsFactionPool {
     public final static Faction EREBOR;
 
     static {
-        LONGBEARDS = new Faction(FactionRegistry.LONGBEARDS, true, Disposition.GOOD, FactionType.FACTION, null,
+        LONGBEARDS = new Faction(FactionRegistry.LONGBEARDS, true, DispositionType.GOOD, FactionType.FACTION, null,
                 List.of(FactionRegistry.LONGBEARDS_EREBOR.getValue()),
                 null, null, null, List.of(), List.of(), List.of(), List.of(), List.of());
 
-        EREBOR = new Faction(FactionRegistry.LONGBEARDS_EREBOR, true, Disposition.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
+        EREBOR = new Faction(FactionRegistry.LONGBEARDS_EREBOR, true, DispositionType.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             EreborNpcDataPool.PEASANT,

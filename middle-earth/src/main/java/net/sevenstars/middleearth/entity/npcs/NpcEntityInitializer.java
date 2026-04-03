@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.entity.npcs;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BedBlock;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EquipmentHolder;
@@ -27,7 +25,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
 
 public class NpcEntityInitializer {
     public static void initializeNpcEntity(ClientWorld clientWorld, NpcEntity npcEntity){
@@ -75,11 +73,11 @@ public class NpcEntityInitializer {
             npcEntity.setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
             npcData.applyAttributes(npcEntity);
 
-            TexturePresets textureData = npcData.getNpcTextureData(world);
+            TexturePresetDatas textureData = npcData.getNpcTextureData(world);
 
-            TexturePresets.Identity identity = TexturePresets.Identity.create(textureData, npcEntity.getNpcCategory());
+            TexturePresetDatas.Identity identity = TexturePresetDatas.Identity.create(textureData, npcEntity.getNpcCategory());
             if(identity == null)
-                identity = TexturePresets.Identity.create(textureData);
+                identity = TexturePresetDatas.Identity.create(textureData);
 
             NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
             currentStep = "Generating skin...";

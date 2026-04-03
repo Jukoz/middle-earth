@@ -4,7 +4,7 @@ import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.WildGoblinNpcDataPool;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -17,7 +17,7 @@ public class WildGoblinsFactionPool {
         public final static Faction WILD_GOBLIN;
 
         static {
-            WILD_GOBLIN = new Faction(FactionRegistry.WILD_GOBLINS, false, Disposition.NEUTRAL, FactionType.FACTION, null,null,
+            WILD_GOBLIN = new Faction(FactionRegistry.WILD_GOBLINS, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                         WildGoblinNpcDataPool.GATHERER

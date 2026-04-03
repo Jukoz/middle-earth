@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -23,7 +23,7 @@ public class ShireFactionPool {
     public final static Faction SHIRE;
 
     static {
-        SHIRE = new Faction(FactionRegistry.SHIRE, true, Disposition.GOOD, FactionType.FACTION, null,null,
+        SHIRE = new Faction(FactionRegistry.SHIRE, true, DispositionType.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                         ShireNpcDataPool.PEASANT

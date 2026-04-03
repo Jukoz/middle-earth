@@ -5,7 +5,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -23,7 +23,7 @@ public class GondorFactionPool {
     private final static String FACTION_PATH = FactionRegistry.GONDOR.getValue().getPath();
 
     static {
-        GONDOR = new Faction(FactionRegistry.GONDOR, true, Disposition.GOOD, FactionType.FACTION, null, null,
+        GONDOR = new Faction(FactionRegistry.GONDOR, true, DispositionType.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                         GondorianNpcDataPool.PEASANT

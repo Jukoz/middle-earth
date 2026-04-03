@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
@@ -43,7 +43,7 @@ import java.util.*;
 
 
 public class Faction {
-    private static HashMap<Disposition, List<Integer>> FactionSelectionOrderIndexPerDisposition;
+    private static HashMap<DispositionType, List<Integer>> FactionSelectionOrderIndexPerDisposition;
 
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> {
         return instance.group(
@@ -73,7 +73,7 @@ public class Faction {
     private final Integer factionSelectionOrderIndex;
     private final String translatableKey;
     private final boolean joinable;
-    private final Disposition disposition;
+    private final DispositionType dispositionType;
     private final FactionType factionType;
     private final Identifier parentFactionId;
     private final HashMap<NpcRank, List<Identifier>> npcDatasByRank;
@@ -99,7 +99,7 @@ public class Faction {
 
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
-        this.disposition = Disposition.valueOf(disposition.toUpperCase());
+        this.dispositionType = DispositionType.valueOf(disposition.toUpperCase());
 
         this.factionType = FactionType.valueOf(factionType.toUpperCase());
         this.parentFactionId = parentFaction.orElse(null);
@@ -147,7 +147,7 @@ public class Faction {
         verifyData();
     }
 
-    public Faction(RegistryKey<Faction> faction, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId,
+    public Faction(RegistryKey<Faction> faction, Boolean joinable, DispositionType dispositionType, FactionType factionType, Identifier parentFactionId,
                    List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
                    List<String> joinCommand, List<String> leaveCommand,
                    List<RegistryKey<Faction>> diplomaticAllies, List<RegistryKey<Faction>> diplomaticNeutrals, List<RegistryKey<Faction>> diplomaticEnemies)
@@ -156,21 +156,21 @@ public class Faction {
 
         if(FactionSelectionOrderIndexPerDisposition == null)
             FactionSelectionOrderIndexPerDisposition = new HashMap<>();
-        if(FactionSelectionOrderIndexPerDisposition.containsKey(disposition)){
-            this.factionSelectionOrderIndex = FactionSelectionOrderIndexPerDisposition.get(disposition).size();
-            List<Integer> orderList = new ArrayList<>(FactionSelectionOrderIndexPerDisposition.get(disposition));
+        if(FactionSelectionOrderIndexPerDisposition.containsKey(dispositionType)){
+            this.factionSelectionOrderIndex = FactionSelectionOrderIndexPerDisposition.get(dispositionType).size();
+            List<Integer> orderList = new ArrayList<>(FactionSelectionOrderIndexPerDisposition.get(dispositionType));
             orderList.add(this.factionSelectionOrderIndex);
-            FactionSelectionOrderIndexPerDisposition.put(disposition, orderList);
+            FactionSelectionOrderIndexPerDisposition.put(dispositionType, orderList);
         }
         else {
             int initialIndex = 0;
             this.factionSelectionOrderIndex = initialIndex;
-            FactionSelectionOrderIndexPerDisposition.put(disposition, List.of(initialIndex));
+            FactionSelectionOrderIndexPerDisposition.put(dispositionType, List.of(initialIndex));
         }
 
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
-        this.disposition = disposition;
+        this.dispositionType = dispositionType;
         this.factionType = factionType;
         this.parentFactionId = parentFactionId;
         this.subFactions = subFactions;
@@ -406,11 +406,11 @@ public class Faction {
         return getSubfactionById(world, subFactions.get(index));
     }
 
-    public Disposition getDisposition(){
-        return disposition;
+    public DispositionType getDisposition(){
+        return dispositionType;
     }
     public String getDispositionString(){
-        return disposition.name();
+        return dispositionType.name();
     }
     public String getFactionTypeString(){
         return factionType.name();

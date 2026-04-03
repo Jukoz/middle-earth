@@ -6,7 +6,7 @@ import net.minecraft.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistryAliases {
+public class RegistryAliasesME {
     public record Alias(Registry registry, String name) {}
     public record ManualAlias(Registry registry, String oldName, String newName) {}
 

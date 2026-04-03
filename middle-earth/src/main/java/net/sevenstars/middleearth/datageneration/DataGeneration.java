@@ -8,7 +8,6 @@ import net.sevenstars.middleearth.datageneration.providers.BlockLootTableProvide
 import net.sevenstars.middleearth.datageneration.providers.DataWorldGenerator;
 import net.sevenstars.middleearth.datageneration.providers.EnchantmentProvider;
 import net.sevenstars.middleearth.datageneration.providers.LanguageProvider;
-import net.sevenstars.middleearth.datageneration.providers.dynamic.*;
 import net.sevenstars.middleearth.datageneration.providers.models.BlockModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableArmorRecipeProvider;
@@ -18,8 +17,10 @@ import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
+import net.sevenstars.middleearth.registries.AtlasesME;
+import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
+import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.world.biomes.caves.ModCaveBiomes;
 import net.sevenstars.middleearth.world.biomes.surface.ModBiomes;
 import net.sevenstars.middleearth.world.features.boulder.BoulderConfiguredFeatures;
@@ -83,14 +84,14 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
 
-        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsME::bootstrapSkins);
-        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsME::bootstrapSkins);
+        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsRegistryME::bootstrapSkins);
+        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsRegistryME::bootstrapSkins);
 
-        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_MATERIAL, CharacterMaterialsME::bootstrapHairs);
-        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_PATTERN, CharacterPatternsME::bootstrapHairs);
+        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_MATERIAL, CharacterMaterialsRegistryME::bootstrapHairs);
+        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_PATTERN, CharacterPatternsRegistryME::bootstrapHairs);
 
-        registryBuilder.addRegistry(DynamicRegistriesME.EYE_MATERIAL, CharacterMaterialsME::bootstrapEyes);
-        registryBuilder.addRegistry(DynamicRegistriesME.EYE_PATTERN, CharacterPatternsME::bootstrapEyes);
+        registryBuilder.addRegistry(DynamicRegistriesME.EYE_MATERIAL, CharacterMaterialsRegistryME::bootstrapEyes);
+        registryBuilder.addRegistry(DynamicRegistriesME.EYE_PATTERN, CharacterPatternsRegistryME::bootstrapEyes);
 
         // Mod Dynamic
         DynamicRegistriesME.prepareBoostrap(registryBuilder);

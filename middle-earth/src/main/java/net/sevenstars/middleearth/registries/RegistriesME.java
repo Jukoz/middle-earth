@@ -76,7 +76,7 @@ public class RegistriesME {
 
             try {
                 FileWriter myWriter = new FileWriter("aliases.txt");
-                for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+                for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                     String name = alias.name();
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
@@ -85,7 +85,7 @@ public class RegistriesME {
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
                 }
 
-                for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+                for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                     alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
                 }
@@ -96,7 +96,7 @@ public class RegistriesME {
                 MiddleEarth.LOGGER.logError("RegistriesME :: An error occurred.", e);
             }
         } else {
-            for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                 String name = alias.name();
                 for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                     name = name.replaceAll(map.getKey(), map.getValue());
@@ -104,7 +104,7 @@ public class RegistriesME {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
 
-            for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+            for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
             }
         }

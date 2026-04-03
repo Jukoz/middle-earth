@@ -6,25 +6,25 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class ChargeAttackGoal extends Goal {
     private AbstractBeastEntity mob;
     private final int MAX_COOLDOWN;
     private int checkCanNavigateCooldown;
-    private Disposition beastDisposition;
+    private DispositionType beastDispositionType;
 
-    public ChargeAttackGoal(AbstractBeastEntity mob, Disposition beastDisposition, int maxCooldown) {
+    public ChargeAttackGoal(AbstractBeastEntity mob, DispositionType beastDispositionType, int maxCooldown) {
         this.mob = mob;
-        this.beastDisposition = beastDisposition;
+        this.beastDispositionType = beastDispositionType;
         this.MAX_COOLDOWN = maxCooldown;
     }
 
     @Override
     public boolean canStart() {
         if(this.mob.getTarget() != null && this.mob.getTarget() instanceof PlayerEntity player) {
-            return PlayerDataService.getPlayerDisposition(player, player.getWorld()) == beastDisposition;
+            return PlayerDataService.getPlayerDisposition(player, player.getWorld()) == beastDispositionType;
         }
 
         return this.mob.getChargeTimeout() == 0 &&

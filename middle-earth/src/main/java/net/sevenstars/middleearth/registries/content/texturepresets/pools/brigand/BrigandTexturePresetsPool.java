@@ -1,12 +1,13 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.brigand;
 
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
-import net.sevenstars.middleearth.resources.CharacterMaterialsME;
-import net.sevenstars.middleearth.resources.CharacterPatternsME;
-import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
-import net.sevenstars.middleearth.resources.datas.races.data.TexturePresetData;
-import net.sevenstars.middleearth.resources.datas.races.data.npctextures.NpcTextureType;
+import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
+import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
+import net.sevenstars.middleearth.resources.datas.texture_presets.entities.TextureElementData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.entities.TexturePresetData;
+import net.sevenstars.middleearth.resources.datas.common.NpcTextureType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +19,9 @@ public class BrigandTexturePresetsPool {
     private final static TexturePresetData FEMALE_PRESET;
     private final static TexturePresetData CHIEF_PRESET;
 
-    public final static TexturePresets THUG;
-    public final static TexturePresets MERCENARY;
-    public final static TexturePresets CHIEF;
+    public final static TexturePresetDatas THUG;
+    public final static TexturePresetDatas MERCENARY;
+    public final static TexturePresetDatas CHIEF;
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
@@ -34,163 +35,146 @@ public class BrigandTexturePresetsPool {
     static {
         BASE_PRESET = new TexturePresetData()
                 .withMaterials(NpcTextureType.SKIN, List.of(
-                        CharacterMaterialsME.Skin.PALE,
-                        CharacterMaterialsME.Skin.BEIGE,
-                        CharacterMaterialsME.Skin.TAN_DESATURATED,
-                        CharacterMaterialsME.Skin.DARK_BEIGE
+                    TextureElementData.material(CharacterMaterialsRegistryME.Skin.PALE),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Skin.BEIGE),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Skin.TAN_DESATURATED),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Skin.DARK_BEIGE)
                 ))
                 .withPatterns(NpcTextureType.EAR, List.of(
-                        CharacterPatternsME.Skins.Ear.SQUARE,
-                        CharacterPatternsME.Skins.Ear.NORMAL
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Ear.SQUARE),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Ear.NORMAL)
                 ))
                 .withPatterns(NpcTextureType.EYE, List.of(
-                        CharacterPatternsME.Eyes.Eye.COMMON
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
                 ))
                 .withMaterials(NpcTextureType.EYE, List.of(
-                        CharacterMaterialsME.Eye.GREEN,
-                        CharacterMaterialsME.Eye.DARK_GREEN,
-                        CharacterMaterialsME.Eye.BLACK,
-                        CharacterMaterialsME.Eye.BROWN
+                    TextureElementData.material(CharacterMaterialsRegistryME.Eye.GREEN),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Eye.DARK_GREEN),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Eye.BLACK),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Eye.BROWN)
                 ))
                 .withMaterials(NpcTextureType.HAIR, List.of(
-                        CharacterMaterialsME.Hair.DIRTY_BROWN_SILVER,
-                        CharacterMaterialsME.Hair.GREASY_SILVER,
-                        CharacterMaterialsME.Hair.GRAY_BEADS,
-                        CharacterMaterialsME.Hair.BROWN_SILVER,
-                        CharacterMaterialsME.Hair.BROWN_BEADS,
-                        CharacterMaterialsME.Hair.DARK_BROWN_SILVER,
-                        CharacterMaterialsME.Hair.BLACK_SILVER,
-                        CharacterMaterialsME.Hair.COLD_BLACK_SILVER
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_SILVER),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.GREASY_SILVER),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.GRAY_BEADS),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.BROWN_SILVER),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.BROWN_BEADS),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.DARK_BROWN_SILVER),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.BLACK_SILVER),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.COLD_BLACK_SILVER)
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
-                        CharacterPatternsME.Hairs.Eyebrow.BASIC
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC)
                 ));
 
         MALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
-                        CharacterPatternsME.Skins.Head.MALE
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Head.MALE)
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
-                        CharacterPatternsME.Skins.Body.MUSCULAR,
-                        CharacterPatternsME.Skins.Body.FAT,
-                        CharacterPatternsME.Skins.Body.SKIN_TO_BONE
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Body.MUSCULAR),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Body.FAT),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Body.SKIN_TO_BONE)
                 ))
                 .withPatterns(NpcTextureType.EYEBROW, List.of(
-                        CharacterPatternsME.Hairs.Eyebrow.UNI,
-                        CharacterPatternsME.Hairs.Eyebrow.LONG,
-                        CharacterPatternsME.Hairs.Eyebrow.THICK
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.LONG),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.THICK)
                 ))
-                .withPatterns(NpcTextureType.HAIR, Stream.of(
-                                null,
-                                CharacterPatternsME.Hairs.Hair.SHORT,
-                                CharacterPatternsME.Hairs.Hair.BALD_SIDES,
-                                CharacterPatternsME.Hairs.Hair.TOP_BALDING,
-                                CharacterPatternsME.Hairs.Hair.SIDE_BALDING,
-                                CharacterPatternsME.Hairs.Hair.BOWL
-                        ).toList()
-                )
-                .withPatterns(NpcTextureType.BEARD, Stream.of(
-                                null,
-                                null,
-                                null,
-                                CharacterPatternsME.Hairs.Beard.SHORT,
-                                CharacterPatternsME.Hairs.Beard.SINGLE
-                        ).toList()
-                )
-                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
-                        //CharacterPatternsME.Clothing.PANTS,
-                        //CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
-                        //CharacterPatternsME.Clothing.PANTS_WITH_SCARF,
-                        //CharacterPatternsME.Clothing.PANTS_WITH_SCARF
+                .withPatterns(NpcTextureType.HAIR, List.of(
+                    TexturePresetData.EMPTY_VALUE_KEY,
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.TOP_BALDING),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.SIDE_BALDING),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.BOWL)
+                ))
+                .withPatterns(NpcTextureType.BEARD, List.of(
+                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(3),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Beard.SHORT),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Beard.SINGLE)
                 ));
 
         FEMALE_PRESET = new TexturePresetData()
                 .withPatterns(NpcTextureType.HEAD, List.of(
-                        CharacterPatternsME.Skins.Head.FEMALE
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Head.FEMALE)
                 ))
                 .withPatterns(NpcTextureType.BODY, List.of(
-                        CharacterPatternsME.Skins.Body.SLIM,
-                        CharacterPatternsME.Skins.Body.SKIN_TO_BONE
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Body.SLIM),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Body.SKIN_TO_BONE)
                 ))
                 .withPatterns(NpcTextureType.HAIR, List.of(
-                                CharacterPatternsME.Hairs.Hair.LONG,
-                                CharacterPatternsME.Hairs.Hair.UNCUT,
-                                CharacterPatternsME.Hairs.Hair.SEMI_LONG
-                        )
-                )
-                .withPatterns(NpcTextureType.CLOTHE_PRESETS, List.of(
-                        //CharacterPatternsME.Clothing.ROBE
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.LONG),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.UNCUT),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.SEMI_LONG)
                 ));
 
         CHIEF_PRESET = MALE_PRESET.copy()
                 .clearPatterns(NpcTextureType.BODY)
                 .withPatterns(NpcTextureType.BODY, List.of(
-                        CharacterPatternsME.Skins.Body.MUSCULAR,
-                        CharacterPatternsME.Skins.Body.FAT
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Body.MUSCULAR),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Body.FAT)
                 ))
                 .withPatterns(NpcTextureType.HEAD, List.of(
-                        CharacterPatternsME.Skins.Head.MALE
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Head.MALE)
                 ))
                 .clearMaterials(NpcTextureType.HAIR)
                 .withMaterials(NpcTextureType.HAIR, List.of(
-                        CharacterMaterialsME.Hair.DIRTY_BROWN_GOLD,
-                        CharacterMaterialsME.Hair.GREASY_GOLD,
-                        CharacterMaterialsME.Hair.GRAY_GOLD,
-                        CharacterMaterialsME.Hair.BROWN_GOLD,
-                        CharacterMaterialsME.Hair.DARK_BROWN_GOLD,
-                        CharacterMaterialsME.Hair.BLACK_GOLD,
-                        CharacterMaterialsME.Hair.COLD_BLACK_GOLD,
-                        CharacterMaterialsME.Hair.WHITE_GOLD
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_GOLD),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.GREASY_GOLD),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.GRAY_GOLD),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.BROWN_GOLD),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.DARK_BROWN_GOLD),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.BLACK_GOLD),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.COLD_BLACK_GOLD),
+                    TextureElementData.material(CharacterMaterialsRegistryME.Hair.WHITE_GOLD)
                 ))
                 .clearPatterns(NpcTextureType.HAIR)
-                .withPatterns(NpcTextureType.HAIR, Stream.of(
-                            null,
-                                null,
-                                null,
-                                null,
-                                null,
-                                CharacterPatternsME.Hairs.Hair.SHORT,
-                                CharacterPatternsME.Hairs.Hair.BALD_SIDES,
-                                CharacterPatternsME.Hairs.Hair.TOP_BALDING,
-                                CharacterPatternsME.Hairs.Hair.SIDE_BALDING
-                        ).toList()
-                )
-                .withPatterns(NpcTextureType.SCAR, Stream.of(
-                        null,
-                        null,
-                        CharacterPatternsME.Skins.Scar.EYE_LEFT,
-                        CharacterPatternsME.Skins.Scar.EYE_RIGHT
-                ).toList())
-        ;
+                .withPatterns(NpcTextureType.HAIR, List.of(
+                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(5),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.TOP_BALDING),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Hairs.Hair.SIDE_BALDING)
+                ))
+                .withPatterns(NpcTextureType.SCAR, List.of(
+                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT),
+                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
+                ));
     }
     // endregion
 
     // region [DATAS]
     static {
-        THUG = new TexturePresets(new HashMap<>(){{
-            put(EntityCategory.SHARED, List.of(BASE_PRESET));
-            put(EntityCategory.MALE, List.of(MALE_PRESET));
-            put(EntityCategory.FEMALE, List.of(FEMALE_PRESET));
+        THUG = new TexturePresetDatas(new HashMap<>(){{
+            put(EntityCategories.SHARED, List.of(BASE_PRESET));
+            put(EntityCategories.MALE, List.of(MALE_PRESET));
+            put(EntityCategories.FEMALE, List.of(FEMALE_PRESET));
         }});
 
-        MERCENARY = new TexturePresets(new HashMap<>(){{
-            put(EntityCategory.SHARED, List.of(BASE_PRESET));
-            put(EntityCategory.MALE, List.of(MALE_PRESET));
-            put(EntityCategory.FEMALE, List.of(FEMALE_PRESET));
+        MERCENARY = new TexturePresetDatas(new HashMap<>(){{
+            put(EntityCategories.SHARED, List.of(BASE_PRESET));
+            put(EntityCategories.MALE, List.of(MALE_PRESET));
+            put(EntityCategories.FEMALE, List.of(FEMALE_PRESET));
         }});
 
-        CHIEF = new TexturePresets(new HashMap<>(){{
-            put(EntityCategory.SHARED, List.of(BASE_PRESET));
-            put(EntityCategory.MALE, List.of(
+        CHIEF = new TexturePresetDatas(new HashMap<>(){{
+            put(EntityCategories.SHARED, List.of(BASE_PRESET));
+            put(EntityCategories.MALE, List.of(
                     CHIEF_PRESET.copy(),
                     CHIEF_PRESET.copy()
                             .clearPatterns(NpcTextureType.EYE)
-                            .withPatterns(NpcTextureType.EYE, List.of(CharacterPatternsME.Eyes.Eye.BLIND_LEFT))
-                            .withPatterns(NpcTextureType.SCAR, List.of(CharacterPatternsME.Skins.Scar.EYE_LEFT)),
+                            .withPatterns(NpcTextureType.EYE, List.of(
+                                    TextureElementData.pattern(CharacterPatternsRegistryME.Eyes.Eye.BLIND_LEFT)))
+                            .withPatterns(NpcTextureType.SCAR, List.of(
+                                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT))),
                     CHIEF_PRESET.copy()
                             .clearPatterns(NpcTextureType.EYE)
-                            .withPatterns(NpcTextureType.EYE, List.of(CharacterPatternsME.Eyes.Eye.BLIND_RIGHT))
-                            .withPatterns(NpcTextureType.SCAR, List.of(CharacterPatternsME.Skins.Scar.EYE_RIGHT))
+                            .withPatterns(NpcTextureType.EYE, List.of(
+                                    TextureElementData.pattern(CharacterPatternsRegistryME.Eyes.Eye.BLIND_RIGHT)))
+                            .withPatterns(NpcTextureType.SCAR, List.of(
+                                    TextureElementData.pattern(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)))
             ));
         }});
     }

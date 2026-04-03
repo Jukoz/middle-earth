@@ -1,9 +1,9 @@
-package net.sevenstars.middleearth.resources;
+package net.sevenstars.middleearth.registries;
 
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
-public class CharacterClothesME {
+public class CharacterClothesRegistryME {
     private final static String base = "character_clothes/base/";
     private final static String over = "character_clothes/over/";
     private final static String extra = "character_clothes/extra/";
@@ -28,5 +28,15 @@ public class CharacterClothesME {
     public record Extra(){
         public final static Identifier SCARF_BROWN                                      = IdentifierUtil.build(extra + "scarf_brown");
         public final static Identifier SCARF_DARK_BROWN                                 = IdentifierUtil.build(extra + "scarf_dark_brown");
+    }
+
+    public static Identifier RemovePath(Identifier identifier){
+        String val = identifier.toString();
+
+        val = val.replace(base, "");
+        val = val.replace(over, "");
+        val = val.replace(extra, "");
+
+        return Identifier.of(val);
     }
 }

@@ -12,10 +12,10 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.TexturePresets;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class NpcData {
     private final Identifier factionId;
     private final Identifier npcTextureKey;
     private final List<NpcGearData> gearDatas;
-    private final HashMap<EntityCategory, AttributePool> npcAttributePools;
+    private final HashMap<EntityCategories, AttributePool> npcAttributePools;
 
     public NpcData(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes){
         this.id = id;
@@ -54,14 +54,14 @@ public class NpcData {
         this.gearDatas = npcGearDatas;
 
         this.npcAttributePools = new HashMap<>();
-        for(var category : EntityCategory.values()){
+        for(var category : EntityCategories.values()){
             if(npcAttributes.contains(category.name())){
                 this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name()).get()));
             }
         }
     }
 
-    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresets> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategory, AttributePool> npcAttributePools){
+    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDatas> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategories, AttributePool> npcAttributePools){
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
@@ -118,7 +118,7 @@ public class NpcData {
     private Identifier getNpcTextureDataValue() {
         return npcTextureKey;
     }
-    public TexturePresets getNpcTextureData(World world) {
+    public TexturePresetDatas getNpcTextureData(World world) {
         return world.getRegistryManager().getOrThrow(DynamicRegistriesME.TEXTURE_PRESETS).get(npcTextureKey);
     }
 
@@ -128,9 +128,9 @@ public class NpcData {
         Race race = RaceLookup.getRace(npcEntity.getWorld(), raceId);
         if(race != null)
             race.applyNpcAttributes(npcEntity);
-        EntityCategory category = npcEntity.getNpcCategory();
-        if(npcAttributePools.containsKey(EntityCategory.SHARED))
-            npcAttributePools.get(EntityCategory.SHARED).apply(npcEntity);
+        EntityCategories category = npcEntity.getNpcCategory();
+        if(npcAttributePools.containsKey(EntityCategories.SHARED))
+            npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
         if(npcAttributePools.containsKey(category))
             npcAttributePools.get(category).apply(npcEntity);
 

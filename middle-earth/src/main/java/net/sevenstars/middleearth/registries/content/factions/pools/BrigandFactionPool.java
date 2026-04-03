@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -17,7 +17,7 @@ public class BrigandFactionPool {
     public final static Faction BRIGAND;
 
     static {
-        BRIGAND = new Faction(FactionRegistry.BRIGAND, false, Disposition.NEUTRAL, FactionType.FACTION, null,null,
+        BRIGAND = new Faction(FactionRegistry.BRIGAND, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             BrigandNpcDataPool.THUG

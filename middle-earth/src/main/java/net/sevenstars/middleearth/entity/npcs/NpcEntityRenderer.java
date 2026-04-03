@@ -32,7 +32,7 @@ import net.sevenstars.middleearth.entity.npcs.features.feet.FeetFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseFeatureRenderer;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.resources.AtlasesME;
+import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 

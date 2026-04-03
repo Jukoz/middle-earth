@@ -14,12 +14,12 @@ import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
 public class NpcEntityData extends PassiveEntity.PassiveData {
     public Identifier factionId;
     public Identifier npcDataId;
-    public EntityCategory category;
+    public EntityCategories category;
 
     public static final Codec<NpcEntityData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
         Identifier.CODEC.fieldOf("faction").orElse(null).forGetter((data) -> data.factionId),
@@ -32,7 +32,7 @@ public class NpcEntityData extends PassiveEntity.PassiveData {
     public NpcEntityData() {
         super(false, 0);
         this.factionId = null;
-        this.category = EntityCategory.SHARED;
+        this.category = EntityCategories.SHARED;
         this.npcDataId = null;
     }
 
@@ -40,10 +40,10 @@ public class NpcEntityData extends PassiveEntity.PassiveData {
         super(false, 0);
         this.factionId = factionId;
         this.npcDataId = npcDataId;
-        this.category = EntityCategory.valueOf(category.toUpperCase());
+        this.category = EntityCategories.valueOf(category.toUpperCase());
     }
 
-    public NpcEntityData(Identifier factionId, Identifier npcDataId, EntityCategory category) {
+    public NpcEntityData(Identifier factionId, Identifier npcDataId, EntityCategories category) {
         super(false, 0);
         this.factionId = factionId;
         this.npcDataId = npcDataId;

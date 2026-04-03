@@ -11,14 +11,12 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
@@ -40,7 +38,7 @@ public class Race {
     private final RaceType raceType;
     private final String translatableKey;
     private final AttributePool playerAttributePool;
-    private final HashMap<EntityCategory, AttributePool> npcAttributePools;
+    private final HashMap<EntityCategories, AttributePool> npcAttributePools;
     private List<String> joinCommands;
     private List<String> leaveCommands;
 
@@ -55,7 +53,7 @@ public class Race {
         this.playerAttributePool = new AttributePool(playerAttributes);
         this.npcAttributePools = new HashMap<>();
         // new AttributePool(npcAttributes);
-        for(var category : EntityCategory.values()){
+        for(var category : EntityCategories.values()){
             if(npcAttributes.contains(category.name())){
                 this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name()).get()));
             }
@@ -69,7 +67,7 @@ public class Race {
         leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
     }
 
-    public Race(Identifier id, RaceType raceType, AttributePool playerAttributePool, HashMap<EntityCategory, AttributePool> npcAttributePools, List<String> joinCommands, List<String> leaveCommands) {
+    public Race(Identifier id, RaceType raceType, AttributePool playerAttributePool, HashMap<EntityCategories, AttributePool> npcAttributePools, List<String> joinCommands, List<String> leaveCommands) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
@@ -172,7 +170,7 @@ public class Race {
 
     public void applyNpcAttributes(NpcEntity npcEntity) {
         AttributePool.reverse(npcEntity);
-        npcAttributePools.get(EntityCategory.SHARED).apply(npcEntity);
+        npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
         npcAttributePools.get(npcEntity.getNpcCategory()).apply(npcEntity);
     }
 }

@@ -10,9 +10,8 @@ import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,8 +82,8 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "tooltip", hood.getName());
         }
 
-        for (Disposition disposition : Disposition.values()){
-            createTranslation(translationBuilder, "disposition", disposition.name().toLowerCase());
+        for (DispositionType dispositionType : DispositionType.values()){
+            createTranslation(translationBuilder, "disposition", dispositionType.name().toLowerCase());
         }
 
         TranslationEntries.factionEntries.forEach(faction -> {

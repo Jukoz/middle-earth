@@ -5,7 +5,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GundabadNpcDataPool;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.DispositionType;
 import net.sevenstars.middleearth.resources.datas.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -24,11 +24,11 @@ public class HobgoblinTribesFactionPool {
     private final static String FACTION_PATH = FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.getValue().getPath();
 
     static {
-        HOBGOBLIN_TRIBES = new Faction(FactionRegistry.HOBGOBLIN_TRIBES, true, Disposition.EVIL, FactionType.FACTION, null,
+        HOBGOBLIN_TRIBES = new Faction(FactionRegistry.HOBGOBLIN_TRIBES, true, DispositionType.EVIL, FactionType.FACTION, null,
                 List.of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.getValue()),
                 null, null, null, List.of(), List.of(), List.of(), List.of(), List.of());
 
-        GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, Disposition.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,
+        GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, DispositionType.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             GundabadNpcDataPool.SNAGA

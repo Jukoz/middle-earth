@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.resources.datas.races.data.npctextures;
+package net.sevenstars.middleearth.resources.datas.common;
 
 public enum NpcTextureType {
     SKIN,

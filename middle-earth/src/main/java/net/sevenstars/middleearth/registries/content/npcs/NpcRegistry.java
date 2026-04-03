@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ import java.util.List;
 public class NpcRegistry {
     private static final RegistryKey<Registry<NpcData>> NPC_KEY = DynamicRegistriesME.NPC;
 
-    public static final HashMap<EntityCategory, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
-        put(EntityCategory.SHARED, new AttributePool().addElement(
+    public static final HashMap<EntityCategories, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
+        put(EntityCategories.SHARED, new AttributePool().addElement(
             AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.35, 0.45)
         ));
     }};

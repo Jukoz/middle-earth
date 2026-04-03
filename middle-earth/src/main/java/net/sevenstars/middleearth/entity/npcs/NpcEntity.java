@@ -60,7 +60,7 @@ import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
@@ -122,7 +122,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         view.read("EntityCategory", Codec.STRING)
             .ifPresent(x -> {
                 if(!x.isEmpty()){
-                    setNpcCategory(EntityCategory.valueOf(x));
+                    setNpcCategory(EntityCategories.valueOf(x));
                 }
             });
         view.read("NpcTextureData", NpcEntityTextureData.CODEC)
@@ -157,10 +157,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         this.dataTracker.set(FACTION_ID, factionId.toString());
     }
 
-    public void setNpcCategory(EntityCategory entityCategory) {
-        if(entityCategory == null)
+    public void setNpcCategory(EntityCategories entityCategories) {
+        if(entityCategories == null)
             return;
-        this.dataTracker.set(CATEGORY, entityCategory.name());
+        this.dataTracker.set(CATEGORY, entityCategories.name());
     }
 
     public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
@@ -580,11 +580,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, target);
     }
 
-    public EntityCategory getNpcCategory() {
+    public EntityCategories getNpcCategory() {
         var category = this.dataTracker.get(CATEGORY);
         if(category == null || category.isEmpty())
             return null;
-        return EntityCategory.valueOf(category);
+        return EntityCategories.valueOf(category);
     }
 
     public BlockPos getStructureManagerHostPos() {
