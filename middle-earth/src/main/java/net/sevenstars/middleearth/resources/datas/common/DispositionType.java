@@ -1,9 +1,9 @@
-package net.sevenstars.middleearth.resources.datas;
+package net.sevenstars.middleearth.resources.datas.common;
 
-import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 
 public enum DispositionType {
     GOOD,

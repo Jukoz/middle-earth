@@ -29,7 +29,7 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;

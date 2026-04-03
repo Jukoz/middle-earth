@@ -39,8 +39,8 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import org.jetbrains.annotations.Nullable;
 

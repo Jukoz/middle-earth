@@ -6,7 +6,7 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class ChargeAttackGoal extends Goal {

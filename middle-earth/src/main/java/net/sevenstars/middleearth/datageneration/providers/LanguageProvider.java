@@ -10,7 +10,7 @@ import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 
 import java.util.Arrays;
 import java.util.HashMap;

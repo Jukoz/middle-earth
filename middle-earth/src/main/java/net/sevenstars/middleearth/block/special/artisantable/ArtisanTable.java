@@ -28,7 +28,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import org.jetbrains.annotations.Nullable;
 

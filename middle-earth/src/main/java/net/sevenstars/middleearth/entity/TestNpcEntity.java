@@ -29,7 +29,7 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;

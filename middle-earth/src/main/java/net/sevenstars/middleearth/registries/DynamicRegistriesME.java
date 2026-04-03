@@ -20,8 +20,8 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
 import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.datas.texture_presets.entities.CharacterTextureMaterial;
-import net.sevenstars.middleearth.resources.datas.texture_presets.entities.CharacterTexturePattern;
+import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
+import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 

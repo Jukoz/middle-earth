@@ -1,13 +1,20 @@
-package net.sevenstars.middleearth.resources.datas;
+package net.sevenstars.middleearth.resources.datas.common;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public enum FactionType {
-    FACTION,
-    SUBFACTION;
+public enum RaceType {
+    NONE,
+    HUMAN,
+    HOBBIT,
+    DWARF,
+    ELF,
+    ORC,
+    URUK,
+    BEAST,
+    OTHER;
 
     @Override
     public String toString() {
@@ -15,6 +22,6 @@ public enum FactionType {
     }
 
     public MutableText getName() {
-        return Text.translatable("faction_type.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
+        return Text.translatable("race_type.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
     }
 }

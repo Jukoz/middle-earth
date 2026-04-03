@@ -46,8 +46,8 @@ import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.jetbrains.annotations.Nullable;
 

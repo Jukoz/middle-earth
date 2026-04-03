@@ -25,7 +25,7 @@ import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBu
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 
 import java.util.concurrent.CompletableFuture;
 

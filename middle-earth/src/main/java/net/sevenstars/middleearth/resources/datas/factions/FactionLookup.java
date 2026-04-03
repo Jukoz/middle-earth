@@ -4,8 +4,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
-import net.sevenstars.middleearth.resources.datas.FactionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.FactionType;
 
 import java.util.ArrayList;
 import java.util.HashMap;

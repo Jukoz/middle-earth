@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.ModRecipes;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

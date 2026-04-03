@@ -26,8 +26,8 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
-import net.sevenstars.middleearth.resources.datas.DispositionType;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 import java.util.Iterator;
