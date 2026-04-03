@@ -1,16 +1,5 @@
 package net.sevenstars.middleearth.registries.content.npcs.pools;
 
-import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
-import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
-import net.sevenstars.middleearth.resources.datas.texture_presets.entities.TextureElementData;
-import net.sevenstars.middleearth.resources.datas.texture_presets.entities.TexturePresetData;
-import net.sevenstars.middleearth.resources.datas.texture_presets.entities.CharacterTextureMaterial;
-import net.sevenstars.middleearth.resources.datas.common.NpcTextureType;
-
-import java.util.List;
-import java.util.stream.Stream;
-
 public class NpcTextureDataPool {
 /*
     public final static List<TextureElementData> DEFAULT_HAIR;

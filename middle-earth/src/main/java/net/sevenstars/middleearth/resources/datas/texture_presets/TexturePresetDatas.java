@@ -5,10 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
+import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.texture_presets.entities.TextureElementData;
-import net.sevenstars.middleearth.resources.datas.texture_presets.entities.TexturePresetData;
-import net.sevenstars.middleearth.resources.datas.common.NpcTextureType;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
@@ -74,24 +73,20 @@ public class TexturePresetDatas {
         return newNbt;
     }
 
-    public static Identifier getRawMaterial(Identity identity, NpcTextureType npcTextureType) {
-        List<TextureElementData> materials = identity.preset.getMaterials(npcTextureType);
-        if(materials == null || materials.isEmpty())
+    public static Identifier getRawMaterial(Identity identity, CharacterMaterialTypes materialType) {
+        var weightedItem = identity.preset.getMaterials(materialType).getRandom();
+        if(weightedItem == null)
             return null;
-        Random random = new Random();
-        int materialIndex = random.nextInt(materials.size());
-        return materials.get(materialIndex).getId();
+        return weightedItem.getItem();
     }
 
-    public static Identifier getRawPattern(Identity identity, NpcTextureType npcTextureType) {
-        List<TextureElementData> patterns = identity.preset.getPatterns(npcTextureType);
-        if (patterns == null || patterns.isEmpty())
+    public static Identifier getRawPattern(Identity identity, CharacterPatternTypes patternType) {
+        var weightedItem = identity.preset.getPatterns(patternType).getRandom();
+        if(weightedItem == null)
             return null;
-        Random random = new Random();
-        Identifier value = patterns.get(random.nextInt(patterns.size())).getId();
-        if(value.equals(TexturePresetData.EMPTY_VALUE_KEY))
+        if(weightedItem.isSame(TexturePresetData.EMPTY_VALUE_KEY.getItem()))
             return null;
-        return value;
+        return weightedItem.getItem();
     }
 
     public Boolean haveEmissiveEyes(Identity identity) {
@@ -144,25 +139,22 @@ public class TexturePresetDatas {
                 var shared = data.presetsByCategory.get(EntityCategories.SHARED).getFirst();
                 if(shared != null){
                     for (TexturePresetData preset : presets) {
-                        preset.withMaterialValues(NpcTextureType.SKIN, shared.getMaterials(NpcTextureType.SKIN));
-                        preset.withPatternValues(NpcTextureType.BODY, shared.getPatterns(NpcTextureType.BODY));
-                        preset.withPatternValues(NpcTextureType.HEAD, shared.getPatterns(NpcTextureType.HEAD));
-                        preset.withPatternValues(NpcTextureType.EAR, shared.getPatterns(NpcTextureType.EAR));
-                        preset.withPatternValues(NpcTextureType.NOSE, shared.getPatterns(NpcTextureType.NOSE));
-                        preset.withPatternValues(NpcTextureType.SCAR, shared.getPatterns(NpcTextureType.SCAR));
-                        preset.withPatternValues(NpcTextureType.FEET, shared.getPatterns(NpcTextureType.FEET));
+                        preset.withMaterials(CharacterMaterialTypes.SKIN, shared.getMaterials(CharacterMaterialTypes.SKIN));
+                        preset.withPatterns(CharacterPatternTypes.BODY, shared.getPatterns(CharacterPatternTypes.BODY));
+                        preset.withPatterns(CharacterPatternTypes.HEAD, shared.getPatterns(CharacterPatternTypes.HEAD));
+                        preset.withPatterns(CharacterPatternTypes.EAR, shared.getPatterns(CharacterPatternTypes.EAR));
+                        preset.withPatterns(CharacterPatternTypes.NOSE, shared.getPatterns(CharacterPatternTypes.NOSE));
+                        preset.withPatterns(CharacterPatternTypes.SCAR, shared.getPatterns(CharacterPatternTypes.SCAR));
+                        preset.withPatterns(CharacterPatternTypes.FEET, shared.getPatterns(CharacterPatternTypes.FEET));
 
-                        preset.withMaterialValues(NpcTextureType.HAIR, shared.getMaterials(NpcTextureType.HAIR));
-                        preset.withPatternValues(NpcTextureType.HAIR, shared.getPatterns(NpcTextureType.HAIR));
-                        preset.withPatternValues(NpcTextureType.BEARD, shared.getPatterns(NpcTextureType.BEARD));
-                        preset.withPatternValues(NpcTextureType.EYEBROW, shared.getPatterns(NpcTextureType.EYEBROW));
+                        preset.withMaterials(CharacterMaterialTypes.HAIR, shared.getMaterials(CharacterMaterialTypes.HAIR));
+                        preset.withPatterns(CharacterPatternTypes.HAIR, shared.getPatterns(CharacterPatternTypes.HAIR));
+                        preset.withPatterns(CharacterPatternTypes.BEARD, shared.getPatterns(CharacterPatternTypes.BEARD));
+                        preset.withPatterns(CharacterPatternTypes.EYEBROW, shared.getPatterns(CharacterPatternTypes.EYEBROW));
                         preset.withEmissiveEyes(shared.haveEmissiveEyes());
 
-                        preset.withMaterialValues(NpcTextureType.EYE, shared.getMaterials(NpcTextureType.EYE));
-                        preset.withPatternValues(NpcTextureType.EYE, shared.getPatterns(NpcTextureType.EYE));
-
-                        preset.withMaterialValues(NpcTextureType.CLOTHE_PRESETS, shared.getMaterials(NpcTextureType.CLOTHE_PRESETS));
-                        preset.withPatternValues(NpcTextureType.CLOTHE_PRESETS, shared.getPatterns(NpcTextureType.CLOTHE_PRESETS));
+                        preset.withMaterials(CharacterMaterialTypes.EYE, shared.getMaterials(CharacterMaterialTypes.EYE));
+                        preset.withPatterns(CharacterPatternTypes.EYE, shared.getPatterns(CharacterPatternTypes.EYE));
                     }
                 }
             }
