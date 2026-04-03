@@ -170,10 +170,11 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
+
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(this.isClientWorld()) { // Client
-            if(!itemStack.isEmpty()) {
+            if(itemStack.isEmpty()) {
                 return super.interactMob(player, hand);
             }
         }
@@ -227,7 +228,6 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 }
             }
         }
-
         return ActionResult.PASS;
     }
 
