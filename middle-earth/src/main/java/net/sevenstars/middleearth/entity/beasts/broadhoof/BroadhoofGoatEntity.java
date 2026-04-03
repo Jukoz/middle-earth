@@ -199,9 +199,27 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                             this.setBrushedBeard(true);
                             return ActionResult.SUCCESS_SERVER;
                         }
-                        else if(itemStack.isOf(Items.SHEARS)) { // Un-Brush beard
-                            this.setBrushedBeard(false);
-                            return ActionResult.SUCCESS_SERVER;
+                        else if(hasBrushedBeard()) {
+                            if(BroadhoofGoatBeads.isValidMaterial(itemStack)) {
+                                this.setGoatBeads(BroadhoofGoatBeads.getBeads(itemStack));
+                                itemStack.decrementUnlessCreative(1, player);
+
+                                return ActionResult.SUCCESS_SERVER;
+                            }
+                            else if(itemStack.isOf(Items.SHEARS)) { // Un-Brush beard
+                                if(getGoatBeads().equals(BroadhoofGoatBeads.NONE)) {
+                                    this.setBrushedBeard(false);
+                                }
+                                else {
+                                    this.setGoatBeads(BroadhoofGoatBeads.NONE);
+                                }
+
+                                if(!player.isCreative()) {
+                                    itemStack.damage(1, player);
+                                }
+
+                                return ActionResult.SUCCESS_SERVER;
+                            }
                         }
                     }
 
