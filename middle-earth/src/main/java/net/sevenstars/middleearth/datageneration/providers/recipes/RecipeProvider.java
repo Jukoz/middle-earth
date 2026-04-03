@@ -27,6 +27,8 @@ import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBu
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
 import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.utils.BlockTagsME;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -1300,7 +1302,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createCurtainRecipe(exporter, Blocks.RED_WOOL, ModDecorativeBlocks.RED_CURTAIN);
                 createCurtainRecipe(exporter, Blocks.WHITE_WOOL, ModDecorativeBlocks.WHITE_CURTAIN);
                 createCurtainRecipe(exporter, Blocks.YELLOW_WOOL, ModDecorativeBlocks.YELLOW_CURTAIN);
-
+                
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROPE_LADDER, 3)
                         .pattern("R R")
                         .pattern("RSR")
@@ -2538,6 +2540,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                 ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 1)
                         .input(blockInput)
                         .input(dyeItem)
+                        .criterion(hasItem(blockInput),
+                                conditionsFromItem(blockInput))
+                        .offerTo(exporter);
+            }
+
+            private void createCombinedItemRecipe(RecipeExporter exporter, Block blockInput, TagKey<Item> addition, Block output) {
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 1)
+                        .input(blockInput)
+                        .input(addition)
                         .criterion(hasItem(blockInput),
                                 conditionsFromItem(blockInput))
                         .offerTo(exporter);

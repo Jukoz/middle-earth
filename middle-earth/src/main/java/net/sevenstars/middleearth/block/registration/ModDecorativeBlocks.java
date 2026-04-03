@@ -142,9 +142,9 @@ public class ModDecorativeBlocks {
             TapperBlock::new, AbstractBlock.Settings.copy(Blocks.BEEHIVE).breakInstantly().nonOpaque());
 
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
-            TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));
+            TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS));
     public static final Block WOOD_FRAMED_WINDOW_PANE = registerBlockWithItem("wood_framed_window_pane",
-            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS_PANE));
+            PaneBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS));
 
     public static final Block AGED_WOOD_WINDOW = registerBlockWithItem("aged_wood_window",
             TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));

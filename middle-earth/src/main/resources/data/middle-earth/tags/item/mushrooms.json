@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:brown_mushroom",
+    "minecraft:red_mushroom",
+    "middle-earth:white_mushroom",
+    "middle-earth:white_mushroom_tiller",
+    "middle-earth:ghostshroom",
+    "middle-earth:ghostshroom_tiller",
+    "middle-earth:cave_amanita",
+    "middle-earth:cave_amanita_tiller",
+    "middle-earth:yellow_amanita",
+    "middle-earth:yellow_amanita_tiller",
+    "middle-earth:deep_firecap",
+    "middle-earth:deep_firecap_tiller",
+    "middle-earth:sky_firecap",
+    "middle-earth:sky_firecap_tiller",
+    "middle-earth:morsel",
+    "middle-earth:morsel_tiller",
+    "middle-earth:violet_caps",
+    "middle-earth:violet_caps_tiller",
+    "middle-earth:brown_bolete",
+    "middle-earth:brown_bolete_tiller",
+    "middle-earth:trumpet_shroom",
+    "middle-earth:tall_trumpet_shroom",
+    "middle-earth:tubeshroom",
+    "middle-earth:tall_tubeshroom"
+  ]
+}
