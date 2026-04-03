@@ -47,7 +47,8 @@ public class CaveTrollBrain {
                 new UpdateLookControlTask(45, 90),
                 new TickCooldownTask(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN),
                 new TickCooldownTask(MemoryModulesME.ROAR_COOLDOWN),
-                new TickCooldownTask(MemoryModulesME.SMASH_COOLDOWN)
+                new TickCooldownTask(MemoryModulesME.SMASH_COOLDOWN),
+                new TickCooldownTask(MemoryModulesME.ACTION_TIMEOUT)
         ));
     }
 
@@ -57,7 +58,7 @@ public class CaveTrollBrain {
                 Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getHurtBy)),
                 Pair.of(1, new RandomTask<>(ImmutableList.of(
                         Pair.of(StrollTask.create(1.0F), 5),
-                        Pair.of(new CompositeTask<>(ImmutableMap.of(), ImmutableSet.of(),
+                        Pair.of(new CompositeTask<>(ImmutableMap.of(MemoryModulesME.ACTION_TIMEOUT, MemoryModuleState.VALUE_ABSENT), ImmutableSet.of(),
                                 CompositeTask.Order.ORDERED,
                                 CompositeTask.RunMode.TRY_ALL,
                                 ImmutableList.of(
@@ -145,7 +146,8 @@ public class CaveTrollBrain {
                 MemoryModulesME.TAME,
                 MemoryModulesME.SITTING,
                 MemoryModulesME.ROAR_COOLDOWN,
-                MemoryModulesME.SMASH_COOLDOWN
+                MemoryModulesME.SMASH_COOLDOWN,
+                MemoryModulesME.ACTION_TIMEOUT
         );
     }
 }

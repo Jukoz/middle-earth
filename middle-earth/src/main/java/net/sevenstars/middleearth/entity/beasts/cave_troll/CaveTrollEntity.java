@@ -44,8 +44,8 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.common.RaceType;
+import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -157,6 +157,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
                 if(PlayerUtil.isOfRace(player, race) || player.isCreative()) {
+
                     if(isTrollWeapon(itemStack) && isOwner(player) && this.getMainHandStack().isEmpty()) { // Give the troll a weapon
                         this.equipStack(EquipmentSlot.MAINHAND, itemStack.copyAndEmpty());
                         itemStack.decrementUnlessCreative(1, player);
@@ -166,7 +167,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                         player.giveOrDropStack(this.getMainHandStack().copyAndEmpty());
                         return ActionResult.SUCCESS_SERVER;
                     }
-                    else if(canAddPassenger(player) && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
+                    else if(canAddPassenger(player) && isTame() && itemStack.isEmpty()) { // Ride if player is compatible and hand is empty
                         putPlayerOnBack(player);
                         return ActionResult.SUCCESS_SERVER;
                     }
@@ -186,6 +187,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
+    public boolean canBeLeashed() {
+        return false;
+    }
+
+    @Override
     public boolean usesTameness() {
         return true;
     }
@@ -200,7 +206,12 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public void tameBeast(PlayerEntity player) {
+    public boolean isMountable() { // This method only determines whether the entity is mountable via the usual horse method
+        return false;
+    }
+
+    @Override
+    protected void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
             this.setTameness(75);
             this.stopSleeping();
@@ -211,17 +222,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             this.setTame(true);
             Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
         }
-    }
-
-    @Override
-    public void tameBeast(LivingEntity entity) {
-        this.setTameness(75);
-        this.stopSleeping();
-        this.getBrain().remember(MemoryModulesME.TAME, true);
-        this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
-        this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
-        this.setOwner(entity);
-        this.setTame(true);
     }
 
     @Override
@@ -310,14 +310,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 front += 0.5;
             }
 
-            if(this.getWorld().isClient()) {
+            if(this.getWorld().isClient() && this.smashingAnimationState.isRunning()) {
                 float time = (this.smashingAnimationState.getTimeInMilliseconds(this.age) / 2000.0F) * 2 * MathHelper.PI; // Goes from 0 to 2Pi over the duration of the animation
                 if(this.smashingAnimationState.getTimeInMilliseconds(this.age) < 1000) {
                     front -= MathHelper.sin(time) * 0.3;
                 }
                 else {
-                    front -= MathHelper.sin(time) * 1.8f;
-                    y += MathHelper.sin(time) * 0.5f;
+                    front -= MathHelper.sin(time) * 2f;
+                    y += MathHelper.sin(time) * 0.3f;
                 }
 
             }
@@ -345,6 +345,18 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             }
 
             y = sprinting ? y + 0.15 : y; // Add offset if sprinting
+
+            if(this.getWorld().isClient()) {
+                float time = (this.smashingAnimationState.getTimeInMilliseconds(this.age) / 2000.0F) * 2 * MathHelper.PI; // Goes from 0 to 2Pi over the duration of the animation
+                if(this.smashingAnimationState.getTimeInMilliseconds(this.age) < 1000) {
+                    front -= MathHelper.sin(time) * 0.3;
+                }
+                else {
+                    front -= MathHelper.sin(time) * 1.8f;
+                    y += MathHelper.sin(time) * 0.3f;
+                }
+
+            }
 
             double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
             double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
@@ -454,7 +466,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             }
         }
-        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        //this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
     }
 
     public void smashAttack(float strength) { // Strength goes from 0 to 100
@@ -611,8 +623,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public DispositionType getDisposition() {
-        return DispositionType.EVIL;
+    public Disposition getDisposition() {
+        return Disposition.EVIL;
     }
 
     @Override

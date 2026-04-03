@@ -30,6 +30,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder OAK_SET = registerWoodSet(new WoodBlockSetBuilder("oak",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OAK_TAN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.OAK_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -41,6 +42,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder SPRUCE_SET = registerWoodSet(new WoodBlockSetBuilder("spruce",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.SPRUCE_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -52,6 +54,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder BIRCH_SET = registerWoodSet(new WoodBlockSetBuilder("birch",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_YELLOW, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.BIRCH_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -63,6 +66,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder JUNGLE_SET = registerWoodSet(new WoodBlockSetBuilder("jungle",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DIRT_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.JUNGLE_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -74,6 +78,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder ACACIA_SET = registerWoodSet(new WoodBlockSetBuilder("acacia",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.ORANGE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.ACACIA_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -85,6 +90,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder DAK_OAK_SET = registerWoodSet(new WoodBlockSetBuilder("dark_oak",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.DARK_OAK_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -96,6 +102,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder MANGROVE_SET = registerWoodSet(new WoodBlockSetBuilder("mangrove",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.RED, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.MANGROVE_PROPAGULE)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -107,6 +114,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder CHERRY_SET = registerWoodSet(new WoodBlockSetBuilder("cherry",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.CHERRY_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -118,6 +126,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder PALE_OAK_SET = registerWoodSet(new WoodBlockSetBuilder("pale_oak",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.PALE_OAK_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -126,6 +135,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder BAMBOO = registerWoodSet(new WoodBlockSetBuilder("bamboo",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.BAMBOO_WOOD, Blocks.BAMBOO_SAPLING)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
@@ -133,6 +143,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder CRIMSON_SET = registerWoodSet(new WoodBlockSetBuilder("crimson",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DULL_PINK, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.CRIMSON_FUNGUS)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.NETHER_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -143,6 +154,7 @@ public class WoodBlockSets {
 
     public static WoodBlockSetBuilder WARPED_SET = registerWoodSet(new WoodBlockSetBuilder("warped",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DARK_AQUA, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, Blocks.WARPED_FUNGUS)
+            .vanilla(true)
             .addToSet(WoodBlockTypes.NETHER_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_STEM_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -389,7 +401,6 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
 
     private static WoodBlockSetBuilder registerWoodSet(WoodBlockSetBuilder set) {
-
         List<ItemStack> itemGroup = ItemGroupsME.WOOD_BLOCKS_CONTENTS;
 
         set.existingList.forEach((woodStoneTypes) -> {

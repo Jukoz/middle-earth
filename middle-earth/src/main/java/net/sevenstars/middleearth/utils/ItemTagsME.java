@@ -31,6 +31,7 @@ public class ItemTagsME {
 
     public static TagKey<Item> HORSE_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("horse_armor"));
     public static TagKey<Item> WARG_ARMORS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("warg_armor"));
+    public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("elk_food"));
 
     public static TagKey<Item> CHARACTER_HELMET_SHOW_EARS = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("character_helmet_should_show_ears"));
     public static TagKey<Item> CHARACTER_HELMET_HIDE_HAIR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("character_helmet_should_hide_hair"));

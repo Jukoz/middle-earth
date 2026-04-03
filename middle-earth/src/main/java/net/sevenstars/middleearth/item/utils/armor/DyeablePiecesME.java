@@ -49,6 +49,14 @@ public class DyeablePiecesME {
         dyeablePieces.put(EquipmentItemsME.EGLADIL_SENTINEL_CHESTPLATE, true);
         dyeablePieces.put(EquipmentItemsME.EGLADIL_SENTINEL_LEGGINGS, true);
 
+        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_ARMING_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_LEATHER_ARMING_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_LEATHER_BRONZED_ARMING_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_LEATHER_SILVER_ARMING_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_CAVALRY_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET, true);
+
         dyeablePieces.put(EquipmentItemsME.DWARVEN_MINER_HELMET, true);
         dyeablePieces.put(EquipmentItemsME.DWARVEN_GAMBESON, true);
         dyeablePieces.put(EquipmentItemsME.DWARVEN_MINER_GAMBESON, true);
@@ -118,6 +126,13 @@ public class DyeablePiecesME {
         dyeablePieces.put(EquipmentItemsME.GUNDABAD_REINFORCED_LEATHER_VEST, true);
         dyeablePieces.put(EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET, true);
 
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_SNAGA_NASAL_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_SNAGA_HELMET, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_CLOTH_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_HAUBERK, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_REINFORCED_COAT, true);
+        dyeablePieces.put(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_LEGGINGS, true);
+
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR, true);
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);
         dyeablePieces.put(EquipmentItemsME.WARG_LEATHER_ARMOR, true);
@@ -135,6 +150,7 @@ public class DyeablePiecesME {
         dyeableBackAttachments.put(BackAttachmentsME.GRAY_FUR_CLOAK, true);
         dyeableBackAttachments.put(BackAttachmentsME.TAN_FUR_CLOAK, true);
         dyeableBackAttachments.put(BackAttachmentsME.WHITE_FUR_CLOAK, true);
+        dyeableBackAttachments.put(BackAttachmentsME.MANTLE_OF_YAVANNA, true);
 
         dyeableBackAttachments.put(BackAttachmentsME.ORCISH_SHOULDERS, false);
 
@@ -145,6 +161,10 @@ public class DyeablePiecesME {
         dyeableHelmetAttachments.put(HelmetAttachmentsME.GRAY_FUR_HOOD, true);
         dyeableHelmetAttachments.put(HelmetAttachmentsME.TAN_FUR_HOOD, true);
         dyeableHelmetAttachments.put(HelmetAttachmentsME.WHITE_FUR_HOOD, true);
+
+        dyeablePieces.put(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR, true);
+        dyeablePieces.put(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR, true);
+        dyeablePieces.put(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR, true);
 
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR, true);
         dyeablePieces.put(EquipmentItemsME.BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR, true);

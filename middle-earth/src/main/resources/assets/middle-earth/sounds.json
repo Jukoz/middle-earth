@@ -45,5 +45,35 @@
     "sounds": [
       "middle-earth:pipe/pipe_cough1"
     ]
+  },
+  "great_horn_idle": {
+    "subtitle": "sounds.middle-earth.great_horn_idle",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_idle1",
+      "middle-earth:great_horn/great_horn_idle2",
+      "middle-earth:great_horn/great_horn_idle3"
+    ]
+  },
+  "great_horn_hurt": {
+    "subtitle": "sounds.middle-earth.great_horn_hurt",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_hurt1",
+      "middle-earth:great_horn/great_horn_hurt2",
+      "middle-earth:great_horn/great_horn_hurt3"
+    ]
+  },
+  "great_horn_call": {
+    "subtitle": "sounds.middle-earth.great_horn_call",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_call1",
+      "middle-earth:great_horn/great_horn_call2",
+      "middle-earth:great_horn/great_horn_call3"
+    ]
+  },
+  "great_horn_death": {
+    "subtitle": "sounds.middle-earth.great_horn_death",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_death"
+    ]
   }
 }
