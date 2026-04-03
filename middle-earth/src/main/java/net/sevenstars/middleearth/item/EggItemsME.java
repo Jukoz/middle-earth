@@ -29,7 +29,7 @@ public class EggItemsME {
             (settings) -> new SpawnEggItem(EntitiesME.BROADHOOF_GOAT, settings), new Item.Settings());
 
     public static final Item GREAT_HORN_SPAWN_EGG = registerItem("great_horn_spawn_egg",
-            (settings) -> new SpawnEggItem(ModEntities.GREAT_HORN, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(EntitiesME.GREAT_HORN, settings), new Item.Settings());
 
     public static final Item WARG_SPAWN_EGG = registerItem("warg_spawn_egg",
             (settings) -> new SpawnEggItem(EntitiesME.WARG, settings), new Item.Settings());

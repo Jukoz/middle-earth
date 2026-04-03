@@ -112,7 +112,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         if (entityData instanceof SpiderData spiderData) {
             this.setVariant(spiderData.variant);
         } else {
-            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), DynamicRegistriesME.SPIDER_VARIANT);
+            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), DynamicRegistriesME.SPIDER_VARIANTS);
             if (optional.isPresent()) {
                 this.setVariant(optional.get());
                 entityData = new SpiderData(optional.get());
@@ -336,7 +336,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, DynamicRegistriesME.SPIDER_VARIANT).ifPresent(this::setVariant);
+        Variants.readVariantFromNbt(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
     }
 
     static {

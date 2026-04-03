@@ -1,13 +1,12 @@
 package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.EntityType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.items.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.LitPineconeItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
@@ -45,7 +44,7 @@ public class ResourceItemsME {
 
     public static final Item REINFORCED_BARREL = registerItem("reinforced_barrel",
             (settings) -> {
-                return new BoatItem(ModEntities.REINFORCED_BARREL, settings);
+                return new BoatItem(EntitiesME.REINFORCED_BARREL, settings);
             }, new Item.Settings().maxCount(1));
 
     public static final Item RAW_TIN = registerItem("raw_tin",

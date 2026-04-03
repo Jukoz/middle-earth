@@ -16,20 +16,20 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
 import java.util.List;
 
-public record SpiderVariants(SpiderAssetInfo assetInfo, SpawnConditionSelectors spawnConditions) implements VariantSelectorProvider<SpawnContext, SpawnCondition> {
-	public static final Codec<SpiderVariants> CODEC = RecordCodecBuilder.create(
+public record SpiderVariant(SpiderAssetInfo assetInfo, SpawnConditionSelectors spawnConditions) implements VariantSelectorProvider<SpawnContext, SpawnCondition> {
+	public static final Codec<SpiderVariant> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-							SpiderAssetInfo.CODEC.fieldOf("assets").forGetter(SpiderVariants::assetInfo),
-							SpawnConditionSelectors.CODEC.fieldOf("spawn_conditions").forGetter(SpiderVariants::spawnConditions)
+							SpiderAssetInfo.CODEC.fieldOf("assets").forGetter(SpiderVariant::assetInfo),
+							SpawnConditionSelectors.CODEC.fieldOf("spawn_conditions").forGetter(SpiderVariant::spawnConditions)
 					)
-					.apply(instance, SpiderVariants::new)
+					.apply(instance, SpiderVariant::new)
 	);
 
-	public static final Codec<RegistryEntry<SpiderVariants>> ENTRY_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.SPIDER_VARIANTS);
+	public static final Codec<RegistryEntry<SpiderVariant>> ENTRY_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.SPIDER_VARIANTS);
 
-	public static final PacketCodec<RegistryByteBuf, RegistryEntry<SpiderVariants>> PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.SPIDER_VARIANTS);
+	public static final PacketCodec<RegistryByteBuf, RegistryEntry<SpiderVariant>> PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.SPIDER_VARIANTS);
 
-	private SpiderVariants(SpiderAssetInfo assetInfo) {
+	private SpiderVariant(SpiderAssetInfo assetInfo) {
 		this(assetInfo, SpawnConditionSelectors.EMPTY);
 	}
 

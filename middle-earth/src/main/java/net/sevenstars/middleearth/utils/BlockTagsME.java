@@ -6,5 +6,5 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
 public class BlockTagsME {
-    public static TagKey<Block> CURTAINS = TagKey.of(RegistryKeys.BLOCK, IdentifierUtil.create("curtains"));
+    public static TagKey<Block> CURTAINS = TagKey.of(RegistryKeys.BLOCK, IdentifierUtil.build("curtains"));
 }

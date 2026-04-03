@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.utils.IdentifierUtil;
 
-public class SpiderVariantsRegistry {
+public class SpiderVariantRegistry {
     private static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS_KEY = DynamicRegistriesME.SPIDER_VARIANTS;
 
     public static final RegistryKey<SpiderVariant> MIRKWOOD = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, IdentifierUtil.build("mirkwood"));
@@ -26,10 +26,10 @@ public class SpiderVariantsRegistry {
             SpawnConditionSelectors.createFallback(0)));
         register(context, registryEntryLookup, CAVE, new SpiderVariant(
             SpiderVariantRegistryHelper.createAssetInfos("blind"),
-            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_cave")), 1)));
+            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, IdentifierUtil.build("is_cave")), 1)));
         register(context, registryEntryLookup, MORDOR, new SpiderVariant(
             SpiderVariantRegistryHelper.createAssetInfos("mordor"),
-            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_mordor")), 2)));
+            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, IdentifierUtil.build("is_mordor")), 2)));
     }
 
     private static void register(Registerable<SpiderVariant> context, RegistryEntryLookup<SpiderVariant> registryEntryLookup, RegistryKey<SpiderVariant> registryKey, SpiderVariant element){

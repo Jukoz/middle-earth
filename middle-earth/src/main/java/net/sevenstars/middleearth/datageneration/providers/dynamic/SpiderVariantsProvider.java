@@ -14,11 +14,11 @@ public class SpiderVariantsProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.SPIDER_VARIANT));
+        entries.addAll(registries.getOrThrow(DynamicRegistriesME.SPIDER_VARIANTS));
     }
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.SPIDER_VARIANT.getValue().getPath();
+        return DynamicRegistriesME.SPIDER_VARIANTS.getValue().getPath();
     }
 }

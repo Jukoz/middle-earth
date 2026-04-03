@@ -8,6 +8,7 @@ public class ItemTagsME {
     //TODO actually gen the tags
     public static TagKey<Item> REPAIRS_STRAW_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("repairs_straw_armor"));
     public static TagKey<Item> REPAIRS_WOOL_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("repairs_wool_armor"));
+    public static TagKey<Item> REPAIRS_BONE_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("repairs_bone_armor"));
     public static TagKey<Item> REPAIRS_FUR_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("repairs_fur_armor"));
     public static TagKey<Item> REPAIRS_FABRIC_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("repairs_fabric_armor"));
     public static TagKey<Item> REPAIRS_BRONZE_ARMOR = TagKey.of(RegistryKeys.ITEM, IdentifierUtil.build("repairs_bronze_armor"));
