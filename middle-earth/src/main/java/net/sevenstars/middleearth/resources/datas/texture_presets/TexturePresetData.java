@@ -8,7 +8,7 @@ import net.sevenstars.api.dtos.WeightedList;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.common.WeightedIdentifier;
+import net.sevenstars.api.dtos.WeightedIdentifier;
 
 import java.util.*;
 
@@ -205,7 +205,7 @@ public class TexturePresetData {
                     List<WeightedIdentifier> weightedList = new ArrayList<>();
 
                     for(var fetchedValue : fetchedValues){
-                        weightedList.add(new WeightedIdentifier(fetchedValue.asCompound().get()));
+                        weightedList.add(new WeightedIdentifier(fetchedValue));
                     }
 
                     switch (type){
@@ -231,7 +231,7 @@ public class TexturePresetData {
                     List<WeightedIdentifier> weightedIdentifiers = new ArrayList<>();
 
                     for(var fetchedValue : fetchedValues){
-                        weightedIdentifiers.add(new WeightedIdentifier(fetchedValue.asCompound().get()));
+                        weightedIdentifiers.add(new WeightedIdentifier(fetchedValue));
                     }
 
                     switch (type){
@@ -267,15 +267,6 @@ public class TexturePresetData {
                 });
             }
         }
-    }
-
-    private List<String> getStringListFromNbtList(NbtCompound nbt, String name){
-        NbtList nbtList = nbt.getList(name).get();
-        List<String> fetchedValues = new ArrayList<>();
-        for(int i = 0; i < nbtList.size(); i++){
-            fetchedValues.add(nbtList.getString(i).get());
-        }
-        return fetchedValues;
     }
 
     public TexturePresetData withWeight(int weight){

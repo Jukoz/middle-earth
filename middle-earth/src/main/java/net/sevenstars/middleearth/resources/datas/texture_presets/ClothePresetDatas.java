@@ -1,11 +1,12 @@
 package net.sevenstars.middleearth.resources.datas.texture_presets;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.api.dtos.WeightedList;
-import net.sevenstars.middleearth.resources.datas.common.WeightedIdentifier;
+import net.sevenstars.api.dtos.WeightedIdentifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,36 +60,35 @@ public class ClothePresetDatas extends WeightedItem<ClothePresetDatas.Preset> {
     }
 
     @Override
-    public NbtCompound getNbt(){
-        var newSource = new NbtCompound();
+    public NbtElement getNbt(){
+        NbtElement newNbt = super.getNbt();
+        if(newNbt == null)
+            newNbt = new NbtCompound();
         if(item.bases != null){
             var baseList = new NbtList();
             for(int i = 0; i < item.bases.size(); i++){
-                NbtCompound element = item.bases.get(i).getNbt();
+                NbtElement element = item.bases.get(i).getNbt();
                 baseList.add(i, element);
             }
-            newSource.put("bases", baseList);
+            newNbt.asCompound().get().put("bases", baseList);
         }
         if(item.overs != null){
             var overList = new NbtList();
             for(int i = 0; i < item.overs.size(); i++){
-                NbtCompound element = item.overs.get(i).getNbt();
+                NbtElement element = item.overs.get(i).getNbt();
                 overList.add(i, element);
             }
-            newSource.put("overs", overList);
+            newNbt.asCompound().get().put("overs", overList);
         }
         if(item.extras != null){
             var extraList = new NbtList();
             for(int i = 0; i < item.extras.size(); i++){
-                NbtCompound element = item.extras.get(i).getNbt();
+                NbtElement element = item.extras.get(i).getNbt();
                 extraList.add(i, element);
             }
-            newSource.put("extras", extraList);
+            newNbt.asCompound().get().put("extras", extraList);
         }
-        if(weight != 1)
-            newSource.putInt("weight", weight);
-
-        return newSource;
+        return newNbt;
     }
 
     public ClothePresetDatas(NbtCompound source){
@@ -104,24 +104,21 @@ public class ClothePresetDatas extends WeightedItem<ClothePresetDatas.Preset> {
         if(source.getList("bases").isPresent()){
             NbtList baseList = source.getList("bases").get();
             baseList.forEach( x -> {
-                if(x.asCompound().isPresent())
-                    bases.add(new WeightedIdentifier(x.asCompound().get()));
+                bases.add(new WeightedIdentifier(x));
             });
         }
 
         if(source.getList("overs").isPresent()){
             NbtList overList = source.getList("overs").get();
             overList.forEach( x -> {
-                if(x.asCompound().isPresent())
-                    overs.add(new WeightedIdentifier(x.asCompound().get()));
+                overs.add(new WeightedIdentifier(x));
             });
         }
 
         if(source.getList("extras").isPresent()){
             NbtList extraList = source.getList("extras").get();
             extraList.forEach( x -> {
-                if(x.asCompound().isPresent())
-                    extras.add(new WeightedIdentifier(x.asCompound().get()));
+                extras.add(new WeightedIdentifier(x));
             });
         }
         this.item = new Preset(new WeightedList<>(bases), new WeightedList<>(overs), new WeightedList<>(extras));

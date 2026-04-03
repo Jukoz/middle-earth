@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.common.WeightedIdentifier;
+import net.sevenstars.api.dtos.WeightedIdentifier;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
 
 import java.util.HashMap;
@@ -17,47 +17,47 @@ import java.util.stream.Stream;
 public class GenericTexturePresetsPool {
     private static final class UtilData {
         public static final List<WeightedIdentifier> DEFAULT_HAIR = List.of(
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.COLD_BLACK_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.COLD_BLACK_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.COLD_BLACK_SILVER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.COLD_BLACK_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.COLD_BLACK_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.COLD_BLACK_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.COLD_BLACK_SILVER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.COLD_BLACK_ALMANDINE),
 
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BLACK_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BLACK_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BLACK_SILVER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_SILVER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE),
 
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BROWN_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BROWN_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BROWN_SILVER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BROWN_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BROWN_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BROWN_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BROWN_SILVER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BROWN_ALMANDINE),
 
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.DARK_BROWN_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.DARK_BROWN_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.DARK_BROWN_SILVER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.DARK_BROWN_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_SILVER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_ALMANDINE),
 
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.STRAW_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.STRAW_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.STRAW_SILVER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.STRAW_ALMANDINE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.STRAW_BEADS),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.STRAW_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.STRAW_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.STRAW_SILVER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.STRAW_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.STRAW_BEADS),
 
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GINGER_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GINGER_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GINGER_SILVER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GINGER_ALMANDINE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GINGER_BEADS),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GINGER_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GINGER_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GINGER_SILVER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GINGER_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GINGER_BEADS),
 
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.WHITE_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.WHITE_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.WHITE_ALMANDINE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.WHITE_BEADS),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.WHITE_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.WHITE_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.WHITE_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.WHITE_BEADS),
 
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GRAY_COPPER),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GRAY_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GRAY_ALMANDINE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GRAY_BEADS)
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_COPPER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_BEADS)
         );
     }
 
@@ -76,71 +76,71 @@ public class GenericTexturePresetsPool {
     static {
         BASE_PRESET = new TexturePresetData()
             .withMaterials(CharacterMaterialTypes.SKIN, List.of(
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.TAN),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.TAN_DESATURATED),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.PALE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.BEIGE)
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.TAN),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.TAN_DESATURATED),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PALE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.BEIGE)
             ))
             .withMaterials(CharacterMaterialTypes.EYE, List.of(
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Eye.BLUE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Eye.GREEN),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Eye.DARK_GREEN),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Eye.NAVY),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Eye.BROWN)
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.BLUE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.GREEN),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.DARK_GREEN),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.NAVY),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.BROWN)
             ))
             .withPatterns(CharacterPatternTypes.EYE, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
             ))
             .withMaterials(CharacterMaterialTypes.HAIR, UtilData.DEFAULT_HAIR)
             .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
             ));
 
         HUMAN_MALE_PRESET = new TexturePresetData()
             .withPatterns(CharacterPatternTypes.BODY, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.MUSCULAR)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.MUSCULAR)
             ))
             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                WeightedIdentifier.pattern( CharacterPatternsRegistryME.Skins.Head.MALE)
+                WeightedIdentifier.fromKey( CharacterPatternsRegistryME.Skins.Head.MALE)
             ))
             .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
-               WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
-               WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
-               WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
+               WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
+               WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
+               WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
                 TexturePresetData.EMPTY_VALUE_KEY,
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BOWL),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.TOP_BALDING),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.SIDE_BALDING)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BOWL),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.TOP_BALDING),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SIDE_BALDING)
             ))
             .withPatterns(CharacterPatternTypes.BEARD, Stream.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Beard.CLEAN),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Beard.SHORT),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Beard.SINGLE),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Beard.UNCLEAN_ORNAMENTED),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.CLEAN),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SHORT),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SINGLE),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.UNCLEAN_ORNAMENTED),
                 null).toList());
         HUMAN_FEMALE_PRESET = new TexturePresetData()
             .withPatterns(CharacterPatternTypes.BODY, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.FEMALE)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.FEMALE)
             ))
             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.FEMALE)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.FEMALE)
             ))
             .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
                 TexturePresetData.EMPTY_VALUE_KEY,
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.LONG),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.SEMI_LONG),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.VERY_LONG)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.LONG),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SEMI_LONG),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.VERY_LONG)
             ));
     }
     // endregion

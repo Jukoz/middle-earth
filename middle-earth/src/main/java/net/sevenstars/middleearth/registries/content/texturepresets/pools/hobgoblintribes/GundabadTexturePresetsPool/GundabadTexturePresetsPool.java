@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.common.WeightedIdentifier;
+import net.sevenstars.api.dtos.WeightedIdentifier;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
 
 import java.util.HashMap;
@@ -33,33 +33,33 @@ public class GundabadTexturePresetsPool {
     static {
         BASE_PRESET = new TexturePresetData()
                 .withMaterials(CharacterMaterialTypes.SKIN, List.of(
-                    WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.PALE_WHITE),
-                    WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.LIGHT_GREY)
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PALE_WHITE),
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.LIGHT_GREY)
                 ))
                 .withPatterns(CharacterPatternTypes.EAR, List.of(
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Ear.LARGE_POINTY),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Ear.WIDE_POINTY),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Ear.SQUARE_POINTY)
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.LARGE_POINTY),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.WIDE_POINTY),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.SQUARE_POINTY)
                 ))
                 .withMaterials(CharacterMaterialTypes.EYE, List.of(
-                    WeightedIdentifier.material(CharacterMaterialsRegistryME.Eye.ICE)
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.ICE)
                 ))
                 .withEmissiveEyes(true)
                 .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                    WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GINGER_BEADS),
-                    WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GRAY_BEADS),
-                    WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GRAY_COPPER)
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GINGER_BEADS),
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_BEADS),
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_COPPER)
                 ));
 
         GOBLIN_PRESET = new TexturePresetData()
                 .withPatterns(CharacterPatternTypes.BODY, List.of(
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.SLIM)
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SLIM)
                 ))
                 .withPatterns(CharacterPatternTypes.HAIR, List.of(
                     TexturePresetData.EMPTY_VALUE_KEY.withWeight(3),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
                 ));
 
         HOBGOBLIN_PRESET = GOBLIN_PRESET.copy()
@@ -67,8 +67,8 @@ public class GundabadTexturePresetsPool {
                 .clearPatterns(CharacterPatternTypes.HEAD)
                 .clearPatterns(CharacterPatternTypes.EYE)
                 .withPatterns(CharacterPatternTypes.BODY, List.of(
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.MUSCULAR),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.FAT)
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.MUSCULAR),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.FAT)
                 ));
     }
     // endregion
@@ -82,30 +82,30 @@ public class GundabadTexturePresetsPool {
                             .clearPatterns(CharacterPatternTypes.EYE)
                             .clearPatterns(CharacterPatternTypes.HEAD)
                             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_WISE),
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_THICK_BROW)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_WISE),
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_THICK_BROW)
                             ))
                             .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE),
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE),
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
                             )),
                     GOBLIN_PRESET.copy()
                             .clearPatterns(CharacterPatternTypes.EYE)
                             .clearPatterns(CharacterPatternTypes.HEAD)
                             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL)
                             ))
                             .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL)
                             )),
                     GOBLIN_PRESET.copy()
                             .clearPatterns(CharacterPatternTypes.EYE)
                             .clearPatterns(CharacterPatternTypes.HEAD)
                             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_VERY_WIDE)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_VERY_WIDE)
                             ))
                             .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                             ))
             ));
         }});
@@ -117,20 +117,20 @@ public class GundabadTexturePresetsPool {
                             .clearPatterns(CharacterPatternTypes.EYE)
                             .clearPatterns(CharacterPatternTypes.HEAD)
                             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.URUK_TALL_DUMB)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.URUK_TALL_DUMB)
                             ))
                             .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_VERY_HIGH_WIDE)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_VERY_HIGH_WIDE)
                             )),
                     HOBGOBLIN_PRESET.copy()
                             .clearPatterns(CharacterPatternTypes.EYE)
                             .clearPatterns(CharacterPatternTypes.HEAD)
                             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.URUK_DUMB)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.URUK_DUMB)
                             ))
                             .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
-                                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
+                                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
                             ))
             ));
         }});

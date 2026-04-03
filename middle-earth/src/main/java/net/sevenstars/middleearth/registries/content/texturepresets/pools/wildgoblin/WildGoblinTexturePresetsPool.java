@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.common.WeightedIdentifier;
+import net.sevenstars.api.dtos.WeightedIdentifier;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
 
 import java.util.HashMap;
@@ -35,47 +35,47 @@ public class WildGoblinTexturePresetsPool {
     static {
         BASE_PRESET = new TexturePresetData()
             .withMaterials(CharacterMaterialTypes.SKIN, List.of(
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.PALE_WHITE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Skin.PINK)
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PALE_WHITE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PINK)
             ))
             .withPatterns(CharacterPatternTypes.EAR, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Ear.LARGE_POINTY),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Ear.WIDE_POINTY),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Ear.SQUARE_POINTY)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.LARGE_POINTY),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.WIDE_POINTY),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.SQUARE_POINTY)
             ))
             .withMaterials(CharacterMaterialTypes.EYE, List.of(
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Eye.RED)
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.RED)
             ))
             .withEmissiveEyes(true)
             .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_ALMANDINE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GREASY_ALMANDINE),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
             ));
 
         WEAK_PRESET = new TexturePresetData()
             .withPatterns(CharacterPatternTypes.BODY, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.SKIN_TO_BONE)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SKIN_TO_BONE)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
                     TexturePresetData.EMPTY_VALUE_KEY.withWeight(4),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
-                    WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
             ));
 
         WARRIOR_PRESET = new TexturePresetData()
             .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.FEMALE)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.FEMALE)
             ))
             .withPatterns(CharacterPatternTypes.BODY, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.SLIM)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SLIM)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
                 TexturePresetData.EMPTY_VALUE_KEY.withWeight(4),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
             ));
 
         BRUTE_PRESET = WARRIOR_PRESET.copy()
@@ -83,13 +83,13 @@ public class WildGoblinTexturePresetsPool {
             .clearPatterns(CharacterPatternTypes.HEAD)
             .clearPatterns(CharacterPatternTypes.EYE)
             .withPatterns(CharacterPatternTypes.BODY, List.of(
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.MUSCULAR),
-                WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Body.FAT)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.MUSCULAR),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.FAT)
             ))
             .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.GREASY_GOLD),
-                WeightedIdentifier.material(CharacterMaterialsRegistryME.Hair.BLACK_GOLD)
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_GOLD),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_GOLD)
             ));
     }
     // endregion
@@ -103,30 +103,30 @@ public class WildGoblinTexturePresetsPool {
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                            WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_WISE),
-                            WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_THICK_BROW)
+                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_WISE),
+                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_THICK_BROW)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                            WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE),
-                            WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
+                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE),
+                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
                     )),
                 WEAK_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL)
                     )),
                 WEAK_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_VERY_WIDE)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_VERY_WIDE)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                     ))
             ));
         }});
@@ -138,30 +138,30 @@ public class WildGoblinTexturePresetsPool {
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_WISE),
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_THICK_BROW)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_WISE),
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_THICK_BROW)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE),
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE),
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
                     )),
                 WARRIOR_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL)
                     )),
                 WARRIOR_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_VERY_WIDE)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.GOBLIN_SMALL_VERY_WIDE)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                     ))
             ));
         }});
@@ -173,20 +173,20 @@ public class WildGoblinTexturePresetsPool {
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.URUK_TALL_DUMB)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.URUK_TALL_DUMB)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_VERY_HIGH_WIDE)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_VERY_HIGH_WIDE)
                     )),
                 BRUTE_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
                     .withPatterns(CharacterPatternTypes.HEAD, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Skins.Head.URUK_DUMB)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.URUK_DUMB)
                     ))
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
-                        WeightedIdentifier.pattern(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
                     ))
             ));
         }});
