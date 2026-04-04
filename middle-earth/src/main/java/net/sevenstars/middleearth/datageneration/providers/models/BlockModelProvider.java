@@ -32,7 +32,7 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
 import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
+import net.sevenstars.middleearth.datageneration.content.tags.BlockTagCollectionsME;
 
 import java.util.Objects;
 
@@ -65,7 +65,7 @@ public class BlockModelProvider extends FabricModelProvider {
             blockStateModelGenerator.registerSimpleCubeAll(block);
         }
 
-        for (Block block : LeavesSets.grayscaleLeaves) {
+        for (Block block : BlockTagCollectionsME.GRAYSCALE_LEAVES) {
             blockStateModelGenerator.registerTintedBlockAndItem(block, TexturedModel.LEAVES, -12012264);
         }
 

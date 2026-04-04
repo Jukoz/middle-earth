@@ -25,8 +25,7 @@ import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
-import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
-import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
+import net.sevenstars.middleearth.datageneration.content.tags.BlockTagCollectionsME;
 import net.sevenstars.middleearth.item.*;
 
 import java.io.File;
@@ -188,7 +187,7 @@ public class RegistriesME {
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_PINE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.PINE_BRANCHES, 30, 60);
 
-        LeavesSets.leaves.forEach(block -> {
+        BlockTagCollectionsME.LEAVES.forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
     }
@@ -571,14 +570,14 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.SKY_FIRECAP_BLOCK, 0.85F);
         registry.add(ModNatureBlocks.YELLOW_AMANITA_BLOCK, 0.85F);
 
-        Saplings.saplings.forEach(sapling -> {
+        BlockTagCollectionsME.SAPLINGS.forEach(sapling -> {
             registry.add(sapling, 0.3F);
         });
 
         registry.add(ModNatureBlocks.ASPEN_SAPLING, 0.3F);
         registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
 
-        LeavesSets.leaves.forEach(block -> {
+        BlockTagCollectionsME.LEAVES.forEach(block -> {
             registry.add(block, 0.3F);
         });
 

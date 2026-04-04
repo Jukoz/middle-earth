@@ -51,28 +51,28 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var cobwebs = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")));
 
-        mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
-        mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
+        mineableAxe.add(MineableBlockTagCollectionsME.AXE.toArray(Block[]::new));
+        mineablePickaxe.add(MineableBlockTagCollectionsME.PICKAXE.toArray(Block[]::new));
 
-        wool.add(Wool.blocks.toArray(new Block[0]));
+        wool.add(BlockTagCollectionsME.WOOL.toArray(Block[]::new));
 
-        leaves.add(LeavesSets.leaves.toArray(new Block[0]));
-        mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
+        leaves.add(BlockTagCollectionsME.LEAVES.toArray(Block[]::new));
+        mineableHoe.add(MineableBlockTagCollectionsME.HOE.toArray(Block[]::new));
 
-        swordEfficient.add(LeavesSets.leaves.toArray(new Block[0]));
+        swordEfficient.add(BlockTagCollectionsME.LEAVES.toArray(Block[]::new));
 
-        valueLookupBuilder(BlockTags.SAPLINGS).add(Saplings.saplings.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.DOORS).add(Doors.doors.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.TRAPDOORS).add(Trapdoors.trapdoors.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.BUTTONS).add(Buttons.buttons.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.FENCES).add(Fences.fences.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.WOODEN_FENCES).add(Fences.fences.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.FENCE_GATES).add(FenceGates.fenceGates.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.LOGS).add(Logs.logs.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.PRESSURE_PLATES).add(PressurePlates.pressurePlates.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.WALLS).add(Walls.walls.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.PLANKS).add(Planks.planks.toArray(new Block[0]));
-        valueLookupBuilder(BlockTags.CROPS).add(Crops.crops.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.SAPLINGS).add(BlockTagCollectionsME.SAPLINGS.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.DOORS).add(BlockTagCollectionsME.DOORS.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.TRAPDOORS).add(BlockTagCollectionsME.TRAPDOORS.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.BUTTONS).add(BlockTagCollectionsME.BUTTONS.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.FENCES).add(BlockTagCollectionsME.FENCES.toArray(Block[]::new)); // Repeated fences
+        valueLookupBuilder(BlockTags.WOODEN_FENCES).add(BlockTagCollectionsME.FENCES.toArray(Block[]::new)); // Repeated fences
+        valueLookupBuilder(BlockTags.FENCE_GATES).add(BlockTagCollectionsME.FENCE_GATES.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.LOGS).add(BlockTagCollectionsME.LOGS.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.PRESSURE_PLATES).add(BlockTagCollectionsME.PRESSURE_PLATES.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.WALLS).add(BlockTagCollectionsME.WALLS.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.PLANKS).add(BlockTagCollectionsME.PLANKS.toArray(Block[]::new));
+        valueLookupBuilder(BlockTags.CROPS).add(BlockTagCollectionsME.CROPS.toArray(Block[]::new));
 
         //Ores
         TagKey<Block> iron_ores = BlockTags.IRON_ORES;

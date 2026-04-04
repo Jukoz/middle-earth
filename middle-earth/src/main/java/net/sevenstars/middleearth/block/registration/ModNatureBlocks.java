@@ -11,7 +11,7 @@ import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggB
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggHangingBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
-import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
+import net.sevenstars.middleearth.datageneration.content.tags.BlockTagCollectionsME;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.registries.RegistryAliases;
 import net.sevenstars.middleearth.world.features.tree.ModTreeConfiguredFeatures;
@@ -595,7 +595,11 @@ public class ModNatureBlocks {
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
-        Saplings.saplings.add(resultBlock);
+
+        // Saplings.saplings.add(resultBlock);
+        // --> BlockTagCollectionsME.SAPLINGS.add(resultBlock);
+        // Blocks should not be tagged during registering, temp solution - add SIMPLE! saplings manually to SAPLINGS
+        // TODO: @Yelfra | Remove comment later
 
         TranslationEntries.blockEntries.add(resultBlock);
         RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
