@@ -53,43 +53,44 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-
         for (Block block : BlockDrops.blocks) {
-            if (Registries.BLOCK.getId(block).getPath().equals("nurgon")) {
+            // TODO : @Yelfra | Replace strings
+            String path = Registries.BLOCK.getId(block).getPath();
+            if (path.equals("nurgon")) {
                 cobbleDrops(block, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("medgon")) {
+            } else if (path.equals("medgon")) {
                 cobbleDrops(block, StoneBlockSets.MEDGON_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("gonluin")) {
+            } else if (path.equals("gonluin")) {
                 cobbleDrops(block, StoneBlockSets.KHAGALABAN_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("limestone")) {
+            } else if (path.equals("limestone")) {
                 cobbleDrops(block, StoneBlockSets.LIMESTONE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("dolomite")) {
+            } else if (path.equals("dolomite")) {
                 cobbleDrops(block, StoneBlockSets.DOLOMITE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("quartzite")) {
+            } else if (path.equals("quartzite")) {
                 cobbleDrops(block, StoneBlockSets.QUARTZITE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("jadeite")) {
+            } else if (path.equals("jadeite")) {
                 cobbleDrops(block, StoneBlockSets.JADEITE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("ashen_stone")) {
+            } else if (path.equals("ashen_stone")) {
                 cobbleDrops(block, StoneBlockSets.ASHENSTONE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("ironstone")) {
+            } else if (path.equals("ironstone")) {
                 cobbleDrops(block, StoneBlockSets.IRONSTONE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("hematite")) {
+            } else if (path.equals("hematite")) {
                 cobbleDrops(block, StoneBlockSets.HEMATITE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("gneiss")) {
+            } else if (path.equals("gneiss")) {
                 cobbleDrops(block, StoneBlockSets.GNEISS_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("izheraban")) {
+            } else if (path.equals("izheraban")) {
                 cobbleDrops(block, StoneBlockSets.IZHERABAN_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("schist")) {
+            } else if (path.equals("schist")) {
                 cobbleDrops(block, StoneBlockSets.SCHIST_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("galonn")) {
+            } else if (path.equals("galonn")) {
                 cobbleDrops(block, StoneBlockSets.GALONN_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("slate")) {
+            } else if (path.equals("slate")) {
                 cobbleDrops(block, StoneBlockSets.SLATE_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().equals("blue_tuff")) {
+            } else if (path.equals("blue_tuff")) {
                 cobbleDrops(block, StoneBlockSets.BLUE_TUFF_SET.cobblestoneBlocks.base());
-            } else if (Registries.BLOCK.getId(block).getPath().contains("_door")) {
+            } else if (path.contains("_door")) {
                 addDrop(block, doorDrops(block));
-            } else if (Registries.BLOCK.getId(block).getPath().contains("vertical_slab")) {
+            } else if (path.contains("vertical_slab")) {
                 addDrop(block, verticalSlabDrops(block));
             } else {
                 // TODO : @SlooshyBoi crashes during Datagen
