@@ -4,6 +4,7 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.GenericTexturePresetsPool;
@@ -22,7 +23,6 @@ import net.sevenstars.middleearth.registries.content.texturepresets.pools.shire.
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,7 +123,7 @@ public class TexturePresetsRegistry {
     }
 
     private static RegistryKey<TexturePresetDatas> of(String... names) {
-        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, IdentifierUtil.buildAggregate(names));
+        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(names));
     }
 
     private static RegistryKey<TexturePresetDatas> of(RegistryKey<Faction> base, String... names) {
@@ -133,7 +133,7 @@ public class TexturePresetsRegistry {
         aggregateNames.addAll(Arrays.stream(names).toList());
 
         String[] stringArray = aggregateNames.toArray(new String[0]);
-        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, IdentifierUtil.buildAggregate(stringArray));
+        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(stringArray));
     }
 
     public record RegisterableNpcTextureData (RegistryKey<TexturePresetDatas> npcTextureDataRegistryKey, TexturePresetDatas content){ }

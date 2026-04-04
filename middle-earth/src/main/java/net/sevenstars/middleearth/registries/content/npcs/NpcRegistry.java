@@ -6,6 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -15,7 +16,6 @@ import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElemen
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -163,7 +163,7 @@ public class NpcRegistry {
     }
 
     private static Identifier createID(RegistryKey<Faction> faction, String name){
-        return IdentifierUtil.buildAggregate(faction.getValue().getPath(), name);
+        return MiddleEarth.of(faction.getValue().getPath(), name);
     }
 
     public record RegisterableNpcData (RegistryKey<NpcData> npcDataRegistryKey, NpcData content){ }

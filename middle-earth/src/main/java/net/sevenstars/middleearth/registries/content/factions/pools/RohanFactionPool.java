@@ -10,9 +10,9 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.registries.content.npcs.pools.RohirricNpcDataPool;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
+import net.sevenstars.api.utils.IdentifierUtil;
 import org.joml.Vector2d;
 
 import java.util.HashMap;

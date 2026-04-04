@@ -7,7 +7,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 public class ModEntityAttributes {
     public static final RegistryEntry<EntityAttribute> POWDERED_SNOW_IMMUNITY;
@@ -17,7 +16,7 @@ public class ModEntityAttributes {
     public static final RegistryEntry<EntityAttribute> WIDTH_SCALE;
 
     private static RegistryEntry<EntityAttribute> register(String name, double defaultValue, double minValue , double MaxValue, boolean tracked) {
-        Identifier id = IdentifierUtil.build(name);
+        Identifier id = MiddleEarth.of(name);
         EntityAttribute attribute = new ClampedEntityAttribute(id.toTranslationKey(), defaultValue, minValue, MaxValue).setTracked(tracked);
         return Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
     }

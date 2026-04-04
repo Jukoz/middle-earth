@@ -7,7 +7,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 /**
  * Middle-earth mod npc texture materials registry<br>
@@ -234,8 +233,8 @@ public class CharacterMaterialsRegistryME {
         registerable.register(key, content);
     }
 
-    private static RegistryKey<CharacterTextureMaterial> of(String id, CharacterMaterialTypes type) {
-        return RegistryKey.of(getKey(type), IdentifierUtil.build(id));
+    private static RegistryKey<CharacterTextureMaterial> of(String idPath, CharacterMaterialTypes type) {
+        return RegistryKey.of(getKey(type), MiddleEarth.of(idPath));
     }
 
     public static RegistryKey<Registry<CharacterTextureMaterial>> getKey(CharacterMaterialTypes type){

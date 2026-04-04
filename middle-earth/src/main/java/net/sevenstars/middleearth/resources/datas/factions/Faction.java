@@ -33,11 +33,10 @@ import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.*;
 
@@ -93,7 +92,7 @@ public class Faction {
                    Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs,
                    Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands,
                    List<Identifier> diplomaticAllies, List<Identifier> diplomaticNeutrals, List<Identifier> diplomaticEnemies) {
-        this.id = IdentifierUtil.getIdentifierFromString(id);
+        this.id = MiddleEarth.fetchId(id);
 
         this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
 
@@ -120,7 +119,7 @@ public class Faction {
                     NbtList npcDataList = rankCompound.getList("pool").get();
                     List<Identifier> dataList = new ArrayList<>();
                     for(int j = 0; j < npcDataList.size(); j++){
-                        dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j).get()));
+                        dataList.add(MiddleEarth.fetchId(npcDataList.getString(j).get()));
                     }
                     this.npcDatasByRank.put(rank, dataList);
                 } catch (Exception ignored){
@@ -355,9 +354,9 @@ public class Faction {
         return npcDataList.get(random.nextInt(0, npcDataList.size()));
     }
 
-    public NpcGearData getPreviewGear(World world, Race selectedRace){
+    public GearData getPreviewGear(World world, Race selectedRace){
         if(selectedRace == null)
-            return NpcGearData.Create();
+            return GearData.Create();
 
         List<Identifier> identifiersToUse = new ArrayList<>();
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.MILITIA));
@@ -368,7 +367,7 @@ public class Faction {
 
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
         if(npcDataList.isEmpty())
-            return NpcGearData.Create();
+            return GearData.Create();
         Random random = new Random();
         NpcData foundNpcData = npcDataList.get(random.nextInt(0, npcDataList.size()));
         return foundNpcData.getGear();
@@ -470,7 +469,8 @@ public class Faction {
         descriptions = new ArrayList<>();
         boolean hasDescription = true;
 
-        String base = IdentifierUtil.createAggregateValue('.', "description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
+        String base = MiddleEarth.createAggregate('.', "description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
+
         while(hasDescription){
             String langPath = base.formatted(descriptions.size());
             Text text = Text.translatable(langPath);

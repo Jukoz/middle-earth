@@ -26,7 +26,6 @@ import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -43,7 +42,7 @@ public class ItemGroupsME {
             ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
             NbtCompound compound = new NbtCompound();
             NpcData npcData = reference.value();
-            compound.putString("id", IdentifierUtil.build("npc").toString());
+            compound.putString("id", MiddleEarth.of("npc").toString());
             compound.putString("NpcDataId", npcData.getId().toString());
             itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
             itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcData.getFaction()));

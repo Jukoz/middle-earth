@@ -8,8 +8,8 @@ import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.AssetInfo;
 import net.minecraft.world.biome.Biome;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariant;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 public class GreatHornVariantRegistryHelper {
     private static final String TEXTURE_PATH = "entities/great_horn/";
@@ -17,7 +17,7 @@ public class GreatHornVariantRegistryHelper {
 
     public static GreatHornVariant.GreatHornAssetInfo createAssetInfos(String textureName){
         return new GreatHornVariant.GreatHornAssetInfo(
-                new AssetInfo(IdentifierUtil.build(TEXTURE_PATH + textureName + ENTITY_NAME)));
+                new AssetInfo(MiddleEarth.of(TEXTURE_PATH + textureName + ENTITY_NAME)));
     }
 
     public static SpawnConditionSelectors createSpawnConditions(Registerable<GreatHornVariant> registry, TagKey<Biome> biomeTag, int priority) {

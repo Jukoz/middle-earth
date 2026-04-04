@@ -1,5 +1,6 @@
-package net.sevenstars.middleearth.resources.datas.npcs.data;
+package net.sevenstars.middleearth.resources.datas.common;
 
+// To remove
 public enum NpcRank {
     CIVILIAN,
     MILITIA,

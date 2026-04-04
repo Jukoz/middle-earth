@@ -26,27 +26,26 @@ import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRegistries {
-    public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(IdentifierUtil.build("race"));
-    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(IdentifierUtil.build("faction"));
-    public static final RegistryKey<Registry<NpcData>> NPC = RegistryKey.ofRegistry(IdentifierUtil.build("npc"));
-    public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(IdentifierUtil.build("structure_manager_data"));
-    public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(IdentifierUtil.build("biome_event"));
+    public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.of("race"));
+    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(MiddleEarth.of("faction"));
+    public static final RegistryKey<Registry<NpcData>> NPC = RegistryKey.ofRegistry(MiddleEarth.of("npc"));
+    public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.of("structure_manager_data"));
+    public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("biome_event"));
 
-    public static final RegistryKey<Registry<TexturePresetDatas>> TEXTURE_PRESETS = RegistryKey.ofRegistry(IdentifierUtil.build( "texture_presets"));
+    public static final RegistryKey<Registry<TexturePresetDatas>> TEXTURE_PRESETS = RegistryKey.ofRegistry(MiddleEarth.of( "texture_presets"));
 
-    public static final RegistryKey<Registry<CharacterTextureMaterial>> SKIN_MATERIAL = RegistryKey.ofRegistry(IdentifierUtil.build("skin_material"));
-    public static final RegistryKey<Registry<CharacterTextureMaterial>> EYE_MATERIAL = RegistryKey.ofRegistry(IdentifierUtil.build("eye_material"));
-    public static final RegistryKey<Registry<CharacterTextureMaterial>> HAIR_MATERIAL = RegistryKey.ofRegistry(IdentifierUtil.build("hair_material"));
+    public static final RegistryKey<Registry<CharacterTextureMaterial>> SKIN_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("skin_material"));
+    public static final RegistryKey<Registry<CharacterTextureMaterial>> EYE_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("eye_material"));
+    public static final RegistryKey<Registry<CharacterTextureMaterial>> HAIR_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("hair_material"));
 
-    public static final RegistryKey<Registry<CharacterTexturePattern>> SKIN_PATTERN = RegistryKey.ofRegistry(IdentifierUtil.build("skin_pattern"));
-    public static final RegistryKey<Registry<CharacterTexturePattern>> EYE_PATTERN = RegistryKey.ofRegistry(IdentifierUtil.build("eye_pattern"));
-    public static final RegistryKey<Registry<CharacterTexturePattern>> HAIR_PATTERN = RegistryKey.ofRegistry(IdentifierUtil.build("hair_pattern"));
+    public static final RegistryKey<Registry<CharacterTexturePattern>> SKIN_PATTERN = RegistryKey.ofRegistry(MiddleEarth.of("skin_pattern"));
+    public static final RegistryKey<Registry<CharacterTexturePattern>> EYE_PATTERN = RegistryKey.ofRegistry(MiddleEarth.of("eye_pattern"));
+    public static final RegistryKey<Registry<CharacterTexturePattern>> HAIR_PATTERN = RegistryKey.ofRegistry(MiddleEarth.of("hair_pattern"));
 
-    public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS = RegistryKey.ofRegistry(IdentifierUtil.build("spider_variants"));
-    public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(IdentifierUtil.build("great_horn_variants"));
+    public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.of("spider_variants"));
+    public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.of("great_horn_variants"));
 
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);

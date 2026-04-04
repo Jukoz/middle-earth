@@ -7,11 +7,12 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.api.dtos.WeightedList;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
@@ -20,7 +21,6 @@ import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 public class NpcData {
     public static final Codec<NpcData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -28,7 +28,7 @@ public class NpcData {
             Identifier.CODEC.fieldOf("race").forGetter(NpcData::getRace),
             Identifier.CODEC.fieldOf("faction").forGetter(NpcData::getFaction),
             Identifier.CODEC.fieldOf("base_npc_texture").forGetter(NpcData::getNpcTextureDataValue),
-            NbtCompound.CODEC.fieldOf("gears").forGetter(NpcData::getGearDataValues),
+            NbtCompound.CODEC.fieldOf("gear").forGetter(NpcData::getGearDataValues),
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcData::getNpcAttributePool)
     ).apply(instance, NpcData::new));
 
@@ -36,7 +36,7 @@ public class NpcData {
     private final Identifier raceId;
     private final Identifier factionId;
     private final Identifier npcTextureKey;
-    private final List<NpcGearData> gearDatas;
+    private final WeightedList<GearData> gearDatas;
     private final HashMap<EntityCategories, AttributePool> npcAttributePools;
 
     public NpcData(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes){
@@ -46,12 +46,12 @@ public class NpcData {
         this.npcTextureKey = npcTextureKey;
 
         NbtList npcGears = gearDatas.getList("pool").get();
-        List<NpcGearData> npcGearDatas = new ArrayList<>();
+        List<GearData> gearData = new ArrayList<>();
         for(int j = 0; j < npcGears.size(); j++) {
             NbtCompound compound = npcGears.getCompound(j).get();
-            npcGearDatas.add(NpcGearData.readNbt(compound));
+            gearData.add(GearData.readNbt(compound));
         }
-        this.gearDatas = npcGearDatas;
+        this.gearDatas = new WeightedList<>(gearData);
 
         this.npcAttributePools = new HashMap<>();
         for(var category : EntityCategories.values()){
@@ -61,12 +61,12 @@ public class NpcData {
         }
     }
 
-    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDatas> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategories, AttributePool> npcAttributePools){
+    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDatas> npcTextureKey, List<GearData> gearDatas, HashMap<EntityCategories, AttributePool> npcAttributePools){
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
         this.npcTextureKey = npcTextureKey.getValue();
-        this.gearDatas = gearDatas;
+        this.gearDatas = new WeightedList<>(gearDatas);
         this.npcAttributePools = npcAttributePools;
     }
 
@@ -84,8 +84,8 @@ public class NpcData {
     private NbtCompound getGearDataValues() {
         NbtCompound nbt = new NbtCompound();
         NbtList gears = new NbtList();
-        for(NpcGearData npcGearData : this.gearDatas){
-            gears.add(NpcGearData.createNbt(npcGearData));
+        for(GearData gearData : this.gearDatas.elements){
+            gears.add(gearData.getNbt());
         }
         nbt.put("pool", gears);
         return nbt;
@@ -95,16 +95,12 @@ public class NpcData {
         return id.toTranslationKey("npc_data");
     }
 
-    public NpcGearData getGear() {
+    public GearData getGear() {
         if(gearDatas == null)
             return null;
-
-        if(gearDatas.size() == 1)
-            return gearDatas.getFirst();
-
-        Random random = new Random();
-        return gearDatas.get(random.nextInt(0, gearDatas.size()));
+        return gearDatas.getRandom();
     }
+
     private NbtCompound getNpcAttributePool() {
         if(npcAttributePools == null)
             return null;

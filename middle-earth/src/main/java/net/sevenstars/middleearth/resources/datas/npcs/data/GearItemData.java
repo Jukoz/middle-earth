@@ -6,6 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
@@ -18,18 +20,18 @@ import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataCompon
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsStatesME;
+import net.sevenstars.middleearth.utils.ItemUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NpcGearItemData {
+public class GearItemData {
     private final static String NO_HOOD_KEY = "no_hood";
     private final static String NO_CAPE_KEY = "no_cape";
     private Item item;
     private Integer color = null;
     private List<Integer> colors = null;
-    private Integer weight = null;
     private BackAttachmentsME cape = null;
     private Integer capeColor = null;
     private List<Integer> capeColors = null;
@@ -40,54 +42,50 @@ public class NpcGearItemData {
     private Boolean noCape = null;
     private Boolean noHood = null;
 
-    public NpcGearItemData() {
+    public GearItemData() {
         this.item = Items.AIR;
     }
-    public NpcGearItemData(Item item) {
+    public GearItemData(Item item) {
         this.item = item;
     }
-    public NpcGearItemData(Identifier itemIdentifier) {
+    public GearItemData(Identifier itemIdentifier) {
         this.item = getItemFromId(itemIdentifier);
     }
 
-    public static NpcGearItemData create() {
-        return new NpcGearItemData();
+    public static GearItemData create() {
+        return new GearItemData();
     }
-    public static NpcGearItemData create(Item item) {
-        return new NpcGearItemData(item);
+    public static GearItemData create(Item item) {
+        return new GearItemData(item);
     }
-    public static NpcGearItemData create(Identifier itemIdentifier) {
-        return new NpcGearItemData(itemIdentifier);
-    }
-    public NpcGearItemData withWeight(int weight) {
-        this.weight = weight;
-        return this;
+    public static GearItemData create(Identifier itemIdentifier) {
+        return new GearItemData(itemIdentifier);
     }
 
-    public NpcGearItemData withColor(int color) {
+    public GearItemData withColor(int color) {
         this.color = color;
         return this;
     }
 
-    public NpcGearItemData withColors(List<Integer> colors) {
+    public GearItemData withColors(List<Integer> colors) {
         this.colors = colors;
         return this;
     }
 
-    public NpcGearItemData withoutCape() {
+    public GearItemData withoutCape() {
         this.noCape = true;
         return this;
     }
-    public NpcGearItemData withCape(BackAttachmentsME cape, int color) {
+    public GearItemData withCape(BackAttachmentsME cape, int color) {
         capeColor = color;
         return withCape(cape);
     }
-    public NpcGearItemData withCape(BackAttachmentsME cape, List<Integer> colors) {
+    public GearItemData withCape(BackAttachmentsME cape, List<Integer> colors) {
         this.capeColors = colors;
         return withCape(cape);
     }
 
-    public NpcGearItemData withCape(BackAttachmentsME cape) {
+    public GearItemData withCape(BackAttachmentsME cape) {
         if(cape == null){
             this.noCape = true;
         }
@@ -95,19 +93,19 @@ public class NpcGearItemData {
         return this;
     }
 
-    public NpcGearItemData withoutHood() {
+    public GearItemData withoutHood() {
         this.noHood = true;
         return this;
     }
-    public NpcGearItemData withHood(HelmetAttachmentsME hood, int color) {
+    public GearItemData withHood(HelmetAttachmentsME hood, int color) {
         hoodColor = color;
         return withHood(hood);
     }
-    public NpcGearItemData withHood(HelmetAttachmentsME hood, List<Integer> colors) {
+    public GearItemData withHood(HelmetAttachmentsME hood, List<Integer> colors) {
         hoodColors = colors;
         return withHood(hood);
     }
-    public NpcGearItemData withHood(HelmetAttachmentsME hood) {
+    public GearItemData withHood(HelmetAttachmentsME hood) {
         if(hood == null){
             this.noHood = true;
         }
@@ -119,7 +117,7 @@ public class NpcGearItemData {
         return this;
     }
 
-    public NpcGearItemData withHood(HelmetAttachmentsME hood, boolean isDown) {
+    public GearItemData withHood(HelmetAttachmentsME hood, boolean isDown) {
         withHood(hood);
         if(this.hood.getConstantState() == null) {
             this.isDown = isDown;
@@ -136,6 +134,21 @@ public class NpcGearItemData {
 
     private static Identifier getIdentifierFromItem(Item item){
         return Registries.ITEM.getId(item);
+    }
+
+    private int getRandomColor(List<Integer> listToFetch) {
+        if(listToFetch != null){
+            int max = listToFetch.size() - 1;
+            return listToFetch.get(Random.create().nextBetween(0, max));
+        }
+        return Color.PINK.getRGB();
+    }
+
+    public Integer getColor(){
+        return this.color;
+    }
+    public Identifier getItemIdentifier() {
+        return getIdentifierFromItem(this.item);
     }
 
     public ItemStack getItem(){
@@ -188,96 +201,11 @@ public class NpcGearItemData {
         return itemStack;
     }
 
-    private int getRandomColor(List<Integer> listToFetch) {
-        if(listToFetch != null){
-            int max = listToFetch.size() - 1;
-            return listToFetch.get(Random.create().nextBetween(0, max));
-        }
-        return Color.PINK.getRGB();
-    }
+    public GearItemData(NbtCompound nbt){
+        this(Identifier.of(nbt.getString("id").get()));
 
-    public Integer getWeight(){
-        Integer weight = this.weight;
-        if(weight == null)
-            weight = 1;
-        return weight;
-    }
-    public Integer getColor(){
-        return this.color;
-    }
-    public Identifier getItemIdentifier() {
-        return getIdentifierFromItem(this.item);
-    }
-
-    public static NbtCompound createNbt(NpcGearItemData gearItemData){
-        NbtCompound nbt = new NbtCompound();
-        nbt.putString("id", gearItemData.getItemIdentifier().toString());
-
-        Integer weight = gearItemData.weight;
-        if(weight != null)
-            nbt.putInt("weight", weight);
-
-        Integer color = gearItemData.color;
-        if(color != null)
-            nbt.putInt("color", color);
-
-        if(gearItemData.colors != null){
-            int[] colors = gearItemData.colors.stream().mapToInt(Integer::intValue).toArray();
-
-            if(colors != null)
-                nbt.putIntArray("colors", colors);
-        }
-
-
-        Boolean noCape = gearItemData.noCape;
-        if(noCape != null)
-            nbt.putBoolean("no_cape", noCape);
-
-        if(gearItemData.cape != null){
-            nbt.putString("cape", gearItemData.cape.getName().toLowerCase());
-            Integer capeColor = gearItemData.capeColor;
-            if(capeColor != null)
-                nbt.putInt("cape_color", capeColor);
-
-            if(gearItemData.capeColors != null){
-                int[] capeColors = gearItemData.capeColors.stream().mapToInt(Integer::intValue).toArray();
-                if(capeColors != null)
-                    nbt.putIntArray("cape_colors", capeColors);
-            }
-        }
-
-        Boolean noHood = gearItemData.noHood;
-        if(noHood != null)
-            nbt.putBoolean("no_hood", noHood);
-
-        if(gearItemData.hood != null){
-            nbt.putString("hood", gearItemData.hood.getName().toLowerCase());
-            if(gearItemData.isDown != null)
-                nbt.putBoolean("hood_is_down", gearItemData.isDown);
-        }
-
-        Integer hoodColor = gearItemData.hoodColor;
-        if(hoodColor != null)
-            nbt.putInt("hood_color", hoodColor);
-
-        if(gearItemData.hoodColors != null){
-            int[] hoodColors = gearItemData.hoodColors.stream().mapToInt(Integer::intValue).toArray();
-            if(hoodColors != null)
-                nbt.putIntArray("hood_colors", hoodColors);
-        }
-
-
-        return nbt;
-    }
-
-    public static NpcGearItemData readNbt(NbtCompound nbt){
-        Identifier id = Identifier.of(nbt.getString("id").get());
-        NpcGearItemData npcGearItemData = NpcGearItemData.create(id);
-        if(nbt.get("weight") != null){
-            npcGearItemData.weight = nbt.getInt("weight").get();
-        }
         if(nbt.get("color") != null){
-            npcGearItemData.color = nbt.getInt("color").get();
+            color = nbt.getInt("color").get();
         }
         if(nbt.get("colors") != null && nbt.getIntArray("colors").isPresent()){
             int[] list = nbt.getIntArray("colors").get();
@@ -285,16 +213,16 @@ public class NpcGearItemData {
             for (int j : list) {
                 newColors.add(j);
             }
-            npcGearItemData.colors = newColors;
+            colors = newColors;
         }
         if(nbt.get("no_cape") != null){
-            npcGearItemData.noCape = nbt.getBoolean("no_cape").get();
+            noCape = nbt.getBoolean("no_cape").get();
         }
         if(nbt.get("cape") != null){
-            npcGearItemData.cape = BackAttachmentsME.valueOf(nbt.getString("cape").get().toUpperCase());
+            cape = BackAttachmentsME.valueOf(nbt.getString("cape").get().toUpperCase());
 
             if(nbt.getInt("cape_color").isPresent()){
-                npcGearItemData.capeColor = nbt.getInt("cape_color").get();
+                capeColor = nbt.getInt("cape_color").get();
             }
             else if(nbt.get("cape_colors") != null && nbt.get("cape_colors").asNbtList().isPresent()){
                 var capeElements = nbt.get("cape_colors").asNbtList().get();
@@ -302,20 +230,20 @@ public class NpcGearItemData {
                 for (var element : capeElements){
                     newList.add(element.asInt().get());
                 }
-                npcGearItemData.capeColors = newList;
+                capeColors = newList;
             }
         }
 
         if(nbt.get("no_hood") != null){
-            npcGearItemData.noHood = nbt.getBoolean("no_hood").get();
+            noHood = nbt.getBoolean("no_hood").get();
         }
         if(nbt.get("hood") != null){
-            npcGearItemData.hood = HelmetAttachmentsME.valueOf(nbt.getString("hood").get().toUpperCase());
+            hood = HelmetAttachmentsME.valueOf(nbt.getString("hood").get().toUpperCase());
             if(nbt.get("hood_is_down") != null)
-                npcGearItemData.isDown = nbt.getBoolean("hood_is_down").get();
+                isDown = nbt.getBoolean("hood_is_down").get();
 
             if(nbt.get("hood_color") != null){
-                npcGearItemData.hoodColor = nbt.getInt("hood_color").get();
+                hoodColor = nbt.getInt("hood_color").get();
             }
             else if(nbt.get("hood_colors") != null && nbt.get("hood_colors").asNbtList().isPresent()){
                 var hoodElements = nbt.get("hood_colors").asNbtList().get();
@@ -323,10 +251,59 @@ public class NpcGearItemData {
                 for (var element : hoodElements){
                     newList.add(element.asInt().get());
                 }
-                npcGearItemData.hoodColors = newList;
+                hoodColors = newList;
+            }
+        }
+    }
+
+    public NbtElement getNbt(NbtCompound nbt) {
+        nbt.putString("id", getItemIdentifier().toString());
+
+        if(color != null)
+            nbt.putInt("color", color);
+
+        if(colors != null){
+            int[] colors = this.colors.stream().mapToInt(Integer::intValue).toArray();
+
+            if(colors != null)
+                nbt.putIntArray("colors", colors);
+        }
+
+        if(noCape != null)
+            nbt.putBoolean("no_cape", noCape);
+
+        if(cape != null){
+            nbt.putString("cape", cape.getName().toLowerCase());
+            if(capeColor != null)
+                nbt.putInt("cape_color", capeColor);
+
+            if(capeColors != null){
+                int[] capeColors = this.capeColors.stream().mapToInt(Integer::intValue).toArray();
+                if(capeColors != null)
+                    nbt.putIntArray("cape_colors", capeColors);
             }
         }
 
-        return npcGearItemData;
+        if(noHood != null)
+            nbt.putBoolean("no_hood", noHood);
+
+        if(hood != null){
+            nbt.putString("hood", hood.getName().toLowerCase());
+            if(isDown != null)
+                nbt.putBoolean("hood_is_down", isDown);
+        }
+
+        if(hoodColor != null)
+            nbt.putInt("hood_color", hoodColor);
+
+        if(hoodColors != null){
+            int[] hoodColors = this.hoodColors.stream().mapToInt(Integer::intValue).toArray();
+            if(hoodColors != null)
+                nbt.putIntArray("hood_colors", hoodColors);
+        }
+        if(nbt.getKeys().size() == 1 && nbt.getString("id").isPresent()){
+            return NbtString.of(nbt.getString("id").get());
+        }
+        return nbt;
     }
 }

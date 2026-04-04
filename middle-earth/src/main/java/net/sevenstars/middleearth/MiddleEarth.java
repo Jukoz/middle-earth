@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.ModCommands;
@@ -27,6 +28,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
@@ -132,4 +134,19 @@ public class MiddleEarth implements ModInitializer {
 			throw new RuntimeException(e);
 		}
 	}
+
+    public static Identifier fetchId(String stringId){
+        return IdentifierUtil.getIdentifierFromString(stringId);
+    }
+
+    public static Identifier of(String path){
+        return IdentifierUtil.build(MOD_ID, path);
+    }
+
+    public static Identifier of(String... names){
+        return IdentifierUtil.buildAggregate(MOD_ID, names);
+    }
+    public static String createAggregate(char splitter, String... names){
+        return IdentifierUtil.createAggregateValue(splitter, names);
+    }
 }

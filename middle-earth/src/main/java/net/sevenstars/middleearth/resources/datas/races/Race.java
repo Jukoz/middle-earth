@@ -17,7 +17,6 @@ import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +44,7 @@ public class Race {
 
     public Race(String id, String raceTypeValue, NbtCompound playerAttributes, NbtCompound npcAttributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands){
         // Create id
-        this.id = IdentifierUtil.getIdentifierFromString(id);
+        this.id = MiddleEarth.fetchId(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         // Create model
         this.raceType = RaceType.valueOf(raceTypeValue.toUpperCase());

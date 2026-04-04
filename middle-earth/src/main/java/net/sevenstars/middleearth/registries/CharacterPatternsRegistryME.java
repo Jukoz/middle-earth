@@ -9,7 +9,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.Optional;
 
@@ -242,8 +241,8 @@ public class CharacterPatternsRegistryME {
         register(registry, key, pattern,  getKey(type));
     }
 
-    private static RegistryKey<CharacterTexturePattern> of(String id, CharacterPatternTypes type) {
-        return RegistryKey.of(getKey(type), IdentifierUtil.build(id));
+    private static RegistryKey<CharacterTexturePattern> of(String idPath, CharacterPatternTypes type) {
+        return RegistryKey.of(getKey(type), MiddleEarth.of(idPath));
     }
 
     private static void register(Registerable<CharacterTexturePattern> registerable, RegistryKey<CharacterTexturePattern> registryKey, CharacterTexturePattern content, RegistryKey<Registry<CharacterTexturePattern>> registryRegistryKey) {

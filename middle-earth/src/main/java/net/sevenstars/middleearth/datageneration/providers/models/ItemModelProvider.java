@@ -169,17 +169,19 @@ public class ItemModelProvider extends FabricModelProvider {
         registerPalettedItem(ResourceItemsME.SHIELD_BORDER, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.SHIELD_PLATE, itemModelGenerator);
 
-        int index = 0;
-
         List<SelectItemModel.SwitchCase> models = new ArrayList<>(List.of());
 
         NpcRegistry.allNpcDatas.forEach(npcDataRegistryKey -> {
             String id = npcDataRegistryKey.getValue().getPath().replaceAll("npc_data.middle-earth.", "").replaceAll("\\.", "_") + "_spawn_egg";
-            models.add(ItemModels.switchCase(id,
-                    ItemModels.basic(Models.GENERATED.upload(Identifier.of(MiddleEarth.MOD_ID, "item/" + id),
-                            TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/" + id)),
+
+            var item = ItemModels.switchCase(id,
+                    ItemModels.basic(Models.GENERATED.upload(MiddleEarth.of("item/" + id),
+                            TextureMap.layer0(MiddleEarth.of( "item/" + id)),
                             itemModelGenerator.modelCollector
-                    ))));
+                    )));
+
+            if(!models.contains(item))
+                models.add(item);
         });
 
         ItemModel.Unbaked fallbackModel = ItemModels.basic(itemModelGenerator.upload(EggItemsME.NPC_SPAWN_EGG, Models.GENERATED));

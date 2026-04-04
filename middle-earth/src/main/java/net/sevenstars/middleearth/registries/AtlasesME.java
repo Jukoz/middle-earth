@@ -8,16 +8,15 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.providers.dynamic.CharacterAtlasTexturesProvider;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 /**
  * Middle-earth mod atlases<br>
  */
 public class AtlasesME {
-    public static final Identifier CHARACTER_SKINS = IdentifierUtil.build("character_skins");
-    public static final Identifier CHARACTER_HAIRS = IdentifierUtil.build("character_hairs");
-    public static final Identifier CHARACTER_EYES = IdentifierUtil.build("character_eyes");
-    public static final Identifier CHARACTER_CLOTHES = IdentifierUtil.build("character_clothes");
+    public static final Identifier CHARACTER_SKINS = MiddleEarth.of("character_skins");
+    public static final Identifier CHARACTER_HAIRS = MiddleEarth.of("character_hairs");
+    public static final Identifier CHARACTER_EYES = MiddleEarth.of("character_eyes");
+    public static final Identifier CHARACTER_CLOTHES = MiddleEarth.of("character_clothes");
 
     public static Identifier prefixAtlas(Identifier sprite, Identifier atlas) {
         return sprite.withPrefixedPath(String.format("%s/", atlas.getPath()));

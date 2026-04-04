@@ -5,10 +5,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,11 +46,11 @@ public class TexturePresetDatas {
     public static Identifier buildId(Identifier pattern, Identifier material) {
         if(pattern == null || material == null)
             return null;
-        return IdentifierUtil.build(pattern.getPath() + "_" + material.getPath());
+        return MiddleEarth.of(pattern.getPath() + "_" + material.getPath());
     }
 
     public static Identifier buildAddonId(Identifier pattern, Identifier material) {
-        return IdentifierUtil.build(pattern.getPath() + "_addon_" + material.getPath());
+        return MiddleEarth.of(pattern.getPath() + "_addon_" + material.getPath());
     }
 
     public static ClothingData getClothing(Identity textureIdentity) {

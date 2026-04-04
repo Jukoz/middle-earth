@@ -4,16 +4,16 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 public class StructureManagerDataRegistry {
     private static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA_KEY = DynamicRegistriesME.STRUCTURE_MANAGER_DATA;
 
-    public final static RegistryKey<StructureManagerData> GONDOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.build("gondor_generic_nests"));
-    public final static RegistryKey<StructureManagerData> EREBOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.build("erebor_generic_nests"));
-    public final static RegistryKey<StructureManagerData> DALE_KEEP_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, IdentifierUtil.build("dale_keep_nests"));
+    public final static RegistryKey<StructureManagerData> GONDOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, MiddleEarth.of("gondor_generic_nests"));
+    public final static RegistryKey<StructureManagerData> EREBOR_GENERIC_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, MiddleEarth.of("erebor_generic_nests"));
+    public final static RegistryKey<StructureManagerData> DALE_KEEP_NESTS = DynamicRegistriesME.of(STRUCTURE_MANAGER_DATA_KEY, MiddleEarth.of("dale_keep_nests"));
 
     public static void bootstrap(Registerable<StructureManagerData> context) {
         RegistryEntryLookup<StructureManagerData> registryEntryLookup = context.getRegistryLookup(STRUCTURE_MANAGER_DATA_KEY);

@@ -1,29 +1,23 @@
-package net.sevenstars.middleearth.utils;
+package net.sevenstars.api.utils;
 
-import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.util.Identifier;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
+import net.sevenstars.api.SevenStarsApi;
 
 public class IdentifierUtil {
     public static Identifier getIdentifierFromString(String id){
         if(id.contains(":") && id.split(":").length == 2){
             return Identifier.of(id.split(":")[0], id.split(":")[1]);
-        } else {
-            return Identifier.of(MiddleEarth.MOD_ID, id);
         }
+        return Identifier.of(SevenStarsApi.MOD_ID, id + "_error");
     }
 
-    public static Identifier build(String name) {
-        return Identifier.of(MiddleEarth.MOD_ID, name);
+    public static Identifier build(String key, String name) {
+        return Identifier.of(key, name);
     }
 
-    public static Identifier buildAggregate(String... names) {
-        return build(createAggregateValue('.', names));
+    public static Identifier buildAggregate(String key, String... names) {
+        return build(key, createAggregateValue('.', names));
     }
-
 
     public static String createAggregateValue(char character, String... names){
         if(names.length == 0)
