@@ -1,27 +1,29 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin;
 
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class WildGoblinTexturePresetsPool {
-    private final static TexturePresetData BASE_PRESET;
-    private final static TexturePresetData WEAK_PRESET;
-    private final static TexturePresetData WARRIOR_PRESET;
-    private final static TexturePresetData BRUTE_PRESET;
+    private final static WeightedTexturePresetHolder BASE_PRESET;
+    private final static WeightedTexturePresetHolder WEAK_PRESET;
+    private final static WeightedTexturePresetHolder WARRIOR_PRESET;
+    private final static WeightedTexturePresetHolder BRUTE_PRESET;
 
-    public final static TexturePresetDatas WEAK;
-    public final static TexturePresetDatas WARRIOR;
-    public final static TexturePresetDatas BRUTE;
+    public final static TexturePresetDataPool WEAK;
+    public final static TexturePresetDataPool WARRIOR;
+    public final static TexturePresetDataPool BRUTE;
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
@@ -33,7 +35,7 @@ public class WildGoblinTexturePresetsPool {
 
     //region [PRESETS]
     static {
-        BASE_PRESET = new TexturePresetData()
+        BASE_PRESET = new WeightedTexturePresetHolder()
             .withMaterials(CharacterMaterialTypes.SKIN, List.of(
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PALE_WHITE),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PINK)
@@ -53,18 +55,18 @@ public class WildGoblinTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
             ));
 
-        WEAK_PRESET = new TexturePresetData()
+        WEAK_PRESET = new WeightedTexturePresetHolder()
             .withPatterns(CharacterPatternTypes.BODY, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SKIN_TO_BONE)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(4),
+                    TexturePreset.EMPTY_VALUE_KEY.withWeight(4),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
             ));
 
-        WARRIOR_PRESET = new TexturePresetData()
+        WARRIOR_PRESET = new WeightedTexturePresetHolder()
             .withPatterns(CharacterPatternTypes.HEAD, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.FEMALE)
             ))
@@ -72,7 +74,7 @@ public class WildGoblinTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SLIM)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                TexturePresetData.EMPTY_VALUE_KEY.withWeight(4),
+                TexturePreset.EMPTY_VALUE_KEY.withWeight(4),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
@@ -96,9 +98,9 @@ public class WildGoblinTexturePresetsPool {
 
     // region [DATAS]
     static {
-        WEAK = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        WEAK = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
                 WEAK_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
@@ -128,12 +130,12 @@ public class WildGoblinTexturePresetsPool {
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
                         WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                     ))
-            ));
+            )));
         }});
 
-        WARRIOR = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        WARRIOR = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
                 WARRIOR_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
@@ -163,12 +165,12 @@ public class WildGoblinTexturePresetsPool {
                     .withPatterns(CharacterPatternTypes.EYE, List.of(
                         WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                     ))
-            ));
+            )));
         }});
 
-        BRUTE = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        BRUTE = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
                 BRUTE_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
@@ -188,7 +190,7 @@ public class WildGoblinTexturePresetsPool {
                         WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
                         WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
                     ))
-            ));
+            )));
         }});
     }
     // endregion

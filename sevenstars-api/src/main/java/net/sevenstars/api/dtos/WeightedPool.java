@@ -1,22 +1,24 @@
 package net.sevenstars.api.dtos;
 
 import net.minecraft.nbt.NbtList;
-import net.sevenstars.api.SevenStarsApi;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WeightedList<T extends WeightedItem> {
+public class WeightedPool<T extends WeightedItem> {
     final static Random RANDOM = new Random();
 
     public List<T> elements;
 
-    public WeightedList(){
+    public WeightedPool(){
         this.elements = new ArrayList<>();
     }
-    public WeightedList(List<T> elements){
+    public WeightedPool(List<T> elements){
         this.elements = elements;
+    }
+    public WeightedPool(T elements){
+        this.elements = List.of(elements);
     }
 
     public T get(int index){

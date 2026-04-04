@@ -4,18 +4,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.sevenstars.api.dtos.WeightedList;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import net.sevenstars.api.dtos.WeightedPool;
 
 public class GearSlotPool {
     private WeightedItemData weightedItemData;
-    private WeightedList<WeightedItemData> npcGearItemPool;
+    private WeightedPool<WeightedItemData> npcGearItemPool;
 
     public GearSlotPool() {
-        this.npcGearItemPool = new WeightedList<>();
+        this.npcGearItemPool = new WeightedPool<>();
     }
     public static GearSlotPool create() {
         return new GearSlotPool();
@@ -30,7 +26,7 @@ public class GearSlotPool {
 
     public GearSlotPool add(WeightedItemData newGearData){
         if(this.npcGearItemPool == null)
-            this.npcGearItemPool = new WeightedList<>();
+            this.npcGearItemPool = new WeightedPool<>();
         if(this.weightedItemData != null)
             this.weightedItemData = null;
         this.npcGearItemPool.add(newGearData);

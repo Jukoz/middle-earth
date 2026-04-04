@@ -4,83 +4,64 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
-import net.sevenstars.api.dtos.WeightedList;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.api.dtos.WeightedIdentifier;
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.api.dtos.WeightedIdentifier;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TexturePresetData {
-    public final static String WEIGHT = "weight";
+public class TexturePreset {
+    public final static WeightedIdentifier EMPTY_VALUE_KEY = new WeightedIdentifier(Identifier.of("empty"));
+
     public final static String PATTERNS = "patterns";
     public final static String MATERIALS = "materials";
     public final static String IS_EMISSIVE = "is_emissive";
     public final static String CLOTHES = "CLOTHES";
 
-    public final static WeightedIdentifier EMPTY_VALUE_KEY = new WeightedIdentifier(Identifier.of("empty"));
+    public WeightedPool<WeightedIdentifier> bodyPatterns;
+    public WeightedPool<WeightedIdentifier> headPatterns;
+    public WeightedPool<WeightedIdentifier> feetPatterns;
+    public WeightedPool<WeightedIdentifier> scarPatterns;
+    public WeightedPool<WeightedIdentifier> earPatterns;
+    public WeightedPool<WeightedIdentifier> nosePatterns;
+    public WeightedPool<WeightedIdentifier> eyePatterns;
+    public WeightedPool<WeightedIdentifier> hairPatterns;
+    public WeightedPool<WeightedIdentifier> eyebrowPatterns;
+    public WeightedPool<WeightedIdentifier> beardPatterns;
+    public WeightedPool<WeightedIdentifier> skinMaterials;
+    public WeightedPool<WeightedIdentifier> eyeMaterials;
+    public WeightedPool<WeightedIdentifier> hairMaterials;
 
-    private int weight;
-    WeightedList<WeightedIdentifier> bodyPatterns;
-    WeightedList<WeightedIdentifier> headPatterns;
-    WeightedList<WeightedIdentifier> feetPatterns;
-    WeightedList<WeightedIdentifier> scarPatterns;
-    WeightedList<WeightedIdentifier> earPatterns;
-    WeightedList<WeightedIdentifier> nosePatterns;
-    WeightedList<WeightedIdentifier> eyePatterns;
-    WeightedList<WeightedIdentifier> hairPatterns;
-    WeightedList<WeightedIdentifier> eyebrowPatterns;
-    WeightedList<WeightedIdentifier> beardPatterns;
-    WeightedList<WeightedIdentifier> skinMaterials;
-    WeightedList<WeightedIdentifier> eyeMaterials;
-    WeightedList<WeightedIdentifier> hairMaterials;
+    public WeightedPool<WeightedClothingPresetHolder> characterClothePresets;
 
-    WeightedList<ClothePresetDatas> characterClothePresets;
+    public boolean haveEmissiveEyes;
 
-    private boolean haveEmissiveEyes;
+    public TexturePreset(){
+        bodyPatterns = new WeightedPool<>();
+        headPatterns = new WeightedPool<>();
+        scarPatterns = new WeightedPool<>();
+        earPatterns = new WeightedPool<>();
+        nosePatterns = new WeightedPool<>();
+        feetPatterns = new WeightedPool<>();
+        skinMaterials = new WeightedPool<>();
 
-    public TexturePresetData(){
-        this.weight = 1;
-        bodyPatterns = new WeightedList<>();
-        headPatterns = new WeightedList<>();
-        scarPatterns = new WeightedList<>();
-        earPatterns = new WeightedList<>();
-        nosePatterns = new WeightedList<>();
-        feetPatterns = new WeightedList<>();
-        skinMaterials = new WeightedList<>();
+        eyePatterns = new WeightedPool<>();
+        eyeMaterials = new WeightedPool<>();
 
-        eyePatterns = new WeightedList<>();
-        eyeMaterials = new WeightedList<>();
+        hairPatterns = new WeightedPool<>();
+        eyebrowPatterns = new WeightedPool<>();
+        beardPatterns = new WeightedPool<>();
+        hairMaterials = new WeightedPool<>();
 
-        hairPatterns = new WeightedList<>();
-        eyebrowPatterns = new WeightedList<>();
-        beardPatterns = new WeightedList<>();
-        hairMaterials = new WeightedList<>();
-
-        characterClothePresets = new WeightedList<>();
+        characterClothePresets = new WeightedPool<>();
     }
 
-    public TexturePresetData(NbtCompound compound) {
-        this.weight = compound.contains(WEIGHT) ? compound.getInt(WEIGHT).get() : 1;
+    public TexturePreset(NbtCompound compound){
+        this();
 
-        bodyPatterns = new WeightedList<>();
-        headPatterns = new WeightedList<>();
-        feetPatterns = new WeightedList<>();
-        scarPatterns = new WeightedList<>();
-        earPatterns = new WeightedList<>();
-        nosePatterns = new WeightedList<>();
-        skinMaterials = new WeightedList<>();
-
-        eyePatterns = new WeightedList<>();
-        eyeMaterials = new WeightedList<>();
-
-        hairPatterns = new WeightedList<>();
-        eyebrowPatterns = new WeightedList<>();
-        beardPatterns = new WeightedList<>();
-        hairMaterials = new WeightedList<>();
-
-        characterClothePresets = new WeightedList<>();
+        characterClothePresets = new WeightedPool<>();
 
         fetchMaterials(compound, CharacterMaterialTypes.SKIN);
         fetchMaterials(compound, CharacterMaterialTypes.EYE);
@@ -100,19 +81,10 @@ public class TexturePresetData {
         fetchPatterns(compound, CharacterPatternTypes.BEARD);
 
         fetchClothes(compound);
-
-        loadHeadPool(compound);
     }
 
-    private void loadHeadPool(NbtCompound compound) {
+    public NbtCompound getNbt(NbtCompound nbt) {
 
-    }
-
-    public NbtCompound getNbt(){
-        NbtCompound nbt = new NbtCompound();
-        if(weight != 1){
-            nbt.putInt(WEIGHT, weight);
-        }
         if(skinMaterials.isFilled()){
             NbtCompound compound = new NbtCompound();
             compound.put(MATERIALS, createTextureElementList(skinMaterials));
@@ -184,11 +156,11 @@ public class TexturePresetData {
             }
             nbt.put(CLOTHES, list);
         }
-
         return nbt;
     }
 
-    private NbtList createTextureElementList(WeightedList<WeightedIdentifier> values){
+
+    private NbtList createTextureElementList(WeightedPool<WeightedIdentifier> values){
         return values.getNbt();
     }
 
@@ -262,36 +234,28 @@ public class TexturePresetData {
 
                 listClothePresets.forEach(x -> {
                     if(x.asCompound().isPresent()){
-                        this.characterClothePresets.add(new ClothePresetDatas(x.asCompound().get()));
+                        this.characterClothePresets.add(new WeightedClothingPresetHolder(x.asCompound().get()));
                     }
                 });
             }
         }
     }
 
-    public TexturePresetData withWeight(int weight){
-        this.weight = weight;
-        return this;
-    }
-
-    public TexturePresetData withEmissiveEyes(boolean value){
+    public void withEmissiveEyes(boolean value){
         this.haveEmissiveEyes = value;
-        return this;
     }
 
-    public TexturePresetData withClothes(List<ClothePresetDatas> characterClothePresets){
+    public void withClothes(List<WeightedClothingPresetHolder> characterClothePresets){
         if(characterClothePresets != null){
             this.characterClothePresets.addAll(characterClothePresets);
         }
-        return this;
     }
 
-    public TexturePresetData clearClothes(){
+    public void clearClothes(){
         this.characterClothePresets.clear();
-        return this;
     }
 
-    public TexturePresetData withPatterns(CharacterPatternTypes type, List<WeightedIdentifier> patterns){
+    public void withPatterns(CharacterPatternTypes type, List<WeightedIdentifier> patterns){
         if(patterns != null)
             patterns.forEach(x -> {
                 if(x == null){
@@ -300,32 +264,24 @@ public class TexturePresetData {
                     addToPattern(type, x);
                 }
             });
-        return this;
     }
 
-    public TexturePresetData withPatterns(CharacterPatternTypes type, WeightedList<WeightedIdentifier> patterns){
-        return withPatterns(type, patterns.elements);
+    public void withPatterns(CharacterPatternTypes type, WeightedPool<WeightedIdentifier> patterns){
+        withPatterns(type, patterns.elements);
     }
 
-    public TexturePresetData clearPatterns(CharacterPatternTypes type) {
+    public void clearPatterns(CharacterPatternTypes type) {
         clearAllPatterns(type);
-        return this;
     }
-    public TexturePresetData withMaterials(CharacterMaterialTypes type, List<WeightedIdentifier> materials){
+    public void withMaterials(CharacterMaterialTypes type, List<WeightedIdentifier> materials){
         materials.forEach(x -> addToMaterial(type, x));
-        return this;
     }
-    public TexturePresetData withMaterials(CharacterMaterialTypes type, WeightedList<WeightedIdentifier> materials){
-        return this.withMaterials(type, materials.elements);
+    public void withMaterials(CharacterMaterialTypes type, WeightedPool<WeightedIdentifier> materials){
+        this.withMaterials(type, materials.elements);
     }
 
-    public TexturePresetData clearMaterials(CharacterMaterialTypes type) {
+    public void clearMaterials(CharacterMaterialTypes type) {
         clearAllMaterials(type);
-        return this;
-    }
-
-    public int getWeight(){
-        return weight;
     }
 
     public void addToPattern(CharacterPatternTypes patternType, WeightedIdentifier value) {
@@ -372,7 +328,7 @@ public class TexturePresetData {
         };
     }
 
-    public WeightedList<WeightedIdentifier> getPatterns(CharacterPatternTypes patternTypes) {
+    public WeightedPool<WeightedIdentifier> getPatterns(CharacterPatternTypes patternTypes) {
         return switch (patternTypes){
             case BODY       -> bodyPatterns;
             case HEAD       -> headPatterns;
@@ -386,7 +342,7 @@ public class TexturePresetData {
             case BEARD      -> beardPatterns;
         };
     }
-    public WeightedList<WeightedIdentifier> getMaterials(CharacterMaterialTypes materialType) {
+    public WeightedPool<WeightedIdentifier> getMaterials(CharacterMaterialTypes materialType) {
         return switch (materialType) {
             case SKIN -> skinMaterials;
             case EYE -> eyeMaterials;
@@ -398,51 +354,4 @@ public class TexturePresetData {
         return haveEmissiveEyes;
     }
 
-    public TexturePresetData copy() {
-        var copiedNpcTextureDataPreset = new TexturePresetData();
-        for(WeightedIdentifier value : getMaterials(CharacterMaterialTypes.SKIN).elements)
-            copiedNpcTextureDataPreset.addToMaterial(CharacterMaterialTypes.SKIN, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.HEAD).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.HEAD, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.BODY).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.BODY, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.FEET).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.FEET, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.NOSE).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.NOSE, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.EAR).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.EAR, value);
-
-        for(WeightedIdentifier value : getMaterials(CharacterMaterialTypes.EYE).elements)
-            copiedNpcTextureDataPreset.addToMaterial(CharacterMaterialTypes.EYE, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.EYE).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.EYE, value);
-
-        for(WeightedIdentifier value : getMaterials(CharacterMaterialTypes.HAIR).elements)
-            copiedNpcTextureDataPreset.addToMaterial(CharacterMaterialTypes.HAIR, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.EYEBROW).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.EYEBROW, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.HAIR).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.HAIR, value);
-        for(WeightedIdentifier value : getPatterns(CharacterPatternTypes.BEARD).elements)
-            copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.BEARD, value);
-
-        copiedNpcTextureDataPreset.characterClothePresets = characterClothePresets;
-
-        return copiedNpcTextureDataPreset;
-    }
-
-    public ClothingData getClothingData() {
-        if(characterClothePresets.isEmpty()){
-            MiddleEarth.LOGGER.logDebugMsg("Couldn't find clothes for " + this.getNbt());
-            return new ClothingData(null, null, null);
-        }
-        ClothePresetDatas clothePreset = characterClothePresets.getRandom();
-
-        Identifier baseId = clothePreset.getRandomBase();
-        Identifier overId = clothePreset.getRandomOver();
-        Identifier extraId = clothePreset.getRandomExtra();
-
-        return new ClothingData(baseId, overId, extraId);
-    }
 }

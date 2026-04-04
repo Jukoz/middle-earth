@@ -10,15 +10,16 @@ import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.HashMap;
 
-public class GearData extends WeightedItem<HashMap<EquipmentSlot, GearSlotPool>> {
-    public GearData(){
+public class WeightedGearData extends WeightedItem<HashMap<EquipmentSlot, GearSlotPool>> {
+    public WeightedGearData(){
         item = new HashMap<>();
     }
-    public static GearData create() {
-        return new GearData();
+
+    public static WeightedGearData create() {
+        return new WeightedGearData();
     }
 
-    public GearData(NbtCompound gearNbt) {
+    public WeightedGearData(NbtCompound gearNbt) {
         this.item = new HashMap<>();
         addSlot(gearNbt, EquipmentSlot.HEAD);
         addSlot(gearNbt, EquipmentSlot.CHEST);
@@ -37,7 +38,7 @@ public class GearData extends WeightedItem<HashMap<EquipmentSlot, GearSlotPool>>
         }
     }
 
-    public GearData add(EquipmentSlot slot, GearSlotPool slotData){
+    public WeightedGearData add(EquipmentSlot slot, GearSlotPool slotData){
         if(item.containsKey(slot)) {
             MiddleEarth.LOGGER.logError("NpcGearData::Overwriting slotData - %s".formatted(slot.getName()));
         }
@@ -45,8 +46,8 @@ public class GearData extends WeightedItem<HashMap<EquipmentSlot, GearSlotPool>>
         return this;
     }
 
-    public static GearData Create() {
-        return GearData.create();
+    public static WeightedGearData Create() {
+        return WeightedGearData.create();
     }
 
     public ItemStack get(EquipmentSlot slot) {
@@ -58,6 +59,7 @@ public class GearData extends WeightedItem<HashMap<EquipmentSlot, GearSlotPool>>
         return foundItem.getItemStack();
     }
 
+    @Override
     public NbtElement getNbt(){
         NbtElement nbt = super.getNbt();
         if(nbt == null)
@@ -68,7 +70,14 @@ public class GearData extends WeightedItem<HashMap<EquipmentSlot, GearSlotPool>>
         }
         return nbt;
     }
-    public static GearData readNbt(NbtCompound nbt){
-        return new GearData(nbt);
+
+    @Override
+    public WeightedGearData withWeight(int newWeight) {
+        this.weight = newWeight;
+        return this;
+    }
+
+    public static WeightedGearData readNbt(NbtCompound nbt){
+        return new WeightedGearData(nbt);
     }
 }

@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -47,7 +47,7 @@ public class DalishNpcDataPool {
 
     static {
         PEASANT = new NpcData(NpcRegistry.DALE_PEASANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
@@ -64,7 +64,7 @@ public class DalishNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MILITIA = new NpcData(NpcRegistry.DALE_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.DALISH_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
@@ -88,7 +88,7 @@ public class DalishNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SOLDIER = new NpcData(NpcRegistry.DALE_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.KETTLE_HAT))
                                 .add(WeightedItemData.create(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF))
@@ -119,7 +119,7 @@ public class DalishNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         ARCHER = new NpcData(NpcRegistry.DALE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.DALISH_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.DALISH_HELMET_BROWN_FUR))
@@ -144,7 +144,7 @@ public class DalishNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         KNIGHT = new NpcData(NpcRegistry.DALE_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF))
                                 .add(WeightedItemData.create(EquipmentItemsME.DALISH_BURGONET))
@@ -178,7 +178,7 @@ public class DalishNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         ELITE_ARCHER = new NpcData(NpcRegistry.DALE_ELITE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.DALISH_HELMET_BROWN_FUR))
                                 .add(WeightedItemData.create(EquipmentItemsME.DALISH_HELMET_BLACK_FUR))
@@ -200,7 +200,7 @@ public class DalishNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
         VETERAN = new NpcData(NpcRegistry.DALE_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_LORD, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.BARDING_SOLDIER_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.DALISH_BURGONET))
@@ -233,7 +233,7 @@ public class DalishNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SERGEANT = new NpcData(NpcRegistry.DALE_SERGEANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_LORD, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.BARDING_SOLDIER_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.BARDING_SERGEANT_HELMET).withWeight(3))

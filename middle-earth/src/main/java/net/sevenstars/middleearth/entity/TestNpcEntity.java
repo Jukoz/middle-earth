@@ -34,7 +34,7 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
@@ -301,8 +301,8 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
             NpcData data = faction.getRandomGear(getWorld(), npcRank, race);
             if(data == null)
                 return;
-            GearData gearData = data.getGear();
-            NpcUtil.equipAll(this, gearData);
+            WeightedGearData weightedGearData = data.getGear();
+            NpcUtil.equipAll(this, weightedGearData);
         } catch (FactionIdentifierException e) {
             MiddleEarth.LOGGER.logError("TestNpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
             throw new RuntimeException(e);

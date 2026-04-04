@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -53,7 +53,7 @@ public class BrigandNpcDataPool {
     private static final List<Integer> allColors = List.of(DEFAULT, DARK_BROWN, LIGHT_BROWN, DARK_GREEN, DARK_BLUE, DARKEST_RED, GREEN, BLUE, DARK_ORANGE);
     static {
         THUG = new NpcData(NpcRegistry.BRIGAND_THUG.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.BRIGAND_THUG, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(6))
                                 .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withWeight(4))
@@ -122,7 +122,7 @@ public class BrigandNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         THIEF = new NpcData(NpcRegistry.BRIGAND_THIEF.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.BRIGAND_THUG, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withHood(HelmetAttachmentsME.HOOD, allColors))
                         )
@@ -160,7 +160,7 @@ public class BrigandNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MERCENARY = new NpcData(NpcRegistry.BRIGAND_MERCENARY.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.BRIGAND_MERCENARY, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF))
                                 .add(WeightedItemData.create(EquipmentItemsME.KETTLE_HAT))
@@ -212,7 +212,7 @@ public class BrigandNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         CHIEFTAIN = new NpcData(NpcRegistry.BRIGAND_CHIEFTAIN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.BRIGAND_CHIEF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET).withColor(DEFAULT).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET).withColor(DEFAULT).withWeight(3))

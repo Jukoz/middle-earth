@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -53,7 +53,7 @@ public class GundabadNpcDataPool {
         );
 
         SNAGA = new NpcData(NpcRegistry.GUNDABAD_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withColors(allColors).withWeight(4))
@@ -95,7 +95,7 @@ public class GundabadNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MILITIA = new NpcData(NpcRegistry.GUNDABAD_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_SKULLCAP_HELMET).withColors(allColors).withWeight(4))
@@ -146,7 +146,7 @@ public class GundabadNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         RIDER = new NpcData(NpcRegistry.GUNDABAD_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withColors(allColors).withWeight(4))
@@ -188,7 +188,7 @@ public class GundabadNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SCOUT = new NpcData(NpcRegistry.GUNDABAD_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(8))
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_SKULLCAP_HELMET).withColors(allColors).withWeight(4))
@@ -228,7 +228,7 @@ public class GundabadNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         WARRIOR = new NpcData(NpcRegistry.GUNDABAD_WARRIOR.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_SOLDIER_HELMET).withWeight(4))
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_SCREECHER_HELMET).withWeight(4))
@@ -276,7 +276,7 @@ public class GundabadNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         VETERAN = new NpcData(NpcRegistry.GUNDABAD_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LONG_HORN_HELMET).withColors(allColors).withWeight(4))
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_SOLDIER_HELMET).withWeight(2))
@@ -324,7 +324,7 @@ public class GundabadNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         LEADER = new NpcData(NpcRegistry.GUNDABAD_LEADER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_HOBGOBLIN_PLATE_LARGE_CREST_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.GUNDABAD_CAPTAIN_HELMET))

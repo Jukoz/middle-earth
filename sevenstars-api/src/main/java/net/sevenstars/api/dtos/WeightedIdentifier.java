@@ -28,8 +28,10 @@ public class WeightedIdentifier extends WeightedItem<Identifier> {
     public static WeightedIdentifier fromKey(RegistryKey key){
         return new WeightedIdentifier(key.getValue(), 1);
     }
-    public WeightedIdentifier withWeight(int weight){
-        this.weight = weight;
+
+    @Override
+    public WeightedIdentifier withWeight(int newWeight) {
+        this.weight = newWeight;
         return this;
     }
 

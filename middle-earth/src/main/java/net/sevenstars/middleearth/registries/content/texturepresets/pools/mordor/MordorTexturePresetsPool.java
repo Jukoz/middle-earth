@@ -1,27 +1,29 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.mordor;
 
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class MordorTexturePresetsPool {
-    private final static TexturePresetData BASE_PRESET;
-    private final static TexturePresetData BLACK_NUMENOREAN_PRESET;
-    private final static TexturePresetData ORC_PRESET;
-    private final static TexturePresetData BLACK_URUK_PRESET;
+    private final static WeightedTexturePresetHolder BASE_PRESET;
+    private final static WeightedTexturePresetHolder BLACK_NUMENOREAN_PRESET;
+    private final static WeightedTexturePresetHolder ORC_PRESET;
+    private final static WeightedTexturePresetHolder BLACK_URUK_PRESET;
 
-    public final static TexturePresetDatas BLACK_NUMENOREAN;
-    public final static TexturePresetDatas ORC;
-    public final static TexturePresetDatas BLACK_URUK;
+    public final static TexturePresetDataPool BLACK_NUMENOREAN;
+    public final static TexturePresetDataPool ORC;
+    public final static TexturePresetDataPool BLACK_URUK;
 
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
@@ -34,7 +36,7 @@ public class MordorTexturePresetsPool {
 
     //region [PRESETS]
     static {
-        BASE_PRESET = new TexturePresetData()
+        BASE_PRESET = new WeightedTexturePresetHolder()
             .withMaterials(CharacterMaterialTypes.SKIN, List.of(
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.BROWN),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.GREY),
@@ -56,7 +58,7 @@ public class MordorTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
             ));
 
-        BLACK_NUMENOREAN_PRESET = new TexturePresetData()
+        BLACK_NUMENOREAN_PRESET = new WeightedTexturePresetHolder()
             .withMaterials(CharacterMaterialTypes.EYE, List.of(
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.BROWN)
             ))
@@ -82,7 +84,7 @@ public class MordorTexturePresetsPool {
                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_GOLD)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                TexturePreset.EMPTY_VALUE_KEY.withWeight(2),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHARP),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BOWL),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.LONG),
@@ -93,17 +95,17 @@ public class MordorTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
             ))
             .withPatterns(CharacterPatternTypes.BEARD, List.of(
-                TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                TexturePreset.EMPTY_VALUE_KEY.withWeight(2),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SHORT)
             ));
 
 
-        ORC_PRESET = new TexturePresetData()
+        ORC_PRESET = new WeightedTexturePresetHolder()
             .withPatterns(CharacterPatternTypes.BODY, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SLIM)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                TexturePreset.EMPTY_VALUE_KEY.withWeight(2),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
@@ -127,13 +129,13 @@ public class MordorTexturePresetsPool {
 
     // region [DATAS]
     static {
-        BLACK_NUMENOREAN  = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.MALE, List.of(BLACK_NUMENOREAN_PRESET));
+        BLACK_NUMENOREAN  = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.MALE, new WeightedPool<>(BLACK_NUMENOREAN_PRESET));
         }});
 
-        ORC = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        ORC = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
             ORC_PRESET.copy()
                 .clearPatterns(CharacterPatternTypes.EYE)
                 .clearPatterns(CharacterPatternTypes.HEAD)
@@ -163,12 +165,12 @@ public class MordorTexturePresetsPool {
                 .withPatterns(CharacterPatternTypes.EYE, List.of(
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                 ))
-            ));
+            )));
         }});
 
-        BLACK_URUK = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        BLACK_URUK = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
             BLACK_URUK_PRESET.copy()
                 .clearPatterns(CharacterPatternTypes.EYE)
                 .clearPatterns(CharacterPatternTypes.HEAD)
@@ -188,7 +190,7 @@ public class MordorTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
                 ))
-            ));
+            )));
         }});
     }
     // endregion

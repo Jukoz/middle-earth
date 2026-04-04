@@ -37,6 +37,8 @@ public abstract class WeightedItem<T> {
         return weight;
     }
 
+    public abstract WeightedItem<T> withWeight(int newWeight);
+
     public NbtElement getNbt(){
         if(weight != 1){
             NbtCompound compound = new NbtCompound();

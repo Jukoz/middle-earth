@@ -7,82 +7,82 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.ClothingData;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.ClothingSelection;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 
 import java.util.Optional;
 
 public class NpcEntityHelper {
-    public static NpcEntityTextureData generateSkinTextureData(NpcEntityTextureData npcTextureData, TexturePresetDatas.Identity textureIdentity) {
-        Identifier materialId = TexturePresetDatas.getRawMaterial(textureIdentity, CharacterMaterialTypes.SKIN);
-        Identifier bodyPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.BODY);
-        Identifier headPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.HEAD);
-        Identifier feetPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.FEET);
-        Identifier earPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.EAR);
-        Identifier nosePatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.NOSE);
-        Identifier scarPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.SCAR);
+    public static NpcEntityTextureData generateSkinTextureData(NpcEntityTextureData npcTextureData, TexturePresetDataPool.Identity textureIdentity) {
+        Identifier materialId = TexturePresetDataPool.getRawMaterial(textureIdentity, CharacterMaterialTypes.SKIN);
+        Identifier bodyPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.BODY);
+        Identifier headPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.HEAD);
+        Identifier feetPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.FEET);
+        Identifier earPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.EAR);
+        Identifier nosePatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.NOSE);
+        Identifier scarPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.SCAR);
 
-        npcTextureData = npcTextureData.withSkinTexture(TexturePresetDatas.buildId(bodyPatternId, materialId));
-        npcTextureData = npcTextureData.withHeadTexture(TexturePresetDatas.buildId(headPatternId, materialId));
+        npcTextureData = npcTextureData.withSkinTexture(TexturePresetDataPool.buildId(bodyPatternId, materialId));
+        npcTextureData = npcTextureData.withHeadTexture(TexturePresetDataPool.buildId(headPatternId, materialId));
 
         if(scarPatternId != null){
-            npcTextureData = npcTextureData.withScarTexture(TexturePresetDatas.buildId(scarPatternId, materialId));
+            npcTextureData = npcTextureData.withScarTexture(TexturePresetDataPool.buildId(scarPatternId, materialId));
         }
         if(earPatternId != null){
-            npcTextureData = npcTextureData.withEarTexture(TexturePresetDatas.buildId(earPatternId, materialId));
+            npcTextureData = npcTextureData.withEarTexture(TexturePresetDataPool.buildId(earPatternId, materialId));
         }
         if(nosePatternId != null){
-            npcTextureData = npcTextureData.withNoseTexture(TexturePresetDatas.buildId(nosePatternId, materialId));
+            npcTextureData = npcTextureData.withNoseTexture(TexturePresetDataPool.buildId(nosePatternId, materialId));
         }
         if(feetPatternId != null){
-            npcTextureData = npcTextureData.withFeetTexture(TexturePresetDatas.buildId(feetPatternId, materialId));
+            npcTextureData = npcTextureData.withFeetTexture(TexturePresetDataPool.buildId(feetPatternId, materialId));
         }
 
         return npcTextureData;
     }
 
-    public static NpcEntityTextureData generateEyeTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDatas.Identity textureIdentity, boolean haveEmissiveEyes) {
-        Identifier materialId = TexturePresetDatas.getRawMaterial(textureIdentity, CharacterMaterialTypes.EYE);
-        Identifier patternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.EYE);
+    public static NpcEntityTextureData generateEyeTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDataPool.Identity textureIdentity, boolean haveEmissiveEyes) {
+        Identifier materialId = TexturePresetDataPool.getRawMaterial(textureIdentity, CharacterMaterialTypes.EYE);
+        Identifier patternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.EYE);
 
-        npcEntityTextureData = npcEntityTextureData.withEyeTexture(TexturePresetDatas.buildId(patternId, materialId), TexturePresetDatas.buildId(Identifier.of(patternId.getPath() + "_emissive"), materialId), haveEmissiveEyes);
+        npcEntityTextureData = npcEntityTextureData.withEyeTexture(TexturePresetDataPool.buildId(patternId, materialId), TexturePresetDataPool.buildId(Identifier.of(patternId.getPath() + "_emissive"), materialId), haveEmissiveEyes);
 
         return npcEntityTextureData;
     }
 
-    public static NpcEntityTextureData generateHairTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDatas.Identity textureIdentity, DynamicRegistryManager manager) {
-        Identifier globalHairMaterialId = TexturePresetDatas.getRawMaterial(textureIdentity, CharacterMaterialTypes.HAIR);
+    public static NpcEntityTextureData generateHairTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDataPool.Identity textureIdentity, DynamicRegistryManager manager) {
+        Identifier globalHairMaterialId = TexturePresetDataPool.getRawMaterial(textureIdentity, CharacterMaterialTypes.HAIR);
 
         // Hair
-        Identifier hairPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.HAIR);
+        Identifier hairPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.HAIR);
         Optional<RegistryEntry.Reference<CharacterTexturePattern>> foundHairPattern = CharacterPatternsRegistryME.get(manager, CharacterPatternTypes.HAIR, hairPatternId);
         if(foundHairPattern.isPresent() && foundHairPattern.get().value() instanceof CharacterTexturePattern pattern){
-            npcEntityTextureData = npcEntityTextureData.withHairTexture(TexturePresetDatas.buildId(hairPatternId, globalHairMaterialId));
+            npcEntityTextureData = npcEntityTextureData.withHairTexture(TexturePresetDataPool.buildId(hairPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){
-                npcEntityTextureData = npcEntityTextureData.withHairAddonTexture(TexturePresetDatas.buildAddonId(hairPatternId, globalHairMaterialId));
+                npcEntityTextureData = npcEntityTextureData.withHairAddonTexture(TexturePresetDataPool.buildAddonId(hairPatternId, globalHairMaterialId));
             }
         }
         // Eyebrow
-        Identifier eyebrowPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.EYEBROW);
+        Identifier eyebrowPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.EYEBROW);
         Optional<RegistryEntry.Reference<CharacterTexturePattern>> foundEyebrowPattern = CharacterPatternsRegistryME.get(manager, CharacterPatternTypes.EYEBROW, eyebrowPatternId);
         if(foundEyebrowPattern.isPresent()){
-            npcEntityTextureData = npcEntityTextureData.withEyebrowTexture(TexturePresetDatas.buildId(eyebrowPatternId, globalHairMaterialId));
+            npcEntityTextureData = npcEntityTextureData.withEyebrowTexture(TexturePresetDataPool.buildId(eyebrowPatternId, globalHairMaterialId));
         }
         // Beard
-        Identifier beardPatternId = TexturePresetDatas.getRawPattern(textureIdentity, CharacterPatternTypes.BEARD);
+        Identifier beardPatternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.BEARD);
         Optional<RegistryEntry.Reference<CharacterTexturePattern>> foundBeardPattern = CharacterPatternsRegistryME.get(manager, CharacterPatternTypes.BEARD, beardPatternId);
         if(foundBeardPattern.isPresent() && foundBeardPattern.get().value() instanceof CharacterTexturePattern pattern){
-            npcEntityTextureData = npcEntityTextureData.withBeardTexture(TexturePresetDatas.buildId(beardPatternId, globalHairMaterialId));
+            npcEntityTextureData = npcEntityTextureData.withBeardTexture(TexturePresetDataPool.buildId(beardPatternId, globalHairMaterialId));
             if(pattern.hasAddonRawValue()){
-                npcEntityTextureData = npcEntityTextureData.withBeardAddonTexture(TexturePresetDatas.buildAddonId(beardPatternId, globalHairMaterialId));
+                npcEntityTextureData = npcEntityTextureData.withBeardAddonTexture(TexturePresetDataPool.buildAddonId(beardPatternId, globalHairMaterialId));
             }
         }
         return npcEntityTextureData;
     }
 
-    public static NpcEntityTextureData generateClothingTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDatas.Identity textureIdentity) {
-        ClothingData data = TexturePresetDatas.getClothing(textureIdentity);
+    public static NpcEntityTextureData generateClothingTextureData(NpcEntityTextureData npcEntityTextureData, TexturePresetDataPool.Identity textureIdentity) {
+        ClothingSelection data = TexturePresetDataPool.getClothing(textureIdentity);
         npcEntityTextureData = npcEntityTextureData.withClothingTexture(data.base(), data.over(), data.extra());
 
         return npcEntityTextureData;

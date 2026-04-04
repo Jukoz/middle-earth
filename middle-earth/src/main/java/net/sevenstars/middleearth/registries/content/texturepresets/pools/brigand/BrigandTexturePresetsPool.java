@@ -1,27 +1,29 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.brigand;
 
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class BrigandTexturePresetsPool {
-    private final static TexturePresetData BASE_PRESET;
-    private final static TexturePresetData MALE_PRESET;
-    private final static TexturePresetData FEMALE_PRESET;
-    private final static TexturePresetData CHIEF_PRESET;
+    private final static WeightedTexturePresetHolder BASE_PRESET;
+    private final static WeightedTexturePresetHolder MALE_PRESET;
+    private final static WeightedTexturePresetHolder FEMALE_PRESET;
+    private final static WeightedTexturePresetHolder CHIEF_PRESET;
 
-    public final static TexturePresetDatas THUG;
-    public final static TexturePresetDatas MERCENARY;
-    public final static TexturePresetDatas CHIEF;
+    public final static TexturePresetDataPool THUG;
+    public final static TexturePresetDataPool MERCENARY;
+    public final static TexturePresetDataPool CHIEF;
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
@@ -33,7 +35,7 @@ public class BrigandTexturePresetsPool {
 
     //region [PRESETS]
     static {
-        BASE_PRESET = new TexturePresetData()
+        BASE_PRESET = new WeightedTexturePresetHolder()
                 .withMaterials(CharacterMaterialTypes.SKIN, List.of(
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PALE),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.BEIGE),
@@ -67,7 +69,7 @@ public class BrigandTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC)
                 ));
 
-        MALE_PRESET = new TexturePresetData()
+        MALE_PRESET = new WeightedTexturePresetHolder()
                 .withPatterns(CharacterPatternTypes.HEAD, List.of(
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.MALE)
                 ))
@@ -82,7 +84,7 @@ public class BrigandTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.THICK)
                 ))
                 .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY,
+                    TexturePreset.EMPTY_VALUE_KEY,
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.TOP_BALDING),
@@ -90,12 +92,12 @@ public class BrigandTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BOWL)
                 ))
                 .withPatterns(CharacterPatternTypes.BEARD, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(3),
+                        TexturePreset.EMPTY_VALUE_KEY.withWeight(3),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SHORT),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SINGLE)
                 ));
 
-        FEMALE_PRESET = new TexturePresetData()
+        FEMALE_PRESET = new WeightedTexturePresetHolder()
                 .withPatterns(CharacterPatternTypes.HEAD, List.of(
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Head.FEMALE)
                 ))
@@ -131,14 +133,14 @@ public class BrigandTexturePresetsPool {
                 ))
                 .clearPatterns(CharacterPatternTypes.HAIR)
                 .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(5),
+                    TexturePreset.EMPTY_VALUE_KEY.withWeight(5),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.TOP_BALDING),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SIDE_BALDING)
                 ))
                 .withPatterns(CharacterPatternTypes.SCAR, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                    TexturePreset.EMPTY_VALUE_KEY.withWeight(2),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
                 ));
@@ -147,21 +149,21 @@ public class BrigandTexturePresetsPool {
 
     // region [DATAS]
     static {
-        THUG = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(MALE_PRESET));
-            put(EntityCategories.FEMALE, List.of(FEMALE_PRESET));
+        THUG = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED,new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(MALE_PRESET));
+            put(EntityCategories.FEMALE, new WeightedPool<>(FEMALE_PRESET));
         }});
 
-        MERCENARY = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(MALE_PRESET));
-            put(EntityCategories.FEMALE, List.of(FEMALE_PRESET));
+        MERCENARY = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED,new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(MALE_PRESET));
+            put(EntityCategories.FEMALE, new WeightedPool<>(FEMALE_PRESET));
         }});
 
-        CHIEF = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        CHIEF = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED,new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
                     CHIEF_PRESET.copy(),
                     CHIEF_PRESET.copy()
                             .clearPatterns(CharacterPatternTypes.EYE)
@@ -175,7 +177,7 @@ public class BrigandTexturePresetsPool {
                                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_RIGHT)))
                             .withPatterns(CharacterPatternTypes.SCAR, List.of(
                                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)))
-            ));
+            )));
         }});
     }
     // endregion

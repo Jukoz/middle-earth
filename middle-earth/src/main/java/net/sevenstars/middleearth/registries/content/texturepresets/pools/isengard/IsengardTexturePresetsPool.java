@@ -1,29 +1,31 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.isengard;
 
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.ClothePresetDatas;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedClothingPresetHolder;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class IsengardTexturePresetsPool {
-    private final static TexturePresetData BASE_PRESET;
-    private final static TexturePresetData BLACK_NUMENOREAN_PRESET;
-    private final static TexturePresetData ORC_PRESET;
-    private final static TexturePresetData BLACK_URUK_PRESET;
+    private final static WeightedTexturePresetHolder BASE_PRESET;
+    private final static WeightedTexturePresetHolder BLACK_NUMENOREAN_PRESET;
+    private final static WeightedTexturePresetHolder ORC_PRESET;
+    private final static WeightedTexturePresetHolder BLACK_URUK_PRESET;
 
-    public final static TexturePresetDatas HUMAN;
-    public final static TexturePresetDatas ORC;
-    public final static TexturePresetDatas URUK_HAI;
+    public final static TexturePresetDataPool HUMAN;
+    public final static TexturePresetDataPool ORC;
+    public final static TexturePresetDataPool URUK_HAI;
 
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
@@ -36,7 +38,7 @@ public class IsengardTexturePresetsPool {
 
     //region [PRESETS]
     static {
-        BASE_PRESET = new TexturePresetData()
+        BASE_PRESET = new WeightedTexturePresetHolder()
                 .withMaterials(CharacterMaterialTypes.SKIN, List.of(
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.RUST),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.RED),
@@ -57,14 +59,14 @@ public class IsengardTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
                 ))
                 .withClothes(List.of(
-                    new ClothePresetDatas[]{
-                        new ClothePresetDatas(List.of(
+                    new WeightedClothingPresetHolder[]{
+                        new WeightedClothingPresetHolder(List.of(
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_BROWN)
                         ))
                     }
                 ));
 
-        BLACK_NUMENOREAN_PRESET = new TexturePresetData()
+        BLACK_NUMENOREAN_PRESET = new WeightedTexturePresetHolder()
                 .withMaterials(CharacterMaterialTypes.EYE, List.of(
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.BROWN)
                 ))
@@ -90,7 +92,7 @@ public class IsengardTexturePresetsPool {
                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_GOLD)
                 ))
                 .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                    TexturePreset.EMPTY_VALUE_KEY.withWeight(2),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHARP),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BOWL),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.LONG),
@@ -101,31 +103,31 @@ public class IsengardTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
                 ))
                 .withPatterns(CharacterPatternTypes.BEARD, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                    TexturePreset.EMPTY_VALUE_KEY.withWeight(2),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SHORT)
                 ))
                 .withClothes(List.of(
-                    new ClothePresetDatas[]{
-                        new ClothePresetDatas(List.of(
+                    new WeightedClothingPresetHolder[]{
+                        new WeightedClothingPresetHolder(List.of(
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN),
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_DARK_BROWN)
                         ))
                     }
                 ));
 
-        ORC_PRESET = new TexturePresetData()
+        ORC_PRESET = new WeightedTexturePresetHolder()
                 .withPatterns(CharacterPatternTypes.BODY, List.of(
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SLIM)
                 ))
                 .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(2),
+                    TexturePreset.EMPTY_VALUE_KEY.withWeight(2),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
                 ))
                 .withClothes(List.of(
-                    new ClothePresetDatas[]{
-                        new ClothePresetDatas(List.of(
+                    new WeightedClothingPresetHolder[]{
+                        new WeightedClothingPresetHolder(List.of(
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_BROWN),
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN)
                         ))
@@ -150,13 +152,13 @@ public class IsengardTexturePresetsPool {
 
     // region [DATAS]
     static {
-        HUMAN  = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.MALE, List.of(BLACK_NUMENOREAN_PRESET));
+        HUMAN  = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.MALE,  new WeightedPool<>(BLACK_NUMENOREAN_PRESET));
         }});
 
-        ORC = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        ORC = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED,  new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
                 ORC_PRESET.copy()
                     .clearPatterns(CharacterPatternTypes.EYE)
                     .clearPatterns(CharacterPatternTypes.HEAD)
@@ -186,13 +188,12 @@ public class IsengardTexturePresetsPool {
                 .withPatterns(CharacterPatternTypes.EYE, List.of(
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                 ))
-            ));
+            )));
         }});
 
-        URUK_HAI = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
-
+        URUK_HAI = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED,  new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
             BLACK_URUK_PRESET.copy()
                 .clearPatterns(CharacterPatternTypes.EYE)
                 .clearPatterns(CharacterPatternTypes.HEAD)
@@ -213,7 +214,7 @@ public class IsengardTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
                 ))
-            ));
+            )));
         }});
     }
     // endregion

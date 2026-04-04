@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -59,7 +59,7 @@ public class GondorianNpcDataPool {
 
     static {
         PEASANT = new NpcData(NpcRegistry.GONDOR_PEASANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_PEASANT, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
@@ -76,7 +76,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MILITIA = new NpcData(NpcRegistry.GONDOR_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_PEASANT, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
                                 .add(WeightedItemData.create(EquipmentItemsME.GAMBESON_CAP))
@@ -117,7 +117,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(WeightedItemData.create().withWeight(5))
                         ),
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.KETTLE_HAT).withWeight(2))
                                 .add(WeightedItemData.create(EquipmentItemsME.GAMBESON_COWL))
@@ -165,7 +165,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SOLDIER = new NpcData(NpcRegistry.GONDOR_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GONDORIAN_CABASSET_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.GONDORIAN_SOLDIER_HELMET).withWeight(2))
@@ -194,7 +194,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         KNIGHT = new NpcData(NpcRegistry.GONDOR_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GONDORIAN_SOLDIER_CHESTPLATE))
@@ -213,7 +213,7 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_SHIELD))
                         ),
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE)))
                         .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_PLATE_LEGGINGS)))
@@ -229,7 +229,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         VETERAN = new NpcData(NpcRegistry.GONDOR_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GONDORIAN_PLATE_HELMET).withWeight(10))
                                 .add(WeightedItemData.create(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET))
@@ -248,7 +248,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         CITADEL_GUARD = new NpcData(NpcRegistry.GONDOR_CITADEL_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_CHESTPLATE)))
                         .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_CITADEL_GUARD_LEGGINGS)))
@@ -263,7 +263,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         FOUNTAIN_GUARD = new NpcData(NpcRegistry.GONDOR_FOUNTAIN_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE)))
                         .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
@@ -272,7 +272,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         KING_GUARD = new NpcData(NpcRegistry.GONDOR_KING_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE)))
                         .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_KINGS_GUARD_LEGGINGS)))
@@ -288,7 +288,7 @@ public class GondorianNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         LEADER = new NpcData(NpcRegistry.GONDOR_LEADER.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_LORD, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_CAPTAIN_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE).withCape(BackAttachmentsME.GONDORIAN_HERO_CAPE).withWeight(3))

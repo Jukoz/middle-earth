@@ -21,7 +21,7 @@ import net.sevenstars.middleearth.registries.content.structuremanagerdatas.Struc
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
@@ -34,7 +34,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.of("structure_manager_data"));
     public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("biome_event"));
 
-    public static final RegistryKey<Registry<TexturePresetDatas>> TEXTURE_PRESETS = RegistryKey.ofRegistry(MiddleEarth.of( "texture_presets"));
+    public static final RegistryKey<Registry<TexturePresetDataPool>> TEXTURE_PRESETS = RegistryKey.ofRegistry(MiddleEarth.of( "texture_presets"));
 
     public static final RegistryKey<Registry<CharacterTextureMaterial>> SKIN_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("skin_material"));
     public static final RegistryKey<Registry<CharacterTextureMaterial>> EYE_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("eye_material"));
@@ -54,7 +54,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         DynamicRegistries.registerSynced(FACTION, Faction.CODEC);
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
-        DynamicRegistries.registerSynced(TEXTURE_PRESETS, TexturePresetDatas.CODEC);
+        DynamicRegistries.registerSynced(TEXTURE_PRESETS, TexturePresetDataPool.CODEC);
 
 
         DynamicRegistries.registerSynced(SKIN_PATTERN, CharacterTexturePattern.CODEC);

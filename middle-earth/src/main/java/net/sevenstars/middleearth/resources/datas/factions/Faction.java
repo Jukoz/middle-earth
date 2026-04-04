@@ -33,7 +33,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
@@ -354,9 +354,9 @@ public class Faction {
         return npcDataList.get(random.nextInt(0, npcDataList.size()));
     }
 
-    public GearData getPreviewGear(World world, Race selectedRace){
+    public WeightedGearData getPreviewGear(World world, Race selectedRace){
         if(selectedRace == null)
-            return GearData.Create();
+            return WeightedGearData.Create();
 
         List<Identifier> identifiersToUse = new ArrayList<>();
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.MILITIA));
@@ -367,7 +367,7 @@ public class Faction {
 
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
         if(npcDataList.isEmpty())
-            return GearData.Create();
+            return WeightedGearData.Create();
         Random random = new Random();
         NpcData foundNpcData = npcDataList.get(random.nextInt(0, npcDataList.size()));
         return foundNpcData.getGear();

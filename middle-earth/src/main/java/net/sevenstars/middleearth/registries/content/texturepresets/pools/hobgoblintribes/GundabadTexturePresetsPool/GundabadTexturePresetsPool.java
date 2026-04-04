@@ -1,25 +1,27 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.hobgoblintribes.GundabadTexturePresetsPool;
 
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class GundabadTexturePresetsPool {
-    private final static TexturePresetData BASE_PRESET;
-    private final static TexturePresetData GOBLIN_PRESET;
-    private final static TexturePresetData HOBGOBLIN_PRESET;
+    private final static WeightedTexturePresetHolder BASE_PRESET;
+    private final static WeightedTexturePresetHolder GOBLIN_PRESET;
+    private final static WeightedTexturePresetHolder HOBGOBLIN_PRESET;
 
-    public final static TexturePresetDatas GOBLIN;
-    public final static TexturePresetDatas HOBGOBLIN;
+    public final static TexturePresetDataPool GOBLIN;
+    public final static TexturePresetDataPool HOBGOBLIN;
 
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
@@ -31,7 +33,7 @@ public class GundabadTexturePresetsPool {
 
     //region [PRESETS]
     static {
-        BASE_PRESET = new TexturePresetData()
+        BASE_PRESET = new WeightedTexturePresetHolder()
                 .withMaterials(CharacterMaterialTypes.SKIN, List.of(
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.PALE_WHITE),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.LIGHT_GREY)
@@ -51,12 +53,12 @@ public class GundabadTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_COPPER)
                 ));
 
-        GOBLIN_PRESET = new TexturePresetData()
+        GOBLIN_PRESET = new WeightedTexturePresetHolder()
                 .withPatterns(CharacterPatternTypes.BODY, List.of(
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SLIM)
                 ))
                 .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                    TexturePresetData.EMPTY_VALUE_KEY.withWeight(3),
+                    TexturePreset.EMPTY_VALUE_KEY.withWeight(3),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
@@ -75,9 +77,9 @@ public class GundabadTexturePresetsPool {
 
     // region [DATAS]
     static {
-        GOBLIN = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        GOBLIN = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE,  new WeightedPool<>(List.of(
                     GOBLIN_PRESET.copy()
                             .clearPatterns(CharacterPatternTypes.EYE)
                             .clearPatterns(CharacterPatternTypes.HEAD)
@@ -107,12 +109,12 @@ public class GundabadTexturePresetsPool {
                             .withPatterns(CharacterPatternTypes.EYE, List.of(
                                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_WIDE)
                             ))
-            ));
+            )));
         }});
 
-        HOBGOBLIN = new TexturePresetDatas(new HashMap<>(){{
-            put(EntityCategories.SHARED, List.of(BASE_PRESET));
-            put(EntityCategories.MALE, List.of(
+        HOBGOBLIN = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+            put(EntityCategories.MALE,  new WeightedPool<>(List.of(
                     HOBGOBLIN_PRESET.copy()
                             .clearPatterns(CharacterPatternTypes.EYE)
                             .clearPatterns(CharacterPatternTypes.HEAD)
@@ -132,7 +134,7 @@ public class GundabadTexturePresetsPool {
                                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.SMALL_HIGH_WIDE),
                                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON_HIGH)
                             ))
-            ));
+            )));
         }});
     }
     // endregion

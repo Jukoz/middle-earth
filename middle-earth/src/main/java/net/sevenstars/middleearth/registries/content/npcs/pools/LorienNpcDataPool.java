@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -45,7 +45,7 @@ public class LorienNpcDataPool {
 
     static {
         SENTINEL = new NpcData(NpcRegistry.LOTHLORIEN_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM))
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM).withHood(HelmetAttachmentsME.LORIEN_MARCHWARDEN_HOOD))
@@ -61,7 +61,7 @@ public class LorienNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         RANGER = new NpcData(NpcRegistry.LOTHLORIEN_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD))
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_LEATHER_HELMET))
@@ -84,7 +84,7 @@ public class LorienNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         WARRIOR = new NpcData(NpcRegistry.LOTHLORIEN_WARRIOR.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_LEATHER_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM))
@@ -111,7 +111,7 @@ public class LorienNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         KNIGHT = new NpcData(NpcRegistry.LOTHLORIEN_KNIGHT.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_HELMET))
@@ -136,7 +136,7 @@ public class LorienNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         GUARD = new NpcData(NpcRegistry.LOTHLORIEN_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_HELMET).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
@@ -164,7 +164,7 @@ public class LorienNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         LORD = new NpcData(NpcRegistry.LOTHLORIEN_LORD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LORD_HELMET))
                         )

@@ -7,13 +7,13 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.api.dtos.WeightedList;
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
@@ -36,7 +36,7 @@ public class NpcData {
     private final Identifier raceId;
     private final Identifier factionId;
     private final Identifier npcTextureKey;
-    private final WeightedList<GearData> gearDatas;
+    private final WeightedPool<WeightedGearData> gearDatas;
     private final HashMap<EntityCategories, AttributePool> npcAttributePools;
 
     public NpcData(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes){
@@ -46,12 +46,12 @@ public class NpcData {
         this.npcTextureKey = npcTextureKey;
 
         NbtList npcGears = gearDatas.getList("pool").get();
-        List<GearData> gearData = new ArrayList<>();
+        List<WeightedGearData> weightedGearData = new ArrayList<>();
         for(int j = 0; j < npcGears.size(); j++) {
             NbtCompound compound = npcGears.getCompound(j).get();
-            gearData.add(GearData.readNbt(compound));
+            weightedGearData.add(WeightedGearData.readNbt(compound));
         }
-        this.gearDatas = new WeightedList<>(gearData);
+        this.gearDatas = new WeightedPool<>(weightedGearData);
 
         this.npcAttributePools = new HashMap<>();
         for(var category : EntityCategories.values()){
@@ -61,12 +61,12 @@ public class NpcData {
         }
     }
 
-    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDatas> npcTextureKey, List<GearData> gearDatas, HashMap<EntityCategories, AttributePool> npcAttributePools){
+    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools){
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
         this.npcTextureKey = npcTextureKey.getValue();
-        this.gearDatas = new WeightedList<>(gearDatas);
+        this.gearDatas = new WeightedPool<>(weightedGearData);
         this.npcAttributePools = npcAttributePools;
     }
 
@@ -84,8 +84,8 @@ public class NpcData {
     private NbtCompound getGearDataValues() {
         NbtCompound nbt = new NbtCompound();
         NbtList gears = new NbtList();
-        for(GearData gearData : this.gearDatas.elements){
-            gears.add(gearData.getNbt());
+        for(WeightedGearData weightedGearData : this.gearDatas.elements){
+            gears.add(weightedGearData.getNbt());
         }
         nbt.put("pool", gears);
         return nbt;
@@ -95,7 +95,7 @@ public class NpcData {
         return id.toTranslationKey("npc_data");
     }
 
-    public GearData getGear() {
+    public WeightedGearData getGear() {
         if(gearDatas == null)
             return null;
         return gearDatas.getRandom();
@@ -114,7 +114,7 @@ public class NpcData {
     private Identifier getNpcTextureDataValue() {
         return npcTextureKey;
     }
-    public TexturePresetDatas getNpcTextureData(World world) {
+    public TexturePresetDataPool getNpcTextureData(World world) {
         return world.getRegistryManager().getOrThrow(DynamicRegistriesME.TEXTURE_PRESETS).get(npcTextureKey);
     }
 

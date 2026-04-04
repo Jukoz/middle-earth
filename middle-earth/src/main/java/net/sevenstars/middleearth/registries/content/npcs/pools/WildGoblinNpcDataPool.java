@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -43,7 +43,7 @@ public class WildGoblinNpcDataPool {
 
     static {
         GATHERER = new NpcData(NpcRegistry.WILD_GOBLIN_GATHERER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
-            GearData.create()
+            WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
                     .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withColor(DARK_BROWN_GOBLIN).withWeight(3))
@@ -77,7 +77,7 @@ public class WildGoblinNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SCOUT = new NpcData(NpcRegistry.WILD_GOBLIN_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
-            GearData.create()
+            WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
                     .add(WeightedItemData.create(EquipmentItemsME.ORCISH_HELMET).withWeight(6))
@@ -110,7 +110,7 @@ public class WildGoblinNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         RIDER = new NpcData(NpcRegistry.WILD_GOBLIN_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR))
                         )
@@ -125,7 +125,7 @@ public class WildGoblinNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         WARRIOR = new NpcData(NpcRegistry.WILD_GOBLIN_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_HELMET).withWeight(6))
@@ -170,7 +170,7 @@ public class WildGoblinNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         BRUTE = new NpcData(NpcRegistry.WILD_GOBLIN_BRUTE.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.WILD_GOBLIN_BRUTE, List.of(
-            GearData.create()
+            WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
                     .add(WeightedItemData.create(EquipmentItemsME.ORCISH_HELMET).withWeight(6))

@@ -1,14 +1,16 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools;
 
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDatas;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,11 +63,11 @@ public class GenericTexturePresetsPool {
         );
     }
 
-    private final static TexturePresetData BASE_PRESET;
-    private final static TexturePresetData HUMAN_MALE_PRESET;
-    private final static TexturePresetData HUMAN_FEMALE_PRESET;
+    private final static WeightedTexturePresetHolder BASE_PRESET;
+    private final static WeightedTexturePresetHolder HUMAN_MALE_PRESET;
+    private final static WeightedTexturePresetHolder HUMAN_FEMALE_PRESET;
 
-    private final static TexturePresetDatas COMMON;
+    private final static TexturePresetDataPool COMMON;
 
     public static List<TexturePresetsRegistry.RegisterableNpcTextureData> fetchAll() {
         return List.of(
@@ -74,7 +76,7 @@ public class GenericTexturePresetsPool {
     }
     //region [PRESETS]
     static {
-        BASE_PRESET = new TexturePresetData()
+        BASE_PRESET = new WeightedTexturePresetHolder()
             .withMaterials(CharacterMaterialTypes.SKIN, List.of(
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.TAN),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Skin.TAN_DESATURATED),
@@ -98,7 +100,7 @@ public class GenericTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
             ));
 
-        HUMAN_MALE_PRESET = new TexturePresetData()
+        HUMAN_MALE_PRESET = new WeightedTexturePresetHolder()
             .withPatterns(CharacterPatternTypes.BODY, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.MUSCULAR)
             ))
@@ -111,7 +113,7 @@ public class GenericTexturePresetsPool {
                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                TexturePresetData.EMPTY_VALUE_KEY,
+                TexturePreset.EMPTY_VALUE_KEY,
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BOWL),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
@@ -124,7 +126,7 @@ public class GenericTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SINGLE),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.UNCLEAN_ORNAMENTED),
                 null).toList());
-        HUMAN_FEMALE_PRESET = new TexturePresetData()
+        HUMAN_FEMALE_PRESET = new WeightedTexturePresetHolder()
             .withPatterns(CharacterPatternTypes.BODY, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.FEMALE)
             ))
@@ -137,7 +139,7 @@ public class GenericTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.SHORT)
             ))
             .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                TexturePresetData.EMPTY_VALUE_KEY,
+                    TexturePreset.EMPTY_VALUE_KEY,
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.LONG),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SEMI_LONG),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.VERY_LONG)
@@ -147,11 +149,11 @@ public class GenericTexturePresetsPool {
 
     // region [DATAS]
     static {
-        COMMON= new TexturePresetDatas(
+        COMMON= new TexturePresetDataPool(
             new HashMap<>(){{
-                put(EntityCategories.SHARED, List.of(BASE_PRESET));
-                put(EntityCategories.MALE, List.of(HUMAN_MALE_PRESET));
-                put(EntityCategories.FEMALE, List.of(HUMAN_FEMALE_PRESET));
+                put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
+                put(EntityCategories.MALE, new WeightedPool<>(HUMAN_MALE_PRESET));
+                put(EntityCategories.FEMALE, new WeightedPool<>(HUMAN_FEMALE_PRESET));
             }}
         );
     }

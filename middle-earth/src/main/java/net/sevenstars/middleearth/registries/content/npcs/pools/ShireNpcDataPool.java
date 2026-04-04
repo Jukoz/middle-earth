@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -41,7 +41,7 @@ public class ShireNpcDataPool {
 
     static {
         PEASANT = new NpcData(NpcRegistry.SHIRE_PEASANT.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_PEASANT, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
                                 .add(WeightedItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
@@ -50,7 +50,7 @@ public class ShireNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MILITIA = new NpcData(NpcRegistry.SHIRE_MILITIA.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
                                 .add(WeightedItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
@@ -77,7 +77,7 @@ public class ShireNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SHIRRIFF = new NpcData(NpcRegistry.SHIRE_SHIRRIFF.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_SHIRRIFF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.SHIRRIFF_HAT)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.SURCOAT).withColor(DARK_BEIGE))

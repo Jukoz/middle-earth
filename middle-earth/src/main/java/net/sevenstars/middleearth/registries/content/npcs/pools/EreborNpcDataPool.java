@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -54,7 +54,7 @@ public class EreborNpcDataPool {
 
     static {
         PEASANT = new NpcData(NpcRegistry.EREBOR_PEASANT.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(4))
                                 .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withColor(DARK_RED).withWeight(4))
@@ -74,7 +74,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MINER = new NpcData(NpcRegistry.EREBOR_MINER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
-            GearData.create()
+            WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                         .add(WeightedItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(4))
                         .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withColor(DARK_RED).withWeight(4))
@@ -104,7 +104,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MILITIA = new NpcData(NpcRegistry.EREBOR_MILITIA.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_SEGMENTED_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET))
@@ -133,7 +133,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SOLDIER = new NpcData(NpcRegistry.EREBOR_SOLDIER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_HELMET).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_COIF).withWeight(2))
@@ -174,7 +174,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         ARCHER = new NpcData(NpcRegistry.EREBOR_ARCHER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_HELMET).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_COIF).withWeight(2))
@@ -208,7 +208,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         ELITE = new NpcData(NpcRegistry.EREBOR_ELITE.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GUARD_HELMET).withWeight(8))
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GILDED_MAIL_COIF).withWeight(4))
@@ -248,7 +248,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         VETERAN = new NpcData(NpcRegistry.EREBOR_VETERAN.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_HELMET))
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GUARD_HELMET))
@@ -279,7 +279,7 @@ public class EreborNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         GATEWARDEN = new NpcData(NpcRegistry.EREBOR_GATEWARDEN.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_HELMET))
                                 .add(WeightedItemData.create())
@@ -309,7 +309,7 @@ public class EreborNpcDataPool {
 
 
         LEADER = new NpcData(NpcRegistry.EREBOR_LEADER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_MIGHTY_DWARF, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.EREBOR_CAPTAIN_HELMET))
                                 .add(WeightedItemData.create())

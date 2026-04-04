@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
@@ -54,7 +54,7 @@ public class MordorNpcDataPool {
         allColors = List.of(DARK_RED, DARK_BROWN, DARK);
 
         BLACK_NUMENOREAN = new NpcData(NpcRegistry.MORDOR_BLACK_NUMENOREAN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.MORDOR_BLACK_NUMENOREAN, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET).withWeight(4))
                         )
@@ -75,7 +75,7 @@ public class MordorNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SNAGA = new NpcData(NpcRegistry.MORDOR_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withColors(allColors).withWeight(4))
@@ -118,7 +118,7 @@ public class MordorNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         MILITIA = new NpcData(NpcRegistry.MORDOR_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.RUSTED_MORDOR_HELMET).withWeight(3))
@@ -179,7 +179,7 @@ public class MordorNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         SCOUT = new NpcData(NpcRegistry.MORDOR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.RUSTED_MORDOR_HELMET).withWeight(3))
@@ -232,7 +232,7 @@ public class MordorNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         WARRIOR = new NpcData(NpcRegistry.MORDOR_WARRIOR.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(EquipmentItemsME.MORDOR_HELMET).withWeight(3))
@@ -302,7 +302,7 @@ public class MordorNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         VETERAN = new NpcData(NpcRegistry.MORDOR_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE)))
                         .add(EquipmentSlot.LEGS, GearSlotPool.create()
@@ -322,7 +322,7 @@ public class MordorNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         CAPTAIN = new NpcData(NpcRegistry.MORDOR_CAPTAIN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
-                GearData.create()
+                WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.BLACK_URUK_COMMANDER_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.BLACK_URUK_COMMANDER_CHESTPLATE))
