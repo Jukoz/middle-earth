@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.providers.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.registry.tag.BlockTags;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -23,21 +24,21 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        var mineablePickaxe = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "mineable/pickaxe")));
-        var mineableAxe = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "mineable/axe")));
-        var mineableShovel = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("mineable/shovel")));
-        var mineableHoe = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("mineable/hoe")));
-        var swordEfficient = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("sword_efficient")));
+        var mineablePickaxe = valueLookupBuilder(BlockTags.PICKAXE_MINEABLE);
+        var mineableAxe = valueLookupBuilder(BlockTags.AXE_MINEABLE);
+        var mineableShovel = valueLookupBuilder(BlockTags.SHOVEL_MINEABLE);
+        var mineableHoe = valueLookupBuilder(BlockTags.HOE_MINEABLE);
+        var swordEfficient = valueLookupBuilder(BlockTags.SWORD_EFFICIENT);
 
-        var needsStoneTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_stone_tool")));
-        var needsIronTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_iron_tool")));
-        var needsDiamondTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("needs_diamond_tool")));
-        var needsNetheriteTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("fabric", "needs_tool_level_4")));
+        var needsStoneTools = valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL);
+        var needsIronTools = valueLookupBuilder(BlockTags.NEEDS_IRON_TOOL);
+        var needsDiamondTools = valueLookupBuilder(BlockTags.NEEDS_DIAMOND_TOOL);
+        var needsNetheriteTools = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("fabric", "needs_tool_level_4"))); // Unused, potential for deletion since netherite isn't a material in m-e anyway
 
-        var baseStoneOverworld = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("base_stone_overworld")));
+        var baseStoneOverworld = valueLookupBuilder(BlockTags.BASE_STONE_OVERWORLD);
 
-        var climbable = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("climbable")));
-        var impermeable = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("impermeable")));
+        var climbable = valueLookupBuilder(BlockTags.CLIMBABLE);
+        var impermeable = valueLookupBuilder(BlockTags.IMPERMEABLE);
 
         var seat = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
         var table = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
