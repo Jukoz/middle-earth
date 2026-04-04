@@ -21,6 +21,7 @@ public class WeightedGearData extends WeightedItem<HashMap<EquipmentSlot, GearSl
 
     public WeightedGearData(NbtCompound gearNbt) {
         this.item = new HashMap<>();
+
         addSlot(gearNbt, EquipmentSlot.HEAD);
         addSlot(gearNbt, EquipmentSlot.CHEST);
         addSlot(gearNbt, EquipmentSlot.LEGS);
@@ -30,10 +31,10 @@ public class WeightedGearData extends WeightedItem<HashMap<EquipmentSlot, GearSl
     }
 
     private void addSlot(NbtCompound gearNbt, EquipmentSlot equipmentSlot) {
-        if(gearNbt.get(equipmentSlot.asString()) != null){
-            if(gearNbt.getCompound(equipmentSlot.asString()).isPresent()){
-                NbtCompound slotNbt = gearNbt.getCompound(equipmentSlot.asString()).get();
-                this.item.put(equipmentSlot, GearSlotPool.readNbt(slotNbt));
+        if(gearNbt.get(equipmentSlot.asString().toLowerCase()) != null){
+            if(gearNbt.get(equipmentSlot.asString().toLowerCase()) != null){
+                NbtElement element = gearNbt.get(equipmentSlot.asString());
+                this.item.put(equipmentSlot, GearSlotPool.readNbt(element));
             }
         }
     }

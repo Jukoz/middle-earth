@@ -5,6 +5,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.sevenstars.api.dtos.WeightedPool;
+import net.sevenstars.middleearth.MiddleEarth;
 
 public class GearSlotPool {
     private WeightedItemData weightedItemData;
@@ -13,9 +14,11 @@ public class GearSlotPool {
     public GearSlotPool() {
         this.npcGearItemPool = new WeightedPool<>();
     }
+
     public static GearSlotPool create() {
         return new GearSlotPool();
     }
+
     public static GearSlotPool create(WeightedItemData weightedItemData) {
         return new GearSlotPool(weightedItemData);
     }
@@ -57,26 +60,35 @@ public class GearSlotPool {
             return nbt.asCompound().get();
         return null;
     }
-    public static GearSlotPool readNbt(NbtCompound nbt){
-        if(nbt.get("pool") == null){
-            return GearSlotPool.create(new WeightedItemData(nbt));
-        }
-        NbtList list = nbt.getList("pool").get();
-        GearSlotPool gearSlotPool = GearSlotPool.create();
-        for(int i = 0; i < list.size(); i++){
-            if(list.getCompound(i).isPresent()){
-                gearSlotPool.add(new WeightedItemData(list.getCompound(i).get()));
+    public static GearSlotPool readNbt(NbtElement nbt){
+        if(nbt.asCompound().isPresent()){
+            NbtCompound nbtCompound = nbt.asCompound().get();
+            if(nbtCompound.get("pool") == null){
+                return GearSlotPool.create(new WeightedItemData(nbtCompound));
             }
+            NbtList list = nbtCompound.getList("pool").get();
+            GearSlotPool gearSlotPool = GearSlotPool.create();
+            for(int i = 0; i < list.size(); i++){
+                if(list.getString(i).isPresent()){
+                    gearSlotPool.add(new WeightedItemData(MiddleEarth.fetchId(list.getString(i).get())));
+                } else if(list.getCompound(i).isPresent()){
+                    gearSlotPool.add(new WeightedItemData(list.getCompound(i).get()));
+                }
+            }
+            return gearSlotPool;
+        } else if(nbt.asString().isPresent()){
+            return new GearSlotPool(new WeightedItemData(MiddleEarth.fetchId(nbt.asString().get())));
         }
-        return gearSlotPool;
+
+        return null;
     }
 
     public ItemStack getItemStack() {
         if(isPool()){
-            return npcGearItemPool.getRandom().getItem().getItem();
+            return npcGearItemPool.getRandom().getItem().getItemStack();
         }
         if(weightedItemData != null)
-            return weightedItemData.getItem().getItem();
+            return weightedItemData.getItem().getItemStack();
         return ItemStack.EMPTY;
     }
 }

@@ -20,7 +20,6 @@ import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataCompon
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsStatesME;
-import net.sevenstars.middleearth.utils.ItemUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -151,7 +150,7 @@ public class GearItemData {
         return getIdentifierFromItem(this.item);
     }
 
-    public ItemStack getItem(){
+    public ItemStack getItemStack(){
         ItemStack itemStack = new ItemStack(this.item);
 
         if(this.color != null){
