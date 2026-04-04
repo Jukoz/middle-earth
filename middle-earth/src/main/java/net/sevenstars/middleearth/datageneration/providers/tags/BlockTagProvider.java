@@ -43,11 +43,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         var seat = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
         var table = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
 
-        var leaves = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("leaves")));
+        var leaves = valueLookupBuilder(BlockTags.LEAVES);
 
-        var wool = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("wool")));
+        var wool = valueLookupBuilder(BlockTags.WOOL);
 
-        var snapsGoatHorn = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("snaps_goat_horn")));
+        var snapsGoatHorn = valueLookupBuilder(BlockTags.SNAPS_GOAT_HORN);
 
         var cobwebs = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")));
 
@@ -61,24 +61,24 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         swordEfficient.add(LeavesSets.leaves.toArray(new Block[0]));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "doors"))).add(Doors.doors.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fences"))).add(Fences.fences.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "crops"))).add(Crops.crops.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.SAPLINGS).add(Saplings.saplings.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.DOORS).add(Doors.doors.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.TRAPDOORS).add(Trapdoors.trapdoors.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.BUTTONS).add(Buttons.buttons.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.FENCES).add(Fences.fences.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.WOODEN_FENCES).add(Fences.fences.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.FENCE_GATES).add(FenceGates.fenceGates.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.LOGS).add(Logs.logs.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.PRESSURE_PLATES).add(PressurePlates.pressurePlates.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.WALLS).add(Walls.walls.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.PLANKS).add(Planks.planks.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.CROPS).add(Crops.crops.toArray(new Block[0]));
 
         //Ores
-        TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "iron_ores"));
-        TagKey<Block> gold_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "gold_ores"));
-        TagKey<Block> copper_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "copper_ores"));
-        TagKey<Block> coal_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "coal_ores"));
+        TagKey<Block> iron_ores = BlockTags.IRON_ORES;
+        TagKey<Block> gold_ores = BlockTags.GOLD_ORES;
+        TagKey<Block> copper_ores = BlockTags.COPPER_ORES;
+        TagKey<Block> coal_ores = BlockTags.COAL_ORES;
 
         TagKey<Block> tin_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "tin_ores"));
         TagKey<Block> lead_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "lead_ores"));
