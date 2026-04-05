@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.entity.npcs;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +13,7 @@ public class NpcEntityBuilder {
 
     public NpcEntityBuilder(World world, @Nullable BlockPos pos){
         this.world = world;
-        this.entity = new NpcEntity(ModEntities.NPC, this.world);
+        this.entity = new NpcEntity(EntitiesME.NPC, this.world);
         if(pos != null)
             this.entity.setPosition(pos.toCenterPos());
     }

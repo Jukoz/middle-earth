@@ -93,9 +93,9 @@ public class HelpingGenerator {
                     case LEAVES -> {
                         if (!Objects.equals(Registries.BLOCK.getId(set.leaves).getNamespace(), "minecraft")){
                             if (set.setName.contains("beech")){
-                                LeavesSets.grayscaleLeaves.add(set.leaves);
+                                BlockTagCollectionsME.GRAYSCALE_LEAVES.add(set.leaves);
                             } else {
-                                LeavesSets.leaves.add(set.leaves);
+                                BlockTagCollectionsME.LEAVES.add(set.leaves);
                             }
                         }
                     }
@@ -107,7 +107,7 @@ public class HelpingGenerator {
             regularBlocks(set.blockSet);
         }
 
-        SimpleBlockModel.blocks.addAll(LeavesSets.leaves);
+        SimpleBlockModel.blocks.addAll(BlockTagCollectionsME.LEAVES);
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
             BlockDrops.blocks.add(set.verticalSlab());
@@ -115,87 +115,87 @@ public class HelpingGenerator {
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
             BlockDrops.blocks.add(stool.base());
-            MineableAxe.blocks.add(stool.base());
+            MineableBlockTagCollectionsME.AXE.add(stool.base());
         }
 
         for(SimpleWoodBenchModel.VanillaBench bench : SimpleWoodBenchModel.vanillaBenchs){
             BlockDrops.blocks.add(bench.base());
-            MineableAxe.blocks.add(bench.base());
+            MineableBlockTagCollectionsME.AXE.add(bench.base());
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {
             BlockDrops.blocks.add(table.base());
-            MineableAxe.blocks.add(table.base());
+            MineableBlockTagCollectionsME.AXE.add(table.base());
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs){
             BlockDrops.blocks.add(chair.base());
-            MineableAxe.blocks.add(chair.base());
+            MineableBlockTagCollectionsME.AXE.add(chair.base());
         }
 
         SimpleWallModel.vanillaWalls.forEach(block -> {
-            Walls.walls.add(block.wall());
+            BlockTagCollectionsME.WALLS.add(block.wall());
         });
 
         SimpleWallModel.vanillaWoodWalls.forEach(block -> {
-            Walls.walls.add(block.wall());
-            MineableAxe.blocks.add(block.wall());
+            BlockTagCollectionsME.WALLS.add(block.wall());
+            MineableBlockTagCollectionsME.AXE.add(block.wall());
         });
 
         SimpleWallModel.vanillaStrippedWalls.forEach(block -> {
-            Walls.walls.add(block.wall());
-            MineableAxe.blocks.add(block.wall());
+            BlockTagCollectionsME.WALLS.add(block.wall());
+            MineableBlockTagCollectionsME.AXE.add(block.wall());
         });
 
         SimpleFenceModel.vanillaWoodFences.forEach(block -> {
-            Fences.fences.add(block.fence());
-            MineableAxe.blocks.add(block.fence());
+            BlockTagCollectionsME.FENCES.add(block.fence());
+            MineableBlockTagCollectionsME.AXE.add(block.fence());
         });
 
         SimpleFenceModel.vanillaStrippedFences.forEach(block -> {
-            Fences.fences.add(block.fence());
-            MineableAxe.blocks.add(block.fence());
+            BlockTagCollectionsME.FENCES.add(block.fence());
+            MineableBlockTagCollectionsME.AXE.add(block.fence());
         });
         
 
         for (OreRockSets.OreRockSet set : OreRockSets.sets) {
             if(set.coal_ore() != null){
                 SimpleBlockModel.blocks.add(set.coal_ore());
-                MineablePickaxe.blocks.add(set.coal_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.coal_ore());
             }
             if(set.copper_ore() != null){
                 SimpleBlockModel.blocks.add(set.copper_ore());
-                MineablePickaxe.blocks.add(set.copper_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.copper_ore());
             }
             if(set.tin_ore() != null){
                 SimpleBlockModel.blocks.add(set.tin_ore());
-                MineablePickaxe.blocks.add(set.tin_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.tin_ore());
             }
             if(set.lead_ore() != null){
                 SimpleBlockModel.blocks.add(set.lead_ore());
-                MineablePickaxe.blocks.add(set.lead_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.lead_ore());
             }
             if(set.silver_ore() != null){
                 SimpleBlockModel.blocks.add(set.silver_ore());
-                MineablePickaxe.blocks.add(set.silver_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.silver_ore());
             }
             if(set.gold_ore() != null){
                 SimpleBlockModel.blocks.add(set.gold_ore());
-                MineablePickaxe.blocks.add(set.gold_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.gold_ore());
             }
             if(set.iron_ore() != null){
                 SimpleBlockModel.blocks.add(set.iron_ore());
-                MineablePickaxe.blocks.add(set.iron_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.iron_ore());
             }
             if(set.mithril_ore() != null){
                 SimpleBlockModel.blocks.add(set.mithril_ore());
-                MineablePickaxe.blocks.add(set.mithril_ore());
+                MineableBlockTagCollectionsME.PICKAXE.add(set.mithril_ore());
             }
         }
     }
 
     public static void addBlocksToLists(Block block, Block base, Block origin){
-        MineablePickaxe.blocks.add(block);
+        MineableBlockTagCollectionsME.PICKAXE.add(block);
         BlockDrops.blocks.add(block);
 
         String blockName = block.getName().toString();
@@ -246,7 +246,7 @@ public class HelpingGenerator {
                     }
                 }
                 case WallBlock wallBlock -> {
-                    Walls.walls.add(wallBlock);
+                    BlockTagCollectionsME.WALLS.add(wallBlock);
                     if (isPillar){
                         SimpleWallModel.columnWalls.add(new SimpleWallModel.Wall(base, wallBlock));
                     } else if (blockName.contains("stripped")){
@@ -256,7 +256,7 @@ public class HelpingGenerator {
                     }
                 }
                 case FenceBlock fenceBlock -> {
-                    Fences.fences.add(fenceBlock);
+                    BlockTagCollectionsME.FENCES.add(fenceBlock);
                     if (blockName.contains("stripped")){
                         SimpleFenceModel.strippedFences.add(new SimpleFenceModel.Fence(base, fenceBlock));
                     } else {
@@ -264,20 +264,20 @@ public class HelpingGenerator {
                     }
                 }
                 case FenceGateBlock fenceGateBlock -> {
-                    FenceGates.fenceGates.add(fenceGateBlock);
+                    BlockTagCollectionsME.FENCE_GATES.add(fenceGateBlock);
                     SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(base, fenceGateBlock));
                 }
                 case PaneBlock paneBlock -> SimplePaneModel.panes.add(new SimplePaneModel.Pane(base, paneBlock));
                 case PressurePlateBlock pressurePlateBlock -> {
-                    PressurePlates.pressurePlates.add(pressurePlateBlock);
+                    BlockTagCollectionsME.PRESSURE_PLATES.add(pressurePlateBlock);
                     SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
                 }
                 case ButtonBlock buttonBlock -> {
-                    Buttons.buttons.add(buttonBlock);
+                    BlockTagCollectionsME.BUTTONS.add(buttonBlock);
                     SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 }
                 case TrapdoorBlock trapdoorBlock -> {
-                    Trapdoors.trapdoors.add(trapdoorBlock);
+                    BlockTagCollectionsME.TRAPDOORS.add(trapdoorBlock);
                     if (baseName.contains("planks")){
                         SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(base, trapdoorBlock, true));
                     } else {
@@ -292,7 +292,7 @@ public class HelpingGenerator {
                 case WoodChairBlock chairBlock -> SimpleWoodChairModel.chairs.add(chairBlock);
                 case WoodBenchBlock benchBlock -> SimpleWoodBenchModel.benchs.add(benchBlock);
                 case DoorBlock doorBlock -> {
-                    Doors.doors.add(doorBlock);
+                    BlockTagCollectionsME.DOORS.add(doorBlock);
                     SimpleDoorModel.doors.add(new SimpleDoorModel.Door(base, doorBlock));
                 }
                 case ThickLadderBlock ladderBlock -> SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(base, ladderBlock));
@@ -326,13 +326,13 @@ public class HelpingGenerator {
 
     public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
-        Planks.planks.add(set.base());
+        BlockTagCollectionsME.PLANKS.add(set.base());
     }
 
     public static void woodBlocks(BlockRecordTypes.WoodSet set) {
         BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.wood(), set.slab()));
-        Logs.logs.add(set.log());
-        Logs.logs.add(set.wood());
+        BlockTagCollectionsME.LOGS.add(set.log());
+        BlockTagCollectionsME.LOGS.add(set.wood());
     }
 
     public static void mushroomStemBlocks(BlockRecordTypes.MushroomStemSet set) {

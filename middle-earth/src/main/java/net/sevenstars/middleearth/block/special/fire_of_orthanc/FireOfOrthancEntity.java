@@ -5,7 +5,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
@@ -30,7 +30,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     }
 
     public FireOfOrthancEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter, boolean instant) {
-        this(ModEntities.FIRE_OF_ORTHANC, world);
+        this(EntitiesME.FIRE_OF_ORTHANC, world);
         this.setPosition(x, y, z);
         double d = world.random.nextDouble() * 6.2831854820251465;
         this.setVelocity(-Math.sin(d) * 0.02, 0.20000000298023224, -Math.cos(d) * 0.02);

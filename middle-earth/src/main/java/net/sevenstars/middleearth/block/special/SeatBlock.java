@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
@@ -46,7 +46,7 @@ public class SeatBlock extends Block {
         eulerAngles = quaternion.getEulerAnglesXYZ(eulerAngles);
         float yaw = (float) Math.atan2(eulerAngles.x, eulerAngles.z);
 
-        SeatEntity seat = new SeatEntity(ModEntities.SEAT_ENTITY, world);
+        SeatEntity seat = new SeatEntity(EntitiesME.SEAT_ENTITY, world);
         seat.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
         seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);
         seat.setNoGravity(true);

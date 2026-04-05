@@ -6,7 +6,7 @@ import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.resources.AtlasesME;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,16 +30,16 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
     public static final Identifier CHARACTER_HAIRS_ATLAS_TEXTURE = AtlasesME.getAtlasPath(AtlasesME.CHARACTER_HAIRS);
     private static final RenderLayer CHARACTER_HAIRS_RENDER_LAYER;
 
-    public static final Identifier CHARACTER_CLOTHINGS_ATLAS_TEXTURE = AtlasesME.getAtlasPath(AtlasesME.CHARACTER_CLOTHINGS);
-    private static final RenderLayer CHARACTER_CLOTHINGS_RENDER_LAYER;
+    public static final Identifier CHARACTER_CLOTHES_ATLAS_TEXTURE = AtlasesME.getAtlasPath(AtlasesME.CHARACTER_CLOTHES);
+    private static final RenderLayer CHARACTER_CLOTHES_RENDER_LAYER;
 
     static {
         CHARACTER_SKINS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_SKIN_ATLAS_TEXTURE);
         CHARACTER_EYES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_EYES_ATLAS_TEXTURE);
-        CHARACTER_EYES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_EYES_ATLAS_TEXTURE);
-        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(CHARACTER_HAIRS_ATLAS_TEXTURE);
-        CHARACTER_CLOTHINGS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCullZOffset(CHARACTER_CLOTHINGS_ATLAS_TEXTURE);
+        CHARACTER_HAIRS_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_HAIRS_ATLAS_TEXTURE);
+        CHARACTER_CLOTHES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_CLOTHES_ATLAS_TEXTURE);
 
+        CHARACTER_EYES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_EYES_ATLAS_TEXTURE);
 
         HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/heater_shield/base"));
         KITE_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/kite_shield/base"));
@@ -62,27 +62,27 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
         return CHARACTER_HAIRS_RENDER_LAYER;
     }
     public static RenderLayer getCharacterClothingsRenderLayer() {
-        return CHARACTER_CLOTHINGS_RENDER_LAYER;
+        return CHARACTER_CLOTHES_RENDER_LAYER;
     }
 
 
 
     public static SpriteIdentifier getHeaterShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
-        return (SpriteIdentifier)HEATER_SHIELD_PATTERN_TEXTURES.computeIfAbsent(((BannerPattern)pattern.value()).assetId(), (id) -> {
+        return HEATER_SHIELD_PATTERN_TEXTURES.computeIfAbsent((pattern.value()).assetId(), (id) -> {
             Identifier identifier = id.withPrefixedPath("entity/heater_shield/");
             return new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, identifier);
         });
     }
 
     public static SpriteIdentifier getKiteShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
-        return (SpriteIdentifier)KITE_SHIELD_PATTERN_TEXTURES.computeIfAbsent(((BannerPattern)pattern.value()).assetId(), (id) -> {
+        return KITE_SHIELD_PATTERN_TEXTURES.computeIfAbsent((pattern.value()).assetId(), (id) -> {
             Identifier identifier = id.withPrefixedPath("entity/kite_shield/");
             return new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, identifier);
         });
     }
 
     public static SpriteIdentifier getRoundShieldPatternTextureId(RegistryEntry<BannerPattern> pattern) {
-        return (SpriteIdentifier)ROUND_SHIELD_PATTERN_TEXTURES.computeIfAbsent(((BannerPattern)pattern.value()).assetId(), (id) -> {
+        return ROUND_SHIELD_PATTERN_TEXTURES.computeIfAbsent((pattern.value()).assetId(), (id) -> {
             Identifier identifier = id.withPrefixedPath("entity/round_shield/");
             return new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, identifier);
         });

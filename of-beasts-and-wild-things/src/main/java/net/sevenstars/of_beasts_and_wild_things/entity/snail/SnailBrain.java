@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -14,9 +13,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.registry.tag.BlockTags;
-import net.sevenstars.api.SevenStarsApi;
 import net.sevenstars.api.entity.ai.brain.task.MoveTowardsBlockTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.EatCropTask;
 
 public class SnailBrain {

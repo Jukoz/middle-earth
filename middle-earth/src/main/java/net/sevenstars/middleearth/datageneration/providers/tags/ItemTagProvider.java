@@ -72,10 +72,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "shingles"));
 
         TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mod_stripped_logs"));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mod_planks"))).add(BlockTagCollectionsME.getItemPlanks().toArray(Item[]::new));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks"))).add(BlockTagCollectionsME.getItemPlanks().toArray(Item[]::new));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs"))).add(BlockTagCollectionsME.getItemLogs().toArray(Item[]::new));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("axes"))).add(WeaponEnchants.axes.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID,"daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
@@ -267,31 +267,31 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         SimpleDyeableItemModel.items.forEach(dyeable::add);
 
-        WoodenSlabs.woodenSlabs.forEach(block -> {
+        BlockTagCollectionsME.WOODEN_SLABS.forEach(block -> {
             valueLookupBuilder(wooden_slabs).add(block.asItem());
         });
 
-        WoodenVerticalSlabs.woodenVericalSlabs.forEach(block -> {
+        BlockTagCollectionsME.WOODEN_VERTICAL_SLABS.forEach(block -> {
             valueLookupBuilder(wooden_vertical_slabs).add(block.asItem());
         });
 
-        Fences.fences.forEach(block -> {
+        BlockTagCollectionsME.FENCES.forEach(block -> {
             valueLookupBuilder(wooden_fences).add(block.asItem());
         });
 
-        ModdedStrippedLogs.strippedLogs.forEach(block -> {
+        BlockTagCollectionsME.STRIPPED_LOGS.forEach(block -> {
             valueLookupBuilder(mod_stripped_logs).add(block.asItem());
         });
 
-        Shingles.shingles.forEach(block -> {
+        BlockTagCollectionsME.shingles.forEach(block -> {
             valueLookupBuilder(shingles).add(block.asItem());
         });
 
-        Saplings.saplings.forEach(sapling -> {
+        BlockTagCollectionsME.SAPLINGS.forEach(sapling -> {
             valueLookupBuilder(saplings).add(sapling.asItem());
         });
 
-        LogsThatBurn.logsThatBurn.forEach(log -> {
+        BlockTagCollectionsME.LOGS_THAT_BURN.forEach(log -> {
             valueLookupBuilder(logs_that_burn).add(log.asItem());
         });
 
@@ -303,7 +303,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             valueLookupBuilder(nugget_shaping).add(nugget);
         });
 
-        Stones.stones.forEach(stone -> {
+        BlockTagCollectionsME.STONES.forEach(stone -> {
             valueLookupBuilder(stone_crafting_materials).add(stone.asItem());
             if(!stone.asItem().toString().contains("jadeite")){
                 valueLookupBuilder(stone_tool_materials).add(stone.asItem());

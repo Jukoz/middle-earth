@@ -25,8 +25,7 @@ import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
-import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
-import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
+import net.sevenstars.middleearth.datageneration.content.tags.BlockTagCollectionsME;
 import net.sevenstars.middleearth.item.*;
 
 import java.io.File;
@@ -66,18 +65,17 @@ public class RegistriesME {
                 File aliases = new File("aliases.txt");
 
                 if (aliases.createNewFile()) {
-                    System.out.println("File created: " + aliases.getName());
+                    MiddleEarth.LOGGER.logInfoMsg("File created: " + aliases.getName());
                 } else {
-                    System.out.println("File already exists.");
+                    MiddleEarth.LOGGER.logWarn("File already exists.");
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("An error occurred.", e);
             }
 
             try {
                 FileWriter myWriter = new FileWriter("aliases.txt");
-                for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+                for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                     String name = alias.name();
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
@@ -86,19 +84,18 @@ public class RegistriesME {
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
                 }
 
-                for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+                for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                     alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
                 }
 
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                MiddleEarth.LOGGER.logTrace("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("RegistriesME :: An error occurred.", e);
             }
         } else {
-            for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                 String name = alias.name();
                 for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                     name = name.replaceAll(map.getKey(), map.getValue());
@@ -106,7 +103,7 @@ public class RegistriesME {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
 
-            for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+            for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
             }
         }
@@ -188,7 +185,7 @@ public class RegistriesME {
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.DRY_PINE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModNatureBlocks.PINE_BRANCHES, 30, 60);
 
-        LeavesSets.leaves.forEach(block -> {
+        BlockTagCollectionsME.LEAVES.forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
     }
@@ -571,14 +568,14 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.SKY_FIRECAP_BLOCK, 0.85F);
         registry.add(ModNatureBlocks.YELLOW_AMANITA_BLOCK, 0.85F);
 
-        Saplings.saplings.forEach(sapling -> {
+        BlockTagCollectionsME.SAPLINGS.forEach(sapling -> {
             registry.add(sapling, 0.3F);
         });
 
         registry.add(ModNatureBlocks.ASPEN_SAPLING, 0.3F);
         registry.add(ModNatureBlocks.BEECH_SAPLING, 0.3F);
 
-        LeavesSets.leaves.forEach(block -> {
+        BlockTagCollectionsME.LEAVES.forEach(block -> {
             registry.add(block, 0.3F);
         });
 

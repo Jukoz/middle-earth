@@ -9,7 +9,6 @@ import net.minecraft.block.*;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.OxidizableBlockSetBuilder;
-import net.sevenstars.middleearth.datageneration.content.tags.WoodenSlabs;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.ArrayList;

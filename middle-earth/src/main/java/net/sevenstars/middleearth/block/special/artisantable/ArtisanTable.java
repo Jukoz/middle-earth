@@ -28,7 +28,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,12 +55,12 @@ public class ArtisanTable extends HorizontalFacingBlock {
             player.openHandledScreen(new ExtendedScreenHandlerFactory<>() {
                 @Override
                 public Object getScreenOpeningData(ServerPlayerEntity player) {
-                    Disposition disposition = PlayerDataService.getPlayerDisposition(player, world);
-                    if (disposition == null){
-                        disposition = Disposition.NEUTRAL;
+                    DispositionType dispositionType = PlayerDataService.getPlayerDisposition(player, world);
+                    if (dispositionType == null){
+                        dispositionType = DispositionType.NEUTRAL;
                     }
 
-                    return disposition + "/" + player.isCreative();
+                    return dispositionType + "/" + player.isCreative();
                 }
 
                 @Override
@@ -71,11 +71,11 @@ public class ArtisanTable extends HorizontalFacingBlock {
                 @Nullable
                 @Override
                 public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-                    Disposition disposition = PlayerDataService.getPlayerDisposition(player, world);
-                    if (disposition == null){
-                        disposition = Disposition.NEUTRAL;
+                    DispositionType dispositionType = PlayerDataService.getPlayerDisposition(player, world);
+                    if (dispositionType == null){
+                        dispositionType = DispositionType.NEUTRAL;
                     }
-                    return new ArtisanTableScreenHandler(syncId, playerInventory, disposition + "/" + player.isCreative());
+                    return new ArtisanTableScreenHandler(syncId, playerInventory, dispositionType + "/" + player.isCreative());
                 }
             });
         }

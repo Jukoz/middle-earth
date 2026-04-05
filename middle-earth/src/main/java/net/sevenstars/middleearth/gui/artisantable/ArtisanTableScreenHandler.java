@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.gui.artisantable;
 
 import com.google.common.collect.Lists;
-import com.mojang.authlib.GameProfile;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
@@ -10,9 +9,8 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.ModRecipes;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -222,9 +220,9 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
         for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
             if (recipeEntry.value().category.equals(currentCategory)){
-                if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL){
+                if (DispositionType.valueOf(recipeEntry.value().disposition.toUpperCase()) == DispositionType.NEUTRAL){
                     filteredRecipes.add(recipeEntry);
-                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.valueOf(this.disposition.toUpperCase()) || this.isCreative) {
+                } else if(DispositionType.valueOf(recipeEntry.value().disposition.toUpperCase()) == DispositionType.valueOf(this.disposition.toUpperCase()) || this.isCreative) {
                     filteredRecipes.add(recipeEntry);
                 }
             }

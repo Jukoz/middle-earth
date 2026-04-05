@@ -29,13 +29,13 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
@@ -45,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Predicate;
 
 public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
-    protected Disposition disposition;
+    protected DispositionType dispositionType;
     private Identifier raceId;
     private Item bow;
     private final CustomBowAttackGoal<TestNpcEntity> bowAttackGoal = new CustomBowAttackGoal<TestNpcEntity>(this, 1.0, 16, 30.0f);
@@ -80,12 +80,12 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
     protected void initGoals() {
         Identifier factionId = getFactionId();
         if(factionId == null)
-            disposition = Disposition.NEUTRAL;
+            dispositionType = DispositionType.NEUTRAL;
         else {
             try {
-                disposition = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
+                dispositionType = FactionLookup.getFactionById(getWorld(), factionId).getDisposition();
             } catch (FactionIdentifierException e) {
-                disposition = Disposition.NEUTRAL; // Attacks everyone, no judgement made
+                dispositionType = DispositionType.NEUTRAL; // Attacks everyone, no judgement made
             }
         }
 
@@ -120,8 +120,8 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
         }
     }
 
-    public Disposition getDisposition(){
-        return disposition;
+    public DispositionType getDisposition(){
+        return dispositionType;
     }
     public Item getBow(){
         return this.bow;
@@ -149,10 +149,10 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
             if(player.isCreative()){
                 return false;
             }
-            if(disposition != null){
+            if(dispositionType != null){
                 PlayerData data = StateSaverAndLoader.getPlayerState(player);
                 if(data != null){
-                    return PlayerDataService.getPlayerDisposition(player, player.getWorld()) == disposition;
+                    return PlayerDataService.getPlayerDisposition(player, player.getWorld()) == dispositionType;
                 }
             }
         }
@@ -301,8 +301,8 @@ public class TestNpcEntity extends PathAwareEntity implements RangedAttackMob {
             NpcData data = faction.getRandomGear(getWorld(), npcRank, race);
             if(data == null)
                 return;
-            NpcGearData gearData = data.getGear();
-            NpcUtil.equipAll(this, gearData);
+            WeightedGearData weightedGearData = data.getGear();
+            NpcUtil.equipAll(this, weightedGearData);
         } catch (FactionIdentifierException e) {
             MiddleEarth.LOGGER.logError("TestNpcEntity::Couldn't find faction registry with [%s] for rank [%s]".formatted(factionId, npcRank.toString()));
             throw new RuntimeException(e);

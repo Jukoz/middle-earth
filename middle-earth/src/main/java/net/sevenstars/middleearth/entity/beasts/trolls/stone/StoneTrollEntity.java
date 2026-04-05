@@ -5,15 +5,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.goal.AvoidSunlightGoal;
 import net.minecraft.entity.ai.goal.EscapeSunlightGoal;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.conversion.EntityConversionContext;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -28,11 +25,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.sevenstars.middleearth.entity.goals.BeastTargetPlayerGoal;
-import net.sevenstars.middleearth.resources.datas.Disposition;
 
 import java.util.List;
 
@@ -153,7 +148,7 @@ public class StoneTrollEntity extends TrollEntity {
     public void turnToStone() {
         this.setAiDisabled(true);
         this.convertTo(
-                ModEntities.PETRIFIED_TROLL,
+                EntitiesME.PETRIFIED_TROLL,
                 EntityConversionContext.create(this, true, false),
                 troll -> {}
         );

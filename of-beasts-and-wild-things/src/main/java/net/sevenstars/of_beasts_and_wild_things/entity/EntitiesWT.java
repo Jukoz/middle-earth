@@ -8,7 +8,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.datageneration.content.TranslationEntries;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntity;
@@ -39,7 +38,7 @@ public class EntitiesWT {
     }
 
     private static RegistryKey<EntityType<?>> keyOf(String id) {
-        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, id));
+        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.of(id));
     }
 
     public static void registerModEntities() {
