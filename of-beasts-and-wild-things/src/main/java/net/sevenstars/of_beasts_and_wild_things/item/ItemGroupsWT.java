@@ -6,9 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class ItemGroupsWT {
             .build();
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(OfBeastsAndWildThings.MOD_ID, "wild_things"), WILD_THINGS);
+        Registry.register(Registries.ITEM_GROUP, OfBeastsAndWildThings.of("wild_things"), WILD_THINGS);
     }
 
 }

@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.biomes.caves;
 
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.world.features.underground.CavesPlacedFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -39,16 +39,33 @@ public class ModCaveBiomeFeatures {
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesWT.SNAIL, 1, 3));
     }
-    public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
-        //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
+
+    public static void addParseWildGoblins(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 3))
+                .spawnCost(EntitiesME.NPC, 0.7, 0.3);
     }
+
+    public static void addGroupWildGoblins(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 3, 5))
+                .spawnCost(EntitiesME.NPC, 0.7, 0.3);
+    }
+
     public static void addSpiders(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AMBIENT, 2, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 1, 2))
-                .spawnCost(ModEntities.SHELOBITE_SCUTTLER, 0.7, 0.3);
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 1, 2))
+                .spawnCost(EntitiesME.SHELOBITE_SCUTTLER, 0.7, 0.1);
+    }
+
+    public static void addCaveTroll(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 1, new SpawnSettings.SpawnEntry(EntitiesME.CAVE_TROLL, 1, 1))
+                .spawnCost(EntitiesME.CAVE_TROLL, 0.7, 1);
+    }
+    public static void addSpiderLarvas(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_LARVA, 2, 4))
+                .spawnCost(EntitiesME.SHELOBITE_LARVA, 0.7, 0.3);
     }
 
     public static void addSnowTrolls(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(ModEntities.SNOW_TROLL, 1, 2));
+        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(EntitiesME.SNOW_TROLL, 1, 2));
     }
 
 }

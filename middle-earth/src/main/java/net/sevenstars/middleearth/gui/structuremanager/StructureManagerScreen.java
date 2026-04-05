@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
-import net.sevenstars.middleearth.resources.StructureManagerDatasME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.awt.*;
@@ -43,7 +43,7 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         World world = playerInventory.player.getWorld();
 
         this.identifiers = new ArrayList<>();
-        for(RegistryKey<StructureManagerData> data : world.getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().getKeys()){
+        for(RegistryKey<StructureManagerData> data : world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get().getKeys()){
             this.identifiers.add(data.getValue());
         }
 

@@ -1,11 +1,7 @@
 package net.sevenstars.middleearth.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandler;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;

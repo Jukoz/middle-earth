@@ -13,13 +13,11 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.ColorHelper;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
-import net.sevenstars.middleearth.resources.AtlasesME;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 @Environment(EnvType.CLIENT)
 public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
@@ -41,29 +39,20 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterSkinsRenderLayer());
 
-        boolean bl = state.invisible;
-        boolean bl2 = !bl && !state.invisibleToPlayer;
-        int k = bl2 ? 654311423 : -1;
-        int color = ColorHelper.mix(k, this.getMixColor(state));
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
         Sprite sprite = skinAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.earId, AtlasesME.CHARACTER_SKINS));
-        renderModel(sprite, matrices, vertexConsumer, light, overlay, color);
-    }
-    protected int getMixColor(NpcEntityRenderState state) {
-        if(state.hurt)
-            return NpcEntityRenderer.HURT_COLOR;
-        return -1;
+        renderModel(sprite, matrices, vertexConsumer, light, overlay);
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {
         return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(state.hurt));
     }
 
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color){
+    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
         if(sprite != null){
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            earModel.render(matrices, newLayerVertexConsumer, light, overlay, color);
+            earModel.render(matrices, newLayerVertexConsumer, light, overlay);
         }
     }
 }

@@ -19,7 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 
@@ -125,7 +125,7 @@ public class FoodItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.FOOD_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

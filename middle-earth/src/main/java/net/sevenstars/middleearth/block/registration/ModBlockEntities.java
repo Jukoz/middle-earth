@@ -11,14 +11,13 @@ import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
-import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlock;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 public class ModBlockEntities {
     public static BlockEntityType<ForgeBlockEntity> FORGE = register("forge", ForgeBlockEntity::new,
@@ -66,7 +65,7 @@ public class ModBlockEntities {
                                                                        FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
                                                                        Block... blocks) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK_ENTITY_TYPE, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK_ENTITY_TYPE, name));
 
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
     }
