@@ -520,7 +520,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                 var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
                 if(playerFaction == null)
                     return true;
-                if(faction.getDiplomaticEnemies().contains(playerFaction))
+                if(faction.isHostileToward(playerFaction))
                     return true;
             }
 
@@ -529,10 +529,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                     return false;
 
                 Faction targetFaction = targetNpcEntity.getFaction();
-                if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
+                if(targetFaction == null || faction.isHostileToward(targetFaction.getId()))
                     return true;
                 else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                    if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                    if(faction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                         return true;
                 }
             }
@@ -543,10 +543,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                     for(Entity entity : entityList){
                         if(entity instanceof NpcEntity targetNpcEntity){
                             Faction targetFaction = targetNpcEntity.getFaction();
-                            if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
+                            if(targetFaction == null || faction.isHostileToward(targetFaction.getId()))
                                 return true;
                             else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                                if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                                if(faction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                                     return true;
                             }
                         }

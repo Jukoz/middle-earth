@@ -5,10 +5,12 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GundabadNpcDataPool;
+import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
@@ -26,7 +28,7 @@ public class HobgoblinTribesFactionPool {
     static {
         HOBGOBLIN_TRIBES = new Faction(FactionRegistry.HOBGOBLIN_TRIBES, true, DispositionType.EVIL, FactionType.FACTION, null,
                 List.of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.getValue()),
-                null, null, null, List.of(), List.of(), List.of(), List.of(), List.of());
+                null, null, null, List.of(), List.of(), List.of());
 
         GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, DispositionType.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,
                 new HashMap<>(){{
@@ -62,8 +64,19 @@ public class HobgoblinTribesFactionPool {
                         new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "goblin_town"), new Vector2d(1581.5, 874.5)),
                         new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "moria"), new Vector2d(1521, 1138))
                 )), List.of(), List.of(),
-                List.of(FactionRegistry.ISENGARD), List.of(FactionRegistry.MORDOR),
-                List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.GONDOR, FactionRegistry.ROHAN, FactionRegistry.SHIRE, FactionRegistry.LONGBEARDS, FactionRegistry.DALE, FactionRegistry.BRIGAND)
+                List.of(
+                        new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.GONDOR, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.ROHAN, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.ALLY),
+                        new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
+                )
         );
 
     }

@@ -60,6 +60,7 @@ public class GearSlotPool {
             return nbt.asCompound().get();
         return null;
     }
+
     public static GearSlotPool readNbt(NbtElement nbt){
         if(nbt.asCompound().isPresent()){
             NbtCompound nbtCompound = nbt.asCompound().get();

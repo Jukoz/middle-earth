@@ -6,10 +6,12 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
@@ -26,7 +28,7 @@ public class LongbeardsFactionPool {
     static {
         LONGBEARDS = new Faction(FactionRegistry.LONGBEARDS, true, DispositionType.GOOD, FactionType.FACTION, null,
                 List.of(FactionRegistry.LONGBEARDS_EREBOR.getValue()),
-                null, null, null, List.of(), List.of(), List.of(), List.of(), List.of());
+                null, null, null, List.of(), List.of(), List.of());
 
         EREBOR = new Faction(FactionRegistry.LONGBEARDS_EREBOR, true, DispositionType.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
@@ -62,8 +64,19 @@ public class LongbeardsFactionPool {
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.iron_hills")), new Vector2d(2355, 725)),
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, LONGBEARDS.getName().concat(".erebor.iron_hills_spring")), new Vector2d(2262, 782))
                 )), List.of(), List.of(),
-                List.of(FactionRegistry.LONGBEARDS, FactionRegistry.DALE), List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.GONDOR, FactionRegistry.ROHAN, FactionRegistry.SHIRE),
-                List.of(FactionRegistry.ISENGARD, FactionRegistry.MORDOR, FactionRegistry.HOBGOBLIN_TRIBES, FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, FactionRegistry.BRIGAND)
+                List.of(
+                        new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.GONDOR, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.ROHAN, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.ALLY),
+                        new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
+                )
         );
 
     }

@@ -5,10 +5,12 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
+import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
@@ -63,8 +65,19 @@ public class GondorFactionPool {
                         new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "ringlo_vale"),  new Vector2d(1530, 1730)), // Calembel
                         new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "dol_amroth"),  new Vector2d(1500, 1930))
                 )), List.of(), List.of(),
-                List.of(FactionRegistry.ROHAN), List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.LONGBEARDS, FactionRegistry.DALE,
-                FactionRegistry.SHIRE), List.of(FactionRegistry.ISENGARD, FactionRegistry.MORDOR, FactionRegistry.HOBGOBLIN_TRIBES, FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, FactionRegistry.BRIGAND)
+                List.of(
+                        new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.GONDOR, AffinityLevel.ALLY),
+                        new InitialDiplomacy(FactionRegistry.ROHAN, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
+                )
         );
     }
 }

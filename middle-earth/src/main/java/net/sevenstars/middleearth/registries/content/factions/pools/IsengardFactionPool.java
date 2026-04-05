@@ -6,10 +6,12 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
@@ -53,8 +55,19 @@ public class IsengardFactionPool {
                 new SpawnDataHandler(List.of(
                         new SpawnData(Identifier.of(MiddleEarth.MOD_ID, "isengard.orthanc"), new Vector2d(1402, 1467))
                 )), List.of(), List.of(),
-                List.of(FactionRegistry.HOBGOBLIN_TRIBES, FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, FactionRegistry.MORDOR), List.of(),
-                List.of(FactionRegistry.LOTHLORIEN, FactionRegistry.GONDOR, FactionRegistry.ROHAN, FactionRegistry.SHIRE, FactionRegistry.LONGBEARDS, FactionRegistry.DALE, FactionRegistry.BRIGAND)
+                List.of(
+                        new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.GONDOR, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.ROHAN, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.ALLY),
+                        new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
+                )
         );
     }
 
