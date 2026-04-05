@@ -47,7 +47,7 @@ public class OnboardingFactionScreen extends Screen {
         public CycledSelectionWidget dispositionSelectionWidget;
         public CycledSelectionWidget factionSelectionWidget;
         public CycledSelectionWidget subfactionSelectionWidget;
-        public ButtonWidget factionRandomizerButton;
+        public ButtonWidget npcRandomizerButton;
         public FactionSelectionMapWidget mapWidget;
         public ButtonWidget mapZoomInButton;
         public ButtonWidget mapZoomOutButton;
@@ -156,10 +156,9 @@ public class OnboardingFactionScreen extends Screen {
         elements.subfactionSelectionWidget.getButtons().forEach(this::addDrawableChild);
 
         // PlayerFactionPayload Randomizer
-        elements.factionRandomizerButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.faction_randomizer"),
+        elements.npcRandomizerButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.faction_randomizer"),
                 x -> this.controller.randomizeNpc()).build();
-        elements.factionRandomizerButton.setDimensions(52, 18);
-        addDrawableChild(elements.factionRandomizerButton);
+        addDrawableChild(elements.npcRandomizerButton);
 
         // Map Widget
         elements.mapFocusButton = ButtonWidget.builder(Text.translatable("screen." + MiddleEarth.MOD_ID + ".button.focus_current"), this::mapFocusToggle).build(); // TODO
@@ -401,10 +400,13 @@ public class OnboardingFactionScreen extends Screen {
         startX -= this.elements.subfactionSelectionWidget.TOTAL_WIDTH / 2;
         startY = this.elements.informationPanel.startY + this.elements.informationPanel.height - CycledSelectionWidget.TOTAL_HEIGHT;
 
-        this.elements.factionRandomizerButton.setPosition(startX, startY);
+        this.elements.npcRandomizerButton.setDimensions(52, 18);
+        this.elements.npcRandomizerButton.setPosition(startX - (this.elements.npcRandomizerButton.getWidth() / 2), startY);
+
         context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UI_IDENTIFIER,
-                this.elements.factionRandomizerButton.getX() - (this.elements.factionRandomizerButton.getWidth() / 2), this.elements.factionRandomizerButton.getY(), 103, (this.elements.factionRandomizerButton.isFocused() || this.elements.factionRandomizerButton.isMouseOver(mouseX, mouseY)) ? 92 : 74,
-                this.elements.factionRandomizerButton.getWidth(), this.elements.factionRandomizerButton.getHeight(), 256, 256);
+                this.elements.npcRandomizerButton.getX(), this.elements.npcRandomizerButton.getY(), 103, this.elements.npcRandomizerButton.isFocused() || this.elements.npcRandomizerButton.isMouseOver(mouseX, mouseY) ? 92 : 74,
+                this.elements.npcRandomizerButton.getWidth(), this.elements.npcRandomizerButton.getHeight(), 256, 256);
+
 
         this.elements.npcPreviewWidget.drawCenteredAnchoredBottom(context, startX, startY - 6);
     }

@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
@@ -54,8 +55,8 @@ public class DaleFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.BELL, DyeColor.YELLOW)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "capital"), new Vector2d(2021, 727)),
-                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "esgaroth"), new Vector2d(2007, 757))
+                        new SpawnData(MiddleEarth.of(FACTION_PATH, "capital"), new Vector2d(2021, 727)),
+                        new SpawnData(MiddleEarth.of(FACTION_PATH, "esgaroth"), new Vector2d(2007, 757))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),

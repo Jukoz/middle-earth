@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GundabadNpcDataPool;
@@ -59,10 +60,10 @@ public class HobgoblinTribesFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.EVIL_EYE, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "gundabad"), new Vector2d(1595, 640)),
-                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "grey_mountains"), new Vector2d(1652, 640)),
-                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "goblin_town"), new Vector2d(1581.5, 874.5)),
-                        new SpawnData(IdentifierUtil.buildAggregate(FACTION_PATH, "moria"), new Vector2d(1521, 1138))
+                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "gundabad"), new Vector2d(1595, 640)),
+                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "grey_mountains"), new Vector2d(1652, 640)),
+                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "goblin_town"), new Vector2d(1581.5, 874.5)),
+                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "moria"), new Vector2d(1521, 1138))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

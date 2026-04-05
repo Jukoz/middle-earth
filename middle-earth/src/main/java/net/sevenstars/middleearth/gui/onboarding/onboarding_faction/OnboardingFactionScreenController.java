@@ -109,12 +109,12 @@ public class OnboardingFactionScreenController {
             screen.elements.dispositionSelectionWidget.enableVisuals(false);
             screen.elements.factionSelectionWidget.enableVisuals(false);
             screen.elements.subfactionSelectionWidget.enableVisuals(false);
-            screen.elements.factionRandomizerButton.active = false;
+            screen.elements.npcRandomizerButton.active = false;
         } else {
             screen.elements.dispositionSelectionWidget.enableVisuals(true);
             screen.elements.factionSelectionWidget.enableVisuals(true);
             screen.elements.subfactionSelectionWidget.enableVisuals(true);
-            screen.elements.factionRandomizerButton.active = true;
+            screen.elements.npcRandomizerButton.active = true;
         }
 
         this.screen.elements.factionName = (selectedFaction.tryGetShortName()).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
