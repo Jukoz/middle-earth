@@ -69,7 +69,7 @@ public class NpcEntityInitializer {
         try{
             var npcData = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId).get().value();
             npcEntity.setNpcData(currentNpcDataId);
-            npcEntity.setFactionId(npcData.getFaction());
+            npcEntity.setFactionId(npcData.getFactionIdentifier());
             npcEntity.setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
             npcData.applyAttributes(npcEntity);
 

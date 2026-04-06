@@ -26,7 +26,7 @@ public class NpcData {
     public static final Codec<NpcData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("id").forGetter(NpcData::getId),
             Identifier.CODEC.fieldOf("race").forGetter(NpcData::getRace),
-            Identifier.CODEC.fieldOf("faction").forGetter(NpcData::getFaction),
+            Identifier.CODEC.fieldOf("faction").forGetter(NpcData::getFactionIdentifier),
             Identifier.CODEC.fieldOf("base_npc_texture").forGetter(NpcData::getNpcTextureDataValue),
             NbtCompound.CODEC.fieldOf("gear").forGetter(NpcData::getGearDataValues),
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcData::getNpcAttributePool)
@@ -77,7 +77,7 @@ public class NpcData {
     public Identifier getRace() {
         return raceId;
     }
-    public Identifier getFaction() {
+    public Identifier getFactionIdentifier() {
         return factionId;
     }
 
