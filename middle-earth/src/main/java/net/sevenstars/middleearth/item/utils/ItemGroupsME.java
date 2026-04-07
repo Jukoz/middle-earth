@@ -24,9 +24,8 @@ import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -43,10 +42,10 @@ public class ItemGroupsME {
             ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
             NbtCompound compound = new NbtCompound();
             NpcData npcData = reference.value();
-            compound.putString("id", IdentifierUtil.create("npc").toString());
+            compound.putString("id", MiddleEarth.of("npc").toString());
             compound.putString("NpcDataId", npcData.getId().toString());
             itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
-            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcData.getFaction()));
+            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcData.getFactionIdentifier()));
             itemStack.set(DataComponentTypesME.RACE_DATA, new RaceDataComponent(npcData.getRace()));
             itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(npcData.getName()));
             itemStack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
@@ -177,7 +176,7 @@ public class ItemGroupsME {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
                 };
-                displayContext.lookup().getOptional(NpcME.KEY)
+                displayContext.lookup().getOptional(DynamicRegistriesME.NPC)
                         .ifPresent(registryWrapper -> addNpcEggs(
                                 entries,
                                 displayContext.lookup(),

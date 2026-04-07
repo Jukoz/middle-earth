@@ -26,7 +26,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.List;
 import java.util.function.Function;
@@ -743,7 +743,7 @@ public class ModBlocks {
         }
         group.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, keyOfBlock(name), block);
     }
 
@@ -763,7 +763,7 @@ public class ModBlocks {
         var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }
 
     public static RegistryKey<Block> keyOfBlock(String id) {

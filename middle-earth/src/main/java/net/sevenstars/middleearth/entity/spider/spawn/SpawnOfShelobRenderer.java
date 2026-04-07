@@ -4,7 +4,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 
 public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity, SpawnOfShelobRenderState, SpawnOfShelobModel> {

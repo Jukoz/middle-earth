@@ -13,7 +13,6 @@ public class NoseModel  extends EntityModel<NpcEntityRenderState>  {
     public final ModelPart largeHighCube;
     public final ModelPart largeCenterCube;
 
-
     public NoseModel(ModelPart modelPart) {
         super(modelPart);
         this.noseRoot = modelPart.getChild("noseRoot");
