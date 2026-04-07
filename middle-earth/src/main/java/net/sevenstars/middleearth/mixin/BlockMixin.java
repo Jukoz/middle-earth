@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.mixin;
 
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.FallingBlockEntity;
@@ -32,7 +32,7 @@ public abstract class BlockMixin {
         //if(!explosion.shouldDestroy()) return;
         Block block = this.asBlock();
 
-        if(explosion.getEntity() == null || explosion.getEntity().getType() == ModEntities.FIRE_OF_ORTHANC) {
+        if(explosion.getEntity() == null || explosion.getEntity().getType() == EntitiesME.FIRE_OF_ORTHANC) {
             if(block != Blocks.TNT && block != ModDecorativeBlocks.FIRE_OF_ORTHANC) {
                 if(Math.random() < RANDOM_FLYING_BLOCK) {
                     float distance = (float) pos.getSquaredDistance(explosion.getPosition());

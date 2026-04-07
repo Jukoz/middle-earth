@@ -26,83 +26,79 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.FactionType;
+import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.*;
 
 
 public class Faction {
-    private static HashMap<Disposition, List<Integer>> FactionSelectionOrderIndexPerDisposition;
+    private static HashMap<DispositionType, List<Integer>> FactionSelectionOrderIndexPerDisposition;
 
-    public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> {
-        return instance.group(
-                Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
-                Codec.INT.fieldOf("faction_selection_order_index").forGetter(Faction::getFactionSelectionOrderIndex),
-                Codec.BOOL.fieldOf("joinable").forGetter(Faction::getJoinable),
-                Codec.STRING.fieldOf("disposition").forGetter(Faction::getDispositionString),
-                Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
-                Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
-                Codec.list(Identifier.CODEC).optionalFieldOf("subfaction").forGetter(Faction::getSubfactionIds),
-                NbtCompound.CODEC.optionalFieldOf("npcs").forGetter(Faction::getNpcValues),
-                NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
-                NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
-                Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
-                Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands),
-                Codec.list(Identifier.CODEC).fieldOf("diplomatic_alliances").forGetter(Faction::getDiplomaticAllies),
-                Codec.list(Identifier.CODEC).fieldOf("diplomatic_neutrals").forGetter(Faction::getDiplomaticNeutrals),
-                Codec.list(Identifier.CODEC).fieldOf("diplomatic_enemies").forGetter(Faction::getDiplomaticEnemies)
-        ).apply(instance, Faction::new);
-    });
+    public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
+            Codec.INT.fieldOf("faction_selection_order_index").forGetter(Faction::getFactionSelectionOrderIndex),
+            Codec.BOOL.fieldOf("joinable").forGetter(Faction::getJoinable),
+            Codec.STRING.fieldOf("disposition").forGetter(Faction::getDispositionString),
+            Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
+            Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
+            Codec.list(Identifier.CODEC).optionalFieldOf("subfaction").forGetter(Faction::getSubfactionIds),
+            NbtCompound.CODEC.optionalFieldOf("npcs").forGetter(Faction::getNpcValues),
+            NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
+            NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands),
+            Codec.list(InitialDiplomacy.CODEC).fieldOf("initial_diplomacy").forGetter(Faction::getInitialDiplomaciesNbtList)
+    ).apply(instance, Faction::new));
 
     public static final PacketCodec<ByteBuf, Faction> PACKET_CODEC = PacketCodecs.codec(CODEC);
-    public static final Codec<RegistryEntry<Faction>> ENTRY_CODEC = RegistryElementCodec.of(FactionsME.KEY, CODEC);
-    public static final PacketCodec<RegistryByteBuf, RegistryEntry<Faction>> ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(FactionsME.KEY, PACKET_CODEC);
+    public static final Codec<RegistryEntry<Faction>> ENTRY_CODEC = RegistryElementCodec.of(DynamicRegistriesME.FACTION, CODEC);
+    public static final PacketCodec<RegistryByteBuf, RegistryEntry<Faction>> ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.FACTION, PACKET_CODEC);
 
     private final Identifier id;
     private final Integer factionSelectionOrderIndex;
     private final String translatableKey;
     private final boolean joinable;
-    private final Disposition disposition;
+    private final DispositionType dispositionType;
     private final FactionType factionType;
     private final Identifier parentFactionId;
     private final HashMap<NpcRank, List<Identifier>> npcDatasByRank;
     private final BannerData bannerData;
     private final SpawnDataHandler spawnDataHandler;
+    private final List<InitialDiplomacy> initialDiplomacies;
+
     private List<Identifier> subFactions = null;
     private List<String> joinCommands;
     private List<String> leaveCommands;
     private List<Race> races = null;
     private List<Text> descriptions = null;
     private Text raceList = null;
-    private List<Identifier> diplomaticAllies;
-    private List<Identifier> diplomaticNeutrals;
-    private List<Identifier> diplomaticEnemies;
 
     public Faction(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType,
                    Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs,
-                   Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands,
-                   List<Identifier> diplomaticAllies, List<Identifier> diplomaticNeutrals, List<Identifier> diplomaticEnemies) {
-        this.id = IdentifierUtil.getIdentifierFromString(id);
+                   Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt) {
+        this.id = MiddleEarth.fetchId(id);
 
         this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
 
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
-        this.disposition = Disposition.valueOf(disposition.toUpperCase());
+        this.dispositionType = DispositionType.valueOf(disposition.toUpperCase());
 
         this.factionType = FactionType.valueOf(factionType.toUpperCase());
         this.parentFactionId = parentFaction.orElse(null);
+
+        this.initialDiplomacies = initialDiplomaciesNbt;
 
         if(newSubFactions.isPresent()){
             this.subFactions = new ArrayList<>();
@@ -120,7 +116,7 @@ public class Faction {
                     NbtList npcDataList = rankCompound.getList("pool").get();
                     List<Identifier> dataList = new ArrayList<>();
                     for(int j = 0; j < npcDataList.size(); j++){
-                        dataList.add(IdentifierUtil.getIdentifierFromString(npcDataList.getString(j).get()));
+                        dataList.add(MiddleEarth.fetchId(npcDataList.getString(j).get()));
                     }
                     this.npcDatasByRank.put(rank, dataList);
                 } catch (Exception ignored){
@@ -140,37 +136,34 @@ public class Faction {
         this.raceList = null;
         this.descriptions = null;
 
-        this.diplomaticAllies = diplomaticAllies;
-        this.diplomaticNeutrals = diplomaticNeutrals;
-        this.diplomaticEnemies = diplomaticEnemies;
-
         verifyData();
     }
 
-    public Faction(String name, Boolean joinable, Disposition disposition, FactionType factionType, Identifier parentFactionId,
+    public Faction(RegistryKey<Faction> faction, Boolean joinable, DispositionType dispositionType, FactionType factionType, Identifier parentFactionId,
                    List<Identifier> subFactions, HashMap<NpcRank, List<NpcData>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
                    List<String> joinCommand, List<String> leaveCommand,
-                   List<RegistryKey<Faction>> diplomaticAllies, List<RegistryKey<Faction>> diplomaticNeutrals, List<RegistryKey<Faction>> diplomaticEnemies)
+                   List<InitialDiplomacy> initialDiplomacies)
     {
-        this.id = IdentifierUtil.getIdentifierFromString(name);
+        this.id = faction.getValue();
 
         if(FactionSelectionOrderIndexPerDisposition == null)
             FactionSelectionOrderIndexPerDisposition = new HashMap<>();
-        if(FactionSelectionOrderIndexPerDisposition.containsKey(disposition)){
-            this.factionSelectionOrderIndex = FactionSelectionOrderIndexPerDisposition.get(disposition).size();
-            List<Integer> orderList = new ArrayList<>(FactionSelectionOrderIndexPerDisposition.get(disposition));
+        if(FactionSelectionOrderIndexPerDisposition.containsKey(dispositionType)){
+            this.factionSelectionOrderIndex = FactionSelectionOrderIndexPerDisposition.get(dispositionType).size();
+            List<Integer> orderList = new ArrayList<>(FactionSelectionOrderIndexPerDisposition.get(dispositionType));
             orderList.add(this.factionSelectionOrderIndex);
-            FactionSelectionOrderIndexPerDisposition.put(disposition, orderList);
+            FactionSelectionOrderIndexPerDisposition.put(dispositionType, orderList);
         }
         else {
             int initialIndex = 0;
             this.factionSelectionOrderIndex = initialIndex;
-            FactionSelectionOrderIndexPerDisposition.put(disposition, List.of(initialIndex));
+            FactionSelectionOrderIndexPerDisposition.put(dispositionType, List.of(initialIndex));
         }
+        this.initialDiplomacies = initialDiplomacies;
 
         this.translatableKey = "faction.".concat(this.id.toTranslationKey());
         this.joinable = joinable;
-        this.disposition = disposition;
+        this.dispositionType = dispositionType;
         this.factionType = factionType;
         this.parentFactionId = parentFactionId;
         this.subFactions = subFactions;
@@ -192,24 +185,6 @@ public class Faction {
         this.leaveCommands = leaveCommand;
         this.raceList = null;
         this.descriptions = null;
-
-        this.diplomaticAllies = new ArrayList<>();
-        for(var diplomaticAlly : diplomaticAllies)
-            this.diplomaticAllies.add(diplomaticAlly.getValue());
-
-        this.diplomaticNeutrals = new ArrayList<>();
-        for(var diplomaticNeutral : diplomaticNeutrals)
-            if(!this.diplomaticAllies.contains(diplomaticNeutral.getValue()))
-                this.diplomaticNeutrals.add(diplomaticNeutral.getValue());
-            else
-                MiddleEarth.LOGGER.logError("FACTION CONSTRUCTOR ERROR : The faction %s already contain %s in the ally diplomatic fields. Please keep each list values distincts.".formatted(id, diplomaticNeutral.getValue()));
-
-        this.diplomaticEnemies = new ArrayList<>();
-        for(var diplomaticEnemy : diplomaticEnemies)
-            if(!this.diplomaticAllies.contains(diplomaticEnemy.getValue()) && !this.diplomaticEnemies.contains(diplomaticEnemy.getValue()))
-                this.diplomaticEnemies.add(diplomaticEnemy.getValue());
-            else
-                MiddleEarth.LOGGER.logError("FACTION CONSTRUCTOR ERROR : The faction %s already contain %s in the ally or neutral diplomatic fields. Please keep each list values distincts.".formatted(id, diplomaticEnemy.getValue()));
 
         verifyData();
     }
@@ -273,7 +248,7 @@ public class Faction {
         if(factionType != FactionType.SUBFACTION || parentFactionId == null)
             return null;
         try{
-            Faction test = lookup.getOrThrow(FactionsME.KEY).getOrThrow(RegistryKey.of(FactionsME.KEY, this.parentFactionId)).value();
+            Faction test = lookup.getOrThrow(DynamicRegistriesME.FACTION).getOrThrow(RegistryKey.of(DynamicRegistriesME.FACTION, this.parentFactionId)).value();
             return test;
         } catch (Exception e){
             return null;
@@ -295,6 +270,10 @@ public class Faction {
             return Optional.empty();
 
         return this.spawnDataHandler.serializeNbt();
+    }
+
+    private List<InitialDiplomacy> getInitialDiplomaciesNbtList() {
+        return initialDiplomacies;
     }
 
     public Optional<NbtCompound> getNpcValues() {
@@ -328,18 +307,6 @@ public class Faction {
         return Optional.of(this.leaveCommands);
     }
 
-    public List<Identifier> getDiplomaticAllies() {
-        return diplomaticAllies;
-    }
-
-    public List<Identifier> getDiplomaticNeutrals() {
-        return diplomaticNeutrals;
-    }
-
-    public List<Identifier> getDiplomaticEnemies() {
-        return diplomaticEnemies;
-    }
-
     @Override
     public String toString() {
         return id.toString();
@@ -355,9 +322,9 @@ public class Faction {
         return npcDataList.get(random.nextInt(0, npcDataList.size()));
     }
 
-    public NpcGearData getPreviewGear(World world, Race selectedRace){
+    public WeightedGearData getPreviewGear(World world, Race selectedRace){
         if(selectedRace == null)
-            return NpcGearData.Create();
+            return WeightedGearData.Create();
 
         List<Identifier> identifiersToUse = new ArrayList<>();
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.MILITIA));
@@ -368,7 +335,7 @@ public class Faction {
 
         List<NpcData> npcDataList = NpcDataLookup.getAllNpcDatasFromRace(world, identifiersToUse, selectedRace.getId());
         if(npcDataList.isEmpty())
-            return NpcGearData.Create();
+            return WeightedGearData.Create();
         Random random = new Random();
         NpcData foundNpcData = npcDataList.get(random.nextInt(0, npcDataList.size()));
         return foundNpcData.getGear();
@@ -406,11 +373,11 @@ public class Faction {
         return getSubfactionById(world, subFactions.get(index));
     }
 
-    public Disposition getDisposition(){
-        return disposition;
+    public DispositionType getDisposition(){
+        return dispositionType;
     }
     public String getDispositionString(){
-        return disposition.name();
+        return dispositionType.name();
     }
     public String getFactionTypeString(){
         return factionType.name();
@@ -444,7 +411,7 @@ public class Faction {
     public Faction getSubfactionById(World world, Identifier id) {
         if(subFactions == null)
             return null;
-        return world.getRegistryManager().getOrThrow(FactionsME.KEY).get(id);
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.FACTION).get(id);
     }
 
     public List<Race> getRaces(World world) {
@@ -467,20 +434,21 @@ public class Faction {
     }
 
     public List<Text> getDescription() {
-        if(descriptions == null){
-            descriptions = new ArrayList<>();
-            boolean hasDescription = true;
-            String base = "description.%s.%s.description_%s".formatted(MiddleEarth.MOD_ID, id.getPath(), "%s");
-            while(hasDescription){
-                String langPath = base.formatted(descriptions.size());
-                Text text = Text.translatable(langPath);
-                if(!Objects.equals(text.getString(), langPath)){
-                    descriptions.add(text);
-                } else {
-                    hasDescription = false;
-                }
+        descriptions = new ArrayList<>();
+        boolean hasDescription = true;
+
+        String base = MiddleEarth.createAggregate('.', "description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
+
+        while(hasDescription){
+            String langPath = base.formatted(descriptions.size());
+            Text text = Text.translatable(langPath);
+            if(!Objects.equals(text.getString(), langPath)){
+                descriptions.add(text);
+            } else {
+                hasDescription = false;
             }
         }
+
         return descriptions;
     }
 
@@ -500,7 +468,7 @@ public class Faction {
     }
 
     public int getSpawnAmount(){
-        if(spawnDataHandler == null)
+        if(spawnDataHandler == null || spawnDataHandler.getSpawnList() == null)
             return 0;
         return spawnDataHandler.getSpawnList().size();
     }
@@ -520,5 +488,14 @@ public class Faction {
 
         Random random = new Random();
         return allNpcIds.get(random.nextInt(allNpcIds.size()));
+    }
+
+    public boolean isHostileToward(Identifier playerFaction) {
+        for(InitialDiplomacy diplomacy : initialDiplomacies){
+            if(diplomacy.isHostileToward(playerFaction)){
+                return true;
+            }
+        }
+        return false;
     }
 }

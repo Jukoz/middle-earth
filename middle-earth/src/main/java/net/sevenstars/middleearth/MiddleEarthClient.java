@@ -40,7 +40,7 @@ import net.sevenstars.middleearth.client.renderer.handheld.KiteShieldModelRender
 import net.sevenstars.middleearth.client.renderer.handheld.RoundShieldModelRenderer;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityRenderer;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatRenderer;
@@ -101,38 +101,39 @@ public class MiddleEarthClient implements ClientModInitializer {
         KeyInputHandler.register();
 
         ModEntityModels.getModels();
-        EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
 
-        EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.STONE_TROLL, StoneTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SNOW_TROLL, SnowTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.CAVE_TROLL, CaveTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.STONE_TROLL, StoneTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.BROADHOOF_GOAT, BroadhoofGoatRenderer::new);
-        EntityRendererRegistry.register(ModEntities.GREAT_HORN, GreatHornRenderer::new);
-        EntityRendererRegistry.register(ModEntities.WARG, WargRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.BROADHOOF_GOAT, BroadhoofGoatRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.GREAT_HORN, GreatHornRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.WARG, WargRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.REINFORCED_BARREL, BarrelEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.REINFORCED_BARREL, BarrelEntityRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.SHELOBITE_LARVA, ShelobiteLarvaRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SHELOBITE_SCUTTLER, ShelobiteScuttlerRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SPAWN_OF_SHELOB, SpawnOfShelobRenderer::new);
-        //EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
-
-        EntityRendererRegistry.register(ModEntities.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SMOKE_RING_PROJECTILE, SmokeRingProjectileRenderer::new);
-        EntityRendererRegistry.register(ModEntities.WEB, FlyingItemEntityRenderer::new);
-
-        EntityRendererRegistry.register(ModEntities.NPC, NpcEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SHELOBITE_LARVA, ShelobiteLarvaRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SHELOBITE_SCUTTLER, ShelobiteScuttlerRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SPAWN_OF_SHELOB, SpawnOfShelobRenderer::new);
+        //EntityRendererRegistry.register(EntitiesME.BALROG, BalrogRenderer::new);
 
 
-        EntityRendererRegistry.register(ModEntities.SEAT_ENTITY, SeatRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.PEBBLE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.PINECONE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.LIT_PINECONE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SPEAR, SpearEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.BOULDER, BoulderEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SMOKE_RING_PROJECTILE, SmokeRingProjectileRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.WEB, FlyingItemEntityRenderer::new);
+
+        EntityRendererRegistry.register(EntitiesME.NPC, NpcEntityRenderer::new);
+
+
+        EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
 
         HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, ForgeHeatingScreen::new);

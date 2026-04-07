@@ -47,7 +47,7 @@ import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
@@ -115,7 +115,7 @@ public class SwanEntity extends AnimalEntity {
         Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
 
         if(optional.isPresent()) {
-            if(!this.getWorld().getBlockState(optional.get().pos()).isOf(ModBlocks.BIRD_NEST)) {
+            if(!this.getWorld().getBlockState(optional.get().pos()).isOf(BlocksWT.BIRD_NEST)) {
                 this.getBrain().forget(MemoryModuleType.HOME);
             }
         }
@@ -141,7 +141,7 @@ public class SwanEntity extends AnimalEntity {
                 if(rand < 0.15) {
                     BlockPos pos = optional.get().pos();
                     BlockState homeBlock = this.getWorld().getBlockState(optional.get().pos());
-                    if(homeBlock.isOf(ModBlocks.BIRD_NEST) && homeBlock.get(BirdNest.NEST_LEVEL) < 2) {
+                    if(homeBlock.isOf(BlocksWT.BIRD_NEST) && homeBlock.get(BirdNest.NEST_LEVEL) < 2) {
                         this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
                     }
                 }

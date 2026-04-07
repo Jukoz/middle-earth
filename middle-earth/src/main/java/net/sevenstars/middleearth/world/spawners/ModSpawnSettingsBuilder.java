@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.spawners;
 
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.SpawnSettings;
@@ -29,20 +29,20 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addRareWarg(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE, 3,  new SpawnSettings.SpawnEntry(ModEntities.WARG, 1, 3));
+        builder.spawn(SpawnGroup.CREATURE, 3,  new SpawnSettings.SpawnEntry(EntitiesME.WARG, 1, 3));
     }
     public static void addUncommonWarg(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE, 6,new SpawnSettings.SpawnEntry(ModEntities.WARG,  1, 3));
+        builder.spawn(SpawnGroup.CREATURE, 6,new SpawnSettings.SpawnEntry(EntitiesME.WARG,  1, 3));
     }
 
     public static void addRareStoneTroll(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE,3,  new SpawnSettings.SpawnEntry(ModEntities.STONE_TROLL, 1, 2));
+        builder.spawn(SpawnGroup.CREATURE,3,  new SpawnSettings.SpawnEntry(EntitiesME.STONE_TROLL, 1, 2));
     }
     public static void addMirkwoodSpider(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE, 9, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 2, 4));
+        builder.spawn(SpawnGroup.CREATURE, 9, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 2, 4));
     }
     public static void addRareMirkwoodSpider(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(ModEntities.SHELOBITE_SCUTTLER, 1, 2));
+        builder.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 1, 2));
     }
 
     public static void addUncommonBats(SpawnSettings.Builder builder){
@@ -76,7 +76,7 @@ public class ModSpawnSettingsBuilder {
         builder.spawn(SpawnGroup.CREATURE, 4, new SpawnSettings.SpawnEntry(EntityType.GOAT, 1, 3));
     }
     public static void addBroadhoofGoats(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, 4, new SpawnSettings.SpawnEntry(ModEntities.BROADHOOF_GOAT, 1, 3));
+        builder.spawn(SpawnGroup.CREATURE, 4, new SpawnSettings.SpawnEntry(EntitiesME.BROADHOOF_GOAT, 1, 3));
     }
 
     public static void addNordicMobs(SpawnSettings.Builder builder) {
@@ -130,7 +130,12 @@ public class ModSpawnSettingsBuilder {
         builder.spawn(SpawnGroup.CREATURE, 10, new SpawnSettings.SpawnEntry(EntitiesWT.DEER, 1, 4));
     }
 
+    public static void addNpcs(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 2))
+                .spawnCost(EntitiesME.NPC, 0.7, 0.3);
+    }
+
     public static void addGreatHorn(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(ModEntities.GREAT_HORN, 1, 2));
+        builder.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesME.GREAT_HORN, 1, 2));
     }
 }

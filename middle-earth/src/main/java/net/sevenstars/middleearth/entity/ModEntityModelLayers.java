@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
+import net.sevenstars.middleearth.entity.npcs.features.feet.FeetModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
 import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
@@ -41,7 +42,9 @@ public final class ModEntityModelLayers {
     public static final EntityModelLayer NPC = registerEntityModelLayer("npc", NpcEntityModel.getTexturedModelData(Dilation.NONE));
     public static final EntityModelLayer NPC_ENTITY_HAIR = registerEntityModelLayer("npc_entity_hair",  HairModel.getTexturedModelData());
     public static final EntityModelLayer NPC_ENTITY_EAR = registerEntityModelLayer("npc_entity_ear",  EarModel.getTexturedModelData());
-    public static final EntityModelLayer NPC_ENTITY_NOSE= registerEntityModelLayer("npc_entity_nose",  NoseModel.getTexturedModelData());
+    public static final EntityModelLayer NPC_ENTITY_NOSE = registerEntityModelLayer("npc_entity_nose",  NoseModel.getTexturedModelData());
+    public static final EntityModelLayer NPC_ENTITY_FEET = registerEntityModelLayer("npc_entity_feet",  FeetModel.getTexturedModelData());
+
     // endregion
     public static final EntityModelLayer BROADHOOF_GOAT = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat", BroadhoofGoatModel.getTexturedModelData());
     public static final EntityModelLayer BROADHOOF_GOAT_ARMOR = ModEntityModelLayers.registerEntityModelLayer("broadhoof_goat_armor", BroadhoofGoatArmorModel.getTexturedModelData());

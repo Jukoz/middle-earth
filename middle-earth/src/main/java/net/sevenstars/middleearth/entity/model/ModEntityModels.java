@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.entity.barrel.BarrelEntityRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
 import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
+import net.sevenstars.middleearth.entity.npcs.features.feet.FeetModel;
 import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
 import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
 import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
@@ -32,6 +33,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.NPC_ENTITY_HAIR, HairModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.NPC_ENTITY_EAR, EarModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.NPC_ENTITY_NOSE, NoseModel.getTexturedModelData());
+        builder.put(ModEntityModelLayers.NPC_ENTITY_FEET, FeetModel.getTexturedModelData());
 
         builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
         builder.put(ModEntityModelLayers.SHELOBITE_LARVA, ShelobiteLarvaModel.getTexturedModelData());

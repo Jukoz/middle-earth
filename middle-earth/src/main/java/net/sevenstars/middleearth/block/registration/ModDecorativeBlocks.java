@@ -41,7 +41,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
@@ -660,7 +660,7 @@ public class ModDecorativeBlocks {
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 
@@ -669,7 +669,7 @@ public class ModDecorativeBlocks {
         ModBlocks.registerBlockItem(name, block);
         ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 

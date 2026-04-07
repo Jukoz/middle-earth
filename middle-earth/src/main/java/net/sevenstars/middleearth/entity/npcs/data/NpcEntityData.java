@@ -8,19 +8,18 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
 public class NpcEntityData extends PassiveEntity.PassiveData {
     public Identifier factionId;
     public Identifier npcDataId;
-    public EntityCategory category;
+    public EntityCategories category;
 
     public static final Codec<NpcEntityData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
         Identifier.CODEC.fieldOf("faction").orElse(null).forGetter((data) -> data.factionId),
@@ -33,7 +32,7 @@ public class NpcEntityData extends PassiveEntity.PassiveData {
     public NpcEntityData() {
         super(false, 0);
         this.factionId = null;
-        this.category = EntityCategory.SHARED;
+        this.category = EntityCategories.SHARED;
         this.npcDataId = null;
     }
 
@@ -41,10 +40,10 @@ public class NpcEntityData extends PassiveEntity.PassiveData {
         super(false, 0);
         this.factionId = factionId;
         this.npcDataId = npcDataId;
-        this.category = EntityCategory.valueOf(category.toUpperCase());
+        this.category = EntityCategories.valueOf(category.toUpperCase());
     }
 
-    public NpcEntityData(Identifier factionId, Identifier npcDataId, EntityCategory category) {
+    public NpcEntityData(Identifier factionId, Identifier npcDataId, EntityCategories category) {
         super(false, 0);
         this.factionId = factionId;
         this.npcDataId = npcDataId;
@@ -52,10 +51,10 @@ public class NpcEntityData extends PassiveEntity.PassiveData {
     }
 
     public Faction getFactionValue(World world) {
-        return world.getRegistryManager().getOrThrow(FactionsME.KEY).get(factionId);
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.FACTION).get(factionId);
     }
     public NpcData getNpcDataValue(World world) {
-        return world.getRegistryManager().getOrThrow(NpcME.KEY).get(npcDataId);
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC).get(npcDataId);
     }
     public Race getRaceValue(World world){
         NpcData npcData = NpcDataLookup.getNpcData(world, this.npcDataId);

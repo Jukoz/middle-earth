@@ -6,7 +6,6 @@ import net.minecraft.entity.ai.brain.Memory;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
 import java.util.Optional;
@@ -25,11 +24,11 @@ public class MemoryModulesWT<U> {
     }
 
     private static <U> MemoryModuleType<U> register(String id, Codec<U> codec) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, id), new MemoryModuleType<>(Optional.of(codec)));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, OfBeastsAndWildThings.of(id), new MemoryModuleType<>(Optional.of(codec)));
     }
 
     private static <U> MemoryModuleType<U> register(String id) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, id), new MemoryModuleType<>(Optional.empty()));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, OfBeastsAndWildThings.of(id), new MemoryModuleType<>(Optional.empty()));
     }
 
     public static void registerModMemoryModules() {

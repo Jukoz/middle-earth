@@ -1,8 +1,10 @@
 package net.sevenstars.of_beasts_and_wild_things;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
+import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.ModLogger;
-import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ActivitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
@@ -26,9 +28,24 @@ public class OfBeastsAndWildThings implements ModInitializer {
 		SensorsWT.registerModSensors();
 		MemoryModulesWT.registerModMemoryModules();
 		ItemGroupsWT.register();
-		ModBlocks.registerModBlocks();
+		BlocksWT.registerModBlocks();
 		ItemsWT.registerModItems();
 		EggItemsWT.registerModItems();
 		WorldGenerationWT.generateModWorldGen();
 	}
+
+    public static Identifier fetchId(String stringId){
+        return IdentifierUtil.getIdentifierFromString(stringId);
+    }
+
+    public static Identifier of(String path){
+        return IdentifierUtil.build(MOD_ID, path);
+    }
+
+    public static Identifier of(String... names){
+        return IdentifierUtil.buildAggregate(MOD_ID, names);
+    }
+    public static String createAggregate(char splitter, String... names){
+        return IdentifierUtil.createAggregateValue(splitter, names);
+    }
 }

@@ -1,14 +1,14 @@
 package net.sevenstars.middleearth.resources.datas.npcs;
 
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 public class NpcUtil {
-    public static void equipAll(LivingEntity entity, NpcGearData data) {
+    public static void equipAll(LivingEntity entity, WeightedGearData data) {
         entity.equipStack(EquipmentSlot.HEAD, data.get(EquipmentSlot.HEAD));
         entity.equipStack(EquipmentSlot.CHEST, data.get(EquipmentSlot.CHEST));
         entity.equipStack(EquipmentSlot.LEGS, data.get(EquipmentSlot.LEGS));

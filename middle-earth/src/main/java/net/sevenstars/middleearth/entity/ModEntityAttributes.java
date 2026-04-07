@@ -13,11 +13,12 @@ public class ModEntityAttributes {
     public static final RegistryEntry<EntityAttribute> DELVERS_FEAR_STRENGTH;
     public static final RegistryEntry<EntityAttribute> CLIMBING_STRENGTH;
     public static final RegistryEntry<EntityAttribute> DETECTION_RANGE;
+    public static final RegistryEntry<EntityAttribute> WIDTH_SCALE;
 
     private static RegistryEntry<EntityAttribute> register(String name, double defaultValue, double minValue , double MaxValue, boolean tracked) {
-        Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
+        Identifier id = MiddleEarth.of(name);
         EntityAttribute attribute = new ClampedEntityAttribute(id.toTranslationKey(), defaultValue, minValue, MaxValue).setTracked(tracked);
-        return Registry.registerReference(Registries.ATTRIBUTE, Identifier.of(MiddleEarth.MOD_ID, name),attribute);
+        return Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
     }
 
     public static void register() {
@@ -29,5 +30,6 @@ public class ModEntityAttributes {
         DELVERS_FEAR_STRENGTH = register("delvers_fear_strength", 0.0, 0.0, Double.MAX_VALUE, true);
         CLIMBING_STRENGTH = register("climbing_strength", 0.0, 0.0, Double.MAX_VALUE, true);
         DETECTION_RANGE = register("detection_range", 1.0, 0.1, 1.0, true);
+        WIDTH_SCALE = register("width_scale", 1.0, 0.1, 2.0, true);
     }
 }
