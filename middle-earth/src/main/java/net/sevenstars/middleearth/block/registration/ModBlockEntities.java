@@ -6,6 +6,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
+import net.sevenstars.middleearth.block.special.coffers.CofferBlockEntity;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
@@ -31,6 +32,8 @@ public class ModBlockEntities {
             ModDecorativeBlocks.STRUCTURE_MANAGER);
     public static BlockEntityType<StructureNestBlockEntity> STRUCTURE_NEST = register("structure_nest", StructureNestBlockEntity::new,
             ModDecorativeBlocks.STRUCTURE_NEST);
+    public static BlockEntityType<CofferBlockEntity> LARCH_COFFER = register("larch_coffer", CofferBlockEntity::new,
+            ModDecorativeBlocks.LARCH_COFFER);
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             ModDecorativeBlocks.REINFORCED_CHEST);
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,

@@ -78,6 +78,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());
     public static final Item THIN_BARREL = registerItem("thin_barrel",
             (settings) -> new BlockItem(ModDecorativeBlocks.THIN_BARREL, settings), new Item.Settings());
+    public static final Item LARCH_COFFER = registerItem("larch_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.LARCH_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
 
