@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
-import net.minecraft.block.AbstractBlock;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
@@ -53,6 +52,7 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.GOLDEN_CHALICE);
 
+            add(ModDecorativeBlocks.CANDLESTICK);
             add(ModDecorativeBlocks.CANDLE_HEAP);
 
             add(ModDecorativeBlocks.SCONCE);
