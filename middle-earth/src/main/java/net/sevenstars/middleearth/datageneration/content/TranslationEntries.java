@@ -291,6 +291,7 @@ public class TranslationEntries {
             put("container."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
             put("container."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("container."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
+            put("screen."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("screen."+ MiddleEarth.MOD_ID +".wood_pile", "Wood Pile");
             put("screen."+ MiddleEarth.MOD_ID +".shaping_anvil", "Shaping Anvil");

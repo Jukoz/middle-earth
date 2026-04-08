@@ -1907,6 +1907,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.OAK_SLAB))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LARCH_COFFER, 1)
+                        .pattern("TLT")
+                        .pattern("L L")
+                        .pattern("LLL")
+                        .input('T', ResourceItemsME.TIN_NUGGET)
+                        .input('L', WoodBlockSets.LARCH_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.LARCH_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.LARCH_SET.planksBlocks.base()))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")
                         .pattern("VGV")

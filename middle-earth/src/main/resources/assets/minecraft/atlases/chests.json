@@ -1,5 +1,6 @@
 {
   "sources": [
-    { "type": "single", "resource": "middle-earth:model/reinforced_chest" }
+    { "type": "single", "resource": "middle-earth:model/reinforced_chest" },
+    { "type": "single", "resource": "middle-earth:model/larch_coffer" }
   ]
 }

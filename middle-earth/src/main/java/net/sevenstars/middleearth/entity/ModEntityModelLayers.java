@@ -9,6 +9,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
+import net.sevenstars.middleearth.block.special.coffers.LarchCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightModel;
@@ -74,6 +75,7 @@ public final class ModEntityModelLayers {
 
     // Blocks
     public static final EntityModelLayer BELLOWS = ModEntityModelLayers.registerEntityModelLayer("bellows", BellowsBlockEntityRenderer.getTexturedModelData());
+    public static final EntityModelLayer LARCH_COFFER = ModEntityModelLayers.registerEntityModelLayer("larch_coffer", LarchCofferEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_CHEST = ModEntityModelLayers.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
 
     public static final EntityModelLayer REINFORCED_BARREL = ModEntityModelLayers.registerEntityModelLayer("reinforced_barrel", BarrelEntityModel.getTexturedModelData());
