@@ -387,6 +387,9 @@ public class ModDecorativeBlocks {
     public static final Block YELLOW_CURTAIN = registerBlockWithItem("yellow_curtain",
             CurtainsBlock::new, AbstractBlock.Settings.copy(Blocks.RED_CARPET).noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
 
+    public static final Block PAPER_SHEET = registerBlockWithItem("paper_sheet",
+            PaperSheetBlock::new, AbstractBlock.Settings.copy(Blocks.SUGAR_CANE).nonOpaque());
+
     public static final Block TREATED_WOOD_STOOL = registerBlockWithItem("treated_wood_stool",
             WoodStoolBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block TREATED_WOOD_BENCH = registerBlockWithItem("treated_wood_bench",
