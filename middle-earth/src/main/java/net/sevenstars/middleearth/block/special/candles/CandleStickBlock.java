@@ -44,6 +44,7 @@ public class CandleStickBlock extends Block {
     public static final BooleanProperty ATTACHED;
     public static final BooleanProperty LIT;
     private static final Int2ObjectMap CANDLES_TO_PARTICLE_OFFSETS;
+    private static final Int2ObjectMap WALL_CANDLES_TO_PARTICLE_OFFSETS;
 
     public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
     private static final VoxelShape SHAPE;
@@ -68,6 +69,9 @@ public class CandleStickBlock extends Block {
             Direction direction = var3[var5];
             if (direction.getAxis() == Direction.Axis.Y) {
                 BlockState blockState = this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+                if(ctx.getSide() != Direction.UP) {
+                    blockState = blockState.with(ATTACHED, true);
+                }
                 if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
                     return blockState;
                 }
@@ -120,8 +124,8 @@ public class CandleStickBlock extends Block {
         if (state.get(LIT)) {
             this.getParticleOffsets(state).forEach((offset) -> {
                 int quarter = state.get(HORIZONTAL_FACING).getHorizontalQuarterTurns();
-                Vec3d rotatedOffset = offset.add(-0.5, 0, -0.5).rotateY(quarter * 90 * ((float)Math.PI / 180)).add(0.5, 0, 0.5);
-                spawnCandleParticles(world, rotatedOffset.add((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), random);
+                Vec3d rotatedOffset = offset.add(-0.5, -0.5, -0.5).rotateY(quarter * -90 * ((float)Math.PI / 180)).add(0.5, 0.5, 0.5);
+                spawnCandleParticles(world, rotatedOffset.add(pos.getX(), pos.getY(), pos.getZ()), random);
             });
         }
     }
@@ -164,7 +168,8 @@ public class CandleStickBlock extends Block {
     }
 
     protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
-        return (Iterable)CANDLES_TO_PARTICLE_OFFSETS.get((Integer)state.get(CANDLES));
+        if(state.get(ATTACHED)) return (Iterable)WALL_CANDLES_TO_PARTICLE_OFFSETS.get(state.get(CANDLES));
+        else return (Iterable)CANDLES_TO_PARTICLE_OFFSETS.get(state.get(CANDLES));
     }
 
     @Override
@@ -207,6 +212,13 @@ public class CandleStickBlock extends Block {
             int2ObjectOpenHashMap.put(3, List.of((new Vec3d(8.0, 17.0, 8.0)).multiply(0.0625), (new Vec3d(3.0, 17.0, 8.0)).multiply(0.0625), (new Vec3d(13.0, 17.0, 8.0)).multiply(0.0625)));
             int2ObjectOpenHashMap.put(4, List.of((new Vec3d(8.0, 17.0, 8.0)).multiply(0.0625), (new Vec3d(3.0, 16.0, 8.0)).multiply(0.0625),
                     (new Vec3d(13.0, 16.0, 8.0)).multiply(0.0625), (new Vec3d(8.0, 16.0, 3.0)).multiply(0.0625), (new Vec3d(8.0, 16.0, 13.0)).multiply(0.0625)));
+        });
+        WALL_CANDLES_TO_PARTICLE_OFFSETS = Util.make(new Int2ObjectOpenHashMap(4), (int2ObjectOpenHashMap) -> {
+            int2ObjectOpenHashMap.put(1, List.of((new Vec3d(8.0, 17.0, 7.0)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(2, List.of((new Vec3d(3.0, 17.0, 6.0)).multiply(0.0625), (new Vec3d(13.0, 17.0, 6.0)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(3, List.of((new Vec3d(8.0, 14.0, 8.0)).multiply(0.0625), (new Vec3d(3.0, 17.0, 6.0)).multiply(0.0625), (new Vec3d(13.0, 17.0, 6.0)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(4, List.of((new Vec3d(3.0, 17.0, 5.0)).multiply(0.0625), (new Vec3d(13.0, 17.0, 5)).multiply(0.0625),
+                    (new Vec3d(4.0, 14.0, 10.0)).multiply(0.0625), (new Vec3d(12.0, 14.0, 10.0)).multiply(0.0625)));
         });
         SHAPE = Block.createCuboidShape(4, 0, 4, 12, 15, 12);
     }
