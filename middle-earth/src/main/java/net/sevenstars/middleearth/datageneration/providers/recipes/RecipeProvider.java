@@ -1159,6 +1159,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBrickRecipe(exporter, GenericBlockSets.AGED_WOOD_PANELS.blockSet.base().asItem(), GenericBlockSets.AGED_WOOD_BOARDS.blockSet.base(), 4);
                 //endregion
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CANDLESTICK, 1)
+                        .pattern("C")
+                        .pattern("S")
+                        .pattern("S")
+                        .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .input('S', ResourceItemsME.STEEL_NUGGET)
+                        .criterion(hasItem(Items.CANDLE),
+                                conditionsFromItem(Items.CANDLE))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CANDLE_HEAP, 1)
                         .pattern("CCC")
                         .pattern("CCC")

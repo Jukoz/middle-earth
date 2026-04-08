@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.special.candles;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,6 +11,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -17,13 +20,11 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
@@ -34,6 +35,7 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class CandleStickBlock extends Block {
@@ -41,7 +43,7 @@ public class CandleStickBlock extends Block {
     public static final IntProperty CANDLES = IntProperty.of("candles", 1, 4);
     public static final BooleanProperty ATTACHED;
     public static final BooleanProperty LIT;
-    public static final IntProperty LEVEL_15;
+    private static final Int2ObjectMap CANDLES_TO_PARTICLE_OFFSETS;
 
     public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
     private static final VoxelShape SHAPE;
@@ -49,12 +51,12 @@ public class CandleStickBlock extends Block {
     public CandleStickBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(LIT, false).with(ATTACHED, false).with(CANDLES, 1)
-                .with(LEVEL_15, 15).with(HORIZONTAL_FACING, Direction.NORTH));
+                .with(HORIZONTAL_FACING, Direction.NORTH));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(LEVEL_15, LIT, ATTACHED, CANDLES, HORIZONTAL_FACING);
+        builder.add(LIT, ATTACHED, CANDLES, HORIZONTAL_FACING);
     }
 
     @Nullable
@@ -114,8 +116,30 @@ public class CandleStickBlock extends Block {
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (state.get(LIT)) {
+            this.getParticleOffsets(state).forEach((offset) -> {
+                int quarter = state.get(HORIZONTAL_FACING).getHorizontalQuarterTurns();
+                Vec3d rotatedOffset = offset.add(-0.5, 0, -0.5).rotateY(quarter * 90 * ((float)Math.PI / 180)).add(0.5, 0, 0.5);
+                spawnCandleParticles(world, rotatedOffset.add((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), random);
+            });
+        }
+    }
+
+    private static void spawnCandleParticles(World world, Vec3d vec3d, Random random) {
+        float f = random.nextFloat();
+        if (f < 0.3F) {
+            world.addParticleClient(ParticleTypes.SMOKE, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+            if (f < 0.17F) {
+                world.playSoundClient(vec3d.x + 0.5, vec3d.y + 0.5, vec3d.z + 0.5, SoundEvents.BLOCK_CANDLE_AMBIENT, SoundCategory.BLOCKS, 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F, false);
+            }
+        }
+
+        world.addParticleClient(ParticleTypes.SMALL_FLAME, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+    }
+
     protected static void setLit(WorldAccess world, BlockState state, BlockPos pos, boolean lit) {
-        world.setBlockState(pos, state.with(LIT, lit).cycle(LEVEL_15), 2 | 3);
+        world.setBlockState(pos, state.with(LIT, lit), 2 | 3);
         if(lit){
             world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.5F, 1.0F);
         }
@@ -137,6 +161,10 @@ public class CandleStickBlock extends Block {
         if (!world.isClient && projectile.isOnFire() && !state.get(LIT)) {
             world.setBlockState(hit.getBlockPos(), state.with(LIT, true), STATE_TO_LUMINANCE.applyAsInt(state));
         }
+    }
+
+    protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
+        return (Iterable)CANDLES_TO_PARTICLE_OFFSETS.get((Integer)state.get(CANDLES));
     }
 
     @Override
@@ -172,10 +200,14 @@ public class CandleStickBlock extends Block {
     static {
         ATTACHED = BooleanProperty.of("attached");
         LIT = Properties.LIT;
-        LEVEL_15 = Properties.LEVEL_15;
-        STATE_TO_LUMINANCE = (state) -> {
-            return state.get(LIT) ? state.get(LEVEL_15) : 0;
-        };
+        STATE_TO_LUMINANCE = (state) -> state.get(LIT) ? (int)(state.get(CANDLES) * 3.5f) : 0;
+        CANDLES_TO_PARTICLE_OFFSETS = Util.make(new Int2ObjectOpenHashMap(4), (int2ObjectOpenHashMap) -> {
+            int2ObjectOpenHashMap.put(1, List.of((new Vec3d(8.0, 17.0, 8.0)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(2, List.of((new Vec3d(5.0, 17.0, 8.0)).multiply(0.0625), (new Vec3d(11.0, 17.0, 8.0)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(3, List.of((new Vec3d(8.0, 17.0, 8.0)).multiply(0.0625), (new Vec3d(3.0, 17.0, 8.0)).multiply(0.0625), (new Vec3d(13.0, 17.0, 8.0)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(4, List.of((new Vec3d(8.0, 17.0, 8.0)).multiply(0.0625), (new Vec3d(3.0, 16.0, 8.0)).multiply(0.0625),
+                    (new Vec3d(13.0, 16.0, 8.0)).multiply(0.0625), (new Vec3d(8.0, 16.0, 3.0)).multiply(0.0625), (new Vec3d(8.0, 16.0, 13.0)).multiply(0.0625)));
+        });
         SHAPE = Block.createCuboidShape(4, 0, 4, 12, 15, 12);
     }
 }

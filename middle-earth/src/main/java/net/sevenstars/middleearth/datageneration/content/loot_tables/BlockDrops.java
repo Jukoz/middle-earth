@@ -52,7 +52,6 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.GOLDEN_CHALICE);
 
-            add(ModDecorativeBlocks.CANDLESTICK);
             add(ModDecorativeBlocks.CANDLE_HEAP);
 
             add(ModDecorativeBlocks.SCONCE);
