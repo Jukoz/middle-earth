@@ -197,9 +197,9 @@ public class SkullCandleBlock extends Block {
         STATE_TO_LUMINANCE = (state) -> state.get(LIT) ? (int)(state.get(CANDLES) * 3.5f) : 0;
         CANDLES_TO_PARTICLE_OFFSETS = Util.make(new Int2ObjectOpenHashMap(4), (int2ObjectOpenHashMap) -> {
             int2ObjectOpenHashMap.put(1, List.of((new Vec3d(8.0, 16.0, 8.0)).multiply(0.0625)));
-            int2ObjectOpenHashMap.put(2, List.of((new Vec3d(8.0, 16.0, 8.0)).multiply(0.0625), (new Vec3d(7, 17.0, 11.0)).multiply(0.0625)));
-            int2ObjectOpenHashMap.put(3, List.of((new Vec3d(8.0, 16.0, 8.0)).multiply(0.0625), (new Vec3d(7.0, 17.0, 11.0)).multiply(0.0625),
-                    (new Vec3d(11, 17.0, 7.0)).multiply(0.0625), (new Vec3d(13.0, 10, 1.0)).multiply(0.0625), (new Vec3d(1.0, 7.0, 13.0)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(2, List.of((new Vec3d(7.0, 16.0, 8.0)).multiply(0.0625), (new Vec3d(10, 14.0, 9)).multiply(0.0625)));
+            int2ObjectOpenHashMap.put(3, List.of((new Vec3d(7.0, 16.0, 9.0)).multiply(0.0625), (new Vec3d(8.0, 15.0, 6.0)).multiply(0.0625),
+                    (new Vec3d(10, 14.0, 10.0)).multiply(0.0625), (new Vec3d(2.0, 8.0, 4.0)).multiply(0.0625), (new Vec3d(13.0, 6.0, 13.0)).multiply(0.0625)));
         });
         SHAPE = Block.createCuboidShape(4, 0, 4, 12, 8, 12);
     }
