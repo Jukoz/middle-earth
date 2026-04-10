@@ -13,17 +13,16 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
 
-public class CofferBlock extends ChestBlock {
+public class SpruceCofferBlock extends ChestBlock {
 
-    public CofferBlock(Settings settings) {
-        super(() -> ModBlockEntities.LARCH_COFFER, settings);
+    public SpruceCofferBlock(Settings settings) {
+        super(() -> ModBlockEntities.SPRUCE_COFFER, settings);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CofferBlockEntity(pos, state);
+        return new SpruceCofferBlockEntity(pos, state);
     }
 
     @Override
@@ -35,6 +34,6 @@ public class CofferBlock extends ChestBlock {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(1.0, 0.0, 3.0, 15.0, 12.0, 13.0);
+        return Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 11.0, 16.0);
     }
 }

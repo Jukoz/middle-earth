@@ -139,6 +139,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.FORGE);
 
             add(ModDecorativeBlocks.LARCH_COFFER);
+            add(ModDecorativeBlocks.SPRUCE_COFFER);
             add(ModDecorativeBlocks.REINFORCED_CHEST);
 
             add(ModDecorativeBlocks.BIG_BRAZIER);

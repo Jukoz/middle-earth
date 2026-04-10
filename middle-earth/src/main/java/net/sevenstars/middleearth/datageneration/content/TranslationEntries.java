@@ -212,6 +212,7 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
 
             put("block."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
             put("block."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("block."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("block."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
@@ -292,6 +293,7 @@ public class TranslationEntries {
             put("container."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("container."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
             put("screen."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("screen."+ MiddleEarth.MOD_ID +".wood_pile", "Wood Pile");
             put("screen."+ MiddleEarth.MOD_ID +".shaping_anvil", "Shaping Anvil");
