@@ -15,6 +15,8 @@ public class MineablePickaxe {
             add(ModBlocks.POINTED_DOLOMITE);
             add(ModBlocks.POINTED_IZHERABAN);
 
+            add(ModDecorativeBlocks.STONE_LECTERN);
+
             add(ModDecorativeBlocks.BASALT_STATUE);
             add(ModDecorativeBlocks.CALCITE_STATUE);
             add(ModDecorativeBlocks.GALONN_STATUE);

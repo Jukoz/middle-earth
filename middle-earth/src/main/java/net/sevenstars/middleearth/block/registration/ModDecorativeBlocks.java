@@ -131,6 +131,9 @@ public class ModDecorativeBlocks {
     public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
             CandleHeapBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10)));
 
+    public static final Block STONE_LECTERN = registerBlockWithItem("stone_lectern",
+            StoneLecternBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
+
     public static final Block BASALT_STATUE = registerBlock("basalt_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
     public static final Block CALCITE_STATUE = registerBlock("calcite_statue",

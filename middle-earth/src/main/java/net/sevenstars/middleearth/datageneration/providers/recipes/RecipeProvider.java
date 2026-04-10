@@ -1184,6 +1184,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.STONE_LECTERN, 1)
+                        .pattern("SSS")
+                        .pattern(" B ")
+                        .pattern(" S ")
+                        .input('S', Items.STONE)
+                        .input('B', Items.BOOKSHELF)
+                        .criterion(hasItem(Items.BOOKSHELF),
+                                conditionsFromItem(Items.BOOKSHELF))
+                        .offerTo(exporter);
+
                 createStatueRecipe(exporter, Blocks.POLISHED_BASALT, Blocks.BASALT, StoneBlockSets.BASALT_SET.baseBlocks.wall(), ModDecorativeBlocks.BASALT_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.CALCITE_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.CALCITE_SET.baseBlocks.wall(), ModDecorativeBlocks.CALCITE_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.GALONN_SET.polishedBlocks.base(), StoneBlockSets.GALONN_SET.baseBlocks.base(), StoneBlockSets.GALONN_SET.baseBlocks.wall(), ModDecorativeBlocks.GALONN_STATUE);
