@@ -219,6 +219,11 @@ public class RecipeProvider extends FabricRecipeProvider {
                     createFenceRecipe(exporter, record.planksBlocks.base().asItem(), record.planksBlocks.fence());
                     offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.planksBlocks.slab(), record.planksBlocks.base());
 
+                    if(record.shinglesBlocks != null) {
+                        createShinglesRecipe(exporter, record.planksBlocks.base(), record.shinglesBlocks.base());
+                        createRegularSetRecipes(record.shinglesBlocks);
+                    }
+
                     if(!record.vanilla)createVerticalSlabsRecipe(exporter, record.planksBlocks.slab(), record.planksBlocks.verticalSlab());
                     createSlabsFromVerticalRecipe(exporter, record.planksBlocks.verticalSlab(), record.planksBlocks.slab());
                     if(!record.vanilla && record.logBlocks != null)createVerticalSlabsRecipe(exporter, record.logBlocks.slab(), record.logBlocks.verticalSlab());
@@ -2541,6 +2546,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createSlabsFromVerticalRecipe(exporter, set.blockSet.verticalSlab(), set.blockSet.slab());
                 createStairsRecipe(exporter, set.blockSet.base(), set.blockSet.stairs());
                 offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, set.blockSet.wall(), set.blockSet.base());
+            }
+
+            private void createRegularSetRecipes(BlockRecordTypes.RegularSet set) {
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, set.slab().asItem(), set.base().asItem());
+                createVerticalSlabsRecipe(exporter, set.slab(), set.verticalSlab());
+                createSlabsFromVerticalRecipe(exporter, set.verticalSlab(), set.slab());
+                createStairsRecipe(exporter, set.base(), set.stairs());
+                offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, set.wall(), set.base());
             }
 
             private void createStairsRecipe(RecipeExporter exporter, Block input, Block output) {
