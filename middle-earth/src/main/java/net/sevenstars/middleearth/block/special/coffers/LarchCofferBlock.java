@@ -34,6 +34,10 @@ public class LarchCofferBlock extends ChestBlock {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(1.0, 0.0, 3.0, 15.0, 12.0, 13.0);
+        if(state.get(FACING) == Direction.NORTH || state.get(FACING) == Direction.SOUTH) {
+            return Block.createCuboidShape(1.0, 0.0, 3.0, 15.0, 12.0, 13.0);
+        } else {
+            return Block.createCuboidShape(3.0, 0.0, 1.0, 13.0, 12.0, 15.0);
+        }
     }
 }

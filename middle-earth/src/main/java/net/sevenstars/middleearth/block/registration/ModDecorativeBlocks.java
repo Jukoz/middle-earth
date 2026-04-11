@@ -152,6 +152,10 @@ public class ModDecorativeBlocks {
     public static final Block TUFF_STATUE = registerBlock("tuff_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
 
+    public static final Block ORCISH_DRUM = registerBlockWithItem("orcish_drum",
+            OrcishDrumBlock::new, AbstractBlock.Settings.copy(Blocks.NOTE_BLOCK).nonOpaque());
+
+
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             FireOfOrthancBlock::new, AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)
                     .sounds(BlockSoundGroup.METAL).strength(6f).burnable().solidBlock(Blocks::never).nonOpaque());
