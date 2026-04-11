@@ -179,6 +179,19 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 .criterion(hasItem(record.logBlocks.wood()),
                                         conditionsFromItem(record.planksBlocks.base()))
                                 .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_wood")));
+                    } else if(record.mushroomStemBlocks != null) {
+                        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.planksBlocks.base(), 4)
+                                .input(record.mushroomStemBlocks.stem())
+                                .criterion(hasItem(record.mushroomStemBlocks.stem()),
+                                        conditionsFromItem(record.planksBlocks.base()))
+                                .offerTo(exporter);
+
+                        offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.mushroomStemBlocks.wall(), record.mushroomStemBlocks.stem());
+                        createFenceRecipe(exporter, record.mushroomStemBlocks.stem().asItem(), record.mushroomStemBlocks.fence());
+                        offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.mushroomStemBlocks.slab(), record.mushroomStemBlocks.stem());
+                        createVerticalSlabsRecipe(exporter, record.mushroomStemBlocks.slab(), record.mushroomStemBlocks.verticalSlab());
+                        createSlabsFromVerticalRecipe(exporter, record.mushroomStemBlocks.verticalSlab(), record.mushroomStemBlocks.slab());
+                        createStairsRecipe(exporter, record.mushroomStemBlocks.stem(), record.mushroomStemBlocks.stairs());
                     }
 
                     if(record.strippedLogBlocks != null) {
@@ -239,51 +252,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                             .offerTo(exporter);
 
                 }
-                //endregion
-
-                //region MUSHROOM RECIPES
-                /*for (MushroomBlockSets.MushroomBlockSet record : MushroomBlockSets.sets) {
-
-                    if (record.stem() != null) {
-                        offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.stemWall(), record.stem());
-
-                        ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.planksBlocks.base(), 4)
-                                .input(record.stem())
-                                .criterion(hasItem(record.stem()),
-                                        conditionsFromItem(record.planksBlocks.base()))
-                                .offerTo(exporter);
-                    }
-
-                    offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.planksBlocks.slab(), record.planksBlocks.base());
-                    createVerticalSlabsRecipe(exporter, record.planksBlocks.slab(), record.planksBlocks.slab());
-                    createSlabsFromVerticalRecipe(exporter, record.planksBlocks.slab(), record.planksBlocks.slab());
-                    createStairsRecipe(exporter, record.planksBlocks.base(), record.planksStairs());
-                    createDoorRecipe(exporter, record.planksBlocks.base(), record.door());
-                    createTrapdoorRecipe(exporter, record.planksBlocks.base(), record.trapdoor());
-                    createWoodStoolRecipe(exporter, record.planksBlocks.base().asItem(), record.stool());
-                    createWoodBenchRecipe(exporter, record.planksBlocks.base().asItem(), record.bench());
-                    createWoodTableRecipe(exporter, record.planksBlocks.base().asItem(), record.table());
-                    createWoodChairRecipe(exporter, record.planksBlocks.base().asItem(), record.chair());
-
-                    createWoodLadderRecipe(exporter, record.planksBlocks.base().asItem(), record.ladder());
-
-                    createFenceRecipe(exporter, record.planksBlocks.base().asItem(), record.planksFence());
-                    createFenceRecipe(exporter, record.stem().asItem(), record.stemFence());
-
-                    ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.planksGate(), 1)
-                            .pattern("sls")
-                            .pattern("sls")
-                            .input('l', record.planksBlocks.base())
-                            .input('s', Items.STICK)
-                            .criterion(hasItem(record.planksBlocks.base()),
-                                    conditionsFromItem(record.planksBlocks.base()))
-                            .criterion(hasItem(Items.STICK),
-                                    conditionsFromItem(Items.STICK))
-                            .offerTo(exporter);
-
-                    createButtonRecipe(exporter, record.planksBlocks.base(), record.button());
-                    createPressurePlateRecipe(exporter, record.planksBlocks.base(), record.pressurePlate());
-                }*/
                 //endregion
 
                 //region ROOF RECIPES
