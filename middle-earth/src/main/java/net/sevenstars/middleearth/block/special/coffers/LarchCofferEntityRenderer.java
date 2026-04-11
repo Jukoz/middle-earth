@@ -80,7 +80,7 @@ public class LarchCofferEntityRenderer<T extends ChestBlockEntity> extends Chest
         float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
         matrices.translate(0.5D, 1.5D, 0.5D);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation - 180));
 
         lid.pitch = g * -1.5707964f;
         lid.render(matrices, vertexConsumer, light, overlay);

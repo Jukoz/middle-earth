@@ -1,33 +1,64 @@
 {
   "variants": {
-    "facing=east,half=upper": {
+    "facing=east,half=upper,flip=false": {
       "model": "middle-earth:block/diorite_statue_top",
       "y": 90
     },
-    "facing=north,half=upper": {
+    "facing=north,half=upper,flip=false": {
       "model": "middle-earth:block/diorite_statue_top"
     },
-    "facing=south,half=upper": {
+    "facing=south,half=upper,flip=false": {
       "model": "middle-earth:block/diorite_statue_top",
       "y": 180
     },
-    "facing=west,half=upper": {
+    "facing=west,half=upper,flip=false": {
       "model": "middle-earth:block/diorite_statue_top",
       "y": 270
     },
-    "facing=east,half=lower": {
+    "facing=east,half=lower,flip=false": {
       "model": "middle-earth:block/diorite_statue_bottom",
       "y": 90
     },
-    "facing=north,half=lower": {
+    "facing=north,half=lower,flip=false": {
       "model": "middle-earth:block/diorite_statue_bottom"
     },
-    "facing=south,half=lower": {
+    "facing=south,half=lower,flip=false": {
       "model": "middle-earth:block/diorite_statue_bottom",
       "y": 180
     },
-    "facing=west,half=lower": {
+    "facing=west,half=lower,flip=false": {
       "model": "middle-earth:block/diorite_statue_bottom",
+      "y": 270
+    },
+
+    "facing=east,half=upper,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_top",
+      "y": 90
+    },
+    "facing=north,half=upper,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_top"
+    },
+    "facing=south,half=upper,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_top",
+      "y": 180
+    },
+    "facing=west,half=upper,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_top",
+      "y": 270
+    },
+    "facing=east,half=lower,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_bottom",
+      "y": 90
+    },
+    "facing=north,half=lower,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_bottom"
+    },
+    "facing=south,half=lower,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_bottom",
+      "y": 180
+    },
+    "facing=west,half=lower,flip=true": {
+      "model": "middle-earth:block/diorite_statue_flip_bottom",
       "y": 270
     }
   }

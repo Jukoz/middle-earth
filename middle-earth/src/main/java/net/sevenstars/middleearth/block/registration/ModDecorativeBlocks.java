@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.dwarvenTreatedAnvil
 import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.ElvenTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
+import net.sevenstars.middleearth.block.special.statues.FlipStatueBlock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlock;
@@ -139,7 +140,7 @@ public class ModDecorativeBlocks {
     public static final Block CALCITE_STATUE = registerBlock("calcite_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool());
     public static final Block DIORITE_STATUE = registerBlock("diorite_statue",
-            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).nonOpaque().requiresTool());
+            FlipStatueBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).nonOpaque().requiresTool());
     public static final Block GALONN_STATUE = registerBlock("galonn_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
     public static final Block KHAGALABAN_STATUE = registerBlock("khagalaban_statue",
