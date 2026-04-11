@@ -138,6 +138,8 @@ public class ModDecorativeBlocks {
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
     public static final Block CALCITE_STATUE = registerBlock("calcite_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool());
+    public static final Block DIORITE_STATUE = registerBlock("diorite_statue",
+            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).nonOpaque().requiresTool());
     public static final Block GALONN_STATUE = registerBlock("galonn_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
     public static final Block KHAGALABAN_STATUE = registerBlock("khagalaban_statue",
