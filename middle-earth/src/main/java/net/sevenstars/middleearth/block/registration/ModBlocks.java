@@ -792,7 +792,7 @@ public class ModBlocks {
         if(drop){
             BlockDrops.blocks.add(block);
         }
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
