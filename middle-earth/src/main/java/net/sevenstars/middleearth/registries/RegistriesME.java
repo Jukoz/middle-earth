@@ -66,18 +66,17 @@ public class RegistriesME {
                 File aliases = new File("aliases.txt");
 
                 if (aliases.createNewFile()) {
-                    System.out.println("File created: " + aliases.getName());
+                    MiddleEarth.LOGGER.logInfoMsg("File created: " + aliases.getName());
                 } else {
-                    System.out.println("File already exists.");
+                    MiddleEarth.LOGGER.logWarn("File already exists.");
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("An error occurred.", e);
             }
 
             try {
                 FileWriter myWriter = new FileWriter("aliases.txt");
-                for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+                for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                     String name = alias.name();
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
@@ -86,19 +85,18 @@ public class RegistriesME {
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
                 }
 
-                for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+                for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                     alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
                 }
 
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                MiddleEarth.LOGGER.logTrace("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("RegistriesME :: An error occurred.", e);
             }
         } else {
-            for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                 String name = alias.name();
                 for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                     name = name.replaceAll(map.getKey(), map.getValue());
@@ -106,7 +104,7 @@ public class RegistriesME {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
 
-            for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+            for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
             }
         }
@@ -416,6 +414,11 @@ public class RegistriesME {
             builder.add(WeaponItemsME.LORIEN_LONGBOW, 400);
             builder.add(WeaponItemsME.LORIEN_NOBLE_LONGBOW, 400);
 
+            builder.add(WeaponItemsME.WOODLAND_REALM_BOW, 300);
+            builder.add(WeaponItemsME.WOODLAND_REALM_LONGBOW, 400);
+            builder.add(WeaponItemsME.WOODLAND_REALM_NOBLE_BOW, 300);
+            builder.add(WeaponItemsME.WOODLAND_REALM_NOBLE_LONGBOW, 400);
+
             builder.add(WeaponItemsME.EREBOR_BOW, 300);
             builder.add(WeaponItemsME.EREBOR_NOBLE_BOW, 300);
             builder.add(WeaponItemsME.EREBOR_CROSSBOW, 400);
@@ -431,6 +434,8 @@ public class RegistriesME {
 
             builder.add(WeaponItemsME.GUNDABAD_BOW, 300);
             builder.add(WeaponItemsME.GUNDABAD_CROSSBOW, 400);
+
+            builder.add(WeaponItemsME.MORIA_GOBLIN_BOW, 300);
 
             builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
         }));
@@ -685,6 +690,10 @@ public class RegistriesME {
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.WARG_LEATHER_ARMOR, CLEAN_EQUIPMENT);
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR, CLEAN_EQUIPMENT);
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR, CLEAN_EQUIPMENT);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR, CLEAN_EQUIPMENT);
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR, CLEAN_EQUIPMENT);
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ResourceItemsME.DIRTY_BONE, CLEAN_ITEM);
     }

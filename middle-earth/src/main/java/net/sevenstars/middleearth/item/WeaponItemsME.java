@@ -29,8 +29,8 @@ import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.RangedWeaponTypesME;
 import net.sevenstars.middleearth.item.utils.ShieldTypesME;
 import net.sevenstars.middleearth.item.utils.ToolMaterialsME;
-import net.sevenstars.middleearth.resources.FactionsME;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
+import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,240 +139,240 @@ public class WeaponItemsME {
     //region GONDOR
     public static final Item GONDORIAN_SWORD = registerItemWithModel("gondorian_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_LONGSWORD = registerItemWithModel("gondorian_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_DAGGER = registerItemWithModel("gondorian_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), false);
     public static final Item GONDORIAN_AXE = registerItemWithModel("gondorian_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_SPEAR = registerItemWithSpearModel("gondorian_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_BOW = registerBowItem("gondorian_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     public static final Item GONDORIAN_LONGBOW = registerBigBowItem("gondorian_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_NOBLE_SWORD = registerItemWithModel("gondorian_noble_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL,settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_NOBLE_LONGSWORD = registerItemWithModel("gondorian_noble_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_NOBLE_DAGGER = registerItemWithModel("gondorian_noble_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), false);
     public static final Item GONDORIAN_NOBLE_AXE = registerItemWithModel("gondorian_noble_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_NOBLE_SPEAR = registerItemWithSpearModel("gondorian_noble_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_NOBLE_LONGBOW = registerBigBowItem("gondorian_noble_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_FOUNTAIN_GUARD_SPEAR = registerItemWithSpearModel("gondorian_fountain_guard_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     public static final Item GONDORIAN_TOWER_SHIELD = registerShield("gondorian_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     public static final Item GONDORIAN_KINGS_GUARD_TOWER_SHIELD = registerShield("gondorian_kings_guard_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     public static final Item LAST_ALLIANCE_HEIRLOOM_TOWER_SHIELD = registerShield("last_alliance_heirloom_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     public static final Item GONDORIAN_HERO_SHIELD = registerShield("gondorian_hero_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     public static final Item GONDORIAN_KNIGHT_SHIELD = registerShield("gondorian_knight_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     public static final Item GONDORIAN_ORNAMENTED_KNIGHT_SHIELD = registerShield("gondorian_ornamented_knight_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.GONDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     //endregion
 
     //region ROHAN
     public static final Item ROHIRRIC_SWORD = registerItemWithModel("rohirric_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_LONGSWORD = registerItemWithModel("rohirric_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_DAGGER = registerItemWithModel("rohirric_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), false);
     public static final Item ROHIRRIC_AXE = registerItemWithModel("rohirric_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_SPEAR = registerItemWithSpearModel("rohirric_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
 
     public static final Item ROHIRRIC_BOW = registerBigBowItem("rohirric_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_LONGBOW = registerBigBowItem("rohirric_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
 
     public static final Item ROHIRRIC_NOBLE_SWORD = registerItemWithModel("rohirric_noble_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_NOBLE_LONGSWORD = registerItemWithModel("rohirric_noble_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_NOBLE_DAGGER = registerItemWithModel("rohirric_noble_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), false);
     public static final Item ROHIRRIC_NOBLE_AXE = registerItemWithModel("rohirric_noble_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_NOBLE_SPEAR = registerItemWithSpearModel("rohirric_noble_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
 
     public static final Item ROHIRRIC_NOBLE_BOW = registerBigBowItem("rohirric_noble_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
 
     public static final Item ROHIRRIC_SHIELD = registerShield("rohirric_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_BUCKING_HORSE_SHIELD = registerShield("rohirric_bucking_horse_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_GALLOPING_HORSE_SHIELD = registerShield("rohirric_galloping_horse_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_HORSE_HEAD_SHIELD = registerShield("rohirric_horse_head_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_PLAINSMAN_SHIELD = registerShield("rohirric_plainsman_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_TWIN_HORSES_SHIELD = registerShield("rohirric_twin_horses_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_EORLING_SHIELD = registerShield("rohirric_eorling_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_ORNAMENTED_SHIELD = registerShield("rohirric_ornamented_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     public static final Item ROHIRRIC_ROYAL_GUARD_SHIELD = registerShield("rohirric_royal_guard_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ROHAN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     //endregion
 
     //region DALE
     public static final Item DALISH_SWORD = registerItemWithModel("dalish_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_LONGSWORD = registerItemWithModel("dalish_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_DAGGER = registerItemWithModel("dalish_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), false);
     public static final Item DALISH_AXE = registerItemWithModel("dalish_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_SPEAR = registerItemWithSpearModel("dalish_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_LONGBOW = registerBigBowItem("dalish_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_NOBLE_SWORD = registerItemWithModel("dalish_noble_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_NOBLE_LONGSWORD = registerItemWithModel("dalish_noble_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_NOBLE_DAGGER = registerItemWithModel("dalish_noble_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), false);
     public static final Item DALISH_NOBLE_AXE = registerItemWithModel("dalish_noble_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_NOBLE_LONGBOW = registerBigBowItem("dalish_noble_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_HEYDAY_SWORD = registerItemWithModel("dalish_heyday_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_HEYDAY_LONGSWORD = registerItemWithModel("dalish_heyday_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_HEYDAY_SCIMITAR = registerItemWithModel("dalish_heyday_scimitar",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_HEYDAY_DAGGER = registerItemWithModel("dalish_heyday_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), false);
     public static final Item DALISH_HEYDAY_AXE = registerItemWithModel("dalish_heyday_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_HEYDAY_SPEAR = registerItemWithSpearModel("dalish_heyday_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_HEYDAY_LONGBOW = registerBigBowItem("dalish_heyday_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_BLUE_OVAL_SHIELD = registerShield("dalish_blue_oval_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     public static final Item DALISH_BARDING_OVAL_SHIELD = registerShield("dalish_barding_oval_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_BLUE_BRACED_SHIELD = registerShield("dalish_blue_braced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     public static final Item DALISH_BARDING_BRACED_SHIELD = registerShield("dalish_barding_braced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_HEAVY_SHIELD = registerShield("dalish_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     public static final Item DALISH_BARDING_HEAVY_SHIELD = registerShield("dalish_barding_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     public static final Item DALISH_ROYAL_HEAVY_SHIELD = registerShield("dalish_royal_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     public static final Item DALISH_ROYAL_ROUND_SHIELD = registerShield("dalish_royal_round_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     public static final Item DALISH_HEYDAY_ROUND_SHIELD = registerShield("dalish_heyday_round_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.DALE.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     //endregion
 
     //endregion
@@ -380,148 +380,231 @@ public class WeaponItemsME {
     //region LOTHLORIEN
     public static final Item LORIEN_SWORD = registerItemWithModel("lorien_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_GLAIVE = registerItemWithModel("lorien_glaive",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_DAGGER = registerItemWithModel("lorien_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), false);
     public static final Item LORIEN_AXE = registerItemWithModel("lorien_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_SPEAR = registerItemWithSpearModel("lorien_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
 
     public static final Item LORIEN_BOW = registerBigBowItem("lorien_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item LORIEN_LONGBOW = registerBigBowItem("lorien_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
 
     public static final Item LORIEN_NOBLE_SWORD = registerItemWithModel("lorien_noble_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_NOBLE_GLAIVE = registerItemWithModel("lorien_noble_glaive",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_NOBLE_DAGGER = registerItemWithModel("lorien_noble_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), false);
     public static final Item LORIEN_NOBLE_AXE = registerItemWithModel("lorien_noble_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_NOBLE_SPEAR = registerItemWithSpearModel("lorien_noble_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
 
     public static final Item LORIEN_NOBLE_LONGBOW = registerBigBowItem("lorien_noble_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
 
     public static final Item LORIEN_SHIELD = registerShield("lorien_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item LORIEN_LAURELS_SHIELD = registerShield("lorien_laurels_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item LORIEN_MALLORN_SHIELD = registerShield("lorien_mallorn_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item GALADHRIM_SHIELD = registerShield("galadhrim_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item GALADHRIM_LORD_SHIELD = registerShield("galadhrim_lord_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LOTHLORIEN.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    //endregion
+
+    //region WOODLAND_REALM
+    public static final Item WOODLAND_REALM_SWORD = registerItemWithModel("woodland_realm_sword",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
+    public static final Item WOODLAND_REALM_LONGSWORD = registerItemWithModel("woodland_realm_longsword",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
+    public static final Item WOODLAND_REALM_AXE = registerItemWithModel("woodland_realm_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
+    public static final Item WOODLAND_REALM_SPEAR = registerItemWithSpearModel("woodland_realm_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_BOW = registerBigBowItem("woodland_realm_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_LONGBOW = registerBigBowItem("woodland_realm_longbow",
+            (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+
+    public static final Item WOODLAND_REALM_NOBLE_SWORD = registerItemWithModel("woodland_realm_noble_sword",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
+    public static final Item WOODLAND_REALM_NOBLE_LONGSWORD = registerItemWithModel("woodland_realm_noble_longsword",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
+    public static final Item WOODLAND_REALM_NOBLE_DAGGER = registerItemWithModel("woodland_realm_noble_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), false);
+    public static final Item WOODLAND_REALM_NOBLE_AXE = registerItemWithModel("woodland_realm_noble_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
+    public static final Item WOODLAND_REALM_NOBLE_SPEAR = registerItemWithSpearModel("woodland_realm_noble_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_NOBLE_BOW = registerBigBowItem("woodland_realm_noble_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_NOBLE_LONGBOW = registerBigBowItem("woodland_realm_noble_longbow",
+            (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+
+    public static final Item WOODLAND_REALM_BUCKLER_SHIELD = registerShield("woodland_realm_buckler_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_SCOUT_SHIELD = registerShield("woodland_realm_scout_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_SCOUT_BRONZE_SHIELD = registerShield("woodland_realm_scout_bronze_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_HEAVY_SHIELD = registerShield("woodland_realm_heavy_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_HEAVY_GREEN_SHIELD = registerShield("woodland_realm_heavy_green_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_HEAVY_BLUE_SHIELD = registerShield("woodland_realm_heavy_blue_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD = registerShield("woodland_realm_heavy_ornamented_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD = registerShield("woodland_realm_heavy_ornamented_green_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_GLADE_SHIELD = registerShield("woodland_realm_glade_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_NIGHTSHADE_SHIELD = registerShield("woodland_realm_nightshade_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item WOODLAND_REALM_NIGHTSHADE_ORNAMENTED_SHIELD = registerShield("woodland_realm_nightshade_ornamented_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item ERYN_GALEN_SHIELD = registerShield("eryn_galen_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+    public static final Item ERYN_GALEN_TARNISHED_SHIELD = registerShield("eryn_galen_tarnished_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     //endregion
 
     //region EREBOR
     public static final Item EREBOR_SWORD = registerItemWithModel("erebor_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_LONGSWORD = registerItemWithModel("erebor_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_DAGGER = registerItemWithModel("erebor_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), false);
     public static final Item EREBOR_AXE = registerItemWithModel("erebor_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_SPEAR = registerItemWithSpearModel("erebor_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item EREBOR_BOW = registerBigBowItem("erebor_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_CROSSBOW = registerCrossbowItem("erebor_crossbow",
             (settings) -> new CustomCrossbowWeaponItem(RangedWeaponTypesME.CROSSBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item EREBOR_NOBLE_SWORD = registerItemWithModel("erebor_noble_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_NOBLE_LONGSWORD = registerItemWithModel("erebor_noble_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_NOBLE_DAGGER = registerItemWithModel("erebor_noble_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), false);
     public static final Item EREBOR_NOBLE_AXE = registerItemWithModel("erebor_noble_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_NOBLE_SPEAR = registerItemWithSpearModel("erebor_noble_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item EREBOR_NOBLE_BOW = registerBigBowItem("erebor_noble_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_NOBLE_CROSSBOW = registerCrossbowItem("erebor_noble_crossbow",
             (settings) -> new CustomCrossbowWeaponItem(RangedWeaponTypesME.NOBLE_CROSSBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item EREBOR_SHIELD = registerShield("erebor_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_CROSS_SHIELD = registerShield("erebor_cross_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_PLATED_SHIELD = registerShield("erebor_plated_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_ORNAMENTED_SHIELD = registerShield("erebor_ornamented_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_REINFORCED_SHIELD = registerShield("erebor_reinforced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item EREBOR_BUCKLER_SHIELD = registerShield("erebor_buckler_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_TOWER_SHIELD = registerShield("erebor_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_REINFORCED_TOWER_SHIELD = registerShield("erebor_reinforced_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item EREBOR_ORNAMENTED_TOWER_SHIELD = registerShield("erebor_ornamented_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item RAVENHILL_TOWER_SHIELD = registerShield("ravenhill_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item RAVENHILL_REINFORCED_TOWER_SHIELD = registerShield("ravenhill_reinforced_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item RAVENHILL_ORNAMENTED_TOWER_SHIELD = registerShield("ravenhill_ornamented_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.LONGBEARDS_EREBOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     //endregion
 
     public static final Item ORC_SWORD = registerItemWithModel("orc_sword",
@@ -538,191 +621,205 @@ public class WeaponItemsME {
     public static final Item ORCISH_BOW = registerBigBowItem("orcish_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings());
 
+    public static final Item RUINED_DWARVEN_SHIELD = registerShield("ruined_dwarven_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_CROSS_SHIELD = registerShield("ruined_dwarven_cross_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_ORNAMENTED_SHIELD = registerShield("ruined_dwarven_ornamented_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_REINFORCED_SHIELD = registerShield("ruined_dwarven_reinforced_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+
+    public static final Item RUINED_DWARVEN_ORNAMENTED_TOWER_SHIELD = registerShield("ruined_dwarven_ornamented_tower_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+    public static final Item RUINED_DWARVEN_REINFORCED_TOWER_SHIELD = registerShield("ruined_dwarven_reinforced_tower_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings());
+
     //region MORDOR
     public static final Item MORDOR_FALCHION = registerItemWithModel("mordor_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_SCIMITAR = registerItemWithModel("mordor_scimitar",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_DAGGER = registerItemWithModel("mordor_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), false);
     public static final Item MORDOR_AXE = registerItemWithModel("mordor_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_SPEAR = registerItemWithSpearModel("mordor_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_BOW = registerBigBowItem("mordor_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings());
 
     public static final Item MORDOR_ELITE_CLEAVER = registerItemWithModel("mordor_elite_cleaver",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_ELITE_WARBLADE = registerItemWithModel("mordor_elite_warblade",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_ELITE_DAGGER = registerItemWithModel("mordor_elite_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), false);
     public static final Item MORDOR_ELITE_AXE = registerItemWithModel("mordor_elite_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_ELITE_SPEAR = registerItemWithSpearModel("mordor_elite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_ELITE_LONGBOW = registerBigBowItem("mordor_elite_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item BLACK_NUMENOREAN_SWORD = registerItemWithModel("black_numenorean_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item BLACK_NUMENOREAN_LONGSWORD = registerItemWithModel("black_numenorean_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item BLACK_NUMENOREAN_DAGGER = registerItemWithModel("black_numenorean_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), false);
     public static final Item BLACK_NUMENOREAN_AXE = registerItemWithModel("black_numenorean_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_WOODEN_SHIELD = registerShield("mordor_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_PAINTED_WOODEN_SHIELD = registerShield("mordor_painted_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_ROUND_SHIELD = registerShield("mordor_round_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_BLACK_ROUND_SHIELD = registerShield("mordor_black_round_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_PAINTED_ROUND_SHIELD = registerShield("mordor_painted_round_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_BRACED_SHIELD = registerShield("mordor_braced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_BLACK_BRACED_SHIELD = registerShield("mordor_black_braced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_PAINTED_BRACED_SHIELD = registerShield("mordor_painted_braced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_LARGE_SHIELD = registerShield("mordor_large_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_BLACK_LARGE_SHIELD = registerShield("mordor_black_large_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_PAINTED_LARGE_SHIELD = registerShield("mordor_painted_large_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item GONDORIAN_CONVERTED_SHIELD = registerShield("gondorian_converted_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_HEAVY_SHIELD = registerShield("mordor_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item MORDOR_PAINTED_HEAVY_SHIELD = registerShield("mordor_painted_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item BLACK_NUMENOREAN_TOWER_SHIELD = registerShield("black_numenorean_tower_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     //region DOL GULDUR
     public static final Item DOL_GULDUR_MACHETE = registerItemWithModel("dol_guldur_machete",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item DOL_GULDUR_AXE = registerItemWithModel("dol_guldur_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
 
     public static final Item DOL_GULDUR_PAVISE = registerShield("dol_guldur_pavise",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item DOL_GULDUR_SHIELD = registerShield("dol_guldur_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MORDOR.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     //endregion
     //endregion
 
     //region ISENGARD
     public static final Item ISENGARD_ORC_CLEAVER = registerItemWithModel("isengard_orc_cleaver",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item ISENGARD_ORC_WARBLADE = registerItemWithModel("isengard_orc_warblade",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item ISENGARD_ORC_DAGGER = registerItemWithModel("isengard_orc_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), false);
     public static final Item ISENGARD_ORC_AXE = registerItemWithModel("isengard_orc_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item ISENGARD_ORC_SPEAR = registerItemWithSpearModel("isengard_orc_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
 
     public static final Item URUK_HAI_FALCHION = registerItemWithModel("uruk_hai_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item URUK_HAI_WARBLADE = registerItemWithModel("uruk_hai_warblade",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item URUK_HAI_KNIFE = registerItemWithModel("uruk_hai_knife",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), false);
     public static final Item URUK_HAI_AXE = registerItemWithModel("uruk_hai_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item URUK_HAI_SPEAR = registerItemWithSpearModel("uruk_hai_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
 
     public static final Item URUK_HAI_BOW = registerBigBowItem("uruk_hai_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
     public static final Item URUK_HAI_CROSSBOW = registerCrossbowItem("uruk_hai_crossbow",
             (settings) -> new CustomCrossbowWeaponItem(RangedWeaponTypesME.NOBLE_CROSSBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
 
     public static final Item URUK_HAI_HEATER_SHIELD = registerShield("uruk_hai_heater_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
 
     public static final Item URUK_HAI_SHIELD = registerShield("uruk_hai_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
     public static final Item URUK_HAI_WHITE_HAND_SHIELD = registerShield("uruk_hai_white_hand_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
     public static final Item URUK_HAI_WHITE_PALMPRINT_SHIELD = registerShield("uruk_hai_white_palmprint_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
     public static final Item URUK_HAI_S_RUNE_SHIELD = registerShield("uruk_hai_s_rune_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
 
     public static final Item URUK_HAI_SIEGE_SHIELD = registerShield("uruk_hai_siege_shield",
             (settings) -> new CustomSiegeShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.ISENGARD.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
     //endregion
 
     //region MISTIES
@@ -730,63 +827,133 @@ public class WeaponItemsME {
     //region GUNDABAD
     public static final Item GUNDABAD_FALCHION = registerItemWithModel("gundabad_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), true);
     public static final Item GUNDABAD_ELITE_CLEAVER = registerItemWithModel("gundabad_elite_cleaver",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), true);
     public static final Item GUNDABAD_WARBLADE = registerItemWithModel("gundabad_warblade",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), true);
     public static final Item GUNDABAD_ELITE_SCIMITAR = registerItemWithModel("gundabad_elite_scimitar",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), true);
     public static final Item GUNDABAD_SHANK = registerItemWithModel("gundabad_shank",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), false);
     public static final Item GUNDABAD_ELITE_DAGGER = registerItemWithModel("gundabad_elite_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), false);
     public static final Item GUNDABAD_AXE = registerItemWithModel("gundabad_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), true);
     public static final Item GUNDABAD_ELITE_BATTLEAXE = registerItemWithModel("gundabad_elite_battleaxe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), true);
     public static final Item GUNDABAD_SPEAR = registerItemWithSpearModel("gundabad_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
     public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.NOBLE_BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
 
     public static final Item GUNDABAD_BOW = registerBigBowItem("gundabad_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
     public static final Item GUNDABAD_CROSSBOW = registerCrossbowItem("gundabad_crossbow",
             (settings) -> new CustomCrossbowWeaponItem(RangedWeaponTypesME.CROSSBOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
 
     public static final Item GUNDABAD_WOODEN_SHIELD = registerShield("gundabad_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
     public static final Item GUNDABAD_PAINTED_WOODEN_SHIELD = registerShield("gundabad_painted_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
     public static final Item GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD = registerShield("gundabad_great_eye_painted_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
     public static final Item GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD = registerShield("gundabad_peaks_painted_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
 
     public static final Item GUNDABAD_REINFORCED_SHIELD = registerShield("gundabad_reinforced_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
 
     public static final Item GUNDABAD_HEAVY_SHIELD = registerShield("gundabad_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionsME.MISTY_MOUNTAINS_GOBLINS.getValue())));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
     //endregion
+    //endregion
+
+    //region MORIA GOBS
+    public static final Item MORIA_GOBLIN_FALCHION = registerItemWithModel("moria_goblin_falchion",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+    public static final Item MORIA_GOBLIN_HOOKBLADE = registerItemWithModel("moria_goblin_hookblade",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+    public static final Item MORIA_GOBLIN_SHANK = registerItemWithModel("moria_goblin_shank",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), false);
+    public static final Item MORIA_GOBLIN_HOOKAXE = registerItemWithModel("moria_goblin_hookaxe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+    public static final Item MORIA_GOBLIN_SPEAR = registerItemWithSpearModel("moria_goblin_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+
+    public static final Item MORIA_GOBLIN_BOW = registerBigBowItem("moria_goblin_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+
+    public static final Item MORIA_GOBLINS_BUCKLER_SHIELD = registerShield("moria_goblins_buckler_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+
+    public static final Item MORIA_GOBLINS_HEAVY_SHIELD = registerShield("moria_goblins_heavy_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+    //endregion
+
+    //region GOBLIN TOWN
+    public static final Item GOBLIN_TOWN_FALCHION = registerItemWithModel("goblin_town_falchion",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+    public static final Item GOBLIN_TOWN_SCIMITAR = registerItemWithModel("goblin_town_scimitar",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+    public static final Item GOBLIN_TOWN_SHANK = registerItemWithModel("goblin_town_shank",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), false);
+    public static final Item GOBLIN_TOWN_AXE = registerItemWithModel("goblin_town_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+    public static final Item GOBLIN_TOWN_SPEAR = registerItemWithSpearModel("goblin_town_spear",
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+
+    public static final Item GOBLIN_TOWN_BOW = registerBigBowItem("goblin_town_bow",
+            (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+
+    public static final Item GOBLIN_TOWN_BONE_SHIELD = registerShield("goblin_town_bone_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+
+    public static final Item GOBLIN_TOWN_WOODEN_SHIELD = registerShield("goblin_town_wooden_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+    public static final Item GOBLIN_BONE_TOWN_WOODEN_SHIELD = registerShield("goblin_town_bone_wooden_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+    public static final Item GOBLIN_LEATHER_TOWN_WOODEN_SHIELD = registerShield("goblin_town_leather_wooden_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+
+    public static final Item GOBLIN_LEATHER_HEAVY_SHIELD = registerShield("goblin_town_heavy_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
     //endregion
 
     //region TROLL WEAPONS
@@ -952,7 +1119,7 @@ public class WeaponItemsME {
         } else if (item instanceof CustomSpearWeaponItem){
             WeaponEnchants.sharpWeapons.add(item);
         }
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
     }
 

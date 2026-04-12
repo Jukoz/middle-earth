@@ -1,13 +1,11 @@
 package net.sevenstars.middleearth.entity.projectile;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -15,7 +13,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -23,11 +20,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.ModEntityTypeTags;
-import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
-import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfiguredFeatures;
 
@@ -42,7 +36,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
     }
 
     public WebbedEntity(World world, LivingEntity owner, float dmg) {
-        super(ModEntities.WEB, owner, world, new ItemStack(Items.COBWEB));
+        super(EntitiesME.WEB, owner, world, new ItemStack(Items.COBWEB));
         this.damage = dmg;
         if(feature == null) {
             if(!this.getWorld().isClient) {

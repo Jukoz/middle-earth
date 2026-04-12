@@ -9,7 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 
 public class NpcTaskListProvider {
     private static final float WALKING_SPEED = 0.4F;
@@ -19,7 +19,7 @@ public class NpcTaskListProvider {
         return ImmutableList.of(
                 Pair.of(2, new RandomTask(
                         ImmutableList.of(
-                                Pair.of(FindEntityTask.create(ModEntities.NPC, 8, MemoryModuleType.INTERACTION_TARGET, speed, 2), 2),
+                                Pair.of(FindEntityTask.create(EntitiesME.NPC, 8, MemoryModuleType.INTERACTION_TARGET, speed, 2), 2),
                                 Pair.of(GoToPointOfInterestTask.create(speed), 1),
                                 Pair.of(GoToLookTargetTask.create(speed, 2), 1),
                                 Pair.of(new JumpInBedTask(speed), 1),

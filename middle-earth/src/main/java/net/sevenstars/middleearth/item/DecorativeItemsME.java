@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.utils.BlockAuthor;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
@@ -22,7 +22,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 
@@ -174,7 +174,7 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.TAPPER, settings), new Item.Settings());
 
     public static final Item TROLL_STATUE = registerItem("troll_statue",
-            (settings) -> new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
+            (settings) -> new CustomSpawnEggItem(EntitiesME.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
 
     public static final Item ARKENSTONE = registerItem("arkenstone",
             (settings) -> new VerticallyAttachableBlockItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, Direction.DOWN, settings), new Item.Settings().rarity(Rarity.EPIC).fireproof()
@@ -185,7 +185,7 @@ public class DecorativeItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

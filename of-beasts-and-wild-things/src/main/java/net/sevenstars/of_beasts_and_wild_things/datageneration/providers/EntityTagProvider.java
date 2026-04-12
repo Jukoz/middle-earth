@@ -6,8 +6,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.BiomeKeys;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
@@ -21,7 +19,7 @@ public class EntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        var swan_food = valueLookupBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
+        var swan_food = valueLookupBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.of("swan_food")));
 
         swan_food.add(EntitiesWT.SNAIL);
         swan_food.add(EntityType.TADPOLE);

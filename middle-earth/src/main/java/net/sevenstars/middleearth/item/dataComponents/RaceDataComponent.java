@@ -13,7 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.resources.RacesME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 
 import java.util.function.Consumer;
@@ -30,7 +30,7 @@ public record RaceDataComponent(Identifier raceId) implements TooltipAppender {
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        Race race = context.getRegistryLookup().getOrThrow(RacesME.KEY).getOrThrow(RegistryKey.of(RacesME.KEY, this.raceId)).value();
+        Race race = context.getRegistryLookup().getOrThrow(DynamicRegistriesME.RACE).getOrThrow(RegistryKey.of(DynamicRegistriesME.RACE, this.raceId)).value();
         textConsumer.accept(Text.translatable("tooltip.%s.race".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.DARK_RED)
             .append(Text.translatable(race.getId().toTranslationKey("race")).formatted(Formatting.WHITE)));
     }

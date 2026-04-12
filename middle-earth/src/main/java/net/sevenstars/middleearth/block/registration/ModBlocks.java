@@ -26,7 +26,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.List;
 import java.util.function.Function;
@@ -486,12 +486,16 @@ public class ModBlocks {
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.COPPER), true);
 
+    public static final Block AGED_WOOD_DOOR = registerMiscBlock("aged_wood_door",
+            (settings) -> new DoorBlock(BlockSetType.DARK_OAK, settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_DOOR), true);
     public static final Block BRONZE_DOOR = registerMiscBlock("bronze_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block CRUDE_DOOR = registerMiscBlock("crude_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block TREATED_STEEL_DOOR = registerMiscBlock("treated_steel_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
+    public static final Block AGED_WOOD_TRAPDOOR = registerMiscBlock("aged_wood_trapdoor",
+            (settings) -> new TrapdoorBlock(BlockSetType.DARK_OAK, settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_TRAPDOOR), true);
     public static final Block BRONZE_TRAPDOOR = registerMiscBlock("bronze_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     public static final Block CRUDE_TRAPDOOR = registerMiscBlock("crude_trapdoor",
@@ -779,7 +783,7 @@ public class ModBlocks {
         }
         group.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, keyOfBlock(name), block);
     }
 
@@ -809,7 +813,7 @@ public class ModBlocks {
         var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }
 
     public static RegistryKey<Block> keyOfBlock(String id) {

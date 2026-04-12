@@ -15,6 +15,9 @@ public class BannerPatternTagsME {
     public static final TagKey<BannerPattern> MORDOR_PATTERN_ITEM = of("mordor");
     public static final TagKey<BannerPattern> MISTY_MOUNTAINS_ORCS_PATTERN_ITEM = of("misty_mountains_orcs");
     public static final TagKey<BannerPattern> ISENGARD_PATTERN_ITEM = of("isengard");
+    public static final TagKey<BannerPattern> SCREECHING_SKULL_PATTERN_ITEM = of("screeching_skull");
+    public static final TagKey<BannerPattern> GOBLIN_SKULL_PATTERN_ITEM = of("goblin_skull");
+    public static final TagKey<BannerPattern> GREAT_HORN_PATTERN_ITEM = of("great_horn");
 
     public static final TagKey<BannerPattern> DRAGON_PATTERN_ITEM = of("dragon");
     public static final TagKey<BannerPattern> PIPEWEED_PATTERN_ITEM = of("pipeweed");
@@ -25,6 +28,8 @@ public class BannerPatternTagsME {
     public static final TagKey<BannerPattern> DWARF_CROWN_PATTERN_ITEM = of("dwarf_crown");
     public static final TagKey<BannerPattern> SPIDER_PATTERN_ITEM = of("spider");
     public static final TagKey<BannerPattern> BOW_PATTERN_ITEM = of("bow");
+    public static final TagKey<BannerPattern> ANTLERS_PATTERN_ITEM = of("antlers");
+    public static final TagKey<BannerPattern> OAK_LEAF_PATTERN_ITEM = of("oak_leaf");
 
     private static TagKey<BannerPattern> of(String name) {
         return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "pattern_item/" + name));

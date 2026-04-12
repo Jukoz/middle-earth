@@ -26,10 +26,14 @@ public class TranslationEntries {
 
     public static List<String> bannerPatternEntries = new ArrayList<>() {
     };
-
+    public static List<String> raceEntries = new ArrayList<>() {
+    };
     public static List<String> factionEntries = new ArrayList<>() {
     };
-
+    public static List<String> npcDataEntries = new ArrayList<>() {
+    };
+    public static List<String> structureManagerEntries = new ArrayList<>() {
+    };
     public static List<String> spawnEntries = new ArrayList<>() {
     };
 
@@ -255,10 +259,14 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".mordor_banner_pattern.desc", "The Great Eye of Sauron");
             put("item."+ MiddleEarth.MOD_ID +".misty_mountains_orcs_banner_pattern.desc", "The symbols of the Orcs of the Misty Mountains");
             put("item."+ MiddleEarth.MOD_ID +".isengard_banner_pattern.desc", "The White Hand of Saruman");
+            put("item."+ MiddleEarth.MOD_ID +".goblin_skull_banner_pattern.desc", "The Skull of a Goblin");
             put("item."+ MiddleEarth.MOD_ID +".anvil_banner_pattern.desc", "Anvil Icons");
             put("item."+ MiddleEarth.MOD_ID +".bell_banner_pattern.desc", "Bell Icons");
             put("item."+ MiddleEarth.MOD_ID +".bow_banner_pattern.desc", "Bow Icons");
             put("item."+ MiddleEarth.MOD_ID +".dwarf_crown_banner_pattern.desc", "Dwarf Crown Icons");
+            put("item."+ MiddleEarth.MOD_ID +".great_horn_pattern.desc", "Elk and Stag");
+            put("item."+ MiddleEarth.MOD_ID +".oak_leaf.desc", "Oak Leaf");
+            put("item."+ MiddleEarth.MOD_ID +".antlers.desc", "Lost Antlers");
             put("item."+ MiddleEarth.MOD_ID +".dragon_banner_pattern.desc", "A great Dragon");
             put("item."+ MiddleEarth.MOD_ID +".pipeweed_banner_pattern.desc", "A delicacy from the shire");
             put("item."+ MiddleEarth.MOD_ID +".snail_banner_pattern.desc", "The Slimy Overlord");
@@ -272,6 +280,10 @@ public class TranslationEntries {
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_refill", "Pipe refills");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_exhale", "Pipe exhales");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_ignite", "Pipe ignites");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_idle", "Great Horn grunts");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_hurt", "Great Horn hurts");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_call", "Great Horn bugles");
+            put("sounds."+ MiddleEarth.MOD_ID +".great_horn_death", "Great Horn dies");
 
             put("screen."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("screen."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
@@ -379,6 +391,8 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".temp_4", "Searing Hot");
             put("tooltip."+ MiddleEarth.MOD_ID +".temp_5", "Blazing Hot");
 
+            put("tooltip."+ MiddleEarth.MOD_ID +".biome", "Biome");
+
             //TODO try to automate
             put("trim_pattern."+ MiddleEarth.MOD_ID +".smithing_part", "Smithing Part");
             put("trim_material."+ MiddleEarth.MOD_ID +".jade", "Jade");
@@ -403,13 +417,6 @@ public class TranslationEntries {
             put("spawn."+ MiddleEarth.MOD_ID +".coordinates_base_values.custom", "%s, %s, %s");
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
-
-            put("race."+ MiddleEarth.MOD_ID +".dwarf", "Dwarf");
-            put("race."+ MiddleEarth.MOD_ID +".elf", "Elf");
-            put("race."+ MiddleEarth.MOD_ID +".human", "Human");
-            put("race."+ MiddleEarth.MOD_ID +".hobbit", "Hobbit");
-            put("race."+ MiddleEarth.MOD_ID +".orc", "Orc");
-            put("race."+ MiddleEarth.MOD_ID +".uruk", "Uruk");
 
             put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
 

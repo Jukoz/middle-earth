@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
-import net.sevenstars.middleearth.resources.StructureManagerDatasME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
@@ -45,7 +45,7 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
         World world = inventory.player.getWorld();
 
         this.managers = new ArrayList<>();
-        var registryManager = world.getRegistryManager().getOptional(StructureManagerDatasME.KEY).get();
+        var registryManager = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get();
         for(RegistryKey<StructureManagerData> data : registryManager.getKeys()){
             this.managers.add(registryManager.get(data.getValue()));
         }

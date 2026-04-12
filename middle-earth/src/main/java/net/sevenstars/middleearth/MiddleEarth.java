@@ -1,19 +1,19 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
-import net.sevenstars.middleearth.entity.ModEntities;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
-import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.event.ModEvents;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.*;
@@ -24,10 +24,11 @@ import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
-import net.sevenstars.middleearth.resources.*;
 import net.sevenstars.middleearth.sound.ModSounds;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
@@ -101,12 +102,9 @@ public class MiddleEarth implements ModInitializer {
 
 		ModTrackedDataHandlerRegistry.register();
 
-		CharacterMaterialsME.register();
-		CharacterPatternsME.register();
-		StructureManagerDatasME.register();
-		BiomeEventsME.register();
 
-		ModEntities.registerModEntities();
+
+		EntitiesME.registerModEntities();
 		ModEntitySpawning.addSpawns();
 
 		// Entity AI
@@ -127,12 +125,7 @@ public class MiddleEarth implements ModInitializer {
 		LootModifiers.modifyLootTables();
 
 		// Dynamic Data
-		SpiderVariants.register();
-        NpcTextureDatasME.register();
-        RacesME.register();
-		NpcME.register();
-		FactionsME.register();
-
+        DynamicRegistriesME.register();
 		RegistriesME.registerRegistryAliases();
 
 		try {
@@ -141,4 +134,19 @@ public class MiddleEarth implements ModInitializer {
 			throw new RuntimeException(e);
 		}
 	}
+
+    public static Identifier fetchId(String stringId){
+        return IdentifierUtil.getIdentifierFromString(stringId);
+    }
+
+    public static Identifier of(String path){
+        return IdentifierUtil.build(MOD_ID, path);
+    }
+
+    public static Identifier of(String... names){
+        return IdentifierUtil.buildAggregate(MOD_ID, names);
+    }
+    public static String createAggregate(char splitter, String... names){
+        return IdentifierUtil.createAggregateValue(splitter, names);
+    }
 }

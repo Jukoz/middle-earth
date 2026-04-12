@@ -6,6 +6,7 @@ import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.items.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.LitPineconeItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
@@ -21,7 +22,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 
@@ -40,6 +41,11 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1));
     public static final Item STARLIGHT_PHIAL = registerItem("starlight_phial",
             StarlightPhialItem::new, new Item.Settings().maxCount(1));
+
+    public static final Item REINFORCED_BARREL = registerItem("reinforced_barrel",
+            (settings) -> {
+                return new BoatItem(EntitiesME.REINFORCED_BARREL, settings);
+            }, new Item.Settings().maxCount(1));
 
     public static final Item RAW_TIN = registerItem("raw_tin",
             Item::new, new Item.Settings());
@@ -230,6 +236,14 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ISENGARD_PATTERN_ITEM));
 
+    public static final Item SCREECHING_SKULL_BANNER_PATTERN = registerItem("screeching_skull_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SCREECHING_SKULL_PATTERN_ITEM));
+
+    public static final Item GOBLIN_SKULL_BANNER_PATTERN = registerItem("goblin_skull_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.GOBLIN_SKULL_PATTERN_ITEM));
+
     public static final Item ANVIL_BANNER_PATTERN = registerItem("anvil_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ANVIL_PATTERN_ITEM));
@@ -248,6 +262,16 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SPIDER_PATTERN_ITEM));
 
+    public static final Item GREAT_HORN_BANNER_PATTERN = registerItem("great_horn_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.GREAT_HORN_PATTERN_ITEM));
+    public static final Item OAK_LEAF_BANNER_PATTERN = registerItem("oak_leaf_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.OAK_LEAF_PATTERN_ITEM));
+
+    public static final Item ANTLERS_BANNER_PATTERN = registerItem("antlers_banner_pattern",
+            Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+                    .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.ANTLERS_PATTERN_ITEM));
     public static final Item DRAGON_BANNER_PATTERN = registerItem("dragon_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.DRAGON_PATTERN_ITEM));
@@ -259,7 +283,7 @@ public class ResourceItemsME {
         Item item = factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.RESOURCES_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 
