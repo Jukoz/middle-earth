@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneWa
 import net.sevenstars.middleearth.block.special.artisantable.ArtisanTable;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
+import net.sevenstars.middleearth.block.special.candles.CandleHolderBlock;
 import net.sevenstars.middleearth.block.special.candles.CandleStickBlock;
 import net.sevenstars.middleearth.block.special.candles.SkullCandleBlock;
 import net.sevenstars.middleearth.block.special.coffers.LarchCofferBlock;
@@ -127,6 +128,8 @@ public class ModDecorativeBlocks {
 
     public static final Block CANDLESTICK = registerBlockWithItem("candlestick",
             CandleStickBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
+    public static final Block CANDLE_HOLDER = registerBlockWithItem("candle_holder",
+            CandleHolderBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(6)).nonOpaque());
     public static final Block SKULL_CANDLE = registerBlockWithItem("skull_candle",
             SkullCandleBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",

@@ -1148,6 +1148,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.CANDLE),
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CANDLE_HOLDER, 1)
+                        .pattern("C ")
+                        .pattern("SS")
+                        .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .input('S', ResourceItemsME.STEEL_NUGGET)
+                        .criterion(hasItem(Items.CANDLE),
+                                conditionsFromItem(Items.CANDLE))
+                        .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CANDLE_HEAP, 1)
                         .pattern("CCC")
