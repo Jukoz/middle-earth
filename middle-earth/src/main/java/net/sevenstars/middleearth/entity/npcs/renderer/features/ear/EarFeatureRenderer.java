@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.features.ear;
+package net.sevenstars.middleearth.entity.npcs.renderer.features.ear;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,8 +15,8 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 import net.sevenstars.middleearth.registries.AtlasesME;
 
 @Environment(EnvType.CLIENT)

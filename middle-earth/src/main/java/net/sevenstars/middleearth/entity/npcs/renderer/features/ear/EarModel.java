@@ -1,9 +1,9 @@
-package net.sevenstars.middleearth.entity.npcs.features.ear;
+package net.sevenstars.middleearth.entity.npcs.renderer.features.ear;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 
 public class EarModel extends EntityModel<NpcEntityRenderState> {
     public final ModelPart ears;

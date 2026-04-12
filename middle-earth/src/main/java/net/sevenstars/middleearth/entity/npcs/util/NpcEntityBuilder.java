@@ -1,9 +1,10 @@
-package net.sevenstars.middleearth.entity.npcs;
+package net.sevenstars.middleearth.entity.npcs.util;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcDataLookup;
 import org.jetbrains.annotations.Nullable;
 

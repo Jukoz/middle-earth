@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.features.nose;
+package net.sevenstars.middleearth.entity.npcs.renderer.features.feet;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,30 +15,33 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 import net.sevenstars.middleearth.registries.AtlasesME;
 
 @Environment(EnvType.CLIENT)
-public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
-    private final EntityModel<NpcEntityRenderState> noseModel;
+public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
+    private final EntityModel<NpcEntityRenderState> feetModel;
     private final SpriteAtlasTexture skinAtlasTexture;
 
-    public NoseFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
+    public FeetFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
-        this.noseModel = new NoseModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_NOSE));
+        this.feetModel = new FeetModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_FEET));
         skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
-        noseModel.setAngles(state);
+        feetModel.setAngles(state);
+
+        if(!state.canShowFeet)
+            return;
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterSkinsRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
-        Sprite sprite = skinAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.noseId, AtlasesME.CHARACTER_SKINS));
+        Sprite sprite = skinAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.feetId, AtlasesME.CHARACTER_SKINS));
         renderModel(sprite, matrices, vertexConsumer, light, overlay);
     }
 
@@ -49,7 +52,7 @@ public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
         if(sprite != null){
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            noseModel.render(matrices, newLayerVertexConsumer, light, overlay);
+            feetModel.render(matrices, newLayerVertexConsumer, light, overlay);
         }
     }
 }

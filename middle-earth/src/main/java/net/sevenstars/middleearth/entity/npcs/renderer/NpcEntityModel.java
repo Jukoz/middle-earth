@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs;
+package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;

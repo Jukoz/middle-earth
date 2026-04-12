@@ -1,19 +1,17 @@
-package net.sevenstars.middleearth.entity.model;
+package net.sevenstars.middleearth.entity;
 
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
-import net.sevenstars.middleearth.entity.barrel.BarrelEntityRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
-import net.sevenstars.middleearth.entity.npcs.features.ear.EarModel;
-import net.sevenstars.middleearth.entity.npcs.features.feet.FeetModel;
-import net.sevenstars.middleearth.entity.npcs.features.hair.HairModel;
-import net.sevenstars.middleearth.entity.npcs.features.nose.NoseModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.ear.EarModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.feet.FeetModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.hair.HairModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.nose.NoseModel;
 import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;

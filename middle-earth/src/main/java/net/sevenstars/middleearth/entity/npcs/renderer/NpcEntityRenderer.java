@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs;
+package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -27,10 +27,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.npcs.features.ear.EarFeatureRenderer;
-import net.sevenstars.middleearth.entity.npcs.features.feet.FeetFeatureRenderer;
-import net.sevenstars.middleearth.entity.npcs.features.hair.HairFeatureRenderer;
-import net.sevenstars.middleearth.entity.npcs.features.nose.NoseFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.ear.EarFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.feet.FeetFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.hair.HairFeatureRenderer;
+import net.sevenstars.middleearth.entity.npcs.renderer.features.nose.NoseFeatureRenderer;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
@@ -43,6 +44,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     private final SpriteAtlasTexture clothesAtlasTexture;
 
     public final static int HURT_COLOR = 0xff7e75;
+
+    public final static int LIGHT_LEVEL_EMISSIVE_EYES = 8;
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
@@ -86,24 +89,24 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
         npcEntityRenderState.widthScale = npcEntity.getWidthScale();
 
-        npcEntityRenderState.skinId = npcTextureData.getBodyTexture();
-        npcEntityRenderState.feetId = npcTextureData.getFeetTexture();
-        npcEntityRenderState.headId = npcTextureData.getHeadTexture();
-        npcEntityRenderState.earId = npcTextureData.getEarTexture();
-        npcEntityRenderState.noseId = npcTextureData.getNoseTexture();
-        npcEntityRenderState.eyesId = npcTextureData.getEyeTexture();
-        npcEntityRenderState.eyesEmissiveId = npcTextureData.getEyeEmissiveTexture();
-        npcEntityRenderState.haveEmissiveEyes = npcTextureData.isEyeEmissive() && currentLightLevel < 8;
-        npcEntityRenderState.eyebrowId = npcTextureData.getEyebrowTexture();
-        npcEntityRenderState.scarId = npcTextureData.getScarTexture();
-        npcEntityRenderState.beardId = npcTextureData.getBeardTexture();
-        npcEntityRenderState.beardAddonId = npcTextureData.getBeardAddonTexture();
-        npcEntityRenderState.hairId = npcTextureData.getHairTexture();
-        npcEntityRenderState.hairAddonId = npcTextureData.getHairAddonTexture();
+        npcEntityRenderState.skinId = npcTextureData.get(NpcRenderedPart.BODY);
+        npcEntityRenderState.feetId = npcTextureData.get(NpcRenderedPart.FEET);
+        npcEntityRenderState.headId = npcTextureData.get(NpcRenderedPart.HEAD);
+        npcEntityRenderState.earId = npcTextureData.get(NpcRenderedPart.EAR);
+        npcEntityRenderState.noseId = npcTextureData.get(NpcRenderedPart.NOSE);
+        npcEntityRenderState.eyesId = npcTextureData.get(NpcRenderedPart.EYE);
+        npcEntityRenderState.eyesEmissiveId = npcTextureData.get(NpcRenderedPart.EYE_EMISSIVE);
+        npcEntityRenderState.haveEmissiveEyes = npcTextureData.isEyeEmissive() && currentLightLevel <= LIGHT_LEVEL_EMISSIVE_EYES;
+        npcEntityRenderState.eyebrowId = npcTextureData.get(NpcRenderedPart.EYEBROW);
+        npcEntityRenderState.scarId = npcTextureData.get(NpcRenderedPart.SCAR);
+        npcEntityRenderState.beardId = npcTextureData.get(NpcRenderedPart.BEARD);
+        npcEntityRenderState.beardAddonId = npcTextureData.get(NpcRenderedPart.BEARD_ADDON);
+        npcEntityRenderState.hairId = npcTextureData.get(NpcRenderedPart.HAIR);
+        npcEntityRenderState.hairAddonId = npcTextureData.get(NpcRenderedPart.HAIR_ADDON);
 
-        npcEntityRenderState.clothingBase = npcTextureData.getClothingBaseTexture();
-        npcEntityRenderState.clothingOver = npcTextureData.getClothingOverTexture();
-        npcEntityRenderState.clothingExtra = npcTextureData.getClothingExtraTexture();
+        npcEntityRenderState.clothingBase = npcTextureData.get(NpcRenderedPart.CLOTHING_BASE);
+        npcEntityRenderState.clothingOver = npcTextureData.get(NpcRenderedPart.CLOTHING_OVER);
+        npcEntityRenderState.clothingExtra = npcTextureData.get(NpcRenderedPart.CLOTHING_EXTRA);
 
         npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.getBreedingAge()) % 80 >= 80 - 2;
 

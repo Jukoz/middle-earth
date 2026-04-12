@@ -49,7 +49,9 @@ import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
@@ -606,7 +608,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
     public boolean hasTextureData(){
         NpcEntityTextureData textureData = getNpcTextureData();
-        return textureData.getBodyTexture() != null;
+        return textureData.get(NpcRenderedPart.BODY) != null;
     }
 
     static {

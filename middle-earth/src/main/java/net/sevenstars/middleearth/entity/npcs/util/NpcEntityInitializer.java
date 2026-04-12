@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs;
+package net.sevenstars.middleearth.entity.npcs.util;
 
 import net.minecraft.block.BedBlock;
 import net.minecraft.client.world.ClientWorld;
@@ -20,7 +20,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.features.hair;
+package net.sevenstars.middleearth.entity.npcs.renderer.features.hair;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,8 +16,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityModel;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 import net.sevenstars.middleearth.registries.AtlasesME;
 
 

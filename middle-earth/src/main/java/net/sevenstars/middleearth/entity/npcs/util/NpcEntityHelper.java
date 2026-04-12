@@ -1,9 +1,9 @@
-package net.sevenstars.middleearth.entity.npcs;
+package net.sevenstars.middleearth.entity.npcs.util;
 
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;

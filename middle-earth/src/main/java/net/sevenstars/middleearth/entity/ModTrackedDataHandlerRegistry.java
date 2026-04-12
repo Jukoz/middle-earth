@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariant;
-import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 
 public class ModTrackedDataHandlerRegistry {

@@ -1,9 +1,9 @@
-package net.sevenstars.middleearth.entity.npcs.features.hair;
+package net.sevenstars.middleearth.entity.npcs.renderer.features.hair;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 
 public class HairModel extends EntityModel<NpcEntityRenderState> {
     // https://i.pinimg.com/736x/9c/56/05/9c560508ceba0bc87b9d5beda7391adc.jpg

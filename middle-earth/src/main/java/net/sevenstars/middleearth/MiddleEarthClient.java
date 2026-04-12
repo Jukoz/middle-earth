@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -50,8 +49,8 @@ import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollR
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.warg.WargRenderer;
-import net.sevenstars.middleearth.entity.model.ModEntityModels;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
+import net.sevenstars.middleearth.entity.ModEntityModels;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileRenderer;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.features.feet;
+package net.sevenstars.middleearth.entity.npcs.renderer.features.feet;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -6,7 +6,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 import net.minecraft.util.math.MathHelper;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderState;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class FeetModel extends EntityModel<NpcEntityRenderState> {
