@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.LarchCofferEntityRenderer;
+import net.sevenstars.middleearth.block.special.coffers.PineCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.SpruceCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.entity.ModEntityModelLayers;
@@ -44,6 +45,7 @@ public class ModEntityModels {
         builder.put(ModEntityModelLayers.ENWEBBED, EnwebbedModel.getTexturedModelData());
 
         builder.put(ModEntityModelLayers.LARCH_COFFER, LarchCofferEntityRenderer.getTexturedModelData());
+        builder.put(ModEntityModelLayers.PINE_COFFER, PineCofferEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.SPRUCE_COFFER, SpruceCofferEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
         builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());

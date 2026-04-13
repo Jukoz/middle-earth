@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.block.special.candles.CandleStickBlock;
 import net.sevenstars.middleearth.block.special.candles.CeramicLampBlock;
 import net.sevenstars.middleearth.block.special.candles.SkullCandleBlock;
 import net.sevenstars.middleearth.block.special.coffers.LarchCofferBlock;
+import net.sevenstars.middleearth.block.special.coffers.PineCofferBlock;
 import net.sevenstars.middleearth.block.special.coffers.SpruceCofferBlock;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
 import net.sevenstars.middleearth.block.special.curtains.SmallCurtainsBlock;
@@ -117,6 +118,9 @@ public class ModDecorativeBlocks {
             ThinBarrelBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     public static final Block LARCH_COFFER = registerBlock("larch_coffer",
             LarchCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
+                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block PINE_COFFER = registerBlock("pine_coffer",
+            PineCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
                     .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     public static final Block SPRUCE_COFFER = registerBlock("spruce_coffer",
             SpruceCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.SPRUCE_BROWN)

@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
 import net.sevenstars.middleearth.block.special.coffers.LarchCofferBlockEntity;
+import net.sevenstars.middleearth.block.special.coffers.PineCofferBlockEntity;
 import net.sevenstars.middleearth.block.special.coffers.SpruceCofferBlockEntity;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
@@ -35,6 +36,7 @@ public class ModBlockEntities {
             ModDecorativeBlocks.STRUCTURE_NEST);
 
     public static BlockEntityType<LarchCofferBlockEntity> LARCH_COFFER = register("larch_coffer", LarchCofferBlockEntity::new, ModDecorativeBlocks.LARCH_COFFER);
+    public static BlockEntityType<PineCofferBlockEntity> PINE_COFFER = register("pine_coffer", PineCofferBlockEntity::new, ModDecorativeBlocks.PINE_COFFER);
     public static BlockEntityType<SpruceCofferBlockEntity> SPRUCE_COFFER = register("spruce_coffer", SpruceCofferBlockEntity::new, ModDecorativeBlocks.SPRUCE_COFFER);
 
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
