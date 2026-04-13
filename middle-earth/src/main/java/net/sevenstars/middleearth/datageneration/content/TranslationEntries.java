@@ -212,6 +212,7 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
 
             put("block."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".pine_coffer", "Pine Coffer");
             put("block."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
             put("block."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("block."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
