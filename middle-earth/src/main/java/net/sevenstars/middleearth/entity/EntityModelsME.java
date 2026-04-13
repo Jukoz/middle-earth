@@ -23,27 +23,27 @@ import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobModel;
 import java.util.Map;
 
 @Environment(value= EnvType.CLIENT)
-public class ModEntityModels {
+public class EntityModelsME {
     public static Map<EntityModelLayer, TexturedModelData> getModels() {
         ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder = ImmutableMap.builder();
 
-        builder.put(ModEntityModelLayers.NPC, NpcEntityModel.getTexturedModelData(Dilation.NONE));
-        builder.put(ModEntityModelLayers.NPC_ENTITY_HAIR, HairModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.NPC_ENTITY_EAR, EarModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.NPC_ENTITY_NOSE, NoseModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.NPC_ENTITY_FEET, FeetModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.NPC, NpcEntityModel.getTexturedModelData(Dilation.NONE));
+        builder.put(EntityModelLayersME.NPC_ENTITY_HAIR, HairModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.NPC_ENTITY_EAR, EarModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.NPC_ENTITY_NOSE, NoseModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.NPC_ENTITY_FEET, FeetModel.getTexturedModelData());
 
-        builder.put(ModEntityModelLayers.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.SHELOBITE_LARVA, ShelobiteLarvaModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.SHELOBITE_SCUTTLER, ShelobiteScuttlerModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.SPAWN_OF_SHELOB, SpawnOfShelobModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.SNOW_TROLL, SnowTrollModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.SHELOBITE_LARVA, ShelobiteLarvaModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.SHELOBITE_SCUTTLER, ShelobiteScuttlerModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.SPAWN_OF_SHELOB, SpawnOfShelobModel.getTexturedModelData());
 
-        builder.put(ModEntityModelLayers.ENWEBBED, EnwebbedModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.ENWEBBED, EnwebbedModel.getTexturedModelData());
 
-        builder.put(ModEntityModelLayers.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
-        builder.put(ModEntityModelLayers.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
-        builder.put(ModEntityModelLayers.REINFORCED_BARREL, BarrelEntityModel.getTexturedModelData());
-        builder.put(ModEntityModelLayers.REINFORCED_BARREL_WATER_MASK, BarrelEntityModel.getBaseTexturedModelData());
+        builder.put(EntityModelLayersME.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
+        builder.put(EntityModelLayersME.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
+        builder.put(EntityModelLayersME.REINFORCED_BARREL, BarrelEntityModel.getTexturedModelData());
+        builder.put(EntityModelLayersME.REINFORCED_BARREL_WATER_MASK, BarrelEntityModel.getBaseTexturedModelData());
 
         ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
         return immutableMap;

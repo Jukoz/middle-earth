@@ -38,7 +38,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.goals.PounceRetreatGoal;
 import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjectileGoal;
 import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
@@ -374,6 +374,6 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         BITE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         POUNCE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         BLOCK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
-        VARIANT = DataTracker.registerData(SpawnOfShelobEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
+        VARIANT = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistryME.SPIDER_VARIANT);
     }
 }

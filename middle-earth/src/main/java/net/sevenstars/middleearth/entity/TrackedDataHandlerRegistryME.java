@@ -11,7 +11,7 @@ import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariant;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 
-public class ModTrackedDataHandlerRegistry {
+public class TrackedDataHandlerRegistryME {
 
     public static final TrackedDataHandler<Long> INITIALIZATION_TICK;
     public static final TrackedDataHandler<String> FACTION_ID;

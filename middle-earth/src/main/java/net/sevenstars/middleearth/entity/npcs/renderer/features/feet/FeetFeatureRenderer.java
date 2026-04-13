@@ -14,7 +14,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 import net.sevenstars.middleearth.registries.AtlasesME;
@@ -26,7 +26,7 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
     public FeetFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
-        this.feetModel = new FeetModel(loader.getModelPart(ModEntityModelLayers.NPC_ENTITY_FEET));
+        this.feetModel = new FeetModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_FEET));
         skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
     }
 

@@ -8,7 +8,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 
-public class ModEntityAttributes {
+public class EntityAttributesME {
     public static final RegistryEntry<EntityAttribute> POWDERED_SNOW_IMMUNITY;
     public static final RegistryEntry<EntityAttribute> DELVERS_FEAR_STRENGTH;
     public static final RegistryEntry<EntityAttribute> CLIMBING_STRENGTH;

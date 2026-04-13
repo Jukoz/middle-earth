@@ -8,8 +8,8 @@ import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.ModEntityAttributes;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
@@ -72,7 +72,7 @@ public class MiddleEarth implements ModInitializer {
 		ResourceItemsME.registerModItems();
 		EggItemsME.registerModItems();
 		ItemGroupsME.register();
-		ModEntityAttributes.register();
+		EntityAttributesME.register();
 
 		WoodBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
@@ -100,7 +100,7 @@ public class MiddleEarth implements ModInitializer {
 		ModRecipes.registerRecipes();
 		ModRecipeSerializer.registerRecipeSerializers();
 
-		ModTrackedDataHandlerRegistry.register();
+		TrackedDataHandlerRegistryME.register();
 
 
 

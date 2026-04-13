@@ -6,7 +6,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 
-public class ModEntityTypeTags {
+public class EntityTypeTagsME {
     public static TagKey<EntityType<?>> UNGOLIENI = of("ungolieni");
 
     private static TagKey<EntityType<?>> of(String id) {

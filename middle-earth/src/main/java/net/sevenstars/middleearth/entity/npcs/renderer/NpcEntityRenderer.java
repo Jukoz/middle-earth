@@ -26,7 +26,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.ear.EarFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.feet.FeetFeatureRenderer;
@@ -48,7 +48,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public final static int LIGHT_LEVEL_EMISSIVE_EYES = 8;
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new NpcEntityModel(context.getPart(ModEntityModelLayers.NPC)), 0.7f);
+        super(context, new NpcEntityModel(context.getPart(EntityModelLayersME.NPC)), 0.7f);
 
         this.features.removeIf(x -> x.getClass() == ElytraFeatureRenderer.class);
         this.features.removeIf(x -> x.getClass() == HeadFeatureRenderer.class);

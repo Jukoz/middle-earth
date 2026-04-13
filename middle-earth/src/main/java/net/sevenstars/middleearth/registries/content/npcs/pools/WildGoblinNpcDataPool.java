@@ -6,7 +6,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.entity.ModEntityAttributes;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
@@ -201,7 +201,7 @@ public class WildGoblinNpcDataPool {
                     AttributePoolElement.create(EntityAttributes.SCALE, 0.83, 0.95),
                     AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
                     AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 28),
-                    AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1.05, 1.12),
+                    AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1.05, 1.12),
                     AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
                 )
             ));
