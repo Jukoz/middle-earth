@@ -68,8 +68,10 @@ public class NpcEntityInitializer {
         // Get npc data
         String currentStep = "Fetching datas";
         try{
-            var npcData = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId).get().value();
-            npcEntity.setNpcData(currentNpcDataId);
+            var registryManager = world.getRegistryManager();
+            var npcRegistry = registryManager.getOptional(DynamicRegistriesME.NPC);
+            var npcData = npcRegistry.get().get(currentNpcDataId);
+            npcEntity.setNpcData(npcData);
             npcEntity.setFactionId(npcData.getFactionIdentifier());
             npcEntity.setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
             npcData.applyAttributes(npcEntity);
@@ -157,5 +159,11 @@ public class NpcEntityInitializer {
 
     public static boolean assignBedToNpc(NpcEntity npcEntity, BedBlock bedBlock){
         return true;
+    }
+
+    public static void initializeNpcForCurrentData(NpcEntity npcEntity, ServerWorld serverWorld, Identifier npcDataId) {
+        boolean shouldRefreshVisuals = npcEntity.getNpcTextureData().needToBeRefreshed();
+        if(shouldRefreshVisuals)
+            generateCharacterTextures(serverWorld, npcDataId, npcEntity);
     }
 }

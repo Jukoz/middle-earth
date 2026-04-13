@@ -213,4 +213,8 @@ public class NpcEntityTextureData {
                 PacketCodecs.NBT_COMPOUND, NpcEntityTextureData::writeNbt,
                 NpcEntityTextureData::new);
     }
+
+    public boolean needToBeRefreshed() {
+        return get(NpcRenderedPart.BODY) == null;
+    }
 }

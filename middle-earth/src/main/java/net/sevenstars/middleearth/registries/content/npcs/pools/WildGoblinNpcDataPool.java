@@ -1,9 +1,12 @@
 package net.sevenstars.middleearth.registries.content.npcs.pools;
 
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
@@ -12,12 +15,16 @@ import net.sevenstars.middleearth.registries.content.texturepresets.TexturePrese
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class WildGoblinNpcDataPool {
@@ -173,33 +180,31 @@ public class WildGoblinNpcDataPool {
             WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_HELMET).withWeight(6))
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BRACED_HELMET).withWeight(3))
-                    .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF).withWeight(3))
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_MAIL_COIF).withWeight(2))
-                    .add(WeightedItemData.create(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT))
-                    .add(WeightedItemData.create(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT_WITH_COIF))
-                    .add(WeightedItemData.create(EquipmentItemsME.RUSTED_MORDOR_HELMET))
-                )
-                .add(EquipmentSlot.CHEST, GearSlotPool.create()
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN))
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(BackAttachmentsME.ORCISH_CAPE))
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColor(DARK_BROWN_GOBLIN).withCape(BackAttachmentsME.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
-
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN))
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(BackAttachmentsME.ORCISH_CAPE))
-                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN).withCape(BackAttachmentsME.ORCISH_SHOULDERS, DARK_BROWN_GOBLIN))
+                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_HELMET).withWeight(3))
+                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BRACED_HELMET).withWeight(2))
+                    .add(WeightedItemData.create(EquipmentItemsME.COOKING_POT_HELMET))
                 )
                 .add(EquipmentSlot.LEGS, GearSlotPool.create()
-                    .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT).withColor(DARK_BROWN_GOBLIN))
-                    .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
                     .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
+                    .add(WeightedItemData.create(EquipmentItemsME.ORCISH_STRIP_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
                 )
-                .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ORCISH_BROWN_FUR_BOOTS)))
+                .add(EquipmentSlot.FEET, GearSlotPool.create(
+                        WeightedItemData.create(EquipmentItemsME.ORCISH_SANDALS))
+                )
                 .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                    .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(4))
-                    .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_BOW))
+                    .add(WeightedItemData.create(WeaponItemsME.BONE_AXE).withWeight(2))
+                    .add(WeightedItemData.create(WeaponItemsME.BONE_SCIMITAR))
+                    .add(WeightedItemData.create(WeaponItemsME.BONE_CLEAVER))
                 )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), new HashMap<>(){{
+            put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
+                    AttributePoolElement.create(EntityAttributes.SCALE, 0.83, 0.95),
+                    AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
+                    AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 28),
+                    AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1.05, 1.12),
+                    AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
+                )
+            ));
+        }});
     }
 }

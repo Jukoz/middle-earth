@@ -41,9 +41,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.ModEntityAttributes;
 import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
@@ -131,8 +133,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             .ifPresent(this::setNpcTextureData);
         view.read("InitializationTick", Codec.LONG)
                 .ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
-
         tryToInitializeData();
+
+        if(this.isAiDisabled() && this.getNpcDataId() != null){
+            initializeForCurrentNpcData();
+        }
     }
 
     public void setNpcData(String value) {
@@ -207,6 +212,20 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             }
         }
     }
+
+    private void initializeForCurrentNpcData() {
+        if(this.getNpcDataId() == null)
+            return;
+
+        World world = getWorld();
+        if(world.isClient)
+            return;
+
+        if(world instanceof ServerWorld serverWorld){
+            NpcEntityInitializer.initializeNpcForCurrentData(this, serverWorld, getNpcDataId());
+        }
+    }
+
 
     @Override
     protected void mobTick(ServerWorld world) {
