@@ -156,7 +156,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.LIT_PINECONE);
 
             add(ModDecorativeBlocks.CANDLESTICK.asItem());
-            add(ModDecorativeBlocks.CANDLE_HOLDER.asItem());
 
             add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN.asItem());

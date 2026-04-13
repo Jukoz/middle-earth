@@ -137,6 +137,8 @@ public class ModDecorativeBlocks {
 
     public static final Block STONE_LECTERN = registerBlockWithItem("stone_lectern",
             StoneLecternBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
+    public static final Block CHISELED_DOLOMITE_BOOKSHELF = registerBlockWithItem("chiseled_dolomite_bookshelf",
+            ChiseledBookshelfBlock::new, AbstractBlock.Settings.copy(Blocks.CHISELED_BOOKSHELF).nonOpaque().requiresTool().sounds(BlockSoundGroup.STONE));
 
     public static final Block BASALT_STATUE = registerBlock("basalt_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
@@ -157,7 +159,6 @@ public class ModDecorativeBlocks {
 
     public static final Block ORCISH_DRUM = registerBlockWithItem("orcish_drum",
             OrcishDrumBlock::new, AbstractBlock.Settings.copy(Blocks.NOTE_BLOCK).nonOpaque());
-
 
     public static final Block FIRE_OF_ORTHANC = registerBlock("fire_of_orthanc",
             FireOfOrthancBlock::new, AbstractBlock.Settings.create().requiresTool().mapColor(MapColor.BLACK)

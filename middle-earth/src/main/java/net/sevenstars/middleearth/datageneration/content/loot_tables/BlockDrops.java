@@ -144,6 +144,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.REINFORCED_CHEST);
 
             add(ModDecorativeBlocks.STONE_LECTERN);
+            add(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF);
 
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);

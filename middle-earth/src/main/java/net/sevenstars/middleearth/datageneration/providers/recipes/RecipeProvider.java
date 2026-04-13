@@ -1174,6 +1174,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.BOOKSHELF),
                                 conditionsFromItem(Items.BOOKSHELF))
                         .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF, 1)
+                        .pattern("DDD")
+                        .pattern("SSS")
+                        .pattern("DDD")
+                        .input('D', StoneBlockSets.DOLOMITE_SET.baseBlocks.base())
+                        .input('S', StoneBlockSets.DOLOMITE_SET.baseBlocks.slab())
+                        .criterion(hasItem(Items.BOOKSHELF),
+                                conditionsFromItem(Items.BOOKSHELF))
+                        .offerTo(exporter);
 
                 createStatueRecipe(exporter, Blocks.POLISHED_BASALT, Blocks.BASALT, StoneBlockSets.BASALT_SET.baseBlocks.wall(), ModDecorativeBlocks.BASALT_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.CALCITE_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.CALCITE_SET.baseBlocks.wall(), ModDecorativeBlocks.CALCITE_STATUE);
