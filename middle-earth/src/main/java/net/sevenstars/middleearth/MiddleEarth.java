@@ -146,6 +146,11 @@ public class MiddleEarth implements ModInitializer {
     public static Identifier of(String... names){
         return IdentifierUtil.buildAggregate(MOD_ID, names);
     }
+
+	public static Identifier of(char splitter, String... names){
+		return IdentifierUtil.build(MOD_ID, createAggregate(splitter, names));
+	}
+
     public static String createAggregate(char splitter, String... names){
         return IdentifierUtil.createAggregateValue(splitter, names);
     }

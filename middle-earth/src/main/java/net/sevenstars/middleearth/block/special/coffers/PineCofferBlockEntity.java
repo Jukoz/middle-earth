@@ -18,6 +18,6 @@ public class PineCofferBlockEntity extends ChestBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".pine_coffer" );
+        return Text.translatable(MiddleEarth.of("pine_coffer").toTranslationKey("screen"));
     }
 }
