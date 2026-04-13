@@ -30,6 +30,7 @@ public class PlateFoodModels {
         addVanillaModel("rabbit_stew");
         addVanillaModel("beetroot_soup");
         addVanillaModel("melon_slice");
+        addVanillaModel("mushroom_stew");
         addModel("cram");
         addModel("berry_pie");
         addModel("meat_skewer");
