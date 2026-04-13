@@ -12,6 +12,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -24,6 +25,7 @@ import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -1174,6 +1176,21 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.wall(), ModDecorativeBlocks.PUMICE_STATUE);
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, ModDecorativeBlocks.TUFF_STATUE);
 
+                createPressurePlateRecipe(exporter, ModDecorativeBlocks.CERAMIC_PLATE, Block.getBlockFromItem(Items.BRICK));
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROTTEN_PLATE, 4)
+                        .pattern("RRR")
+                        .input('R', WoodBlockSets.ROTTEN_SET.logBlocks.log())
+                        .criterion(hasItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()),
+                                conditionsFromItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()))
+                        .offerTo(exporter);
+                createPressurePlateRecipe(exporter, ModDecorativeBlocks.SILVER_PLATE, Block.getBlockFromItem(ResourceItemsME.SILVER_INGOT));
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TAPPER, 4)
+                        .pattern("RRR")
+                        .input('R', WoodBlockSets.ROTTEN_SET.logBlocks.log())
+                        .criterion(hasItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()),
+                                conditionsFromItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_SPIKE, 1)
                         .pattern("M  ")
                         .pattern("MM ")
@@ -1184,15 +1201,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(StoneBlockSets.MEDGON_SET.baseBlocks.base()))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW, 4)
-                        .pattern("BSB")
-                        .pattern("SGS")
-                        .pattern("BSB")
-                        .input('B', Items.BRICKS)
-                        .input('G', Items.GLASS)
-                        .input('S', Items.STICK)
-                        .criterion(hasItem(Items.BRICKS),
-                                conditionsFromItem(Items.BRICKS))
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TAPPER, 1)
+                        .pattern(" S ")
+                        .pattern("LBL")
+                        .pattern(" L ")
+                        .input('S', ResourceItemsME.STEEL_NUGGET)
+                        .input('L', ItemTags.LOGS)
+                        .input('B', Items.BUCKET)
+                        .criterion(hasItem(Items.BUCKET),
+                                conditionsFromItem(Items.BUCKET))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.WATTLE_FRAMED_WINDOW, 2)

@@ -37,9 +37,9 @@ public class ModBlockEntities {
             ModDecorativeBlocks.REINFORCED_CHEST);
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,
             ModDecorativeBlocks.BELLOWS);
-    public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
+    /*public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
             ModDecorativeBlocks.CERAMIC_CROCKPOT,
-            ModDecorativeBlocks.CROCKPOT);
+            ModDecorativeBlocks.CROCKPOT);*/
     public static BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new,
             ModDecorativeBlocks.SILVER_PLATE, ModDecorativeBlocks.CERAMIC_PLATE, ModDecorativeBlocks.ROTTEN_PLATE);
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = register("wood_pile", WoodPileBlockEntity::new,

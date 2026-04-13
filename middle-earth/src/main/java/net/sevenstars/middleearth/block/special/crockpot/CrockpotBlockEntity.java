@@ -59,7 +59,7 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     public CrockpotBlockEntity(BlockPos pos, BlockState state, float liquidTopLevel) {
-        super(ModBlockEntities.CROCKPOT, pos, state);
+        super(null, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
