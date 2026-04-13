@@ -41,7 +41,7 @@ public class ModBlockEntities {
             ModDecorativeBlocks.CERAMIC_CROCKPOT,
             ModDecorativeBlocks.CROCKPOT);
     public static BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new,
-            ModDecorativeBlocks.SILVER_PLATE, ModDecorativeBlocks.CERAMIC_PLATE);
+            ModDecorativeBlocks.SILVER_PLATE, ModDecorativeBlocks.CERAMIC_PLATE, ModDecorativeBlocks.ROTTEN_PLATE);
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = register("wood_pile", WoodPileBlockEntity::new,
             ModDecorativeBlocks.WOOD_PILE);
     public static BlockEntityType<BrazierBlockEntity> BIG_BRAZIER = register("big_brazier", BrazierBlockEntity::new,

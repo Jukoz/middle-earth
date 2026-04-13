@@ -6,6 +6,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
+import net.minecraft.component.type.UseRemainderComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -96,7 +97,11 @@ public class PlateBlock extends BlockWithEntity {
             }
             foodComponent.onConsume(player.getWorld(), player, food, consumableComponent);
             world.emitGameEvent(player, GameEvent.EAT, pos);
-            plateBlockEntity.setStack(ItemStack.EMPTY);
+
+            ItemStack remainderItem = ItemStack.EMPTY;
+            UseRemainderComponent useRemainderComponent = food.get(DataComponentTypes.USE_REMAINDER);
+            if(useRemainderComponent != null) remainderItem = useRemainderComponent.convertInto();
+            plateBlockEntity.setStack(remainderItem);
         }
 
         return ActionResult.SUCCESS;

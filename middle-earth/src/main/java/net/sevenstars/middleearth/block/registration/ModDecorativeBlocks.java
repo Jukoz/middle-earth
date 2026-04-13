@@ -147,6 +147,8 @@ public class ModDecorativeBlocks {
             CrockpotBlock::new, AbstractBlock.Settings.copy(Blocks.CAULDRON));
     public static final Block CERAMIC_PLATE = registerBlockWithItem("ceramic_plate",
             PlateBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_PRESSURE_PLATE).breakInstantly());
+    public static final Block ROTTEN_PLATE = registerBlockWithItem("rotten_plate",
+            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PRESSURE_PLATE).breakInstantly());
     public static final Block SILVER_PLATE = registerBlockWithItem("silver_plate",
             PlateBlock::new, AbstractBlock.Settings.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE).breakInstantly());
     public static final Block TAPPER = registerBlock("tapper",
