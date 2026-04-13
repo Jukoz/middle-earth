@@ -1157,6 +1157,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CERAMIC_LAMP, 1)
+                        .pattern("T ")
+                        .pattern("BB")
+                        .input('T', Items.TORCH)
+                        .input('B', Items.BRICK)
+                        .criterion(hasItem(Items.BRICK),
+                                conditionsFromItem(Items.BRICK))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CANDLE_HEAP, 1)
                         .pattern("CCC")
                         .pattern("CCC")

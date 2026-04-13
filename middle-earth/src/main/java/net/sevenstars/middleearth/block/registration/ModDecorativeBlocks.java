@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.block.special.candles.CandleHolderBlock;
 import net.sevenstars.middleearth.block.special.candles.CandleStickBlock;
+import net.sevenstars.middleearth.block.special.candles.CeramicLampBlock;
 import net.sevenstars.middleearth.block.special.candles.SkullCandleBlock;
 import net.sevenstars.middleearth.block.special.coffers.LarchCofferBlock;
 import net.sevenstars.middleearth.block.special.coffers.SpruceCofferBlock;
@@ -128,6 +129,8 @@ public class ModDecorativeBlocks {
 
     public static final Block CANDLESTICK = registerBlockWithItem("candlestick",
             CandleStickBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
+    public static final Block CERAMIC_LAMP = registerBlockWithItem("ceramic_lamp",
+            CeramicLampBlock::new, AbstractBlock.Settings.copy(Blocks.FLOWER_POT).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CANDLE_HOLDER = registerBlockWithItem("candle_holder",
             CandleHolderBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(6)).nonOpaque());
     public static final Block SKULL_CANDLE = registerBlockWithItem("skull_candle",
