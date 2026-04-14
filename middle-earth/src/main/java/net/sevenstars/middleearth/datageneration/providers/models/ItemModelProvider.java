@@ -7,13 +7,11 @@ import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.model.RangeDispatchItemModel;
 import net.minecraft.client.render.item.model.SelectItemModel;
 import net.minecraft.client.render.item.property.bool.BrokenProperty;
+import net.minecraft.client.render.item.property.bool.ComponentBooleanProperty;
 import net.minecraft.client.render.item.property.bool.UsingItemProperty;
 import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
 import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
-import net.minecraft.client.render.item.property.select.ChargeTypeProperty;
-import net.minecraft.client.render.item.property.select.CustomModelDataStringProperty;
-import net.minecraft.client.render.item.property.select.DisplayContextProperty;
-import net.minecraft.client.render.item.property.select.TrimMaterialProperty;
+import net.minecraft.client.render.item.property.select.*;
 import net.minecraft.client.render.item.tint.DyeTintSource;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
@@ -21,16 +19,23 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.equipment.trim.ArmorTrimAssets;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
+import net.minecraft.predicate.NbtPredicate;
+import net.minecraft.predicate.component.ComponentPredicate;
+import net.minecraft.predicate.component.ComponentPredicateTypes;
+import net.minecraft.predicate.component.CustomDataPredicate;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
+import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 
@@ -38,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 
 import static net.minecraft.client.data.ItemModelGenerator.createModelWithInHandVariant;
 
@@ -91,6 +97,10 @@ public class ItemModelProvider extends FabricModelProvider {
 
         for (Item item : SimpleHandheldItemModel.items) {
             itemModelGenerator.register(item, Models.HANDHELD);
+        }
+
+        for (Item item : SimpleHandheldItemModel.daggers) {
+            registerDaggerItemModels(itemModelGenerator, item);
         }
 
         for (Item item : SimpleBigItemModel.items) {
@@ -197,6 +207,15 @@ public class ItemModelProvider extends FabricModelProvider {
 
         itemModelGenerator.output.accept(EggItemsME.NPC_SPAWN_EGG,
                 new SelectItemModel.Unbaked(new SelectItemModel.UnbakedSwitch(new CustomModelDataStringProperty(0), models), Optional.of(fallbackModel)));
+    }
+
+    public final void registerDaggerItemModels(ItemModelGenerator itemModelGenerator, Item item) {
+        ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD));
+        ItemModel.Unbaked unbakedHandStrike = ItemModels.basic(CustomItemModels.DAGGER_STRIKE.upload(ModelIds.getItemSubModelId(item, "_strike"),
+                TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
+        //ItemModels.basic(itemModelGenerator.registerSubModel(item, "_strike", CustomItemModels.DAGGER_STRIKE));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new SneakAttackProperty(), unbakedHandStrike, unbakedHand));
     }
 
     public final void registerWeaponBigItemModels(ItemModelGenerator itemModelGenerator, Item item) {
@@ -307,6 +326,9 @@ public class ItemModelProvider extends FabricModelProvider {
         itemModelGenerator.output.accept(item, ItemModels.select(new ChargeTypeProperty(), ItemModels.condition(ItemModels.usingItemProperty(), ItemModels.rangeDispatch(new CrossbowPullProperty(), unbaked2, new RangeDispatchItemModel.Entry[]{ItemModels.rangeDispatchEntry(unbaked3, 0.58F), ItemModels.rangeDispatchEntry(unbaked4, 1.0F)}), unbaked), new SelectItemModel.SwitchCase[]{ItemModels.switchCase(CrossbowItem.ChargeType.ARROW, unbaked5), ItemModels.switchCase(CrossbowItem.ChargeType.ROCKET, unbaked6)}));
     }
 
+    public final Identifier registerSubModelWithSingletonTexture(Item item, String suffix, Model model, BiConsumer<Identifier, ModelSupplier> modelCollector) {
+        return model.upload(ModelIds.getItemSubModelId(item, suffix), TextureMap.layer0(TextureMap.getId(item)), modelCollector);
+    }
 
     //TODO might need a rework cause of new tint thingy
     public final void registerDyeableArmor(Item armor, ItemModelGenerator itemModelGenerator) {
