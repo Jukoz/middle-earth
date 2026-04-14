@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.ModEntityTypeTags;
+import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfiguredFeatures;
 
@@ -85,7 +85,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
         if (type == HitResult.Type.ENTITY) {
             EntityHitResult entityHitResult = (EntityHitResult) hitResult;
             Entity entity = entityHitResult.getEntity();
-            if(entity.getType().isIn(ModEntityTypeTags.UNGOLIENI)) {
+            if(entity.getType().isIn(EntityTypeTagsME.UNGOLIENI)) {
                 return;
             }
         }

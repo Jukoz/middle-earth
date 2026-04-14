@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.registries.content.races;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityAttributes;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
@@ -24,8 +24,8 @@ public class RacePools {
     static {
         DWARF = new Race(Identifier.of(MiddleEarth.MOD_ID, "dwarf"), RaceType.DWARF,
             new AttributePool()
-                .addElement(AttributePoolElement.create(ModEntityAttributes.CLIMBING_STRENGTH, 80.0f))
-                .addElement(AttributePoolElement.create(ModEntityAttributes.POWDERED_SNOW_IMMUNITY, 1.0f))
+                .addElement(AttributePoolElement.create(EntityAttributesME.CLIMBING_STRENGTH, 80.0f))
+                .addElement(AttributePoolElement.create(EntityAttributesME.POWDERED_SNOW_IMMUNITY, 1.0f))
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81).withBuffReversed())
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
                 .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)
@@ -43,10 +43,10 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.15)));
                 put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75, 0.81))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1.05, 1.1)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1.05, 1.1)));
                 put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71, 0.78))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 1, 1.03)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1, 1.03)));
             }},
             List.of(), List.of());
 
@@ -68,10 +68,10 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75)));
                 put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.02, 1.06))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.93, 0.97)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.93, 0.97)));
                 put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.00, 1.03))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.91, 0.94)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.91, 0.94)));
             }},
             List.of(), List.of());
 
@@ -94,10 +94,10 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90)));
                 put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.62, 0.68))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
                 put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.61, 0.65))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
 
@@ -108,10 +108,10 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
                 put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
                 put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98))
-                    .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
 
@@ -132,10 +132,10 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 1.0)));
                 put(EntityCategories.MALE, new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.65, 0.72))
-                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
+                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
                 put(EntityCategories.FEMALE, new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.63, 0.70))
-                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
+                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
 
@@ -156,9 +156,9 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.09))
                     .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 0.70)));
                 put(EntityCategories.MALE, new AttributePool()
-                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1.03)));
+                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
                 put(EntityCategories.FEMALE, new AttributePool()
-                        .addElement(AttributePoolElement.create(ModEntityAttributes.WIDTH_SCALE, 0.94, 1)));
+                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
     }

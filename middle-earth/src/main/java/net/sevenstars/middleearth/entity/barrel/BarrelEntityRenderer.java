@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import org.joml.Quaternionf;
 
 public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntityRenderState> {
@@ -23,8 +23,8 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
 
     public BarrelEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
-        modelPart = context.getPart(ModEntityModelLayers.REINFORCED_BARREL);
-        this.waterMaskModel = new Model.SinglePartModel(context.getPart(ModEntityModelLayers.REINFORCED_BARREL_WATER_MASK), (id) -> {
+        modelPart = context.getPart(EntityModelLayersME.REINFORCED_BARREL);
+        this.waterMaskModel = new Model.SinglePartModel(context.getPart(EntityModelLayersME.REINFORCED_BARREL_WATER_MASK), (id) -> {
             return RenderLayer.getWaterMask();
         });
         this.shadowRadius = 0.6F;

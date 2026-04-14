@@ -6,16 +6,12 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.HorseEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorFeatureRenderer;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleFeatureRenderer;
 
 import java.util.Map;
@@ -25,12 +21,12 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
     private static final float SIZE = 1f;
 
     public BroadhoofGoatRenderer(EntityRendererFactory.Context context) {
-        super(context, new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT)), 0.8f);
+        super(context, new BroadhoofGoatModel(context.getPart(EntityModelLayersME.BROADHOOF_GOAT)), 0.8f);
         this.addFeature(
                 new SaddleFeatureRenderer<>(
                         this,
                         context.getEquipmentRenderer(),
-                        new BroadhoofGoatModel(context.getPart(ModEntityModelLayers.BROADHOOF_GOAT_ARMOR)),
+                        new BroadhoofGoatModel(context.getPart(EntityModelLayersME.BROADHOOF_GOAT_ARMOR)),
                         EquipmentModel.LayerType.HORSE_BODY,
                         broadhoofGoatEntityRenderState -> broadhoofGoatEntityRenderState.armor
 

@@ -13,7 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 
@@ -23,7 +23,7 @@ public class GreatHornSaddleFeatureRenderer extends FeatureRenderer<GreatHornEnt
 
     public GreatHornSaddleFeatureRenderer(FeatureRendererContext<GreatHornEntityRenderState, GreatHornModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
-        this.model = new GreatHornSaddleModel(loader.getModelPart(ModEntityModelLayers.GREAT_HORN_SADDLE));
+        this.model = new GreatHornSaddleModel(loader.getModelPart(EntityModelLayersME.GREAT_HORN_SADDLE));
     }
 
     @Override

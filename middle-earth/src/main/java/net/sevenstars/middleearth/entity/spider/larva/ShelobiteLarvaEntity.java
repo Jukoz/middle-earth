@@ -32,7 +32,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.goals.FollowDifferentMobGoal;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
@@ -230,6 +230,6 @@ public class ShelobiteLarvaEntity extends HostileEntity {
     static {
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistry.BYTE);
         ATTACK_FLAG = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-        VARIANT = DataTracker.registerData(ShelobiteLarvaEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
+        VARIANT = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistryME.SPIDER_VARIANT);
     }
 }

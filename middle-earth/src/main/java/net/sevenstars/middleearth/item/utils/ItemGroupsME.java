@@ -21,6 +21,8 @@ import net.sevenstars.middleearth.block.registration.GenericBlockSets;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
@@ -36,31 +38,53 @@ public class ItemGroupsME {
 
     private static final Comparator<RegistryEntry<NpcData>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcData::getId));
 
-    private static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.WrapperLookup registries, RegistryWrapper.Impl<NpcData> registryWrapper, Predicate<RegistryEntry<NpcData>> filter, ItemGroup.StackVisibility stackVisibility) {
-        RegistryOps<NbtElement> registryOps = registries.getOps(NbtOps.INSTANCE);
+    private static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcData> registryWrapper, Predicate<RegistryEntry<NpcData>> filter, ItemGroup.StackVisibility stackVisibility) {
+        Identifier randomSpawnEggId = MiddleEarth.of("npc_random_spawn_egg");
+
+        ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
+
+        NbtCompound randomCompound = new NbtCompound();
+        randomCompound.putString("id", MiddleEarth.of("npc").toString());
+        randomCompound.putString("NpcDataId", NpcEntityInitializer.RANDOM.toString());
+        randomNpcSpawnEgg.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(randomCompound));
+        randomNpcSpawnEgg.set(DataComponentTypes.ITEM_NAME, Text.translatable(randomSpawnEggId.toTranslationKey("item")));
+        randomNpcSpawnEgg.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
+                List.of(),
+                List.of(),
+                List.of(randomSpawnEggId.getPath().replaceAll("\\.", "_")),
+                List.of()));
+
+        entries.add(randomNpcSpawnEgg);
+
         registryWrapper.streamEntries().filter(filter).sorted(NPC_DATA_COMPARATOR).forEach(reference -> {
-            ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
-            NbtCompound compound = new NbtCompound();
             NpcData npcData = reference.value();
+            Identifier itemId = MiddleEarth.append(npcData.getId(), "_spawn_egg");
+
+            ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
+
+            NbtCompound compound = new NbtCompound();
             compound.putString("id", MiddleEarth.of("npc").toString());
             compound.putString("NpcDataId", npcData.getId().toString());
+
             itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
             itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcData.getFactionIdentifier()));
             itemStack.set(DataComponentTypesME.RACE_DATA, new RaceDataComponent(npcData.getRace()));
-            itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(npcData.getName()));
+            itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(itemId.toTranslationKey("item")));
             itemStack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
                     List.of(),
                     List.of(),
                     List.of(npcData.getId().getPath().replaceAll("\\.", "_") + "_spawn_egg"),
                     List.of()));
+
             entries.add(itemStack, stackVisibility);
         });
+
     }
 
 
     public static final List<ItemStack> STONE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup STONE_BLOCKS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".stone_blocks"))
+            .displayName(Text.translatable(MiddleEarth.of("stone_blocks").toTranslationKey("itemGroup")))
             .icon(() -> new ItemStack(StoneBlockSets.CALCITE_SET.brickBlocks.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : STONE_BLOCKS_CONTENTS) {
@@ -71,7 +95,7 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> WOOD_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WOOD_BLOCKS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".wood_blocks"))
+            .displayName(Text.translatable(MiddleEarth.of("wood_blocks").toTranslationKey("itemGroup")))
             .icon(() -> new ItemStack(WoodBlockSets.WILLOW_SET.logBlocks.log().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WOOD_BLOCKS_CONTENTS) {
@@ -179,7 +203,6 @@ public class ItemGroupsME {
                 displayContext.lookup().getOptional(DynamicRegistriesME.NPC)
                         .ifPresent(registryWrapper -> addNpcEggs(
                                 entries,
-                                displayContext.lookup(),
                                 registryWrapper,
                                 registryEntry -> true,
                                 ItemGroup.StackVisibility.PARENT_AND_SEARCH_TABS));

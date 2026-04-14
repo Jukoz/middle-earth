@@ -49,9 +49,16 @@ public class LanguageProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-
         TranslationEntries.blockEntries.forEach(block -> {
             translateBlock(translationBuilder, block);
+        });
+
+        TranslationEntries.spawnEggEntries.forEach(spawnEgg -> {
+            var path = spawnEgg.getPath();
+            if(!path.contains("_spawn_egg"))
+                path += "_spawn_egg";
+
+            translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
         });
 
         TranslationEntries.itemEntries.forEach(item -> {

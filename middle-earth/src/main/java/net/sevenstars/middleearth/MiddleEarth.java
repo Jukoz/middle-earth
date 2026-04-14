@@ -8,8 +8,8 @@ import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.ModEntityAttributes;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
@@ -46,7 +46,8 @@ public class MiddleEarth implements ModInitializer {
 	public static final boolean IS_DEBUG = true;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
-	@Override
+
+    @Override
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
@@ -73,7 +74,7 @@ public class MiddleEarth implements ModInitializer {
 		ResourceItemsME.registerModItems();
 		EggItemsME.registerModItems();
 		ItemGroupsME.register();
-		ModEntityAttributes.register();
+		EntityAttributesME.register();
 
 		WoodBlockSets.registerModBlockSets();
 		StoneBlockSets.registerModBlockSets();
@@ -100,7 +101,7 @@ public class MiddleEarth implements ModInitializer {
 		ModScreenHandlers.registerAllScreenHandlers();
 		ModRecipeSerializer.registerRecipeSerializers();
 
-		ModTrackedDataHandlerRegistry.register();
+		TrackedDataHandlerRegistryME.register();
 
 
 
@@ -150,6 +151,11 @@ public class MiddleEarth implements ModInitializer {
 	public static Identifier of(char splitter, String... names){
 		return IdentifierUtil.build(MOD_ID, createAggregate(splitter, names));
 	}
+
+    public static Identifier append(Identifier base, String suffix) {
+        String id = base.toString();
+        return Identifier.of(id + suffix);
+    }
 
     public static String createAggregate(char splitter, String... names){
         return IdentifierUtil.createAggregateValue(splitter, names);
