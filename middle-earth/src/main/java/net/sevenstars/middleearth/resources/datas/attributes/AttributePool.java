@@ -26,6 +26,10 @@ public class AttributePool {
         pool.add(element);
         return this;
     }
+    public AttributePool addElements(List<AttributePoolElement> elements){
+        pool.addAll(elements);
+        return this;
+    }
 
     public AttributePool(NbtCompound compound) {
         if(compound == null) return;

@@ -7,14 +7,14 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
 public class ShelobiteLarvaRenderer extends MobEntityRenderer<ShelobiteLarvaEntity, ShelobiteScuttlerRenderState, ShelobiteLarvaModel> {
     private static final String PATH = "textures/entities/spiders/";
 
     public ShelobiteLarvaRenderer(EntityRendererFactory.Context context) {
-        this(context, 0.2F, ModEntityModelLayers.SHELOBITE_LARVA);
+        this(context, 0.2F, EntityModelLayersME.SHELOBITE_LARVA);
     }
 
     @Override
