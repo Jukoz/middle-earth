@@ -62,7 +62,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 }
             }
         }
-        if(mainStack.getItem() instanceof CustomDaggerWeaponItem) {
+        if(mainStack.getItem() instanceof CustomDaggerWeaponItem) { // TODO config
             if(CustomDaggerWeaponItem.canBackStab(target, this)) {
                 newDamage *= 1.5f;
             }
