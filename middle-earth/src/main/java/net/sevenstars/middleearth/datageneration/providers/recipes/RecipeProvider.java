@@ -1202,19 +1202,23 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.wall(), ModDecorativeBlocks.PUMICE_STATUE);
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, ModDecorativeBlocks.TUFF_STATUE);
 
-                createPressurePlateRecipe(exporter, ModDecorativeBlocks.CERAMIC_PLATE, Block.getBlockFromItem(Items.BRICK));
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CERAMIC_PLATE, 1)
+                        .pattern("BB")
+                        .input('B', Items.BRICK)
+                        .criterion(hasItem(Items.BRICK),
+                                conditionsFromItem(Items.BRICK))
+                        .offerTo(exporter);
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROTTEN_PLATE, 4)
-                        .pattern("RRR")
+                        .pattern("RR")
                         .input('R', WoodBlockSets.ROTTEN_SET.logBlocks.log())
                         .criterion(hasItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()),
                                 conditionsFromItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()))
                         .offerTo(exporter);
-                createPressurePlateRecipe(exporter, ModDecorativeBlocks.SILVER_PLATE, Block.getBlockFromItem(ResourceItemsME.SILVER_INGOT));
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TAPPER, 4)
-                        .pattern("RRR")
-                        .input('R', WoodBlockSets.ROTTEN_SET.logBlocks.log())
-                        .criterion(hasItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()),
-                                conditionsFromItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()))
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SILVER_PLATE, 1)
+                        .pattern("SS")
+                        .input('S', ResourceItemsME.SILVER_INGOT)
+                        .criterion(hasItem(ResourceItemsME.SILVER_INGOT),
+                                conditionsFromItem(ResourceItemsME.SILVER_INGOT))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_SPIKE, 1)
@@ -1235,7 +1239,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('L', ItemTags.LOGS)
                         .input('B', Items.BUCKET)
                         .criterion(hasItem(Items.BUCKET),
-                                conditionsFromItem(Items.BUCKET))
+                                conditionsFromItem(Items.BUCKET));
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ORCISH_DRUM, 1)
                         .pattern("SLS")
                         .pattern("W W")
