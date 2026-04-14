@@ -44,18 +44,18 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -63,14 +63,11 @@ import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.LoggerFactoryFriend;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     // Data to use
