@@ -50,7 +50,13 @@ public class CeramicLampBlock extends CandleHolderBlock {
     @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState blockState = super.getPlacementState(ctx);
+        if(blockState == null) return null;
         return blockState.with(Properties.HORIZONTAL_FACING, blockState.get(HORIZONTAL_FACING).getOpposite());
+    }
+
+    @Override
+    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
     }
 
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {

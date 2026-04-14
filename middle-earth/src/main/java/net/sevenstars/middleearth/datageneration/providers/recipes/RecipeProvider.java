@@ -1174,7 +1174,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.STONE_LECTERN, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.STONE_LECTERN.asItem(), 1)
                         .pattern("SSS")
                         .pattern(" B ")
                         .pattern(" S ")

@@ -130,6 +130,11 @@ public class CandleHolderBlock extends Block {
     }
 
     @Override
+    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
+    }
+
+    @Override
     public FluidState getFluidState(BlockState state) {
         return Fluids.EMPTY.getDefaultState();
     }

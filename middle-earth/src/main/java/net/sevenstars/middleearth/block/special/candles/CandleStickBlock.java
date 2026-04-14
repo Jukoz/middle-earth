@@ -87,6 +87,13 @@ public class CandleStickBlock extends Block {
     }
 
     @Override
+    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        if(state.get(ATTACHED)) {
+            return Block.sideCoversSmallSquare(world, pos.offset(state.get(HORIZONTAL_FACING).getOpposite()), state.get(HORIZONTAL_FACING));
+        } else return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
+    }
+
+    @Override
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
     }
