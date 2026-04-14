@@ -78,6 +78,12 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());
     public static final Item THIN_BARREL = registerItem("thin_barrel",
             (settings) -> new BlockItem(ModDecorativeBlocks.THIN_BARREL, settings), new Item.Settings());
+    public static final Item LARCH_COFFER = registerItem("larch_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.LARCH_COFFER, settings), new Item.Settings());
+    public static final Item PINE_COFFER = registerItem("pine_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.PINE_COFFER, settings), new Item.Settings());
+    public static final Item SPRUCE_COFFER = registerItem("spruce_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.SPRUCE_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
 
@@ -90,6 +96,9 @@ public class DecorativeItemsME {
     public static final Item CALCITE_STATUE = registerItem("calcite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.CALCITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item DIORITE_STATUE = registerItem("diorite_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.DIORITE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.COFFEE_VIKING)));
     public static final Item GALONN_STATUE = registerItem("galonn_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.GALONN_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));

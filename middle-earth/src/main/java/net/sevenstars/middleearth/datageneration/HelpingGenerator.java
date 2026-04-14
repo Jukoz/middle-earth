@@ -26,7 +26,7 @@ public class HelpingGenerator {
             set.existingList.forEach(stoneBlockTypes -> {
                 switch (stoneBlockTypes){
                     case BASE_BLOCKS -> mainStoneBlocks(set.baseBlocks);
-                    case COBBLED_BLOCKS,COBBLESTONE_BLOCKS -> {
+                    case COBBLED_BLOCKS,COBBLESTONE_BLOCKS,PILLAR_BASE_BLOCKS -> {
                         regularBlocks(set.cobblestoneBlocks);
                         if(set.hasMossy) regularBlocks(set.mossyCobblestoneBlocks);
                     }
@@ -73,7 +73,8 @@ public class HelpingGenerator {
                         pillarBlocks(set.chiseledSmoothBlocks, null);
                     }
                     case CARVED_WINDOW -> {
-                        carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
+                        if(set.baseBlocks == null) carvedWindowBlocks(set.carvedWindows, set.cobblestoneBlocks.base());
+                        else carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
                     }
                 }
             });
@@ -204,6 +205,7 @@ public class HelpingGenerator {
         if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
             final boolean isPillar = blockName.contains("carved_window")
                     || blockName.contains("chiseled")
+                    || blockName.contains("drystone")
                     || blockName.contains("pillar");
             final boolean woodModel = (blockName.contains("_wood") && !(blockName.contains("gilded") || blockName.contains("beam"))) || blockName.contains("hyphae");
             switch (block){

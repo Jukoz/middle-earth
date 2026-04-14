@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -15,9 +14,9 @@ import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
-import net.sevenstars.middleearth.block.special.crockpot.CrockpotBlockEntity;
-import net.sevenstars.middleearth.block.special.crockpot.CrockpotEntityRenderer;
-import net.sevenstars.middleearth.block.special.crockpot.CrockpotScreen;
+import net.sevenstars.middleearth.block.special.coffers.LarchCofferEntityRenderer;
+import net.sevenstars.middleearth.block.special.coffers.PineCofferEntityRenderer;
+import net.sevenstars.middleearth.block.special.coffers.SpruceCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.block.special.forge.ForgeEntityRenderer;
 import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
@@ -153,6 +152,9 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntities.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.FORGE, ForgeEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.LARCH_COFFER, LarchCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.PINE_COFFER, PineCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
@@ -603,6 +605,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BROWN_FAT_POT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FAT_POT, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CANDLESTICK, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_LAMP, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CANDLE_HOLDER, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SKULL_CANDLE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CANDLE_HEAP, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BIG_BRAZIER, BlockRenderLayer.CUTOUT);
@@ -623,9 +629,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GILDED_WALL_SCONCE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ORCISH_WALL_SCONCE, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.STONE_LECTERN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BASALT_STATUE, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GALONN_STATUE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.PUMICE_STATUE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GALONN_STATUE, BlockRenderLayer.CUTOUT);
 

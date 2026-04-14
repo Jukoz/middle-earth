@@ -31,9 +31,11 @@ public class ItemTagsME {
 
     public static TagKey<Item> SPIDER_TOOL_MATERIALS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("spider_tool_materials"));
 
+    public static TagKey<Item> MUSHROOMS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mushrooms"));
+
+    public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("elk_food"));
     public static TagKey<Item> HORSE_ARMORS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("horse_armor"));
     public static TagKey<Item> WARG_ARMORS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("warg_armor"));
-    public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("elk_food"));
 
     public static TagKey<Item> CHARACTER_HELMET_SHOW_EARS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("character_helmet_should_show_ears"));
     public static TagKey<Item> CHARACTER_HELMET_HIDE_HAIR = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("character_helmet_should_hide_hair"));

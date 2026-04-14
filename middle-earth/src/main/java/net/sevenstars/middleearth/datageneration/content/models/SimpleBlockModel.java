@@ -126,6 +126,7 @@ public class SimpleBlockModel {
 
             add(ModDecorativeBlocks.WOOD_FRAMED_WINDOW);
             add(ModDecorativeBlocks.AGED_WOOD_WINDOW);
+            add(ModDecorativeBlocks.SIMPLE_OAK_WINDOW);
             add(ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW);
             add(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW);
             add(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW);
