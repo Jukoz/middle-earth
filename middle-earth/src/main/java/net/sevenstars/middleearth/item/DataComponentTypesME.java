@@ -1,11 +1,14 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.client.render.item.property.bool.BooleanProperties;
+import net.minecraft.client.render.item.property.bool.FishingRodCastProperty;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.dataComponents.*;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.UnaryOperator;
@@ -75,5 +78,7 @@ public class DataComponentTypesME {
 
     public static void registerModComponentTypes() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Mod Component Types Items for " + MiddleEarth.MOD_ID);
+
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("sneak_attack"), SneakAttackProperty.CODEC);
     }
 }

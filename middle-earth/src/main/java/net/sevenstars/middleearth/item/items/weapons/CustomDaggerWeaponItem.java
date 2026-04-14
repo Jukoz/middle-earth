@@ -4,6 +4,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.UseCooldownComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,6 +42,13 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
                 stack.set(DataComponentTypesME.SNEAK_ATTACK_DATA, new SneakAttackDataComponent(0));
             }
         }
+    }
+
+    @Override
+    public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        super.postHit(stack, target, attacker);
+        SneakAttackDataComponent sneakAttackDataComponent = stack.get(DataComponentTypesME.SNEAK_ATTACK_DATA);
+        if(sneakAttackDataComponent != null) stack.set(DataComponentTypesME.SNEAK_ATTACK_DATA, new SneakAttackDataComponent(0));
     }
 
     public static boolean canSneakAttack(ItemStack stack) {

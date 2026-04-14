@@ -1044,6 +1044,8 @@ public class WeaponItemsME {
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         if(isDualModel) {
             SimpleBigItemModel.items.add(item);
+        } else if(item instanceof CustomDaggerWeaponItem) {
+            SimpleHandheldItemModel.daggers.add(item);
         } else {
             SimpleHandheldItemModel.items.add(item);
         }

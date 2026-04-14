@@ -1,0 +1,251 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "dalish_noble_dagger",
+		"particle": "dalish_noble_dagger"
+	},
+	"elements": [
+		{
+			"name": "dalish_noble_dagger_0",
+			"from": [11, 11, 8],
+			"to": [13, 13, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [13, 3, 11, 5], "texture": "#1"},
+				"east": {"uv": [12, 3, 13, 5], "texture": "#1"},
+				"south": {"uv": [11, 3, 13, 5], "texture": "#1"},
+				"west": {"uv": [11, 3, 12, 5], "texture": "#1"},
+				"up": {"uv": [11, 3, 13, 4], "texture": "#1"},
+				"down": {"uv": [11, 4, 13, 5], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_1",
+			"from": [9, 8, 8],
+			"to": [11, 12, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [11, 4, 9, 8], "texture": "#1"},
+				"east": {"uv": [10, 4, 11, 8], "texture": "#1"},
+				"south": {"uv": [9, 4, 11, 8], "texture": "#1"},
+				"west": {"uv": [9, 4, 10, 8], "texture": "#1"},
+				"up": {"uv": [9, 4, 11, 5], "texture": "#1"},
+				"down": {"uv": [9, 7, 11, 8], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_2",
+			"from": [8, 6, 8],
+			"to": [9, 11, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [9, 5, 8, 10], "texture": "#1"},
+				"east": {"uv": [8, 5, 9, 10], "texture": "#1"},
+				"south": {"uv": [8, 5, 9, 10], "texture": "#1"},
+				"west": {"uv": [8, 5, 9, 10], "texture": "#1"},
+				"up": {"uv": [8, 5, 9, 6], "texture": "#1"},
+				"down": {"uv": [8, 9, 9, 10], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_3",
+			"from": [11, 9, 8],
+			"to": [12, 11, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [12, 5, 11, 7], "texture": "#1"},
+				"east": {"uv": [11, 5, 12, 7], "texture": "#1"},
+				"south": {"uv": [11, 5, 12, 7], "texture": "#1"},
+				"west": {"uv": [11, 5, 12, 7], "texture": "#1"},
+				"up": {"uv": [11, 5, 12, 6], "texture": "#1"},
+				"down": {"uv": [11, 6, 12, 7], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_4",
+			"from": [7, 5, 8],
+			"to": [8, 10, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [8, 6, 7, 11], "texture": "#1"},
+				"east": {"uv": [7, 6, 8, 11], "texture": "#1"},
+				"south": {"uv": [7, 6, 8, 11], "texture": "#1"},
+				"west": {"uv": [7, 6, 8, 11], "texture": "#1"},
+				"up": {"uv": [7, 6, 8, 7], "texture": "#1"},
+				"down": {"uv": [7, 10, 8, 11], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_5",
+			"from": [6, 2, 8],
+			"to": [7, 9, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [7, 7, 6, 14], "texture": "#1"},
+				"east": {"uv": [6, 7, 7, 14], "texture": "#1"},
+				"south": {"uv": [6, 7, 7, 14], "texture": "#1"},
+				"west": {"uv": [6, 7, 7, 14], "texture": "#1"},
+				"up": {"uv": [6, 7, 7, 8], "texture": "#1"},
+				"down": {"uv": [6, 13, 7, 14], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_6",
+			"from": [2, 6, 8],
+			"to": [4, 8, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [4, 8, 2, 10], "texture": "#1"},
+				"east": {"uv": [3, 8, 4, 10], "texture": "#1"},
+				"south": {"uv": [2, 8, 4, 10], "texture": "#1"},
+				"west": {"uv": [2, 8, 3, 10], "texture": "#1"},
+				"up": {"uv": [2, 8, 4, 9], "texture": "#1"},
+				"down": {"uv": [2, 9, 4, 10], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_7",
+			"from": [5, 3, 8],
+			"to": [6, 8, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [6, 8, 5, 13], "texture": "#1"},
+				"east": {"uv": [5, 8, 6, 13], "texture": "#1"},
+				"south": {"uv": [5, 8, 6, 13], "texture": "#1"},
+				"west": {"uv": [5, 8, 6, 13], "texture": "#1"},
+				"up": {"uv": [5, 8, 6, 9], "texture": "#1"},
+				"down": {"uv": [5, 12, 6, 13], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_8",
+			"from": [9, 7, 8],
+			"to": [10, 8, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [10, 8, 9, 9], "texture": "#1"},
+				"east": {"uv": [9, 8, 10, 9], "texture": "#1"},
+				"south": {"uv": [9, 8, 10, 9], "texture": "#1"},
+				"west": {"uv": [9, 8, 10, 9], "texture": "#1"},
+				"up": {"uv": [9, 8, 10, 9], "texture": "#1"},
+				"down": {"uv": [9, 8, 10, 9], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_9",
+			"from": [4, 3, 8],
+			"to": [5, 7, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [5, 9, 4, 13], "texture": "#1"},
+				"east": {"uv": [4, 9, 5, 13], "texture": "#1"},
+				"south": {"uv": [4, 9, 5, 13], "texture": "#1"},
+				"west": {"uv": [4, 9, 5, 13], "texture": "#1"},
+				"up": {"uv": [4, 9, 5, 10], "texture": "#1"},
+				"down": {"uv": [4, 12, 5, 13], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_10",
+			"from": [3, 2, 8],
+			"to": [4, 6, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [4, 10, 3, 14], "texture": "#1"},
+				"east": {"uv": [3, 10, 4, 14], "texture": "#1"},
+				"south": {"uv": [3, 10, 4, 14], "texture": "#1"},
+				"west": {"uv": [3, 10, 4, 14], "texture": "#1"},
+				"up": {"uv": [3, 10, 4, 11], "texture": "#1"},
+				"down": {"uv": [3, 13, 4, 14], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_11",
+			"from": [2, 0, 8],
+			"to": [3, 4, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [3, 12, 2, 16], "texture": "#1"},
+				"east": {"uv": [2, 12, 3, 16], "texture": "#1"},
+				"south": {"uv": [2, 12, 3, 16], "texture": "#1"},
+				"west": {"uv": [2, 12, 3, 16], "texture": "#1"},
+				"up": {"uv": [2, 12, 3, 13], "texture": "#1"},
+				"down": {"uv": [2, 15, 3, 16], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_12",
+			"from": [7, 2, 8],
+			"to": [8, 4, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [8, 12, 7, 14], "texture": "#1"},
+				"east": {"uv": [7, 12, 8, 14], "texture": "#1"},
+				"south": {"uv": [7, 12, 8, 14], "texture": "#1"},
+				"west": {"uv": [7, 12, 8, 14], "texture": "#1"},
+				"up": {"uv": [7, 12, 8, 13], "texture": "#1"},
+				"down": {"uv": [7, 13, 8, 14], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_13",
+			"from": [0, 1, 8],
+			"to": [2, 3, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [2, 13, 0, 15], "texture": "#1"},
+				"east": {"uv": [1, 13, 2, 15], "texture": "#1"},
+				"south": {"uv": [0, 13, 2, 15], "texture": "#1"},
+				"west": {"uv": [0, 13, 1, 15], "texture": "#1"},
+				"up": {"uv": [0, 13, 2, 14], "texture": "#1"},
+				"down": {"uv": [0, 14, 2, 15], "texture": "#1"}
+			}
+		},
+		{
+			"name": "dalish_noble_dagger_14",
+			"from": [1, 0, 8],
+			"to": [2, 1, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 8]},
+			"faces": {
+				"north": {"uv": [2, 15, 1, 16], "texture": "#1"},
+				"east": {"uv": [1, 15, 2, 16], "texture": "#1"},
+				"south": {"uv": [1, 15, 2, 16], "texture": "#1"},
+				"west": {"uv": [1, 15, 2, 16], "texture": "#1"},
+				"up": {"uv": [1, 15, 2, 16], "texture": "#1"},
+				"down": {"uv": [1, 15, 2, 16], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-170, -90, 55],
+			"translation": [0, -7.5, 0.5],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-170, 90, -55],
+			"translation": [0, -7.5, 0.5],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"firstperson_righthand": {
+			"rotation": [-165, -90, 25],
+			"translation": [0, 9.5, 1.5],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-165, 90, -25],
+			"translation": [0, 9.5, 1.5],
+			"scale": [0.68, 0.68, 0.68]
+		}
+	},
+	"groups": [
+		{
+			"name": "dalish_noble_dagger",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+		}
+	]
+}
