@@ -21,6 +21,7 @@ import net.sevenstars.middleearth.block.special.doors.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
+import net.sevenstars.middleearth.block.special.plate.PlateBlock;
 import net.sevenstars.middleearth.block.special.pots.AmphoraBlock;
 import net.sevenstars.middleearth.block.special.pots.FatPotBlock;
 import net.sevenstars.middleearth.block.special.pots.JarBlock;
@@ -173,8 +174,14 @@ public class ModDecorativeBlocks {
     public static final Block TORCH_OF_ORTHANC = registerBlock("torch_of_orthanc",
             (settings) -> new TorchOfOrthancBlock(settings, ParticleTypes.FLAME), AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
 
-    public static final Block TAPPER = registerBlockWithItem("tapper",
-            TapperBlock::new, AbstractBlock.Settings.copy(Blocks.BEEHIVE).breakInstantly().nonOpaque());
+    public static final Block CERAMIC_PLATE = registerBlockWithItem("ceramic_plate",
+            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_PRESSURE_PLATE).breakInstantly());
+    public static final Block ROTTEN_PLATE = registerBlockWithItem("rotten_plate",
+            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PRESSURE_PLATE).breakInstantly());
+    public static final Block SILVER_PLATE = registerBlockWithItem("silver_plate",
+            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE).breakInstantly());
+    public static final Block TAPPER = registerBlock("tapper",
+            TapperBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_WOOD).breakInstantly().nonOpaque());
 
     public static final Block WOOD_FRAMED_WINDOW = registerBlockWithItem("wood_framed_window",
             TransparentBlock::new, AbstractBlock.Settings.copy(Blocks.GLASS));

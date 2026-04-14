@@ -40,7 +40,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
@@ -343,7 +343,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.BYTE);
         BITE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
         POUNCE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
-        VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
+        VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistryME.SPIDER_VARIANT);
     }
 
     public static class SpiderData implements EntityData {

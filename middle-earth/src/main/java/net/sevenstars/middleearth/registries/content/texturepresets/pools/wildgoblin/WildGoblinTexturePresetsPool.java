@@ -1,16 +1,15 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin;
 
 import net.sevenstars.api.dtos.WeightedPool;
+import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
+import net.sevenstars.middleearth.resources.datas.texture_presets.*;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +52,12 @@ public class WildGoblinTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_ALMANDINE),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_ALMANDINE),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
+            ))
+            .withClothes(List.of(
+                new WeightedClothingPresetHolder(List.of(
+                        WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_BROWN),
+                        WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_DARK_BROWN)
+                ))
             ));
 
         WEAK_PRESET = new WeightedTexturePresetHolder()
@@ -64,6 +69,12 @@ public class WildGoblinTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
+            ))
+            .withClothes(List.of(
+                new WeightedClothingPresetHolder(List.of(
+                        WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_BROWN),
+                        WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_DARK_BROWN)
+                ))
             ));
 
         WARRIOR_PRESET = new WeightedTexturePresetHolder()
@@ -78,6 +89,12 @@ public class WildGoblinTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.PONYTAIL_SHORT_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_DREADLOCKS_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SMALL_DREADLOCKS)
+            ))
+            .withClothes(List.of(
+                    new WeightedClothingPresetHolder(List.of(
+                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_BROWN),
+                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_DARK_BROWN)
+                    ))
             ));
 
         BRUTE_PRESET = WARRIOR_PRESET.copy()

@@ -37,7 +37,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
@@ -64,7 +64,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 1.0);
     private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
-    private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, ModTrackedDataHandlerRegistry.GREAT_HORN_VARIANT);;
+    private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistryME.GREAT_HORN_VARIANT);;
     private static final TrackedData<Integer> BOW = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> ATTACK = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> BLUE_SADDLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);

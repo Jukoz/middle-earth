@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.datageneration.content;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.ArrayList;
@@ -11,11 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 public class TranslationEntries {
-
     public static List<Block> blockEntries = new ArrayList<>() {
     };
 
     public static List<Item> itemEntries = new ArrayList<>() {
+    };
+
+    public static List<Identifier> spawnEggEntries = new ArrayList<>() {
     };
 
     public static List<EntityType<?>> entityEntries = new ArrayList<>() {

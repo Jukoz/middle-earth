@@ -11,14 +11,13 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlock;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 
 public class SpruceCofferEntityRenderer<T extends ChestBlockEntity> extends ChestBlockEntityRenderer<T> {
     private static final String BASE = "bottom";
@@ -29,7 +28,7 @@ public class SpruceCofferEntityRenderer<T extends ChestBlockEntity> extends Ches
 
     public SpruceCofferEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         super(ctx);
-        ModelPart modelPart = ctx.getLayerModelPart(ModEntityModelLayers.SPRUCE_COFFER);
+        ModelPart modelPart = ctx.getLayerModelPart(EntityModelLayersME.SPRUCE_COFFER);
         this.bottom = modelPart.getChild(BASE);
         this.lid = modelPart.getChild(LID);
     }

@@ -620,6 +620,7 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.HANGING_SHELOBITE_LARVA_EGG, 0.8F);
 
         registry.add(FoodItemsME.LEMBAS, 1.0F);
+        registry.add(FoodItemsME.CRAM, 0.7F);
         registry.add(FoodItemsME.MAGGOTY_BREAD, 0.8F);
         registry.add(FoodItemsME.TOUGH_BERRIES, 0.3F);
         registry.add(FoodItemsME.STRAWBERRIES, 0.5F);
@@ -631,6 +632,7 @@ public class RegistriesME {
         registry.add(FoodItemsME.LETTUCE, 0.5F);
         registry.add(FoodItemsME.ONION, 0.5F);
 
+        registry.add(FoodItemsME.LAYERED_CAKE, 1.0F);
         registry.add(FoodItemsME.BERRY_PIE, 1.0F);
         registry.add(FoodItemsME.VEGETABLE_SKEWER, 1.0F);
         registry.add(FoodItemsME.VEGETABLE_SOUP, 1.0F);

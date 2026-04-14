@@ -175,6 +175,13 @@ public class DecorativeItemsME {
     public static final Item TORCH_OF_ORTHANC = registerItem("torch_of_orthanc",
             (settings) -> new BlockItem(ModDecorativeBlocks.TORCH_OF_ORTHANC, settings), new Item.Settings());
 
+    /*public static final Item CERAMIC_CROCKPOT = registerItem("ceramic_crockpot",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CERAMIC_CROCKPOT, settings), new Item.Settings());
+    public static final Item CROCKPOT = registerItem("crockpot",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CROCKPOT, settings), new Item.Settings());*/
+    public static final Item TAPPER = registerItem("tapper",
+            (settings) -> new BlockItem(ModDecorativeBlocks.TAPPER, settings), new Item.Settings());
+
     public static final Item TROLL_STATUE = registerItem("troll_statue",
             (settings) -> new CustomSpawnEggItem(EntitiesME.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
 

@@ -193,8 +193,17 @@ public class ItemModelProvider extends FabricModelProvider {
             if(!models.contains(item))
                 models.add(item);
         });
-
         ItemModel.Unbaked fallbackModel = ItemModels.basic(itemModelGenerator.upload(EggItemsME.NPC_SPAWN_EGG, Models.GENERATED));
+
+        String randomNpcEggId = "npc_random_spawn_egg";
+        var randomNpcEgg = ItemModels.switchCase(randomNpcEggId,
+            ItemModels.basic(Models.GENERATED.upload(MiddleEarth.of('/', "item", randomNpcEggId),
+                    TextureMap.layer0(MiddleEarth.of( '/', "item", randomNpcEggId)),
+                    itemModelGenerator.modelCollector
+            )));
+
+        if(!models.contains(randomNpcEgg))
+            models.add(randomNpcEgg);
 
         itemModelGenerator.output.accept(EggItemsME.NPC_SPAWN_EGG,
                 new SelectItemModel.Unbaked(new SelectItemModel.UnbakedSwitch(new CustomModelDataStringProperty(0), models), Optional.of(fallbackModel)));

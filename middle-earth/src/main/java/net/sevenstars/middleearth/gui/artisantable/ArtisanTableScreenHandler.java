@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
-import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -213,7 +213,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         if (!inputs.isEmpty()) {
             if (!this.world.isClient){
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-                this.availableRecipes = serverRecipeManager.getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
+                this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
             }
         }
 

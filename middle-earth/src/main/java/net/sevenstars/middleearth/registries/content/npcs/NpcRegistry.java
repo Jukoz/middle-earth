@@ -160,6 +160,7 @@ public class NpcRegistry {
         DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
         // [LANG datagen]
         TranslationEntries.npcDataEntries.add(registryKey.getValue().getPath());
+        TranslationEntries.spawnEggEntries.add(element.getId());
     }
 
     private static Identifier createID(RegistryKey<Faction> faction, String name){

@@ -13,7 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
 
@@ -23,7 +23,7 @@ public class CaveTrollSaddleFeatureRenderer extends FeatureRenderer<CaveTrollEnt
     public CaveTrollSaddleFeatureRenderer(FeatureRendererContext<CaveTrollEntityRenderState, CaveTrollEntityModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
 
-        model = new CaveTrollSaddleModel(loader.getModelPart(ModEntityModelLayers.CAVE_TROLL_SADDLE));
+        model = new CaveTrollSaddleModel(loader.getModelPart(EntityModelLayersME.CAVE_TROLL_SADDLE));
     }
 
     @Override

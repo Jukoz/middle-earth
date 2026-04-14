@@ -30,6 +30,9 @@ public class BlockDrops {
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
+            add(ModDecorativeBlocks.CERAMIC_PLATE);
+            add(ModDecorativeBlocks.ROTTEN_PLATE);
+            add(ModDecorativeBlocks.SILVER_PLATE);
             add(ModBlocks.TREATED_WOOD_ROPE_FENCE);
 
             add(ModDecorativeBlocks.TAPPER);
