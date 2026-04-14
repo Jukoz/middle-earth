@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.util;
 
 import net.minecraft.block.BedBlock;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentHolder;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
@@ -10,6 +11,7 @@ import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
@@ -25,10 +27,12 @@ import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 public class NpcEntityInitializer {
@@ -79,9 +83,9 @@ public class NpcEntityInitializer {
         // Get npc data
         String currentStep = "Fetching datas";
         try{
-            var registryManager = world.getRegistryManager();
-            var npcRegistry = registryManager.getOptional(DynamicRegistriesME.NPC);
-            var npcData = npcRegistry.get().get(currentNpcDataId);
+            DynamicRegistryManager registryManager = world.getRegistryManager();
+            Optional<Registry<NpcData>> npcRegistry = registryManager.getOptional(DynamicRegistriesME.NPC);
+            NpcData npcData = npcRegistry.get().get(currentNpcDataId);
             npcEntity.setNpcData(npcData);
             npcEntity.setFactionId(npcData.getFactionIdentifier());
             npcEntity.setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
@@ -115,7 +119,7 @@ public class NpcEntityInitializer {
     private static void generateMountData(ServerWorld serverWorld, BiomeEventData.ContextualizedBiomeData contextualizedBiomeData, NpcEntity npcEntity) {
         // Assign mount if needed
         if(contextualizedBiomeData.hasMount() != null && !npcEntity.hasVehicle()){
-            var mount = contextualizedBiomeData.hasMount().spawn(serverWorld, npcEntity.getBlockPos(), SpawnReason.JOCKEY);
+            Entity mount = contextualizedBiomeData.hasMount().spawn(serverWorld, npcEntity.getBlockPos(), SpawnReason.JOCKEY);
             if(mount instanceof HorseEntity horseEntity)
                 horseEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(npcEntity.getBlockPos()), SpawnReason.JOCKEY, null);
             else if(mount instanceof AbstractBeastEntity beastEntity){
@@ -153,7 +157,7 @@ public class NpcEntityInitializer {
 
     private static boolean characterIdentifierExist(World world, Identifier unitIdentifier){
         DynamicRegistryManager registryManager = world.getRegistryManager();
-        var optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(unitIdentifier);
+        Optional<RegistryEntry.Reference<NpcData>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(unitIdentifier);
         return !optionalEntry.isEmpty();
     }
 
@@ -162,7 +166,7 @@ public class NpcEntityInitializer {
         if(currentNpcDataId == null)
             return true;
         DynamicRegistryManager registryManager = serverWorld.getRegistryManager();
-        var optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId);
+        Optional<RegistryEntry.Reference<NpcData>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId);
         if(!npcEntity.hasTextureData())
             return true;
         return optionalEntry.isEmpty();

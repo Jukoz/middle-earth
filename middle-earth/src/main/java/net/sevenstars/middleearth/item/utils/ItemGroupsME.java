@@ -39,7 +39,7 @@ public class ItemGroupsME {
     private static final Comparator<RegistryEntry<NpcData>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcData::getId));
 
     private static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcData> registryWrapper, Predicate<RegistryEntry<NpcData>> filter, ItemGroup.StackVisibility stackVisibility) {
-        var randomSpawnEggId = MiddleEarth.of("npc_random_spawn_egg");
+        Identifier randomSpawnEggId = MiddleEarth.of("npc_random_spawn_egg");
 
         ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 

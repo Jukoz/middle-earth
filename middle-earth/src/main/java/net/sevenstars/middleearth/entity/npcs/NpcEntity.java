@@ -219,10 +219,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         World world = getWorld();
         if(world.isClient)
             return;
-
         if(world instanceof ServerWorld serverWorld){
-
-
             NpcEntityInitializer.initializeNpcForCurrentData(this, serverWorld, getNpcDataId());
         }
     }
