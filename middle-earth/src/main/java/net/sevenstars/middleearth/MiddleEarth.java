@@ -23,7 +23,7 @@ import net.sevenstars.middleearth.network.ModServerNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
-import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.ModSounds;
@@ -59,6 +59,7 @@ public class MiddleEarth implements ModInitializer {
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
+		RecipesME.registerRecipes();
 		DataComponentTypesME.registerModComponentTypes();
 
 		ModCommands.register();
@@ -98,7 +99,6 @@ public class MiddleEarth implements ModInitializer {
 		ModBlockEntities.registerBlockEntities();
 
 		ModScreenHandlers.registerAllScreenHandlers();
-		ModRecipes.registerRecipes();
 		ModRecipeSerializer.registerRecipeSerializers();
 
 		TrackedDataHandlerRegistryME.register();

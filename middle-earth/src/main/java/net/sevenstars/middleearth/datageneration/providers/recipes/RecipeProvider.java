@@ -28,6 +28,7 @@ import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -1201,6 +1202,25 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.wall(), ModDecorativeBlocks.PUMICE_STATUE);
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, ModDecorativeBlocks.TUFF_STATUE);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CERAMIC_PLATE, 1)
+                        .pattern("BB")
+                        .input('B', Items.BRICK)
+                        .criterion(hasItem(Items.BRICK),
+                                conditionsFromItem(Items.BRICK))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ROTTEN_PLATE, 4)
+                        .pattern("RR")
+                        .input('R', WoodBlockSets.ROTTEN_SET.logBlocks.log())
+                        .criterion(hasItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()),
+                                conditionsFromItem(WoodBlockSets.ROTTEN_SET.logBlocks.log()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SILVER_PLATE, 1)
+                        .pattern("SS")
+                        .input('S', ResourceItemsME.SILVER_INGOT)
+                        .criterion(hasItem(ResourceItemsME.SILVER_INGOT),
+                                conditionsFromItem(ResourceItemsME.SILVER_INGOT))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_SPIKE, 1)
                         .pattern("M  ")
                         .pattern("MM ")
@@ -1210,6 +1230,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(StoneBlockSets.MEDGON_SET.baseBlocks.base()),
                                 conditionsFromItem(StoneBlockSets.MEDGON_SET.baseBlocks.base()))
                         .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TAPPER, 1)
+                        .pattern(" S ")
+                        .pattern("LBL")
+                        .pattern(" L ")
+                        .input('S', ResourceItemsME.STEEL_NUGGET)
+                        .input('L', ItemTags.LOGS)
+                        .input('B', Items.BUCKET)
+                        .criterion(hasItem(Items.BUCKET),
+                                conditionsFromItem(Items.BUCKET));
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.ORCISH_DRUM, 1)
                         .pattern("SLS")
