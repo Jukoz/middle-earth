@@ -72,6 +72,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             if(CustomDaggerWeaponItem.canBackStab(target, this)) {
                 newDamage *= 1.5f;
             }
+            if(CustomDaggerWeaponItem.canSneakAttack(mainStack)) {
+                newDamage *= 1.5f;
+            }
         }
         return newDamage;
     }

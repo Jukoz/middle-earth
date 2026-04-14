@@ -32,6 +32,10 @@ public class DataComponentTypesME {
         return builder.codec(SeasonDataComponent.CODEC).packetCodec(SeasonDataComponent.PACKET_CODEC);
     });
 
+    public static final ComponentType<SneakAttackDataComponent> SNEAK_ATTACK_DATA = register("sneak_attack", (builder) -> {
+        return builder.codec(SneakAttackDataComponent.CODEC).packetCodec(SneakAttackDataComponent.PACKET_CODEC);
+    });
+
     public static final ComponentType<FactionDataComponent> FACTION_DATA = register("faction", (builder) -> {
         return builder.codec(FactionDataComponent.CODEC).packetCodec(FactionDataComponent.PACKET_CODEC);
     });
