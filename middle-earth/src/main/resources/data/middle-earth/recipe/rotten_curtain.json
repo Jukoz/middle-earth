@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:mushrooms",
+    "#middle-earth:curtains_that_burn"
+  ],
+  "result": {
+    "id": "middle-earth:rotten_curtain"
+  }
+}

@@ -12,6 +12,7 @@ public class SimplePaneModel {
         {
             add(new Pane(ModDecorativeBlocks.WOOD_FRAMED_WINDOW, ModDecorativeBlocks.WOOD_FRAMED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.AGED_WOOD_WINDOW, ModDecorativeBlocks.AGED_WOOD_WINDOW_PANE));
+            add(new Pane(ModDecorativeBlocks.SIMPLE_OAK_WINDOW, ModDecorativeBlocks.SIMPLE_OAK_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW, ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.WATTLE_FRAMED_WINDOW_PANE));
             add(new Pane(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW, ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW_PANE));

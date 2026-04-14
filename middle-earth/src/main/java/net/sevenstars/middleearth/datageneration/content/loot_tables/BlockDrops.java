@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
-import net.minecraft.block.AbstractBlock;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
@@ -27,6 +26,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.CRYSTAL_LAMP);
             add(ModDecorativeBlocks.WALL_CRYSTAL_LAMP);
             add(ModDecorativeBlocks.WOOD_PILE);
+            add(ModDecorativeBlocks.ORCISH_DRUM);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
@@ -54,6 +54,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GOLDEN_CHALICE);
 
             add(ModDecorativeBlocks.CANDLE_HEAP);
+            add(ModDecorativeBlocks.CANDLE_HOLDER);
+            add(ModDecorativeBlocks.CERAMIC_LAMP);
 
             add(ModDecorativeBlocks.SCONCE);
             add(ModDecorativeBlocks.WALL_SCONCE);
@@ -139,7 +141,13 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.FORGE);
 
+            add(ModDecorativeBlocks.LARCH_COFFER);
+            add(ModDecorativeBlocks.PINE_COFFER);
+            add(ModDecorativeBlocks.SPRUCE_COFFER);
             add(ModDecorativeBlocks.REINFORCED_CHEST);
+
+            add(ModDecorativeBlocks.STONE_LECTERN);
+            add(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF);
 
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);
