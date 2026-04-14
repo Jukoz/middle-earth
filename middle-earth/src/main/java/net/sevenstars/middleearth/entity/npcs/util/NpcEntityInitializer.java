@@ -28,7 +28,12 @@ import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLoo
 import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 
+import java.util.Objects;
+import java.util.Random;
+
 public class NpcEntityInitializer {
+    public static final Identifier RANDOM = MiddleEarth.of("full_random");
+
     public static void initializeNpcEntity(ClientWorld clientWorld, NpcEntity npcEntity){
         initializeForClient(clientWorld, npcEntity);
     }
@@ -39,7 +44,13 @@ public class NpcEntityInitializer {
 
     private static void initializeForServer(ServerWorld serverWorld, NpcEntity npcEntity){
         Identifier currentNpcDataId = npcEntity.getNpcDataId();
-        if(!characterIdentifierExist(serverWorld, currentNpcDataId)){
+
+        if(Objects.equals(currentNpcDataId, RANDOM)){
+            var ids = serverWorld.getRegistryManager().getOptional(DynamicRegistriesME.NPC).get().getIds();
+
+            Random random = new Random();
+            currentNpcDataId = ids.stream().toList().get(random.nextInt(ids.size()));
+        } else if(!characterIdentifierExist(serverWorld, currentNpcDataId)){
             BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = null;
             try{
                 contextualizedBiomeData = findContextualizedNpcData(serverWorld, npcEntity);
