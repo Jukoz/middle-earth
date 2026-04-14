@@ -33,10 +33,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.recipe.CrockpotRecipe;
-import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.recipe.RecipesME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
                 return 1;
             }
         };
-        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(ModRecipes.CROCKPOT);
+        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(RecipesME.CROCKPOT);
         this.liquidTopLevel = liquidTopLevel;
         random = Random.create();
     }

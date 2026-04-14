@@ -10,7 +10,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 
 public class CrockpotScreen extends HandledScreen<CrockpotScreenHandler> {
     private static final Identifier WATER_TEXTURE = Identifier.ofVanilla("textures/block/water_still.png");
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/crockpot.png");
+    private static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "crockpot.png");
     private static final Identifier BUBBLES_TEXTURE = Identifier.ofVanilla("container/brewing_stand/bubbles");
     private static final int[] BUBBLE_PROGRESS = new int[]{29, 24, 20, 16, 11, 6, 0};
     private static final int LIQUID_SIZE = 24;

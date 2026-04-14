@@ -19,7 +19,7 @@ public class PlateFoodModels {
         plateModels.put(Identifier.ofVanilla(name), Identifier.of(MiddleEarth.MOD_ID, "plate_" + name));
     }
     public static void addModel(String name) {
-        plateModels.put(Identifier.of(MiddleEarth.MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, "plate_" + name));
+        plateModels.put(MiddleEarth.of(name), MiddleEarth.of('_', "plate", name));
     }
 
     private static void initMap() {

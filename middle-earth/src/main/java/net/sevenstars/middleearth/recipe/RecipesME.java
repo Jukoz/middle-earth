@@ -5,9 +5,8 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
-public class ModRecipes {
+public class RecipesME {
     public static RecipeType<ArtisanRecipe> ARTISAN_TABLE;
     public static RecipeType<CrockpotRecipe> CROCKPOT; // = register("crockpot");
     public static RecipeType<AnvilShapingRecipe> ANVIL_SHAPING;
@@ -15,35 +14,35 @@ public class ModRecipes {
 
     public static void registerRecipes() {
         Registry.register(Registries.RECIPE_SERIALIZER,
-                Identifier.of(MiddleEarth.MOD_ID, AlloyingRecipe.Serializer.ID),
+                MiddleEarth.of(AlloyingRecipe.Serializer.ID),
                 AlloyingRecipe.Serializer.INSTANCE);
         FORGE = Registry.register(Registries.RECIPE_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, AlloyingRecipe.Type.ID),
+                MiddleEarth.of(AlloyingRecipe.Type.ID),
                 AlloyingRecipe.Type.INSTANCE);
 
         Registry.register(Registries.RECIPE_SERIALIZER,
-                Identifier.of(MiddleEarth.MOD_ID, AnvilShapingRecipe.Serializer.ID),
+                MiddleEarth.of(AnvilShapingRecipe.Serializer.ID),
                 AnvilShapingRecipe.Serializer.INSTANCE);
         ANVIL_SHAPING = Registry.register(Registries.RECIPE_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, AnvilShapingRecipe.Type.ID),
+                MiddleEarth.of(AnvilShapingRecipe.Type.ID),
                 AnvilShapingRecipe.Type.INSTANCE);
 
         Registry.register(Registries.RECIPE_SERIALIZER,
-                Identifier.of(MiddleEarth.MOD_ID, ArtisanRecipe.Serializer.ID),
+                MiddleEarth.of(ArtisanRecipe.Serializer.ID),
                 ArtisanRecipe.Serializer.INSTANCE);
         ARTISAN_TABLE = Registry.register(Registries.RECIPE_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, ArtisanRecipe.Type.ID),
+                MiddleEarth.of(ArtisanRecipe.Type.ID),
                 ArtisanRecipe.Type.INSTANCE);
 
         Registry.register(Registries.RECIPE_SERIALIZER,
-                Identifier.of(MiddleEarth.MOD_ID, CrockpotRecipe.Serializer.ID),
+                MiddleEarth.of(CrockpotRecipe.Serializer.ID),
                 CrockpotRecipe.Serializer.INSTANCE);
         CROCKPOT = Registry.register(Registries.RECIPE_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, CrockpotRecipe.Type.ID),
+                MiddleEarth.of(CrockpotRecipe.Type.ID),
                 CrockpotRecipe.Type.INSTANCE);
     }
     static <T extends Recipe<?>> RecipeType<T> register(final String id) {
-        return Registry.register(Registries.RECIPE_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), new RecipeType<T>() {
+        return Registry.register(Registries.RECIPE_TYPE, MiddleEarth.of(id), new RecipeType<T>() {
             public String toString() {
                 return id;
             }
