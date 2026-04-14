@@ -1,34 +1,40 @@
 package net.sevenstars.middleearth.block.special.plate;
 
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ConsumableComponent;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.component.type.UseRemainderComponent;
+import net.minecraft.component.type.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.storage.NbtReadView;
+import net.minecraft.storage.ReadView;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.world.tick.TickPriority;
 import org.jetbrains.annotations.Nullable;
 
 public class PlateBlock extends BlockWithEntity {
@@ -46,9 +52,46 @@ public class PlateBlock extends BlockWithEntity {
         return PlateBlock.createCodec(PlateBlock::new);
     }
 
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
+        if(plateBlockEntity != null && world instanceof ServerWorld serverWorld) {
+            ContainerLootComponent containerLootComponent = itemStack.get(DataComponentTypes.CONTAINER_LOOT);
+            if(containerLootComponent != null) {
+                plateBlockEntity.setLootTable(containerLootComponent.lootTable(), containerLootComponent.seed());
+            }
+        }
+    }
+
+    @Override
+    protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        super.onBlockAdded(state, world, pos, oldState, notify);
+        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
+        if(plateBlockEntity != null && world instanceof ServerWorld serverWorld) {
+            serverWorld.scheduleBlockTick(pos, this, 1, TickPriority.NORMAL);
+        }
+    }
+
+    @Override
+    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        super.scheduledTick(state, world, pos, random);
+        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
+        if(plateBlockEntity != null && plateBlockEntity.isBlockPlaced()) {
+            plateBlockEntity.generateItem(world);
+        }
+        plateBlockEntity.setBlockPlaced();
+    }
+
+    @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.down();
-        return hasTopRim(world, blockPos) || sideCoversSmallSquare(world, blockPos, Direction.UP);
+        return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
+    }
+
+    @Override
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        return !state.canPlaceAt(world, pos) ?
+                Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -149,12 +192,34 @@ public class PlateBlock extends BlockWithEntity {
 
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(UTENSILS, false);
+        Direction[] var3 = ctx.getPlacementDirections();
+        int var4 = var3.length;
+
+        for(int var5 = 0; var5 < var4; ++var5) {
+            Direction direction = var3[var5];
+            if (direction.getAxis() == Direction.Axis.Y) {
+                BlockState blockState = this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(UTENSILS, false);
+                if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
+                    return blockState;
+                }
+            }
+        }
+        return null;
     }
 
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new PlateBlockEntity(pos, state);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 }
