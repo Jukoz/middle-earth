@@ -1,6 +1,10 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.WorldView;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.minecraft.block.Block;
@@ -15,6 +19,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
 public abstract class BlockMixin {
@@ -49,5 +54,11 @@ public abstract class BlockMixin {
                 }
             }
         }
+    }
+
+    @Inject(method = "sideCoversSmallSquare", at = @At("RETURN"), cancellable = true)
+    private static void sideCoversSmallSquare(WorldView world, BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
+        BlockState blockState = world.getBlockState(pos);
+        if(blockState.getBlock() == ModDecorativeBlocks.ROPE) cir.setReturnValue(true);
     }
 }

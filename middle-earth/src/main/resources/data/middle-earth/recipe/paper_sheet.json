@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PP"
+  ],
+  "key": {
+    "P": "minecraft:paper"
+  },
+  "result": {
+    "id": "middle-earth:paper_sheet",
+    "count": 1
+  }
+}

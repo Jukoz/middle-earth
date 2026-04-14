@@ -1,0 +1,91 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "middle-earth:paper_sheet",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "papers": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "middle-earth:paper_sheet",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "papers": "3"
+                  }
+                }
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "middle-earth:paper_sheet",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "papers": "4"
+                  }
+                }
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "middle-earth:paper_sheet",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "papers": "5"
+                  }
+                }
+              ],
+              "count": 5.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "middle-earth:paper_sheet",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "papers": "6"
+                  }
+                }
+              ],
+              "count": 6.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "middle-earth:paper_sheet"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "middle-earth:blocks/paper_sheet"
+}

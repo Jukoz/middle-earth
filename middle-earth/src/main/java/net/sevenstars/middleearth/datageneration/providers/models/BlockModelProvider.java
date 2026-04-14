@@ -21,9 +21,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.AxisRotation;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
 import net.sevenstars.middleearth.block.special.crop.*;
@@ -1337,8 +1335,19 @@ public class BlockModelProvider extends FabricModelProvider {
 
     public final void registerGlassAndPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
         TextureMap textureMap;
-        if (Registries.BLOCK.getId(glassPane).getPath().contains("lead_glass")){
+        String blockId = Registries.BLOCK.getId(glassPane).getPath();
+        if (blockId.contains("lead_glass")){
             textureMap = TextureMap.paneAndTopForEdge(glass, ModDecorativeBlocks.LEAD_GLASS_PANE);
+        } else if (blockId.contains("plaster")){
+            textureMap = paneAndTopForEdgeCustom(glass, GenericBlockSets.PLASTER.blockSet.base());
+        } else if (blockId.contains("white_daub")){
+            textureMap = paneAndTopForEdgeCustom(glass, GenericBlockSets.WHITE_DAUB.blockSet.base());
+        } else if (blockId.contains("yellow_daub")){
+            textureMap = paneAndTopForEdgeCustom(glass, GenericBlockSets.YELLOW_DAUB.blockSet.base());
+        }else if (blockId.contains("brick")){
+            textureMap = paneAndTopForEdgeCustom(glass, Blocks.BRICKS);
+        } else if (blockId.contains("wattle") && !blockId.contains("black") && !blockId.contains("dark") && !blockId.contains("brick")){
+            textureMap = paneAndTopForEdgeCustom(glass, glass);
         } else {
             textureMap = TextureMap.paneAndTopForEdge(glass, glassPane);
         }
@@ -1528,5 +1537,9 @@ public class BlockModelProvider extends FabricModelProvider {
             TextureMap textureMap = TextureMap.crop(TextureMap.getSubId(block, string));
             return createWeightedVariant(MEModels.CROP_VINE.upload(block, string, textureMap, blockStateModelGenerator.modelCollector));
         })));
+    }
+
+    public static TextureMap paneAndTopForEdgeCustom(Block block, Block top) {
+        return (new TextureMap()).put(TextureKey.PANE, TextureMap.getId(block)).put(TextureKey.EDGE, TextureMap.getId(top));
     }
 }

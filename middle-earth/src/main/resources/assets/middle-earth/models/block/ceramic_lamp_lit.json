@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:block/ceramic_lamp",
+	"textures": {
+		"0": "middle-earth:block/ceramic_lamp_lit",
+		"particle": "middle-earth:block/ceramic_lamp_lit"
+	}
+}
