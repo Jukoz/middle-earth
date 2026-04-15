@@ -11,6 +11,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
+import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
@@ -74,6 +75,7 @@ import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNe
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToServer;
@@ -105,6 +107,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         KeyInputHandler.register();
 
         EntityModelsME.getModels();
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("sneak_attack"), SneakAttackProperty.CODEC);
+
         EntityRendererRegistry.register(EntitiesME.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
 

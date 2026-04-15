@@ -78,7 +78,5 @@ public class DataComponentTypesME {
 
     public static void registerModComponentTypes() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Mod Component Types Items for " + MiddleEarth.MOD_ID);
-
-        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("sneak_attack"), SneakAttackProperty.CODEC);
     }
 }
