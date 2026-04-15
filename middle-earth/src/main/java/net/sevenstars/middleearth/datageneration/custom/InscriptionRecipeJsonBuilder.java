@@ -17,9 +17,9 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -71,7 +71,7 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
         InscriptionRecipe inscriptionRecipeBuilder = new InscriptionRecipe(this.enchant, this.level, this.inputWords, this.chiselInput, this.levelCost);
-        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(IdentifierUtil.create("recipes/" + this.category.getName() + "/" + "inscription_" + this.enchant.getKey().get().getRegistry().getPath() + "_" + this.level)));
+        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.of("recipes/" + this.category.getName() + "/" + "inscription_" + this.enchant.getKey().get().getRegistry().getPath() + "_" + this.level)));
     }
 
     public static InscriptionRecipeJsonBuilder createInscriptionRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, int levelCost) {

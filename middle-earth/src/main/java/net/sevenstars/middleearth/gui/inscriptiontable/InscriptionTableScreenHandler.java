@@ -21,20 +21,16 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Texts;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
-import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.ArrayList;
@@ -54,7 +50,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     public List<String> selectedWords;
     private final Property levelCost;
 
-    private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = IdentifierUtil.create("container/slot/chisel");
+    private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = MiddleEarth.of("container/slot/chisel");
 
     public InscriptionTableScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -224,7 +220,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
              if (!this.world.isClient){
                 updateWords(false, "", true);
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-                this.outputRecipes = serverRecipeManager.getAllMatches(ModRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
+                this.outputRecipes = serverRecipeManager.getAllMatches(RecipesME.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
              }
         } else {
             updateWords(false, "", true);

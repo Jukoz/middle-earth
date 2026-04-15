@@ -9,7 +9,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.input.KeyCodes;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenTexts;
@@ -23,7 +22,6 @@ import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.packets.C2S.InscriptionConfirmationPacket;
 import net.sevenstars.middleearth.network.packets.C2S.InscriptionWordUpdatePacket;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -39,9 +37,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
     private static final Identifier EMPTY_SLOT_EMERALD_TEXTURE = Identifier.ofVanilla("container/slot/emerald");
     private static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.ofVanilla("container/slot/lapis_lazuli");
-    private static final Identifier EMPTY_SLOT_ADAMANT_TEXTURE = IdentifierUtil.create("container/slot/adamant");
-    private static final Identifier EMPTY_SLOT_RUBY_TEXTURE = IdentifierUtil.create("container/slot/ruby");
-    private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = IdentifierUtil.create("container/slot/sapphire");
+    private static final Identifier EMPTY_SLOT_ADAMANT_TEXTURE = MiddleEarth.of("container/slot/adamant");
+    private static final Identifier EMPTY_SLOT_RUBY_TEXTURE = MiddleEarth.of("container/slot/ruby");
+    private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = MiddleEarth.of("container/slot/sapphire");
 
     private static final Identifier FONT_ID = Identifier.ofVanilla("alt");
     private static final Style STYLE = Style.EMPTY.withFont(FONT_ID);
@@ -318,9 +316,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         final int index;
         boolean selected;
 
-        private static final Identifier BUTTON_TEXTURE = IdentifierUtil.create("word_button");
-        private static final Identifier SELECTED_BUTTON_TEXTURE = IdentifierUtil.create("word_button_selected");
-        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = IdentifierUtil.create("word_button_highlighted");
+        private static final Identifier BUTTON_TEXTURE = MiddleEarth.of("word_button");
+        private static final Identifier SELECTED_BUTTON_TEXTURE = MiddleEarth.of("word_button_selected");
+        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = MiddleEarth.of("word_button_highlighted");
 
         public WidgetInscriptionButtonPage(final int x, final int y, final int index, final ButtonWidget.PressAction onPress) {
             super(x, y, 86, 14, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);
@@ -358,9 +356,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
     static class WidgetArrowButtonPage extends ButtonWidget {
 
-        private static final Identifier BUTTON_TEXTURE = IdentifierUtil.create("arrow_button");
-        private static final Identifier BUTTON_UNAVAILABLE = IdentifierUtil.create("arrow_button_unavailable");
-        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = IdentifierUtil.create("arrow_button_highlighted");
+        private static final Identifier BUTTON_TEXTURE = MiddleEarth.of("arrow_button");
+        private static final Identifier BUTTON_UNAVAILABLE = MiddleEarth.of("arrow_button_unavailable");
+        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = MiddleEarth.of("arrow_button_highlighted");
 
         public WidgetArrowButtonPage(final int x, final int y, final ButtonWidget.PressAction onPress) {
             super(x, y, 16, 11, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);

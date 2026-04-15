@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.datageneration.providers.models.BlockModelProv
 import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableArmorRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.ArtisanTableHandheldRecipeProvider;
+import net.sevenstars.middleearth.datageneration.providers.recipes.InscriptionRecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
@@ -53,6 +54,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         // Custom Dynamic Registries
         DynamicRegistriesME.addProviders(pack);
         // Others
+        pack.addProvider(InscriptionRecipeProvider::new);
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ItemTagProvider::new);
