@@ -5,7 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.model.*;
@@ -30,7 +30,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
     private final ModelPart cavity;
 
     public BellowsBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-        ModelPart modelPart = ctx.getLayerModelPart(ModEntityModelLayers.BELLOWS);
+        ModelPart modelPart = ctx.getLayerModelPart(EntityModelLayersME.BELLOWS);
         this.bottom = modelPart.getChild("bottom");
         this.top = modelPart.getChild("top");
         this.cavity = modelPart.getChild("cavity");

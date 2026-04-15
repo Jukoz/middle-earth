@@ -32,7 +32,7 @@ public class SnailEntityRenderer extends MobEntityRenderer<SnailEntity, SnailEnt
 
     @Override
     public Identifier getTexture(SnailEntityRenderState state) {
-        return Identifier.of(OfBeastsAndWildThings.MOD_ID, LOCATION_BY_VARIANT.get(state.variant));
+        return OfBeastsAndWildThings.of(LOCATION_BY_VARIANT.get(state.variant));
     }
 
     @Override

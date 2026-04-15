@@ -55,7 +55,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.recipe.RecipesME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -118,7 +118,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             }
         };
 
-        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(ModRecipes.FORGE);
+        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(RecipesME.FORGE);
     }
 
     public ItemStack getRenderStack(ForgeBlockEntity entity) {

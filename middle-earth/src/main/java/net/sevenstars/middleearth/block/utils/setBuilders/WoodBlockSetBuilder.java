@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WoodBlockSetBuilder {
-
+    public boolean vanilla = false;
     public final List<WoodBlockTypes> existingList;
 
     public BlockRecordTypes.WoodSet logBlocks;
@@ -53,6 +53,11 @@ public class WoodBlockSetBuilder {
 
     public WoodBlockSetBuilder addToSet(WoodBlockTypes type) {
         this.existingList.add(type);
+        return this;
+    }
+
+    public WoodBlockSetBuilder vanilla(boolean vanilla) {
+        this.vanilla = vanilla;
         return this;
     }
 }

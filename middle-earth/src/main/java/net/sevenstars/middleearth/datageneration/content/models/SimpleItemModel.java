@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -18,6 +19,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.WATER_PHIAL);
             add(ResourceItemsME.STARLIGHT_PHIAL);
 
+            add(DecorativeItemsME.TAPPER);
             add(DecorativeItemsME.TROLL_STATUE);
 
             add(FoodItemsME.BIRCH_WATER);
@@ -73,6 +75,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
             //Food Items
+            add(FoodItemsME.LAYERED_CAKE);
             add(FoodItemsME.BERRY_PIE);
             add(FoodItemsME.BOILED_EGG);
             add(FoodItemsME.FISH_STEW);
@@ -89,6 +92,7 @@ public class SimpleItemModel {
             add(FoodItemsME.COOKED_HORSE);
 
             add(FoodItemsME.LEMBAS);
+            add(FoodItemsME.CRAM);
             add(FoodItemsME.MAGGOTY_BREAD);
             add(FoodItemsME.TOUGH_BERRIES);
             add(FoodItemsME.STRAWBERRIES);
@@ -157,6 +161,47 @@ public class SimpleItemModel {
             add(ResourceItemsME.PEBBLE);
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
+
+            add(ModDecorativeBlocks.CANDLESTICK.asItem());
+            add(ModDecorativeBlocks.CERAMIC_LAMP.asItem());
+
+            add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BURNT_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_GRAY_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_ROTTEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_WHITE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_YELLOW_CURTAIN.asItem());
+
+            add(ModDecorativeBlocks.BLACK_CURTAIN.asItem());
+            add(ModDecorativeBlocks.BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.BURNT_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.FANCY_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.FANCY_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.FANCY_RED_CURTAIN   .asItem());
+            add(ModDecorativeBlocks.GRAY_CURTAIN.asItem());
+            add(ModDecorativeBlocks.GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.PURPLE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.ROTTEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.WHITE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.YELLOW_CURTAIN.asItem());
 
             add(DecorativeItemsME.BLUE_HOBBIT_DOOR.asItem());
             add(DecorativeItemsME.GREEN_HOBBIT_DOOR.asItem());

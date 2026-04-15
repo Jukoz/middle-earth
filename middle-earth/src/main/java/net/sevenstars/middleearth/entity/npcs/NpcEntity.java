@@ -45,21 +45,24 @@ import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
+import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.FactionType;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
+import net.sevenstars.middleearth.resources.datas.common.FactionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
@@ -121,7 +124,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         view.read("EntityCategory", Codec.STRING)
             .ifPresent(x -> {
                 if(!x.isEmpty()){
-                    setNpcCategory(EntityCategory.valueOf(x));
+                    setNpcCategory(EntityCategories.valueOf(x));
                 }
             });
         view.read("NpcTextureData", NpcEntityTextureData.CODEC)
@@ -130,6 +133,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                 .ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
 
         tryToInitializeData();
+
+        if(this.isAiDisabled() && this.getNpcDataId() != null){
+            initializeForCurrentNpcData();
+        }
     }
 
     public void setNpcData(String value) {
@@ -156,10 +163,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         this.dataTracker.set(FACTION_ID, factionId.toString());
     }
 
-    public void setNpcCategory(EntityCategory entityCategory) {
-        if(entityCategory == null)
+    public void setNpcCategory(EntityCategories entityCategories) {
+        if(entityCategories == null)
             return;
-        this.dataTracker.set(CATEGORY, entityCategory.name());
+        this.dataTracker.set(CATEGORY, entityCategories.name());
     }
 
     public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData) {
@@ -198,12 +205,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             return;
 
         World world = getWorld();
-        if(world instanceof ServerWorld serverWorld){
+        if(!world.isClient && world instanceof ServerWorld serverWorld){
             if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
                 NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
             }
         }
     }
+
+    private void initializeForCurrentNpcData() {
+        if(this.getNpcDataId() == null)
+            return;
+
+        World world = getWorld();
+        if(world.isClient)
+            return;
+        if(world instanceof ServerWorld serverWorld){
+            NpcEntityInitializer.initializeNpcForCurrentData(this, serverWorld, getNpcDataId());
+        }
+    }
+
 
     @Override
     protected void mobTick(ServerWorld world) {
@@ -406,7 +426,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         var id = getNpcDataId();
         if(id == null)
             return null;
-        return getWorld().getRegistryManager().getOrThrow(NpcME.KEY).get(id);
+        return getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC).get(id);
     }
 
     @Override
@@ -519,7 +539,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                 var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
                 if(playerFaction == null)
                     return true;
-                if(faction.getDiplomaticEnemies().contains(playerFaction))
+                if(faction.isHostileToward(playerFaction))
                     return true;
             }
 
@@ -528,10 +548,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                     return false;
 
                 Faction targetFaction = targetNpcEntity.getFaction();
-                if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
+                if(targetFaction == null || faction.isHostileToward(targetFaction.getId()))
                     return true;
                 else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                    if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                    if(faction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                         return true;
                 }
             }
@@ -542,10 +562,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
                     for(Entity entity : entityList){
                         if(entity instanceof NpcEntity targetNpcEntity){
                             Faction targetFaction = targetNpcEntity.getFaction();
-                            if(targetFaction == null || faction.getDiplomaticEnemies().contains(targetFaction.getId()))
+                            if(targetFaction == null || faction.isHostileToward(targetFaction.getId()))
                                 return true;
                             else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                                if(faction.getDiplomaticEnemies().contains(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                                if(faction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                                     return true;
                             }
                         }
@@ -579,11 +599,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, target);
     }
 
-    public EntityCategory getNpcCategory() {
+    public EntityCategories getNpcCategory() {
         var category = this.dataTracker.get(CATEGORY);
         if(category == null || category.isEmpty())
             return null;
-        return EntityCategory.valueOf(category);
+        return EntityCategories.valueOf(category);
     }
 
     public BlockPos getStructureManagerHostPos() {
@@ -605,22 +625,23 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
     public boolean hasTextureData(){
         NpcEntityTextureData textureData = getNpcTextureData();
-        return textureData.getBodyTexture() != null;
+        return textureData.get(NpcRenderedPart.BODY) != null;
     }
 
     static {
-        INITIALIZATION_TICK = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.INITIALIZATION_TICK);
-        FACTION_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.FACTION_ID);
-        NPC_DATA_ID = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_DATA_ID);
-        CATEGORY = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.CATEGORY);
-        TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, ModTrackedDataHandlerRegistry.NPC_ENTITY_TEXTURE_DATA);
+        INITIALIZATION_TICK = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.INITIALIZATION_TICK);
+        FACTION_ID = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.FACTION_ID);
+        NPC_DATA_ID = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA_ID);
+        CATEGORY = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.CATEGORY);
+        TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_ENTITY_TEXTURE_DATA);
         FIGHTING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         BLOCKING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.ATTACK_DAMAGE, 2.0);
+                .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
+                .add(EntityAttributesME.WIDTH_SCALE, 1.0);
     }
 
     @Nullable
@@ -641,5 +662,14 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public void releaseTicketFor(MemoryModuleType<GlobalPos> destination) {
         this.releaseTicketFor(MemoryModuleType.HOME);
+    }
+
+    public float getWidthScale() {
+        try{
+            return (float) this.getAttributeValue(EntityAttributesME.WIDTH_SCALE);
+        }
+        catch (Exception ignored){
+            return 1.0f;
+        }
     }
 }

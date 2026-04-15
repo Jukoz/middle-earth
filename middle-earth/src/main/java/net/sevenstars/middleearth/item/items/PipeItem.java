@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.item.items;
 
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.ActionResult;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -170,7 +170,7 @@ public class PipeItem extends Item {
 
         if (world.isClient()) return;
 
-        SmokeRingProjectileEntity smoke = new SmokeRingProjectileEntity(ModEntities.SMOKE_RING_PROJECTILE,
+        SmokeRingProjectileEntity smoke = new SmokeRingProjectileEntity(EntitiesME.SMOKE_RING_PROJECTILE,
                 world,
                 user);
 

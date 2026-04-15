@@ -7,9 +7,8 @@ import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
@@ -22,13 +21,13 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
     private static final float SIZE = 1f;
 
     public WargRenderer(EntityRendererFactory.Context context) {
-        super(context, new WargModel(context.getPart(ModEntityModelLayers.WARG)), 0.8f);
+        super(context, new WargModel(context.getPart(EntityModelLayersME.WARG)), 0.8f);
         this.addFeature(new WargEyesFeatureRenderer(this));
         this.addFeature( // Armor Feature
                 new SaddleFeatureRenderer<>(
                         this,
                         context.getEquipmentRenderer(),
-                        new WargModel(context.getPart(ModEntityModelLayers.WARG_ARMOR)),
+                        new WargModel(context.getPart(EntityModelLayersME.WARG_ARMOR)),
                         EquipmentModel.LayerType.HORSE_BODY,
                         state -> state.armor
                 )

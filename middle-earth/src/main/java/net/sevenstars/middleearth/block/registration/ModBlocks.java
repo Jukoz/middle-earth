@@ -26,7 +26,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ColorCode;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.List;
 import java.util.function.Function;
@@ -493,12 +493,16 @@ public class ModBlocks {
     public static final Block GILDED_BARS = registerMiscBlock("gilded_bars",
             PaneBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BARS).sounds(BlockSoundGroup.COPPER), true);
 
+    public static final Block AGED_WOOD_DOOR = registerMiscBlock("aged_wood_door",
+            (settings) -> new DoorBlock(BlockSetType.DARK_OAK, settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_DOOR), true);
     public static final Block BRONZE_DOOR = registerMiscBlock("bronze_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block CRUDE_DOOR = registerMiscBlock("crude_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
     public static final Block TREATED_STEEL_DOOR = registerMiscBlock("treated_steel_door",
             (settings) -> new DoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_DOOR), true);
+    public static final Block AGED_WOOD_TRAPDOOR = registerMiscBlock("aged_wood_trapdoor",
+            (settings) -> new TrapdoorBlock(BlockSetType.DARK_OAK, settings), AbstractBlock.Settings.copy(Blocks.DARK_OAK_TRAPDOOR), true);
     public static final Block BRONZE_TRAPDOOR = registerMiscBlock("bronze_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.COPPER, settings), AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), true);
     public static final Block CRUDE_TRAPDOOR = registerMiscBlock("crude_trapdoor",
@@ -738,6 +742,46 @@ public class ModBlocks {
             (settings) -> new LayersBlock(settings, WHITE_SAND), AbstractBlock.Settings.copy(Blocks.SAND), false);
     //endregion
 
+    //region FOOD
+    public static final Block LAYERED_CAKE = registerTablessBlock("layered_cake",
+            LayeredCakeBlock::new, AbstractBlock.Settings.copy(Blocks.CAKE), false);
+    public static final Block CANDLES_LAYERED_CAKE = registerTablessBlock("candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block WHITE_CANDLES_LAYERED_CAKE = registerTablessBlock("white_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.WHITE_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block ORANGE_CANDLES_LAYERED_CAKE = registerTablessBlock("orange_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.ORANGE_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block MAGENTA_CANDLES_LAYERED_CAKE = registerTablessBlock("magenta_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.MAGENTA_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block LIGHT_BLUE_CANDLES_LAYERED_CAKE = registerTablessBlock("light_blue_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.LIGHT_BLUE_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block YELLOW_CANDLES_LAYERED_CAKE = registerTablessBlock("yellow_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.YELLOW_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block LIME_CANDLES_LAYERED_CAKE = registerTablessBlock("lime_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.LIME_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block PINK_CANDLES_LAYERED_CAKE = registerTablessBlock("pink_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.PINK_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block GRAY_CANDLES_LAYERED_CAKE = registerTablessBlock("gray_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.GRAY_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block LIGHT_GRAY_CANDLES_LAYERED_CAKE = registerTablessBlock("light_gray_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.LIGHT_GRAY_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block CYAN_CANDLES_LAYERED_CAKE = registerTablessBlock("cyan_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.CYAN_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block PURPLE_CANDLES_LAYERED_CAKE = registerTablessBlock("purple_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.PURPLE_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block BLUE_CANDLES_LAYERED_CAKE = registerTablessBlock("blue_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.BLUE_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block BROWN_CANDLES_LAYERED_CAKE = registerTablessBlock("brown_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.BROWN_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block GREEN_CANDLES_LAYERED_CAKE = registerTablessBlock("green_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.GREEN_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block RED_CANDLES_LAYERED_CAKE = registerTablessBlock("red_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.RED_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+    public static final Block BLACK_CANDLES_LAYERED_CAKE = registerTablessBlock("black_candles_layered_cake",
+            (settings) -> new CandleLayeredCakeBlock(Blocks.BLACK_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
+
+    //
+
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop, List<ItemStack> group){
         Block block = (Block)factory.apply(settings.registryKey(keyOfBlock(name)));
         registerBlockItem(name, block);
@@ -746,8 +790,18 @@ public class ModBlocks {
         }
         group.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
         return Registry.register(Registries.BLOCK, keyOfBlock(name), block);
+    }
+
+    public static Block registerTablessBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
+        Block block = factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
+        if(drop){
+            BlockDrops.blocks.add(block);
+        }
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
+
+        return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
 
     public static Block registerStoneBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
@@ -766,7 +820,7 @@ public class ModBlocks {
         var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
                 new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }
 
     public static RegistryKey<Block> keyOfBlock(String id) {
