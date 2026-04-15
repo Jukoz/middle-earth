@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs.util;
 
 import net.minecraft.block.BedBlock;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentHolder;
 import net.minecraft.entity.EquipmentSlot;
@@ -11,25 +10,20 @@ import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -37,10 +31,6 @@ import java.util.Random;
 
 public class NpcEntityInitializer {
     public static final Identifier RANDOM = MiddleEarth.of("full_random");
-
-    public static void initializeNpcEntity(ClientWorld clientWorld, NpcEntity npcEntity){
-        initializeForClient(clientWorld, npcEntity);
-    }
 
     public static void initializeNpcEntity(ServerWorld serverWorld, NpcEntity npcEntity){
         initializeForServer(serverWorld, npcEntity);
@@ -54,7 +44,7 @@ public class NpcEntityInitializer {
 
             Random random = new Random();
             currentNpcDataId = ids.stream().toList().get(random.nextInt(ids.size()));
-        } else if(!characterIdentifierExist(serverWorld, currentNpcDataId)){
+        } else if(!NpcInitializerUtil.characterIdentifierExist(serverWorld, currentNpcDataId)){
             BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = null;
             try{
                 contextualizedBiomeData = findContextualizedNpcData(serverWorld, npcEntity);
@@ -69,52 +59,9 @@ public class NpcEntityInitializer {
             }
         }
 
-        generateCharacterTextures(serverWorld, currentNpcDataId, npcEntity);
+        NpcInitializerUtil.generateCharacterTextures(serverWorld, currentNpcDataId, npcEntity);
     }
 
-    private static void initializeForClient(World clientWorld, NpcEntity npcEntity) {
-        Identifier currentNpcDataId = npcEntity.getNpcDataId();
-        if(characterIdentifierExist(clientWorld, currentNpcDataId)){
-            generateCharacterTextures(clientWorld, currentNpcDataId, npcEntity);
-        }
-    }
-
-    private static void generateCharacterTextures(World world, Identifier currentNpcDataId, NpcEntity npcEntity) {
-        // Get npc data
-        String currentStep = "Fetching datas";
-        try{
-            DynamicRegistryManager registryManager = world.getRegistryManager();
-            Optional<Registry<NpcData>> npcRegistry = registryManager.getOptional(DynamicRegistriesME.NPC);
-            NpcData npcData = npcRegistry.get().get(currentNpcDataId);
-            npcEntity.setNpcData(npcData);
-            npcEntity.setFactionId(npcData.getFactionIdentifier());
-            npcEntity.setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
-            npcData.applyAttributes(npcEntity);
-
-            TexturePresetDataPool textureData = npcData.getNpcTextureData(world);
-
-            TexturePresetDataPool.Identity identity = TexturePresetDataPool.Identity.create(textureData, npcEntity.getNpcCategory());
-            if(identity == null)
-                identity = TexturePresetDataPool.Identity.create(textureData);
-
-            NpcEntityTextureData entityTextureData = new NpcEntityTextureData();
-            currentStep = "Generating skin...";
-            entityTextureData = NpcEntityHelper.generateSkinTextureData(entityTextureData, identity);
-            currentStep = "Generating eyes...";
-            entityTextureData = NpcEntityHelper.generateEyeTextureData(entityTextureData, identity, npcData.getNpcTextureData(world).haveEmissiveEyes(identity));
-            currentStep = "Generating hair...";
-            entityTextureData = NpcEntityHelper.generateHairTextureData(entityTextureData, identity, world.getRegistryManager());
-            currentStep = "Generating clothing...";
-            entityTextureData = NpcEntityHelper.generateClothingTextureData(entityTextureData, identity);
-            npcEntity.setNpcTextureData(entityTextureData);
-
-            NpcUtil.equipAll(npcEntity, npcData.getGear());
-        } catch (Exception exception){
-            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s | Triggered by %s", currentNpcDataId, exception.getLocalizedMessage(), currentStep));
-            if(!npcEntity.isRemoved())
-                npcEntity.discard();
-        }
-    }
 
     private static void generateMountData(ServerWorld serverWorld, BiomeEventData.ContextualizedBiomeData contextualizedBiomeData, NpcEntity npcEntity) {
         // Assign mount if needed
@@ -144,7 +91,7 @@ public class NpcEntityInitializer {
         }
     }
 
-    private static BiomeEventData.ContextualizedBiomeData findContextualizedNpcData(World world, NpcEntity npcEntity) throws Exception {
+    private static BiomeEventData.ContextualizedBiomeData findContextualizedNpcData(ServerWorld world, NpcEntity npcEntity) throws Exception {
         BlockPos blockPos = npcEntity.getBlockPos();
         RegistryEntry<Biome> biome = world.getBiome(blockPos);
         BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = BiomeEventDataLookup.findNpcDataForBiome(world, biome, npcEntity);
@@ -155,18 +102,16 @@ public class NpcEntityInitializer {
         }
     }
 
-    private static boolean characterIdentifierExist(World world, Identifier unitIdentifier){
-        DynamicRegistryManager registryManager = world.getRegistryManager();
-        Optional<RegistryEntry.Reference<NpcData>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(unitIdentifier);
-        return !optionalEntry.isEmpty();
-    }
 
     public static boolean shouldInitialize(ServerWorld serverWorld, NpcEntity npcEntity){
         Identifier currentNpcDataId = npcEntity.getNpcDataId();
         if(currentNpcDataId == null)
             return true;
+
         DynamicRegistryManager registryManager = serverWorld.getRegistryManager();
         Optional<RegistryEntry.Reference<NpcData>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId);
+
+
         if(!npcEntity.hasTextureData())
             return true;
         return optionalEntry.isEmpty();
@@ -179,6 +124,6 @@ public class NpcEntityInitializer {
     public static void initializeNpcForCurrentData(NpcEntity npcEntity, ServerWorld serverWorld, Identifier npcDataId) {
         boolean shouldRefreshVisuals = npcEntity.getNpcTextureData().needToBeRefreshed();
         if(shouldRefreshVisuals)
-            generateCharacterTextures(serverWorld, npcDataId, npcEntity);
+            NpcInitializerUtil.generateCharacterTextures(serverWorld, npcDataId, npcEntity);
     }
 }

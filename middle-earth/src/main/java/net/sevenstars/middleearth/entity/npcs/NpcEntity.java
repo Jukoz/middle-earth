@@ -44,6 +44,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
@@ -205,7 +206,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             return;
 
         World world = getWorld();
-        if(!world.isClient && world instanceof ServerWorld serverWorld){
+
+        if(world.isClient)
+            return;
+
+        if(world instanceof ServerWorld serverWorld){
             if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
                 NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
             }
