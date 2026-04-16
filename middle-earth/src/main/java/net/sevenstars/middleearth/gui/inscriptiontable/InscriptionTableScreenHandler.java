@@ -31,6 +31,7 @@ import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPack
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.ArrayList;
@@ -167,7 +168,11 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         if (!reset){
             if (add){
                 if (this.selectedWords.isEmpty()){
-                    world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_SNIFFER_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                    world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_HIT_FIRST, SoundCategory.BLOCKS, 1.0F, 0.95F + world.random.nextFloat() * 0.1F);
+                } else if(this.selectedWords.size() == 1) {
+                    world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_HIT_SECOND, SoundCategory.BLOCKS, 1.0F, 0.95F + world.random.nextFloat() * 0.1F);
+                }else if(this.selectedWords.size() == 2) {
+                    world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_HIT_THIRD, SoundCategory.BLOCKS, 1.0F, 0.95F + world.random.nextFloat() * 0.1F);
                 }
                 this.selectedWords.add(word);
             } else {
@@ -180,12 +185,12 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                     if (Objects.equals(this.selectedWords.get(1), recipe.value().inputWords.get(1))
                             && recipe.value().enchant.value().isAcceptableItem(input.getStack(2))
                             && this.selectedWords.get(0).equals(recipe.value().inputWords.get(0))){
-                        world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_PARROT_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                        //world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_HIT_THIRD, SoundCategory.BLOCKS, 1.0F, 0.95F + world.random.nextFloat() * 0.1F);
                     }
                 }
                 if (recipe.value().inputWords.equals(this.selectedWords)){
                     if (canEnchant(input.getStack(2), recipe.value().enchant, recipe.value().level)){
-                        world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_CAMEL_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                        //world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_HIT_THIRD, SoundCategory.BLOCKS, 1.0F, 0.95F + world.random.nextFloat() * 0.1F);
                         foundEnchant = true;
                         resultEnchant = recipe.value().enchant;
                         resultLevel = recipe.value().level;
@@ -202,9 +207,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 this.level = resultLevel;
                 calculateCost(resultLevelCost, resultEnchant);
             } else {
-                if (this.selectedWords.size() == 3){
-                    world.playSound(null, this.player.getBlockPos(), SoundEvents.ENTITY_PANDA_DEATH, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                }
                 newPacket = new InscriptionEnchantInfoPacket("", 0, 0);
                 this.enchant = null;
                 this.level = 0;
@@ -271,7 +273,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             this.levelCost.set(0);
 
             stack.addEnchantment(this.enchant, this.level);
-            world.playSound(null, this.player.getBlockPos(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+            world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_ENCHANT, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         }
 
         updateWords(false, "", true);

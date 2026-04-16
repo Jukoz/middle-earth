@@ -9,6 +9,11 @@ import net.minecraft.util.Identifier;
 public class SoundsME {
     public static SoundEvent BELLOWS_PUSH = registerSoundEvent("bellows_push");
 
+    public static SoundEvent CHISEL_ENCHANT = registerSoundEvent("chisel_enchant");
+    public static SoundEvent CHISEL_HIT_FIRST = registerSoundEvent("chisel_hit_first");
+    public static SoundEvent CHISEL_HIT_SECOND = registerSoundEvent("chisel_hit_second");
+    public static SoundEvent CHISEL_HIT_THIRD = registerSoundEvent("chisel_hit_third");
+
     public static SoundEvent NAZGUL_FADE = registerSoundEvent("nazgul_fade");
     public static SoundEvent NAZGUL_SCREAM = registerSoundEvent("nazgul_scream");
 
