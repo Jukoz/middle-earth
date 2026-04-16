@@ -145,7 +145,7 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
 
     public ClothingSelection getClothingData() {
         if(item.characterClothePresets.isEmpty()){
-            MiddleEarth.LOGGER.logDebugMsg("Couldn't find clothes for " + this.getNbt());
+            //TODO : add clothes to all : MiddleEarth.LOGGER.logDebugMsg("Couldn't find clothes for " + this.getNbt());
             return new ClothingSelection(null, null, null);
         }
         WeightedClothingPresetHolder clothePreset = item.characterClothePresets.getRandom();
