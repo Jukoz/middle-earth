@@ -502,6 +502,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                 //endregion
 
                 //region BANE OF ARTHROPODS
+                /*
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.BANE_OF_ARTHROPODS), 1, 3)
                         .chisel(ItemTagsME.EARLY_CHISELS)
@@ -551,6 +552,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.RUBY),
                                 conditionsFromItem(ResourceItemsME.RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_arthropods_5")));
+                 */
                 //endregion
 
                 //region SWEEPING EDGE
