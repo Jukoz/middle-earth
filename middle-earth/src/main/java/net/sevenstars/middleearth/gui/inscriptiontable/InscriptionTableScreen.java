@@ -251,8 +251,8 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         while(words.hasNext()) {
             word = words.next();
             if (!this.canScroll(this.handler.getWords().size()) || (m >= this.indexStartOffset && m < 11 + this.indexStartOffset)) {
-                if(index + indexStartOffset < this.words.length) {
-                    WidgetInscriptionButtonPage widgetButtonPage = this.words[index + indexStartOffset];
+                if(index - indexStartOffset >= 0 && index - indexStartOffset < this.words.length) {
+                    WidgetInscriptionButtonPage widgetButtonPage = this.words[index - indexStartOffset];
                     if(widgetButtonPage.hidden) {
                         Text text = Text.literal(StringUtils.capitalize(word)).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
                         context.drawText(this.textRenderer, text, i + 11, n, Colors.LIGHT_GRAY, false);
@@ -262,9 +262,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                 } else {
                     context.drawText(this.textRenderer, StringUtils.capitalize(word), i + 11, n, Colors.WHITE, false);
                 }
-                index++;
                 n += 14;
             }
+            index++;
             ++m;
         }
 
