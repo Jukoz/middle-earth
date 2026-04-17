@@ -16,23 +16,28 @@ import net.sevenstars.middleearth.network.handlers.OnboardingScreenHandler;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 
+import java.util.List;
+
 public class InscriptionEnchantInfoPacket extends ServerToClientPacket<InscriptionEnchantInfoPacket> {
     public static final Id<InscriptionEnchantInfoPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "inscription_enchant_info_packet"));
     public static final PacketCodec<RegistryByteBuf, InscriptionEnchantInfoPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.enchant,
             PacketCodecs.INTEGER, p -> p.level,
             PacketCodecs.INTEGER, p -> p.maxLevel,
+            PacketCodecs.BYTE_ARRAY, p -> p.words,
             InscriptionEnchantInfoPacket::new
     );
 
     private final String enchant;
     private final int level;
     private final int maxLevel;
+    private final byte[] words;
 
-    public InscriptionEnchantInfoPacket(String enchant, int level, int maxLevel) {
+    public InscriptionEnchantInfoPacket(String enchant, int level, int maxLevel, byte[] words) {
         this.enchant = enchant;
         this.level = level;
         this.maxLevel = maxLevel;
+        this.words = words;
     }
 
     @Override
@@ -51,5 +56,12 @@ public class InscriptionEnchantInfoPacket extends ServerToClientPacket<Inscripti
         MinecraftClient client = MinecraftClient.getInstance();
         InscriptionTableScreen screen = (InscriptionTableScreen)client.currentScreen;
         if (screen != null) screen.updateInfo(this.enchant, this.level, this.maxLevel);
+
+        try{
+            InscriptionTableScreenHandler screenHandler = (InscriptionTableScreenHandler) context.player().currentScreenHandler;
+            screenHandler.updateAvailableWords(words);
+        }catch (Exception e){
+            MiddleEarth.LOGGER.logError("InscriptionWordUpdate error: ", e);
+        }
     }
 }

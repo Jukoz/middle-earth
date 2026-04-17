@@ -108,8 +108,8 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
         for(int l = 0; l < 11; ++l) {
             this.words[l] = this.addDrawableChild(new WidgetInscriptionButtonPage(i + 5, k, l, button -> {
-                if (button instanceof WidgetInscriptionButtonPage) {
-                    if (button.isSelected()){
+                if (button instanceof WidgetInscriptionButtonPage wordButton) {
+                    if (button.isSelected() && !wordButton.hidden){
                         if (!((WidgetInscriptionButtonPage) button).selected){
                             if (this.selectedWords.size() == 3){
                                 this.selectedWords.remove(this.selectedWords.getLast());
@@ -126,7 +126,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                             this.selectedButtons.remove(buttonIndex);
                         }
                     }
-                    this.enchantText = Text.literal("goober machine").fillStyle(STYLE.withObfuscated(true));
+                    this.enchantText = Text.literal("awaiting runes").fillStyle(STYLE.withObfuscated(true));
                 }
             }));
             k += 14;
@@ -248,8 +248,12 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             ++m;
         }
 
+        byte[] enabledWords = this.handler.getAvailableWords();
         for (WidgetInscriptionButtonPage widgetButtonPage : this.words) {
             widgetButtonPage.visible = widgetButtonPage.index < this.handler.getWords().size();
+            if(enabledWords != null && widgetButtonPage.index + indexStartOffset < enabledWords.length) {
+                widgetButtonPage.setHidden(enabledWords[widgetButtonPage.index + indexStartOffset] != 1);
+            }
         }
 
         drawMouseoverTooltip(context, mouseX, mouseY);
@@ -315,6 +319,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
     static class WidgetInscriptionButtonPage extends ButtonWidget {
         final int index;
         boolean selected;
+        boolean hidden;
 
         private static final Identifier BUTTON_TEXTURE = MiddleEarth.of("word_button");
         private static final Identifier SELECTED_BUTTON_TEXTURE = MiddleEarth.of("word_button_selected");
@@ -330,6 +335,10 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             this.selected = selected;
         }
 
+        public void setHidden(boolean hidden){
+            this.hidden = hidden;
+        }
+
         public int getIndex() {
             return this.index;
         }
@@ -337,7 +346,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         @Override
         protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
             MinecraftClient minecraftClient = MinecraftClient.getInstance();
-            if (this.selected){
+            if (this.hidden){
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(0.5f));
+            } else if (this.selected){
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SELECTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             } else if (this.isHovered()) {
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLIGHTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));

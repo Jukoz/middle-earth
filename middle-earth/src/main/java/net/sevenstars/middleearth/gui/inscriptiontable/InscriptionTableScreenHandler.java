@@ -20,7 +20,6 @@ import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -48,6 +47,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
     public PlayerEntity player;
 
+    private byte[] availableWords;
     public List<String> selectedWords;
     private final Property levelCost;
 
@@ -150,12 +150,28 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
 
         List<String> words = new ArrayList<>();
 
-        if (this.hasAll()){
+        if(this.hasAll()){
             words.addAll(InscriptionWordBank.wordBank.get(catalyst.getItem()));
             words.addAll(InscriptionWordBank.wordBank.get(null));
         }
-
+        /*List<String> finalWords = new ArrayList<>();
+        if(availableWords != null) {
+            int index = 0;
+            for(String word : words) {
+                if(index >= availableWords.length) break;
+                if(availableWords[index] == 1) finalWords.add(word);
+                index++;
+            }
+        }*/
         return words;
+    }
+
+    public byte[] getAvailableWords() {
+        return this.availableWords;
+    }
+
+    public void updateAvailableWords(byte[] wordsIndexes) {
+        availableWords = wordsIndexes;
     }
 
     public void updateWords(boolean add, String word, boolean reset){
@@ -200,14 +216,47 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                 }
             }
 
+            List<String> words = new ArrayList<>();
+            List<String> allowedWords = new ArrayList<>();
+            if(this.hasAll()){
+                words.addAll(InscriptionWordBank.wordBank.get(this.input.getStack(0).getItem()));
+                words.addAll(InscriptionWordBank.wordBank.get(null));
+            }
+
+            availableWords = new byte[words.size() + 1];
+            words.add(word);
+            ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
+            List<RecipeEntry<InscriptionRecipe>> availableRecipes = serverRecipeManager.getAllOfType(RecipesME.INSCRIPTION_TABLE)
+                    .stream().filter((inscriptionRecipeRecipeEntry -> {
+                            if(selectedWords.isEmpty()) return true;
+                            else return inscriptionRecipeRecipeEntry.value().inputWords.getFirst().equals(selectedWords.getFirst());
+                    })).toList();
+
+            for(RecipeEntry<InscriptionRecipe> recipe : availableRecipes) {
+                List<String> recipeWords = recipe.value().inputWords;
+                for(String availableWord : recipeWords) {
+                    if(!allowedWords.contains(availableWord)) {
+                        allowedWords.add(availableWord);
+                    }
+                }
+            }
+
+            int index = 0;
+            for(String wordElement : words) {
+                if(allowedWords.contains(wordElement) || selectedWords.contains(wordElement)) {
+                    availableWords[index] = 1;
+                }
+                index++;
+            }
+
             InscriptionEnchantInfoPacket newPacket;
             if (foundEnchant){
-                newPacket = new InscriptionEnchantInfoPacket(resultEnchant.value().description().copy().getString(), resultLevel, resultMaxLevel);
+                newPacket = new InscriptionEnchantInfoPacket(resultEnchant.value().description().copy().getString(), resultLevel, resultMaxLevel, availableWords);
                 this.enchant = resultEnchant;
                 this.level = resultLevel;
                 calculateCost(resultLevelCost, resultEnchant);
             } else {
-                newPacket = new InscriptionEnchantInfoPacket("", 0, 0);
+                newPacket = new InscriptionEnchantInfoPacket("", 0, 0, availableWords);
                 this.enchant = null;
                 this.level = 0;
                 this.levelCost.set(0);
