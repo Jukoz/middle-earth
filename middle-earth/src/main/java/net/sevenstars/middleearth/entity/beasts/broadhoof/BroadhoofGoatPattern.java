@@ -1,13 +1,10 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
-import com.google.common.collect.Maps;
-import net.minecraft.util.collection.WeightedList;
 import net.minecraft.util.function.ValueLists;
 import net.sevenstars.api.dtos.WeightedPool;
 
 import java.util.*;
 import java.util.function.IntFunction;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum BroadhoofGoatPattern {
@@ -29,10 +26,13 @@ public enum BroadhoofGoatPattern {
     PALE_PATCHES(12),
     PALE_SIDE_PATCH(13),
     PALE_SPOTS(14),
-    PALE_STRIPS(15);
+    PALE_STRIPS(15),
 
-    private static final List<WeightedBroadhoofGoatPattern> NONE_SET = List.of(
-            new WeightedBroadhoofGoatPattern(BroadhoofGoatPattern.NONE, 5)
+    GRAY_BEARD(16);
+
+    private static final List<WeightedBroadhoofGoatPattern> GENERIC_SET = List.of(
+            new WeightedBroadhoofGoatPattern(BroadhoofGoatPattern.NONE, 5),
+            new WeightedBroadhoofGoatPattern(BroadhoofGoatPattern.GRAY_BEARD)
     );
 
     private static final List<WeightedBroadhoofGoatPattern> BLACK_SET = List.of(
@@ -61,31 +61,31 @@ public enum BroadhoofGoatPattern {
 
     public static final Map<BroadhoofGoatColor, WeightedPool<WeightedBroadhoofGoatPattern>> PATTERN_COMBINATIONS = Map.of(
             BroadhoofGoatColor.WHITE,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(NONE_SET, BLACK_SET, BROWN_SET)
+            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)
                     .flatMap(List::stream).toList()),
 
             BroadhoofGoatColor.LIGHT_GRAY,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(NONE_SET, BLACK_SET, BROWN_SET)
+            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)
                     .flatMap(List::stream).toList()),
 
             BroadhoofGoatColor.PALE,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(NONE_SET, BLACK_SET, BROWN_SET)
+            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)
                     .flatMap(List::stream).toList()),
 
             BroadhoofGoatColor.RED,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(NONE_SET, BLACK_SET, PALE_SET)
+            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, PALE_SET)
                     .flatMap(List::stream).toList()),
 
             BroadhoofGoatColor.BROWN,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(NONE_SET, BLACK_SET, PALE_SET)
+            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, PALE_SET)
                     .flatMap(List::stream).toList()),
 
             BroadhoofGoatColor.GRAY,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(NONE_SET, BLACK_SET, BROWN_SET, PALE_SET)
+            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET, PALE_SET)
                     .flatMap(List::stream).toList()),
 
             BroadhoofGoatColor.BLACK,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(NONE_SET, BROWN_SET, PALE_SET)
+            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BROWN_SET, PALE_SET)
                     .flatMap(List::stream).toList())
 
     );

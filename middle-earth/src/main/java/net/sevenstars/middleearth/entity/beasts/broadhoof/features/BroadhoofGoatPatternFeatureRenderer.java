@@ -61,7 +61,10 @@ public class BroadhoofGoatPatternFeatureRenderer extends FeatureRenderer<Broadho
                     Map.entry(BroadhoofGoatPattern.PALE_SPOTS,
                             MiddleEarth.of(PATH + "broadhoof_goat_pale_spots.png")),
                     Map.entry(BroadhoofGoatPattern.PALE_STRIPS,
-                            MiddleEarth.of(PATH + "broadhoof_goat_pale_strip.png"))
+                            MiddleEarth.of(PATH + "broadhoof_goat_pale_strip.png")),
+
+                    Map.entry(BroadhoofGoatPattern.GRAY_BEARD,
+                            MiddleEarth.of(PATH + "broadhoof_goat_gray_beard.png"))
 
 
             )
