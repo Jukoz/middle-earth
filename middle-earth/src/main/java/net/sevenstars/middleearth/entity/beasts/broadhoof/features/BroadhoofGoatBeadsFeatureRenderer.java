@@ -26,15 +26,15 @@ public class BroadhoofGoatBeadsFeatureRenderer extends FeatureRenderer<Broadhoof
                     BroadhoofGoatBeads.NONE,
                     INVISIBLE_ID,
                     BroadhoofGoatBeads.LEATHER,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_leather_beads.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_leather_beads.png"),
                     BroadhoofGoatBeads.COAL,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_coal_beads.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_coal_beads.png"),
                     BroadhoofGoatBeads.COPPER,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_copper_beads.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_copper_beads.png"),
                     BroadhoofGoatBeads.GOLD,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_gold_beads.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_gold_beads.png"),
                     BroadhoofGoatBeads.ALMANDINE,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_almandine_beads.png")
+                    MiddleEarth.of(PATH + "broadhoof_goat_almandine_beads.png")
             )
     );
 

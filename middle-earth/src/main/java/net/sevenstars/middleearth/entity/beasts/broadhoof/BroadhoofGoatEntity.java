@@ -40,6 +40,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
@@ -499,7 +500,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     /* VARIANTS */
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         BroadhoofGoatColor color = Util.getRandom(BroadhoofGoatColor.values(), this.random);
-        BroadhoofGoatPattern pattern = WeightedBroadhoofGoatPattern.randomWeightedSelect(BroadhoofGoatPattern.PATTERN_COMBINATIONS.get(color));
+        BroadhoofGoatPattern pattern = BroadhoofGoatPattern.PATTERN_COMBINATIONS.get(color).getRandom().getItem();
         BroadhoofGoatHorns horns = Util.getRandom(BroadhoofGoatHorns.values(), this.random);
 
         this.setGoatVariant(color, pattern, horns);

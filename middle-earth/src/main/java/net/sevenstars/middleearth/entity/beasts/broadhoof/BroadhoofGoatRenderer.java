@@ -14,6 +14,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatBeadsFeatureRenderer;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatPatternFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleFeatureRenderer;
 
 import java.util.Map;
@@ -59,19 +61,19 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
     private static final Map<BroadhoofGoatColor, Identifier> TEXTURES = Maps.newEnumMap(
             Map.of(
                     BroadhoofGoatColor.WHITE,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_white.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_white.png"),
                     BroadhoofGoatColor.LIGHT_GRAY,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_light_gray.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_light_gray.png"),
                     BroadhoofGoatColor.PALE,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_pale.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_pale.png"),
                     BroadhoofGoatColor.RED,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_red.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_red.png"),
                     BroadhoofGoatColor.BROWN,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_brown.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_brown.png"),
                     BroadhoofGoatColor.GRAY,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_gray.png"),
+                    MiddleEarth.of(PATH + "broadhoof_goat_gray.png"),
                     BroadhoofGoatColor.BLACK,
-                    Identifier.of(MiddleEarth.MOD_ID, PATH + "broadhoof_goat_black.png")
+                    MiddleEarth.of(PATH + "broadhoof_goat_black.png")
             )
     );
 
