@@ -261,10 +261,10 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         if (broadhoofEntity2 != null) {
             int i = this.random.nextInt(9);
             BroadhoofGoatColor goatColor = i < 4 ? this.getGoatColor() : (i < 8 ? broadhoofEntity.getGoatColor() : Util.getRandom(BroadhoofGoatColor.values(), this.random));
-            int j = this.random.nextInt(9);
-            BroadhoofGoatPattern goatPattern = j < 4 ? this.getPattern() : (j < 8 ? broadhoofEntity.getPattern() : Util.getRandom(BroadhoofGoatPattern.values(), this.random));
-            int k = this.random.nextInt(5);
-            BroadhoofGoatHorns broadhoofHorns = k < 2 ? this.getHorns() : (k < 4 ? broadhoofEntity.getHorns() : Util.getRandom(BroadhoofGoatHorns.values(), this.random));
+            i = this.random.nextInt(9);
+            BroadhoofGoatPattern goatPattern = i < 4 ? this.getPattern() : (i < 8 ? broadhoofEntity.getPattern() : Util.getRandom(BroadhoofGoatPattern.values(), this.random));
+            i = this.random.nextInt(5);
+            BroadhoofGoatHorns broadhoofHorns = i < 2 ? this.getHorns() : (i < 4 ? broadhoofEntity.getHorns() : Util.getRandom(BroadhoofGoatHorns.values(), this.random));
 
             broadhoofEntity2.setGoatVariant(goatColor, goatPattern, broadhoofHorns);
             this.setChildAttributes(entity, broadhoofEntity2);
