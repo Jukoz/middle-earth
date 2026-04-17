@@ -2,7 +2,6 @@ package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.CamelAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 public class PheasantEntityModel extends EntityModel<PheasantEntityRenderState> {

@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.utils.BlockAuthor;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
@@ -22,7 +22,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 
@@ -78,6 +78,12 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());
     public static final Item THIN_BARREL = registerItem("thin_barrel",
             (settings) -> new BlockItem(ModDecorativeBlocks.THIN_BARREL, settings), new Item.Settings());
+    public static final Item LARCH_COFFER = registerItem("larch_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.LARCH_COFFER, settings), new Item.Settings());
+    public static final Item PINE_COFFER = registerItem("pine_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.PINE_COFFER, settings), new Item.Settings());
+    public static final Item SPRUCE_COFFER = registerItem("spruce_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.SPRUCE_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
 
@@ -90,6 +96,9 @@ public class DecorativeItemsME {
     public static final Item CALCITE_STATUE = registerItem("calcite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.CALCITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item DIORITE_STATUE = registerItem("diorite_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.DIORITE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.COFFEE_VIKING)));
     public static final Item GALONN_STATUE = registerItem("galonn_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.GALONN_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
@@ -166,8 +175,15 @@ public class DecorativeItemsME {
     public static final Item TORCH_OF_ORTHANC = registerItem("torch_of_orthanc",
             (settings) -> new BlockItem(ModDecorativeBlocks.TORCH_OF_ORTHANC, settings), new Item.Settings());
 
+    /*public static final Item CERAMIC_CROCKPOT = registerItem("ceramic_crockpot",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CERAMIC_CROCKPOT, settings), new Item.Settings());
+    public static final Item CROCKPOT = registerItem("crockpot",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CROCKPOT, settings), new Item.Settings());*/
+    public static final Item TAPPER = registerItem("tapper",
+            (settings) -> new BlockItem(ModDecorativeBlocks.TAPPER, settings), new Item.Settings());
+
     public static final Item TROLL_STATUE = registerItem("troll_statue",
-            (settings) -> new CustomSpawnEggItem(ModEntities.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
+            (settings) -> new CustomSpawnEggItem(EntitiesME.PETRIFIED_TROLL, settings), new Item.Settings().maxCount(1));
 
     public static final Item ARKENSTONE = registerItem("arkenstone",
             (settings) -> new VerticallyAttachableBlockItem(ModDecorativeBlocks.ARKENSTONE, ModDecorativeBlocks.WALL_ARKENSTONE, Direction.DOWN, settings), new Item.Settings().rarity(Rarity.EPIC).fireproof()
@@ -178,7 +194,7 @@ public class DecorativeItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

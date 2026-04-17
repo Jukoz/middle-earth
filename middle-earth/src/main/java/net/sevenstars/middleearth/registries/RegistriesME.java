@@ -66,18 +66,17 @@ public class RegistriesME {
                 File aliases = new File("aliases.txt");
 
                 if (aliases.createNewFile()) {
-                    System.out.println("File created: " + aliases.getName());
+                    MiddleEarth.LOGGER.logInfoMsg("File created: " + aliases.getName());
                 } else {
-                    System.out.println("File already exists.");
+                    MiddleEarth.LOGGER.logWarn("File already exists.");
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("An error occurred.", e);
             }
 
             try {
                 FileWriter myWriter = new FileWriter("aliases.txt");
-                for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+                for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                     String name = alias.name();
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
@@ -86,19 +85,18 @@ public class RegistriesME {
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
                 }
 
-                for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+                for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                     alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
                     myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
                 }
 
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                MiddleEarth.LOGGER.logTrace("Successfully wrote to the file.");
             } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+                MiddleEarth.LOGGER.logError("RegistriesME :: An error occurred.", e);
             }
         } else {
-            for (RegistryAliases.Alias alias: RegistryAliases.aliases) {
+            for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
                 String name = alias.name();
                 for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                     name = name.replaceAll(map.getKey(), map.getValue());
@@ -106,7 +104,7 @@ public class RegistriesME {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
             }
 
-            for (RegistryAliases.ManualAlias alias: RegistryAliases.manualAliases) {
+            for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
             }
         }
@@ -622,6 +620,7 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.HANGING_SHELOBITE_LARVA_EGG, 0.8F);
 
         registry.add(FoodItemsME.LEMBAS, 1.0F);
+        registry.add(FoodItemsME.CRAM, 0.7F);
         registry.add(FoodItemsME.MAGGOTY_BREAD, 0.8F);
         registry.add(FoodItemsME.TOUGH_BERRIES, 0.3F);
         registry.add(FoodItemsME.STRAWBERRIES, 0.5F);
@@ -633,6 +632,7 @@ public class RegistriesME {
         registry.add(FoodItemsME.LETTUCE, 0.5F);
         registry.add(FoodItemsME.ONION, 0.5F);
 
+        registry.add(FoodItemsME.LAYERED_CAKE, 1.0F);
         registry.add(FoodItemsME.BERRY_PIE, 1.0F);
         registry.add(FoodItemsME.VEGETABLE_SKEWER, 1.0F);
         registry.add(FoodItemsME.VEGETABLE_SOUP, 1.0F);

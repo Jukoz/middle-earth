@@ -41,14 +41,14 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,7 +71,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     private static final TrackedData<Boolean> BRUSHED_BEARD = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(BroadhoofGoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState jumpAnimationState = new AnimationState();
-    private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.BROADHOOF_GOAT.getDimensions().scaled(0.5f);
+    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.BROADHOOF_GOAT.getDimensions().scaled(0.5f);
 
 
     public BroadhoofGoatEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
@@ -159,8 +159,8 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public Disposition getDisposition() {
-        return Disposition.GOOD;
+    public DispositionType getDisposition() {
+        return DispositionType.GOOD;
     }
 
     @Override
@@ -256,7 +256,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Nullable
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         BroadhoofGoatEntity broadhoofEntity = (BroadhoofGoatEntity)entity;
-        BroadhoofGoatEntity broadhoofEntity2 = ModEntities.BROADHOOF_GOAT.create(world, SpawnReason.BREEDING);
+        BroadhoofGoatEntity broadhoofEntity2 = EntitiesME.BROADHOOF_GOAT.create(world, SpawnReason.BREEDING);
         if (broadhoofEntity2 != null) {
             int i = this.random.nextInt(9);
             BroadhoofGoatColor goatColor = i < 4 ? this.getGoatColor() : (i < 8 ? broadhoofEntity.getGoatColor() : Util.getRandom(BroadhoofGoatColor.values(), this.random));

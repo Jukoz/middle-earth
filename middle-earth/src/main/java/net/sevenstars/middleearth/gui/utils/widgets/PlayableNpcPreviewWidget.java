@@ -7,13 +7,15 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.state.EntityRenderState;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityBuilder;
+import net.sevenstars.middleearth.entity.npcs.util.ClientNpcEntityInitializer;
+import net.sevenstars.middleearth.entity.npcs.util.NpcEntityBuilder;
+import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -45,6 +47,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
     public boolean haveDoneStep = false;
 
     public boolean haveBeenInitialized;
+
     public PlayableNpcPreviewWidget(){
         ButtonWidget.PressAction leftButtonAction = button -> {
             reduceAngle();
@@ -113,7 +116,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         }
     }
 
-    public void updateEntity(Identifier npcDataIdentifier, Race race, World world) {
+    public void updateEntity(Identifier npcDataIdentifier, Race race, ClientWorld world, boolean deactivatedAI) {
         if(world != null)
             haveBeenInitialized = true;
 
@@ -121,12 +124,14 @@ public class PlayableNpcPreviewWidget extends ModWidget{
                 .withNpcData(npcDataIdentifier)
                 .forceBuild();
 
-        npcEntity.setAiDisabled(true);
+        npcEntity.setAiDisabled(deactivatedAI);
 
         npcEntity.setBodyYaw(currentAngle);
         npcEntity.setPitch(0f);
-        npcEntity.headYaw = npcEntity.getBodyYaw();
         npcEntity.lastHeadYaw =npcEntity.getBodyYaw();
+        npcEntity.headYaw = npcEntity.getBodyYaw();
+
+        ClientNpcEntityInitializer.initializeNpcEntity(world, npcEntity);
 
         this.entity = npcEntity;
     }
@@ -149,6 +154,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         }
 
         EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        entityRenderDispatcher.setRenderShadows(true);
         EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(entity);
         EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
 

@@ -11,6 +11,7 @@ import java.util.function.IntFunction;
 public enum BlockAuthor implements StringIdentifiable {
     BOENNDAL(0, "Boenndal"),
     SCOSHER(1, "Scosher"),
+    COFFEE_VIKING(2, "CoffeeViking"),
     ;
 
     private static final IntFunction<BlockAuthor> BY_ID = ValueLists.createIndexToValueFunction(BlockAuthor::getId, BlockAuthor.values(), ValueLists.OutOfBoundsHandling.ZERO);;

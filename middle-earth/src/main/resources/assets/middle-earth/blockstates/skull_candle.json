@@ -1,0 +1,97 @@
+{
+  "variants": {
+    "lit=false,candles=1,facing=north": {
+      "model": "middle-earth:block/skull_candle_one",
+      "y": 270
+    },
+    "lit=true,candles=1,facing=north": {
+      "model": "middle-earth:block/skull_candle_one_lit",
+      "y": 270
+    },
+    "lit=false,candles=2,facing=north": {
+      "model": "middle-earth:block/skull_candle_two",
+      "y": 270
+    },
+    "lit=true,candles=2,facing=north": {
+      "model": "middle-earth:block/skull_candle_two_lit",
+      "y": 270
+    },
+    "lit=false,candles=3,facing=north": {
+      "model": "middle-earth:block/skull_candle_three",
+      "y": 270
+    },
+    "lit=true,candles=3,facing=north": {
+      "model": "middle-earth:block/skull_candle_three_lit",
+      "y": 270
+    },
+
+    "lit=false,candles=1,facing=east": {
+      "model": "middle-earth:block/skull_candle_one",
+      "y": 180
+    },
+    "lit=true,candles=1,facing=east": {
+      "model": "middle-earth:block/skull_candle_one_lit",
+      "y": 180
+    },
+    "lit=false,candles=2,facing=east": {
+      "model": "middle-earth:block/skull_candle_two",
+      "y": 180
+    },
+    "lit=true,candles=2,facing=east": {
+      "model": "middle-earth:block/skull_candle_two_lit",
+      "y": 180
+    },
+    "lit=false,candles=3,facing=east": {
+      "model": "middle-earth:block/skull_candle_three",
+      "y": 180
+    },
+    "lit=true,candles=3,facing=east": {
+      "model": "middle-earth:block/skull_candle_three_lit",
+      "y": 180
+    },
+
+    "lit=false,candles=1,facing=south": {
+      "model": "middle-earth:block/skull_candle_one",
+      "y": 270
+    },
+    "lit=true,candles=1,facing=south": {
+      "model": "middle-earth:block/skull_candle_one_lit",
+      "y": 270
+    },
+    "lit=false,candles=2,facing=south": {
+      "model": "middle-earth:block/skull_candle_two",
+      "y": 270
+    },
+    "lit=true,candles=2,facing=south": {
+      "model": "middle-earth:block/skull_candle_two_lit",
+      "y": 270
+    },
+    "lit=false,candles=3,facing=south": {
+      "model": "middle-earth:block/skull_candle_three",
+      "y": 270
+    },
+    "lit=true,candles=3,facing=south": {
+      "model": "middle-earth:block/skull_candle_three_lit",
+      "y": 270
+    },
+
+    "lit=false,candles=1,facing=west": {
+      "model": "middle-earth:block/skull_candle_one"
+    },
+    "lit=true,candles=1,facing=west": {
+      "model": "middle-earth:block/skull_candle_one_lit"
+    },
+    "lit=false,candles=2,facing=west": {
+      "model": "middle-earth:block/skull_candle_two"
+    },
+    "lit=true,candles=2,facing=west": {
+      "model": "middle-earth:block/skull_candle_two_lit"
+    },
+    "lit=false,candles=3,facing=west": {
+      "model": "middle-earth:block/skull_candle_three"
+    },
+    "lit=true,candles=3,facing=west": {
+      "model": "middle-earth:block/skull_candle_three_lit"
+    }
+  }
+}

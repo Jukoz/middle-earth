@@ -4,7 +4,6 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityAnimations;
 
 public class BroadhoofGoatModel extends EntityModel<BroadhoofGoatEntityRenderState> {
     private final ModelPart broadhoofGoat;

@@ -2,9 +2,7 @@ package net.sevenstars.of_beasts_and_wild_things.entity.snail;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.CamelAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
 import static java.lang.Math.PI;
 

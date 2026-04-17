@@ -1,0 +1,252 @@
+{
+  "variants": {
+    "lit=false,candles=1,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_one_candle"
+    },
+    "lit=true,candles=1,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_one_candle_lit"
+    },
+    "lit=false,candles=2,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_two_candle"
+    },
+    "lit=true,candles=2,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_two_candle_lit"
+    },
+    "lit=false,candles=3,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_three_candle"
+    },
+    "lit=true,candles=3,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_three_candle_lit"
+    },
+    "lit=false,candles=4,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_four_candle"
+    },
+    "lit=true,candles=4,attached=false,facing=north": {
+      "model": "middle-earth:block/candlestick_four_candle_lit"
+    },
+
+    "lit=false,candles=1,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_one_candle",
+      "y": 90
+    },
+    "lit=true,candles=1,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_one_candle_lit",
+      "y": 90
+    },
+    "lit=false,candles=2,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_two_candle",
+      "y": 90
+    },
+    "lit=true,candles=2,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_two_candle_lit",
+      "y": 90
+    },
+    "lit=false,candles=3,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_three_candle",
+      "y": 90
+    },
+    "lit=true,candles=3,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_three_candle_lit",
+      "y": 90
+    },
+    "lit=false,candles=4,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_four_candle",
+      "y": 90
+    },
+    "lit=true,candles=4,attached=false,facing=east": {
+      "model": "middle-earth:block/candlestick_four_candle_lit",
+      "y": 90
+    },
+
+    "lit=false,candles=1,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_one_candle",
+      "y": 180
+    },
+    "lit=true,candles=1,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_one_candle_lit",
+      "y": 180
+    },
+    "lit=false,candles=2,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_two_candle",
+      "y": 180
+    },
+    "lit=true,candles=2,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_two_candle_lit",
+      "y": 180
+    },
+    "lit=false,candles=3,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_three_candle",
+      "y": 180
+    },
+    "lit=true,candles=3,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_three_candle_lit",
+      "y": 180
+    },
+    "lit=false,candles=4,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_four_candle",
+      "y": 180
+    },
+    "lit=true,candles=4,attached=false,facing=south": {
+      "model": "middle-earth:block/candlestick_four_candle_lit",
+      "y": 180
+    },
+
+    "lit=false,candles=1,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_one_candle",
+      "y": 270
+    },
+    "lit=true,candles=1,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_one_candle_lit",
+      "y": 270
+    },
+    "lit=false,candles=2,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_two_candle",
+      "y": 270
+    },
+    "lit=true,candles=2,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_two_candle_lit",
+      "y": 270
+    },
+    "lit=false,candles=3,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_three_candle",
+      "y": 270
+    },
+    "lit=true,candles=3,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_three_candle_lit",
+      "y": 270
+    },
+    "lit=false,candles=4,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_four_candle",
+      "y": 270
+    },
+    "lit=true,candles=4,attached=false,facing=west": {
+      "model": "middle-earth:block/candlestick_four_candle_lit",
+      "y": 270
+    },
+
+
+    "lit=false,candles=1,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_one_candle"
+    },
+    "lit=true,candles=1,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_one_candle_lit"
+    },
+    "lit=false,candles=2,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_two_candle"
+    },
+    "lit=true,candles=2,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_two_candle_lit"
+    },
+    "lit=false,candles=3,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_three_candle"
+    },
+    "lit=true,candles=3,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_three_candle_lit"
+    },
+    "lit=false,candles=4,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_four_candle"
+    },
+    "lit=true,candles=4,attached=true,facing=north": {
+      "model": "middle-earth:block/candlestick_wall_four_candle_lit"
+    },
+
+    "lit=false,candles=1,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_one_candle",
+      "y": 90
+    },
+    "lit=true,candles=1,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_one_candle_lit",
+      "y": 90
+    },
+    "lit=false,candles=2,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_two_candle",
+      "y": 90
+    },
+    "lit=true,candles=2,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_two_candle_lit",
+      "y": 90
+    },
+    "lit=false,candles=3,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_three_candle",
+      "y": 90
+    },
+    "lit=true,candles=3,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_three_candle_lit",
+      "y": 90
+    },
+    "lit=false,candles=4,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_four_candle",
+      "y": 90
+    },
+    "lit=true,candles=4,attached=true,facing=east": {
+      "model": "middle-earth:block/candlestick_wall_four_candle_lit",
+      "y": 90
+    },
+
+    "lit=false,candles=1,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_one_candle",
+      "y": 180
+    },
+    "lit=true,candles=1,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_one_candle_lit",
+      "y": 180
+    },
+    "lit=false,candles=2,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_two_candle",
+      "y": 180
+    },
+    "lit=true,candles=2,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_two_candle_lit",
+      "y": 180
+    },
+    "lit=false,candles=3,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_three_candle",
+      "y": 180
+    },
+    "lit=true,candles=3,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_three_candle_lit",
+      "y": 180
+    },
+    "lit=false,candles=4,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_four_candle",
+      "y": 180
+    },
+    "lit=true,candles=4,attached=true,facing=south": {
+      "model": "middle-earth:block/candlestick_wall_four_candle_lit",
+      "y": 180
+    },
+
+    "lit=false,candles=1,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_one_candle",
+      "y": 270
+    },
+    "lit=true,candles=1,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_one_candle_lit",
+      "y": 270
+    },
+    "lit=false,candles=2,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_two_candle",
+      "y": 270
+    },
+    "lit=true,candles=2,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_two_candle_lit",
+      "y": 270
+    },
+    "lit=false,candles=3,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_three_candle",
+      "y": 270
+    },
+    "lit=true,candles=3,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_three_candle_lit",
+      "y": 270
+    },
+    "lit=false,candles=4,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_four_candle",
+      "y": 270
+    },
+    "lit=true,candles=4,attached=true,facing=west": {
+      "model": "middle-earth:block/candlestick_wall_four_candle_lit",
+      "y": 270
+    }
+  }
+}

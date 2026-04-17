@@ -19,6 +19,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.WATER_PHIAL);
             add(ResourceItemsME.STARLIGHT_PHIAL);
 
+            add(DecorativeItemsME.TAPPER);
             add(DecorativeItemsME.TROLL_STATUE);
 
             add(FoodItemsME.BIRCH_WATER);
@@ -74,6 +75,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
             //Food Items
+            add(FoodItemsME.LAYERED_CAKE);
             add(FoodItemsME.BERRY_PIE);
             add(FoodItemsME.BOILED_EGG);
             add(FoodItemsME.FISH_STEW);
@@ -90,6 +92,7 @@ public class SimpleItemModel {
             add(FoodItemsME.COOKED_HORSE);
 
             add(FoodItemsME.LEMBAS);
+            add(FoodItemsME.CRAM);
             add(FoodItemsME.MAGGOTY_BREAD);
             add(FoodItemsME.TOUGH_BERRIES);
             add(FoodItemsME.STRAWBERRIES);
@@ -154,6 +157,9 @@ public class SimpleItemModel {
             add(ResourceItemsME.PEBBLE);
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
+
+            add(ModDecorativeBlocks.CANDLESTICK.asItem());
+            add(ModDecorativeBlocks.CERAMIC_LAMP.asItem());
 
             add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN.asItem());

@@ -22,6 +22,12 @@
       "middle-earth:nazgul/nazgul_scream3"
     ]
   },
+  "orc_drum": {
+    "subtitle": "sounds.middle-earth.orc_drum",
+    "sounds": [
+      "middle-earth:orc_drum/orc_drum"
+    ]
+  },
   "pipe_exhale": {
     "subtitle": "sounds.middle-earth.pipe_exhale",
     "sounds": [

@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.server.network.ServerPlayerEntity;

@@ -3,25 +3,20 @@ package net.sevenstars.middleearth.entity.beasts.warg.features;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.EquippableComponent;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
-import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
 
 public class WargArmorSideSkullsFeatureRenderer extends FeatureRenderer<WargEntityRenderState, WargModel> {
@@ -29,7 +24,7 @@ public class WargArmorSideSkullsFeatureRenderer extends FeatureRenderer<WargEnti
 
     public WargArmorSideSkullsFeatureRenderer(FeatureRendererContext<WargEntityRenderState, WargModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
-        this.model = new WargArmorSideAddonsModel(loader.getModelPart(ModEntityModelLayers.WARG_ARMOR_ADDONS_SIDE_SKULL));
+        this.model = new WargArmorSideAddonsModel(loader.getModelPart(EntityModelLayersME.WARG_ARMOR_ADDONS_SIDE_SKULL));
     }
 
     @Override

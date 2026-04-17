@@ -7,28 +7,28 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.NpcTextureDatasME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcTextureData;
+import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.resources.datas.races.data.EntityCategory;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 public class NpcData {
     public static final Codec<NpcData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("id").forGetter(NpcData::getId),
             Identifier.CODEC.fieldOf("race").forGetter(NpcData::getRace),
-            Identifier.CODEC.fieldOf("faction").forGetter(NpcData::getFaction),
+            Identifier.CODEC.fieldOf("faction").forGetter(NpcData::getFactionIdentifier),
             Identifier.CODEC.fieldOf("base_npc_texture").forGetter(NpcData::getNpcTextureDataValue),
-            NbtCompound.CODEC.fieldOf("gears").forGetter(NpcData::getGearDataValues),
+            NbtCompound.CODEC.fieldOf("gear").forGetter(NpcData::getGearDataValues),
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcData::getNpcAttributePool)
     ).apply(instance, NpcData::new));
 
@@ -36,8 +36,8 @@ public class NpcData {
     private final Identifier raceId;
     private final Identifier factionId;
     private final Identifier npcTextureKey;
-    private final List<NpcGearData> gearDatas;
-    private final HashMap<EntityCategory, AttributePool> npcAttributePools;
+    private final WeightedPool<WeightedGearData> gearDatas;
+    private final HashMap<EntityCategories, AttributePool> npcAttributePools;
 
     public NpcData(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes){
         this.id = id;
@@ -46,27 +46,27 @@ public class NpcData {
         this.npcTextureKey = npcTextureKey;
 
         NbtList npcGears = gearDatas.getList("pool").get();
-        List<NpcGearData> npcGearDatas = new ArrayList<>();
+        List<WeightedGearData> weightedGearData = new ArrayList<>();
         for(int j = 0; j < npcGears.size(); j++) {
             NbtCompound compound = npcGears.getCompound(j).get();
-            npcGearDatas.add(NpcGearData.readNbt(compound));
+            weightedGearData.add(WeightedGearData.readNbt(compound));
         }
-        this.gearDatas = npcGearDatas;
+        this.gearDatas = new WeightedPool<>(weightedGearData);
 
         this.npcAttributePools = new HashMap<>();
-        for(var category : EntityCategory.values()){
+        for(var category : EntityCategories.values()){
             if(npcAttributes.contains(category.name())){
                 this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name()).get()));
             }
         }
     }
 
-    public NpcData(Identifier id, Race race, RegistryKey<Faction> faction, RegistryKey<NpcTextureData> npcTextureKey, List<NpcGearData> gearDatas, HashMap<EntityCategory, AttributePool> npcAttributePools){
+    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools){
         this.id = id;
-        this.raceId = race.getId();
+        this.raceId = race.getValue();
         this.factionId = faction.getValue();
         this.npcTextureKey = npcTextureKey.getValue();
-        this.gearDatas = gearDatas;
+        this.gearDatas = new WeightedPool<>(weightedGearData);
         this.npcAttributePools = npcAttributePools;
     }
 
@@ -77,15 +77,15 @@ public class NpcData {
     public Identifier getRace() {
         return raceId;
     }
-    public Identifier getFaction() {
+    public Identifier getFactionIdentifier() {
         return factionId;
     }
 
     private NbtCompound getGearDataValues() {
         NbtCompound nbt = new NbtCompound();
         NbtList gears = new NbtList();
-        for(NpcGearData npcGearData : this.gearDatas){
-            gears.add(NpcGearData.createNbt(npcGearData));
+        for(WeightedGearData weightedGearData : this.gearDatas.elements){
+            gears.add(weightedGearData.getNbt());
         }
         nbt.put("pool", gears);
         return nbt;
@@ -95,16 +95,12 @@ public class NpcData {
         return id.toTranslationKey("npc_data");
     }
 
-    public NpcGearData getGear() {
+    public WeightedGearData getGear() {
         if(gearDatas == null)
             return null;
-
-        if(gearDatas.size() == 1)
-            return gearDatas.getFirst();
-
-        Random random = new Random();
-        return gearDatas.get(random.nextInt(0, gearDatas.size()));
+        return gearDatas.getRandom();
     }
+
     private NbtCompound getNpcAttributePool() {
         if(npcAttributePools == null)
             return null;
@@ -118,8 +114,8 @@ public class NpcData {
     private Identifier getNpcTextureDataValue() {
         return npcTextureKey;
     }
-    public NpcTextureData getNpcTextureData(World world) {
-        return world.getRegistryManager().getOrThrow(NpcTextureDatasME.KEY).get(npcTextureKey);
+    public TexturePresetDataPool getNpcTextureData(World world) {
+        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.TEXTURE_PRESETS).get(npcTextureKey);
     }
 
 
@@ -128,9 +124,9 @@ public class NpcData {
         Race race = RaceLookup.getRace(npcEntity.getWorld(), raceId);
         if(race != null)
             race.applyNpcAttributes(npcEntity);
-        EntityCategory category = npcEntity.getNpcCategory();
-        if(npcAttributePools.containsKey(EntityCategory.SHARED))
-            npcAttributePools.get(EntityCategory.SHARED).apply(npcEntity);
+        EntityCategories category = npcEntity.getNpcCategory();
+        if(npcAttributePools.containsKey(EntityCategories.SHARED))
+            npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
         if(npcAttributePools.containsKey(category))
             npcAttributePools.get(category).apply(npcEntity);
 

@@ -1,19 +1,15 @@
 package net.sevenstars.middleearth.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -22,9 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.ModEntityAttributes;
-import net.sevenstars.middleearth.utils.IEntityDataSaver;
-import net.sevenstars.middleearth.utils.PlayerMovementData;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -68,8 +62,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 }
             }
         }
-        if(mainStack.getItem() instanceof CustomDaggerWeaponItem) {
+        if(mainStack.getItem() instanceof CustomDaggerWeaponItem) { // TODO config
             if(CustomDaggerWeaponItem.canBackStab(target, this)) {
+                newDamage *= 1.5f;
+            }
+            if(CustomDaggerWeaponItem.canSneakAttack(mainStack)) {
                 newDamage *= 1.5f;
             }
         }
@@ -109,10 +106,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("return"))
     private static void createPlayerAttributesInject(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
-        info.getReturnValue().add(ModEntityAttributes.POWDERED_SNOW_IMMUNITY);
-        info.getReturnValue().add(ModEntityAttributes.DELVERS_FEAR_STRENGTH);
-        info.getReturnValue().add(ModEntityAttributes.CLIMBING_STRENGTH);
-        info.getReturnValue().add(ModEntityAttributes.DETECTION_RANGE);
+        info.getReturnValue().add(EntityAttributesME.POWDERED_SNOW_IMMUNITY);
+        info.getReturnValue().add(EntityAttributesME.DELVERS_FEAR_STRENGTH);
+        info.getReturnValue().add(EntityAttributesME.CLIMBING_STRENGTH);
+        info.getReturnValue().add(EntityAttributesME.DETECTION_RANGE);
 
     }
 
@@ -121,7 +118,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if ((LivingEntity) this instanceof PlayerEntity entity){
             if(!entity.isTouchingWater() && !entity.isOnGround() && PlayerUtil.isAgainstWall(entity)){
                 climbDistance += 1;
-                if(climbDistance < entity.getAttributeValue(ModEntityAttributes.CLIMBING_STRENGTH)){
+                if(climbDistance < entity.getAttributeValue(EntityAttributesME.CLIMBING_STRENGTH)){
                     cir.setReturnValue(true);
                 }
             } else if(entity.isOnGround()){

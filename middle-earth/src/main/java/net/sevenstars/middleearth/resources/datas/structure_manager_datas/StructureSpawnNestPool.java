@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.resources.FactionsME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 
 import java.util.Optional;
@@ -17,7 +17,7 @@ public class StructureSpawnNestPool {
             EntityType.CODEC.fieldOf("entity_type").forGetter(StructureSpawnNestPool::getEntityType),
             Codec.INT.fieldOf("weight").forGetter(StructureSpawnNestPool::getWeight),
             Codec.INT.fieldOf("amount").forGetter(StructureSpawnNestPool::getAmount),
-            RegistryKey.createCodec(FactionsME.KEY).optionalFieldOf("faction_key").forGetter(StructureSpawnNestPool::getFaction),
+            RegistryKey.createCodec(DynamicRegistriesME.FACTION).optionalFieldOf("faction_key").forGetter(StructureSpawnNestPool::getFaction),
             Identifier.CODEC.optionalFieldOf("npc_identifier").forGetter(StructureSpawnNestPool::getNpcIdentifier),
             Codec.INT.optionalFieldOf("max_amount").forGetter(StructureSpawnNestPool::getMaxAmount)
         ).apply(instance, StructureSpawnNestPool::new));

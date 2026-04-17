@@ -6,19 +6,22 @@ import net.minecraft.block.entity.BlockEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
+import net.sevenstars.middleearth.block.special.coffers.LarchCofferBlockEntity;
+import net.sevenstars.middleearth.block.special.coffers.PineCofferBlockEntity;
+import net.sevenstars.middleearth.block.special.coffers.SpruceCofferBlockEntity;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
+import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
-import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlock;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 public class ModBlockEntities {
     public static BlockEntityType<ForgeBlockEntity> FORGE = register("forge", ForgeBlockEntity::new,
@@ -32,10 +35,20 @@ public class ModBlockEntities {
             ModDecorativeBlocks.STRUCTURE_MANAGER);
     public static BlockEntityType<StructureNestBlockEntity> STRUCTURE_NEST = register("structure_nest", StructureNestBlockEntity::new,
             ModDecorativeBlocks.STRUCTURE_NEST);
+
+    public static BlockEntityType<LarchCofferBlockEntity> LARCH_COFFER = register("larch_coffer", LarchCofferBlockEntity::new, ModDecorativeBlocks.LARCH_COFFER);
+    public static BlockEntityType<PineCofferBlockEntity> PINE_COFFER = register("pine_coffer", PineCofferBlockEntity::new, ModDecorativeBlocks.PINE_COFFER);
+    public static BlockEntityType<SpruceCofferBlockEntity> SPRUCE_COFFER = register("spruce_coffer", SpruceCofferBlockEntity::new, ModDecorativeBlocks.SPRUCE_COFFER);
+
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             ModDecorativeBlocks.REINFORCED_CHEST);
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,
             ModDecorativeBlocks.BELLOWS);
+    /*public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
+            ModDecorativeBlocks.CERAMIC_CROCKPOT,
+            ModDecorativeBlocks.CROCKPOT);*/
+    public static BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new,
+            ModDecorativeBlocks.SILVER_PLATE, ModDecorativeBlocks.CERAMIC_PLATE, ModDecorativeBlocks.ROTTEN_PLATE);
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = register("wood_pile", WoodPileBlockEntity::new,
             ModDecorativeBlocks.WOOD_PILE);
     public static BlockEntityType<BrazierBlockEntity> BIG_BRAZIER = register("big_brazier", BrazierBlockEntity::new,
@@ -66,7 +79,7 @@ public class ModBlockEntities {
                                                                        FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
                                                                        Block... blocks) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK_ENTITY_TYPE, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK_ENTITY_TYPE, name));
 
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
     }
