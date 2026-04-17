@@ -236,24 +236,36 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
         Iterator<String> words = this.handler.getWords().iterator();
 
-        String word;
-        int m = 0;
-        int n = j + 25;
-        while(words.hasNext()) {
-            word = words.next();
-            if (!this.canScroll(this.handler.getWords().size()) || (m >= this.indexStartOffset && m < 11 + this.indexStartOffset)) {
-                context.drawText(this.textRenderer, StringUtils.capitalize(word), i + 11, n, Colors.WHITE, false);
-                n += 14;
-            }
-            ++m;
-        }
-
         byte[] enabledWords = this.handler.getAvailableWords();
         for (WidgetInscriptionButtonPage widgetButtonPage : this.words) {
             widgetButtonPage.visible = widgetButtonPage.index < this.handler.getWords().size();
             if(enabledWords != null && widgetButtonPage.index + indexStartOffset < enabledWords.length) {
                 widgetButtonPage.setHidden(enabledWords[widgetButtonPage.index + indexStartOffset] != 1);
             }
+        }
+
+        String word;
+        int index = 0;
+        int m = 0;
+        int n = j + 25;
+        while(words.hasNext()) {
+            word = words.next();
+            if (!this.canScroll(this.handler.getWords().size()) || (m >= this.indexStartOffset && m < 11 + this.indexStartOffset)) {
+                if(index + indexStartOffset < this.words.length) {
+                    WidgetInscriptionButtonPage widgetButtonPage = this.words[index + indexStartOffset];
+                    if(widgetButtonPage.hidden) {
+                        Text text = Text.literal(StringUtils.capitalize(word)).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
+                        context.drawText(this.textRenderer, text, i + 11, n, Colors.LIGHT_GRAY, false);
+                    } else {
+                        context.drawText(this.textRenderer, StringUtils.capitalize(word), i + 11, n, Colors.WHITE, false);
+                    }
+                } else {
+                    context.drawText(this.textRenderer, StringUtils.capitalize(word), i + 11, n, Colors.WHITE, false);
+                }
+                index++;
+                n += 14;
+            }
+            ++m;
         }
 
         drawMouseoverTooltip(context, mouseX, mouseY);
