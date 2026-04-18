@@ -78,6 +78,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
         for (WidgetInscriptionButtonPage button : this.words){
             button.setSelected(this.selectedButtons.contains(button.index + this.indexStartOffset));
+            button.setSelectedIndex(this.selectedButtons.contains(button.index  + this.indexStartOffset) ? this.selectedButtons.indexOf(button.index + this.indexStartOffset) : -1);
         }
 
         if (!this.handler.hasAll()){
@@ -331,11 +332,14 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
     static class WidgetInscriptionButtonPage extends ButtonWidget {
         final int index;
         boolean selected;
+        int selectedIndex = -1;
         boolean hidden;
 
         private static final Identifier BUTTON_TEXTURE = MiddleEarth.of("word_button");
+        private static final Identifier DISABLED_BUTTON_TEXTURE = MiddleEarth.of("word_button_disabled");
         private static final Identifier SELECTED_BUTTON_TEXTURE = MiddleEarth.of("word_button_selected");
         private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = MiddleEarth.of("word_button_highlighted");
+        private static final Identifier BUTTON_MARKERS = MiddleEarth.of("inscription_table_markers");
 
         public WidgetInscriptionButtonPage(final int x, final int y, final int index, final ButtonWidget.PressAction onPress) {
             super(x, y, 86, 14, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);
@@ -345,6 +349,10 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
         public void setSelected(boolean selected){
             this.selected = selected;
+        }
+
+        public void setSelectedIndex(int selectedIndex){
+            this.selectedIndex = selectedIndex;
         }
 
         public void setHidden(boolean hidden){
@@ -358,15 +366,25 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         @Override
         protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
             MinecraftClient minecraftClient = MinecraftClient.getInstance();
+            final int x = getX();
+            final int y = getY();
+            final int width = getWidth();
+            final int height = getHeight();
             if (this.hidden){
-                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(0.5f));
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, DISABLED_BUTTON_TEXTURE, x, y, width, height, ColorHelper.getWhite(this.alpha));
             } else if (this.selected){
-                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SELECTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SELECTED_BUTTON_TEXTURE, x, y, width, height, ColorHelper.getWhite(this.alpha));
             } else if (this.isHovered()) {
-                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLIGHTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLIGHTED_BUTTON_TEXTURE, x, y, width, height, ColorHelper.getWhite(this.alpha));
             } else {
-                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, x, y, width, height, ColorHelper.getWhite(this.alpha));
             }
+
+            if(selectedIndex >= 0 && selectedIndex < 3) {
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_MARKERS, 16, 4,
+                        4 * selectedIndex, 0, x + width - 8, y + 4, 4, 4, ColorHelper.getWhite(this.alpha));
+            }
+
             int i = ColorHelper.withAlpha(this.alpha, this.active ? -1 : -6250336);
             this.drawMessage(context, minecraftClient.textRenderer, i);
         }
