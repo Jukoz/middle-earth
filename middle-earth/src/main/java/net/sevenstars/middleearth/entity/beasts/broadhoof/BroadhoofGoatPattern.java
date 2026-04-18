@@ -60,34 +60,13 @@ public enum BroadhoofGoatPattern {
     );
 
     public static final Map<BroadhoofGoatColor, WeightedPool<WeightedBroadhoofGoatPattern>> PATTERN_COMBINATIONS = Map.of(
-            BroadhoofGoatColor.WHITE,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)
-                    .flatMap(List::stream).toList()),
-
-            BroadhoofGoatColor.LIGHT_GRAY,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)
-                    .flatMap(List::stream).toList()),
-
-            BroadhoofGoatColor.PALE,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)
-                    .flatMap(List::stream).toList()),
-
-            BroadhoofGoatColor.RED,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, PALE_SET)
-                    .flatMap(List::stream).toList()),
-
-            BroadhoofGoatColor.BROWN,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, PALE_SET)
-                    .flatMap(List::stream).toList()),
-
-            BroadhoofGoatColor.GRAY,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET, PALE_SET)
-                    .flatMap(List::stream).toList()),
-
-            BroadhoofGoatColor.BLACK,
-            new WeightedPool<WeightedBroadhoofGoatPattern>(Stream.of(GENERIC_SET, BROWN_SET, PALE_SET)
-                    .flatMap(List::stream).toList())
-
+            BroadhoofGoatColor.WHITE, new WeightedPool<>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)),
+            BroadhoofGoatColor.LIGHT_GRAY, new WeightedPool<>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)),
+            BroadhoofGoatColor.PALE, new WeightedPool<>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET)),
+            BroadhoofGoatColor.RED, new WeightedPool<>(Stream.of(GENERIC_SET, BLACK_SET, PALE_SET)),
+            BroadhoofGoatColor.BROWN, new WeightedPool<>(Stream.of(GENERIC_SET, BLACK_SET, PALE_SET)),
+            BroadhoofGoatColor.GRAY, new WeightedPool<>(Stream.of(GENERIC_SET, BLACK_SET, BROWN_SET, PALE_SET)),
+            BroadhoofGoatColor.BLACK, new WeightedPool<>(Stream.of(GENERIC_SET, BROWN_SET, PALE_SET))
     );
 
     private static final IntFunction<BroadhoofGoatPattern> INDEX_MAPPER = ValueLists.createIndexToValueFunction(
@@ -95,7 +74,7 @@ public enum BroadhoofGoatPattern {
     );
     private final int index;
 
-    private BroadhoofGoatPattern(final int index) {
+    BroadhoofGoatPattern(final int index) {
         this.index = index;
     }
 
@@ -104,6 +83,6 @@ public enum BroadhoofGoatPattern {
     }
 
     public static BroadhoofGoatPattern byIndex(int index) {
-        return (BroadhoofGoatPattern)INDEX_MAPPER.apply(index);
+        return INDEX_MAPPER.apply(index);
     }
 }

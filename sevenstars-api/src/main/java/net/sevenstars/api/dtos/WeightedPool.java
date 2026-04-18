@@ -5,6 +5,7 @@ import net.minecraft.nbt.NbtList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class WeightedPool<T extends WeightedItem> {
     final static Random RANDOM = new Random();
@@ -14,6 +15,13 @@ public class WeightedPool<T extends WeightedItem> {
     public WeightedPool(){
         this.elements = new ArrayList<>();
     }
+
+    public WeightedPool(Stream<List<T>> sets) {
+        this.elements = new ArrayList<>();
+        List<T> elements = sets.flatMap(List::stream).toList();
+        this.elements.addAll(elements);
+    }
+
     public WeightedPool(List<T> elements){
         this.elements = elements;
     }
