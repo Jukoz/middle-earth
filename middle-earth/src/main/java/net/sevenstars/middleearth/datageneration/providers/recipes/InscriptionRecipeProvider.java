@@ -127,7 +127,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.PROJECTILE_PROTECTION), 2, 6)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("pierce")
                         .addWord("warded")
                         .criterion(hasItem(ResourceItemsME.SAPPHIRE),
@@ -165,7 +165,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.FIRE_PROTECTION), 2, 6)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("flame")
                         .addWord("warded")
                         .criterion(hasItem(ResourceItemsME.SAPPHIRE),
@@ -204,7 +204,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.BLAST_PROTECTION), 2, 6)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("flame")
                         .addWord("sturdy")
                         .addWord("warded")
@@ -289,7 +289,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.FEATHER_FALLING), 2, 7)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("traveller")
@@ -810,6 +810,155 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(Items.EMERALD),
                                 conditionsFromItem(Items.EMERALD))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_silk_touch")));
+                //endregion
+
+
+
+                //region AILMENT PROTECTION
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 1, 5)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("resilient")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 2, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("resilient")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 3, 9)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("resilient")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_3")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 4, 11)
+                        .chisel(ItemTagsME.LATE_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("resilient")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_4")));
+                //endregion
+
+                //region BANE OF GIANTS
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.BANE_OF_GIANTS), 1, 3)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("giant")
+                        .addWord("bane")
+                        .addWord("cutter")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.BANE_OF_GIANTS), 2, 5)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("giant")
+                        .addWord("bane")
+                        .addWord("cutter")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.BANE_OF_GIANTS), 3, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("giant")
+                        .addWord("bane")
+                        .addWord("cutter")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_3")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.BANE_OF_GIANTS), 4, 9)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("giant")
+                        .addWord("bane")
+                        .addWord("cutter")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_4")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.BANE_OF_GIANTS), 5, 11)
+                        .chisel(ItemTagsME.LATE_CHISELS)
+                        .addWord("giant")
+                        .addWord("bane")
+                        .addWord("cutter")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_5")));
+                //endregion
+
+                //region CELERITY
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.CELERITY), 1, 10)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("swift")
+                        .addWord("edge")
+                        .criterion(hasItem(ResourceItemsME.ADAMANT),
+                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_celerity")));
+                //endregion
+
+                //region GROUNDED
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.GROUNDED), 1, 5)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("edge")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.GROUNDED), 2, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("edge")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.GROUNDED), 3, 9)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("edge")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_3")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.GROUNDED), 4, 11)
+                        .chisel(ItemTagsME.LATE_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("edge")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_4")));
                 //endregion
 
                 //region HEWING

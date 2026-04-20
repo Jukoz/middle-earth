@@ -280,8 +280,9 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         }
     }
 
-    private boolean canEnchant(ItemStack stack, RegistryEntry<Enchantment> enchant, int level){
-        if (EnchantmentHelper.isCompatible(stack.getEnchantments().getEnchantments(), enchant) && enchant.value().isAcceptableItem(stack)){
+    private boolean canEnchant(ItemStack stack, RegistryEntry<Enchantment> enchant, int level) {
+        boolean acceptableItem = enchant.value().isAcceptableItem(stack);
+        if (acceptableItem && EnchantmentHelper.isCompatible(stack.getEnchantments().getEnchantments(), enchant)){
             return stack.getEnchantments().getLevel(enchant) == level - 1;
         } else {
             if (stack.getEnchantments().getEnchantments().contains(enchant)){

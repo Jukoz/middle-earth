@@ -77,7 +77,7 @@ public class EnchantmentsME {
                                         .create(registryEntryLookup5, EntityTypeTags.SENSITIVE_TO_SMITE)))));
 
         register(registry, CELERITY, Enchantment.builder(
-                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 2, 3,
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 2, 1,
                         Enchantment.leveledCost(10, 20),
                         Enchantment.leveledCost(40, 20), 4,
                         AttributeModifierSlot.MAINHAND))
@@ -86,15 +86,27 @@ public class EnchantmentsME {
                                 EntityAttributes.ATTACK_SPEED, new EnchantmentLevelBasedValue.Linear(0.2f, 0.2f), EntityAttributeModifier.Operation.ADD_VALUE)));
 
         register(registry, FIRST_STRIKE, Enchantment.builder(
-                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.WEAPON_ENCHANTABLE), 5, 1,
+                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.WEAPON_ENCHANTABLE), 3, 1,
                                 Enchantment.leveledCost(15, 7),
                                 Enchantment.leveledCost(30, 15), 3,
                                 AttributeModifierSlot.MAINHAND)));
 
+        register(registry, GROUNDED, Enchantment.builder(
+                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                                registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 4,
+                                Enchantment.leveledCost(5, 8),
+                                Enchantment.leveledCost(25, 8), 2,
+                                AttributeModifierSlot.ARMOR))
+                .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
+                .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
+                        new AttributeEnchantmentEffect(Identifier.ofVanilla("enchantment.grounded"),
+                                EntityAttributes.KNOCKBACK_RESISTANCE, EnchantmentLevelBasedValue.linear(0.025F),
+                                EntityAttributeModifier.Operation.ADD_VALUE)));
+
         register(registry, HEWING, Enchantment.builder(
-                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE), 10, 3,
-                                Enchantment.leveledCost(30, 25),
-                                Enchantment.leveledCost(90, 30), 9,
+                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 4,
+                                Enchantment.leveledCost(18, 8),
+                                Enchantment.leveledCost(10, 8), 2,
                                 AttributeModifierSlot.MAINHAND))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.MINING_EXCLUSIVE_SET)));
 

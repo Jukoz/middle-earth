@@ -21,6 +21,7 @@ public class InscriptionWordBank {
         wordBank.put(null, "piercer");
         wordBank.put(null, "core");
 
+        wordBank.put(null, "giant");
         wordBank.put(null, "collector");
 
         wordBank.put(null, "draw");
@@ -29,6 +30,7 @@ public class InscriptionWordBank {
         wordBank.put(ResourceItemsME.RUBY, "fierce");
         wordBank.put(ResourceItemsME.RUBY, "forceful");
         wordBank.put(ResourceItemsME.RUBY, "noiseless");
+        wordBank.put(ResourceItemsME.RUBY, "bane");
 
         wordBank.put(ResourceItemsME.SAPPHIRE, "pierce");
         wordBank.put(ResourceItemsME.SAPPHIRE, "flame");
