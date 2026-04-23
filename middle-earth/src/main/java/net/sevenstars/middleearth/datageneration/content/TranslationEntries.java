@@ -143,6 +143,7 @@ public class TranslationEntries {
             put("enchantment."+ MiddleEarth.MOD_ID +".miner_reach", "Miner Reach");
             put("enchantment."+ MiddleEarth.MOD_ID +".stealthy_trail", "Stealthy Trail");
             put("enchantment."+ MiddleEarth.MOD_ID +".stride", "Stride");
+            put("enchantment."+ MiddleEarth.MOD_ID +".tough", "Tough");
             put("enchantment."+ MiddleEarth.MOD_ID +".tree_feller", "Tree Feller");
             put("enchantment."+ MiddleEarth.MOD_ID +".vantage", "Vantage");
 

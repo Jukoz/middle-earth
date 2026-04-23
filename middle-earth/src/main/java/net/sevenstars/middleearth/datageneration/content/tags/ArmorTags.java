@@ -16,4 +16,6 @@ public class ArmorTags {
     public static List<Item> mediumArmors = new ArrayList<>();
     public static List<Item> sturdyArmors = new ArrayList<>();
     public static List<Item> heavyArmors = new ArrayList<>();
+
+    public static List<Item> incompleteArmors = new ArrayList<>();
 }

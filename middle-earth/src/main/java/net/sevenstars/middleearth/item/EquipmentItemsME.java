@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.item;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.Item;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
@@ -29,6 +30,7 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class EquipmentItemsME {
@@ -2145,13 +2147,28 @@ public class EquipmentItemsME {
                 case HEAVY -> ArmorTags.heavyArmors.add(item);
             }
 
+            Map<EquipmentType, Integer> defensePointsMap = armorItem.getMaterial().material().defense();
+
             switch (item){
-                case CustomHelmetItem helmetItem -> ArmorTags.headArmors.add(helmetItem);
-                case CustomChestplateItem chestplateItem -> ArmorTags.chestArmors.add(chestplateItem);
-                case CustomLeggingsItem leggingsItem -> ArmorTags.legArmors.add(leggingsItem);
-                case CustomBootsItem bootsItem -> ArmorTags.footArmors.add(bootsItem);
+                case CustomHelmetItem helmetItem -> {
+                    ArmorTags.headArmors.add(helmetItem);
+                    if(defensePointsMap.get(EquipmentType.HELMET) < 3) ArmorTags.incompleteArmors.add(item);
+                }
+                case CustomChestplateItem chestplateItem -> {
+                    ArmorTags.chestArmors.add(chestplateItem);
+                    if(defensePointsMap.get(EquipmentType.HELMET) < 8) ArmorTags.incompleteArmors.add(item);
+                }
+                case CustomLeggingsItem leggingsItem -> {
+                    ArmorTags.legArmors.add(leggingsItem);
+                    if(defensePointsMap.get(EquipmentType.HELMET) < 6) ArmorTags.incompleteArmors.add(item);
+                }
+                case CustomBootsItem bootsItem -> {
+                    ArmorTags.footArmors.add(bootsItem);
+                    if(defensePointsMap.get(EquipmentType.HELMET) < 3) ArmorTags.incompleteArmors.add(item);
+                }
                 default -> {}
             }
+
         }
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);

@@ -6,26 +6,20 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentLevelBasedValue;
 import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
 import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
-import net.minecraft.enchantment.effect.value.SetEnchantmentEffect;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
-import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.predicate.TagPredicate;
-import net.minecraft.predicate.entity.DamageSourcePredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.EntityTypePredicate;
 import net.minecraft.registry.*;
-import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.ItemTagsME;
 
 /**
  * Middle-earth mod enchantment effects registry
@@ -43,6 +37,7 @@ public class EnchantmentsME {
     public static final RegistryKey<Enchantment> MINER_REACH = of("miner_reach");
     public static final RegistryKey<Enchantment> STEALTHY_TRAIL = of("stealthy_trail");
     public static final RegistryKey<Enchantment> STRIDE = of("stride");
+    public static final RegistryKey<Enchantment> TOUGH = of("true_protection");
     public static final RegistryKey<Enchantment> TREE_FELLER = of("tree_feller");
     public static final RegistryKey<Enchantment> VANTAGE = of("vantage");
 
@@ -82,7 +77,7 @@ public class EnchantmentsME {
                         Enchantment.leveledCost(40, 20), 4,
                         AttributeModifierSlot.MAINHAND))
                 .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
-                        new AttributeEnchantmentEffect(Identifier.of(MiddleEarth.MOD_ID, "enchantment.celerity"),
+                        new AttributeEnchantmentEffect(MiddleEarth.of("enchantment.celerity"),
                                 EntityAttributes.ATTACK_SPEED, new EnchantmentLevelBasedValue.Linear(0.2f, 0.2f), EntityAttributeModifier.Operation.ADD_VALUE)));
 
         register(registry, FIRST_STRIKE, Enchantment.builder(
@@ -99,7 +94,7 @@ public class EnchantmentsME {
                                 AttributeModifierSlot.ARMOR))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
                 .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
-                        new AttributeEnchantmentEffect(Identifier.ofVanilla("enchantment.grounded"),
+                        new AttributeEnchantmentEffect(MiddleEarth.of("enchantment.grounded"),
                                 EntityAttributes.KNOCKBACK_RESISTANCE, EnchantmentLevelBasedValue.linear(0.025F),
                                 EntityAttributeModifier.Operation.ADD_VALUE)));
 
@@ -115,6 +110,18 @@ public class EnchantmentsME {
                         Enchantment.leveledCost(25, 25),
                         Enchantment.leveledCost(75, 25), 8,
                         AttributeModifierSlot.CHEST)));
+
+        register(registry, TOUGH, Enchantment.builder(
+                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                                registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 1,
+                                Enchantment.leveledCost(10, 8),
+                                Enchantment.leveledCost(25, 8), 3,
+                                AttributeModifierSlot.ARMOR))
+                .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
+                .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
+                        new AttributeEnchantmentEffect(Identifier.ofVanilla("enchantment.tough"),
+                                EntityAttributes.ARMOR, EnchantmentLevelBasedValue.linear(1F),
+                                EntityAttributeModifier.Operation.ADD_VALUE)));
     }
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {

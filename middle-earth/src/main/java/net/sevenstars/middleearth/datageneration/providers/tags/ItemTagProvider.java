@@ -91,6 +91,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         ArmorTags.heavyArmors.addAll(List.of(new Item[]{Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS,
                 Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS}));
 
+        ArmorTags.incompleteArmors.addAll(List.of(Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS,
+                Items.GOLDEN_HELMET, Items.GOLDEN_CHESTPLATE, Items.GOLDEN_LEGGINGS, Items.GOLDEN_BOOTS,
+                Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS,
+                Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS, Items.TURTLE_HELMET));
+
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/head_armor"))).add(ArmorTags.headArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/chest_armor"))).add(ArmorTags.chestArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/leg_armor"))).add(ArmorTags.legArmors.toArray(new Item[0]));
@@ -100,7 +105,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/medium_armor"))).add(ArmorTags.mediumArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/sturdy_armor"))).add(ArmorTags.sturdyArmors.toArray(new Item[0]));
+
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/heavy_armor"))).add(ArmorTags.heavyArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/incomplete_armors"))).add(ArmorTags.incompleteArmors.toArray(new Item[0]));
 
         ArrayList<Item> upToArmor = (ArrayList<Item>) ArmorTags.basicArmors;
         upToArmor.addAll(ArmorTags.lightArmors);
