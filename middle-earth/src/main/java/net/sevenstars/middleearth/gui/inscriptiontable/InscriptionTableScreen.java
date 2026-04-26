@@ -382,7 +382,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
             if(selectedIndex >= 0 && selectedIndex < 3) {
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_MARKERS, 16, 4,
-                        4 * selectedIndex, 0, x + width - 8, y + 4, 4, 4, ColorHelper.getWhite(this.alpha));
+                        4 * selectedIndex, 0, x + width - 8, y + 5, 4, 4, ColorHelper.getWhite(this.alpha));
             }
 
             int i = ColorHelper.withAlpha(this.alpha, this.active ? -1 : -6250336);
