@@ -99,9 +99,22 @@ public class EnchantmentsME {
                                 EntityAttributeModifier.Operation.ADD_VALUE)));
 
         register(registry, HEWING, Enchantment.builder(
-                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 4,
+                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.MINING_ENCHANTABLE), 5, 4,
                                 Enchantment.leveledCost(18, 8),
                                 Enchantment.leveledCost(10, 8), 2,
+                                AttributeModifierSlot.MAINHAND))
+                .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.MINING_EXCLUSIVE_SET)));
+
+        register(registry, HIGH_STEP, Enchantment.builder(
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.FOOT_ARMOR), 1, 3,
+                        Enchantment.leveledCost(30, 30),
+                        Enchantment.leveledCost(85, 30), 9,
+                        AttributeModifierSlot.CHEST)));
+
+        register(registry, MINER_REACH, Enchantment.builder(
+                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.MINING_ENCHANTABLE), 1, 1,
+                                Enchantment.leveledCost(18, 15),
+                                Enchantment.leveledCost(25, 15), 8,
                                 AttributeModifierSlot.MAINHAND))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.MINING_EXCLUSIVE_SET)));
 
@@ -110,6 +123,12 @@ public class EnchantmentsME {
                         Enchantment.leveledCost(25, 25),
                         Enchantment.leveledCost(75, 25), 8,
                         AttributeModifierSlot.CHEST)));
+
+        register(registry, STRIDE, Enchantment.builder(
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.LEG_ARMOR_ENCHANTABLE), 1, 3,
+                        Enchantment.leveledCost(15, 15),
+                        Enchantment.leveledCost(45, 15), 7,
+                        AttributeModifierSlot.LEGS)));
 
         register(registry, TOUGH, Enchantment.builder(
                         Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
@@ -122,6 +141,15 @@ public class EnchantmentsME {
                         new AttributeEnchantmentEffect(Identifier.ofVanilla("enchantment.tough"),
                                 EntityAttributes.ARMOR, EnchantmentLevelBasedValue.linear(1F),
                                 EntityAttributeModifier.Operation.ADD_VALUE)));
+
+        register(registry, VANTAGE, Enchantment.builder(
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 2, 1,
+                        Enchantment.leveledCost(10, 20),
+                        Enchantment.leveledCost(40, 20), 4,
+                        AttributeModifierSlot.MAINHAND))
+                .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
+                        new AttributeEnchantmentEffect(MiddleEarth.of("enchantment.vantage"),
+                                EntityAttributes.ENTITY_INTERACTION_RANGE, new EnchantmentLevelBasedValue.Linear(0.5f, 0.5f), EntityAttributeModifier.Operation.ADD_VALUE)));
     }
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {
