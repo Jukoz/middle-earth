@@ -5,6 +5,7 @@ import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -338,6 +339,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 entity.mode = 0;
             } else if (entity.mode == 0) {
                 entity.mode = 1;
+            }
+
+            BlockState blockState = player.getWorld().getBlockState(pos);
+            if(blockState != null) {
+                NamedScreenHandlerFactory screenHandlerFactory = blockState.createScreenHandlerFactory(player.getWorld(), pos);
+                if(screenHandlerFactory != null) {
+                    player.openHandledScreen(screenHandlerFactory);
+                }
             }
         }
     }
