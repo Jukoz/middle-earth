@@ -36,8 +36,8 @@ public class EnchantmentsME {
     public static final RegistryKey<Enchantment> HIGH_STEP = of("high_step");
     public static final RegistryKey<Enchantment> MINER_REACH = of("miner_reach");
     public static final RegistryKey<Enchantment> STEALTHY_TRAIL = of("stealthy_trail");
+    public static final RegistryKey<Enchantment> STALWART = of("stalwart");
     public static final RegistryKey<Enchantment> STRIDE = of("stride");
-    public static final RegistryKey<Enchantment> TOUGH = of("true_protection");
     public static final RegistryKey<Enchantment> TREE_FELLER = of("tree_feller");
     public static final RegistryKey<Enchantment> VANTAGE = of("vantage");
 
@@ -130,7 +130,7 @@ public class EnchantmentsME {
                         Enchantment.leveledCost(45, 15), 7,
                         AttributeModifierSlot.LEGS)));
 
-        register(registry, TOUGH, Enchantment.builder(
+        register(registry, STALWART, Enchantment.builder(
                         Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                                 registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 1,
                                 Enchantment.leveledCost(10, 8),
@@ -138,7 +138,7 @@ public class EnchantmentsME {
                                 AttributeModifierSlot.ARMOR))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
                 .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
-                        new AttributeEnchantmentEffect(Identifier.ofVanilla("enchantment.tough"),
+                        new AttributeEnchantmentEffect(Identifier.ofVanilla("enchantment.stalwart"),
                                 EntityAttributes.ARMOR, EnchantmentLevelBasedValue.linear(1F),
                                 EntityAttributeModifier.Operation.ADD_VALUE)));
 

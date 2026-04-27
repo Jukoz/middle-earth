@@ -989,6 +989,109 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(Items.EMERALD))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_hewing_3")));
                 //endregion
+
+                //region HIGH STEP
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.HIGH_STEP), 1, 8)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("long")
+                        .addWord("traveller")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_high_step")));
+                //endregion
+
+                //region MINER_REACH
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.MINER_REACH), 1, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("long")
+                        .addWord("collector")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_miner_reach")));
+                //endregion
+
+                //region STEALTHY_TRAIL
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.STEALTHY_TRAIL), 1, 5)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("noiseless")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stealthy_trail_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.STEALTHY_TRAIL), 2, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("noiseless")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stealthy_trail_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.STEALTHY_TRAIL), 3, 9)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("noiseless")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stealthy_trail_3")));
+                //endregion
+
+                //region STALWART
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.STALWART), 1, 9)
+                        .chisel(ItemTagsME.LATE_CHISELS)
+                        .addWord("sturdy")
+                        .addWord("point")
+                        .addWord("warded")
+                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stalwart")));
+                //endregion
+
+                //region STRIDE
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.STRIDE), 1, 5)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("swift")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.ADAMANT),
+                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stride_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.STRIDE), 2, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("swift")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.ADAMANT),
+                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stride_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.STRIDE), 3, 9)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("swift")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.ADAMANT),
+                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stride_3")));
+                //endregion
+
+                //region VANTAGE
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.VANTAGE), 1, 11)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("long")
+                        .addWord("edge")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_vantage")));
+                //endregion
             }
         };
     }

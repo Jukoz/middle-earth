@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "translate": "enchantment.middle-earth.tough"
+    "translate": "enchantment.middle-earth.stalwart"
   },
   "effects": {
     "minecraft:attributes": [
@@ -12,7 +12,7 @@
           "per_level_above_first": 1
         },
         "attribute": "minecraft:armor",
-        "id": "middle-earth:enchantment.tough",
+        "id": "middle-earth:enchantment.stalwart",
         "operation": "add_value"
       }
     ]
