@@ -40,6 +40,9 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private static final Identifier ALLOYING_SWITCH_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "alloying_mode");
     private static final Identifier ALLOYING_SWITCH_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "alloying_mode_highlighted");
     private static final ButtonTextures ALLOYING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(ALLOYING_SWITCH_BUTTON, ALLOYING_SWITCH_BUTTON_FOCUSED);
+    private static final Identifier HEATING_SWITCH_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "heating_mode");
+    private static final Identifier HEATING_SWITCH_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "heating_mode_highlighted");
+    private static final ButtonTextures HEATING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(HEATING_SWITCH_BUTTON, HEATING_SWITCH_BUTTON_FOCUSED);
 
     private static final int PROGRESS_ARROW_SIZE = 24;
     private static final int COOKING_FIRE_SIZE = 14;
@@ -51,7 +54,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     public ToggleButtonWidget leftExtractCycleButton;
     public ToggleButtonWidget rightExtractCycleButton;
 
-    public TexturedButtonWidget modeSwitchButton;
+    public TexturedButtonWidget modeSwitchToAlloyButton;
+    public TexturedButtonWidget modeSwitchToHeatingButton;
 
     private int outputMode = 0;
     private boolean heatingMode = true;
@@ -85,11 +89,25 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
         this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
 
-        this.modeSwitchButton = new TexturedButtonWidget(x + 13, y + 48, 20 ,24, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
+        this.modeSwitchToAlloyButton = new TexturedButtonWidget(x + 23, y + 60, 10 ,10, HEATING_SWITCH_BUTTON_TEXTURES, (button)-> {
             ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+            this.modeSwitchToAlloyButton.visible = false;
+            this.modeSwitchToAlloyButton.active = false;
+            this.modeSwitchToHeatingButton.visible = true;
+            this.modeSwitchToHeatingButton.active = true;
+        }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
+        this.modeSwitchToHeatingButton = new TexturedButtonWidget(x + 23, y + 68, 10 ,10, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
+            ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+            this.modeSwitchToHeatingButton.visible = false;
+            this.modeSwitchToHeatingButton.active = false;
+            this.modeSwitchToAlloyButton.visible = true;
+            this.modeSwitchToAlloyButton.active = true;
         }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
 
-        this.modeSwitchButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));
+        this.modeSwitchToAlloyButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_heating")));
+        this.modeSwitchToHeatingButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));
+        this.modeSwitchToHeatingButton.visible = false;
+        this.modeSwitchToHeatingButton.active = false;
 
         this.rightExtractCycleButton = new ToggleButtonWidget(x + 163, y + 56, 7,11, true);
         this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
@@ -99,7 +117,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         addDrawableChild(extractButton);
         addDrawableChild(rightExtractCycleButton);
 
-        addDrawableChild(modeSwitchButton);
+        addDrawableChild(modeSwitchToHeatingButton);
+        addDrawableChild(modeSwitchToAlloyButton);
     }
 
     @Override
@@ -177,6 +196,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int y = (height - backgroundHeight) / 2;
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight + 6, TEXTURE_SIZE, TEXTURE_SIZE);
+
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x + 26, this.y + 61, 209, 116, 4, 16, TEXTURE_SIZE, TEXTURE_SIZE);
 
         renderProgressArrow(context, x, y);
         renderLiquidStorage(context, x, y);
