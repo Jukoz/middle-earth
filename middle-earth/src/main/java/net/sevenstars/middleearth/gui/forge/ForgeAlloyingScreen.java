@@ -174,7 +174,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight + 6, 256, 256);
 
         renderProgressArrow(context, x, y);
         renderLiquidStorage(context, x, y);
@@ -209,6 +209,12 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
                         ), Text::asOrderedText), mouseX, mouseY);
             }
         }
+    }
+
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        context.drawText(this.textRenderer, this.title, this.titleX, this.titleY, -12566464, false);
+        context.drawText(this.textRenderer, this.playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY + 7, -12566464, false);
     }
 
     @Override

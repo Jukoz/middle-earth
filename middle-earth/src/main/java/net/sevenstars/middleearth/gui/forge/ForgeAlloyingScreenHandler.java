@@ -34,12 +34,12 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
         int maxItemStack = 64;
         checkSize(inventory, 6);
 
-        this.addSlot(new ForgeAlloyingFuelSlot(inventory, this, 0, 41, 55));
-        this.addSlot(new ForgeSlot(inventory, 1, 14, 16, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 2, 32, 16, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 3, 50, 16, maxItemStack));
-        this.addSlot(new ForgeSlot(inventory, 4, 68, 16, maxItemStack));
-        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 143, 17, true));
+        this.addSlot(new ForgeAlloyingFuelSlot(inventory, this, 0, 35, 61));
+        this.addSlot(new ForgeSlot(inventory, 1, 8,  16, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 2, 26, 16, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 3, 44, 16, maxItemStack));
+        this.addSlot(new ForgeSlot(inventory, 4, 62, 16, maxItemStack));
+        this.addSlot(new ForgeOutputSlot(playerInventory.player, inventory, 5, 137, 57, true));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -138,14 +138,14 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(PlayerInventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 149));
         }
     }
 }
