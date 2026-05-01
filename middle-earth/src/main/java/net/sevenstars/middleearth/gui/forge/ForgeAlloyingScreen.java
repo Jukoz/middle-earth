@@ -44,9 +44,9 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private static final Identifier HEATING_SWITCH_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "heating_mode_highlighted");
     private static final ButtonTextures HEATING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(HEATING_SWITCH_BUTTON, HEATING_SWITCH_BUTTON_FOCUSED);
 
-    private static final int PROGRESS_ARROW_SIZE = 24;
+    private static final int PROGRESS_ARROW_SIZE = 27;
     private static final int COOKING_FIRE_SIZE = 14;
-    private static final int LIQUID_HEIGHT = 60;
+    private static final int LIQUID_HEIGHT = 26;
 
     private static final int TEXTURE_SIZE = 256;
 
@@ -104,8 +104,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             this.modeSwitchToAlloyButton.active = true;
         }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
 
-        this.modeSwitchToAlloyButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_heating")));
-        this.modeSwitchToHeatingButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));
+        this.modeSwitchToHeatingButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_heating")));
+        this.modeSwitchToAlloyButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));
         this.modeSwitchToHeatingButton.visible = false;
         this.modeSwitchToHeatingButton.active = false;
 
@@ -125,11 +125,6 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     protected void handledScreenTick() {
         super.handledScreenTick();
         heatingMode = handler.heatingMode();
-        /*
-        else if(handler.heatingMode() != heatingMode) {
-            heatingMode = handler.heatingMode();
-            this.close();
-        }*/
 
         this.leftExtractCycleButton.visible = true;
         this.rightExtractCycleButton.visible = true;
@@ -219,20 +214,20 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         }
 
         if(handler.isCrafting()) {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17, TEXTURE_SIZE, TEXTURE_SIZE);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 90, y + 16, 212, 83, 7, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), TEXTURE_SIZE, TEXTURE_SIZE);
         }
     }
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid, TEXTURE_SIZE ,TEXTURE_SIZE);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 73, y + 77 - storedLiquid, 211, 76 - storedLiquid, 20, storedLiquid, TEXTURE_SIZE ,TEXTURE_SIZE);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (mouseX >= x + 113 && mouseX <= x + 128 && mouseY >= y + 12 && mouseY <= y + 71){
+        if (mouseX >= x + 73 && mouseX <= x + 93 && mouseY >= y + 52 && mouseY <= y + 77){
             MetalTypes metal = MetalTypes.getValue(handler.getCurrentMetal());
             if(metal != MetalTypes.EMPTY){
                 context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
