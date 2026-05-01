@@ -45,6 +45,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private static final int COOKING_FIRE_SIZE = 14;
     private static final int LIQUID_HEIGHT = 60;
 
+    private static final int TEXTURE_SIZE = 256;
+
     public TexturedButtonWidget extractButton;
     public ToggleButtonWidget leftExtractCycleButton;
     public ToggleButtonWidget rightExtractCycleButton;
@@ -52,7 +54,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     public TexturedButtonWidget modeSwitchButton;
 
     private int outputMode = 0;
-    private Boolean heatingMode = null;
+    private boolean heatingMode = true;
 
     public ForgeAlloyingScreen(ForgeAlloyingScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -103,12 +105,12 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     @Override
     protected void handledScreenTick() {
         super.handledScreenTick();
-        if(heatingMode == null)
-            heatingMode = handler.heatingMode();
+        heatingMode = handler.heatingMode();
+        /*
         else if(handler.heatingMode() != heatingMode) {
             heatingMode = handler.heatingMode();
             this.close();
-        }
+        }*/
 
         this.leftExtractCycleButton.visible = true;
         this.rightExtractCycleButton.visible = true;
@@ -174,25 +176,35 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight + 6, 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight + 6, TEXTURE_SIZE, TEXTURE_SIZE);
 
         renderProgressArrow(context, x, y);
         renderLiquidStorage(context, x, y);
     }
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
-        if(handler.isCooking()) {
-            int cookingTime = (int) (handler.getScaledCooking() * COOKING_FIRE_SIZE);
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 42, y + 50 - cookingTime, 176, COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime, 256, 256);
+        if(heatingMode) {
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 36, y + 45, 202, 0, COOKING_FIRE_SIZE, COOKING_FIRE_SIZE, TEXTURE_SIZE, TEXTURE_SIZE);
+            if(handler.isCooking()) {
+                int cookingTime = (int) (handler.getScaledCooking() * COOKING_FIRE_SIZE);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 36, y + COOKING_FIRE_SIZE + 46 - cookingTime, 202, 15 + COOKING_FIRE_SIZE - cookingTime, COOKING_FIRE_SIZE, cookingTime, TEXTURE_SIZE, TEXTURE_SIZE);
+            }
+        } else {
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 33, y + 45, 218, 0, 20, 13, TEXTURE_SIZE, TEXTURE_SIZE);
+            if(handler.isCooking()) {
+                int cookingTime = (int) (handler.getScaledCooking() * 15);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 33, y + 59 - cookingTime, 218, 15 + 14 - cookingTime, 20, cookingTime, TEXTURE_SIZE, TEXTURE_SIZE);
+            }
         }
+
         if(handler.isCrafting()) {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17, 256, 256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 87, y + 15, 176, 14, (int) (handler.getScaledProgress() * PROGRESS_ARROW_SIZE), 17, TEXTURE_SIZE, TEXTURE_SIZE);
         }
     }
 
     private void renderLiquidStorage(DrawContext context, int x, int y) {
         int storedLiquid = (int) (handler.getScaledStoredLiquid() * LIQUID_HEIGHT);
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid, 256 ,256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 113, y + 71 - storedLiquid, 177, 114 - storedLiquid, 16, storedLiquid, TEXTURE_SIZE ,TEXTURE_SIZE);
     }
 
     private void renderLiquidStorageTooltip(DrawContext context, int mouseX, int mouseY) {
@@ -229,7 +241,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         ItemStack itemstack;
         switch (outputMode){
             case 0:
-                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 140, y + 51, 177, 115,22, 22, 256 ,256);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 140, y + 51, 177, 115,22, 22, TEXTURE_SIZE ,TEXTURE_SIZE);
                 break;
             case 1:
                 itemstack = new ItemStack(Items.IRON_NUGGET);

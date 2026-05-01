@@ -146,11 +146,11 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        if(this.mode == 1) {
-            return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        /*if(this.mode == 1) {
         } else {
             return new ForgeHeatingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
-        }
+        }*/
     }
 
     public int hasBellows(World world, BlockPos pos, BlockState state){
@@ -341,13 +341,13 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 entity.mode = 1;
             }
 
-            BlockState blockState = player.getWorld().getBlockState(pos);
+            /*BlockState blockState = player.getWorld().getBlockState(pos);
             if(blockState != null) {
                 NamedScreenHandlerFactory screenHandlerFactory = blockState.createScreenHandlerFactory(player.getWorld(), pos);
                 if(screenHandlerFactory != null) {
                     player.openHandledScreen(screenHandlerFactory);
                 }
-            }
+            }*/
         }
     }
 
