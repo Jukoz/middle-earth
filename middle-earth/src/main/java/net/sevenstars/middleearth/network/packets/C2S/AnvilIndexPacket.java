@@ -13,15 +13,15 @@ import net.minecraft.util.math.Vec3d;
 public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
     public static final Id<AnvilIndexPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "anvil_index_packet"));
     public static final PacketCodec<RegistryByteBuf, AnvilIndexPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOLEAN, p -> p.left,
+            PacketCodecs.INTEGER, p -> p.index,
             PacketCodecs.DOUBLE, p -> p.x,
             PacketCodecs.DOUBLE, p -> p.y,
             PacketCodecs.DOUBLE, p -> p.z,
             AnvilIndexPacket::new
     );
 
-    public boolean getAmount() {
-        return left;
+    public int getIndex() {
+        return index;
     }
 
     public double getX() {
@@ -36,13 +36,13 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
         return z;
     }
 
-    private final boolean left;
+    private final int index;
     private final double x;
     private final double y;
     private final double z;
 
-    public AnvilIndexPacket(boolean left, double x, double y, double z) {
-        this.left = left;
+    public AnvilIndexPacket(int index, double x, double y, double z) {
+        this.index = index;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -63,7 +63,7 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
         try{
             context.player().getServer().execute(() -> {
                 Vec3d coordinates = new Vec3d(x, y, z);
-                ShapingAnvilBlockEntity.updateIndex(left, coordinates, context.player());
+                ShapingAnvilBlockEntity.updateIndex(index, coordinates, context.player());
             });
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketAnvilIndex error: ", e);
