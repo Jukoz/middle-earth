@@ -393,7 +393,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode1", "1 Nugget");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode2", "1 Ingot");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode3", "2 Ingots");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode4", "3 Ingots");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode5", "3 Ingots");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer", "Left click the anvil with a");
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer_2", "Smithing Hammer to shape the metal.");

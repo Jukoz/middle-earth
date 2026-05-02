@@ -111,10 +111,10 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
     public int checkMaxOutput(){
         int liquid = propertyDelegate.get(4);
         if(liquid >= 432){
-            return 4;
+            return 5;
         }
         if(liquid >= 288){
-            return 3;
+            return 4;
         }
         if(liquid >= 144){
             return 2;

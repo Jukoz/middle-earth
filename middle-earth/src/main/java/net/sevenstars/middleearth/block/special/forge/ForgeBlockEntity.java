@@ -341,7 +341,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         }
     }
 
-    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
+    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player, int mode){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
 
         Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
@@ -366,6 +366,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 }
                 case 288 -> {
                     itemstack = new ItemStack(ResourceItemsME.ROD);
+                    if(mode == 4) itemstack = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     if (entity.currentMetal.isVanilla()){
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),

@@ -90,18 +90,18 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             switch (outputMode){
                 case 1 -> amount = 16;
                 case 2 -> amount = 144;
-                case 3 -> amount = 288;
-                case 4 -> amount = 432;
+                case 3, 4 -> amount = 288;
+                case 5 -> amount = 432;
             }
 
-            ClientPlayNetworking.send(new ForgeOutputPacket(amount, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
+            ClientPlayNetworking.send(new ForgeOutputPacket(amount, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ(), outputMode));
             }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal")
         );
 
         if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
             this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode_await")));
         } else {
-            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+            setExtractButtonTooltip();
         }
 
         this.modeSwitchToAlloyButton = new TexturedButtonWidget(x + 23, y + 68, 10 ,10, HEATING_SWITCH_BUTTON_TEXTURES, (button)-> {
@@ -140,11 +140,11 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         this.rightExtractCycleButton.visible = true;
         this.extractButton.visible = true;
 
-        if(handler.checkMaxOutput() == 4 && outputMode >= 4){
-            outputMode = 4;
+        if(handler.checkMaxOutput() == 4 && outputMode >= 5){
+            outputMode = 5;
         }
-        if(handler.checkMaxOutput() == 3 && outputMode >= 3){
-            outputMode = 3;
+        if(handler.checkMaxOutput() == 3 && outputMode >= 4){
+            outputMode = 4;
         }
         if(handler.checkMaxOutput() == 2 && outputMode >= 2){
             outputMode = 2;
@@ -169,7 +169,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
             this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode_await")));
         } else {
-            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+            setExtractButtonTooltip();
         }
     }
 
@@ -182,21 +182,27 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
                 outputMode--;
             }
 
-            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+            setExtractButtonTooltip();
             return true;
         }
 
         if (this.rightExtractCycleButton.mouseClicked(mouseX, mouseY, button)) {
             if(outputMode == handler.checkMaxOutput()){
                 outputMode = 1;
-            } else if(outputMode < 4){
+            } else if(outputMode < 5){
                 outputMode++;
             }
 
-            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+            setExtractButtonTooltip();
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    protected void setExtractButtonTooltip() {
+        int id = outputMode;
+        if(outputMode == 4) id = 3;
+        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + id)));
     }
 
     protected void updateSwitchState() {
@@ -286,7 +292,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             case 1 -> 111;
             case 2 -> 32;
             case 3 -> 85;
-            case 4 -> 59;
+            case 4 -> 137;
+            case 5 -> 59;
             default -> -1;
         };
         if(v >= 0) context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + EXTRACT_BUTTON_ITEM_X, y + EXTRACT_BUTTON_ITEM_Y,
