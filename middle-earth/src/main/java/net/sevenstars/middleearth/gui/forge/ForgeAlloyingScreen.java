@@ -156,7 +156,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             outputMode = 0;
         }
 
-        extractButton.active = handler.checkMaxOutput() > 0;
+        extractButton.active = handler.checkMaxOutput() > 0 && outputMode != 0;
 
         if(handler.checkMaxOutput() <= 1){
             this.leftExtractCycleButton.visible = false;
@@ -298,6 +298,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             }
             context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + EXTRACT_BUTTON_ITEM_X + 2, y + EXTRACT_BUTTON_ITEM_Y + 4,
                     204 + u, 30,14, 16, TEXTURE_SIZE ,TEXTURE_SIZE);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 102, y + 57,
+                    178, 21,22, 15, TEXTURE_SIZE ,TEXTURE_SIZE);
         }
     }
 }
