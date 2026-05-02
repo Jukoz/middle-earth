@@ -329,25 +329,15 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     public static void switchMode(Vec3d coords, ServerPlayerEntity player){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
-
         Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
 
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
-            System.out.println("switching mode");
             if (entity.mode == 1){
                 entity.mode = 0;
             } else if (entity.mode == 0) {
                 entity.mode = 1;
             }
-
-            /*BlockState blockState = player.getWorld().getBlockState(pos);
-            if(blockState != null) {
-                NamedScreenHandlerFactory screenHandlerFactory = blockState.createScreenHandlerFactory(player.getWorld(), pos);
-                if(screenHandlerFactory != null) {
-                    player.openHandledScreen(screenHandlerFactory);
-                }
-            }*/
         }
     }
 

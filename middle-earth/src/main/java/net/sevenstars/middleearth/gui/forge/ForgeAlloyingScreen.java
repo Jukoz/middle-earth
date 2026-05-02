@@ -26,8 +26,9 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
 
     private static final Identifier EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "extract");
+    private static final Identifier EXTRACT_BUTTON_DISABLED = Identifier.of(MiddleEarth.MOD_ID, "extract_disabled");
     private static final Identifier EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "extract_focused");
-    private static final ButtonTextures EXTRACT_BUTTON_TEXTURES = new ButtonTextures(EXTRACT_BUTTON, EXTRACT_BUTTON_FOCUSED);
+    private static final ButtonTextures EXTRACT_BUTTON_TEXTURES = new ButtonTextures(EXTRACT_BUTTON, EXTRACT_BUTTON_DISABLED, EXTRACT_BUTTON_FOCUSED);
 
     private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow");
     private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow_focused");
@@ -47,6 +48,10 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private static final int PROGRESS_ARROW_SIZE = 27;
     private static final int COOKING_FIRE_SIZE = 14;
     private static final int LIQUID_HEIGHT = 26;
+
+    private static final int EXTRACT_BUTTON_ITEM_X = 136;
+    private static final int EXTRACT_BUTTON_ITEM_Y = 18;
+    private static final int EXTRACT_BUTTON_ITEM_U = 235;
 
     private static final int TEXTURE_SIZE = 256;
 
@@ -70,12 +75,17 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
+        this.heatingMode = handler.heatingMode();
 
-        this.leftExtractCycleButton = new ToggleButtonWidget(x + 132, y + 56, 7 ,11, true);
+        this.leftExtractCycleButton = new ToggleButtonWidget(x + 121, y + 24, 7 ,11, true);
         this.leftExtractCycleButton.setTextures(LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES);
         this.leftExtractCycleButton.visible = false;
 
-        this.extractButton = new TexturedButtonWidget(x + 141, y + 52, 20 ,20, EXTRACT_BUTTON_TEXTURES, (button)-> {
+        this.rightExtractCycleButton = new ToggleButtonWidget(x + 162, y + 24, 7,11, true);
+        this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
+        this.rightExtractCycleButton.visible = false;
+
+        this.extractButton = new TexturedButtonWidget(x + 131, y + 12, 28 ,36, EXTRACT_BUTTON_TEXTURES, (button)-> {
             int amount = 0;
             switch (outputMode){
                 case 1 -> amount = 16;
@@ -85,18 +95,23 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             }
 
             ClientPlayNetworking.send(new ForgeOutputPacket(amount, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
-            }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal"));
+            }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal")
+        );
 
-        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+        if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode_await")));
+        } else {
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+        }
 
-        this.modeSwitchToAlloyButton = new TexturedButtonWidget(x + 23, y + 60, 10 ,10, HEATING_SWITCH_BUTTON_TEXTURES, (button)-> {
+        this.modeSwitchToAlloyButton = new TexturedButtonWidget(x + 23, y + 68, 10 ,10, HEATING_SWITCH_BUTTON_TEXTURES, (button)-> {
             ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
             this.modeSwitchToAlloyButton.visible = false;
             this.modeSwitchToAlloyButton.active = false;
             this.modeSwitchToHeatingButton.visible = true;
             this.modeSwitchToHeatingButton.active = true;
         }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
-        this.modeSwitchToHeatingButton = new TexturedButtonWidget(x + 23, y + 68, 10 ,10, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
+        this.modeSwitchToHeatingButton = new TexturedButtonWidget(x + 23, y + 60, 10 ,10, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
             ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
             this.modeSwitchToHeatingButton.visible = false;
             this.modeSwitchToHeatingButton.active = false;
@@ -106,12 +121,6 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
         this.modeSwitchToHeatingButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_heating")));
         this.modeSwitchToAlloyButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));
-        this.modeSwitchToHeatingButton.visible = false;
-        this.modeSwitchToHeatingButton.active = false;
-
-        this.rightExtractCycleButton = new ToggleButtonWidget(x + 163, y + 56, 7,11, true);
-        this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
-        this.rightExtractCycleButton.visible = false;
 
         addDrawableChild(leftExtractCycleButton);
         addDrawableChild(extractButton);
@@ -125,6 +134,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     protected void handledScreenTick() {
         super.handledScreenTick();
         heatingMode = handler.heatingMode();
+        updateSwitchState();
 
         this.leftExtractCycleButton.visible = true;
         this.rightExtractCycleButton.visible = true;
@@ -142,12 +152,12 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         if(handler.checkMaxOutput() == 1 && outputMode >= 1){
             outputMode = 1;
         }
-        if(handler.checkMaxOutput() == 0 && outputMode >= 1){
+        if(handler.checkMaxOutput() == 0 && outputMode >= 1) {
             outputMode = 0;
         }
-        if(handler.checkMaxOutput() >= 1 && outputMode == 0){
-            outputMode = 1;
-        }
+
+        extractButton.active = handler.checkMaxOutput() > 0;
+
         if(handler.checkMaxOutput() <= 1){
             this.leftExtractCycleButton.visible = false;
             this.rightExtractCycleButton.visible = false;
@@ -156,7 +166,11 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             this.rightExtractCycleButton.visible = true;
         }
 
-        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+        if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode_await")));
+        } else {
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + this.outputMode)));
+        }
     }
 
     @Override
@@ -183,6 +197,20 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    protected void updateSwitchState() {
+        if(!handler.heatingMode()) {
+            this.modeSwitchToHeatingButton.visible = false;
+            this.modeSwitchToHeatingButton.active = false;
+            this.modeSwitchToAlloyButton.visible = true;
+            this.modeSwitchToAlloyButton.active = true;
+        } else {
+            this.modeSwitchToHeatingButton.visible = true;
+            this.modeSwitchToHeatingButton.active = true;
+            this.modeSwitchToAlloyButton.visible = false;
+            this.modeSwitchToAlloyButton.active = false;
+        }
     }
 
     @Override
@@ -254,27 +282,22 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         drawMouseoverTooltip(context, mouseX, mouseY);
         renderLiquidStorageTooltip(context, mouseX, mouseY);
 
-        ItemStack itemstack;
-        switch (outputMode){
-            case 0:
-                context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 140, y + 51, 177, 115,22, 22, TEXTURE_SIZE ,TEXTURE_SIZE);
-                break;
-            case 1:
-                itemstack = new ItemStack(Items.IRON_NUGGET);
-                context.drawItem(itemstack, x + 143, y + 54);
-                break;
-            case 2:
-                itemstack = new ItemStack(Items.IRON_INGOT);
-                context.drawItem(itemstack, x + 143, y + 54);
-                break;
-            case 3:
-                itemstack = new ItemStack(ResourceItemsME.ROD);
-                context.drawItem(itemstack, x + 143, y + 54);
-                break;
-            case 4:
-                itemstack = new ItemStack(ResourceItemsME.LARGE_ROD);
-                context.drawItem(itemstack, x + 143, y + 54);
-                break;
+        int v = switch (outputMode) {
+            case 1 -> 111;
+            case 2 -> 32;
+            case 3 -> 85;
+            case 4 -> 59;
+            default -> -1;
+        };
+        if(v >= 0) context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + EXTRACT_BUTTON_ITEM_X, y + EXTRACT_BUTTON_ITEM_Y,
+                EXTRACT_BUTTON_ITEM_U, v,18, 24, TEXTURE_SIZE ,TEXTURE_SIZE);
+        else {
+            int u = 0;
+            if (handler.checkMaxOutput() > 0) {
+                u = 16;
+            }
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + EXTRACT_BUTTON_ITEM_X + 2, y + EXTRACT_BUTTON_ITEM_Y + 4,
+                    204 + u, 30,14, 16, TEXTURE_SIZE ,TEXTURE_SIZE);
         }
     }
 }

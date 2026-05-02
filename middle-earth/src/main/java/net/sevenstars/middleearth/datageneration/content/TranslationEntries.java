@@ -388,6 +388,7 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_top", "Top Armor Addon, Enabled");
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_side", "Side Armor Addon, Enabled");
 
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode_await", "Select a cast");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode0", "Not enough Metal.");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode1", "1 Nugget");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode2", "1 Ingot");
