@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -18,6 +19,7 @@ import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
@@ -27,8 +29,11 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
     private boolean mouseClicked;
     private int scrollOffset;
 
+    private List<ItemStack> outputs;
+
     public ShapingAnvilScreen(ShapingAnvilScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
+        outputs = new ArrayList<>();
     }
 
     @Override
@@ -39,6 +44,16 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
+    }
+
+    public void addRecipe(int index, ItemStack output) {
+        boolean exists = outputs.stream().anyMatch(item -> output.getItem().equals(item.getItem()));
+        if(exists) return;
+
+        while (outputs.size() < index) {
+            outputs.add(ItemStack.EMPTY);
+        }
+        outputs.add(output);
     }
 
     @Override
@@ -80,7 +95,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
             renderOutputTooltip(context, mouseX, mouseY);
         }*/
 
-        int l = this.x + 76;
+        int l = this.x + 19;
         int m = this.y + 14;
         int n = this.scrollOffset + 12;
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
@@ -109,31 +124,29 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
     }
 
     private void renderRecipeBackground(DrawContext context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
-        for(int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
+        for(int i = this.scrollOffset; i < scrollOffset && i < this.outputs.size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            int n = this.backgroundHeight;
+            int n = 0;
             if (i == (this.handler).getSelectedRecipe()) {
-                n += 18;
+                n += 16;
             } else if (mouseX >= k && mouseY >= m && mouseX < k + 16 && mouseY < m + 18) {
-                n += 36;
+                n += 32;
             }
 
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, k, m - 1, 0, n, 16, 18, 256,256);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, k, m - 1, 176 + n, 1, 16, 18, 256,256);
         }
-
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<RecipeEntry<AnvilShapingRecipe>> list = this.handler.getAvailableRecipes();
-        for (int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
+        for (int i = this.scrollOffset; i < scrollOffset && i < this.outputs.size(); ++i) {
             int j = i - this.scrollOffset;
-            int k = x + j % 4 * 16;
-            int l = j / 4;
+            int k = x + 1 + j % 4 * 16;
+            int l = (j + 1) / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).value().getOutput(), k, m);
+            context.drawItem(outputs.get(i), k, m);
         }
 
     }

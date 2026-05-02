@@ -9,10 +9,7 @@ import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
-import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
-import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
-import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
+import net.sevenstars.middleearth.network.packets.S2C.*;
 
 import java.util.function.BiConsumer;
 
@@ -23,6 +20,7 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playS2C().register(PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketLivingEntityData.ID, PacketLivingEntityData.CODEC);
         PayloadTypeRegistry.playS2C().register(InscriptionEnchantInfoPacket.ID, InscriptionEnchantInfoPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(ShapingAnvilRecipePacket.ID, ShapingAnvilRecipePacket.CODEC);
 
         // REGISTRY : Client to server
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);

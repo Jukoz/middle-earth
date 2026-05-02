@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.shapinganvil;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -13,11 +14,14 @@ import net.minecraft.screen.Property;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
+import net.sevenstars.middleearth.network.packets.S2C.ShapingAnvilRecipePacket;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.RecipesME;
@@ -31,6 +35,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     private final World world;
     private List<RecipeEntry<AnvilShapingRecipe>> availableRecipes;
     private ItemStack outputStack;
+    private PlayerEntity player;
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
         this(syncId, playerInventory, new SimpleInventory(1), new ArrayPropertyDelegate(2));
@@ -46,6 +51,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         this.pos = BlockPos.ORIGIN;
         this.world = playerInventory.player.getWorld();
         this.outputStack = ItemStack.EMPTY;
+        this.player = playerInventory.player;
 
         this.addSlot(new ShapingAnvilSlot(inventory, 0, 136, 33){
             @Override
@@ -95,6 +101,12 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         if (!this.world.isClient){
             ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
             this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ANVIL_SHAPING, new SingleStackRecipeInput(input), this.world).toList();
+
+            int index = 0;
+            for(RecipeEntry<AnvilShapingRecipe> recipe : availableRecipes) {
+                ShapingAnvilRecipePacket newPacket = new ShapingAnvilRecipePacket(index++, recipe.value().getOutput());
+                ServerPlayNetworking.send((ServerPlayerEntity) player, newPacket);
+            }
         }
     }
 
