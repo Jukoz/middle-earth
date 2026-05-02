@@ -9,14 +9,18 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.Property;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
+import net.sevenstars.middleearth.recipe.ArtisanRecipe;
+import net.sevenstars.middleearth.recipe.RecipesME;
 
 import java.util.List;
 
@@ -25,7 +29,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     private final PropertyDelegate propertyDelegate;
     protected BlockPos pos;
     private final World world;
-
+    private List<RecipeEntry<AnvilShapingRecipe>> availableRecipes;
     private ItemStack outputStack;
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
@@ -43,7 +47,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         this.world = playerInventory.player.getWorld();
         this.outputStack = ItemStack.EMPTY;
 
-        this.addSlot(new ShapingAnvilSlot(inventory, 0, 80, 55){
+        this.addSlot(new ShapingAnvilSlot(inventory, 0, 136, 33){
             @Override
             public void markDirty() {
                 super.markDirty();
@@ -87,19 +91,30 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     }
 
     public void updateStack(Inventory inventory) {
-        /*System.out.println("content changed");
         ItemStack input = inventory.getStack(0);
-
-        List<RecipeEntry<AnvilShapingRecipe>> match = this.world.getRecipeManager().getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), this.world).toList();
-
-        if (match.isEmpty()) this.outputStack = ItemStack.EMPTY;
-
-        if (this.propertyDelegate.get(0) <= this.propertyDelegate.get(1)){
-            this.outputStack =  match.get(this.propertyDelegate.get(0)).value().getOutput();
-        } else {
-            this.outputStack =  ItemStack.EMPTY;
+        if (!this.world.isClient){
+            ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
+            this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ANVIL_SHAPING, new SingleStackRecipeInput(input), this.world).toList();
         }
-        System.out.println("stack is now: " + this.outputStack);*/
+    }
+
+    public int getAvailableRecipeCount() {
+        int count = 0;
+        ItemStack input = inventory.getStack(0);
+        if (!this.world.isClient){
+            ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
+            this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ANVIL_SHAPING, new SingleStackRecipeInput(input), this.world).toList();
+            count = this.availableRecipes.size();
+        }
+        return count;
+    }
+
+    public List<RecipeEntry<AnvilShapingRecipe>> getAvailableRecipes() {
+        return availableRecipes;
+    }
+
+    public int getSelectedRecipe() {
+        return 0;
     }
 
     public ItemStack getOutputStack() {

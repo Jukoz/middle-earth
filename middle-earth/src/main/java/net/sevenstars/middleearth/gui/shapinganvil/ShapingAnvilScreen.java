@@ -8,27 +8,24 @@ import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
+import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
+import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 
 import java.util.List;
 
 public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/shaping_anvil.png");
 
-    private static final Identifier LEFT_CYCLE_OUTPUT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow");
-    private static final Identifier LEFT_CYCLE_OUTPUT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow_focused");
-    private static final ButtonTextures LEFT_CYCLE_OUTPUT_BUTTON_TEXTURES = new ButtonTextures(LEFT_CYCLE_OUTPUT_BUTTON, LEFT_CYCLE_OUTPUT_BUTTON_FOCUSED);
-
-    private static final Identifier RIGHT_CYCLE_OUTPUT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "right_cycle_arrow");
-    private static final Identifier RIGHT_CYCLE_OUTPUT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "right_cycle_arrow_focused");
-    private static final ButtonTextures RIGHT_CYCLE_OUTPUT_BUTTON_TEXTURES = new ButtonTextures(RIGHT_CYCLE_OUTPUT_BUTTON, RIGHT_CYCLE_OUTPUT_BUTTON_FOCUSED);
-
-    public ToggleButtonWidget leftOutputCycleButton;
-    public ToggleButtonWidget rightOutputCycleButton;
+    private float scrollAmount;
+    private boolean mouseClicked;
+    private int scrollOffset;
 
     public ShapingAnvilScreen(ShapingAnvilScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -42,25 +39,17 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        this.leftOutputCycleButton = new ToggleButtonWidget(x + 69, y + 19, 7 ,11, true);
-        this.leftOutputCycleButton.setTextures(LEFT_CYCLE_OUTPUT_BUTTON_TEXTURES);
-
-        this.rightOutputCycleButton = new ToggleButtonWidget(x + 100, y + 19, 7,11, true);
-        this.rightOutputCycleButton.setTextures(RIGHT_CYCLE_OUTPUT_BUTTON_TEXTURES);
-
-        addDrawableChild(leftOutputCycleButton);
-        addDrawableChild(rightOutputCycleButton);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.leftOutputCycleButton.mouseClicked(mouseX, mouseY, button)) {
+        //if (this.leftOutputCycleButton.mouseClicked(mouseX, mouseY, button)) {
             ClientPlayNetworking.send(new AnvilIndexPacket(true, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
-        }
+        //}
 
-        if (this.rightOutputCycleButton.mouseClicked(mouseX, mouseY, button)) {
+        // (this.rightOutputCycleButton.mouseClicked(mouseX, mouseY, button)) {
             ClientPlayNetworking.send(new AnvilIndexPacket(false, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
-        }
+        //}
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -80,7 +69,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawItem(ToolItemsME.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
+        /*context.drawItem(ToolItemsME.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
 
         renderHammerTooltip(context, mouseX, mouseY);
 
@@ -89,7 +78,13 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         } else {
             context.drawItem(this.handler.getOutputStack(), x + 80, y + 16);
             renderOutputTooltip(context, mouseX, mouseY);
-        }
+        }*/
+
+        int l = this.x + 76;
+        int m = this.y + 14;
+        int n = this.scrollOffset + 12;
+        this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
+        this.renderRecipeIcons(context, l, m, n);
     }
 
     private void renderOutputTooltip(DrawContext context, int mouseX, int mouseY) {
@@ -111,5 +106,35 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
                             Text.translatable("tooltip." + MiddleEarth.MOD_ID +".anvil_hammer_2")),
                             Text::asOrderedText), mouseX, mouseY);
         }
+    }
+
+    private void renderRecipeBackground(DrawContext context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
+        for(int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
+            int j = i - this.scrollOffset;
+            int k = x + j % 4 * 16;
+            int l = j / 4;
+            int m = y + l * 18 + 2;
+            int n = this.backgroundHeight;
+            if (i == (this.handler).getSelectedRecipe()) {
+                n += 18;
+            } else if (mouseX >= k && mouseY >= m && mouseX < k + 16 && mouseY < m + 18) {
+                n += 36;
+            }
+
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, k, m - 1, 0, n, 16, 18, 256,256);
+        }
+
+    }
+
+    private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
+        List<RecipeEntry<AnvilShapingRecipe>> list = this.handler.getAvailableRecipes();
+        for (int i = this.scrollOffset; i < scrollOffset && i < this.handler.getAvailableRecipeCount(); ++i) {
+            int j = i - this.scrollOffset;
+            int k = x + j % 4 * 16;
+            int l = j / 4;
+            int m = y + l * 18 + 2;
+            context.drawItem(list.get(i).value().getOutput(), k, m);
+        }
+
     }
 }
