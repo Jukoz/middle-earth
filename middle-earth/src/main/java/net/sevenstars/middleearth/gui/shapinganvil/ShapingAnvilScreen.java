@@ -56,6 +56,10 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         outputs.add(output);
     }
 
+    private boolean shouldScroll() {
+        return this.outputs.size() > 12;
+    }
+
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         //if (this.leftOutputCycleButton.mouseClicked(mouseX, mouseY, button)) {
@@ -77,6 +81,12 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
     }
 
     @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        context.drawText(this.textRenderer, this.title, this.titleX, this.titleY - 1, -12566464, false);
+        context.drawText(this.textRenderer, this.playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY, -12566464, false);
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context, mouseX,mouseY,delta);
         super.render(context, mouseX, mouseY, delta);
@@ -84,21 +94,13 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        /*context.drawItem(ToolItemsME.SMITHING_HAMMER.getDefaultStack(), x + 81, y + 34);
-
-        renderHammerTooltip(context, mouseX, mouseY);
-
-        if (this.handler.getOutputStack().isEmpty()){
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 79, y + 15, 177, 115,18, 18, 256, 256);
-        } else {
-            context.drawItem(this.handler.getOutputStack(), x + 80, y + 16);
-            renderOutputTooltip(context, mouseX, mouseY);
-        }*/
+        int k = (int)(41.0F * this.scrollAmount);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 87, y + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 20, 12, 15, 256, 256);
 
         int l = this.x + 19;
         int m = this.y + 14;
         int n = this.scrollOffset + 12;
-        this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
+        this.renderRecipeBackground(context, mouseX, mouseY, l + 1, m, n);
         this.renderRecipeIcons(context, l, m, n);
     }
 
