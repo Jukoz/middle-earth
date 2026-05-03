@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
+import net.minecraft.inventory.CraftingResultInventory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
@@ -149,7 +150,16 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         return !handler.getAvailableOutputs().isEmpty();
     }
 
-    private void equipArmorStand(ItemStack stack) {
+    @Override
+    protected void handledScreenTick() {
+        super.handledScreenTick();
+        CraftingResultInventory resultInventory = this.handler.output;
+        if(resultInventory != null && resultInventory.getStack(0) != ItemStack.EMPTY) {
+            equipArmorStand(resultInventory.getStack(0));
+        }
+    }
+
+    public void equipArmorStand(ItemStack stack) {
         if (this.armorStand == null) {
             return;
         }
@@ -204,7 +214,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
         this.renderRecipeIcons(context, l, m, n);
-        InventoryScreen.drawEntity(context, i, j, this.x + 406, this.y + 125, 25.0F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
+        InventoryScreen.drawEntity(context, i, j, this.x + 412, this.y + 128, 27.5F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
 
     }
 

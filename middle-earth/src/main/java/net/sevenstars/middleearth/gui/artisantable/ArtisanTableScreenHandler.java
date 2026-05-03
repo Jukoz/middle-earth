@@ -89,6 +89,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.input = new SimpleInventory(9) {
             public void markDirty() {
                 super.markDirty();
+                outputs.clear();
                 ArtisanTableScreenHandler.this.onContentChanged(this);
                 ArtisanTableScreenHandler.this.contentsChangedListener.run();
             }
@@ -262,11 +263,6 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             if (!this.world.isClient){
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
                 this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
-                int index = 0;
-                for(RecipeEntry<ArtisanRecipe> recipe : availableRecipes) {
-                    ArtisanRecipePacket artisanRecipePacket = new ArtisanRecipePacket(index++, recipe.value().getOutput());
-                    ServerPlayNetworking.send((ServerPlayerEntity) this.playerEntity, artisanRecipePacket);
-                }
             }
         }
 
@@ -281,6 +277,11 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             }
         }
         this.availableRecipes = filteredRecipes;
+        int index = 0;
+        for(RecipeEntry<ArtisanRecipe> recipe : availableRecipes) {
+            ArtisanRecipePacket artisanRecipePacket = new ArtisanRecipePacket(index++, recipe.value().getOutput());
+            ServerPlayNetworking.send((ServerPlayerEntity) this.playerEntity, artisanRecipePacket);
+        }
         this.recipesSize.set(availableRecipes.size());
     }
 
