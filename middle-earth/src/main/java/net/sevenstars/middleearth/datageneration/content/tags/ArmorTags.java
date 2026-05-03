@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArmorTags {
+    public static List<Item> armors = new ArrayList<>();
+
     public static List<Item> headArmors = new ArrayList<>();
     public static List<Item> chestArmors = new ArrayList<>();
     public static List<Item> legArmors = new ArrayList<>();

@@ -2139,6 +2139,7 @@ public class EquipmentItemsME {
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
         if (item instanceof ArmorItem armorItem){
+            ArmorTags.armors.add(armorItem);
             switch (armorItem.getMaterial().tier()){
                 case BASIC -> ArmorTags.basicArmors.add(item);
                 case LIGHT -> ArmorTags.lightArmors.add(item);
