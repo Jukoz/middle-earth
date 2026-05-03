@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.gui.shapinganvil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -23,6 +25,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
 import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.network.packets.S2C.ShapingAnvilRecipePacket;
@@ -69,6 +72,10 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
             @Override
             public void markDirty() {
                 super.markDirty();
+                if(player.getWorld().isClient) {
+                    ShapingAnvilScreen screen = (ShapingAnvilScreen)MinecraftClient.getInstance().currentScreen;
+                    if(screen != null) screen.clearOutputs();
+                }
                 ShapingAnvilScreenHandler.this.updateStack(ShapingAnvilScreenHandler.this.inventory);
             }
         });
@@ -77,6 +84,8 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         addPlayerHotbar(playerInventory);
 
         addProperties(delegate);
+
+
     }
 
     @Override
@@ -106,6 +115,10 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
 
     public BlockPos getPos() {
         return pos;
+    }
+
+    public void updateScreen(){
+        this.updateStack(this.inventory);
     }
 
     public void updateStack(Inventory inventory) {

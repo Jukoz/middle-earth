@@ -1,7 +1,12 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
+import net.minecraft.screen.AnvilScreenHandler;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
+import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.minecraft.network.RegistryByteBuf;
@@ -61,10 +66,18 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
-                Vec3d coordinates = new Vec3d(x, y, z);
-                ShapingAnvilBlockEntity.updateIndex(index, coordinates, context.player());
-            });
+            if(index >= 0) {
+                context.player().getServer().execute(() -> {
+                    Vec3d coordinates = new Vec3d(x, y, z);
+                    ShapingAnvilBlockEntity.updateIndex(index, coordinates, context.player());
+                });
+            } else {
+                ServerPlayerEntity player = context.player();
+                ScreenHandler screenHandler = player.currentScreenHandler;
+                if (screenHandler instanceof ShapingAnvilScreenHandler anvilScreenHandler) {
+                    anvilScreenHandler.updateScreen();
+                }
+            }
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketAnvilIndex error: ", e);
         }

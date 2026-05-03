@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.gui.shapinganvil;
 
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -8,10 +10,14 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
+import net.sevenstars.middleearth.network.packets.S2C.ShapingAnvilRecipePacket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +44,9 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
+        BlockPos pos = this.handler.getPos();
+        AnvilIndexPacket newPacket = new AnvilIndexPacket(-1, pos.getX(), pos.getY(), pos.getZ());
+        ClientPlayNetworking.send(newPacket);
     }
 
     public void addRecipe(int index, ItemStack output) {
@@ -50,13 +59,16 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         outputs.add(output);
     }
 
+    public void clearOutputs() {
+        outputs.clear();
+    }
+
     private boolean shouldScroll() {
         return this.outputs.size() > 12;
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-
         int i = this.x + 20;
         int j = this.y + 14;
         int k = this.scrollOffset + 12;
@@ -155,7 +167,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         for (int i = this.scrollOffset; i < scrollOffset && i < this.outputs.size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + 1 + j % 4 * 16;
-            int l = (j + 1) / 4;
+            int l = j / 4;
             int m = y + l * 18 + 2;
             context.drawItem(outputs.get(i), k, m);
         }
