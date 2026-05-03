@@ -1,14 +1,20 @@
 package net.sevenstars.middleearth.gui.artisantable;
 
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
+import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
+import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
+import net.sevenstars.middleearth.network.packets.C2S.ArtisanIndexPacket;
 import net.sevenstars.middleearth.network.packets.S2C.ArtisanRecipePacket;
 import net.sevenstars.middleearth.network.packets.S2C.ShapingAnvilRecipePacket;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
@@ -170,6 +176,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         outputs.add(itemStack);
     }
 
+    public void setSelectedRecipe(int index) {
+        selectedRecipe.set(index);
+        ArtisanIndexPacket anvilIndexPacket = new ArtisanIndexPacket(index, this.syncId);
+        ClientPlayNetworking.send(anvilIndexPacket);
+    }
+
     public int getAvailableRecipeCount() {
         return this.availableRecipes.size();
     }
@@ -193,13 +205,22 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     private boolean isInBounds(int id) {
-        return id >= 0 && id < this.availableRecipes.size();
+        if(this.playerEntity.getWorld().isClient()) {
+            return id >= 0 && id < this.outputs.size();
+        } else {
+            return id >= 0 && id < this.availableRecipes.size();
+        }
     }
 
     public void onContentChanged(Inventory inventory) {
         ItemStack itemStack = this.inputSlots[0][0].getStack();
         this.inputStack = itemStack.copy();
         this.updateInput(inventory);
+    }
+
+    public void updateIndex(int index){
+        this.selectedRecipe.set(index);
+        this.populateResult(this.playerEntity);
     }
 
     public void changeTab(String shapeId) {

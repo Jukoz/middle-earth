@@ -50,7 +50,6 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;
-    private boolean canCraft;
 
     private static final Vector3f ARMOR_STAND_TRANSLATION = new Vector3f();
     private static final Quaternionf ARMOR_STAND_ROTATION = new Quaternionf().rotationXYZ(0.43633232f, 0.0f, (float)Math.PI);
@@ -146,6 +145,10 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     }
 
+    private boolean canCraft() {
+        return !handler.getAvailableOutputs().isEmpty();
+    }
+
     private void equipArmorStand(ItemStack stack) {
         if (this.armorStand == null) {
             return;
@@ -233,7 +236,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     protected void drawMouseoverTooltip(DrawContext context, int x, int y) {
         super.drawMouseoverTooltip(context, x, y);
-        if (this.canCraft) {
+        if (canCraft()) {
             int i = this.x + 76;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
@@ -299,7 +302,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 break;
             }
         }
-        if (this.canCraft) {
+        if (canCraft()) {
             int i = this.x + 76;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
@@ -310,7 +313,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 double e = mouseY - (double)(j + m / 4 * 18);
                 if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && (this.handler).onButtonClick(this.client.player, l)) {
                     MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-                    this.client.interactionManager.clickButton((this.handler).syncId, l);
+                    this.handler.setSelectedRecipe(l);
                     return true;
                 }
             }
@@ -351,7 +354,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private boolean shouldScroll() {
-        return this.canCraft && this.handler.getAvailableOutputs().size() > 12;
+        return canCraft() && this.handler.getAvailableOutputs().size() > 12;
     }
 
     protected int getMaxScroll() {
@@ -359,8 +362,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private void onInventoryChange() {
-        this.canCraft = this.handler.canCraft();
-        if (!this.canCraft) {
+        if (!canCraft()) {
             this.scrollAmount = 0.0F;
             this.scrollOffset = 0;
         }
