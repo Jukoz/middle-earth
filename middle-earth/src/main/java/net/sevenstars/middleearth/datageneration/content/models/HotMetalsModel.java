@@ -84,13 +84,13 @@ public class HotMetalsModel {
         {
             add(new ShapingItem(ResourceItemsME.ROD, ResourceItemsME.BLADE, 120));
             add(new ShapingItem(ResourceItemsME.ROD, ResourceItemsME.HOE_HEAD, 120));
-            add(new ShapingItem(ResourceItemsME.ROD, ResourceItemsME.ARMOR_PLATE, 120));
 
             add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.LONG_BLADE, 160));
             add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.AXE_HEAD, 160));
             add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.PICKAXE_HEAD, 160));
-            add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.HELMET_PLATE, 160));
-            add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.SHIELD_PLATE, 160));
+
+            add(new ShapingItem(ResourceItemsME.ARMOR_PLATE, ResourceItemsME.HELMET_PLATE, 160));
+            add(new ShapingItem(ResourceItemsME.ARMOR_PLATE, ResourceItemsME.SHIELD_PLATE, 160));
         }
     };
 }

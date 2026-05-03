@@ -201,7 +201,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
         this.renderRecipeIcons(context, l, m, n);
-        InventoryScreen.drawEntity(context, i, j, this.x + 206, this.y + 75, 25.0F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
+        InventoryScreen.drawEntity(context, i, j, this.x + 406, this.y + 125, 25.0F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
 
     }
 
@@ -237,21 +237,21 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             int i = this.x + 76;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
-            List<RecipeEntry<ArtisanRecipe>> list = (this.handler).getAvailableRecipes();
+            List<ItemStack> list = (this.handler).getAvailableOutputs();
 
-            for(int l = this.scrollOffset; l < k && l < (this.handler).getAvailableRecipeCount(); ++l) {
+            for(int l = this.scrollOffset; l < k && l < (this.handler).getAvailableOutputs().size(); ++l) {
                 int m = l - this.scrollOffset;
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, list.get(l).value().getOutput(), x, y);
+                    context.drawItemTooltip(this.textRenderer, list.get(l), x, y);
                 }
             }
         }
     }
 
     private void renderRecipeBackground(DrawContext context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
-        for(int i = this.scrollOffset; i < scrollOffset && i < ((ArtisanTableScreenHandler)this.handler).getAvailableRecipeCount(); ++i) {
+        for(int i = this.scrollOffset; i < scrollOffset && i < ((ArtisanTableScreenHandler)this.handler).getAvailableOutputs().size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
@@ -269,13 +269,13 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<RecipeEntry<ArtisanRecipe>> list = this.handler.getAvailableRecipes();
-        for (int i = this.scrollOffset; i < scrollOffset && i < (this.handler).getAvailableRecipeCount(); ++i) {
+        List<ItemStack> list = this.handler.getAvailableOutputs();
+        for (int i = this.scrollOffset; i < scrollOffset && i < (this.handler).getAvailableOutputs().size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).value().getOutput(), k, m);
+            context.drawItem(list.get(i), k, m);
         }
 
     }
@@ -351,11 +351,11 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private boolean shouldScroll() {
-        return this.canCraft && this.handler.getAvailableRecipeCount() > 12;
+        return this.canCraft && this.handler.getAvailableOutputs().size() > 12;
     }
 
     protected int getMaxScroll() {
-        return (this.handler.getAvailableRecipeCount() + 4 - 1) / 4 - 3;
+        return (this.handler.getAvailableOutputs().size() + 4 - 1) / 4 - 3;
     }
 
     private void onInventoryChange() {
