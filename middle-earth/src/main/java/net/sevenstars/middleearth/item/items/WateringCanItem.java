@@ -69,6 +69,11 @@ public class WateringCanItem extends BlockItem {
     }
 
     @Override
+    public boolean allowComponentsUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
+        return false;
+    }
+
+    @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
@@ -174,8 +179,8 @@ public class WateringCanItem extends BlockItem {
                 .add(0.0D, -0.3D, 0.0D);
         Vec3d streamCenter = origin.add(look.multiply(0.45D)).add(0.0D, -0.2D, 0.0D);
 
-        world.spawnParticles(ParticleTypes.SPLASH, streamCenter.x, streamCenter.y, streamCenter.z, 4, 0.08D, 0.05D, 0.08D, 0.01D);
-        world.spawnParticles(ParticleTypes.FALLING_WATER, streamCenter.x, streamCenter.y, streamCenter.z, 5, 0.08D, 0.08D, 0.08D, 0.02D);
+        world.spawnParticles(ParticleTypes.SPLASH, streamCenter.x, streamCenter.y, streamCenter.z, 1, 0.08D, 0.05D, 0.08D, 0.01D);
+        world.spawnParticles(ParticleTypes.FALLING_WATER, streamCenter.x, streamCenter.y, streamCenter.z, 1, 0.08D, 0.08D, 0.08D, 0.02D);
     }
 
     private void waterPlants(ServerWorld world, LivingEntity user) {
