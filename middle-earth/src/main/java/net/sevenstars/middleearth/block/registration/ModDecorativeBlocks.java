@@ -448,11 +448,11 @@ public class ModDecorativeBlocks {
             WoodChairBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     //endregion
 
-    public static final Block WATERING_CAN = registerBlockWithItem("watering_can",
-            WateringCanBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool());
     public static final Block WOODEN_BUCKET = registerBlockWithItem("wooden_bucket",
             WoodenBucketBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
 
+    public static final Block WATERING_CAN = registerBlock("watering_can",
+            WateringCanBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool());
     public static final Block POTTED_ASPEN_SAPLING = registerBlock("potted_aspen_sapling",
             (settings) -> new FlowerPotBlock(ModNatureBlocks.ASPEN_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_BEECH_SAPLING = registerBlock("potted_beech_sapling",

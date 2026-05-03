@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
+import net.sevenstars.middleearth.item.items.WateringCanItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.items.VerticallyAttachableBlockItemME;
@@ -181,6 +182,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.FIRE_OF_ORTHANC, settings), new Item.Settings().maxCount(1).rarity(Rarity.RARE));
     public static final Item TORCH_OF_ORTHANC = registerItem("torch_of_orthanc",
             (settings) -> new BlockItem(ModDecorativeBlocks.TORCH_OF_ORTHANC, settings), new Item.Settings());
+    public static final Item WATERING_CAN = registerItem("watering_can",
+            (settings) -> new WateringCanItem(ModDecorativeBlocks.WATERING_CAN, settings), new Item.Settings());
 
     /*public static final Item CERAMIC_CROCKPOT = registerItem("ceramic_crockpot",
             (settings) -> new BlockItem(ModDecorativeBlocks.CERAMIC_CROCKPOT, settings), new Item.Settings());

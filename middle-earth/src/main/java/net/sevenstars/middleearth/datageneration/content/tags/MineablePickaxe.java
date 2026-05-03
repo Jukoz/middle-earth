@@ -35,6 +35,7 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.CRUDE_CHAIN);
             add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN);
             add(ModDecorativeBlocks.SPIKY_CHAIN);
+            add(ModDecorativeBlocks.WATERING_CAN);
 
             add(ModDecorativeBlocks.CHIMNEY);
 
