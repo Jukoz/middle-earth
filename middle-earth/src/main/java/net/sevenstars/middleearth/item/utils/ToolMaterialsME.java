@@ -18,7 +18,8 @@ public class ToolMaterialsME {
     public static final ToolMaterial WEAVER_STING = new ToolMaterial(BlockTags.INCORRECT_FOR_STONE_TOOL, 3, 4.0f, 1.0f, 5, ItemTagsME.SPIDER_TOOL_MATERIALS);
     public static final ToolMaterial MORGUL_KNIFE = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2, 7.0f, 2.0f, 10, ItemTagsME.BURZUM_STEEL_TOOL_MATERIALS);
 
-    public static final ToolMaterial COPPER_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 16, 7.0f, 2.0f, 10, ItemTagsME.COPPER_TOOL_MATERIALS);
+    public static final ToolMaterial COPPER_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 32, 7.0f, 2.0f, 10, ItemTagsME.COPPER_TOOL_MATERIALS);
+    public static final ToolMaterial BRONZE_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 128, 7.0f, 2.0f, 10, ItemTagsME.BRONZE_TOOL_MATERIALS);
 
     public static final ToolMaterial STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);
     public static final ToolMaterial NOBLE_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);
