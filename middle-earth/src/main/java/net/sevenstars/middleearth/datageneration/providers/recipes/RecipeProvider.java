@@ -2002,6 +2002,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Blocks.SPRUCE_PLANKS),
                                 conditionsFromItem(Blocks.SPRUCE_PLANKS))
                         .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.FIR_COFFER, 1)
+                        .pattern("TLT")
+                        .pattern("L L")
+                        .pattern("LLL")
+                        .input('T', ResourceItemsME.TIN_NUGGET)
+                        .input('L', WoodBlockSets.FIR_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.FIR_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.FIR_SET.planksBlocks.base()))
+                        .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")

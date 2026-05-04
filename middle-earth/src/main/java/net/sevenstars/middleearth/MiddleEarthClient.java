@@ -15,6 +15,7 @@ import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
+import net.sevenstars.middleearth.block.special.coffers.FirCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.LarchCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.PineCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.SpruceCofferEntityRenderer;
@@ -159,6 +160,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.LARCH_COFFER, LarchCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.PINE_COFFER, PineCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.FIR_COFFER, FirCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);

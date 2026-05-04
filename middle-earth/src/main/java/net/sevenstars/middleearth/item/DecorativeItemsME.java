@@ -85,6 +85,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.PINE_COFFER, settings), new Item.Settings());
     public static final Item SPRUCE_COFFER = registerItem("spruce_coffer",
             (settings) -> new BlockItem(ModDecorativeBlocks.SPRUCE_COFFER, settings), new Item.Settings());
+    public static final Item FIR_COFFER = registerItem("fir_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.FIR_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
 

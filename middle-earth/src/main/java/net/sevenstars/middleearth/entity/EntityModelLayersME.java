@@ -9,6 +9,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
+import net.sevenstars.middleearth.block.special.coffers.FirCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.LarchCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.PineCofferEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.SpruceCofferEntityRenderer;
@@ -80,6 +81,7 @@ public final class EntityModelLayersME {
     public static final EntityModelLayer LARCH_COFFER = EntityModelLayersME.registerEntityModelLayer("larch_coffer", LarchCofferEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer PINE_COFFER = EntityModelLayersME.registerEntityModelLayer("pine_coffer", PineCofferEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer SPRUCE_COFFER = EntityModelLayersME.registerEntityModelLayer("spruce_coffer", SpruceCofferEntityRenderer.getTexturedModelData());
+    public static final EntityModelLayer FIR_COFFER = EntityModelLayersME.registerEntityModelLayer("fir_coffer", FirCofferEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_CHEST = EntityModelLayersME.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
 
     public static final EntityModelLayer REINFORCED_BARREL = EntityModelLayersME.registerEntityModelLayer("reinforced_barrel", BarrelEntityModel.getTexturedModelData());
