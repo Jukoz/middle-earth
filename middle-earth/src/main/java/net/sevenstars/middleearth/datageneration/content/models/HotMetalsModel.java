@@ -71,6 +71,14 @@ public class HotMetalsModel {
         }
     };
 
+    public static List<Item> hotItems = new ArrayList<>() {
+        {
+            add(ResourceItemsME.ROD);
+            add(ResourceItemsME.LARGE_ROD);
+            add(ResourceItemsME.ARMOR_PLATE);
+        }
+    };
+
     public static List<ShapingTag> shapesTag = new ArrayList<>() {
         {
             //add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.MAIL_RING, 25));

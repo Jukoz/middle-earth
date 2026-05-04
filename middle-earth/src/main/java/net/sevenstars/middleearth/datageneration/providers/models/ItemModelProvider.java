@@ -7,7 +7,6 @@ import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.model.RangeDispatchItemModel;
 import net.minecraft.client.render.item.model.SelectItemModel;
 import net.minecraft.client.render.item.property.bool.BrokenProperty;
-import net.minecraft.client.render.item.property.bool.ComponentBooleanProperty;
 import net.minecraft.client.render.item.property.bool.UsingItemProperty;
 import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
 import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
@@ -19,23 +18,15 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.equipment.trim.ArmorTrimAssets;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
-import net.minecraft.predicate.NbtPredicate;
-import net.minecraft.predicate.component.ComponentPredicate;
-import net.minecraft.predicate.component.ComponentPredicateTypes;
-import net.minecraft.predicate.component.CustomDataPredicate;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
-import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
@@ -138,17 +129,12 @@ public class ItemModelProvider extends FabricModelProvider {
             registerArtefact(itemModelGenerator, artefact.artefact(), artefact.dualModel());
         }
 
-        //TODO to find solution for those
-        for (Item item : HotMetalsModel.items) {
-            //itemModelGenerator.register(item, "_hot", Models.GENERATED);
-        }
-
         for (Item item : HotMetalsModel.ingots) {
-            registerHotItem(item, itemModelGenerator);
+            registerHotIngotsItem(item, itemModelGenerator);
         }
 
         for (Item item : HotMetalsModel.nuggets) {
-            //Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/nugget_hot")), itemModelGenerator.writer);
+            registerHotNuggetItem(item, itemModelGenerator);
         }
 
         // Dyeables needs to be done manually (because of layers)
@@ -367,10 +353,12 @@ public class ItemModelProvider extends FabricModelProvider {
         Models.GENERATED.upload(identifierItem, TextureMap.layer0(identifier2), itemModelGenerator.modelCollector);
         unbaked2 = ItemModels.basic(identifierItem);
 
-        itemModelGenerator.output.accept(item, ItemModels.select(new TrimMaterialProperty(), unbaked2, list));
+        ItemModel.Unbaked unbakedHotItem = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_hot", Models.GENERATED));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, ItemModels.select(new TrimMaterialProperty(), unbaked2, list)));
     }
 
-    public final void registerHotItem(Item item, ItemModelGenerator itemModelGenerator) {
+    public final void registerHotIngotsItem(Item item, ItemModelGenerator itemModelGenerator) {
         ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
         Identifier textureId = MiddleEarth.of("item/ingot_hot");
         if(item == ResourceItemsME.BRONZE_INGOT) {
@@ -392,4 +380,20 @@ public class ItemModelProvider extends FabricModelProvider {
 
         itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
     }
+
+    public final void registerHotNuggetItem(Item item, ItemModelGenerator itemModelGenerator) {
+        ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
+                TextureMap.layer0(MiddleEarth.of("item/nugget_hot")), itemModelGenerator.modelCollector));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
+    }
+
+    public final void registerHotItem(Item item, ItemModelGenerator itemModelGenerator) {
+        ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked unbakedHotItem = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_hot", Models.GENERATED));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
+    }
+
 }
