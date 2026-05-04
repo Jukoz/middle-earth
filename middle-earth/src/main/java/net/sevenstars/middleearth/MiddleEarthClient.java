@@ -76,6 +76,7 @@ import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNe
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
@@ -109,6 +110,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.of("sneak_attack"), SneakAttackProperty.CODEC);
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("hot_component"), HotComponentProperty.CODEC);
 
         EntityRendererRegistry.register(EntitiesME.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities

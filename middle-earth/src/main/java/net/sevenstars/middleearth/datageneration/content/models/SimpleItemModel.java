@@ -121,37 +121,27 @@ public class SimpleItemModel {
             add(ResourceItemsME.ASH);
 
             add(ResourceItemsME.RAW_TIN);
-            add(ResourceItemsME.TIN_INGOT);
             add(ResourceItemsME.TIN_NUGGET);
 
             add(ResourceItemsME.RAW_LEAD);
-            add(ResourceItemsME.LEAD_INGOT);
             add(ResourceItemsME.LEAD_NUGGET);
 
-            add(ResourceItemsME.BRONZE_INGOT);
             add(ResourceItemsME.BRONZE_NUGGET);
 
             add(ResourceItemsME.RAW_SILVER);
-            add(ResourceItemsME.SILVER_INGOT);
             add(ResourceItemsME.SILVER_NUGGET);
 
-            add(ResourceItemsME.BURZUM_STEEL_INGOT);
             add(ResourceItemsME.BURZUM_STEEL_NUGGET);
 
-            add(ResourceItemsME.CRUDE_INGOT);
             add(ResourceItemsME.CRUDE_NUGGET);
 
-            add(ResourceItemsME.STEEL_INGOT);
             add(ResourceItemsME.STEEL_NUGGET);
 
-            add(ResourceItemsME.EDHEL_STEEL_INGOT);
             add(ResourceItemsME.EDHEL_STEEL_NUGGET);
 
-            add(ResourceItemsME.KHAZAD_STEEL_INGOT);
             add(ResourceItemsME.KHAZAD_STEEL_NUGGET);
 
             add(ResourceItemsME.RAW_MITHRIL);
-            add(ResourceItemsME.MITHRIL_INGOT);
             add(ResourceItemsME.MITHRIL_NUGGET);
 
             add(ResourceItemsME.ADAMANT);

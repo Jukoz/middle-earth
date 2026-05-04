@@ -21,6 +21,9 @@ public class HotMetalsModel {
             add(Items.COPPER_INGOT);
             add(Items.IRON_INGOT);
             add(Items.GOLD_INGOT);
+            add(ResourceItemsME.TIN_INGOT);
+            add(ResourceItemsME.LEAD_INGOT);
+            add(ResourceItemsME.SILVER_INGOT);
             add(ResourceItemsME.BRONZE_INGOT);
             add(ResourceItemsME.CRUDE_INGOT);
             add(ResourceItemsME.STEEL_INGOT);
