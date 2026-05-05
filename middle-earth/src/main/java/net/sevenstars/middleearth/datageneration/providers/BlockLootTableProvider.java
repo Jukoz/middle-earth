@@ -4,26 +4,21 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
-import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
-import net.minecraft.predicate.component.ComponentPredicateTypes;
-import net.minecraft.predicate.item.EnchantmentPredicate;
-import net.minecraft.predicate.item.EnchantmentsPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -40,7 +35,6 @@ import net.sevenstars.middleearth.datageneration.content.models.SimpleRocksModel
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
@@ -92,6 +86,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(block, doorDrops(block));
             } else if (Registries.BLOCK.getId(block).getPath().contains("vertical_slab")) {
                 addDrop(block, verticalSlabDrops(block));
+            } else if (Registries.BLOCK.getId(block).getPath().contains("slab")) {
+                addDrop(block, slabDrops(block));
             } else {
                 // TODO : @SlooshyBoi crashes during Datagen
                 if (block == null) continue;
@@ -243,6 +239,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                         .with(ItemEntry.builder(rocksDrop))));
     }
 
+    public LootTable.Builder slabDrops(Block drop) {
+        return LootTable.builder().pool(
+                LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
+                        .with(this.applyExplosionDecay(drop, ItemEntry.builder(drop).apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2.0F)).conditionally(BlockStatePropertyLootCondition.builder(drop).properties(StatePredicate.Builder.create().exactMatch(SlabBlock.TYPE, SlabType.DOUBLE)))))));
+    }
     public LootTable.Builder verticalSlabDrops(Block drop) {
         return LootTable.builder().pool(
                 LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
@@ -250,28 +251,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock) {
-        RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
-
-        try {
-            enchantmentRegistry = registryLookup.get().getOrThrow(RegistryKeys.ENCHANTMENT);
-        } catch (Exception ignored) {
-            throw new IllegalStateException("Data generation without registries failed!");
-        }
-
         addDrop(stoneBlock, this.dropsWithSilkTouch(stoneBlock, this.applyExplosionDecay(cobbledBlock, ((LeafEntry.Builder<?>)
                 ItemEntry.builder(cobbledBlock)))));
-
-        /* //TODO to fix/update -> enchant issue
-        addDrop(stoneBlock,
-                LootTable.builder()
-                        .pool(LootPool.builder()
-                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().components(net.minecraft.predicate.component.ComponentsPredicate.Builder.create().partial(ComponentPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1))))).build())))
-                                .rolls(ConstantLootNumberProvider.create(1.0F))
-                                .with(ItemEntry.builder(stoneBlock)))
-                        .pool(LootPool.builder()
-                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().components(net.minecraft.predicate.component.ComponentsPredicate.Builder.create().partial(ComponentPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1))))).build())).invert())
-                                .rolls(ConstantLootNumberProvider.create(1.0F))
-                                .with(ItemEntry.builder(cobbledBlock))));*/
     }
 
     public void largeDoorDrop(Block doorblock) {
