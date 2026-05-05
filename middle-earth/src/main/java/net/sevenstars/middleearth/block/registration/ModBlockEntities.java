@@ -6,9 +6,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
-import net.sevenstars.middleearth.block.special.coffers.LarchCofferBlockEntity;
-import net.sevenstars.middleearth.block.special.coffers.PineCofferBlockEntity;
-import net.sevenstars.middleearth.block.special.coffers.SpruceCofferBlockEntity;
+import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
@@ -39,6 +37,11 @@ public class ModBlockEntities {
     public static BlockEntityType<LarchCofferBlockEntity> LARCH_COFFER = register("larch_coffer", LarchCofferBlockEntity::new, ModDecorativeBlocks.LARCH_COFFER);
     public static BlockEntityType<PineCofferBlockEntity> PINE_COFFER = register("pine_coffer", PineCofferBlockEntity::new, ModDecorativeBlocks.PINE_COFFER);
     public static BlockEntityType<SpruceCofferBlockEntity> SPRUCE_COFFER = register("spruce_coffer", SpruceCofferBlockEntity::new, ModDecorativeBlocks.SPRUCE_COFFER);
+    public static BlockEntityType<FirCofferBlockEntity> FIR_COFFER = register("fir_coffer", FirCofferBlockEntity::new, ModDecorativeBlocks.FIR_COFFER);
+    public static BlockEntityType<BeechCofferBlockEntity> BEECH_COFFER = register("beech_coffer", BeechCofferBlockEntity::new, ModDecorativeBlocks.BEECH_COFFER);
+    public static BlockEntityType<ChestnutCofferBlockEntity> CHESTNUT_COFFER = register("chestnut_coffer", ChestnutCofferBlockEntity::new, ModDecorativeBlocks.CHESTNUT_COFFER);
+    public static BlockEntityType<OakCofferBlockEntity> OAK_COFFER = register("oak_coffer", OakCofferBlockEntity::new, ModDecorativeBlocks.OAK_COFFER);
+    public static BlockEntityType<WillowCofferBlockEntity> WILLOW_COFFER = register("willow_coffer", WillowCofferBlockEntity::new, ModDecorativeBlocks.WILLOW_COFFER);
 
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             ModDecorativeBlocks.REINFORCED_CHEST);

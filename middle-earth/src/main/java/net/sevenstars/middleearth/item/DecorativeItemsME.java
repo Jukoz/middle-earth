@@ -85,6 +85,16 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.PINE_COFFER, settings), new Item.Settings());
     public static final Item SPRUCE_COFFER = registerItem("spruce_coffer",
             (settings) -> new BlockItem(ModDecorativeBlocks.SPRUCE_COFFER, settings), new Item.Settings());
+    public static final Item FIR_COFFER = registerItem("fir_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.FIR_COFFER, settings), new Item.Settings());
+    public static final Item BEECH_COFFER = registerItem("beech_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BEECH_COFFER, settings), new Item.Settings());
+    public static final Item CHESTNUT_COFFER = registerItem("chestnut_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CHESTNUT_COFFER, settings), new Item.Settings());
+    public static final Item OAK_COFFER = registerItem("oak_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.OAK_COFFER, settings), new Item.Settings());
+    public static final Item WILLOW_COFFER = registerItem("willow_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.WILLOW_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
 

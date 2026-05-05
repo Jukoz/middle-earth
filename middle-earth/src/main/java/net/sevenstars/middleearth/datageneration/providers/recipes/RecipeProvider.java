@@ -2002,6 +2002,51 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Blocks.SPRUCE_PLANKS),
                                 conditionsFromItem(Blocks.SPRUCE_PLANKS))
                         .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.FIR_COFFER, 1)
+                        .pattern("TLT")
+                        .pattern("L L")
+                        .pattern("LLL")
+                        .input('T', ResourceItemsME.TIN_NUGGET)
+                        .input('L', WoodBlockSets.FIR_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.FIR_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.FIR_SET.planksBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BEECH_COFFER, 1)
+                        .pattern("TLT")
+                        .pattern("L L")
+                        .pattern("LLL")
+                        .input('T', ResourceItemsME.TIN_NUGGET)
+                        .input('L', WoodBlockSets.BEECH_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.BEECH_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.BEECH_SET.planksBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CHESTNUT_COFFER, 1)
+                        .pattern("TLT")
+                        .pattern("L L")
+                        .pattern("LLL")
+                        .input('T', ResourceItemsME.TIN_NUGGET)
+                        .input('L', WoodBlockSets.CHESTNUT_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.CHESTNUT_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.CHESTNUT_SET.planksBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.OAK_COFFER, 1)
+                        .pattern("TLT")
+                        .pattern("L L")
+                        .pattern("LLL")
+                        .input('T', ResourceItemsME.TIN_NUGGET)
+                        .input('L', WoodBlockSets.OAK_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.OAK_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.OAK_SET.planksBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.WILLOW_COFFER, 1)
+                        .pattern("TLT")
+                        .pattern("L L")
+                        .pattern("LLL")
+                        .input('T', ResourceItemsME.TIN_NUGGET)
+                        .input('L', WoodBlockSets.WILLOW_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.WILLOW_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.WILLOW_SET.planksBlocks.base()))
+                        .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")

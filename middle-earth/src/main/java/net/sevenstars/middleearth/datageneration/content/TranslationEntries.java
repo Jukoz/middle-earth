@@ -217,6 +217,11 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
             put("block."+ MiddleEarth.MOD_ID +".pine_coffer", "Pine Coffer");
             put("block."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".fir_coffer", "Fir Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".beech_coffer", "Beech Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".chestnut_coffer", "Chestnut Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".oak_coffer", "Oak Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".willow_coffer", "Willow Coffer");
             put("block."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("block."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("block."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
@@ -300,6 +305,11 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".pine_coffer", "Pine Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".fir_coffer", "Fir Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".beech_coffer", "Beech Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".chestnut_coffer", "Chestnut Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".oak_coffer", "Oak Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".willow_coffer", "Willow Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("screen."+ MiddleEarth.MOD_ID +".wood_pile", "Wood Pile");
             put("screen."+ MiddleEarth.MOD_ID +".shaping_anvil", "Shaping Anvil");
