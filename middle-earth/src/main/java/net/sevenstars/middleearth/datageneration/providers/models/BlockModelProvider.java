@@ -1344,7 +1344,9 @@ public class BlockModelProvider extends FabricModelProvider {
             textureMap = paneAndTopForEdgeCustom(glass, GenericBlockSets.WHITE_DAUB.blockSet.base());
         } else if (blockId.contains("yellow_daub")){
             textureMap = paneAndTopForEdgeCustom(glass, GenericBlockSets.YELLOW_DAUB.blockSet.base());
-        }else if (blockId.contains("brick")){
+        } else if (blockId.contains("mud_brick")){
+            textureMap = paneAndTopForEdgeCustom(glass, Blocks.MUD_BRICKS);
+        } else if (blockId.contains("brick")){
             textureMap = paneAndTopForEdgeCustom(glass, Blocks.BRICKS);
         } else if (blockId.contains("wattle") && !blockId.contains("black") && !blockId.contains("dark") && !blockId.contains("brick")){
             textureMap = paneAndTopForEdgeCustom(glass, glass);

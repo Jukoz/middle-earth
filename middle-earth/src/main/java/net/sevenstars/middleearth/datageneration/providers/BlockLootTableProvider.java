@@ -17,6 +17,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.component.ComponentPredicateTypes;
@@ -256,7 +257,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         } catch (Exception ignored) {
             throw new IllegalStateException("Data generation without registries failed!");
         }
-        //TODO to fix/update -> enchant issue
+
+        addDrop(stoneBlock, this.dropsWithSilkTouch(stoneBlock, this.applyExplosionDecay(cobbledBlock, ((LeafEntry.Builder<?>)
+                ItemEntry.builder(cobbledBlock)))));
+
+        /* //TODO to fix/update -> enchant issue
         addDrop(stoneBlock,
                 LootTable.builder()
                         .pool(LootPool.builder()
@@ -266,7 +271,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                         .pool(LootPool.builder()
                                 .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().components(net.minecraft.predicate.component.ComponentsPredicate.Builder.create().partial(ComponentPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1))))).build())).invert())
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
-                                .with(ItemEntry.builder(cobbledBlock))));
+                                .with(ItemEntry.builder(cobbledBlock))));*/
     }
 
     public void largeDoorDrop(Block doorblock) {
