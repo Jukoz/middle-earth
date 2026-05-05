@@ -12,9 +12,7 @@ import net.sevenstars.middleearth.block.special.candles.CandleHolderBlock;
 import net.sevenstars.middleearth.block.special.candles.CandleStickBlock;
 import net.sevenstars.middleearth.block.special.candles.CeramicLampBlock;
 import net.sevenstars.middleearth.block.special.candles.SkullCandleBlock;
-import net.sevenstars.middleearth.block.special.coffers.LarchCofferBlock;
-import net.sevenstars.middleearth.block.special.coffers.PineCofferBlock;
-import net.sevenstars.middleearth.block.special.coffers.SpruceCofferBlock;
+import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
 import net.sevenstars.middleearth.block.special.curtains.SmallCurtainsBlock;
 import net.sevenstars.middleearth.block.special.doors.*;
@@ -134,6 +132,21 @@ public class ModDecorativeBlocks {
                     .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     public static final Block SPRUCE_COFFER = registerBlock("spruce_coffer",
             SpruceCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.SPRUCE_BROWN)
+                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block FIR_COFFER = registerBlock("fir_coffer",
+            FirCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
+                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block BEECH_COFFER = registerBlock("beech_coffer",
+            BeechCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
+                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block CHESTNUT_COFFER = registerBlock("chestnut_coffer",
+            ChestnutCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
+                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block OAK_COFFER = registerBlock("oak_coffer",
+            OakCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
+                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
+    public static final Block WILLOW_COFFER = registerBlock("willow_coffer",
+            WillowCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
                     .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
             ReinforcedChestBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool());
