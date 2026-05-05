@@ -148,6 +148,10 @@ public class BlockDrops {
             add(ModDecorativeBlocks.PINE_COFFER);
             add(ModDecorativeBlocks.SPRUCE_COFFER);
             add(ModDecorativeBlocks.FIR_COFFER);
+            add(ModDecorativeBlocks.BEECH_COFFER);
+            add(ModDecorativeBlocks.CHESTNUT_COFFER);
+            add(ModDecorativeBlocks.OAK_COFFER);
+            add(ModDecorativeBlocks.WILLOW_COFFER);
             add(ModDecorativeBlocks.REINFORCED_CHEST);
 
             add(ModDecorativeBlocks.STONE_LECTERN);
