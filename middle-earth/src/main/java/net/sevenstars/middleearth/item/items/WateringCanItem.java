@@ -119,7 +119,7 @@ public class WateringCanItem extends BlockItem {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.DRINK;
+        return UseAction.BOW;
     }
 
     @Override
@@ -173,11 +173,12 @@ public class WateringCanItem extends BlockItem {
         }
 
         double handOffset = user.getMainArm() == Arm.RIGHT ? 0.2D : -0.2D;
+        if(user.getOffHandStack().getItem() == this && user.getMainHandStack().getItem() != this) handOffset *= -1;
         Vec3d origin = user.getEyePos()
                 .add(look.multiply(0.35D))
                 .add(side.multiply(handOffset))
                 .add(0.0D, -0.3D, 0.0D);
-        Vec3d streamCenter = origin.add(look.multiply(0.45D)).add(0.0D, -0.2D, 0.0D);
+        Vec3d streamCenter = origin.add(look.multiply(0.75D)).add(0.0D, -0.2D, 0.0D);
 
         world.spawnParticles(ParticleTypes.SPLASH, streamCenter.x, streamCenter.y, streamCenter.z, 1, 0.08D, 0.05D, 0.08D, 0.01D);
         world.spawnParticles(ParticleTypes.FALLING_WATER, streamCenter.x, streamCenter.y, streamCenter.z, 1, 0.08D, 0.08D, 0.08D, 0.02D);
