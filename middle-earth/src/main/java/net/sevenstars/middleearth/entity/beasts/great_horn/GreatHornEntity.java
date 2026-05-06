@@ -48,7 +48,7 @@ import net.sevenstars.middleearth.registries.content.greathornvariants.GreatHorn
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -324,7 +324,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                     }
                 }
             } else {
-                this.playSound(ModSounds.GREAT_HORN_CALL, 1.0f, 1.0f);
+                this.playSound(SoundsME.GREAT_HORN_CALL, 1.0f, 1.0f);
             }
         }
         else {
@@ -521,19 +521,19 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.GREAT_HORN_DEATH;
+        return SoundsME.GREAT_HORN_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.GREAT_HORN_HURT;
+        return SoundsME.GREAT_HORN_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.GREAT_HORN_IDLE;
+        return SoundsME.GREAT_HORN_IDLE;
     }
 
     @Override

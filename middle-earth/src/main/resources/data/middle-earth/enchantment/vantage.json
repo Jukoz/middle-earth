@@ -1,5 +1,5 @@
 {
-  "anvil_cost": 8,
+  "anvil_cost": 4,
   "description": {
     "translate": "enchantment.middle-earth.vantage"
   },
@@ -19,12 +19,12 @@
   },
   "exclusive_set": "#minecraft:exclusive_set/damage",
   "max_cost": {
-    "base": 60,
+    "base": 40,
     "per_level_above_first": 20
   },
   "max_level": 1,
   "min_cost": {
-    "base": 20,
+    "base": 15,
     "per_level_above_first": 15
   },
   "slots": [

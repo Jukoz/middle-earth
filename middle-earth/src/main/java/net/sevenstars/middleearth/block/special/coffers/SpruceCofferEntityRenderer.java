@@ -77,10 +77,15 @@ public class SpruceCofferEntityRenderer<T extends ChestBlockEntity> extends Ches
         g = 1.0F - g * g * g;
 
         matrices.push();
-        float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
+        Direction facing = blockState.get(ChestBlock.FACING);
+        float rotation = facing.getPositiveHorizontalDegrees();
         matrices.translate(0.5D, 1.5D, 0.5D);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation - 90));
+        if(facing == Direction.NORTH || facing == Direction.SOUTH) {
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation - 90));
+        } else {
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation + 90));
+        }
 
         lid.roll = g * -1.5707964f;
         lid.render(matrices, vertexConsumer, light, overlay);

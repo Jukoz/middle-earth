@@ -62,6 +62,10 @@ public class SimpleBlockModel {
             add(ModBlocks.EDHEL_STEEL_BLOCK);
             add(ModBlocks.BURZUM_STEEL_BLOCK);
 
+            add(ModBlocks.ADAMANT_BLOCK);
+            add(ModBlocks.RUBY_BLOCK);
+            add(ModBlocks.SAPPHIRE_BLOCK);
+
             //GEMS
             add(ModBlocks.QUARTZ_BLOCK);
             add(ModBlocks.BUDDING_QUARTZ);

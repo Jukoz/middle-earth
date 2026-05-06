@@ -15,7 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<TreatedAnvilBlockEntity> {
+public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAnvilBlockEntity> {
 
     private final BlockEntityRendererFactory.Context context;
 
@@ -30,7 +30,7 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<TreatedAn
     }
 
     @Override
-    public void render(TreatedAnvilBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
+    public void render(ShapingAnvilBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
         ItemStack stack = entity.getRenderStack(entity);
 
         if(stack.isEmpty()) return;
@@ -42,14 +42,14 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<TreatedAn
         matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
 
         if (stack.getItem() instanceof BlockItem){
-            switch (entity.getCachedState().get(AbstractTreatedAnvilBlock.FACING)) {
+            switch (entity.getCachedState().get(AbstractShapingAnvilBlock.FACING)) {
                 case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(270)));
                 case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
                 case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(90)));
                 case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));
             }
         } else {
-            switch (entity.getCachedState().get(AbstractTreatedAnvilBlock.FACING)) {
+            switch (entity.getCachedState().get(AbstractShapingAnvilBlock.FACING)) {
                 case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(225)));
                 case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(135)));
                 case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(45)));

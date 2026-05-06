@@ -401,6 +401,13 @@ public class ModBlocks {
     public static final Block BURZUM_STEEL_BLOCK = registerMiscBlock("burzum_steel_block",
             Block::new,AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(6f).requiresTool(),true);
 
+    public static final Block ADAMANT_BLOCK = registerMiscBlock("adamant_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+    public static final Block RUBY_BLOCK = registerMiscBlock("ruby_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+    public static final Block SAPPHIRE_BLOCK = registerMiscBlock("sapphire_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+
     public static final Block QUARTZ_BLOCK = registerMiscBlock("quartz_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK), true);
     public static final Block QUARTZ_CLUSTER = registerMiscBlock("quartz_cluster",

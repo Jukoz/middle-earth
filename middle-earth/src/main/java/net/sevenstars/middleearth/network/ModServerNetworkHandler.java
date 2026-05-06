@@ -9,9 +9,7 @@ import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
-import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
-import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
+import net.sevenstars.middleearth.network.packets.S2C.*;
 
 import java.util.function.BiConsumer;
 
@@ -21,6 +19,9 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playS2C().register(PacketOnboardingResult.ID, PacketOnboardingResult.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketLivingEntityData.ID, PacketLivingEntityData.CODEC);
+        PayloadTypeRegistry.playS2C().register(InscriptionEnchantInfoPacket.ID, InscriptionEnchantInfoPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(ShapingAnvilRecipePacket.ID, ShapingAnvilRecipePacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(ArtisanRecipePacket.ID, ArtisanRecipePacket.CODEC);
 
         // REGISTRY : Client to server
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
@@ -37,7 +38,11 @@ public class ModServerNetworkHandler {
         PayloadTypeRegistry.playC2S().register(PacketSetSpawnData.ID, PacketSetSpawnData.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketOnboardingRequest.ID, PacketCodecs.codec(Codec.unit(new PacketOnboardingRequest())));
         PayloadTypeRegistry.playC2S().register(ForgeOutputPacket.ID, ForgeOutputPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(ForgeModeSwitchPacket.ID, ForgeModeSwitchPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(InscriptionWordUpdatePacket.ID, InscriptionWordUpdatePacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(InscriptionConfirmationPacket.ID, PacketCodecs.codec(Codec.unit(new InscriptionConfirmationPacket())));
         PayloadTypeRegistry.playC2S().register(AnvilIndexPacket.ID, AnvilIndexPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(ArtisanIndexPacket.ID, ArtisanIndexPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(ArtisanTableTabPacket.ID, ArtisanTableTabPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(Codec.unit(new HoodStateTogglePacket())));
 
@@ -56,7 +61,11 @@ public class ModServerNetworkHandler {
         ServerPlayNetworking.registerGlobalReceiver(PacketSetSpawnData.ID, wrapServerHandler(connection, PacketSetSpawnData::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketOnboardingRequest.ID, wrapServerHandler(connection, PacketOnboardingRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(ForgeOutputPacket.ID, wrapServerHandler(connection, ForgeOutputPacket::process));
+        ServerPlayNetworking.registerGlobalReceiver(ForgeModeSwitchPacket.ID, wrapServerHandler(connection, ForgeModeSwitchPacket::process));
+        ServerPlayNetworking.registerGlobalReceiver(InscriptionWordUpdatePacket.ID, wrapServerHandler(connection, InscriptionWordUpdatePacket::process));
+        ServerPlayNetworking.registerGlobalReceiver(InscriptionConfirmationPacket.ID, wrapServerHandler(connection, InscriptionConfirmationPacket::process));
         ServerPlayNetworking.registerGlobalReceiver(AnvilIndexPacket.ID, wrapServerHandler(connection, AnvilIndexPacket::process));
+        ServerPlayNetworking.registerGlobalReceiver(ArtisanIndexPacket.ID, wrapServerHandler(connection, ArtisanIndexPacket::process));
         ServerPlayNetworking.registerGlobalReceiver(ArtisanTableTabPacket.ID, wrapServerHandler(connection, ArtisanTableTabPacket::process));
         ServerPlayNetworking.registerGlobalReceiver(HoodStateTogglePacket.ID, wrapServerHandler(connection, HoodStateTogglePacket::process));
     }

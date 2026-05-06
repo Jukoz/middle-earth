@@ -55,6 +55,10 @@ public class MineablePickaxe {
             add(ModBlocks.EDHEL_STEEL_BLOCK);
             add(ModBlocks.BURZUM_STEEL_BLOCK);
 
+            add(ModBlocks.ADAMANT_BLOCK);
+            add(ModBlocks.RUBY_BLOCK);
+            add(ModBlocks.SAPPHIRE_BLOCK);
+
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);
 
@@ -87,6 +91,8 @@ public class MineablePickaxe {
             add(ModBlocks.GILDED_BARS);
 
             add(ModDecorativeBlocks.FORGE);
+
+            add(ModDecorativeBlocks.STONE_ANVIL);
             add(ModDecorativeBlocks.TREATED_ANVIL);
             add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
             add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);
