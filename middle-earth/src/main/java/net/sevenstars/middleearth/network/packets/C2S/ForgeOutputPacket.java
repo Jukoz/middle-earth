@@ -11,12 +11,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
-    public static final Id<ForgeOutputPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "forge_output_packet"));
+    public static final Id<ForgeOutputPacket> ID = new Id<>(MiddleEarth.of("forge_output_packet"));
     public static final PacketCodec<RegistryByteBuf, ForgeOutputPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.amount,
             PacketCodecs.DOUBLE, p -> p.x,
             PacketCodecs.DOUBLE, p -> p.y,
             PacketCodecs.DOUBLE, p -> p.z,
+            PacketCodecs.INTEGER, p -> p.mode,
             ForgeOutputPacket::new
     );
 
@@ -36,16 +37,22 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
         return z;
     }
 
+    public double getMode() {
+        return mode;
+    }
+
     private final int amount;
     private final double x;
     private final double y;
     private final double z;
+    private final int mode;
 
-    public ForgeOutputPacket(int amount, double x, double y, double z) {
+    public ForgeOutputPacket(int amount, double x, double y, double z, int mode) {
         this.amount = amount;
         this.x = x;
         this.y = y;
         this.z = z;
+        this.mode = mode;
     }
 
     @Override
@@ -63,7 +70,7 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
         try{
             context.player().getServer().execute(() -> {
                 Vec3d coordinates = new Vec3d(x, y, z);
-                ForgeBlockEntity.outputItemStack(amount, coordinates, context.player());
+                ForgeBlockEntity.outputItemStack(amount, coordinates, context.player(), mode);
             });
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketForgeOutput error: ", e);

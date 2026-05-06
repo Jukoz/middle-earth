@@ -144,6 +144,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.FORGE);
 
+            add(ModDecorativeBlocks.INSCRIPTION_TABLE);
+
             add(ModDecorativeBlocks.LARCH_COFFER);
             add(ModDecorativeBlocks.PINE_COFFER);
             add(ModDecorativeBlocks.SPRUCE_COFFER);
@@ -171,6 +173,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
+            add(ModDecorativeBlocks.STONE_ANVIL);
             add(ModDecorativeBlocks.TREATED_ANVIL);
             add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
             add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);

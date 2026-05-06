@@ -57,6 +57,10 @@ public class DecorativeItemsME {
 
     public static final Item FORGE = registerItem("forge",
             (settings) -> new BlockItem(ModDecorativeBlocks.FORGE, settings), new Item.Settings());
+
+    public static final Item STONE_ANVIL = registerItem("stone_anvil",
+            (settings) -> new BlockItem(ModDecorativeBlocks.STONE_ANVIL, settings), new Item.Settings());
+
     public static final Item TREATED_ANVIL = registerItem("treated_anvil",
             (settings) -> new BlockItem(ModDecorativeBlocks.TREATED_ANVIL, settings), new Item.Settings());
     public static final Item DWARVEN_TREATED_ANVIL = registerItem("dwarven_treated_anvil",
@@ -67,8 +71,11 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.ORCISH_TREATED_ANVIL, settings), new Item.Settings());
     public static final Item BELLOWS = registerItem("bellows",
             (settings) -> new BlockItem(ModDecorativeBlocks.BELLOWS, settings), new Item.Settings());
+
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
+    public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
+            (settings) -> new BlockItem(ModDecorativeBlocks.INSCRIPTION_TABLE, settings), new Item.Settings());
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_MANAGER, settings), new Item.Settings());

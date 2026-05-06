@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PWP",
+    "LSL",
+    "L L"
+  ],
+  "key": {
+    "S": "#minecraft:wooden_slabs",
+    "P": "#minecraft:planks",
+    "W": "minecraft:blue_wool",
+    "L": "#minecraft:logs"
+  },
+  "result": {
+    "id": "middle-earth:inscription_table",
+    "count": 1
+  }
+}

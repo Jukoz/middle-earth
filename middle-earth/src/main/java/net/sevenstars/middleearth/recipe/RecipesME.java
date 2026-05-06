@@ -5,9 +5,11 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 
 public class RecipesME {
     public static RecipeType<ArtisanRecipe> ARTISAN_TABLE;
+    public static RecipeType<InscriptionRecipe> INSCRIPTION_TABLE;
     public static RecipeType<CrockpotRecipe> CROCKPOT; // = register("crockpot");
     public static RecipeType<AnvilShapingRecipe> ANVIL_SHAPING;
     public static RecipeType<AlloyingRecipe> FORGE;
@@ -33,6 +35,13 @@ public class RecipesME {
         ARTISAN_TABLE = Registry.register(Registries.RECIPE_TYPE,
                 MiddleEarth.of(ArtisanRecipe.Type.ID),
                 ArtisanRecipe.Type.INSTANCE);
+
+        Registry.register(Registries.RECIPE_SERIALIZER,
+                MiddleEarth.of(InscriptionRecipe.Serializer.ID),
+                InscriptionRecipe.Serializer.INSTANCE);
+        INSCRIPTION_TABLE = Registry.register(Registries.RECIPE_TYPE,
+                MiddleEarth.of(InscriptionRecipe.Type.ID),
+                InscriptionRecipe.Type.INSTANCE);
 
         Registry.register(Registries.RECIPE_SERIALIZER,
                 MiddleEarth.of(CrockpotRecipe.Serializer.ID),

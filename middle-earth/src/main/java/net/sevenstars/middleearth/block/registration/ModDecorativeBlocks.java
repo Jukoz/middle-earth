@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.block.special.doors.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancBlock;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
+import net.sevenstars.middleearth.block.special.inscriptiontable.InscriptionTableblock;
 import net.sevenstars.middleearth.block.special.plate.PlateBlock;
 import net.sevenstars.middleearth.block.special.pots.AmphoraBlock;
 import net.sevenstars.middleearth.block.special.pots.FatPotBlock;
@@ -28,6 +29,7 @@ import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestB
 import net.sevenstars.middleearth.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.ElvenTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
+import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.statues.FlipStatueBlock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
@@ -92,6 +94,10 @@ public class ModDecorativeBlocks {
 
     public static final Block FORGE = registerBlock("forge",
             ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
+
+    public static final Block STONE_ANVIL = registerBlock("stone_anvil",
+            StoneAnvilBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).requiresTool().nonOpaque());
+
     public static final Block TREATED_ANVIL = registerBlock("treated_anvil",
             TreatedAnvilblock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.65f).requiresTool().nonOpaque());
     public static final Block DWARVEN_TREATED_ANVIL = registerBlock("dwarven_treated_anvil",
@@ -103,8 +109,11 @@ public class ModDecorativeBlocks {
 
     public static final Block BELLOWS = registerBlock("bellows",
             BellowsBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
+    public static final Block INSCRIPTION_TABLE = registerBlock("inscription_table",
+            InscriptionTableblock::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());

@@ -171,6 +171,18 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             if (set.mithril_ore() != null) {
                 addDrop(set.mithril_ore(), oreDrops(set.mithril_ore(), ResourceItemsME.RAW_MITHRIL));
             }
+            if (set.adamant_ore() != null) {
+                addDrop(set.adamant_ore(), oreDrops(set.adamant_ore(), ResourceItemsME.ADAMANT));
+            }
+            if (set.emerald_ore() != null) {
+                addDrop(set.emerald_ore(), oreDrops(set.emerald_ore(), Items.EMERALD));
+            }
+            if (set.ruby_ore() != null) {
+                addDrop(set.ruby_ore(), oreDrops(set.ruby_ore(), ResourceItemsME.RUBY));
+            }
+            if (set.sapphire_ore() != null) {
+                addDrop(set.sapphire_ore(), oreDrops(set.sapphire_ore(), ResourceItemsME.SAPPHIRE));
+            }
         }
 
         for (SimplePaneModel.Pane pane : SimplePaneModel.panes){

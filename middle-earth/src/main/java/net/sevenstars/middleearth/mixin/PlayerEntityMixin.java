@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
@@ -52,7 +52,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         float newDamage = damage;
         ItemStack mainStack = getStackInHand(getActiveHand());
         RegistryEntry<Enchantment> enchantmentRegistryEntry = getWorld().getRegistryManager()
-                .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.FIRST_STRIKE).orElseThrow();
+                .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.FIRST_STRIKE).orElseThrow();
         boolean hasEnchant = mainStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
         if(hasEnchant) {
             if(target instanceof LivingEntity livingEntity) {

@@ -5,6 +5,7 @@ import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -14,7 +15,6 @@ import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
@@ -145,11 +145,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        if(hasBellows(player.getWorld(), this.pos, player.getWorld().getBlockState(this.pos)) == 1) {
-            return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
-        } else {
-            return new ForgeHeatingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
-        }
+        return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     public int hasBellows(World world, BlockPos pos, BlockState state){
@@ -326,7 +322,21 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         update();
     }
 
-    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
+    public static void switchMode(Vec3d coords, ServerPlayerEntity player){
+        BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
+
+        if(forgeBlockEntity.isPresent()){
+            ForgeBlockEntity entity = forgeBlockEntity.get();
+            if (entity.mode == 1){
+                entity.mode = 0;
+            } else if (entity.mode == 0) {
+                entity.mode = 1;
+            }
+        }
+    }
+
+    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player, int mode){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
 
         Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
@@ -351,6 +361,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 }
                 case 288 -> {
                     itemstack = new ItemStack(ResourceItemsME.ROD);
+                    if(mode == 4) itemstack = new ItemStack(ResourceItemsME.ARMOR_PLATE);
                     if (entity.currentMetal.isVanilla()){
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
@@ -432,7 +443,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         boolean progress = false;
 
-        entity.mode = entity.hasBellows(world, blockPos, blockState);
         entity.update();
 
         if(entity.mode == 1) { // Alloying mode

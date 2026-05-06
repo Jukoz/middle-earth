@@ -66,13 +66,14 @@ import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreen;
+import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
@@ -106,6 +107,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.of("sneak_attack"), SneakAttackProperty.CODEC);
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("hot_component"), HotComponentProperty.CODEC);
 
         EntityRendererRegistry.register(EntitiesME.BARROW_WIGHT, BarrowWightEntityRenderer::new);
         // Entities
@@ -145,13 +147,14 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
-        HandledScreens.register(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, ForgeHeatingScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
+        HandledScreens.register(ModScreenHandlers.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
         HandledScreens.register(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ModScreenHandlers.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ModScreenHandlers.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 
+        BlockEntityRendererFactories.register(ModBlockEntities.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.FORGE, ForgeEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.LARCH_COFFER, LarchCofferEntityRenderer::new);
@@ -213,7 +216,7 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
         });
 
-        EquipmentItemsME.helmetAtttachments.forEach(hood -> {
+        EquipmentItemsME.helmetAttachments.forEach(hood -> {
             ArmorRenderer.register(new HelmetAttachmentRenderer(), hood);
         });
         EquipmentItemsME.backAttachments.forEach(cape -> {
@@ -370,6 +373,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.PEBBLED_GRASS_STAIRS, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.INSCRIPTION_TABLE, BlockRenderLayer.CUTOUT);
 
         /*BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_CROCKPOT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, BlockRenderLayer.CUTOUT);*/

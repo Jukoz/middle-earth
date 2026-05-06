@@ -7,10 +7,10 @@ import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
-import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
@@ -24,9 +24,10 @@ import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.RecipesME;
+import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
@@ -85,7 +86,7 @@ public class MiddleEarth implements ModInitializer {
 		ModNatureBlocks.registerModBlocks();
 		GenericBlockSets.registerModBlockSets();
 
-		EnchantmentEffectsME.registerModEnchantmentEffects();
+		EnchantmentsME.registerModEnchantmentEffects();
 
 		RegistriesME.registerFuels();
 		RegistriesME.registerToolTipAppenders();
@@ -113,7 +114,7 @@ public class MiddleEarth implements ModInitializer {
 		ActivitiesME.registerModActivities();
 		MemoryModulesME.registerModMemoryModules();
 
-		ModSounds.registerModSounds();
+		SoundsME.registerModSounds();
 		ModParticleTypes.registerParticleTypes();
 		ModStatusEffects.registerStatusEffects();
 
@@ -124,6 +125,7 @@ public class MiddleEarth implements ModInitializer {
 
 		ModWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
+		InscriptionWordBank.addWordsToBank();
 
 		// Dynamic Data
         DynamicRegistriesME.register();

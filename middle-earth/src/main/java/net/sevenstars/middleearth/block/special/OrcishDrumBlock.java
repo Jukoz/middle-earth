@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 
 public class OrcishDrumBlock extends Block {
 
@@ -23,7 +23,7 @@ public class OrcishDrumBlock extends Block {
         if (world.getBlockState(pos.up()).isAir()) {
             Random random = world.getRandom();
             world.addSyncedBlockEvent(pos, this, 0, 0);
-            world.playSound(player, pos, ModSounds.ORC_DRUM, SoundCategory.BLOCKS, 1.0F + random.nextFloat(), (float)(0.75F + (random.nextFloat() * 0.4)));
+            world.playSound(player, pos, SoundsME.ORC_DRUM, SoundCategory.BLOCKS, 1.0F + random.nextFloat(), (float)(0.75F + (random.nextFloat() * 0.4)));
             world.emitGameEvent(player, GameEvent.BLOCK_ACTIVATE, pos);
             return ActionResult.SUCCESS;
         }

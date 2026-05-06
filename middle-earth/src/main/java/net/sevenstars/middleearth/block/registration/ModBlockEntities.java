@@ -11,7 +11,8 @@ import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
-import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
+import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
+import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlockEntity;
@@ -24,7 +25,9 @@ import net.sevenstars.middleearth.registries.RegistryAliasesME;
 public class ModBlockEntities {
     public static BlockEntityType<ForgeBlockEntity> FORGE = register("forge", ForgeBlockEntity::new,
             ModDecorativeBlocks.FORGE);
-    public static BlockEntityType<TreatedAnvilBlockEntity> TREATED_ANVIL = register("treated_anvil", TreatedAnvilBlockEntity::new,
+    public static BlockEntityType<StoneAnvilBlockEntity> STONE_ANVIL = register("stone_anvil", StoneAnvilBlockEntity::new,
+            ModDecorativeBlocks.STONE_ANVIL);
+    public static BlockEntityType<ShapingAnvilBlockEntity> TREATED_ANVIL = register("treated_anvil", ShapingAnvilBlockEntity::new,
             ModDecorativeBlocks.TREATED_ANVIL,
             ModDecorativeBlocks.DWARVEN_TREATED_ANVIL,
             ModDecorativeBlocks.ELVEN_TREATED_ANVIL,
