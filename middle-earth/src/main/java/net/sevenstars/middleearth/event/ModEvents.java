@@ -21,8 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
-import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
@@ -55,7 +54,7 @@ public class ModEvents {
             if(entity instanceof PlayerEntity playerEntity) {
                 ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
-                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.BEHEADING).orElseThrow();
+                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.BEHEADING).orElseThrow();
                 boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
 
                 if (hasEnchant) {
@@ -74,7 +73,7 @@ public class ModEvents {
         PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
             ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
-            RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.HEWING).orElseThrow();
+            RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.HEWING).orElseThrow();
             boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
             int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
             float hardness = blockState.getBlock().getHardness();
@@ -109,7 +108,7 @@ public class ModEvents {
             ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
             RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
-                    .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.TREE_FELLER).orElseThrow();
+                    .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.TREE_FELLER).orElseThrow();
             boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
             int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
             float hardness = blockState.getBlock().getHardness();

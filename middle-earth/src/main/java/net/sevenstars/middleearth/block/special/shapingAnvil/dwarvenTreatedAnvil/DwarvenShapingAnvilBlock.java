@@ -1,10 +1,9 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil.dwarvenTreatedAnvil;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
-import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
+import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractShapingAnvilBlock;
+import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -12,10 +11,8 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -24,12 +21,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class DwarvenShapingAnvilBlock extends AbstractTreatedAnvilBlock {
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+public class DwarvenShapingAnvilBlock extends AbstractShapingAnvilBlock {
 
     public DwarvenShapingAnvilBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)));
     }
 
     @Override
@@ -67,7 +62,7 @@ public class DwarvenShapingAnvilBlock extends AbstractTreatedAnvilBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TreatedAnvilBlockEntity(ModBlockEntities.TREATED_ANVIL, pos, state);
+        return new ShapingAnvilBlockEntity(ModBlockEntities.TREATED_ANVIL, pos, state);
     }
 
     @Nullable
@@ -77,7 +72,7 @@ public class DwarvenShapingAnvilBlock extends AbstractTreatedAnvilBlock {
     }
 
     @Nullable
-    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<TreatedAnvilBlockEntity> expectedType) {
-        return world.isClient ? null : DwarvenShapingAnvilBlock.validateTicker(givenType, expectedType, TreatedAnvilBlockEntity::tick);
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<ShapingAnvilBlockEntity> expectedType) {
+        return world.isClient ? null : DwarvenShapingAnvilBlock.validateTicker(givenType, expectedType, ShapingAnvilBlockEntity::tick);
     }
 }

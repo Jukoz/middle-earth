@@ -57,6 +57,10 @@ public class DecorativeItemsME {
 
     public static final Item FORGE = registerItem("forge",
             (settings) -> new BlockItem(ModDecorativeBlocks.FORGE, settings), new Item.Settings());
+
+    public static final Item STONE_ANVIL = registerItem("stone_anvil",
+            (settings) -> new BlockItem(ModDecorativeBlocks.STONE_ANVIL, settings), new Item.Settings());
+
     public static final Item TREATED_ANVIL = registerItem("treated_anvil",
             (settings) -> new BlockItem(ModDecorativeBlocks.TREATED_ANVIL, settings), new Item.Settings());
     public static final Item DWARVEN_TREATED_ANVIL = registerItem("dwarven_treated_anvil",
@@ -67,8 +71,11 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.ORCISH_TREATED_ANVIL, settings), new Item.Settings());
     public static final Item BELLOWS = registerItem("bellows",
             (settings) -> new BlockItem(ModDecorativeBlocks.BELLOWS, settings), new Item.Settings());
+
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
+    public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
+            (settings) -> new BlockItem(ModDecorativeBlocks.INSCRIPTION_TABLE, settings), new Item.Settings());
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_MANAGER, settings), new Item.Settings());
@@ -85,6 +92,16 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.PINE_COFFER, settings), new Item.Settings());
     public static final Item SPRUCE_COFFER = registerItem("spruce_coffer",
             (settings) -> new BlockItem(ModDecorativeBlocks.SPRUCE_COFFER, settings), new Item.Settings());
+    public static final Item FIR_COFFER = registerItem("fir_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.FIR_COFFER, settings), new Item.Settings());
+    public static final Item BEECH_COFFER = registerItem("beech_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BEECH_COFFER, settings), new Item.Settings());
+    public static final Item CHESTNUT_COFFER = registerItem("chestnut_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.CHESTNUT_COFFER, settings), new Item.Settings());
+    public static final Item OAK_COFFER = registerItem("oak_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.OAK_COFFER, settings), new Item.Settings());
+    public static final Item WILLOW_COFFER = registerItem("willow_coffer",
+            (settings) -> new BlockItem(ModDecorativeBlocks.WILLOW_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
 

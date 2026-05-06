@@ -21,6 +21,9 @@ public class HotMetalsModel {
             add(Items.COPPER_INGOT);
             add(Items.IRON_INGOT);
             add(Items.GOLD_INGOT);
+            add(ResourceItemsME.TIN_INGOT);
+            add(ResourceItemsME.LEAD_INGOT);
+            add(ResourceItemsME.SILVER_INGOT);
             add(ResourceItemsME.BRONZE_INGOT);
             add(ResourceItemsME.CRUDE_INGOT);
             add(ResourceItemsME.STEEL_INGOT);
@@ -68,6 +71,14 @@ public class HotMetalsModel {
         }
     };
 
+    public static List<Item> hotItems = new ArrayList<>() {
+        {
+            add(ResourceItemsME.ROD);
+            add(ResourceItemsME.LARGE_ROD);
+            add(ResourceItemsME.ARMOR_PLATE);
+        }
+    };
+
     public static List<ShapingTag> shapesTag = new ArrayList<>() {
         {
             //add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.MAIL_RING, 25));
@@ -84,13 +95,13 @@ public class HotMetalsModel {
         {
             add(new ShapingItem(ResourceItemsME.ROD, ResourceItemsME.BLADE, 120));
             add(new ShapingItem(ResourceItemsME.ROD, ResourceItemsME.HOE_HEAD, 120));
-            add(new ShapingItem(ResourceItemsME.ROD, ResourceItemsME.ARMOR_PLATE, 120));
 
             add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.LONG_BLADE, 160));
             add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.AXE_HEAD, 160));
             add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.PICKAXE_HEAD, 160));
-            add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.HELMET_PLATE, 160));
-            add(new ShapingItem(ResourceItemsME.LARGE_ROD, ResourceItemsME.SHIELD_PLATE, 160));
+
+            add(new ShapingItem(ResourceItemsME.ARMOR_PLATE, ResourceItemsME.HELMET_PLATE, 160));
+            add(new ShapingItem(ResourceItemsME.ARMOR_PLATE, ResourceItemsME.SHIELD_PLATE, 160));
         }
     };
 }

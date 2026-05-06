@@ -7,6 +7,30 @@
       "middle-earth:bellows/bellows_push3"
     ]
   },
+  "chisel_hit_first": {
+    "subtitle": "sounds.middle-earth.chisel_hit",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_hit_first"
+    ]
+  },
+  "chisel_hit_second": {
+    "subtitle": "sounds.middle-earth.chisel_hit",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_hit_second"
+    ]
+  },
+  "chisel_hit_third": {
+    "subtitle": "sounds.middle-earth.chisel_hit",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_hit_third"
+    ]
+  },
+  "chisel_enchant": {
+    "subtitle": "sounds.middle-earth.chisel_enchant",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_enchant"
+    ]
+  },
   "nazgul_fade": {
     "subtitle": "sounds.middle-earth.nazgul_fade",
     "sounds": [
