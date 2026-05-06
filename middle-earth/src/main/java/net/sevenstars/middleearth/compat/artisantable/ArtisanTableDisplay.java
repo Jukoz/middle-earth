@@ -10,11 +10,23 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
+import net.minecraft.component.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.mixin.ComponentsIngredientMixin;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,9 +63,45 @@ public class ArtisanTableDisplay extends BasicDisplay {
 
     public static List<EntryIngredient> getInputs(ArtisanRecipe recipe) {
         List<EntryIngredient> inputs = new ArrayList<>(EntryIngredients.ofIngredients(recipe.getIngredients()));
-        //recipe.getIngredients().forEach(ingredient ->
-        //        inputs.add(EntryIngredient.of(EntryStack.of(VanillaEntryTypes.ITEM.cast(), ingredient)))
-        //);
+        int index = 0;
+        for(Ingredient ingredient : recipe.getIngredients()) {
+            if(index > inputs.size() || index > recipe.inputs.size()) break;
+            boolean hasSmithingTrim;
+            ComponentsIngredient customIngredient = (ComponentsIngredient) ingredient.getCustomIngredient();
+            if(customIngredient != null) {
+                ComponentsIngredientMixin ingredientComponentsAccessor = (ComponentsIngredientMixin) customIngredient;
+                ComponentChanges changedComponents = ingredientComponentsAccessor.getComponentChanges();
+                if(changedComponents != null && changedComponents.get(DataComponentTypes.TRIM).isPresent()) {
+                    ArmorTrim trim = changedComponents.get(DataComponentTypes.TRIM).get();
+                    if(trim.pattern().matchesId(MiddleEarth.of("smithing_part"))) {
+                        ItemStack stackComponentsSmithing = new ItemStack(customIngredient.getMatchingItems().toList().getFirst());
+                        stackComponentsSmithing.set(DataComponentTypes.TRIM, trim);
+                        EntryIngredient entryIngredient = EntryIngredients.of(stackComponentsSmithing);
+                        inputs.set(index, entryIngredient);
+                    }
+                }
+                /*
+                for(RegistryEntry<Item> itemRegistryEntry : customIngredient.getMatchingItems().toList()) {
+                    if(itemRegistryEntry.value() != null) {
+                        ComponentMap components = itemRegistryEntry.value().getComponents();
+                        if(components.contains(DataComponentTypes.TRIM)) {
+                            ArmorTrim trim = components.get(DataComponentTypes.TRIM);
+                            if(trim.pattern().matchesId(MiddleEarth.of("smithing_part"))) {
+                                hasSmithingTrim = true;
+                                ItemStack stackComponentsSmithing = new ItemStack(itemRegistryEntry);
+                                stackComponentsSmithing.set(DataComponentTypes.TRIM, trim);
+                                entryIngredient = EntryIngredients.of(stackComponentsSmithing);
+                                inputs.set(index, entryIngredient);
+                                break;
+                            }
+                        }
+                    }
+                }
+                 */
+
+                index++;
+            }
+        }
         return inputs;
     }
 

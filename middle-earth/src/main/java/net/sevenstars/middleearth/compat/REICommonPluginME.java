@@ -10,6 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.entry.LootPoolEntryTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
@@ -49,6 +50,9 @@ public class REICommonPluginME implements REICommonPlugin {
         Collection<RecipeEntry<ArtisanRecipe>> recipeEntryList = GameInstance.getServer().getRecipeManager().getAllOfType(RecipesME.ARTISAN_TABLE_SUPPLIER.get());  //.values().parallelStream().sorted(RECIPE_COMPARATOR).toList();
         for(RecipeEntry<ArtisanRecipe> recipeEntry : recipeEntryList) {
             ArtisanRecipe artisanRecipe = recipeEntry.value();
+            if(artisanRecipe.getOutput().getItem().getName().toString().contains("gondorian")) {
+                int i = 2;
+            }
             List<EntryIngredient> inputs = ArtisanTableDisplay.getInputs(artisanRecipe);
             registry.add(new ArtisanTableDisplay(inputs, List.of(EntryIngredients.of(artisanRecipe.getOutput()))));
         }
