@@ -9,16 +9,19 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.gui.artisantable.InputType;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay> {
-    public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "artisan_table.png");
+    public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "artisan_table_rei.png");
     public static final CategoryIdentifier<ArtisanTableDisplay> ARTISAN_TABLE = CategoryIdentifier.of(MiddleEarth.MOD_ID, "artisan_table");
 
     @Override
@@ -48,31 +51,24 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
 
         widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x, startPoint.y, 175, 82)));
 
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 31, startPoint.y + 14))
-                .entries(display.getInputEntries().get(0)));
-        if(display.getInputEntries().size() > 1){
-            widgets.add(Widgets.createSlot(new Point(startPoint.x + 12, startPoint.y + 34))
-                    .entries(display.getInputEntries().get(1)));
+        int index = 0;
+        for(int y = 0; y < 3; y++) {
+            for(int x = 0; x < 3; x++) {
+                if (index < display.getInputEntries().size()){
+                    if(display.getArtisanTableInputShape() != null) {
+                        InputType inputType = display.getArtisanTableInputShape().getInputType(x,y);
+                        if (inputType != InputType.NONE){
+                            widgets.add(Widgets.createSlot(new Point(startPoint.x + 17 + 18*x, startPoint.y + 16 + 18*y))
+                                    .markOutput().entries(display.getInputEntries().get(index++)));
+                        }
+                    }
+                }
+            }
         }
-        if(display.getInputEntries().size() > 2){
-            widgets.add(Widgets.createSlot(new Point(startPoint.x + 31, startPoint.y + 34))
-                    .entries(display.getInputEntries().get(2)));
-        }
-        if(display.getInputEntries().size() > 3){
-            widgets.add(Widgets.createSlot(new Point(startPoint.x + 50, startPoint.y + 34))
-                    .entries(display.getInputEntries().get(3)));
-        }
-        if(display.getInputEntries().size() > 4){
-            widgets.add(Widgets.createSlot(new Point(startPoint.x + 21, startPoint.y + 53))
-                    .entries(display.getInputEntries().get(4)));
-        }
-        if(display.getInputEntries().size() > 5){
-            widgets.add(Widgets.createSlot(new Point(startPoint.x + 41, startPoint.y + 53))
-                    .entries(display.getInputEntries().get(5)));
-        }
-
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 128, startPoint.y + 35))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 128, startPoint.y + 34))
                 .markOutput().entries(display.getOutputEntries().get((0))));
+
+        widgets.add(Widgets.createLabel(new Point(startPoint.x + 44, startPoint.y + 5), Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + display.getCategory())));
 
         return widgets;
     }
