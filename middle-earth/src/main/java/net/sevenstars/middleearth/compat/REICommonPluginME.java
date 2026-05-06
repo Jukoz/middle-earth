@@ -10,8 +10,10 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
+import net.sevenstars.middleearth.compat.forge.AlloyingDisplay;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.recipe.AlloyingRecipe;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.RecipesME;
 
@@ -24,6 +26,7 @@ public class REICommonPluginME implements REICommonPlugin {
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
         REICommonPlugin.super.registerDisplaySerializer(registry);
         registry.register(MiddleEarth.of("artisan_table"), ArtisanTableDisplay.SERIALIZER);
+        registry.register(MiddleEarth.of("forge"), AlloyingDisplay.SERIALIZER);
     }
 
     @Override
@@ -41,11 +44,18 @@ public class REICommonPluginME implements REICommonPlugin {
         //        .fill((RecipeHolder<ArtisanRecipe> holder) -> ArtisanTableDisplay.of(holder.value()));
 
         // Bad code... But it's the only one that works
-        Collection<RecipeEntry<ArtisanRecipe>> recipeEntryList = GameInstance.getServer().getRecipeManager().getAllOfType(RecipesME.ARTISAN_TABLE_SUPPLIER.get());  //.values().parallelStream().sorted(RECIPE_COMPARATOR).toList();
+        Collection<RecipeEntry<ArtisanRecipe>> recipeEntryList = GameInstance.getServer().getRecipeManager().getAllOfType(RecipesME.ARTISAN_TABLE_SUPPLIER.get());
         for(RecipeEntry<ArtisanRecipe> recipeEntry : recipeEntryList) {
             ArtisanRecipe artisanRecipe = recipeEntry.value();
             List<EntryIngredient> inputs = ArtisanTableDisplay.getInputs(artisanRecipe);
             registry.add(new ArtisanTableDisplay(inputs, List.of(EntryIngredients.of(artisanRecipe.getOutput())), artisanRecipe.category));
+        }
+
+        Collection<RecipeEntry<AlloyingRecipe>> alloyRecipeEntryList = GameInstance.getServer().getRecipeManager().getAllOfType(RecipesME.FORGE);
+        for(RecipeEntry<AlloyingRecipe> recipeEntry : alloyRecipeEntryList) {
+            AlloyingRecipe alloyRecipe = recipeEntry.value();
+            List<EntryIngredient> inputs = AlloyingDisplay.getInputs(alloyRecipe);
+            registry.add(new AlloyingDisplay(inputs, alloyRecipe.output, alloyRecipe.amount));
         }
     }
 }

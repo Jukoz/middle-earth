@@ -7,10 +7,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -31,12 +28,12 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
 
     @Override
     public Text getTitle() {
-        return Text.translatable("container." + MiddleEarth.MOD_ID + ".artisan_table");
+        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".artisan_table");
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModDecorativeBlocks.ARTISAN_TABLE.asItem().getDefaultStack());
+        return EntryStacks.of(ModDecorativeBlocks.FORGE.asItem().getDefaultStack());
     }
 
     @Override
@@ -58,7 +55,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
                     if(display.getArtisanTableInputShape() != null) {
                         InputType inputType = display.getArtisanTableInputShape().getInputType(x,y);
                         if (inputType != InputType.NONE){
-                            widgets.add(Widgets.createSlot(new Point(startPoint.x + 17 + 18*x, startPoint.y + 16 + 18*y))
+                            widgets.add(Widgets.createSlot(new Point(startPoint.x + 9 + 18*x, startPoint.y + 16 + 18*y))
                                     .markOutput().entries(display.getInputEntries().get(index++)));
                         }
                     }
@@ -68,7 +65,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 128, startPoint.y + 34))
                 .markOutput().entries(display.getOutputEntries().get((0))));
 
-        widgets.add(Widgets.createLabel(new Point(startPoint.x + 44, startPoint.y + 5), Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + display.getCategory())));
+        widgets.add(Widgets.createLabel(new Point(startPoint.x + 44, startPoint.y + 5), Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + display.getCategory())));
 
         return widgets;
     }
