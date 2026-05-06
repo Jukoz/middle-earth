@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.compat.artisantable;
 
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
@@ -12,10 +13,13 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ArtisanTableDisplay extends BasicDisplay {
@@ -45,17 +49,26 @@ public class ArtisanTableDisplay extends BasicDisplay {
         this(getInputs(artisanRecipeRecipeEntry.value()), getOutputs(artisanRecipeRecipeEntry.value()));
     }
 
-    private static List<EntryIngredient> getInputs(ArtisanRecipe recipe) {
+    public static List<EntryIngredient> getInputs(ArtisanRecipe recipe) {
         List<EntryIngredient> inputs = new ArrayList<>(EntryIngredients.ofIngredients(recipe.getIngredients()));
-        recipe.getIngredients().forEach(ingredient ->
-                inputs.add(EntryIngredient.of(EntryStack.of(VanillaEntryTypes.ITEM.cast(), ingredient)))
-        );
+        //recipe.getIngredients().forEach(ingredient ->
+        //        inputs.add(EntryIngredient.of(EntryStack.of(VanillaEntryTypes.ITEM.cast(), ingredient)))
+        //);
         return inputs;
     }
 
     private static List<EntryIngredient> getOutputs(ArtisanRecipe recipe) {
         return List.of(EntryIngredients.of(recipe.getOutput()));
     }
+
+    public static ArtisanTableDisplay of(ArtisanRecipe recipe) {
+        List<EntryIngredient> inputs = EntryIngredients.ofIngredients(recipe.getIngredients());
+        List<EntryIngredient> outputs = Collections.singletonList(EntryIngredients.of(recipe.getOutput()));
+
+        return new ArtisanTableDisplay(inputs, outputs);
+    }
+
+
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {

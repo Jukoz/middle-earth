@@ -28,7 +28,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
 
     @Override
     public Text getTitle() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".artisan_table");
+        return Text.translatable("container." + MiddleEarth.MOD_ID + ".artisan_table");
     }
 
     @Override
