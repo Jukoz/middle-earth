@@ -2157,15 +2157,15 @@ public class EquipmentItemsME {
                 }
                 case CustomChestplateItem chestplateItem -> {
                     ArmorTags.chestArmors.add(chestplateItem);
-                    if(defensePointsMap.get(EquipmentType.HELMET) < 8) ArmorTags.incompleteArmors.add(item);
+                    if(defensePointsMap.get(EquipmentType.CHESTPLATE) < 8) ArmorTags.incompleteArmors.add(item);
                 }
                 case CustomLeggingsItem leggingsItem -> {
                     ArmorTags.legArmors.add(leggingsItem);
-                    if(defensePointsMap.get(EquipmentType.HELMET) < 6) ArmorTags.incompleteArmors.add(item);
+                    if(defensePointsMap.get(EquipmentType.LEGGINGS) < 6) ArmorTags.incompleteArmors.add(item);
                 }
                 case CustomBootsItem bootsItem -> {
                     ArmorTags.footArmors.add(bootsItem);
-                    if(defensePointsMap.get(EquipmentType.HELMET) < 3) ArmorTags.incompleteArmors.add(item);
+                    if(defensePointsMap.get(EquipmentType.BOOTS) < 3) ArmorTags.incompleteArmors.add(item);
                 }
                 default -> {}
             }

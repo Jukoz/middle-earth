@@ -42,7 +42,7 @@ public class EnchantmentsME {
     public static final RegistryKey<Enchantment> VANTAGE = of("vantage");
 
     private static RegistryKey<Enchantment> of(String path) {
-        Identifier id = Identifier.of(MiddleEarth.MOD_ID, path);
+        Identifier id = MiddleEarth.of(path);
         return RegistryKey.of(RegistryKeys.ENCHANTMENT, id);
     }
 

@@ -55,7 +55,7 @@ public class BellowsBlockEntity extends BlockEntity {
             if (!world.isClient){
                 if(blockEntity.activate(direction)){
                     BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
-                    if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "forge")))) {
+                    if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("forge")))) {
                         ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
                         if(forgeBlockEntity != null) {
                             forgeBlockEntity.bellowsBoost();

@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
-    public static final Id<AnvilIndexPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "anvil_index_packet"));
+    public static final Id<AnvilIndexPacket> ID = new Id<>(MiddleEarth.of("anvil_index_packet"));
     public static final PacketCodec<RegistryByteBuf, AnvilIndexPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.index,
             PacketCodecs.DOUBLE, p -> p.x,

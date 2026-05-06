@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.gui.shapinganvil;
 
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -10,20 +9,18 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
-import net.sevenstars.middleearth.network.packets.S2C.ShapingAnvilRecipePacket;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/shaping_anvil.png");
+    private static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "shaping_anvil.png");
 
     private float scrollAmount;
     private boolean mouseClicked;

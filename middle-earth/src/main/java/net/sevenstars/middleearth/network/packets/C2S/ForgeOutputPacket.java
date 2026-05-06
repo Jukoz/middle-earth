@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
-    public static final Id<ForgeOutputPacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "forge_output_packet"));
+    public static final Id<ForgeOutputPacket> ID = new Id<>(MiddleEarth.of("forge_output_packet"));
     public static final PacketCodec<RegistryByteBuf, ForgeOutputPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.amount,
             PacketCodecs.DOUBLE, p -> p.x,

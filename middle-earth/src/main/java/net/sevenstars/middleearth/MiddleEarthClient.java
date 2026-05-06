@@ -66,7 +66,6 @@ import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreen;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
@@ -148,7 +147,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
-        HandledScreens.register(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, ForgeHeatingScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ModScreenHandlers.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
         HandledScreens.register(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);

@@ -154,15 +154,6 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             words.addAll(InscriptionWordBank.wordBank.get(catalyst.getItem()));
             words.addAll(InscriptionWordBank.wordBank.get(null));
         }
-        /*List<String> finalWords = new ArrayList<>();
-        if(availableWords != null) {
-            int index = 0;
-            for(String word : words) {
-                if(index >= availableWords.length) break;
-                if(availableWords[index] == 1) finalWords.add(word);
-                index++;
-            }
-        }*/
         return words;
     }
 
@@ -201,12 +192,10 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                     if (Objects.equals(this.selectedWords.get(1), recipe.value().inputWords.get(1))
                             && recipe.value().enchant.value().isAcceptableItem(input.getStack(2))
                             && this.selectedWords.get(0).equals(recipe.value().inputWords.get(0))){
-                        //world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_HIT_THIRD, SoundCategory.BLOCKS, 1.0F, 0.95F + world.random.nextFloat() * 0.1F);
                     }
                 }
                 if (recipe.value().inputWords.equals(this.selectedWords)){
                     if (canEnchant(input.getStack(2), recipe.value().enchant, recipe.value().level)){
-                        //world.playSound(null, this.player.getBlockPos(), SoundsME.CHISEL_HIT_THIRD, SoundCategory.BLOCKS, 1.0F, 0.95F + world.random.nextFloat() * 0.1F);
                         foundEnchant = true;
                         resultEnchant = recipe.value().enchant;
                         resultLevel = recipe.value().level;

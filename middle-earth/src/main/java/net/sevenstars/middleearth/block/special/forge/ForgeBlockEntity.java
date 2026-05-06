@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
@@ -147,10 +146,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
-        /*if(this.mode == 1) {
-        } else {
-            return new ForgeHeatingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
-        }*/
     }
 
     public int hasBellows(World world, BlockPos pos, BlockState state){

@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 
 public class ShapingAnvilRecipePacket extends ServerToClientPacket<ShapingAnvilRecipePacket> {
-    public static final Id<ShapingAnvilRecipePacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "shaping_anvil_recipe_packet"));
+    public static final Id<ShapingAnvilRecipePacket> ID = new Id<>(MiddleEarth.of("shaping_anvil_recipe_packet"));
 
     public static final PacketCodec<RegistryByteBuf, ShapingAnvilRecipePacket> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.index,

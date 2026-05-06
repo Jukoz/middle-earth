@@ -30,7 +30,8 @@ public class StoneAnvilBlockEntity extends ShapingAnvilBlockEntity {
 
         ArmorTrim trim = input.get(DataComponentTypes.TRIM);
         if (trim != null){
-            if (trim.material().equals(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, "bronze")))){
+            if (!trim.material().equals(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, MiddleEarth.of("bronze"))) &&
+                    !trim.material().equals(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, MiddleEarth.of("iron")))){
                 return;
             }
         }

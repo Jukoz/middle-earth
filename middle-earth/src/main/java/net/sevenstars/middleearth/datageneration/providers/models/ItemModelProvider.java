@@ -360,21 +360,22 @@ public class ItemModelProvider extends FabricModelProvider {
 
     public final void registerHotIngotsItem(Item item, ItemModelGenerator itemModelGenerator) {
         ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
-        Identifier textureId = MiddleEarth.of("item/ingot_hot");
+        String idPath = "ingot_hot";
         if(item == ResourceItemsME.BRONZE_INGOT) {
-            textureId = MiddleEarth.of("item/medium_ingot_hot");
+            idPath = "medium_ingot_hot";
         } else if(item == ResourceItemsME.TIN_INGOT) {
-            textureId = MiddleEarth.of("item/cube_ingot_hot");
+            idPath = "cube_ingot_hot";
         } else if(item == ResourceItemsME.LEAD_INGOT) {
-            textureId = MiddleEarth.of("item/tall_small_ingot_hot");
+            idPath = "tall_small_ingot_hot";
         } else if(item == ResourceItemsME.EDHEL_STEEL_INGOT || item == ResourceItemsME.MITHRIL_INGOT) {
-            textureId = MiddleEarth.of("item/small_ingot_hot");
+            idPath = "small_ingot_hot";
         } else if(item == ResourceItemsME.KHAZAD_STEEL_INGOT) {
-            textureId = MiddleEarth.of("item/tall_ingot_hot");
+            idPath = "tall_ingot_hot";
         } else if(item == ResourceItemsME.BURZUM_STEEL_INGOT) {
-            textureId = MiddleEarth.of("item/thick_ingot_hot");
+            idPath = "thick_ingot_hot";
         }
 
+        Identifier textureId = MiddleEarth.of('/', "item", idPath);
         ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
                 TextureMap.layer0(textureId), itemModelGenerator.modelCollector));
 
@@ -384,7 +385,7 @@ public class ItemModelProvider extends FabricModelProvider {
     public final void registerHotNuggetItem(Item item, ItemModelGenerator itemModelGenerator) {
         ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
         ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
-                TextureMap.layer0(MiddleEarth.of("item/nugget_hot")), itemModelGenerator.modelCollector));
+                TextureMap.layer0(MiddleEarth.of('/', "item", "nugget_hot")), itemModelGenerator.modelCollector));
 
         itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
     }

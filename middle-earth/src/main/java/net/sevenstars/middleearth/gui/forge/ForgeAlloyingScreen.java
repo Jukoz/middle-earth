@@ -10,39 +10,36 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.network.packets.C2S.ForgeModeSwitchPacket;
 import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 
 import java.util.List;
 
 public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/forge.png");
+    private static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "forge.png");
 
-    private static final Identifier EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "extract");
-    private static final Identifier EXTRACT_BUTTON_DISABLED = Identifier.of(MiddleEarth.MOD_ID, "extract_disabled");
-    private static final Identifier EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "extract_focused");
+    private static final Identifier EXTRACT_BUTTON = MiddleEarth.of("extract");
+    private static final Identifier EXTRACT_BUTTON_DISABLED = MiddleEarth.of("extract_disabled");
+    private static final Identifier EXTRACT_BUTTON_FOCUSED = MiddleEarth.of("extract_focused");
     private static final ButtonTextures EXTRACT_BUTTON_TEXTURES = new ButtonTextures(EXTRACT_BUTTON, EXTRACT_BUTTON_DISABLED, EXTRACT_BUTTON_FOCUSED);
 
-    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow");
-    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "left_cycle_arrow_focused");
+    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON = MiddleEarth.of("left_cycle_arrow");
+    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON_FOCUSED = MiddleEarth.of("left_cycle_arrow_focused");
     private static final ButtonTextures LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES = new ButtonTextures(LEFT_CYCLE_EXTRACT_BUTTON, LEFT_CYCLE_EXTRACT_BUTTON_FOCUSED);
 
-    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "right_cycle_arrow");
-    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "right_cycle_arrow_focused");
+    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON = MiddleEarth.of("right_cycle_arrow");
+    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED = MiddleEarth.of("right_cycle_arrow_focused");
     private static final ButtonTextures RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES = new ButtonTextures(RIGHT_CYCLE_EXTRACT_BUTTON, RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED);
 
-    private static final Identifier ALLOYING_SWITCH_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "alloying_mode");
-    private static final Identifier ALLOYING_SWITCH_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "alloying_mode_highlighted");
+    private static final Identifier ALLOYING_SWITCH_BUTTON = MiddleEarth.of("alloying_mode");
+    private static final Identifier ALLOYING_SWITCH_BUTTON_FOCUSED = MiddleEarth.of("alloying_mode_highlighted");
     private static final ButtonTextures ALLOYING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(ALLOYING_SWITCH_BUTTON, ALLOYING_SWITCH_BUTTON_FOCUSED);
-    private static final Identifier HEATING_SWITCH_BUTTON = Identifier.of(MiddleEarth.MOD_ID, "heating_mode");
-    private static final Identifier HEATING_SWITCH_BUTTON_FOCUSED = Identifier.of(MiddleEarth.MOD_ID, "heating_mode_highlighted");
+    private static final Identifier HEATING_SWITCH_BUTTON = MiddleEarth.of("heating_mode");
+    private static final Identifier HEATING_SWITCH_BUTTON_FOCUSED = MiddleEarth.of("heating_mode_highlighted");
     private static final ButtonTextures HEATING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(HEATING_SWITCH_BUTTON, HEATING_SWITCH_BUTTON_FOCUSED);
 
     private static final int PROGRESS_ARROW_SIZE = 27;

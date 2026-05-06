@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 
 public class ArtisanRecipePacket extends ServerToClientPacket<ArtisanRecipePacket> {
-    public static final Id<ArtisanRecipePacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "artisan_recipe_packet"));
+    public static final Id<ArtisanRecipePacket> ID = new Id<>(MiddleEarth.of("artisan_recipe_packet"));
 
     public static final PacketCodec<RegistryByteBuf, ArtisanRecipePacket> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.index,

@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 
 public class InscriptionWordUpdatePacket extends ClientToServerPacket<InscriptionWordUpdatePacket> {
-    public static final Id<InscriptionWordUpdatePacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "inscription_word_update_packet"));
+    public static final Id<InscriptionWordUpdatePacket> ID = new Id<>(MiddleEarth.of("inscription_word_update_packet"));
     public static final PacketCodec<RegistryByteBuf, InscriptionWordUpdatePacket> CODEC = PacketCodec.tuple(
             PacketCodecs.BOOLEAN, p -> p.add,
             PacketCodecs.STRING, p -> p.word,

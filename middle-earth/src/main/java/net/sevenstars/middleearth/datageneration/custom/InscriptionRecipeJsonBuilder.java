@@ -71,7 +71,8 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
         InscriptionRecipe inscriptionRecipeBuilder = new InscriptionRecipe(this.enchant, this.level, this.inputWords, this.chiselInput, this.levelCost);
-        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.of("recipes/" + this.category.getName() + "/" + "inscription_" + this.enchant.getKey().get().getRegistry().getPath() + "_" + this.level)));
+        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.of('/', "recipes",
+                this.category.getName(), "inscription%s%s".formatted(enchant.getKey().get().getRegistry().getPath(), level))));
     }
 
     public static InscriptionRecipeJsonBuilder createInscriptionRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, int levelCost) {

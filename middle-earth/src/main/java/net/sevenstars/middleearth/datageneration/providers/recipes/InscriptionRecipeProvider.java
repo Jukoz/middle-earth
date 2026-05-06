@@ -501,60 +501,6 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_smite_5")));
                 //endregion
 
-                //region BANE OF ARTHROPODS
-                /*
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(Enchantments.BANE_OF_ARTHROPODS), 1, 3)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
-                        .addWord("spider")
-                        .addWord("bane")
-                        .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_arthropods_1")));
-
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(Enchantments.BANE_OF_ARTHROPODS), 2, 5)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
-                        .addWord("spider")
-                        .addWord("bane")
-                        .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_arthropods_2")));
-
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(Enchantments.BANE_OF_ARTHROPODS), 3, 7)
-                        .chisel(ItemTagsME.MID_CHISELS)
-                        .addWord("spider")
-                        .addWord("bane")
-                        .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_arthropods_3")));
-
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(Enchantments.BANE_OF_ARTHROPODS), 4, 9)
-                        .chisel(ItemTagsME.MID_CHISELS)
-                        .addWord("spider")
-                        .addWord("bane")
-                        .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_arthropods_4")));
-
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(Enchantments.BANE_OF_ARTHROPODS), 5, 11)
-                        .chisel(ItemTagsME.LATE_CHISELS)
-                        .addWord("spider")
-                        .addWord("bane")
-                        .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_arthropods_5")));
-                 */
-                //endregion
-
                 //region SWEEPING EDGE
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.SWEEPING_EDGE), 1, 5)
