@@ -85,9 +85,15 @@ public class HelpingGenerator {
                 switch (stoneBlockTypes){
                     case LOG_BLOCKS, NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
                     case MUSHROOM_STEM_BLOCKS -> mushroomStemBlocks(set.mushroomStemBlocks);
-                    case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> woodBlocks(set.strippedLogBlocks);
+                    case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> {
+                        ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
+                        woodBlocks(set.strippedLogBlocks);
+                    }
                     case PLANK_BLOCKS -> plankBlocks(set.planksBlocks);
-                    case SHINGLE_BLOCKS -> regularBlocks(set.shinglesBlocks);
+                    case SHINGLE_BLOCKS -> {
+                        Shingles.shingles.add(set.shinglesBlocks.base());
+                        regularBlocks(set.shinglesBlocks);
+                    }
                     case ROOFING_BLOCKS -> regularBlocks(set.roofingBlocks);
                     case FURNITURE_BLOCKS -> furnitureBlocks(set.furnitureBlocks, set.planksBlocks.base());
                     case REDSTONE_BLOCKS -> woodRedstoneBlocks(set.redstoneBlocks, set.planksBlocks.base());
@@ -344,6 +350,7 @@ public class HelpingGenerator {
 
     public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
+        WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
     }
 
