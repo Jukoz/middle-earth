@@ -8,8 +8,10 @@ import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.recipe.AlloyingRecipe;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +40,7 @@ public class AlloyingDisplay extends BasicDisplay {
     );
 
     public AlloyingDisplay(List<EntryIngredient> inputs, String output, int amount) {
-        super(inputs, List.of());
+        super(inputs, List.of(EntryIngredients.of(new ItemStack(MetalTypes.fromValue(output).getIngot()))));
         this.output = output;
         this.amount = amount;
     }

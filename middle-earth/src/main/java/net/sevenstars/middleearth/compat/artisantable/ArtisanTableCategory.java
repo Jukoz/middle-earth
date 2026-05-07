@@ -28,12 +28,12 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
 
     @Override
     public Text getTitle() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".artisan_table");
+        return Text.translatable("container." + MiddleEarth.MOD_ID + ".artisan_table");
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModDecorativeBlocks.FORGE.asItem().getDefaultStack());
+        return EntryStacks.of(ModDecorativeBlocks.ARTISAN_TABLE.asItem().getDefaultStack());
     }
 
     @Override
@@ -65,7 +65,8 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 128, startPoint.y + 34))
                 .markOutput().entries(display.getOutputEntries().get((0))));
 
-        widgets.add(Widgets.createLabel(new Point(startPoint.x + 44, startPoint.y + 5), Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + display.getCategory())));
+        widgets.add(Widgets.createLabel(new Point(startPoint.x + 44, startPoint.y + 5),
+                Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + display.getCategory())));
 
         return widgets;
     }
