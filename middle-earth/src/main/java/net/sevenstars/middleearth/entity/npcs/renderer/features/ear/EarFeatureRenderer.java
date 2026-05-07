@@ -13,6 +13,7 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
@@ -22,12 +23,12 @@ import net.sevenstars.middleearth.registries.AtlasesME;
 @Environment(EnvType.CLIENT)
 public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
     private final EntityModel<NpcEntityRenderState> earModel;
-    private final SpriteAtlasTexture skinAtlasTexture;
+    private final SpriteAtlasTexture characterTextureAtlas;
 
     public EarFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.earModel = new EarModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_EAR));
-        skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
+        characterTextureAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
     }
 
     @Override
@@ -37,11 +38,10 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         if(!state.canShowEars)
             return;
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterSkinsRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
-
-        Sprite sprite = skinAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.earId, AtlasesME.CHARACTER_SKINS));
+        Sprite sprite = characterTextureAtlas.getSprite(MiddleEarth.ofPrefix(state.earId, AtlasesME.SKIN_PREFIX));
         renderModel(sprite, matrices, vertexConsumer, light, overlay);
     }
 

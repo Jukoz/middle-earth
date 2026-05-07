@@ -13,6 +13,7 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
@@ -22,23 +23,23 @@ import net.sevenstars.middleearth.registries.AtlasesME;
 @Environment(EnvType.CLIENT)
 public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
     private final EntityModel<NpcEntityRenderState> noseModel;
-    private final SpriteAtlasTexture skinAtlasTexture;
+    private final SpriteAtlasTexture characterTexturesAtlas;
 
     public NoseFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.noseModel = new NoseModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_NOSE));
-        skinAtlasTexture = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE);
+        characterTexturesAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         noseModel.setAngles(state);
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterSkinsRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
-        Sprite sprite = skinAtlasTexture.getSprite(AtlasesME.prefixAtlas(state.noseId, AtlasesME.CHARACTER_SKINS));
+        Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.noseId, AtlasesME.SKIN_PREFIX));
         renderModel(sprite, matrices, vertexConsumer, light, overlay);
     }
 

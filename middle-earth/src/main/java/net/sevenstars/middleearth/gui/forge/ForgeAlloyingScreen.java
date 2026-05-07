@@ -20,7 +20,7 @@ import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
 import java.util.List;
 
 public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "forge.png");
+    private static final Identifier TEXTURE = MiddleEarth.ofPath( "textures", "gui", "forge.png");
 
     private static final Identifier EXTRACT_BUTTON = MiddleEarth.of("extract");
     private static final Identifier EXTRACT_BUTTON_DISABLED = MiddleEarth.of("extract_disabled");

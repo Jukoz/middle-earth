@@ -142,9 +142,15 @@ public class MiddleEarth implements ModInitializer {
         return IdentifierUtil.getIdentifierFromString(stringId);
     }
 
+    public static Identifier ofPrefix(Identifier base, Identifier prefixId) {
+        return base.withPrefixedPath(String.format("%s/", prefixId.getPath()));
+    }
+
     public static Identifier of(String path){
         return IdentifierUtil.build(MOD_ID, path);
     }
+
+
 
     public static Identifier of(String... names){
         return IdentifierUtil.buildAggregate(MOD_ID, names);
@@ -153,7 +159,9 @@ public class MiddleEarth implements ModInitializer {
 	public static Identifier of(char splitter, String... names){
 		return IdentifierUtil.build(MOD_ID, createAggregate(splitter, names));
 	}
-
+    public static Identifier ofPath(String... names){
+        return IdentifierUtil.build(MOD_ID, createAggregate('/', names));
+    }
     public static Identifier append(Identifier base, String suffix) {
         String id = base.toString();
         return Identifier.of(id + suffix);
