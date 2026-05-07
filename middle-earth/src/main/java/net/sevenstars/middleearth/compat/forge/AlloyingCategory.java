@@ -9,16 +9,18 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
-    public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "forge.png");
+    public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "forge_rei.png");
     public static final CategoryIdentifier<AlloyingDisplay> FORGE = CategoryIdentifier.of(MiddleEarth.MOD_ID, "forge");
 
     @Override
@@ -28,12 +30,12 @@ public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
 
     @Override
     public Text getTitle() {
-        return Text.translatable("container." + MiddleEarth.MOD_ID + ".forge");
+        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".forge");
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModDecorativeBlocks.ARTISAN_TABLE.asItem().getDefaultStack());
+        return EntryStacks.of(ModDecorativeBlocks.FORGE.asItem().getDefaultStack());
     }
 
     @Override
@@ -49,10 +51,15 @@ public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
         widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x, startPoint.y, 175, 82)));
 
         for(int x = 0; x < 4; x++) {
-            Slot slot = Widgets.createSlot(new Point(startPoint.x + 17 + 18*x, startPoint.y + 16));
+            Slot slot = Widgets.createSlot(new Point(startPoint.x + 8 + 18*x, startPoint.y + 16));
             if(display.getInputEntries().size() > x) slot.markOutput().entries(display.getInputEntries().get(x));
             widgets.add(slot);
         }
+
+        //widgets.add(Widgets.createTexturedWidget(TEXTURE, startPoint.x + 33, startPoint.y + 45, 218, 0, 20, 13));
+        widgets.add(Widgets.createTexturedWidget(TEXTURE,startPoint.x + 33, startPoint.y + 44, 218, 14, 20, 15));
+        int storedLiquid = (int) (Math.min(1.0f, (float)display.amount / 576) * ForgeAlloyingScreen.LIQUID_HEIGHT);
+        widgets.add(Widgets.createTexturedWidget(TEXTURE,startPoint.x + 73, startPoint.y + 75 - storedLiquid, 211, 76 - storedLiquid, 20, storedLiquid));
 
         widgets.add(Widgets.createLabel(new Point(startPoint.x + 44, startPoint.y + 5),
                 Text.translatable("trim_material." + MiddleEarth.MOD_ID + "." + display.output)));
