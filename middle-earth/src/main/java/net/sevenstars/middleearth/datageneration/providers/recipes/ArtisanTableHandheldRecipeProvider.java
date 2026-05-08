@@ -114,6 +114,11 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, WeaponItemsME.CRUDE_DAGGER.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, WeaponItemsME.CRUDE_SPEAR.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, WeaponItemsME.CRUDE_LONGBLADE.getDefaultStack(), false, DispositionType.EVIL);
+                createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_FALCHION.getDefaultStack(), false, DispositionType.EVIL);
+                createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_SHANK.getDefaultStack(), false, DispositionType.EVIL);
+                createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_SCIMITAR.getDefaultStack(), false, DispositionType.EVIL);
+                createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_SPEAR.getDefaultStack(), false, DispositionType.EVIL);
+                createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_AXE.getDefaultStack(), true, Optional.empty(), DispositionType.EVIL);
 
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.STEEL, WeaponItemsME.GONDORIAN_SWORD.getDefaultStack(), false, DispositionType.GOOD);
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.STEEL, WeaponItemsME.GONDORIAN_NOBLE_SWORD.getDefaultStack(), true, DispositionType.GOOD);
@@ -206,6 +211,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.URUK_HAI_FALCHION.getDefaultStack(), true, DispositionType.EVIL);
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_FALCHION.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_ELITE_CLEAVER.getDefaultStack(), true, DispositionType.EVIL);
+                createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORIA_GOBLIN_FALCHION.getDefaultStack(), true, DispositionType.EVIL);
 
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.ORC_KNIFE.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORDOR_DAGGER.getDefaultStack(), false, DispositionType.EVIL);
@@ -214,6 +220,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.URUK_HAI_KNIFE.getDefaultStack(), true, DispositionType.EVIL);
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_SHANK.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_ELITE_DAGGER.getDefaultStack(), true, DispositionType.EVIL);
+                createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORIA_GOBLIN_SHANK.getDefaultStack(), true, DispositionType.EVIL);
 
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.ORC_BROADBLADE.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORDOR_SCIMITAR.getDefaultStack(), false, DispositionType.EVIL);
@@ -222,6 +229,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.URUK_HAI_WARBLADE.getDefaultStack(), true, DispositionType.EVIL);
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_WARBLADE.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_ELITE_SCIMITAR.getDefaultStack(), true, DispositionType.EVIL);
+                createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORIA_GOBLIN_HOOKBLADE.getDefaultStack(), true, DispositionType.EVIL);
 
                 createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.ORC_AXE.getDefaultStack(), false, Optional.empty(), DispositionType.EVIL);
                 createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORDOR_AXE.getDefaultStack(), false, Optional.empty(), DispositionType.EVIL);
@@ -230,6 +238,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.URUK_HAI_AXE.getDefaultStack(), true, Optional.empty(), DispositionType.EVIL);
                 createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_AXE.getDefaultStack(), false, Optional.empty(), DispositionType.EVIL);
                 createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_ELITE_BATTLEAXE.getDefaultStack(), true, Optional.empty(), DispositionType.EVIL);
+                createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORIA_GOBLIN_HOOKAXE.getDefaultStack(), true, Optional.empty(), DispositionType.EVIL);
 
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.BURZUM_STEEL_SPEAR.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.ORC_SPEAR.getDefaultStack(), false, DispositionType.EVIL);
@@ -239,6 +248,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.URUK_HAI_SPEAR.getDefaultStack(), true, DispositionType.EVIL);
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_SPEAR.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.GUNDABAD_ELITE_SPEAR.getDefaultStack(), true, DispositionType.EVIL);
+                createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORIA_GOBLIN_SPEAR.getDefaultStack(), true, DispositionType.EVIL);
 
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.GONDORIAN_BOW.getDefaultStack(), DispositionType.GOOD);
                 createArtisanTableLongbowRecipe(itemLookup, recipeExporter, WeaponItemsME.GONDORIAN_LONGBOW.getDefaultStack(), DispositionType.GOOD);
@@ -271,6 +281,8 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
 
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.GUNDABAD_BOW.getDefaultStack(), DispositionType.EVIL);
                 createArtisanTableCrossbowRecipe(itemLookup, recipeExporter, WeaponItemsME.GUNDABAD_CROSSBOW.getDefaultStack(), DispositionType.EVIL);
+                createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.GOBLIN_TOWN_BOW.getDefaultStack(), DispositionType.EVIL);
+                createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.MORIA_GOBLIN_BOW.getDefaultStack(), DispositionType.EVIL);
 
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, Items.BOW.getDefaultStack(), DispositionType.NEUTRAL);
                 createArtisanTableCrossbowRecipe(itemLookup, recipeExporter, Items.CROSSBOW.getDefaultStack(), DispositionType.NEUTRAL);
@@ -1250,6 +1262,89 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GUNDABAD_HEAVY_SHIELD).getPath() + "_artisan");
 
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORIA_GOBLINS_BUCKLER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeShieldBorder.getItem()), crudeShieldBorder.getComponentChanges()))
+                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
+                                conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORIA_GOBLINS_BUCKLER_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD).getPath() + "_artisan");
+
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_BONE_SHIELD.getDefaultStack(), "light_shield", DispositionType.EVIL)
+                        .input(Items.BONE)
+                        .input(Items.BONE)
+                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(Items.BONE)
+                        .input(Items.BONE)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_BONE_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
+                                conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_BONE_TOWN_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                        .input(Items.BONE)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .input(Items.BONE)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(Items.BONE)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
+                                conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_BONE_TOWN_WOODEN_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_LEATHER_TOWN_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
+                                conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_LEATHER_TOWN_WOODEN_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_HEAVY_SHIELD).getPath() + "_artisan");
                 //endregion
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, ToolItemsME.PIPE.getDefaultStack(), "pipe", DispositionType.NEUTRAL)
@@ -1314,6 +1409,8 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SPIDER_STINGER),
                                 conditionsFromItem(ResourceItemsME.SPIDER_STINGER))
                         .offerTo(exporter);
+
+
             }
         };
     }
@@ -1326,6 +1423,10 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
     }
 
     private void createArtisanTableSwordRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble, DispositionType dispositionType) {
+        createArtisanTableSwordRecipe(itemLookup, exporter, metal, Items.STICK, output, noble, dispositionType);
+    }
+
+    private void createArtisanTableSwordRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, Item stick, ItemStack output, boolean noble, DispositionType dispositionType) {
         ItemStack blade = new ItemStack(ResourceItemsME.BLADE);
         blade.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
@@ -1343,13 +1444,17 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(blade.getItem()), blade.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(swordHilt.getItem()), swordHilt.getComponentChanges()))
-                .input(Items.STICK)
+                .input(stick)
                 .criterion(hasItem(blade.getItem()),
                         conditionsFromItem(blade.getItem(), itemLookup))
                 .offerTo(exporter);
     }
 
     private void createArtisanTableLongswordRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble, DispositionType dispositionType) {
+        createArtisanTableLongswordRecipe(itemLookup, exporter, metal, Items.STICK, output, noble, dispositionType);
+    }
+
+    private void createArtisanTableLongswordRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, Item stick, ItemStack output, boolean noble, DispositionType dispositionType) {
         ItemStack longBlade = new ItemStack(ResourceItemsME.LONG_BLADE);
         longBlade.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
@@ -1367,13 +1472,17 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(longBlade.getItem()), longBlade.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(swordHilt.getItem()), swordHilt.getComponentChanges()))
-                .input(Items.STICK)
+                .input(stick)
                 .criterion(hasItem(longBlade.getItem()),
                         conditionsFromItem(longBlade.getItem(), itemLookup))
                 .offerTo(exporter);
     }
 
     private void createArtisanTableDaggerRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble, DispositionType dispositionType) {
+        createArtisanTableDaggerRecipe(itemLookup, exporter, metal, Items.STICK, output, noble, dispositionType);
+    }
+
+    private void createArtisanTableDaggerRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, Item stick, ItemStack output, boolean noble, DispositionType dispositionType) {
         ItemStack shortBlade = new ItemStack(ResourceItemsME.SHORT_BLADE);
         shortBlade.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
@@ -1391,13 +1500,17 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(shortBlade.getItem()), shortBlade.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(swordHilt.getItem()), swordHilt.getComponentChanges()))
-                .input(Items.STICK)
+                .input(stick)
                 .criterion(hasItem(shortBlade.getItem()),
                         conditionsFromItem(shortBlade.getItem(), itemLookup))
                 .offerTo(exporter);
     }
 
     private void createArtisanTableSpearRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble, DispositionType dispositionType) {
+        createArtisanTableSpearRecipe(itemLookup, exporter, metal, Items.STICK, output, noble, dispositionType);
+    }
+
+    private void createArtisanTableSpearRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, Item stick, ItemStack output, boolean noble, DispositionType dispositionType) {
         ItemStack blade = new ItemStack(ResourceItemsME.SHORT_BLADE);
         blade.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
@@ -1405,8 +1518,8 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         if (!noble) {
             ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "spear", dispositionType)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(blade.getItem()), blade.getComponentChanges()))
-                    .input(Items.STICK)
-                    .input(Items.STICK)
+                    .input(stick)
+                    .input(stick)
                     .criterion(hasItem(blade.getItem()),
                             conditionsFromItem(blade.getItem(), itemLookup))
                     .offerTo(exporter);
@@ -1417,7 +1530,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
             ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "spear", dispositionType)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(blade.getItem()), blade.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
-                    .input(Items.STICK)
+                    .input(stick)
                     .criterion(hasItem(blade.getItem()),
                             conditionsFromItem(blade.getItem(), itemLookup))
                     .offerTo(exporter);
@@ -1546,6 +1659,10 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
     }
 
     private void createArtisanTableAxeRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, ItemStack output, boolean noble, Optional<MetalTypes> rodMetal, DispositionType dispositionType) {
+        createArtisanTableAxeRecipe(itemLookup, exporter, metal, Items.STICK, output, noble, rodMetal, dispositionType);
+    }
+
+    private void createArtisanTableAxeRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, Item stick, ItemStack output, boolean noble, Optional<MetalTypes> rodMetal, DispositionType dispositionType) {
         ItemStack axeHead = new ItemStack(ResourceItemsME.AXE_HEAD);
         axeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
@@ -1565,8 +1682,8 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
             } else {
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
-                        .input(Items.STICK)
-                        .input(Items.STICK)
+                        .input(stick)
+                        .input(stick)
                         .criterion(hasItem(axeHead.getItem()),
                                 conditionsFromItem(axeHead.getItem(), itemLookup))
                         .offerTo(exporter);
@@ -1578,7 +1695,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
             ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
-                    .input(Items.STICK)
+                    .input(stick)
                     .criterion(hasItem(axeHead.getItem()),
                             conditionsFromItem(axeHead.getItem(), itemLookup))
                     .offerTo(exporter);

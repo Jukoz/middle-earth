@@ -951,7 +951,7 @@ public class WeaponItemsME {
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
 
-    public static final Item GOBLIN_LEATHER_HEAVY_SHIELD = registerShield("goblin_town_heavy_shield",
+    public static final Item GOBLIN_TOWN_HEAVY_SHIELD = registerShield("goblin_town_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
     //endregion
