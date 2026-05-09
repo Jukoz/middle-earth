@@ -446,6 +446,16 @@
   "block.middle-earth.structure_manager": "建筑结构管理器",
   "item.middle-earth.structure_manager": "建筑结构管理器",
 
+  "block.middle-earth.beech_coffer": "山毛榉木珍宝盒",
+  "item.middle-earth.beech_coffer": "山毛榉木珍宝盒",
+  "block.middle-earth.chestnut_coffer": "栗木珍宝盒",
+  "item.middle-earth.chestnut_coffer": "栗木珍宝盒",
+  "block.middle-earth.fir_coffer": "冷杉木珍宝盒",
+  "item.middle-earth.fir_coffer": "冷杉木珍宝盒",
+  "block.middle-earth.oak_coffer": "橡木珍宝盒",
+  "item.middle-earth.oak_coffer": "橡木珍宝盒",
+  "block.middle-earth.willow_coffer": "柳木珍宝盒",
+  "item.middle-earth.willow_coffer": "柳木珍宝盒",
   "block.middle-earth.larch_coffer": "落叶松木珍宝盒",
   "item.middle-earth.larch_coffer": "落叶松木珍宝盒",
   "block.middle-earth.pine_coffer": "松木珍宝盒",
@@ -13146,6 +13156,7 @@
   "item.middle-earth.bronze_shovel": "青铜锹",
   "item.middle-earth.bronze_spear": "青铜矛",
   "item.middle-earth.bronze_sword": "青铜剑",
+  "item.middle-earth.bronze_smithing_hammer": "青铜锻造锤",
 
   "item.middle-earth.burzum_steel_axe": "布祖姆钢斧",
   "item.middle-earth.burzum_steel_hoe": "布祖姆钢锄",
@@ -14370,6 +14381,11 @@
   "__COMMENT__": "界面屏幕 - screen",
   "screen.middle-earth.forge": "锻造炉",
   "screen.middle-earth.structure_manager": "建筑结构管理器",
+  "screen.middle-earth.beech_coffer": "山毛榉木珍宝盒",
+  "screen.middle-earth.chestnut_coffer": "栗木珍宝盒",
+  "screen.middle-earth.fir_coffer": "冷杉木珍宝盒",
+  "screen.middle-earth.oak_coffer": "橡木珍宝盒",
+  "screen.middle-earth.willow_coffer": "柳木珍宝盒",
   "screen.middle-earth.larch_coffer": "落叶松木珍宝盒",
   "screen.middle-earth.pine_coffer": "松木珍宝盒",
   "screen.middle-earth.spruce_coffer": "云杉木珍宝盒",
@@ -14432,7 +14448,6 @@
   "sounds.middle-earth.great_horn_death": "大角鹿：死亡",
 
   "__COMMENT__": "出生点 - spawn",
-  "__TODO__": "整理",
   "spawn.middle-earth.coordinates_base.dynamic": "[x,z] ",
   "spawn.middle-earth.coordinates_base_values.dynamic": "%s, %s",
   "spawn.middle-earth.coordinates_base.custom": "[x,y,z] ",
@@ -14442,6 +14457,7 @@
 
   "spawn.middle-earth.dale.capital": "河谷城",
   "spawn.middle-earth.dale.esgaroth": "埃斯加洛斯",
+
   "spawn.middle-earth.gondor.anorien": "阿诺瑞恩",
   "spawn.middle-earth.gondor.dol_amroth": "多阿姆洛斯",
   "spawn.middle-earth.gondor.ithilien": "伊希利恩",
@@ -14451,30 +14467,38 @@
   "spawn.middle-earth.gondor.minas_tirith": "米那斯提力斯",
   "spawn.middle-earth.gondor.pelargir": "佩拉基尔",
   "spawn.middle-earth.gondor.ringlo_vale": "凛格罗谷地",
+
   "spawn.middle-earth.hobgoblin_tribes.gundabad.goblin_town": "半兽人镇",
   "spawn.middle-earth.hobgoblin_tribes.gundabad.grey_mountains": "灰色山脉",
   "spawn.middle-earth.hobgoblin_tribes.gundabad.gundabad": "贡达巴德",
   "spawn.middle-earth.hobgoblin_tribes.gundabad.moria": "墨瑞亚",
+
   "spawn.middle-earth.isengard.orthanc": "欧尔桑克",
+
   "spawn.middle-earth.longbeards.erebor.iron_hills": "铁丘陵",
   "spawn.middle-earth.longbeards.erebor.iron_hills_spring": "铁丘陵水源",
   "spawn.middle-earth.longbeards.erebor.ravenhill": "渡鸦岭",
+
   "spawn.middle-earth.lothlorien.cerin_amroth": "凯林阿姆洛斯",
+
   "spawn.middle-earth.misty_mountains_goblins.goblin_town": "半兽人镇",
   "spawn.middle-earth.misty_mountains_goblins.grey_mountains": "灰色山脉",
   "spawn.middle-earth.misty_mountains_goblins.gundabad": "贡达巴德",
   "spawn.middle-earth.misty_mountains_goblins.moria": "墨瑞亚",
+
   "spawn.middle-earth.mordor.black_gates": "黑门",
   "spawn.middle-earth.mordor.dol_guldur": "多古尔都",
   "spawn.middle-earth.mordor.gorgoroth": "戈埚洛斯",
   "spawn.middle-earth.mordor.minas_morgul": "米那斯魔古尔",
   "spawn.middle-earth.mordor.nurn": "努尔恩",
+
   "spawn.middle-earth.rohan.aldburg": "奥德堡",
   "spawn.middle-earth.rohan.eastemnet": "东埃姆内特",
   "spawn.middle-earth.rohan.edoras": "埃多拉斯",
   "spawn.middle-earth.rohan.helms_deep": "海尔姆深谷",
   "spawn.middle-earth.rohan.the_wold": "北高原",
   "spawn.middle-earth.rohan.westemnet": "西埃姆内特",
+
   "spawn.middle-earth.shire.hobbiton": "霍比屯",
   "spawn.middle-earth.shire.willowbottom": "柳谷镇",
 
@@ -14761,6 +14785,12 @@
   "widget.middle-earth.marker.selected_title_container.after": "]",
   "widget.middle-earth.marker.margin_front": "   ",
   "widget.middle-earth.marker.more": "更多……",
+
+  "__COMMENT__": "REI 兼容",
+  "trim_material.middle-earth.copper": "铜",
+  "trim_material.middle-earth.gold": "金",
+  "trim_material.middle-earth.iron": "铁",
+  "trim_material.middle-earth.netherite": "下界合金",
 
   "__COMMENT__": "EMI 兼容",
   "emi.category.middle-earth.forge": "锻造炉",
