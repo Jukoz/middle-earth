@@ -107,24 +107,19 @@ public class EquipmentItemsME {
 
     public static final Item LEAF_CAPE = registerBackAttachment("leaf_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_CAPE)));
     public static final Item LEAF_LITTER_CAPE = registerBackAttachment("leaf_litter_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_LITTER_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_LITTER_CAPE)));
     public static final Item MIRK_LEAF_CAPE = registerBackAttachment("mirk_leaf_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_LEAF_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_LEAF_CAPE)));
     public static final Item MIRK_BARK_CAPE = registerBackAttachment("mirk_bark_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_BARK_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_BARK_CAPE)));
     public static final Item AUTUMN_LEAF_CAPE = registerBackAttachment("autumn_leaf_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.AUTUMN_LEAF_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.AUTUMN_LEAF_CAPE)));
 
 
     public static final Item BLACK_FUR_CLOAK = registerDyeableBackAttachment("black_fur_cloak",

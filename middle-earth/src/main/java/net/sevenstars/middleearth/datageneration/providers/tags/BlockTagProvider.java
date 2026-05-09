@@ -67,6 +67,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fences"))).add(Fences.fences.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "leaves"))).add(LeavesSets.leaves.toArray(new Block[0])).add(LeavesSets.grayscaleLeaves.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));

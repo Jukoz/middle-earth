@@ -61,6 +61,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials"));
+        TagKey<Item> leaves = TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves"));
 
         TagKey<Item> ingot_shaping = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping"));
         TagKey<Item> nugget_shaping = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping"));
@@ -70,12 +71,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "silver_ores"));
         TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril_ores"));
         TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "shingles"));
+        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_stripped_logs"));
 
-        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mod_stripped_logs"));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves"))).add(LeavesSets.getItemLeaves().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("axes"))).add(WeaponEnchants.axes.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));

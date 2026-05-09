@@ -20,6 +20,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
@@ -91,7 +92,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
 
         ItemStack bronzeChainmail = new ItemStack(ResourceItemsME.MAIL);
         bronzeChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MetalTypes.BRONZE.getName()))), getPattern()));
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BRONZE.getName()))), getPattern()));
 
         ItemStack steelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         steelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -541,7 +542,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
 
                 //CAPES
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CAPE.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FABRIC)
                         .input(Items.STRING)
                         .input(ResourceItemsME.FABRIC)
@@ -555,7 +556,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.SURCOAT.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.SURCOAT.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FABRIC)
                         .input(Items.STRING)
                         .input(ResourceItemsME.FABRIC)
@@ -569,7 +570,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CLOAK.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CLOAK.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FABRIC)
                         .input(Items.STRING)
                         .input(ResourceItemsME.FABRIC)
@@ -583,7 +584,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_ROBES.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_ROBES.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FABRIC)
                         .input(Items.LEATHER)
                         .input(ResourceItemsME.FABRIC)
@@ -597,8 +598,73 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LEAF_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .input(Items.STRING)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves")))
+                        .criterion(hasItem(Items.STRING),
+                                conditionsFromItem(Items.STRING))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LEAF_LITTER_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
+                        .input(Items.LEAF_LITTER)
+                        .input(Items.STRING)
+                        .input(Items.LEAF_LITTER)
+                        .input(Items.LEAF_LITTER)
+                        .input(Items.LEAF_LITTER)
+                        .input(Items.LEAF_LITTER)
+                        .input(Items.LEAF_LITTER)
+                        .input(Items.LEAF_LITTER)
+                        .input(Items.LEAF_LITTER)
+                        .criterion(hasItem(Items.LEAF_LITTER),
+                                conditionsFromItem(Items.LEAF_LITTER))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MIRK_LEAF_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(Items.STRING)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .criterion(hasItem(WoodBlockSets.MIRKWOOD_SET.leaves),
+                                conditionsFromItem(WoodBlockSets.MIRKWOOD_SET.leaves))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MIRK_BARK_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(Items.STRING)
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .criterion(hasItem(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()),
+                                conditionsFromItem(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.AUTUMN_LEAF_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(Items.STRING)
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .criterion(hasItem(Items.STRING),
+                                conditionsFromItem(Items.STRING))
+                        .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_FUR_CLOAK.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_FUR_CLOAK.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(EquipmentItemsME.BLACK_FUR)
                         .input(Items.STRING)
@@ -609,7 +675,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(EquipmentItemsME.CLOAK))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROWN_FUR_CLOAK.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROWN_FUR_CLOAK.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(EquipmentItemsME.BROWN_FUR)
                         .input(Items.STRING)
@@ -620,7 +686,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(EquipmentItemsME.CLOAK))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GRAY_FUR_CLOAK.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GRAY_FUR_CLOAK.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(EquipmentItemsME.GRAY_FUR)
                         .input(Items.STRING)
@@ -631,7 +697,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(EquipmentItemsME.CLOAK))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TAN_FUR_CLOAK.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TAN_FUR_CLOAK.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(EquipmentItemsME.TAN_FUR)
                         .input(Items.STRING)
@@ -642,7 +708,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(EquipmentItemsME.CLOAK))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WHITE_FUR_CLOAK.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WHITE_FUR_CLOAK.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(EquipmentItemsME.WHITE_FUR)
                         .input(Items.STRING)
@@ -653,7 +719,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(EquipmentItemsME.CLOAK))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_FUR.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_FUR.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -664,7 +730,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROWN_FUR.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROWN_FUR.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -675,7 +741,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GRAY_FUR.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GRAY_FUR.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -686,7 +752,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TAN_FUR.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.TAN_FUR.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -697,7 +763,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WHITE_FUR.getDefaultStack(), "backAttachment", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WHITE_FUR.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -1344,7 +1410,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(burzumSteelArmorPlate.getItem()))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_CAPE.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_CAPE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FABRIC)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                         .input(ResourceItemsME.FABRIC)
@@ -1358,7 +1424,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LONG_CAPE.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LONG_CAPE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FABRIC)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
                         .input(ResourceItemsME.FABRIC)
@@ -1372,7 +1438,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_SHOULDERS.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_SHOULDERS.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
@@ -1383,7 +1449,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BLACK_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -1397,7 +1463,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FUR))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BROWN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -1411,7 +1477,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FUR))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_GRAY_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -1425,7 +1491,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FUR))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_TAN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_TAN_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
@@ -1439,7 +1505,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FUR))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "backAttachment", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
