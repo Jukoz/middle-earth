@@ -203,6 +203,21 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.LORIEN_SPEAR.getDefaultStack(), false, DispositionType.GOOD);
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.LORIEN_NOBLE_SPEAR.getDefaultStack(), true, DispositionType.GOOD);
 
+                createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_SWORD.getDefaultStack(), false, DispositionType.GOOD);
+                createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_NOBLE_SWORD.getDefaultStack(), true, DispositionType.GOOD);
+
+                createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER.getDefaultStack(), true, DispositionType.GOOD);
+
+                createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_LONGSWORD.getDefaultStack(), false, DispositionType.GOOD);
+                createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_NOBLE_LONGSWORD.getDefaultStack(), true, DispositionType.GOOD);
+
+                createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_AXE.getDefaultStack(), false, Optional.empty(), DispositionType.GOOD);
+                createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_NOBLE_AXE.getDefaultStack(), true, Optional.empty(), DispositionType.GOOD);
+
+                createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_SPEAR.getDefaultStack(), false, DispositionType.GOOD);
+                createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_NOBLE_SPEAR.getDefaultStack(), true, DispositionType.GOOD);
+
+
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.BURZUM_STEEL_SWORD.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.ORC_SWORD.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.BURZUM_STEEL, WeaponItemsME.MORDOR_FALCHION.getDefaultStack(), false, DispositionType.EVIL);
@@ -265,6 +280,11 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.LORIEN_BOW.getDefaultStack(), DispositionType.GOOD);
                 createArtisanTableLongbowRecipe(itemLookup, recipeExporter, WeaponItemsME.LORIEN_LONGBOW.getDefaultStack(), DispositionType.GOOD);
                 createArtisanTableNobleLongbowRecipe(itemLookup, recipeExporter, WeaponItemsME.LORIEN_NOBLE_LONGBOW.getDefaultStack(), DispositionType.GOOD);
+
+                createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.WOODLAND_REALM_BOW.getDefaultStack(), DispositionType.GOOD);
+                createArtisanTableLongbowRecipe(itemLookup, recipeExporter, WeaponItemsME.WOODLAND_REALM_LONGBOW.getDefaultStack(), DispositionType.GOOD);
+                createArtisanTableNobleBowRecipe(itemLookup, recipeExporter, WeaponItemsME.WOODLAND_REALM_NOBLE_BOW.getDefaultStack(), DispositionType.GOOD);
+                createArtisanTableNobleLongbowRecipe(itemLookup, recipeExporter, WeaponItemsME.WOODLAND_REALM_NOBLE_LONGBOW.getDefaultStack(), DispositionType.GOOD);
 
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.EREBOR_BOW.getDefaultStack(), DispositionType.GOOD);
                 createArtisanTableNobleBowRecipe(itemLookup, recipeExporter, WeaponItemsME.EREBOR_NOBLE_BOW.getDefaultStack(), DispositionType.GOOD);
@@ -836,6 +856,166 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GALADHRIM_LORD_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_BUCKLER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(Items.COPPER_INGOT)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(Items.LEATHER)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(bronzeShieldBorder.getItem()), bronzeShieldBorder.getComponentChanges()))
+                        .input(Items.LEATHER)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
+                                conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_BUCKLER_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_SCOUT_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.SILVER_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(Items.LEATHER)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                        .input(Items.LEATHER)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
+                                conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_SCOUT_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_SCOUT_BRONZE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(Items.LEATHER)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironShieldBorder.getItem()), ironShieldBorder.getComponentChanges()))
+                        .input(Items.LEATHER)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
+                                conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_SCOUT_BRONZE_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GALADHRIM_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.BROWN_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.GREEN_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.BLUE_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.BROWN_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.GOLD_INGOT)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.GREEN_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.GOLD_INGOT)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_GLADE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.GREEN_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.GOLD_INGOT)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_GLADE_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.BLUE_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD).getPath() + "_artisan");
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.BLACK_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.BLACK_DYE)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelShieldPlate.getItem()), edhelSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .input(Items.GOLD_INGOT)
+                        .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_ORNAMENTED_SHIELD).getPath() + "_artisan");
+
+
+
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))

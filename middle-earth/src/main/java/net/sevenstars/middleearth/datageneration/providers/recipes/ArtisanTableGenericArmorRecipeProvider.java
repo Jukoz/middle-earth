@@ -1504,6 +1504,74 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(edhelSteelArmorPlate.getItem()))
                         .offerTo(exporter);
 
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GREAT_HORN_LIGHT_ARMOR.getDefaultStack(), "mount_armor", DispositionType.GOOD)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR.getDefaultStack(), "mount_armor", DispositionType.GOOD)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(Items.CYAN_DYE)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR.getDefaultStack(), "mount_armor", DispositionType.GOOD)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(Items.GREEN_DYE)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GREAT_HORN_PLATE_ARMOR.getDefaultStack(), "mount_armor", DispositionType.GOOD)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
+                        .input(ResourceItemsME.FABRIC)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
+                        .input(ResourceItemsME.FABRIC)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
+                        .criterion(hasItem(edhelSteelArmorPlate.getItem()),
+                                conditionsFromItem(edhelSteelArmorPlate.getItem()))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR.getDefaultStack(), "mount_armor", DispositionType.GOOD)
+                        .input(Items.GOLD_NUGGET)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.GOLD_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(Items.GOLD_NUGGET)
+                        .criterion(hasItem(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR),
+                                conditionsFromItem(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GREAT_HORN_GREEN_PLATE_ARMOR.getDefaultStack(), "mount_armor", DispositionType.GOOD)
+                        .input(Items.GOLD_NUGGET)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.GOLD_NUGGET)
+                        .input(Items.GREEN_DYE)
+                        .input(Items.GOLD_NUGGET)
+                        .criterion(hasItem(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR),
+                                conditionsFromItem(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR))
+                        .offerTo(exporter);
+
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR.getDefaultStack(), "mount_armor", DispositionType.GOOD)
                         .input(Items.LEATHER)
                         .input(ResourceItemsME.FABRIC)
