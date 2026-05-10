@@ -3,7 +3,7 @@
   "description": {
     "translate": "enchantment.middle-earth.stealthy_trail"
   },
-  "exclusive_set": "#minecraft:exclusive_set/armor",
+  "exclusive_set": "#middle-earth:exclusive_set/stride",
   "max_cost": {
     "base": 50,
     "per_level_above_first": 15

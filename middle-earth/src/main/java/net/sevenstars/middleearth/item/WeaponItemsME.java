@@ -1112,6 +1112,7 @@ public class WeaponItemsME {
 
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
+        WeaponEnchants.weapons.add(item);
         if (item instanceof CustomLongswordWeaponItem || item instanceof CustomSwordWeaponItem){
             WeaponEnchants.swords.add(item);
         } else if (item instanceof CustomDaggerWeaponItem){
