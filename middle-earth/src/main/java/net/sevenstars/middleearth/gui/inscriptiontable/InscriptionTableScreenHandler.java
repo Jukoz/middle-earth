@@ -217,6 +217,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
             List<RecipeEntry<InscriptionRecipe>> availableRecipes = serverRecipeManager.getAllOfType(RecipesME.INSCRIPTION_TABLE)
                     .stream().filter((inscriptionRecipeRecipeEntry -> {
+                            if(!inscriptionRecipeRecipeEntry.value().enchant.value().isAcceptableItem(input.getStack(2))) return false;
                             if(selectedWords.isEmpty()) return true;
                             else return inscriptionRecipeRecipeEntry.value().inputWords.getFirst().equals(selectedWords.getFirst());
                     })).toList();
