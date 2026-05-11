@@ -19,6 +19,33 @@
         "projection": "rigid",
         "processors": "middle-earth:randomize_shire_road"
       }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/small_hobbit_hole",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/small_hobbit_hole_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/small_hobbit_hole_2",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
     }
   ]
 }

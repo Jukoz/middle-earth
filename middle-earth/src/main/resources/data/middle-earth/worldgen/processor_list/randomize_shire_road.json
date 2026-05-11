@@ -108,6 +108,9 @@
           }
         }
       ]
-    }
+    },
+	{
+	  "processor_type": "middle-earth:food_plate_processor"
+	}
   ]
 }
