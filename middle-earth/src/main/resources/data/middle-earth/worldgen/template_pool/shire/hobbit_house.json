@@ -1,0 +1,24 @@
+{
+  "name": "middle-earth:hobbit_house",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/house_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    }
+  ]
+}

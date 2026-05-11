@@ -3,13 +3,37 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:shire/village_main_road",
         "projection": "terrain_matching",
         "processors": "middle-earth:randomize_shire_road"
       }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/village_main_road_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/village_main_road_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 1
     }
   ]
 }
