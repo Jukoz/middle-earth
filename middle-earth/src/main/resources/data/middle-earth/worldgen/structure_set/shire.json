@@ -2,6 +2,10 @@
   "structures": [
     {
       "structure": "middle-earth:hobbit_houses",
+      "weight": 1
+    },
+    {
+      "structure": "middle-earth:hobbit_village",
       "weight": 7
     },
 	{
