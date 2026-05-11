@@ -48,7 +48,34 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/small_hobbit_hole_3",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/small_hobbit_hole_4",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/small_hobbit_hole_5",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:shire/bakery_house",
@@ -57,7 +84,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:shire/beekeeper_house",
