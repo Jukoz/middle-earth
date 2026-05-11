@@ -46,6 +46,24 @@
         "projection": "rigid",
         "processors": "middle-earth:randomize_shire_road"
       }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/bakery_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/beekeeper_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
     }
   ]
 }

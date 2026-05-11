@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:shire/village_main_road_1",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:shire/village_main_road_2",
