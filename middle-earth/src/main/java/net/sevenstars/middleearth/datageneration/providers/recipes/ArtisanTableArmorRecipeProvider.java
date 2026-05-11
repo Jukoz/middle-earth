@@ -430,7 +430,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
 
                 //HOODS
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HOOD.getDefaultStack(), "helmetAttachment", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GONDORIAN_CITADEL_GUARD_HOOD.getDefaultStack(), "helmet_attachment", DispositionType.GOOD)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
@@ -1376,7 +1376,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
 
                 //HOODS
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD.getDefaultStack(), "helmetAttachment", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD.getDefaultStack(), "helmet_attachment", DispositionType.GOOD)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
@@ -1387,7 +1387,7 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_HOOD.getDefaultStack(), "helmetAttachment", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GALADHRIM_HOOD.getDefaultStack(), "helmet_attachment", DispositionType.GOOD)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
@@ -2984,6 +2984,19 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                         .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_COAT),
                                 conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_COAT))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_REAVER_SHOULDER_CAPE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.STRING)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.BLACK_DYE)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(Items.RED_DYE)
+                        .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(steelHelmetPlate.getItem()),
+                                conditionsFromItem(steelHelmetPlate.getItem()))
                         .offerTo(exporter);
                 //endregion
 

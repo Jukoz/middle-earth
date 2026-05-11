@@ -118,7 +118,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_SHANK.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_SCIMITAR.getDefaultStack(), false, DispositionType.EVIL);
                 createArtisanTableSpearRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_SPEAR.getDefaultStack(), false, DispositionType.EVIL);
-                createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_AXE.getDefaultStack(), true, Optional.empty(), DispositionType.EVIL);
+                createArtisanTableAxeRecipe(itemLookup, recipeExporter, MetalTypes.CRUDE, Items.BONE, WeaponItemsME.GOBLIN_TOWN_AXE.getDefaultStack(), false, Optional.empty(), DispositionType.EVIL);
 
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.STEEL, WeaponItemsME.GONDORIAN_SWORD.getDefaultStack(), false, DispositionType.GOOD);
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.STEEL, WeaponItemsME.GONDORIAN_NOBLE_SWORD.getDefaultStack(), true, DispositionType.GOOD);
@@ -1567,15 +1567,6 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(Items.STICK),
                                 conditionsFromItem(Items.STICK))
                         .offerTo(exporter, Registries.ITEM.getId(ToolItemsME.LONGBOTTOM_PIPE).getPath() + "_artisan");
-
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, new ItemStack(WeaponItemsME.WEAVER_STING), "sword", DispositionType.NEUTRAL)
-                        .input(ResourceItemsME.SPIDER_STINGER)
-                        .input(ResourceItemsME.SPIDER_STINGER)
-                        .input(Items.STICK)
-                        .criterion(hasItem(ResourceItemsME.SPIDER_STINGER),
-                                conditionsFromItem(ResourceItemsME.SPIDER_STINGER))
-                        .offerTo(exporter);
-
 
             }
         };
