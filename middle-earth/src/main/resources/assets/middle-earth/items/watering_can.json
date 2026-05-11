@@ -1,6 +1,48 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "middle-earth:item/watering_can"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:select",
+      "cases": [
+        {
+          "model": {
+            "type": "minecraft:model",
+            "model": "middle-earth:item/watering_can"
+          },
+          "when": [
+            "gui",
+            "ground",
+            "fixed"
+          ]
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "middle-earth:block/watering_can"
+      },
+      "property": "minecraft:display_context"
+    },
+    "on_true": {
+      "type": "minecraft:select",
+      "cases": [
+        {
+          "model": {
+            "type": "minecraft:model",
+            "model": "middle-earth:item/watering_can"
+          },
+          "when": [
+            "gui",
+            "ground",
+            "fixed"
+          ]
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "middle-earth:block/watering_can_sprinkling"
+      },
+      "property": "minecraft:display_context"
+    },
+    "property": "minecraft:using_item"
   }
 }

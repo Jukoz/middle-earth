@@ -78,11 +78,12 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs"))).add(Logs.getItemPlanks().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("axes"))).add(WeaponEnchants.axes.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID,"daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/crossbow"))).add(Crossbows.crossbows.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "bow"))).add(Bows.bows.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "crossbow"))).add(Crossbows.crossbows.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "durability"))).add(ArmorTags.armors.toArray(new Item[0]));
 
         ArmorTags.basicArmors.addAll(List.of(new Item[]{Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS}));
         ArmorTags.mediumArmors.addAll(List.of(new Item[]{Items.GOLDEN_HELMET, Items.GOLDEN_CHESTPLATE, Items.GOLDEN_LEGGINGS, Items.GOLDEN_BOOTS,
@@ -91,16 +92,23 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         ArmorTags.heavyArmors.addAll(List.of(new Item[]{Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS,
                 Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS}));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/head_armor"))).add(EquipmentItemsME.armorPiecesListHelmets.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/chest_armor"))).add(EquipmentItemsME.armorPiecesListChestplates.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/leg_armor"))).add(EquipmentItemsME.armorPiecesListLeggings.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("enchantable/foot_armor"))).add(EquipmentItemsME.armorPiecesListBoots.toArray(new Item[0]));
+        ArmorTags.incompleteArmors.addAll(List.of(Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS,
+                Items.GOLDEN_HELMET, Items.GOLDEN_CHESTPLATE, Items.GOLDEN_LEGGINGS, Items.GOLDEN_BOOTS,
+                Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS,
+                Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS, Items.TURTLE_HELMET));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/basic_armor"))).add(ArmorTags.basicArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/medium_armor"))).add(ArmorTags.mediumArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/sturdy_armor"))).add(ArmorTags.sturdyArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/heavy_armor"))).add(ArmorTags.heavyArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "head_armor"))).add(ArmorTags.headArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "chest_armor"))).add(ArmorTags.chestArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "leg_armor"))).add(ArmorTags.legArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "foot_armor"))).add(ArmorTags.footArmors.toArray(new Item[0]));
+
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "basic_armor"))).add(ArmorTags.basicArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "medium_armor"))).add(ArmorTags.mediumArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "sturdy_armor"))).add(ArmorTags.sturdyArmors.toArray(new Item[0]));
+
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "heavy_armor"))).add(ArmorTags.heavyArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "incomplete_armors"))).add(ArmorTags.incompleteArmors.toArray(new Item[0]));
 
         ArrayList<Item> upToArmor = (ArrayList<Item>) ArmorTags.basicArmors;
         upToArmor.addAll(ArmorTags.lightArmors);
@@ -117,8 +125,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 lightLegging.add(legItem);
             }
         }
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_chest"))).add(lightChest);
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/light_leg"))).add(lightLegging);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "light_chest"))).add(lightChest);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "light_leg"))).add(lightLegging);
 
         upToArmor.addAll(ArmorTags.mediumArmors);
 
@@ -128,7 +136,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 mediumBoots.add(bootItem);
             }
         }
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "enchantable/medium_foot"))).add(mediumBoots);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of('/', "enchantable", "medium_foot"))).add(mediumBoots);
 
         warg_food.add(Items.RABBIT);
         warg_food.add(Items.CHICKEN);
@@ -163,7 +171,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         feathers.add(ResourceItemsME.SWAN_FEATHER);
         feathers.add(Items.FEATHER);
 
-        EquipmentItemsME.helmetAtttachments.forEach(cloaks::add);
+        EquipmentItemsME.helmetAttachments.forEach(cloaks::add);
         EquipmentItemsME.backAttachments.forEach(cloaks::add);
 
         dyeable.add(EquipmentItemsME.BROADHOOF_GOAT_PADDED_ARMOR);

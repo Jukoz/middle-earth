@@ -27,7 +27,7 @@ import net.sevenstars.middleearth.block.special.structureManager.features.Struct
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureNestList;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
-import net.sevenstars.middleearth.resources.StructureManagerDatasME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
@@ -252,7 +252,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     public void fetchBeds(){
         // TODO : Fetch all beds surrounding the nodes, making sure there's no duplicate
-        StructureManagerData managerData = getWorld().getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().get(structureManagerIdentifier);
+        StructureManagerData managerData = getWorld().getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get().get(structureManagerIdentifier);
         for(SpawnNestManager data : structureNestList.getManagers()) {
             SpawnNestNodeData nodeData = managerData.getNpcSpawnNest(data.getId());
             if(nodeData == null)

@@ -258,7 +258,12 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreRockSets.MEDGON.gold_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.adamant_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.emerald_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.ruby_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.sapphire_ore());
 
+        needsStoneTools.add(ModDecorativeBlocks.STONE_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.TREATED_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);
@@ -310,6 +315,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(ModBlocks.KHAZAD_STEEL_BLOCK);
         needsIronTools.add(ModBlocks.EDHEL_STEEL_BLOCK);
         needsIronTools.add(ModBlocks.BURZUM_STEEL_BLOCK);
+
+        needsIronTools.add(ModBlocks.ADAMANT_BLOCK);
+        needsIronTools.add(ModBlocks.RUBY_BLOCK);
+        needsIronTools.add(ModBlocks.SAPPHIRE_BLOCK);
 
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
         mineableShovel.add(ModBlocks.ASH_BLOCK);
@@ -480,6 +489,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
         mineableAxe.add(ModDecorativeBlocks.ARTISAN_TABLE);
+        mineableAxe.add(ModDecorativeBlocks.INSCRIPTION_TABLE);
 
         mineablePickaxe.add(ModBlocks.BRICK_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.MUD_BRICK_VERTICAL_SLAB);

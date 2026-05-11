@@ -2,8 +2,10 @@ package net.sevenstars.middleearth.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.registry.RegistryKeys;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.minecraft.item.ItemStack;
@@ -14,12 +16,16 @@ import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
     protected final Ingredient input;
     protected final ItemStack output;
     protected final int amount;
 
     private IngredientPlacement ingredientPlacement;
+    public static final PacketCodec<ByteBuf, List<String>> STRING_LIST_CODEC =
+            PacketCodecs.STRING.collect(PacketCodecs.toList());
 
     public AnvilShapingRecipe(Ingredient input, ItemStack output, int amount) {
         this.output = output;

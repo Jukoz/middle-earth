@@ -7,13 +7,14 @@ import net.sevenstars.middleearth.block.special.hangingstuff.CustomHangingBlock;
 import net.sevenstars.middleearth.block.special.hangingstuff.HangingCobwebBlock;
 import net.sevenstars.middleearth.block.special.plants.*;
 import net.sevenstars.middleearth.block.special.saplings.VariantSaplingBlock;
+import net.sevenstars.middleearth.block.special.saplings.WeightedSaplingBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggHangingBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import net.sevenstars.middleearth.world.features.tree.ModTreeConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.MushroomTreeConfiguredFeatures;
 import net.minecraft.block.*;
@@ -451,8 +452,9 @@ public class ModNatureBlocks {
     public static final Block HOLLY_SAPLING = registerSimpleSapling("holly_sapling", ModTreeConfiguredFeatures.HOLLY_TREE_KEY);
     public static final Block FIR_SAPLING = registerSimpleSapling("fir_sapling", ModTreeConfiguredFeatures.FIR_TREE_KEY);
     public static final Block LARCH_SAPLING = registerSimpleSapling("larch_sapling", ModTreeConfiguredFeatures.LARCH_TREE_KEY);
-    public static final Block LEBETHRON_SAPLING = registerVariantSapling("lebethron_sapling",
-            List.of(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY));
+    public static final Block LEBETHRON_SAPLING = registerWeightedSapling("lebethron_sapling", List.of(
+            new WeightedSaplingBlock.WeightedTree(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY, 1, "white_lebethron_sapling"),
+            new WeightedSaplingBlock.WeightedTree(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY, 39, "black_lebethron_sapling")));
     public static final Block WHITE_LEBETHRON_SAPLING = registerSimpleSapling("white_lebethron_sapling", ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY);
     public static final Block MALLORN_SAPLING = registerSimpleSapling("mallorn_sapling", ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY);
     public static final Block MAPLE_SAPLING = registerVariantSapling("maple_sapling",
@@ -460,12 +462,13 @@ public class ModNatureBlocks {
     public static final Block SILVER_MAPLE_SAPLING = registerVariantSapling("silver_maple_sapling",
             List.of(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_YELLOW_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_ORANGE_MAPLE_TREE_KEY, ModTreeConfiguredFeatures.SILVER_RED_MAPLE_TREE_KEY));
     public static final Block MIRKWOOD_SAPLING = registerSimpleSapling("mirkwood_sapling", ModTreeConfiguredFeatures.SMALL_MIRKWOOD_TREE_KEY);
-    public static final Block PALM_SAPLING = registerVariantSapling("palm_sapling",
-            List.of(ModTreeConfiguredFeatures.PALM_TREE_KEY, ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY));
+    public static final Block PALM_SAPLING = registerWeightedSapling("palm_sapling",
+            List.of(new WeightedSaplingBlock.WeightedTree(ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY, 1, "white_palm_sapling"),
+                    new WeightedSaplingBlock.WeightedTree(ModTreeConfiguredFeatures.PALM_TREE_KEY, 14, "palm_sapling")));
     public static final Block WHITE_PALM_SAPLING = registerSimpleSapling("white_palm_sapling", ModTreeConfiguredFeatures.WHITE_PALM_TREE_KEY);
     public static final Block PINE_SAPLING = registerSimpleSapling("pine_sapling", ModTreeConfiguredFeatures.PINE_TREE_KEY);
     public static final Block BLACK_PINE_SAPLING = registerSimpleSapling("black_pine_sapling", ModTreeConfiguredFeatures.BLACK_PINE_TREE_KEY);
-    public static final Block WHITE_SPRUCE_SAPLING = registerSimpleSapling("white_spruce_sapling", ModTreeConfiguredFeatures.WILLOW_TREE_KEY);
+    public static final Block WHITE_SPRUCE_SAPLING = registerSimpleSapling("white_spruce_sapling", ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY);
     public static final Block WILLOW_SAPLING = registerSimpleSapling("willow_sapling", ModTreeConfiguredFeatures.WILLOW_TREE_KEY);
 
     public static final Block LEBETHRON_LEAVES = registerBlock("lebethron_leaves",
@@ -598,7 +601,7 @@ public class ModNatureBlocks {
         Saplings.saplings.add(resultBlock);
 
         TranslationEntries.blockEntries.add(resultBlock);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
         return resultBlock;
     }
@@ -609,8 +612,20 @@ public class ModNatureBlocks {
             saplingGenerators.add(new SaplingGenerator(name, Optional.empty(), Optional.ofNullable(treeFeature),
                             Optional.empty()));
         }
-
         SaplingBlock saplingBlock = new VariantSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)), saplingGenerators);
+        Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+
+        TranslationEntries.blockEntries.add(resultBlock);
+
+        registerBlockItem(name, resultBlock);
+        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
+
+        return resultBlock;
+    }
+
+    public static Block registerWeightedSapling(String name, List<WeightedSaplingBlock.WeightedTree> weightedTrees) {
+        SaplingBlock saplingBlock = new WeightedSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)), weightedTrees);
 
         Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
 
@@ -618,7 +633,7 @@ public class ModNatureBlocks {
 
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
         return resultBlock;
     }
@@ -630,7 +645,7 @@ public class ModNatureBlocks {
             TranslationEntries.blockEntries.add(block);
         }
 
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.BLOCK, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
         return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
     }
@@ -641,7 +656,7 @@ public class ModNatureBlocks {
         Item.BLOCK_ITEMS.put(block, item);
 
         ItemGroupsME.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }
 
     public static void registerModBlocks() {

@@ -1,13 +1,12 @@
 package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.EntityType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.items.*;
 import net.sevenstars.middleearth.item.items.weapons.ranged.LitPineconeItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.PebbleItem;
@@ -23,7 +22,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 
@@ -45,7 +44,7 @@ public class ResourceItemsME {
 
     public static final Item REINFORCED_BARREL = registerItem("reinforced_barrel",
             (settings) -> {
-                return new BoatItem(ModEntities.REINFORCED_BARREL, settings);
+                return new BoatItem(EntitiesME.REINFORCED_BARREL, settings);
             }, new Item.Settings().maxCount(1));
 
     public static final Item RAW_TIN = registerItem("raw_tin",
@@ -105,6 +104,13 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().fireproof());
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             Item::new, new Item.Settings().fireproof());
+
+    public static final Item ADAMANT = registerItem("adamant",
+            Item::new, new Item.Settings());
+    public static final Item RUBY = registerItem("ruby",
+            Item::new, new Item.Settings());
+    public static final Item SAPPHIRE = registerItem("sapphire",
+            Item::new, new Item.Settings());
 
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             Item::new, new Item.Settings());
@@ -240,7 +246,6 @@ public class ResourceItemsME {
     public static final Item SCREECHING_SKULL_BANNER_PATTERN = registerItem("screeching_skull_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SCREECHING_SKULL_PATTERN_ITEM));
-
     public static final Item GOBLIN_SKULL_BANNER_PATTERN = registerItem("goblin_skull_banner_pattern",
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.GOBLIN_SKULL_PATTERN_ITEM));
@@ -284,7 +289,7 @@ public class ResourceItemsME {
         Item item = factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.RESOURCES_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

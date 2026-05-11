@@ -7,7 +7,6 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +19,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        TagKey<Item> swan_food = TagKey.of(RegistryKeys.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food"));
+        TagKey<Item> swan_food = TagKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.of("swan_food"));
 
         valueLookupBuilder(swan_food).add(Items.TADPOLE_BUCKET);
     }

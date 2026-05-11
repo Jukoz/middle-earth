@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.entity.projectile.boulder;
 
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -18,7 +18,7 @@ public class BoulderEntity extends ThrownEntity {
     }
 
     public BoulderEntity(World world, double x, double y, double z) {
-        super(ModEntities.BOULDER, x, y, z, world);
+        super(EntitiesME.BOULDER, x, y, z, world);
     }
 
     @Override

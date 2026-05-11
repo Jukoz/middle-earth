@@ -156,7 +156,7 @@ public interface ArmorMaterialsME {
             case HEAVY -> {
                 map.put(EquipmentType.BOOTS, 3);
                 map.put(EquipmentType.LEGGINGS, 6);
-                map.put(EquipmentType.CHESTPLATE, 8);
+                map.put(EquipmentType.CHESTPLATE, 7);
                 map.put(EquipmentType.HELMET, 3);
                 map.put(EquipmentType.BODY, 10);
                 durabilityMultiplier = 37;

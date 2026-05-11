@@ -6,6 +6,8 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.registry.Registry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -14,26 +16,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
 import net.sevenstars.middleearth.network.packets.C2S.*;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.FactionType;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npcs.data.NpcRank;
+import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
@@ -45,9 +46,9 @@ public class OnboardingFactionScreenController {
     OnboardingFactionScreenService service;
     private float currentDelay;
 
-    private HashMap<Disposition, List<Faction>> factions;
+    private HashMap<DispositionType, List<Faction>> factions;
 
-    private Disposition selectedDisposition;
+    private DispositionType selectedDispositionType;
     private Faction selectedFaction;
     private Faction selectedSubfaction;
     private SpawnData selectedSpawn;
@@ -75,7 +76,7 @@ public class OnboardingFactionScreenController {
         if(selectedFaction == null){
             screen.elements.mapWidget.zoom(10);
             screen.elements.mapWidget.isForcingTargetMovement = true;
-            setDisposition(factions.keySet().stream().findFirst().orElse(Disposition.GOOD));
+            setDisposition(factions.keySet().stream().findFirst().orElse(DispositionType.GOOD));
         }
         screen.elements.spawnConfirmButton.active = currentDelay == 0;
 
@@ -89,18 +90,15 @@ public class OnboardingFactionScreenController {
 
     private void setupInitialDatas() {
         factions = new HashMap<>();
-        for(Disposition disposition : Disposition.values()){
-            List<Faction> foundFactions = service.getFactionsByDisposition(disposition);
-            for(int i = 0; i < foundFactions.size(); i++){
-                if(!foundFactions.get(i).isJoinable()){
-                    foundFactions.remove(i);
-                    continue;
-                }
-                if(foundFactions.get(i).getFactionType() == FactionType.SUBFACTION)
-                    foundFactions.remove(i);
+        for(DispositionType dispositionType : DispositionType.values()){
+            var unfilteredFactions = service.getFactionsByDisposition(dispositionType);
+            List<Faction> filteredFactions = new ArrayList<>();
+            for(Faction faction : unfilteredFactions){
+                if(faction.isJoinable() && faction.getFactionType() == FactionType.FACTION)
+                    filteredFactions.add(faction);
             }
-            if(!foundFactions.isEmpty())
-                factions.put(disposition, foundFactions);
+            if(!filteredFactions.isEmpty())
+                factions.put(dispositionType, filteredFactions);
         }
 
         this.searchBarResults = fetchAllPossibleSearchBarResults();
@@ -111,12 +109,12 @@ public class OnboardingFactionScreenController {
             screen.elements.dispositionSelectionWidget.enableVisuals(false);
             screen.elements.factionSelectionWidget.enableVisuals(false);
             screen.elements.subfactionSelectionWidget.enableVisuals(false);
-            screen.elements.factionRandomizerButton.active = false;
+            screen.elements.npcRandomizerButton.active = false;
         } else {
             screen.elements.dispositionSelectionWidget.enableVisuals(true);
             screen.elements.factionSelectionWidget.enableVisuals(true);
             screen.elements.subfactionSelectionWidget.enableVisuals(true);
-            screen.elements.factionRandomizerButton.active = true;
+            screen.elements.npcRandomizerButton.active = true;
         }
 
         this.screen.elements.factionName = (selectedFaction.tryGetShortName()).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
@@ -125,17 +123,17 @@ public class OnboardingFactionScreenController {
         else
             this.screen.elements.subfactionName = null;
 
-        if(this.selectedDisposition != null){
+        if(this.selectedDispositionType != null){
             this.screen.elements.dispositionSelectionWidget.enableVisuals(true);
-            this.screen.elements.dispositionSelectionWidget.enableArrows(factions.keySet().size() > 1);
-            this.screen.elements.dispositionSelectionWidget.setText(selectedDisposition.getName());
+            this.screen.elements.dispositionSelectionWidget.enableArrows(factions.size() > 1);
+            this.screen.elements.dispositionSelectionWidget.setText(selectedDispositionType.getName());
         } else {
             this.screen.elements.dispositionSelectionWidget.enableVisuals(false);
         }
 
         if(this.selectedFaction != null){
             this.screen.elements.factionSelectionWidget.enableVisuals(true);
-            this.screen.elements.factionSelectionWidget.enableArrows(this.factions.get(selectedDisposition).size() > 1);
+            this.screen.elements.factionSelectionWidget.enableArrows(this.factions.get(selectedDispositionType).size() > 1);
             this.screen.elements.factionSelectionWidget.setText(this.selectedFaction.tryGetShortName());
         } else {
             this.screen.elements.factionSelectionWidget.enableVisuals(false);
@@ -214,9 +212,9 @@ public class OnboardingFactionScreenController {
     public void updateDisposition(int indexDifference){
         if(factions.keySet().size() == 1) return; // Doesn't change anything
 
-        int currentDispositionIndex = selectedDisposition.ordinal();
+        int currentDispositionIndex = selectedDispositionType.ordinal();
         for(int i = 0; i < factions.keySet().size(); i++){
-            if(factions.keySet().stream().toList().get(i) == selectedDisposition)
+            if(factions.keySet().stream().toList().get(i) == selectedDispositionType)
                 currentDispositionIndex = i;
         }
         currentDispositionIndex += indexDifference;
@@ -230,16 +228,16 @@ public class OnboardingFactionScreenController {
         updateScreenInformation();
     }
 
-    private void setDisposition(Disposition disposition){
-        selectedDisposition = disposition;
+    private void setDisposition(DispositionType dispositionType){
+        selectedDispositionType = dispositionType;
         setFaction(0);
     }
 
     public void updateFaction(int indexDifference){
-        int factionListSize = factions.get(selectedDisposition).size();
+        int factionListSize = factions.get(selectedDispositionType).size();
         if(factionListSize == 1) return; // Doesn't change anything
 
-        int currentFactionIndex = factions.get(selectedDisposition).indexOf(selectedFaction);
+        int currentFactionIndex = factions.get(selectedDispositionType).indexOf(selectedFaction);
 
         currentFactionIndex += indexDifference;
 
@@ -255,13 +253,13 @@ public class OnboardingFactionScreenController {
 
     public void setFaction(Integer index){
         if(index == null
-            || selectedDisposition == null
-            || factions.get(selectedDisposition).size() <= index){
+            || selectedDispositionType == null
+            || factions.get(selectedDispositionType).size() <= index){
             selectedFaction = null;
             return;
         }
 
-        selectedFaction = factions.get(selectedDisposition).get(index);
+        selectedFaction = factions.get(selectedDispositionType).get(index);
         setSubfaction(0);
         setSpawnPoint(0);
         setRace(0);
@@ -305,6 +303,7 @@ public class OnboardingFactionScreenController {
         selectedSubfaction = selectedFaction.getSubfaction(world, index);
         setSpawnPoint(0);
         setRace(0);
+        updateNpcPreview();
     }
 
     public void updateRace(int indexDifference){
@@ -342,12 +341,58 @@ public class OnboardingFactionScreenController {
         }
 
         selectedRace = currentFaction.getRaces(world).get(index);
+        currentNpcEntity = new NpcEntity(EntitiesME.NPC, world);
+        currentNpcEntity.setNpcData(currentFaction.getRandomNpcDataIdentifier());
+
+        updateNpcPreview();
     }
 
-    public void updateNpcPreview(){
+    public void updateNpcPreview() {
+        updateNpcPreview(false);
+    }
+
+    public void updateNpcPreview(boolean forced){
         Faction currentFaction = getCurrentFaction();
-        Identifier id =  currentFaction.getAllNpcDatas().get(NpcRank.SOLDIER).getFirst();
-        this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, world);
+
+        if(!forced){
+            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionId() == currentFaction.getId() && currentNpcEntity.getNpcData().getRace() == selectedRace.getId())
+                return;
+        }
+
+        if(currentFaction == null)
+            return;
+
+        var idList = currentFaction.getAllNpcDatas().values().stream().flatMap(List::stream).toList();
+
+        // filter list by race
+        var optionalNpcRegistry = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC);
+        if(optionalNpcRegistry.isEmpty())
+            return;
+
+        var npcRegistry = optionalNpcRegistry.get();
+
+        var filteredList = new ArrayList<Identifier>();
+        for(Identifier idToFilter : idList){
+            if(filterNpc(npcRegistry, idToFilter))
+                filteredList.add(idToFilter);
+        }
+
+        if(filteredList.isEmpty())
+            return;
+
+        Identifier id = filteredList.get((new Random()).nextInt(filteredList.size()));
+        if(world instanceof ClientWorld clientWorld)
+            this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, clientWorld, false);
+    }
+
+    private boolean filterNpc(Registry<NpcData> registry, Identifier elementToFilter){
+        NpcData foundData = registry.get(elementToFilter);
+        if(foundData == null) return false;
+
+        if(selectedRace == null)
+            return true;
+
+        return foundData.getRace().toString().equals(selectedRace.getId().toString());
     }
 
     public void updateSpawnPoint(int indexDifference){
@@ -409,33 +454,29 @@ public class OnboardingFactionScreenController {
         }
     }
 
-    public void randomizeFaction(){
-        randomize(false, false);
-        updateScreenInformation();
+    public void randomizeNpc(){
+        updateNpcPreview(true);
     }
+
     public void randomizeAll(){
-        randomize( true, true);
+        randomize();
         updateScreenInformation();
     }
 
-    private void randomize(boolean spawn, boolean race){
+    private void randomize(){
         Random random = new Random();
         setDisposition(factions.keySet().stream().toList().get(random.nextInt(factions.keySet().size())));
-        setFaction(random.nextInt(factions.get(selectedDisposition).size()));
+        setFaction(random.nextInt(factions.get(selectedDispositionType).size()));
         if(selectedFaction.getSubFactions() != null && !selectedFaction.getSubFactions().isEmpty())
             setSubfaction(random.nextInt(selectedFaction.getSubFactions().size()));
         else
             selectedSubfaction = null;
 
-        if(spawn){
-            Faction factionToUse = getCurrentFaction();
-            setSpawnPoint(random.nextInt(factionToUse.getSpawnAmount()));
-        }
-        if(race){
-            Faction factionToUse = getCurrentFaction();
-            List<Race> races = factionToUse.getRaces(world);
-            setRace((races == null || races.isEmpty()) ? 0 : random.nextInt(races.size()));
-        }
+        Faction factionToUse = getCurrentFaction();
+        setSpawnPoint(random.nextInt(factionToUse.getSpawnAmount()));
+
+        List<Race> races = factionToUse.getRaces(world);
+        setRace((races == null || races.isEmpty()) ? 0 : random.nextInt(races.size()));
     }
 
     public void confirmSelection(){
@@ -450,7 +491,7 @@ public class OnboardingFactionScreenController {
         }
 
         ClientPlayNetworking.send(new PacketSetRace(selectedRace.getId().toString()));
-        ClientPlayNetworking.send(new PacketSetAffiliation(selectedDisposition.name(), faction.getId().toString(), selectedSpawn.getIdentifier().toString()));
+        ClientPlayNetworking.send(new PacketSetAffiliation(selectedDispositionType.name(), faction.getId().toString(), selectedSpawn.getIdentifier().toString()));
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if(player != null){
             BlockPos overworldBlockPos = player.getBlockPos();
@@ -526,7 +567,7 @@ public class OnboardingFactionScreenController {
         try{
             Faction faction = FactionLookup.getFactionById(world, factionId);
             setDisposition(faction.getDisposition());
-            setFaction(factions.get(selectedDisposition).indexOf(faction));
+            setFaction(factions.get(selectedDispositionType).indexOf(faction));
             if(subfactionId != null){
                 setSubfaction(selectedFaction.getSubFactions().indexOf(subfactionId));
             }

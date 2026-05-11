@@ -1,12 +1,13 @@
 package net.sevenstars.middleearth.item;
 
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatColor;
 import net.sevenstars.middleearth.item.dataComponents.*;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.UnaryOperator;
 
@@ -30,6 +31,10 @@ public class DataComponentTypesME {
 
     public static final ComponentType<SeasonDataComponent> SEASON_DATA = register("season", (builder) -> {
         return builder.codec(SeasonDataComponent.CODEC).packetCodec(SeasonDataComponent.PACKET_CODEC);
+    });
+
+    public static final ComponentType<SneakAttackDataComponent> SNEAK_ATTACK_DATA = register("sneak_attack", (builder) -> {
+        return builder.codec(SneakAttackDataComponent.CODEC).packetCodec(SneakAttackDataComponent.PACKET_CODEC);
     });
 
     public static final ComponentType<FactionDataComponent> FACTION_DATA = register("faction", (builder) -> {
@@ -64,8 +69,12 @@ public class DataComponentTypesME {
         return builder.codec(MountArmorAddonComponent.CODEC).packetCodec(MountArmorAddonComponent.PACKET_CODEC);
     });
 
+    public static final ComponentType<BroadhoofGoatColor> GOAT_VARIANT = register(
+            "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)
+    );
+
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.DATA_COMPONENT_TYPE, id));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.DATA_COMPONENT_TYPE, id));
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), ((ComponentType.Builder)builderOperator.apply(ComponentType.builder())).build());
     }
 

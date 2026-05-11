@@ -10,10 +10,7 @@ import net.minecraft.client.render.item.property.bool.BrokenProperty;
 import net.minecraft.client.render.item.property.bool.UsingItemProperty;
 import net.minecraft.client.render.item.property.numeric.CrossbowPullProperty;
 import net.minecraft.client.render.item.property.numeric.UseDurationProperty;
-import net.minecraft.client.render.item.property.select.ChargeTypeProperty;
-import net.minecraft.client.render.item.property.select.CustomModelDataStringProperty;
-import net.minecraft.client.render.item.property.select.DisplayContextProperty;
-import net.minecraft.client.render.item.property.select.TrimMaterialProperty;
+import net.minecraft.client.render.item.property.select.*;
 import net.minecraft.client.render.item.tint.DyeTintSource;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
@@ -31,13 +28,16 @@ import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
+import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
+import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
-import net.sevenstars.middleearth.resources.NpcME;
+import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 
 import static net.minecraft.client.data.ItemModelGenerator.createModelWithInHandVariant;
 
@@ -93,6 +93,10 @@ public class ItemModelProvider extends FabricModelProvider {
             itemModelGenerator.register(item, Models.HANDHELD);
         }
 
+        for (Item item : SimpleHandheldItemModel.daggers) {
+            registerDaggerItemModels(itemModelGenerator, item);
+        }
+
         for (Item item : SimpleBigItemModel.items) {
             registerWeaponBigItemModels(itemModelGenerator, item);
         }
@@ -125,17 +129,12 @@ public class ItemModelProvider extends FabricModelProvider {
             registerArtefact(itemModelGenerator, artefact.artefact(), artefact.dualModel());
         }
 
-        //TODO to find solution for those
-        for (Item item : HotMetalsModel.items) {
-            //itemModelGenerator.register(item, "_hot", Models.GENERATED);
-        }
-
         for (Item item : HotMetalsModel.ingots) {
-            //Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/ingot_hot")), itemModelGenerator.writer);
+            registerHotIngotsItem(item, itemModelGenerator);
         }
 
         for (Item item : HotMetalsModel.nuggets) {
-            //Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"), TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/nugget_hot")), itemModelGenerator.writer);
+            registerHotNuggetItem(item, itemModelGenerator);
         }
 
         // Dyeables needs to be done manually (because of layers)
@@ -169,23 +168,43 @@ public class ItemModelProvider extends FabricModelProvider {
         registerPalettedItem(ResourceItemsME.SHIELD_BORDER, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.SHIELD_PLATE, itemModelGenerator);
 
-        int index = 0;
-
         List<SelectItemModel.SwitchCase> models = new ArrayList<>(List.of());
 
-        NpcME.allNpcDatas.forEach(npcDataRegistryKey -> {
+        NpcRegistry.allNpcDatas.forEach(npcDataRegistryKey -> {
             String id = npcDataRegistryKey.getValue().getPath().replaceAll("npc_data.middle-earth.", "").replaceAll("\\.", "_") + "_spawn_egg";
-            models.add(ItemModels.switchCase(id,
-                    ItemModels.basic(Models.GENERATED.upload(Identifier.of(MiddleEarth.MOD_ID, "item/" + id),
-                            TextureMap.layer0(Identifier.of(MiddleEarth.MOD_ID, "item/" + id)),
-                            itemModelGenerator.modelCollector
-                    ))));
-        });
 
+            var item = ItemModels.switchCase(id,
+                    ItemModels.basic(Models.GENERATED.upload(MiddleEarth.of("item/" + id),
+                            TextureMap.layer0(MiddleEarth.of( "item/" + id)),
+                            itemModelGenerator.modelCollector
+                    )));
+
+            if(!models.contains(item))
+                models.add(item);
+        });
         ItemModel.Unbaked fallbackModel = ItemModels.basic(itemModelGenerator.upload(EggItemsME.NPC_SPAWN_EGG, Models.GENERATED));
+
+        String randomNpcEggId = "npc_random_spawn_egg";
+        var randomNpcEgg = ItemModels.switchCase(randomNpcEggId,
+            ItemModels.basic(Models.GENERATED.upload(MiddleEarth.of('/', "item", randomNpcEggId),
+                    TextureMap.layer0(MiddleEarth.of( '/', "item", randomNpcEggId)),
+                    itemModelGenerator.modelCollector
+            )));
+
+        if(!models.contains(randomNpcEgg))
+            models.add(randomNpcEgg);
 
         itemModelGenerator.output.accept(EggItemsME.NPC_SPAWN_EGG,
                 new SelectItemModel.Unbaked(new SelectItemModel.UnbakedSwitch(new CustomModelDataStringProperty(0), models), Optional.of(fallbackModel)));
+    }
+
+    public final void registerDaggerItemModels(ItemModelGenerator itemModelGenerator, Item item) {
+        ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD));
+        ItemModel.Unbaked unbakedHandStrike = ItemModels.basic(CustomItemModels.DAGGER_STRIKE.upload(ModelIds.getItemSubModelId(item, "_strike"),
+                TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
+        //ItemModels.basic(itemModelGenerator.registerSubModel(item, "_strike", CustomItemModels.DAGGER_STRIKE));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new SneakAttackProperty(), unbakedHandStrike, unbakedHand));
     }
 
     public final void registerWeaponBigItemModels(ItemModelGenerator itemModelGenerator, Item item) {
@@ -216,19 +235,21 @@ public class ItemModelProvider extends FabricModelProvider {
         itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
     }
 
-    //TODO longsword artefact blocking datagen
     public final void registerArtefact(ItemModelGenerator itemModelGenerator, Item item, Boolean dualModel) {
         if (dualModel) {
             ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
             ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
+            ItemModel.Unbaked unbakedHandBlocking = ItemModels.basic(CustomItemModels.BIG_WEAPON_BLOCKING.upload(ModelIds.getItemSubModelId(item, "_blocking"), TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
 
             ItemModel.Unbaked unbakedBrokenHand = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_broken", CustomItemModels.BIG_WEAPON));
             ItemModel.Unbaked unbakedBrokenInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_broken_inventory", Models.GENERATED));
+            ItemModel.Unbaked unbakedBrokenHandBlocking = ItemModels.basic(CustomItemModels.BIG_WEAPON_BLOCKING.upload(
+                    ModelIds.getItemSubModelId(item, "_broken_blocking"), TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
 
             itemModelGenerator.output.accept(item, ItemModels.condition(new BrokenProperty(),
-                    ItemModels.select(new DisplayContextProperty(), unbakedBrokenHand,
+                    ItemModels.select(new DisplayContextProperty(), ItemModels.condition(new UsingItemProperty(), unbakedBrokenHandBlocking, unbakedBrokenHand),
                             ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedBrokenInventory)),
-                    ItemModels.select(new DisplayContextProperty(), unbakedHand,
+                    ItemModels.select(new DisplayContextProperty(), ItemModels.condition(new UsingItemProperty(), unbakedHandBlocking, unbakedHand),
                             ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory))));
         } else {
             ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD));
@@ -296,6 +317,9 @@ public class ItemModelProvider extends FabricModelProvider {
         itemModelGenerator.output.accept(item, ItemModels.select(new ChargeTypeProperty(), ItemModels.condition(ItemModels.usingItemProperty(), ItemModels.rangeDispatch(new CrossbowPullProperty(), unbaked2, new RangeDispatchItemModel.Entry[]{ItemModels.rangeDispatchEntry(unbaked3, 0.58F), ItemModels.rangeDispatchEntry(unbaked4, 1.0F)}), unbaked), new SelectItemModel.SwitchCase[]{ItemModels.switchCase(CrossbowItem.ChargeType.ARROW, unbaked5), ItemModels.switchCase(CrossbowItem.ChargeType.ROCKET, unbaked6)}));
     }
 
+    public final Identifier registerSubModelWithSingletonTexture(Item item, String suffix, Model model, BiConsumer<Identifier, ModelSupplier> modelCollector) {
+        return model.upload(ModelIds.getItemSubModelId(item, suffix), TextureMap.layer0(TextureMap.getId(item)), modelCollector);
+    }
 
     //TODO might need a rework cause of new tint thingy
     public final void registerDyeableArmor(Item armor, ItemModelGenerator itemModelGenerator) {
@@ -331,6 +355,48 @@ public class ItemModelProvider extends FabricModelProvider {
         Models.GENERATED.upload(identifierItem, TextureMap.layer0(identifier2), itemModelGenerator.modelCollector);
         unbaked2 = ItemModels.basic(identifierItem);
 
-        itemModelGenerator.output.accept(item, ItemModels.select(new TrimMaterialProperty(), unbaked2, list));
+        ItemModel.Unbaked unbakedHotItem = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_hot", Models.GENERATED));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, ItemModels.select(new TrimMaterialProperty(), unbaked2, list)));
     }
+
+    public final void registerHotIngotsItem(Item item, ItemModelGenerator itemModelGenerator) {
+        ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        String idPath = "ingot_hot";
+        if(item == ResourceItemsME.BRONZE_INGOT) {
+            idPath = "medium_ingot_hot";
+        } else if(item == ResourceItemsME.TIN_INGOT) {
+            idPath = "cube_ingot_hot";
+        } else if(item == ResourceItemsME.LEAD_INGOT) {
+            idPath = "tall_small_ingot_hot";
+        } else if(item == ResourceItemsME.EDHEL_STEEL_INGOT || item == ResourceItemsME.MITHRIL_INGOT) {
+            idPath = "small_ingot_hot";
+        } else if(item == ResourceItemsME.KHAZAD_STEEL_INGOT) {
+            idPath = "tall_ingot_hot";
+        } else if(item == ResourceItemsME.BURZUM_STEEL_INGOT) {
+            idPath = "thick_ingot_hot";
+        }
+
+        Identifier textureId = MiddleEarth.of('/', "item", idPath);
+        ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
+                TextureMap.layer0(textureId), itemModelGenerator.modelCollector));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
+    }
+
+    public final void registerHotNuggetItem(Item item, ItemModelGenerator itemModelGenerator) {
+        ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
+                TextureMap.layer0(MiddleEarth.of('/', "item", "nugget_hot")), itemModelGenerator.modelCollector));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
+    }
+
+    public final void registerHotItem(Item item, ItemModelGenerator itemModelGenerator) {
+        ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked unbakedHotItem = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_hot", Models.GENERATED));
+
+        itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
+    }
+
 }

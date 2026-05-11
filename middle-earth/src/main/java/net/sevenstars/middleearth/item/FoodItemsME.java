@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponents;
@@ -19,7 +20,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 
@@ -35,6 +36,10 @@ public class FoodItemsME {
     public static final Item LEMBAS = registerItem("lembas",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(20).saturationModifier(1).build()));
+    public static final Item CRAM = registerItem("cram",
+            Item::new,new Item.Settings()
+                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2F).build()));
+
     public static final Item RAW_HORSE = registerItem("raw_horse",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(3).saturationModifier(0.4F).build()));
@@ -82,6 +87,8 @@ public class FoodItemsME {
             (settings) -> new BlockItem(ModNatureBlocks.ONION_CROP, settings),new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
 
+    public static final Item LAYERED_CAKE = registerItem("layered_cake",
+            (settings) -> new BlockItem(ModBlocks.LAYERED_CAKE, settings),new Item.Settings().maxCount(1));
     public static final Item BERRY_PIE = registerItem("berry_pie",
             Item::new,new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.5f).build()));
@@ -99,19 +106,19 @@ public class FoodItemsME {
                     new FoodComponent.Builder().nutrition(9).saturationModifier(0.9f).build()).maxCount(1).useRemainder(Items.BOWL));
     public static final Item MEAT_SKEWER = registerItem("meat_skewer",
             Item::new,new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).build()).maxCount(8).useRemainder(Items.BOWL));
+                    new FoodComponent.Builder().nutrition(5).saturationModifier(0.6f).build()).maxCount(8).useRemainder(Items.STICK));
     public static final Item COOKED_MEAT_SKEWER = registerItem("cooked_meat_skewer",
             Item::new,new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(10).saturationModifier(0.8f).build()).maxCount(8).useRemainder(Items.BOWL));
+                    new FoodComponent.Builder().nutrition(10).saturationModifier(0.8f).build()).maxCount(8).useRemainder(Items.STICK));
     public static final Item POULTRY_MEAL = registerItem("poultry_meal",
             Item::new,new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.8f).build()).maxCount(8).useRemainder(Items.BOWL));
     public static final Item VEGETABLE_SKEWER = registerItem("vegetable_skewer",
             Item::new,new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).build()).maxCount(8).useRemainder(Items.BOWL));
+                    new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).build()).maxCount(8).useRemainder(Items.STICK));
     public static final Item COOKED_VEGETABLE_SKEWER = registerItem("cooked_vegetable_skewer",
             Item::new,new Item.Settings().food(
-                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).build()).maxCount(8).useRemainder(Items.BOWL));
+                    new FoodComponent.Builder().nutrition(6).saturationModifier(0.6f).build()).maxCount(8).useRemainder(Items.STICK));
     public static final Item VEGETABLE_SOUP = registerItem("vegetable_soup",
             Item::new,new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(7).saturationModifier(0.6f).build()).maxCount(1).useRemainder(Items.BOWL));
@@ -125,7 +132,7 @@ public class FoodItemsME {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.FOOD_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.ITEM, name));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
 

@@ -14,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.ModEntityAttributes;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
@@ -143,7 +143,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
             int currentLightLevel = getWorld().getLightLevel(getBlockPos());
 
-            double delversFearStrenght = getAttributeValue(ModEntityAttributes.DELVERS_FEAR_STRENGTH);
+            double delversFearStrenght = getAttributeValue(EntityAttributesME.DELVERS_FEAR_STRENGTH);
 
             if(delversFearStrenght > 0.0 && currentLightLevel < 3 && !getWorld().isSkyVisible(getBlockPos())) {
                 data.addToDelversFearCountInSeconds();

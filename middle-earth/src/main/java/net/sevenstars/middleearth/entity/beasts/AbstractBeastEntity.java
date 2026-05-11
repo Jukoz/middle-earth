@@ -1,15 +1,11 @@
 package net.sevenstars.middleearth.entity.beasts;
 
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -24,7 +20,6 @@ import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -32,21 +27,16 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
-import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 
 import java.util.List;
-import java.util.UUID;
 
 public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -141,7 +131,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     // endregion
 
     // region Conditions
-    public abstract Disposition getDisposition();
+    public abstract DispositionType getDisposition();
 
     public abstract List<RaceType> getCompatibleRaces();
 
@@ -395,12 +385,17 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    protected void tameBeast(PlayerEntity player) {
+    public void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
             this.setOwner(player);
             this.setTame(true);
             Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
         }
+    }
+
+    public void tameBeast(LivingEntity livingEntity) {
+        this.setOwner(livingEntity);
+        this.setTame(true);
     }
 
     @Override

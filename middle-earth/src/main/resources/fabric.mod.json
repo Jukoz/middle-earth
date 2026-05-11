@@ -27,6 +27,12 @@
     ],
     "client": [
       "net.sevenstars.middleearth.MiddleEarthClient"
+    ],
+    "rei_client": [
+      "net.sevenstars.middleearth.compat.REIClientPluginME"
+    ],
+    "rei_common": [
+      "net.sevenstars.middleearth.compat.REICommonPluginME"
     ]
   },
   "mixins": [

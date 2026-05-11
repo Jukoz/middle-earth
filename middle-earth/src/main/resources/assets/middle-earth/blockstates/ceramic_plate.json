@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,utensils=false": {
+      "model": "middle-earth:block/plate_ceramic",
+      "y": 90
+    },
+    "facing=east,utensils=true": {
+      "model": "middle-earth:block/plate_ceramic_utensils",
+      "y": 90
+    },
+    "facing=north,utensils=false": {
+      "model": "middle-earth:block/plate_ceramic"
+    },
+    "facing=north,utensils=true": {
+      "model": "middle-earth:block/plate_ceramic_utensils"
+    },
+    "facing=south,utensils=false": {
+      "model": "middle-earth:block/plate_ceramic",
+      "y": 180
+    },
+    "facing=south,utensils=true": {
+      "model": "middle-earth:block/plate_ceramic_utensils",
+      "y": 180
+    },
+    "facing=west,utensils=false": {
+      "model": "middle-earth:block/plate_ceramic",
+      "y": 270
+    },
+    "facing=west,utensils=true": {
+      "model": "middle-earth:block/plate_ceramic_utensils",
+      "y": 270
+    }
+  }
+}

@@ -26,7 +26,7 @@ public class HelpingGenerator {
             set.existingList.forEach(stoneBlockTypes -> {
                 switch (stoneBlockTypes){
                     case BASE_BLOCKS -> mainStoneBlocks(set.baseBlocks);
-                    case COBBLED_BLOCKS,COBBLESTONE_BLOCKS -> {
+                    case COBBLED_BLOCKS,COBBLESTONE_BLOCKS,PILLAR_BASE_BLOCKS -> {
                         regularBlocks(set.cobblestoneBlocks);
                         if(set.hasMossy) regularBlocks(set.mossyCobblestoneBlocks);
                     }
@@ -73,7 +73,8 @@ public class HelpingGenerator {
                         pillarBlocks(set.chiseledSmoothBlocks, null);
                     }
                     case CARVED_WINDOW -> {
-                        carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
+                        if(set.baseBlocks == null) carvedWindowBlocks(set.carvedWindows, set.cobblestoneBlocks.base());
+                        else carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
                     }
                 }
             });
@@ -191,6 +192,22 @@ public class HelpingGenerator {
                 SimpleBlockModel.blocks.add(set.mithril_ore());
                 MineablePickaxe.blocks.add(set.mithril_ore());
             }
+            if(set.adamant_ore() != null){
+                SimpleBlockModel.blocks.add(set.adamant_ore());
+                MineablePickaxe.blocks.add(set.adamant_ore());
+            }
+            if(set.emerald_ore() != null){
+                SimpleBlockModel.blocks.add(set.emerald_ore());
+                MineablePickaxe.blocks.add(set.emerald_ore());
+            }
+            if(set.ruby_ore() != null){
+                SimpleBlockModel.blocks.add(set.ruby_ore());
+                MineablePickaxe.blocks.add(set.ruby_ore());
+            }
+            if(set.sapphire_ore() != null){
+                SimpleBlockModel.blocks.add(set.sapphire_ore());
+                MineablePickaxe.blocks.add(set.sapphire_ore());
+            }
         }
     }
 
@@ -204,10 +221,12 @@ public class HelpingGenerator {
         if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
             final boolean isPillar = blockName.contains("carved_window")
                     || blockName.contains("chiseled")
+                    || blockName.contains("drystone")
                     || blockName.contains("pillar");
+            final boolean woodModel = (blockName.contains("_wood") && !(blockName.contains("gilded") || blockName.contains("beam"))) || blockName.contains("hyphae");
             switch (block){
                 case PillarBlock pillarBlock -> {
-                    if (blockName.contains("wood") || blockName.contains("hyphae")){
+                    if (woodModel){
                         SimpleBlockModel.woodBlocks.add(pillarBlock);
                     } else {
                         SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(pillarBlock));
@@ -216,7 +235,7 @@ public class HelpingGenerator {
                 case SlabBlock slabBlock -> {
                     if (blockName.contains("stripped")){
                         SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(base, origin));
-                    } else if (blockName.contains("wood") || blockName.contains("hyphae")){
+                    } else if (woodModel){
                         SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(base, origin));
                     } else{
                         SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(base, slabBlock));
@@ -227,7 +246,7 @@ public class HelpingGenerator {
                         SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     }else if (blockName.contains("stripped")){
                         SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
-                    } else if (blockName.contains("wood") || blockName.contains("hyphae")){
+                    } else if (woodModel){
                         SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     } else if (baseName.contains("planks")){
                         SimpleVerticalSlabModel.plansVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
@@ -238,7 +257,7 @@ public class HelpingGenerator {
                 case StairsBlock stairsBlock -> {
                     if (blockName.contains("stripped")){
                         SimpleStairModel.strippedStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
-                    } else if (blockName.contains("wood") || blockName.contains("hyphae")){
+                    } else if (woodModel){
                         SimpleStairModel.woodStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
                     } else{
                         SimpleStairModel.stairs.add(new SimpleStairModel.Stair(base, stairsBlock));

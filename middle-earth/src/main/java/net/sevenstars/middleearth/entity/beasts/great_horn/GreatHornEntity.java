@@ -36,17 +36,19 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SmartFleeEntityGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.Evader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.greathornvariants.GreatHornVariantRegistry;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -62,7 +64,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 1.0);
     private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
-    private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, ModTrackedDataHandlerRegistry.GREAT_HORN_VARIANT);;
+    private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistryME.GREAT_HORN_VARIANT);;
     private static final TrackedData<Integer> BOW = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> ATTACK = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> BLUE_SADDLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -72,7 +74,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     public final AnimationState gallopAnimationState = new AnimationState();
     public final AnimationState bowAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
-    private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.GREAT_HORN.getDimensions().scaled(0.5f);
+    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.GREAT_HORN.getDimensions().scaled(0.5f);
     protected int attackAnimationCooldown = 0;
     protected int bowAnimationTimeout = 0;
 
@@ -124,7 +126,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        RegistryEntry<GreatHornVariant> greatHornVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), GreatHornVariants.DEFAULT);
+        RegistryEntry<GreatHornVariant> greatHornVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), GreatHornVariantRegistry.DEFAULT);
         builder.add(BOW, 0);
         builder.add(BLUE_SADDLE, false);
         builder.add(MOUNTABLE, true);
@@ -142,7 +144,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, GreatHornVariants.KEY).ifPresent(this::setVariant);
+        Variants.readVariantFromNbt(view, DynamicRegistriesME.GREAT_HORN_VARIANTS).ifPresent(this::setVariant);
         this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
@@ -159,8 +161,8 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     @Override
-    public Disposition getDisposition() {
-        return Disposition.GOOD;
+    public DispositionType getDisposition() {
+        return DispositionType.GOOD;
     }
 
     @Override
@@ -238,7 +240,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     @Nullable
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        GreatHornEntity greatHornEntity2 = ModEntities.GREAT_HORN.create(world, SpawnReason.BREEDING);
+        GreatHornEntity greatHornEntity2 = EntitiesME.GREAT_HORN.create(world, SpawnReason.BREEDING);
         if (greatHornEntity2 != null) {
             this.setChildAttributes(entity, greatHornEntity2);
             if (this.random.nextBoolean()) {
@@ -322,7 +324,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                     }
                 }
             } else {
-                this.playSound(ModSounds.GREAT_HORN_CALL, 1.0f, 1.0f);
+                this.playSound(SoundsME.GREAT_HORN_CALL, 1.0f, 1.0f);
             }
         }
         else {
@@ -495,7 +497,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         if (entityData instanceof GreatHornData greatHornData) {
             this.setVariant(greatHornData.variant);
         } else {
-            Optional<? extends RegistryEntry<GreatHornVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), GreatHornVariants.KEY);
+            Optional<? extends RegistryEntry<GreatHornVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), DynamicRegistriesME.GREAT_HORN_VARIANTS);
             if (optional.isPresent()) {
                 this.setVariant(optional.get());
                 entityData = new GreatHornData(optional.get());
@@ -519,19 +521,19 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.GREAT_HORN_DEATH;
+        return SoundsME.GREAT_HORN_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.GREAT_HORN_HURT;
+        return SoundsME.GREAT_HORN_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.GREAT_HORN_IDLE;
+        return SoundsME.GREAT_HORN_IDLE;
     }
 
     @Override

@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.datageneration.content;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.ArrayList;
@@ -11,11 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 public class TranslationEntries {
-
     public static List<Block> blockEntries = new ArrayList<>() {
     };
 
     public static List<Item> itemEntries = new ArrayList<>() {
+    };
+
+    public static List<Identifier> spawnEggEntries = new ArrayList<>() {
     };
 
     public static List<EntityType<?>> entityEntries = new ArrayList<>() {
@@ -26,10 +29,14 @@ public class TranslationEntries {
 
     public static List<String> bannerPatternEntries = new ArrayList<>() {
     };
-
+    public static List<String> raceEntries = new ArrayList<>() {
+    };
     public static List<String> factionEntries = new ArrayList<>() {
     };
-
+    public static List<String> npcDataEntries = new ArrayList<>() {
+    };
+    public static List<String> structureManagerEntries = new ArrayList<>() {
+    };
     public static List<String> spawnEntries = new ArrayList<>() {
     };
 
@@ -136,6 +143,7 @@ public class TranslationEntries {
             put("enchantment."+ MiddleEarth.MOD_ID +".miner_reach", "Miner Reach");
             put("enchantment."+ MiddleEarth.MOD_ID +".stealthy_trail", "Stealthy Trail");
             put("enchantment."+ MiddleEarth.MOD_ID +".stride", "Stride");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stalwart", "Stalwart");
             put("enchantment."+ MiddleEarth.MOD_ID +".tree_feller", "Tree Feller");
             put("enchantment."+ MiddleEarth.MOD_ID +".vantage", "Vantage");
 
@@ -198,15 +206,27 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".elven_lantern", "Elven Lantern");
 
             put("block."+ MiddleEarth.MOD_ID +".forge", "Forge");
+            put("block."+ MiddleEarth.MOD_ID +".dwarven_forge", "Dwarven Forge");
+            put("block."+ MiddleEarth.MOD_ID +".elven_forge", "Elven Forge");
+            put("block."+ MiddleEarth.MOD_ID +".orcish_forge", "Orcish Forge");
             put("block."+ MiddleEarth.MOD_ID +".bellows", "Bellows");
             put("block."+ MiddleEarth.MOD_ID +".treated_anvil", "Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".dwarven_treated_anvil", "Dwarven Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".elven_treated_anvil", "Elven Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".orcish_treated_anvil", "Orcish Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("block."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
 
             put("block."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
 
+            put("block."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".pine_coffer", "Pine Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".fir_coffer", "Fir Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".beech_coffer", "Beech Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".chestnut_coffer", "Chestnut Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".oak_coffer", "Oak Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".willow_coffer", "Willow Coffer");
             put("block."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("block."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("block."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
@@ -271,11 +291,14 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
 
             put("sounds."+ MiddleEarth.MOD_ID +".bellows_push", "Bellows blowing");
+            put("sounds."+ MiddleEarth.MOD_ID +".chisel_hit", "Chisel hits");
+            put("sounds."+ MiddleEarth.MOD_ID +".chisel_enchant", "Chisel enchants");
             put("sounds."+ MiddleEarth.MOD_ID +".nazgul_fade", "Nazgûl fading");
             put("sounds."+ MiddleEarth.MOD_ID +".nazgul_scream", "Nazgûl screaming");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_refill", "Pipe refills");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_exhale", "Pipe exhales");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_ignite", "Pipe ignites");
+            put("sounds."+ MiddleEarth.MOD_ID +".orc_drum", "Orc drums");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_idle", "Great Horn grunts");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_hurt", "Great Horn hurts");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_call", "Great Horn bugles");
@@ -284,8 +307,17 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("screen."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
             put("container."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("container."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
             put("container."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("container."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
+            put("screen."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".pine_coffer", "Pine Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".fir_coffer", "Fir Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".beech_coffer", "Beech Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".chestnut_coffer", "Chestnut Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".oak_coffer", "Oak Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".willow_coffer", "Willow Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("screen."+ MiddleEarth.MOD_ID +".wood_pile", "Wood Pile");
             put("screen."+ MiddleEarth.MOD_ID +".shaping_anvil", "Shaping Anvil");
@@ -299,6 +331,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.pickaxe", "Pickaxe");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.shovel", "Shovel");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.hoe", "Hoe");
+            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.chisel", "Chisel");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.armors", "Armors");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.helmet", "Helmet");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.chestplate", "Chestplate");
@@ -365,19 +398,18 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_top", "Top Armor Addon, Enabled");
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_side", "Side Armor Addon, Enabled");
 
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode_await", "Select a cast");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode0", "Not enough Metal.");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode1", "1 Nugget");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode2", "1 Ingot");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode3", "2 Ingots");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode4", "3 Ingots");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode5", "3 Ingots");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer", "Left click the anvil with a");
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer_2", "Smithing Hammer to shape the metal.");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_alloying", "Alloying Mode");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating", "Heating Mode");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating_switch", "To go into alloying mode, add bellows to the");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating_switch_2", "sides of the forge containing a small vent.");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_switch_alloying", "Click to switch to Heating Mode");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_switch_heating", "Click to switch to Alloying Mode");
             put("tooltip."+ MiddleEarth.MOD_ID +".ingots_number", "Ingots");
             put("tooltip."+ MiddleEarth.MOD_ID +".nuggets_number", "Nuggets");
 
@@ -391,10 +423,14 @@ public class TranslationEntries {
 
             //TODO try to automate
             put("trim_pattern."+ MiddleEarth.MOD_ID +".smithing_part", "Smithing Part");
+            put("trim_material."+ MiddleEarth.MOD_ID +".copper", "Copper");
+            put("trim_material."+ MiddleEarth.MOD_ID +".iron", "Iron");
+            put("trim_material."+ MiddleEarth.MOD_ID +".gold", "Gold");
+            put("trim_material."+ MiddleEarth.MOD_ID +".netherite", "Netherite");
             put("trim_material."+ MiddleEarth.MOD_ID +".jade", "Jade");
             put("trim_material."+ MiddleEarth.MOD_ID +".tin", "Tin");
             put("trim_material."+ MiddleEarth.MOD_ID +".lead", "Lead");
-            put("trim_material."+ MiddleEarth.MOD_ID +".silver", "silver");
+            put("trim_material."+ MiddleEarth.MOD_ID +".silver", "Silver");
             put("trim_material."+ MiddleEarth.MOD_ID +".bronze", "Bronze");
             put("trim_material."+ MiddleEarth.MOD_ID +".steel", "Steel");
             put("trim_material."+ MiddleEarth.MOD_ID +".crude", "Crude");
@@ -413,13 +449,6 @@ public class TranslationEntries {
             put("spawn."+ MiddleEarth.MOD_ID +".coordinates_base_values.custom", "%s, %s, %s");
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
-
-            put("race."+ MiddleEarth.MOD_ID +".dwarf", "Dwarf");
-            put("race."+ MiddleEarth.MOD_ID +".elf", "Elf");
-            put("race."+ MiddleEarth.MOD_ID +".human", "Human");
-            put("race."+ MiddleEarth.MOD_ID +".hobbit", "Hobbit");
-            put("race."+ MiddleEarth.MOD_ID +".orc", "Orc");
-            put("race."+ MiddleEarth.MOD_ID +".uruk", "Uruk");
 
             put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
 

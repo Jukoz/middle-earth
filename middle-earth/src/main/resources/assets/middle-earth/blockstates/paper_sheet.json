@@ -1,0 +1,61 @@
+{
+  "variants": {
+    "papers=1,facing=east": {
+      "model": "middle-earth:block/paper_sheet_1",
+      "y": 90
+    },
+    "papers=1,facing=north": {
+      "model": "middle-earth:block/paper_sheet_1"
+    },
+    "papers=1,facing=south": {
+      "model": "middle-earth:block/paper_sheet_1",
+      "y": 180
+    },
+    "papers=1,facing=west": {
+      "model": "middle-earth:block/paper_sheet_1",
+      "y": 270
+    },
+
+    "papers=2,facing=east": {
+      "model": "middle-earth:block/paper_sheet_2",
+      "y": 90
+    },
+    "papers=2,facing=north": {
+      "model": "middle-earth:block/paper_sheet_2"
+    },
+    "papers=2,facing=south": {
+      "model": "middle-earth:block/paper_sheet_2",
+      "y": 180
+    },
+    "papers=2,facing=west": {
+      "model": "middle-earth:block/paper_sheet_2",
+      "y": 270
+    },
+
+    "papers=3,facing=east": {
+      "model": "middle-earth:block/paper_sheet_3",
+      "y": 90
+    },
+    "papers=3,facing=north": {
+      "model": "middle-earth:block/paper_sheet_3"
+    },
+    "papers=3,facing=south": {
+      "model": "middle-earth:block/paper_sheet_3",
+      "y": 180
+    },
+    "papers=3,facing=west": {
+      "model": "middle-earth:block/paper_sheet_3",
+      "y": 270
+    },
+
+    "papers=4": {
+      "model": "middle-earth:block/paper_sheet_4"
+    },
+    "papers=5": {
+      "model": "middle-earth:block/paper_sheet_5"
+    },
+    "papers=6": {
+      "model": "middle-earth:block/paper_sheet_6"
+    }
+  }
+}

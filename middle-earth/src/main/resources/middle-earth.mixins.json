@@ -6,9 +6,11 @@
   "mixins": [
     "AbstractHorseEntityMixin",
     "BannerPatternRegisterMixin",
+    "BlockEntityTypeMixin",
     "BlockMixin",
     "ChunkGenerationStepMixin",
     "ChunkGeneratorMixin",
+    "ComponentsIngredientMixin",
     "CropBlockMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",

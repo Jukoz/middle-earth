@@ -1,13 +1,11 @@
 package net.sevenstars.middleearth.item.items;
 
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.ActionResult;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -125,13 +123,13 @@ public class PipeItem extends Item {
         DamageableItemUtils.resetDamage(pipe);
         applyCooldown(user, pipe);
 
-        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_REFILL, SoundCategory.PLAYERS);
+        SoundUtils.playSoundAtEntity(world, user, SoundsME.PIPE_REFILL, SoundCategory.PLAYERS);
 
         return true;
     }
 
     private void startSmoking(ItemStack pipe, PlayerEntity user, World world, Hand hand) {
-        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_IGNITE, SoundCategory.PLAYERS);
+        SoundUtils.playSoundAtEntity(world, user, SoundsME.PIPE_IGNITE, SoundCategory.PLAYERS);
         user.setCurrentHand(hand);
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         DamageableItemUtils.incrementDamage(pipe, 1);
@@ -168,11 +166,11 @@ public class PipeItem extends Item {
          * https://pixabay.com/service/license-summary/
          * https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=106654
          */
-        SoundUtils.playSoundAtEntity(world, user, ModSounds.PIPE_EXHALE, SoundCategory.PLAYERS);
+        SoundUtils.playSoundAtEntity(world, user, SoundsME.PIPE_EXHALE, SoundCategory.PLAYERS);
 
         if (world.isClient()) return;
 
-        SmokeRingProjectileEntity smoke = new SmokeRingProjectileEntity(ModEntities.SMOKE_RING_PROJECTILE,
+        SmokeRingProjectileEntity smoke = new SmokeRingProjectileEntity(EntitiesME.SMOKE_RING_PROJECTILE,
                 world,
                 user);
 
@@ -196,7 +194,7 @@ public class PipeItem extends Item {
              */
             SoundUtils.playSoundAtEntity(player.getWorld(),
                     player,
-                    ModSounds.PIPE_COUGH,
+                    SoundsME.PIPE_COUGH,
                     SoundCategory.PLAYERS);
         }
     }

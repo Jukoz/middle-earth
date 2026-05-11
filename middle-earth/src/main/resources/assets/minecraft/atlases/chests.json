@@ -1,5 +1,13 @@
 {
   "sources": [
-    { "type": "single", "resource": "middle-earth:model/reinforced_chest" }
+    { "type": "single", "resource": "middle-earth:model/reinforced_chest" },
+    { "type": "single", "resource": "middle-earth:model/larch_coffer" },
+    { "type": "single", "resource": "middle-earth:model/pine_coffer" },
+    { "type": "single", "resource": "middle-earth:model/spruce_coffer" },
+    { "type": "single", "resource": "middle-earth:model/fir_coffer" },
+    { "type": "single", "resource": "middle-earth:model/beech_coffer" },
+    { "type": "single", "resource": "middle-earth:model/chestnut_coffer" },
+    { "type": "single", "resource": "middle-earth:model/oak_coffer" },
+    { "type": "single", "resource": "middle-earth:model/willow_coffer" }
   ]
 }

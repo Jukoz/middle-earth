@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:block/small_red_curtain",
+	"textures": {
+		"0": "middle-earth:block/small_rotten_curtain",
+		"particle": "middle-earth:block/small_rotten_curtain"
+	}
+}

@@ -140,7 +140,7 @@ public class ModCaveBiomes {
 
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createMountainCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -153,7 +153,7 @@ public class ModCaveBiomes {
 
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, true);
     }
 
     public static Biome createLushCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -179,7 +179,7 @@ public class ModCaveBiomes {
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.SPORE_BLOSSOM);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.CLASSIC_VINES_CAVE);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createDripstoneCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -192,7 +192,7 @@ public class ModCaveBiomes {
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createDolomiteCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -207,7 +207,7 @@ public class ModCaveBiomes {
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createGalonnCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -222,7 +222,7 @@ public class ModCaveBiomes {
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createGildedCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -236,7 +236,7 @@ public class ModCaveBiomes {
 
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, true);
     }
 
     public static Biome createIzherAbanCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -252,7 +252,7 @@ public class ModCaveBiomes {
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createLimestoneCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -267,7 +267,7 @@ public class ModCaveBiomes {
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createMudCaves(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -282,7 +282,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.POOL_MUD);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createFungusCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -319,7 +319,7 @@ public class ModCaveBiomes {
         //generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.TREE_YELLOW_AMANITA);
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatures.GLOWWORM_WEBBING);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, true);
     }
 
     public static Biome createMithrilCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -329,7 +329,7 @@ public class ModCaveBiomes {
         addBasicFeatures(generationSettings, true);
         undergroundOres.add(CavesPlacedFeatures.ORE_MITHRIL);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, true);
     }
 
     public static Biome createBasaltCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -343,7 +343,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_ASHEN_DIRT);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, true);
     }
 
     public static Biome createMagmaCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -355,7 +355,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_MAGMA_ABUNDANT);
         undergroundOres.add(CavesPlacedFeatures.ORE_ASHEN_DIRT);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, true);
     }
 
     public static Biome createDryCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -370,7 +370,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.PILLAR_SMOOTH_SANDSTONE);
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false, true, false);
     }
 
     public static Biome createIceCaves(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -387,7 +387,7 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.STICKY_SNOW);
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false, true, true);
     }
 
     private static void addBasicFeatures(GenerationSettings.LookupBackedBuilder generationSettings, boolean vanillaRocks) {
@@ -408,7 +408,10 @@ public class ModCaveBiomes {
         undergroundOres.add(CavesPlacedFeatures.ORE_SILVER);
         undergroundOres.add(CavesPlacedFeatures.ORE_JADE);
         undergroundOres.add(CavesPlacedFeatures.ORE_GOLD);
+        undergroundOres.add(CavesPlacedFeatures.ORE_ADAMANT);
         undergroundOres.add(CavesPlacedFeatures.ORE_EMERALD);
+        undergroundOres.add(CavesPlacedFeatures.ORE_RUBY);
+        undergroundOres.add(CavesPlacedFeatures.ORE_SAPPHIRE);
         undergroundOres.add(CavesPlacedFeatures.SPRING_LAVA);
         undergroundOres.add(MiscPlacedFeatures.SPRING_WATER);
 
@@ -439,11 +442,17 @@ public class ModCaveBiomes {
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
     }
 
-    public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation, boolean monsters) {
+    public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation, boolean haveMonsters, boolean haveDeepMonsters) {
         ModCaveBiomeFeatures.addBats(spawnSettings);
-        if(monsters) {
-            ModCaveBiomeFeatures.addSpiders(spawnSettings);
-            ModCaveBiomeFeatures.addWildGoblins(spawnSettings);
+        if(haveMonsters) {
+            ModCaveBiomeFeatures.addSpiderLarvas(spawnSettings);
+            if(haveDeepMonsters){
+                ModCaveBiomeFeatures.addGroupWildGoblins(spawnSettings);
+                ModCaveBiomeFeatures.addCaveTroll(spawnSettings);
+                ModCaveBiomeFeatures.addSpiders(spawnSettings);
+            } else {
+                ModCaveBiomeFeatures.addParseWildGoblins(spawnSettings);
+            }
         }
 
         undergroundOres = undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
