@@ -91,6 +91,15 @@
         "projection": "rigid",
         "processors": "middle-earth:randomize_shire_road"
       }
+    },
+    {
+      "weight": 12,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/poor_hobbit_hole",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_shire_road"
+      }
     }
   ]
 }
