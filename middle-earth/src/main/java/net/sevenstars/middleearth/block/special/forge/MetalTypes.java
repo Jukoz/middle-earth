@@ -29,6 +29,14 @@ public enum MetalTypes implements StringIdentifiable {
     NETHERITE(13, "netherite", Items.NETHERITE_INGOT, null, true, 6445145),
     ;
 
+    public static MetalTypes fromValue(String name) {
+        for (MetalTypes metal : MetalTypes.values()) {
+            if (metal.name.equals(name)) return metal;
+        }
+        System.out.println("CRASH AT : " + name);
+        return null;
+    }
+
     private final int id;
     private final String name;
     private final Item ingot;

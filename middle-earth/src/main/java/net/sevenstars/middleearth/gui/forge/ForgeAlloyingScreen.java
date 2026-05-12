@@ -44,7 +44,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
     private static final int PROGRESS_ARROW_SIZE = 27;
     private static final int COOKING_FIRE_SIZE = 14;
-    private static final int LIQUID_HEIGHT = 26;
+    public static final int LIQUID_HEIGHT = 26;
 
     private static final int EXTRACT_BUTTON_ITEM_X = 136;
     private static final int EXTRACT_BUTTON_ITEM_Y = 18;
