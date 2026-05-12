@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.entity.projectile.smoke;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.server.world.ServerWorld;
@@ -16,8 +18,8 @@ import net.sevenstars.middleearth.utils.ModCollisionUtils;
 
 public class SmokeRingProjectileEntity extends ProjectileEntity {
     public static final int MAX_LIFESPAN_TICKS = 40;
-
-    private static final double INITIAL_SPEED = 0.5;
+    public static final int FAILED_MAX_LIFESPAN_TICKS = 14;
+    private static final TrackedData<Boolean> FAILED = DataTracker.registerData(SmokeRingProjectileEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final double ENTITY_BOX_EXPANSION = 1.0;
     private static final float ENTITY_COLLISION_MARGIN = 0.3F;
 
@@ -28,18 +30,6 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
             World world) {
         super(type, world);
         this.setNoGravity(true);
-    }
-
-    public SmokeRingProjectileEntity(
-            EntityType<? extends SmokeRingProjectileEntity> type,
-            World world,
-            LivingEntity owner) {
-        this(type, world);
-        this.setOwner(owner);
-        this.setPosition(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
-
-        Vec3d velocity = owner.getRotationVec(1.0F).normalize().multiply(INITIAL_SPEED);
-        this.setVelocity(velocity);
     }
 
     @Override
@@ -67,21 +57,23 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
-        // Not needed yet
+        builder.add(FAILED, false);
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
+        this.setFailed(view.getBoolean("Failed", false));
     }
 
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
+        view.putBoolean("Failed", this.isFailed());
     }
 
     private void checkLifespan() {
-        if (this.age >= MAX_LIFESPAN_TICKS) {
+        if (this.age >= this.getMaxLifespanTicks()) {
             this.discard();
         }
     }
@@ -90,7 +82,7 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
         if (isFadingOut) return;
 
         isFadingOut = true;
-        this.age = MAX_LIFESPAN_TICKS - 3;
+        this.age = this.getMaxLifespanTicks() - 3;
 
         this.setVelocity(Vec3d.ZERO);
         this.setPosition(this.getX(), this.getY(), this.getZ());
@@ -99,7 +91,11 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
     private void checkCollision() {
         if (isFadingOut) return;
 
-        // Simplified collision checks
+        if (this.isFailed()) {
+            this.move(MovementType.SELF, this.getVelocity());
+            return;
+        }
+
         if (checkEntityCollision() || checkBlockCollision()) {
             return;
         }
@@ -111,7 +107,6 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
         Vec3d start = this.getPos();
         Vec3d end = this.getPos().add(this.getVelocity());
 
-        // Get entity collision result
         EntityHitResult hit = ProjectileUtil.getEntityCollision(this.getWorld(),
                 this,
                 start,
@@ -135,5 +130,17 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
                 this.getVelocity(),
                 this,
                 this::onCollision);
+    }
+
+    public void setFailed(boolean failed) {
+        this.dataTracker.set(FAILED, failed);
+    }
+
+    public boolean isFailed() {
+        return this.dataTracker.get(FAILED);
+    }
+
+    public int getMaxLifespanTicks() {
+        return this.isFailed() ? FAILED_MAX_LIFESPAN_TICKS : MAX_LIFESPAN_TICKS;
     }
 }
