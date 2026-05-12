@@ -170,14 +170,14 @@ public class PipeItem extends Item {
         world.spawnEntity(smoke);
     }
 
-    private void startCoughing(LivingEntity user) {
-        if (user instanceof PlayerEntity player) {
-            SoundUtils.playSoundAtEntity(player.getWorld(),
-                    player,
-                    SoundsME.PIPE_COUGH,
-                    SoundCategory.PLAYERS);
-        }
-    }
+//    private void startCoughing(LivingEntity user) {
+//        if (user instanceof PlayerEntity player) {
+//            SoundUtils.playSoundAtEntity(player.getWorld(),
+//                    player,
+//                    SoundsME.PIPE_COUGH,
+//                    SoundCategory.PLAYERS);
+//        }
+//    }
 
     private boolean smokedLongEnoughForSmokeRing(int elapsedTicks) {
         return elapsedTicks >= MIN_SMOKE_TIME_FOR_RING_SPAWN_TICKS;
@@ -218,7 +218,7 @@ public class PipeItem extends Item {
         if (!timedOut && smokedLongEnoughForSmokeRing(elapsedTicks)) {
             spawnSmokeRing(user, world);
         } else {
-            startCoughing(user);
+            //startCoughing(user);
             spawnFailedSmokeRing(user, world);
         }
 
