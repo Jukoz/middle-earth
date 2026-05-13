@@ -21,7 +21,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.sevenstars.middleearth.item.items.WoodenScaffoldingItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -415,9 +414,6 @@ public class ModBlocks {
             Block::new,AbstractBlock.Settings.copy(Blocks.WHITE_WOOL), true);
     public static final Block YELLOW_CANVAS = registerMiscBlock("yellow_canvas",
             Block::new,AbstractBlock.Settings.copy(Blocks.YELLOW_WOOL), true);
-
-    public static final Block SPRUCE_SCAFFOLDING = registerWoodBlock("spruce_scaffolding",
-            WoodenScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD), true);
 
     //region METAL AND GEMS
     public static final Block RAW_MITHRIL_BLOCK = registerMiscBlock("raw_mithril_block",
@@ -866,10 +862,8 @@ public class ModBlocks {
     }
 
     static void registerBlockItem(String name, Block block) {
-        Item item = block instanceof WoodenScaffoldingBlock
-                ? new WoodenScaffoldingItem(block, new Item.Settings().registryKey(keyOfItem(name)))
-                : new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name)));
-        item = Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        var item = Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
+                new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }

@@ -10,10 +10,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.special.WoodenScaffoldingBlock;
+import net.sevenstars.middleearth.block.special.ReinforcedScaffoldingBlock;
 
-public class WoodenScaffoldingItem extends ScaffoldingItem {
-    public WoodenScaffoldingItem(Block block, Settings settings) {
+public class ReinforcedScaffoldingItem extends ScaffoldingItem {
+    public ReinforcedScaffoldingItem(Block block, Settings settings) {
         super(block, settings);
     }
 
@@ -34,7 +34,7 @@ public class WoodenScaffoldingItem extends ScaffoldingItem {
             int horizontalDistance = 0;
             BlockPos.Mutable mutable = blockPos.mutableCopy().move(direction);
 
-            while (horizontalDistance < 7) {
+            while (horizontalDistance < ReinforcedScaffoldingBlock.MAX_SUPPORT_DISTANCE) {
                 if (!world.isClient && !world.isInBuildLimit(mutable)) {
                     if (context.getPlayer() instanceof ServerPlayerEntity serverPlayer && mutable.getY() > world.getTopYInclusive()) {
                         serverPlayer.sendMessageToClient(
@@ -59,7 +59,7 @@ public class WoodenScaffoldingItem extends ScaffoldingItem {
             return null;
         }
 
-        return WoodenScaffoldingBlock.calculateDistance(world, blockPos, block) == 7 ? null : context;
+        return ReinforcedScaffoldingBlock.calculateDistance(world, blockPos, block) == ReinforcedScaffoldingBlock.MAX_SUPPORT_DISTANCE ? null : context;
     }
 
     @Override

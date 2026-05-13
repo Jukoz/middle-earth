@@ -775,15 +775,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.STRING))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPRUCE_SCAFFOLDING, 6)
-                        .pattern("ISI")
-                        .pattern("I I")
-                        .pattern("I I")
-                        .input('I', Items.STRIPPED_SPRUCE_LOG)
-                        .input('S', Items.STRING)
-                        .criterion(hasItem(Items.STRIPPED_SPRUCE_LOG),
-                                conditionsFromItem(Items.STRIPPED_SPRUCE_LOG))
-                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeItemsME.REINFORCED_SCAFFOLDING, 6)
+                        .pattern("LCL")
+                        .pattern("S S")
+                        .pattern("T T")
+                        .input('L', Items.STRIPPED_SPRUCE_LOG)
+                        .input('C', ModBlocks.CANVAS)
+                        .input('T', ResourceItemsME.TIN_INGOT)
+                        .input('S', Items.STICK)
+                        .criterion(hasItem(ResourceItemsME.TIN_INGOT),
+                                conditionsFromItem(ResourceItemsME.TIN_INGOT))
+                        .offerTo(exporter, "reinforced_scaffolding");
 
                 //region CANVAS
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CANVAS, 2)

@@ -174,7 +174,7 @@ public class RegistriesME {
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.RED_WOOL_STAIRS, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.BLACK_WOOL_STAIRS, 30, 60);
 
-        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.SPRUCE_SCAFFOLDING, 60, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.REINFORCED_SCAFFOLDING, 60, 60);
 
         FlammableBlockRegistry.getDefaultInstance().add(ModDecorativeBlocks.WOOD_PILE, 5, 5);
 

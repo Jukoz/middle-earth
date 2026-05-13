@@ -384,7 +384,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(ModBlocks.EMBERS, BlockRenderLayer.CUTOUT);
 
-        BlockRenderLayerMap.putBlock(ModBlocks.SPRUCE_SCAFFOLDING, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.REINFORCED_SCAFFOLDING, BlockRenderLayer.CUTOUT);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
