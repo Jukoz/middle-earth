@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "bottom=false": {
+      "model": "middle-earth:block/spruce_scaffolding_base"
+    },
+    "bottom=true": {
+      "model": "middle-earth:block/spruce_scaffolding_extension"
+    }
+  }
+}

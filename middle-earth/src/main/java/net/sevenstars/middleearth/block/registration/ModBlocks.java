@@ -21,6 +21,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.sevenstars.middleearth.item.items.WoodenScaffoldingItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -369,6 +370,54 @@ public class ModBlocks {
             Block::new,AbstractBlock.Settings.copy(Blocks.PACKED_MUD),true);
     public static final Block WATTLE_AND_YELLOW_DAUB_DIAMOND = registerMiscBlock("wattle_and_yellow_daub_diamond",
             Block::new,AbstractBlock.Settings.copy(Blocks.PACKED_MUD),true);
+
+    public static final Block CANVAS = registerMiscBlock("canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.WHITE_WOOL), true);
+    public static final Block BLACK_CANVAS = registerMiscBlock("black_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.BLACK_WOOL), true);
+    public static final Block BLUE_CANVAS = registerMiscBlock("blue_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.BLUE_WOOL), true);
+    public static final Block BROWN_CANVAS = registerMiscBlock("brown_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.BROWN_WOOL), true);
+    public static final Block CYAN_CANVAS = registerMiscBlock("cyan_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.CYAN_WOOL), true);
+    public static final Block DARK_BLUE_CANVAS = registerMiscBlock("dark_blue_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.BLUE_WOOL), true);
+    public static final Block DARK_BROWN_CANVAS = registerMiscBlock("dark_brown_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.BROWN_WOOL), true);
+    public static final Block DARK_GRAY_CANVAS = registerMiscBlock("dark_gray_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.GRAY_WOOL), true);
+    public static final Block DARK_GREEN_CANVAS = registerMiscBlock("dark_green_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.GREEN_WOOL), true);
+    public static final Block DARK_RED_CANVAS = registerMiscBlock("dark_red_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.RED_WOOL), true);
+    public static final Block DARK_YELLOW_CANVAS = registerMiscBlock("dark_yellow_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.YELLOW_WOOL), true);
+    public static final Block GRAY_CANVAS = registerMiscBlock("gray_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.GRAY_WOOL), true);
+    public static final Block GREEN_CANVAS = registerMiscBlock("green_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.GREEN_WOOL), true);
+    public static final Block LIGHT_BLUE_CANVAS = registerMiscBlock("light_blue_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.LIGHT_BLUE_WOOL), true);
+    public static final Block LIGHT_GRAY_CANVAS = registerMiscBlock("light_gray_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.LIGHT_GRAY_WOOL), true);
+    public static final Block MAGENTA_CANVAS = registerMiscBlock("magenta_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.MAGENTA_WOOL), true);
+    public static final Block ORANGE_CANVAS = registerMiscBlock("orange_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.ORANGE_WOOL), true);
+    public static final Block PINK_CANVAS = registerMiscBlock("pink_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.PINK_WOOL), true);
+    public static final Block PURPLE_CANVAS = registerMiscBlock("purple_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.PURPLE_WOOL), true);
+    public static final Block RED_CANVAS = registerMiscBlock("red_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.RED_WOOL), true);
+    public static final Block WHITE_CANVAS = registerMiscBlock("white_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.WHITE_WOOL), true);
+    public static final Block YELLOW_CANVAS = registerMiscBlock("yellow_canvas",
+            Block::new,AbstractBlock.Settings.copy(Blocks.YELLOW_WOOL), true);
+
+    public static final Block SPRUCE_SCAFFOLDING = registerWoodBlock("spruce_scaffolding",
+            WoodenScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD), true);
 
     //region METAL AND GEMS
     public static final Block RAW_MITHRIL_BLOCK = registerMiscBlock("raw_mithril_block",
@@ -817,8 +866,10 @@ public class ModBlocks {
     }
 
     static void registerBlockItem(String name, Block block) {
-        var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
-                new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
+        Item item = block instanceof WoodenScaffoldingBlock
+                ? new WoodenScaffoldingItem(block, new Item.Settings().registryKey(keyOfItem(name)))
+                : new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name)));
+        item = Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
         Item.BLOCK_ITEMS.put(block, item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }
