@@ -1,0 +1,15 @@
+{
+  "name": "middle-earth:village_stables_road",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:rohan/village/stables_road",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    }
+  ]
+}
