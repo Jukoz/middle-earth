@@ -18,6 +18,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.*;
+import net.sevenstars.middleearth.world.features.platedfood.PlatedFoodFeature;
+import net.sevenstars.middleearth.world.features.platedfood.PlatedFoodFeatureConfig;
 
 public class ModFeatures {
     public static Feature<DeltaFeatureConfig> DELTA_FEATURE = register("delta_feature", new ModDeltaFeatures(DeltaFeatureConfig.CODEC));
@@ -32,6 +34,7 @@ public class ModFeatures {
     public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
     public static Feature<ModOreFeatureConfig> ORE = register("ore", new ModOreFeature(ModOreFeatureConfig.CODEC));
     public static Feature<ChainFeatureConfig> CHAIN = register("chain", new ChainFeature(ChainFeatureConfig.CODEC));
+    public static Feature<PlatedFoodFeatureConfig> PLATED_FOOD = register("plated_food", new PlatedFoodFeature(PlatedFoodFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> MIRKWOOD_VINE = register("mirkwood_vine", new MirkwoodVinesFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> WILLOW_VINE = register("willow_vine", new WillowVinesFeature(DefaultFeatureConfig.CODEC));
 

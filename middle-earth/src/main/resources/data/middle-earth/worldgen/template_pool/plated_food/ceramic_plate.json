@@ -1,0 +1,14 @@
+{
+  "name": "middle-earth:ceramic_plate",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:feature_pool_element",
+        "feature": "middle-earth:ceramic_plate",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ]
+}
