@@ -1,27 +1,22 @@
 package net.sevenstars.middleearth.block.special.plate;
 
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.storage.NbtReadView;
-import net.minecraft.storage.ReadView;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -30,11 +25,11 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.minecraft.world.tick.TickPriority;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class PlateBlock extends BlockWithEntity {
@@ -81,6 +76,28 @@ public class PlateBlock extends BlockWithEntity {
             plateBlockEntity.generateItem(world);
         }
         plateBlockEntity.setBlockPlaced();
+    }
+
+    @Override
+    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
+        if(plateBlockEntity != null && plateBlockEntity.isBlockPlaced()) {
+            plateBlockEntity.generateItem(world);
+        }
+        super.randomTick(state, world, pos, random);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        if (!world.isClient) {
+            return PlateBlock.validateTicker(world, type, ModBlockEntities.PLATE);
+        }
+        return super.getTicker(world, state, type);
+    }
+
+    private static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> type, BlockEntityType<PlateBlockEntity> plate) {
+        return PlateBlock.validateTicker(type, plate, PlateBlockEntity::tick);
     }
 
     @Override

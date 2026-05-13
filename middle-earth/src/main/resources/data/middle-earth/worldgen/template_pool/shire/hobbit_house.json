@@ -93,7 +93,7 @@
       }
     },
     {
-      "weight": 12,
+      "weight": 3,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:shire/poor_hobbit_hole",
