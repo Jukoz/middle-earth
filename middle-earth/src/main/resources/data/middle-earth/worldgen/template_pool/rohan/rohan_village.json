@@ -8,7 +8,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:rohan/village/lord_place",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_gondor_road"
+        "processors": "middle-earth:randomize_rohan_road"
       }
     }
   ]

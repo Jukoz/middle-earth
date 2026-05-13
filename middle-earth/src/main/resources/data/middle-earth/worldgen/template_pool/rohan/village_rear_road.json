@@ -8,7 +8,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:rohan/village/rear_road",
         "projection": "terrain_matching",
-        "processors": "middle-earth:randomize_gondor_road"
+        "processors": "middle-earth:randomize_rohan_road"
       }
     }
   ]
