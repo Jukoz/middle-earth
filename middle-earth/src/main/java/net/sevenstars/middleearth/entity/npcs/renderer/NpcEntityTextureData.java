@@ -179,7 +179,7 @@ public class NpcEntityTextureData {
     public NpcEntityTextureData withClothingTexture(Identifier textureBase, Identifier textureOver, Identifier textureExtra){
         this.clothingBaseTexture = textureBase;
         this.clothingOverTexture = textureOver;
-        this.clothingExtraTexture = textureOver;
+        this.clothingExtraTexture = textureExtra;
         return this;
     }
 

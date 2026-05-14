@@ -13,19 +13,24 @@ public class WeightedClothingPresetHolder extends WeightedItem<ClothingPreset> {
     public WeightedClothingPresetHolder(List<WeightedIdentifier> bases){
         this(bases, null, null, 1);
     }
+
     public WeightedClothingPresetHolder(List<WeightedIdentifier> bases, List<WeightedIdentifier> overs){
         this(bases, overs, null, 1);
     }
+
     public WeightedClothingPresetHolder(List<WeightedIdentifier> bases, List<WeightedIdentifier> overs, int weight){
         this(bases, overs, null, weight);
     }
+
     public WeightedClothingPresetHolder(List<WeightedIdentifier> bases, List<WeightedIdentifier> overs, List<WeightedIdentifier> extras){
         this(bases, overs, extras, 1);
     }
+
     public WeightedClothingPresetHolder(List<WeightedIdentifier> bases, List<WeightedIdentifier> overs, List<WeightedIdentifier> extras, int weight){
         this.item = new ClothingPreset(new WeightedPool<>(bases), new WeightedPool<>(overs), new WeightedPool<>(extras));
         this.weight = weight;
     }
+
     public WeightedClothingPresetHolder(NbtCompound source){
         super(source);
         this.item = new ClothingPreset(source);

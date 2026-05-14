@@ -195,10 +195,10 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingBase, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay);
 
         if(state.clothingOver != null)
-            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingOver, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay);
+            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingOver, AtlasesME.CLOTHES_OVER_PREFIX), light, overlay);
 
         if(state.clothingExtra != null)
-            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingExtra, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay);
+            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingExtra, AtlasesME.CLOTHES_EXTRA_PREFIX), light, overlay);
 
         if (this.shouldRenderFeatures(state)) {
             for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
@@ -235,7 +235,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         Sprite sprite = characterTextureAtlas.getSprite(textureId);
         renderModel(sprite, matrices, vertexConsumer, light, overlay);
     }
-
     private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
         if(sprite != null){
             VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
