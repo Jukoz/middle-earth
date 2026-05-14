@@ -45,6 +45,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public final static int HURT_COLOR = 0xff7e75;
 
     public final static int LIGHT_LEVEL_EMISSIVE_EYES = 8;
+    public final static int BLINKING_INTERVAL = 80;
+    public final static int BLINKING_DURATION = 3;
+
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new NpcEntityModel(context.getPart(EntityModelLayersME.NPC)), 0.7f);
@@ -104,7 +107,9 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.clothingOver = npcTextureData.get(NpcRenderedPart.CLOTHING_OVER);
         npcEntityRenderState.clothingExtra = npcTextureData.get(NpcRenderedPart.CLOTHING_EXTRA);
 
-        npcEntityRenderState.blinking = (npcEntity.getInitializationTick() + npcEntity.getBreedingAge()) % 80 >= 80 - 2;
+        long initializationTick = npcEntity.getInitializationTick();
+        long age = npcEntity.age;
+        npcEntityRenderState.blinking = (initializationTick + age) % BLINKING_INTERVAL >= BLINKING_INTERVAL - BLINKING_DURATION;
 
         ItemStack currentHelmet = npcEntity.getEquippedStack(EquipmentSlot.HEAD);
         if(currentHelmet == null || currentHelmet.isEmpty()){

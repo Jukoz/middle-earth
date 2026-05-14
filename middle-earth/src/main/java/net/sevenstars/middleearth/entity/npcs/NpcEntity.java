@@ -206,7 +206,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             return;
 
         World world = getWorld();
-
         if(world.isClient)
             return;
 
@@ -417,6 +416,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         if(race == null)
             return null;
         return race.getRaceType();
+    }
+
+    public void setInitializationTick() {
+        this.dataTracker.set(INITIALIZATION_TICK, this.getWorld().getTickOrder());
     }
 
     public Long getInitializationTick() {
