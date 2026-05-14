@@ -213,13 +213,15 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
+            this.setTame(true);
             this.setTameness(75);
             this.stopSleeping();
             this.getBrain().remember(MemoryModulesME.TAME, true);
             this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
+            this.getBrain().forget(MemoryModuleType.NEAREST_ATTACKABLE);
+            this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
             this.setOwner(player);
-            this.setTame(true);
             Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
         }
     }
