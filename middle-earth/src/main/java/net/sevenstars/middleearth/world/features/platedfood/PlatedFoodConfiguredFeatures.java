@@ -13,15 +13,15 @@ import net.sevenstars.middleearth.world.features.chain.ChainFeatureConfig;
 import net.sevenstars.middleearth.world.gen.ModFeatures;
 
 public class PlatedFoodConfiguredFeatures {
-    public static final RegistryKey<ConfiguredFeature<?, ?>> CERAMIC_PLATE = registerKey("ceramic_plate");
+    //public static final RegistryKey<ConfiguredFeature<?, ?>> CERAMIC_PLATE = registerKey("ceramic_plate");
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
-        ConfiguredFeatures.register(featureRegisterable, CERAMIC_PLATE, ModFeatures.PLATED_FOOD,
-                new PlatedFoodFeatureConfig(ModDecorativeBlocks.CERAMIC_PLATE.getDefaultState(), MiddleEarth.of("structures/shire/food")));
+        //ConfiguredFeatures.register(featureRegisterable, CERAMIC_PLATE, ModFeatures.PLATED_FOOD,
+        //        new PlatedFoodFeatureConfig(ModDecorativeBlocks.CERAMIC_PLATE.getDefaultState(), MiddleEarth.of("structures/shire/food")));
 
     }
 }

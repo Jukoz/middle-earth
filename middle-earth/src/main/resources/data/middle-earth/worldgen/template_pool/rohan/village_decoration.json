@@ -1,0 +1,51 @@
+{
+  "name": "middle-earth:village_decoration",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:rohan/village/decoration",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_rohan_road"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:rohan/village/decoration_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_rohan_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:rohan/village/decoration_2",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_rohan_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:rohan/village/decoration_3",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_rohan_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:rohan/village/decoration_4",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_rohan_road"
+      }
+    }
+  ]
+}
