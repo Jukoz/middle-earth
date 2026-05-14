@@ -22,7 +22,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
 
     @Override
     public Identifier getTexture(CaveTrollEntityRenderState state) {
-        return state.tameness > 25 && !state.isEnraged ? Identifier.of(MiddleEarth.MOD_ID, TEXTURE) : Identifier.of(MiddleEarth.MOD_ID, TEXTURE_ANGRY);
+        return (state.tameness > 25 || !state.isTame) && !state.isEnraged ? Identifier.of(MiddleEarth.MOD_ID, TEXTURE) : Identifier.of(MiddleEarth.MOD_ID, TEXTURE_ANGRY);
     }
 
     @Override

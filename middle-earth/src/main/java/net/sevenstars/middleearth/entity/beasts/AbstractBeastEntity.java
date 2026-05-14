@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -340,6 +341,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public void breakFree() {
         this.setTame(false);
         this.setOwner(null);
+        this.setSitting(false);
 
         if(this.getBrain() != null) {
             this.getBrain().forget(MemoryModulesME.TAME);
