@@ -35,6 +35,7 @@ import net.sevenstars.middleearth.entity.npcs.renderer.features.hair.HairFeature
 import net.sevenstars.middleearth.entity.npcs.renderer.features.nose.NoseFeatureRenderer;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.registries.AtlasesME;
+import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import org.jetbrains.annotations.Nullable;
 
@@ -191,14 +192,19 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if(state.hairId != null)
             renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.hairId, AtlasesME.HAIR_PREFIX), light, overlay);
 
-        if(state.clothingBase != null)
-            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingBase, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay);
+        if(state.clothingBase == null && state.clothingOver == null && state.clothingExtra == null){
+            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(CharacterClothesRegistryME.Base.THONG_BROWN, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay);
+        }
+        else {
+            if(state.clothingBase != null)
+                renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingBase, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay);
 
-        if(state.clothingOver != null)
-            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingOver, AtlasesME.CLOTHES_OVER_PREFIX), light, overlay);
+            if(state.clothingOver != null)
+                renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingOver, AtlasesME.CLOTHES_OVER_PREFIX), light, overlay);
 
-        if(state.clothingExtra != null)
-            renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingExtra, AtlasesME.CLOTHES_EXTRA_PREFIX), light, overlay);
+            if(state.clothingExtra != null)
+                renderNormalTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingExtra, AtlasesME.CLOTHES_EXTRA_PREFIX), light, overlay);
+        }
 
         if (this.shouldRenderFeatures(state)) {
             for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
