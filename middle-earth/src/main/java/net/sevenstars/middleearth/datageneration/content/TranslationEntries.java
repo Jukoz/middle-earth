@@ -423,10 +423,14 @@ public class TranslationEntries {
 
             //TODO try to automate
             put("trim_pattern."+ MiddleEarth.MOD_ID +".smithing_part", "Smithing Part");
+            put("trim_material."+ MiddleEarth.MOD_ID +".copper", "Copper");
+            put("trim_material."+ MiddleEarth.MOD_ID +".iron", "Iron");
+            put("trim_material."+ MiddleEarth.MOD_ID +".gold", "Gold");
+            put("trim_material."+ MiddleEarth.MOD_ID +".netherite", "Netherite");
             put("trim_material."+ MiddleEarth.MOD_ID +".jade", "Jade");
             put("trim_material."+ MiddleEarth.MOD_ID +".tin", "Tin");
             put("trim_material."+ MiddleEarth.MOD_ID +".lead", "Lead");
-            put("trim_material."+ MiddleEarth.MOD_ID +".silver", "silver");
+            put("trim_material."+ MiddleEarth.MOD_ID +".silver", "Silver");
             put("trim_material."+ MiddleEarth.MOD_ID +".bronze", "Bronze");
             put("trim_material."+ MiddleEarth.MOD_ID +".steel", "Steel");
             put("trim_material."+ MiddleEarth.MOD_ID +".crude", "Crude");

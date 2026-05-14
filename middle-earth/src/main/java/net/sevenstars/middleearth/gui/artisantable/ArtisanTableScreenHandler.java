@@ -262,7 +262,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         if (!inputs.isEmpty()) {
             if (!this.world.isClient){
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-                this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
+                this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ARTISAN_TABLE_SUPPLIER.get(), new MultipleStackRecipeInput(inputs), this.world).toList();
             }
         }
 
