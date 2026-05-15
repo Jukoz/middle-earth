@@ -1,0 +1,194 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_bow",
+		  "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronzed_elven_mail_coif"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_bronze_trimmed_ranger_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_silver_trimmed_ranger_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_arming_coat"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_leather_arming_coat"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronzed_elven_mail_hauberk",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronzed_elven_mail_skirt",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_buckler_shield",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mirk_bark_cape",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mirk_leaf_cape",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_lantern",
+		  "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:elven_boots",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 2
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:paper"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:green_wool"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:flax_seeds"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:shears"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mirkwood_sapling"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:green_jewel_cornflower"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lead"
+        }
+      ]
+    }
+  ]
+}
