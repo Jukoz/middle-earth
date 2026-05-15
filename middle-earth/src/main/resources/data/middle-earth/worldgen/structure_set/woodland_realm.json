@@ -3,6 +3,10 @@
 	{
       "structure": "middle-earth:woodland_realm_hamlet",
       "weight": 1
+    },
+	{
+      "structure": "middle-earth:woodland_realm_hall",
+      "weight": 1
     }
   ],
   "placement": {
