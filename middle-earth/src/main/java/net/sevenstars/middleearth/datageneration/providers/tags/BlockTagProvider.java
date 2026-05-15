@@ -217,6 +217,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         climbable.add(ModDecorativeBlocks.ROPE_LADDER);
         climbable.add(ModBlocks.NET);
         climbable.add(ModNatureBlocks.MIRKWOOD_VINES);
+        climbable.add(ModDecorativeBlocks.REINFORCED_SCAFFOLDING);
 
         needsStoneTools.add(OreRockSets.KHAGALABAN.copper_ore());
         needsStoneTools.add(OreRockSets.KHAGALABAN.coal_ore());

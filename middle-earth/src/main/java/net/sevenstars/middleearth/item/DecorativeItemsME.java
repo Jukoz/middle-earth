@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
+import net.sevenstars.middleearth.item.items.ReinforcedScaffoldingItem;
 import net.sevenstars.middleearth.item.items.WateringCanItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
@@ -25,6 +26,7 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class DecorativeItemsME {
@@ -71,6 +73,9 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.ORCISH_TREATED_ANVIL, settings), new Item.Settings());
     public static final Item BELLOWS = registerItem("bellows",
             (settings) -> new BlockItem(ModDecorativeBlocks.BELLOWS, settings), new Item.Settings());
+
+    public static final Item REINFORCED_SCAFFOLDING = registerItem("reinforced_scaffolding",
+            (settings) -> new ReinforcedScaffoldingItem(ModDecorativeBlocks.REINFORCED_SCAFFOLDING, settings), new Item.Settings());
 
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
