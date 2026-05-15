@@ -1,0 +1,48 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "middle-earth:loam",
+            "probability": 0.25,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:coarse_loam"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "middle-earth:loam",
+            "probability": 0.45,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:loam_path"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "middle-earth:grassy_loam",
+            "probability": 0.5,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "middle-earth:loam_grass_block"
+          }
+        }
+      ]
+    }
+  ]
+}
