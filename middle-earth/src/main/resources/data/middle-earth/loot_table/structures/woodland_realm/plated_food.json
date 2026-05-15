@@ -56,13 +56,13 @@
 		  "type": "minecraft:tag",
           "name": "middle-earth:cooked_poultry",
           "expand": true,
-          "weight": 2
+          "weight": 3
         },
         {
 		  "type": "minecraft:tag",
           "name": "middle-earth:cooked_meat",
           "expand": true,
-          "weight": 3
+          "weight": 4
         },
         {
           "type": "minecraft:empty",

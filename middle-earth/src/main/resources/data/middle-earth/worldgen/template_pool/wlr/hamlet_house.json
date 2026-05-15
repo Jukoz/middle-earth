@@ -28,6 +28,42 @@
         "projection": "rigid",
         "processors": "middle-earth:randomize_wlr_road"
       }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/house_3",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/house_4",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/house_5",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/house_6",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
     }
   ]
 }
