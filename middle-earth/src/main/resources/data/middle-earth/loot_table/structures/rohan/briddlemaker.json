@@ -5,56 +5,24 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:rohan_banner_pattern",
+          "name": "minecraft:water_bucket"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:wooden_bucket"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_horse_armor",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:arming_coat"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:rohirric_leather_helmet"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:bronze_spear"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:bronze_axe"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:rohirric_cape"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:round_shield",
-		  "functions": [
-            {
-              "function": "minecraft:set_banner_pattern",
-              "patterns": [
-                {
-                  "pattern": "minecraft:base",
-                  "color": "green"
-                },
-                {
-                  "pattern": "minecraft:gradient",
-                  "color": "lime"
-                },
-                {
-                  "pattern": "middle-earth:horse",
-                  "color": "white"
-                }
-              ],
-              "append": true
-            }
-          ]
+          "name": "middle-earth:rohirric_horse_armor"
         },
         {
           "type": "minecraft:empty",
-          "weight": 3
+          "weight": 1
         }
       ],
       "rolls": 1
@@ -97,8 +65,20 @@
     },
     {
       "rolls": {
-        "min": 0,
+        "min": 1,
         "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:sack_of_horsefeed"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
       },
       "entries": [
         {
@@ -115,14 +95,26 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:string"
+          "name": "minecraft:saddle"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:apple"
         }
       ]
     },
     {
       "rolls": {
-        "min": 0,
-        "max": 1
+        "min": 1,
+        "max": 2
       },
       "entries": [
         {

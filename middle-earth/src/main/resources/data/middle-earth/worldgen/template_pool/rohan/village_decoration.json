@@ -46,6 +46,15 @@
         "projection": "rigid",
         "processors": "middle-earth:randomize_rohan_road"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:rohan/village/decoration_5",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_rohan_road"
+      }
     }
   ]
 }
