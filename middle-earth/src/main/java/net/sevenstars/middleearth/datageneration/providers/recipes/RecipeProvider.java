@@ -779,7 +779,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("LCL")
                         .pattern("S S")
                         .pattern("T T")
-                        .input('L', Items.STRIPPED_SPRUCE_LOG)
+                        .input('L', TagKey.of(RegistryKeys.ITEM, Identifier.of("c","stripped_logs")))
                         .input('C', ModBlocks.CANVAS)
                         .input('T', ResourceItemsME.TIN_INGOT)
                         .input('S', Items.STICK)

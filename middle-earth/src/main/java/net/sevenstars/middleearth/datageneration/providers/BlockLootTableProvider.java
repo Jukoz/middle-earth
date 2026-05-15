@@ -33,6 +33,7 @@ import net.sevenstars.middleearth.datageneration.content.loot_tables.PotDrops;
 import net.sevenstars.middleearth.datageneration.content.models.SimplePaneModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleRocksModel;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
+import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
 import java.util.concurrent.CompletableFuture;
@@ -88,6 +89,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(block, verticalSlabDrops(block));
             } else if (Registries.BLOCK.getId(block).getPath().contains("slab")) {
                 addDrop(block, slabDrops(block));
+            } else if (Registries.BLOCK.getId(block).getPath().equals("reinforced_scaffolding")) {
+                addDrop(block, drops(DecorativeItemsME.REINFORCED_SCAFFOLDING));
             } else {
                 // TODO : @SlooshyBoi crashes during Datagen
                 if (block == null) continue;
