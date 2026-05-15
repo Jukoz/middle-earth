@@ -3,61 +3,46 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
-        {
+		{
           "type": "minecraft:item",
-          "name": "middle-earth:gondor_banner_pattern"
+          "name": "middle-earth:rohirric_reinforced_leather_vest"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_reinforced_leather_scale_vest"
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:copper_coin_pile"
+          "name": "middle-earth:copper_coin_pile",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:silver_coin_pile"
+          "name": "middle-earth:rohirric_dagger"
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gondorian_dagger"
+          "name": "middle-earth:rohirric_sword"
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gondorian_shield"
+          "name": "middle-earth:rohirric_reinforced_militia_helmet"
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gondorian_boots"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:heater_shield",
-		  "functions": [
-            {
-              "function": "minecraft:set_banner_pattern",
-              "patterns": [
-                {
-                  "pattern": "minecraft:base",
-                  "color": "black"
-                },
-                {
-                  "pattern": "middle-earth:tree",
-                  "color": "white"
-                }
-              ],
-              "append": true
-            }
-          ]
+          "name": "middle-earth:rohirric_ornamented_militia_helmet"
         },
         {
           "type": "minecraft:empty",
-          "weight": 2
+          "weight": 1
         }
       ],
-      "rolls": 2
+      "rolls": 1
     },
     {
       "rolls": {
-        "min": 0,
-        "max": 4
+        "min": 1,
+        "max": 7
       },
       "entries": [
         {
@@ -69,7 +54,7 @@
     {
       "rolls": {
         "min": 0,
-        "max": 1
+        "max": 2
       },
       "entries": [
         {
@@ -80,8 +65,20 @@
     },
     {
       "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
         "min": 0,
-        "max": 3
+        "max": 2
       },
       "entries": [
         {
@@ -90,22 +87,10 @@
         }
       ]
     },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:black_dye"
-        }
-      ]
-    },
 	{
       "rolls": {
         "min": 0,
-        "max": 2
+        "max": 3
       },
       "entries": [
         {

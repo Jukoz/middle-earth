@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gondor_banner_pattern"
+          "name": "middle-earth:rohan_banner_pattern"
         },
         {
           "type": "minecraft:item",
@@ -17,35 +17,30 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gondorian_dagger"
+          "name": "middle-earth:rohirric_dagger"
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gondorian_shield"
+          "name": "middle-earth:rohirric_sword"
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gondorian_boots"
+          "name": "middle-earth:rohirric_shield"
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:heater_shield",
+          "name": "middle-earth:rohirric_soldier_helmet",
 		  "functions": [
             {
-              "function": "minecraft:set_banner_pattern",
-              "patterns": [
-                {
-                  "pattern": "minecraft:base",
-                  "color": "black"
-                },
-                {
-                  "pattern": "middle-earth:tree",
-                  "color": "white"
-                }
-              ],
-              "append": true
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
             }
-          ]
+		  ]
         },
         {
           "type": "minecraft:empty",
@@ -98,7 +93,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:black_dye"
+          "name": "minecraft:green_dye"
         }
       ]
     },
