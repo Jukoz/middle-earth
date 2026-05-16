@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.items.PipeItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
@@ -229,12 +230,29 @@ public class ItemModelProvider extends FabricModelProvider {
     }
 
     public final void registerGenericBigModels(ItemModelGenerator itemModelGenerator, Item item) {
+        if (item instanceof PipeItem) {
+            registerPipeItemModels(itemModelGenerator, item);
+            return;
+        }
+
         ItemModel.Unbaked unbakedHand = ItemModels.basic(ModelIds.getItemModelId(item));
         ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
 
         itemModelGenerator.output.accept(item, createModelWithInHandVariant(unbakedInventory, unbakedHand));
     }
 
+    public final void registerPipeItemModels(ItemModelGenerator itemModelGenerator, Item item) {
+        String path = Registries.ITEM.getId(item).getPath();
+        ItemModel.Unbaked unbakedHand = ItemModels.basic(ModelIds.getItemModelId(item));
+        ItemModel.Unbaked unbakedSmokingHand = ItemModels.basic(Identifier.of(MiddleEarth.MOD_ID, "item/smoking_" + path));
+        ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
+
+        itemModelGenerator.output.accept(item, ItemModels.select(new DisplayContextProperty(),
+                ItemModels.condition(ItemModels.usingItemProperty(), unbakedSmokingHand, unbakedHand),
+                ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory)));
+    }
+
+    //TODO longsword artefact blocking datagen
     public final void registerArtefact(ItemModelGenerator itemModelGenerator, Item item, Boolean dualModel) {
         if (dualModel) {
             ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));

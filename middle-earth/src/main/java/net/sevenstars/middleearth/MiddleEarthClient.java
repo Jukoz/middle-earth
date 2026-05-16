@@ -81,7 +81,6 @@ import net.sevenstars.middleearth.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
-import net.sevenstars.middleearth.particles.custom.RingOfSmokeParticle;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -142,9 +141,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
 
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
-
-        //ModModelPredicateProvider.registerAllPredicates();
-
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
@@ -229,7 +225,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.BIOME_FOG_PARTICLE, BiomeFogParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.RING_OF_SMOKE, RingOfSmokeParticle.Factory::new);
 
         initializeRenderLayerMap();
         BlockColorsME.initializeBlockColors();
@@ -388,6 +383,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.POINTED_DOLOMITE, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModBlocks.EMBERS, BlockRenderLayer.CUTOUT);
+
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.REINFORCED_SCAFFOLDING, BlockRenderLayer.CUTOUT);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);

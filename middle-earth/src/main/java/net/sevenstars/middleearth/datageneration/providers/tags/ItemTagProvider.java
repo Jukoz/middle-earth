@@ -73,6 +73,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "shingles"));
         TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_stripped_logs"));
 
+        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_stripped_logs"));
+        TagKey<Item> stripped_logs = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "stripped_logs"));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
@@ -293,6 +295,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         ModdedStrippedLogs.strippedLogs.forEach(block -> {
             valueLookupBuilder(mod_stripped_logs).add(block.asItem());
+        });
+
+        ModdedStrippedLogs.strippedLogs.forEach(block -> {
+            valueLookupBuilder(stripped_logs).add(block.asItem());
         });
 
         Shingles.shingles.forEach(block -> {
