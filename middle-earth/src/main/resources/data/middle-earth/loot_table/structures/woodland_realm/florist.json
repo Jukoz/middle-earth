@@ -5,75 +5,81 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:woodland_realm_bow",
-		  "weight": 4
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:bronzed_elven_mail_coif"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:woodland_realm_bronze_trimmed_ranger_helmet"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:woodland_realm_silver_trimmed_ranger_helmet"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:woodland_realm_arming_coat"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:woodland_realm_leather_arming_coat"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:bronzed_elven_mail_hauberk",
+          "name": "minecraft:firefly_bush",
 		  "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:bronzed_elven_mail_skirt",
+          "name": "minecraft:blue_orchid"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lily_of_the_valley"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:red_tulip",
 		  "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:woodland_realm_buckler_shield",
+          "name": "minecraft:dandelion",
 		  "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:mirk_bark_cape",
+          "name": "middle-earth:green_growth",
 		  "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:mirk_leaf_cape",
+          "name": "middle-earth:ivy_growth",
 		  "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:silver_lantern",
+          "name": "middle-earth:blue_gentian",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:red_flowers",
 		  "weight": 3
         },
         {
-          "type": "minecraft:item",
-          "name": "middle-earth:elven_boots",
-          "weight": 2
-        },
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "min": 2,
+        "max": 5
+      }
+    },
+	{
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:shears",
-          "weight": 2
+		  "weight": 1
         },
         {
-          "type": "minecraft:empty",
-          "weight": 3
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:wooden_bucket",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:watering_can",
+          "weight": 1
         }
       ],
-      "rolls": 2
+      "rolls": 1
     },
     {
       "rolls": {
@@ -83,31 +89,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:book"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 4
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:paper"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:green_wool"
+          "name": "minecraft:bone_meal"
         }
       ]
     },
@@ -168,18 +150,6 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:stick"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:lead"
         }
       ]
     }
