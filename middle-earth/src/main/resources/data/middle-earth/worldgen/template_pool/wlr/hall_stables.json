@@ -1,12 +1,12 @@
 {
-  "name": "middle-earth:hall_first_corridor",
+  "name": "middle-earth:hall_stables",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:wlr/hall/first_corridor",
+        "location": "middle-earth:wlr/hall/stables",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
