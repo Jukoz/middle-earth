@@ -1,6 +1,6 @@
 {
   "name": "middle-earth:hall_house",
-  "fallback": "minecraft:empty",
+  "fallback": "middle-earth:wlr/hall_dead_end",
   "elements": [
     {
       "weight": 1,

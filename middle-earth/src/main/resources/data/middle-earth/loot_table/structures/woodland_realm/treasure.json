@@ -1,0 +1,217 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "middle-earth:elven_mail_hauberk",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:elven_mail_skirt",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_scale_hauberk",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_scale_skirt",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.3,
+                "min": 0.7
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gold_coin_pile"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin_pile",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_dagger",
+          "weight": 1,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_sword",
+          "weight": 1,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_longsword",
+          "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 2
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:green_dye"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_lantern"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:copper_ingot"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget"
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "name": "middle-earth:hall_main_corridor",
-  "fallback": "minecraft:empty",
+  "fallback": "middle-earth:wlr/hall_dead_end",
   "elements": [
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/branch_junction",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/left_junction",
@@ -30,7 +30,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/right_junction",
@@ -43,6 +43,24 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/lush_hall",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hall/straight_corridor",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hall/lord_hall",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
