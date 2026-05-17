@@ -1,12 +1,12 @@
 {
-  "name": "middle-earth:upper_hall",
+  "name": "middle-earth:hall_house",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:wlr/hall/stables",
+        "location": "middle-earth:wlr/hall/storage_room",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
@@ -15,7 +15,7 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:wlr/hall/trading_hall",
+        "location": "middle-earth:wlr/hall/living_room",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
