@@ -142,17 +142,15 @@ public class NpcEntityTextureData {
         this.eyeIsEmissive = false;
     }
 
-    public NpcEntityTextureData withSimplifiedPreset(SimplifiedTexturePreset preset) {
+    public void withSimplifiedPreset(SimplifiedTexturePreset preset) {
         if(preset == null)
-            return this;
+            return;
 
         this.simplifiedSkin = preset.base;
         this.simplifiedEar = preset.ear;
         this.simplifiedFeet = preset.feet;
         this.simplifiedHair = preset.hair;
         this.simplifiedNose = preset.nose;
-
-        return this;
     }
 
     public NpcEntityTextureData withSkinTexture(Identifier texture){

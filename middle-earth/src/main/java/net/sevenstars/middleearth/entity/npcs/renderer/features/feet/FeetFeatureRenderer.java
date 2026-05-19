@@ -36,7 +36,7 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
-        Identifier feetId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.ofPrefix(state.feetId, AtlasesME.SKIN_PREFIX);
+        Identifier feetId =  (isSimplified) ? state.simplifiedFeetId : MiddleEarth.ofPrefix(state.feetId, AtlasesME.SKIN_PREFIX);
 
         feetModel.setAngles(state);
 

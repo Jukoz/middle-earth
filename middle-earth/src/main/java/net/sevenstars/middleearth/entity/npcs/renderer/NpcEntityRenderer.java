@@ -55,7 +55,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.features.removeIf(x -> x.getClass() == ElytraFeatureRenderer.class);
         this.features.removeIf(x -> x.getClass() == HeadFeatureRenderer.class);
 
-        this.addFeature(new ArmorFeatureRenderer(this, new ArmorEntityModel(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new ArmorEntityModel(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), context.getEquipmentRenderer()));
+        this.addFeature(new ArmorFeatureRenderer<>(this, new ArmorEntityModel<>(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new ArmorEntityModel<>(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), context.getEquipmentRenderer()));
         this.addFeature(new HairFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new EarFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new NoseFeatureRenderer(this, context.getEntityModels()));
@@ -183,8 +183,10 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.model.setAngles(state);
         int overlay = state.hurt ? getOverlay(state, this.getAnimationCounter(state)) : OverlayTexture.DEFAULT_UV;
 
+
         if(simplified){
-            renderTexture(matrices, vertexConsumers, state.simplifiedSkinId, light, overlay, false);
+            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
+            renderTexture(matrices, vertexConsumer, state.simplifiedSkinId, light, overlay, false);
         } else {
             renderComplexVersion(matrices, vertexConsumers, light, overlay, state);
         }
@@ -216,52 +218,54 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private void renderComplexVersion(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, NpcEntityRenderState state) {
-        // Will always be shown
-        renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.skinId, AtlasesME.SKIN_PREFIX), light, overlay, false);
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
 
-        renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.headId, AtlasesME.SKIN_PREFIX), light, overlay, false);
+        // Will always be shown
+        renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.skinId, AtlasesME.SKIN_PREFIX), light, overlay, false);
+
+        renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.headId, AtlasesME.SKIN_PREFIX), light, overlay, false);
 
         if(!state.blinking){
-            renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.eyesId, AtlasesME.EYE_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.eyesId, AtlasesME.EYE_PREFIX), light, overlay, false);
             if(state.haveEmissiveEyes){
-                renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.eyesEmissiveId, AtlasesME.EYE_PREFIX), light, overlay, true);
+                VertexConsumer vertexConsumerEmissive = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesEmissiveRenderLayer());
+                renderTexture(matrices, vertexConsumerEmissive, MiddleEarth.ofPrefix(state.eyesEmissiveId, AtlasesME.EYE_PREFIX), light, overlay, true);
             }
         }
         // Optionally shown, only if the value is present
         if(state.eyebrowId != null)
-            renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.eyebrowId, AtlasesME.HAIR_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.eyebrowId, AtlasesME.HAIR_PREFIX), light, overlay, false);
 
         if(state.scarId != null)
-            renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.scarId, AtlasesME.SKIN_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.scarId, AtlasesME.SKIN_PREFIX), light, overlay, false);
 
         if(state.beardId != null)
-            renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.beardId, AtlasesME.HAIR_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.beardId, AtlasesME.HAIR_PREFIX), light, overlay, false);
 
         if(state.hairId != null)
-            renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.hairId, AtlasesME.HAIR_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.hairId, AtlasesME.HAIR_PREFIX), light, overlay, false);
 
         if(state.clothingBase == null && state.clothingOver == null && state.clothingExtra == null){
-            renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(CharacterClothesRegistryME.Base.THONG_BROWN, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(CharacterClothesRegistryME.Base.THONG_BROWN, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
         }
         else {
             if(state.clothingBase != null)
-                renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingBase, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
+                renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.clothingBase, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
 
             if(state.clothingOver != null)
-                renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingOver, AtlasesME.CLOTHES_OVER_PREFIX), light, overlay, false);
+                renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.clothingOver, AtlasesME.CLOTHES_OVER_PREFIX), light, overlay, false);
 
             if(state.clothingExtra != null)
-                renderTexture(matrices, vertexConsumers, MiddleEarth.ofPrefix(state.clothingExtra, AtlasesME.CLOTHES_EXTRA_PREFIX), light, overlay, false);
+                renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.clothingExtra, AtlasesME.CLOTHES_EXTRA_PREFIX), light, overlay, false);
         }
     }
 
-    private void renderTexture(MatrixStack matrices, VertexConsumerProvider vertexConsumers, Identifier textureId, int light, int overlay, boolean isEmissive){
+    private void renderTexture(MatrixStack matrices, VertexConsumer vertexConsumer, Identifier textureId, int light, int overlay, boolean isEmissive){
         RenderLayer renderLayer = ModTexturedRenderLayers.getCharacterTexturesRenderLayer();
-        render(matrices, vertexConsumers, renderLayer, textureId, light, overlay);
+        render(matrices, vertexConsumer, renderLayer, textureId, light, overlay);
     }
 
-    private void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, RenderLayer renderLayer, Identifier textureId, int light, int overlay){
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
+    private void render(MatrixStack matrices, VertexConsumer vertexConsumer, RenderLayer renderLayer, Identifier textureId, int light, int overlay){
         Sprite sprite = characterTextureAtlas.getSprite(textureId);
         renderModel(sprite, matrices, vertexConsumer, light, overlay);
     }
