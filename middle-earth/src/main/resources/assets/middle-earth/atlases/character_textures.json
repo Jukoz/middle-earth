@@ -2,6 +2,11 @@
   "sources": [
     {
       "type": "minecraft:directory",
+      "prefix": "character/simplified/",
+      "source": "character/simplified"
+    },
+    {
+      "type": "minecraft:directory",
       "prefix": "character/clothes/base/",
       "source": "character/clothes/base"
     },

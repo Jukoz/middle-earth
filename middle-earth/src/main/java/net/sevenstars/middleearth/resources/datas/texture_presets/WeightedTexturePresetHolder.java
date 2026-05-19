@@ -5,7 +5,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.api.dtos.WeightedPool;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.SimplifiedTexturesME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.api.dtos.WeightedIdentifier;
@@ -141,6 +141,22 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
         copiedNpcTextureDataPreset.item.characterClothePresets.addAll(this.item.characterClothePresets.elements);
 
         return copiedNpcTextureDataPreset;
+    }
+
+    public Identifier getSimplifiedSkin(){
+        return SimplifiedTexturesME.HUMAN;
+    }
+    public Identifier getSimplifiedEar(){
+        return SimplifiedTexturesME.HUMAN_EAR;
+    }
+    public Identifier getSimplifiedFeet(){
+        return SimplifiedTexturesME.HUMAN_FEET;
+    }
+    public Identifier getSimplifiedHair(){
+        return SimplifiedTexturesME.HUMAN_HAIR;
+    }
+    public Identifier getSimplifiedNose(){
+        return SimplifiedTexturesME.HUMAN_NOSE;
     }
 
     public ClothingSelection getClothingData() {

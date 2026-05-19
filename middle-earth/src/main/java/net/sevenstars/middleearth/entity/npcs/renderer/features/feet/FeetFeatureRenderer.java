@@ -15,6 +15,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
@@ -41,8 +42,14 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
-        Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.feetId, AtlasesME.SKIN_PREFIX));
-        renderModel(sprite, matrices, vertexConsumer, light, overlay);
+
+        if(ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING){
+            Sprite sprite = characterTexturesAtlas.getSprite(state.simplifiedFeetId);
+            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+        } else if(state.feetId != null){
+            Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.feetId, AtlasesME.SKIN_PREFIX));
+            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+        }
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {

@@ -16,6 +16,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
@@ -35,6 +36,8 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
+        boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING;
+
         Identifier hairAddonTextureId = state.hairAddonId;
         Identifier beardAddonTextureId = state.beardAddonId;
 
@@ -45,11 +48,13 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
                 if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagK°.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
          */
 
-        if(hairAddonTextureId == null && beardAddonTextureId == null){
-            entityModel.getRootPart().visible = false;
-            return;
-        } else if (!entityModel.getRootPart().visible){
-            entityModel.getRootPart().visible = true;
+        if(!isSimplified){
+            if(hairAddonTextureId == null && beardAddonTextureId == null){
+                entityModel.getRootPart().visible = false;
+                return;
+            } else if (!entityModel.getRootPart().visible){
+                entityModel.getRootPart().visible = true;
+            }
         }
         entityModel.setAngles(state);
 
@@ -57,13 +62,18 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
-        if(hairAddonTextureId != null && state.canShowHair){
-            Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.hairAddonId, AtlasesME.HAIR_PREFIX));
+        if(isSimplified){
+            Sprite sprite = characterTexturesAtlas.getSprite(state.simplifiedHairAddonId);
             renderModel(sprite, matrices, vertexConsumer, light, overlay);
-        }
-        if(beardAddonTextureId != null && state.canShowBeard){
-            Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.beardAddonId, AtlasesME.HAIR_PREFIX));
-            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+        } else {
+            if(hairAddonTextureId != null && state.canShowHair){
+                Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.hairAddonId, AtlasesME.HAIR_PREFIX));
+                renderModel(sprite, matrices, vertexConsumer, light, overlay);
+            }
+            if(beardAddonTextureId != null && state.canShowBeard){
+                Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.beardAddonId, AtlasesME.HAIR_PREFIX));
+                renderModel(sprite, matrices, vertexConsumer, light, overlay);
+            }
         }
     }
 

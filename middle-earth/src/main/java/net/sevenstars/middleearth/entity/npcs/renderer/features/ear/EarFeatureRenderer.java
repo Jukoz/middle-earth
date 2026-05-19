@@ -15,6 +15,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
@@ -23,12 +24,12 @@ import net.sevenstars.middleearth.registries.AtlasesME;
 @Environment(EnvType.CLIENT)
 public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
     private final EntityModel<NpcEntityRenderState> earModel;
-    private final SpriteAtlasTexture characterTextureAtlas;
+    private final SpriteAtlasTexture characterTexturesAtlas;
 
     public EarFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.earModel = new EarModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_EAR));
-        characterTextureAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
+        characterTexturesAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
     }
 
     @Override
@@ -41,8 +42,13 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
-        Sprite sprite = characterTextureAtlas.getSprite(MiddleEarth.ofPrefix(state.earId, AtlasesME.SKIN_PREFIX));
-        renderModel(sprite, matrices, vertexConsumer, light, overlay);
+        if(ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING){
+            Sprite sprite = characterTexturesAtlas.getSprite(state.simplifiedEarId);
+            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+        } else if(state.earId != null){
+            Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.earId, AtlasesME.SKIN_PREFIX));
+            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+        }
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {

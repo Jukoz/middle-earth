@@ -39,6 +39,12 @@ public class NpcEntityHelper {
             npcTextureData = npcTextureData.withFeetTexture(TexturePresetDataPool.buildId(feetPatternId, materialId));
         }
 
+        npcTextureData.withSimplifiedSkin(textureIdentity.preset().getSimplifiedSkin());
+        npcTextureData.withSimplifiedEar(textureIdentity.preset().getSimplifiedEar());
+        npcTextureData.withSimplifiedFeet(textureIdentity.preset().getSimplifiedFeet());
+        npcTextureData.withSimplifiedHair(textureIdentity.preset().getSimplifiedHair());
+        npcTextureData.withSimplifiedNose(textureIdentity.preset().getSimplifiedNose());
+
         return npcTextureData;
     }
 
