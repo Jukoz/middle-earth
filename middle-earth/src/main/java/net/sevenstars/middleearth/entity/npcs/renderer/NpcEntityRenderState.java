@@ -6,6 +6,12 @@ import net.minecraft.util.Identifier;
 public class NpcEntityRenderState extends BipedEntityRenderState {
     public float widthScale;
 
+    public Identifier simplifiedSkinId;
+    public Identifier simplifiedEarId;
+    public Identifier simplifiedNoseId;
+    public Identifier simplifiedHairAddonId;
+    public Identifier simplifiedFeetId;
+
     public Identifier skinId;
     public Identifier feetId;
     public Identifier headId;
@@ -32,6 +38,12 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public boolean canShowHair;
 
     public NpcEntityRenderState() {
+        this.simplifiedSkinId = null;
+        this.simplifiedNoseId = null;
+        this.simplifiedEarId = null;
+        this.simplifiedHairAddonId = null;
+        this.simplifiedFeetId = null;
+
         this.widthScale = 1.0f;
         this.skinId = null;
         this.headId = null;
