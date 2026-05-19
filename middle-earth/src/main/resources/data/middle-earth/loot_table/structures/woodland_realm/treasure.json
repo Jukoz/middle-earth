@@ -76,6 +76,14 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_bow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_longbow"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:woodland_realm_noble_dagger",
           "weight": 1,
 		  "functions": [

@@ -8,7 +8,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/storage_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     },
     {
@@ -17,7 +17,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/living_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     },
     {
@@ -26,7 +26,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/living_room_1",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     },
     {
@@ -35,7 +35,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/feast_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     },
     {
@@ -44,7 +44,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/kitchen_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     },
     {
@@ -53,7 +53,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/prison_pit",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     },
     {
@@ -62,7 +62,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/mess_hall",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     }
   ]

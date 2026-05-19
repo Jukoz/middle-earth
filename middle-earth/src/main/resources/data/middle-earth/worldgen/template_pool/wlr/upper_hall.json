@@ -8,7 +8,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/stables",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     },
     {
@@ -17,7 +17,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/trading_hall",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "middle-earth:randomize_wlr_walls"
       }
     }
   ]
