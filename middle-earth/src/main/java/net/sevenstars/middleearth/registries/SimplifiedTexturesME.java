@@ -24,4 +24,16 @@ public class SimplifiedTexturesME {
         public static final Identifier FEMALE_B_HAIR = MiddleEarth.ofPath("character", "simplified", "shire", "female", "fb_hair");
     }
 
+    public class Gondor {
+        public static final Identifier MALE_A = MiddleEarth.ofPath("character", "simplified", "gondor", "male", "ma");
+
+        public static final Identifier MALE_B = MiddleEarth.ofPath("character", "simplified", "gondor", "male", "mb");
+
+        public static final Identifier FEMALE_A = MiddleEarth.ofPath("character", "simplified", "gondor", "female", "fa");
+        public static final Identifier FEMALE_A_HAIR = MiddleEarth.ofPath("character", "simplified", "gondor", "female", "fa_hair");
+
+        public static final Identifier FEMALE_B = MiddleEarth.ofPath("character", "simplified", "gondor", "female", "fb");
+        public static final Identifier FEMALE_B_HAIR = MiddleEarth.ofPath("character", "simplified", "gondor", "female", "fb_hair");
+    }
+
 }
