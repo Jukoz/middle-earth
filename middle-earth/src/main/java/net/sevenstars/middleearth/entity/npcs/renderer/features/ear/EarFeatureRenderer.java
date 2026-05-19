@@ -13,6 +13,7 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.config.ModClientConfigs;
@@ -34,6 +35,9 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
+        boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
+        Identifier earId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.ofPrefix(state.earId, AtlasesME.SKIN_PREFIX);
+
         earModel.setAngles(state);
 
         if(!state.canShowEars)
@@ -42,11 +46,8 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
-        if(ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING){
-            Sprite sprite = characterTexturesAtlas.getSprite(state.simplifiedEarId);
-            renderModel(sprite, matrices, vertexConsumer, light, overlay);
-        } else if(state.earId != null){
-            Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.earId, AtlasesME.SKIN_PREFIX));
+        if(earId != null){
+            Sprite sprite = characterTexturesAtlas.getSprite(earId);
             renderModel(sprite, matrices, vertexConsumer, light, overlay);
         }
     }

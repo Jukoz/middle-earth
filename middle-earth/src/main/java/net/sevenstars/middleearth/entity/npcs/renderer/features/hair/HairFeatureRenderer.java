@@ -36,44 +36,36 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
-        boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING;
-
-        Identifier hairAddonTextureId = state.hairAddonId;
-        Identifier beardAddonTextureId = state.beardAddonId;
-
         EntityModel<NpcEntityRenderState> entityModel = hairModel;
+
+        boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
+        Identifier hairAddonTextureId = (isSimplified) ? state.simplifiedHairAddonId : MiddleEarth.ofPrefix(state.hairAddonId, AtlasesME.HAIR_PREFIX);
+        Identifier beardAddonTextureId =  (isSimplified) ? null : MiddleEarth.ofPrefix(state.beardAddonId, AtlasesME.HAIR_PREFIX);
+
 
         // TODO : Disable the beard based on the helmet
         /*
-                if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagK°.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
+        if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagK°.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
          */
 
-        if(!isSimplified){
-            if(hairAddonTextureId == null && beardAddonTextureId == null){
-                entityModel.getRootPart().visible = false;
-                return;
-            } else if (!entityModel.getRootPart().visible){
-                entityModel.getRootPart().visible = true;
-            }
+        if(hairAddonTextureId == null && beardAddonTextureId == null){
+            entityModel.getRootPart().visible = false;
+            return;
+        } else if (!entityModel.getRootPart().visible){
+            entityModel.getRootPart().visible = true;
         }
         entityModel.setAngles(state);
-
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
-        if(isSimplified){
-            Sprite sprite = characterTexturesAtlas.getSprite(state.simplifiedHairAddonId);
+        if(hairAddonTextureId != null && state.canShowHair){
+            Sprite sprite = characterTexturesAtlas.getSprite(hairAddonTextureId);
             renderModel(sprite, matrices, vertexConsumer, light, overlay);
-        } else {
-            if(hairAddonTextureId != null && state.canShowHair){
-                Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.hairAddonId, AtlasesME.HAIR_PREFIX));
-                renderModel(sprite, matrices, vertexConsumer, light, overlay);
-            }
-            if(beardAddonTextureId != null && state.canShowBeard){
-                Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.beardAddonId, AtlasesME.HAIR_PREFIX));
-                renderModel(sprite, matrices, vertexConsumer, light, overlay);
-            }
+        }
+        if(beardAddonTextureId != null && state.canShowBeard){
+            Sprite sprite = characterTexturesAtlas.getSprite(beardAddonTextureId);
+            renderModel(sprite, matrices, vertexConsumer, light, overlay);
         }
     }
 

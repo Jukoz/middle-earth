@@ -143,6 +143,8 @@ public class MiddleEarth implements ModInitializer {
     }
 
     public static Identifier ofPrefix(Identifier base, Identifier prefixId) {
+		if(base == null)
+			return null;
         return base.withPrefixedPath(String.format("%s/", prefixId.getPath()));
     }
 

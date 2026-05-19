@@ -7,6 +7,7 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.texture_presets.SimplifiedTexturePreset;
 
 public class NpcEntityTextureData {
     private Identifier simplifiedSkin;
@@ -141,24 +142,16 @@ public class NpcEntityTextureData {
         this.eyeIsEmissive = false;
     }
 
-    public NpcEntityTextureData withSimplifiedSkin(Identifier texture) {
-        this.simplifiedSkin = texture;
-        return this;
-    }
-    public NpcEntityTextureData withSimplifiedEar(Identifier texture) {
-        this.simplifiedEar = texture;
-        return this;
-    }
-    public NpcEntityTextureData withSimplifiedFeet(Identifier texture) {
-        this.simplifiedFeet = texture;
-        return this;
-    }
-    public NpcEntityTextureData withSimplifiedHair(Identifier texture) {
-        this.simplifiedHair = texture;
-        return this;
-    }
-    public NpcEntityTextureData withSimplifiedNose(Identifier texture) {
-        this.simplifiedNose = texture;
+    public NpcEntityTextureData withSimplifiedPreset(SimplifiedTexturePreset preset) {
+        if(preset == null)
+            return this;
+
+        this.simplifiedSkin = preset.base;
+        this.simplifiedEar = preset.ear;
+        this.simplifiedFeet = preset.feet;
+        this.simplifiedHair = preset.hair;
+        this.simplifiedNose = preset.nose;
+
         return this;
     }
 

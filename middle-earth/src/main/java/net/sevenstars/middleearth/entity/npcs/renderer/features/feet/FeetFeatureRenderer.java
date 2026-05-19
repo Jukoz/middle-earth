@@ -13,6 +13,7 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.config.ModClientConfigs;
@@ -34,6 +35,9 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
+        boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
+        Identifier feetId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.ofPrefix(state.feetId, AtlasesME.SKIN_PREFIX);
+
         feetModel.setAngles(state);
 
         if(!state.canShowFeet)
@@ -43,11 +47,8 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
-        if(ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING){
-            Sprite sprite = characterTexturesAtlas.getSprite(state.simplifiedFeetId);
-            renderModel(sprite, matrices, vertexConsumer, light, overlay);
-        } else if(state.feetId != null){
-            Sprite sprite = characterTexturesAtlas.getSprite(MiddleEarth.ofPrefix(state.feetId, AtlasesME.SKIN_PREFIX));
+        if(feetId != null){
+            Sprite sprite = characterTexturesAtlas.getSprite(feetId);
             renderModel(sprite, matrices, vertexConsumer, light, overlay);
         }
     }

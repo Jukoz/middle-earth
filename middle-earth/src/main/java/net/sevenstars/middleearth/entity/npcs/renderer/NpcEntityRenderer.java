@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.entity.npcs.renderer;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -71,6 +73,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float tickDelta) {
         if(!npcEntity.getWorld().isClient)
             return;
@@ -92,7 +95,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.simplifiedHairAddonId = npcTextureData.getSimplifiedHair();
         npcEntityRenderState.simplifiedNoseId = npcTextureData.getSimplifiedNose();
 
-        if(!ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING){
+        if(!ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING || npcEntityRenderState.simplifiedSkinId == null){
             npcEntityRenderState.skinId = npcTextureData.get(NpcRenderedPart.BODY);
             npcEntityRenderState.feetId = npcTextureData.get(NpcRenderedPart.FEET);
             npcEntityRenderState.headId = npcTextureData.get(NpcRenderedPart.HEAD);
@@ -150,7 +153,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        boolean simplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING;
+        boolean simplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
 
         if(!simplified && (state.skinId == null || state.headId == null || state.eyesId == null))
             return;

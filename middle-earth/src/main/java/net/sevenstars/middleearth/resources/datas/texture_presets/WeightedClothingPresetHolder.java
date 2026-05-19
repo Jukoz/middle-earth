@@ -57,10 +57,6 @@ public class WeightedClothingPresetHolder extends WeightedItem<ClothingPreset> {
         return data.getItem();
     }
 
-    public int getWeight(){
-        return weight;
-    }
-
     @Override
     public WeightedClothingPresetHolder withWeight(int newWeight) {
         this.weight = newWeight;

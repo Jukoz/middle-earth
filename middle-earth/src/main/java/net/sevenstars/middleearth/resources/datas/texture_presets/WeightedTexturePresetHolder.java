@@ -5,7 +5,6 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.api.dtos.WeightedPool;
-import net.sevenstars.middleearth.registries.SimplifiedTexturesME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.api.dtos.WeightedIdentifier;
@@ -52,6 +51,16 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
 
     public WeightedTexturePresetHolder clearClothes(){
         this.item.clearClothes();
+        return this;
+    }
+
+    public WeightedTexturePresetHolder withSimplifiedTextures(List<WeightedSimplifiedTexturePresetHolder> simplifiedTextures){
+        this.item.withSimplifiedTextures(simplifiedTextures);
+        return this;
+    }
+
+    public WeightedTexturePresetHolder clearSimplifiedTextures(){
+        this.item.clearSimplifiedTextures();
         return this;
     }
 
@@ -139,24 +148,15 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
             copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.BEARD, value);
 
         copiedNpcTextureDataPreset.item.characterClothePresets.addAll(this.item.characterClothePresets.elements);
+        copiedNpcTextureDataPreset.item.simplifiedTextures.addAll(this.item.simplifiedTextures.elements);
 
         return copiedNpcTextureDataPreset;
     }
 
-    public Identifier getSimplifiedSkin(){
-        return SimplifiedTexturesME.HUMAN;
-    }
-    public Identifier getSimplifiedEar(){
-        return SimplifiedTexturesME.HUMAN_EAR;
-    }
-    public Identifier getSimplifiedFeet(){
-        return SimplifiedTexturesME.HUMAN_FEET;
-    }
-    public Identifier getSimplifiedHair(){
-        return SimplifiedTexturesME.HUMAN_HAIR;
-    }
-    public Identifier getSimplifiedNose(){
-        return SimplifiedTexturesME.HUMAN_NOSE;
+    public SimplifiedTexturePreset getSimplifiedSkin(){
+        if(this.item.simplifiedTextures.isEmpty())
+            return null;
+        return this.item.simplifiedTextures.getRandom().getItem();
     }
 
     public ClothingSelection getClothingData() {
