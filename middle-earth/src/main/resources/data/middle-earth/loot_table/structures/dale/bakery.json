@@ -1,54 +1,32 @@
 {
   "pools": [
+	{
+	    "bonus_rolls": 0.5,
+        "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:milk_bucket"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:berry_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:maple_syrup"
+        }
+      ],
+      "rolls": 2
+    },
     {
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:garlic"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 2,
-        "max": 4
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bread"
-        }
-      ]
-    },
-	{
-      "rolls": {
-        "min": 1,
-        "max": 3
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:onion"
-        }
-      ]
-    },
-	{
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:salmon"
-        }
-      ]
-    },
-	{
       "rolls": {
         "min": 0,
         "max": 3
@@ -60,7 +38,7 @@
         }
       ]
     },
-	{
+    {
       "rolls": {
         "min": 0,
         "max": 2
@@ -68,31 +46,31 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:lettuce"
-        }
-      ]
-    },
-	{
-      "rolls": {
-        "min": 0,
-        "max": 1
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:fish_stew"
+          "name": "minecraft:sugar"
         }
       ]
     },
     {
       "rolls": {
         "min": 1,
-        "max": 2
+        "max": 5
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:apple"
+          "name": "minecraft:bread"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 2,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat"
         }
       ]
     },
@@ -104,8 +82,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:cram"
-        }
+          "name": "minecraft:sweet_berries" 
+		}
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:cram" 
+		}
       ]
     }
   ]
