@@ -25,13 +25,12 @@
         },
 		{
           "type": "minecraft:item",
-          "name": "middle-earth:dalish_axe",
+          "name": "middle-earth:dalish_spear",
           "weight": 2
         },
 		{
           "type": "minecraft:item",
-          "name": "middle-earth:dalish_sword",
-          "weight": 2
+          "name": "minecraft:bow"
         },
 		{
           "type": "minecraft:item",
@@ -46,39 +45,9 @@
           "type": "minecraft:item",
           "name": "middle-earth:dalish_helmet_brown_fur"
         },
-        {
+		{
           "type": "minecraft:item",
           "name": "middle-earth:dalish_helmet_tan_fur"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:dalish_mail_hauberk",
-          "weight": 2
-        },
-		{
-          "type": "minecraft:item",
-          "name": "middle-earth:dalish_mail_coat",
-          "weight": 2
-        },
-		{
-          "type": "minecraft:item",
-          "name": "middle-earth:dalish_boots",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:dalish_burgonet",
-		  "functions": [
-            {
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.7,
-                "min": 0.3
-              },
-              "function": "minecraft:set_damage"
-            }
-		  ]
         },
         {
           "type": "minecraft:empty",
@@ -114,20 +83,8 @@
     },
     {
       "rolls": {
-        "min": 0,
-        "max": 5
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:bronze_nugget"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 5
+        "min": 1,
+        "max": 8
       },
       "entries": [
         {
@@ -139,12 +96,12 @@
     {
       "rolls": {
         "min": 0,
-        "max": 2
+        "max": 3
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_copper"
+          "name": "minecraft:cobweb"
         }
       ]
     },
@@ -180,7 +137,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:coal"
+          "name": "minecraft:chain"
         }
       ]
     }
