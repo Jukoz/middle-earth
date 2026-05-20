@@ -66,6 +66,15 @@
       }
     },
 	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/dinner_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+	{
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
