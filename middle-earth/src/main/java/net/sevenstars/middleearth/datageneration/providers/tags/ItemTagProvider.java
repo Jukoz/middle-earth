@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.providers.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -11,6 +12,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.registration.OreRockSets;
+import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
@@ -320,11 +322,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             valueLookupBuilder(nugget_shaping).add(nugget);
         });
 
-        Stones.stones.forEach(stone -> {
-            valueLookupBuilder(stone_crafting_materials).add(stone.asItem());
-            if(!stone.asItem().toString().contains("jadeite")){
-                valueLookupBuilder(stone_tool_materials).add(stone.asItem());
+        StoneBlockSets.stoneSetsList.forEach(stone -> {
+            if(stone.cobblestoneBlocks != null) {
+                valueLookupBuilder(stone_crafting_materials).add(stone.cobblestoneBlocks.base().asItem());
+                valueLookupBuilder(stone_tool_materials).add(stone.cobblestoneBlocks.base().asItem());
             }
         });
+        valueLookupBuilder(stone_crafting_materials).add(Blocks.BLACKSTONE.asItem());
+        valueLookupBuilder(stone_tool_materials).add(Blocks.BLACKSTONE.asItem());
     }
 }

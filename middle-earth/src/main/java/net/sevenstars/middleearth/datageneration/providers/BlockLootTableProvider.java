@@ -92,8 +92,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             } else if (Registries.BLOCK.getId(block).getPath().equals("reinforced_scaffolding")) {
                 addDrop(block, drops(DecorativeItemsME.REINFORCED_SCAFFOLDING));
             } else {
-                // TODO : @SlooshyBoi crashes during Datagen
+                // TODO : crashes during Datagen
                 if (block == null) continue;
+                if(block == Blocks.STONE || block == Blocks.DEEPSLATE) continue;
                 addDrop(block);
             }
         }
