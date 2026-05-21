@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "shaping_anvil.png");
+    private static final Identifier TEXTURE = MiddleEarth.ofPath( "textures", "gui", "shaping_anvil.png");
 
     private float scrollAmount;
     private boolean mouseClicked;

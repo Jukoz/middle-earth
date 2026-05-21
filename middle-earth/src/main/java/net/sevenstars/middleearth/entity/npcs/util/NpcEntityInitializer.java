@@ -60,6 +60,7 @@ public class NpcEntityInitializer {
         }
 
         NpcInitializerUtil.generateCharacterTextures(serverWorld, currentNpcDataId, npcEntity);
+        npcEntity.setInitializationTick();
     }
 
 

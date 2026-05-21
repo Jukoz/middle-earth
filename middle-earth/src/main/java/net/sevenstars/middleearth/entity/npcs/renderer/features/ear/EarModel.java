@@ -27,14 +27,14 @@ public class EarModel extends EntityModel<NpcEntityRenderState> {
                 ModelPartBuilder.create()
                         .uv(0, 6)
                         .cuboid(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, Dilation.NONE),
-                ModelTransform.rotation(0.0F, -0.3491F, 0.0F)
+                ModelTransform.rotation(0.0F, -0.35F, 0.0F)
                         .moveOrigin(4F, -5F, 0.0F));
         planeFlatSides.addChild("rightFlatEarPlane",
                 ModelPartBuilder.create()
                         .uv(0, 6)
                         .cuboid(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, Dilation.NONE)
                         .mirrored(),
-                ModelTransform.rotation(0.0F, 0.3491F, 0.0F)
+                ModelTransform.rotation(0.0F, 0.35F, 0.0F)
                         .moveOrigin(-4F, -5F, 0.0F));
 
         return TexturedModelData.of(modelData, 16, 16);

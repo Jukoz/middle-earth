@@ -71,7 +71,7 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
         InscriptionRecipe inscriptionRecipeBuilder = new InscriptionRecipe(this.enchant, this.level, this.inputWords, this.chiselInput, this.levelCost);
-        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.of('/', "recipes",
+        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.ofPath( "recipes",
                 this.category.getName(), "inscription%s%s".formatted(enchant.getKey().get().getRegistry().getPath(), level))));
     }
 

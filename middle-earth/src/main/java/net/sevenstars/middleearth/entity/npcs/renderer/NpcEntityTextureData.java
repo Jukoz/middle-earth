@@ -7,8 +7,15 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.texture_presets.SimplifiedTexturePreset;
 
 public class NpcEntityTextureData {
+    private Identifier simplifiedSkin;
+    private Identifier simplifiedEar;
+    private Identifier simplifiedFeet;
+    private Identifier simplifiedHair;
+    private Identifier simplifiedNose;
+
     private Identifier bodyTexture;
     private Identifier feetTexture;
     private Identifier headTexture;
@@ -36,6 +43,12 @@ public class NpcEntityTextureData {
 
     public NpcEntityTextureData(NbtCompound compound)
     {
+        this.simplifiedSkin = getId(compound.getString("simplified_skin", null));
+        this.simplifiedEar = getId(compound.getString("simplified_ear", null));
+        this.simplifiedFeet = getId(compound.getString("simplified_feet", null));
+        this.simplifiedHair = getId(compound.getString("simplified_hair", null));
+        this.simplifiedNose = getId(compound.getString("simplified_nose", null));
+
         this.bodyTexture = getId(compound.getString(NpcRenderedPart.BODY.getField(), null));
         this.headTexture = getId(compound.getString(NpcRenderedPart.HEAD.getField(), null));
         this.feetTexture = getId(compound.getString(NpcRenderedPart.FEET.getField(), null));
@@ -63,6 +76,17 @@ public class NpcEntityTextureData {
 
     private NbtCompound writeNbt() {
         NbtCompound nbt = new NbtCompound();
+        if(simplifiedSkin != null)
+            nbt.putString("simplified_skin", simplifiedSkin.toString());
+        if(simplifiedEar != null)
+            nbt.putString("simplified_ear", simplifiedEar.toString());
+        if(simplifiedFeet != null)
+            nbt.putString("simplified_feet", simplifiedFeet.toString());
+        if(simplifiedHair != null)
+            nbt.putString("simplified_hair", simplifiedHair.toString());
+        if(simplifiedNose != null)
+            nbt.putString("simplified_nose", simplifiedNose.toString());
+
         if(bodyTexture != null)
             nbt.putString(NpcRenderedPart.BODY.getField(), bodyTexture.toString());
         if(headTexture != null)
@@ -114,10 +138,19 @@ public class NpcEntityTextureData {
         return Identifier.of(id);
     }
 
-
-
     public NpcEntityTextureData() {
         this.eyeIsEmissive = false;
+    }
+
+    public void withSimplifiedPreset(SimplifiedTexturePreset preset) {
+        if(preset == null)
+            return;
+
+        this.simplifiedSkin = preset.base;
+        this.simplifiedEar = preset.ear;
+        this.simplifiedFeet = preset.feet;
+        this.simplifiedHair = preset.hair;
+        this.simplifiedNose = preset.nose;
     }
 
     public NpcEntityTextureData withSkinTexture(Identifier texture){
@@ -179,7 +212,7 @@ public class NpcEntityTextureData {
     public NpcEntityTextureData withClothingTexture(Identifier textureBase, Identifier textureOver, Identifier textureExtra){
         this.clothingBaseTexture = textureBase;
         this.clothingOverTexture = textureOver;
-        this.clothingExtraTexture = textureOver;
+        this.clothingExtraTexture = textureExtra;
         return this;
     }
 
@@ -216,5 +249,25 @@ public class NpcEntityTextureData {
 
     public boolean needToBeRefreshed() {
         return get(NpcRenderedPart.BODY) == null;
+    }
+
+    public Identifier getSimplifiedSkin() {
+        return this.simplifiedSkin;
+    }
+
+    public Identifier getSimplifiedEar() {
+        return this.simplifiedEar;
+    }
+
+    public Identifier getSimplifiedFeet() {
+        return this.simplifiedFeet;
+    }
+
+    public Identifier getSimplifiedHair() {
+        return this.simplifiedHair;
+    }
+
+    public Identifier getSimplifiedNose() {
+        return this.simplifiedNose;
     }
 }
