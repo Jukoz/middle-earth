@@ -5,10 +5,6 @@
       "weight": 2
     },
 	{
-      "structure": "middle-earth:lothlorien_watch_tower",
-      "weight": 1
-    },
-	{
       "structure": "middle-earth:lothlorien_tree_talan",
       "weight": 3
     }

@@ -1,16 +1,12 @@
 {
   "structures": [
 	{
-      "structure": "middle-earth:mordor_camp",
-      "weight": 2
-    },
-	{
       "structure": "middle-earth:mordor_watch_tower",
       "weight": 1
     },
 	{
       "structure": "middle-earth:mordor_firecamp",
-      "weight": 5
+      "weight": 3
     }
   ],
   "placement": {
