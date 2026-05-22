@@ -1,12 +1,12 @@
 {
-  "name": "middle-earth:mordor_firecamp",
+  "name": "middle-earth:mordor/mordor_camp_road_chief",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor/mordor_camp_ground",
+        "location": "middle-earth:mordor/mordor_camp_chief_road",
         "projection": "terrain_matching",
         "processors": "middle-earth:randomize_mordor_road"
       }

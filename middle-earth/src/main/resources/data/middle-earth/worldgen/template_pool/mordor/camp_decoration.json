@@ -1,5 +1,5 @@
 {
-  "name": "middle-earth:mordor_camp_decoration",
+  "name": "middle-earth:mordor/camp_decoration",
   "fallback": "minecraft:empty",
   "elements": [
     {

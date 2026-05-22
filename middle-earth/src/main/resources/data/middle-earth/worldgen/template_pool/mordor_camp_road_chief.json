@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_road_chief",
+        "location": "middle-earth:mordor/mordor_camp_road_chief",
         "projection": "terrain_matching",
         "processors": "middle-earth:randomize_mordor_road"
       }

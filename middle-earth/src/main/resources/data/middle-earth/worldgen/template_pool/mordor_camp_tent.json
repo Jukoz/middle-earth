@@ -6,7 +6,7 @@
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_tent",
+        "location": "middle-earth:mordor/mordor_camp_tent",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent"
       }
@@ -15,7 +15,7 @@
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_tent_1",
+        "location": "middle-earth:mordor/mordor_camp_tent_1",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent"
       }
@@ -24,7 +24,7 @@
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_tent_2",
+        "location": "middle-earth:mordor/mordor_camp_tent_2",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent"
       }
@@ -33,7 +33,7 @@
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_tent",
+        "location": "middle-earth:mordor/mordor_camp_tent",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent_gray"
       }
@@ -42,7 +42,7 @@
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_tent_1",
+        "location": "middle-earth:mordor/mordor_camp_tent_1",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent_gray"
       }
@@ -51,7 +51,7 @@
       "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_armory",
+        "location": "middle-earth:mordor/mordor_camp_armory",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent"
       }
@@ -60,7 +60,7 @@
       "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_warg_pen",
+        "location": "middle-earth:mordor/mordor_camp_warg_pen",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent"
       }
@@ -69,7 +69,7 @@
       "weight": 4,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:mordor_camp_berries",
+        "location": "middle-earth:mordor/mordor_camp_berries",
         "projection": "rigid",
         "processors": "middle-earth:randomize_mordor_tent"
       }
