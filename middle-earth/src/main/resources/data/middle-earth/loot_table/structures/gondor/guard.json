@@ -1,6 +1,6 @@
 {
   "pools": [
-    {
+       {
       "bonus_rolls": 0.5,
       "entries": [
 		{
@@ -164,48 +164,13 @@
 	},
     {
       "rolls": {
-        "min": 0,
-        "max": 5
+        "min": 1,
+        "max": 8
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:mail_ring",
-		  "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "minecraft:trim": {
-                  "material": "minecraft:iron",
-                  "pattern": "middle-earth:smithing_part"
-                }
-              }
-            }
-		  ]
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 6
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:bronze_nugget"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0,
-        "max": 2
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:tin_ingot"
+          "name": "minecraft:arrow"
         }
       ]
     },
@@ -217,23 +182,23 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:fabric"
+          "name": "minecraft:cobweb"
         }
       ]
     },
     {
       "rolls": {
         "min": 0,
-        "max": 1
+        "max": 3
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:black_dye"
+          "name": "middle-earth:copper_coin"
         }
       ]
     },
-	{
+    {
       "rolls": {
         "min": 0,
         "max": 4
@@ -241,7 +206,19 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather"
+          "name": "minecraft:stick"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chain"
         }
       ]
     }
