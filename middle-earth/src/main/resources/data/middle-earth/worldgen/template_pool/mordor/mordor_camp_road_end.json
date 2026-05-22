@@ -1,5 +1,5 @@
 {
-  "name": "middle-earth:mordor_camp_road_end",
+  "name": "middle-earth:mordor/mordor_camp_road_end",
   "fallback": "minecraft:empty",
   "elements": [
     {

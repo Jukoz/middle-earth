@@ -13,7 +13,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:orc_dagger"
+          "name": "middle-earth:orc_knife"
         },
         {
           "type": "minecraft:item",
@@ -46,6 +46,10 @@
         {
           "type": "minecraft:item",
           "name": "middle-earth:orcish_leather_skirt"
+        },        
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_wooden_shield"
         },
         {
           "type": "minecraft:item",
