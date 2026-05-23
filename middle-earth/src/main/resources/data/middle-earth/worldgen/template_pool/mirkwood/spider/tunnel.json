@@ -3,7 +3,7 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_tunnel",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_t_junction",
@@ -21,10 +21,28 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_cross_junction",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mirkwood/spider/burrow_descent",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mirkwood/spider/burrow_descent_1",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
