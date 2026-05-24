@@ -1,5 +1,5 @@
 {
-  "name": "middle-earth:mirkwood/spider/tunnel",
+  "name": "middle-earth:mirkwood/spider/lower_tunnel",
   "fallback": "middle-earth:mirkwood/spider/lower_dead_end",
   "elements": [
     {
@@ -16,6 +16,15 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_bridge_room",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mirkwood/spider/burrow_trial_room",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
