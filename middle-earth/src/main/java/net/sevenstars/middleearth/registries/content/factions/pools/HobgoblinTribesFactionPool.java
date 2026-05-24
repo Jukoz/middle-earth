@@ -24,7 +24,6 @@ import java.util.List;
 public class HobgoblinTribesFactionPool {
     public final static Faction HOBGOBLIN_TRIBES;
     public final static Faction GUNDABAD;
-    private final static String FACTION_PATH = FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.getValue().getPath();
 
     static {
         HOBGOBLIN_TRIBES = new Faction(FactionRegistry.HOBGOBLIN_TRIBES, true, DispositionType.EVIL, FactionType.FACTION, null,

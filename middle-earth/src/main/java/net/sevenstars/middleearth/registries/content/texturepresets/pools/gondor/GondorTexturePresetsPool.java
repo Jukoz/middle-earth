@@ -1,16 +1,15 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor;
 
 import net.sevenstars.api.dtos.WeightedPool;
+import net.sevenstars.middleearth.registries.SimplifiedTexturesME;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
+import net.sevenstars.middleearth.resources.datas.texture_presets.*;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +92,14 @@ public class GondorTexturePresetsPool {
                     TexturePreset.EMPTY_VALUE_KEY.withWeight(3),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SHORT),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SINGLE)
+                ))
+                .withSimplifiedTextures(List.of(
+                        new WeightedSimplifiedTexturePresetHolder(
+                                SimplifiedTexturePreset.create(SimplifiedTexturesME.Gondor.MALE_A)
+                        ),
+                        new WeightedSimplifiedTexturePresetHolder(
+                                SimplifiedTexturePreset.create(SimplifiedTexturesME.Gondor.MALE_B)
+                        )
                 ));
 
         FEMALE_PRESET = new WeightedTexturePresetHolder()
@@ -107,7 +114,17 @@ public class GondorTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.LONG),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.UNCUT),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SEMI_LONG)
-                ));
+                ))
+                .withSimplifiedTextures(List.of(
+                        new WeightedSimplifiedTexturePresetHolder(
+                                SimplifiedTexturePreset.create(SimplifiedTexturesME.Gondor.FEMALE_A)
+                                        .withHair(SimplifiedTexturesME.Gondor.FEMALE_A_HAIR)
+                        ),
+                        new WeightedSimplifiedTexturePresetHolder(
+                                SimplifiedTexturePreset.create(SimplifiedTexturesME.Gondor.FEMALE_B)
+                                        .withHair(SimplifiedTexturesME.Gondor.FEMALE_B_HAIR)
+                        )
+                ));;
 
         LORD_PRESET = MALE_PRESET.copy()
                 .clearPatterns(CharacterPatternTypes.BODY)

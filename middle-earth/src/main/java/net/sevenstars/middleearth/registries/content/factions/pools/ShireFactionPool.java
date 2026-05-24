@@ -53,8 +53,8 @@ public class ShireFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.PIPE, DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of("shire",  "hobbiton"), new Vector2d(933, 900)),
-                        new SpawnData(MiddleEarth.of("shire",  "willowbottom"), new Vector2d(981, 970))
+                        new SpawnData(MiddleEarth.of(FactionRegistry.SHIRE.getValue().getPath(), "hobbiton"), new Vector2d(933, 900)),
+                        new SpawnData(MiddleEarth.of(FactionRegistry.SHIRE.getValue().getPath(), "willowbottom"), new Vector2d(981, 970))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),

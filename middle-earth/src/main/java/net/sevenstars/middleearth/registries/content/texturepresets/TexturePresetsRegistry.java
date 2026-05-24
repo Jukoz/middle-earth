@@ -21,6 +21,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.pools.mordor
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.rohan.RohanTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.shire.ShireTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.woodlandrealm.WoodlandRealmTexturePresetsPool;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 
@@ -74,6 +75,13 @@ public class TexturePresetsRegistry {
     public final static RegistryKey<TexturePresetDataPool> LOTHLORIEN_ELF      = of(FactionRegistry.LOTHLORIEN, "elf");
     public final static RegistryKey<TexturePresetDataPool> LOTHLORIEN_LORD     = of(FactionRegistry.LOTHLORIEN, "lord");
 
+    /* [WOODLAND_REALMS] */
+    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_ELF = of(FactionRegistry.WOODLAND_REALM, "elf");
+    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_ELF_SENTINEL = of(FactionRegistry.WOODLAND_REALM, "elf_sentinel");
+    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_COMMANDER = of(FactionRegistry.WOODLAND_REALM, "commander");
+    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_WARDEN_OF_THE_GLADE = of(FactionRegistry.WOODLAND_REALM, "warden_of_the_glade");
+
+
     /* [MORDOR] */
     public final static RegistryKey<TexturePresetDataPool> MORDOR_BLACK_NUMENOREAN     = of(FactionRegistry.MORDOR, "black_numenorean");
     public final static RegistryKey<TexturePresetDataPool> MORDOR_ORC                  = of(FactionRegistry.MORDOR, "orc");
@@ -103,6 +111,7 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, RohanTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, ShireTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, LothlorienTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, WoodlandRealmTexturePresetsPool.fetchAll());
 
         registerAll(context, registryEntryLookup, MordorTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, HobgoblinTribesTexturePresetsPool.fetchAll());

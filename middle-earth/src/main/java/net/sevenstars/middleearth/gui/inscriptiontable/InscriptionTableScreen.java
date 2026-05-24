@@ -30,16 +30,16 @@ import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
 public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "inscription_table.png");
+    private static final Identifier TEXTURE = MiddleEarth.ofPath( "textures", "gui", "inscription_table.png");
 
     private static final Identifier SCROLLER_TEXTURE = Identifier.ofVanilla("container/villager/scroller");
     private static final Identifier SCROLLER_DISABLED_TEXTURE = Identifier.ofVanilla("container/villager/scroller_disabled");
 
     private static final Identifier EMPTY_SLOT_EMERALD_TEXTURE = Identifier.ofVanilla("container/slot/emerald");
     private static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.ofVanilla("container/slot/lapis_lazuli");
-    private static final Identifier EMPTY_SLOT_ADAMANT_TEXTURE = MiddleEarth.of('/', "container", "slot", "adamant");
-    private static final Identifier EMPTY_SLOT_RUBY_TEXTURE = MiddleEarth.of('/', "container", "slot", "ruby");
-    private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = MiddleEarth.of('/', "container", "slot", "sapphire");
+    private static final Identifier EMPTY_SLOT_ADAMANT_TEXTURE = MiddleEarth.ofPath( "container", "slot", "adamant");
+    private static final Identifier EMPTY_SLOT_RUBY_TEXTURE = MiddleEarth.ofPath( "container", "slot", "ruby");
+    private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = MiddleEarth.ofPath( "container", "slot", "sapphire");
 
     private static final Identifier FONT_ID = Identifier.ofVanilla("alt");
     private static final Style STYLE = Style.EMPTY.withFont(FONT_ID);

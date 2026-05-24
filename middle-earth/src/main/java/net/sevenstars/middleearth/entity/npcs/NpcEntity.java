@@ -44,7 +44,6 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
@@ -112,6 +111,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     private void writeEntityData(WriteView view){
         view.put("NpcDataId", Codec.STRING, dataTracker.get(NPC_DATA_ID));
+        view.put("FactionId", Codec.STRING, dataTracker.get(FACTION_ID));
         view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
         view.put("NpcTextureData", NpcEntityTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
         view.put("InitializationTick", Codec.LONG, dataTracker.get(INITIALIZATION_TICK));
@@ -206,7 +206,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             return;
 
         World world = getWorld();
-
         if(world.isClient)
             return;
 
@@ -419,6 +418,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return race.getRaceType();
     }
 
+    public void setInitializationTick() {
+        this.dataTracker.set(INITIALIZATION_TICK, this.getWorld().getTickOrder());
+    }
+
     public Long getInitializationTick() {
         return this.dataTracker.get(INITIALIZATION_TICK);
     }
@@ -470,8 +473,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             EnchantmentHelper.onTargetDamaged(world, target, damageSource);
             this.onAttacking(target);
             this.playAttackSound();
-            this.swingHand(Hand.MAIN_HAND);
-            this.swingHand(Hand.OFF_HAND);
         }
         return bl;
     }

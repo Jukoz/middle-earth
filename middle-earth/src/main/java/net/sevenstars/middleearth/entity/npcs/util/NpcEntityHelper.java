@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.texture_presets.ClothingSelection;
+import net.sevenstars.middleearth.resources.datas.texture_presets.SimplifiedTexturePreset;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 
@@ -39,6 +40,7 @@ public class NpcEntityHelper {
             npcTextureData = npcTextureData.withFeetTexture(TexturePresetDataPool.buildId(feetPatternId, materialId));
         }
 
+        npcTextureData.withSimplifiedPreset(textureIdentity.preset().getSimplifiedSkin());
         return npcTextureData;
     }
 

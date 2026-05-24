@@ -220,7 +220,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         });
 
         ModelLoadingPlugin.register(pluginContext -> {
-            pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(MiddleEarth.of('/', "item", "plate_apple")));
+            pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(MiddleEarth.ofPath("item", "plate_apple")));
         });
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);

@@ -5,6 +5,8 @@ import net.sevenstars.api.SevenStarsApi;
 
 public class IdentifierUtil {
     public static Identifier getIdentifierFromString(String id){
+        if(id == null)
+            return null;
         if(id.contains(":") && id.split(":").length == 2){
             return Identifier.of(id.split(":")[0], id.split(":")[1]);
         }

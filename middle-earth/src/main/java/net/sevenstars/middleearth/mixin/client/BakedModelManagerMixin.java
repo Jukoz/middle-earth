@@ -30,15 +30,12 @@ public class BakedModelManagerMixin{
     private static void addNewAtlas(TextureManager textureManager, BlockColors colorMap, int mipmap, CallbackInfo ci)
     {
         HashMap<Identifier, Identifier> map = new HashMap<>(LAYERS_TO_LOADERS);
-        map.put(ModTexturedRenderLayers.CHARACTER_SKIN_ATLAS_TEXTURE, AtlasesME.CHARACTER_SKINS);
-        map.put(ModTexturedRenderLayers.CHARACTER_EYES_ATLAS_TEXTURE, AtlasesME.CHARACTER_EYES);
-        map.put(ModTexturedRenderLayers.CHARACTER_HAIRS_ATLAS_TEXTURE, AtlasesME.CHARACTER_HAIRS);
-        map.put(ModTexturedRenderLayers.CHARACTER_CLOTHES_ATLAS_TEXTURE, AtlasesME.CHARACTER_CLOTHES);
+        map.put(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES, AtlasesME.CHARACTER_TEXTURES);
 
         /*
          * Load custom sprites' atlas. Used for direct render animations.
          */
-        map.put(Identifier.of(MiddleEarth.MOD_ID, "sprites"), Identifier.of(MiddleEarth.MOD_ID, "sprites"));
+        map.put(MiddleEarth.of("sprites"), MiddleEarth.of("sprites"));
 
         LAYERS_TO_LOADERS = map;
     }
