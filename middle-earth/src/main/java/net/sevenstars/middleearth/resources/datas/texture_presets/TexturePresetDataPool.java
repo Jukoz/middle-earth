@@ -155,6 +155,9 @@ public class TexturePresetDataPool {
 
                             presetToFill.withMaterials(CharacterMaterialTypes.EYE, sharePreset.getMaterials(CharacterMaterialTypes.EYE));
                             presetToFill.withPatterns(CharacterPatternTypes.EYE, sharePreset.getPatterns(CharacterPatternTypes.EYE));
+
+                            if(sharePreset.getClothes().isFilled())
+                                presetToFill.withClothes(sharePreset.getClothes());
                         }
                         copyOfSourcePresets.add(presetToFill);
                     }

@@ -22,9 +22,6 @@ import java.util.List;
 public class LorienNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.LOTHLORIEN;
 
-    private final static int LIGHT_BLUE = 0x3a4250;
-    private final static int DARK_BLUE = 0x252b3a;
-
     public final static NpcData SENTINEL;
     public final static NpcData RANGER;
     public final static NpcData WARRIOR;
