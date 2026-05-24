@@ -129,7 +129,7 @@ public class WoodlandRealmTexturePresetsPool {
                         WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.MUSCULAR)
                 ))
                 .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                        WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLONDE_GOLD),
+                        WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.RED_SILVER),
                         WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_SILVER)
                 ));
     }
@@ -192,8 +192,7 @@ public class WoodlandRealmTexturePresetsPool {
 
         WARDEN_OF_THE_GLADE = new TexturePresetDataPool(new HashMap<>(){{
             put(EntityCategories.SHARED, new WeightedPool<>(
-                    BASE_PRESET.copy()
-                            .clearMaterials(CharacterMaterialTypes.HAIR)
+                    BASE_PRESET.copy().clearMaterials(CharacterMaterialTypes.HAIR)
             ));
             put(EntityCategories.MALE, new WeightedPool<>(List.of(
                     ELITE_PRESET.copy().withPatterns(CharacterPatternTypes.SCAR, List.of(
