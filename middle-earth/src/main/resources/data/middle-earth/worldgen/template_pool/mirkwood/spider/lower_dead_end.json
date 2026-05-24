@@ -1,0 +1,15 @@
+{
+  "name": "middle-earth:mirkwood/spider/lower_dead_end",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mirkwood/spider/lower_dead_end",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

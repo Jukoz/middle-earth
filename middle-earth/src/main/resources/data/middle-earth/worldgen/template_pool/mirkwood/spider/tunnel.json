@@ -1,6 +1,6 @@
 {
   "name": "middle-earth:mirkwood/spider/tunnel",
-  "fallback": "minecraft:empty",
+  "fallback": "middle-earth:mirkwood/spider/dead_end",
   "elements": [
     {
       "weight": 2,
@@ -25,6 +25,15 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_cross_junction",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mirkwood/spider/burrow_nest_room",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
