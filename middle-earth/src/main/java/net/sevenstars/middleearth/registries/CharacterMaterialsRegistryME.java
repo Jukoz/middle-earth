@@ -115,6 +115,11 @@ public class CharacterMaterialsRegistryME {
         public final static RegistryKey<CharacterTextureMaterial> GINGER_COPPER = of("ginger_and_copper", CharacterMaterialTypes.HAIR);
         public final static RegistryKey<CharacterTextureMaterial> GINGER_GOLD = of("ginger_and_gold", CharacterMaterialTypes.HAIR);
         public final static RegistryKey<CharacterTextureMaterial> GINGER_SILVER = of("ginger_and_silver", CharacterMaterialTypes.HAIR);
+        public final static RegistryKey<CharacterTextureMaterial> RED_ALMANDINE = of("red_and_almandine", CharacterMaterialTypes.HAIR);
+        public final static RegistryKey<CharacterTextureMaterial> RED_BEADS = of("red_and_beads", CharacterMaterialTypes.HAIR);
+        public final static RegistryKey<CharacterTextureMaterial> RED_COPPER = of("red_and_copper", CharacterMaterialTypes.HAIR);
+        public final static RegistryKey<CharacterTextureMaterial> RED_GOLD = of("red_and_gold", CharacterMaterialTypes.HAIR);
+        public final static RegistryKey<CharacterTextureMaterial> RED_SILVER = of("red_and_silver", CharacterMaterialTypes.HAIR);
     }
 
     public static void bootstrapSkins(Registerable<CharacterTextureMaterial> registry) {
@@ -167,6 +172,7 @@ public class CharacterMaterialsRegistryME {
         register(registry, Hair.GREASY_GOLD, CharacterMaterialTypes.HAIR);
         register(registry, Hair.STRAW_GOLD, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GINGER_GOLD, CharacterMaterialTypes.HAIR);
+        register(registry, Hair.RED_GOLD, CharacterMaterialTypes.HAIR);
         register(registry, Hair.WHITE_GOLD, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GRAY_GOLD, CharacterMaterialTypes.HAIR);
 
@@ -180,6 +186,7 @@ public class CharacterMaterialsRegistryME {
         register(registry, Hair.GREASY_BEADS, CharacterMaterialTypes.HAIR);
         register(registry, Hair.STRAW_BEADS, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GINGER_BEADS, CharacterMaterialTypes.HAIR);
+        register(registry, Hair.RED_BEADS, CharacterMaterialTypes.HAIR);
         register(registry, Hair.WHITE_BEADS, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GRAY_BEADS, CharacterMaterialTypes.HAIR);
 
@@ -193,6 +200,7 @@ public class CharacterMaterialsRegistryME {
         register(registry, Hair.GREASY_COPPER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.STRAW_COPPER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GINGER_COPPER, CharacterMaterialTypes.HAIR);
+        register(registry, Hair.RED_COPPER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.WHITE_COPPER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GRAY_COPPER, CharacterMaterialTypes.HAIR);
 
@@ -206,6 +214,7 @@ public class CharacterMaterialsRegistryME {
         register(registry, Hair.GREASY_ALMANDINE, CharacterMaterialTypes.HAIR);
         register(registry, Hair.STRAW_ALMANDINE, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GINGER_ALMANDINE, CharacterMaterialTypes.HAIR);
+        register(registry, Hair.RED_ALMANDINE, CharacterMaterialTypes.HAIR);
         register(registry, Hair.WHITE_ALMANDINE, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GRAY_ALMANDINE, CharacterMaterialTypes.HAIR);
 
@@ -219,6 +228,7 @@ public class CharacterMaterialsRegistryME {
         register(registry, Hair.GREASY_SILVER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.STRAW_SILVER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GINGER_SILVER, CharacterMaterialTypes.HAIR);
+        register(registry, Hair.RED_SILVER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.WHITE_SILVER, CharacterMaterialTypes.HAIR);
         register(registry, Hair.GRAY_SILVER, CharacterMaterialTypes.HAIR);
     }

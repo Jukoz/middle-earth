@@ -21,6 +21,7 @@ public class FactionRegistry {
     public final static RegistryKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("longbeards"));
     public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(LONGBEARDS.getValue().getPath(), "erebor"));
     public final static RegistryKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("lothlorien"));
+    public final static RegistryKey<Faction> WOODLAND_REALM = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("woodland_realm"));
     public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("mordor"));
     public final static RegistryKey<Faction> HOBGOBLIN_TRIBES =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("hobgoblin_tribes"));
     public final static RegistryKey<Faction> HOBGOBLIN_TRIBES_GUNDABAD =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(HOBGOBLIN_TRIBES.getValue().getPath(), "gundabad"));
@@ -38,6 +39,7 @@ public class FactionRegistry {
         register(context, registryEntryLookup, LONGBEARDS, LongbeardsFactionPool.LONGBEARDS);
         register(context, registryEntryLookup, LONGBEARDS_EREBOR, LongbeardsFactionPool.EREBOR);
         register(context, registryEntryLookup, LOTHLORIEN, LothlorienFactionPool.LOTHLORIEN);
+        register(context, registryEntryLookup, WOODLAND_REALM, WoodlandRealmFactionPool.WOODLAND_REALM);
         register(context, registryEntryLookup, MORDOR, MordorFactionPool.MORDOR);
         register(context, registryEntryLookup, HOBGOBLIN_TRIBES, HobgoblinTribesFactionPool.HOBGOBLIN_TRIBES);
         register(context, registryEntryLookup, HOBGOBLIN_TRIBES_GUNDABAD, HobgoblinTribesFactionPool.GUNDABAD);

@@ -38,6 +38,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Khazad Steel", "Khazâd-Steel");
         specialNames.put("Druwaith", "Drúwaith");
         specialNames.put("Lothlorien", "Lothlórien");
+        specialNames.put("Elvenkings Halls", "Elvenking's Halls");
         specialNames.put("Nurn", "Núrn");
         specialNames.put("Rhun", "Rhûn");
         specialNames.put("Lorien", "Lórien");
@@ -137,7 +138,6 @@ public class LanguageProvider extends FabricLanguageProvider {
     }
 
     public void createNpcDataTranslation(TranslationBuilder translationBuilder, String prefix, String suffix) {
-
         StringBuilder generatedName = new StringBuilder();
         if (suffix.contains(".")){
             String [] sub = suffix.split("\\.");
@@ -196,6 +196,10 @@ public class LanguageProvider extends FabricLanguageProvider {
                 result = result.replaceAll(map.getKey(), map.getValue());
             }
         }
+
+        result = result.replace(" Of ", " of ");
+        result = result.replace(" The ", " the ");
+
         return result;
     }
 

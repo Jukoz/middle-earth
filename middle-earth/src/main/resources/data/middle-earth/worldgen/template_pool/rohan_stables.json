@@ -1,12 +1,12 @@
 {
-  "name": "middle-earth:npc_testing_area_gondor",
+  "name": "middle-earth:rohan_stables",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:npc_testing_area_gondor",
+        "location": "middle-earth:rohan_stables",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
