@@ -34,16 +34,21 @@ public class WeightedPool<T extends WeightedItem> {
     }
 
     public T getRandom(){
-        List<Integer> indexes = new ArrayList<>();
-        for(int i = 0; i < elements.size(); i++){
-            for(int j = 0; j < elements.get(i).weight; j++){
-                indexes.add(i);
+        int maximumWeight = elements.stream().mapToInt(x -> x.weight).sum();
+        if(maximumWeight == 0)
+            return null;
+
+        float randomIndex = RANDOM.nextInt(maximumWeight);
+        int currentWeight = 0;
+
+        for (var element : elements) {
+            currentWeight += element.weight;
+
+            if (randomIndex < currentWeight) {
+                return element;
             }
         }
-        if(indexes.isEmpty())
-            return null;
-        int randomIndex = RANDOM.nextInt(indexes.size());
-        return elements.get(indexes.get(randomIndex));
+        return null;
     }
 
     public boolean isEmpty(){

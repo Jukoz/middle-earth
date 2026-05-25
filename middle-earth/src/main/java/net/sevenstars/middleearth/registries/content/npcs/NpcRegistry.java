@@ -107,7 +107,6 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> WOODLAND_REALM_RANGER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "ranger"));
     public final static RegistryKey<NpcData> WOODLAND_REALM_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "warrior"));
     public final static RegistryKey<NpcData> WOODLAND_REALM_LANCER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "lancer"));
-    public final static RegistryKey<NpcData> WOODLAND_REALM_NIGHTSHADE_SENTINEL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "nightshade_sentinel"));
     public final static RegistryKey<NpcData> WOODLAND_REALM_NIGHTSHADE = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "nightshade"));
     public final static RegistryKey<NpcData> WOODLAND_REALM_ELVEN_KINGS_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "elven_kings_guard"));
     public final static RegistryKey<NpcData> WOODLAND_REALM_COMMANDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "commander"));

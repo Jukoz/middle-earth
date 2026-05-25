@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.TexturePrese
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedClothingPresetHolder;
 import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
@@ -45,7 +46,7 @@ public class WoodlandRealmTexturePresetsPool {
                 ))
                 .withPatterns(CharacterPatternTypes.EAR, List.of(
                         WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.POINTY),
-                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.SMALL_POINTY)
+                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Ear.SMALL)
                 ))
                 .withPatterns(CharacterPatternTypes.EYE, List.of(
                         WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.COMMON)
@@ -179,14 +180,11 @@ public class WoodlandRealmTexturePresetsPool {
                             .withPatterns(CharacterPatternTypes.SCAR,  List.of(
                                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT)
                             )),
-                    ELITE_PRESET.copy()
-                            .clearPatterns(CharacterPatternTypes.EYE)
-                            .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_RIGHT)
-                            ))
-                            .withPatterns(CharacterPatternTypes.SCAR,  List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
-                            ))
+                    ELITE_PRESET.copy().withPatterns(CharacterPatternTypes.SCAR, List.of(
+                            TexturePreset.EMPTY_VALUE_KEY.withWeight(40),
+                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT),
+                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
+                    ))
             )));
         }});
 
@@ -196,6 +194,7 @@ public class WoodlandRealmTexturePresetsPool {
             ));
             put(EntityCategories.MALE, new WeightedPool<>(List.of(
                     ELITE_PRESET.copy().withPatterns(CharacterPatternTypes.SCAR, List.of(
+                            TexturePreset.EMPTY_VALUE_KEY.withWeight(70),
                             WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT),
                             WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
                     ))

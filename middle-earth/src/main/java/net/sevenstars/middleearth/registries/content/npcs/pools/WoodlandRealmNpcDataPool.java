@@ -30,7 +30,6 @@ public class WoodlandRealmNpcDataPool {
     public final static NpcData RANGER; // Medium armor - archers
     public final static NpcData WARRIOR; // Medium armor
     public final static NpcData LANCER; // Medium armor - have spears and do charges - riding great horns
-    public final static NpcData NIGHTSHADE_SENTINEL; // Nightshade armor - Stealth - have bows
     public final static NpcData NIGHTSHADE; // Nightshade armor - Hybrid
     public final static NpcData ELVEN_KINGS_GUARD; // Heavily armored - spears and shields
     public final static NpcData COMMANDER; // Heavily armored, can ride a great horn (depend on context)
@@ -44,7 +43,6 @@ public class WoodlandRealmNpcDataPool {
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.WOODLAND_REALM_RANGER, RANGER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.WOODLAND_REALM_WARRIOR, WARRIOR),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.WOODLAND_REALM_LANCER, LANCER),
-                new NpcRegistry.RegisterableNpcData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE_SENTINEL, NIGHTSHADE_SENTINEL),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE, NIGHTSHADE),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.WOODLAND_REALM_ELVEN_KINGS_GUARD, ELVEN_KINGS_GUARD),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.WOODLAND_REALM_COMMANDER, COMMANDER),
@@ -200,26 +198,6 @@ public class WoodlandRealmNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_SHIELD).withWeight(3))
-                        )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
-
-        NIGHTSHADE_SENTINEL = new NpcData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF_SENTINEL, List.of(
-                WeightedGearData.create()
-                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET)
-                                        .withHood(HelmetAttachmentsME.HOOD, 0x20351a))
-                        )
-                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_CHESTPLATE)
-                                        .withCape(BackAttachmentsME.MIRK_LEAF_CAPE))
-                        )
-                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_LEGGINGS))
-                        )
-                        .add(EquipmentSlot.FEET, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_LONGBOW))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
