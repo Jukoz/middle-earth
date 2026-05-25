@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_bridge_room",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_trial_room",
@@ -30,7 +30,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_vault_room",
@@ -39,7 +39,7 @@
       }
     },
     {
-      "weight": 2,
+      "weight": 5,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_hive_pit",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "weight": 2,
+      "weight": 3,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_lower_right_turn",
@@ -57,10 +57,19 @@
       }
     },
     {
-      "weight": 2,
+      "weight": 3,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_lower_t_junction",
+        "projection": "rigid",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mirkwood/spider/burrow_lower_split_junction",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }
