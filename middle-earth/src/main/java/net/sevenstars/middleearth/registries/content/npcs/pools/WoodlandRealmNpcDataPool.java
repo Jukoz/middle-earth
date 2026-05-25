@@ -8,7 +8,6 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
@@ -87,7 +86,7 @@ public class WoodlandRealmNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        SENTINEL = new NpcData(NpcRegistry.WOODLAND_REALM_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF_SENTINEL, List.of(
+        SENTINEL = new NpcData(NpcRegistry.WOODLAND_REALM_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_SENTINEL, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                             .add(WeightedItemData.create(EquipmentItemsME.HOOD).withColor(0x20351a))
@@ -135,7 +134,7 @@ public class WoodlandRealmNpcDataPool {
                         ),
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(
-                                WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET).withWeight(3))
+                                WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_SILVER_ARMING_COAT)
@@ -158,7 +157,7 @@ public class WoodlandRealmNpcDataPool {
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
-                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SOLDIER_HELMET).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SOLDIER_HELMET).withWeight(2))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SOLDIER_CHESTPLATE))
@@ -201,7 +200,7 @@ public class WoodlandRealmNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
-        NIGHTSHADE = new NpcData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF_SENTINEL, List.of(
+        NIGHTSHADE = new NpcData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_NIGHTSHADE, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET))
@@ -264,7 +263,7 @@ public class WoodlandRealmNpcDataPool {
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create())
-                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_HELMET).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_HELMET).withWeight(2))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_CHESTPLATE))
