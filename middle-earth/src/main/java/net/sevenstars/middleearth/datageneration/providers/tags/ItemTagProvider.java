@@ -87,9 +87,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "bow"))).add(Bows.bows.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "crossbow"))).add(Crossbows.crossbows.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "durability"))).add(ArmorTags.armors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/crossbow"))).add(Crossbows.crossbows.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(ArmorTags.armors.toArray(new Item[0]));
 
         ArmorTags.basicArmors.addAll(List.of(new Item[]{Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS}));
         ArmorTags.mediumArmors.addAll(List.of(new Item[]{Items.GOLDEN_HELMET, Items.GOLDEN_CHESTPLATE, Items.GOLDEN_LEGGINGS, Items.GOLDEN_BOOTS,
