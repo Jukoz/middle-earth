@@ -473,8 +473,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             EnchantmentHelper.onTargetDamaged(world, target, damageSource);
             this.onAttacking(target);
             this.playAttackSound();
-            this.swingHand(Hand.MAIN_HAND);
-            this.swingHand(Hand.OFF_HAND);
         }
         return bl;
     }

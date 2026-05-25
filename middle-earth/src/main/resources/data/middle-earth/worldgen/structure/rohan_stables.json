@@ -4,7 +4,7 @@
   "step": "surface_structures",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
-  "start_pool": "middle-earth:npc_watchtower_cores",
+  "start_pool": "middle-earth:rohan_stables",
   "size": 1,
   "start_height": {
     "absolute": 0

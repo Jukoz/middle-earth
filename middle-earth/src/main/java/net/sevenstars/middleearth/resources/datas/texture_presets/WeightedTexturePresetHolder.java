@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources.datas.texture_presets;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.api.dtos.WeightedPool;
@@ -17,18 +18,18 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
         this.item = new TexturePreset();
     }
 
+    public WeightedTexturePresetHolder(NbtCompound compound) {
+        super(compound);
+
+        this.item = new TexturePreset(compound);
+    }
+
     @Override
     public WeightedTexturePresetHolder withWeight(int newWeight) {
         this.weight = newWeight;
         return this;
     }
 
-
-    public WeightedTexturePresetHolder(NbtCompound compound) {
-        super(compound);
-
-        this.item = new TexturePreset(compound);
-    }
 
     @Override
     public NbtElement getNbt(){
@@ -113,6 +114,9 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
     public WeightedPool<WeightedIdentifier> getMaterials(CharacterMaterialTypes materialType) {
         return this.item.getMaterials(materialType);
     }
+    public WeightedPool<WeightedClothingPresetHolder> getClothes() {
+        return this.item.characterClothePresets;
+    }
 
     public Boolean haveEmissiveEyes() {
         return this.item.haveEmissiveEyes();
@@ -171,5 +175,9 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
         Identifier extraId = clothePreset.getRandomExtra();
 
         return new ClothingSelection(baseId, overId, extraId);
+    }
+
+    public void withClothes(WeightedPool<WeightedClothingPresetHolder> clothes) {
+        this.item.characterClothePresets.addAll(clothes.elements);
     }
 }

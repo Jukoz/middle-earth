@@ -26,16 +26,21 @@ public class NpcInitializerUtil {
         // Get npc data
         String currentStep = "Fetching datas";
         try{
+            currentStep = "Getting registry for npc data id : %s".formatted(currentNpcDataId);
             DynamicRegistryManager registryManager = world.getRegistryManager();
             Optional<Registry<NpcData>> npcRegistry = registryManager.getOptional(DynamicRegistriesME.NPC);
             NpcData npcData = npcRegistry.get().get(currentNpcDataId);
+            currentStep = "Aligning data with npc entity...";
             npcEntity.setNpcData(npcData);
             npcEntity.setFactionId(npcData.getFactionIdentifier());
             npcEntity.setNpcCategory(npcData.getNpcTextureData(world).getRandomCategory());
+            currentStep = "Applying attributes...";
             npcData.applyAttributes(npcEntity);
 
+            currentStep = "Getting npc texture data...";
             TexturePresetDataPool textureData = npcData.getNpcTextureData(world);
 
+            currentStep = "Creating texture identity...";
             TexturePresetDataPool.Identity identity = TexturePresetDataPool.Identity.create(textureData, npcEntity.getNpcCategory());
             if(identity == null)
                 identity = TexturePresetDataPool.Identity.create(textureData);
