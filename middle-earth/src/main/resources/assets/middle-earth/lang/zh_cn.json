@@ -12932,6 +12932,7 @@
   "faction.middle-earth.brigand": "匪盗",
 
   "faction.middle-earth.lothlorien": "洛丝罗瑞恩",
+  "faction.middle-earth.woodland_realm": "黑森林王国",
   "faction.middle-earth.longbeards": "长须矮人",
   "faction.middle-earth.longbeards.erebor": "埃瑞博",
   "faction.middle-earth.dale": "河谷邦",
@@ -12990,7 +12991,6 @@
 
   "item.middle-earth.stone_dagger": "石匕首",
   "item.middle-earth.stone_spear": "石矛",
-  "item.middle-earth.stone_troll_spawn_egg": "岩石食人妖刷怪蛋",
 
   "item.middle-earth.tuff_statue": "凝灰岩雕像",
   "item.middle-earth.dirty_bone": "肮脏骨头",
@@ -14113,6 +14113,7 @@
   "item.middle-earth.ringwraith_mail_hauberk": "戒灵锁链甲衫",
 
   "__COMMENT__": "刷怪蛋物品",
+  "item.middle-earth.stone_troll_spawn_egg": "岩石食人妖刷怪蛋",
   "item.middle-earth.barrow_wight_spawn_egg": "古冢尸妖刷怪蛋",
   "item.middle-earth.brigand.chieftain_spawn_egg": "匪盗头目刷怪蛋",
   "item.middle-earth.brigand.mercenary_spawn_egg": "匪盗佣兵刷怪蛋",
@@ -14169,6 +14170,17 @@
   "item.middle-earth.lothlorien.sentinel_spawn_egg": "洛丝罗瑞恩哨卫刷怪蛋",
   "item.middle-earth.lothlorien.warrior_spawn_egg": "洛丝罗瑞恩战士刷怪蛋",
   "item.middle-earth.mordor.black_numenorean_spawn_egg": "魔多黑努门诺尔人刷怪蛋",
+  "item.middle-earth.woodland_realm.artisan_spawn_egg": "黑森林王国工匠刷怪蛋",
+  "item.middle-earth.woodland_realm.commander_spawn_egg": "黑森林王国指挥官刷怪蛋",
+  "item.middle-earth.woodland_realm.elven_kings_guard_spawn_egg": "黑森林王国国王守卫刷怪蛋",
+  "item.middle-earth.woodland_realm.hunter_spawn_egg": "黑森林王国猎手刷怪蛋",
+  "item.middle-earth.woodland_realm.lancer_spawn_egg": "黑森林王国长枪手刷怪蛋",
+  "item.middle-earth.woodland_realm.nightshade_spawn_egg": "黑森林王国夜翳战士刷怪蛋",
+  "item.middle-earth.woodland_realm.nightshade_sentinel_spawn_egg": "黑森林王国夜翳哨卫刷怪蛋",
+  "item.middle-earth.woodland_realm.ranger_spawn_egg": "黑森林王国游侠刷怪蛋",
+  "item.middle-earth.woodland_realm.sentinel_spawn_egg": "黑森林王国哨卫刷怪蛋",
+  "item.middle-earth.woodland_realm.warden_of_the_glade_spawn_egg": "黑森林王国林地守卫刷怪蛋",
+  "item.middle-earth.woodland_realm.warrior_spawn_egg": "黑森林王国战士刷怪蛋",
   "item.middle-earth.mordor.captain_spawn_egg": "魔多队长刷怪蛋",
   "item.middle-earth.mordor.militia_spawn_egg": "魔多民兵刷怪蛋",
   "item.middle-earth.mordor.scout_spawn_egg": "魔多斥候刷怪蛋",
@@ -14369,6 +14381,18 @@
   "npc_data.middle-earth.lothlorien.sentinel": "洛丝罗瑞恩哨卫",
   "npc_data.middle-earth.lothlorien.warrior": "洛丝罗瑞恩战士",
 
+  "npc_data.middle-earth.woodland_realm.artisan": "黑森林王国工匠",
+  "npc_data.middle-earth.woodland_realm.commander": "黑森林王国指挥官",
+  "npc_data.middle-earth.woodland_realm.elven_kings_guard": "黑森林王国国王守卫",
+  "npc_data.middle-earth.woodland_realm.hunter": "黑森林王国猎手",
+  "npc_data.middle-earth.woodland_realm.lancer": "黑森林王国长枪手",
+  "npc_data.middle-earth.woodland_realm.nightshade": "黑森林王国夜翳战士",
+  "npc_data.middle-earth.woodland_realm.nightshade_sentinel": "黑森林王国夜翳哨卫",
+  "npc_data.middle-earth.woodland_realm.ranger": "黑森林王国游侠",
+  "npc_data.middle-earth.woodland_realm.sentinel": "黑森林王国哨卫",
+  "npc_data.middle-earth.woodland_realm.warden_of_the_glade": "黑森林王国林地守卫",
+  "npc_data.middle-earth.woodland_realm.warrior": "黑森林王国战士",
+
   "npc_data.middle-earth.mordor.black_numenorean": "魔多黑努门诺尔人",
   "npc_data.middle-earth.mordor.captain": "魔多队长",
   "npc_data.middle-earth.mordor.militia": "魔多民兵",
@@ -14526,6 +14550,7 @@
   "spawn.middle-earth.longbeards.erebor.ravenhill": "渡鸦岭",
 
   "spawn.middle-earth.lothlorien.cerin_amroth": "凯林阿姆洛斯",
+  "spawn.middle-earth.woodland_realm.elvenkings_halls": "精灵国王的宫殿",
 
   "spawn.middle-earth.misty_mountains_goblins.goblin_town": "半兽人镇",
   "spawn.middle-earth.misty_mountains_goblins.grey_mountains": "灰色山脉",
