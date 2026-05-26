@@ -1606,6 +1606,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSets.BLACK_PINE_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSets.BLACK_PINE_SET.planksBlocks.base()))
                         .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TALL_FIR_DOOR, 1)
+                        .pattern("SP")
+                        .pattern("PP")
+                        .pattern("SP")
+                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('P', WoodBlockSets.FIR_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.FIR_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.FIR_SET.planksBlocks.base()))
+                        .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.OAK_STABLE_DOOR, 1)
                         .pattern("SPP")

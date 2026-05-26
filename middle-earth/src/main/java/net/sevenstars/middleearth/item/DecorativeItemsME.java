@@ -140,6 +140,8 @@ public class DecorativeItemsME {
 
     public static final Item TALL_BLACK_PINE_DOOR = registerItem("tall_black_pine_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_BLACK_PINE_DOOR, settings), new Item.Settings().maxCount(16));
+    public static final Item TALL_FIR_DOOR = registerItem("tall_fir_door",
+            (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_FIR_DOOR, settings), new Item.Settings().maxCount(16));
 
     public static final Item OAK_STABLE_DOOR = registerItem("oak_stable_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.OAK_STABLE_DOOR, settings), new Item.Settings().maxCount(16));

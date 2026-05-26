@@ -201,6 +201,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         largeDoorDrop(ModDecorativeBlocks.RED_HOBBIT_DOOR);
         largeDoorDrop(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
         largeDoorDrop(ModDecorativeBlocks.TALL_BLACK_PINE_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.TALL_FIR_DOOR);
         largeDoorDrop(ModDecorativeBlocks.OAK_STABLE_DOOR);
         largeDoorDrop(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
         largeDoorDrop(ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR);
