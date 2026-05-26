@@ -42,6 +42,9 @@ public class ResourceItemsME {
     public static final Item STARLIGHT_PHIAL = registerItem("starlight_phial",
             StarlightPhialItem::new, new Item.Settings().maxCount(1));
 
+    public static final Item PLAYER_BOOK = registerItem("player_book",
+            PlayerBookItem::new, new Item.Settings().maxCount(1));
+
     public static final Item REINFORCED_BARREL = registerItem("reinforced_barrel",
             (settings) -> {
                 return new BoatItem(EntitiesME.REINFORCED_BARREL, settings);
