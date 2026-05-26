@@ -194,15 +194,6 @@ public class WoodlandRealmTexturePresetsPool {
                                .clearMaterials(CharacterMaterialTypes.HAIR)
             ));
             put(EntityCategories.MALE, new WeightedPool<>(List.of(
-                    ELITE_PRESET.copy(),
-                    ELITE_PRESET.copy()
-                            .clearPatterns(CharacterPatternTypes.EYE)
-                            .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_LEFT)
-                            ))
-                            .withPatterns(CharacterPatternTypes.SCAR,  List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT)
-                            )),
                     ELITE_PRESET.copy().withPatterns(CharacterPatternTypes.SCAR, List.of(
                             TexturePreset.EMPTY_VALUE_KEY.withWeight(30),
                             WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT),

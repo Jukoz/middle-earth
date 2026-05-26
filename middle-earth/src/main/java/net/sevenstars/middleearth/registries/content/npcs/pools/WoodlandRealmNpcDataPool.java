@@ -110,7 +110,8 @@ public class WoodlandRealmNpcDataPool {
         RANGER = new NpcData(NpcRegistry.WOODLAND_REALM_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create().withWeight(3)
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                            .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET).withWeight(3))
+                                .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET).withWeight(3))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_ARMING_COAT)
@@ -133,8 +134,9 @@ public class WoodlandRealmNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_BOW))
                         ),
                 WeightedGearData.create()
-                        .add(EquipmentSlot.HEAD, GearSlotPool.create(
-                                WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET))
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET).withWeight(2))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_SILVER_ARMING_COAT)
@@ -181,7 +183,8 @@ public class WoodlandRealmNpcDataPool {
         LANCER = new NpcData(NpcRegistry.WOODLAND_REALM_LANCER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_CAVALRY_HELMET))
+                                .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_CAVALRY_HELMET).withWeight(3))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_HAUBERK)
@@ -203,7 +206,8 @@ public class WoodlandRealmNpcDataPool {
         NIGHTSHADE = new NpcData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_NIGHTSHADE, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET))
+                                .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET).withWeight(3))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_CHESTPLATE))
@@ -218,7 +222,8 @@ public class WoodlandRealmNpcDataPool {
                         ),
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET))
+                                .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET).withWeight(3))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_CHESTPLATE))
@@ -240,7 +245,8 @@ public class WoodlandRealmNpcDataPool {
         ELVEN_KINGS_GUARD = new NpcData(NpcRegistry.WOODLAND_REALM_ELVEN_KINGS_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET))
+                                .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET).withWeight(2))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK)
