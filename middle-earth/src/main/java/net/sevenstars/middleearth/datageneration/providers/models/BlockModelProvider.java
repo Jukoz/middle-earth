@@ -201,11 +201,18 @@ public class BlockModelProvider extends FabricModelProvider {
             if (block.origin() == Blocks.BASALT || block.origin() == Blocks.POLISHED_BASALT) {
                 texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath() + "_side"));
             }
-            Block stairs = block.stairs();
 
-            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Block stairs = block.stairs();
+            TextureMap textureMap = texturedModel.getTextures();
+            if(block.origin() == StoneBlockSets.DRYSTONE_SET.cobblestoneBlocks.base()) {
+                textureMap = TextureMap.top(block.origin());
+                textureMap.put(TextureKey.SIDE, Registries.BLOCK.getId(block.origin()).withPath((path) -> "block/" + path));
+                textureMap.put(TextureKey.BOTTOM, Registries.BLOCK.getId(block.origin()).withPath((path) -> "block/" + path));
+            }
+
+            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
+            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
+            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
 
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
                     .createStairsBlockState(stairs, inner, regular, outer));

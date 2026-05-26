@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
@@ -111,6 +112,9 @@ public class HelpingGenerator {
         }
 
         for (GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
+            regularBlocks(set.blockSet);
+        }
+        for (SimpleBlockSetBuilder set : GenericBlockSets.simpleSetsList) {
             regularBlocks(set.blockSet);
         }
 
@@ -334,6 +338,10 @@ public class HelpingGenerator {
 
     public static void regularBlocks(BlockRecordTypes.RegularSet set) {
         BlockRecordTypes.RegularSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
+    }
+
+    public static void regularBlocks(BlockRecordTypes.SimpleBlocks set) {
+        BlockRecordTypes.SimpleBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
     }
 
     public static void pillarBlocks(BlockRecordTypes.PillarSet set, Block origin) {
