@@ -98,5 +98,28 @@ public class Wool {
         add(ModDecorativeBlocks.ROTTEN_CURTAIN);
         add(ModDecorativeBlocks.WHITE_CURTAIN);
         add(ModDecorativeBlocks.YELLOW_CURTAIN);
+
+        add(ModBlocks.CANVAS);
+        add(ModBlocks.BLACK_CANVAS);
+        add(ModBlocks.BLUE_CANVAS);
+        add(ModBlocks.BROWN_CANVAS);
+        add(ModBlocks.CYAN_CANVAS);
+        add(ModBlocks.DARK_BLUE_CANVAS);
+        add(ModBlocks.DARK_BROWN_CANVAS);
+        add(ModBlocks.DARK_GRAY_CANVAS);
+        add(ModBlocks.DARK_GREEN_CANVAS);
+        add(ModBlocks.DARK_RED_CANVAS);
+        add(ModBlocks.DARK_YELLOW_CANVAS);
+        add(ModBlocks.GRAY_CANVAS);
+        add(ModBlocks.GREEN_CANVAS);
+        add(ModBlocks.LIGHT_BLUE_CANVAS);
+        add(ModBlocks.LIGHT_GRAY_CANVAS);
+        add(ModBlocks.MAGENTA_CANVAS);
+        add(ModBlocks.ORANGE_CANVAS);
+        add(ModBlocks.PINK_CANVAS);
+        add(ModBlocks.PURPLE_CANVAS);
+        add(ModBlocks.RED_CANVAS);
+        add(ModBlocks.WHITE_CANVAS);
+        add(ModBlocks.YELLOW_CANVAS);
     }};
 }

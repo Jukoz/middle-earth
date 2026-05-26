@@ -775,6 +775,51 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.STRING))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeItemsME.REINFORCED_SCAFFOLDING, 6)
+                        .pattern("LCL")
+                        .pattern("S S")
+                        .pattern("T T")
+                        .input('L', TagKey.of(RegistryKeys.ITEM, Identifier.of("c","stripped_logs")))
+                        .input('C', ModBlocks.CANVAS)
+                        .input('T', ResourceItemsME.TIN_INGOT)
+                        .input('S', Items.STICK)
+                        .criterion(hasItem(ResourceItemsME.TIN_INGOT),
+                                conditionsFromItem(ResourceItemsME.TIN_INGOT))
+                        .offerTo(exporter, "reinforced_scaffolding");
+
+                //region CANVAS
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CANVAS, 2)
+                        .pattern("FF")
+                        .pattern("FF")
+                        .input('F', ResourceItemsME.FABRIC)
+                        .criterion(hasItem(ResourceItemsME.FABRIC),
+                                conditionsFromItem(ResourceItemsME.FABRIC))
+                        .offerTo(exporter);
+
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.WHITE_DYE, ModBlocks.WHITE_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.BLACK_DYE, ModBlocks.BLACK_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.BLUE_DYE, ModBlocks.BLUE_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.BROWN_DYE, ModBlocks.BROWN_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.CYAN_DYE, ModBlocks.CYAN_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.GRAY_DYE, ModBlocks.GRAY_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.GREEN_DYE, ModBlocks.GREEN_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.LIGHT_BLUE_DYE, ModBlocks.LIGHT_BLUE_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.LIGHT_GRAY_DYE, ModBlocks.LIGHT_GRAY_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.MAGENTA_DYE, ModBlocks.MAGENTA_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.ORANGE_DYE, ModBlocks.ORANGE_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.PINK_DYE, ModBlocks.PINK_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.PURPLE_DYE, ModBlocks.PURPLE_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.RED_DYE, ModBlocks.RED_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.CANVAS.asItem(), Items.YELLOW_DYE, ModBlocks.YELLOW_CANVAS.asItem(), 8);
+
+                createCenterSurroundRecipe(exporter, ModBlocks.BLUE_CANVAS.asItem(), Items.GRAY_DYE, ModBlocks.DARK_BLUE_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.BROWN_CANVAS.asItem(), Items.GRAY_DYE, ModBlocks.DARK_BROWN_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.GRAY_CANVAS.asItem(), Items.GRAY_DYE, ModBlocks.DARK_GRAY_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.GREEN_CANVAS.asItem(), Items.GRAY_DYE, ModBlocks.DARK_GREEN_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.RED_CANVAS.asItem(), Items.GRAY_DYE, ModBlocks.DARK_RED_CANVAS.asItem(), 8);
+                createCenterSurroundRecipe(exporter, ModBlocks.YELLOW_CANVAS.asItem(), Items.GRAY_DYE, ModBlocks.DARK_YELLOW_CANVAS.asItem(), 8);
+                //endregion
+
                 createBucketRecipe(exporter, Items.IRON_INGOT, Items.BUCKET);
 
                 createMetalsRecipe(exporter, ResourceItemsME.TIN_NUGGET, ResourceItemsME.TIN_INGOT, ModBlocks.TIN_BLOCK);
