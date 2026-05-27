@@ -1264,6 +1264,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, StoneBlockSets.KHAGALABAN_SET.polishedBlocks.base(), StoneBlockSets.KHAGALABAN_SET.baseBlocks.base(), StoneBlockSets.KHAGALABAN_SET.baseBlocks.wall(), ModDecorativeBlocks.KHAGALABAN_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.wall(), ModDecorativeBlocks.PUMICE_STATUE);
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, ModDecorativeBlocks.TUFF_STATUE);
+                createStatueRecipe(exporter, StoneBlockSets.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSets.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSets.ZIGILABAN_SET.baseBlocks.wall(), ModDecorativeBlocks.ZIGILABAN_STATUE);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CERAMIC_PLATE, 1)
                         .pattern("BB")

@@ -188,6 +188,8 @@ public class ModDecorativeBlocks {
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
     public static final Block TUFF_STATUE = registerBlock("tuff_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
+    public static final Block ZIGILABAN_STATUE = registerBlock("zigilaban_statue",
+            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
 
     public static final Block ORCISH_DRUM = registerBlockWithItem("orcish_drum",
             OrcishDrumBlock::new, AbstractBlock.Settings.copy(Blocks.NOTE_BLOCK).nonOpaque());

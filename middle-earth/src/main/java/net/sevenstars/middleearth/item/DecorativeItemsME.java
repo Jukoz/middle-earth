@@ -137,6 +137,9 @@ public class DecorativeItemsME {
     public static final Item TUFF_STATUE = registerItem("tuff_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.TUFF_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item ZIGILABAN_STATUE = registerItem("zigilaban_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.ZIGILABAN_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.NAUTILUS)));
 
     public static final Item TALL_BLACK_PINE_DOOR = registerItem("tall_black_pine_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_BLACK_PINE_DOOR, settings), new Item.Settings().maxCount(16));

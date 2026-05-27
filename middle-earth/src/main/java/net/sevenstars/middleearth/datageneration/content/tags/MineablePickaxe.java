@@ -26,6 +26,7 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.MEDGON_SPIKE);
             add(ModDecorativeBlocks.PUMICE_STATUE);
             add(ModDecorativeBlocks.TUFF_STATUE);
+            add(ModDecorativeBlocks.ZIGILABAN_STATUE);
 
             add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
