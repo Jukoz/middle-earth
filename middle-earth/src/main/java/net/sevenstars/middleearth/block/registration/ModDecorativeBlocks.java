@@ -155,7 +155,7 @@ public class ModDecorativeBlocks {
             ReinforcedChestBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool());
 
     public static final Block SACK = registerBlock("sack",
-            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool());
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());

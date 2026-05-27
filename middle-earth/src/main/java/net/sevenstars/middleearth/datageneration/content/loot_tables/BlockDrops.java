@@ -155,7 +155,6 @@ public class BlockDrops {
             add(ModDecorativeBlocks.OAK_COFFER);
             add(ModDecorativeBlocks.WILLOW_COFFER);
             add(ModDecorativeBlocks.REINFORCED_CHEST);
-            add(ModDecorativeBlocks.SACK);
 
             add(ModDecorativeBlocks.STONE_LECTERN);
             add(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF);

@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "open=false": {
       "model": "middle-earth:block/sack"
+    },
+    "open=true": {
+      "model": "middle-earth:block/sack_open"
     }
   }
 }
