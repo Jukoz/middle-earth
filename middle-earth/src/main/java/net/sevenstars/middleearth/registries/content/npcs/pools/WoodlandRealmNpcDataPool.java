@@ -216,8 +216,10 @@ public class WoodlandRealmNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.AIR).withWeight(3))
-                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_SCOUT_SHIELD))
+                                .add(WeightedItemData.create(Items.AIR).withWeight(2))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
@@ -242,7 +244,9 @@ public class WoodlandRealmNpcDataPool {
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
-                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_SHIELD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
@@ -304,7 +308,7 @@ public class WoodlandRealmNpcDataPool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
         COMMANDER = new NpcData(NpcRegistry.WOODLAND_REALM_COMMANDER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_COMMANDER, List.of(
-                WeightedGearData.create()
+                WeightedGearData.create().withWeight(2)
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create())
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_HELMET).withWeight(2))
@@ -319,6 +323,12 @@ public class WoodlandRealmNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_SPEAR))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_AXE))
+
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD))
                         ),
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
@@ -336,8 +346,23 @@ public class WoodlandRealmNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.AIR).withWeight(3))
+                                .add(WeightedItemData.create(Items.AIR).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER))
+                        ),
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create())
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_HELMET).withWeight(2))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_LONGBOW))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
