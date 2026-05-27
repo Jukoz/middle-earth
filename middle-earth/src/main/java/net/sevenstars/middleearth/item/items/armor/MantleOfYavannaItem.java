@@ -4,10 +4,12 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
@@ -19,9 +21,15 @@ import java.awt.*;
 
 public class MantleOfYavannaItem extends BackAttachmentItem {
     private static final float COLOR_LERP = 0.06f;
+    private static final int DEFAULT_FOLIAGE = 5875248;
 
-    public MantleOfYavannaItem( Settings settings, ExtendedArmorMaterial material) {
+    public MantleOfYavannaItem(Settings settings, ExtendedArmorMaterial material) {
         super(settings.armor(material.material(), EquipmentType.CHESTPLATE).maxCount(1), material);
+    }
+
+    @Override
+    public boolean allowComponentsUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
+        return false;
     }
 
     @Override
@@ -58,6 +66,7 @@ public class MantleOfYavannaItem extends BackAttachmentItem {
         if(biomeEntry.getKey().isPresent()) {
             int color = biomeEntry.value().getFoliageColor();
             targetColor = color;
+            if(targetColor == 0) targetColor = DEFAULT_FOLIAGE;
 
             if(currentColor != targetColor) {
                 Color colorA = new Color(currentColor);

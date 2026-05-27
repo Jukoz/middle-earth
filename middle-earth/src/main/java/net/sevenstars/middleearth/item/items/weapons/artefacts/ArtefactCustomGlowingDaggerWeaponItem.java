@@ -22,7 +22,6 @@ import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import org.jetbrains.annotations.Nullable;
 
 public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponItem {
-
     public boolean glowing;
     private int counter = 0;
 
@@ -32,6 +31,7 @@ public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponIte
 
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(stack, world, entity, slot);
         ArtefactCustomGlowingDaggerWeaponItem item = (ArtefactCustomGlowingDaggerWeaponItem) stack.getItem();
         item.glowing = shouldBeGlowing(world, entity);
     }

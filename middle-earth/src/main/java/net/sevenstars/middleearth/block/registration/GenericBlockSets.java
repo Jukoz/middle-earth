@@ -9,6 +9,7 @@ import net.minecraft.block.*;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.OxidizableBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.tags.WoodenSlabs;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class GenericBlockSets {
 
     public static List<GenericBlockSetBuilder> genericSetsList = new ArrayList<>();
+    public static List<SimpleBlockSetBuilder> simpleSetsList = new ArrayList<>();
 
     public static GenericBlockSetBuilder WHITE_DAUB = registerBlockSet(new GenericBlockSetBuilder(
             "white_daub", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
@@ -364,6 +366,51 @@ public class GenericBlockSets {
             "straw_block", 0.6f, 0.0f, MapColor.PALE_YELLOW, NoteBlockInstrument.BANJO, BlockSoundGroup.GRASS, false,
             ItemGroupsME.MISC_BLOCKS_CONTENTS));
 
+    public static SimpleBlockSetBuilder CANVAS = registerSimpleBlockSet(      new SimpleBlockSetBuilder("canvas",
+            0.8f, 0.8f, MapColor.DULL_PINK, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder BLACK_CANVAS = registerSimpleBlockSet(      new SimpleBlockSetBuilder("black_canvas",
+            0.8f, 0.8f, MapColor.BLACK, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder BLUE_CANVAS = registerSimpleBlockSet(       new SimpleBlockSetBuilder("blue_canvas",
+            0.8f, 0.8f, MapColor.BLUE, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder BROWN_CANVAS = registerSimpleBlockSet(      new SimpleBlockSetBuilder("brown_canvas",
+            0.8f, 0.8f, MapColor.BROWN, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder CYAN_CANVAS = registerSimpleBlockSet(       new SimpleBlockSetBuilder("cyan_canvas",
+            0.8f, 0.8f, MapColor.CYAN, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder GRAY_CANVAS = registerSimpleBlockSet(       new SimpleBlockSetBuilder("gray_canvas",
+            0.8f, 0.8f, MapColor.GRAY, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder GREEN_CANVAS = registerSimpleBlockSet(      new SimpleBlockSetBuilder("green_canvas",
+            0.8f, 0.8f, MapColor.GREEN, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder LIGHT_BLUE_CANVAS = registerSimpleBlockSet( new SimpleBlockSetBuilder("light_blue_canvas",
+            0.8f, 0.8f, MapColor.LIGHT_BLUE, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder LIGHT_GRAY_CANVAS = registerSimpleBlockSet( new SimpleBlockSetBuilder("light_gray_canvas",
+            0.8f, 0.8f, MapColor.LIGHT_GRAY, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder MAGENTA_CANVAS = registerSimpleBlockSet(    new SimpleBlockSetBuilder("magenta_canvas",
+            0.8f, 0.8f, MapColor.MAGENTA, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder ORANGE_CANVAS = registerSimpleBlockSet(     new SimpleBlockSetBuilder("orange_canvas",
+            0.8f, 0.8f, MapColor.ORANGE, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder PINK_CANVAS = registerSimpleBlockSet(       new SimpleBlockSetBuilder("pink_canvas",
+            0.8f, 0.8f, MapColor.PINK, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder PURPLE_CANVAS = registerSimpleBlockSet(     new SimpleBlockSetBuilder("purple_canvas",
+            0.8f, 0.8f, MapColor.PURPLE, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder RED_CANVAS = registerSimpleBlockSet(        new SimpleBlockSetBuilder("red_canvas",
+            0.8f, 0.8f, MapColor.RED, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder WHITE_CANVAS = registerSimpleBlockSet(      new SimpleBlockSetBuilder("white_canvas",
+            0.8f, 0.8f, MapColor.WHITE, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder YELLOW_CANVAS = registerSimpleBlockSet(new SimpleBlockSetBuilder("yellow_canvas",
+            0.8f, 0.8f, MapColor.YELLOW, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder DARK_BLUE_CANVAS = registerSimpleBlockSet(new SimpleBlockSetBuilder("dark_blue_canvas",
+            0.8f, 0.8f, MapColor.LAPIS_BLUE, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder DARK_BROWN_CANVAS = registerSimpleBlockSet(new SimpleBlockSetBuilder("dark_brown_canvas",
+            0.8f, 0.8f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder DARK_GRAY_CANVAS = registerSimpleBlockSet(new SimpleBlockSetBuilder("dark_gray_canvas",
+            0.8f, 0.8f, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder DARK_GREEN_CANVAS = registerSimpleBlockSet(new SimpleBlockSetBuilder("dark_green_canvas",
+            0.8f, 0.8f, MapColor.DARK_GREEN, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder DARK_RED_CANVAS = registerSimpleBlockSet(new SimpleBlockSetBuilder("dark_red_canvas",
+            0.8f, 0.8f, MapColor.DARK_RED, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+    public static SimpleBlockSetBuilder DARK_YELLOW_CANVAS = registerSimpleBlockSet(new SimpleBlockSetBuilder("dark_yellow_canvas",
+            0.8f, 0.8f, MapColor.BROWN, NoteBlockInstrument.GUITAR, BlockSoundGroup.WOOL, false, ItemGroupsME.MISC_BLOCKS_CONTENTS));
+
     public static GenericBlockSetBuilder CUT_BRONZE = registerBlockSet(new GenericBlockSetBuilder(
             "cut_bronze", 3.0F, 6.0F, MapColor.ORANGE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.COPPER, true,
             ItemGroupsME.MISC_BLOCKS_CONTENTS));
@@ -389,6 +436,12 @@ public class GenericBlockSets {
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.stairs(), 5, 20);
             FlammableBlockRegistry.getDefaultInstance().add(set.blockSet.wall(), 5, 20);
         }
+
+        return set;
+    }
+    private static SimpleBlockSetBuilder registerSimpleBlockSet(SimpleBlockSetBuilder set){
+        set.blockSet = BlockSetRegistration.createSimpleSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.requiresTool);
+        simpleSetsList.add(set);
 
         return set;
     }

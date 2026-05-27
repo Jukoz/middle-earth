@@ -16,6 +16,9 @@ public class DataComponentTypesME {
     /**
      * Middle-earth mod Data Components registry
      */
+    public static final ComponentType<CooldownDataComponent> COOLDOWN = register("cooldown", (builder) -> {
+        return builder.codec(CooldownDataComponent.CODEC).packetCodec(CooldownDataComponent.PACKET_CODEC);
+    });
 
     public static final ComponentType<TemperatureDataComponent> TEMPERATURE_DATA = register("temperature", (builder) -> {
         return builder.codec(TemperatureDataComponent.CODEC).packetCodec(TemperatureDataComponent.PACKET_CODEC);

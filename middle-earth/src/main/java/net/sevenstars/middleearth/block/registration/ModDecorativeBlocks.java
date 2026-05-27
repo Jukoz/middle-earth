@@ -666,6 +666,8 @@ public class ModDecorativeBlocks {
 
     public static final Block TALL_BLACK_PINE_DOOR = registerBlock("tall_black_pine_door",
             LargeDoor3x1::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+    public static final Block TALL_FIR_DOOR = registerBlock("tall_fir_door",
+            LargeDoor3x1::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
 
     public static final Block OAK_STABLE_DOOR = registerBlock("oak_stable_door",
             LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());

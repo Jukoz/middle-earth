@@ -30,6 +30,6 @@
   "slots": [
     "armor"
   ],
-  "supported_items": "#minecraft:enchantable/armor",
+  "supported_items": "#middle-earth:enchantable/heavy_armor",
   "weight": 2
 }
