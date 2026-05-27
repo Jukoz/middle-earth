@@ -971,7 +971,7 @@ public class EquipmentItemsME {
 
     public static final Item EGLADIL_SENTINEL_HELMET = registerDyeableCustomModelArmorPiece("egladil_sentinel_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x463463))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x564469))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item EGLADIL_SENTINEL_CHESTPLATE = registerDyeableArmorPiece("egladil_sentinel_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
@@ -980,7 +980,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item EGLADIL_SENTINEL_LEGGINGS = registerDyeableArmorPiece("egladil_sentinel_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x463463))
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x564469))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     public static final Item EGLADIL_SENTINEL_BOOTS = registerArmorPiece("egladil_sentinel_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
