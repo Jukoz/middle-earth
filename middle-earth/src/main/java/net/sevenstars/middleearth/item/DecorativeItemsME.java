@@ -109,6 +109,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.WILLOW_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
+    public static final Item SACK = registerItem("sack",
+            (settings) -> new BlockItem(ModDecorativeBlocks.SACK, settings), new Item.Settings());
 
     public static final Item WOOD_PILE = registerItem("wood_pile",
             (settings) -> new BlockItem(ModDecorativeBlocks.WOOD_PILE, settings), new Item.Settings());

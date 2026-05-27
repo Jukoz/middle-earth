@@ -26,6 +26,7 @@ import net.sevenstars.middleearth.block.special.pots.FatPotBlock;
 import net.sevenstars.middleearth.block.special.pots.JarBlock;
 import net.sevenstars.middleearth.block.special.pots.JugBlock;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlock;
+import net.sevenstars.middleearth.block.special.sack.SackBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.ElvenTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
@@ -152,6 +153,9 @@ public class ModDecorativeBlocks {
                     .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
             ReinforcedChestBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool());
+
+    public static final Block SACK = registerBlock("sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool());
 
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
