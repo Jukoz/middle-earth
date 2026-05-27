@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
+import net.sevenstars.middleearth.block.special.sack.SackBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
@@ -45,6 +46,8 @@ public class ModBlockEntities {
     public static BlockEntityType<ChestnutCofferBlockEntity> CHESTNUT_COFFER = register("chestnut_coffer", ChestnutCofferBlockEntity::new, ModDecorativeBlocks.CHESTNUT_COFFER);
     public static BlockEntityType<OakCofferBlockEntity> OAK_COFFER = register("oak_coffer", OakCofferBlockEntity::new, ModDecorativeBlocks.OAK_COFFER);
     public static BlockEntityType<WillowCofferBlockEntity> WILLOW_COFFER = register("willow_coffer", WillowCofferBlockEntity::new, ModDecorativeBlocks.WILLOW_COFFER);
+
+    public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new, ModDecorativeBlocks.SACK);
 
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             ModDecorativeBlocks.REINFORCED_CHEST);
