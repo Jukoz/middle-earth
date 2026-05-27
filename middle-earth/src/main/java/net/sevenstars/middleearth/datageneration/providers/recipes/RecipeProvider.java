@@ -2121,6 +2121,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(WoodBlockSets.WILLOW_SET.planksBlocks.base()))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SACK, 1)
+                        .pattern("C C")
+                        .pattern("CRC")
+                        .pattern("CCC")
+                        .input('C', GenericBlockSets.CANVAS.blockSet.base())
+                        .input('R', Items.RESIN_CLUMP)
+                        .criterion(hasItem(Items.RESIN_CLUMP),
+                                conditionsFromItem(Items.RESIN_CLUMP))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")
                         .pattern("VGV")

@@ -31,6 +31,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.gui.sack.SackScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.IntStream;
@@ -74,13 +75,7 @@ public class SackBlockEntity extends LootableContainerBlockEntity implements Sid
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new GenericContainerScreenHandler(
-                ScreenHandlerType.GENERIC_3X3,
-                syncId,
-                playerInventory,
-                this,
-                1
-        );
+        return new SackScreenHandler(syncId, playerInventory, this);
     }
 
     @Override
