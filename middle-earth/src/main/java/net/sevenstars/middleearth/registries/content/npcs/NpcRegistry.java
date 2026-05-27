@@ -98,6 +98,8 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> LOTHLORIEN_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "warrior"));
     public final static RegistryKey<NpcData> LOTHLORIEN_KNIGHT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "knight"));
     public final static RegistryKey<NpcData> LOTHLORIEN_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "guard"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_EGLADIL_SENTINEL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "egladil_sentinel"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_EGLADIL_COMMANDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "egladil_commander"));
     public final static RegistryKey<NpcData> LOTHLORIEN_LORD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "lord"));
 
     // [WOODLAND_REALMS]

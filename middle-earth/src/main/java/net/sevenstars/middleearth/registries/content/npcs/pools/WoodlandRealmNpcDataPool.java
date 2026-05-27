@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
@@ -23,10 +24,10 @@ import java.util.List;
 public class WoodlandRealmNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.WOODLAND_REALM;
 
-    public final static NpcData ARTISAN; // Citizen
-    public final static NpcData HUNTER; // Very light, focusing entities (spiders and deer rather than orcs)
+    public final static NpcData ARTISAN; // Citizen / Artisans
+    public final static NpcData HUNTER; // Very lightly armored, focusing entities (spiders and deer (cooldown) rather than orcs)
     public final static NpcData SENTINEL; // Very light armor, but stealth (stay far from the enemies or unknown, 30-40 blocks)
-    public final static NpcData RANGER; // Medium armor - archers
+    public final static NpcData RANGER; // Medium armor - ranged
     public final static NpcData WARRIOR; // Medium armor
     public final static NpcData LANCER; // Medium armor - have spears and do charges - riding great horns
     public final static NpcData NIGHTSHADE; // Nightshade armor - Hybrid
@@ -53,6 +54,7 @@ public class WoodlandRealmNpcDataPool {
         ARTISAN = new NpcData(NpcRegistry.WOODLAND_REALM_ARTISAN.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create())
                                 .add(WeightedItemData.create(EquipmentItemsME.ELVEN_ARMING_COAT).withColors(List.of(0x4a5110, 0x0b2d11, 0x315534)))
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_ARMING_COAT).withColors(List.of(0x4a5110, 0x0b2d11, 0x315534)))
                         )
@@ -93,11 +95,39 @@ public class WoodlandRealmNpcDataPool {
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_ARMING_COAT)
-                                        .withColors(List.of(0x0b2d11))
+                                        .withColor(0x0b2d11)
                                         .withCape(BackAttachmentsME.MIRK_LEAF_CAPE))
                         )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ARMING_SKIRT).withColor(0x0b2d11))
+                        )
                         .add(EquipmentSlot.FEET, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
+                                .add(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.TRAVELLING_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_LONGBOW))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR).withWeight(5))
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER))
+                        ),
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.HOOD).withColor(0x45311d))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_ARMING_COAT)
+                                        .withColors(List.of(0x45311d))
+                                        .withCape(BackAttachmentsME.MIRK_BARK_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.BRONZED_ELVEN_MAIL_SKIRT))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.TRAVELLING_BOOTS))
+                        )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_LONGBOW))
                         )
@@ -111,6 +141,9 @@ public class WoodlandRealmNpcDataPool {
                 WeightedGearData.create().withWeight(3)
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
+                                .add(WeightedItemData.create(EquipmentItemsME.BRONZED_ELVEN_MAIL_COIF)
+                                        .withHood(HelmetAttachmentsME.HOOD, 0x424733)
+                                )
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET).withWeight(3))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
@@ -118,6 +151,9 @@ public class WoodlandRealmNpcDataPool {
                                         .withColor(0x424733)
                                         .withCape(BackAttachmentsME.CAPE, 0x3a261b))
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_BRONZED_ARMING_COAT)
+                                        .withColor(0x424733)
+                                        .withCape(BackAttachmentsME.CAPE, 0x3a261b))
+                                .add(WeightedItemData.create(EquipmentItemsME.BRONZED_ELVEN_GORGET_MAIL_HAUBERK)
                                         .withColor(0x424733)
                                         .withCape(BackAttachmentsME.CAPE, 0x3a261b))
                         )
@@ -128,6 +164,7 @@ public class WoodlandRealmNpcDataPool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.TRAVELLING_BOOTS))
                         )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_LONGBOW).withWeight(3))
@@ -142,6 +179,9 @@ public class WoodlandRealmNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_SILVER_ARMING_COAT)
                                         .withColor(0x3a261b)
                                         .withCape(BackAttachmentsME.CAPE, 0x3a261b))
+                                .add(WeightedItemData.create(EquipmentItemsME.ELVEN_SILVER_GORGET_MAIL_HAUBERK)
+                                        .withColor(0x424733)
+                                        .withCape(BackAttachmentsME.CAPE, 0x3a261b))
                         )
                         .add(EquipmentSlot.LEGS, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.ELVEN_ARMING_SKIRT).withColor(0x3a261b))
@@ -149,6 +189,7 @@ public class WoodlandRealmNpcDataPool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.TRAVELLING_BOOTS))
                         )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_LONGBOW))
@@ -191,9 +232,11 @@ public class WoodlandRealmNpcDataPool {
                                         .withCape(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_SKIRT)))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_SKIRT))
+                        )
                         .add(EquipmentSlot.FEET, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SOLDIER_BOOTS)))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SOLDIER_BOOTS))
+                        )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_SPEAR))
                         )
@@ -245,8 +288,7 @@ public class WoodlandRealmNpcDataPool {
         ELVEN_KINGS_GUARD = new NpcData(NpcRegistry.WOODLAND_REALM_ELVEN_KINGS_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.AIR))
-                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK)
@@ -258,10 +300,6 @@ public class WoodlandRealmNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_SOLDIER_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_SPEAR))
-                        )
-                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.AIR))
-                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_SHIELD).withWeight(3))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 
@@ -279,9 +317,23 @@ public class WoodlandRealmNpcDataPool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_SWORD))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_SPEAR))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_AXE))
+                        ),
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create())
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_HELMET).withWeight(2))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_COMMANDER_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_SWORD))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
