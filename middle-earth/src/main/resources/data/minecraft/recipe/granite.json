@@ -1,15 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "building",
+  "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:diorite"
-    },
-    {
-      "tag": "fabric:quartz"
-    }
+    "#middle-earth:quartz",
+    "minecraft:diorite"
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:granite"
   }
 }

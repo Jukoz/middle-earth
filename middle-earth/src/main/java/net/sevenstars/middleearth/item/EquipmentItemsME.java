@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableIte
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.CooldownDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.items.armor.*;
@@ -107,24 +108,19 @@ public class EquipmentItemsME {
 
     public static final Item LEAF_CAPE = registerBackAttachment("leaf_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_CAPE)));
     public static final Item LEAF_LITTER_CAPE = registerBackAttachment("leaf_litter_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_LITTER_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LEAF_LITTER_CAPE)));
     public static final Item MIRK_LEAF_CAPE = registerBackAttachment("mirk_leaf_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_LEAF_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_LEAF_CAPE)));
     public static final Item MIRK_BARK_CAPE = registerBackAttachment("mirk_bark_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_BARK_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.MIRK_BARK_CAPE)));
     public static final Item AUTUMN_LEAF_CAPE = registerBackAttachment("autumn_leaf_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
-                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.AUTUMN_LEAF_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.AUTUMN_LEAF_CAPE)));
 
 
     public static final Item BLACK_FUR_CLOAK = registerDyeableBackAttachment("black_fur_cloak",
@@ -1059,158 +1055,159 @@ public class EquipmentItemsME {
 
     public static final Item WOODLAND_REALM_BRONZE_TRIMMED_RANGER_HELMET = registerCustomModelArmorPiece("woodland_realm_bronze_trimmed_ranger_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_SILVER_TRIMMED_RANGER_HELMET = registerCustomModelArmorPiece("woodland_realm_silver_trimmed_ranger_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WOODLAND_REALM_CAVALRY_HELMET = registerDyeableCustomModelArmorPiece("woodland_realm_cavalry_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x515638)));
     public static final Item WOODLAND_REALM_GILDED_SCALE_HAUBERK = registerArmorPiece("woodland_realm_gilded_scale_hauberk",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_GILDED_SCALE_SKIRT = registerArmorPiece("woodland_realm_gilded_scale_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WOODLAND_REALM_ROYAL_GUARD_HELMET = registerDyeableCustomModelArmorPiece("woodland_realm_royal_guard_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x532e29)));
     public static final Item WOODLAND_REALM_SCALE_HAUBERK = registerArmorPiece("woodland_realm_scale_hauberk",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_SCALE_SKIRT = registerArmorPiece("woodland_realm_scale_skirt",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T4, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WOODLAND_REALM_SOLDIER_HELMET = registerCustomModelArmorPiece("woodland_realm_soldier_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_SOLDIER_CHESTPLATE = registerArmorPiece("woodland_realm_soldier_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_SOLDIER_LEGGINGS = registerArmorPiece("woodland_realm_soldier_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_SOLDIER_BOOTS = registerArmorPiece("woodland_realm_soldier_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WARDEN_OF_THE_GLADE_HELMET = registerDyeableCustomModelArmorPiece("warden_of_the_glade_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN))
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x5c5445)));
     public static final Item WARDEN_OF_THE_GLADE_CHESTPLATE = registerArmorPiece("warden_of_the_glade_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARDEN_OF_THE_GLADE_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WARDEN_OF_THE_GLADE_LEGGINGS = registerArmorPiece("warden_of_the_glade_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WARDEN_OF_THE_GLADE_BOOTS = registerArmorPiece("warden_of_the_glade_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WARRIOR_OF_THE_NIGHTSHADE_HELMET = registerCustomModelArmorPiece("warrior_of_nightshade_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WARRIOR_OF_THE_NIGHTSHADE_CHESTPLATE = registerArmorPiece("warrior_of_nightshade_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARRIOR_OF_NIGHTSHADE_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WARRIOR_OF_THE_NIGHTSHADE_LEGGINGS = registerArmorPiece("warrior_of_nightshade_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WARRIOR_OF_THE_NIGHTSHADE_BOOTS = registerArmorPiece("warrior_of_nightshade_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item ERYN_GALEN_WATCHWARDEN_HELMET = registerCustomModelArmorPiece("eryn_galen_watchwarden_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item ERYN_GALEN_WATCHWARDEN_CHESTPLATE = registerArmorPiece("eryn_galen_watchwarden_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item ERYN_GALEN_WATCHWARDEN_LEGGINGS = registerArmorPiece("eryn_galen_watchwarden_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item ERYN_GALEN_WATCHWARDEN_BOOTS = registerArmorPiece("eryn_galen_watchwarden_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item OXIDISED_ERYN_GALEN_WATCHWARDEN_HELMET = registerCustomModelArmorPiece("oxidised_eryn_galen_watchwarden_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item OXIDISED_ERYN_GALEN_WATCHWARDEN_CHESTPLATE = registerArmorPiece("oxidised_eryn_galen_watchwarden_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item OXIDISED_ERYN_GALEN_WATCHWARDEN_LEGGINGS = registerArmorPiece("oxidised_eryn_galen_watchwarden_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item OXIDISED_ERYN_GALEN_WATCHWARDEN_BOOTS = registerArmorPiece("oxidised_eryn_galen_watchwarden_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WOODLAND_REALM_COMMANDER_HELMET = registerCustomModelArmorPiece("woodland_realm_commander_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_COMMANDER_CHESTPLATE = registerArmorPiece("woodland_realm_commander_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_COMMANDER_LEGGINGS = registerArmorPiece("woodland_realm_commander_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_COMMANDER_BOOTS = registerArmorPiece("woodland_realm_commander_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item SILVAN_LORD_HELMET = registerCustomModelArmorPiece("silvan_lord_helmet",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item SILVAN_LORD_CHESTPLATE = registerArmorPiece("silvan_lord_chestplate",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.SILVAN_LORD_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item SILVAN_LORD_LEGGINGS = registerArmorPiece("silvan_lord_leggings",
             (settings) -> new CustomLeggingsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item SILVAN_LORD_BOOTS = registerArmorPiece("silvan_lord_boots",
             (settings) -> new CustomBootsItem(ArmorMaterialsME.ELVEN_STEEL_T5, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WOODLAND_REALM_SOLDIER_CAPE = registerBackAttachment("woodland_realm_soldier_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_SOLDIER_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_ROYAL_GUARD_CAPE = registerBackAttachment("woodland_realm_royal_guard_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WOODLAND_REALM_ROYAL_GUARD_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item LORD_OF_THE_GREENWOOD_CAPE = registerBackAttachment("lord_of_the_greenwood_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.LORD_OF_THE_GREENWOOD_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WARDEN_OF_THE_GLADE_CAPE = registerBackAttachment("warden_of_the_glade_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARDEN_OF_THE_GLADE_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WARRIOR_OF_NIGHTSHADE_CAPE = registerBackAttachment("warrior_of_nightshade_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WARRIOR_OF_NIGHTSHADE_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item SILVAN_LORD_CAPE = registerBackAttachment("silvan_lord_cape",
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FABRIC_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.SILVAN_LORD_CAPE))
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
 
     public static final Item WOODLAND_REALM_CROWN = registerCustomModelArmorPiece("woodland_realm_crown",
-            (settings) -> new WoodlandRealmCrownItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings().rarity(Rarity.EPIC)
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+            (settings) -> new WoodlandRealmCrownItem(ArmorMaterialsME.WOOD_T1, settings), new Item.Settings().rarity(Rarity.EPIC)
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM))
+                    .component(DataComponentTypesME.COOLDOWN, new CooldownDataComponent(0)));
     //endregion
 
     //endregion
@@ -2177,5 +2174,6 @@ public class EquipmentItemsME {
 
     public static void registerModItems() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Mod Equipment Items for " + MiddleEarth.MOD_ID);
+        ArmorTags.registerRecipesTemplates();
     }
 }

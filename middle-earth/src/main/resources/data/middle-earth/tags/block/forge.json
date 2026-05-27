@@ -1,9 +1,6 @@
 {
   "replace": false,
   "values": [
-    "middle-earth:forge",
-    "middle-earth:dwarven_forge",
-    "middle-earth:elven_forge",
-    "middle-earth:orcish_forge"
+    "middle-earth:forge"
   ]
 }

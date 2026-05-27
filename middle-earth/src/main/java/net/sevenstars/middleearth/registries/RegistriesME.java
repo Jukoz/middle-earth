@@ -435,6 +435,7 @@ public class RegistriesME {
             builder.add(WeaponItemsME.URUK_HAI_CROSSBOW, 400);
 
             builder.add(WeaponItemsME.GUNDABAD_BOW, 300);
+            builder.add(WeaponItemsME.GUNDABAD_LONGBOW, 400);
             builder.add(WeaponItemsME.GUNDABAD_CROSSBOW, 400);
 
             builder.add(WeaponItemsME.MORIA_GOBLIN_BOW, 300);
