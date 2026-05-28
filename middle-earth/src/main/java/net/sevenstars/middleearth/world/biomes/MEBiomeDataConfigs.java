@@ -66,10 +66,10 @@ public class MEBiomeDataConfigs {
             .addSlopeData(37, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
 
-    public static SlopeMap greyMountains = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
-            .addSlopeData(32, Blocks.COARSE_DIRT)
-            .addSlopeData(45, Blocks.STONE)
-            .addSlopeData(56, Blocks.TUFF)
+    public static SlopeMap greyMountains = new SlopeMap().addSlopeData(28, Blocks.GRAVEL)
+            .addSlopeData(32, Blocks.STONE)
+            .addSlopeData(45, Blocks.TUFF)
+            .addSlopeData(56, StoneBlockSets.SLATE_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
     public static SlopeMap greyMountainPeaks = new SlopeMap().addSlopeData(32, Blocks.SNOW_BLOCK)
             .addSlopeData(41, StoneBlockSets.SCHIST_SET.baseBlocks.base())

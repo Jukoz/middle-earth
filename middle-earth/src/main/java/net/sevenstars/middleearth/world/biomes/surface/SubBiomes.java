@@ -136,8 +136,8 @@ public class SubBiomes {
                 .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
                 .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
         subBiomesMap.put(MEBiomeKeys.GREY_PLAINS, new SubBiome(96)
-                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
-                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GREY_ASHEN_WOODS)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.GREY_FOREST));
         subBiomesMap.put(MEBiomeKeys.GREY_MOUNTAINS_BASE, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.GREY_ASHEN_WOODS)
                 .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.GREY_ASHEN_WOODS));

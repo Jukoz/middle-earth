@@ -222,6 +222,8 @@ public class MapBiomeData {
                 new BiomeColorsDTO(12171705, 8484720, 7768221, 5597568, 7832178, 8883574)));
         addBiome(new BiomeData(MEBiomeKeys.GREY_ASHEN_WOODS, MEBiomeDataConfigs.gravelPlains, MEBiomeDataConfigs.greyMountainsLayers,
                 new BiomeColorsDTO(11973812, 8484720, 7768221, 5597568, 7438443, 7642221)));
+        addBiome(new BiomeData(MEBiomeKeys.GREY_FOREST, MEBiomeDataConfigs.siltPlains, MEBiomeDataConfigs.greyMountainsLayers,
+                new BiomeColorsDTO(11973812, 8484720, 7768221, 5597568, 7438443, 7642221)));
         addBiome(new BiomeData(MEBiomeKeys.GREY_MOUNTAINS_BASE, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.greyMountainsLayers,
                 new BiomeColorsDTO(12171705, 8484720, 7768221, 5597568, 7832178, 8883574), CaveType.MOUNTAINS));
         addBiome(new BiomeData(MEBiomeKeys.GREY_MOUNTAINS, MEBiomeDataConfigs.greyMountains, MEBiomeDataConfigs.greyMountainsLayers,
