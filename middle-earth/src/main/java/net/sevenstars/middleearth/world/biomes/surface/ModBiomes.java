@@ -1368,11 +1368,12 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addNordicVegetation(generationSettings);
-        ModBiomeFeatures.addCoarseDirtOre(vegetation);
-        ModBiomeFeatures.addGravelOre(vegetation);
+        ModBiomeFeatures.addGravelToSiltOre(vegetation);
+        ModBiomeFeatures.addFalseOatgrass(vegetation);
+        ModBiomeFeatures.addSlateBoulder(vegetation);
         if(step == 0) {
             ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
-            ModBiomeFeatures.addRareForestMoss(vegetation);
+            vegetation.add(VegetationPlacedFeatures.PATCH_DRY_GRASS_DESERT);
             ModBiomeFeatures.addSedums(vegetation);
         } else if(step == 1) {
             ModBiomeFeatures.addCommonScorchedGrass(vegetation);

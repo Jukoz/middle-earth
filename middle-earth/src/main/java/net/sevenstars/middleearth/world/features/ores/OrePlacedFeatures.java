@@ -50,6 +50,9 @@ public class OrePlacedFeatures {
     public static final RegistryKey<PlacedFeature> GRASSY_LOAM_ORE = registerKey("grassy_loam_ore");
     public static final RegistryKey<PlacedFeature> GRASSY_PEAT_ORE = registerKey("grassy_peat_ore");
     public static final RegistryKey<PlacedFeature> GRASSY_SILT_ORE = registerKey("grassy_silt_ore");
+    public static final RegistryKey<PlacedFeature> GRAVEL_TO_SILT_ORE = registerKey("gravel_to_silt_ore");
+    public static final RegistryKey<PlacedFeature> SILT_TO_GRASSY_ORE = registerKey("silt_to_grassy_ore");
+    public static final RegistryKey<PlacedFeature> SILT_TO_COARSE_ORE = registerKey("silt_to_coarse_ore");
     public static final RegistryKey<PlacedFeature> DIRTY_ROOTS_ORE = registerKey("dirty_roots");
     public static final RegistryKey<PlacedFeature> DOLOMITE_ORE = registerKey("dolomite_ore");
     public static final RegistryKey<PlacedFeature> DRIPSTONE_ORE = registerKey("dripstone_ore");
@@ -119,6 +122,9 @@ public class OrePlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassyLoam = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASSY_LOAM_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassyPeat = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASSY_PEAT_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> grassySilt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRASSY_SILT_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> gravelToSilt = registryEntryLookup.getOrThrow(OreConfiguredFeatures.GRAVEL_TO_SILT_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> siltToGrassy = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SILT_TO_GRASSY_ORE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> siltToCoarse = registryEntryLookup.getOrThrow(OreConfiguredFeatures.SILT_TO_COARSE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dirtyRoots = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DIRTY_ROOTS_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dolomite = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DOLOMITE_ORE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> dripstone = registryEntryLookup.getOrThrow(OreConfiguredFeatures.DRIPSTONE_ORE);
@@ -220,6 +226,12 @@ public class OrePlacedFeatures {
         PlacedFeatures.register(featureRegisterable, GRASSY_PEAT_ORE, grassyPeat, common,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, GRASSY_SILT_ORE, grassySilt, common,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, GRAVEL_TO_SILT_ORE, gravelToSilt, frequent,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SILT_TO_GRASSY_ORE, siltToGrassy, frequent,
+                SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, SILT_TO_COARSE_ORE, siltToCoarse, frequent,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, DIRTY_ROOTS_ORE, dirtyRoots, frequent,
                 SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

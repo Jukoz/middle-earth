@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.world.features.ores;
 
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.GenericBlockSets;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
@@ -50,6 +51,9 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_LOAM_ORE = registerKey("grassy_loam_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_PEAT_ORE = registerKey("grassy_peat_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_SILT_ORE = registerKey("grassy_silt_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> GRAVEL_TO_SILT_ORE = registerKey("gravel_to_silt_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SILT_TO_GRASSY_ORE = registerKey("silt_to_grassy_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> SILT_TO_COARSE_ORE = registerKey("silt_to_coarse_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DIRTY_ROOTS_ORE = registerKey("dirty_roots");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DOLOMITE_ORE = registerKey("dolomite_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DRIPSTONE_ORE = registerKey("dripstone_ore");
@@ -91,6 +95,7 @@ public class OreConfiguredFeatures {
         BlockMatchRuleTest siltGrassTest = new BlockMatchRuleTest(ModBlocks.SILT_GRASS_BLOCK);
         BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
         BlockMatchRuleTest ashenGravelTest = new BlockMatchRuleTest(ModBlocks.ASHEN_GRAVEL);
+        BlockMatchRuleTest gravelTest = new BlockMatchRuleTest(Blocks.GRAVEL);
         TagMatchRuleTest sandTest = new TagMatchRuleTest(BlockTags.SAND);
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
 
@@ -167,6 +172,7 @@ public class OreConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, DIRT_TO_GRASS_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, Blocks.GRASS_BLOCK.getDefaultState(), 64, 0.2f));
 
+
         ConfiguredFeatures.register(featureRegisterable, DIRTY_ROOTS_ORE, Feature.ORE,
                 new OreFeatureConfig(dirtTest, ModBlocks.DIRTY_ROOTS.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ROOTED_DIRT_ORE, Feature.ORE,
@@ -182,6 +188,13 @@ public class OreConfiguredFeatures {
                 new OreFeatureConfig(peatGrassTest, ModBlocks.GRASSY_PEAT.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, GRASSY_SILT_ORE, Feature.ORE,
                 new OreFeatureConfig(siltGrassTest, ModBlocks.GRASSY_SILT.getDefaultState(), 48, 0.4f));
+
+        ConfiguredFeatures.register(featureRegisterable, GRAVEL_TO_SILT_ORE, Feature.ORE,
+                new OreFeatureConfig(gravelTest, ModBlocks.SILT.getDefaultState(), 64, 0.2f));
+        ConfiguredFeatures.register(featureRegisterable, SILT_TO_GRASSY_ORE, Feature.ORE,
+                new OreFeatureConfig(gravelTest, ModBlocks.GRASSY_SILT.getDefaultState(), 48, 0.8f));
+        ConfiguredFeatures.register(featureRegisterable, SILT_TO_COARSE_ORE, Feature.ORE,
+                new OreFeatureConfig(gravelTest, ModBlocks.COARSE_SILT.getDefaultState(), 48, 0.8f));
 
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_ORE, Feature.ORE,
                 new OreFeatureConfig(stoneTest, StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState(), 64, 0.25f));

@@ -244,6 +244,10 @@ public class MEBiomeDataConfigs {
             .addSlopeData(25, ModBlocks.SNOWY_GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap gravelPlains = new SlopeMap()
+            .addSlopeData(25, Blocks.GRAVEL)
+            .addSlopeData(35, Blocks.COBBLESTONE)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap sandShores = new SlopeMap()
             .addSlopeData(27, Blocks.SAND)
             .addSlopeData(30, Blocks.SANDSTONE)

@@ -508,6 +508,9 @@ public class ModBiomeFeatures {
         vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_STONE);
         vegetation.add(BoulderPlacedFeatures.BIG_BOULDER_STONE);
     }
+    public static void addSlateBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_SLATE);
+    }
     public static void addGabbroBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_GABBRO);
         vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_GABBRO);
@@ -1217,6 +1220,11 @@ public class ModBiomeFeatures {
     }
     public static void addGravelOre(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.GRAVEL_ORE);
+    }
+    public static void addGravelToSiltOre(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.GRAVEL_TO_SILT_ORE);
+        vegetation.add(OrePlacedFeatures.SILT_TO_GRASSY_ORE);
+        vegetation.add(OrePlacedFeatures.SILT_TO_COARSE_ORE);
     }
     public static void addSnowyDirt(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.SNOWY_DIRT_ORE);
