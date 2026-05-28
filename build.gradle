@@ -80,6 +80,10 @@ subprojects() {
 // root project will not build anything
 jar.enabled = false
 
+jar {
+	zip64 = true
+}
+
 tasks.register("copyFiles", Copy) {
 	rootProject.subprojects.each {project ->
 		from project.name + '/build/libs/' + project.archives_base_name + '-' + project.version + '.jar'
