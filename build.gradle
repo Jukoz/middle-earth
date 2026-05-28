@@ -83,6 +83,9 @@ jar.enabled = false
 jar {
 	zip64 = true
 }
+tasks.withType(Jar).configureEach {
+	zip64 = true
+}
 
 tasks.register("copyFiles", Copy) {
 	rootProject.subprojects.each {project ->
