@@ -8,6 +8,7 @@ import net.minecraft.block.ScaffoldingBlock;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +18,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.item.DecorativeItemsME;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -46,6 +48,11 @@ public class ReinforcedScaffoldingBlock extends ScaffoldingBlock {
                 .with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER)
                 .with(DISTANCE, toStoredDistance(distance))
                 .with(BOTTOM, shouldBeBottom(world, pos, distance, this));
+    }
+
+    @Override
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        return DecorativeItemsME.REINFORCED_SCAFFOLDING.getDefaultStack();
     }
 
     @Override
