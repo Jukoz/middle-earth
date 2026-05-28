@@ -13114,19 +13114,20 @@
   "item.middle-earth.ash": "灰烬",
 
   "item.middle-earth.basalt_statue": "玄武岩雕像",
-
   "item.middle-earth.calcite_statue": "方解石雕像",
   "item.middle-earth.diorite_statue": "闪长岩雕像",
+  "item.middle-earth.gabbro_statue": "辉长岩雕像",
   "item.middle-earth.galonn_statue": "加隆岩雕像",
-
   "item.middle-earth.khagalaban_statue": "卡嘉尔岩雕像",
-  "item.middle-earth.medgon_spike": "地心岩尖刺",
   "item.middle-earth.pumice_statue": "浮石雕像",
+  "item.middle-earth.tuff_statue": "凝灰岩雕像",
+  "item.middle-earth.zigilaban_statue": "齐吉尔岩雕像",
+
+  "item.middle-earth.medgon_spike": "地心岩尖刺",
 
   "item.middle-earth.stone_dagger": "石匕首",
   "item.middle-earth.stone_spear": "石矛",
 
-  "item.middle-earth.tuff_statue": "凝灰岩雕像",
   "item.middle-earth.dirty_bone": "肮脏骨头",
   "item.middle-earth.copper_coin": "铜币",
   "item.middle-earth.copper_smithing_hammer": "铜锻造锤",
@@ -13178,6 +13179,8 @@
   "item.middle-earth.vegetable_skewer": "生菜串",
   "item.middle-earth.vegetable_soup": "蔬菜汤",
   "item.middle-earth.sack_of_horsefeed": "袋装马饲料",
+  "item.middle-earth.sack": "布袋",
+  "screen.middle-earth.sack": "布袋",
 
   "__COMMENT__": "其他方块物品",
   "item.middle-earth.citrine_shard": "黄水晶碎片",
