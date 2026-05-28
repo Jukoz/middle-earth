@@ -141,6 +141,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREAT_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GUNDABAD_PLAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GUNDABAD_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FORODWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_POND),

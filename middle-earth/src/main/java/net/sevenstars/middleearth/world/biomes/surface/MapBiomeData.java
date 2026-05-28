@@ -233,6 +233,8 @@ public class MapBiomeData {
         // GUNDABAD
         addBiome(new BiomeData(MEBiomeKeys.GUNDABAD_PLAINS, MEBiomeDataConfigs.coarseLoam, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(11315633, 10855857, 7768221, 5597568, 8036220, 7511410)));
+        addBiome(new BiomeData(MEBiomeKeys.GUNDABAD_WOODS, MEBiomeDataConfigs.coarseLoam, MEBiomeDataConfigs.stoneLayers,
+                new BiomeColorsDTO(11315633, 10855857, 7768221, 5597568, 8036220, 7511410)));
         // HARAD
         addBiome(new BiomeData(MEBiomeKeys.HARAD, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers,
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 12301405, 13356379), CaveType.HARAD));

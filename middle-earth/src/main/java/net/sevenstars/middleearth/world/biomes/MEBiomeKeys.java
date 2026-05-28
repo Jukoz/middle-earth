@@ -165,6 +165,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> MIRKWOOD_SWAMP = MEBiomeKeys.register("mirkwood_swamp");
     public static final RegistryKey<Biome> GREAT_RIVER = MEBiomeKeys.register("great_river");
     public static final RegistryKey<Biome> GUNDABAD_PLAINS = MEBiomeKeys.register("gundabad_plains");
+    public static final RegistryKey<Biome> GUNDABAD_WOODS = MEBiomeKeys.register("gundabad_woods");
     public static final RegistryKey<Biome> MANGROVE_POND = MEBiomeKeys.register("mangrove_pond");
     public static final RegistryKey<Biome> MIRKWOOD_MARSHES = MEBiomeKeys.register("mirkwood_marshes");
     public static final RegistryKey<Biome> MISTY_MOUNTAINS_BASE = MEBiomeKeys.register("misty_mountains_base");

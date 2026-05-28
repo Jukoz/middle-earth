@@ -112,7 +112,8 @@ public class ModBiomes {
         createGreyPlainsBiome(context, MEBiomeKeys.GREY_PLAINS, 0);
         createGreyPlainsBiome(context, MEBiomeKeys.GREY_ASHEN_WOODS, 1);
         createGreyPlainsBiome(context, MEBiomeKeys.GREY_FOREST, 2);
-        createGundabadPlainsTaiga(context, MEBiomeKeys.GUNDABAD_PLAINS);
+        createGundabadPlains(context, MEBiomeKeys.GUNDABAD_PLAINS, 0);
+        createGundabadPlains(context, MEBiomeKeys.GUNDABAD_WOODS, 1);
         createHaradBiome(context, MEBiomeKeys.HARAD, 0);
         createHaradBiome(context, MEBiomeKeys.HARAD_WOODS, 1);
         createHaradDesertBiome(context, MEBiomeKeys.HARAD_DESERT);
@@ -1427,22 +1428,7 @@ public class ModBiomes {
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
-    public static void createGreyPlainsTaiga(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
-        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
-        ModSpawnSettingsBuilder.addWolves(spawnSettings);
-        ModSpawnSettingsBuilder.addNordicMobs(spawnSettings);
-        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
-        ModSpawnSettingsBuilder.addUncommonWarg(spawnSettings);
-        ModBiomeFeatures.addCornflower(vegetation);
-        addNordicVegetation(generationSettings);
-        ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
-        ModBiomeFeatures.addSpruceBushes(vegetation);
-
-        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
-    }
-
-    public static void createGundabadPlainsTaiga(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
+    public static void createGundabadPlains(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
@@ -1466,13 +1452,28 @@ public class ModBiomes {
         ModBiomeFeatures.addWildPotato(vegetation);
         ModBiomeFeatures.addToughBerriesRare(vegetation);
 
-        ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
+        if(step == 0) {
+            ModBiomeFeatures.addScarceBlackPineTrees(vegetation);
+            ModBiomeFeatures.addVeryRareFirTrees(vegetation);
+            ModBiomeFeatures.addDeadHeather(vegetation);
+        } else {
+            vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
+            ModBiomeFeatures.addForestMoss(vegetation);
+            ModBiomeFeatures.addFalseOatgrass(vegetation);
+            ModBiomeFeatures.addNettles(vegetation);
+            ModBiomeFeatures.addOakTrees(vegetation);
+            ModBiomeFeatures.addCommonDarkOakTrees(vegetation);
+            ModBiomeFeatures.addLarchTrees(vegetation);
+            ModBiomeFeatures.addCommonFirTrees(vegetation);
+            ModBiomeFeatures.addCommonPineTrees(vegetation);
+            ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
+            ModBiomeFeatures.addSpruceTrees(vegetation);
+        }
+
         ModBiomeFeatures.addCoarseLoamToGrassy(vegetation);
         ModBiomeFeatures.addCoarseLoamToFoulDirt(vegetation);
-        ModBiomeFeatures.addVeryRareFirTrees(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
         ModBiomeFeatures.addShriveledShrubs(vegetation);
-        ModBiomeFeatures.addDeadHeather(vegetation);
         ModBiomeFeatures.addSlateBoulder(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
