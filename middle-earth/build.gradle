@@ -36,3 +36,10 @@ build {
 //    dependsOn "runDatagenClient"
 //    mustRunAfter "runDatagenClient"
 }
+
+jar {
+    zip64 = true
+}
+tasks.withType(Jar).configureEach {
+    zip64 = true
+}
