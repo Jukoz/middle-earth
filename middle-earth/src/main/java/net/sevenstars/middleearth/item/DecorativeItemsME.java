@@ -124,6 +124,9 @@ public class DecorativeItemsME {
     public static final Item DIORITE_STATUE = registerItem("diorite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.DIORITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.COFFEE_VIKING)));
+    public static final Item GABBRO_STATUE = registerItem("gabbro_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.GABBRO_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SINDAVAR)));
     public static final Item GALONN_STATUE = registerItem("galonn_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.GALONN_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
