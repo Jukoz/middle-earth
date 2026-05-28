@@ -741,7 +741,8 @@ public class ModDecorativeBlocks {
             ArkenstoneWallBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool());
 
     public static final Block REINFORCED_SCAFFOLDING = registerBlock("reinforced_scaffolding",
-            ReinforcedScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
+            ReinforcedScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN)
+                    .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
