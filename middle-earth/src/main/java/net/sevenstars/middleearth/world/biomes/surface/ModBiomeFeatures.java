@@ -1226,6 +1226,14 @@ public class ModBiomeFeatures {
         vegetation.add(OrePlacedFeatures.SILT_TO_GRASSY_ORE);
         vegetation.add(OrePlacedFeatures.SILT_TO_COARSE_ORE);
     }
+    public static void addCoarseLoamToGrassy(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.COARSE_LOAM_TO_GRASSY);
+        vegetation.add(OrePlacedFeatures.GRASSY_LOAM_TO_GRASS);
+    }
+    public static void addCoarseLoamToFoulDirt(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(OrePlacedFeatures.COARSE_LOAM_TO_FOUL_DIRT);
+        vegetation.add(OrePlacedFeatures.FOUL_DIRT_TO_WASTE_PILE);
+    }
     public static void addSnowyDirt(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(OrePlacedFeatures.SNOWY_DIRT_ORE);
     }

@@ -51,6 +51,10 @@ public class OreConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_LOAM_ORE = registerKey("grassy_loam_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_PEAT_ORE = registerKey("grassy_peat_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_SILT_ORE = registerKey("grassy_silt_ore");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_LOAM_TO_GRASSY = registerKey("coarse_loam_to_grassy");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> GRASSY_LOAM_TO_GRASS = registerKey("grassy_loam_to_grass");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> COARSE_LOAM_TO_FOUL_DIRT = registerKey("coarse_loam_to_foul_dirt");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> FOUL_DIRT_TO_WASTE_PILE = registerKey("foul_dirt_to_waste_pile");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GRAVEL_TO_SILT_ORE = registerKey("gravel_to_silt_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SILT_TO_GRASSY_ORE = registerKey("silt_to_grassy_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SILT_TO_COARSE_ORE = registerKey("silt_to_coarse_ore");
@@ -91,10 +95,13 @@ public class OreConfiguredFeatures {
         BlockMatchRuleTest grassTest = new BlockMatchRuleTest(Blocks.GRASS_BLOCK);
         BlockMatchRuleTest chalkGrassTest = new BlockMatchRuleTest(ModBlocks.CHALKSOIL_GRASS_BLOCK);
         BlockMatchRuleTest loamGrassTest = new BlockMatchRuleTest(ModBlocks.LOAM_GRASS_BLOCK);
+        BlockMatchRuleTest coarseLoamTest = new BlockMatchRuleTest(ModBlocks.COARSE_LOAM);
+        BlockMatchRuleTest grassyLoamTest = new BlockMatchRuleTest(ModBlocks.GRASSY_LOAM);
         BlockMatchRuleTest peatGrassTest = new BlockMatchRuleTest(ModBlocks.PEAT_GRASS_BLOCK);
         BlockMatchRuleTest siltGrassTest = new BlockMatchRuleTest(ModBlocks.SILT_GRASS_BLOCK);
         BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
         BlockMatchRuleTest ashenGravelTest = new BlockMatchRuleTest(ModBlocks.ASHEN_GRAVEL);
+        BlockMatchRuleTest foulDirtTest = new BlockMatchRuleTest(ModBlocks.FOUL_DIRT);
         BlockMatchRuleTest gravelTest = new BlockMatchRuleTest(Blocks.GRAVEL);
         TagMatchRuleTest sandTest = new TagMatchRuleTest(BlockTags.SAND);
         TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
@@ -188,6 +195,16 @@ public class OreConfiguredFeatures {
                 new OreFeatureConfig(peatGrassTest, ModBlocks.GRASSY_PEAT.getDefaultState(), 48, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, GRASSY_SILT_ORE, Feature.ORE,
                 new OreFeatureConfig(siltGrassTest, ModBlocks.GRASSY_SILT.getDefaultState(), 48, 0.4f));
+
+
+        ConfiguredFeatures.register(featureRegisterable, COARSE_LOAM_TO_GRASSY, Feature.ORE,
+                new OreFeatureConfig(coarseLoamTest, ModBlocks.GRASSY_LOAM.getDefaultState(), 64, 0.2f));
+        ConfiguredFeatures.register(featureRegisterable, GRASSY_LOAM_TO_GRASS, Feature.ORE,
+                new OreFeatureConfig(grassyLoamTest, ModBlocks.LOAM_GRASS_BLOCK.getDefaultState(), 48, 0.65f));
+        ConfiguredFeatures.register(featureRegisterable, COARSE_LOAM_TO_FOUL_DIRT, Feature.ORE,
+                new OreFeatureConfig(coarseLoamTest, ModBlocks.FOUL_DIRT.getDefaultState(), 64, 0.2f));
+        ConfiguredFeatures.register(featureRegisterable, FOUL_DIRT_TO_WASTE_PILE, Feature.ORE,
+                new OreFeatureConfig(foulDirtTest, ModBlocks.WASTE_PILE.getDefaultState(), 48, 0.65f));
 
         ConfiguredFeatures.register(featureRegisterable, GRAVEL_TO_SILT_ORE, Feature.ORE,
                 new OreFeatureConfig(gravelTest, ModBlocks.SILT.getDefaultState(), 64, 0.2f));
