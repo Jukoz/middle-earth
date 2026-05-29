@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.resources.datas.combatarchetypes;
 import net.minecraft.nbt.NbtCompound;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 
-public class CombatArchetypeData {
+public abstract class CombatArchetypeData {
     protected CombatArchetype combatArchetype;
 
     private final float fleeMovementSpeedModifier;
@@ -49,9 +49,18 @@ public class CombatArchetypeData {
         return CombatArchetype.MELEE;
     };
 
-
+    public CombatArchetype getArchetype() {
+        return this.combatArchetype;
+    }
     protected void setArchetype(CombatArchetype combatArchetype) {
         this.combatArchetype = combatArchetype;
     }
 
+    public float getFleeSpeedModifier() {
+        return this.fleeMovementSpeedModifier;
+    }
+
+    public float getSeekSpeedModifier() {
+        return this.seekTargetMovementSpeedModifier;
+    }
 }

@@ -53,4 +53,8 @@ public class RangedCombatArchetypeData extends CombatArchetypeData {
 
         return nbt;
     }
+
+    public int getAmmoCount() {
+        return this.ammoCountMax;
+    }
 }

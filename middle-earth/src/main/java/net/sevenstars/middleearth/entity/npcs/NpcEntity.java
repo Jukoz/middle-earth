@@ -68,6 +68,8 @@ import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.CombatArchetypeRuntimeData;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
@@ -92,6 +94,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
     private static final TrackedData<Boolean> FIGHTING;
     private static final TrackedData<Boolean> BLOCKING;
+
+    private static CombatArchetypeRuntimeData COMBAT_ARCHETYPE;
+
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
@@ -134,6 +139,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
         view.put("NpcTextureData", NpcEntityTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
         view.put("InitializationTick", Codec.LONG, dataTracker.get(INITIALIZATION_TICK));
+
+
     }
 
     private void readEntityData(ReadView view) {
@@ -231,6 +238,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         if(world instanceof ServerWorld serverWorld){
             if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
                 NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
+
+
+                if(getNpcDataId() != null){
+                    COMBAT_ARCHETYPE = getNpcData().getCombatArchetypeRuntime();
+                }
             }
         }
     }
@@ -251,6 +263,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     @Override
     protected void mobTick(ServerWorld world) {
         tryToInitializeData();
+        if(COMBAT_ARCHETYPE != null)
+            COMBAT_ARCHETYPE.tick(this, world);
         Profiler profiler = Profilers.get();
         profiler.push("npcBrain");
         this.getBrain().tick(world, this);

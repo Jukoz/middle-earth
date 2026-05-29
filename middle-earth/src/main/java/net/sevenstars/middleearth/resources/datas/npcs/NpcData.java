@@ -12,6 +12,12 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.CombatArchetypeRuntimeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.MeleeCombatArchetypeRuntimeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.RangedCombatArchetypeRuntimeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.utils.CombatArchetypeDataUtil;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
@@ -142,5 +148,19 @@ public class NpcData {
             npcAttributePools.get(category).apply(npcEntity);
 
         npcEntity.heal(npcEntity.getMaxHealth() - npcEntity.getHealth());
+    }
+
+    public CombatArchetypeRuntimeData getCombatArchetypeRuntime() {
+        CombatArchetypeData archetypeData = combatArchetypeData;
+        return switch (archetypeData.getArchetype()){
+            case MELEE -> new MeleeCombatArchetypeRuntimeData((MeleeCombatArchetypeData) archetypeData);
+            case RANGED -> new RangedCombatArchetypeRuntimeData((RangedCombatArchetypeData) archetypeData);
+            case HYBRID -> null;
+            case SHIELDED -> null;
+            case LANCERS -> null;
+            case SENTINEL -> null;
+            case BRAWLER -> null;
+            case BEAST_RIDER -> null;
+        };
     }
 }
