@@ -29,6 +29,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
+import net.sevenstars.of_beasts_and_wild_things.sound.ModSounds;
 import org.jetbrains.annotations.Nullable;
 
 public class DeerEntity extends AnimalEntity {
@@ -90,33 +91,33 @@ public class DeerEntity extends AnimalEntity {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CAMEL_DEATH;
+        return ModSounds.DEER_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_CAMEL_HURT;
+        return ModSounds.DEER_GRUNT;
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
-        this.playSound(this.getHurtSound(damageSource), 1.0f, 1.4f);
+        this.playSound(this.getHurtSound(damageSource), 1.0f, 1.0f);
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_CAMEL_AMBIENT;
+        return ModSounds.DEER_IDLE;
     }
 
     @Override
     public void playAmbientSound() {
-        this.playSound(this.getAmbientSound(), 1.0f, 1.8f);
+        this.playSound(this.getAmbientSound(), 1.0f, 1.0f);
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_CAMEL_STEP, 0.7f, 1.8f);
+        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 1.0f, 1.0f);
     }
 
     @Override

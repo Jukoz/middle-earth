@@ -493,7 +493,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
         if(world instanceof ServerWorld serverWorld) {
             for(Entity entity : entities) {
-                if(entity instanceof LivingEntity && entity != this.getOwner() && !this.getPassengerList().contains(entity)) {
+                if(this.isValidTarget(entity)) {
                     entity.damage(serverWorld, this.getDamageSources().mobAttack(this),  (float)weaponDamage + (strength / 12.5f) + (difficulty * 2));
                 }
             }
