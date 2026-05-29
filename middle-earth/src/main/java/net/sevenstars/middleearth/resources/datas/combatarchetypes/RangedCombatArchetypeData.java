@@ -12,8 +12,8 @@ public class RangedCombatArchetypeData extends CombatArchetypeData {
     private final int replenishmentDelayAfterHurt; // replenishment delay after getting hurt
     private final int replenishmentDelayAfterShooting; // replenishment delay after getting hurt
 
-    public RangedCombatArchetypeData(float precisionModifier, int optimalBlockRangeMinimum, int optimalBlockRangeMaximum, int ammoCountMax, int replenishmentRateInTicks, int replenishmentDelayAfterHurt, int replenishmentDelayAfterShooting) {
-        super();
+    public RangedCombatArchetypeData(float fleeMovementSpeedModifier,  float seekTargetMovementSpeedModifier, float precisionModifier, int optimalBlockRangeMinimum, int optimalBlockRangeMaximum, int ammoCountMax, int replenishmentRateInTicks, int replenishmentDelayAfterHurt, int replenishmentDelayAfterShooting) {
+        super(fleeMovementSpeedModifier, seekTargetMovementSpeedModifier);
         this.precisionModifier = precisionModifier;
         this.optimalBlockRangeMinimum = optimalBlockRangeMinimum;
         this.optimalBlockRangeMaximum = optimalBlockRangeMaximum;
@@ -24,7 +24,7 @@ public class RangedCombatArchetypeData extends CombatArchetypeData {
     }
 
     public RangedCombatArchetypeData(NbtCompound data) {
-        super();
+        super(data);
         this.precisionModifier = data.getFloat("precision_modifier", 1.0f);
         this.optimalBlockRangeMinimum = data.getInt("optimal_block_range_minimum", 5);
         this.optimalBlockRangeMaximum = data.getInt("optimal_block_range_maximum", 10);
@@ -41,8 +41,7 @@ public class RangedCombatArchetypeData extends CombatArchetypeData {
 
     @Override
     protected NbtCompound getDataNbt() {
-        NbtCompound nbt = new NbtCompound();
-
+        NbtCompound nbt = super.getDataNbt();
         nbt.putFloat("precision_modifier", this.precisionModifier);
         nbt.putInt("optimal_block_range_minimum", this.optimalBlockRangeMinimum);
         nbt.putInt("optimal_block_range_maximum", this.optimalBlockRangeMaximum);

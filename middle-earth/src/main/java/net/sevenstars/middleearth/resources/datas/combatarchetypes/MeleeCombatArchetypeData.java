@@ -6,13 +6,13 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatAr
 public class MeleeCombatArchetypeData extends CombatArchetypeData {
     private final float critialChance; // 1 being always, 0 being never
 
-    public MeleeCombatArchetypeData(float critialChance) {
-        super();
+    public MeleeCombatArchetypeData(float fleeMovementSpeedModifier,  float seekTargetMovementSpeedModifier, float critialChance) {
+        super(fleeMovementSpeedModifier, seekTargetMovementSpeedModifier);
         this.critialChance = critialChance;
     }
 
     public MeleeCombatArchetypeData(NbtCompound data) {
-        super();
+        super(data);
         critialChance = data.getFloat("critical_chance", 0.2f);
     }
 
@@ -23,8 +23,7 @@ public class MeleeCombatArchetypeData extends CombatArchetypeData {
 
     @Override
     protected NbtCompound getDataNbt() {
-        NbtCompound nbt = new NbtCompound();
-
+        NbtCompound nbt = super.getDataNbt();
         nbt.putFloat("critical_chance", this.critialChance);
 
         return nbt;

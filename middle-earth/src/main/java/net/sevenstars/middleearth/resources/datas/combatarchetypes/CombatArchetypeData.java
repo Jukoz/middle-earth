@@ -1,18 +1,25 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes;
 
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 
 public class CombatArchetypeData {
     protected CombatArchetype combatArchetype;
 
-    public CombatArchetypeData() {
+    private final float fleeMovementSpeedModifier;
+    private final float seekTargetMovementSpeedModifier;
+
+    public CombatArchetypeData(float fleeMovementSpeedModifier,  float seekTargetMovementSpeedModifier) {
         setArchetype(getCombatArchetype());
+        this.fleeMovementSpeedModifier = fleeMovementSpeedModifier;
+        this.seekTargetMovementSpeedModifier = seekTargetMovementSpeedModifier;
     }
 
-    public CombatArchetypeData(NbtElement data) {
+    public CombatArchetypeData(NbtCompound data) {
         setArchetype(getCombatArchetype());
+
+        this.fleeMovementSpeedModifier = data.getFloat("flee_movement_speed_modifier", 1f);
+        this.seekTargetMovementSpeedModifier = data.getFloat("seek_target_movement_speed_modifier", 1f);
     }
 
     public NbtCompound getNbt(){
@@ -23,13 +30,19 @@ public class CombatArchetypeData {
         nbt.putString("type", combatArchetype.name());
 
 
-        nbt.put("data", getDataNbt());
+        NbtCompound dataNbt =  getDataNbt();
+
+        nbt.put("data", dataNbt);
 
         return nbt;
     }
 
     protected NbtCompound getDataNbt() {
-        return new NbtCompound();
+        NbtCompound nbtCompound = new NbtCompound();
+        nbtCompound.putFloat("flee_movement_speed_modifier", fleeMovementSpeedModifier);
+        nbtCompound.putFloat("seek_target_movement_speed_modifier", seekTargetMovementSpeedModifier);
+
+        return nbtCompound;
     }
 
     protected CombatArchetype getCombatArchetype(){

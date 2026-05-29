@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.registries.content.npcs.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
@@ -22,8 +23,6 @@ import java.util.List;
 
 public class GondorianNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.GONDOR;
-
-    private final static MeleeCombatArchetypeData temporaryArchetypeData = new MeleeCombatArchetypeData(0.3f);
 
     private final static int LIGHT_BLUE = 0x2b3965;
     private final static int DARK_BLUE = 0x182038;
@@ -76,7 +75,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(ToolItemsME.PIPE))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         MILITIA = new NpcData(NpcRegistry.GONDOR_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_PEASANT, List.of(
                 WeightedGearData.create()
@@ -165,7 +164,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(WeightedItemData.create().withWeight(5))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         SOLDIER = new NpcData(NpcRegistry.GONDOR_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -194,7 +193,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create())
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         KNIGHT = new NpcData(NpcRegistry.GONDOR_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -229,7 +228,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         VETERAN = new NpcData(NpcRegistry.GONDOR_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -248,7 +247,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(WeightedItemData.create().withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         CITADEL_GUARD = new NpcData(NpcRegistry.GONDOR_CITADEL_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -263,7 +262,7 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         FOUNTAIN_GUARD = new NpcData(NpcRegistry.GONDOR_FOUNTAIN_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -272,7 +271,7 @@ public class GondorianNpcDataPool {
                         .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.GONDORIAN_FOUNTAIN_GUARD_SPEAR)))
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         KING_GUARD = new NpcData(NpcRegistry.GONDOR_KING_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -288,7 +287,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         LEADER = new NpcData(NpcRegistry.GONDOR_LEADER.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_LORD, List.of(
                 WeightedGearData.create()
@@ -308,6 +307,6 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
     }
 }

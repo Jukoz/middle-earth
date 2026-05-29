@@ -1,0 +1,12 @@
+package net.sevenstars.middleearth.registries.content.npcs;
+
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
+
+public class CombatArchetypePool {
+    public final static CombatArchetypeData DEFAULT =  new MeleeCombatArchetypeData(1f, 1f,0.3f);
+
+    /// WOODLAND REALMS
+    public final static CombatArchetypeData WOODLAND_REALMS_RANGER = new RangedCombatArchetypeData(1.2f, 1f, 0.8f, 10, 18, 5, 10, 100, 50);
+}
