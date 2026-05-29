@@ -1727,12 +1727,14 @@ public class ModBiomes {
         } else {
             ModBiomeFeatures.addCommonToughBerries(undergroundOres);
             ModBiomeFeatures.addAshenDirtOre(undergroundOres);
+            ModBiomeFeatures.addThornyGrowth(vegetation);
             if(!glade) {
                 ModBiomeFeatures.addRareBirchTrees(vegetation);
                 ModBiomeFeatures.addLebethronTrees(vegetation);
                 ModBiomeFeatures.addDeadPineTrees(vegetation);
                 ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
                 ModBiomeFeatures.addRareBeechTrees(vegetation);
+                ModBiomeFeatures.addRottenTrees(vegetation);
             }
         }
 
@@ -1967,6 +1969,7 @@ public class ModBiomes {
             ModBiomeFeatures.addMallornTrees(vegetation);
             ModBiomeFeatures.addMallornFloweringBushes(vegetation);
             ModBiomeFeatures.addYellowFlowerGrowth(vegetation);
+            ModBiomeFeatures.addBigleafHydrangeas(vegetation);
         } else if(step == 2) { // Blossom
             ModBiomeFeatures.addBeesOakTrees(vegetation);
             ModBiomeFeatures.addSmallMallornTress(vegetation);
@@ -1979,6 +1982,7 @@ public class ModBiomes {
             ModBiomeFeatures.addYellowFlowerGrowth(vegetation);
             ModBiomeFeatures.addSedumYellow(vegetation);
             ModBiomeFeatures.addGreenShrub(vegetation);
+            ModBiomeFeatures.addBigleafHydrangeas(vegetation);
             vegetation.add(VegetationPlacedFeatures.FLOWER_CHERRY);
         }
 
@@ -2114,8 +2118,11 @@ public class ModBiomes {
         vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
         vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
 
+        ModBiomeFeatures.addGabbroBoulder(vegetation);
+
         ModBiomeFeatures.addGrassyLoamOre(vegetation);
-        ModBiomeFeatures.addCoarseLoamOre(vegetation);
+        ModBiomeFeatures.addCoarseLoamToGrassy(vegetation);
+        ModBiomeFeatures.addCoarseLoamToFoulDirt(vegetation);
 
         ModBiomeFeatures.addCorruptedMoss(vegetation);
         ModBiomeFeatures.addBushes(vegetation);
@@ -2123,6 +2130,7 @@ public class ModBiomes {
         ModBiomeFeatures.addWildGrass(vegetation);
         ModBiomeFeatures.addSparseGrass(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
+        ModBiomeFeatures.addWheatGrass(vegetation);
 
         ModSpawnSettingsBuilder.addUncommonBats(spawnSettings);
 
@@ -2139,20 +2147,22 @@ public class ModBiomes {
             ModBiomeFeatures.addBracken(vegetation);
             ModBiomeFeatures.addFallenMirkwoodLeaves(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
-            ModBiomeFeatures.addSmallDryShrub(vegetation);
+            ModBiomeFeatures.addThornyGrowth(vegetation);
 
             ModBiomeFeatures.addWildFlax(vegetation);
             ModBiomeFeatures.addWildGarlic(vegetation);
             ModBiomeFeatures.addWildOnion(vegetation);
 
-            ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addRottenTrees(vegetation);
+            ModBiomeFeatures.addDeadMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addDeadMegaMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addScorchedTrees(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
             generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ModVegetationPlacedFeatures.MIRKWOOD_VINES);
             ModBiomeFeatures.addMirkwoodVines(vegetation);
             vegetation.add(VegetationPlacedFeatures.PATCH_LEAF_LITTER);
         }else if (step == 1){ //HILL
             ModBiomeFeatures.addThistle(vegetation);
-            ModBiomeFeatures.addWheatGrass(vegetation);
-            ModBiomeFeatures.addSmallDryShrub(vegetation);
             ModBiomeFeatures.addScorchedGrass(vegetation);
             ModBiomeFeatures.addScorchedShrub(vegetation);
         }
@@ -2186,6 +2196,7 @@ public class ModBiomes {
         ModBiomeFeatures.addMudOre(vegetation);
         ModBiomeFeatures.addRareMorsel(vegetation);
         ModBiomeFeatures.addRareWhiteMushroom(vegetation);
+        ModBiomeFeatures.addThornyGrowth(vegetation);
 
         if(bigTrees) {
             ModBiomeFeatures.addFireflyBushes(vegetation);
@@ -2193,6 +2204,7 @@ public class ModBiomes {
             addMegaMirkwoodTrees(generationSettings);
             ModBiomeFeatures.addCommonBeechTrees(vegetation);
             ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addRottenTrees(vegetation);
             ModBiomeFeatures.addCorruptedMoss(vegetation);
         } else {
             addMirkwoodTrees(generationSettings);
@@ -2310,7 +2322,9 @@ public class ModBiomes {
 
         addMegaMirkwoodTrees(generationSettings);
         ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+        ModBiomeFeatures.addRottenTrees(vegetation);
         ModBiomeFeatures.addCorruptedMoss(vegetation);
+        ModBiomeFeatures.addDeadMegaMirkwoodTrees(vegetation);
         if(!dark) {
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
@@ -2460,6 +2474,7 @@ public class ModBiomes {
         ModBiomeFeatures.addBlackStonePile(vegetation);
         ModBiomeFeatures.addAbundantScorchedTrees(vegetation);
         ModBiomeFeatures.addAbundantDeadBlackPineTrees(vegetation);
+        ModBiomeFeatures.addRottenTrees(vegetation);
         ModBiomeFeatures.addDryPineBushes(vegetation);
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, 0.7f, false, true);
@@ -2616,6 +2631,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDeadRushes(vegetation);
         ModBiomeFeatures.addTurfOre(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addThornyGrowth(vegetation);
 
         ModBiomeFeatures.addPumicePileRare(vegetation);
         ModBiomeFeatures.addAshenStoneBoulder(vegetation);
@@ -2646,6 +2662,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDeadRushes(vegetation);
         ModBiomeFeatures.addTurfOre(vegetation);
         ModBiomeFeatures.addWildGrass(vegetation);
+        ModBiomeFeatures.addThornyGrowth(vegetation);
 
         ModBiomeFeatures.addPumicePileRare(vegetation);
         ModBiomeFeatures.addAshenStoneBoulder(vegetation);
@@ -2662,6 +2679,7 @@ public class ModBiomes {
         ModBiomeFeatures.addCommonBlackPineTrees(vegetation);
         ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
         ModBiomeFeatures.addRareLebethronTrees(vegetation);
+        ModBiomeFeatures.addRottenTrees(vegetation);
 
         ModBiomeFeatures.addCommonToughBerries(undergroundOres);
         ModBiomeFeatures.addAshenDirtOre(undergroundOres);
@@ -2848,6 +2866,7 @@ public class ModBiomes {
             ModBiomeFeatures.addDryPineTrees(vegetation);
             ModBiomeFeatures.addDarkOakTrees(vegetation);
             ModBiomeFeatures.addRareBeechTrees(vegetation);
+            ModBiomeFeatures.addRottenTrees(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
@@ -2891,6 +2910,7 @@ public class ModBiomes {
             ModBiomeFeatures.addDarkOakTrees(vegetation);
             ModBiomeFeatures.addVeryRareMegaOakTrees(vegetation);
             ModBiomeFeatures.addRareBeechTrees(vegetation);
+            ModBiomeFeatures.addRottenTrees(vegetation);
             ModBiomeFeatures.addWildOnion(vegetation);
         } else if(step == 2) {
             ModBiomeFeatures.addDeadRushes(vegetation);
@@ -2963,6 +2983,8 @@ public class ModBiomes {
             ModBiomeFeatures.addScorchedTrees(vegetation);
             ModBiomeFeatures.addScorchedGrass(vegetation);
             ModBiomeFeatures.addScorchedShrub(vegetation);
+            ModBiomeFeatures.addThornyGrowth(vegetation);
+            ModBiomeFeatures.addRottenTrees(vegetation);
         } else if(step == 1) { // Plains
             ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModBiomeFeatures.addShriveledShrubs(vegetation);
@@ -4213,7 +4235,6 @@ public class ModBiomes {
         ModBiomeFeatures.addDirtyRootsOre(vegetation);
         ModBiomeFeatures.addGalonnBoulder(vegetation);
         ModBiomeFeatures.addTuftGrass(vegetation);
-        ModBiomeFeatures.addBigleafHydrangeas(vegetation);
         ModBiomeFeatures.addHogweeds(vegetation);
         ModBiomeFeatures.addRareWilderGrass(vegetation);
         ModBiomeFeatures.addMallornBushes(vegetation);

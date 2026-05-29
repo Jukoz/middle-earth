@@ -198,11 +198,11 @@ public class OreConfiguredFeatures {
 
 
         ConfiguredFeatures.register(featureRegisterable, COARSE_LOAM_TO_GRASSY, Feature.ORE,
-                new OreFeatureConfig(coarseLoamTest, ModBlocks.GRASSY_LOAM.getDefaultState(), 64, 0.2f));
+                new OreFeatureConfig(dirtTest, ModBlocks.GRASSY_LOAM.getDefaultState(), 64, 0.2f));
         ConfiguredFeatures.register(featureRegisterable, GRASSY_LOAM_TO_GRASS, Feature.ORE,
                 new OreFeatureConfig(grassyLoamTest, ModBlocks.LOAM_GRASS_BLOCK.getDefaultState(), 48, 0.65f));
         ConfiguredFeatures.register(featureRegisterable, COARSE_LOAM_TO_FOUL_DIRT, Feature.ORE,
-                new OreFeatureConfig(coarseLoamTest, ModBlocks.FOUL_DIRT.getDefaultState(), 64, 0.2f));
+                new OreFeatureConfig(dirtTest, ModBlocks.FOUL_DIRT.getDefaultState(), 64, 0.2f));
         ConfiguredFeatures.register(featureRegisterable, FOUL_DIRT_TO_WASTE_PILE, Feature.ORE,
                 new OreFeatureConfig(foulDirtTest, ModBlocks.WASTE_PILE.getDefaultState(), 48, 0.65f));
 

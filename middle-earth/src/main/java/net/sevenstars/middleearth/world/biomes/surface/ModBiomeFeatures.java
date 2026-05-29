@@ -249,6 +249,9 @@ public class ModBiomeFeatures {
     public static void addSparseMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.SPARSE_MIRKWOOD_PLACED_TREE_KEY);
     }
+    public static void addDeadMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.DEAD_MIRKWOOD_PLACED_TREE_KEY);
+    }
     public static void addUncommonMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.UNCOMMON_MIRKWOOD_PLACED_TREE_KEY);
     }
@@ -261,6 +264,9 @@ public class ModBiomeFeatures {
     }
     public static void addVeryRareMegaMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.VERY_RARE_MEGA_MIRKWOOD_PLACED_TREE_KEY);
+    }
+    public static void addDeadMegaMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.DEAD_MEGA_MIRKWOOD_PLACED_TREE_KEY);
     }
 
     public static void addCommonOakBush(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -353,6 +359,10 @@ public class ModBiomeFeatures {
     }
     public static void addAbundantDeadBlackPineTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.ABUNDANT_DEAD_BLACK_PINE_PLACED_TREE_KEY);
+    }
+
+    public static void addRottenTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ROTTEN_TREE_KEY);
     }
 
     public static void addScorchedTrees(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -578,6 +588,9 @@ public class ModBiomeFeatures {
     }
     public static void addGreenGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.GREEN_GROWTH);
+    }
+    public static void addThornyGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.THORNY_GROWTH);
     }
     public static void addLilacFlowerGrowth(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.LILAC_FLOWER_GROWTH);
@@ -887,7 +900,7 @@ public class ModBiomeFeatures {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_WHITE_LAVENDER);
     }
     public static void addSparseWhiteLavender(List<RegistryKey<PlacedFeature>> vegetation) {
-        vegetation.add(ModVegetationPlacedFeatures.PATCH_SPARSE_WHITE_LAVENDER);
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_SCARCE_WHITE_LAVENDER);
     }
     public static void addRareWhiteLavender(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_RARE_WHITE_LAVENDER);
