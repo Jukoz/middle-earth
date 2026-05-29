@@ -29,7 +29,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
-import net.sevenstars.of_beasts_and_wild_things.sound.ModSounds;
+import net.sevenstars.of_beasts_and_wild_things.sound.SoundsWT;
 import org.jetbrains.annotations.Nullable;
 
 public class DeerEntity extends AnimalEntity {
@@ -91,13 +91,13 @@ public class DeerEntity extends AnimalEntity {
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.DEER_DEATH;
+        return SoundsWT.DEER_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.DEER_GRUNT;
+        return SoundsWT.DEER_GRUNT;
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
@@ -107,7 +107,7 @@ public class DeerEntity extends AnimalEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.DEER_IDLE;
+        return SoundsWT.DEER_IDLE;
     }
 
     @Override

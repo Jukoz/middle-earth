@@ -683,4 +683,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     protected SoundEvent getRoarSound() {
         return null;
     }
+
+    public void playRoarSound() {
+        this.playSound(this.getRoarSound());
+    }
 }

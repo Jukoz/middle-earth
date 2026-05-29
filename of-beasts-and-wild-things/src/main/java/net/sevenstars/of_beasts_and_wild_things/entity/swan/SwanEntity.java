@@ -51,6 +51,7 @@ import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
+import net.sevenstars.of_beasts_and_wild_things.sound.SoundsWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -406,22 +407,22 @@ public class SwanEntity extends AnimalEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_CHICKEN_AMBIENT;
+        return SoundsWT.SWAN_IDLE;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_CHICKEN_HURT;
+        return SoundsWT.SWAN_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CHICKEN_DEATH;
+        return SoundsWT.SWAN_DEATH;
     }
     protected SoundEvent getSwimSound() {
         return SoundEvents.ENTITY_TURTLE_SWIM;
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 2.0F);
+        this.playSound(SoundsWT.SWAN_STEP);
     }
 
     @Override

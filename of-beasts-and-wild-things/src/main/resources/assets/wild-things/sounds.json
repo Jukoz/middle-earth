@@ -20,5 +20,32 @@
       "wild-things:deer/deer_idle2",
       "wild-things:deer/deer_idle3"
     ]
+  },
+  "swan_idle": {
+    "subtitle": "sounds.middle-earth.swan_idle",
+    "sounds": [
+      "wild-things:swan/swan_idle1",
+      "wild-things:swan/swan_idle2"
+    ]
+  },
+  "swan_hurt": {
+    "subtitle": "sounds.middle-earth.swan_hurt",
+    "sounds": [
+      "wild-things:swan/swan_hurt1",
+      "wild-things:swan/swan_hurt2"
+    ]
+  },
+  "swan_step": {
+    "subtitle": "sounds.middle-earth.swan_step",
+    "sounds": [
+      "wild-things:swan/swan_step1",
+      "wild-things:swan/swan_step2"
+    ]
+  },
+  "swan_death": {
+    "subtitle": "sounds.middle-earth.swan_death",
+    "sounds": [
+      "wild-things:swan/swan_death"
+    ]
   }
 }
