@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class FatPotBlock extends PotBlock {
+public class FatPotBlock extends LootablePotBlock {
 
     public FatPotBlock(Settings settings) {
         super(settings);
