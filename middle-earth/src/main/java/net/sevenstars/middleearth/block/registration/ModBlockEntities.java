@@ -82,6 +82,18 @@ public class ModBlockEntities {
     public static void registerBlockEntities() {
         BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.SMALL_CRATE);
         BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.THIN_BARREL);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.AMPHORA);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_AMPHORA);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_JUG);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_POT);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.LARGE_JUG);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_VASE);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_JAR);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.CLAY_JAR);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_JAR);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_FAT_POT);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.FAT_POT);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_FAT_POT);
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name,
