@@ -274,6 +274,7 @@ public class ModBiomes {
         createWhiteMountainsBiome(context, MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, 2);
         createWoodlandRealmBiome(context, MEBiomeKeys.WOODLAND_REALM, 0);
         createWoodlandRealmBiome(context, MEBiomeKeys.WOODLAND_GLADE, 1);
+        createWoodlandRealmBiome(context, MEBiomeKeys.AUTUMN_WOODLAND, 2);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_FOOTHILLS, true);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.WOODLAND_HILLS, true);
     }
@@ -3890,8 +3891,16 @@ public class ModBiomes {
         ModBiomeFeatures.addRareMorsel(vegetation);
         ModBiomeFeatures.addWheatGrass(vegetation);
         if(step == 0) { // Forest
-            addMirkwoodTrees(generationSettings);
-            ModBiomeFeatures.addRareMegaMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addFireflyBushes(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
+            ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addUncommonMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addAspenTrees(vegetation);
+            ModBiomeFeatures.addMapleTree(vegetation);
+            ModBiomeFeatures.addYellowMapleTree(vegetation);
+            ModBiomeFeatures.addOrangeMapleTree(vegetation);
+            ModBiomeFeatures.addVeryRareMegaMirkwoodTrees(vegetation);
         } else if(step == 1) { // Glade
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
@@ -3899,6 +3908,19 @@ public class ModBiomes {
             ModBiomeFeatures.addRedFlowers(vegetation);
             ModBiomeFeatures.addPoppyFlower(vegetation);
             ModBiomeFeatures.addTuftGrass(vegetation);
+            ModBiomeFeatures.addMixedWildWheatPatch(vegetation);
+        } else if(step == 2) {
+            ModBiomeFeatures.addFireflyBushes(vegetation);
+            ModBiomeFeatures.addRedFlowers(vegetation);
+            ModBiomeFeatures.addRedHeather(vegetation);
+            ModBiomeFeatures.addDryHeather(vegetation);
+            ModBiomeFeatures.addSedums(vegetation);
+            ModBiomeFeatures.addCommonMapleTrees(vegetation);
+            ModBiomeFeatures.addCommonAspenTrees(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
+            ModBiomeFeatures.addRareBeechTrees(vegetation);
+            ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addSparseMirkwoodTrees(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);

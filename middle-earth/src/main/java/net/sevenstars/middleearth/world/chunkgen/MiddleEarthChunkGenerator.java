@@ -320,6 +320,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_REALM),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_GLADE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.AUTUMN_WOODLAND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_HILLS),
 
                     biomeRegistry.getOrThrow(MEBiomeKeys.BASIC_CAVE),

@@ -187,6 +187,16 @@ public class ModBiomeFeatures {
         vegetation.add(ModTreePlacedFeatures.SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SILVER_RED_MAPLE_PLACED_TREE_KEY);
     }
+    public static void addCommonMapleTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.COMMON_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_SILVER_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_SILVER_YELLOW_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_SILVER_ORANGE_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_RED_MAPLE_PLACED_TREE_KEY);
+        vegetation.add(ModTreePlacedFeatures.COMMON_SILVER_RED_MAPLE_PLACED_TREE_KEY);
+    }
     public static void addMapleTree(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.SCARCE_MAPLE_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SCARCE_SILVER_MAPLE_PLACED_TREE_KEY);
@@ -233,12 +243,21 @@ public class ModBiomeFeatures {
     public static void addMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MIRKWOOD_PLACED_TREE_KEY);
     }
+    public static void addSparseMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.SPARSE_MIRKWOOD_PLACED_TREE_KEY);
+    }
+    public static void addUncommonMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.UNCOMMON_MIRKWOOD_PLACED_TREE_KEY);
+    }
     public static void addMegaMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MEGA_MIRKWOOD_PLACED_TREE_KEY);
         vegetation.add(ModTreePlacedFeatures.SPARSE_MIRKWOOD_PLACED_TREE_KEY);
     }
     public static void addRareMegaMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.RARE_MEGA_MIRKWOOD_PLACED_TREE_KEY);
+    }
+    public static void addVeryRareMegaMirkwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.VERY_RARE_MEGA_MIRKWOOD_PLACED_TREE_KEY);
     }
 
     public static void addCommonOakBush(List<RegistryKey<PlacedFeature>> vegetation) {
@@ -491,7 +510,6 @@ public class ModBiomeFeatures {
     public static void addLimestoneBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_LIMESTONE);
         vegetation.add(BoulderPlacedFeatures.MEDIUM_BOULDER_LIMESTONE);
-        vegetation.add(BoulderPlacedFeatures.BIG_BOULDER_LIMESTONE);
     }
     public static void addMossyBoulder(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(BoulderPlacedFeatures.SMALL_BOULDER_MOSSY_STONE);
