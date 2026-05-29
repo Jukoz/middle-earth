@@ -122,6 +122,9 @@ public class ModBiomeFeatures {
     public static void addFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.FIR_PLACED_TREE_KEY);
     }
+    public static void addAbundantFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.ABUNDANT_FIR_PLACED_TREE_KEY);
+    }
     public static void addRareFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.RARE_FIR_PLACED_TREE_KEY);
     }

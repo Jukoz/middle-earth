@@ -166,7 +166,7 @@ public class ModBiomes {
         createMinhiriathBiome(context, MEBiomeKeys.MINHIRIATH_WHEAT_FIELD, 1);
         createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD, true, false, false);
         createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD_EDGE, false, false, false);
-        createMirkwoodBiome(context, MEBiomeKeys.MIRKWOOD_FOOTHILLS, true, false, false);
+        createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_FOOTHILLS, -1);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_BASE, 0);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS, 1);
         createMirkwoodMountainsBiome(context, MEBiomeKeys.MIRKWOOD_MOUNTAINS_PEAKS, 2);
@@ -2185,11 +2185,15 @@ public class ModBiomes {
         ModBiomeFeatures.addRareWhiteMushroom(vegetation);
 
         if(bigTrees) {
+            ModBiomeFeatures.addFireflyBushes(vegetation);
+            ModBiomeFeatures.addWaterDelta(vegetation);
             addMegaMirkwoodTrees(generationSettings);
+            ModBiomeFeatures.addCommonBeechTrees(vegetation);
             ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
             ModBiomeFeatures.addCorruptedMoss(vegetation);
         } else {
             addMirkwoodTrees(generationSettings);
+            ModBiomeFeatures.addBeechTrees(vegetation);
             ModBiomeFeatures.addRareMegaMirkwoodTrees(vegetation);
             if(!dark) {
                 ModBiomeFeatures.addNettles(vegetation);
@@ -2207,15 +2211,34 @@ public class ModBiomes {
 
         float temperature = 0.3f;
 
-        if(step == 0) {
+        if(step == -1) {
+            ModSpawnSettingsBuilder.addWolves(spawnSettings);
+            ModSpawnSettingsBuilder.addDeer(spawnSettings);
+            ModSpawnSettingsBuilder.addGreatHorn(spawnSettings);
+            addMirkwoodVegetation(generationSettings);
+            ModBiomeFeatures.addMirkwoodRoots(vegetation);
+            ModBiomeFeatures.addDeadHeather(vegetation);
+            ModBiomeFeatures.addMudOre(vegetation);
+            ModBiomeFeatures.addRareMorsel(vegetation);
+            ModBiomeFeatures.addRareWhiteMushroom(vegetation);
+            ModBiomeFeatures.addFireflyBushes(vegetation);
+            ModBiomeFeatures.addRareMegaMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addAbundantFirTrees(vegetation);
+            ModBiomeFeatures.addFirTrees(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
+            ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
+            ModBiomeFeatures.addForestMoss(vegetation);
+        } else if(step == 0) {
             ModSpawnSettingsBuilder.addWolves(spawnSettings);
             addMirkwoodVegetation(generationSettings);
             ModBiomeFeatures.addMirkwoodRoots(vegetation);
+            ModBiomeFeatures.addCommonFirTrees(vegetation);
+            ModBiomeFeatures.addFirTrees(vegetation);
+            ModBiomeFeatures.addBeechTrees(vegetation);
             ModBiomeFeatures.addMudOre(vegetation);
             ModBiomeFeatures.addRareMorsel(vegetation);
             ModBiomeFeatures.addRareWhiteMushroom(vegetation);
             ModBiomeFeatures.addDeadHeather(vegetation);
-            addMegaMirkwoodTrees(generationSettings);
             ModBiomeFeatures.addSmallMirkwoodTrees(vegetation);
             ModBiomeFeatures.addCorruptedMoss(vegetation);
         } else if (step == 1) {
