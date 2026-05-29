@@ -11,6 +11,8 @@ import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.utils.CombatArchetypeDataUtil;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
@@ -29,17 +31,19 @@ public class NpcData {
             Identifier.CODEC.fieldOf("faction").forGetter(NpcData::getFactionIdentifier),
             Identifier.CODEC.fieldOf("base_npc_texture").forGetter(NpcData::getNpcTextureDataValue),
             NbtCompound.CODEC.fieldOf("gear").forGetter(NpcData::getGearDataValues),
-            NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcData::getNpcAttributePool)
+            NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcData::getNpcAttributePool),
+            NbtCompound.CODEC.fieldOf("combat_archetype").forGetter(NpcData::getCombatArchetypeData)
     ).apply(instance, NpcData::new));
 
     private final Identifier id;
     private final Identifier raceId;
     private final Identifier factionId;
     private final Identifier npcTextureKey;
+    private final CombatArchetypeData combatArchetypeData;
     private final WeightedPool<WeightedGearData> gearDatas;
     private final HashMap<EntityCategories, AttributePool> npcAttributePools;
 
-    public NpcData(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes){
+    public NpcData(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData) {
         this.id = id;
         this.raceId = raceId;
         this.factionId = factionId;
@@ -59,15 +63,18 @@ public class NpcData {
                 this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name()).get()));
             }
         }
+
+        this.combatArchetypeData = CombatArchetypeDataUtil.create(combatArchetypeData);
     }
 
-    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools){
+    public NpcData(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData) {
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
         this.npcTextureKey = npcTextureKey.getValue();
         this.gearDatas = new WeightedPool<>(weightedGearData);
         this.npcAttributePools = npcAttributePools;
+        this.combatArchetypeData = combatArchetypeData;
     }
 
     public Identifier getId() {
@@ -79,6 +86,10 @@ public class NpcData {
     }
     public Identifier getFactionIdentifier() {
         return factionId;
+    }
+
+    private NbtCompound getCombatArchetypeData() {
+        return combatArchetypeData.getNbt();
     }
 
     private NbtCompound getGearDataValues() {

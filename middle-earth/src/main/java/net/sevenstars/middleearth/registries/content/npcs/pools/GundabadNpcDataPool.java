@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.TexturePrese
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
@@ -21,6 +22,8 @@ import java.util.List;
 
 public class GundabadNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD;
+
+    private final static MeleeCombatArchetypeData temporaryArchetypeData = new MeleeCombatArchetypeData(0.3f);
 
     private static List<Integer> allColors;
     private static final int DARK_PURPLE = 0x3c3135;
@@ -92,7 +95,7 @@ public class GundabadNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         MILITIA = new NpcData(NpcRegistry.GUNDABAD_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -143,7 +146,7 @@ public class GundabadNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         RIDER = new NpcData(NpcRegistry.GUNDABAD_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -185,7 +188,7 @@ public class GundabadNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         SCOUT = new NpcData(NpcRegistry.GUNDABAD_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -225,7 +228,7 @@ public class GundabadNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_BOW).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         WARRIOR = new NpcData(NpcRegistry.GUNDABAD_WARRIOR.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
                 WeightedGearData.create()
@@ -273,7 +276,7 @@ public class GundabadNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         VETERAN = new NpcData(NpcRegistry.GUNDABAD_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
                 WeightedGearData.create()
@@ -321,7 +324,7 @@ public class GundabadNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_HEAVY_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_REINFORCED_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         LEADER = new NpcData(NpcRegistry.GUNDABAD_LEADER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
                 WeightedGearData.create()
@@ -349,6 +352,6 @@ public class GundabadNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_REINFORCED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
     }
 }

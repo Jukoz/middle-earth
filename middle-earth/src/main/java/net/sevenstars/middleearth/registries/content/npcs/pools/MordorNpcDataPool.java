@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.TexturePrese
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
@@ -22,7 +23,8 @@ import java.util.List;
 
 public class MordorNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.MORDOR;
-    private final static String FACTION_BASE = FACTION.getValue().getPath() + ".%s";
+
+    private final static MeleeCombatArchetypeData temporaryArchetypeData = new MeleeCombatArchetypeData(0.3f);
 
     private static final int DARK_RED = 0x4f251d;
     private static final int DARK_BROWN = 0x4a3c34;
@@ -72,7 +74,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         SNAGA = new NpcData(NpcRegistry.MORDOR_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -115,7 +117,7 @@ public class MordorNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_PAINTED_WOODEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         MILITIA = new NpcData(NpcRegistry.MORDOR_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -176,7 +178,7 @@ public class MordorNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         SCOUT = new NpcData(NpcRegistry.MORDOR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -229,7 +231,7 @@ public class MordorNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         WARRIOR = new NpcData(NpcRegistry.MORDOR_WARRIOR.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 WeightedGearData.create()
@@ -299,7 +301,7 @@ public class MordorNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         VETERAN = new NpcData(NpcRegistry.MORDOR_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 WeightedGearData.create()
@@ -319,7 +321,7 @@ public class MordorNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         CAPTAIN = new NpcData(NpcRegistry.MORDOR_CAPTAIN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 WeightedGearData.create()
@@ -339,6 +341,6 @@ public class MordorNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
     }
 }

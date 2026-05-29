@@ -17,6 +17,7 @@ import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
@@ -29,6 +30,8 @@ import java.util.List;
 
 public class WildGoblinNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.WILD_GOBLINS;
+
+    private final static MeleeCombatArchetypeData temporaryArchetypeData = new MeleeCombatArchetypeData(0.3f);
 
     private static final int DARK_BROWN_GOBLIN = 0x4a3c34;
 
@@ -81,7 +84,7 @@ public class WildGoblinNpcDataPool {
                     .add(WeightedItemData.create(ToolItemsME.CRUDE_HOE))
                     .add(WeightedItemData.create(ToolItemsME.CRUDE_SHOVEL))
                 )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         SCOUT = new NpcData(NpcRegistry.WILD_GOBLIN_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
             WeightedGearData.create()
@@ -114,7 +117,7 @@ public class WildGoblinNpcDataPool {
                     .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(4))
                     .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_BOW))
                 )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         RIDER = new NpcData(NpcRegistry.WILD_GOBLIN_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
                 WeightedGearData.create()
@@ -129,7 +132,7 @@ public class WildGoblinNpcDataPool {
                                 .add(WeightedItemData.create(Items.STICK).withWeight(4))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         WARRIOR = new NpcData(NpcRegistry.WILD_GOBLIN_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
                 WeightedGearData.create()
@@ -174,7 +177,7 @@ public class WildGoblinNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.ORC_KNIFE))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, temporaryArchetypeData);
 
         BRUTE = new NpcData(NpcRegistry.WILD_GOBLIN_BRUTE.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.WILD_GOBLIN_BRUTE, List.of(
             WeightedGearData.create()
@@ -205,6 +208,6 @@ public class WildGoblinNpcDataPool {
                     AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
                 )
             ));
-        }});
+        }}, temporaryArchetypeData);
     }
 }
