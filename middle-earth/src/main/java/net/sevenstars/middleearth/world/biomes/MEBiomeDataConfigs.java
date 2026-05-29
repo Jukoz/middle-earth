@@ -61,7 +61,7 @@ public class MEBiomeDataConfigs {
             .addSlopeData(36, ModBlocks.ASH_BLOCK)
             .addSlopeData(44, Blocks.BASALT)
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
-    public static SlopeMap mordorGrass = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
+    public static SlopeMap mordorGrass = new SlopeMap().addSlopeData(25, ModBlocks.PEAT_GRASS_BLOCK)
             .addSlopeData(32, ModBlocks.ASHEN_DIRT)
             .addSlopeData(37, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
@@ -227,10 +227,15 @@ public class MEBiomeDataConfigs {
             .addSlopeData(21, ModBlocks.CHALKSOIL_GRASS_BLOCK)
             .addSlopeData(24, ModBlocks.COARSE_CHALKSOIL)
             .addSlopeData(27,StoneBlockSets.CHALK_SET.oldBlocks.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.CHALK_SET.baseBlocks.base());
+            .addSlopeData(41, StoneBlockSets.CHALK_SET.baseBlocks.base())
+            .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
     public static SlopeMap grassPlains = new SlopeMap()
             .addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap loamPlains = new SlopeMap()
+            .addSlopeData(25, ModBlocks.LOAM_GRASS_BLOCK)
+            .addSlopeData(35, ModBlocks.COARSE_LOAM)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap peatPlains = new SlopeMap()
             .addSlopeData(25, ModBlocks.PEAT_GRASS_BLOCK)
@@ -287,8 +292,13 @@ public class MEBiomeDataConfigs {
     public static SlopeMap mud = new SlopeMap().addSlopeData(25, Blocks.MUD)
             .addSlopeData(32, Blocks.DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap nearHarad = new SlopeMap().addSlopeData(32, Blocks.GRASS_BLOCK)
+    public static SlopeMap nearHarad = new SlopeMap().addSlopeData(32, ModBlocks.SILT_GRASS_BLOCK)
             .addSlopeData(36, ModBlocks.DRY_DIRT)
+            .addSlopeData(44, Blocks.SANDSTONE)
+            .addSlopeData(56, Blocks.STONE)
+            .addSlopeData(MAX_ANGLE, Blocks.TERRACOTTA);
+    public static SlopeMap corsairCoasts = new SlopeMap().addSlopeData(32, ModBlocks.CHALKSOIL_GRASS_BLOCK)
+            .addSlopeData(36, ModBlocks.COARSE_CHALKSOIL)
             .addSlopeData(44, Blocks.SANDSTONE)
             .addSlopeData(56, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, Blocks.TERRACOTTA);
