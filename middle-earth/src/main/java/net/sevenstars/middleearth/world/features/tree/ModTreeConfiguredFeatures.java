@@ -47,6 +47,7 @@ public class ModTreeConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> DARK_OAK_TREE_KEY = registerKey("dark_oak_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_DARK_OAK_TREE_KEY = registerKey("mega_dark_oak_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_BIRCH_TREE_KEY = registerKey("mega_birch_tree");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DEADWOOD_TREE_KEY = registerKey("deadwood_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIR_TREE_KEY = registerKey("fir_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> HOLLY_TREE_KEY = registerKey("holy_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LARCH_TREE_KEY = registerKey("larch_tree");
@@ -151,6 +152,14 @@ public class ModTreeConfiguredFeatures {
             new OvalFoliagePlacer(2, ConstantIntProvider.create(0), ConstantIntProvider.create(3), emptyList,0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
             .dirtProvider(BlockStateProvider.of(Blocks.GRASS_BLOCK)).build());
+
+        register(context, DEADWOOD_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(WoodBlockSets.DEADWOOD_SET.logBlocks.wood()),
+                new LargeTrunkPlacer(13, 2, 0.82f, 0.5f, 2.1f, 1, 0.31f),
+                BlockStateProvider.of(Blocks.AIR),
+                new OvalFoliagePlacer(1, ConstantIntProvider.create(-1), ConstantIntProvider.create(1), emptyList, 0.0f),
+                new TwoLayersFeatureSize(1, 0, 2))
+                .dirtProvider(BlockStateProvider.of(ModBlocks.FOUL_DIRT)).build());
 
         register(context, FIR_TREE_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
             BlockStateProvider.of(WoodBlockSets.FIR_SET.logBlocks.log()),

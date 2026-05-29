@@ -116,6 +116,9 @@ public class ModBiomeFeatures {
     public static void addMegaDarkOakCommonTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.MEGA_DARK_OAK_PLACED_COMMON_TREE_KEY);
     }
+    public static void addDeadwoodTrees(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModTreePlacedFeatures.DEADWOOD_TREE_KEY);
+    }
     public static void addCommonFirTrees(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModTreePlacedFeatures.COMMON_FIR_PLACED_TREE_KEY);
     }

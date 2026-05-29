@@ -2154,10 +2154,10 @@ public class ModBiomes {
             ModBiomeFeatures.addWildOnion(vegetation);
 
             ModBiomeFeatures.addRottenTrees(vegetation);
+            ModBiomeFeatures.addDeadwoodTrees(vegetation);
             ModBiomeFeatures.addDeadMirkwoodTrees(vegetation);
             ModBiomeFeatures.addDeadMegaMirkwoodTrees(vegetation);
             ModBiomeFeatures.addScorchedTrees(vegetation);
-            ModBiomeFeatures.addBeechTrees(vegetation);
             generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ModVegetationPlacedFeatures.MIRKWOOD_VINES);
             ModBiomeFeatures.addMirkwoodVines(vegetation);
             vegetation.add(VegetationPlacedFeatures.PATCH_LEAF_LITTER);
@@ -2325,6 +2325,7 @@ public class ModBiomes {
         ModBiomeFeatures.addRottenTrees(vegetation);
         ModBiomeFeatures.addCorruptedMoss(vegetation);
         ModBiomeFeatures.addDeadMegaMirkwoodTrees(vegetation);
+        ModBiomeFeatures.addDeadwoodTrees(vegetation);
         if(!dark) {
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
@@ -2680,6 +2681,7 @@ public class ModBiomes {
         ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
         ModBiomeFeatures.addRareLebethronTrees(vegetation);
         ModBiomeFeatures.addRottenTrees(vegetation);
+        ModBiomeFeatures.addDeadwoodTrees(vegetation);
 
         ModBiomeFeatures.addCommonToughBerries(undergroundOres);
         ModBiomeFeatures.addAshenDirtOre(undergroundOres);
@@ -2985,6 +2987,7 @@ public class ModBiomes {
             ModBiomeFeatures.addScorchedShrub(vegetation);
             ModBiomeFeatures.addThornyGrowth(vegetation);
             ModBiomeFeatures.addRottenTrees(vegetation);
+            ModBiomeFeatures.addDeadwoodTrees(vegetation);
         } else if(step == 1) { // Plains
             ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             ModBiomeFeatures.addShriveledShrubs(vegetation);

@@ -44,6 +44,7 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> RARE_MEGA_DARK_OAK_PLACED_TREE_KEY = registerKey("rare_mega_dark_oak_tree");
     public static final RegistryKey<PlacedFeature> MEGA_DARK_OAK_PLACED_TREE_KEY = registerKey("mega_dark_oak_tree");
     public static final RegistryKey<PlacedFeature> MEGA_DARK_OAK_PLACED_COMMON_TREE_KEY = registerKey("mega_dark_oak_common_tree");
+    public static final RegistryKey<PlacedFeature> DEADWOOD_TREE_KEY = registerKey("deadwood_tree");
     public static final RegistryKey<PlacedFeature> COMMON_FIR_PLACED_TREE_KEY = registerKey("common_fir_tree");
     public static final RegistryKey<PlacedFeature> ABUNDANT_FIR_PLACED_TREE_KEY = registerKey("abundant_common_fir_tree");
     public static final RegistryKey<PlacedFeature> FIR_PLACED_TREE_KEY = registerKey("fir_tree");
@@ -265,6 +266,10 @@ public class ModTreePlacedFeatures {
         register(context, MEGA_DARK_OAK_PLACED_COMMON_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_DARK_OAK_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(abundantTree,
                         Blocks.DARK_OAK_SAPLING));
+
+        register(context, DEADWOOD_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEADWOOD_TREE_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
+                        ModNatureBlocks.FIR_SAPLING));
 
         register(context, COMMON_FIR_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FIR_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
