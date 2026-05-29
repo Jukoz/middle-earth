@@ -75,7 +75,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:cooked_venison"
+          "name": "wild-things:cooked_venison"
         }
       ]
     },

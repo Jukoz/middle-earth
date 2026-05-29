@@ -230,6 +230,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.ARKENSTONE);
             add(ModDecorativeBlocks.WALL_ARKENSTONE);
+
+            add(ModDecorativeBlocks.REINFORCED_SCAFFOLDING);
         }
     };
 }

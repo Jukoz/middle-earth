@@ -96,11 +96,11 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> GORGOROTH = MEBiomeKeys.register("gorgoroth");
     public static final RegistryKey<Biome> GORGOROTH_ASHEN_WOODS = MEBiomeKeys.register("gorgoroth_ashen_woods");
     public static final RegistryKey<Biome> GORGOROTH_DELTA = MEBiomeKeys.register("gorgoroth_delta");
-    public static final RegistryKey<Biome> GRAY_MOUNTAINS = MEBiomeKeys.register("gray_mountains");
-    public static final RegistryKey<Biome> GRAY_MOUNTAINS_BASE = MEBiomeKeys.register("gray_mountains_base");
-    public static final RegistryKey<Biome> GRAY_MOUNTAINS_PEAKS = MEBiomeKeys.register("gray_mountains_peaks");
-    public static final RegistryKey<Biome> GRAY_ASHEN_WOODS = MEBiomeKeys.register("gray_ashen_woods");
-    public static final RegistryKey<Biome> GRAY_PLAINS = MEBiomeKeys.register("gray_plains");
+    public static final RegistryKey<Biome> GREY_MOUNTAINS = MEBiomeKeys.register("grey_mountains");
+    public static final RegistryKey<Biome> GREY_MOUNTAINS_BASE = MEBiomeKeys.register("grey_mountains_base");
+    public static final RegistryKey<Biome> GREY_MOUNTAINS_PEAKS = MEBiomeKeys.register("grey_mountains_peaks");
+    public static final RegistryKey<Biome> GREY_ASHEN_WOODS = MEBiomeKeys.register("grey_ashen_woods");
+    public static final RegistryKey<Biome> GREY_PLAINS = MEBiomeKeys.register("grey_plains");
     public static final RegistryKey<Biome> HARAD = MEBiomeKeys.register("harad");
     public static final RegistryKey<Biome> HARAD_DESERT = MEBiomeKeys.register("harad_desert");
     public static final RegistryKey<Biome> HARAD_WOODS = MEBiomeKeys.register("harad_woods");

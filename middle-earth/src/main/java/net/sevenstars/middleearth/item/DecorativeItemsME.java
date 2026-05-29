@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
 import net.sevenstars.middleearth.item.items.DoorBlockItem;
+import net.sevenstars.middleearth.item.items.ReinforcedScaffoldingItem;
 import net.sevenstars.middleearth.item.items.WateringCanItem;
 import net.sevenstars.middleearth.item.items.weapons.utils.ArtefactUtils;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
@@ -25,6 +26,7 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class DecorativeItemsME {
@@ -72,6 +74,9 @@ public class DecorativeItemsME {
     public static final Item BELLOWS = registerItem("bellows",
             (settings) -> new BlockItem(ModDecorativeBlocks.BELLOWS, settings), new Item.Settings());
 
+    public static final Item REINFORCED_SCAFFOLDING = registerItem("reinforced_scaffolding",
+            (settings) -> new ReinforcedScaffoldingItem(ModDecorativeBlocks.REINFORCED_SCAFFOLDING, settings), new Item.Settings());
+
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
     public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
@@ -104,6 +109,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.WILLOW_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
+    public static final Item SACK = registerItem("sack",
+            (settings) -> new BlockItem(ModDecorativeBlocks.SACK, settings), new Item.Settings());
 
     public static final Item WOOD_PILE = registerItem("wood_pile",
             (settings) -> new BlockItem(ModDecorativeBlocks.WOOD_PILE, settings), new Item.Settings());
@@ -117,6 +124,9 @@ public class DecorativeItemsME {
     public static final Item DIORITE_STATUE = registerItem("diorite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.DIORITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.COFFEE_VIKING)));
+    public static final Item GABBRO_STATUE = registerItem("gabbro_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.GABBRO_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SINDAVAR)));
     public static final Item GALONN_STATUE = registerItem("galonn_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.GALONN_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.SCOSHER)));
@@ -132,9 +142,14 @@ public class DecorativeItemsME {
     public static final Item TUFF_STATUE = registerItem("tuff_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.TUFF_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item ZIGILABAN_STATUE = registerItem("zigilaban_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.ZIGILABAN_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.NAUTILUS)));
 
     public static final Item TALL_BLACK_PINE_DOOR = registerItem("tall_black_pine_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_BLACK_PINE_DOOR, settings), new Item.Settings().maxCount(16));
+    public static final Item TALL_FIR_DOOR = registerItem("tall_fir_door",
+            (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.TALL_FIR_DOOR, settings), new Item.Settings().maxCount(16));
 
     public static final Item OAK_STABLE_DOOR = registerItem("oak_stable_door",
             (settings) -> new DoorBlockItem((LargeDoorBlock) ModDecorativeBlocks.OAK_STABLE_DOOR, settings), new Item.Settings().maxCount(16));

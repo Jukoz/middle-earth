@@ -43,7 +43,7 @@ public class OreRockSets {
 
     public static OreRockSet NURGON = registerOreSet("nurgon_", NURGON_STRENGTH,
             Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE,
-                    ORES.ADAMANT_ORE, ORES.EMERALD_ORE, ORES.RUBY_ORE, ORES.SAPPHIRE_ORE), StoneBlockSets.NURGON_SET.baseBlocks.base());
+                    ORES.EMERALD_ORE, ORES.RUBY_ORE, ORES.SAPPHIRE_ORE), StoneBlockSets.NURGON_SET.baseBlocks.base());
 
     public static OreRockSet MEDGON = registerOreSet("medgon_", MEDGON_STRENGTH,
             Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE,
@@ -130,18 +130,6 @@ public class OreRockSets {
                             STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
         }
 
-        if(ores.contains(ORES.MITHRIL_ORE)) {
-            mithril_ore = ModNatureBlocks.registerBlock(
-                    rockName + "mithril_ore", Block::new, AbstractBlock.Settings.copy(Blocks.IRON_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
-        }
-
-        if(ores.contains(ORES.ADAMANT_ORE)) {
-            adamant_ore = ModNatureBlocks.registerBlock(
-                    rockName + "adamant_ore", Block::new, AbstractBlock.Settings.copy(Blocks.IRON_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
-        }
-
         if(ores.contains(ORES.EMERALD_ORE)) {
             emerald_ore = ModNatureBlocks.registerBlock(
                     rockName + "emerald_ore", Block::new, AbstractBlock.Settings.copy(Blocks.IRON_ORE).strength(
@@ -157,6 +145,18 @@ public class OreRockSets {
         if(ores.contains(ORES.SAPPHIRE_ORE)) {
             sapphire_ore = ModNatureBlocks.registerBlock(
                     rockName + "sapphire_ore", Block::new, AbstractBlock.Settings.copy(Blocks.IRON_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
+        }
+
+        if(ores.contains(ORES.ADAMANT_ORE)) {
+            adamant_ore = ModNatureBlocks.registerBlock(
+                    rockName + "adamant_ore", Block::new, AbstractBlock.Settings.copy(Blocks.IRON_ORE).strength(
+                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
+        }
+
+        if(ores.contains(ORES.MITHRIL_ORE)) {
+            mithril_ore = ModNatureBlocks.registerBlock(
+                    rockName + "mithril_ore", Block::new, AbstractBlock.Settings.copy(Blocks.IRON_ORE).strength(
                             STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
         }
 

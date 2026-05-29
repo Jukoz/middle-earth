@@ -2,10 +2,10 @@ package net.sevenstars.middleearth.resources.datas.texture_presets;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.api.dtos.WeightedPool;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.api.dtos.WeightedIdentifier;
@@ -18,18 +18,18 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
         this.item = new TexturePreset();
     }
 
+    public WeightedTexturePresetHolder(NbtCompound compound) {
+        super(compound);
+
+        this.item = new TexturePreset(compound);
+    }
+
     @Override
     public WeightedTexturePresetHolder withWeight(int newWeight) {
         this.weight = newWeight;
         return this;
     }
 
-
-    public WeightedTexturePresetHolder(NbtCompound compound) {
-        super(compound);
-
-        this.item = new TexturePreset(compound);
-    }
 
     @Override
     public NbtElement getNbt(){
@@ -52,6 +52,16 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
 
     public WeightedTexturePresetHolder clearClothes(){
         this.item.clearClothes();
+        return this;
+    }
+
+    public WeightedTexturePresetHolder withSimplifiedTextures(List<WeightedSimplifiedTexturePresetHolder> simplifiedTextures){
+        this.item.withSimplifiedTextures(simplifiedTextures);
+        return this;
+    }
+
+    public WeightedTexturePresetHolder clearSimplifiedTextures(){
+        this.item.clearSimplifiedTextures();
         return this;
     }
 
@@ -104,6 +114,9 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
     public WeightedPool<WeightedIdentifier> getMaterials(CharacterMaterialTypes materialType) {
         return this.item.getMaterials(materialType);
     }
+    public WeightedPool<WeightedClothingPresetHolder> getClothes() {
+        return this.item.characterClothePresets;
+    }
 
     public Boolean haveEmissiveEyes() {
         return this.item.haveEmissiveEyes();
@@ -139,8 +152,15 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
             copiedNpcTextureDataPreset.addToPattern(CharacterPatternTypes.BEARD, value);
 
         copiedNpcTextureDataPreset.item.characterClothePresets.addAll(this.item.characterClothePresets.elements);
+        copiedNpcTextureDataPreset.item.simplifiedTextures.addAll(this.item.simplifiedTextures.elements);
 
         return copiedNpcTextureDataPreset;
+    }
+
+    public SimplifiedTexturePreset getSimplifiedSkin(){
+        if(this.item.simplifiedTextures.isEmpty())
+            return null;
+        return this.item.simplifiedTextures.getRandom().getItem();
     }
 
     public ClothingSelection getClothingData() {
@@ -155,5 +175,9 @@ public class WeightedTexturePresetHolder extends WeightedItem<TexturePreset> {
         Identifier extraId = clothePreset.getRandomExtra();
 
         return new ClothingSelection(baseId, overId, extraId);
+    }
+
+    public void withClothes(WeightedPool<WeightedClothingPresetHolder> clothes) {
+        this.item.characterClothePresets.addAll(clothes.elements);
     }
 }

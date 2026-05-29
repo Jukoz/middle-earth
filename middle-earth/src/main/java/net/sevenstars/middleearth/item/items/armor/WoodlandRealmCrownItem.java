@@ -16,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.dataComponents.CooldownDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.SeasonDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
 import net.sevenstars.middleearth.world.biomes.BiomeTagsME;
@@ -35,7 +36,15 @@ public class WoodlandRealmCrownItem extends CustomHelmetItem {
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(stack, world, entity, slot);
         RegistryEntry<Biome> biomeEntry = world.getBiome(entity.getBlockPos());
-        if(biomeEntry.getKey().isPresent()) {
+
+        int cooldown = 5;
+        if(stack.get(DataComponentTypesME.COOLDOWN) != null) {
+            cooldown = stack.get(DataComponentTypesME.COOLDOWN).cooldown();
+        } else {
+            stack.set(DataComponentTypesME.COOLDOWN, new CooldownDataComponent(cooldown));
+        }
+
+        if(cooldown <= 0 && biomeEntry.getKey().isPresent()) {
             SeasonDataComponent.Season newSeason = SeasonDataComponent.Season.SUMMER;
             if(biomeEntry.isIn(BiomeTagsME.SPRING)) {
                 newSeason = SeasonDataComponent.Season.SPRING;
@@ -50,7 +59,7 @@ public class WoodlandRealmCrownItem extends CustomHelmetItem {
             if(season != newSeason || !initialized) {
                 initialized = true;
                 LivingEntity livingEntity = (LivingEntity) entity;
-                stack.set(DataComponentTypes.USE_COOLDOWN, new UseCooldownComponent(1.75f));
+                stack.set(DataComponentTypesME.COOLDOWN, new CooldownDataComponent(35));
                 double scale = 1.8f * livingEntity.getAttributeValue(EntityAttributes.SCALE);
                 Vec3d pos = entity.getPos().add(0, 1.8f * scale, 0).add(0, -1.1f, 0);
 
@@ -79,5 +88,7 @@ public class WoodlandRealmCrownItem extends CustomHelmetItem {
             }
             season = newSeason;
         }
+
+        stack.set(DataComponentTypesME.COOLDOWN, new CooldownDataComponent(Math.max(0, cooldown - 1)));
     }
 }

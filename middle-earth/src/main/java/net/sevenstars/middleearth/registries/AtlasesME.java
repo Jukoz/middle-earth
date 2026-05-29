@@ -13,17 +13,17 @@ import net.sevenstars.middleearth.datageneration.providers.dynamic.CharacterAtla
  * Middle-earth mod atlases<br>
  */
 public class AtlasesME {
-    public static final Identifier CHARACTER_SKINS = MiddleEarth.of("character_skins");
-    public static final Identifier CHARACTER_HAIRS = MiddleEarth.of("character_hairs");
-    public static final Identifier CHARACTER_EYES = MiddleEarth.of("character_eyes");
-    public static final Identifier CHARACTER_CLOTHES = MiddleEarth.of("character_clothes");
+    public static final Identifier CHARACTER_TEXTURES = MiddleEarth.of("character_textures");
 
-    public static Identifier prefixAtlas(Identifier sprite, Identifier atlas) {
-        return sprite.withPrefixedPath(String.format("%s/", atlas.getPath()));
-    }
+    public static final Identifier SKIN_PREFIX = MiddleEarth.ofPath("character", "skins");
+    public static final Identifier HAIR_PREFIX = MiddleEarth.ofPath("character", "hairs");
+    public static final Identifier EYE_PREFIX = MiddleEarth.ofPath("character", "eyes");
+    public static final Identifier CLOTHES_BASE_PREFIX = MiddleEarth.ofPath("character", "clothes", "base");
+    public static final Identifier CLOTHES_OVER_PREFIX = MiddleEarth.ofPath("character", "clothes", "over");
+    public static final Identifier CLOTHES_EXTRA_PREFIX = MiddleEarth.ofPath("character", "clothes", "extra");
 
     public static Identifier getAtlasPath(Identifier atlasIdentifier) {
-        return Identifier.of(MiddleEarth.MOD_ID, String.format("textures/atlas/%s.png", atlasIdentifier.getPath()));
+        return MiddleEarth.ofPath("textures", "atlas", String.format("%s.png", atlasIdentifier.getPath()));
     }
 
     @Environment(EnvType.CLIENT)

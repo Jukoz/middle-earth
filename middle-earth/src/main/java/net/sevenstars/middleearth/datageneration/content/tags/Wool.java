@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
+import net.sevenstars.middleearth.block.registration.GenericBlockSets;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.minecraft.block.Block;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
@@ -98,5 +99,28 @@ public class Wool {
         add(ModDecorativeBlocks.ROTTEN_CURTAIN);
         add(ModDecorativeBlocks.WHITE_CURTAIN);
         add(ModDecorativeBlocks.YELLOW_CURTAIN);
+
+        add(GenericBlockSets.CANVAS.blockSet.base());
+        add(GenericBlockSets.BLACK_CANVAS.blockSet.base());
+        add(GenericBlockSets.BLUE_CANVAS.blockSet.base());
+        add(GenericBlockSets.BROWN_CANVAS.blockSet.base());
+        add(GenericBlockSets.CYAN_CANVAS.blockSet.base());
+        add(GenericBlockSets.DARK_BLUE_CANVAS.blockSet.base());
+        add(GenericBlockSets.DARK_BROWN_CANVAS.blockSet.base());
+        add(GenericBlockSets.DARK_GRAY_CANVAS.blockSet.base());
+        add(GenericBlockSets.DARK_GREEN_CANVAS.blockSet.base());
+        add(GenericBlockSets.DARK_RED_CANVAS.blockSet.base());
+        add(GenericBlockSets.DARK_YELLOW_CANVAS.blockSet.base());
+        add(GenericBlockSets.GRAY_CANVAS.blockSet.base());
+        add(GenericBlockSets.GREEN_CANVAS.blockSet.base());
+        add(GenericBlockSets.LIGHT_BLUE_CANVAS.blockSet.base());
+        add(GenericBlockSets.LIGHT_GRAY_CANVAS.blockSet.base());
+        add(GenericBlockSets.MAGENTA_CANVAS.blockSet.base());
+        add(GenericBlockSets.ORANGE_CANVAS.blockSet.base());
+        add(GenericBlockSets.PINK_CANVAS.blockSet.base());
+        add(GenericBlockSets.PURPLE_CANVAS.blockSet.base());
+        add(GenericBlockSets.RED_CANVAS.blockSet.base());
+        add(GenericBlockSets.WHITE_CANVAS.blockSet.base());
+        add(GenericBlockSets.YELLOW_CANVAS.blockSet.base());
     }};
 }

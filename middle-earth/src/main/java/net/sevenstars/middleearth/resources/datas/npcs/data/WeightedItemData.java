@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.npcs.data;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.Identifier;
@@ -15,14 +16,19 @@ public class WeightedItemData extends WeightedItem<GearItemData> {
     public WeightedItemData() {
         this.item = new GearItemData();
     }
+
     public WeightedItemData(Item item) {
         this.item = new GearItemData(item);
     }
+
     public WeightedItemData(Identifier itemIdentifier) {
         this.item = new GearItemData(itemIdentifier);
     }
+
     public WeightedItemData(NbtElement element){
         super(element);
+        if(element == null)
+            return;
         if(element.asString().isPresent())
             this.item = new GearItemData(Identifier.of(element.asString().get()));
         else if(element.asCompound().isPresent())
@@ -30,7 +36,7 @@ public class WeightedItemData extends WeightedItem<GearItemData> {
     }
 
     public static WeightedItemData create() {
-        return new WeightedItemData();
+        return new WeightedItemData(Items.AIR);
     }
     public static WeightedItemData create(Item item) {
         return new WeightedItemData(item);

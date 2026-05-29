@@ -83,7 +83,7 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED,  0.115))
                 .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
                 .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90).withBuffReversed())
-                .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.6).withBuffReversed()),
+                .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.65).withBuffReversed()),
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))

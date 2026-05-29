@@ -23,6 +23,8 @@ import java.util.List;
 
 public class IsengardFactionPool {
     public final static Faction ISENGARD;
+    private final static String FACTION_PATH = FactionRegistry.ISENGARD.getValue().getPath();
+
     static {
         ISENGARD = new Faction(FactionRegistry.ISENGARD, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
@@ -53,7 +55,7 @@ public class IsengardFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.HAND, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of("isengard",  "orthanc"), new Vector2d(1402, 1467))
+                        new SpawnData(MiddleEarth.of(FACTION_PATH, "orthanc"), new Vector2d(1402, 1467))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

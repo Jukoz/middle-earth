@@ -30,8 +30,8 @@ public class FeetModel extends EntityModel<NpcEntityRenderState> {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        var rightLeg = modelPartData.addChild("right_leg", ModelPartBuilder.create().uv(16,16).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, Dilation.NONE), ModelTransform.origin(-1.9F, 12.0F, 0.0F));
-        var leftLeg = modelPartData.addChild("left_leg", ModelPartBuilder.create().uv(16,16).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F,  Dilation.NONE), ModelTransform.origin(1.9F, 12.0F, 0.0F));
+        var rightLeg = modelPartData.addChild("right_leg", ModelPartBuilder.create().uv(0,0).cuboid(-2.0F, 0.0F, -2.0F, 0.0F, 12.0F, 0.0F, Dilation.NONE), ModelTransform.origin(-1.9F, 12.0F, 0.0F));
+        var leftLeg = modelPartData.addChild("left_leg", ModelPartBuilder.create().uv(0,0).cuboid(-2.0F, 0.0F, -2.0F, 0.0F, 0.0F, 0.0F,  Dilation.NONE), ModelTransform.origin(1.9F, 12.0F, 0.0F));
 
         rightLeg.addChild("feet",
                                 ModelPartBuilder.create().uv(0, 4).mirrored().cuboid(0,0,0,4,2,2, Dilation.NONE),
