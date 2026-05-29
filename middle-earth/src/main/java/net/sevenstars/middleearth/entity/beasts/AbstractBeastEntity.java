@@ -535,7 +535,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             setupAnimationStates();
         }
 
-        if (!this.isClientWorld() && isTame()) {
+        if (!this.isClientWorld() && isTame() && this.getOwner() != null) {
             if(this.getWorld().getTimeOfDay() == 6500) { // Tameness always decreases shortly after noon
                 List<? extends PlayerEntity> players = this.getWorld().getPlayers();
                 if(this.getOwner() != null && players.contains(this.getOwner())) { // Check if owner is online
