@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchety
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.MovementBehavior;
 
 public abstract class CombatArchetypeRuntimeData {
-    private final CombatArchetypeData combatArchetypeData;
+    protected final CombatArchetypeData combatArchetypeData;
 
     public CombatArchetypeRuntimeData(CombatArchetypeData combatArchetypeData){
         this.combatArchetypeData = combatArchetypeData;

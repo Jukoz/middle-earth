@@ -2,11 +2,10 @@ package net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime;
 
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
 
 public class RangedCombatArchetypeRuntimeData extends CombatArchetypeRuntimeData {
-    private final RangedCombatArchetypeData rangedCombatArchetypeData;
-
     public int currentAmmoCount;
     public int lastHurtTick;
     public int lastShootTick;
@@ -14,7 +13,6 @@ public class RangedCombatArchetypeRuntimeData extends CombatArchetypeRuntimeData
 
     public RangedCombatArchetypeRuntimeData(RangedCombatArchetypeData rangedCombatArchetypeData){
         super(rangedCombatArchetypeData);
-        this.rangedCombatArchetypeData = rangedCombatArchetypeData;
         currentAmmoCount = rangedCombatArchetypeData.getAmmoCount();
     }
 
@@ -28,8 +26,8 @@ public class RangedCombatArchetypeRuntimeData extends CombatArchetypeRuntimeData
     }
 
     @Override
-    public RangedCombatArchetypeData getCombatArchetypeData() {
-        return rangedCombatArchetypeData;
+    public MeleeCombatArchetypeData getCombatArchetypeData() {
+        return (MeleeCombatArchetypeData) combatArchetypeData;
     }
 
     public boolean canShoot(NpcEntity entity){
