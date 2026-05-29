@@ -137,12 +137,12 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.DOL_GULDUR_HILL, MEBiomeDataConfigs.dolGuldur, MEBiomeDataConfigs.stoneGabbroLayers,
                 new BiomeColorsDTO(3684976, 5065045, 2503248, 462892, 3554356, 3424049)));
         // DORWINION
-        addBiome(new BiomeData(MEBiomeKeys.DORWINION, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 5290338, 4431186), CaveType.ELVEN));
-        addBiome(new BiomeData(MEBiomeKeys.DORWINION_LAVENDER_FIELD, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6607749, 4431186), CaveType.ELVEN));
-        addBiome(new BiomeData(MEBiomeKeys.DORWINION_HILLS, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers,
-                new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 9084547, 8427113), CaveType.ELVEN));
+        addBiome(new BiomeData(MEBiomeKeys.DORWINION, MEBiomeDataConfigs.chalkPlains, MEBiomeDataConfigs.chalkLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 10538040, 8298071), CaveType.ELVEN));
+        addBiome(new BiomeData(MEBiomeKeys.DORWINION_LAVENDER_FIELD, MEBiomeDataConfigs.chalkPlains, MEBiomeDataConfigs.limeStoneLayers,
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 9357367, 8298071), CaveType.ELVEN));
+        addBiome(new BiomeData(MEBiomeKeys.DORWINION_HILLS, MEBiomeDataConfigs.chalkPlains, MEBiomeDataConfigs.chalkLayers,
+                new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 10538040, 8298071), CaveType.ELVEN));
         // DUNLAND
         addBiome(new BiomeData(MEBiomeKeys.DUNLAND_FOOTHILLS, MEBiomeDataConfigs.dunland, MEBiomeDataConfigs.stoneGabbroLayers,
                 new BiomeColorsDTO(7508201, 10863086, defaultWater, defaultWaterFog, 6722387, 6198343)));

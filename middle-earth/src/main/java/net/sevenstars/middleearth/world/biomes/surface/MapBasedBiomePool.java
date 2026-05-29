@@ -136,9 +136,9 @@ public class MapBasedBiomePool {
         add(new Color(0x759675), new MapBasedCustomBiome(MEBiomeKeys.DESOLATED_LANDS, 9, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2c2733), new MapBasedCustomBiome(MEBiomeKeys.DOL_GULDUR, 11, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x352d42), new MapBasedCustomBiome(MEBiomeKeys.DOL_GULDUR_HILL, 31, MEBiomeDataConfigs.mountainModifier));
-        add(new Color(0x529250), new MapBasedCustomBiome(MEBiomeKeys.DORWINION, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x529250), new MapBasedCustomBiome(MEBiomeKeys.DORWINION, 4, MEBiomeDataConfigs.foothillModifier.noiseModifier(0.71f)));
         add(new Color(0x467c44), new MapBasedCustomBiome(MEBiomeKeys.DORWINION_LAVENDER_FIELD, 4, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x5d715c), new MapBasedCustomBiome(MEBiomeKeys.DORWINION_HILLS, 34, MEBiomeDataConfigs.foothillModifier));
+        add(new Color(0x5d715c), new MapBasedCustomBiome(MEBiomeKeys.DORWINION_HILLS, 34, MEBiomeDataConfigs.foothillModifier.noiseModifier(1.32f)));
         add(new Color(0x84897c), new MapBasedCustomBiome(MEBiomeKeys.DUNLAND_FOOTHILLS, 34, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x899478), new MapBasedCustomBiome(MEBiomeKeys.DUNLAND_HILLS, 18, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0xa2c585), new MapBasedCustomBiome(MEBiomeKeys.EAST_BIGHT, 4, MEBiomeDataConfigs.landModifier));

@@ -752,7 +752,8 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
             vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
             ModBiomeFeatures.addFlowerDorwinion(vegetation);
-            ModBiomeFeatures.addCornflower(vegetation);
+            ModBiomeFeatures.addHeather(vegetation);
+            ModBiomeFeatures.addPurpleFlowers(vegetation);
             ModBiomeFeatures.addTuftGrass(vegetation);
             ModBiomeFeatures.addWildGrass(vegetation);
             ModBiomeFeatures.addRareWilderGrass(vegetation);
@@ -772,6 +773,8 @@ public class ModBiomes {
             ModBiomeFeatures.addMegaBirchTrees(vegetation);
         } else if(step == 1) { // Flower Field
             ModBiomeFeatures.addLavenderField(vegetation);
+            ModBiomeFeatures.addHeather(vegetation);
+            ModBiomeFeatures.addPurpleFlowers(vegetation);
         }
 
         registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
