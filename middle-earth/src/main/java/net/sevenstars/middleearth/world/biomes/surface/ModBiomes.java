@@ -2145,7 +2145,6 @@ public class ModBiomes {
             ModBiomeFeatures.addForestMoss(vegetation);
             ModBiomeFeatures.addForestBlockMoss(vegetation);
             ModBiomeFeatures.addBracken(vegetation);
-            ModBiomeFeatures.addFallenMirkwoodLeaves(vegetation);
             ModBiomeFeatures.addFalseOatgrass(vegetation);
             ModBiomeFeatures.addThornyGrowth(vegetation);
 
