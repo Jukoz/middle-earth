@@ -23,6 +23,7 @@ import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
+import net.sevenstars.middleearth.entity.npcs.util.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
@@ -57,28 +58,9 @@ public class ItemGroupsME {
         entries.add(randomNpcSpawnEgg);
 
         registryWrapper.streamEntries().filter(filter).sorted(NPC_DATA_COMPARATOR).forEach(reference -> {
-            NpcData npcData = reference.value();
-            Identifier itemId = MiddleEarth.append(npcData.getId(), "_spawn_egg");
-
-            ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
-
-            NbtCompound compound = new NbtCompound();
-            compound.putString("id", MiddleEarth.of("npc").toString());
-            compound.putString("NpcDataId", npcData.getId().toString());
-
-            itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compound));
-            itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcData.getFactionIdentifier()));
-            itemStack.set(DataComponentTypesME.RACE_DATA, new RaceDataComponent(npcData.getRace()));
-            itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(itemId.toTranslationKey("item")));
-            itemStack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
-                    List.of(),
-                    List.of(),
-                    List.of(npcData.getId().getPath().replaceAll("\\.", "_") + "_spawn_egg"),
-                    List.of()));
-
-            entries.add(itemStack, stackVisibility);
+            ItemStack spawnEgg = NpcSpawnEggHelper.getSpawnEgg(reference.value());
+            entries.add(spawnEgg, stackVisibility);
         });
-
     }
 
 
