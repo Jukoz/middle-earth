@@ -314,8 +314,8 @@ public class MEBiomeDataConfigs {
             .addSlopeData(27, ModBlocks.RIVER_SAND)
             .addSlopeData(33, Blocks.GRAVEL)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap beach = new SlopeMap().addSlopeData(30, Blocks.SAND)
-            .addSlopeData(36, ModBlocks.RIVER_SAND)
+    public static SlopeMap beach = new SlopeMap().addSlopeData(30, ModBlocks.SILT)
+            .addSlopeData(37, Blocks.SANDSTONE)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     // endregion
 

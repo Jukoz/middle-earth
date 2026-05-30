@@ -2638,7 +2638,8 @@ public class ModBiomes {
         ModBiomeFeatures.addRareMorsel(vegetation);
         ModBiomeFeatures.addRareWhiteMushroom(vegetation);
         ModBiomeFeatures.addBasaltPile(vegetation);
-        ModBiomeFeatures.addCoarseDirtOre(vegetation);
+        ModBiomeFeatures.addCoarseLoamOre(vegetation);
+        ModBiomeFeatures.addCoarseLoamToFoulDirt(vegetation);
         ModBiomeFeatures.addDeadBlackPineTrees(vegetation);
 
         ModBiomeFeatures.addCommonToughBerries(undergroundOres);
@@ -2669,7 +2670,7 @@ public class ModBiomes {
         ModBiomeFeatures.addRareMorsel(vegetation);
         ModBiomeFeatures.addRareWhiteMushroom(vegetation);
         ModBiomeFeatures.addBasaltPile(vegetation);
-        ModBiomeFeatures.addCoarseDirtOre(vegetation);
+        ModBiomeFeatures.addCoarseLoamOre(vegetation);
         ModBiomeFeatures.addOldPodzolOre(vegetation);
         ModBiomeFeatures.addOakTrees(vegetation);
         ModBiomeFeatures.addSpruceBushes(vegetation);
@@ -4321,6 +4322,9 @@ public class ModBiomes {
         vegetation.add(OceanPlacedFeatures.KELP_WARM);
         vegetation.add(OceanPlacedFeatures.SEAGRASS_WARM);
         ModBiomeFeatures.addGrass(vegetation);
+        ModBiomeFeatures.addSandOre(vegetation);
+        ModBiomeFeatures.addBeachGrass(vegetation);
+        ModBiomeFeatures.addTemperateGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
         vegetation.add(VegetationPlacedFeatures.PATCH_SUGAR_CANE);
         vegetation.add(VegetationPlacedFeatures.PATCH_PUMPKIN);
@@ -4328,6 +4332,7 @@ public class ModBiomes {
         ModBiomeFeatures.addWildBellPepper(vegetation);
         ModBiomeFeatures.addWildTomato(vegetation);
         ModBiomeFeatures.addPalmTrees(vegetation);
+        ModBiomeFeatures.addWhitePalmTree(vegetation);
     }
 
     public static void addOceanVegetation(GenerationSettings.LookupBackedBuilder generationSettings) {
