@@ -141,6 +141,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.MIRKWOOD_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREAT_RIVER),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GUNDABAD_PLAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GUNDABAD_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FORODWAITH),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_OCEAN),
                     biomeRegistry.getOrThrow(MEBiomeKeys.FROZEN_POND),
@@ -157,6 +158,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_MOUNTAINS_PEAKS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_ASHEN_WOODS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.GREY_PLAINS),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.GREY_FOREST),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_DESERT),
                     biomeRegistry.getOrThrow(MEBiomeKeys.HARAD_WOODS),
@@ -318,6 +320,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_REALM),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_FOOTHILLS),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_GLADE),
+                    biomeRegistry.getOrThrow(MEBiomeKeys.AUTUMN_WOODLAND),
                     biomeRegistry.getOrThrow(MEBiomeKeys.WOODLAND_HILLS),
 
                     biomeRegistry.getOrThrow(MEBiomeKeys.BASIC_CAVE),
