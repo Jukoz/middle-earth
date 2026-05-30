@@ -24,11 +24,11 @@ public class MistweedPlantBlock extends CustomPlantBlock implements Fertilizable
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (random.nextDouble() <= 0.3) {
+        if (random.nextDouble() <= 0.45) {
             double d = (double)pos.getX() + random.nextDouble() * 16.0 - 8.0;
             double e = (double)pos.getY() + random.nextDouble() * 5.0;
             double f = (double)pos.getZ() + random.nextDouble() * 16.0 - 8.0;
-            world.addParticleClient(ModParticleTypes.BIOME_FOG_PARTICLE, d, e, f, 0.0, 0.0, 0.0);
+            world.addImportantParticleClient(ModParticleTypes.BIOME_FOG_PARTICLE, true, d, e, f, 0.0, 0.0, 0.0);
         }
         super.randomDisplayTick(state, world, pos, random);
     }

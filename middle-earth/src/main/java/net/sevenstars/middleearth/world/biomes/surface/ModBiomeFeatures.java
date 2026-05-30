@@ -1011,6 +1011,9 @@ public class ModBiomeFeatures {
     public static void addSmallFloweringLilyPads(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_SMALL_FLOWERING_LILY_PADS);
     }
+    public static void addMistweed(List<RegistryKey<PlacedFeature>> vegetation) {
+        vegetation.add(ModVegetationPlacedFeatures.PATCH_MISTWEED);
+    }
     public static void addMoss(List<RegistryKey<PlacedFeature>> vegetation) {
         vegetation.add(ModVegetationPlacedFeatures.PATCH_MOSS);
     }
