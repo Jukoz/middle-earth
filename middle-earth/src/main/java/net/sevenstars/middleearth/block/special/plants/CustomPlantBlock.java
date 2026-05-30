@@ -2,11 +2,18 @@ package net.sevenstars.middleearth.block.special.plants;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
+import net.sevenstars.middleearth.particles.ModParticleTypes;
 
 public class CustomPlantBlock extends PlantBlock {
     public static final MapCodec<CustomPlantBlock> CODEC = CustomPlantBlock.createCodec(CustomPlantBlock::new);
