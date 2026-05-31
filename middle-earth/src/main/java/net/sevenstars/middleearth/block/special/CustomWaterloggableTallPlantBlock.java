@@ -43,6 +43,9 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
         }
 
         if (state.get(HALF) == DoubleBlockHalf.UPPER && direction != Direction.DOWN && neighborState.getFluidState().isOf(Fluids.WATER)) {
+            if (world instanceof World actualWorld && !actualWorld.isClient) {
+                dropStacks(state, actualWorld, pos);
+            }
             return Blocks.AIR.getDefaultState();
         }
 
@@ -104,6 +107,9 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
         }
 
         if (state.get(HALF) == DoubleBlockHalf.UPPER) {
+            if (world instanceof World actualWorld && !actualWorld.isClient) {
+                dropStacks(state, actualWorld, pos);
+            }
             BlockPos lowerPos = pos.down();
             BlockState lowerState = world.getBlockState(lowerPos);
             if (lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER) {
