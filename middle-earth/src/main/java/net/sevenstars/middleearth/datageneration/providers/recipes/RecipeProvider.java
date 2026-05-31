@@ -14,12 +14,10 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
-import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
@@ -28,7 +26,6 @@ import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
-import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -52,43 +49,53 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //region STONE RECIPES
                 for (StoneBlockSetBuilder record : StoneBlockSets.stoneSetsList) {
                     if(record.hasMossy) {
+                        createStoneSetRecipes(record.mossyCobblestoneBlocks);
+                        createStoneSetRecipes(record.mossyPolishedBlocks);
+                        createStoneSetRecipes(record.mossyPillarBlocks);
+                        createStoneSetRecipes(record.mossyTileBlocks);
+                        createStoneSetRecipes(record.mossySmoothBlocks);
                         if(record.mossyCobblestoneBlocks != null && record.cobblestoneBlocks != null) {
-                            createMossyRecipe(exporter, record.mossyCobblestoneBlocks.base(), record.cobblestoneBlocks.base());
+                            createMossyRecipe(exporter, record.cobblestoneBlocks.base(), record.mossyCobblestoneBlocks.base());
                         }
                         if(record.mossyBrickBlocks != null && record.brickBlocks != null) {
-                            createMossyRecipe(exporter, record.mossyBrickBlocks.base(), record.brickBlocks.base());
+                            createMossyRecipe(exporter, record.brickBlocks.base(), record.mossyBrickBlocks.base());
                         }
                         if(record.mossyPillarBlocks != null && record.pillarBlocks != null) {
-                            createMossyRecipe(exporter, record.mossyPillarBlocks.base(), record.pillarBlocks.base());
+                            createMossyRecipe(exporter, record.pillarBlocks.base(), record.mossyPillarBlocks.base());
                         }
                         if(record.mossyPolishedBlocks != null && record.polishedBlocks != null) {
-                            createMossyRecipe(exporter, record.mossyPolishedBlocks.base(), record.polishedBlocks.base());
+                            createMossyRecipe(exporter, record.polishedBlocks.base(), record.mossyPolishedBlocks.base());
                         }
                         if(record.mossyTileBlocks != null && record.tileBlocks != null) {
-                            createMossyRecipe(exporter, record.mossyTileBlocks.base(), record.tileBlocks.base());
+                            createMossyRecipe(exporter, record.tileBlocks.base(), record.mossyTileBlocks.base());
                         }
                         if(record.mossySmoothBlocks != null && record.smoothBlocks != null) {
-                            createMossyRecipe(exporter, record.mossySmoothBlocks.base(), record.smoothBlocks.base());
+                            createMossyRecipe(exporter, record.smoothBlocks.base(), record.mossySmoothBlocks.base());
                         }
                     }
                     if(record.hasCracked) {
                         if(record.crackedBrickBlocks != null && record.brickBlocks != null) {
+                            createStoneSetRecipes(record.crackedBrickBlocks);
                             offerSmelting(List.of(record.brickBlocks.base()), RecipeCategory.BUILDING_BLOCKS,
                                     record.crackedBrickBlocks.base(), 0.1f, 200, "cracked_bricks");
                         }
                         if(record.crackedPillarBlocks != null && record.pillarBlocks != null) {
+                            createStoneSetRecipes(record.crackedPillarBlocks);
                             offerSmelting(List.of(record.pillarBlocks.base()), RecipeCategory.BUILDING_BLOCKS,
                                     record.crackedPillarBlocks.base(), 0.1f, 200, "cracked_bricks");
                         }
                         if(record.crackedPolishedBlocks != null && record.polishedBlocks != null) {
+                            createStoneSetRecipes(record.crackedPolishedBlocks);
                             offerSmelting(List.of(record.polishedBlocks.base()), RecipeCategory.BUILDING_BLOCKS,
                                     record.crackedPolishedBlocks.base(), 0.1f, 200, "cracked_bricks");
                         }
                         if(record.crackedTileBlocks != null && record.tileBlocks != null) {
+                            createStoneSetRecipes(record.crackedTileBlocks);
                             offerSmelting(List.of(record.tileBlocks.base()), RecipeCategory.BUILDING_BLOCKS,
                                     record.crackedTileBlocks.base(), 0.1f, 200, "cracked_bricks");
                         }
                         if(record.crackedSmoothBlocks != null && record.smoothBlocks != null) {
+                            createStoneSetRecipes(record.crackedSmoothBlocks);
                             offerSmelting(List.of(record.smoothBlocks.base()), RecipeCategory.BUILDING_BLOCKS,
                                     record.crackedSmoothBlocks.base(), 0.1f, 200, "cracked_bricks");
                         }
@@ -111,13 +118,30 @@ public class RecipeProvider extends FabricRecipeProvider {
                             createBrickRecipe(exporter, record.baseBlocks.base().asItem(), record.polishedBlocks.base(), 4);
                             offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.polishedBlocks.base(), record.baseBlocks.base(), 1);
                         }
-                        if(record.chiseledBlocks != null) {
-                            createChiseledRecipe(exporter, record.baseBlocks.slab(), record.chiseledBlocks.base(), 4);
-                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledBlocks.base(), record.baseBlocks.base(), 1);
-                        }
                         if(record.smoothBlocks != null) {
                             createSmeltingRecipe(exporter, record.baseBlocks.base().asItem(), record.smoothBlocks.base().asItem());
                         }
+                        if(record.chiseledBlocks != null) {
+                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledBlocks.base(), record.baseBlocks.base(), 1);
+                        }
+                        if(record.chiseledBricksBlocks != null) {
+                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledBricksBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledBricksBlocks.base(), record.baseBlocks.base(), 1);
+                        }
+                        if(record.chiseledPolishedBlocks != null) {
+                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledPolishedBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledPolishedBlocks.base(), record.baseBlocks.base(), 1);
+                        }
+                        if(record.chiseledSmoothBlocks != null) {
+                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledSmoothBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledSmoothBlocks.base(), record.baseBlocks.base(), 1);
+                        }
+                        if(record.chiseledTilesBlocks != null) {
+                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledTilesBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledTilesBlocks.base(), record.baseBlocks.base(), 1);
+                        }
+
                         createFilledRecipe(exporter, record.baseBlocks.base().asItem(), record.baseBlocks.trapdoor(), 3);
                         createPressurePlateRecipe(exporter, record.baseBlocks.base(), record.baseBlocks.pressurePlate());
                         offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.baseBlocks.trapdoor(), record.baseBlocks.base());
@@ -136,26 +160,13 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                     createStoneSetRecipes(record.baseBlocks);
                     createStoneSetRecipes(record.cobblestoneBlocks);
-                    createStoneSetRecipes(record.mossyCobblestoneBlocks);
                     createStoneSetRecipes(record.brickBlocks);
                     createStoneSetRecipes(record.tileBlocks);
-                    createStoneSetRecipes(record.mossyTileBlocks);
-                    createStoneSetRecipes(record.crackedTileBlocks);
                     createStoneSetRecipes(record.smoothBlocks);
-                    createStoneSetRecipes(record.mossySmoothBlocks);
-                    createStoneSetRecipes(record.crackedSmoothBlocks);
                     createStoneSetRecipes(record.polishedBlocks);
-                    createStoneSetRecipes(record.mossyPolishedBlocks);
-                    createStoneSetRecipes(record.crackedPolishedBlocks);
                     createStoneSetRecipes(record.brickworkBlocks);
                     createStoneSetRecipes(record.pillarBlocks);
-                    createStoneSetRecipes(record.mossyPillarBlocks);
-                    createStoneSetRecipes(record.crackedPillarBlocks);
-                    createStoneSetRecipes(record.chiseledBlocks);
-                    createStoneSetRecipes(record.chiseledBricksBlocks);
-                    createStoneSetRecipes(record.chiseledPolishedBlocks);
-                    createStoneSetRecipes(record.chiseledTilesBlocks);
-                    createStoneSetRecipes(record.chiseledSmoothBlocks);
+                    createStoneSetRecipes(record.oldBlocks);
                 }
                 //endregion
 
@@ -259,6 +270,12 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 }
                 //endregion
+
+                for(GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
+                    if(!set.setName.contains("wood") && !set.setName.contains("thatch") && !set.setName.contains("reed") && !set.setName.contains("canvas")) {
+                        createStoneSetRecipes(set.blockSet);
+                    }
+                }
 
                 //region ROOF RECIPES
                 /*for (GenericBlockSets.RoofBlockSet record : GenericBlockSets.sets) {
@@ -526,62 +543,62 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBrickRecipe(exporter, ResourceItemsME.QUARTZ_SHARD, ModBlocks.QUARTZ_BLOCK, 1);
                 createBrickRecipe(exporter, ResourceItemsME.RED_AGATE_SHARD, ModBlocks.RED_AGATE_BLOCK, 1);
 
-                /*offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.BRICKS, StoneBlockSets.OLD_BRICKS.base());
+                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.BRICKS, GenericBlockSets.OLD_BRICKS.blockSet.base());
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW, 4)
                         .pattern("WBW")
                         .pattern("BGB")
                         .pattern("WBW")
-                        .input('W', StoneBlockSets.WHITE_DAUB.base())
+                        .input('W', GenericBlockSets.WHITE_DAUB.blockSet.base())
                         .input('G', Items.GLASS)
                         .input('B', Items.BRICK)
-                        .criterion(hasItem(StoneBlockSets.WHITE_DAUB.base()),
-                                conditionsFromItem(StoneBlockSets.WHITE_DAUB.base()))
+                        .criterion(hasItem(GenericBlockSets.WHITE_DAUB.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.WHITE_DAUB.blockSet.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW, 4)
                         .pattern("WBW")
                         .pattern("BGB")
                         .pattern("WBW")
-                        .input('W', StoneBlockSets.YELLOW_DAUB.base())
+                        .input('W', GenericBlockSets.YELLOW_DAUB.blockSet.base())
                         .input('G', Items.GLASS)
                         .input('B', Items.BRICK)
-                        .criterion(hasItem(StoneBlockSets.YELLOW_DAUB.base()),
-                                conditionsFromItem(StoneBlockSets.YELLOW_DAUB.base()))
+                        .criterion(hasItem(GenericBlockSets.YELLOW_DAUB.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.YELLOW_DAUB.blockSet.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.PLASTER_HOBBIT_WINDOW, 4)
                         .pattern("WBW")
                         .pattern("BGB")
                         .pattern("WBW")
-                        .input('W', StoneBlockSets.PLASTER.base())
+                        .input('W', GenericBlockSets.PLASTER.blockSet.base())
                         .input('G', Items.GLASS)
                         .input('B', Items.BRICK)
-                        .criterion(hasItem(StoneBlockSets.PLASTER.base()),
-                                conditionsFromItem(StoneBlockSets.PLASTER.base()))
+                        .criterion(hasItem(GenericBlockSets.PLASTER.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.PLASTER.blockSet.base()))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.MEDGON_CARVED_WINDOW, 2)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.MEDGON_SET.carvedWindows.block(), 2)
                         .pattern("EEE")
                         .pattern("EGE")
                         .pattern("EEE")
-                        .input('E', StoneBlockSets.MEDGON.base())
+                        .input('E', StoneBlockSets.MEDGON_SET.baseBlocks.base())
                         .input('G', Items.GLASS)
-                        .criterion(hasItem(StoneBlockSets.MEDGON.base()),
-                                conditionsFromItem(StoneBlockSets.MEDGON.base()))
+                        .criterion(hasItem(StoneBlockSets.MEDGON_SET.baseBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.MEDGON_SET.baseBlocks.base()))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.GONLUIN_CARVED_WINDOW, 2)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.KHAGALABAN_SET.carvedWindows.block(), 2)
                         .pattern("EEE")
                         .pattern("EGE")
                         .pattern("EEE")
-                        .input('E', StoneBlockSets.GONLUIN.base())
+                        .input('E', StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
                         .input('G', Items.GLASS)
-                        .criterion(hasItem(StoneBlockSets.GONLUIN.base()),
-                                conditionsFromItem(StoneBlockSets.GONLUIN.base()))
+                        .criterion(hasItem(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base()))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TUFF_CARVED_WINDOW, 2)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.TUFF_SET.carvedWindows.block(), 2)
                         .pattern("EEE")
                         .pattern("EGE")
                         .pattern("EEE")
@@ -591,7 +608,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Blocks.TUFF))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BLACKSTONE_CARVED_WINDOW, 2)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.BLACKSTONE_SET.carvedWindows.block(), 2)
                         .pattern("EEE")
                         .pattern("EGE")
                         .pattern("EEE")
@@ -601,14 +618,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Blocks.BLACKSTONE))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.IZHERABAN_CARVED_WINDOW, 2)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.IZHERABAN_SET.carvedWindows.block(), 2)
                         .pattern("EEE")
                         .pattern("EGE")
                         .pattern("EEE")
-                        .input('E', StoneBlockSets.IZHERABAN.base())
+                        .input('E', StoneBlockSets.IZHERABAN_SET.baseBlocks.base())
                         .input('G', Items.GLASS)
-                        .criterion(hasItem(StoneBlockSets.IZHERABAN.base()),
-                                conditionsFromItem(StoneBlockSets.IZHERABAN.base()))
+                        .criterion(hasItem(StoneBlockSets.IZHERABAN_SET.baseBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.IZHERABAN_SET.baseBlocks.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
@@ -633,7 +650,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBrickRecipe(exporter, ResourceItemsME.ASH, ModBlocks.ASH_BLOCK, 1);
                 createBrickRecipe(exporter, ModBlocks.ASH_BLOCK.asItem(), Blocks.TUFF, 1);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.ASHEN_STONE.base(), 4)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base(), 4)
                         .pattern("AS")
                         .pattern("SA")
                         .input('A', ModBlocks.ASH_BLOCK)
@@ -642,20 +659,20 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(ModBlocks.ASH_BLOCK))
                         .offerTo(exporter);
 
-                createGildedBlockRecipe(exporter, ModBlocks.CHISELED_GREEN_TUFF, ModBlocks.GILDED_CHISELED_GREEN_TUFF);
-                createGildedBlockRecipe(exporter, ModBlocks.CHISELED_GREEN_TUFF_BRICKS, ModBlocks.GILDED_CHISELED_GREEN_TUFF_BRICKS);
-                createGildedBlockRecipe(exporter, ModBlocks.CHISELED_POLISHED_GREEN_TUFF, ModBlocks.GILDED_CHISELED_POLISHED_GREEN_TUFF);
-                createGildedBlockRecipe(exporter, ModBlocks.CHISELED_GREEN_TUFF_TILES, ModBlocks.GILDED_CHISELED_GREEN_TUFF_TILES);
-                createGildedBlockRecipe(exporter, ModBlocks.CHISELED_SMOOTH_GREEN_TUFF, ModBlocks.GILDED_CHISELED_SMOOTH_GREEN_TUFF);
-
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.GILDED_GREEN_TUFF.base(), 5)
+                /*createGildedBlockRecipe(exporter, StoneBlockSets.GREEN_TUFF_SET.chiseledBlocks.base(), StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledBlocks.base());
+                createGildedBlockRecipe(exporter, StoneBlockSets.GREEN_TUFF_SET.brickBlocks.base(), StoneBlockSets.GILDED_GREEN_TUFF_SET.brickBlocks.base());
+                createGildedBlockRecipe(exporter, StoneBlockSets.GREEN_TUFF_SET.polishedBlocks.base(), StoneBlockSets.GILDED_GREEN_TUFF_SET.polishedBlocks.base());
+                createGildedBlockRecipe(exporter, StoneBlockSets.GREEN_TUFF_SET.chiseledTilesBlocks.base(), StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledTilesBlocks.base());
+                createGildedBlockRecipe(exporter, StoneBlockSets.GREEN_TUFF_SET.smoothBlocks.base(), StoneBlockSets.GILDED_GREEN_TUFF_SET.smoothBlocks.base());
+                */
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.GILDED_GREEN_TUFF_SET.baseBlocks.base(), 5)
                         .pattern("TNT")
                         .pattern("NTN")
                         .pattern("TNT")
-                        .input('T', StoneBlockSets.GREEN_TUFF.base())
+                        .input('T', StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base())
                         .input('N', Items.GOLD_NUGGET)
-                        .criterion(hasItem(StoneBlockSets.GREEN_TUFF.base()),
-                                conditionsFromItem(StoneBlockSets.GREEN_TUFF.base()))
+                        .criterion(hasItem(StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WATTLE_TRAPDOOR, 2)
@@ -672,76 +689,76 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createDyeableItemRecipe(exporter, ModBlocks.WATTLE_TRAPDOOR, Items.BROWN_DYE, ModBlocks.DARK_WATTLE_TRAPDOOR);
                 createDyeableItemRecipe(exporter, ModBlocks.WATTLE_TRAPDOOR, Items.BLACK_DYE, ModBlocks.BLACK_WATTLE_TRAPDOOR);
 
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.STONE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.STONE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.CALCITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.CALCITE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, Blocks.DEEPSLATE_TILES, StoneBlockSets.STUCCO.base(), StoneBlockSets.DEEPSLATE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.BASALT_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.BASALT_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.ANDESITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.ANDESITE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GRANITE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.DIORITE_BRICKWORK.base());
+                //createBrickworkBlockRecipe(exporter, StoneBlockSets.STONE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), GenericBlockSets.MIXED_STONES_BRICKWORK.blockSet.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.CALCITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.CALCITE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, Blocks.DEEPSLATE_TILES, GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.DEEPSLATE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.BASALT_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.BASALT_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.ANDESITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(),StoneBlockSets.ANDESITE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.DIORITE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GRANITE_SET.brickworkBlocks.base());
 
 
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.DOLOMITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.DOLOMITE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.HEMATITE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.HEMATITE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.GNEISS_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GNEISS_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.IZHERABAN_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.IZHERABAN_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.LIMESTONE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.LIMESTONE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.GALONN_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GALONN_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.GABBRO_BRICKS.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.GABBRO_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.TUFF_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.TUFF_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.BLACKSTONE_TILES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.BLACKSTONE_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.TAN_CLAY_BRICKS.base(), StoneBlockSets.PLASTER.base(), StoneBlockSets.TAN_CLAY_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.MIXED_STONES.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.MIXED_STONES_BRICKWORK.base());
-                createBrickworkBlockRecipe(exporter, StoneBlockSets.MEDGON.base(), StoneBlockSets.STUCCO.base(), StoneBlockSets.MEDGON_BRICKWORK.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.DOLOMITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.DOLOMITE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.HEMATITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.HEMATITE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.GNEISS_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GNEISS_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.IZHERABAN_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.IZHERABAN_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.LIMESTONE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.LIMESTONE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.GALONN_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GALONN_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.GABBRO_SET.brickBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GABBRO_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.TUFF_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.TUFF_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.BLACKSTONE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.BLACKSTONE_SET.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.TAN_CLAY.brickBlocks.base(), GenericBlockSets.PLASTER.blockSet.base(), StoneBlockSets.TAN_CLAY.brickworkBlocks.base());
+                createBrickworkBlockRecipe(exporter, GenericBlockSets.MIXED_STONES.blockSet.base(), GenericBlockSets.STUCCO.blockSet.base(), GenericBlockSets.MIXED_STONES_BRICKWORK.blockSet.base());
+                createBrickworkBlockRecipe(exporter, StoneBlockSets.MEDGON_SET.baseBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.MEDGON_SET.brickworkBlocks.base());
 
-                createCenterSurroundRecipe(exporter, Items.BRICK, Items.BLUE_DYE, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_BLUE_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_BLUE_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_BLUE_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.BLUE_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_BLUE_ROOF_TILES.block().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Items.BRICK, Items.BLUE_DYE, GenericBlockSets.BLUE_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BLUE_ROOF_TILES.blockSet.base().asItem(), Items.WHITE_DYE, GenericBlockSets.LIGHT_BLUE_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BLUE_ROOF_TILES.blockSet.base().asItem(), Items.LIGHT_GRAY_DYE, GenericBlockSets.BRIGHT_BLUE_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BLUE_ROOF_TILES.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.OFF_BLUE_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BLUE_ROOF_TILES.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.DARK_BLUE_ROOF_TILES.blockSet.base().asItem(), 8);
 
-                createCenterSurroundRecipe(exporter, Items.BRICK, Items.BROWN_DYE, OtherBlockSets.BROWN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.BROWN_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_BROWN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.BROWN_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_BROWN_ROOF_TILES.block().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Items.BRICK, Items.BROWN_DYE, GenericBlockSets.BROWN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BROWN_ROOF_TILES.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.OFF_BROWN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BROWN_ROOF_TILES.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.DARK_BROWN_ROOF_TILES.blockSet.base().asItem(), 8);
 
-                createCenterSurroundRecipe(exporter, Items.BRICK, Items.CYAN_DYE, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_CYAN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_CYAN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_CYAN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.CYAN_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_CYAN_ROOF_TILES.block().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Items.BRICK, Items.CYAN_DYE, GenericBlockSets.CYAN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CYAN_ROOF_TILES.blockSet.base().asItem(), Items.WHITE_DYE, GenericBlockSets.LIGHT_CYAN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CYAN_ROOF_TILES.blockSet.base().asItem(), Items.LIGHT_GRAY_DYE, GenericBlockSets.BRIGHT_CYAN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CYAN_ROOF_TILES.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.OFF_CYAN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CYAN_ROOF_TILES.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.DARK_CYAN_ROOF_TILES.blockSet.base().asItem(), 8);
 
-                createCenterSurroundRecipe(exporter, Items.BRICK, Items.GRAY_DYE, OtherBlockSets.GRAY_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.GRAY_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_GRAY_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.GRAY_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_GRAY_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.GRAY_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_GRAY_ROOF_TILES.block().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Items.BRICK, Items.GRAY_DYE, GenericBlockSets.GRAY_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GRAY_ROOF_TILES.blockSet.base().asItem(), Items.WHITE_DYE, GenericBlockSets.LIGHT_GRAY_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GRAY_ROOF_TILES.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.OFF_GRAY_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GRAY_ROOF_TILES.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.DARK_GRAY_ROOF_TILES.blockSet.base().asItem(), 8);
 
-                createCenterSurroundRecipe(exporter, Items.BRICK, Items.GREEN_DYE, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_GREEN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_GREEN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_GREEN_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.GREEN_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_GREEN_ROOF_TILES.block().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Items.BRICK, Items.GREEN_DYE, GenericBlockSets.GREEN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GREEN_ROOF_TILES.blockSet.base().asItem(), Items.WHITE_DYE, GenericBlockSets.LIGHT_GREEN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GREEN_ROOF_TILES.blockSet.base().asItem(), Items.LIGHT_GRAY_DYE, GenericBlockSets.BRIGHT_GREEN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GREEN_ROOF_TILES.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.OFF_GREEN_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GREEN_ROOF_TILES.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.DARK_GREEN_ROOF_TILES.blockSet.base().asItem(), 8);
 
-                createCenterSurroundRecipe(exporter, Items.BRICK, Items.RED_DYE, OtherBlockSets.RED_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_RED_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_RED_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_RED_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.RED_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_RED_ROOF_TILES.block().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Items.BRICK, Items.RED_DYE, GenericBlockSets.RED_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.RED_ROOF_TILES.blockSet.base().asItem(), Items.WHITE_DYE, GenericBlockSets.LIGHT_RED_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.RED_ROOF_TILES.blockSet.base().asItem(), Items.LIGHT_GRAY_DYE, GenericBlockSets.BRIGHT_RED_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.RED_ROOF_TILES.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.OFF_RED_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.RED_ROOF_TILES.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.DARK_RED_ROOF_TILES.blockSet.base().asItem(), 8);
 
-                createCenterSurroundRecipe(exporter, Items.BRICK, Items.YELLOW_DYE, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.WHITE_DYE, OtherBlockSets.LIGHT_YELLOW_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.LIGHT_GRAY_DYE, OtherBlockSets.BRIGHT_YELLOW_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.GRAY_DYE, OtherBlockSets.OFF_YELLOW_ROOF_TILES.block().asItem(), 8);
-                createCenterSurroundRecipe(exporter, OtherBlockSets.YELLOW_ROOF_TILES.block().asItem(), Items.BLACK_DYE, OtherBlockSets.DARK_YELLOW_ROOF_TILES.block().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Items.BRICK, Items.YELLOW_DYE, GenericBlockSets.YELLOW_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.YELLOW_ROOF_TILES.blockSet.base().asItem(), Items.WHITE_DYE, GenericBlockSets.LIGHT_YELLOW_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.YELLOW_ROOF_TILES.blockSet.base().asItem(), Items.LIGHT_GRAY_DYE, GenericBlockSets.BRIGHT_YELLOW_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.YELLOW_ROOF_TILES.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.OFF_YELLOW_ROOF_TILES.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.YELLOW_ROOF_TILES.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.DARK_YELLOW_ROOF_TILES.blockSet.base().asItem(), 8);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.TAN_CLAY_BRICKS.base(), 5)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.TAN_CLAY.brickBlocks.base(), 5)
                         .pattern(" B ")
                         .pattern("BPB")
                         .pattern(" B ")
-                        .input('P', StoneBlockSets.PLASTER.base())
+                        .input('P', GenericBlockSets.PLASTER.blockSet.base())
                         .input('B', Items.BRICKS)
-                        .criterion(hasItem(StoneBlockSets.PLASTER.base()),
-                                conditionsFromItem(StoneBlockSets.PLASTER.base()))
-                        .offerTo(exporter);*/
+                        .criterion(hasItem(GenericBlockSets.PLASTER.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.PLASTER.blockSet.base()))
+                        .offerTo(exporter);
                 //endregion
 
                 //region SMITHING
@@ -774,6 +791,51 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.STRING),
                                 conditionsFromItem(Items.STRING))
                         .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeItemsME.REINFORCED_SCAFFOLDING, 6)
+                        .pattern("LCL")
+                        .pattern("S S")
+                        .pattern("T T")
+                        .input('L', TagKey.of(RegistryKeys.ITEM, Identifier.of("c","stripped_logs")))
+                        .input('C', GenericBlockSets.CANVAS.blockSet.base())
+                        .input('T', ResourceItemsME.TIN_INGOT)
+                        .input('S', Items.STICK)
+                        .criterion(hasItem(ResourceItemsME.TIN_INGOT),
+                                conditionsFromItem(ResourceItemsME.TIN_INGOT))
+                        .offerTo(exporter, "reinforced_scaffolding");
+
+                //region CANVAS
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.CANVAS.blockSet.base(), 2)
+                        .pattern("FF")
+                        .pattern("FF")
+                        .input('F', ResourceItemsME.FABRIC)
+                        .criterion(hasItem(ResourceItemsME.FABRIC),
+                                conditionsFromItem(ResourceItemsME.FABRIC))
+                        .offerTo(exporter);
+
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.WHITE_DYE, GenericBlockSets.WHITE_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.BLACK_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.BLUE_DYE, GenericBlockSets.BLUE_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.BROWN_DYE, GenericBlockSets.BROWN_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.CYAN_DYE, GenericBlockSets.CYAN_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.GRAY_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.GREEN_DYE, GenericBlockSets.GREEN_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.LIGHT_BLUE_DYE, GenericBlockSets.LIGHT_BLUE_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.LIGHT_GRAY_DYE, GenericBlockSets.LIGHT_GRAY_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.MAGENTA_DYE, GenericBlockSets.MAGENTA_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.ORANGE_DYE, GenericBlockSets.ORANGE_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.PINK_DYE, GenericBlockSets.PINK_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.PURPLE_DYE, GenericBlockSets.PURPLE_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.RED_DYE, GenericBlockSets.RED_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.CANVAS.blockSet.base().asItem(), Items.YELLOW_DYE, GenericBlockSets.YELLOW_CANVAS.blockSet.base().asItem(), 8);
+
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BLUE_CANVAS.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.DARK_BLUE_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.BROWN_CANVAS.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.DARK_BROWN_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GRAY_CANVAS.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.DARK_GRAY_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.GREEN_CANVAS.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.DARK_GREEN_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.RED_CANVAS.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.DARK_RED_CANVAS.blockSet.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, GenericBlockSets.YELLOW_CANVAS.blockSet.base().asItem(), Items.GRAY_DYE, GenericBlockSets.DARK_YELLOW_CANVAS.blockSet.base().asItem(), 8);
+                //endregion
 
                 createBucketRecipe(exporter, Items.IRON_INGOT, Items.BUCKET);
 
@@ -996,6 +1058,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
 
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.AGED_WOOD_WINDOW, 4)
+                        .pattern("AAA")
+                        .pattern("AGA")
+                        .pattern("AAA")
+                        .input('A', GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base())
+                        .input('G', Items.GLASS)
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_PLANKS.blockSet.base()))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AGED_WOOD_TRAPDOOR, 2)
                         .pattern("WWW")
                         .pattern("WWW")
@@ -1215,10 +1288,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, Blocks.POLISHED_BASALT, Blocks.BASALT, StoneBlockSets.BASALT_SET.baseBlocks.wall(), ModDecorativeBlocks.BASALT_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.CALCITE_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.CALCITE_SET.baseBlocks.wall(), ModDecorativeBlocks.CALCITE_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.DIORITE_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.CALCITE_SET.baseBlocks.wall(), ModDecorativeBlocks.DIORITE_STATUE);
+                createStatueRecipe(exporter, StoneBlockSets.GABBRO_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.GABBRO_SET.baseBlocks.wall(), ModDecorativeBlocks.GABBRO_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.GALONN_SET.polishedBlocks.base(), StoneBlockSets.GALONN_SET.baseBlocks.base(), StoneBlockSets.GALONN_SET.baseBlocks.wall(), ModDecorativeBlocks.GALONN_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.KHAGALABAN_SET.polishedBlocks.base(), StoneBlockSets.KHAGALABAN_SET.baseBlocks.base(), StoneBlockSets.KHAGALABAN_SET.baseBlocks.wall(), ModDecorativeBlocks.KHAGALABAN_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.wall(), ModDecorativeBlocks.PUMICE_STATUE);
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, ModDecorativeBlocks.TUFF_STATUE);
+                createStatueRecipe(exporter, StoneBlockSets.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSets.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSets.ZIGILABAN_SET.baseBlocks.wall(), ModDecorativeBlocks.ZIGILABAN_STATUE);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CERAMIC_PLATE, 1)
                         .pattern("BB")
@@ -1340,6 +1415,11 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(GenericBlockSets.PLASTER.blockSet.base()),
                                 conditionsFromItem(GenericBlockSets.PLASTER.blockSet.base()))
                         .offerTo(exporter);
+
+                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.CUT_BRONZE.blockSet.base(), ModBlocks.BRONZE_BLOCK, 4);
+                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.CUT_CRUDE_PLATES.blockSet.base(), ModBlocks.CRUDE_BLOCK, 4);
+                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.CUT_LEAD.blockSet.base(), ModBlocks.LEAD_BLOCK, 4);
+                offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.CUT_SILVER.blockSet.base(), ModBlocks.SILVER_BLOCK, 4);
 
                 createCushionRecipe(exporter, Blocks.BLUE_WOOL, ModDecorativeBlocks.BLUE_CUSHION);
                 createDyeableItemRecipe(exporter, ModDecorativeBlocks.BLUE_CUSHION, Items.GRAY_DYE, ModDecorativeBlocks.DARK_BLUE_CUSHION);
@@ -1560,6 +1640,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('P', WoodBlockSets.BLACK_PINE_SET.planksBlocks.base())
                         .criterion(hasItem(WoodBlockSets.BLACK_PINE_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSets.BLACK_PINE_SET.planksBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.TALL_FIR_DOOR, 1)
+                        .pattern("SP")
+                        .pattern("PP")
+                        .pattern("SP")
+                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('P', WoodBlockSets.FIR_SET.planksBlocks.base())
+                        .criterion(hasItem(WoodBlockSets.FIR_SET.planksBlocks.base()),
+                                conditionsFromItem(WoodBlockSets.FIR_SET.planksBlocks.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.OAK_STABLE_DOOR, 1)
@@ -2066,6 +2155,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(WoodBlockSets.WILLOW_SET.planksBlocks.base()))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SACK, 1)
+                        .pattern("C C")
+                        .pattern("CRC")
+                        .pattern("CCC")
+                        .input('C', GenericBlockSets.CANVAS.blockSet.base())
+                        .input('R', Items.RESIN_CLUMP)
+                        .criterion(hasItem(Items.RESIN_CLUMP),
+                                conditionsFromItem(Items.RESIN_CLUMP))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")
                         .pattern("VGV")
@@ -2153,7 +2252,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(ResourceItemsME.TIN_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.CAULDRON).getPath() + "_alt")));
 
-                createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.COPPER_INGOT, StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base().asItem(), 8);
+                createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.RAW_COPPER, StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base().asItem(), 8);
 
                 offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BROWN_JUG, Items.CLAY);
                 offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LARGE_JUG, Items.CLAY);
@@ -2434,7 +2533,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 ComplexRecipeJsonBuilder.create(CustomItemDecorationRecipe::new).offerTo(exporter, "custom_shield_decoration");
             }
 
-            //region Refactored Methods
+            //region Refactored Methods            
             private void createStoneSetRecipes(BlockRecordTypes.RegularSet base) {
                 if (base != null) {
                     offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, base.slab(), base.base());
@@ -2476,6 +2575,19 @@ public class RecipeProvider extends FabricRecipeProvider {
             }
 
             private void createStoneSetRecipes(BlockRecordTypes.PillarSet base) {
+                if (base != null) {
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, base.verticalSlab(), base.base(), 2);
+                    ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, base.wall(), 6)
+                            .pattern("lll")
+                            .pattern("lll")
+                            .input('l', base.base())
+                            .criterion(hasItem(base.base()),
+                                    conditionsFromItem(base.base()))
+                            .offerTo(exporter);
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, base.wall(), base.base());
+                }
+            }
+            private void createChiseledStoneSetRecipes(BlockRecordTypes.PillarSet base) {
                 if (base != null) {
                     offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, base.verticalSlab(), base.base(), 2);
                     ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, base.wall(), 6)

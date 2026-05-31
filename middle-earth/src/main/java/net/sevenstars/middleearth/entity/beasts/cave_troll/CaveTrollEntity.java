@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -29,6 +30,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -468,7 +470,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             }
         }
-        //this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
     }
 
     public void smashAttack(float strength) { // Strength goes from 0 to 100
@@ -491,7 +493,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
         if(world instanceof ServerWorld serverWorld) {
             for(Entity entity : entities) {
-                if(entity instanceof LivingEntity && entity != this.getOwner() && !this.getPassengerList().contains(entity)) {
+                if(this.isValidTarget(entity)) {
                     entity.damage(serverWorld, this.getDamageSources().mobAttack(this),  (float)weaponDamage + (strength / 12.5f) + (difficulty * 2));
                 }
             }
@@ -651,5 +653,38 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public static boolean shouldTarget(LivingEntity target) {
         return target instanceof NpcEntity || target instanceof PlayerEntity;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return super.getDeathSound();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return super.getHurtSound(source);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getEatSound() {
+        return super.getEatSound();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return super.getAmbientSound();
+    }
+
+    @Nullable
+    protected SoundEvent getRoarSound() {
+        return null;
+    }
+
+    public void playRoarSound() {
+        this.playSound(this.getRoarSound());
     }
 }

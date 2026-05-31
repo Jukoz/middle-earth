@@ -1,17 +1,16 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.shire;
 
 import net.sevenstars.api.dtos.WeightedPool;
+import net.sevenstars.middleearth.registries.SimplifiedTexturesME;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedClothingPresetHolder;
-import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
+import net.sevenstars.middleearth.resources.datas.texture_presets.*;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
-import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +112,19 @@ public class ShireTexturePresetsPool {
                         WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_DARK_BROWN)
                     )
                 )
+            ))
+            .withSimplifiedTextures(List.of(
+                    new WeightedSimplifiedTexturePresetHolder(
+                            SimplifiedTexturePreset.create(SimplifiedTexturesME.Shire.MALE_A)
+                                    .withEar(SimplifiedTexturesME.Shire.MALE_A_EAR)
+                                    .withFeet(SimplifiedTexturesME.Shire.MALE_A_FEET),
+                            2
+                    ),
+                    new WeightedSimplifiedTexturePresetHolder(
+                            SimplifiedTexturePreset.create(SimplifiedTexturesME.Shire.MALE_B)
+                                    .withEar(SimplifiedTexturesME.Shire.MALE_B_EAR)
+                                    .withFeet(SimplifiedTexturesME.Shire.MALE_B_FEET)
+                    )
             ));
 
         FEMALE_PRESET = new WeightedTexturePresetHolder()
@@ -140,6 +152,21 @@ public class ShireTexturePresetsPool {
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.DRESS_BURGUNDY_AND_WHITE)
                         )
                     )
+                ))
+                .withSimplifiedTextures(List.of(
+                        new WeightedSimplifiedTexturePresetHolder(
+                                SimplifiedTexturePreset.create(SimplifiedTexturesME.Shire.FEMALE_A)
+                                        .withEar(SimplifiedTexturesME.Shire.FEMALE_A_EAR)
+                                        .withFeet(SimplifiedTexturesME.Shire.FEMALE_A_FEET)
+                                        .withHair(SimplifiedTexturesME.Shire.FEMALE_A_HAIR)
+                                ),
+                        new WeightedSimplifiedTexturePresetHolder(
+                                SimplifiedTexturePreset.create(SimplifiedTexturesME.Shire.FEMALE_B)
+                                        .withEar(SimplifiedTexturesME.Shire.FEMALE_B_EAR)
+                                        .withFeet(SimplifiedTexturesME.Shire.FEMALE_B_FEET)
+                                        .withHair(SimplifiedTexturesME.Shire.FEMALE_B_HAIR),
+                                2
+                        )
                 ));
 
         SHIRRIFF_PRESET = MALE_PRESET.copy()

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.rohan;
 
 import net.sevenstars.api.dtos.WeightedPool;
+import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
@@ -10,6 +11,7 @@ import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedClothingPresetHolder;
 import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
@@ -67,6 +69,20 @@ public class RohanTexturePresetsPool {
             ))
             .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC)
+            ))
+            .withClothes(List.of(
+                    new WeightedClothingPresetHolder[]{
+                            new WeightedClothingPresetHolder(
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BEIGE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN)
+                                    ),
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BURGUNDY)
+                                    )
+                            )
+                    }
             ));
 
         MALE_PRESET = new WeightedTexturePresetHolder()

@@ -23,7 +23,6 @@ import java.util.List;
 
 public class LothlorienFactionPool {
     public final static Faction LOTHLORIEN;
-    private final static String FACTION_PATH = FactionRegistry.LOTHLORIEN.getValue().getPath();
 
     static {
         LOTHLORIEN = new Faction(FactionRegistry.LOTHLORIEN, true, DispositionType.GOOD, FactionType.FACTION, null, null,
@@ -53,7 +52,7 @@ public class LothlorienFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.STAR_AND_LEAF, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of("lothlorien",  "cerin_amroth"), new Vector2d(1614, 1215))
+                        new SpawnData(MiddleEarth.of(FactionRegistry.LOTHLORIEN.getValue().getPath(),  "cerin_amroth"), new Vector2d(1614, 1215))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.ALLY),

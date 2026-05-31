@@ -65,7 +65,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 128, startPoint.y + 34))
                 .markOutput().entries(display.getOutputEntries().get((0))));
 
-        widgets.add(Widgets.createLabel(new Point(startPoint.x + 44, startPoint.y + 5),
+        widgets.add(Widgets.createLabel(new Point(startPoint.x + 63, startPoint.y + 5),
                 Text.translatable("screen." + MiddleEarth.MOD_ID +".artisan_table." + display.getCategory())));
 
         return widgets;

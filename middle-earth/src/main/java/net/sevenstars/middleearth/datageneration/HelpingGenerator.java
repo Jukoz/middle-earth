@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
@@ -85,9 +86,15 @@ public class HelpingGenerator {
                 switch (stoneBlockTypes){
                     case LOG_BLOCKS, NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
                     case MUSHROOM_STEM_BLOCKS -> mushroomStemBlocks(set.mushroomStemBlocks);
-                    case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> woodBlocks(set.strippedLogBlocks);
+                    case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> {
+                        ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
+                        woodBlocks(set.strippedLogBlocks);
+                    }
                     case PLANK_BLOCKS -> plankBlocks(set.planksBlocks);
-                    case SHINGLE_BLOCKS -> regularBlocks(set.shinglesBlocks);
+                    case SHINGLE_BLOCKS -> {
+                        Shingles.shingles.add(set.shinglesBlocks.base());
+                        regularBlocks(set.shinglesBlocks);
+                    }
                     case ROOFING_BLOCKS -> regularBlocks(set.roofingBlocks);
                     case FURNITURE_BLOCKS -> furnitureBlocks(set.furnitureBlocks, set.planksBlocks.base());
                     case REDSTONE_BLOCKS -> woodRedstoneBlocks(set.redstoneBlocks, set.planksBlocks.base());
@@ -105,6 +112,9 @@ public class HelpingGenerator {
         }
 
         for (GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
+            regularBlocks(set.blockSet);
+        }
+        for (SimpleBlockSetBuilder set : GenericBlockSets.simpleSetsList) {
             regularBlocks(set.blockSet);
         }
 
@@ -330,6 +340,10 @@ public class HelpingGenerator {
         BlockRecordTypes.RegularSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
     }
 
+    public static void regularBlocks(BlockRecordTypes.SimpleBlocks set) {
+        BlockRecordTypes.SimpleBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
+    }
+
     public static void pillarBlocks(BlockRecordTypes.PillarSet set, Block origin) {
         BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.verticalSlab()));
     }
@@ -344,6 +358,7 @@ public class HelpingGenerator {
 
     public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab()));
+        WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
     }
 

@@ -28,6 +28,7 @@ import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.PipeItem;
+import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
@@ -187,8 +188,8 @@ public class ItemModelProvider extends FabricModelProvider {
 
         String randomNpcEggId = "npc_random_spawn_egg";
         var randomNpcEgg = ItemModels.switchCase(randomNpcEggId,
-            ItemModels.basic(Models.GENERATED.upload(MiddleEarth.of('/', "item", randomNpcEggId),
-                    TextureMap.layer0(MiddleEarth.of( '/', "item", randomNpcEggId)),
+            ItemModels.basic(Models.GENERATED.upload(MiddleEarth.ofPath( "item", randomNpcEggId),
+                    TextureMap.layer0(MiddleEarth.ofPath( "item", randomNpcEggId)),
                     itemModelGenerator.modelCollector
             )));
 
@@ -252,9 +253,16 @@ public class ItemModelProvider extends FabricModelProvider {
                 ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory)));
     }
 
-    //TODO longsword artefact blocking datagen
     public final void registerArtefact(ItemModelGenerator itemModelGenerator, Item item, Boolean dualModel) {
-        if (dualModel) {
+        if(item instanceof CustomDaggerWeaponItem) {
+            ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD));
+            ItemModel.Unbaked unbakedBroken = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_broken", Models.HANDHELD));
+            ItemModel.Unbaked unbakedHandStrike = ItemModels.basic(CustomItemModels.DAGGER_STRIKE.upload(ModelIds.getItemSubModelId(item, "_strike"),
+                    TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
+
+            itemModelGenerator.output.accept(item, ItemModels.condition(new SneakAttackProperty(), unbakedHandStrike,
+                    ItemModels.condition(new BrokenProperty(), unbakedBroken, unbakedHand)));
+        } else if (dualModel) {
             ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.BIG_WEAPON));
             ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
             ItemModel.Unbaked unbakedHandBlocking = ItemModels.basic(CustomItemModels.BIG_WEAPON_BLOCKING.upload(ModelIds.getItemSubModelId(item, "_blocking"), TextureMap.layer0(TextureMap.getId(item)), itemModelGenerator.modelCollector));
@@ -395,7 +403,7 @@ public class ItemModelProvider extends FabricModelProvider {
             idPath = "thick_ingot_hot";
         }
 
-        Identifier textureId = MiddleEarth.of('/', "item", idPath);
+        Identifier textureId = MiddleEarth.ofPath( "item", idPath);
         ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
                 TextureMap.layer0(textureId), itemModelGenerator.modelCollector));
 
@@ -405,7 +413,7 @@ public class ItemModelProvider extends FabricModelProvider {
     public final void registerHotNuggetItem(Item item, ItemModelGenerator itemModelGenerator) {
         ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
         ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
-                TextureMap.layer0(MiddleEarth.of('/', "item", "nugget_hot")), itemModelGenerator.modelCollector));
+                TextureMap.layer0(MiddleEarth.ofPath( "item", "nugget_hot")), itemModelGenerator.modelCollector));
 
         itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
     }

@@ -29,7 +29,7 @@ public interface ArmorMaterialsME {
     RegistryKey<? extends Registry<EquipmentAsset>> REGISTRY_KEY = RegistryKey.ofRegistry(Identifier.ofVanilla("equipment_asset"));
 
     ExtendedArmorMaterial STRAW_T1 = registerArmor("straw_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_STRAW_ARMOR);
-
+    ExtendedArmorMaterial WOOD_T1 = registerArmor("wood_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTags.PLANKS);
     ExtendedArmorMaterial WOOL_T1 = registerArmor("wool_t1", Tiers.BASIC, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_WOOL_ARMOR);
 
     ExtendedArmorMaterial FUR_T0 = registerArmor("fur_t0", Tiers.CLOTHING, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, ItemTagsME.REPAIRS_FUR_ARMOR);

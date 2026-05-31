@@ -74,7 +74,28 @@ public class CurtainsBlock extends MultifaceBlock {
     protected boolean canReplace(BlockState state, ItemPlacementContext context) {
         boolean sneaking = false;
         if(context.getPlayer() != null) sneaking = context.getPlayer().isSneaking();
-        return isNotFullBlock(state) && !sneaking && context.getStack().isOf(this.asItem());
+        boolean placeVertically = false;
+        if(context.getSide() == Direction.UP) {
+            if(!context.getStack().isOf(this.asItem())) {
+                placeVertically = true;
+            } else {
+                BlockState neighbor = context.getWorld().getBlockState(context.getBlockPos().up());
+                if(context.getStack().isOf(neighbor.getBlock().asItem()) || neighbor.isAir()) {
+                    placeVertically = true;
+                }
+            }
+        } else if(context.getSide() == Direction.DOWN) {
+            if(!context.getStack().isOf(this.asItem())) {
+                placeVertically = true;
+            } else {
+                BlockState neighbor = context.getWorld().getBlockState(context.getBlockPos().down());
+                if(context.getStack().isOf(neighbor.getBlock().asItem()) || neighbor.isAir()) {
+                    placeVertically = true;
+                }
+            }
+        }
+        if(sneaking) placeVertically = !placeVertically;
+        return isNotFullBlock(state) && !placeVertically && context.getStack().isOf(this.asItem());
     }
 
     @Override

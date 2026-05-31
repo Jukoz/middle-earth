@@ -18,7 +18,8 @@ public class TexturePreset {
     public final static String PATTERNS = "patterns";
     public final static String MATERIALS = "materials";
     public final static String IS_EMISSIVE = "is_emissive";
-    public final static String CLOTHES = "CLOTHES";
+    public final static String CLOTHES = "clothes";
+    public final static String SIMPLIFIED = "simplified";
 
     public WeightedPool<WeightedIdentifier> bodyPatterns;
     public WeightedPool<WeightedIdentifier> headPatterns;
@@ -33,6 +34,7 @@ public class TexturePreset {
     public WeightedPool<WeightedIdentifier> skinMaterials;
     public WeightedPool<WeightedIdentifier> eyeMaterials;
     public WeightedPool<WeightedIdentifier> hairMaterials;
+    public WeightedPool<WeightedSimplifiedTexturePresetHolder> simplifiedTextures;
 
     public WeightedPool<WeightedClothingPresetHolder> characterClothePresets;
 
@@ -56,6 +58,8 @@ public class TexturePreset {
         hairMaterials = new WeightedPool<>();
 
         characterClothePresets = new WeightedPool<>();
+
+        simplifiedTextures = new WeightedPool<>();
     }
 
     public TexturePreset(NbtCompound compound){
@@ -81,7 +85,9 @@ public class TexturePreset {
         fetchPatterns(compound, CharacterPatternTypes.BEARD);
 
         fetchClothes(compound);
+        fetchSimplifiedTextures(compound);
     }
+
 
     public NbtCompound getNbt(NbtCompound nbt) {
 
@@ -150,11 +156,10 @@ public class TexturePreset {
             nbt.put(CharacterPatternTypes.BEARD.name(), compound);
         }
         if(characterClothePresets.isFilled()){
-            var list = new NbtList();
-            for(int i = 0; i < this.characterClothePresets.size(); i++){
-                list.add(i, characterClothePresets.get(i).getNbt());
-            }
-            nbt.put(CLOTHES, list);
+            nbt.put(CLOTHES, characterClothePresets.getNbt());
+        }
+        if(simplifiedTextures.isFilled()){
+            nbt.put(SIMPLIFIED, simplifiedTextures.getNbt());
         }
         return nbt;
     }
@@ -241,6 +246,18 @@ public class TexturePreset {
         }
     }
 
+
+    private void fetchSimplifiedTextures(NbtCompound compound) {
+        if(compound.contains(SIMPLIFIED)){
+            var simplifiedList = compound.getList(SIMPLIFIED);
+            simplifiedList.ifPresent(listSimplifiedTextures -> listSimplifiedTextures.forEach(x -> {
+                if (x.asCompound().isPresent()) {
+                    this.simplifiedTextures.add(new WeightedSimplifiedTexturePresetHolder(x.asCompound().get()));
+                }
+            }));
+        }
+    }
+
     public void withEmissiveEyes(boolean value){
         this.haveEmissiveEyes = value;
     }
@@ -253,6 +270,16 @@ public class TexturePreset {
 
     public void clearClothes(){
         this.characterClothePresets.clear();
+    }
+
+    public void withSimplifiedTextures(List<WeightedSimplifiedTexturePresetHolder> simplifiedTextures){
+        if(simplifiedTextures != null){
+            this.simplifiedTextures.addAll(simplifiedTextures);
+        }
+    }
+
+    public void clearSimplifiedTextures(){
+        this.simplifiedTextures.clear();
     }
 
     public void withPatterns(CharacterPatternTypes type, List<WeightedIdentifier> patterns){
@@ -353,5 +380,7 @@ public class TexturePreset {
     public Boolean haveEmissiveEyes() {
         return haveEmissiveEyes;
     }
+
+
 
 }

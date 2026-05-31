@@ -98,7 +98,21 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> LOTHLORIEN_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "warrior"));
     public final static RegistryKey<NpcData> LOTHLORIEN_KNIGHT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "knight"));
     public final static RegistryKey<NpcData> LOTHLORIEN_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "guard"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_EGLADIL_SENTINEL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "egladil_sentinel"));
+    public final static RegistryKey<NpcData> LOTHLORIEN_EGLADIL_COMMANDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "egladil_commander"));
     public final static RegistryKey<NpcData> LOTHLORIEN_LORD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "lord"));
+
+    // [WOODLAND_REALMS]
+    public final static RegistryKey<NpcData> WOODLAND_REALM_ARTISAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "artisan"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_HUNTER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "hunter"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_SENTINEL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "sentinel"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_RANGER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "ranger"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "warrior"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_LANCER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "lancer"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_NIGHTSHADE = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "nightshade"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_ELVEN_KINGS_GUARD = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "elven_kings_guard"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_COMMANDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "commander"));
+    public final static RegistryKey<NpcData> WOODLAND_REALM_WARDEN_OF_THE_GLADE = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.WOODLAND_REALM, "warden_of_the_glade"));
 
     // [MORDOR]
     public final static RegistryKey<NpcData> MORDOR_BLACK_NUMENOREAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "black_numenorean"));
@@ -144,6 +158,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, ShireNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, EreborNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, WoodlandRealmNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, MordorNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, GundabadNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, IsengardNpcDataPool.fetchAll());

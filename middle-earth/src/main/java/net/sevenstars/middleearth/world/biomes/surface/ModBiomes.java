@@ -106,11 +106,11 @@ public class ModBiomes {
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH, 0);
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH_ASHEN_WOODS, 1);
         createGorgorothBiome(context, MEBiomeKeys.GORGOROTH_DELTA, 2);
-        createGreyMountainsBiome(context, MEBiomeKeys.GRAY_MOUNTAINS_BASE, 0);
-        createGreyMountainsBiome(context, MEBiomeKeys.GRAY_MOUNTAINS, 1);
-        createGreyMountainsBiome(context, MEBiomeKeys.GRAY_MOUNTAINS_PEAKS, 2);
-        createGreyPlainsBiome(context, MEBiomeKeys.GRAY_PLAINS, 0);
-        createGreyPlainsBiome(context, MEBiomeKeys.GRAY_ASHEN_WOODS, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS_BASE, 0);
+        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS, 1);
+        createGreyMountainsBiome(context, MEBiomeKeys.GREY_MOUNTAINS_PEAKS, 2);
+        createGreyPlainsBiome(context, MEBiomeKeys.GREY_PLAINS, 0);
+        createGreyPlainsBiome(context, MEBiomeKeys.GREY_ASHEN_WOODS, 1);
         createGreyPlainsTaiga(context, MEBiomeKeys.GUNDABAD_PLAINS);
         createHaradBiome(context, MEBiomeKeys.HARAD, 0);
         createHaradBiome(context, MEBiomeKeys.HARAD_WOODS, 1);
