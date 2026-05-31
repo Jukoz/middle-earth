@@ -22,8 +22,6 @@ public class EggItemsME {
      * Middle-earth mod Spawn Eggs registry
      */
 
-    public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.BARROW_WIGHT, settings), new Item.Settings());
 
     public static final Item BROADHOOF_GOAT_SPAWN_EGG = registerItem("broadhoof_goat_spawn_egg",
             (settings) -> new SpawnEggItem(EntitiesME.BROADHOOF_GOAT, settings), new Item.Settings());
