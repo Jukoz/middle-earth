@@ -20,6 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
 import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
@@ -436,11 +437,9 @@ public class ModVegetationConfiguredFeatures {
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHORT_CATTAILS))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_TALL_BULRUSH, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TALL_BULRUSH))));
+                createShallowWaterPatchFeatureConfig(ModNatureBlocks.TALL_BULRUSH, 96, 7, 3));
         ConfiguredFeatures.register(featureRegisterable, PATCH_TALL_CATTAIL, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TALL_CATTAILS))));
+                createShallowWaterPatchFeatureConfig(ModNatureBlocks.TALL_CATTAILS, 96, 7, 3));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_COASTAL_PANIC_GRASS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -614,19 +613,21 @@ public class ModVegetationConfiguredFeatures {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.CAMPION))));
 
-                                                ConfiguredFeatures.register(featureRegisterable, PATCH_REEDS, Feature.RANDOM_PATCH,
+        ConfiguredFeatures.register(featureRegisterable, PATCH_REEDS, Feature.RANDOM_PATCH,
                 new RandomPatchFeatureConfig(256, 12, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ResourceItemsME.REEDS)),
-                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.IS_AIR, BlockPredicate.wouldSurvive(ResourceItemsME.REEDS.getDefaultState(), BlockPos.ORIGIN),
-                                BlockPredicate.anyOf(
-                                    BlockPredicate.matchingFluids(new BlockPos(1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(-1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(0, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(0, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(-1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(-1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER)))))));
+                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.anyOf(BlockPredicate.allOf(BlockPredicate.IS_AIR,
+                                                BlockPredicate.anyOf(
+                                                        BlockPredicate.matchingFluids(new BlockPos(1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(-1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(0, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(0, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(-1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(-1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER))),
+                                BlockPredicate.allOf(BlockPredicate.matchingFluids(BlockPos.ORIGIN, Fluids.WATER, Fluids.FLOWING_WATER), hasAdjacentBank())),
+                                BlockPredicate.wouldSurvive(ResourceItemsME.REEDS.getDefaultState(), BlockPos.ORIGIN))))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_SHORT_REEDS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHORT_REEDS))));
@@ -863,5 +864,23 @@ public class ModVegetationConfiguredFeatures {
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(MiddleEarth.MOD_ID, name));
+    }
+
+    private static RandomPatchFeatureConfig createShallowWaterPatchFeatureConfig(Block block, int tries, int xzSpread, int ySpread) {
+        BlockState state = block.getDefaultState();
+        return new RandomPatchFeatureConfig(tries, xzSpread, ySpread, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                new SimpleBlockFeatureConfig(BlockStateProvider.of(state)),
+                BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.anyOf(
+                                BlockPredicate.IS_AIR,
+                                BlockPredicate.allOf(
+                                        BlockPredicate.matchingFluids(BlockPos.ORIGIN, Fluids.WATER, Fluids.FLOWING_WATER), hasAdjacentBank())), BlockPredicate.wouldSurvive(state, BlockPos.ORIGIN)))));
+    }
+
+    private static BlockPredicate hasAdjacentBank() {
+        return BlockPredicate.anyOf(
+                BlockPredicate.hasSturdyFace(new BlockPos(1, 0, 0), Direction.UP),
+                BlockPredicate.hasSturdyFace(new BlockPos(-1, 0, 0), Direction.UP),
+                BlockPredicate.hasSturdyFace(new BlockPos(0, 0, 1), Direction.UP),
+                BlockPredicate.hasSturdyFace(new BlockPos(0, 0, -1), Direction.UP));
     }
 }
