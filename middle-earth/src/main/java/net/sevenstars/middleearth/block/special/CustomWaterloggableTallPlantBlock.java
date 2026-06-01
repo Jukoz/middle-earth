@@ -19,6 +19,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.block.WireOrientation;
 import net.minecraft.world.tick.ScheduledTickView;
 
 public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements Fertilizable, Waterloggable {
@@ -42,19 +43,26 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
             tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
-        if (state.get(HALF) == DoubleBlockHalf.UPPER && direction != Direction.DOWN && neighborState.getFluidState().isOf(Fluids.WATER)) {
-            if (world instanceof World actualWorld && !actualWorld.isClient) {
-                dropStacks(state, actualWorld, pos);
-            }
-            return Blocks.AIR.getDefaultState();
-        }
-
         DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
         if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
             return Blocks.AIR.getDefaultState();
         } else {
             return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
         }
+    }
+
+    @Override
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, WireOrientation orientation, boolean notify) {
+        if (!world.isClient && state.get(HALF) == DoubleBlockHalf.UPPER && (
+                world.getBlockState(pos.up()).getFluidState().isOf(Fluids.WATER)
+                        || world.getBlockState(pos.north()).getFluidState().isOf(Fluids.WATER)
+                        || world.getBlockState(pos.south()).getFluidState().isOf(Fluids.WATER)
+                        || world.getBlockState(pos.east()).getFluidState().isOf(Fluids.WATER)
+                        || world.getBlockState(pos.west()).getFluidState().isOf(Fluids.WATER))) {
+            this.breakUpperFromWater(world, pos, Blocks.AIR.getDefaultState());
+            return;
+        }
+        super.neighborUpdate(state, world, pos, sourceBlock, orientation, notify);
     }
 
     @Override
@@ -107,16 +115,8 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
         }
 
         if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-            if (world instanceof World actualWorld && !actualWorld.isClient) {
-                dropStacks(state, actualWorld, pos);
-            }
-            BlockPos lowerPos = pos.down();
-            BlockState lowerState = world.getBlockState(lowerPos);
-            if (lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER) {
-                BlockState replacementState = lowerState.get(WATERLOGGED) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
-                world.setBlockState(lowerPos, replacementState, 3);
-            }
-            return world.setBlockState(pos, Blocks.WATER.getDefaultState(), 3);
+            this.breakUpperFromWater(world, pos, Blocks.WATER.getDefaultState());
+            return true;
         }
         return Waterloggable.super.tryFillWithFluid(world, pos, state, fluidState);
     }
@@ -144,5 +144,25 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
         } else {
             dropStack(world, pos, new ItemStack(this));
         }
+    }
+
+    private void breakUpperFromWater(WorldAccess world, BlockPos upperPos, BlockState upperReplacementState) {
+        BlockState upperState = world.getBlockState(upperPos);
+        if (!upperState.isOf(this) || upperState.get(HALF) != DoubleBlockHalf.UPPER) {
+            return;
+        }
+
+        if (world instanceof World actualWorld && !actualWorld.isClient) {
+            dropStacks(upperState, actualWorld, upperPos);
+        }
+
+        BlockPos lowerPos = upperPos.down();
+        BlockState lowerState = world.getBlockState(lowerPos);
+        if (lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER) {
+            BlockState lowerReplacementState = lowerState.get(WATERLOGGED) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
+            world.setBlockState(lowerPos, lowerReplacementState, 3);
+        }
+
+        world.setBlockState(upperPos, upperReplacementState, 3);
     }
 }
