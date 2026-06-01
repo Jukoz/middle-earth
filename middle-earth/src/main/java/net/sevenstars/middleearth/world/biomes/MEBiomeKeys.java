@@ -100,6 +100,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> GREY_MOUNTAINS_BASE = MEBiomeKeys.register("grey_mountains_base");
     public static final RegistryKey<Biome> GREY_MOUNTAINS_PEAKS = MEBiomeKeys.register("grey_mountains_peaks");
     public static final RegistryKey<Biome> GREY_ASHEN_WOODS = MEBiomeKeys.register("grey_ashen_woods");
+    public static final RegistryKey<Biome> GREY_FOREST = MEBiomeKeys.register("grey_forest");
     public static final RegistryKey<Biome> GREY_PLAINS = MEBiomeKeys.register("grey_plains");
     public static final RegistryKey<Biome> HARAD = MEBiomeKeys.register("harad");
     public static final RegistryKey<Biome> HARAD_DESERT = MEBiomeKeys.register("harad_desert");
@@ -164,6 +165,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> MIRKWOOD_SWAMP = MEBiomeKeys.register("mirkwood_swamp");
     public static final RegistryKey<Biome> GREAT_RIVER = MEBiomeKeys.register("great_river");
     public static final RegistryKey<Biome> GUNDABAD_PLAINS = MEBiomeKeys.register("gundabad_plains");
+    public static final RegistryKey<Biome> GUNDABAD_WOODS = MEBiomeKeys.register("gundabad_woods");
     public static final RegistryKey<Biome> MANGROVE_POND = MEBiomeKeys.register("mangrove_pond");
     public static final RegistryKey<Biome> MIRKWOOD_MARSHES = MEBiomeKeys.register("mirkwood_marshes");
     public static final RegistryKey<Biome> MISTY_MOUNTAINS_BASE = MEBiomeKeys.register("misty_mountains_base");
@@ -262,6 +264,7 @@ public class MEBiomeKeys extends BiomeKeys {
     public static final RegistryKey<Biome> WOODLAND_REALM = MEBiomeKeys.register("woodland_realm");
     public static final RegistryKey<Biome> WOODLAND_FOOTHILLS= MEBiomeKeys.register("woodland_foothills");
     public static final RegistryKey<Biome> WOODLAND_GLADE = MEBiomeKeys.register("woodland_glade");
+    public static final RegistryKey<Biome> AUTUMN_WOODLAND = MEBiomeKeys.register("autumn_woodland");
     public static final RegistryKey<Biome> WOODLAND_HILLS = MEBiomeKeys.register("woodland_hills");
     // endregion
 

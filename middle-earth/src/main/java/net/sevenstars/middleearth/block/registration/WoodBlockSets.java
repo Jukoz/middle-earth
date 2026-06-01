@@ -182,6 +182,12 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
             .addToSet(WoodBlockTypes.LEAVES));
 
+    public static WoodBlockSetBuilder DEADWOOD_SET = registerWoodSet(new WoodBlockSetBuilder("deadwood",
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.LIGHT_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
+            .addToSet(WoodBlockTypes.LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
+            .addToSet(WoodBlockTypes.PLANK_BLOCKS));
+
     public static WoodBlockSetBuilder LARCH_SET = registerWoodSet(new WoodBlockSetBuilder("larch",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DIRT_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.LARCH_SAPLING)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
