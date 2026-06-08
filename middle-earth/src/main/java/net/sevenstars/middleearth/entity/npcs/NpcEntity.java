@@ -5,6 +5,8 @@ import com.mojang.serialization.Dynamic;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
+import net.minecraft.component.type.CustomModelDataComponent;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -21,12 +23,15 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
@@ -44,7 +49,9 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
@@ -52,7 +59,12 @@ import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
+import net.sevenstars.middleearth.entity.npcs.util.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.EggItemsME;
+import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
@@ -66,6 +78,7 @@ import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -107,6 +120,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     public void readData(ReadView view) {
         super.readData(view);
         this.readEntityData(view);
+    }
+
+    @Override
+    public @Nullable ItemStack getPickBlockStack() {
+        return NpcSpawnEggHelper.getSpawnEgg(getWorld(), getNpcDataId());
     }
 
     private void writeEntityData(WriteView view){

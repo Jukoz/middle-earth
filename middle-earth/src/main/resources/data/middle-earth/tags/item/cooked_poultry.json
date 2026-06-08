@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:cooked_chicken",
-    "middle-earth:cooked_swan"
+    "wild-things:cooked_poultry",
+    "wild-things:cooked_swan"
   ]
 }

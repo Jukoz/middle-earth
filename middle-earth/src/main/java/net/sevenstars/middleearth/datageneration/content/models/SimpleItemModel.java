@@ -126,6 +126,10 @@ public class SimpleItemModel {
             add(ResourceItemsME.RAW_SILVER);
             add(ResourceItemsME.RAW_MITHRIL);
 
+            add(ResourceItemsME.TIN_NUGGET);
+            add(ResourceItemsME.LEAD_NUGGET);
+            add(ResourceItemsME.SILVER_NUGGET);
+
             add(ResourceItemsME.ADAMANT);
             add(ResourceItemsME.RUBY);
             add(ResourceItemsME.SAPPHIRE);
@@ -183,6 +187,7 @@ public class SimpleItemModel {
             add(DecorativeItemsME.LARCH_HOBBIT_DOOR.asItem());
             add(DecorativeItemsME.SPRUCE_HOBBIT_DOOR.asItem());
             add(DecorativeItemsME.TALL_BLACK_PINE_DOOR.asItem());
+            add(DecorativeItemsME.TALL_FIR_DOOR.asItem());
             add(DecorativeItemsME.OAK_STABLE_DOOR.asItem());
             add(DecorativeItemsME.REINFORCED_SPRUCE_DOOR.asItem());
             add(DecorativeItemsME.REINFORCED_BLACK_PINE_DOOR.asItem());

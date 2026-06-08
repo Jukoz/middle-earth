@@ -60,6 +60,32 @@ public class BlockSetRegistration {
         return new BlockRecordTypes.RegularSet(base, slab, verticalSlab, stairs, wall);
     }
 
+    public static BlockRecordTypes.SimpleBlocks createSimpleSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool) {
+        Block base;
+
+        AbstractBlock.Settings baseSettings;
+        if (requiresTool){
+            baseSettings = AbstractBlock.Settings.create()
+                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool();
+        } else {
+            baseSettings = AbstractBlock.Settings.create()
+                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance);
+        }
+
+        base = getVanillaOrCreateNew(name, Block::new, baseSettings, group);
+
+        Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
+                baseSettings, group);
+
+        Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", VerticalSlabBlock::new,
+                baseSettings, group);
+
+        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairsBlock(
+                base.getDefaultState(), settings), baseSettings, group);
+
+        return new BlockRecordTypes.SimpleBlocks(base, slab, verticalSlab, stairs);
+    }
+
     public static BlockRecordTypes.RegularSet createOxidizableSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool, Oxidizable.OxidationLevel level) {
         Block base;
 

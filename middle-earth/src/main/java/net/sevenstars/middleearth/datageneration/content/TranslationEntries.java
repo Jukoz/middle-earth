@@ -319,6 +319,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".oak_coffer", "Oak Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".willow_coffer", "Willow Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
+            put("screen."+ MiddleEarth.MOD_ID +".sack", "Sack");
             put("screen."+ MiddleEarth.MOD_ID +".wood_pile", "Wood Pile");
             put("screen."+ MiddleEarth.MOD_ID +".shaping_anvil", "Shaping Anvil");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.weapons", "Weapons");

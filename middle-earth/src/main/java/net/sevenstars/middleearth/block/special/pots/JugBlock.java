@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class JugBlock extends PotBlock {
+public class JugBlock extends LootablePotBlock {
 
     public JugBlock(Settings settings) {
         super(settings);

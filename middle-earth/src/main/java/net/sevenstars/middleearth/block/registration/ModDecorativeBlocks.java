@@ -26,6 +26,7 @@ import net.sevenstars.middleearth.block.special.pots.FatPotBlock;
 import net.sevenstars.middleearth.block.special.pots.JarBlock;
 import net.sevenstars.middleearth.block.special.pots.JugBlock;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlock;
+import net.sevenstars.middleearth.block.special.sack.SackBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.dwarvenTreatedAnvil.DwarvenShapingAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.ElvenTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
@@ -153,6 +154,9 @@ public class ModDecorativeBlocks {
     public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
             ReinforcedChestBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool());
 
+    public static final Block SACK = registerBlock("sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
 
@@ -178,6 +182,8 @@ public class ModDecorativeBlocks {
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool());
     public static final Block DIORITE_STATUE = registerBlock("diorite_statue",
             FlipStatueBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).nonOpaque().requiresTool());
+    public static final Block GABBRO_STATUE = registerBlock("gabbro_statue",
+            FlipStatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
     public static final Block GALONN_STATUE = registerBlock("galonn_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
     public static final Block KHAGALABAN_STATUE = registerBlock("khagalaban_statue",
@@ -187,6 +193,8 @@ public class ModDecorativeBlocks {
     public static final Block PUMICE_STATUE = registerBlock("pumice_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
     public static final Block TUFF_STATUE = registerBlock("tuff_statue",
+            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
+    public static final Block ZIGILABAN_STATUE = registerBlock("zigilaban_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.TUFF).nonOpaque().requiresTool());
 
     public static final Block ORCISH_DRUM = registerBlockWithItem("orcish_drum",
@@ -666,6 +674,8 @@ public class ModDecorativeBlocks {
 
     public static final Block TALL_BLACK_PINE_DOOR = registerBlock("tall_black_pine_door",
             LargeDoor3x1::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
+    public static final Block TALL_FIR_DOOR = registerBlock("tall_fir_door",
+            LargeDoor3x1::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS));
 
     public static final Block OAK_STABLE_DOOR = registerBlock("oak_stable_door",
             LargeDoor4x2::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
@@ -733,7 +743,8 @@ public class ModDecorativeBlocks {
             ArkenstoneWallBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool());
 
     public static final Block REINFORCED_SCAFFOLDING = registerBlock("reinforced_scaffolding",
-            ReinforcedScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
+            ReinforcedScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN)
+                    .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));

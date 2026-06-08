@@ -1,14 +1,17 @@
 package net.sevenstars.middleearth.registries.content.texturepresets.pools.lothlorien;
 
 import net.sevenstars.api.dtos.WeightedPool;
+import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
+import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePreset;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.api.dtos.WeightedIdentifier;
+import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedClothingPresetHolder;
 import net.sevenstars.middleearth.resources.datas.texture_presets.WeightedTexturePresetHolder;
 
 import java.util.HashMap;
@@ -111,26 +114,13 @@ public class LothlorienTexturePresetsPool {
 
         LORD = new TexturePresetDataPool(new HashMap<>(){{
             put(EntityCategories.SHARED, new WeightedPool<>(
-                    BASE_PRESET
-                            .copy()
-                            .clearMaterials(CharacterMaterialTypes.HAIR)
+                    BASE_PRESET.copy()
+                               .clearMaterials(CharacterMaterialTypes.HAIR)
             ));
             put(EntityCategories.MALE, new WeightedPool<>(List.of(
-                LORD_PRESET.copy(),
-                LORD_PRESET.copy()
-                    .clearPatterns(CharacterPatternTypes.EYE)
-                    .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_LEFT)
-                    ))
-                    .withPatterns(CharacterPatternTypes.SCAR,  List.of(
-                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT)
-                    )),
-                LORD_PRESET.copy()
-                    .clearPatterns(CharacterPatternTypes.EYE)
-                    .withPatterns(CharacterPatternTypes.EYE, List.of(
-                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_RIGHT)
-                    ))
-                    .withPatterns(CharacterPatternTypes.SCAR,  List.of(
+                    LORD_PRESET.copy().withPatterns(CharacterPatternTypes.SCAR, List.of(
+                            TexturePreset.EMPTY_VALUE_KEY.withWeight(30),
+                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT),
                             WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
                     ))
             )));
