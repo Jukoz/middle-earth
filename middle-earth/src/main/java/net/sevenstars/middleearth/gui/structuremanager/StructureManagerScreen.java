@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.gui.structuremanager;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -22,8 +24,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Environment(value= EnvType.CLIENT)
 public class StructureManagerScreen extends HandledScreen<StructureManagerScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/structure_manager.png");
+    private static final Identifier TEXTURE = MiddleEarth.ofPath("textures", "gui", "structure_manager.png");
 
     public SearchBarWidget searchBarWidget;
     public Text runtimeDataText;
@@ -86,7 +89,14 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     }
 
     @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        renderBackground(context, mouseX, mouseY, deltaTicks);
+        super.render(context, mouseX, mouseY, deltaTicks);
+
         ModWidget.updateMouse(mouseX, mouseY);
 
         int centerX = (int) (client.currentScreen.width / 2f);
