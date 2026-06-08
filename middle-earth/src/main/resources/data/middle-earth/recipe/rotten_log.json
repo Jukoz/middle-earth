@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "#M#",
+    "###"
+  ],
+  "key": {
+    "#": "#minecraft:logs",
+    "M": "#middle-earth:mushrooms"
+  },
+  "result": {
+    "id": "middle-earth:rotten_log",
+    "count": 8
+  }
+}

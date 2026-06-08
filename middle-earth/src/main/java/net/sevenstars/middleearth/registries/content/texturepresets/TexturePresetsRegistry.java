@@ -77,7 +77,8 @@ public class TexturePresetsRegistry {
 
     /* [WOODLAND_REALMS] */
     public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_ELF = of(FactionRegistry.WOODLAND_REALM, "elf");
-    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_ELF_SENTINEL = of(FactionRegistry.WOODLAND_REALM, "elf_sentinel");
+    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_SENTINEL = of(FactionRegistry.WOODLAND_REALM, "sentinel");
+    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_NIGHTSHADE = of(FactionRegistry.WOODLAND_REALM, "nightshade");
     public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_COMMANDER = of(FactionRegistry.WOODLAND_REALM, "commander");
     public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_WARDEN_OF_THE_GLADE = of(FactionRegistry.WOODLAND_REALM, "warden_of_the_glade");
 

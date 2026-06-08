@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class AmphoraBlock extends PotBlock {
+public class AmphoraBlock extends LootablePotBlock {
 
     public AmphoraBlock(Settings settings) {
         super(settings);

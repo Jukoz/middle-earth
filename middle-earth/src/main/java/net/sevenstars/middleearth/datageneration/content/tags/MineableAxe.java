@@ -31,6 +31,7 @@ public class MineableAxe {
             add(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
             add(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
             add(ModDecorativeBlocks.TALL_BLACK_PINE_DOOR);
+            add(ModDecorativeBlocks.TALL_FIR_DOOR);
             add(ModDecorativeBlocks.OAK_STABLE_DOOR);
             add(ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR);
             add(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);

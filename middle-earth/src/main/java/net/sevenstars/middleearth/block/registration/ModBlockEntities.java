@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
+import net.sevenstars.middleearth.block.special.sack.SackBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
@@ -46,6 +47,8 @@ public class ModBlockEntities {
     public static BlockEntityType<OakCofferBlockEntity> OAK_COFFER = register("oak_coffer", OakCofferBlockEntity::new, ModDecorativeBlocks.OAK_COFFER);
     public static BlockEntityType<WillowCofferBlockEntity> WILLOW_COFFER = register("willow_coffer", WillowCofferBlockEntity::new, ModDecorativeBlocks.WILLOW_COFFER);
 
+    public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new, ModDecorativeBlocks.SACK);
+
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             ModDecorativeBlocks.REINFORCED_CHEST);
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,
@@ -79,6 +82,18 @@ public class ModBlockEntities {
     public static void registerBlockEntities() {
         BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.SMALL_CRATE);
         BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.THIN_BARREL);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.AMPHORA);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_AMPHORA);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_JUG);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_POT);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.LARGE_JUG);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_VASE);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_JAR);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.CLAY_JAR);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_JAR);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_FAT_POT);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.FAT_POT);
+        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_FAT_POT);
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name,

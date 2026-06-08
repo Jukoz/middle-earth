@@ -26,6 +26,8 @@ public class LorienNpcDataPool {
     public final static NpcData RANGER;
     public final static NpcData WARRIOR;
     public final static NpcData KNIGHT;
+    public final static NpcData EGLADIL_SENTINEL ;
+    public final static NpcData EGLADIL_COMMANDER;
     public final static NpcData GUARD;
     public final static NpcData LORD;
 
@@ -35,6 +37,8 @@ public class LorienNpcDataPool {
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_RANGER, RANGER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_WARRIOR, WARRIOR),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_KNIGHT, KNIGHT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL, EGLADIL_SENTINEL),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER, EGLADIL_COMMANDER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_GUARD, GUARD),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_LORD, LORD)
         );
@@ -157,6 +161,49 @@ public class LorienNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+
+        EGLADIL_SENTINEL = new NpcData(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_CHESTPLATE)
+                                        .withCape(BackAttachmentsME.SHOULDER_CAPE_RIGHT, 0x564469))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+
+        EGLADIL_COMMANDER = new NpcData(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_COMMANDER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_LONGBOW))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
 

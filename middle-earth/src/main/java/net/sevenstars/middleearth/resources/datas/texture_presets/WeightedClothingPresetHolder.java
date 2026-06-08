@@ -38,21 +38,25 @@ public class WeightedClothingPresetHolder extends WeightedItem<ClothingPreset> {
 
     public Identifier getRandomBase(){
         WeightedIdentifier data = item.bases.getRandom();
-        if(data == null)
-            return null;
-        return data.getItem();
+        return computeData(data);
     }
 
     public Identifier getRandomOver(){
         WeightedIdentifier data = item.overs.getRandom();
-        if(data == null)
-            return null;
-        return data.getItem();
+        return computeData(data);
     }
 
     public Identifier getRandomExtra(){
         WeightedIdentifier data = item.extras.getRandom();
+        return computeData(data);
+    }
+
+    private Identifier computeData(WeightedIdentifier data) {
         if(data == null)
+            return null;
+        Identifier foundItem = data.getItem();
+        Identifier emptyId = Identifier.of("empty");
+        if(foundItem.equals(emptyId))
             return null;
         return data.getItem();
     }

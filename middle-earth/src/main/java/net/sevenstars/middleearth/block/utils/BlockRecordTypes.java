@@ -122,4 +122,15 @@ public class BlockRecordTypes {
             return list;
         }
     }
+
+    public record SimpleBlocks(Block base, Block slab, Block verticalSlab, Block stairs) {
+        public static List<Block> getAllBlocks(SimpleBlocks set){
+            List<Block> list = new ArrayList<>();
+            list.add(set.base);
+            list.add(set.slab);
+            list.add(set.verticalSlab);
+            list.add(set.stairs);
+            return list;
+        }
+    }
 }

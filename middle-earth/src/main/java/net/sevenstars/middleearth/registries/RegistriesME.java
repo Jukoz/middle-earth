@@ -435,6 +435,7 @@ public class RegistriesME {
             builder.add(WeaponItemsME.URUK_HAI_CROSSBOW, 400);
 
             builder.add(WeaponItemsME.GUNDABAD_BOW, 300);
+            builder.add(WeaponItemsME.GUNDABAD_LONGBOW, 400);
             builder.add(WeaponItemsME.GUNDABAD_CROSSBOW, 400);
 
             builder.add(WeaponItemsME.MORIA_GOBLIN_BOW, 300);
@@ -502,6 +503,7 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.WILDERGRASS, 0.30f);
         registry.add(ModNatureBlocks.BEACH_GRASS, 0.30f);
         registry.add(ModNatureBlocks.COASTAL_PANIC_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.MISTWEED, 0.30f);
         registry.add(ModNatureBlocks.SEDUM, 0.30f);
         registry.add(ModNatureBlocks.ORANGE_SEDUM, 0.30f);
         registry.add(ModNatureBlocks.RED_SEDUM, 0.30f);

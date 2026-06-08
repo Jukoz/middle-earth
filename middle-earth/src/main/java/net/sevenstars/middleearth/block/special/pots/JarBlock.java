@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class JarBlock extends PotBlock {
+public class JarBlock extends LootablePotBlock {
 
     public JarBlock(Settings settings) {
         super(settings);
