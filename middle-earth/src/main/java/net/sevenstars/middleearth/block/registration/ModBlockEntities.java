@@ -34,7 +34,10 @@ public class ModBlockEntities {
             ModDecorativeBlocks.ELVEN_TREATED_ANVIL,
             ModDecorativeBlocks.ORCISH_TREATED_ANVIL);
     public static BlockEntityType<StructureManagerBlockEntity> STRUCTURE_MANAGER = register("structure_manager", StructureManagerBlockEntity::new,
-            ModDecorativeBlocks.STRUCTURE_MANAGER);
+            ModDecorativeBlocks.STRUCTURE_MANAGER,
+            ModDecorativeBlocks.ORC_STRUCTURE_MANAGER);
+    public static BlockEntityType<StructureManagerBlockEntity> ORC_STRUCTURE_MANAGER = register("orc_structure_manager", StructureManagerBlockEntity::new,
+            ModDecorativeBlocks.ORC_STRUCTURE_MANAGER);
     public static BlockEntityType<StructureNestBlockEntity> STRUCTURE_NEST = register("structure_nest", StructureNestBlockEntity::new,
             ModDecorativeBlocks.STRUCTURE_NEST);
 

@@ -84,6 +84,8 @@ public class DecorativeItemsME {
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_MANAGER, settings), new Item.Settings());
+    public static final Item ORC_STRUCTURE_MANAGER = registerItem("orc_structure_manager",
+            (settings) -> new BlockItem(ModDecorativeBlocks.ORC_STRUCTURE_MANAGER, settings), new Item.Settings());
     public static final Item STRUCTURE_NEST = registerItem("structure_nest",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_NEST, settings), new Item.Settings());
 

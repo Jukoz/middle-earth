@@ -120,6 +120,8 @@ public class ModDecorativeBlocks {
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+    public static final Block ORC_STRUCTURE_MANAGER = registerBlock("orc_structure_manager",
+            StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS).nonOpaque());
     public static final Block STRUCTURE_NEST = registerBlock("structure_nest",
             StructureNestBlock::new, AbstractBlock.Settings.create().strength(-1.0F, 3600000.8F).noCollision().dropsNothing().nonOpaque().allowsSpawning(Blocks::never).noBlockBreakParticles().pistonBehavior(PistonBehavior.BLOCK));
 
