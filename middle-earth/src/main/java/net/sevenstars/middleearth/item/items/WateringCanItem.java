@@ -27,6 +27,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.sevenstars.middleearth.utils.item.DamageableItemUtils;
 
 public class WateringCanItem extends BlockItem {
@@ -215,7 +216,7 @@ public class WateringCanItem extends BlockItem {
     }
 
     private void hydrateFarmland(ServerWorld world, BlockPos pos, BlockState state) {
-        if (state.contains(Properties.MOISTURE) && state.getBlock() instanceof FarmlandBlock && state.get(Properties.MOISTURE) < FarmlandBlock.MAX_MOISTURE) {
+        if (state.contains(Properties.MOISTURE) && state.isIn(BlockTagsME.FARMLANDS) && state.get(Properties.MOISTURE) < FarmlandBlock.MAX_MOISTURE) {
             world.setBlockState(pos, state.with(Properties.MOISTURE, FarmlandBlock.MAX_MOISTURE), 2);
         }
     }
