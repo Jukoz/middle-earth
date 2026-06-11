@@ -20,6 +20,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fireBlocks.AbstractToggleableFireBlock;
 import net.sevenstars.middleearth.block.special.torches.METorchBlock;
 import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,7 +32,7 @@ public abstract class CropBlockMixin {
 
     @Inject(at = @At("TAIL"), method = "canPlantOnTop", cancellable = true)
     private void canPlantOnTop(BlockState floor, BlockView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir, @Local BlockState blockState) {
-        if (floor.isOf(Blocks.FARMLAND) || floor.isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "farmlands")))){
+        if (floor.isIn(BlockTagsME.FARMLANDS) || floor.isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "farmlands")))){
             cir.setReturnValue(true);
         }
     }
