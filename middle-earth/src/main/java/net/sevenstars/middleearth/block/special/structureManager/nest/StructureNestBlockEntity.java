@@ -47,6 +47,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     protected int spawnRadius;
     protected boolean isEnabled;
 
+    protected boolean firstWorldTick = true;
     boolean initialized = false;
 
     public StructureNestBlockEntity(BlockPos pos, BlockState state) {
@@ -137,8 +138,14 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         if(world.isClient || initialized || !isEnabled)
             return;
 
+        BlockState blockState = world.getBlockState(getPos());
+        if(!blockState.get(StructureNestBlock.ENABLED)) return;
+
         if(managerId == null || nestId == null || world.getTickOrder() % 100 != 0) // every 5 seconds
             return;
+
+        if(!firstWorldTick) return;
+        else firstWorldTick = false;
 
         Optional<BlockPos> nearestBlockEntity =  BlockPos.findClosest(pos, 20, 20, new Predicate<BlockPos>() {
             @Override
