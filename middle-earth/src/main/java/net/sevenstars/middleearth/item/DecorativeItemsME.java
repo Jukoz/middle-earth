@@ -125,6 +125,9 @@ public class DecorativeItemsME {
     public static final Item CALCITE_STATUE = registerItem("calcite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.CALCITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item DEEPSLATE_STATUE = registerItem("deepslate_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.DEEPSLATE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.ANGMARZKU)));
     public static final Item DIORITE_STATUE = registerItem("diorite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.DIORITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.COFFEE_VIKING)));
