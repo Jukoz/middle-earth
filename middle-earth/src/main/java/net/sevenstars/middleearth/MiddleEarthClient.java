@@ -640,6 +640,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GILDED_WALL_SCONCE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ORCISH_WALL_SCONCE, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ORCISH_ARTISAN_TABLE, BlockRenderLayer.CUTOUT);
+
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.STONE_LECTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF, BlockRenderLayer.CUTOUT);
 

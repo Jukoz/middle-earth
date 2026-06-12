@@ -216,6 +216,7 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".elven_treated_anvil", "Elven Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".orcish_treated_anvil", "Orcish Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("block."+ MiddleEarth.MOD_ID +".orcish_artisan_table", "Orcish Artisan Table");
             put("block."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
 
             put("block."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");

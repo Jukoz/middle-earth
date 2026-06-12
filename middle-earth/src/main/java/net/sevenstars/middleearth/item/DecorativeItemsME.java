@@ -79,6 +79,8 @@ public class DecorativeItemsME {
 
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
+    public static final Item ORCISH_ARTISAN_TABLE = registerItem("orcish_artisan_table",
+            (settings) -> new BlockItem(ModDecorativeBlocks.ORCISH_ARTISAN_TABLE, settings), new Item.Settings());
     public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.INSCRIPTION_TABLE, settings), new Item.Settings());
 

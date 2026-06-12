@@ -115,6 +115,8 @@ public class ModDecorativeBlocks {
 
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
+    public static final Block ORCISH_ARTISAN_TABLE = registerBlock("orcish_artisan_table",
+            ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
     public static final Block INSCRIPTION_TABLE = registerBlock("inscription_table",
             InscriptionTableblock::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
 
