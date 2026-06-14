@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top_inner_faces",
+  "textures": {
+    "bottom": "middle-earth:block/bandit_vault_bottom",
+    "side": "middle-earth:block/bandit_vault_side",
+    "top": "middle-earth:block/bandit_vault_top"
+  }
+}

@@ -129,6 +129,8 @@ public class ModDecorativeBlocks {
 
     public static final Block BANDIT_TRIAL_SPAWNER = registerBlock("bandit_trial_spawner",
             TrialSpawnerBlock::new, AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER));
+    public static final Block BANDIT_VAULT = registerBlock("bandit_vault",
+            VaultBlock::new, AbstractBlock.Settings.copy(Blocks.VAULT).nonOpaque());
 
     public static final Block SMALL_CRATE = registerBlock("small_crate",
             CrateBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());

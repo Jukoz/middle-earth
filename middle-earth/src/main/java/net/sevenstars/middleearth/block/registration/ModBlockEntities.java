@@ -100,6 +100,7 @@ public class ModBlockEntities {
         BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.POT_OF_GOLD);
 
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.BANDIT_TRIAL_SPAWNER);
+        BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.BANDIT_VAULT);
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name,
