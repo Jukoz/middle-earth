@@ -98,6 +98,8 @@ public class ModBlockEntities {
         BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.FAT_POT);
         BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_FAT_POT);
         BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.POT_OF_GOLD);
+
+        BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.BANDIT_TRIAL_SPAWNER);
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name,

@@ -91,6 +91,9 @@ public class DecorativeItemsME {
     public static final Item STRUCTURE_NEST = registerItem("structure_nest",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_NEST, settings), new Item.Settings());
 
+    public static final Item BANDIT_TRIAL_SPAWNER = registerItem("bandit_trial_spawner",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BANDIT_TRIAL_SPAWNER, settings), new Item.Settings());
+
     public static final Item SMALL_CRATE = registerItem("small_crate",
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());
     public static final Item THIN_BARREL = registerItem("thin_barrel",
