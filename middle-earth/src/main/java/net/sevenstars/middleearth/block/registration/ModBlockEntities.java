@@ -102,6 +102,7 @@ public class ModBlockEntities {
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.BANDIT_TRIAL_SPAWNER);
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.SPIDER_TRIAL_SPAWNER);
         BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.BANDIT_VAULT);
+        BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.SPIDER_VAULT);
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name,
