@@ -95,6 +95,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.BANDIT_TRIAL_SPAWNER, settings), new Item.Settings());
     public static final Item BANDIT_VAULT = registerItem("bandit_vault",
             (settings) -> new BlockItem(ModDecorativeBlocks.BANDIT_VAULT, settings), new Item.Settings());
+    public static final Item SPIDER_TRIAL_SPAWNER = registerItem("spider_trial_spawner",
+            (settings) -> new BlockItem(ModDecorativeBlocks.SPIDER_TRIAL_SPAWNER, settings), new Item.Settings());
 
     public static final Item SMALL_CRATE = registerItem("small_crate",
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());

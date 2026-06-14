@@ -100,6 +100,7 @@ public class ModBlockEntities {
         BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.POT_OF_GOLD);
 
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.BANDIT_TRIAL_SPAWNER);
+        BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.SPIDER_TRIAL_SPAWNER);
         BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.BANDIT_VAULT);
     }
 
