@@ -155,10 +155,10 @@
           "functions": [
             {
               "function": "minecraft:enchant_randomly",
-              "options": "#middle-earth:on_random_spider_loot"
+              "options": "#middle-earth:on_random_brigand_loot"
             }
           ],
-          "name": "minecraft:enchanted_book",
+          "name": "minecraft:book",
           "weight": 7
         },
         {

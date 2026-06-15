@@ -158,7 +158,7 @@
               "options": "#middle-earth:on_random_spider_loot"
             }
           ],
-          "name": "minecraft:enchanted_book",
+          "name": "minecraft:book",
           "weight": 7
         },
         {

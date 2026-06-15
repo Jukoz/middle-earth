@@ -36,8 +36,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -67,8 +67,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -92,8 +92,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -117,8 +117,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -142,8 +142,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -167,8 +167,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -198,8 +198,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -223,8 +223,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -248,8 +248,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -273,8 +273,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -298,8 +298,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -323,8 +323,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -355,8 +355,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -386,8 +386,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -417,8 +417,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -448,8 +448,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -479,8 +479,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -510,8 +510,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -535,8 +535,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -560,8 +560,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -585,8 +585,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -621,8 +621,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -646,8 +646,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -671,8 +671,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -696,8 +696,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -721,8 +721,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -746,8 +746,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -771,8 +771,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
@@ -796,8 +796,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 15,
-                "min": 5
+                "max": 20,
+                "min": 10
               },
               "options": "#middle-earth:on_random_spider_loot"
             }
