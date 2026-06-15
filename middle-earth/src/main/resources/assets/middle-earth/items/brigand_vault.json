@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "middle-earth:item/bandit_vault"
+    "model": "middle-earth:item/brigand_vault"
   }
 }

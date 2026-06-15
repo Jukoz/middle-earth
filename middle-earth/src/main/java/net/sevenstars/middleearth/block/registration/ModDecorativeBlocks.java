@@ -56,8 +56,6 @@ import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 
-import static net.sevenstars.middleearth.block.registration.ModBlocks.registerWoodBlock;
-
 public class ModDecorativeBlocks {
 
     public static final Block SILVER_LANTERN = registerBlock("silver_lantern",
@@ -127,9 +125,9 @@ public class ModDecorativeBlocks {
     public static final Block STRUCTURE_NEST = registerBlock("structure_nest",
             StructureNestBlock::new, AbstractBlock.Settings.create().strength(-1.0F, 3600000.8F).noCollision().dropsNothing().nonOpaque().allowsSpawning(Blocks::never).noBlockBreakParticles().pistonBehavior(PistonBehavior.BLOCK));
 
-    public static final Block BANDIT_TRIAL_SPAWNER = registerBlock("bandit_trial_spawner",
+    public static final Block BRIGAND_TRIAL_SPAWNER = registerBlock("brigand_trial_spawner",
             TrialSpawnerBlock::new, AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER));
-    public static final Block BANDIT_VAULT = registerBlock("bandit_vault",
+    public static final Block BRIGAND_VAULT = registerBlock("brigand_vault",
             VaultBlock::new, AbstractBlock.Settings.copy(Blocks.VAULT).nonOpaque());
     public static final Block SPIDER_TRIAL_SPAWNER = registerBlock("spider_trial_spawner",
             TrialSpawnerBlock::new, AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER));

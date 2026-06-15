@@ -106,7 +106,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.FUR);
             add(ResourceItemsME.FABRIC);
 
-            add(ResourceItemsME.BANDIT_KEY);
+            add(ResourceItemsME.BRIGAND_KEY);
             add(ResourceItemsME.DWARVEN_KEY);
 
             add(ResourceItemsME.RED_AGATE_SHARD);
