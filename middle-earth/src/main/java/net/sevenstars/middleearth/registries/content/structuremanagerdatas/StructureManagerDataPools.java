@@ -39,20 +39,23 @@ public class StructureManagerDataPools {
     
     static {
         BRIGAND_DUNGEON_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "brigand_dungeon_pool"), List.of(
+                new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.cook"), RESPAWN_TICKS, List.of(
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, BrigandNpcDataPool.THUG.getId()).SetFixAmount(1)
+                )),
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.bandit"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.DALE, BrigandNpcDataPool.THIEF.getId()).SetRangeAmount(1,2),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.DALE, BrigandNpcDataPool.THUG.getId()).SetRangeAmount(1,2),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.DALE, BrigandNpcDataPool.MERCENARY.getId()).SetFixAmount(1)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.BRIGAND, BrigandNpcDataPool.THIEF.getId()).SetRangeAmount(1,2),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.BRIGAND, BrigandNpcDataPool.THUG.getId()).SetRangeAmount(1,2),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, BrigandNpcDataPool.MERCENARY.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.prisoner"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.DALE, RohirricNpcDataPool.PEASANT.getId()).SetFixAmount(1),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, RohirricNpcDataPool.PEASANT.getId()).SetFixAmount(1),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES, GundabadNpcDataPool.SNAGA.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.mercenary"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.DALE, BrigandNpcDataPool.MERCENARY.getId()).SetRangeAmount(1,2)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, BrigandNpcDataPool.MERCENARY.getId()).SetRangeAmount(1,2)
                 )),
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.chief"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.DALE, BrigandNpcDataPool.CHIEFTAIN.getId()).SetFixAmount(1)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, BrigandNpcDataPool.CHIEFTAIN.getId()).SetFixAmount(1)
                 ))
         ));
 
@@ -107,37 +110,37 @@ public class StructureManagerDataPools {
         ));
 
         EREBOR_GENERIC_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "erebor_generic_pool"), List.of(
-                new SpawnNestNodeData(createIdentifier("erebor_generic_nests.captain"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.LEADER.getId()).SetFixAmount(1)
-                )),
-                new SpawnNestNodeData(createIdentifier("erebor_generic_nests.guard"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.VETERAN.getId()).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.GATEWARDEN.getId()).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ELITE.getId()).SetFixAmount(1)
-                )),
-                new SpawnNestNodeData(createIdentifier("erebor_generic_nests.barrack"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.SOLDIER.getId()).SetRangeAmount(2,3),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ARCHER.getId()).SetRangeAmount(2,3),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MILITIA.getId()).SetRangeAmount(2,4)
-                )),
-                new SpawnNestNodeData(createIdentifier("erebor_generic_nests.worker"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetRangeAmount(1,3),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.PEASANT.getId()).SetRangeAmount(1,3)
-                )),
-                new SpawnNestNodeData(createIdentifier("erebor_generic_nests.smith"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetFixAmount(1)
-                )),
-                new SpawnNestNodeData(createIdentifier("erebor_generic_nests.prisoner"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.MORDOR, MordorNpcDataPool.SNAGA.getId()).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THIEF.getValue()).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_MERCENARY.getValue()).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG.getValue()).SetFixAmount(1)
-                )),
-                new SpawnNestNodeData(createIdentifier("erebor_generic_nests.stable"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.BROADHOOF_GOAT, 5).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntityType.PIG, 2).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntityType.DONKEY, 2).SetFixAmount(1)
-                ))
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.captain"), RESPAWN_TICKS, List.of(
+                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.LEADER.getId()).SetFixAmount(1)
+            )),
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.guard"), RESPAWN_TICKS, List.of(
+                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.VETERAN.getId()).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.GATEWARDEN.getId()).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ELITE.getId()).SetFixAmount(1)
+            )),
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.barrack"), RESPAWN_TICKS, List.of(
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.SOLDIER.getId()).SetRangeAmount(2,3),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ARCHER.getId()).SetRangeAmount(2,3),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MILITIA.getId()).SetRangeAmount(2,4)
+            )),
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.worker"), RESPAWN_TICKS, List.of(
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetRangeAmount(1,3),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.PEASANT.getId()).SetRangeAmount(1,3)
+            )),
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.smith"), RESPAWN_TICKS, List.of(
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetFixAmount(1)
+            )),
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.prisoner"), RESPAWN_TICKS, List.of(
+                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.MORDOR, MordorNpcDataPool.SNAGA.getId()).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THIEF.getValue()).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_MERCENARY.getValue()).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG.getValue()).SetFixAmount(1)
+            )),
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.stable"), RESPAWN_TICKS, List.of(
+                    new StructureSpawnNestPool(EntitiesME.BROADHOOF_GOAT, 5).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntityType.PIG, 2).SetFixAmount(1),
+                    new StructureSpawnNestPool(EntityType.DONKEY, 2).SetFixAmount(1)
+            ))
         ));
 
         GONDOR_VILLAGE_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gondor_village_nest_pool"), List.of(
@@ -193,6 +196,9 @@ public class StructureManagerDataPools {
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetRangeAmount(1,3),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.MILITIA.getId()).SetRangeAmount(1,2)
                 )),
+                new SpawnNestNodeData(createIdentifier("gundabad_camp_nests.warg"), RESPAWN_TICKS, List.of(
+                        new StructureSpawnNestPool(EntitiesME.WARG, 1).SetFixAmount(1)
+                )),
                 new SpawnNestNodeData(createIdentifier("gundabad_camp_nests.smith"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetFixAmount(1)
                 )),
@@ -210,6 +216,9 @@ public class StructureManagerDataPools {
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ISENGARD, IsengardNpcDataPool.SNAGA.getId()).SetRangeAmount(1,3),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ISENGARD, IsengardNpcDataPool.WARRIOR.getId()).SetRangeAmount(1,2)
                 )),
+                new SpawnNestNodeData(createIdentifier("isengard_camp_nests.warg"), RESPAWN_TICKS, List.of(
+                        new StructureSpawnNestPool(EntitiesME.WARG, 1).SetFixAmount(1)
+                )),
                 new SpawnNestNodeData(createIdentifier("isengard_camp_nests.smith"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ISENGARD, IsengardNpcDataPool.SNAGA.getId()).SetFixAmount(1)
                 )),
@@ -222,7 +231,7 @@ public class StructureManagerDataPools {
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ISENGARD, IsengardNpcDataPool.URUK_HAI_BERSERKER.getId()).SetFixAmount(1),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ISENGARD, IsengardNpcDataPool.URUK_HAI_VETERAN.getId()).SetFixAmount(1)
                 )),
-                new SpawnNestNodeData(createIdentifier("isengard_camp_nests.guard"), RESPAWN_TICKS, List.of(
+                new SpawnNestNodeData(createIdentifier("isengard_camp_nests.orthanc_guard"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ISENGARD, IsengardNpcDataPool.ORTHANC_GUARD.getId()).SetFixAmount(1)
                 ))
         ));
@@ -246,6 +255,9 @@ public class StructureManagerDataPools {
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.MORDOR, MordorNpcDataPool.SCOUT.getId()).SetRangeAmount(1,2),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.MORDOR, MordorNpcDataPool.MILITIA.getId()).SetRangeAmount(1,2)
                 )),
+                new SpawnNestNodeData(createIdentifier("mordor_camp_nests.warg"), RESPAWN_TICKS, List.of(
+                        new StructureSpawnNestPool(EntitiesME.WARG, 1).SetFixAmount(1)
+                )),
                 new SpawnNestNodeData(createIdentifier("mordor_camp_nests.smith"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.MORDOR, MordorNpcDataPool.SNAGA.getId()).SetFixAmount(1)
                 )),
@@ -261,6 +273,9 @@ public class StructureManagerDataPools {
                 new SpawnNestNodeData(createIdentifier("moria_hall_nests.orc"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetRangeAmount(1,3),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.MILITIA.getId()).SetRangeAmount(1,2)
+                )),
+                new SpawnNestNodeData(createIdentifier("mordor_camp_nests.cave_troll"), RESPAWN_TICKS, List.of(
+                        new StructureSpawnNestPool(EntitiesME.CAVE_TROLL, 1).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("moria_hall_nests.smith"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetFixAmount(1)
@@ -287,6 +302,13 @@ public class StructureManagerDataPools {
                 )),
                 new SpawnNestNodeData(createIdentifier("rohan_village_nests.bees"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntityType.BEE, 1).SetRangeAmount(2,3)
+                )),
+                new SpawnNestNodeData(createIdentifier("rohan_village_nests.stables_master"), RESPAWN_TICKS, List.of(
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ROHAN, DalishNpcDataPool.PEASANT.getId()).SetFixAmount(1)
+                )),
+                new SpawnNestNodeData(createIdentifier("rohan_village_nests.stable"), RESPAWN_TICKS, List.of(
+                        new StructureSpawnNestPool(EntityType.HORSE, 6).SetFixAmount(1),
+                        new StructureSpawnNestPool(EntityType.DONKEY, 1).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("rohan_village_nests.smith"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ROHAN, RohirricNpcDataPool.PEASANT.getId()).SetFixAmount(1)
