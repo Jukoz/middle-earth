@@ -291,7 +291,7 @@ public class StructureManagerDataPools {
 
         ROHAN_VILLAGE_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "rohan_village_pool"), List.of(
                 new SpawnNestNodeData(createIdentifier("rohan_village_nests.civilian"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.ROHAN, RohirricNpcDataPool.PEASANT.getId()).SetRangeAmount(1,2),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.ROHAN, RohirricNpcDataPool.PEASANT.getId()).SetFixAmount(1),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.ROHAN, RohirricNpcDataPool.MILITIA.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("rohan_village_nests.farmer"), RESPAWN_TICKS, List.of(
