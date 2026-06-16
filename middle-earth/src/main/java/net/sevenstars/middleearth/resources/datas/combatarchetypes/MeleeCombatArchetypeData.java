@@ -6,8 +6,8 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatAr
 public class MeleeCombatArchetypeData extends CombatArchetypeData {
     private final float critialChance; // 1 being always, 0 being never
 
-    public MeleeCombatArchetypeData(float fleeMovementSpeedModifier,  float seekTargetMovementSpeedModifier, float critialChance) {
-        super(fleeMovementSpeedModifier, seekTargetMovementSpeedModifier);
+    public MeleeCombatArchetypeData(float fleeMovementSpeedModifier,  float seekTargetMovementSpeedModifier, float optimalBlockRangeMinimum, float optimalBlockRangeMaximum, float critialChance) {
+        super(fleeMovementSpeedModifier, seekTargetMovementSpeedModifier, optimalBlockRangeMinimum, optimalBlockRangeMaximum);
         this.critialChance = critialChance;
     }
 

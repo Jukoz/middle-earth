@@ -5,8 +5,22 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatAr
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
 
 public class CombatArchetypePool {
-    public final static CombatArchetypeData DEFAULT =  new MeleeCombatArchetypeData(1f, 1f,0.3f);
+    public final static CombatArchetypeData DEFAULT =  new MeleeCombatArchetypeData(
+            1f,
+            1f,
+            1f,
+            5f,
+            0.3f);
 
     /// WOODLAND REALMS
-    public final static CombatArchetypeData WOODLAND_REALMS_RANGER = new RangedCombatArchetypeData(1.2f, 1f, 0.8f, 10, 18, 5, 10, 100, 50);
+    public final static CombatArchetypeData WOODLAND_REALMS_RANGER = new RangedCombatArchetypeData(
+            1.2f,
+            1f,
+            10f,
+            18f,
+            0.8f,
+            5,
+            10,
+            100,
+            50);
 }

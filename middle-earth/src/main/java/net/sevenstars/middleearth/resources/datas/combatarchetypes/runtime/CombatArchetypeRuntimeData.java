@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime;
 
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.MovementBehavior;
 
 public abstract class CombatArchetypeRuntimeData {
@@ -26,5 +28,35 @@ public abstract class CombatArchetypeRuntimeData {
 
     public CombatArchetypeData getCombatArchetypeData() {
         return combatArchetypeData;
+    }
+
+    public NbtCompound getNbt() {
+        NbtCompound nbt = new NbtCompound();
+
+        nbt.put("data", combatArchetypeData.getNbt());
+
+        return nbt;
+    }
+
+    public CombatArchetype getArchetype() {
+        return this.combatArchetypeData.getArchetype();
+    }
+
+    public boolean needToGetCloser(){
+        return true;
+    }
+
+    public boolean needToFlee(){
+        return false;
+    }
+
+    public int getOptimalDistance(){
+        return 1;
+    }
+
+    public void attack(){
+    }
+
+    public void hurt(){
     }
 }

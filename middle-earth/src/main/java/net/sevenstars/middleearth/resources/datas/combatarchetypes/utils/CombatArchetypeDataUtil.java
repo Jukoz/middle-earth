@@ -6,9 +6,14 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatAr
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 
+import java.util.Optional;
+
 public class CombatArchetypeDataUtil {
     public static CombatArchetypeData create(NbtCompound combatArchetypeData) {
-        CombatArchetype combatArchetype = CombatArchetype.valueOf(combatArchetypeData.getString("type", CombatArchetype.MELEE.name()));
+        Optional<String> type = combatArchetypeData.getString("type");
+        if(type.isEmpty())
+            return null;
+        CombatArchetype combatArchetype = CombatArchetype.valueOf(type.get());
 
         NbtCompound data = combatArchetypeData.getCompoundOrEmpty("data");
         return switch (combatArchetype) {

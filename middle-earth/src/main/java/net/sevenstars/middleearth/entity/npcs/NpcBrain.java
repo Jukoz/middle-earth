@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.npcs;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Range;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.LivingEntity;
@@ -18,8 +19,15 @@ import net.minecraft.util.math.GlobalPos;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
-import net.sevenstars.middleearth.entity.ai.brain.task.NpcMountedApproachTask;
-import net.sevenstars.middleearth.entity.ai.brain.task.NpcOnGroundApproachTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.npc.NpcMountedApproachTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.npc.NpcOnGroundApproachTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.npc.NpcRangedApproachTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.npc.NpcRangedAttackTask;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.MeleeCombatArchetypeRuntimeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.RangedCombatArchetypeRuntimeData;
 
 import java.util.Optional;
 
@@ -30,21 +38,44 @@ public class NpcBrain {
     public NpcBrain() {
     }
 
-    protected static Brain<?> create(NpcEntity npcEntity, Dynamic<?> dynamic) {
+    protected static Brain<?> create(Dynamic<?> dynamic) {
         Brain.Profile<NpcEntity> profile = Brain.createProfile(MEMORY_MODULES, SENSORS);
         Brain<NpcEntity> brain = profile.deserialize(dynamic);
 
-        addCoreActivities(npcEntity, brain);
-
-        addIdleActivities(npcEntity, brain);
-        addFightActivities(npcEntity, brain);
-
+        addCoreActivities(brain);
+        addIdleActivities(brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
         brain.resetPossibleActivities();
-
         return brain;
+    }
+
+    public static void setMeleeActivities(Brain<NpcEntity> brain, NpcEntity npcEntity, MeleeCombatArchetypeRuntimeData runtimeData){
+        addCoreActivities(brain);
+
+        addIdleActivities(brain);
+        addFightActivities(npcEntity, brain);
+    }
+
+    public static void setRangedActivities(Brain<NpcEntity> brain, NpcEntity npcEntity, RangedCombatArchetypeRuntimeData runtimeData){
+        //addCoreActivities(brain);
+
+        //addIdleActivities(brain);
+        // FIGHT
+        float movementSpeed = npcEntity.getFightingMovementSpeed();
+        int attackSpeed = npcEntity.getTickAttackSpeedCooldown();
+
+        brain.setTaskList(Activity.FIGHT, ImmutableList.of(
+                        Pair.of(0, UpdateAttackTargetTask.create(NpcBrain::getAttackTarget)),
+                        Pair.of(1, ForgetAttackTargetTask.create(((world, target) -> shouldForgetTarget(world, target, npcEntity)))),
+                        Pair.of(2, NpcRangedAttackTask.create(attackSpeed)),
+                        //Pair.of(2, new NpcMountedApproachTask()),
+                        Pair.of(3, NpcRangedApproachTask.create(movementSpeed, 10))
+                ),
+                ImmutableSet.of(
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT)
+                ));
     }
 
     public static void updateActivities(NpcEntity npc) {
@@ -59,8 +90,9 @@ public class NpcBrain {
     }
 
 
-    private static void addCoreActivities(NpcEntity npcEntity, Brain<NpcEntity> brain) {
+    private static void addCoreActivities(Brain<NpcEntity> brain) {
         brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
@@ -69,7 +101,7 @@ public class NpcBrain {
         );
     }
 
-    private static void addIdleActivities(NpcEntity npcEntity, Brain<NpcEntity> brain) {
+    private static void addIdleActivities(Brain<NpcEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT),
                     ImmutableList.of(
@@ -123,13 +155,17 @@ public class NpcBrain {
         MEMORY_MODULES = ImmutableList.of(
                 // Generic
                 MemoryModuleType.LOOK_TARGET,
-                MemoryModuleType.PATH,
                 MemoryModuleType.WALK_TARGET,
+                MemoryModuleType.PATH,
                 MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+
                 // NPC specific
                 MemoryModulesME.STRUCTURE_MANAGER_HOST_POS,
                 MemoryModulesME.ASSIGNED_BED_POS,
+
                 // Fight specific
+                MemoryModuleType.HOME,
+                MemoryModuleType.NEAREST_ATTACKABLE,
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,
                 MemoryModuleType.VISIBLE_MOBS,

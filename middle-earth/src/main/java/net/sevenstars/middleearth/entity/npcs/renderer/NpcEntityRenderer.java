@@ -37,6 +37,7 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.middleearth.utils.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
@@ -77,6 +78,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float tickDelta) {
         if(!npcEntity.getWorld().isClient)
             return;
+
+        npcEntityRenderState.aimingState = npcEntity.aimingState;
 
         super.updateRenderState(npcEntity, npcEntityRenderState, tickDelta);
         var npcTextureData = npcEntity.getNpcTextureData();
@@ -291,19 +294,18 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private BipedEntityModel.ArmPose getArmPose(NpcEntity npc, ItemStack stack, Hand hand) {
-        // TODO : Fix animation
+        if(npc.isAiming()){
+            return BipedEntityModel.ArmPose.BOW_AND_ARROW;
+        }
 
+
+        // TODO : Fix animation
         if (stack.isEmpty()) {
             return BipedEntityModel.ArmPose.EMPTY;
         }
         if (!npc.handSwinging && stack.isOf(Items.CROSSBOW) && CrossbowItem.isCharged(stack)) {
             return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
         }
-        /*
-        if ( stack.getUseAction() == UseAction.BLOCK || npc.isBlocking() && hand == Hand.OFF_HAND) {
-            return BipedEntityModel.ArmPose.BLOCK;
-        }
-         */
         if (npc.getActiveHand() == hand && npc.getItemUseTimeLeft() > 0) {
             UseAction useAction = stack.getUseAction();
             if (useAction == UseAction.BLOCK || npc.isBlocking()) {

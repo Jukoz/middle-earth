@@ -13,9 +13,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.util.ClientNpcEntityInitializer;
-import net.sevenstars.middleearth.entity.npcs.util.NpcEntityBuilder;
-import net.sevenstars.middleearth.entity.npcs.util.NpcEntityInitializer;
+import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializerClient;
+import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -131,7 +130,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         npcEntity.lastHeadYaw =npcEntity.getBodyYaw();
         npcEntity.headYaw = npcEntity.getBodyYaw();
 
-        ClientNpcEntityInitializer.initializeNpcEntity(world, npcEntity);
+        NpcEntityInitializerClient.initializeNpcEntity(world, npcEntity);
 
         this.entity = npcEntity;
     }

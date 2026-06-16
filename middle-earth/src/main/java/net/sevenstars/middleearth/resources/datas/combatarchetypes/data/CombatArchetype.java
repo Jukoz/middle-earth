@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes.data;
 
 public enum CombatArchetype {
-    MELEE, // Default
+    MELEE,
     RANGED,
     HYBRID,
     SHIELDED,
