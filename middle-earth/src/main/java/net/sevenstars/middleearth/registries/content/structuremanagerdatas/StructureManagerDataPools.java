@@ -333,10 +333,10 @@ public class StructureManagerDataPools {
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.SHIRE, ShireNpcDataPool.PEASANT.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("shire_village_nests.civilian"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.SHIRE, ShireNpcDataPool.PEASANT.getId()).SetRangeAmount(1,2)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.SHIRE, ShireNpcDataPool.PEASANT.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("shire_village_nests.rich_civilian"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.SHIRE, ShireNpcDataPool.PEASANT.getId()).SetRangeAmount(2,3)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.SHIRE, ShireNpcDataPool.PEASANT.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("shire_village_nests.baker"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.SHIRE, ShireNpcDataPool.PEASANT.getId()).SetFixAmount(1)
