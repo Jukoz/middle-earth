@@ -143,7 +143,7 @@ public class StructureManagerDataPools {
             ))
         ));
 
-        GONDOR_VILLAGE_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gondor_village_nest_pool"), List.of(
+        GONDOR_VILLAGE_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gondor_village_pool"), List.of(
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.peasant"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetRangeAmount(2,3)
             )),
