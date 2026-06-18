@@ -1,0 +1,24 @@
+{
+  "name": "middle-earth:dale_keep_side_ward",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/keep/side_ward_stables",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/keep/side_ward_storage",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    }
+  ]
+}
