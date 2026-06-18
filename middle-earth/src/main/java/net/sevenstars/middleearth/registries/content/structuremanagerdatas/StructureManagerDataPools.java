@@ -61,7 +61,7 @@ public class StructureManagerDataPools {
 
         DALE_VILLAGE_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "dale_village_pool"), List.of(
                 new SpawnNestNodeData(createIdentifier("dale_village_nests.civilian"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.DALE, DalishNpcDataPool.PEASANT.getId()).SetRangeAmount(1,2),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.DALE, DalishNpcDataPool.PEASANT.getId()).SetFixAmount(1),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.DALE, DalishNpcDataPool.MILITIA.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("dale_village_nests.baker"), RESPAWN_TICKS, List.of(
@@ -81,7 +81,7 @@ public class StructureManagerDataPools {
                 new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.DALE, DalishNpcDataPool.SERGEANT.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("dale_keep_nests.stables_master"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.DALE, DalishNpcDataPool.PEASANT.getId()).SetFixAmount(2)
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.DALE, DalishNpcDataPool.PEASANT.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("dale_keep_nests.stable"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntityType.HORSE, 4).SetFixAmount(1),
@@ -119,13 +119,13 @@ public class StructureManagerDataPools {
                     new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ELITE.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.barrack"), RESPAWN_TICKS, List.of(
-                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.SOLDIER.getId()).SetRangeAmount(2,3),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ARCHER.getId()).SetRangeAmount(2,3),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MILITIA.getId()).SetRangeAmount(2,4)
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.SOLDIER.getId()).SetRangeAmount(1,3),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.ARCHER.getId()).SetRangeAmount(1,3),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MILITIA.getId()).SetRangeAmount(1,3)
             )),
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.worker"), RESPAWN_TICKS, List.of(
-                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetRangeAmount(1,3),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.PEASANT.getId()).SetRangeAmount(1,3)
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetRangeAmount(1,2),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.PEASANT.getId()).SetRangeAmount(1,2)
             )),
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.smith"), RESPAWN_TICKS, List.of(
                     new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, EreborNpcDataPool.MINER.getId()).SetFixAmount(1)
@@ -145,16 +145,16 @@ public class StructureManagerDataPools {
 
         GONDOR_VILLAGE_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gondor_village_pool"), List.of(
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.peasant"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetRangeAmount(2,3)
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.lumber"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetRangeAmount(2,3)
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.potter"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetRangeAmount(2,3)
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.smith"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetRangeAmount(2,3)
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.barn"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntityType.COW, 1).SetRangeAmount(2,3),
@@ -169,13 +169,13 @@ public class StructureManagerDataPools {
                 new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.LEADER.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.guard"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.VETERAN.getId()).SetRangeAmount(1,2),
-                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.KNIGHT.getId()).SetRangeAmount(1,2)
+                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.VETERAN.getId()).SetFixAmount(1),
+                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.KNIGHT.getId()).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.barracks"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.SOLDIER.getId()).SetRangeAmount(2,3),
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.VETERAN.getId()).SetRangeAmount(2,3),
-                new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.MILITIA.getId()).SetRangeAmount(2,4)
+                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.VETERAN.getId()).SetFixAmount(1),
+                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.SOLDIER.getId()).SetRangeAmount(1,2),
+                new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.GONDOR, GondorianNpcDataPool.MILITIA.getId()).SetRangeAmount(1,3)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.workers"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT.getValue()).SetRangeAmount(2,3)
