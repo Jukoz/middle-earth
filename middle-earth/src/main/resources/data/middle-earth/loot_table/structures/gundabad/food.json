@@ -92,7 +92,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "wild-things:raw_venison"
+          "name": "middle-earth:raw_venison"
         }
       ]
     }

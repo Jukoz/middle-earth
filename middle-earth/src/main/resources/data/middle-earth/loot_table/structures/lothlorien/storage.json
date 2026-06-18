@@ -61,7 +61,7 @@
     {
       "rolls": {
         "min": 1,
-        "max": 5
+        "max": 3
       },
       "entries": [
         {
@@ -73,12 +73,24 @@
     {
       "rolls": {
         "min": 0,
-        "max": 3
+        "max": 2
       },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:white_wool"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:canvas"
         }
       ]
     },
@@ -132,8 +144,20 @@
     },
     {
       "rolls": {
-        "min": 1,
-        "max": 3
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fabric"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
       },
       "entries": [
         {

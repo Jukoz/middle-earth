@@ -19,15 +19,6 @@
         "projection": "rigid",
         "processors": "middle-earth:randomize_dolomite_tiles"
       }
-    },
-	{
-      "weight": 1,
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:bandits/stronghold/double_floor_trap",
-        "projection": "rigid",
-        "processors": "middle-earth:randomize_dolomite_tiles"
-      }
     }
   ]
 }
