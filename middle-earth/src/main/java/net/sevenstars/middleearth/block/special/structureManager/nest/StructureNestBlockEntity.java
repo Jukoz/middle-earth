@@ -131,23 +131,17 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     public static void tickEvent(World world, BlockPos blockPos, BlockState blockState, StructureNestBlockEntity entity) {
-        entity.tickEvent(world);
+        entity.tickEvent(world, blockState);
     }
 
-    private void tickEvent(World world) {
-        if(world.isClient || initialized || !isEnabled)
+    private void tickEvent(World world, BlockState blockState) {
+        if(world.isClient)
             return;
 
-        BlockState blockState = world.getBlockState(getPos());
         if(!blockState.get(StructureNestBlock.ENABLED)) return;
 
         if(managerId == null || nestId == null || world.getTickOrder() % 20 != 0) // every 1 seconds
             return;
-
-        if(lifetime < 1) {
-            lifetime++;
-            return;
-        } else if(lifetime > 1) return;
 
         Optional<BlockPos> nearestBlockEntity =  BlockPos.findClosest(pos, 20, 20, new Predicate<BlockPos>() {
             @Override

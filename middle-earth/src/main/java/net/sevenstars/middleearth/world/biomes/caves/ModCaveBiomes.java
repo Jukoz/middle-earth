@@ -445,7 +445,6 @@ public class ModCaveBiomes {
     public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation, boolean haveMonsters, boolean haveDeepMonsters) {
         ModCaveBiomeFeatures.addBats(spawnSettings);
         if(haveMonsters) {
-            ModCaveBiomeFeatures.addSpiderLarvas(spawnSettings);
             if(haveDeepMonsters){
                 ModCaveBiomeFeatures.addGroupWildGoblins(spawnSettings);
                 ModCaveBiomeFeatures.addCaveTroll(spawnSettings);
