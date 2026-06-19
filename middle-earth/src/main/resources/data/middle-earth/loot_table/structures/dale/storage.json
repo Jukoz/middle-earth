@@ -5,6 +5,10 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:light_blue_bundle"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:bow_banner_pattern"
         },
         {

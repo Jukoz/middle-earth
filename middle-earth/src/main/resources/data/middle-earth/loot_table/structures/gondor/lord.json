@@ -41,6 +41,18 @@
     {
       "rolls": {
         "min": 0,
+        "max": 1
+      },
+      "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:white_bundle"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
         "max": 2
       },
       "entries": [
@@ -83,6 +95,18 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:book"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:paper"
         }
       ]
     }

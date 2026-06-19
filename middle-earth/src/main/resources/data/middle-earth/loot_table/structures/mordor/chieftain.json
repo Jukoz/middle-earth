@@ -151,6 +151,18 @@
           "name": "middle-earth:maggoty_bread"
         }
       ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:red_bundle"
+        }
+      ]
     }
   ]
 }

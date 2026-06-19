@@ -1,8 +1,59 @@
 {
   "pools": [
     {
-      "bonus_rolls": 0.5,
       "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:erebor_cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:broadhoof_goat_leather_armor"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_miner_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:erebor_leather_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_gambeson"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_miner_gambeson",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_boots"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+	{
+      "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:blue_bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:dwarf_crown_banner_pattern",
@@ -19,27 +70,14 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:lead_lantern"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:copper_smithing_hammer"
         },
         {
-          "type": "minecraft:item",
-          "name": "middle-earth:erebor_cape"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:broadhoof_goat_leather_armor"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:dwarven_gambeson"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:dwarven_boots"
-        },
-        {
-          "type": "minecraft:empty",
-          "weight": 3
+          "type": "minecraft:empty"
         }
       ],
       "rolls": 1

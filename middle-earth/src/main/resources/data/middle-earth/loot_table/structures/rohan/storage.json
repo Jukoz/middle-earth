@@ -3,6 +3,10 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:green_bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:rohan_banner_pattern",
@@ -74,6 +78,18 @@
     {
       "rolls": {
         "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
         "max": 3
       },
       "entries": [
@@ -116,6 +132,18 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:string"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arrow"
         }
       ]
     },

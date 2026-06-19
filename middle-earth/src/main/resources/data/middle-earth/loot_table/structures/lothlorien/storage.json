@@ -3,6 +3,10 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:yellow_bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:lothlorien_banner_pattern",
@@ -19,6 +23,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:lorien_diadem"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:lorien_arming_coat"
         },
         {
@@ -31,6 +39,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:lorien_shield"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:elven_lantern"
         },
         {
@@ -40,10 +52,10 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 3
+          "weight": 2
         }
       ],
-      "rolls": 1
+      "rolls": 2
     },
     {
       "rolls": 1,

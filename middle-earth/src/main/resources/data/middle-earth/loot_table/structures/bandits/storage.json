@@ -3,6 +3,10 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:sconce",

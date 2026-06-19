@@ -5,11 +5,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:woodland_realm_bow",
-		  "weight": 4
-        },
-        {
-          "type": "minecraft:item",
           "name": "middle-earth:bronzed_elven_mail_coif"
         },
         {
@@ -43,37 +38,53 @@
           "name": "middle-earth:woodland_realm_buckler_shield",
 		  "weight": 2
         },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:mirk_bark_cape",
-		  "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:mirk_leaf_cape",
-		  "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:silver_lantern",
-		  "weight": 3
-        },
-        {
+		{
           "type": "minecraft:item",
           "name": "middle-earth:elven_boots",
           "weight": 2
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:shears",
+          "type": "minecraft:empty",
           "weight": 2
+        }
+      ],
+      "rolls": 1
+    },
+	{
+      "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:green_bundle",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_bow",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mirk_bark_cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mirk_leaf_cape"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_lantern",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:shears"
         },
         {
           "type": "minecraft:empty",
-          "weight": 3
+          "weight": 1
         }
       ],
-      "rolls": 2
+      "rolls": 1
     },
     {
       "rolls": {
