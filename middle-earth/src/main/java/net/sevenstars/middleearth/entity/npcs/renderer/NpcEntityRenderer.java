@@ -207,19 +207,20 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             renderComplexVersion(matrices, vertexConsumers, light, overlay, state);
         }
 
-        if (this.shouldRenderFeatures(state) && state.LOD < 48) {
+        if (this.shouldRenderFeatures(state) && state.LOD < ModClientConfigs.LOD_NPC_ARMOR_DISTANCE) {
             for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
                 if (feature instanceof EarFeatureRenderer)
-                    if ((state.simplifiedEarId == null && state.earId == null) || state.LOD > 24)
+                    if ((state.simplifiedEarId == null && state.earId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if (feature instanceof NoseFeatureRenderer)
-                    if ((state.simplifiedNoseId == null && state.noseId == null) || state.LOD > 24)
+                    if ((state.simplifiedNoseId == null && state.noseId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if (feature instanceof HairFeatureRenderer)
-                    if ((state.simplifiedHairAddonId == null && state.hairAddonId == null && state.beardAddonId == null) || state.LOD > 24)
+                    if ((state.simplifiedHairAddonId == null && state.hairAddonId == null && state.beardAddonId == null)
+                            || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if(feature instanceof FeetFeatureRenderer)
-                    if((state.simplifiedFeetId == null && state.feetId == null) || state.LOD > 24)
+                    if((state.simplifiedFeetId == null && state.feetId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 feature.render(matrices, vertexConsumers, light, state, state.relativeHeadYaw, state.pitch);
             }
