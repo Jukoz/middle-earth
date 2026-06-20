@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.world.features.chain.ChainFeatureConfig;
 import net.sevenstars.middleearth.world.gen.ModFeatures;
 
 public class PlatedFoodConfiguredFeatures {
+    // NOTE keep it here just in case
     //public static final RegistryKey<ConfiguredFeature<?, ?>> CERAMIC_PLATE = registerKey("ceramic_plate");
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

@@ -70,6 +70,7 @@ public class CanopyTrunkStructurePlacer extends CanopyTrunkPlacer {
         return super.generate(world, replacer, random, height, startPos, config);
     }
 
+    // NOTE keep it for later maybe
     /*private void generateStructurePool(ServerWorld world, BlockPos startPos, int height) {
         RegistryKey<StructurePool> pool = ModStructureKeys.LOTHLORIEN_TALAN_KEY;
         Registry<StructurePool> registry = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);

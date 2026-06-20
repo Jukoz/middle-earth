@@ -51,11 +51,11 @@ public class MapBiomeData {
                 new BiomeColorsDTO(7246271, 8951443, 4354703, 1128527, 8032632, 7901046)));
         // ANORIEN
         addBiome(new BiomeData(MEBiomeKeys.ANORIEN, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8242025, 6662221)));
         addBiome(new BiomeData(MEBiomeKeys.ANORIEN_RIVERSIDE, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8636272, 6662221)));
         addBiome(new BiomeData(MEBiomeKeys.ANORIEN_FOOTHILLS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.gondorLayers,
-                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 6799458, 6662221)));
+                new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8636272, 6662221)));
         // BARROW_DOWNS
         addBiome(new BiomeData(MEBiomeKeys.BARROW_DOWNS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(defaultSky, defaultFog, defaultWater, defaultWaterFog, 8628873, 7772283)));

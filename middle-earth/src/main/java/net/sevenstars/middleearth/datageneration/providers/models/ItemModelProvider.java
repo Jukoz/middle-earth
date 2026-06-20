@@ -200,12 +200,6 @@ public class ItemModelProvider extends FabricModelProvider {
                 new SelectItemModel.Unbaked(new SelectItemModel.UnbakedSwitch(new CustomModelDataStringProperty(0), models), Optional.of(fallbackModel)));
     }
 
-    public final void registerBlockItemModels(ItemModelGenerator itemModelGenerator, Item item) {
-        ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
-
-        itemModelGenerator.output.accept(item, unbakedHand);
-    }
-
     public final void registerDaggerItemModels(ItemModelGenerator itemModelGenerator, Item item) {
         ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD));
         ItemModel.Unbaked unbakedHandStrike = ItemModels.basic(CustomItemModels.DAGGER_STRIKE.upload(ModelIds.getItemSubModelId(item, "_strike"),
