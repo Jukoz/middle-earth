@@ -5,7 +5,7 @@
   "spawn_overrides": {},
   "terrain_adaptation": "beard_thin",
   "start_pool": "middle-earth:bandits/stronghold/surface_entrance",
-  "size": 9,
+  "size": 8,
   "start_height": {
     "absolute": -7
   },

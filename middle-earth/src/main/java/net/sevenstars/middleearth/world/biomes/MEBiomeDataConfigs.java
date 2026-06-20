@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.world.biomes;
 
 import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.Blocks;
 
@@ -122,8 +123,9 @@ public class MEBiomeDataConfigs {
             .addSlopeData(51, StoneBlockSets.IRONSTONE_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE_SET.baseBlocks.base());
 
-    public static SlopeMap limeStoneHills = new SlopeMap().addSlopeData(34, Blocks.GRASS_BLOCK)
-            .addSlopeData(37, Blocks.COARSE_DIRT)
+    public static SlopeMap limeStoneHills = new SlopeMap().addSlopeData(31, ModBlocks.LOAM_GRASS_BLOCK)
+            .addSlopeData(35, ModBlocks.COARSE_LOAM)
+            .addSlopeData(41, StoneBlockSets.GABBRO_SET.baseBlocks.base())
             .addSlopeData(48, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
     public static SlopeMap limeStoneMountains = new SlopeMap().addSlopeData(13, Blocks.GRASS_BLOCK)
