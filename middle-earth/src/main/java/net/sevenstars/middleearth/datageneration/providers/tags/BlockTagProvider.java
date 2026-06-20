@@ -491,6 +491,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
         mineableAxe.add(ModDecorativeBlocks.ARTISAN_TABLE);
+        mineableAxe.add(ModDecorativeBlocks.ORCISH_ARTISAN_TABLE);
         mineableAxe.add(ModDecorativeBlocks.INSCRIPTION_TABLE);
 
         mineablePickaxe.add(ModBlocks.BRICK_VERTICAL_SLAB);

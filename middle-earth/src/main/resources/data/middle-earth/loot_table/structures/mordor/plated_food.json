@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rotten_flesh"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:tough_berries"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:maggoty_bread",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rabbit"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dried_kelp"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:suspicious_stew"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

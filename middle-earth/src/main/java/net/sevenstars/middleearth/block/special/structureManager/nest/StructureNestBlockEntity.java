@@ -47,6 +47,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     protected int spawnRadius;
     protected boolean isEnabled;
 
+    protected int lifetime = 0;
     boolean initialized = false;
 
     public StructureNestBlockEntity(BlockPos pos, BlockState state) {
@@ -130,14 +131,16 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     public static void tickEvent(World world, BlockPos blockPos, BlockState blockState, StructureNestBlockEntity entity) {
-        entity.tickEvent(world);
+        entity.tickEvent(world, blockState);
     }
 
-    private void tickEvent(World world) {
-        if(world.isClient || initialized || !isEnabled)
+    private void tickEvent(World world, BlockState blockState) {
+        if(world.isClient)
             return;
 
-        if(managerId == null || nestId == null || world.getTickOrder() % 100 != 0) // every 5 seconds
+        if(!blockState.get(StructureNestBlock.ENABLED)) return;
+
+        if(managerId == null || nestId == null || world.getTickOrder() % 20 != 0) // every 1 seconds
             return;
 
         Optional<BlockPos> nearestBlockEntity =  BlockPos.findClosest(pos, 20, 20, new Predicate<BlockPos>() {

@@ -33,6 +33,7 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     ModLogger logger = MiddleEarth.LOGGER;
@@ -141,8 +142,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public void showAllEntities() {
         if(structureNestList == null)
             return;
-        for(var nest : structureNestList.getManagers()){
-            for(var uuid : nest.getEntityUuids()){
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            for(UUID uuid : nest.getEntityUuids()){
                 if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
                     livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 10*20));
                 }
@@ -173,7 +174,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(entity.getWorld().isClient)
             return;
         StructureManagerBlockEntity blockEntity = (StructureManagerBlockEntity) entity.getWorld().getBlockEntity(pos);
-        if(blockEntity!=null && !blockEntity.isRemoved()){
+        if(blockEntity != null && !blockEntity.isRemoved()){
             blockEntity.structureNestList.computeDeath(entity);
             blockEntity.world.markDirty(pos);
         }

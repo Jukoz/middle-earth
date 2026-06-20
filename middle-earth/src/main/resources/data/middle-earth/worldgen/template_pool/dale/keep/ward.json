@@ -1,0 +1,42 @@
+{
+  "name": "middle-earth:dale_keep_ward",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/keep/ward_archery",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/keep/ward_farm",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/keep/ward_tree",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/keep/ward_well",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    }
+  ]
+}

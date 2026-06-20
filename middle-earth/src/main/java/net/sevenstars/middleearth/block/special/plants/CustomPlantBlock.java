@@ -14,6 +14,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 
 public class CustomPlantBlock extends PlantBlock {
     public static final MapCodec<CustomPlantBlock> CODEC = CustomPlantBlock.createCodec(CustomPlantBlock::new);
@@ -30,7 +31,7 @@ public class CustomPlantBlock extends PlantBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return (floor.isIn(BlockTags.DIRT) || floor.isOf(Blocks.FARMLAND)) && floor.isSideSolidFullSquare(world, pos, Direction.UP);
+        return (floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTagsME.FARMLANDS)) && floor.isSideSolidFullSquare(world, pos, Direction.UP);
     }
 
     @Override

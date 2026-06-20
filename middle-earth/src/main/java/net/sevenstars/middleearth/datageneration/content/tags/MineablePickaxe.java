@@ -20,6 +20,7 @@ public class MineablePickaxe {
 
             add(ModDecorativeBlocks.BASALT_STATUE);
             add(ModDecorativeBlocks.CALCITE_STATUE);
+            add(ModDecorativeBlocks.DEEPSLATE_STATUE);
             add(ModDecorativeBlocks.DIORITE_STATUE);
             add(ModDecorativeBlocks.GABBRO_STATUE);
             add(ModDecorativeBlocks.GALONN_STATUE);

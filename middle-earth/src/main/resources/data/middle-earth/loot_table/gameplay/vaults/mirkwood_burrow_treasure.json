@@ -1,0 +1,35 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.25,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "middle-earth:gameplay/vaults/mirkwood_burrow_treasure_unique",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+	{
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "middle-earth:gameplay/vaults/mirkwood_burrow_treasure_common",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "middle-earth:gameplay/vaults/mirkwood_burrow_treasure_rare",
+          "weight": 2
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 5,
+        "min": 1
+      }
+    }
+  ]
+}

@@ -39,8 +39,6 @@ public class StructureManagerDataRegistryME {
 
         Optional<RegistryEntry.Reference<StructureManagerData>> optionalStructureDataReference = registryEntryLookup.getOptional(registryKey);
         optionalStructureDataReference.ifPresent(biomeReference -> context.register(structureDataKey, structureManagerData));
-
-        TranslationEntries.structureManagerEntries.add(structureManagerData.getId().getPath());
         
         return structureManagerData;
     }

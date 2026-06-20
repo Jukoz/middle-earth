@@ -1,9 +1,11 @@
 {
   "replace": false,
   "values": [
-    "middle-earth:anduin_vales",
+	"middle-earth:anduin_vales",
 	"middle-earth:eregion",
-    "middle-earth:old_cardolan",
-    "middle-earth:old_cardolan_forest"
+	"middle-earth:enedwaith",
+	"middle-earth:enedwaith_field",
+	"middle-earth:enedwaith_wheat_field",
+	"middle-earth:druwaith_iaur"
   ]
 }

@@ -1,0 +1,363 @@
+{
+  "name": "middle-earth:gondor_farm_plot",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot",
+        "projection": "terrain_matching",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "minecraft:empty"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_2",
+        "projection": "terrain_matching",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_carrot"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_carrot"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_carrot"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_carrot"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_carrot"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_potato"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_potato"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_potato"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_potato"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_potato"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_cucumber"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_cucumber"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_cucumber"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_cucumber"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_cucumber"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_garlic"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_garlic"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_garlic"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_garlic"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_garlic"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_leek"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_leek"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_leek"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_leek"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_leek"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_onion"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_onion"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_onion"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_onion"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:wheat_to_onion"
+      }
+    },
+	{
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_3",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_4",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_5",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_farm_plot_6",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 5
+    }
+  ]
+}

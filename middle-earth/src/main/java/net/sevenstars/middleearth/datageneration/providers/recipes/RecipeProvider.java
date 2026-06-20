@@ -1287,8 +1287,9 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 createStatueRecipe(exporter, Blocks.POLISHED_BASALT, Blocks.BASALT, StoneBlockSets.BASALT_SET.baseBlocks.wall(), ModDecorativeBlocks.BASALT_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.CALCITE_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.CALCITE_SET.baseBlocks.wall(), ModDecorativeBlocks.CALCITE_STATUE);
-                createStatueRecipe(exporter, StoneBlockSets.DIORITE_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.CALCITE_SET.baseBlocks.wall(), ModDecorativeBlocks.DIORITE_STATUE);
-                createStatueRecipe(exporter, StoneBlockSets.GABBRO_SET.polishedBlocks.base(), Blocks.CALCITE, StoneBlockSets.GABBRO_SET.baseBlocks.wall(), ModDecorativeBlocks.GABBRO_STATUE);
+                createStatueRecipe(exporter, StoneBlockSets.DEEPSLATE_SET.polishedBlocks.base(), Blocks.DEEPSLATE, StoneBlockSets.DEEPSLATE_SET.baseBlocks.wall(), ModDecorativeBlocks.DEEPSLATE_STATUE);
+                createStatueRecipe(exporter, StoneBlockSets.DIORITE_SET.polishedBlocks.base(), Blocks.DIORITE, Blocks.DIORITE_WALL, ModDecorativeBlocks.DIORITE_STATUE);
+                createStatueRecipe(exporter, StoneBlockSets.GABBRO_SET.polishedBlocks.base(), StoneBlockSets.GABBRO_SET.baseBlocks.base(), StoneBlockSets.GABBRO_SET.baseBlocks.wall(), ModDecorativeBlocks.GABBRO_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.GALONN_SET.polishedBlocks.base(), StoneBlockSets.GALONN_SET.baseBlocks.base(), StoneBlockSets.GALONN_SET.baseBlocks.wall(), ModDecorativeBlocks.GALONN_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.KHAGALABAN_SET.polishedBlocks.base(), StoneBlockSets.KHAGALABAN_SET.baseBlocks.base(), StoneBlockSets.KHAGALABAN_SET.baseBlocks.wall(), ModDecorativeBlocks.KHAGALABAN_STATUE);
                 createStatueRecipe(exporter, StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.base(), StoneBlockSets.PUMICE_SET.baseBlocks.wall(), ModDecorativeBlocks.PUMICE_STATUE);
