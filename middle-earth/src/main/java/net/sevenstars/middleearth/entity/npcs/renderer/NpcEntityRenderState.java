@@ -9,7 +9,6 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
 
     public AnimationState aimingState = new AnimationState();
 
-
     public Identifier simplifiedSkinId;
     public Identifier simplifiedEarId;
     public Identifier simplifiedNoseId;
@@ -40,6 +39,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public boolean canShowEars;
     public boolean canShowBeard;
     public boolean canShowHair;
+    public float LOD = 0;
 
     public NpcEntityRenderState() {
         this.simplifiedSkinId = null;
