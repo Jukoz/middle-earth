@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "middle-earth:block/orc_structure_manager",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "middle-earth:block/orc_structure_manager"
+    },
+    "facing=south": {
+      "model": "middle-earth:block/orc_structure_manager",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "middle-earth:block/orc_structure_manager",
+      "y": 270
+    }
+  }
+}

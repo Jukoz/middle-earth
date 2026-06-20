@@ -1,0 +1,69 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:baked_potato",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_salmon",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:mushroom_stew",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rabbit_stew"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:garlic"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:berry_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:boiled_egg"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:cooked_meat_skewer"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fish_stew"
+        },
+        {
+		  "type": "minecraft:tag",
+          "name": "middle-earth:cooked_poultry",
+          "expand": true,
+          "weight": 2
+        },
+        {
+		  "type": "minecraft:tag",
+          "name": "middle-earth:cooked_meat",
+          "expand": true,
+          "weight": 3
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

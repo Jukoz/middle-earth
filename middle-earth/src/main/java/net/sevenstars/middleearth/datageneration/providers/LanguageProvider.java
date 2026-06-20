@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -102,12 +103,15 @@ public class LanguageProvider extends FabricLanguageProvider {
             createNpcDataTranslation(translationBuilder, "npc_data", npcData);
         });
 
-        TranslationEntries.structureManagerEntries.forEach(structureManager -> {
-            createTranslation(translationBuilder, "structure_manager", structureManager);
-        });
-
         TranslationEntries.raceEntries.forEach(race -> {
             createTranslation(translationBuilder, "race", race);
+        });
+
+        TranslationEntries.structureManagerEntries.forEach(structureManagerData -> {
+            createTranslation(translationBuilder, "structure_manager_data", structureManagerData.getId().getPath());
+            for(SpawnNestNodeData spawnNest : structureManagerData.getNpcSpawnNest()) {
+                createTranslation(translationBuilder, "structure_nest", spawnNest.getId().getPath());
+            }
         });
 
         TranslationEntries.spawnEntries.forEach(faction -> {

@@ -1,0 +1,75 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sweet_berries",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:baked_potato"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:carrot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:mushroom_stew"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rabbit_stew"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:lettuce"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:berry_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:meat_bowl"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:cooked_meat_skewer"
+        },
+        {
+		  "type": "minecraft:tag",
+          "name": "middle-earth:cooked_poultry",
+          "expand": true,
+          "weight": 3
+        },
+        {
+		  "type": "minecraft:tag",
+          "name": "middle-earth:cooked_meat",
+          "expand": true,
+          "weight": 4
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

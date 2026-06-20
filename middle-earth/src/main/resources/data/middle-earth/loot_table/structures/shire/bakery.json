@@ -1,0 +1,90 @@
+{
+  "pools": [
+	{
+	    "bonus_rolls": 0.5,
+        "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:milk_bucket"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cake"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:berry_pie"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:maple_syrup"
+        }
+      ],
+      "rolls": 2
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:egg"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sugar"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 2,
+        "max": 7
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:strawberries" 
+		}
+      ]
+    }
+  ]
+}

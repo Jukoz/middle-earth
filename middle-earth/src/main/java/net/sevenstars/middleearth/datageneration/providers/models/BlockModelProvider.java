@@ -9,6 +9,7 @@ import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.Thickness;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.tint.GrassTintSource;
 import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.client.render.model.json.ModelVariantOperator;
@@ -1280,6 +1281,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }
         VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(largeDoor).with(statesMap);
         blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerItemModel(largeDoor.asItem());
     }
 
     public final void registerThickLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part) {
@@ -1338,6 +1340,7 @@ public class BlockModelProvider extends FabricModelProvider {
 
         VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(largeDoor).with(statesMap);
         blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerItemModel(largeDoor.asItem());
     }
 
 

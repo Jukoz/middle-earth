@@ -1,0 +1,26 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:dolomite_ruin_arch",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:dolomite_ruins",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:dolomite_house_ruin",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:brigand_dungeon",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 15,
+    "separation": 7,
+    "salt": 152348785
+  }
+}

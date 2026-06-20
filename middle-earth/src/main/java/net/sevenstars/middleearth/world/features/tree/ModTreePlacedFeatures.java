@@ -68,6 +68,7 @@ public class ModTreePlacedFeatures {
     public static final RegistryKey<PlacedFeature> MALLORN_BUSH_PLACED_TREE_KEY = registerKey("mallorn_bush");
     public static final RegistryKey<PlacedFeature> MALLORN_FLOWERING_BUSH_PLACED_TREE_KEY = registerKey("mallorn_flowering_bush");
     public static final RegistryKey<PlacedFeature> MEGA_MALLORN_PLACED_TREE_KEY = registerKey("mega_mallorn_tree");
+    public static final RegistryKey<PlacedFeature> MEGA_MALLORN_STRUCTURE_PLACED_TREE_KEY = registerKey("mega_mallorn_structure_tree");
     public static final RegistryKey<PlacedFeature> SMALL_MIRKWOOD_PLACED_TREE_KEY = registerKey("small_mirkwood_tree");
     public static final RegistryKey<PlacedFeature> MIRKWOOD_PLACED_TREE_KEY = registerKey("mirkwood_tree");
     public static final RegistryKey<PlacedFeature> SPARSE_MIRKWOOD_PLACED_TREE_KEY = registerKey("sparse_mirkwood_tree");
@@ -336,8 +337,10 @@ public class ModTreePlacedFeatures {
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(4, 0.25f, 1),
                         ModNatureBlocks.MALLORN_SAPLING));
         register(context, MEGA_MALLORN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(8, 0.2f, 1),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(7, 0.2f, 1),
                         ModNatureBlocks.MALLORN_SAPLING));
+        register(context, MEGA_MALLORN_STRUCTURE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_MALLORN_STRUCTURE_TREE_KEY),
+                List.of());
         register(context, MALLORN_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MALLORN_BUSH_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree, ModNatureBlocks.MALLORN_SAPLING));
         register(context, MALLORN_FLOWERING_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MALLORN_FLOWERING_BUSH_KEY),

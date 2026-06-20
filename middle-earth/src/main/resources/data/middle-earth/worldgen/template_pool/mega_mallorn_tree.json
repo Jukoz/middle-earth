@@ -1,0 +1,14 @@
+{
+  "name": "middle-earth:mega_mallorn_tree",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:feature_pool_element",
+        "feature": "middle-earth:mega_mallorn_structure_tree",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ]
+}
