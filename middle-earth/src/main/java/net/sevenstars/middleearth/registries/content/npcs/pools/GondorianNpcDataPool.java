@@ -66,7 +66,7 @@ public class GondorianNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP))
                                 .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET))
-                                .add(WeightedItemData.create().withWeight(5))
+                                .add(WeightedItemData.create().withWeight(7))
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()

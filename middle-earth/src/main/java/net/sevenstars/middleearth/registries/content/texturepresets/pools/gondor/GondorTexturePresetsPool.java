@@ -115,8 +115,7 @@ public class GondorTexturePresetsPool {
                 ))
                 .withPatterns(CharacterPatternTypes.BEARD, List.of(
                     TexturePreset.EMPTY_VALUE_KEY.withWeight(7),
-                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SHORT),
-                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SINGLE)
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.SHORT)
                 ))
                 .withSimplifiedTextures(List.of(
                         new WeightedSimplifiedTexturePresetHolder(
