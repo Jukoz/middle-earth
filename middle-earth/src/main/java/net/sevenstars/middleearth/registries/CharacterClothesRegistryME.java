@@ -24,6 +24,8 @@ public class CharacterClothesRegistryME {
         public final static Identifier SHIRT_BURGUNDY                                   = MiddleEarth.of("shirt_burgundy");
         public final static Identifier SHORT_CHEMISE_WHITE                              = MiddleEarth.of("short_chemise_white");
         public final static Identifier SHORT_CHEMISE_BEIGE                              = MiddleEarth.of("short_chemise_beige");
+        public final static Identifier SHORT_CHEMISE_GRAY                               = MiddleEarth.of("short_chemise_gray");
+        public final static Identifier SHORT_CHEMISE_RED                                = MiddleEarth.of("short_chemise_red");
         public final static Identifier SIMPLE_SHIRT                                     = MiddleEarth.of("simple_shirt");
 
         public final static Identifier DRESS_BURGUNDY_AND_WHITE                         = MiddleEarth.of("dress_burgundy_and_white");
@@ -45,5 +47,7 @@ public class CharacterClothesRegistryME {
         public final static Identifier YELLOW_TOWNSMAN_SHIRT_SHORT                      = MiddleEarth.of("yellow_townsman_shirt_short");
         public final static Identifier GREEN_COTTE                                      = MiddleEarth.of("green_cotte");
         public final static Identifier RED_HOUPPELANDE                                  = MiddleEarth.of("red_houppelande");
+        public final static Identifier GONDORIAN_TABBARD                                = MiddleEarth.of("gondorian_tabbard");
+        public final static Identifier GONDORIAN_TABBARD_OPEN                           = MiddleEarth.of("gondorian_tabbard_open");
     }
 }

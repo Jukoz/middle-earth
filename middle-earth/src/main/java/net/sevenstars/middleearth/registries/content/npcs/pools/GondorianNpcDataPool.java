@@ -70,9 +70,9 @@ public class GondorianNpcDataPool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.STONE_AXE))
+                                .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_DAGGER))
+                                .add(WeightedItemData.create(Items.IRON_HOE))
                                 .add(WeightedItemData.create(ToolItemsME.SMITHING_HAMMER))
-                                .add(WeightedItemData.create(ToolItemsME.PIPE))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
