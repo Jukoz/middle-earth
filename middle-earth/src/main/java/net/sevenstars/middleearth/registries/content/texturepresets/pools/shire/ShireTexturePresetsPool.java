@@ -105,11 +105,13 @@ public class ShireTexturePresetsPool {
                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_BEIGE)
                         ),
                         List.of(
-                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_BROWN),
-                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_TAN),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_BROWN).withWeight(2),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_TAN).withWeight(2),
                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.BROWN_TOWNSMAN_SHIRT_SHORT),
                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_TOWNSMAN_SHIRT_SHORT),
-                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE).withWeight(2),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.SHORT_RED_COTTE),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.YELLOW_TOWNSMAN_SHIRT_SHORT),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE).withWeight(3),
                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.EMPTY)
                         ),
                         1
@@ -154,11 +156,13 @@ public class ShireTexturePresetsPool {
                                     WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_BEIGE)
                             ),
                             List.of(
-                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_BROWN),
-                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_TAN),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_BROWN).withWeight(2),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_TAN).withWeight(2),
                                     WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.BROWN_TOWNSMAN_SHIRT_SHORT),
                                     WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_TOWNSMAN_SHIRT_SHORT),
-                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE).withWeight(2),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.SHORT_RED_COTTE),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.YELLOW_TOWNSMAN_SHIRT_SHORT),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE).withWeight(3),
                                     WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.EMPTY)
                             ),
                             1
@@ -194,7 +198,8 @@ public class ShireTexturePresetsPool {
                             ),
                             List.of(
                                     WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.BROWN_TOWNSMAN_SHIRT_SHORT),
-                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_TOWNSMAN_SHIRT_SHORT)
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_TOWNSMAN_SHIRT_SHORT),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.YELLOW_TOWNSMAN_SHIRT_SHORT)
                             ),
                             1
                     )

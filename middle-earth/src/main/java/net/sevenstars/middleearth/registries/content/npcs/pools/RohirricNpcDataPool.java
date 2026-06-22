@@ -66,8 +66,8 @@ public class RohirricNpcDataPool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.WORK_SHOES)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.STONE_AXE))
+                                .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
                                 .add(WeightedItemData.create(ToolItemsME.SMITHING_HAMMER))
-                                .add(WeightedItemData.create(ToolItemsME.PIPE))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
