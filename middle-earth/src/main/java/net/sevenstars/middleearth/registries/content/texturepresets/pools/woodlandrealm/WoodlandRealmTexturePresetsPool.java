@@ -87,6 +87,8 @@ public class WoodlandRealmTexturePresetsPool {
                                         ),
                                         List.of(
                                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE),
+                                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SILVER_TUNIC),
+                                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.TAN_TUNIC),
                                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BURGUNDY)
                                         )
                                 )

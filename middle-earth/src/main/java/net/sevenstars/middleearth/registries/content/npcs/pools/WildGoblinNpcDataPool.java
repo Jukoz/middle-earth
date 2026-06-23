@@ -123,13 +123,29 @@ public class WildGoblinNpcDataPool {
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR))
                         )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_HAUBERK))
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_SHIRT))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST).withColor(DARK_BROWN_GOBLIN))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT).withColor(DARK_BROWN_GOBLIN))
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SKIRT).withColor(DARK_BROWN_GOBLIN))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BLACK_FUR_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BROWN_FUR_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_TAN_FUR_BOOTS))
+                        )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(ModDecorativeBlocks.CRUDE_CHAIN.asItem()).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR.asItem()))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.STICK).withWeight(4))
-                                .add(WeightedItemData.create().withWeight(3))
+                                .add(WeightedItemData.create(Items.STICK).withWeight(2))
+                                .add(WeightedItemData.create(Items.BONE).withWeight(3))
+                                .add(WeightedItemData.create().withWeight(2))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
@@ -200,10 +216,10 @@ public class WildGoblinNpcDataPool {
                 )
         ), new HashMap<>(){{
             put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
-                    AttributePoolElement.create(EntityAttributes.SCALE, 0.83, 0.95),
+                    AttributePoolElement.create(EntityAttributes.SCALE, 0.85, 0.91),
                     AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
                     AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 28),
-                    AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1.05, 1.12),
+                    AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1.0, 1.05),
                     AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
                 )
             ));
