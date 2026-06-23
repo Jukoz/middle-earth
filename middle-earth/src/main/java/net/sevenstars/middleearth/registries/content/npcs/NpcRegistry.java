@@ -93,6 +93,7 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> EREBOR_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "leader"));
 
     // [LOTHLORIEN]
+    public final static RegistryKey<NpcData> LOTHLORIEN_CIVILIAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "civilian"));
     public final static RegistryKey<NpcData> LOTHLORIEN_SENTINEL = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "sentinel"));
     public final static RegistryKey<NpcData> LOTHLORIEN_RANGER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "ranger"));
     public final static RegistryKey<NpcData> LOTHLORIEN_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.LOTHLORIEN, "warrior"));

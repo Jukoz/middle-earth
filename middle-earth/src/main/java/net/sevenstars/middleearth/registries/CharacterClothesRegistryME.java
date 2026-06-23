@@ -29,6 +29,8 @@ public class CharacterClothesRegistryME {
         public final static Identifier SIMPLE_SHIRT                                     = MiddleEarth.of("simple_shirt");
         public final static Identifier BLUE_TUNIC                                       = MiddleEarth.of("blue_tunic");
         public final static Identifier PALE_BLUE_TUNIC                                  = MiddleEarth.of("pale_blue_tunic");
+        public final static Identifier SILVER_TUNIC                                     = MiddleEarth.of("silver_tunic");
+        public final static Identifier TAN_TUNIC                                        = MiddleEarth.of("tan_tunic");
 
         public final static Identifier DRESS_BURGUNDY_AND_WHITE                         = MiddleEarth.of("dress_burgundy_and_white");
         public final static Identifier BROWN_TOWNSMAN_SHIRT                             = MiddleEarth.of("brown_townsman_shirt");

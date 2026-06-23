@@ -58,6 +58,24 @@ public class LothlorienTexturePresetsPool {
             ))
             .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC)
+            ))
+            .withClothes(List.of(
+                    new WeightedClothingPresetHolder[]{
+                            new WeightedClothingPresetHolder(
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BEIGE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN)
+                                    ),
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SILVER_TUNIC),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.TAN_TUNIC).withWeight(2)
+                                    ),
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.RED_HOUPPELANDE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.EMPTY).withWeight(1)
+                                    )
+                            )
+                    }
             ));
 
         MALE_PRESET = new WeightedTexturePresetHolder()

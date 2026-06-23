@@ -3,8 +3,7 @@ package net.sevenstars.middleearth.registries.content.npcs.pools;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.item.EquipmentItemsME;
-import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.registries.content.npcs.CombatArchetypePool;
@@ -24,6 +23,7 @@ import java.util.List;
 public class LorienNpcDataPool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.LOTHLORIEN;
 
+    public final static NpcData CIVILIAN;
     public final static NpcData SENTINEL;
     public final static NpcData RANGER;
     public final static NpcData WARRIOR;
@@ -35,6 +35,7 @@ public class LorienNpcDataPool {
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_CIVILIAN, CIVILIAN),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_SENTINEL, SENTINEL),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_RANGER, RANGER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_WARRIOR, WARRIOR),
@@ -47,6 +48,26 @@ public class LorienNpcDataPool {
     }
 
     static {
+        CIVILIAN = new NpcData(NpcRegistry.LOTHLORIEN_CIVILIAN.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ELVEN_ARMING_SKIRT))
+                                .add(WeightedItemData.create().withWeight(3)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(FoodItemsME.LEMBAS))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_DAGGER))
+                                .add(WeightedItemData.create(WeaponItemsME.BRONZE_DAGGER))
+                                .add(WeightedItemData.create(DecorativeItemsME.WATERING_CAN))
+                                .add(WeightedItemData.create().withWeight(3)))
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+
         SENTINEL = new NpcData(NpcRegistry.LOTHLORIEN_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
@@ -58,7 +79,7 @@ public class LorienNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_CAPE))
                         )
                         .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_ARMING_SKIRT)))
-                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.SHOES)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SWORD)))
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD)))
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
