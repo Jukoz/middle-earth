@@ -129,7 +129,7 @@ public class IsengardTexturePresetsPool {
                     new WeightedClothingPresetHolder[]{
                         new WeightedClothingPresetHolder(List.of(
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_BROWN),
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN)
+                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_DARK_BROWN)
                         ))
                     }
                 ));
