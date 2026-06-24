@@ -45,7 +45,7 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75, 0.81))
                     .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1.05, 1.1)));
                 put(EntityCategories.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71, 0.78))
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.73, 0.79))
                     .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1, 1.03)));
             }},
             List.of(), List.of());
@@ -93,10 +93,10 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.90)));
                 put(EntityCategories.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.62, 0.68))
-                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.63, 0.68))
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.95, 1.02)));
                 put(EntityCategories.FEMALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.61, 0.65))
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.62, 0.66))
                     .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
             }},
             List.of(), List.of());
@@ -108,10 +108,10 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
                 put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0))
-                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.97, 1.01)));
                 put(EntityCategories.MALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98))
-                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
+                    .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.96, 1)));
             }},
             List.of(), List.of());
 
@@ -131,11 +131,8 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.11))
                     .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 1.0)));
                 put(EntityCategories.MALE, new AttributePool()
-                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.65, 0.72))
-                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
-                put(EntityCategories.FEMALE, new AttributePool()
-                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.63, 0.70))
-                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
+                        .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.7, 0.78))
+                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.95, 1.02)));
             }},
             List.of(), List.of());
 
@@ -156,9 +153,7 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.09))
                     .addElement(AttributePoolElement.create(EntityAttributes.STEP_HEIGHT, 0.70)));
                 put(EntityCategories.MALE, new AttributePool()
-                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1.03)));
-                put(EntityCategories.FEMALE, new AttributePool()
-                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.94, 1)));
+                        .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.95, 1.01)));
             }},
             List.of(), List.of());
     }
