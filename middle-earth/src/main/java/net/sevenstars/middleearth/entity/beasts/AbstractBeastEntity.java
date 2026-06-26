@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -177,6 +178,18 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public boolean isOwner(LivingEntity entity) {
         return this.getOwner() != null && this.getOwner() == entity;
     }
+
+    /**
+     * Checks an entity for beast-specific targeting criteria (LivingEntity, not a passenger, not its owner, not a creative player)
+     * @param entity
+     * @return isValidTarget
+     */
+    public boolean isValidTarget(Entity entity) {
+        return entity instanceof LivingEntity livingEntity &&                           // Entity is LivingEntity
+                !this.getPassengerList().contains(livingEntity) &&                      // Is not a passenger
+                !(this.getOwner() != null && this.getOwner().equals(livingEntity)) &&   // Is not its owner
+                !(livingEntity instanceof PlayerEntity player && player.isCreative());  // Is not a creative player
+    }
     // endregion
 
     // region DataTracker
@@ -340,6 +353,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public void breakFree() {
         this.setTame(false);
         this.setOwner(null);
+        this.setSitting(false);
 
         if(this.getBrain() != null) {
             this.getBrain().forget(MemoryModulesME.TAME);
@@ -533,7 +547,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             setupAnimationStates();
         }
 
-        if (!this.isClientWorld() && isTame()) {
+        if (!this.isClientWorld() && isTame() && this.getOwner() != null) {
             if(this.getWorld().getTimeOfDay() == 6500) { // Tameness always decreases shortly after noon
                 List<? extends PlayerEntity> players = this.getWorld().getPlayers();
                 if(this.getOwner() != null && players.contains(this.getOwner())) { // Check if owner is online

@@ -12,7 +12,6 @@ import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRender
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
-import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleModel;
@@ -66,7 +65,6 @@ public final class EntityModelLayersME {
     public static final EntityModelLayer CAVE_TROLL_SADDLE = EntityModelLayersME.registerEntityModelLayer("cave_troll_sddle", CaveTrollSaddleModel.getTexturedModelData());
     public static final EntityModelLayer STONE_TROLL = EntityModelLayersME.registerEntityModelLayer("stone_troll", StoneTrollModel.getTexturedModelData());
     public static final EntityModelLayer PETRIFIED_TROLL = EntityModelLayersME.registerEntityModelLayer("petrified_troll", PetrifiedTrollModel.getTexturedModelData());
-    public static final EntityModelLayer BARROW_WIGHT = EntityModelLayersME.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
     public static final EntityModelLayer SHELOBITE_LARVA = EntityModelLayersME.registerEntityModelLayer("shelobite_larva", ShelobiteLarvaModel.getTexturedModelData());
     public static final EntityModelLayer SHELOBITE_SCUTTLER = EntityModelLayersME.registerEntityModelLayer("shelobite_scuttler", ShelobiteScuttlerModel.getTexturedModelData());
     public static final EntityModelLayer SPAWN_OF_SHELOB = EntityModelLayersME.registerEntityModelLayer("spawn_of_shelob", SpawnOfShelobModel.getTexturedModelData());
