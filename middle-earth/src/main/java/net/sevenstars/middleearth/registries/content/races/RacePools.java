@@ -65,7 +65,7 @@ public class RacePools {
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
                     .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 0.9))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 1.75))
-                    .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, BASE_SPEED * 0.115))
+                    .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, BASE_SPEED * 0.1))
                     .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
                     .addElement(AttributePoolElement.create(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 0.75)));
                 put(EntityCategories.MALE, new AttributePool()
@@ -107,7 +107,8 @@ public class RacePools {
             new AttributePool(),
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                    .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, BASE_SPEED * 0.1)));
                 put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0))
                     .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.97, 1.01)));

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.MordorNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeNpcSpawningData;
@@ -11,6 +12,7 @@ public class MordorBiomeEventPool {
     public final static BiomeEventData DEFAULT;
     public final static BiomeEventData NURN;
     public final static BiomeEventData SCOUTS;
+    public final static BiomeEventData ITHILIEN;
     public final static BiomeEventData CAVE;
 
     static {
@@ -38,6 +40,15 @@ public class MordorBiomeEventPool {
             new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3),
             new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2),
             new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(2).withMount(EntitiesME.WARG)
+        ));
+
+        ITHILIEN = new BiomeEventData(List.of(
+            new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(4),
+            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3),
+            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2),
+
+            new BiomeNpcSpawningData(GondorianNpcDataPool.SOLDIER).withWeight(4),
+            new BiomeNpcSpawningData(GondorianNpcDataPool.KNIGHT).withWeight(1)
         ));
 
         CAVE = new BiomeEventData(List.of(
