@@ -141,11 +141,11 @@ public class NpcData {
         Race race = RaceLookup.getRace(npcEntity.getWorld(), raceId);
         if(race != null)
             race.applyNpcAttributes(npcEntity);
-        EntityCategories category = npcEntity.getNpcCategory();
-        if(npcAttributePools.containsKey(EntityCategories.SHARED))
-            npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
-        if(npcAttributePools.containsKey(category))
-            npcAttributePools.get(category).apply(npcEntity);
+        //EntityCategories category = npcEntity.getNpcCategory();
+        //if(npcAttributePools.containsKey(EntityCategories.SHARED))
+        //    npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
+        //if(npcAttributePools.containsKey(category))
+        //    npcAttributePools.get(category).apply(npcEntity);
 
         npcEntity.heal(npcEntity.getMaxHealth() - npcEntity.getHealth());
     }

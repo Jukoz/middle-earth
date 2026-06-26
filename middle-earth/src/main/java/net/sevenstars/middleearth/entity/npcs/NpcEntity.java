@@ -101,15 +101,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
         this.entityDataHolder = new NpcEntityDataHolder(this);
-        //this.updateAttackType();
+        this.updateAttackType();
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 20.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.34)
-                .add(EntityAttributes.ATTACK_DAMAGE, 1)
-                .add(EntityAttributes.FOLLOW_RANGE, 32.0);
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.FOLLOW_RANGE, 32.0)
+                .add(EntityAttributes.ATTACK_DAMAGE, 1.0);
     }
 
     protected void initGoals() {
@@ -205,7 +203,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
         entityDataHolder.setCombatRuntimeData(combatArchetypeRuntimeData);
         entityDataHolder.setFactionId(npcData.getFactionIdentifier());
         entityDataHolder.setNpcCategory(npcData.getNpcTextureData(getWorld()).getRandomCategory().name());
-        //updateAttackType();
 
         /*switch (combatArchetypeRuntimeData.getArchetype()){
             case MELEE -> NpcBrain.setMeleeActivities((Brain<NpcEntity>) this.brain, this, (MeleeCombatArchetypeRuntimeData) combatArchetypeRuntimeData);
@@ -455,7 +452,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
         }
 
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        boolean bl;
+        return super.tryAttack(world, target);
+        /*boolean bl;
         float damage = 1.0f;
         try{
             Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE));
@@ -485,7 +483,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
             this.onAttacking(target);
             this.playAttackSound();
         }
-        return bl;
+        return bl;*/
     }
 
     @Override
@@ -589,13 +587,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
 
     public boolean hasTextureData(){
         return getNpcTextureData().get(NpcRenderedPart.BODY) != null;
-    }
-
-
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.ATTACK_DAMAGE, 2.0)
-                .add(EntityAttributesME.WIDTH_SCALE, 1.0);
     }
 
     @Nullable
