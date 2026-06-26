@@ -1,0 +1,24 @@
+{
+  "name": "middle-earth:watchtower",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/watchtower",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/wooden_watchtower",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    }
+  ]
+}

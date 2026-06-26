@@ -1,0 +1,24 @@
+{
+  "name": "middle-earth:mordor/mordor_camp_chief_tent",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mordor/mordor_camp_chief_tent",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_mordor_tent"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:mordor/mordor_camp_smith",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_mordor_tent"
+      }
+    }
+  ]
+}

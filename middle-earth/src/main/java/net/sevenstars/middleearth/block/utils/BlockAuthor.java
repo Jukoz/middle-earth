@@ -13,7 +13,8 @@ public enum BlockAuthor implements StringIdentifiable {
     SCOSHER(1, "Scosher"),
     COFFEE_VIKING(2, "CoffeeViking"),
     NAUTILUS(3, "Nautilus4000"),
-    SINDAVAR(4, "Sindavar")
+    SINDAVAR(4, "Sindavar"),
+    ANGMARZKU(5, "Angmarzku")
     ;
 
     private static final IntFunction<BlockAuthor> BY_ID = ValueLists.createIndexToValueFunction(BlockAuthor::getId, BlockAuthor.values(), ValueLists.OutOfBoundsHandling.ZERO);;

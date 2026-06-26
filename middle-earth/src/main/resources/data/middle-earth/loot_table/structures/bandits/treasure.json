@@ -1,0 +1,422 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin_pile"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eorling_marshal_helmet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eorling_marshal_chestplate",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eorling_marshal_leggings",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eorling_marshal_boots",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:galadhrim_helmet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:galadhrim_chestplate",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:galadhrim_leggings",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:galadhrim_boots",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+		},
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gundabad_hobgoblin_plate_chestplate",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gundabad_hobgoblin_plate_crested_helmet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gundabad_hobgoblin_mail_coat",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gundabad_hobgoblin_plated_boots",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 2
+    },
+	{
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:steel_sword",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.35
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_axe",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_spear",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:lorien_spear",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:lorien_sword",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gundabad_falchion",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gundabad_axe",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.5,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gold_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_nugget",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book"
+        }
+      ]
+    }
+  ]
+}

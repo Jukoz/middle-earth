@@ -27,10 +27,12 @@ import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class StructureNestBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty ENABLED = BooleanProperty.of("enabled");
 
     public StructureNestBlock(Settings settings) {
         super(settings);
+        setDefaultState(getDefaultState().with(ENABLED, false));
     }
 
     @Override
@@ -87,8 +89,9 @@ public class StructureNestBlock extends BlockWithEntity implements BlockEntityPr
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{WATERLOGGED});
+        builder.add(WATERLOGGED, ENABLED);
     }
+
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.world.biomes;
 
 import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.minecraft.block.Blocks;
 
@@ -61,15 +62,15 @@ public class MEBiomeDataConfigs {
             .addSlopeData(36, ModBlocks.ASH_BLOCK)
             .addSlopeData(44, Blocks.BASALT)
             .addSlopeData(MAX_ANGLE, Blocks.BLACKSTONE);
-    public static SlopeMap mordorGrass = new SlopeMap().addSlopeData(25, Blocks.GRASS_BLOCK)
+    public static SlopeMap mordorGrass = new SlopeMap().addSlopeData(25, ModBlocks.PEAT_GRASS_BLOCK)
             .addSlopeData(32, ModBlocks.ASHEN_DIRT)
             .addSlopeData(37, ModBlocks.ASHEN_GRAVEL)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
 
-    public static SlopeMap greyMountains = new SlopeMap().addSlopeData(28, Blocks.GRASS_BLOCK)
-            .addSlopeData(32, Blocks.COARSE_DIRT)
-            .addSlopeData(45, Blocks.STONE)
-            .addSlopeData(56, Blocks.TUFF)
+    public static SlopeMap greyMountains = new SlopeMap().addSlopeData(21, Blocks.GRAVEL)
+            .addSlopeData(28, Blocks.STONE)
+            .addSlopeData(40, Blocks.TUFF)
+            .addSlopeData(54, StoneBlockSets.SLATE_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, Blocks.SMOOTH_BASALT);
     public static SlopeMap greyMountainPeaks = new SlopeMap().addSlopeData(32, Blocks.SNOW_BLOCK)
             .addSlopeData(41, StoneBlockSets.SCHIST_SET.baseBlocks.base())
@@ -122,8 +123,9 @@ public class MEBiomeDataConfigs {
             .addSlopeData(51, StoneBlockSets.IRONSTONE_SET.baseBlocks.base())
             .addSlopeData(MAX_ANGLE, StoneBlockSets.HEMATITE_SET.baseBlocks.base());
 
-    public static SlopeMap limeStoneHills = new SlopeMap().addSlopeData(34, Blocks.GRASS_BLOCK)
-            .addSlopeData(37, Blocks.COARSE_DIRT)
+    public static SlopeMap limeStoneHills = new SlopeMap().addSlopeData(31, ModBlocks.LOAM_GRASS_BLOCK)
+            .addSlopeData(35, ModBlocks.COARSE_LOAM)
+            .addSlopeData(41, StoneBlockSets.GABBRO_SET.baseBlocks.base())
             .addSlopeData(48, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
     public static SlopeMap limeStoneMountains = new SlopeMap().addSlopeData(13, Blocks.GRASS_BLOCK)
@@ -227,10 +229,15 @@ public class MEBiomeDataConfigs {
             .addSlopeData(21, ModBlocks.CHALKSOIL_GRASS_BLOCK)
             .addSlopeData(24, ModBlocks.COARSE_CHALKSOIL)
             .addSlopeData(27,StoneBlockSets.CHALK_SET.oldBlocks.base())
-            .addSlopeData(MAX_ANGLE, StoneBlockSets.CHALK_SET.baseBlocks.base());
+            .addSlopeData(41, StoneBlockSets.CHALK_SET.baseBlocks.base())
+            .addSlopeData(MAX_ANGLE, Blocks.CALCITE);
     public static SlopeMap grassPlains = new SlopeMap()
             .addSlopeData(25, Blocks.GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap loamPlains = new SlopeMap()
+            .addSlopeData(25, ModBlocks.LOAM_GRASS_BLOCK)
+            .addSlopeData(35, ModBlocks.COARSE_LOAM)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap peatPlains = new SlopeMap()
             .addSlopeData(25, ModBlocks.PEAT_GRASS_BLOCK)
@@ -240,9 +247,17 @@ public class MEBiomeDataConfigs {
             .addSlopeData(25, ModBlocks.SILT_GRASS_BLOCK)
             .addSlopeData(36, ModBlocks.COARSE_SILT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap coarseLoam = new SlopeMap()
+            .addSlopeData(25, ModBlocks.COARSE_LOAM)
+            .addSlopeData(36, ModBlocks.FOUL_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap snowyPlains = new SlopeMap()
             .addSlopeData(25, ModBlocks.SNOWY_GRASS_BLOCK)
             .addSlopeData(36, Blocks.COARSE_DIRT)
+            .addSlopeData(MAX_ANGLE, Blocks.STONE);
+    public static SlopeMap gravelPlains = new SlopeMap()
+            .addSlopeData(25, Blocks.GRAVEL)
+            .addSlopeData(35, Blocks.COBBLESTONE)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     public static SlopeMap sandShores = new SlopeMap()
             .addSlopeData(27, Blocks.SAND)
@@ -279,8 +294,13 @@ public class MEBiomeDataConfigs {
     public static SlopeMap mud = new SlopeMap().addSlopeData(25, Blocks.MUD)
             .addSlopeData(32, Blocks.DIRT)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap nearHarad = new SlopeMap().addSlopeData(32, Blocks.GRASS_BLOCK)
+    public static SlopeMap nearHarad = new SlopeMap().addSlopeData(32, ModBlocks.SILT_GRASS_BLOCK)
             .addSlopeData(36, ModBlocks.DRY_DIRT)
+            .addSlopeData(44, Blocks.SANDSTONE)
+            .addSlopeData(56, Blocks.STONE)
+            .addSlopeData(MAX_ANGLE, Blocks.TERRACOTTA);
+    public static SlopeMap corsairCoasts = new SlopeMap().addSlopeData(32, ModBlocks.CHALKSOIL_GRASS_BLOCK)
+            .addSlopeData(36, ModBlocks.COARSE_CHALKSOIL)
             .addSlopeData(44, Blocks.SANDSTONE)
             .addSlopeData(56, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, Blocks.TERRACOTTA);
@@ -296,8 +316,8 @@ public class MEBiomeDataConfigs {
             .addSlopeData(27, ModBlocks.RIVER_SAND)
             .addSlopeData(33, Blocks.GRAVEL)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
-    public static SlopeMap beach = new SlopeMap().addSlopeData(30, Blocks.SAND)
-            .addSlopeData(36, ModBlocks.RIVER_SAND)
+    public static SlopeMap beach = new SlopeMap().addSlopeData(30, ModBlocks.SILT)
+            .addSlopeData(37, Blocks.SANDSTONE)
             .addSlopeData(MAX_ANGLE, Blocks.STONE);
     // endregion
 

@@ -2,15 +2,12 @@ package net.sevenstars.middleearth.block.special.plate;
 
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.nbt.NbtCompound;
@@ -19,14 +16,11 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
@@ -94,6 +88,12 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
         return blockPlaced;
     }
 
+    public static void tick(World world, BlockPos pos, BlockState state, PlateBlockEntity blockEntity) {
+        if(blockEntity.blockPlaced) {
+            blockEntity.generateItem((ServerWorld) world);
+        }
+    }
+
     @Nullable
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
@@ -127,7 +127,8 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
 
             LootWorldContext lootWorldContext = (new LootWorldContext.Builder(world)).build(LootContextTypes.EMPTY);
             ObjectArrayList<ItemStack> lootList = lootTable.generateLoot(lootWorldContext, this.lootTableSeed);
-            ItemStack itemLoot = lootList.get(world.getRandom().nextInt(lootList.size()));
+            ItemStack itemLoot = ItemStack.EMPTY;
+            if(!lootList.isEmpty()) itemLoot = lootList.get(world.getRandom().nextInt(lootList.size()));
 
             this.food = itemLoot;
             this.lootTable = null;

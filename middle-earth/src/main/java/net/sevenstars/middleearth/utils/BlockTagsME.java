@@ -8,4 +8,5 @@ import net.sevenstars.middleearth.MiddleEarth;
 public class BlockTagsME {
     public static TagKey<Block> CURTAINS = TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("curtains"));
     public static TagKey<Block> SMALL_CURTAINS = TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("small_curtains"));
+    public static TagKey<Block> FARMLANDS = TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("farmlands"));
 }

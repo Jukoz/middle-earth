@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top_inner_faces",
+  "textures": {
+    "bottom": "middle-earth:block/brigand_trial_spawner_bottom",
+    "side": "middle-earth:block/brigand_trial_spawner_side",
+    "top": "middle-earth:block/brigand_trial_spawner_top_active"
+  }
+}

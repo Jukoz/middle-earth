@@ -1,0 +1,194 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_spear",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:iron_dagger",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_sword",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:iron_spear",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_axe",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_sword",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_bow",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_militia_helmet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_braced_militia_helmet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_braced_mail_shirt",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_reinforced_leather_vest",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_reinforced_leather_scale_vest",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_soldier_helmet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 2
+    },
+	{
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_bucking_horse_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_galloping_horse_shield"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_horse_head_shield"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_plainsman_shield"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:rohirric_twin_horses_shield"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:tin_ingot"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_copper"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ]
+    }
+  ]
+}

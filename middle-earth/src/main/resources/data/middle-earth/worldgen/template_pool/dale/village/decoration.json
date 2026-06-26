@@ -1,0 +1,105 @@
+{
+  "name": "middle-earth:dale/village/decoration",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_2",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_3",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_4",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_5",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_6",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_7",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_8",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_9",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/decoration_10",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    }
+  ]
+}

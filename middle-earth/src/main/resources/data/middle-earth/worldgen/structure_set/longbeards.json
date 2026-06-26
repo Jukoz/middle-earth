@@ -7,6 +7,10 @@
 	{
       "structure": "middle-earth:longbeards_watch_tower",
       "weight": 1
+    },
+	{
+      "structure": "middle-earth:longbeards_hall",
+      "weight": 5
     }
   ],
   "placement": {

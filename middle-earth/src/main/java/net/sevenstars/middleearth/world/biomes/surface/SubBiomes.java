@@ -127,17 +127,17 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.MIRKWOOD, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.33f, MEBiomeKeys.WEBBED_WOODS));
         subBiomesMap.put(MEBiomeKeys.WOODLAND_REALM, new SubBiome()
-                .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.WOODLAND_GLADE)
-                .addSubBiomeData(0.37f, 1.0f, MEBiomeKeys.WOODLAND_GLADE));
+                .addSubBiomeData(-1.0f, -0.35f, MEBiomeKeys.WOODLAND_GLADE)
+                .addSubBiomeData(0.3f, 1.0f, MEBiomeKeys.AUTUMN_WOODLAND));
         subBiomesMap.put(MEBiomeKeys.DARK_MIRKWOOD, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.3f, MEBiomeKeys.WEBBED_DARK_WOODS));
 
         subBiomesMap.put(MEBiomeKeys.GUNDABAD_PLAINS, new SubBiome(96)
-                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
-                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+                .addSubBiomeData(-1.0f, -0.34f, MEBiomeKeys.GUNDABAD_WOODS)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.GUNDABAD_WOODS));
         subBiomesMap.put(MEBiomeKeys.GREY_PLAINS, new SubBiome(96)
-                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.NORTHERN_RHOVANION_FOREST)
-                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.NORTHERN_RHOVANION_HILLS, true));
+                .addSubBiomeData(-1.0f, -0.32f, MEBiomeKeys.GREY_ASHEN_WOODS)
+                .addSubBiomeData(0.33f, 2.01f, MEBiomeKeys.GREY_FOREST));
         subBiomesMap.put(MEBiomeKeys.GREY_MOUNTAINS_BASE, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.36f, MEBiomeKeys.GREY_ASHEN_WOODS)
                 .addSubBiomeData(0.35f, 2.01f, MEBiomeKeys.GREY_ASHEN_WOODS));
