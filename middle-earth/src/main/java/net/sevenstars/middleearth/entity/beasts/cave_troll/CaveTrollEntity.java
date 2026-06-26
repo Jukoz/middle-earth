@@ -215,6 +215,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
+            this.tameBeast((LivingEntity) player);
+            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+        }
+    }
+
+    @Override
+    public void tameBeast(LivingEntity livingEntity) {
+        if(!this.getWorld().isClient()) {
             this.setTame(true);
             this.setTameness(75);
             this.stopSleeping();
@@ -223,9 +231,9 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
             this.getBrain().forget(MemoryModuleType.NEAREST_ATTACKABLE);
             this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
-            this.setOwner(player);
-            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+            this.setOwner(livingEntity);
         }
+
     }
 
     @Override
@@ -266,7 +274,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         if(!this.isSitting()) {
-            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.2f);
         }
 
         return super.getSaddledSpeed(controllingPlayer);
@@ -275,7 +283,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
         if(!this.isSitting()) {
-            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.2f);
         }
 
         return super.getNpcSaddledSpeed(controllingNpc);
