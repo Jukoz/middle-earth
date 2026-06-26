@@ -15,7 +15,8 @@ public class RohanBiomeEventPool {
     static {
         DEFAULT = new BiomeEventData(List.of(
             new BiomeNpcSpawningData(RohirricNpcDataPool.MILITIA).withWeight(7),
-            new BiomeNpcSpawningData(RohirricNpcDataPool.SOLDIER).withWeight(5),
+            new BiomeNpcSpawningData(RohirricNpcDataPool.SOLDIER).withWeight(3),
+            new BiomeNpcSpawningData(RohirricNpcDataPool.SOLDIER).withWeight(2).withMount(EntityType.HORSE),
             new BiomeNpcSpawningData(RohirricNpcDataPool.KNIGHT).withWeight(2),
             new BiomeNpcSpawningData(RohirricNpcDataPool.KNIGHT).withWeight(1).withMount(EntityType.HORSE),
             new BiomeNpcSpawningData(RohirricNpcDataPool.EORLING_MARSHAL).withWeight(1)

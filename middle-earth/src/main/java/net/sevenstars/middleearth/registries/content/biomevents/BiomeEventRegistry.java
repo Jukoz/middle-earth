@@ -1,20 +1,19 @@
 package net.sevenstars.middleearth.registries.content.biomevents;
 
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.registries.content.biomevents.pools.GenericHostilesBiomeEventPool;
-import net.sevenstars.middleearth.registries.content.biomevents.pools.GondorBiomeEventPool;
-import net.sevenstars.middleearth.registries.content.biomevents.pools.MordorBiomeEventPool;
-import net.sevenstars.middleearth.registries.content.biomevents.pools.RohanBiomeEventPool;
+import net.sevenstars.middleearth.registries.content.biomevents.pools.*;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 
 public class BiomeEventRegistry {
     private static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT_KEY = DynamicRegistriesME.BIOME_EVENT;
+    private static final RegistryKey<Registry<BiomeEventData>> STRUCTURE_EVENT_KEY = DynamicRegistriesME.STRUCTURE_EVENT;
 
     public final static RegistryKey<BiomeEventData> DEFAULT = DynamicRegistriesME.of(BIOME_EVENT_KEY, MiddleEarth.of("default"));
 
@@ -24,6 +23,12 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> DOLOMITE_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DOLOMITE_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> MOUNTAIN_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MOUNTAIN_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> MUD_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MUD_CAVE.getValue());
+
+    // region STRUCTURES
+    //public final static RegistryKey<BiomeEventData> WOODLAND_REALM_HALL = DynamicRegistriesME.of(STRUCTURE_EVENT_KEY, MiddleEarth.of("woodland_realm_hall"));
+    public final static RegistryKey<Structure> WLR_HALL_STRUCTURE = register("woodland_realm_hall");
+    public final static RegistryKey<BiomeEventData> WOODLAND_REALM_HALL = DynamicRegistriesME.of(STRUCTURE_EVENT_KEY, WLR_HALL_STRUCTURE.getValue());
+    // endregion
 
     // region MORDOR
     public final static RegistryKey<BiomeEventData> MORDOR = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MORDOR.getValue());
@@ -77,6 +82,12 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> THE_WOLD           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.THE_WOLD.getValue());
     public final static RegistryKey<BiomeEventData> THE_WOLD_WHEAT_FIELD = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.THE_WOLD_WHEAT_FIELD.getValue());
     // endregion
+
+    public static void bootstrapStructureEvents(Registerable<BiomeEventData> context) {
+        RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(STRUCTURE_EVENT_KEY);
+
+        register(context, registryEntryLookup, WOODLAND_REALM_HALL, WoodlandRealmBiomeEventPool.HALL);
+    }
 
     public static void bootstrap(Registerable<BiomeEventData> context) {
         RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(BIOME_EVENT_KEY);
@@ -140,5 +151,9 @@ public class BiomeEventRegistry {
         DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
         // [LANG datagen]
         // None
+    }
+
+    private static RegistryKey<Structure> register(String name) {
+        return RegistryKey.of(RegistryKeys.STRUCTURE, Identifier.of(MiddleEarth.MOD_ID, name));
     }
 }

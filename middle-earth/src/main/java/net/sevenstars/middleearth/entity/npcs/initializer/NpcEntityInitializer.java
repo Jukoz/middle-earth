@@ -10,13 +10,16 @@ import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.structure.StructureStart;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -25,6 +28,7 @@ import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
@@ -95,6 +99,19 @@ public class NpcEntityInitializer {
     private static BiomeEventData.ContextualizedBiomeData findContextualizedNpcData(ServerWorld world, NpcEntity npcEntity) throws Exception {
         BlockPos blockPos = npcEntity.getBlockPos();
         RegistryEntry<Biome> biome = world.getBiome(blockPos);
+        Registry<Structure> structureRegistry = world.getRegistryManager()
+                .getOrThrow(RegistryKeys.STRUCTURE);
+        List<StructureStart> structureStarts = world.getStructureAccessor().getStructureStarts(world.getChunk(blockPos).getPos(), s -> true);
+
+        for (StructureStart structureStart : structureStarts) {
+            Structure structure = structureStart.getStructure();
+            Identifier structureId = structureRegistry.getId(structure);
+            BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = BiomeEventDataLookup.findNpcDataForStructure(world, structureId, npcEntity);
+            if(contextualizedBiomeData != null){
+                return contextualizedBiomeData;
+            }
+        }
+
         BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = BiomeEventDataLookup.findNpcDataForBiome(world, biome, npcEntity);
         if(contextualizedBiomeData != null){
             return contextualizedBiomeData;
