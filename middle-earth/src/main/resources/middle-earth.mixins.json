@@ -41,7 +41,6 @@
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.LivingEntityRenderStateMixin",
-    "client.MouseMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin"
   ],
