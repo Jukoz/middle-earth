@@ -59,9 +59,9 @@ public class NpcBrain {
     }
 
     public static void setRangedActivities(Brain<NpcEntity> brain, NpcEntity npcEntity, RangedCombatArchetypeRuntimeData runtimeData){
-        //addCoreActivities(brain);
+        addCoreActivities(brain);
 
-        //addIdleActivities(brain);
+        addIdleActivities(brain);
         // FIGHT
         float movementSpeed = npcEntity.getFightingMovementSpeed();
         int attackSpeed = npcEntity.getTickAttackSpeedCooldown();
@@ -96,7 +96,7 @@ public class NpcBrain {
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
-                UpdateAttackTargetTask.create((world, npc) -> npc.getHurtBy()),
+                //UpdateAttackTargetTask.create((world, npc) -> npc.getHurtBy()),
                 UpdateAttackTargetTask.create(NpcBrain::getAttackTarget))
         );
     }

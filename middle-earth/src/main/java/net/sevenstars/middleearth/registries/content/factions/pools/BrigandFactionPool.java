@@ -54,6 +54,7 @@ public class BrigandFactionPool {
                         new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.WOODLAND_REALM, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.HOSTILE),

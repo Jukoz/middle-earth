@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.entity.npcs.data;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.data.DataTracker;
@@ -30,6 +31,8 @@ import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 
+import java.util.Optional;
+
 public class NpcEntityDataHolder {
     NpcEntity owner;
 
@@ -38,6 +41,8 @@ public class NpcEntityDataHolder {
     private static final TrackedData<String> NPC_DATA_ID;
     private static final TrackedData<Long> INITIALIZATION_TICK;
     private static final TrackedData<NpcEntityTextureData> TEXTURE_DATA;
+    private static final TrackedData<Optional<BlockPos>> STRUCTURE_MANAGER_POS;
+    private static final TrackedData<Optional<BlockPos>> BED_POS;
     private static final TrackedData<Boolean> FIGHTING;
     private static final TrackedData<Boolean> BLOCKING;
     private static final TrackedData<NbtCompound> COMBAT_RUNTIME_DATA;
@@ -46,12 +51,18 @@ public class NpcEntityDataHolder {
         owner = npcEntity;
     }
 
+    public static void initialize() {
+        // This calls the { static } block
+    }
+
     public void initDataTracker(DataTracker.Builder builder) {
         builder.add(INITIALIZATION_TICK, 0l);
         builder.add(CATEGORY, "");
         builder.add(FACTION_ID, "");
         builder.add(NPC_DATA_ID, "");
         builder.add(TEXTURE_DATA, new NpcEntityTextureData());
+        builder.add(STRUCTURE_MANAGER_POS, Optional.empty());
+        builder.add(BED_POS, Optional.empty());
         builder.add(FIGHTING, false);
         builder.add(BLOCKING, false);
         builder.add(COMBAT_RUNTIME_DATA, new NbtCompound());
@@ -61,24 +72,15 @@ public class NpcEntityDataHolder {
 
     public void assignStructureManager(StructureManagerBlockEntity blockEntity) {
         if(owner == null) return;
-        Brain<NpcEntity> brain = owner.getBrain();
-        if(brain == null) return;
         boolean hasStructure = blockEntity != null;
-        if(!hasStructure){
-            brain.forget(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS);
-            return;
-        }
-        brain.remember(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS, blockEntity.getPos());
+        if(hasStructure) this.owner.getDataTracker().set(STRUCTURE_MANAGER_POS, Optional.of(blockEntity.getPos()));
     }
 
     public void assignBed(BedBlockEntity bedBlockEntity) {
         if(owner == null ) return;
-        Brain<NpcEntity> brain = owner.getBrain();
-        if(brain == null)  return;
-        if(bedBlockEntity == null){
-            brain.forget(MemoryModulesME.ASSIGNED_BED_POS);
+        if(bedBlockEntity != null) {
+            this.owner.getDataTracker().set(BED_POS, Optional.of(bedBlockEntity.getPos()));
         }
-        //this.getBrain().remember(MemoryModulesME.ASSIGNED_BED_POS, new GlobalPos(getWorld(), bedBlockEntity.getPos()));
     }
 
     public void writeEntityData(WriteView view) {
@@ -88,6 +90,8 @@ public class NpcEntityDataHolder {
         view.put("FactionId", Codec.STRING, dataTracker.get(FACTION_ID));
         view.put("EntityCategory", Codec.STRING, dataTracker.get(CATEGORY));
         view.put("NpcTextureData", NpcEntityTextureData.CODEC, dataTracker.get(TEXTURE_DATA));
+        view.put("StructureManagerPos", BlockPos.CODEC, dataTracker.get(STRUCTURE_MANAGER_POS).orElse(new BlockPos(0, 0, 0)));
+        view.put("BedPos", BlockPos.CODEC, dataTracker.get(BED_POS).orElse(new BlockPos(0, 0, 0)));
         view.put("InitializationTick", Codec.LONG, dataTracker.get(INITIALIZATION_TICK));
         view.put("CombatRuntimeData", NbtCompound.CODEC, dataTracker.get(COMBAT_RUNTIME_DATA));
     }
@@ -103,6 +107,10 @@ public class NpcEntityDataHolder {
                 .ifPresent(this::setNpcCategory);
         view.read("NpcTextureData", NpcEntityTextureData.CODEC)
                 .ifPresent(this::setNpcTextureData);
+        view.read("StructureManagerPos", BlockPos.CODEC)
+                .ifPresent(this::setStructureManagerPos);
+        view.read("BedPos", BlockPos.CODEC)
+                .ifPresent(this::setBedPos);
         view.read("InitializationTick", Codec.LONG)
                 .ifPresent(x -> dataTracker.set(INITIALIZATION_TICK, x));
         view.read("CombatRuntimeData", NbtCompound.CODEC)
@@ -121,8 +129,7 @@ public class NpcEntityDataHolder {
         this.owner.getDataTracker().set(FACTION_ID, identifier.toString());
     }
 
-    public Identifier getFactionId()
-    {
+    public Identifier getFactionId() {
         return Identifier.of(this.owner.getDataTracker().get(FACTION_ID));
     }
 
@@ -170,6 +177,16 @@ public class NpcEntityDataHolder {
         if(npcEntityTextureData == null)
             return;
         this.owner.getDataTracker().set(TEXTURE_DATA, npcEntityTextureData);
+    }
+
+    public void setStructureManagerPos(BlockPos blockPos) {
+        if(blockPos == null) this.owner.getDataTracker().set(STRUCTURE_MANAGER_POS, Optional.empty());
+        else this.owner.getDataTracker().set(STRUCTURE_MANAGER_POS, Optional.of(blockPos));
+    }
+
+    public void setBedPos(BlockPos blockPos) {
+        if(blockPos == null) this.owner.getDataTracker().set(BED_POS, Optional.empty());
+        else this.owner.getDataTracker().set(BED_POS, Optional.of(blockPos));
     }
 
     public void setCombatRuntimeData(CombatArchetypeRuntimeData runtimeData){
@@ -234,27 +251,33 @@ public class NpcEntityDataHolder {
         return EntityCategories.valueOf(category);
     }
     public BlockPos getStructureManagerPos() {
-        if(this.owner.getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
+        return this.owner.getDataTracker().get(STRUCTURE_MANAGER_POS).orElse(null);
+        /*if(this.owner.getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
             return this.owner.getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get();
         }
-        return null;
+        return null;*/
     }
 
     public BlockPos getAssignedBedPos() {
-        if(this.owner.getBrain().getOptionalMemory(MemoryModulesME.ASSIGNED_BED_POS).isPresent()){
+        return this.owner.getDataTracker().get(BED_POS).orElse(null);
+        /*if(this.owner.getBrain().getOptionalMemory(MemoryModulesME.ASSIGNED_BED_POS).isPresent()){
             return this.owner.getBrain().getOptionalMemory(MemoryModulesME.ASSIGNED_BED_POS).get();
         }
-        return null;
+        return null;*/
     }
+
     public NpcEntityTextureData getNpcTextureData() {
         return this.owner.getDataTracker().get(TEXTURE_DATA);
     }
+
     static {
         INITIALIZATION_TICK = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.INITIALIZATION_TICK);
         FACTION_ID = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.FACTION_ID);
         NPC_DATA_ID = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA_ID);
         CATEGORY = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.CATEGORY);
         TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_ENTITY_TEXTURE_DATA);
+        STRUCTURE_MANAGER_POS = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
+        BED_POS = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
         FIGHTING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         BLOCKING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         COMBAT_RUNTIME_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.NBT_COMPOUND);

@@ -27,7 +27,7 @@ public class NpcWalkTowardsTask {
                         vec3d = NoPenaltyTargeting.findTo(entity, 15, 7, Vec3d.ofBottomCenter(globalPos.pos()), (double)((float)Math.PI / 2F));
                         ++l;
                         if (l == 1000) {
-                            entity.releaseTicketFor(destination);
+                            //entity.releaseTicketFor(destination);
                             destinationResult.forget();
                             cantReachWalkTargetSince.remember(time);
                             return true;
@@ -39,7 +39,7 @@ public class NpcWalkTowardsTask {
                     walkTarget.remember(new WalkTarget(globalPos.pos(), speed, completionRange));
                 }
             } else {
-                entity.releaseTicketFor(destination);
+                //entity.releaseTicketFor(destination);
                 destinationResult.forget();
                 cantReachWalkTargetSince.remember(time);
             }

@@ -89,7 +89,7 @@ public class WoodlandRealmNpcDataPool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(5))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER);
 
         SENTINEL = new NpcData(NpcRegistry.WOODLAND_REALM_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_SENTINEL, List.of(
                 WeightedGearData.create()
@@ -138,7 +138,7 @@ public class WoodlandRealmNpcDataPool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(5))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER);
 
         RANGER = new NpcData(NpcRegistry.WOODLAND_REALM_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create().withWeight(3)

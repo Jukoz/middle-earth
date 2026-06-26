@@ -210,25 +210,7 @@ public class GondorTexturePresetsPool {
 
         SOLDIER = new TexturePresetDataPool(new HashMap<>(){{
             put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
-            put(EntityCategories.MALE, new WeightedPool<>(List.of(
-                    BASE_PRESET.copy().withWeight(18),
-                    BASE_PRESET.copy()
-                            .clearPatterns(CharacterPatternTypes.EYE)
-                            .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_LEFT)
-                            ))
-                            .withPatterns(CharacterPatternTypes.SCAR, List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT)
-                            )),
-                    BASE_PRESET.copy()
-                            .clearPatterns(CharacterPatternTypes.EYE)
-                            .withPatterns(CharacterPatternTypes.EYE, List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_RIGHT)
-                            ))
-                            .withPatterns(CharacterPatternTypes.SCAR, List.of(
-                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
-                            ))
-            )));
+            put(EntityCategories.MALE, new WeightedPool<>(MALE_PRESET));
         }});
 
         LORD = new TexturePresetDataPool(new HashMap<>(){{

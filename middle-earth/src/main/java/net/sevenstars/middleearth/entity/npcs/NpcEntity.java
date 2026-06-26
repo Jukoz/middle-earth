@@ -1,17 +1,18 @@
 package net.sevenstars.middleearth.entity.npcs;
 
-import com.mojang.serialization.Dynamic;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
@@ -41,28 +42,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.profiler.Profilers;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
-import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
+import net.sevenstars.middleearth.entity.goals.FollowDifferentMobGoal;
+import net.sevenstars.middleearth.entity.goals.TargetNPCDiplomacyGoal;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityDataHolder;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.CombatArchetypeRuntimeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.MeleeCombatArchetypeRuntimeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.RangedCombatArchetypeRuntimeData;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -75,9 +74,23 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class NpcEntity extends PassiveEntity implements EquipmentHolder {
+public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedAttackMob {
     // Data to use
     NpcEntityDataHolder entityDataHolder;
+    private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 15.0F);
+    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.2, false) {
+        @Override
+        public void stop() {
+            super.stop();
+            NpcEntity.this.setAttacking(false);
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            NpcEntity.this.setAttacking(true);
+        }
+    };
 
     public final AnimationState walkingState = new AnimationState();
     public final AnimationState idleState = new AnimationState();
@@ -87,7 +100,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
-        entityDataHolder = new NpcEntityDataHolder(this);
+        this.entityDataHolder = new NpcEntityDataHolder(this);
+        //this.updateAttackType();
+    }
+
+    public static DefaultAttributeContainer.Builder setAttributes() {
+        return HostileEntity.createHostileAttributes()
+                .add(EntityAttributes.MAX_HEALTH, 20.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.34)
+                .add(EntityAttributes.ATTACK_DAMAGE, 1)
+                .add(EntityAttributes.FOLLOW_RANGE, 32.0);
+    }
+
+    protected void initGoals() {
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(4, new TargetNPCDiplomacyGoal(this));
     }
 
     @Override
@@ -127,6 +158,25 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     private void readEntityData(ReadView view) {
         entityDataHolder.readEntityData(view);
+        this.updateAttackType();
+    }
+
+    public void updateAttackType() {
+        if (this.getWorld() != null && !this.getWorld().isClient) {
+            this.goalSelector.remove(this.meleeAttackGoal);
+            this.goalSelector.remove(this.bowAttackGoal);
+            ItemStack itemStack = this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, Items.BOW));
+            if (itemStack.isOf(Items.BOW)) {
+                int i = 30;
+                if (this.getWorld().getDifficulty() != Difficulty.HARD) {
+                    i = 20;
+                }
+                this.bowAttackGoal.setAttackInterval(i);
+                this.goalSelector.add(4, this.bowAttackGoal);
+            } else {
+                this.goalSelector.add(4, this.meleeAttackGoal);
+            }
+        }
     }
 
     //region [DATA TRANSFER]
@@ -155,18 +205,17 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         entityDataHolder.setCombatRuntimeData(combatArchetypeRuntimeData);
         entityDataHolder.setFactionId(npcData.getFactionIdentifier());
         entityDataHolder.setNpcCategory(npcData.getNpcTextureData(getWorld()).getRandomCategory().name());
+        //updateAttackType();
 
-
-        switch (combatArchetypeRuntimeData.getArchetype()){
+        /*switch (combatArchetypeRuntimeData.getArchetype()){
             case MELEE -> NpcBrain.setMeleeActivities((Brain<NpcEntity>) this.brain, this, (MeleeCombatArchetypeRuntimeData) combatArchetypeRuntimeData);
             case RANGED ->  NpcBrain.setRangedActivities((Brain<NpcEntity>) this.brain, this, (RangedCombatArchetypeRuntimeData) combatArchetypeRuntimeData);
-        }
+        }*/
     }
 
     public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData){
         entityDataHolder.setNpcTextureData(npcEntityTextureData);
     }
-
 
     // GETTERS
     public Identifier getNpcDataIdentifier(){
@@ -242,13 +291,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         if(runtimeData != null)
             runtimeData.tick(this, world);
 
-        Profiler profiler = Profilers.get();
+        /*Profiler profiler = Profilers.get();
         profiler.push("npcBrain");
         this.getBrain().tick(world, this);
         profiler.pop();
         profiler.push("npcActivityUpdate");
         NpcBrain.updateActivities(this);
-        profiler.pop();
+        profiler.pop();*/
         super.mobTick(world);
 
         if(hasVehicle()){
@@ -256,13 +305,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         }
     }
 
-    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+    /*protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return NpcBrain.create(dynamic);
     }
 
     public Brain<NpcEntity> getBrain() {
         return (Brain<NpcEntity>) super.getBrain();
-    }
+    }*/
 
     public float getFightingMovementSpeed(){
         var currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
@@ -270,13 +319,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
     }
 
     public boolean isFighting() {
-        var memory = this.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
-        boolean isFighting;
-        if (memory != null && memory.isPresent()) {
-            isFighting = true;
-        } else {
-            isFighting = getFighting();
-        }
+        boolean isFighting = getFighting();
 
         this.setSprinting(isFighting);
         if(this.hasVehicle() && getVehicle() instanceof AbstractHorseEntity abstractHorseEntity){
@@ -342,7 +385,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
             }
         }
         super.onDeath(damageSource);
-        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent()){
+        if(entityDataHolder.getStructureManagerPos() != null){
             StructureManagerBlockEntity.triggerDeathSignal(getStructureManagerHostPos(), this);
         }
     }
@@ -382,10 +425,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
     @Override
     public boolean isPersistent() {
-        if(getBrain() == null) return super.isPersistent();
-
-        if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent())
-            return getWorld().getBlockEntity(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get()) != null;
+        //if(getBrain() == null) return super.isPersistent();
+        if(getStructureManagerHostPos() != null) return true;
+        //if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent())
+        //    return getWorld().getBlockEntity(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get()) != null;
         return super.isPersistent();
     }
 
@@ -472,13 +515,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
 
 
-    public Optional<LivingEntity> getHurtBy() {
+    /*public Optional<LivingEntity> getHurtBy() {
         return this.getBrain()
                 .getOptionalRegisteredMemory(MemoryModuleType.HURT_BY)
                 .map(DamageSource::getAttacker)
                 .filter(attacker -> attacker instanceof LivingEntity)
                 .map(livingAttacker -> (LivingEntity)livingAttacker);
-    }
+    }*/
 
     @Override
     public boolean canTarget(LivingEntity target) {
@@ -544,16 +587,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         return (int)this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
     }
 
-    @Override
-    public @Nullable LivingEntity getTarget() {
-        return getTargetInBrain();
-    }
-
-    @Override
-    public void setTarget(@Nullable LivingEntity target) {
-        this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, target);
-    }
-
     public boolean hasTextureData(){
         return getNpcTextureData().get(NpcRenderedPart.BODY) != null;
     }
@@ -581,9 +614,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
         // No drop allowed
     }
 
-    public void releaseTicketFor(MemoryModuleType<GlobalPos> destination) {
-        this.releaseTicketFor(MemoryModuleType.HOME);
-    }
+    //public void releaseTicketFor(MemoryModuleType<GlobalPos> destination) {
+    //    this.releaseTicketFor(MemoryModuleType.HOME);
+    //}
 
     public float getWidthScale() {
         try{
@@ -663,5 +696,18 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder {
 
         this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         stopAiming();
+    }
+
+    @Override
+    public void shootAt(LivingEntity target, float pullProgress) {
+        try{
+            this.shootAt(target, BowItem.getPullProgress(getItemUseTime()), 1f);
+        } catch (IllegalArgumentException e){
+            this.shootAt(target, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 1.5f);
+        }
+    }
+
+    static {
+        NpcEntityDataHolder.initialize();
     }
 }
