@@ -25,7 +25,6 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> MUD_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MUD_CAVE.getValue());
 
     // region STRUCTURES
-    //public final static RegistryKey<BiomeEventData> WOODLAND_REALM_HALL = DynamicRegistriesME.of(STRUCTURE_EVENT_KEY, MiddleEarth.of("woodland_realm_hall"));
     public final static RegistryKey<Structure> WLR_HALL_STRUCTURE = register("woodland_realm_hall");
     public final static RegistryKey<BiomeEventData> WOODLAND_REALM_HALL = DynamicRegistriesME.of(STRUCTURE_EVENT_KEY, WLR_HALL_STRUCTURE.getValue());
     // endregion
@@ -61,6 +60,13 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> MAGMA_CAVE          = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MAGMA_CAVE.getValue());
     // endregion
 
+    // region DOL GULDUR //
+    public final static RegistryKey<BiomeEventData> DOL_GULDUR          = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DOL_GULDUR.getValue());
+    public final static RegistryKey<BiomeEventData> DOL_GULDUR_HILL     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DOL_GULDUR_HILL.getValue());
+    public final static RegistryKey<BiomeEventData> DARK_MIRKWOOD       = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DARK_MIRKWOOD.getValue());
+    public final static RegistryKey<BiomeEventData> DARK_MIRKWOOD_EDGE  = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DARK_MIRKWOOD_EDGE.getValue());
+    // endregion
+
     // region GONDOR
     public final static RegistryKey<BiomeEventData> GONDOR              = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GONDOR.getValue());
     public final static RegistryKey<BiomeEventData> OSGILIATH           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.OSGILIATH.getValue());
@@ -75,12 +81,19 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> BLACKROOT_VALE      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BLACKROOT_VALE.getValue());
     // endregion
 
-
     // region ROHAN
     public final static RegistryKey<BiomeEventData> ROHAN              = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ROHAN.getValue());
     public final static RegistryKey<BiomeEventData> ROHAN_FIELD        = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ROHAN_FIELD.getValue());
     public final static RegistryKey<BiomeEventData> THE_WOLD           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.THE_WOLD.getValue());
     public final static RegistryKey<BiomeEventData> THE_WOLD_WHEAT_FIELD = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.THE_WOLD_WHEAT_FIELD.getValue());
+    // endregion
+
+    // region WOODLAND_REALM
+    public final static RegistryKey<BiomeEventData> WOODLAND_REALM      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_REALM.getValue());
+    public final static RegistryKey<BiomeEventData> WOODLAND_GLADE      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_GLADE.getValue());
+    public final static RegistryKey<BiomeEventData> AUTUMN_WOODLAND     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.AUTUMN_WOODLAND.getValue());
+    public final static RegistryKey<BiomeEventData> WOODLAND_FOOTHILLS  = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_FOOTHILLS.getValue());
+    public final static RegistryKey<BiomeEventData> MIRKWOOD            = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MIRKWOOD.getValue());
     // endregion
 
     public static void bootstrapStructureEvents(Registerable<BiomeEventData> context) {
@@ -129,6 +142,11 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, BASALT_CAVE      , MordorBiomeEventPool.CAVE);
         register(context, registryEntryLookup, MAGMA_CAVE       , MordorBiomeEventPool.CAVE);
 
+        register(context, registryEntryLookup, DOL_GULDUR       , MordorBiomeEventPool.DOL_GULDUR);
+        register(context, registryEntryLookup, DOL_GULDUR_HILL  , MordorBiomeEventPool.DOL_GULDUR);
+        register(context, registryEntryLookup, DARK_MIRKWOOD    , MordorBiomeEventPool.DOL_GULDUR);
+        register(context, registryEntryLookup, DARK_MIRKWOOD_EDGE, MordorBiomeEventPool.DOL_GULDUR);
+
         register(context, registryEntryLookup, GONDOR               , GondorBiomeEventPool.PEASANT_FIEF);
         register(context, registryEntryLookup, OSGILIATH            , GondorBiomeEventPool.OSGILIATH);
         register(context, registryEntryLookup, ANORIEN              , GondorBiomeEventPool.DEFAULT);
@@ -145,6 +163,12 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, ROHAN_FIELD          , RohanBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, THE_WOLD             , RohanBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, THE_WOLD_WHEAT_FIELD , RohanBiomeEventPool.DEFAULT);
+
+        register(context, registryEntryLookup, WOODLAND_REALM       , WoodlandRealmBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, WOODLAND_GLADE       , WoodlandRealmBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, AUTUMN_WOODLAND      , WoodlandRealmBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, WOODLAND_FOOTHILLS   , WoodlandRealmBiomeEventPool.SCOUTS);
+        register(context, registryEntryLookup, MIRKWOOD             , WoodlandRealmBiomeEventPool.SCOUTS);
     }
 
     private static void register(Registerable<BiomeEventData> context, RegistryEntryLookup<BiomeEventData> registryEntryLookup, RegistryKey<BiomeEventData> registryKey, BiomeEventData element){

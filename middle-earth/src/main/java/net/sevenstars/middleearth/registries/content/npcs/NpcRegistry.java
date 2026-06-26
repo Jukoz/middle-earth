@@ -124,6 +124,9 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> MORDOR_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "veteran"));
     public final static RegistryKey<NpcData> MORDOR_CAPTAIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "captain"));
 
+    public final static RegistryKey<NpcData> DOL_GULDUR_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "dol_guldur_scout"));
+    public final static RegistryKey<NpcData> DOL_GULDUR_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORDOR, "dol_guldur_warrior"));
+
     // [HOBGOBLINS TRIBES]
     // [GUNDABAD]
     public final static RegistryKey<NpcData> GUNDABAD_SNAGA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "snaga"));

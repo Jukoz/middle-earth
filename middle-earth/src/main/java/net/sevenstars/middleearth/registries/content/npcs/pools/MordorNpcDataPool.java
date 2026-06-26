@@ -38,6 +38,8 @@ public class MordorNpcDataPool {
     public final static NpcData WARRIOR;
     public final static NpcData VETERAN;
     public final static NpcData CAPTAIN;
+    public final static NpcData DOL_GULDUR_SCOUT;
+    public final static NpcData DOL_GULDUR_WARRIOR;
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
@@ -47,7 +49,9 @@ public class MordorNpcDataPool {
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_WARRIOR, WARRIOR),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_VETERAN, VETERAN),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_CAPTAIN, CAPTAIN),
-                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_BLACK_NUMENOREAN, BLACK_NUMENOREAN)
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.MORDOR_BLACK_NUMENOREAN, BLACK_NUMENOREAN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.DOL_GULDUR_SCOUT, DOL_GULDUR_SCOUT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.DOL_GULDUR_WARRIOR, DOL_GULDUR_WARRIOR)
         );
     }
 
@@ -335,6 +339,136 @@ public class MordorNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_PAINTED_HEAVY_SHIELD).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+
+        DOL_GULDUR_SCOUT = new NpcData(NpcRegistry.DOL_GULDUR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_HUNTER_HELMET).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_RAIDER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_RAIDER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_PADDED_CHESTPLATE).withWeight(5))
+
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_RAIDER_CHESTPLATE).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_RAIDER_CHESTPLATE).withWeight(2))
+
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST).withColors(allColors))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SCALE_VEST).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_SHIRT).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_SHIRT).withCape(BackAttachmentsME.ORCISH_CAPE))
+
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_HAUBERK).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_HAUBERK).withCape(BackAttachmentsME.ORCISH_CAPE))
+
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_RAIDER_COAT).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_STRIP_LEATHER_SKIRT).withColors(allColors))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SKIRT).withColors(allColors))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEG_BRACER).withColors(allColors))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_SANDALS))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BLACK_FUR_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BROWN_FUR_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.ORC_AXE))
+                                .add(WeightedItemData.create(WeaponItemsME.ORC_SPEAR))
+                                .add(WeightedItemData.create(WeaponItemsME.ORC_SWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_AXE).withWeight(2))
+                                .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(3))
+                                .add(WeightedItemData.create(Items.BOW).withWeight(1))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
+                        ),
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_EXECUTIONER_HOOD))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_EXECUTIONER_CHESTPLATE))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_EXECUTIONER_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_STRIP_LEATHER_SKIRT).withColors(allColors))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SKIRT).withColors(allColors))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_SANDALS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_AXE))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+
+        DOL_GULDUR_WARRIOR = new NpcData(NpcRegistry.DOL_GULDUR_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_MARAUDER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_MARAUDER_CHESTPLATE))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_MARAUDER_LEGGINGS))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_MARAUDER_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_MACHETE).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_AXE).withWeight(2))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_PAVISE))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_SHIELD))
+                                .add(WeightedItemData.create(Items.AIR))
+                        ),
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_STALKER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_STALKER_CHESTPLATE))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_CHESTPLATE)))
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_STALKER_LEGGINGS))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_STALKER_BOOTS))
+                                .add(WeightedItemData.create(EquipmentItemsME.WEATHERED_DOL_GULDUR_STALKER_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_MACHETE).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_AXE).withWeight(2))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_PAVISE))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_SHIELD))
+                                .add(WeightedItemData.create(Items.AIR))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
     }

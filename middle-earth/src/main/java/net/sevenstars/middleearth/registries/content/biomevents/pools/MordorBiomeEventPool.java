@@ -14,6 +14,7 @@ public class MordorBiomeEventPool {
     public final static BiomeEventData SCOUTS;
     public final static BiomeEventData ITHILIEN;
     public final static BiomeEventData CAVE;
+    public final static BiomeEventData DOL_GULDUR;
 
     static {
         DEFAULT = new BiomeEventData(List.of(
@@ -42,6 +43,7 @@ public class MordorBiomeEventPool {
             new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(2).withMount(EntitiesME.WARG)
         ));
 
+
         ITHILIEN = new BiomeEventData(List.of(
             new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(4),
             new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3),
@@ -56,6 +58,12 @@ public class MordorBiomeEventPool {
             new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(3),
             new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2),
             new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withMount(EntitiesME.CAVE_TROLL)
+        ));
+
+        DOL_GULDUR = new BiomeEventData(List.of(
+            new BiomeNpcSpawningData(MordorNpcDataPool.DOL_GULDUR_SCOUT).withWeight(5),
+            new BiomeNpcSpawningData(MordorNpcDataPool.DOL_GULDUR_WARRIOR).withWeight(2),
+            new BiomeNpcSpawningData(MordorNpcDataPool.DOL_GULDUR_WARRIOR).withWeight(1).withMount(EntitiesME.WARG)
         ));
     }
 }
