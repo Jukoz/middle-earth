@@ -12,6 +12,7 @@ import java.util.List;
 public class GenericHostilesBiomeEventPool {
     public final static BiomeEventData CAVE;
     public final static BiomeEventData DEFAULT;
+    public final static BiomeEventData EMPTY;
 
     static {
         DEFAULT = new BiomeEventData(List.of(
@@ -23,11 +24,14 @@ public class GenericHostilesBiomeEventPool {
         ));
 
         CAVE = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(WildGoblinNpcDataPool.GATHERER),
-            new BiomeNpcSpawningData(WildGoblinNpcDataPool.SCOUT),
-            new BiomeNpcSpawningData(WildGoblinNpcDataPool.WARRIOR),
-            new BiomeNpcSpawningData(WildGoblinNpcDataPool.RIDER).withMount(EntitiesME.CAVE_TROLL),
-            new BiomeNpcSpawningData(WildGoblinNpcDataPool.BRUTE)
+            new BiomeNpcSpawningData(WildGoblinNpcDataPool.GATHERER).withLightLevelMax(5),
+            new BiomeNpcSpawningData(WildGoblinNpcDataPool.SCOUT).withLightLevelMax(5),
+            new BiomeNpcSpawningData(WildGoblinNpcDataPool.WARRIOR).withLightLevelMax(3),
+            new BiomeNpcSpawningData(WildGoblinNpcDataPool.RIDER).withMount(EntitiesME.CAVE_TROLL).withLightLevelMax(3),
+            new BiomeNpcSpawningData(WildGoblinNpcDataPool.BRUTE).withLightLevelMax(1)
+        ));
+
+        EMPTY = new BiomeEventData(List.of(
         ));
     }
 }
