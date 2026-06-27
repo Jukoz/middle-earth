@@ -65,6 +65,11 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> DARK_MIRKWOOD_EDGE  = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DARK_MIRKWOOD_EDGE.getValue());
     // endregion
 
+    // region ISENGARD //
+    public final static RegistryKey<BiomeEventData> ISENGARD            = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ISENGARD.getValue());
+    public final static RegistryKey<BiomeEventData> NAN_CURUNIR         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.NAN_CURUNIR.getValue());
+    // endregion
+
     // region GONDOR
     public final static RegistryKey<BiomeEventData> GONDOR              = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GONDOR.getValue());
     public final static RegistryKey<BiomeEventData> OSGILIATH           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.OSGILIATH.getValue());
@@ -98,6 +103,13 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> IRON_HILLS_PLAINS           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.IRON_HILLS_PLAINS.getValue());
     public final static RegistryKey<BiomeEventData> IRON_HILLS_BASE             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.IRON_HILLS_BASE.getValue());
     public final static RegistryKey<BiomeEventData> GREY_PLAINS                 = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GREY_PLAINS.getValue());
+    // endregion
+
+    // region LOTHLORIEN
+    public final static RegistryKey<BiomeEventData> LOTHLORIEN          = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOTHLORIEN.getValue());
+    public final static RegistryKey<BiomeEventData> LOTHLORIEN_GLADE    = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOTHLORIEN_GLADE.getValue());
+    public final static RegistryKey<BiomeEventData> LOTHLORIEN_BLOSSOM  = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOTHLORIEN_BLOSSOM.getValue());
+    public final static RegistryKey<BiomeEventData> LORIEN_EDGE         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LORIEN_EDGE.getValue());
     // endregion
 
     // region WOODLAND_REALM
@@ -159,6 +171,9 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, DARK_MIRKWOOD    , MordorBiomeEventPool.DOL_GULDUR);
         register(context, registryEntryLookup, DARK_MIRKWOOD_EDGE, MordorBiomeEventPool.DOL_GULDUR);
 
+        register(context, registryEntryLookup, ISENGARD     , IsengardBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, NAN_CURUNIR  , IsengardBiomeEventPool.SCOUTS);
+
         register(context, registryEntryLookup, GONDOR               , GondorBiomeEventPool.PEASANT_FIEF);
         register(context, registryEntryLookup, OSGILIATH            , GondorBiomeEventPool.OSGILIATH);
         register(context, registryEntryLookup, ANORIEN              , GondorBiomeEventPool.DEFAULT);
@@ -185,6 +200,11 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, IRON_HILLS_PLAINS            , LongbeardsBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, IRON_HILLS_BASE              , LongbeardsBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, GREY_PLAINS                  , LongbeardsBiomeEventPool.GREY_PLAINS);
+
+        register(context, registryEntryLookup, LOTHLORIEN           , LothlorienBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, LOTHLORIEN_GLADE     , LothlorienBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, LOTHLORIEN_BLOSSOM   , LothlorienBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, LORIEN_EDGE          , LothlorienBiomeEventPool.SCOUTS);
 
         register(context, registryEntryLookup, WOODLAND_REALM       , WoodlandRealmBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, WOODLAND_GLADE       , WoodlandRealmBiomeEventPool.DEFAULT);

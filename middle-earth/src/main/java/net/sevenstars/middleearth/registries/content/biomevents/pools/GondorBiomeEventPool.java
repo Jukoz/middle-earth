@@ -1,7 +1,9 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.registry.Registries;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.MordorNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
@@ -19,7 +21,7 @@ public class GondorBiomeEventPool {
             new BiomeNpcSpawningData(GondorianNpcDataPool.MILITIA).withWeight(5),
             new BiomeNpcSpawningData(GondorianNpcDataPool.SOLDIER).withWeight(4),
             new BiomeNpcSpawningData(GondorianNpcDataPool.KNIGHT).withWeight(2),
-            new BiomeNpcSpawningData(GondorianNpcDataPool.KNIGHT).withWeight(1).withMount(EntityType.HORSE),
+            new BiomeNpcSpawningData(GondorianNpcDataPool.KNIGHT).withWeight(1).withMount(EntityType.HORSE, EquipmentItemsME.GONDORIAN_HORSE_ARMOR.asItem()),
             new BiomeNpcSpawningData(GondorianNpcDataPool.VETERAN).withWeight(2),
             new BiomeNpcSpawningData(GondorianNpcDataPool.LEADER)
         ));

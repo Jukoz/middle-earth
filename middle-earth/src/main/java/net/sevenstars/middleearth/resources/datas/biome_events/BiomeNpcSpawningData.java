@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.resources.datas.biome_events;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -117,12 +119,12 @@ public class BiomeNpcSpawningData {
         return this;
     }
 
-    public BiomeNpcSpawningData withMount(EntityType mount, Identifier armorItem){
+    public BiomeNpcSpawningData withMount(EntityType mount, Item armorItem){
         withMount(mount);
-        this.mountArmorId = Optional.of(armorItem);
+        this.mountArmorId = Optional.of(Registries.ITEM.getId(armorItem));
         return this;
     }
-    public BiomeNpcSpawningData withMount(EntityType mount, Identifier armorItem, int color){
+    public BiomeNpcSpawningData withMount(EntityType mount, Item armorItem, int color){
         withMount(mount, armorItem);
         this.mountArmorColor = Optional.of(color);
         return this;

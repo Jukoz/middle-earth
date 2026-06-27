@@ -52,6 +52,8 @@ public class LothlorienTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.BLACK)
             ))
             .withMaterials(CharacterMaterialTypes.HAIR, List.of(
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_SILVER),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_SILVER),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLONDE_SILVER),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_BEADS),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.STRAW_SILVER)
