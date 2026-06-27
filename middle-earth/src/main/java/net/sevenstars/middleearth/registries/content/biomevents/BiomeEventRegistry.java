@@ -2,10 +2,8 @@ package net.sevenstars.middleearth.registries.content.biomevents;
 
 import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.biomevents.pools.*;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
@@ -88,6 +86,20 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> THE_WOLD_WHEAT_FIELD = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.THE_WOLD_WHEAT_FIELD.getValue());
     // endregion
 
+    // region DALE
+    public final static RegistryKey<BiomeEventData> DALE                = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DALE.getValue());
+    public final static RegistryKey<BiomeEventData> DALE_CITY           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DALE_CITY.getValue());
+    public final static RegistryKey<BiomeEventData> DALE_MEADOW         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DALE_MEADOW.getValue());
+    // endregion
+
+    // region LONGBEARDS
+    public final static RegistryKey<BiomeEventData> LONELY_MOUNTAIN_TAIGA       = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA.getValue());
+    public final static RegistryKey<BiomeEventData> LONELY_MOUNTAIN_FOOTHILLS   = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS.getValue());
+    public final static RegistryKey<BiomeEventData> IRON_HILLS_PLAINS           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.IRON_HILLS_PLAINS.getValue());
+    public final static RegistryKey<BiomeEventData> IRON_HILLS_BASE             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.IRON_HILLS_BASE.getValue());
+    public final static RegistryKey<BiomeEventData> GREY_PLAINS                 = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GREY_PLAINS.getValue());
+    // endregion
+
     // region WOODLAND_REALM
     public final static RegistryKey<BiomeEventData> WOODLAND_REALM      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_REALM.getValue());
     public final static RegistryKey<BiomeEventData> WOODLAND_GLADE      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_GLADE.getValue());
@@ -163,6 +175,16 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, ROHAN_FIELD          , RohanBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, THE_WOLD             , RohanBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, THE_WOLD_WHEAT_FIELD , RohanBiomeEventPool.DEFAULT);
+
+        register(context, registryEntryLookup, DALE                 , DaleBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, DALE_CITY            , DaleBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, DALE_MEADOW          , DaleBiomeEventPool.DEFAULT);
+
+        register(context, registryEntryLookup, LONELY_MOUNTAIN_TAIGA        , LongbeardsBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, LONELY_MOUNTAIN_FOOTHILLS    , LongbeardsBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, IRON_HILLS_PLAINS            , LongbeardsBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, IRON_HILLS_BASE              , LongbeardsBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, GREY_PLAINS                  , LongbeardsBiomeEventPool.GREY_PLAINS);
 
         register(context, registryEntryLookup, WOODLAND_REALM       , WoodlandRealmBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, WOODLAND_GLADE       , WoodlandRealmBiomeEventPool.DEFAULT);
