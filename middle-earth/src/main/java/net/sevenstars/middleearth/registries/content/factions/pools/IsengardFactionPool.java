@@ -66,6 +66,7 @@ public class IsengardFactionPool {
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.WOODLAND_REALM, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.MORIA, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.ALLY),
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.FRIENDLY),
