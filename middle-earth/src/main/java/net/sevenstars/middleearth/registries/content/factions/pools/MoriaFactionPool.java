@@ -45,8 +45,8 @@ public class MoriaFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatternsME.GOBLIN_SKULL, DyeColor.RED),
-                        new BannerData.BannerPatternWithColor(BannerPatternsME.SCREECHING_SKULL, DyeColor.LIGHT_GRAY)
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.BLACK),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.SCREECHING_SKULL, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(MiddleEarth.of("moria",  "east_gate"), new Vector2d(1522, 1143)),

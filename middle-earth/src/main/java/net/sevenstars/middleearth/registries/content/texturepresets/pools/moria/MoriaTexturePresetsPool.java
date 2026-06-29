@@ -49,9 +49,9 @@ public class MoriaTexturePresetsPool {
                 ))
                 .withEmissiveEyes(true)
                 .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_COPPER),
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_ALMANDINE),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_BEADS),
-                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_COPPER)
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
                 ));
 
         GOBLIN_PRESET = new WeightedTexturePresetHolder()

@@ -11,13 +11,13 @@ import java.util.List;
 
 public class GenericHostilesBiomeEventPool {
     public final static BiomeEventData CAVE;
-    public final static BiomeEventData DEFAULT;
+    public final static BiomeEventData BRIGANDS;
     public final static BiomeEventData EMPTY;
 
     static {
-        DEFAULT = new BiomeEventData(List.of(
+        BRIGANDS = new BiomeEventData(List.of(
             new BiomeNpcSpawningData(BrigandNpcDataPool.CHIEFTAIN).withMount(EntityType.HORSE),
-            new BiomeNpcSpawningData(BrigandNpcDataPool.CHIEFTAIN).withWeight(2),
+            new BiomeNpcSpawningData(BrigandNpcDataPool.CHIEFTAIN),
             new BiomeNpcSpawningData(BrigandNpcDataPool.MERCENARY).withWeight(3),
             new BiomeNpcSpawningData(BrigandNpcDataPool.THIEF).withWeight(5),
             new BiomeNpcSpawningData(BrigandNpcDataPool.THUG).withWeight(5)
