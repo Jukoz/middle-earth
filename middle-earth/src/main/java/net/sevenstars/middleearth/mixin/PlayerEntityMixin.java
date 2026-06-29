@@ -104,7 +104,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
 
-    @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("return"))
+    @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("RETURN"))
     private static void createPlayerAttributesInject(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
         info.getReturnValue().add(EntityAttributesME.POWDERED_SNOW_IMMUNITY);
         info.getReturnValue().add(EntityAttributesME.DELVERS_FEAR_STRENGTH);
@@ -115,7 +115,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "isClimbing", at = @At("HEAD"), cancellable = true)
     private void isClimbingInject(CallbackInfoReturnable<Boolean> cir) {
-        if ((LivingEntity) this instanceof PlayerEntity entity){
+        if ((LivingEntity)this instanceof PlayerEntity entity){
             if(!entity.isTouchingWater() && !entity.isOnGround() && PlayerUtil.isAgainstWall(entity)){
                 climbDistance += 1;
                 if(climbDistance < entity.getAttributeValue(EntityAttributesME.CLIMBING_STRENGTH)){

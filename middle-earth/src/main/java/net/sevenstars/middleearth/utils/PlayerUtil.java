@@ -33,7 +33,7 @@ public class PlayerUtil {
         List<VoxelShape> collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
         Vec3d result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
         if (!result.equals(testMovement)) {
-            return world.getBlockState(entity.getBlockPos().offset(entity.getHorizontalFacing())).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("climbing_attribute_allowed_blocks")));
+            return world.getBlockState(entity.getBlockPos().offset(entity.getHorizontalFacing())).isSolidBlock(world, entity.getBlockPos());
         }
 
         testMovement = new Vec3d(-testMovementAmount, 0.0, -testMovementAmount);
