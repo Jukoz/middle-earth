@@ -312,13 +312,16 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             return BipedEntityModel.ArmPose.BOW_AND_ARROW;
         }
 
-
-        // TODO : Fix animation
         if (stack.isEmpty()) {
             return BipedEntityModel.ArmPose.EMPTY;
         }
-        if (!npc.handSwinging && stack.isOf(Items.CROSSBOW) && CrossbowItem.isCharged(stack)) {
-            return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
+        if (!npc.handSwinging && (stack.isOf(Items.CROSSBOW) || stack.isIn(ItemTagsME.CROSSBOW))) {
+            if(CrossbowItem.isCharged(stack)) {
+                return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
+            }
+            else if(npc.isCharging()) {
+                return BipedEntityModel.ArmPose.CROSSBOW_CHARGE;
+            }
         }
         if (npc.getActiveHand() == hand && npc.getItemUseTimeLeft() > 0) {
             UseAction useAction = stack.getUseAction();

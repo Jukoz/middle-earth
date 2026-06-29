@@ -208,6 +208,7 @@ public class EreborNpcDataPool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.EREBOR_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_CROSSBOW).withWeight(7))
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_BOW).withWeight(3))
                                 .add(WeightedItemData.create(Items.BOW))
                         )

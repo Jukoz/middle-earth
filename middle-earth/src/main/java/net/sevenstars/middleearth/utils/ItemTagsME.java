@@ -38,6 +38,7 @@ public class ItemTagsME {
     public static TagKey<Item> INSCRIPTION_CATALYSTS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("inscription_catalysts"));
 
     public static TagKey<Item> BOW = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"));
+    public static TagKey<Item> CROSSBOW = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/crossbow"));
 
     public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("elk_food"));
     public static TagKey<Item> MUSHROOMS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mushrooms"));

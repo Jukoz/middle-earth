@@ -3,16 +3,14 @@ package net.sevenstars.middleearth.entity.npcs;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
-import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
@@ -39,8 +37,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
@@ -49,14 +45,13 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
-import net.sevenstars.middleearth.entity.goals.FollowDifferentMobGoal;
+import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
 import net.sevenstars.middleearth.entity.goals.TargetNPCDiplomacyGoal;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityDataHolder;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
@@ -73,12 +68,15 @@ import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
-import java.util.Optional;
 
-public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedAttackMob {
+public class NpcEntity extends PassiveEntity implements EquipmentHolder, CrossbowUser {
     // Data to use
     NpcEntityDataHolder entityDataHolder;
-    private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 15.0F);
+    private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 16.0F);
+    private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, 1.0, 11.0F);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.2, false) {
         @Override
         public void stop() {
@@ -127,6 +125,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
 
         super.initDataTracker(builder);
         entityDataHolder.initDataTracker(builder);
+        builder.add(CROSSBOW_CHARGING, false);
+        builder.add(USING_ITEM, 0);
     }
 
     @Override
@@ -172,6 +172,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
                 }
                 this.bowAttackGoal.setAttackInterval(i);
                 this.goalSelector.add(4, this.bowAttackGoal);
+            } if (itemStack.isOf(Items.CROSSBOW) || itemStack.isIn(ItemTagsME.CROSSBOW)) {
+                this.goalSelector.add(4, this.crossBowAttackGoal);
             } else {
                 this.goalSelector.add(4, this.meleeAttackGoal);
             }
@@ -303,6 +305,26 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
         }
     }
 
+    @Override
+    public boolean isUsingItem() {
+        boolean value = super.isUsingItem();
+        if(!value) {
+            return this.dataTracker.get(USING_ITEM) > 0;
+        }
+        return value;
+    }
+
+    public void setNpcFlag(int mask, boolean value) {
+        setLivingFlag(mask, value);
+
+        if(value) {
+            int i = this.dataTracker.get(USING_ITEM) + 1;
+            this.dataTracker.set(USING_ITEM, i);
+        } else {
+            this.dataTracker.set(USING_ITEM, 0);
+        }
+    }
+
     /*protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return NpcBrain.create(dynamic);
     }
@@ -312,7 +334,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
     }*/
 
     public float getFightingMovementSpeed(){
-        var currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+        double currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
         return (float) (currentSpeed);
     }
 
@@ -339,8 +361,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
     }
 
     private void setupAnimationStates() {
-        if(this.forwardSpeed > 0)
-        {
+        if(this.forwardSpeed > 0) {
             this.walkingState.startIfNotRunning(this.age);
         } else {
             this.idleState.startIfNotRunning(this.age);
@@ -352,10 +373,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
         }
     }
 
-    public int getItemUseTimeLeft() {
-        return this.itemUseTimeLeft;
-    }
-        @Override
+    @Override
     public boolean shouldControlVehicles() {
         return true;
     }
@@ -488,6 +506,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
     }
 
     @Override
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        return super.damage(world, source, amount);
+    }
+
+    @Override
     public void tickRiding() {
         super.tickRiding();
         Entity entity = this.getControllingVehicle();
@@ -511,8 +534,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
             blocksAttacksComponent.applyShieldCooldown(world, this, f, itemStack);
         }
     }
-
-
 
     /*public Optional<LivingEntity> getHurtBy() {
         return this.getBrain()
@@ -633,9 +654,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
 
     public boolean isAiming() {
         int i = this.getItemUseTime();
-        if(i > 0)
-            return true;
-        return false;
+        return i > 0;
     }
 
     public void aim() {
@@ -698,6 +717,20 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
         } catch (IllegalArgumentException e){
             this.shootAt(target, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 1.5f);
         }
+    }
+
+    public boolean isCharging() {
+        return this.dataTracker.get(CROSSBOW_CHARGING);
+    }
+
+    @Override
+    public void setCharging(boolean charging) {
+        this.dataTracker.set(CROSSBOW_CHARGING, charging);
+    }
+
+    @Override
+    public void postShoot() {
+        this.dataTracker.set(CROSSBOW_CHARGING, false);
     }
 
     static {

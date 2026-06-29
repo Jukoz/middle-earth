@@ -225,6 +225,7 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.URUK_HAI_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_CROSSBOW).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_BOW).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_FALCHION))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_SPEAR).withWeight(2))
