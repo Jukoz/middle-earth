@@ -1,6 +1,7 @@
 {
 	"textures": {
-		"crop": "middle-earth:block/drooping_icicles"
+		"crop": "middle-earth:block/drooping_icicles",
+		"particle": "middle-earth:block/drooping_icicles"
 	},
 	"elements": [
 		{   "from": [ 4, 0, 0 ],

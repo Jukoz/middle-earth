@@ -27,6 +27,7 @@
     "ServerPlayNetworkHandlerMixin",
     "ShearItemMixin",
     "ShovelItemMixin",
+    "ToolItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
   "client": [
