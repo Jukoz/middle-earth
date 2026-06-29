@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.npcs;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -37,6 +38,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
@@ -47,6 +50,7 @@ import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
 import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
 import net.sevenstars.middleearth.entity.goals.TargetNPCDiplomacyGoal;
+import net.sevenstars.middleearth.entity.goals.TargetPlayerDiplomacyGoal;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityDataHolder;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
@@ -68,6 +72,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class NpcEntity extends PassiveEntity implements EquipmentHolder, CrossbowUser {
     // Data to use
@@ -115,6 +120,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(3, new TargetPlayerDiplomacyGoal(this));
         this.targetSelector.add(4, new TargetNPCDiplomacyGoal(this));
     }
 
@@ -428,7 +434,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
 
         if (lootTable != null) {
-            LootWorldContext.Builder builder = (new LootWorldContext.Builder(world)).add(LootContextParameters.THIS_ENTITY, this).add(LootContextParameters.ORIGIN, this.getPos()).add(LootContextParameters.DAMAGE_SOURCE, damageSource).addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker()).addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
+            LootWorldContext.Builder builder = (new LootWorldContext.Builder(world)).add(LootContextParameters.THIS_ENTITY, this)
+                    .add(LootContextParameters.ORIGIN, this.getPos())
+                    .add(LootContextParameters.DAMAGE_SOURCE, damageSource)
+                    .addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker())
+                    .addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
             PlayerEntity playerEntity = this.getAttackingPlayer();
             if (causedByPlayer && playerEntity != null) {
                 builder = builder.add(LootContextParameters.LAST_DAMAGE_PLAYER, playerEntity).luck(playerEntity.getLuck());
@@ -465,14 +475,24 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     @Override
+    public boolean isInAttackRange(LivingEntity entity) {
+        float reach = 1.75f;
+        try{
+            Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ENTITY_INTERACTION_RANGE));
+            reach = damageOpt.get().floatValue();
+        } catch (Exception ignored){}
+
+        return this.distanceTo(entity) <= reach;
+    }
+
+    @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
         if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
             return mountEntity.tryAttack((ServerWorld) target.getWorld(), target);
         }
 
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        return super.tryAttack(world, target);
-        /*boolean bl;
+        boolean bl;
         float damage = 1.0f;
         try{
             Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE));
@@ -502,12 +522,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
             this.onAttacking(target);
             this.playAttackSound();
         }
-        return bl;*/
-    }
-
-    @Override
-    public boolean damage(ServerWorld world, DamageSource source, float amount) {
-        return super.damage(world, source, amount);
+        return bl;
     }
 
     @Override
@@ -640,13 +655,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         }
     }
 
-    @Override
+    /*@Override
     public boolean isInAttackRange(LivingEntity entity) {
         CombatArchetypeRuntimeData runtimeData = getCombatRuntimeData();
         if(runtimeData == null)
             return false;
         return runtimeData.getCombatArchetypeData().isInOptimalRange(this, entity.getBlockPos());
-    }
+    }*/
 
     protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier, @Nullable ItemStack shotFrom) {
         return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, shotFrom);
@@ -685,9 +700,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     public void shootAt(LivingEntity livingEntity) {
         try{
-            this.shootAt(livingEntity, BowItem.getPullProgress(getItemUseTime()), 1f);
+            this.shootAt(livingEntity, BowItem.getPullProgress(getItemUseTime()), 2f);
         } catch (IllegalArgumentException e){
-            this.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 1.5f);
+            this.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 3f);
         }
     }
 
@@ -698,7 +713,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         ItemStack itemStack2 = this.getProjectileType(shotFromItem);
         PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack2, pullProgress, shotFromItem);
         double d = target.getX() - this.getX();
-        double e = target.getBodyY(0.3333333333333333) - persistentProjectileEntity.getY();
+        double e = target.getBodyY(0.3) - persistentProjectileEntity.getY();
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f);
         World var15 = this.getWorld();
@@ -712,11 +727,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     public void shootAt(LivingEntity target, float pullProgress) {
-        try{
-            this.shootAt(target, BowItem.getPullProgress(getItemUseTime()), 1f);
-        } catch (IllegalArgumentException e){
-            this.shootAt(target, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 1.5f);
-        }
+        this.shootAt(target, 1, pullProgress);
+    }
+
+    public void shootCrossbowAt(LivingEntity target) {
+        this.shootAt(target, 1, 2f);
+
     }
 
     public boolean isCharging() {

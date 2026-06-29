@@ -85,7 +85,7 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
         LivingEntity livingEntity = this.actor.getTarget();
         if (livingEntity != null) {
             boolean canSee = this.actor.getVisibilityCache().canSee(livingEntity);
-            
+
             boolean canSeeTargetTicker = this.seeingTargetTicker > 0;
             if (canSee != canSeeTargetTicker) {
                 this.seeingTargetTicker = 0;
@@ -125,7 +125,7 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
                 if (useTicks >= CrossbowItem.getPullTime(itemStack, this.actor)) {
                     this.actor.stopUsingItem();
                     this.stage = Stage.CHARGED;
-                    this.chargedTicksLeft = 20 + this.actor.getRandom().nextInt(20);
+                    this.chargedTicksLeft = 30 + this.actor.getRandom().nextInt(15);
                     this.actor.setCharging(false);
                 }
             } else if (this.stage == Stage.CHARGED) {
@@ -142,7 +142,7 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
                     this.stage = Stage.READY_TO_ATTACK;
                 }
             } else if (this.stage == Stage.READY_TO_ATTACK && canSee) {
-                this.actor.shootAt(livingEntity, 1.0F);
+                this.actor.shootCrossbowAt(livingEntity);
                 ItemStack crossbow =  this.actor.getMainHandStack();
                 crossbow.remove(DataComponentTypes.CHARGED_PROJECTILES);
                 this.actor.equipStack(EquipmentSlot.MAINHAND, crossbow);
