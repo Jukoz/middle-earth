@@ -8,10 +8,13 @@ import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
+import net.sevenstars.middleearth.registries.content.npcs.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
@@ -34,6 +37,7 @@ public class BrigandNpcDataPool {
     public final static NpcData THIEF;
     public final static NpcData MERCENARY;
     public final static NpcData CHIEFTAIN;
+
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
@@ -91,7 +95,7 @@ public class BrigandNpcDataPool {
                                 .add(WeightedItemData.create(Items.STONE_AXE))
                                 .add(WeightedItemData.create(WeaponItemsME.IRON_DAGGER))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         THIEF = new NpcData(NpcRegistry.BRIGAND_THIEF.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.BRIGAND_THUG, List.of(
                 WeightedGearData.create()
@@ -121,7 +125,7 @@ public class BrigandNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.IRON_DAGGER))
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_DAGGER))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         MERCENARY = new NpcData(NpcRegistry.BRIGAND_MERCENARY.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.BRIGAND_MERCENARY, List.of(
                 WeightedGearData.create()
@@ -173,7 +177,7 @@ public class BrigandNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         CHIEFTAIN = new NpcData(NpcRegistry.BRIGAND_CHIEFTAIN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.BRIGAND_CHIEF, List.of(
                 WeightedGearData.create()
@@ -240,6 +244,6 @@ public class BrigandNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BRACED_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
     }
 }

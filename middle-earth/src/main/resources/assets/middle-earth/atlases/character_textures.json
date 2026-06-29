@@ -117,7 +117,8 @@
         "middle-earth:character/hairs/hair_very_long",
         "middle-earth:character/hairs/hair_very_long_addon",
         "middle-earth:character/hairs/hair_semi_long",
-        "middle-earth:character/hairs/hair_semi_long_addon"
+        "middle-earth:character/hairs/hair_semi_long_addon",
+        "middle-earth:character/hairs/hair_shire_shag"
       ],
       "palette_key": "middle-earth:character/hairs/color_palettes/base_palette",
       "permutations": {

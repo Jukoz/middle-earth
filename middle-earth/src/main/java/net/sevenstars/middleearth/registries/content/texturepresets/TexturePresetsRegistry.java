@@ -18,6 +18,7 @@ import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbe
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.longbeards.erebor.EreborTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.lothlorien.LothlorienTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.mordor.MordorTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.moria.MoriaTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.rohan.RohanTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.shire.ShireTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
@@ -92,6 +93,8 @@ public class TexturePresetsRegistry {
     public final static RegistryKey<TexturePresetDataPool> GUNDABAD_GOBLIN         = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "goblin");
     public final static RegistryKey<TexturePresetDataPool> GUNDABAD_HOBGOBLIN      = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "hobgoblin");
 
+    public final static RegistryKey<TexturePresetDataPool> MORIA_GOBLIN         = of(FactionRegistry.MORIA, "goblin");
+
     /* [ISENGARD] */
     public final static RegistryKey<TexturePresetDataPool> ISENGARD_ORC = of(FactionRegistry.ISENGARD, "orc");
     public final static RegistryKey<TexturePresetDataPool> ISENGARD_URUK_HAI = of(FactionRegistry.ISENGARD, "uruk_hai");
@@ -117,6 +120,7 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, MordorTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, HobgoblinTribesTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, GundabadTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, MoriaTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, IsengardTexturePresetsPool.fetchAll());
     }
 

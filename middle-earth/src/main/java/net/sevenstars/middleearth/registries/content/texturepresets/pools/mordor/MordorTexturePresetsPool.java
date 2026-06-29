@@ -53,7 +53,7 @@ public class MordorTexturePresetsPool {
             ))
             .withEmissiveEyes(true)
             .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_ALMANDINE),
+                WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_ALMANDINE),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_ALMANDINE),
                 WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
             ));

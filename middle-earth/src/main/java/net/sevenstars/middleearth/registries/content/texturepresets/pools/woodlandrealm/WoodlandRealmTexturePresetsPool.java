@@ -57,8 +57,8 @@ public class WoodlandRealmTexturePresetsPool {
                         WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Eye.GREEN)
                 ))
                 .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                        WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.RED_SILVER).withWeight(2),
-                        WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_SILVER).withWeight(2),
+                        WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.RED_SILVER),
+                        WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_SILVER),
                         WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_SILVER)
                 ))
                 .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
@@ -87,6 +87,8 @@ public class WoodlandRealmTexturePresetsPool {
                                         ),
                                         List.of(
                                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE),
+                                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SILVER_TUNIC),
+                                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.TAN_TUNIC),
                                                 WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BURGUNDY)
                                         )
                                 )

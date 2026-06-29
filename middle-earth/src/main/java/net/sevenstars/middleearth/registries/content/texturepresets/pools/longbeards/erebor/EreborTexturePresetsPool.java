@@ -85,6 +85,22 @@ public class EreborTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.DUAL_LARGE_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.DUAL_ORNAMENTED),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Beard.LONG_SINGLE_ORNAMENTED)
+            ))
+            .withClothes(List.of(
+                    new WeightedClothingPresetHolder[]{
+                            new WeightedClothingPresetHolder(
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_DARK_BROWN),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN)
+                                    ),
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.BLUE_TUNIC),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.PALE_BLUE_TUNIC).withWeight(2),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_RED),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BURGUNDY)
+                                    )
+                            )
+                    }
             ));
 
         MALE_PRESET = new WeightedTexturePresetHolder()

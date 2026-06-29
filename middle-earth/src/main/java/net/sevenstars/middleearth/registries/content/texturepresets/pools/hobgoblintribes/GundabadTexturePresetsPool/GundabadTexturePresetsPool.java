@@ -48,7 +48,7 @@ public class GundabadTexturePresetsPool {
                 ))
                 .withEmissiveEyes(true)
                 .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GINGER_BEADS),
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_COPPER),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_BEADS),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GRAY_COPPER)
                 ));

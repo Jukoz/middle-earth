@@ -54,7 +54,7 @@ public class IsengardTexturePresetsPool {
                 ))
                 .withEmissiveEyes(true)
                 .withMaterials(CharacterMaterialTypes.HAIR, List.of(
-                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DIRTY_BROWN_ALMANDINE),
+                    WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.DARK_BROWN_ALMANDINE),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.GREASY_ALMANDINE),
                     WeightedIdentifier.fromKey(CharacterMaterialsRegistryME.Hair.BLACK_ALMANDINE)
                 ))
@@ -129,7 +129,7 @@ public class IsengardTexturePresetsPool {
                     new WeightedClothingPresetHolder[]{
                         new WeightedClothingPresetHolder(List.of(
                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_BROWN),
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN)
+                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.THONG_DARK_BROWN)
                         ))
                     }
                 ));

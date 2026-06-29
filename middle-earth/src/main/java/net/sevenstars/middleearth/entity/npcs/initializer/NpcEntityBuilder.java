@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.util;
+package net.sevenstars.middleearth.entity.npcs.initializer;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;

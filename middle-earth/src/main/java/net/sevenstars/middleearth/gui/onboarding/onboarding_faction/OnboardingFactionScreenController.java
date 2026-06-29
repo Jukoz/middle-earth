@@ -355,7 +355,7 @@ public class OnboardingFactionScreenController {
         Faction currentFaction = getCurrentFaction();
 
         if(!forced){
-            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionId() == currentFaction.getId() && currentNpcEntity.getNpcData().getRace() == selectedRace.getId())
+            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionIdentifier() == currentFaction.getId() && currentNpcEntity.getNpcData().getRace() == selectedRace.getId())
                 return;
         }
 

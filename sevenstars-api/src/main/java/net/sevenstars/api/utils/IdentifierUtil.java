@@ -17,6 +17,10 @@ public class IdentifierUtil {
         return Identifier.of(key, name);
     }
 
+    public static Identifier ofVanilla(String name) {
+        return Identifier.of(name);
+    }
+
     public static Identifier buildAggregate(String key, String... names) {
         return build(key, createAggregateValue('.', names));
     }
