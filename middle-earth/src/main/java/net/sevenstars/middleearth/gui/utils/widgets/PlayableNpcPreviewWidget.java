@@ -15,6 +15,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializerClient;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -156,9 +157,11 @@ public class PlayableNpcPreviewWidget extends ModWidget{
         entityRenderDispatcher.setRenderShadows(true);
         EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(entity);
         EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
+        NpcEntityRenderState npcEntityRenderState = (NpcEntityRenderState) entityRenderState;
+        npcEntityRenderState.LOD = 0;
 
         int entityY = y + 85;
-        context.addEntity(entityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 60, entityY - 200, x + 60, entityY);
+        context.addEntity(npcEntityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 60, entityY - 200, x + 60, entityY);
 
         int horizontalMargin = MINIMAL_MARGIN + 1;
 

@@ -68,6 +68,7 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -163,8 +164,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
         if (this.getWorld() != null && !this.getWorld().isClient) {
             this.goalSelector.remove(this.meleeAttackGoal);
             this.goalSelector.remove(this.bowAttackGoal);
-            ItemStack itemStack = this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, Items.BOW));
-            if (itemStack.isOf(Items.BOW)) {
+            ItemStack itemStack = this.getMainHandStack();
+            if (itemStack.isOf(Items.BOW) || itemStack.isIn(ItemTagsME.BOW)) {
                 int i = 30;
                 if (this.getWorld().getDifficulty() != Difficulty.HARD) {
                     i = 20;
@@ -655,11 +656,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
     }
 
     public boolean isReadyToShoot() {
-        int i = this.getItemUseTime();
-        if (i >= 20) {
-            return true;
-        }
-        return false;
+        return getMainHandStack() != null;
+        //int i = this.getItemUseTime();
+        //if (i >= 20) {
+        //    return true;
+        //}
+        //return false;
     }
 
     public void shootAt(LivingEntity livingEntity) {
@@ -673,9 +675,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, RangedA
     private void shootAt(LivingEntity target, float pullProgress, float powerModifier) {
         if(!isReadyToShoot())
             return;
-        ItemStack itemStack = this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, WeaponItemsME.WOODLAND_REALM_LONGBOW));
-        ItemStack itemStack2 = this.getProjectileType(itemStack);
-        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack2, pullProgress, itemStack);
+        ItemStack shotFromItem = this.getMainHandStack();
+        ItemStack itemStack2 = this.getProjectileType(shotFromItem);
+        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack2, pullProgress, shotFromItem);
         double d = target.getX() - this.getX();
         double e = target.getBodyY(0.3333333333333333) - persistentProjectileEntity.getY();
         double f = target.getZ() - this.getZ();

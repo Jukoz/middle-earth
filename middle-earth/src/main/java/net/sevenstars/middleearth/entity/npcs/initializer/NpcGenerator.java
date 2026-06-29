@@ -54,6 +54,7 @@ public class NpcGenerator {
             npcEntity.setNpcTextureData(entityTextureData);
 
             NpcUtil.equipAll(npcEntity, npcData.getGear());
+            npcEntity.updateAttackType();
         } catch (Exception exception){
             MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s | Triggered by %s", currentNpcDataId, exception.getLocalizedMessage(), currentStep));
             if(!npcEntity.isRemoved())

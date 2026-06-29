@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.utils;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class ItemTagsME {
@@ -35,6 +36,8 @@ public class ItemTagsME {
     public static TagKey<Item> MID_CHISELS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mid_chisels"));
     public static TagKey<Item> LATE_CHISELS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("late_chisels"));
     public static TagKey<Item> INSCRIPTION_CATALYSTS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("inscription_catalysts"));
+
+    public static TagKey<Item> BOW = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"));
 
     public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("elk_food"));
     public static TagKey<Item> MUSHROOMS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mushrooms"));
