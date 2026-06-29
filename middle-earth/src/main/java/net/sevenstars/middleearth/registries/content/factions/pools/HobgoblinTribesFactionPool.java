@@ -71,10 +71,12 @@ public class HobgoblinTribesFactionPool {
                         new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.WOODLAND_REALM, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.ALLY),
+                        new InitialDiplomacy(FactionRegistry.MORIA, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.FRIENDLY),
-                        new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
                 )
         );

@@ -21,8 +21,8 @@ public class NpcUtil {
             entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
             entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
         } else if(offhandItem != null && offhandItem.getItem() instanceof ReachWeaponItem reachWeaponItem && reachWeaponItem.type.twoHanded){
-            entity.equipStack(EquipmentSlot.MAINHAND, offhandItem);
-            entity.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.AIR));
+            entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
+            entity.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
         } else {
             entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
             entity.equipStack(EquipmentSlot.OFFHAND, offhandItem);

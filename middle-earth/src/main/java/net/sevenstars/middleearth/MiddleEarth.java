@@ -164,6 +164,9 @@ public class MiddleEarth implements ModInitializer {
     public static Identifier ofPath(String... names){
         return IdentifierUtil.build(MOD_ID, createAggregate('/', names));
     }
+	public static Identifier ofVanillaPath(String... names){
+		return IdentifierUtil.ofVanilla(createAggregate('/', names));
+	}
     public static Identifier append(Identifier base, String suffix) {
         String id = base.toString();
         return Identifier.of(id + suffix);

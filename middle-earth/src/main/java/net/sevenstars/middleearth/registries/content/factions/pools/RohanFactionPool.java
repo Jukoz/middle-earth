@@ -70,6 +70,7 @@ public class RohanFactionPool {
                         new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.MORIA, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),

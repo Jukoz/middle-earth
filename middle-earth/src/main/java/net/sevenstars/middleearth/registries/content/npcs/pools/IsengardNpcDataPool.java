@@ -8,10 +8,12 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.registries.content.npcs.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
@@ -71,16 +73,15 @@ public class IsengardNpcDataPool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_SPEAR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         SNAGA = new NpcData(NpcRegistry.ISENGARD_ORC_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.AIR).withWeight(3))
-                                .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(4))
-                                .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withColors(allColors).withWeight(4))
-                                .add(WeightedItemData.create(EquipmentItemsME.HOOD).withColors(allColors).withWeight(3))
-                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF))
+                                .add(WeightedItemData.create(Items.AIR).withWeight(4))
+                                .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_SCOUT_CAP).withColors(allColors).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withColors(allColors).withWeight(1))
+                                .add(WeightedItemData.create(EquipmentItemsME.RUSTED_ORCISH_MAIL_COIF).withWeight(2))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors))
@@ -88,8 +89,6 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_STRAP).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_CAPE))
@@ -99,7 +98,10 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_SKIRT).withColors(allColors))
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEG_BRACER).withColors(allColors))
                         )
-                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.URUK_HAI_BOOTS)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_SANDALS).withColors(allColors))
+                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BRACED_SANDALS).withColors(allColors))
+                        )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODEN_SPEAR).withWeight(6))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR).withWeight(2))
@@ -115,7 +117,7 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
 
         WARRIOR = new NpcData(NpcRegistry.ISENGARD_ORC_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
@@ -134,8 +136,6 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
                         )
                         .add(EquipmentSlot.LEGS, GearSlotPool.create()
@@ -163,7 +163,7 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         URUK_HAI_SOLDIER = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_SOLDIER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -181,8 +181,6 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_LEATHER_CHESTPLATE).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
 
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_CAPE))
-                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_LONG_CAPE))
-                                .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.CAPE, allColors))
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_LEATHER_CHESTPLATE).withColors(allColors).withCape(BackAttachmentsME.ORCISH_SHOULDERS, allColors))
                         )
                         .add(EquipmentSlot.LEGS, GearSlotPool.create()
@@ -205,7 +203,7 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         URUK_HAI_SCOUT = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -227,11 +225,12 @@ public class IsengardNpcDataPool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.URUK_HAI_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_CROSSBOW).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_BOW).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_FALCHION))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_SPEAR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         URUK_HAI_VETERAN = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -245,7 +244,10 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE))
                                 .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_CUIRASS))
                         )
-                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.MAIL_SKIRT)))
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_MAIL_SKIRT))
+                                .add(WeightedItemData.create(EquipmentItemsME.MAIL_SKIRT))
+                        )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.URUK_HAI_PLATE_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_AXE).withWeight(3))
@@ -259,7 +261,7 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_WHITE_HAND_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
 
         URUK_HAI_BERSERKER = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_BERSERKER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
@@ -279,10 +281,10 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(DecorativeItemsME.TORCH_OF_ORTHANC).withWeight(4))
+                                .add(WeightedItemData.create(DecorativeItemsME.TORCH_OF_ORTHANC))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
         URUK_HAI_LEADER = new NpcData(NpcRegistry.ISENGARD_URUK_HAI_LEADER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -290,10 +292,9 @@ public class IsengardNpcDataPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_PAINTED_COMMANDER_HELMET))
                         )
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withWeight(3))
-                                .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE).withCape(BackAttachmentsME.CAPE, allColors))
+                                .add(WeightedItemData.create(EquipmentItemsME.URUK_HAI_PLATE_CHESTPLATE))
                         )
-                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.MAIL_SKIRT)))
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.URUK_HAI_MAIL_SKIRT)))
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.URUK_HAI_PLATE_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_AXE).withWeight(3))
@@ -304,6 +305,6 @@ public class IsengardNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_HEATER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
     }
 }

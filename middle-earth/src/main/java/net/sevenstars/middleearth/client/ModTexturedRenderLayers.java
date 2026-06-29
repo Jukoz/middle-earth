@@ -30,9 +30,9 @@ public class ModTexturedRenderLayers extends TexturedRenderLayers {
         CHARACTER_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_ATLAS_TEXTURES);
         CHARACTER_TEXTURES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_ATLAS_TEXTURES);
 
-        HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.ofPath("entity", "heater_shield", "base" ));
-        KITE_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.ofPath("entity", "kite_shield", "base" ));
-        ROUND_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.ofPath("entity", "round_shield", "base" ));
+        HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.ofVanillaPath("entity", "heater_shield", "base" ));
+        KITE_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.ofVanillaPath("entity", "kite_shield", "base" ));
+        ROUND_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.ofVanillaPath("entity", "round_shield", "base" ));
 
         HEATER_SHIELD_PATTERN_TEXTURES = new HashMap<>();
         KITE_SHIELD_PATTERN_TEXTURES = new HashMap<>();

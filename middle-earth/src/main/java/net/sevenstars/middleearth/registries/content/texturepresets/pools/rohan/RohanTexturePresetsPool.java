@@ -79,7 +79,30 @@ public class RohanTexturePresetsPool {
                                     ),
                                     List.of(
                                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_BEIGE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SIMPLE_SHIRT),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BURGUNDY),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.BROWN_TOWNSMAN_SHIRT)
+                                    ),
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.RED_HOUPPELANDE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.EMPTY).withWeight(4)
+                                    ),
+                                    2
+                            ),
+                            new WeightedClothingPresetHolder(
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BEIGE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN)
+                                    ),
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SIMPLE_SHIRT),
                                             WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BURGUNDY)
+                                    ),
+                                    List.of(
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_COTTE),
+                                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.EMPTY)
                                     )
                             )
                     }
@@ -96,6 +119,7 @@ public class RohanTexturePresetsPool {
             ))
             .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.LONG),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.THICK)
             ))
@@ -169,30 +193,30 @@ public class RohanTexturePresetsPool {
 
         SOLDIER = new TexturePresetDataPool(new HashMap<>(){{
             put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
-            put(EntityCategories.MALE, new WeightedPool<>(MALE_PRESET));
+            put(EntityCategories.MALE, new WeightedPool<>(List.of(
+                    MALE_PRESET.copy().withWeight(18),
+                    MALE_PRESET.copy()
+                            .clearPatterns(CharacterPatternTypes.EYE)
+                            .withPatterns(CharacterPatternTypes.EYE, List.of(
+                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_LEFT)
+                            ))
+                            .withPatterns(CharacterPatternTypes.SCAR, List.of(
+                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT)
+                            )),
+                    MALE_PRESET.copy()
+                            .clearPatterns(CharacterPatternTypes.EYE)
+                            .withPatterns(CharacterPatternTypes.EYE, List.of(
+                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_RIGHT)
+                            ))
+                            .withPatterns(CharacterPatternTypes.SCAR, List.of(
+                                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
+                            ))
+            )));
         }});
 
         LORD = new TexturePresetDataPool(new HashMap<>(){{
             put(EntityCategories.SHARED, new WeightedPool<>(BASE_PRESET));
-            put(EntityCategories.MALE, new WeightedPool<>(List.of(
-                LORD_PRESET.copy(),
-                LORD_PRESET.copy()
-                    .clearPatterns(CharacterPatternTypes.EYE)
-                    .withPatterns(CharacterPatternTypes.EYE, List.of(
-                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_LEFT)
-                    ))
-                    .withPatterns(CharacterPatternTypes.SCAR, List.of(
-                        WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_LEFT)
-                    )),
-                LORD_PRESET.copy()
-                    .clearPatterns(CharacterPatternTypes.EYE)
-                    .withPatterns(CharacterPatternTypes.EYE, List.of(
-                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Eyes.Eye.BLIND_RIGHT)
-                    ))
-                    .withPatterns(CharacterPatternTypes.SCAR, List.of(
-                            WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Scar.EYE_RIGHT)
-                    ))
-            )));
+            put(EntityCategories.MALE, new WeightedPool<>(LORD_PRESET));
         }});
     }
     // endregion

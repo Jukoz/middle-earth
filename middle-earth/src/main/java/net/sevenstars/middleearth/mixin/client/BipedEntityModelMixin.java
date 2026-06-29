@@ -45,7 +45,7 @@ public class BipedEntityModelMixin {
         if(renderStateAccess.isRestrained()) {
             restrainedAnimation();
         } else if(handItem != null) {
-            tryItemAnimation(handItem, true);
+            tryItemAnimation(handItem, false);
         }
     }
 
