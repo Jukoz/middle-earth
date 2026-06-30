@@ -137,7 +137,7 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> GUNDABAD_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "veteran"));
     public final static RegistryKey<NpcData> GUNDABAD_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "leader"));
     // [MORIA]
-    public final static RegistryKey<NpcData> MORIA_GOBLIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "snaga"));
+    public final static RegistryKey<NpcData> MORIA_GOBLIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "goblin"));
     public final static RegistryKey<NpcData> MORIA_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "scout"));
     public final static RegistryKey<NpcData> MORIA_RIDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "rider"));
     public final static RegistryKey<NpcData> MORIA_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "warrior"));

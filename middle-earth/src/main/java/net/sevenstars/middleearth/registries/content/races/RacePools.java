@@ -109,12 +109,14 @@ public class RacePools {
             new AttributePool(),
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0)));
+                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                    .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, BASE_SPEED * 0.1))
+                    .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 1.75)));
                 put(EntityCategories.FEMALE, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.95, 1.0))
                     .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.97, 1.01)));
                 put(EntityCategories.MALE, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.9, 0.98))
+                    .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.97, 1.01))
                     .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.96, 1)));
             }},
             List.of(), List.of());

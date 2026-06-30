@@ -4,7 +4,6 @@
     {
       "#Comment": "VERY RARE",
       "rolls": 1,
-      "bonus_rolls": 0.5,
       "entries": [
         {
           "type": "minecraft:item",
@@ -22,14 +21,55 @@
           ]
         },
         {
+          "type": "minecraft:empty",
+          "weight": 9
+        }
+      ]
+    },
+    {
+      "#Comment": "RARE",
+      "rolls": 1,
+      "entries": [
+        {
           "type": "minecraft:item",
-          "name": "middle-earth:gold_coin",
+          "name": "middle-earth:maggoty_bread",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
+                "max": 5
+              },
+              "add": false
+            }
+          ],
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:crude_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
                 "max": 3
               },
               "add": false
@@ -37,64 +77,8 @@
           ]
         },
         {
-          "type": "minecraft:empty",
-          "weight": 6
-        }
-      ]
-    },
-    {
-      "#Comment": "RARE",
-      "rolls": 2,
-      "entries": [
-        {
           "type": "minecraft:item",
-          "name": "wild-things:cooked_venison",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              },
-              "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:gold_coin",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 2
-              },
-              "add": true
-            }
-          ],
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "middle-earth:bronze_ingot",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              },
-              "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bone",
+          "name": "middle-earth:dirty_bone",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -106,7 +90,7 @@
               "add": false
             }
           ],
-          "weight": 5
+          "weight": 3
         }
       ]
     },
@@ -117,7 +101,37 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
+          "name": "middle-earth:crude_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 3
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:ash",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -138,8 +152,7 @@
     },
     {
       "#Comment": "COMMON",
-      "rolls": 2,
-      "bonus_rolls": 1,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -156,23 +169,8 @@
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "middle-earth:silver_coin",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              },
-              "add": true
-            }
-          ]
-        },
-        {
           "type": "minecraft:empty",
-          "weight": 4
+          "weight": 2
         }
       ]
     }
