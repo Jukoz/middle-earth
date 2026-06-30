@@ -170,7 +170,7 @@ public class RacePools {
                         .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
                         .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.105))
                         .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.2))
-                        .addElement(AttributePoolElement.create(EntityAttributesME.CLIMBING_STRENGTH, 80)),
+                        .addElement(AttributePoolElement.create(EntityAttributesME.CLIMBING_STRENGTH, 100)),
                 new HashMap<>(){{
                     put(EntityCategories.SHARED, new AttributePool()
                             .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))

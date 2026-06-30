@@ -40,7 +40,7 @@ public class PlayerUtil {
         collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
         result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
         if (!result.equals(testMovement)) {
-            return world.getBlockState(entity.getBlockPos().offset(entity.getHorizontalFacing())).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("climbing_attribute_allowed_blocks")));
+            return world.getBlockState(entity.getBlockPos().offset(entity.getHorizontalFacing())).isSolidBlock(world, entity.getBlockPos());
         }
 
         return false;
