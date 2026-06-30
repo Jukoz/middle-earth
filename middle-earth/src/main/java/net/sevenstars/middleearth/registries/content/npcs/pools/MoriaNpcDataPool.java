@@ -51,7 +51,7 @@ public class MoriaNpcDataPool {
                 DARK_BROWN
         );
 
-        GOBLIN = new NpcData(NpcRegistry.MORIA_GOBLIN.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
+        GOBLIN = new NpcData(NpcRegistry.MORIA_GOBLIN.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(4))
@@ -158,7 +158,7 @@ public class MoriaNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        SCOUT = new NpcData(NpcRegistry.MORIA_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
+        SCOUT = new NpcData(NpcRegistry.MORIA_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(8))
@@ -191,7 +191,7 @@ public class MoriaNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        VETERAN = new NpcData(NpcRegistry.MORIA_VETERAN.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
+        VETERAN = new NpcData(NpcRegistry.MORIA_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET).withWeight(3))

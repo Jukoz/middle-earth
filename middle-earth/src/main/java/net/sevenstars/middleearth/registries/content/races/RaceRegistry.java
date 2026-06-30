@@ -18,6 +18,8 @@ public class RaceRegistry {
     public final static RegistryKey<Race> HUMAN = DynamicRegistriesME.of(RACE_KEY, MiddleEarth.of("human"));
     public final static RegistryKey<Race> ORC = DynamicRegistriesME.of(RACE_KEY, MiddleEarth.of("orc"));
     public final static RegistryKey<Race> URUK = DynamicRegistriesME.of(RACE_KEY, MiddleEarth.of("uruk"));
+    public final static RegistryKey<Race> GOBLIN = DynamicRegistriesME.of(RACE_KEY, MiddleEarth.of("goblin"));
+    public final static RegistryKey<Race> SNAGA = DynamicRegistriesME.of(RACE_KEY, MiddleEarth.of("snaga"));
 
     public static void bootstrap(Registerable<Race> context) {
         RegistryEntryLookup<Race> registryEntryLookup = context.getRegistryLookup(RACE_KEY);
@@ -28,6 +30,8 @@ public class RaceRegistry {
         register(context, registryEntryLookup, HUMAN, RacePools.HUMAN);
         register(context, registryEntryLookup, ORC, RacePools.ORC);
         register(context, registryEntryLookup, URUK, RacePools.URUK);
+        register(context, registryEntryLookup, GOBLIN, RacePools.GOBLIN);
+        register(context, registryEntryLookup, SNAGA, RacePools.SNAGA);
     }
 
     private static void register(Registerable<Race> context, RegistryEntryLookup<Race> registryEntryLookup, RegistryKey<Race> registryKey, Race element){

@@ -153,6 +153,7 @@ public class IsengardTexturePresetsPool {
     // region [DATAS]
     static {
         HUMAN  = new TexturePresetDataPool(new HashMap<>(){{
+            put(EntityCategories.SHARED,  new WeightedPool<>(BLACK_NUMENOREAN_PRESET));
             put(EntityCategories.MALE,  new WeightedPool<>(BLACK_NUMENOREAN_PRESET));
         }});
 

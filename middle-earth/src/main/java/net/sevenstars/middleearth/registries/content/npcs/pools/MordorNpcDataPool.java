@@ -81,7 +81,7 @@ public class MordorNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        SNAGA = new NpcData(NpcRegistry.MORDOR_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
+        SNAGA = new NpcData(NpcRegistry.MORDOR_SNAGA.getValue(), RaceRegistry.SNAGA, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(4))

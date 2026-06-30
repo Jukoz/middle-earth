@@ -54,7 +54,7 @@ public class GundabadNpcDataPool {
                 DARK_BROWN
         );
 
-        SNAGA = new NpcData(NpcRegistry.GUNDABAD_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
+        SNAGA = new NpcData(NpcRegistry.GUNDABAD_SNAGA.getValue(), RaceRegistry.SNAGA, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -96,7 +96,7 @@ public class GundabadNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        MILITIA = new NpcData(NpcRegistry.GUNDABAD_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
+        MILITIA = new NpcData(NpcRegistry.GUNDABAD_MILITIA.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -146,7 +146,7 @@ public class GundabadNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        RIDER = new NpcData(NpcRegistry.GUNDABAD_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
+        RIDER = new NpcData(NpcRegistry.GUNDABAD_RIDER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -191,7 +191,7 @@ public class GundabadNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        SCOUT = new NpcData(NpcRegistry.GUNDABAD_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
+        SCOUT = new NpcData(NpcRegistry.GUNDABAD_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(8))
