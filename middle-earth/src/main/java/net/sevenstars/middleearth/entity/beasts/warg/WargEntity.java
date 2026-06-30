@@ -215,7 +215,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     public List<RaceType> getCompatibleRaces() {
-        return List.of(RaceType.ORC, RaceType.URUK);
+        return List.of(RaceType.SNAGA, RaceType.GOBLIN, RaceType.ORC, RaceType.URUK);
     }
 
     @Override

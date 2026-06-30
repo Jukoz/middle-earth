@@ -362,7 +362,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.SHARPNESS), 2, 5)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("forceful")
                         .addWord("cutter")
                         .criterion(hasItem(ResourceItemsME.RUBY),
@@ -371,14 +371,14 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.SHARPNESS), 3, 7)
-                        .chisel(ItemTagsME.MID_CHISELS)
+                        .chisel(ItemTagsME.LATE_CHISELS)
                         .addWord("forceful")
                         .addWord("cutter")
                         .criterion(hasItem(ResourceItemsME.RUBY),
                                 conditionsFromItem(ResourceItemsME.RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_3")));
 
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                /*InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.SHARPNESS), 4, 9)
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("forceful")
@@ -394,7 +394,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("cutter")
                         .criterion(hasItem(ResourceItemsME.RUBY),
                                 conditionsFromItem(ResourceItemsME.RUBY))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_5")));
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_5")));*/
                 //endregion
 
                 //region KNOCKBACK
@@ -545,7 +545,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.POWER), 2, 5)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("fierce")
                         .addWord("point")
                         .criterion(hasItem(ResourceItemsME.RUBY),
@@ -554,14 +554,14 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.POWER), 3, 7)
-                        .chisel(ItemTagsME.MID_CHISELS)
+                        .chisel(ItemTagsME.LATE_CHISELS)
                         .addWord("fierce")
                         .addWord("point")
                         .criterion(hasItem(ResourceItemsME.RUBY),
                                 conditionsFromItem(ResourceItemsME.RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_3")));
 
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                /*InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.POWER), 4, 9)
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("fierce")
@@ -577,7 +577,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("point")
                         .criterion(hasItem(ResourceItemsME.RUBY),
                                 conditionsFromItem(ResourceItemsME.RUBY))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_5")));
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_5")));*/
                 //endregion
 
                 //region PUNCH

@@ -641,7 +641,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public List<RaceType> getCompatibleRaces() {
-        return ImmutableList.of(RaceType.ORC, RaceType.URUK);
+        return ImmutableList.of(RaceType.SNAGA, RaceType.GOBLIN, RaceType.ORC, RaceType.URUK);
     }
 
     @Override

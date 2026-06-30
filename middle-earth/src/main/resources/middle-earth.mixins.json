@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractHorseEntityMixin",
+    "AnvilScreenHandlerMixin",
     "BannerPatternRegisterMixin",
     "BlockEntityTypeMixin",
     "BlockMixin",
