@@ -370,14 +370,14 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_IRON, ironOre, modifiersWithCount(12, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL + 12))));
         PlacedFeatures.register(featureRegisterable, ORE_SILVER, silverOre, modifiersWithCount(3, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-64), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_JADE, jadeOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-40), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, ORE_GOLD, goldOre, List.of(PlacedFeatures.createCountExtraModifier(1, 0.5f, 1), SquarePlacementModifier.of(),
+        PlacedFeatures.register(featureRegisterable, ORE_GOLD, goldOre, List.of(PlacedFeatures.createCountExtraModifier(2, 0.5f, 1), SquarePlacementModifier.of(),
                 HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(-16)), BiomePlacementModifier.of()));
         PlacedFeatures.register(featureRegisterable, ORE_GOLD_RARE, goldOre, List.of(PlacedFeatures.createCountExtraModifier(1, 0.1f, 1), SquarePlacementModifier.of(),
                 HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(-16)), BiomePlacementModifier.of()));
         PlacedFeatures.register(featureRegisterable, ORE_EMERALD, emeraldOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, ORE_RUBY, rubyOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, ORE_SAPPHIRE, sapphireOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-49), YOffset.fixed(-11))));
-        PlacedFeatures.register(featureRegisterable, ORE_ADAMANT, adamantOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(-42))));
+        PlacedFeatures.register(featureRegisterable, ORE_RUBY, rubyOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL))));
+        PlacedFeatures.register(featureRegisterable, ORE_SAPPHIRE, sapphireOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-49), YOffset.fixed(-11))));
+        PlacedFeatures.register(featureRegisterable, ORE_ADAMANT, adamantOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(-42))));
         PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MAX_MITHRIL_HEIGHT))));
 
         // region MUSHROOMS
