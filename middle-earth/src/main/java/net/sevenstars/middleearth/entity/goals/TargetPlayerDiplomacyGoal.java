@@ -18,12 +18,9 @@ public class TargetPlayerDiplomacyGoal extends ActiveTargetGoal<PlayerEntity> {
     @Override
     public boolean canStart() {
         if (mob.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-            if(mob.getTarget() instanceof PlayerEntity) {
-                mob.setTarget(null);
-            }
             return false;
         } else {
-            if(mob.getTarget() instanceof PlayerEntity playerEntity) {
+            if(mob.getTarget() instanceof PlayerEntity playerEntity && !playerEntity.isCreative() && !playerEntity.isSpectator()) {
                 try {
                     Faction currentFaction = FactionLookup.getFactionById(mob.getWorld(), mob.getFactionIdentifier());
                     Faction playerFaction = PlayerUtil.fetchFaction(playerEntity);

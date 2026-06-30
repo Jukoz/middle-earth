@@ -12,12 +12,14 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.block.BlockState;
@@ -39,9 +41,11 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -121,6 +125,11 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
+    public static boolean canSpawn(EntityType<NpcEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up())
+                && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS);
+    }
+
     @Override
     protected Brain.Profile<ShelobiteScuttlerEntity> createBrainProfile() {
         return Brain.createProfile(MEMORY_MODULE_TYPES, SENSOR_TYPES);
@@ -141,6 +150,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
     }
 
     public double getMountedHeightOffset() {

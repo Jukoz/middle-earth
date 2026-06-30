@@ -12,6 +12,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
@@ -30,6 +31,7 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
@@ -38,26 +40,26 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
-import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
-import net.sevenstars.middleearth.entity.goals.TargetNPCDiplomacyGoal;
-import net.sevenstars.middleearth.entity.goals.TargetPlayerDiplomacyGoal;
+import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
+import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityDataHolder;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
+import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
+import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.CombatArchetypeRuntimeData;
@@ -120,8 +122,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
+        //this.targetSelector.add(2, new TargetEvilBeastsGoal(this));
         this.targetSelector.add(3, new TargetPlayerDiplomacyGoal(this));
         this.targetSelector.add(4, new TargetNPCDiplomacyGoal(this));
+        this.targetSelector.add(6, new ActiveTargetGoal<>(this, SnowTrollEntity.class, true));
+        this.targetSelector.add(7, new ActiveTargetGoal<>(this, SpawnOfShelobEntity.class, true));
+        this.targetSelector.add(8, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
+        this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
     }
 
     @Override
@@ -184,6 +191,24 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
                 this.goalSelector.add(4, this.meleeAttackGoal);
             }
         }
+    }
+
+    public void updateTargetGoals() {
+        //if (this.getWorld() != null && !this.getWorld().isClient) {
+        //    if(getFaction().getDisposition() == DispositionType.EVIL) {
+        //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
+        //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, GreatHornEntity.class, true));
+        //    } else {
+        //        this.targetSelector.add(5, new ActiveTargetGoal<>(this, CaveTrollEntity.class, true));
+        //        this.targetSelector.add(5, new ActiveTargetGoal<>(this, StoneTrollEntity.class, true));
+        //        this.targetSelector.add(6, new ActiveTargetGoal<>(this, WargEntity.class, true));
+        //    }
+        //}
+    }
+
+    public static boolean canSpawn(EntityType<NpcEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up())
+                && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS);
     }
 
     //region [DATA TRANSFER]
@@ -564,7 +589,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     public static boolean shouldTarget(NpcEntity npcEntity, LivingEntity target){
-        if(target instanceof SnailEntity)
+        if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity)
             return true;
         Faction faction = npcEntity.getFaction();
         if(faction != null){

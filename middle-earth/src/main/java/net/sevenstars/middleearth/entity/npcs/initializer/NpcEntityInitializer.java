@@ -64,6 +64,7 @@ public class NpcEntityInitializer {
         }
 
         NpcGenerator.generateCharacterTextures(serverWorld, currentNpcDataId, npcEntity);
+        npcEntity.updateTargetGoals();
         npcEntity.setInitializationTick();
     }
 

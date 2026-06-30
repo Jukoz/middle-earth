@@ -45,6 +45,7 @@ import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.CooldownRangedAttackMob;
 import net.sevenstars.middleearth.entity.goals.interfaces.Shielder;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
@@ -108,6 +109,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
     }
 
     @Nullable
