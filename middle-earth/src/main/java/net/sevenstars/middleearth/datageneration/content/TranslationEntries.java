@@ -732,11 +732,10 @@ public class TranslationEntries {
             put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
             put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
 
-
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_soldier", "Mordor Soldier");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_snaga", "Mordor Snaga");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_scout", "Mordor Scout");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_militia", "Mordor Militia");
+            put("attribute.name.powdered_snow_immunity", "Powdered Snow Immunity");
+            put("attribute.name.climbing_strength", "Climbing Strength");
+            put("attribute.name.detection_range", "Detection Range");
+            put("attribute.name.width_scale", "Width Scale");
         }
     };
 }
