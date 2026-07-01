@@ -176,6 +176,7 @@ public class Race {
 
     public void applyNpcAttributes(NpcEntity npcEntity) {
         AttributePool.reverse(npcEntity);
+        baseAttributePool.apply(npcEntity);
         categoryBasedAttributePool.get(EntityCategories.SHARED).apply(npcEntity);
         categoryBasedAttributePool.get(npcEntity.getNpcCategory()).apply(npcEntity);
     }

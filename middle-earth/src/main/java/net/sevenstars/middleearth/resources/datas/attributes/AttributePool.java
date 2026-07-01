@@ -2,10 +2,7 @@ package net.sevenstars.middleearth.resources.datas.attributes;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.DefaultAttributeRegistry;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
@@ -56,6 +53,7 @@ public class AttributePool {
 
     public boolean apply(LivingEntity entity){
         boolean couldResolveOneAttribute = false;
+
         for(var element : pool){
             var optAttributeEntry = Registries.ATTRIBUTE.getEntry(element.getIdentifier());
             if(optAttributeEntry.isPresent()){
@@ -63,7 +61,12 @@ public class AttributePool {
 
                 var attributeInstance = entity.getAttributeInstance(attributeEntry);
                 if(attributeInstance != null){
+                    attributeInstance.clearModifiers();
                     attributeInstance.setBaseValue(element.getValue());
+                    if(element.getModifierIdentifier() != null){
+                        EntityAttributeModifier.Operation operation = EntityAttributeModifier.Operation.valueOf(element.getModifierType());
+                        attributeInstance.addPersistentModifier(new EntityAttributeModifier(element.getModifierIdentifier(), element.getModifierValue(), operation));
+                    }
                     couldResolveOneAttribute = true;
                 }
             }

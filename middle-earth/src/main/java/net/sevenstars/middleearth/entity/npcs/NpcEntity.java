@@ -741,13 +741,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         ItemStack shotFromItem = this.getMainHandStack();
         ItemStack itemStack2 = this.getProjectileType(shotFromItem);
         PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack2, pullProgress, shotFromItem);
-        double d = target.getX() - this.getX();
-        double e = target.getBodyY(0.3) - persistentProjectileEntity.getY();
-        double f = target.getZ() - this.getZ();
-        double g = Math.sqrt(d * d + f * f);
+        double xDifference = target.getX() - this.getX();
+        double heightDifference = target.getBodyY(0.3f) - persistentProjectileEntity.getY();
+        double zDifference = target.getZ() - this.getZ();
+        double angle = Math.sqrt(xDifference * xDifference + zDifference * zDifference);
         World var15 = this.getWorld();
         if (var15 instanceof ServerWorld serverWorld) {
-            ProjectileEntity.spawnWithVelocity(persistentProjectileEntity, serverWorld, itemStack2, d, e + g * (double)0.2F, f, 1.6F * powerModifier, (float)(14 - serverWorld.getDifficulty().getId() * 4));
+            ProjectileEntity.spawnWithVelocity(persistentProjectileEntity, serverWorld, itemStack2, xDifference, heightDifference + angle * (double)0.2F, zDifference, 1.6F * powerModifier, (float)(14 - serverWorld.getDifficulty().getId() * 4));
         }
 
         this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -760,8 +760,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     public void shootCrossbowAt(LivingEntity target) {
-        this.shootAt(target, 1, 2f);
-
+        this.shootAt(target, 1, 1.25f);
     }
 
     public boolean isCharging() {
