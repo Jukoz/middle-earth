@@ -24,6 +24,8 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import org.joml.Matrix3x2fStack;
 
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -31,19 +33,21 @@ public class PlayerBookScreen extends Screen {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/player_book.png");
     private static final int WIDTH = 320;
     private static final int HEIGHT = 220;
+    private static HashMap<PlayerBookChapters, PlayerBookPageData> chaptersPages;
     private List<Chapter> chapters;
     private PageTurnWidget nextPageButton;
     private PageTurnWidget previousPageButton;
+    private PlayerBookChapters currentChapter = PlayerBookChapters.GETTING_STARTED;
     private int currentPage = 0;
 
     public PlayerBookScreen(Text title) {
         super(title);
-        chapters = List.of(new Chapter("Getting Started", ResourceItemsME.STARLIGHT_PHIAL),
-                new Chapter("Mining", ToolItemsME.STEEL_PICKAXE),
-                new Chapter("Smithing", ToolItemsME.SMITHING_HAMMER),
-                new Chapter("Enchanting", DecorativeItemsME.INSCRIPTION_TABLE),
-                new Chapter("Mounts", EggItemsME.WARG_SPAWN_EGG),
-                new Chapter("Dungeons", Blocks.TRIAL_SPAWNER.asItem()));
+        chapters = List.of(new Chapter("Getting Started", PlayerBookChapters.GETTING_STARTED, ResourceItemsME.STARLIGHT_PHIAL),
+                new Chapter("Mining", PlayerBookChapters.MINING, ToolItemsME.STEEL_PICKAXE),
+                new Chapter("Smithing", PlayerBookChapters.SMITHING, ToolItemsME.SMITHING_HAMMER),
+                new Chapter("Enchanting", PlayerBookChapters.ENCHANTING, DecorativeItemsME.INSCRIPTION_TABLE),
+                new Chapter("Mounts", PlayerBookChapters.MOUNTS, EggItemsME.WARG_SPAWN_EGG),
+                new Chapter("Dungeons", PlayerBookChapters.DUNGEONS, Blocks.TRIAL_SPAWNER.asItem()));
     }
 
     @Override
@@ -67,55 +71,70 @@ public class PlayerBookScreen extends Screen {
                 startX, startY, 0, 0,
                 WIDTH, HEIGHT, 384, 384);
 
-        drawScaledText(textRenderer, context, Text.literal("Middle-earth").formatted(Formatting.UNDERLINE).formatted(Formatting.BOLD),
-                startX + (int)(WIDTH * 0.375), startY + (int)(HEIGHT * 0.11f), 1.5f, Colors.BLACK, true);
+        if(currentPage == 0) {
+            drawScaledText(textRenderer, context, Text.literal("Middle-earth").formatted(Formatting.UNDERLINE).formatted(Formatting.BOLD),
+                    startX + (int)(WIDTH * 0.375), startY + (int)(HEIGHT * 0.11f), 1.5f, Colors.BLACK, true);
 
-        String paragraph = "This mod is about the famous universe of Middle-earth.\n " +
-                "You will find a brand new dimension with custom blocks, items, entity, structures and more!";
-        context.drawWrappedText(textRenderer, Text.literal(paragraph), startX + 36, startY + (int)(HEIGHT * 0.22f), 120, Colors.BLACK, false);
+            String paragraph = "This mod is about the famous universe of Middle-earth.\n " +
+                    "You will find a brand new dimension with custom blocks, items, entities, factions, structures and more!";
+            context.drawWrappedText(textRenderer, Text.literal(paragraph), startX + 36, startY + (int)(HEIGHT * 0.22f), 120, Colors.BLACK, false);
 
-        drawScaledText(textRenderer, context, Text.literal("Chapters").formatted(Formatting.UNDERLINE).formatted(Formatting.BOLD),
-                startX + (int)(WIDTH * 0.75), startY + (int)(HEIGHT * 0.11f), 1.5f, Colors.BLACK, true);
-        int i = 0;
-        for(Chapter chapter : chapters) {
-            MutableText text = Text.literal(chapter.name);
-            int startTooltipX = centerX + 30;
-            int startTooltipY = (context.getScaledWindowHeight() / 2) - (int)(HEIGHT * 0.285f) + (i * 18);
-            if (mouseX >= startTooltipX && mouseX <= startTooltipX + (chapter.name.length() * 4.75) + 5 && mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
-                context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
-                        List.of(Text.of("Navigate to " + chapter.name)
-                        ), Text::asOrderedText), mouseX, mouseY);
-                text.formatted(Formatting.UNDERLINE);
+            drawScaledText(textRenderer, context, Text.literal("Chapters").formatted(Formatting.UNDERLINE).formatted(Formatting.BOLD),
+                    startX + (int)(WIDTH * 0.75), startY + (int)(HEIGHT * 0.11f), 1.5f, Colors.BLACK, true);
+            int i = 0;
+            for(Chapter chapter : chapters) {
+                MutableText text = Text.literal(chapter.name);
+                int startTooltipX = centerX + 30;
+                int startTooltipY = (context.getScaledWindowHeight() / 2) - (int)(HEIGHT * 0.295f) + (i * 18);
+                if (mouseX >= startTooltipX && mouseX <= startTooltipX + (chapter.name.length() * 4.75) + 5 && mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
+                    context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
+                            List.of(Text.of("Navigate to " + chapter.name)
+                            ), Text::asOrderedText), mouseX, mouseY);
+                    text.formatted(Formatting.UNDERLINE);
+                }
+
+                context.drawItem(chapter.icon.getDefaultStack(), startX + (int)(WIDTH * 0.5f) + 12, startY + (int)(HEIGHT * 0.22f) - 4 + (i * 18));
+                context.drawText(textRenderer, text, startX + (int)(WIDTH * 0.5f) + 32, startY + (int)(HEIGHT * 0.22f) + (i * 18), Colors.BLACK, false);
+                i++;
             }
+        } else {
+            PlayerBookPageData pageData = chaptersPages.get(currentChapter);
+            if(pageData != null) {
+                drawScaledText(textRenderer, context, Text.literal(pageData.leftPageTitle).formatted(Formatting.UNDERLINE),
+                        startX + (int)(WIDTH * 0.3), startY + (int)(HEIGHT * 0.11f), 1.25f, Colors.BLACK, true);
 
-            context.drawItem(chapter.icon.getDefaultStack(), startX + (int)(WIDTH * 0.5f) + 12, startY + (int)(HEIGHT * 0.22f) - 4 + (i * 18));
-            context.drawText(textRenderer, text, startX + (int)(WIDTH * 0.5f) + 32, startY + (int)(HEIGHT * 0.22f) + (i * 18), Colors.BLACK, false);
-            i++;
+                context.drawWrappedText(textRenderer, pageData.leftPageDescription, startX + 36, startY + (int)(HEIGHT * 0.2f), 120, Colors.BLACK, false);
+                context.drawWrappedText(textRenderer, pageData.rightPageDescription, startX + (int)(WIDTH * 0.5f) + 16, startY + (int)(HEIGHT * 0.125f), 115, Colors.BLACK, false);
+            }
         }
 
         renderTooltip(context, mouseX, mouseY);
     }
 
+
+
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0) {
-            int centerX = this.width / 2;
-            int i = 0;
-            System.out.println(mouseX + " : " + mouseY);
+        if(currentPage == 0) { // Table of content
+            if (button == 0) {
+                int centerX = this.width / 2;
+                int i = 0;
+                System.out.println(mouseX + " : " + mouseY);
 
-            for (Chapter chapter : chapters) {
-                int startTooltipX = centerX + 30;
-                int startTooltipY = (this.height / 2) - (int)(HEIGHT * 0.285f) + (i * 18);
-                int textWidth = this.client.textRenderer.getWidth(chapter.name);
+                for (Chapter chapter : chapters) {
+                    int startTooltipX = centerX + 30;
+                    int startTooltipY = (this.height / 2) - (int)(HEIGHT * 0.285f) + (i * 18);
+                    int textWidth = this.client.textRenderer.getWidth(chapter.name);
 
-                if (mouseX >= startTooltipX && mouseX <= startTooltipX + textWidth + 5 &&
-                        mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
-                    System.out.println("Clicked!");
-                    this.currentPage = 1;
-                    this.client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-                    return true;
+                    if (mouseX >= startTooltipX && mouseX <= startTooltipX + textWidth + 5 &&
+                            mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
+                        this.currentChapter = chapter.chapter;
+                        this.currentPage = 1;
+                        this.client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                        return true;
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
@@ -140,13 +159,36 @@ public class PlayerBookScreen extends Screen {
         matrices.popMatrix();
     }
 
+    private void openPreviousPage() {
+        if (this.currentPage > 0) {
+            this.currentPage--;
+        }
+    }
+
+    private void openNextPage() {
+        this.currentPage++;
+    }
+
     private class Chapter {
         public String name;
+        public PlayerBookChapters chapter;
         public Item icon;
 
-        public Chapter(String name, Item icon) {
+        public Chapter(String name, PlayerBookChapters chapter, Item icon) {
             this.name = name;
+            this.chapter = chapter;
             this.icon = icon;
         }
+    }
+
+    static {
+        chaptersPages = new HashMap<>();
+        chaptersPages.put(PlayerBookChapters.MINING, new PlayerBookPageData().withTitle("Mining")
+                .withLeftPageDesc(Text.of("Basic resources like coal, tin and copper can be found almost anywhere near the surface, " +
+                        "but valuable ores and gems are only found at deeper levels.\n\n From shallowest to deepest, " +
+                        "the strata of the world consists of layers of Stone, Deepslate, Núrgon, and Medgon."))
+                .withRightPageDesc(Text.of("You must smith stronger tools to extract resources from the rock in deeper layers.\n\n " +
+                        "Deepslate minerals can be obtained using Stone Tools or better, Núrgon ores require at least " +
+                        "Bronze Tools, and Steel Tools are needed to mine Medgon. ")));
     }
 }
