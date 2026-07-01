@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.playerbook;
 
+import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
@@ -7,7 +8,10 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.PageTurnWidget;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.item.Item;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
@@ -28,6 +32,9 @@ public class PlayerBookScreen extends Screen {
     private static final int WIDTH = 320;
     private static final int HEIGHT = 220;
     private List<Chapter> chapters;
+    private PageTurnWidget nextPageButton;
+    private PageTurnWidget previousPageButton;
+    private int currentPage = 0;
 
     public PlayerBookScreen(Text title) {
         super(title);
@@ -40,11 +47,21 @@ public class PlayerBookScreen extends Screen {
     }
 
     @Override
+    protected void init() {
+        super.init();
+        int i = (this.width - 192) / 2;
+        this.previousPageButton = this.addDrawableChild(new PageTurnWidget(i + 43, 159, false, button -> this.openPreviousPage(), true));
+        this.nextPageButton = this.addDrawableChild(new PageTurnWidget(i + 116, 159, true, button -> this.openNextPage(), true));
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         super.render(context, mouseX, mouseY, deltaTicks);
         int centerX = context.getScaledWindowWidth() / 2;
-        int startX = centerX - (WIDTH / 2);
+        int startX = 5 + centerX - (WIDTH / 2);
         int startY = (context.getScaledWindowHeight() / 2) - (HEIGHT / 2);
+
+        this.nextPageButton.visible = true;
 
         context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
                 startX, startY, 0, 0,
@@ -62,10 +79,50 @@ public class PlayerBookScreen extends Screen {
         int i = 0;
         for(Chapter chapter : chapters) {
             MutableText text = Text.literal(chapter.name);
+            int startTooltipX = centerX + 30;
+            int startTooltipY = (context.getScaledWindowHeight() / 2) - (int)(HEIGHT * 0.285f) + (i * 18);
+            if (mouseX >= startTooltipX && mouseX <= startTooltipX + (chapter.name.length() * 4.75) + 5 && mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
+                context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
+                        List.of(Text.of("Navigate to " + chapter.name)
+                        ), Text::asOrderedText), mouseX, mouseY);
+                text.formatted(Formatting.UNDERLINE);
+            }
+
             context.drawItem(chapter.icon.getDefaultStack(), startX + (int)(WIDTH * 0.5f) + 12, startY + (int)(HEIGHT * 0.22f) - 4 + (i * 18));
             context.drawText(textRenderer, text, startX + (int)(WIDTH * 0.5f) + 32, startY + (int)(HEIGHT * 0.22f) + (i * 18), Colors.BLACK, false);
             i++;
         }
+
+        renderTooltip(context, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0) {
+            int centerX = this.width / 2;
+            int i = 0;
+            System.out.println(mouseX + " : " + mouseY);
+
+            for (Chapter chapter : chapters) {
+                int startTooltipX = centerX + 30;
+                int startTooltipY = (this.height / 2) - (int)(HEIGHT * 0.285f) + (i * 18);
+                int textWidth = this.client.textRenderer.getWidth(chapter.name);
+
+                if (mouseX >= startTooltipX && mouseX <= startTooltipX + textWidth + 5 &&
+                        mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
+                    System.out.println("Clicked!");
+                    this.currentPage = 1;
+                    this.client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                    return true;
+                }
+                i++;
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private void renderTooltip(DrawContext context, int mouseX, int mouseY) {
+        int centerX = context.getScaledWindowWidth() / 2;
     }
 
     public static void drawScaledText(TextRenderer textRenderer, DrawContext context, Text text, int x, int y, float scale, int color, boolean centered) {
