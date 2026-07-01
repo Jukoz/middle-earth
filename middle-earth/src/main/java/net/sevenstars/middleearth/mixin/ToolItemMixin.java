@@ -15,6 +15,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,7 +35,7 @@ public class ToolItemMixin {
                 DataComponentTypes.TOOL,
                 new ToolComponent(
                         List.of(
-                                ToolComponent.Rule.ofAlwaysDropping(registryEntryLookup.getOrThrow(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs"))), 15.0F),
+                                ToolComponent.Rule.ofAlwaysDropping(registryEntryLookup.getOrThrow(BlockTagsME.COBWEBS), 15.0F),
                                 ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES), Float.MAX_VALUE),
                                 ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_EFFICIENT), 1.5F)
                         ),

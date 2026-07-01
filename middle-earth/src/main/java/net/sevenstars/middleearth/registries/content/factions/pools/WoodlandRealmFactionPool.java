@@ -46,8 +46,8 @@ public class WoodlandRealmFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.BROWN),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.GREEN),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.GREEN),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP, DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(BannerPatternsME.ELK, DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
