@@ -53,18 +53,24 @@ public class EntitiesME {
     public static final EntityType<BarrelEntity> REINFORCED_BARREL;
 
     // Spiders
-    public static final EntityType<ShelobiteLarvaEntity> SHELOBITE_LARVA = register("shelobite_larva", EntityType.Builder.create(ShelobiteLarvaEntity::new, SpawnGroup.CREATURE).dimensions(0.4f, 0.3f));
-    public static final EntityType<ShelobiteScuttlerEntity> SHELOBITE_SCUTTLER = register("shelobite_scuttler", EntityType.Builder.create(ShelobiteScuttlerEntity::new, SpawnGroup.CREATURE).dimensions(1.15f, 0.9f));
-    public static final EntityType<SpawnOfShelobEntity> SPAWN_OF_SHELOB = register("spawn_of_shelob", EntityType.Builder.create(SpawnOfShelobEntity::new, SpawnGroup.CREATURE).dimensions(1.75f, 1.4f));
+    public static final EntityType<ShelobiteLarvaEntity> SHELOBITE_LARVA = register("shelobite_larva",
+            EntityType.Builder.create(ShelobiteLarvaEntity::new, SpawnGroup.MONSTER).dimensions(0.4f, 0.3f));
+    public static final EntityType<ShelobiteScuttlerEntity> SHELOBITE_SCUTTLER = register("shelobite_scuttler",
+            EntityType.Builder.create(ShelobiteScuttlerEntity::new, SpawnGroup.MONSTER).dimensions(1.15f, 0.9f));
+    public static final EntityType<SpawnOfShelobEntity> SPAWN_OF_SHELOB = register("spawn_of_shelob",
+            EntityType.Builder.create(SpawnOfShelobEntity::new, SpawnGroup.MONSTER).dimensions(1.75f, 1.4f));
 
     // Trolls
-    public static final EntityType<SnowTrollEntity> SNOW_TROLL = register("snow_troll", EntityType.Builder.create(SnowTrollEntity::new, SpawnGroup.CREATURE).dimensions(2.2f, 2.5f));
+    public static final EntityType<SnowTrollEntity> SNOW_TROLL = register("snow_troll",
+            EntityType.Builder.create(SnowTrollEntity::new, SpawnGroup.MONSTER).dimensions(2.2f, 2.5f));
     public static final EntityType<CaveTrollEntity> CAVE_TROLL = register("cave_troll",
-            EntityType.Builder.create(CaveTrollEntity::new, SpawnGroup.CREATURE)
+            EntityType.Builder.create(CaveTrollEntity::new, SpawnGroup.MONSTER)
                     .dimensions(2.2f, 3.5f)
                     .passengerAttachments(new Vec3d(0, 3.825, -0.65), new Vec3d(-0.8, 3.4, -1.2), new Vec3d(0.8, 3.4, -1.2)));
-    public static final EntityType<StoneTrollEntity> STONE_TROLL = register("stone_troll", EntityType.Builder.create(StoneTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
-    public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = register("petrified_troll", EntityType.Builder.create(PetrifiedTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
+    public static final EntityType<StoneTrollEntity> STONE_TROLL = register("stone_troll",
+            EntityType.Builder.create(StoneTrollEntity::new, SpawnGroup.MONSTER).dimensions(1.4f, 3.4f));
+    public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = register("petrified_troll",
+            EntityType.Builder.create(PetrifiedTrollEntity::new, SpawnGroup.MONSTER).dimensions(1.4f, 3.4f));
 
     ///* Weapons *///
     public static final EntityType<FireOfOrthancEntity> FIRE_OF_ORTHANC = registerEntity("fire_of_orthanc", FireOfOrthancEntity::new, SpawnGroup.MISC, 0.65F, 0.65F);

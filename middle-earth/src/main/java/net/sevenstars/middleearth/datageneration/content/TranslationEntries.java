@@ -737,6 +737,8 @@ public class TranslationEntries {
             put("attribute.name.climbing_strength", "Climbing Strength");
             put("attribute.name.detection_range", "Detection Range");
             put("attribute.name.width_scale", "Width Scale");
+
+            put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
         }
     };
 }

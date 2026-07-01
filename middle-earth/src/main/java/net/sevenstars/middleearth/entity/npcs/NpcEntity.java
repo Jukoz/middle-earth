@@ -46,6 +46,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
@@ -561,6 +562,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     protected Text getDefaultName() {
+        if(this.getNpcDataIdentifier() == null) {
+            return Text.translatable("npc_data."+ MiddleEarth.MOD_ID +".npc");
+        }
         return Text.translatable(this.getNpcDataIdentifier().toTranslationKey("npc_data"));
     }
 

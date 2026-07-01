@@ -5,11 +5,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentHolder;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -94,6 +98,11 @@ public class NpcEntityInitializer {
             }
 
             npcEntity.startRiding(mount);
+
+            var optAttributeEntry = Registries.ATTRIBUTE.getEntry(EntityAttributes.MOVEMENT_SPEED.value());
+            EntityAttributeInstance movementAttribute = npcEntity.getAttributeInstance(optAttributeEntry);
+            if(movementAttribute != null) movementAttribute.setBaseValue(1);
+
         }
     }
 
