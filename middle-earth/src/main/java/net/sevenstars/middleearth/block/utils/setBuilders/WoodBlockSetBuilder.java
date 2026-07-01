@@ -35,6 +35,7 @@ public class WoodBlockSetBuilder {
     public float hardness;
     public float blastResistance;
     public MapColor mapColor;
+    public MapColor leavesMapColor;
     public NoteBlockInstrument instrument;
     public BlockSoundGroup soundGroup;
 
@@ -58,6 +59,11 @@ public class WoodBlockSetBuilder {
 
     public WoodBlockSetBuilder vanilla(boolean vanilla) {
         this.vanilla = vanilla;
+        return this;
+    }
+
+    public WoodBlockSetBuilder leavesColor(MapColor leavesMapColor) {
+        this.leavesMapColor = leavesMapColor;
         return this;
     }
 }

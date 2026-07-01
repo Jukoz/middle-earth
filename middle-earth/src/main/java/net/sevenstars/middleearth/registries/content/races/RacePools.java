@@ -170,7 +170,7 @@ public class RacePools {
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
                         .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 0.9))
                         .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
-                        .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.105))
+                        .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, BASE_SPEED * 0.105))
                         .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.2))
                         .addElement(AttributePoolElement.create(EntityAttributesME.CLIMBING_STRENGTH, 100)),
                 new HashMap<>(){{
@@ -183,6 +183,7 @@ public class RacePools {
                             .addElement(AttributePoolElement.create(EntityAttributesME.CLIMBING_STRENGTH, 80)));
                     put(EntityCategories.MALE, new AttributePool()
                             .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.72, 0.76))
+                            .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, BASE_SPEED * 0.105))
                             .addElement(AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 0.96, 1.02)));
                 }},
                 List.of(), List.of());

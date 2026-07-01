@@ -98,11 +98,6 @@ public class NpcEntityInitializer {
             }
 
             npcEntity.startRiding(mount);
-
-            var optAttributeEntry = Registries.ATTRIBUTE.getEntry(EntityAttributes.MOVEMENT_SPEED.value());
-            EntityAttributeInstance movementAttribute = npcEntity.getAttributeInstance(optAttributeEntry);
-            if(movementAttribute != null) movementAttribute.setBaseValue(1);
-
         }
     }
 
