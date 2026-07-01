@@ -15,6 +15,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WILD_GARLIC);
             add(ModNatureBlocks.WILD_ONION);
             add(ModNatureBlocks.WILD_FLAX);
+            add(ModNatureBlocks.WILD_TOMATO);
             add(ModNatureBlocks.WILD_WHEAT);
             add(ModNatureBlocks.WILD_BELL_PEPPER);
 

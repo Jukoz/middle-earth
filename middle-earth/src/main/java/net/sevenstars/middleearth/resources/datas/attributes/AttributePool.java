@@ -64,12 +64,6 @@ public class AttributePool {
                 var attributeInstance = entity.getAttributeInstance(attributeEntry);
                 if(attributeInstance != null){
                     attributeInstance.setBaseValue(element.getValue());
-                    if(element.hasModifier() && !attributeInstance.hasModifier(element.getModifierIdentifier())){
-                        attributeInstance.addPersistentModifier(new EntityAttributeModifier(
-                                element.getModifierIdentifier(),
-                                element.getModifierValue(),
-                                EntityAttributeModifier.Operation.valueOf(element.getModifierType())));
-                    }
                     couldResolveOneAttribute = true;
                 }
             }

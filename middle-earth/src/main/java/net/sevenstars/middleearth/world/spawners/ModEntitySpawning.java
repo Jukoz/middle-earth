@@ -121,7 +121,6 @@ public class ModEntitySpawning {
         List<EntitySpawningSettings> gondorGarrisonAndMordor = Stream.concat(garrisonGondorSpawnSettings.stream(), wildMordorSpawnSettings.stream()).toList();
         List<EntitySpawningSettings> mordorAndSpiders = Stream.concat(wildMordorSpawnSettings.stream(), mirkwoodSpiders.stream()).toList();
 */
-        spawns.put(MEBiomeKeys.BARROW_DOWNS, List.of(new EntitySpawningSettings(EntitiesME.BARROW_WIGHT, 0, 1)));
 
         /*spawns.put(MEBiomeKeys.TROLLSHAWS, List.of(
                 new EntitySpawningSettings(EntitiesME.MISTY_GOBLIN_SNAGA, 1, 3, 2, true) ,

@@ -107,6 +107,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.FUR);
             add(ResourceItemsME.FABRIC);
 
+            add(ResourceItemsME.BRIGAND_KEY);
             add(ResourceItemsME.DWARVEN_KEY);
 
             add(ResourceItemsME.RED_AGATE_SHARD);
@@ -178,31 +179,6 @@ public class SimpleItemModel {
             add(ModDecorativeBlocks.ROTTEN_CURTAIN.asItem());
             add(ModDecorativeBlocks.WHITE_CURTAIN.asItem());
             add(ModDecorativeBlocks.YELLOW_CURTAIN.asItem());
-
-            add(DecorativeItemsME.BLUE_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.GREEN_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.LIGHT_BLUE_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.RED_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.YELLOW_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.LARCH_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.SPRUCE_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.TALL_BLACK_PINE_DOOR.asItem());
-            add(DecorativeItemsME.TALL_FIR_DOOR.asItem());
-            add(DecorativeItemsME.OAK_STABLE_DOOR.asItem());
-            add(DecorativeItemsME.REINFORCED_SPRUCE_DOOR.asItem());
-            add(DecorativeItemsME.REINFORCED_BLACK_PINE_DOOR.asItem());
-            add(DecorativeItemsME.SIMPLE_LARCH_GATE.asItem());
-            add(DecorativeItemsME.RICKETY_SIMPLE_LARCH_DOOR.asItem());
-            add(DecorativeItemsME.SPRUCE_STABLE_DOOR.asItem());
-            add(DecorativeItemsME.LARGE_STURDY_DOOR.asItem());
-            add(DecorativeItemsME.LARGE_BEECH_FENCE_GATE.asItem());
-            add(DecorativeItemsME.GREAT_GONDORIAN_GATE.asItem());
-            add(DecorativeItemsME.GREAT_DWARVEN_GATE.asItem());
-            add(DecorativeItemsME.VARNISHED_DWARVEN_DOOR.asItem());
-            add(DecorativeItemsME.RUINED_DWARVEN_DOOR.asItem());
-            add(DecorativeItemsME.HIDDEN_DWARVEN_DOOR.asItem());
-            add(DecorativeItemsME.GREAT_ELVEN_GATE.asItem());
-            add(DecorativeItemsME.GREAT_ORCISH_GATE.asItem());
 
             add(ModBlocks.QUARTZ_CLUSTER.asItem());
             add(ModBlocks.SMALL_QUARTZ_BUD.asItem());

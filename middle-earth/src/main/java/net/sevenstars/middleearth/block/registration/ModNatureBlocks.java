@@ -523,8 +523,8 @@ public class ModNatureBlocks {
             (settings) -> new CustomTallPlantBlock(settings, true), AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP),true);
     public static final Block WILD_FLAX = registerCrossBlock("wild_flax",
             WildCropBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true);
-    public static final Block WILD_TOMATO = registerBlock("wild_tomato",
-            (settings) -> new CustomTallPlantBlock(settings, true),AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true);
+    public static final Block WILD_TOMATO = registerCrossBlock("wild_tomato",
+            WildCropBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true);
     public static final Block WILD_BELL_PEPPER = registerCrossBlock("wild_bell_pepper",
             WildCropBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true);
     public static final Block WILD_CUCUMBER = registerCrossBlock("wild_cucumber",

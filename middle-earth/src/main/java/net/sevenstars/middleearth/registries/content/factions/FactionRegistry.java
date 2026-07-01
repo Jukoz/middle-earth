@@ -25,6 +25,7 @@ public class FactionRegistry {
     public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("mordor"));
     public final static RegistryKey<Faction> HOBGOBLIN_TRIBES =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("hobgoblin_tribes"));
     public final static RegistryKey<Faction> HOBGOBLIN_TRIBES_GUNDABAD =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(HOBGOBLIN_TRIBES.getValue().getPath(), "gundabad"));
+    public final static RegistryKey<Faction> MORIA =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("moria"));
     public final static RegistryKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("isengard"));
     public final static RegistryKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("shire"));
     public final static RegistryKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("brigand"));
@@ -43,6 +44,7 @@ public class FactionRegistry {
         register(context, registryEntryLookup, MORDOR, MordorFactionPool.MORDOR);
         register(context, registryEntryLookup, HOBGOBLIN_TRIBES, HobgoblinTribesFactionPool.HOBGOBLIN_TRIBES);
         register(context, registryEntryLookup, HOBGOBLIN_TRIBES_GUNDABAD, HobgoblinTribesFactionPool.GUNDABAD);
+        register(context, registryEntryLookup, MORIA, MoriaFactionPool.MORIA);
         register(context, registryEntryLookup, ISENGARD, IsengardFactionPool.ISENGARD);
         register(context, registryEntryLookup, SHIRE, ShireFactionPool.SHIRE);
         register(context, registryEntryLookup, BRIGAND, BrigandFactionPool.BRIGAND);

@@ -136,14 +136,19 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                     this.actor.clearActiveItem();
                 } else if (bl) {
                     int i = this.actor.getItemUseTime();
+                    ItemStack itemStack = this.actor.getMainHandStack();
                     if (i >= 20) {
-                        this.actor.clearActiveItem();
-                        try{
-                            this.actor.shootAt(livingEntity, BowItem.getPullProgress(i));
-                        } catch (IllegalArgumentException e){
-                            this.actor.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(i));
+                        if(itemStack.getItem() instanceof CustomLongbowWeaponItem) {
+                            if(i >= 30) {
+                                this.actor.shootAt(livingEntity, 2.5f);
+                                this.cooldown = this.attackInterval;
+                                this.actor.clearActiveItem();
+                            }
+                        } else {
+                            this.actor.shootAt(livingEntity, 1.5f);
+                            this.cooldown = this.attackInterval;
+                            this.actor.clearActiveItem();
                         }
-                        this.cooldown = this.attackInterval;
                     }
                 }
             } else if (--this.cooldown <= 0 && this.targetSeeingTicker >= -60) {

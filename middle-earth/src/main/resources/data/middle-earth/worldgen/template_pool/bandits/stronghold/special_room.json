@@ -1,0 +1,24 @@
+{
+  "name": "middle-earth:bandits_stronghold_special_room",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:bandits/stronghold/treasure_room",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dolomite_tiles"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:bandits/stronghold/treasure_room_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dolomite_tiles"
+      }
+    }
+  ]
+}

@@ -5,13 +5,15 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:bell_banner_pattern",
-          "weight": 2
+          "name": "minecraft:light_blue_bundle"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bell",
-          "weight": 2
+          "name": "middle-earth:bow_banner_pattern"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:copper_ingot"
         },
         {
           "type": "minecraft:item",
@@ -121,6 +123,18 @@
         {
           "type": "minecraft:item",
           "name": "middle-earth:fabric"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fir_log"
         }
       ]
     },

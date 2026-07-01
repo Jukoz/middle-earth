@@ -115,6 +115,7 @@ public class CharacterPatternsRegistryME {
             public final static RegistryKey<CharacterTexturePattern> UNCUT                        = of("hair_uncut", CharacterPatternTypes.HAIR);
             public final static RegistryKey<CharacterTexturePattern> VERY_LONG                    = of("hair_very_long", CharacterPatternTypes.HAIR);
             public final static RegistryKey<CharacterTexturePattern> SEMI_LONG                    = of("hair_semi_long", CharacterPatternTypes.HAIR);
+            public final static RegistryKey<CharacterTexturePattern> SHIRE_SHAG                   = of("hair_shire_shag", CharacterPatternTypes.HAIR);
         }
 
         public record Beard() {
@@ -207,6 +208,7 @@ public class CharacterPatternsRegistryME {
         register(registry, Hairs.Hair.UNCUT, CharacterPatternTypes.HAIR);
         register(registry, Hairs.Hair.VERY_LONG, CharacterPatternTypes.HAIR, true);
         register(registry, Hairs.Hair.SEMI_LONG, CharacterPatternTypes.HAIR, true);
+        register(registry, Hairs.Hair.SHIRE_SHAG, CharacterPatternTypes.HAIR);
 
         register(registry, Hairs.Eyebrow.BASIC, CharacterPatternTypes.EYEBROW);
         register(registry, Hairs.Eyebrow.LONG, CharacterPatternTypes.EYEBROW);

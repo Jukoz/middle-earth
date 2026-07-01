@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -29,6 +30,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -213,15 +215,25 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
+            this.tameBeast((LivingEntity) player);
+            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+        }
+    }
+
+    @Override
+    public void tameBeast(LivingEntity livingEntity) {
+        if(!this.getWorld().isClient()) {
+            this.setTame(true);
             this.setTameness(75);
             this.stopSleeping();
             this.getBrain().remember(MemoryModulesME.TAME, true);
             this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
-            this.setOwner(player);
-            this.setTame(true);
-            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+            this.getBrain().forget(MemoryModuleType.NEAREST_ATTACKABLE);
+            this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
+            this.setOwner(livingEntity);
         }
+
     }
 
     @Override
@@ -262,7 +274,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         if(!this.isSitting()) {
-            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.2f);
         }
 
         return super.getSaddledSpeed(controllingPlayer);
@@ -271,7 +283,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
         if(!this.isSitting()) {
-            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.2f);
         }
 
         return super.getNpcSaddledSpeed(controllingNpc);
@@ -466,7 +478,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             }
         }
-        //this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
     }
 
     public void smashAttack(float strength) { // Strength goes from 0 to 100
@@ -489,7 +501,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
         if(world instanceof ServerWorld serverWorld) {
             for(Entity entity : entities) {
-                if(entity instanceof LivingEntity && entity != this.getOwner() && !this.getPassengerList().contains(entity)) {
+                if(this.isValidTarget(entity)) {
                     entity.damage(serverWorld, this.getDamageSources().mobAttack(this),  (float)weaponDamage + (strength / 12.5f) + (difficulty * 2));
                 }
             }
@@ -649,5 +661,38 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public static boolean shouldTarget(LivingEntity target) {
         return target instanceof NpcEntity || target instanceof PlayerEntity;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return super.getDeathSound();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return super.getHurtSound(source);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getEatSound() {
+        return super.getEatSound();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return super.getAmbientSound();
+    }
+
+    @Nullable
+    protected SoundEvent getRoarSound() {
+        return null;
+    }
+
+    public void playRoarSound() {
+        this.playSound(this.getRoarSound());
     }
 }

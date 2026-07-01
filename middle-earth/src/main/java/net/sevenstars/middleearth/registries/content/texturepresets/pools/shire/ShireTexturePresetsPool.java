@@ -84,7 +84,7 @@ public class ShireTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.SLIM)
             ))
             .withPatterns(CharacterPatternTypes.EYEBROW, List.of(
-                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.UNI),
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.BASIC),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.LONG),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Eyebrow.THICK)
             ))
@@ -92,25 +92,29 @@ public class ShireTexturePresetsPool {
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHORT),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BOWL),
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHARP),
-                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.BALD_SIDES)
+                WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHIRE_SHAG).withWeight(3)
             ))
             .withClothes(List.of(
                 new WeightedClothingPresetHolder(
                         List.of(
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN),
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_DARK_BROWN)
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.SHORT_PANTS_BROWN),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.SHORT_PANTS_TAN)
                         ),
                         List.of(
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE),
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BURGUNDY)
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_WHITE),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_BEIGE)
                         ),
-                        3
-                ),
-                new WeightedClothingPresetHolder(
-                    List.of(
-                        WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN),
-                        WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_DARK_BROWN)
-                    )
+                        List.of(
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_BROWN).withWeight(2),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_TAN).withWeight(2),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.BROWN_TOWNSMAN_SHIRT_SHORT),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_TOWNSMAN_SHIRT_SHORT),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.SHORT_RED_COTTE),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.YELLOW_TOWNSMAN_SHIRT_SHORT),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE).withWeight(3),
+                                WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.EMPTY)
+                        ),
+                        1
                 )
             ))
             .withSimplifiedTextures(List.of(
@@ -138,19 +142,30 @@ public class ShireTexturePresetsPool {
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.FEMALE)
                 ))
                 .withPatterns(CharacterPatternTypes.HAIR, List.of(
-                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.LONG),
-                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.UNCUT),
+                    WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SHIRE_SHAG),
                     WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Hairs.Hair.SEMI_LONG)
                 ))
                 .withClothes(List.of(
                     new WeightedClothingPresetHolder(
-                        List.of(
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_BROWN),
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.PANTS_DARK_BROWN)
-                        ),
-                        List.of(
-                            WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.DRESS_BURGUNDY_AND_WHITE)
-                        )
+                            List.of(
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.SHORT_PANTS_BROWN),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.SHORT_PANTS_TAN)
+                            ),
+                            List.of(
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_WHITE),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_BEIGE)
+                            ),
+                            List.of(
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_BROWN).withWeight(2),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.OVERALLS_TAN).withWeight(2),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.BROWN_TOWNSMAN_SHIRT_SHORT),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_TOWNSMAN_SHIRT_SHORT),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.SHORT_RED_COTTE),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.YELLOW_TOWNSMAN_SHIRT_SHORT),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHIRT_BEIGE).withWeight(3),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.EMPTY)
+                            ),
+                            1
                     )
                 ))
                 .withSimplifiedTextures(List.of(
@@ -170,6 +185,25 @@ public class ShireTexturePresetsPool {
                 ));
 
         SHIRRIFF_PRESET = MALE_PRESET.copy()
+            .clearClothes()
+            .withClothes(List.of(
+                    new WeightedClothingPresetHolder(
+                            List.of(
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.SHORT_PANTS_BROWN),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Base.SHORT_PANTS_TAN)
+                            ),
+                            List.of(
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_WHITE),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Over.SHORT_CHEMISE_BEIGE)
+                            ),
+                            List.of(
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.BROWN_TOWNSMAN_SHIRT_SHORT),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.GREEN_TOWNSMAN_SHIRT_SHORT),
+                                    WeightedIdentifier.fromIdentifier(CharacterClothesRegistryME.Extra.YELLOW_TOWNSMAN_SHIRT_SHORT)
+                            ),
+                            1
+                    )
+            ))
             .clearPatterns(CharacterPatternTypes.BODY)
             .withPatterns(CharacterPatternTypes.BODY, List.of(
                 WeightedIdentifier.fromKey(CharacterPatternsRegistryME.Skins.Body.FAT)

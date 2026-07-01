@@ -56,8 +56,6 @@ import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 
-import static net.sevenstars.middleearth.block.registration.ModBlocks.registerWoodBlock;
-
 public class ModDecorativeBlocks {
 
     public static final Block SILVER_LANTERN = registerBlock("silver_lantern",
@@ -115,13 +113,26 @@ public class ModDecorativeBlocks {
 
     public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
             ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
+    public static final Block ORCISH_ARTISAN_TABLE = registerBlock("orcish_artisan_table",
+            ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
     public static final Block INSCRIPTION_TABLE = registerBlock("inscription_table",
             InscriptionTableblock::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
+    public static final Block ORC_STRUCTURE_MANAGER = registerBlock("orc_structure_manager",
+            StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.DARK_OAK_PLANKS).nonOpaque());
     public static final Block STRUCTURE_NEST = registerBlock("structure_nest",
             StructureNestBlock::new, AbstractBlock.Settings.create().strength(-1.0F, 3600000.8F).noCollision().dropsNothing().nonOpaque().allowsSpawning(Blocks::never).noBlockBreakParticles().pistonBehavior(PistonBehavior.BLOCK));
+
+    public static final Block BRIGAND_TRIAL_SPAWNER = registerBlock("brigand_trial_spawner",
+            TrialSpawnerBlock::new, AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER));
+    public static final Block BRIGAND_VAULT = registerBlock("brigand_vault",
+            VaultBlock::new, AbstractBlock.Settings.copy(Blocks.VAULT).nonOpaque());
+    public static final Block SPIDER_TRIAL_SPAWNER = registerBlock("spider_trial_spawner",
+            TrialSpawnerBlock::new, AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER));
+    public static final Block SPIDER_VAULT = registerBlock("spider_vault",
+            VaultBlock::new, AbstractBlock.Settings.copy(Blocks.VAULT).nonOpaque());
 
     public static final Block SMALL_CRATE = registerBlock("small_crate",
             CrateBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
@@ -180,6 +191,8 @@ public class ModDecorativeBlocks {
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
     public static final Block CALCITE_STATUE = registerBlock("calcite_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.CALCITE).nonOpaque().requiresTool());
+    public static final Block DEEPSLATE_STATUE = registerBlock("deepslate_statue",
+            StatueBlock::new, AbstractBlock.Settings.copy(Blocks.DEEPSLATE).nonOpaque().requiresTool());
     public static final Block DIORITE_STATUE = registerBlock("diorite_statue",
             FlipStatueBlock::new, AbstractBlock.Settings.copy(Blocks.DIORITE).nonOpaque().requiresTool());
     public static final Block GABBRO_STATUE = registerBlock("gabbro_statue",

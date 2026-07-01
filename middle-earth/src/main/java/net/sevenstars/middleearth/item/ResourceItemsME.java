@@ -221,6 +221,8 @@ public class ResourceItemsME {
     public static final Item SHIELD_PLATE = registerItem("shield_plate",
             SmithingMaterialItem::new, new Item.Settings().maxCount(16));
 
+    public static final Item BRIGAND_KEY = registerItem("brigand_key",
+            Item::new, new Item.Settings());
     public static final Item DWARVEN_KEY = registerItem("dwarven_key",
             Item::new, new Item.Settings().maxCount(1));
 

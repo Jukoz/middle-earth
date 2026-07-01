@@ -1,0 +1,87 @@
+{
+  "name": "middle-earth:house",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/twin_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/peasant_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/bakery_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/lumber_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/house_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/great_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/smith_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/stables_house",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    }
+  ]
+}

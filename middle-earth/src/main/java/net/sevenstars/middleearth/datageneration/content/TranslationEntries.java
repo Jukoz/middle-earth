@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class TranslationEntries {
     };
     public static List<String> npcDataEntries = new ArrayList<>() {
     };
-    public static List<String> structureManagerEntries = new ArrayList<>() {
+    public static List<StructureManagerData> structureManagerEntries = new ArrayList<>() {
     };
     public static List<String> spawnEntries = new ArrayList<>() {
     };
@@ -215,6 +216,7 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".elven_treated_anvil", "Elven Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".orcish_treated_anvil", "Orcish Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("block."+ MiddleEarth.MOD_ID +".orcish_artisan_table", "Orcish Artisan Table");
             put("block."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
 
             put("block."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
@@ -513,7 +515,8 @@ public class TranslationEntries {
             put("description."+ MiddleEarth.MOD_ID +".lothlorien.description_0", "Lothlórien, the Golden Wood, is an enchanted Elven realm ruled by Galadriel and Celeborn. Sheltered by powerful enchantments and nestled within the golden mallorn trees, it is one of the last strongholds of the Elves in Middle-earth, renowned for its beauty and serenity.");
             put("description."+ MiddleEarth.MOD_ID +".rohan.description_0", "Rohan, also called the Riddermark, is a kingdom of Men renowned for its skilled horse-lords and cavalry. Located north of Gondor, it is ruled by the line of Eorl. Though once strong allies with Gondor, Rohan now faces growing internal and external threats.");
             put("description."+ MiddleEarth.MOD_ID +".isengard.description_0", "Once a fortress of Númenor, the keys of the black tower of Orthanc passed to the White Wizard Saruman in the Third Age. Tempted by dark power, he weaves deceit and plots war from his seat in Isengard upon the neighbouring free peoples.");
-            put("description."+ MiddleEarth.MOD_ID +".misty_mountains_goblins.description_0", "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.");
+            put("description."+ MiddleEarth.MOD_ID +".hobgoblins_tribes.gundabad.description_0", "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.");
+            put("description."+ MiddleEarth.MOD_ID +".moria.description_0", "Khazad-Dûm, mansion of the Longbeards, spanning from the east range to the west. However, the dwarves dug too deep. Now in ruin, the ancient halls are home to Goblins, Trolls, and nameless things. With them the city earned a new name, Moria.");
             put("description."+ MiddleEarth.MOD_ID +".shire.description_0", "The Shire is a peaceful land inhabited by Hobbits, located in the northwest of Middle-earth. Known for its pastoral beauty and the simple, unadventurous lives of its people. It remains largely untouched by the turmoil of the outside world.");
 
             put("command."+ MiddleEarth.MOD_ID +".fail", "Command couldn't be sent properly");
@@ -734,29 +737,6 @@ public class TranslationEntries {
             put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_snaga", "Mordor Snaga");
             put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_scout", "Mordor Scout");
             put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_militia", "Mordor Militia");
-
-            put("structure_manager_data.%s.gondor_generic_nests".formatted(MiddleEarth.MOD_ID), "Gondor Generic Nests");
-            put("structure_nest.%s.gondor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
-            put("structure_nest.%s.gondor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
-            put("structure_nest.%s.gondor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
-            put("structure_nest.%s.gondor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
-            put("structure_nest.%s.gondor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
-
-            put("structure_manager_data.%s.erebor_generic_nests".formatted(MiddleEarth.MOD_ID), "Erebor Generic Nests");
-            put("structure_nest.%s.erebor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
-            put("structure_nest.%s.erebor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
-            put("structure_nest.%s.erebor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
-            put("structure_nest.%s.erebor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
-            put("structure_nest.%s.erebor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
-
-            put("structure_manager_data.%s.dale_keep_nests".formatted(MiddleEarth.MOD_ID), "Dale Keep Nests");
-            put("structure_nest.%s.dale_keep_nests.captain".formatted(MiddleEarth.MOD_ID), "Captain Room");
-            put("structure_nest.%s.dale_keep_nests.stable_carers".formatted(MiddleEarth.MOD_ID), "Stable Carers Room");
-            put("structure_nest.%s.dale_keep_nests.stable".formatted(MiddleEarth.MOD_ID), "Stable");
-            put("structure_nest.%s.dale_keep_nests.small_prisoner_cell".formatted(MiddleEarth.MOD_ID), "Small Prisoner Cell");
-            put("structure_nest.%s.dale_keep_nests.large_prisoner_cell".formatted(MiddleEarth.MOD_ID), "Large Prisoner Cell");
-            put("structure_nest.%s.dale_keep_nests.soldier".formatted(MiddleEarth.MOD_ID), "Soldier Bed");
-            put("structure_nest.%s.dale_keep_nests.elite".formatted(MiddleEarth.MOD_ID), "Elite Bed");
         }
     };
 }

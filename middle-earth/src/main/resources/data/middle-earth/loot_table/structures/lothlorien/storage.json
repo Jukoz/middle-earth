@@ -3,6 +3,10 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:yellow_bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:lothlorien_banner_pattern",
@@ -19,6 +23,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:lorien_diadem"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:lorien_arming_coat"
         },
         {
@@ -31,6 +39,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:lorien_shield"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:elven_lantern"
         },
         {
@@ -40,10 +52,10 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 3
+          "weight": 2
         }
       ],
-      "rolls": 1
+      "rolls": 2
     },
     {
       "rolls": 1,
@@ -61,7 +73,7 @@
     {
       "rolls": {
         "min": 1,
-        "max": 5
+        "max": 3
       },
       "entries": [
         {
@@ -73,12 +85,24 @@
     {
       "rolls": {
         "min": 0,
-        "max": 3
+        "max": 2
       },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:white_wool"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:canvas"
         }
       ]
     },
@@ -132,8 +156,20 @@
     },
     {
       "rolls": {
-        "min": 1,
-        "max": 3
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fabric"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
       },
       "entries": [
         {

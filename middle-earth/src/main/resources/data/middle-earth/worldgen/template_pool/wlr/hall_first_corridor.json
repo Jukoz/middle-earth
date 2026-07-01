@@ -1,0 +1,15 @@
+{
+  "name": "middle-earth:hall_first_corridor",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hall/first_corridor",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_walls"
+      }
+    }
+  ]
+}

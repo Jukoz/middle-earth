@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -15,6 +16,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.CrossbowItem;
@@ -24,6 +26,7 @@ import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
 import net.sevenstars.middleearth.config.ModClientConfigs;
@@ -37,6 +40,7 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.middleearth.utils.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
@@ -72,11 +76,23 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         return new NpcEntityRenderState();
     }
 
+    public static float getLOD(Vec3d entityPos) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        Camera camera = client.gameRenderer.getCamera();
+        return (float)camera.getPos().distanceTo(entityPos);
+        // Keep in case it's needed
+        /*int currentFov = client.options.getFov().getValue();
+        double fovRatio = currentFov / 90.0;
+        return (float) (distance * fovRatio);*/
+    }
+
     @Override
     @Environment(EnvType.CLIENT)
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float tickDelta) {
         if(!npcEntity.getWorld().isClient)
             return;
+
+        npcEntityRenderState.aimingState = npcEntity.aimingState;
 
         super.updateRenderState(npcEntity, npcEntityRenderState, tickDelta);
         var npcTextureData = npcEntity.getNpcTextureData();
@@ -134,6 +150,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         }
         ItemStack currentShoes = npcEntity.getEquippedStack(EquipmentSlot.FEET);
         npcEntityRenderState.canShowFeet = currentShoes == null || currentShoes.isEmpty();
+        npcEntityRenderState.LOD = getLOD(npcEntity.getPos());
     }
     // endregion
 
@@ -157,6 +174,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
         if(!simplified && (state.skinId == null || state.headId == null || state.eyesId == null))
             return;
+
 
         matrices.push();
         if (state.isInPose(EntityPose.SLEEPING)) {
@@ -182,7 +200,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.model.setAngles(state);
         int overlay = state.hurt ? getOverlay(state, this.getAnimationCounter(state)) : OverlayTexture.DEFAULT_UV;
 
-
         if(simplified){
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
             renderTexture(matrices, vertexConsumer, state.simplifiedSkinId, light, overlay, false);
@@ -190,21 +207,21 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             renderComplexVersion(matrices, vertexConsumers, light, overlay, state);
         }
 
-        if (this.shouldRenderFeatures(state)) {
+        if (this.shouldRenderFeatures(state) && state.LOD < ModClientConfigs.LOD_NPC_ARMOR_DISTANCE) {
             for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
                 if (feature instanceof EarFeatureRenderer)
-                    if (state.simplifiedEarId == null && state.earId == null)
+                    if ((state.simplifiedEarId == null && state.earId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if (feature instanceof NoseFeatureRenderer)
-                    if (state.simplifiedNoseId == null && state.noseId == null)
+                    if ((state.simplifiedNoseId == null && state.noseId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if (feature instanceof HairFeatureRenderer)
-                    if (state.simplifiedHairAddonId == null && state.hairAddonId == null && state.beardAddonId == null)
+                    if ((state.simplifiedHairAddonId == null && state.hairAddonId == null && state.beardAddonId == null)
+                            || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if(feature instanceof FeetFeatureRenderer)
-                    if(state.simplifiedFeetId == null && state.feetId == null)
+                    if((state.simplifiedFeetId == null && state.feetId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
                         continue;
-
                 feature.render(matrices, vertexConsumers, light, state, state.relativeHeadYaw, state.pitch);
             }
         }
@@ -291,19 +308,21 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private BipedEntityModel.ArmPose getArmPose(NpcEntity npc, ItemStack stack, Hand hand) {
-        // TODO : Fix animation
+        if(npc.isAiming()){
+            return BipedEntityModel.ArmPose.BOW_AND_ARROW;
+        }
 
         if (stack.isEmpty()) {
             return BipedEntityModel.ArmPose.EMPTY;
         }
-        if (!npc.handSwinging && stack.isOf(Items.CROSSBOW) && CrossbowItem.isCharged(stack)) {
-            return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
+        if (!npc.handSwinging && (stack.isOf(Items.CROSSBOW) || stack.isIn(ItemTagsME.CROSSBOW))) {
+            if(CrossbowItem.isCharged(stack)) {
+                return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
+            }
+            else if(npc.isCharging()) {
+                return BipedEntityModel.ArmPose.CROSSBOW_CHARGE;
+            }
         }
-        /*
-        if ( stack.getUseAction() == UseAction.BLOCK || npc.isBlocking() && hand == Hand.OFF_HAND) {
-            return BipedEntityModel.ArmPose.BLOCK;
-        }
-         */
         if (npc.getActiveHand() == hand && npc.getItemUseTimeLeft() > 0) {
             UseAction useAction = stack.getUseAction();
             if (useAction == UseAction.BLOCK || npc.isBlocking()) {

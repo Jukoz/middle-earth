@@ -26,7 +26,6 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
-import java.util.List;
 import java.util.function.Function;
 
 public class DecorativeItemsME {
@@ -79,13 +78,26 @@ public class DecorativeItemsME {
 
     public static final Item ARTISAN_TABLE = registerItem("artisan_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.ARTISAN_TABLE, settings), new Item.Settings());
+    public static final Item ORCISH_ARTISAN_TABLE = registerItem("orcish_artisan_table",
+            (settings) -> new BlockItem(ModDecorativeBlocks.ORCISH_ARTISAN_TABLE, settings), new Item.Settings());
     public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
             (settings) -> new BlockItem(ModDecorativeBlocks.INSCRIPTION_TABLE, settings), new Item.Settings());
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_MANAGER, settings), new Item.Settings());
+    public static final Item ORC_STRUCTURE_MANAGER = registerItem("orc_structure_manager",
+            (settings) -> new BlockItem(ModDecorativeBlocks.ORC_STRUCTURE_MANAGER, settings), new Item.Settings());
     public static final Item STRUCTURE_NEST = registerItem("structure_nest",
             (settings) -> new BlockItem(ModDecorativeBlocks.STRUCTURE_NEST, settings), new Item.Settings());
+
+    public static final Item BANDIT_TRIAL_SPAWNER = registerItem("brigand_trial_spawner",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BRIGAND_TRIAL_SPAWNER, settings), new Item.Settings());
+    public static final Item BANDIT_VAULT = registerItem("brigand_vault",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BRIGAND_VAULT, settings), new Item.Settings());
+    public static final Item SPIDER_TRIAL_SPAWNER = registerItem("spider_trial_spawner",
+            (settings) -> new BlockItem(ModDecorativeBlocks.SPIDER_TRIAL_SPAWNER, settings), new Item.Settings());
+    public static final Item SPIDER_VAULT = registerItem("spider_vault",
+            (settings) -> new BlockItem(ModDecorativeBlocks.SPIDER_VAULT, settings), new Item.Settings());
 
     public static final Item SMALL_CRATE = registerItem("small_crate",
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());
@@ -121,6 +133,9 @@ public class DecorativeItemsME {
     public static final Item CALCITE_STATUE = registerItem("calcite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.CALCITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.BOENNDAL)));
+    public static final Item DEEPSLATE_STATUE = registerItem("deepslate_statue",
+            (settings) -> new BlockItem(ModDecorativeBlocks.DEEPSLATE_STATUE, settings), new Item.Settings()
+                    .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.ANGMARZKU)));
     public static final Item DIORITE_STATUE = registerItem("diorite_statue",
             (settings) -> new BlockItem(ModDecorativeBlocks.DIORITE_STATUE, settings), new Item.Settings()
                     .component(DataComponentTypesME.BLOCK_AUTHOR_DATA, new BlockAuthorDataComponent(BlockAuthor.COFFEE_VIKING)));

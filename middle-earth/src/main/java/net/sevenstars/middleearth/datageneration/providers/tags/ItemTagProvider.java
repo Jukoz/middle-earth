@@ -231,6 +231,14 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         characterHideHair.add(EquipmentItemsME.MAIL_COIF);
         characterHideHair.add(EquipmentItemsME.CLOSED_MAIL_COIF);
 
+        characterHideHair.add(EquipmentItemsME.HOOD);
+        characterHideHair.add(EquipmentItemsME.TALL_HOOD);
+        characterHideHair.add(EquipmentItemsME.TAN_FUR_HOOD);
+        characterHideHair.add(EquipmentItemsME.BLACK_FUR_HOOD);
+        characterHideHair.add(EquipmentItemsME.GRAY_FUR_HOOD);
+        characterHideHair.add(EquipmentItemsME.BROWN_FUR_HOOD);
+        characterHideHair.add(EquipmentItemsME.WHITE_FUR_HOOD);
+
         characterHideHair.add(EquipmentItemsME.ELVEN_MAIL_COIF);
         characterHideHair.add(EquipmentItemsME.LORIEN_MAIL_COIF_DIADEM);
 

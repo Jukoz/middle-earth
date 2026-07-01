@@ -33,6 +33,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
     public static final RegistryKey<Registry<NpcData>> NPC = RegistryKey.ofRegistry(MiddleEarth.of("npc"));
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.of("structure_manager_data"));
     public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("biome_event"));
+    public static final RegistryKey<Registry<BiomeEventData>> STRUCTURE_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("structure_event"));
 
     public static final RegistryKey<Registry<TexturePresetDataPool>> TEXTURE_PRESETS = RegistryKey.ofRegistry(MiddleEarth.of( "texture_presets"));
 
@@ -53,6 +54,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         DynamicRegistries.registerSynced(NPC, NpcData.CODEC);
         DynamicRegistries.registerSynced(FACTION, Faction.CODEC);
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
+        DynamicRegistries.registerSynced(STRUCTURE_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
         DynamicRegistries.registerSynced(TEXTURE_PRESETS, TexturePresetDataPool.CODEC);
 
@@ -74,6 +76,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         registryBuilder.addRegistry(NPC, NpcRegistry::bootstrap);
         registryBuilder.addRegistry(FACTION, FactionRegistry::bootstrap);
         registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
+        registryBuilder.addRegistry(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
         registryBuilder.addRegistry(TEXTURE_PRESETS, TexturePresetsRegistry::bootstrap);
 
@@ -89,6 +92,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
         pack.addProvider(BiomeEventProvider::new);
+        pack.addProvider(StructureEventProvider::new);
         pack.addProvider(GreatHornVariantsProvider::new);
     }
 }

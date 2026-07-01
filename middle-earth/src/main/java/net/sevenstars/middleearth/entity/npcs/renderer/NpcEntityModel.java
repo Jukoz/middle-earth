@@ -43,7 +43,6 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
         modelPartData2.addChild(LEFT_SLEEVE, ModelPartBuilder.create().uv(48, 48).cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
         modelPartData3.addChild(RIGHT_SLEEVE, ModelPartBuilder.create().uv(40, 32).cuboid(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
 
-
         modelPartData2 = modelPartData.addChild("left_leg", ModelPartBuilder.create().uv(16, 48).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), ModelTransform.origin(1.9F, 12.0F, 0.0F));
         modelPartData3 = modelPartData.getChild("right_leg");
         modelPartData2.addChild(LEFT_PANTS, ModelPartBuilder.create().uv(0, 48).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
@@ -68,9 +67,5 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
 
     public void setArmAngle(Arm arm, MatrixStack matrices) {
         super.setArmAngle(arm, matrices);
-    }
-
-    public ModelPart getRandomPart(Random random) {
-        return (ModelPart) Util.getRandom(this.parts, random);
     }
 }

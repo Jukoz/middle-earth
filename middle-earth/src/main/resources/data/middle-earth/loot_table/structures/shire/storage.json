@@ -3,6 +3,10 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:lime_bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:pipeweed_banner_pattern",

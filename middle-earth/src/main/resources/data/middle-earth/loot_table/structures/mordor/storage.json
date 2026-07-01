@@ -3,6 +3,11 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:black_bundle",
+          "weight": 2
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:mordor_banner_pattern",
@@ -19,6 +24,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "middle-earth:orcish_sandals"
+        },
+        {
+          "type": "minecraft:item",
           "name": "middle-earth:crude_dagger"
         },
         {
@@ -31,8 +40,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:mordor_painted_wooden_shield",
-          "weight": 2
+          "name": "middle-earth:mordor_painted_wooden_shield"
         },
         {
           "type": "minecraft:empty",

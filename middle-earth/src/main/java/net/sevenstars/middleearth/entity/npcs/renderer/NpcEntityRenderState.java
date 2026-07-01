@@ -1,10 +1,14 @@
 package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.entity.AnimationState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class NpcEntityRenderState extends BipedEntityRenderState {
     public float widthScale;
+
+    public AnimationState aimingState = new AnimationState();
 
     public Identifier simplifiedSkinId;
     public Identifier simplifiedEarId;
@@ -36,6 +40,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public boolean canShowEars;
     public boolean canShowBeard;
     public boolean canShowHair;
+    public float LOD = 0;
 
     public NpcEntityRenderState() {
         this.simplifiedSkinId = null;
