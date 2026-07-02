@@ -33,7 +33,7 @@ public class PlayerBookScreen extends Screen {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/player_book.png");
     private static final int WIDTH = 320;
     private static final int HEIGHT = 220;
-    private static HashMap<PlayerBookChapters, PlayerBookPageData> chaptersPages;
+    private static HashMap<PlayerBookChapters, List<PlayerBookPageData>> chaptersPages;
     private List<Chapter> chapters;
     private PageTurnWidget nextPageButton;
     private PageTurnWidget previousPageButton;
@@ -47,20 +47,20 @@ public class PlayerBookScreen extends Screen {
                 new Chapter("Smithing", PlayerBookChapters.SMITHING, ToolItemsME.SMITHING_HAMMER),
                 new Chapter("Enchanting", PlayerBookChapters.ENCHANTING, DecorativeItemsME.INSCRIPTION_TABLE),
                 new Chapter("Mounts", PlayerBookChapters.MOUNTS, EggItemsME.WARG_SPAWN_EGG),
-                new Chapter("Dungeons", PlayerBookChapters.DUNGEONS, Blocks.TRIAL_SPAWNER.asItem()));
+                new Chapter("Dungeons", PlayerBookChapters.DUNGEONS, DecorativeItemsME.SPIDER_TRIAL_SPAWNER.asItem()));
     }
 
     @Override
     protected void init() {
         super.init();
         int i = (this.width - 192) / 2;
-        this.previousPageButton = this.addDrawableChild(new PageTurnWidget(i + 43, 159, false, button -> this.openPreviousPage(), true));
-        this.nextPageButton = this.addDrawableChild(new PageTurnWidget(i + 116, 159, true, button -> this.openNextPage(), true));
+        int j = this.height / 2;
+        this.previousPageButton = this.addDrawableChild(new PageTurnWidget(i - 27, j + 70, false, button -> this.openPreviousPage(), true));
+        this.nextPageButton = this.addDrawableChild(new PageTurnWidget(i + 210, j + 70, true, button -> this.openNextPage(), true));
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        super.render(context, mouseX, mouseY, deltaTicks);
         int centerX = context.getScaledWindowWidth() / 2;
         int startX = 5 + centerX - (WIDTH / 2);
         int startY = (context.getScaledWindowHeight() / 2) - (HEIGHT / 2);
@@ -98,10 +98,16 @@ public class PlayerBookScreen extends Screen {
                 i++;
             }
         } else {
-            PlayerBookPageData pageData = chaptersPages.get(currentChapter);
+            PlayerBookPageData pageData = chaptersPages.get(currentChapter).get(currentPage - 1);
             if(pageData != null) {
                 drawScaledText(textRenderer, context, Text.literal(pageData.leftPageTitle).formatted(Formatting.UNDERLINE),
                         startX + (int)(WIDTH * 0.3), startY + (int)(HEIGHT * 0.11f), 1.25f, Colors.BLACK, true);
+
+                if(pageData.image != null) {
+                    context.drawTexture(RenderPipelines.GUI_TEXTURED, pageData.image,
+                            startX, startY, 0, 0,
+                            WIDTH, HEIGHT, 320, 320);
+                }
 
                 context.drawWrappedText(textRenderer, pageData.leftPageDescription, startX + 36, startY + (int)(HEIGHT * 0.2f), 120, Colors.BLACK, false);
                 context.drawWrappedText(textRenderer, pageData.rightPageDescription, startX + (int)(WIDTH * 0.5f) + 16, startY + (int)(HEIGHT * 0.125f), 115, Colors.BLACK, false);
@@ -109,6 +115,7 @@ public class PlayerBookScreen extends Screen {
         }
 
         renderTooltip(context, mouseX, mouseY);
+        super.render(context, mouseX, mouseY, deltaTicks);
     }
 
 
@@ -183,12 +190,30 @@ public class PlayerBookScreen extends Screen {
 
     static {
         chaptersPages = new HashMap<>();
-        chaptersPages.put(PlayerBookChapters.MINING, new PlayerBookPageData().withTitle("Mining")
-                .withLeftPageDesc(Text.of("Basic resources like coal, tin and copper can be found almost anywhere near the surface, " +
+        chaptersPages.put(PlayerBookChapters.MINING, List.of(
+                new PlayerBookPageData().withTitle("Mining")
+                    .withLeftPageDesc(Text.of("Basic resources like coal, tin and copper can be found almost anywhere near the surface, " +
                         "but valuable ores and gems are only found at deeper levels.\n\n From shallowest to deepest, " +
                         "the strata of the world consists of layers of Stone, Deepslate, Núrgon, and Medgon."))
-                .withRightPageDesc(Text.of("You must smith stronger tools to extract resources from the rock in deeper layers.\n\n " +
+                    .withRightPageDesc(Text.of("You must Smith stronger tools to extract resources from the rock in deeper layers.\n\n " +
                         "Deepslate minerals can be obtained using Stone Tools or better, Núrgon ores require at least " +
-                        "Bronze Tools, and Steel Tools are needed to mine Medgon. ")));
+                        "Bronze Tools, and Steel Tools are needed to mine Medgon. "))
+
+        ));
+
+        chaptersPages.put(PlayerBookChapters.SMITHING, List.of(
+                new PlayerBookPageData().withTitle("Smithing").withImage(Identifier.of(MiddleEarth.MOD_ID, "textures/gui/playerbook/mining1.png"))
+                        .withLeftPageDesc(Text.of("Better equipment will be essential for survival in the dangerous wilds of the world.\n\n " +
+                                "Smithing allows you to create new deadly weapons, more complex armour, and efficient tools to delve more deeply."))
+                        .withRightPageDesc(Text.of("To work metals with more finesse than crafting, you’ll need a Forge.\n\n " +
+                                "You can craft it with any cobbled stones, a furnace and bricks.\n To get clay for bricks, either find a lush cave or convert mud to clay"))
+        ));
+
+        chaptersPages.put(PlayerBookChapters.ENCHANTING, List.of(
+                new PlayerBookPageData().withTitle("Enchanting")
+                        .withLeftPageDesc(Text.of("The greatest artisans of past ages were known to have honed their craft so wonderfully, " +
+                                "resulting in storied blades and armour with extraordinary properties. "))
+                        .withRightPageDesc(Text.of(""))
+        ));
     }
 }

@@ -7,7 +7,7 @@ public class PlayerBookPageData {
     public String leftPageTitle;
     public Text leftPageDescription;
     public Text rightPageDescription;
-    public Identifier rightImage;
+    public Identifier image;
 
     public PlayerBookPageData withTitle(String title) {
         this.leftPageTitle = title;
@@ -21,6 +21,11 @@ public class PlayerBookPageData {
 
     public PlayerBookPageData withRightPageDesc(Text desc) {
         this.rightPageDescription = desc;
+        return this;
+    }
+
+    public PlayerBookPageData withImage(Identifier image) {
+        this.image = image;
         return this;
     }
 }
