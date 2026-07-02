@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import java.util.List;
 
 public class StructureManagerDataPools {
-    private final static int RESPAWN_TICKS = 1500;
+    private final static int RESPAWN_TICKS = 24000 * 3;
     
     public final static StructureManagerData BRIGAND_DUNGEON_NESTS;
     public final static StructureManagerData DALE_VILLAGE_NESTS;
