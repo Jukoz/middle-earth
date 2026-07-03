@@ -5,8 +5,8 @@ import net.minecraft.util.Identifier;
 
 public class PlayerBookPageData {
     public String leftPageTitle;
-    public Text leftPageDescription;
-    public Text rightPageDescription;
+    public String leftPageDescription;
+    public String rightPageDescription;
     public Identifier image;
 
     public PlayerBookPageData withTitle(String title) {
@@ -14,12 +14,12 @@ public class PlayerBookPageData {
         return this;
     }
 
-    public PlayerBookPageData withLeftPageDesc(Text desc) {
+    public PlayerBookPageData withLeftPageDesc(String desc) {
         this.leftPageDescription = desc;
         return this;
     }
 
-    public PlayerBookPageData withRightPageDesc(Text desc) {
+    public PlayerBookPageData withRightPageDesc(String desc) {
         this.rightPageDescription = desc;
         return this;
     }
