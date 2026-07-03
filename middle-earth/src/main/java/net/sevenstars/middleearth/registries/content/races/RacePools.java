@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RacePools {
-    private static final Identifier ATTACK_DAMAGE_MODIFIER = MiddleEarth.of("attack_damage_modifier");
+    public static class RaceAttributes {
+        public static final Identifier TOTAL_DAMAGE_MODIFIER = MiddleEarth.of("total_damage");
+    }
 
     public final static Race DWARF;
     public final static Race ELF;
@@ -60,7 +62,7 @@ public class RacePools {
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(ATTACK_DAMAGE_MODIFIER, -0.1))
+                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.1))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 1.75))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.3)));
                 put(EntityCategories.MALE, new AttributePool()
@@ -75,7 +77,7 @@ public class RacePools {
         HOBBIT = new Race(MiddleEarth.of("hobbit"), RaceType.HOBBIT,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(ATTACK_DAMAGE_MODIFIER, -0.2))
+                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.2))
                 .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.1))
                 .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))
@@ -84,7 +86,7 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.66).withBuffReversed()),
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(ATTACK_DAMAGE_MODIFIER, -0.1))
+                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.1))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 1.75))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.3)));
                 put(EntityCategories.MALE, new AttributePool()
@@ -153,7 +155,7 @@ public class RacePools {
                 new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75).withBuffReversed())
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
-                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(ATTACK_DAMAGE_MODIFIER, -0.1))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.1))
                         .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
                         .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.105))
                         .addElement(AttributePoolElement.create(EntityAttributes.MINING_EFFICIENCY, 0.2))
@@ -174,7 +176,7 @@ public class RacePools {
                 new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71).withBuffReversed())
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 12.0))
-                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(ATTACK_DAMAGE_MODIFIER, -0.2))
+                        .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.2))
                         .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
                         .addElement(AttributePoolElement.create(EntityAttributes.BLOCK_INTERACTION_RANGE, 5.5))
                         .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.105)),

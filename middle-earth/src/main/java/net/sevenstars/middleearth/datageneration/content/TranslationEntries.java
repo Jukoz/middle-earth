@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.content.races.RacePools;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.ArrayList;
@@ -453,7 +454,7 @@ public class TranslationEntries {
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
 
-            put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
+            put(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip"), "Attributes : ");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");
@@ -737,6 +738,11 @@ public class TranslationEntries {
             put("attribute.name.climbing_strength", "Climbing Strength");
             put("attribute.name.detection_range", "Detection Range");
             put("attribute.name.width_scale", "Width Scale");
+
+            put("attribute.modifiers." + RacePools.RaceAttributes.TOTAL_DAMAGE_MODIFIER.getPath(), "Total Attack Damage");
+            put("attribute.modifiers.creative_mode_block_range", "Creative Mode Block Range");
+            put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
+
 
             put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
         }

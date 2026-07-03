@@ -5,6 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
@@ -18,10 +20,8 @@ import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 public class Race {
     private static final String ID_FIELD = "id";
@@ -144,34 +144,139 @@ public class Race {
     }
 
     public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y){
-        List<Text> texts = new ArrayList<>();
-        texts.add(getFullName());
-        texts.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE));
-        List<AttributePoolElement> elements = baseAttributePool.getPool();
-        for(var element : elements){
-            double value = element.getValue();
-            Double attributeValue = baseAttributePool.getEntityCurrentAttributeValue(entity, element.getIdentifier());
-            if(attributeValue == null){
-                MiddleEarth.LOGGER.logWarn("Can't find attribute in player : %s".formatted(element.getIdentifier()));
+        List<Text> textLines = new ArrayList<>();
+        /// Race name
+        textLines.add(getFullName().formatted(Formatting.BOLD).formatted(Formatting.GOLD));
+        /// Attribute List Header
+        textLines.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY));
+
+        Set<EntityAttributeInstance> allEntityAttributes = entity.getAttributes().getTracked();
+        List<AttributePoolElement> attributesToCompare = baseAttributePool.getPool();
+
+        String betterSign = "▲";
+        String equalSign = "=";
+        String worsenSign = "▼";
+
+        for(EntityAttributeInstance attributeInstance : allEntityAttributes){
+            double currentBaseValue = attributeInstance.getBaseValue();
+            double currentValue = attributeInstance.getValue();
+
+            Optional<AttributePoolElement> optionalLinkedAttribute = attributesToCompare.stream().filter(attribute -> attributeInstance.getAttribute().matchesId(attribute.getIdentifier())).findFirst();
+
+            if(optionalLinkedAttribute.isPresent()){
+                AttributePoolElement linkedAttribute = optionalLinkedAttribute.get();
+
+                double linkedValue = linkedAttribute.getValue();
+
+                Formatting signFormatting = Formatting.GRAY;
+                String sign = equalSign;
+                if(linkedValue < currentBaseValue){
+                    signFormatting =  Formatting.RED;
+                    sign = worsenSign;
+                } else if(linkedValue > currentBaseValue){
+                    signFormatting =  Formatting.GREEN;
+                    sign = betterSign;
+                }
+                MutableText newCustomLine = Text.literal(sign).formatted(signFormatting);
+                newCustomLine.append(Text.literal(" "));
+                newCustomLine.append(Text.literal(" "));
+                newCustomLine.append(Text.translatable("attribute.name." + MiddleEarth.fetchId(attributeInstance.getAttribute().getIdAsString()).getPath()));
+
+                textLines.add(newCustomLine);
+            }
+
+        }
+/*
+
+
+
+        Formatting defaultColor = Formatting.WHITE;
+        Formatting unchangedColor = Formatting.DARK_GRAY;
+        Formatting betterColor = Formatting.GREEN;
+        Formatting worseColor = Formatting.RED;
+
+        /// Parses the full list of attributes
+        for(var raceAttribute : raceAttributes){
+            /// Obtain current entity attribute for the selected attribute
+            EntityAttributeInstance currAttributeInst = baseAttributePool.getEntityCurrentAttributeValue(entity, raceAttribute.getIdentifier());
+            if(currAttributeInst == null){
+                MiddleEarth.LOGGER.logWarn("Can't find attribute in player : %s".formatted(raceAttribute.getIdentifier()));
                 continue;
             }
-            double difference = value - attributeValue;
 
-            // Round them
-            value = Math.round(value * 1000) / 1000.0;
-            difference = Math.round(difference * 1000) / 1000.0;
+            double currAttributeValue = currAttributeInst.getValue();
 
-            String differenceChar = (difference > 0) ? "+" : "";
-            Formatting white = Formatting.WHITE;
-            Formatting differenceColor = (difference < 0) ? Formatting.RED : (difference > 0) ? Formatting.GREEN : white;
-            if(baseAttributePool.isBuffReversed(element.getIdentifier())){
-                differenceColor = (difference < 0) ? Formatting.GREEN : (difference > 0) ? Formatting.RED : white;
+            /// Compare value
+            double baseValueDifference = Math.round((raceAttribute.getValue() - currAttributeValue) * 1000) / 1000.0;
+
+            ///  Compare Modifiers
+            ArrayList<EntityAttributeModifier> currAttributeModifiers = new ArrayList<>(currAttributeInst.getModifiers().stream().toList());
+            EntityAttributeModifier raceAttributeModifier = (raceAttribute.hasModifiers())
+                    ? null //new EntityAttributeModifier(raceAttribute.get(), raceAttribute.getModifierValue(), EntityAttributeModifier.Operation.valueOf(raceAttribute.getModifierType()))
+                    : null;
+
+
+            ///  Build line
+            MutableText line = Text.literal(String.valueOf(raceAttribute.getValue()));
+
+            Formatting valueComparisonColor = unchangedColor;
+            String prefix = "";
+            if(baseValueDifference < 0){
+                valueComparisonColor = worseColor;
             }
-            MutableText rawValue = Text.literal(String.valueOf(value)).formatted(white);
-            MutableText valueText = rawValue.append(Text.literal(" (").formatted(white).append(Text.literal(differenceChar + difference).formatted(differenceColor).append(Text.literal(") ").formatted(white))));
-            texts.add(valueText.append(Text.translatable("attribute.name."+element.getIdentifier().getPath()).formatted(Formatting.WHITE)));
+            else if(baseValueDifference > 0){
+                valueComparisonColor = betterColor;
+                prefix = "+";
+            }
+
+            line.append(Text.literal(" ("));
+            line.append(Text.literal(prefix + baseValueDifference).formatted(valueComparisonColor));
+            line.append(Text.literal(") "));
+
+            line.append(Text.translatable("attribute.name." + raceAttribute.getIdentifier().getPath()));
+
+            if(!currAttributeModifiers.isEmpty() || raceAttributeModifier != null)
+            {
+                line.append(Text.literal("*").formatted(Formatting.GOLD));
+                textLines.add(line);
+
+                for(EntityAttributeModifier modifier : currAttributeModifiers){
+                    MutableText modifierLine = Text.literal(" > ").formatted(Formatting.GOLD);
+                    modifierLine.append(Text.translatable("attribute.modifiers." + modifier.id().getPath()).formatted(unchangedColor));
+                    modifierLine.append(" (");
+
+                    baseValueDifference = Math.round((modifier.value() - 0) * 1000) / 1000.0;
+                    Formatting modifierComparisonColor = unchangedColor;
+                    if(baseValueDifference < 0){
+                        modifierComparisonColor = worseColor;
+                    }
+                    else if(baseValueDifference > 0){
+                        modifierComparisonColor = betterColor;
+                    }
+
+                    modifierLine.append(Text.literal("*" + modifier.value()).formatted(modifierComparisonColor));
+                    modifierLine.append(")");
+                    textLines.add(modifierLine);
+                }
+            } else {
+                textLines.add(line);
+            }
+
+
+            /*
+             // Round them
+
+             String differenceChar = (difference > 0) ? "+" : "";
+             Formatting white = Formatting.WHITE;
+             Formatting differenceColor = (difference < 0) ? Formatting.RED : (difference > 0) ? Formatting.GREEN : white;
+             if(baseAttributePool.isBuffReversed(currentEntityAttribute.getIdentifier())){
+                 differenceColor = (difference < 0) ? Formatting.GREEN : (difference > 0) ? Formatting.RED : white;
+             }
+             MutableText rawValue = Text.literal(String.valueOf(nextAttributeValue)).formatted(white);
+             MutableText valueText = rawValue.append(Text.literal(" (").formatted(white).append(Text.literal(differenceChar + difference).formatted(differenceColor).append(Text.literal(") ").formatted(white))));
         }
-        context.drawTooltip(renderer, texts, x, y);
+        */
+        context.drawTooltip(renderer, textLines, x, y);
     }
 
     public void applyNpcAttributes(NpcEntity npcEntity) {
