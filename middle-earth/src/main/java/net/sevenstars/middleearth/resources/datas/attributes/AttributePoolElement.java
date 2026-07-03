@@ -16,11 +16,7 @@ public class AttributePoolElement {
     private Double value;
     private Double valueMax;
     private List<AttributeModifierElement> modifiers;
-    private Boolean isBuffReversed;
 
-    public AttributePoolElement(){
-        this.isBuffReversed = false;
-    }
     public static AttributePoolElement create(RegistryEntry<EntityAttribute> attributeEntry, double defineValue){
         return new AttributePoolElement()
                 .withIdentifier(Identifier.of(attributeEntry.getIdAsString()))
@@ -40,9 +36,6 @@ public class AttributePoolElement {
             newElement.withDefineValue(nbtCompound.getDouble("value").get());
         else if(nbtCompound.contains("min") && nbtCompound.contains("max"))
             newElement.withMinMaxValue(nbtCompound.getDouble("min").get(), nbtCompound.getDouble("max").get());
-
-        if(nbtCompound.contains("buffReversed") && nbtCompound.getBoolean("buffReversed").get())
-            newElement.withBuffReversed();
 
         if(nbtCompound.contains("modifiers")){
             newElement.withModifiers(nbtCompound.getList("modifiers").get());
@@ -76,10 +69,6 @@ public class AttributePoolElement {
             }
             nbtCompound.put("modifiers", modifiersList);
         }
-
-        if(this.isBuffReversed != null && this.isBuffReversed)
-            nbtCompound.putBoolean("buffReversed", true);
-
         return nbtCompound;
     }
 
@@ -96,11 +85,6 @@ public class AttributePoolElement {
     public AttributePoolElement withMinMaxValue(Double newMinValue, Double newMaxValue) {
         this.value = newMinValue;
         this.valueMax = newMaxValue;
-        return this;
-    }
-
-    public AttributePoolElement withBuffReversed() {
-        this.isBuffReversed = true;
         return this;
     }
 
@@ -131,10 +115,6 @@ public class AttributePoolElement {
 
     public boolean hasModifiers(){
         return this.modifiers != null && !this.modifiers.isEmpty();
-    }
-
-    public boolean isBuffReversed(){
-        return this.isBuffReversed != null && this.isBuffReversed;
     }
 
     public List<AttributeModifierElement> getModifiers() {

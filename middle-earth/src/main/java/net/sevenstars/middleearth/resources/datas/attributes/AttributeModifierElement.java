@@ -7,7 +7,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 
 public class AttributeModifierElement {
     private EntityAttributeModifier modifier;
-    private boolean isReversed;
 
     public AttributeModifierElement(NbtCompound modifierNbt) {
         this.modifier = new EntityAttributeModifier(
@@ -15,12 +14,10 @@ public class AttributeModifierElement {
                 modifierNbt.getDouble("value").get(),
                 EntityAttributeModifier.Operation.valueOf(modifierNbt.getString("operation").get())
         );
-        this.isReversed = modifierNbt.getBoolean("reversed").get();
     }
 
     public AttributeModifierElement(Identifier identifier, double value, EntityAttributeModifier.Operation operation, boolean isReversed) {
         this.modifier = new EntityAttributeModifier(identifier, value, operation);
-        this.isReversed = isReversed;
     }
 
 
@@ -29,7 +26,6 @@ public class AttributeModifierElement {
         nbt.putString("id", modifier.id().toString());
         nbt.putDouble("value", modifier.value());
         nbt.putString("operation", modifier.operation().name());
-        nbt.putBoolean("reversed", isReversed);
         return nbt;
     }
 

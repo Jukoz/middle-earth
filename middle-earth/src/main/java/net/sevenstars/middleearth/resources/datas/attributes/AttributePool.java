@@ -81,18 +81,9 @@ public class AttributePool {
                 continue;
             }
 
-            var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
-            if (defaultAttribute == null) {
+            double defaultBaseValue = getDefaultAttributeValue(identifier, entity);
+            if(defaultBaseValue == -99)
                 continue;
-            }
-
-            var defaultAttributeEntry = Registries.ATTRIBUTE.getEntry(identifier);
-            if (defaultAttributeEntry.isEmpty()) {
-                continue;
-            }
-
-            var defaultAttributeContainer = DefaultAttributeRegistry.get((EntityType<? extends LivingEntity>) entity.getType());
-            var defaultBaseValue = defaultAttributeContainer.getBaseValue(defaultAttributeEntry.get());
 
             attributeInstance.setBaseValue(defaultBaseValue);
             attributeInstance.clearModifiers();
@@ -100,15 +91,19 @@ public class AttributePool {
         return true;
     }
 
-    public boolean isBuffReversed(Identifier id){
-        return pool.stream().anyMatch(item -> item.getIdentifier().equals(id) && item.isBuffReversed());
-    }
-
-    public EntityAttributeInstance getEntityCurrentAttributeValue(LivingEntity entity, Identifier id) {
-        if(Registries.ATTRIBUTE.getEntry(id).isPresent()){
-            return entity.getAttributeInstance(Registries.ATTRIBUTE.getEntry(id).get());
+    public static double getDefaultAttributeValue(Identifier identifier, LivingEntity entity) {
+        var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
+        if (defaultAttribute == null) {
+            return -99;
         }
-        return null;
+
+        var defaultAttributeEntry = Registries.ATTRIBUTE.getEntry(identifier);
+        if (defaultAttributeEntry.isEmpty()) {
+            return -99;
+        }
+
+        var defaultAttributeContainer = DefaultAttributeRegistry.get((EntityType<? extends LivingEntity>) entity.getType());
+        return defaultAttributeContainer.getBaseValue(defaultAttributeEntry.get());
     }
 
     public List<AttributePoolElement> getPool() {

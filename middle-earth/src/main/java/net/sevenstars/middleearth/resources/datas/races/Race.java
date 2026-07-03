@@ -9,6 +9,8 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -155,40 +157,97 @@ public class Race {
 
         String betterSign = "▲";
         String equalSign = "=";
-        String worsenSign = "▼";
+        String worstSign = "▼";
+        String removedSign = "-";
+        String additionSign = "+";
 
         for(EntityAttributeInstance attributeInstance : allEntityAttributes){
+            Identifier attributeId = MiddleEarth.fetchId(attributeInstance.getAttribute().getIdAsString());
+
+
             double currentBaseValue = attributeInstance.getBaseValue();
             double currentValue = attributeInstance.getValue();
 
-            Optional<AttributePoolElement> optionalLinkedAttribute = attributesToCompare.stream().filter(attribute -> attributeInstance.getAttribute().matchesId(attribute.getIdentifier())).findFirst();
+            double attributeDefaultValue = AttributePool.getDefaultAttributeValue(attributeId ,entity);
 
-            if(optionalLinkedAttribute.isPresent()){
-                AttributePoolElement linkedAttribute = optionalLinkedAttribute.get();
+            AttributePoolElement linkedAttribute = attributesToCompare.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier()))
+                                                                               .findFirst().orElse(null);
 
-                double linkedValue = linkedAttribute.getValue();
 
-                Formatting signFormatting = Formatting.GRAY;
-                String sign = equalSign;
-                if(linkedValue < currentBaseValue){
-                    signFormatting =  Formatting.RED;
-                    sign = worsenSign;
-                } else if(linkedValue > currentBaseValue){
-                    signFormatting =  Formatting.GREEN;
-                    sign = betterSign;
+            Formatting signFormatting = Formatting.GRAY;
+            Formatting textFormatting = Formatting.GRAY;
+            String sign = equalSign;
+
+            boolean buffIsReversed = attributeInstance.getAttribute().isIn(TagKey.of(RegistryKeys.ATTRIBUTE, MiddleEarth.of("is_buff_reversed")));
+
+            // The new race does not include that attribute
+            if(linkedAttribute == null) {
+                if(attributeDefaultValue == currentBaseValue){
+                    continue;
                 }
-                MutableText newCustomLine = Text.literal(sign).formatted(signFormatting);
-                newCustomLine.append(Text.literal(" "));
-                newCustomLine.append(Text.literal(" "));
-                newCustomLine.append(Text.translatable("attribute.name." + MiddleEarth.fetchId(attributeInstance.getAttribute().getIdAsString()).getPath()));
-
-                textLines.add(newCustomLine);
+                else if(attributeDefaultValue == 0){
+                    if(buffIsReversed){
+                        sign = additionSign;
+                        signFormatting = Formatting.YELLOW;
+                        textFormatting = Formatting.YELLOW;
+                    } else {
+                        sign = removedSign;
+                        signFormatting = Formatting.DARK_GRAY;
+                        textFormatting = Formatting.DARK_GRAY;
+                    }
+                } else if(attributeDefaultValue > currentBaseValue){
+                    if(buffIsReversed){
+                        sign = worstSign;
+                        signFormatting = Formatting.RED;
+                        textFormatting = Formatting.RED;
+                    } else {
+                        sign = betterSign;
+                        signFormatting = Formatting.GREEN;
+                        textFormatting = Formatting.GREEN;
+                    }
+                } else if(attributeDefaultValue < currentBaseValue){
+                    if(buffIsReversed){
+                        sign = betterSign;
+                        signFormatting = Formatting.GREEN;
+                        textFormatting = Formatting.GREEN;
+                    } else {
+                        sign = worstSign;
+                        signFormatting = Formatting.RED;
+                        textFormatting = Formatting.RED;
+                    }
+                }
+            } else {
+                double linkedAttributeValue = linkedAttribute.getValue();
+                if(linkedAttributeValue < currentBaseValue){
+                    if(buffIsReversed){
+                        sign = betterSign;
+                        signFormatting = Formatting.GREEN;
+                        textFormatting = Formatting.GREEN;
+                    } else {
+                        sign = worstSign;
+                        signFormatting = Formatting.RED;
+                        textFormatting = Formatting.RED;
+                    }
+                } else if(linkedAttributeValue > currentBaseValue){
+                    if(buffIsReversed){
+                        sign = worstSign;
+                        signFormatting = Formatting.RED;
+                        textFormatting = Formatting.RED;
+                    } else {
+                        sign = betterSign;
+                        signFormatting = Formatting.GREEN;
+                        textFormatting = Formatting.GREEN;
+                    }
+                }
             }
 
+            MutableText newCustomLine = Text.literal(sign).formatted(signFormatting);
+            newCustomLine.append(Text.literal(" "));
+            newCustomLine.append(Text.translatable("attribute.name." + attributeId.getPath()).formatted(textFormatting));
+
+            textLines.add(newCustomLine);
         }
-/*
-
-
+            /*
 
         Formatting defaultColor = Formatting.WHITE;
         Formatting unchangedColor = Formatting.DARK_GRAY;
