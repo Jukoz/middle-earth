@@ -1,15 +1,14 @@
 {
-  "name": "middle-earth:hall_spring",
+  "name": "middle-earth:center_place_well",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:wlr/hall/spring_fountain",
+        "location": "middle-earth:shire/center_place_well",
         "projection": "rigid",
-        "processors": "minecraft:empty",
-        "override_liquid_settings": "ignore_waterlogging"
+        "processors": "middle-earth:randomize_shire_road"
       }
     }
   ]

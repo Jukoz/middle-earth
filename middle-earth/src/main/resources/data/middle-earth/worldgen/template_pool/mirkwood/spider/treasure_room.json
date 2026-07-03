@@ -8,7 +8,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_treasure_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -17,7 +18,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_looted_treasure_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     }
   ]
