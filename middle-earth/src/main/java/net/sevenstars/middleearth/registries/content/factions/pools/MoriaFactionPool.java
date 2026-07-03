@@ -29,6 +29,7 @@ public class MoriaFactionPool {
                             MoriaNpcDataPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
+                            MoriaNpcDataPool.MILITIA,
                             MoriaNpcDataPool.SCOUT
                     ));
                     put(NpcRank.SOLDIER, List.of(
@@ -41,7 +42,7 @@ public class MoriaFactionPool {
                             MoriaNpcDataPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MoriaNpcDataPool.VETERAN
+                            MoriaNpcDataPool.CHIEF
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -61,6 +62,7 @@ public class MoriaFactionPool {
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.WOODLAND_REALM, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.GOBLIN_TOWN, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.MORIA, AffinityLevel.ALLY),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.FRIENDLY),
