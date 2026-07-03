@@ -862,7 +862,7 @@ public class WeaponItemsME {
     public static final Item GUNDABAD_LONGBOW = registerBigBowItem("gundabad_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
-    public static final Item GUNDABAD_CROSSBOW = registerCrossbowItem("gundabad_crossbow",
+    public static final Item GOBLIN_CROSSBOW = registerCrossbowItem("goblin_crossbow",
             (settings) -> new CustomCrossbowWeaponItem(RangedWeaponTypesME.CROSSBOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
 

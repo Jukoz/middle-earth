@@ -301,7 +301,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
 
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.GUNDABAD_BOW.getDefaultStack(), DispositionType.EVIL);
                 createArtisanTableLongbowRecipe(itemLookup, recipeExporter, WeaponItemsME.GUNDABAD_LONGBOW.getDefaultStack(), DispositionType.EVIL);
-                createArtisanTableCrossbowRecipe(itemLookup, recipeExporter, WeaponItemsME.GUNDABAD_CROSSBOW.getDefaultStack(), DispositionType.EVIL);
+                createArtisanTableCrossbowRecipe(itemLookup, recipeExporter, WeaponItemsME.GOBLIN_CROSSBOW.getDefaultStack(), DispositionType.EVIL);
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.GOBLIN_TOWN_BOW.getDefaultStack(), DispositionType.EVIL);
                 createArtisanTableBowRecipe(itemLookup, recipeExporter, WeaponItemsME.MORIA_GOBLIN_BOW.getDefaultStack(), DispositionType.EVIL);
 

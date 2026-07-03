@@ -227,6 +227,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         characterShowEars.add(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR);
         characterShowEars.add(EquipmentItemsME.WEATHERED_DOL_GULDUR_JAILER_COLLAR);
 
+        characterShowEars.add(EquipmentItemsME.MORIA_GOBLIN_MANDIBLE_HELMET);
+        characterShowEars.add(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_HELMET);
+        characterShowEars.add(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET);
+
         // HIDE Hairs
         characterHideHair.add(EquipmentItemsME.MAIL_COIF);
         characterHideHair.add(EquipmentItemsME.CLOSED_MAIL_COIF);
