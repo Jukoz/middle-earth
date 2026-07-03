@@ -207,20 +207,22 @@ public class PlayerBookScreen extends Screen {
         chaptersPages = new HashMap<>();
         chaptersPages.put(PlayerBookChapters.GETTING_STARTED, List.of(
                 new PlayerBookPageData().withTitle("Getting Started").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "getting_started1.png"))
-                    .withLeftPageDesc(Text.of("To enter Middle-earth and thus begin your adventure, you shall first craft a starlight phial. " +
+                    .withLeftPageDesc(Text.of("To enter Middle-earth and thus begin your adventure, you shall first craft a starlight phial.\n " +
                             "Once the phial is crafted, fill it with water and then combine with a glowing item such as glow berries, glowstone or glow ink to finally craft the starlight phial."))
-                    .withRightPageDesc(Text.of("Use it and you'll be brought to the onboarding process to Middle-earth"))
+                    .withRightPageDesc(Text.of("Use it and you'll be brought to the onboarding process to Middle-earth."))
         ));
 
         chaptersPages.put(PlayerBookChapters.MINING, List.of(
-                new PlayerBookPageData().withTitle("Mining")
+                new PlayerBookPageData().withTitle("Mining").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "mining1.png"))
                     .withLeftPageDesc(Text.of("Basic resources like coal, tin and copper can be found almost anywhere near the surface, " +
                         "but valuable ores and gems are only found at deeper levels.\n\n From shallowest to deepest, " +
                         "the strata of the world consists of layers of Stone, Deepslate, Núrgon, and Medgon."))
-                    .withRightPageDesc(Text.of("You must Smith stronger tools to extract resources from the rock in deeper layers.\n\n " +
-                        "Deepslate minerals can be obtained using Stone Tools or better, Núrgon ores require at least " +
-                        "Bronze Tools, and Steel Tools are needed to mine Medgon. ")),
-                new PlayerBookPageData().withTitle("Cave Monsters").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "mining2.png"))
+                    .withRightPageDesc(Text.of("")),
+                new PlayerBookPageData().withTitle("Tools")
+                        .withLeftPageDesc(Text.of("You must Smith stronger tools to extract resources from the rock in deeper layers.\n\n " +
+                                "Deepslate minerals can be obtained using Stone Tools or better, Núrgon ores require at least Bronze Tools, and Steel Tools are needed to mine Medgon. "))
+                        .withRightPageDesc(Text.of("Read the chapter about Smithing to learn how to get better tools.")),
+                new PlayerBookPageData().withTitle("Cave Monsters").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "mining3.png"))
                     .withLeftPageDesc(Text.of("Delving deep is not without danger —  miners tell of roving bands of Wild Goblins patrolling the dark reaches of Middle-earth, " +
                             "preying on the unwary. Some tales even say fouler and darker things stalk the roots of the world, lying in wait… go not into the deep unprepared."))
                     .withRightPageDesc(Text.of("The dark depths hide many a glimmering prize, but caution is to be exercised!\n"))
@@ -231,7 +233,39 @@ public class PlayerBookScreen extends Screen {
                         .withLeftPageDesc(Text.of("Better equipment will be essential for survival in the dangerous wilds of the world.\n\n " +
                                 "Smithing allows you to create new deadly weapons, more complex armour, and efficient tools to delve more deeply."))
                         .withRightPageDesc(Text.of("To work metals with more finesse than crafting, you’ll need a Forge.\n\n " +
-                                "You can craft it with any cobbled stones, a furnace and bricks.\n To get clay for bricks, either find a lush cave or convert mud to clay"))
+                                "You can craft it with any cobbled stones, a furnace and bricks.\n To get clay for bricks, either find a lush cave or convert mud to clay")),
+                new PlayerBookPageData().withTitle("Copper Alloys").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "smithing2.png"))
+                        .withLeftPageDesc(Text.of("Bronze and Crude are simple alloys, harder and more durable than stone and copper.\n\n " +
+                                "Copper alloy tools will enable you to mine deeper than before, entering the Nurgon layer of the world and exploiting the riches found there.\n" +
+                                "Make sure to toggle the forge to alloying mode."))
+                        .withRightPageDesc(Text.of("Here's their recipes")),
+                new PlayerBookPageData().withTitle("Casting").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "smithing3.png"))
+                        .withLeftPageDesc(Text.of("All molten metals can be cast into Nuggets, Ingots, Rods, Plates, and Large Rods. " +
+                                "Different casted parts will require different amounts of molten metal to create.\n\n " +
+                                "A forge’s crucible can hold up to 16 ingots-worth of molten liquid metal"))
+                        .withRightPageDesc(Text.of("")),
+                new PlayerBookPageData().withTitle("Shaping Anvil").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "smithing4.png"))
+                        .withLeftPageDesc(Text.of("Smithing Anvils are a handy solution to tackle the next step in smithing.\n " +
+                                "The Stone Anvil is the most basic type of smithing anvil — create one by laying down a base of three logs of any type under six stones of any kind."))
+                        .withRightPageDesc(Text.of("You’ll need a Smithing Hammer to work your casted parts over the Smithing Anvil")),
+                new PlayerBookPageData().withTitle("Shaping Anvil")
+                        .withLeftPageDesc(Text.of("Now you have all the tools needed for an amateur smith. Put a Hot Large Metal Rod onto the stone anvil.\n\n " +
+                                "Next, shape it into a Pickaxe Head. Using the Smithing Hammer, hit the large rod at a stable tempo."))
+                        .withRightPageDesc(Text.of("Casted parts can only be worked into new shapes on the smithing anvil while they are hot, " +
+                                "and will also cool down over time while on the anvil.\n\n You can reheat cooled parts in a low-heat forge without resetting their progress.")),
+                new PlayerBookPageData().withTitle("Quenching").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "smithing5.png"))
+                        .withLeftPageDesc(Text.of("Once the large rod is fully shaped into the pickaxe head, it must be cool to the touch before being worked further. " +
+                                "You must quench it in a filled Cauldron; cooling it instantly."))
+                        .withRightPageDesc(Text.of("Both the cauldron and bucket can be crafted using Tin, which can be found in caves near the surface.")),
+                new PlayerBookPageData().withTitle("Artisan Table").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "smithing6.png"))
+                        .withLeftPageDesc(Text.of("The Artisan Table is the workstation of choice for armourers, blacksmiths and craftspeople across many realms, " +
+                                "and will be required to piece together smithing components into a final product.\n " +
+                                "Its recipe is one cobbled stone over one log on either side of a tin ingot, in a helmet shape. "))
+                        .withRightPageDesc(Text.of("")),
+                new PlayerBookPageData().withTitle("Artisan Table")
+                        .withLeftPageDesc(Text.of("Place your bronze pickaxe head and two sticks in the Artisan Table, " +
+                                "and you are now ready to explore even farther underground using your new Bronze Pickaxe. "))
+                        .withRightPageDesc(Text.of(""))
         ));
 
         chaptersPages.put(PlayerBookChapters.ENCHANTING, List.of(
@@ -241,16 +275,51 @@ public class PlayerBookScreen extends Screen {
                                 "First, craft the inscription table as follow."))
                         .withRightPageDesc(Text.of("")),
                 new PlayerBookPageData().withTitle("Inscription Table").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "enchanting2.png"))
-                        .withLeftPageDesc(Text.of("To use the inscription table, you will need gems, a chisel and the item that you wish to enchant." +
-                                "Each gem have unique words associated to it, you can explore each combination of words until you find a valid enchant."))
-                        .withRightPageDesc(Text.of(""))
+                        .withLeftPageDesc(Text.of("To use the inscription table, you will need gems, a chisel and the item that you wish to enchant. " +
+                                "Each gem have unique words associated with it, you can explore each combination of words until you find a valid enchant."))
+                        .withRightPageDesc(Text.of("Here's an example of the Unbreaking enchantment inscription;"))
         ));
 
         chaptersPages.put(PlayerBookChapters.MOUNTS, List.of(
                 new PlayerBookPageData().withTitle("Mounts")
                         .withLeftPageDesc(Text.of("The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +
                                 "Such companions come in all shapes and sizes, each having their own unique advantages and disadvantages."))
-                        .withRightPageDesc(Text.of("Many of those beasts can only be tamed by certain races."))
+                        .withRightPageDesc(Text.of("Many of those beasts can only be tamed by certain races.")),
+                new PlayerBookPageData().withTitle("Broadhoof Goat").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "mount_broadhoof_goat.png"))
+                        .withLeftPageDesc(Text.of("The Broadhoof Goat is a great mount for Dwarves that can easily climb mountains.\n" +
+                                "You can find them in mountains where Dwarves live, but beware of these fluffy climbers; they can be aggressive if provoked. " +
+                                "They may charge with their horns against enemies and jump very high."))
+                        .withRightPageDesc(Text.of("To tame them, you must be a dwarf and offer them wheat.")),
+                new PlayerBookPageData().withTitle("Great Horn").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "mount_great_horn.png"))
+                        .withLeftPageDesc(Text.of("The Great Horn lives in the forests of Anduin and northern Wastelands.\n" +
+                                "It's a majestic creature that will flee everyone but elves. " +
+                                "Indeed, as an elf, you may tame it with various items, such as clovers, sweet berries, mushrooms, and more."))
+                        .withRightPageDesc(Text.of("Great Horns can leap\n        and pierce.")),
+                new PlayerBookPageData().withTitle("Warg").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "mount_warg.png"))
+                        .withLeftPageDesc(Text.of("The wicked wolves are bred for war and hunting. They attack all good-aligned entities and can be ridden by " +
+                                "orcs, snagas, goblins, and uruks.\n To tame this wicked beast, simply give some raw meat."))
+                        .withRightPageDesc(Text.of("Wargs can leap and take down other riders from their mounts.")),
+                new PlayerBookPageData().withTitle("Cave Troll").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "mount_cave_troll.png"))
+                        .withLeftPageDesc(Text.of("The Cave Troll, a fearsome creature that dwells deep in caves. " +
+                                "It attacks everyone when hungry, but if you're evil aligned, you may attempt to tame it with chains while it sleeps.\n " +
+                                "The Cave Troll can bear up to three riders on his back and be commanded with a bone."))
+                        .withRightPageDesc(Text.of("It can smash and charge."))
+        ));
+
+        chaptersPages.put(PlayerBookChapters.DUNGEONS, List.of(
+                new PlayerBookPageData().withTitle("Dungeons")
+                        .withLeftPageDesc(Text.of("Throughout your adventures in middle earth you may encounter a variety of dungeons with great riches to behold.\n " +
+                                "Before entering, you should prepare yourself for whatever unfriendly creatures you may find inside, for such bounty is not left unguarded. "))
+                        .withRightPageDesc(Text.of("In each dungeon, you shall find trial spawners, that give keys upon defeating the wave of enemies.\n " +
+                                "The trial key is used for the treasure vaults that may be found deeper in the dungeon.")),
+                new PlayerBookPageData().withTitle("Brigands").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "dungeon_brigands.png"))
+                        .withLeftPageDesc(Text.of("Brigands' dungeons can be found all around Anduin’s Vale.\n " +
+                                "They hold stolen riches from neighboring factions and hide below ruined towers."))
+                        .withRightPageDesc(Text.of("")),
+                new PlayerBookPageData().withTitle("Mirkwood Burrows").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "dungeon_spider_burrows.png"))
+                        .withLeftPageDesc(Text.of("The spiders of Shelob have infested the Mirkwood forest.\n " +
+                                "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive."))
+                        .withRightPageDesc(Text.of(""))
         ));
     }
 }
