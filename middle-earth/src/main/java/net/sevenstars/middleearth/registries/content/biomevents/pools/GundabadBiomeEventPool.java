@@ -1,8 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
-import net.sevenstars.middleearth.registries.content.npcs.pools.GundabadNpcDataPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GundabadNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeNpcSpawningData;
@@ -15,7 +13,7 @@ public class GundabadBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(GundabadNpcDataPool.SNAGA).withWeight(6),
+            new BiomeNpcSpawningData(GundabadNpcDataPool.GOBLIN).withWeight(6),
             new BiomeNpcSpawningData(GundabadNpcDataPool.SCOUT).withWeight(7),
             new BiomeNpcSpawningData(GundabadNpcDataPool.MILITIA).withWeight(6),
             new BiomeNpcSpawningData(GundabadNpcDataPool.WARRIOR).withWeight(5),

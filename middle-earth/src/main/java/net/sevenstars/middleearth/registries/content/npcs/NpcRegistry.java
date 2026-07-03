@@ -129,7 +129,7 @@ public class NpcRegistry {
 
     // [HOBGOBLINS TRIBES]
     // [GUNDABAD]
-    public final static RegistryKey<NpcData> GUNDABAD_SNAGA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "snaga"));
+    public final static RegistryKey<NpcData> GUNDABAD_GOBLIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "goblin"));
     public final static RegistryKey<NpcData> GUNDABAD_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "militia"));
     public final static RegistryKey<NpcData> GUNDABAD_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "scout"));
     public final static RegistryKey<NpcData> GUNDABAD_RIDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "rider"));

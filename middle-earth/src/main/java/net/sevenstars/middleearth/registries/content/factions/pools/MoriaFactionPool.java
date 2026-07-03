@@ -51,7 +51,8 @@ public class MoriaFactionPool {
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(MiddleEarth.of("moria",  "east_gate"), new Vector2d(1522, 1143)),
-                        new SpawnData(MiddleEarth.of("moria",  "west_gate"), new Vector2d(1465, 1143))
+                        new SpawnData(MiddleEarth.of("moria",  "west_gate"), new Vector2d(1465, 1143)),
+                        new SpawnData(MiddleEarth.of("moria",  "goblin_camp"), new Vector2d(1546, 1115))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

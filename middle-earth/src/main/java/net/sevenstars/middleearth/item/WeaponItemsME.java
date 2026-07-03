@@ -947,10 +947,10 @@ public class WeaponItemsME {
     public static final Item GOBLIN_TOWN_WOODEN_SHIELD = registerShield("goblin_town_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
-    public static final Item GOBLIN_BONE_TOWN_WOODEN_SHIELD = registerShield("goblin_town_bone_wooden_shield",
+    public static final Item GOBLIN_TOWN_BONE_WOODEN_SHIELD = registerShield("goblin_town_bone_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
-    public static final Item GOBLIN_LEATHER_TOWN_WOODEN_SHIELD = registerShield("goblin_town_leather_wooden_shield",
+    public static final Item GOBLIN_TOWN_LEATHER_WOODEN_SHIELD = registerShield("goblin_town_leather_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
 

@@ -49,7 +49,7 @@ public class StructureManagerDataPools {
                 )),
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.prisoner"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, RohirricNpcDataPool.PEASANT.getId()).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES, GundabadNpcDataPool.SNAGA.getId()).SetFixAmount(1)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES, GundabadNpcDataPool.GOBLIN.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.mercenary"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, BrigandNpcDataPool.MERCENARY.getId()).SetRangeAmount(1,2)
@@ -193,14 +193,14 @@ public class StructureManagerDataPools {
 
         GUNDABAD_CAMP_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gundabad_camp_pool"), List.of(
                 new SpawnNestNodeData(createIdentifier("gundabad_camp_nests.orc"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetRangeAmount(1,3),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.GOBLIN.getId()).SetRangeAmount(1,3),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.MILITIA.getId()).SetRangeAmount(1,2)
                 )),
                 new SpawnNestNodeData(createIdentifier("gundabad_camp_nests.warg"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.WARG, 1).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("gundabad_camp_nests.smith"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetFixAmount(1)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.GOBLIN.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("gundabad_camp_nests.soldier"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.WARRIOR.getId()).SetRangeAmount(1,3),
@@ -271,14 +271,14 @@ public class StructureManagerDataPools {
 
         MORIA_HALL_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "moria_hall_pool"), List.of(
                 new SpawnNestNodeData(createIdentifier("moria_hall_nests.orc"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetRangeAmount(1,3),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.GOBLIN.getId()).SetRangeAmount(1,3),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.MILITIA.getId()).SetRangeAmount(1,2)
                 )),
                 new SpawnNestNodeData(createIdentifier("mordor_camp_nests.cave_troll"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.CAVE_TROLL, 1).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("moria_hall_nests.smith"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.SNAGA.getId()).SetFixAmount(1)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.GOBLIN.getId()).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("moria_hall_nests.soldier"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, GundabadNpcDataPool.WARRIOR.getId()).SetRangeAmount(1,3),

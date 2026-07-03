@@ -1476,7 +1476,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_BONE_TOWN_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
                         .input(Items.BONE)
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.BONE)
@@ -1486,8 +1486,8 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .input(Items.BONE)
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
-                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_BONE_TOWN_WOODEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_LEATHER_TOWN_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
                         .input(Items.LEATHER)
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
@@ -1497,7 +1497,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .input(Items.LEATHER)
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
-                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_LEATHER_TOWN_WOODEN_SHIELD).getPath() + "_artisan");
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD).getPath() + "_artisan");
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
