@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.utils;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
@@ -33,17 +33,24 @@ public class PlayerUtil {
         List<VoxelShape> collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
         Vec3d result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
         if (!result.equals(testMovement)) {
-            return world.getBlockState(entity.getBlockPos().offset(entity.getHorizontalFacing())).isSolidBlock(world, entity.getBlockPos());
+            return checkIfBlockIsAllowed(world, entity);
         }
 
         testMovement = new Vec3d(-testMovementAmount, 0.0, -testMovementAmount);
         collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
         result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
         if (!result.equals(testMovement)) {
-            return world.getBlockState(entity.getBlockPos().offset(entity.getHorizontalFacing())).isSolidBlock(world, entity.getBlockPos());
+            return checkIfBlockIsAllowed(world, entity);
         }
 
         return false;
+    }
+
+    private static boolean checkIfBlockIsAllowed(World world, PlayerEntity player) {
+        BlockState blockstate = world.getBlockState(player.getBlockPos().offset(player.getHorizontalFacing()));
+        boolean isSolid = blockstate.isSolidBlock(world, player.getBlockPos());
+        boolean isAllowed = !blockstate.isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("climbing_attribute_unallowed_blocks")));
+        return isSolid && isAllowed;
     }
 
     public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull RaceType type){
