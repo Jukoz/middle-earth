@@ -114,8 +114,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:snail_banner_pattern",
-		  "weight": 2
+          "name": "middle-earth:snail_banner_pattern"
         },
         {
           "type": "minecraft:item",
