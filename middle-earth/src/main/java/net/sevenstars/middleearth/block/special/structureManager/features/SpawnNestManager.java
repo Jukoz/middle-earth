@@ -116,7 +116,6 @@ public class SpawnNestManager {
 
     private void beginRespawnSequence(World world) {
         this.respawnEventTriggerTick = world.getTime();
-        MiddleEarth.LOGGER.logDebugMsg("Respawn Sequence begun::%s".formatted(this.respawnEventTriggerTick));
     }
 
     public boolean canRespawn(long time){
@@ -125,7 +124,6 @@ public class SpawnNestManager {
 
     public void tick(StructureManagerData structureManagerData, long currentTick, World world, BlockPos sourcePos) {
         if(canRespawn(currentTick)){
-            MiddleEarth.LOGGER.logDebugMsg("Respawn All begun::[World]%s [RespawnDelay]%s [Trigger]%s [TimeOfDay]%s".formatted(currentTick, this.respawnTickDelay, this.respawnEventTriggerTick, world.getTimeOfDay() % 24000));
             respawnAll(structureManagerData, world, sourcePos);
         }
     }
@@ -203,7 +201,6 @@ public class SpawnNestManager {
                 return false;
             }
         });
-        //MiddleEarth.LOGGER.logDebugMsg(String.format("[%s] - Found %s beds", origin.toString(), bedBlockPositions.size()));
     }
 }
 
