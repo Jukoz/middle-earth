@@ -28,6 +28,7 @@
     "RepairItemRecipeMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayNetworkHandlerMixin",
+    "ServerWorldMixin",
     "ShearItemMixin",
     "ShovelItemMixin",
     "ToolItemMixin",

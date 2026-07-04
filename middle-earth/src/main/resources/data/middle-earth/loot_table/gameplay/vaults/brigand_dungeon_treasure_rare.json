@@ -635,7 +635,7 @@
         },
 		{
           "type": "minecraft:item",
-          "name": "middle-earth:gundabad_crossbow",
+          "name": "middle-earth:goblin_crossbow",
 		  "weight": 2,
 		  "functions": [
             {
