@@ -45,6 +45,7 @@ public class OnboardingFactionScreenController {
     OnboardingFactionScreen screen;
     OnboardingFactionScreenService service;
     private float currentDelay;
+    private boolean shouldBeDetailed;
 
     private HashMap<DispositionType, List<Faction>> factions;
 
@@ -594,7 +595,11 @@ public class OnboardingFactionScreenController {
     public void drawRaceTooltip(AbstractClientPlayerEntity player, DrawContext context, TextRenderer textRenderer, int x, int y) {
         if(selectedRace == null)
             return;
-        selectedRace.drawTooltip(player, context, textRenderer, x, y);
+        selectedRace.drawTooltip(player, context, textRenderer, x, y, shouldBeDetailed);
+    }
+
+    public void modifyStateDetailed(boolean b) {
+        shouldBeDetailed = b;
     }
 
     //endregion

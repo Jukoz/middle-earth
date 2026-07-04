@@ -105,6 +105,20 @@ public class AttributePool {
         var defaultAttributeContainer = DefaultAttributeRegistry.get((EntityType<? extends LivingEntity>) entity.getType());
         return defaultAttributeContainer.getBaseValue(defaultAttributeEntry.get());
     }
+    public static double getDefaultAttributeModifiers(Identifier identifier, LivingEntity entity) {
+        var defaultAttribute = Registries.ATTRIBUTE.get(identifier);
+        if (defaultAttribute == null) {
+            return -99;
+        }
+
+        var defaultAttributeEntry = Registries.ATTRIBUTE.getEntry(identifier);
+        if (defaultAttributeEntry.isEmpty()) {
+            return -99;
+        }
+
+        var defaultAttributeContainer = DefaultAttributeRegistry.get((EntityType<? extends LivingEntity>) entity.getType());
+        return defaultAttributeContainer.getBaseValue(defaultAttributeEntry.get());
+    }
 
     public List<AttributePoolElement> getPool() {
         return pool;

@@ -145,10 +145,10 @@ public class Race {
         return raceType;
     }
 
-    public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y){
+    public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y, boolean detailed){
         List<Text> textLines = new ArrayList<>();
         /// Race name
-        textLines.add(getFullName().formatted(Formatting.BOLD).formatted(Formatting.GOLD));
+        textLines.add(getFullName().formatted(Formatting.BOLD).formatted(Formatting.WHITE));
         /// Attribute List Header
         textLines.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY));
 
@@ -160,15 +160,16 @@ public class Race {
         String worstSign = "▼";
         String removedSign = "-";
         String additionSign = "+";
+        String continuationSign = "➤"; //▶
+        String listStart = "✦"; //•, ●, 〢, |၊
 
         for(EntityAttributeInstance attributeInstance : allEntityAttributes){
             Identifier attributeId = MiddleEarth.fetchId(attributeInstance.getAttribute().getIdAsString());
 
+            double currentBaseValue = round(attributeInstance.getBaseValue());
+            double currentValue = round(attributeInstance.getValue());
 
-            double currentBaseValue = attributeInstance.getBaseValue();
-            double currentValue = attributeInstance.getValue();
-
-            double attributeDefaultValue = AttributePool.getDefaultAttributeValue(attributeId ,entity);
+            double attributeDefaultValue = round(AttributePool.getDefaultAttributeValue(attributeId ,entity));
 
             AttributePoolElement linkedAttribute = attributesToCompare.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier()))
                                                                                .findFirst().orElse(null);
@@ -244,6 +245,27 @@ public class Race {
             MutableText newCustomLine = Text.literal(sign).formatted(signFormatting);
             newCustomLine.append(Text.literal(" "));
             newCustomLine.append(Text.translatable("attribute.name." + attributeId.getPath()).formatted(textFormatting));
+
+            if(!detailed){
+                textLines.add(newCustomLine);
+                continue;
+            }
+
+            double difference;
+            if(linkedAttribute == null){
+                newCustomLine.append(Text.literal(" "));
+                newCustomLine.append(Text.literal("["+ currentBaseValue +" ➤ "+ attributeDefaultValue +"]").formatted(Formatting.WHITE));
+                difference = attributeDefaultValue - currentBaseValue;
+            } else {
+                newCustomLine.append(Text.literal(" "));
+                double newValue = round(linkedAttribute.getValue());
+                newCustomLine.append(Text.literal("[" + currentBaseValue +" " + continuationSign + " "+ newValue +"]").formatted(Formatting.WHITE));
+                difference = newValue - currentBaseValue;
+            }
+            newCustomLine.append(Text.literal(" "));
+            String differencePrefix = (difference > 0) ? "+" : "";
+
+            newCustomLine.append(Text.literal("(" + differencePrefix + round(difference) + ")").formatted(Formatting.GRAY));
 
             textLines.add(newCustomLine);
         }
@@ -336,6 +358,10 @@ public class Race {
         }
         */
         context.drawTooltip(renderer, textLines, x, y);
+    }
+
+    private static double round(double value){
+       return Math.round(value * 1000) / 1000.0;
     }
 
     public void applyNpcAttributes(NpcEntity npcEntity) {
