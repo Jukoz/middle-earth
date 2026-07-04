@@ -150,7 +150,7 @@ public class Race {
         /// Race name
         textLines.add(getFullName().formatted(Formatting.BOLD).formatted(Formatting.WHITE));
         /// Attribute List Header
-        textLines.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY));
+        textLines.add(Text.translatable(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip")).formatted(Formatting.GRAY));
 
         Set<EntityAttributeInstance> allEntityAttributes = entity.getAttributes().getTracked();
         List<AttributePoolElement> attributesToCompare = baseAttributePool.getPool();
@@ -158,10 +158,12 @@ public class Race {
         String betterSign = "▲";
         String equalSign = "=";
         String worstSign = "▼";
-        String removedSign = "-";
+        String removedSign = "Х"; //- ◀ ×❌ Х
         String additionSign = "+";
-        String continuationSign = "➤"; //▶
+        String continuationSign = "▶"; //▶
         String listStart = "✦"; //•, ●, 〢, |၊
+
+        boolean hasAttribute = false;
 
         for(EntityAttributeInstance attributeInstance : allEntityAttributes){
             Identifier attributeId = MiddleEarth.fetchId(attributeInstance.getAttribute().getIdAsString());
@@ -246,7 +248,10 @@ public class Race {
             newCustomLine.append(Text.literal(" "));
             newCustomLine.append(Text.translatable("attribute.name." + attributeId.getPath()).formatted(textFormatting));
 
+            hasAttribute = true;
+
             if(!detailed){
+
                 textLines.add(newCustomLine);
                 continue;
             }
@@ -254,7 +259,7 @@ public class Race {
             double difference;
             if(linkedAttribute == null){
                 newCustomLine.append(Text.literal(" "));
-                newCustomLine.append(Text.literal("["+ currentBaseValue +" ➤ "+ attributeDefaultValue +"]").formatted(Formatting.WHITE));
+                newCustomLine.append(Text.literal("["+ currentBaseValue +" " + continuationSign + " "+ attributeDefaultValue +"]").formatted(Formatting.WHITE));
                 difference = attributeDefaultValue - currentBaseValue;
             } else {
                 newCustomLine.append(Text.literal(" "));
@@ -268,6 +273,10 @@ public class Race {
             newCustomLine.append(Text.literal("(" + differencePrefix + round(difference) + ")").formatted(Formatting.GRAY));
 
             textLines.add(newCustomLine);
+        }
+
+        if(!hasAttribute){
+            textLines.add(Text.translatable(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip")).formatted(Formatting.DARK_GRAY));
         }
             /*
 

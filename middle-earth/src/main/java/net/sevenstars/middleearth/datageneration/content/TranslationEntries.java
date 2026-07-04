@@ -455,6 +455,7 @@ public class TranslationEntries {
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
 
             put(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip"), "Attributes : ");
+            put(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip"), "Nothing changes!");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");
