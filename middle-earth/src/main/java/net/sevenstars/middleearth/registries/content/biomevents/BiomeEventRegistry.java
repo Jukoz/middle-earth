@@ -87,6 +87,7 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> MISTY_MOUNTAINS     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MISTY_MOUNTAINS.getValue());
     // endregion
 
+    // MORIA
     public final static RegistryKey<BiomeEventData> CELEBDIL_BASE       = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.CELEBDIL_BASE.getValue());
     public final static RegistryKey<BiomeEventData> EREGION             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.EREGION.getValue());
 

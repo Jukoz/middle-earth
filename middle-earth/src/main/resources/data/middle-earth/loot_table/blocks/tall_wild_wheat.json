@@ -38,6 +38,11 @@
                   "type": "minecraft:item",
                   "name": "minecraft:wheat",
                   "weight": 1
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "middle-earth:straw",
+                  "weight": 1
                 }
               ],
               "conditions": [

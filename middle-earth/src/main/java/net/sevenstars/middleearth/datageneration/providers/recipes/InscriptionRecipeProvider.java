@@ -233,17 +233,6 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_blast_protection_4")));
                 //endregion
 
-                //region AQUA AFFINITY
-                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(Enchantments.AQUA_AFFINITY), 1, 10)
-                        .chisel(ItemTagsME.MID_CHISELS)
-                        .addWord("tidal")
-                        .addWord("swift")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aqua_affinity_1")));
-                //endregion
-
                 //region RESPIRATION
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.RESPIRATION), 1, 5)
@@ -317,6 +306,18 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_feather_falling_4")));
                 //endregion
+
+                //region AQUA AFINITY
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.AQUA_AFFINITY), 1, 5)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("careful")
+                        .addWord("tidal")
+                        .addWord("collector")
+                        .criterion(hasItem(ResourceItemsME.RUBY),
+                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aqua_affinity")));
+                // endregion
 
                 //region DEPTH STRIDER
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -934,6 +935,36 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(Items.EMERALD),
                                 conditionsFromItem(Items.EMERALD))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_hewing_3")));
+                //endregion
+
+
+                //region TREE_FELLER
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.TREE_FELLER), 1, 5)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("broad")
+                        .addWord("cutter")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_tree_feller_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.TREE_FELLER), 2, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("broad")
+                        .addWord("cutter")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_tree_feller_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.TREE_FELLER), 3, 9)
+                        .chisel(ItemTagsME.LATE_CHISELS)
+                        .addWord("broad")
+                        .addWord("cutter")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_tree_feller_3")));
                 //endregion
 
                 //region HIGH STEP
