@@ -120,7 +120,6 @@ public class WargEntity extends AbstractBeastEntity {
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
-
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {

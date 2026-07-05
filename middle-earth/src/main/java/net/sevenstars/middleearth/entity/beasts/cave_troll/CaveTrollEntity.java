@@ -33,6 +33,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -123,6 +125,19 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         builder.add(ENRAGED, false);
         builder.add(VARIANT, 0);
     }
+
+    @Override
+    public void writeData(WriteView view) {
+        super.writeData(view);
+        view.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+    }
+
 
     @Nullable
     @Override
