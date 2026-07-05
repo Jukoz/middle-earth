@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.resources.datas.biome_events;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,6 +22,7 @@ public class BiomeNpcSpawningData {
             Codec.INT.optionalFieldOf("world_height_min").forGetter(BiomeNpcSpawningData::getWorldHeightMin),
             Codec.BOOL.optionalFieldOf("require_sky_access").forGetter(BiomeNpcSpawningData::getRequireSkyAccess),
             Codec.BOOL.optionalFieldOf("require_underground").forGetter(BiomeNpcSpawningData::getRequireUndeground),
+            Codec.BOOL.optionalFieldOf("require_night").forGetter(BiomeNpcSpawningData::getRequireUndeground),
             Identifier.CODEC.optionalFieldOf("mount_id").forGetter(BiomeNpcSpawningData::getMount),
             Identifier.CODEC.optionalFieldOf("mount_armor_id").forGetter(BiomeNpcSpawningData::getMountArmor),
             Codec.INT.optionalFieldOf("mount_armor_color").forGetter(BiomeNpcSpawningData::getMountArmorColor)
@@ -33,6 +36,7 @@ public class BiomeNpcSpawningData {
     private Optional<Integer> worldHeightMin;
     private Optional<Boolean> requireSkyAccess;
     private Optional<Boolean> requireUndeground;
+    private Optional<Boolean> requireNight;
     private Optional<Identifier> mount;
     private Optional<Identifier> mountArmorId;
     private Optional<Integer> mountArmorColor;
@@ -40,7 +44,7 @@ public class BiomeNpcSpawningData {
     private BiomeNpcSpawningData(Identifier npcDataIdentifier, Optional<Integer> weight,
                                  Optional<Integer> lightLevelMax, Optional<Integer> lightLevelMin,
                                  Optional<Integer> worldHeightMax, Optional<Integer> worldHeightMin,
-                                 Optional<Boolean> requireSkyAccess, Optional<Boolean> requireUndeground,
+                                 Optional<Boolean> requireSkyAccess, Optional<Boolean> requireUndeground, Optional<Boolean> requireNight,
                                  Optional<Identifier> mount, Optional<Identifier> mountArmorId, Optional<Integer> mountArmorColor){
         this.npcDataIdentifier = npcDataIdentifier;
         this.weight = weight;
@@ -50,6 +54,7 @@ public class BiomeNpcSpawningData {
         this.worldHeightMin = worldHeightMin;
         this.requireSkyAccess = requireSkyAccess;
         this.requireUndeground = requireUndeground;
+        this.requireNight = requireNight;
         this.mount = mount;
         this.mountArmorId = mountArmorId;
         this.mountArmorColor = mountArmorColor;
@@ -64,6 +69,7 @@ public class BiomeNpcSpawningData {
         this.worldHeightMin = Optional.empty();
         this.requireSkyAccess = Optional.empty();
         this.requireUndeground = Optional.empty();
+        this.requireNight = Optional.empty();
         this.mount = Optional.empty();
         this.mountArmorId = Optional.empty();
         this.mountArmorColor = Optional.empty();
@@ -103,18 +109,22 @@ public class BiomeNpcSpawningData {
         this.requireUndeground = Optional.of(true);
         return this;
     }
+    public BiomeNpcSpawningData withNightRequired(){
+        this.requireNight = Optional.of(true);
+        return this;
+    }
 
     public BiomeNpcSpawningData withMount(EntityType mount){
         this.mount = Optional.of(EntityType.getId(mount));
         return this;
     }
 
-    public BiomeNpcSpawningData withMount(EntityType mount, Identifier armorItem){
+    public BiomeNpcSpawningData withMount(EntityType mount, Item armorItem){
         withMount(mount);
-        this.mountArmorId = Optional.of(armorItem);
+        this.mountArmorId = Optional.of(Registries.ITEM.getId(armorItem));
         return this;
     }
-    public BiomeNpcSpawningData withMount(EntityType mount, Identifier armorItem, int color){
+    public BiomeNpcSpawningData withMount(EntityType mount, Item armorItem, int color){
         withMount(mount, armorItem);
         this.mountArmorColor = Optional.of(color);
         return this;
@@ -156,6 +166,10 @@ public class BiomeNpcSpawningData {
         return requireUndeground;
     }
 
+    private Optional<Boolean> getRequireNight(){
+        return requireNight;
+    }
+
     public boolean conditionsAreMet(World world, BlockPos pos){
         if(requireSkyAccess.isPresent() && requireSkyAccess.get() && !world.isSkyVisible(pos))
             return false;
@@ -164,6 +178,9 @@ public class BiomeNpcSpawningData {
             return false;
 
         int lightLevel = world.getLightLevel(pos);
+
+        if(requireNight.isPresent() && world.isDay() && requireNight.get())
+            return false;
 
         if(lightLevelMax.isPresent() && lightLevel > lightLevelMax.get())
             return false;

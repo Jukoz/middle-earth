@@ -1,24 +1,19 @@
-package net.sevenstars.middleearth.entity.npcs.util;
+package net.sevenstars.middleearth.entity.npcs.initializer;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.RaceDataComponent;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 
 import java.util.List;

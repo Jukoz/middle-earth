@@ -892,31 +892,31 @@ public class WeaponItemsME {
     //region MORIA GOBS
     public static final Item MORIA_GOBLIN_FALCHION = registerItemWithModel("moria_goblin_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), true);
     public static final Item MORIA_GOBLIN_HOOKBLADE = registerItemWithModel("moria_goblin_hookblade",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), true);
     public static final Item MORIA_GOBLIN_SHANK = registerItemWithModel("moria_goblin_shank",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), false);
     public static final Item MORIA_GOBLIN_HOOKAXE = registerItemWithModel("moria_goblin_hookaxe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), true);
     public static final Item MORIA_GOBLIN_SPEAR = registerItemWithSpearModel("moria_goblin_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)));
 
     public static final Item MORIA_GOBLIN_BOW = registerBigBowItem("moria_goblin_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)));
 
     public static final Item MORIA_GOBLINS_BUCKLER_SHIELD = registerShield("moria_goblins_buckler_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)));
 
     public static final Item MORIA_GOBLINS_HEAVY_SHIELD = registerShield("moria_goblins_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)));
     //endregion
 
     //region GOBLIN TOWN

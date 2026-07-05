@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.npcs.util.NpcEntityBuilder;
+import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;

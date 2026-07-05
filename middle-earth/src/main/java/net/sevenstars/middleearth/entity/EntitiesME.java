@@ -131,7 +131,7 @@ public class EntitiesME {
 
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
 
-        FabricDefaultAttributeRegistry.register(NPC, NpcEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(NPC, NpcEntity.setAttributes());
     }
 
     static {
