@@ -18,6 +18,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.EMPTY_PHIAL);
             add(ResourceItemsME.WATER_PHIAL);
             add(ResourceItemsME.STARLIGHT_PHIAL);
+            add(ResourceItemsME.PLAYER_BOOK);
 
             add(DecorativeItemsME.TAPPER);
             add(DecorativeItemsME.TROLL_STATUE);

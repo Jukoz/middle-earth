@@ -672,6 +672,115 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".information.races.many", "Races");
             put("screen."+ MiddleEarth.MOD_ID +".information.description", "Description");
 
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.title", "Middle-earth");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.description", "This mod is about the famous universe of Middle-earth.\n" +
+                    "You will find a brand new dimension with custom blocks, items, entities, factions, structures and more!");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapters", "Chapters");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.navigate_to", "Navigate to");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_getting_started", "Getting Started");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_mining", "Mining");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_smithing", "Smithing");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_enchanting", "Enchanting");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_mounts", "Mounts");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_dungeons", "Dungeons");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.getting_started_desc", "To enter Middle-earth and thus begin your adventure, you shall first craft a starlight phial.\n " +
+                    "Once the phial is crafted, fill it with water and then combine with a glowing item such as glow berries, glowstone or glow ink to finally craft the starlight phial.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.getting_started_desc_right", "Use it and you'll be brought to the onboarding process to Middle-earth.");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_desc", "Basic resources like coal, tin and copper can be found almost anywhere near the surface, " +
+                    "but valuable ores and gems are only found at deeper levels.\n\n From shallowest to deepest, " +
+                    "the strata of the world consists of layers of Stone, Deepslate, Núrgon, and Medgon.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.tools", "Tools");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_tools_desc", "You must Smith stronger tools to extract resources from the rock in deeper layers.\n\n " +
+                    "Deepslate minerals can be obtained using Stone Tools or better, Núrgon ores require at least Bronze Tools, and Steel Tools are needed to mine Medgon. ");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_tools_desc_right", "Read the chapter about Smithing to learn how to get better tools.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.cave_monsters", "Cave Monsters");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_cave_monster_desc", "Delving deep is not without danger —  miners tell of roving bands of Wild Goblins patrolling the dark reaches of Middle-earth, " +
+                    "preying on the unwary. Some tales even say fouler and darker things stalk the roots of the world, lying in wait… go not into the deep unprepared.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_cave_monster_desc_right", "The dark depths hide many a glimmering prize, but caution is to be exercised!");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_desc", "Better equipment will be essential for survival in the dangerous wilds of the world.\n\n " +
+                    "Smithing allows you to create new deadly weapons, more complex armour, and efficient tools to delve more deeply.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_desc_right", "To work metals with more finesse than crafting, you’ll need a Forge.\n\n " +
+                    "You can craft it with any cobbled stones, a furnace and bricks.\n To get clay for bricks, either find a lush cave or convert mud to clay");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.copper_alloys", "Copper Alloys");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc", "Bronze and Crude are simple alloys, harder and more durable than stone and copper.\n\n " +
+                    "Copper alloy tools will enable you to mine deeper than before, entering the Nurgon layer of the world and exploiting the riches found there.\n" +
+                    "Make sure to toggle the forge to alloying mode.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc_right", "Here's their recipes");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.casting", "Casting");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_casting_desc", "All molten metals can be cast into Nuggets, Ingots, Rods, Plates, and Large Rods. " +
+                    "Different casted parts will require different amounts of molten metal to create.\n\n " +
+                    "A forge’s crucible can hold up to 16 ingots-worth of molten liquid metal");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_casting_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.shaping_anvil", "Shaping Anvil");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_desc", "Smithing Anvils are a handy solution to tackle the next step in smithing.\n " +
+                    "The Stone Anvil is the most basic type of smithing anvil — create one by laying down a base of three logs of any type under six stones of any kind.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_desc_right", "You’ll need a Smithing Hammer to work your casted parts over the Smithing Anvil");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_1_desc", "Now you have all the tools needed for an amateur smith. Put a Hot Large Metal Rod onto the stone anvil.\n\n " +
+                    "Next, shape it into a Pickaxe Head. Using the Smithing Hammer, hit the large rod at a stable tempo.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_1_desc_right", "Casted parts can only be worked into new shapes on the smithing anvil while they are hot, " +
+                    "and will also cool down over time while on the anvil.\n\n You can reheat cooled parts in a low-heat forge without resetting their progress.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.quenching", "Quenching");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_quenching_desc", "Once the large rod is fully shaped into the pickaxe head, it must be cool to the touch before being worked further. " +
+                    "You must quench it in a filled Cauldron; cooling it instantly.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_quenching_desc_right", "Both the cauldron and bucket can be crafted using Tin, which can be found in caves near the surface.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.artisan_table", "Artisan Table");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc", "The Artisan Table is the workstation of choice for armourers, blacksmiths and craftspeople across many realms, " +
+                    "and will be required to piece together smithing components into a final product.\n " +
+                    "Its recipe is one cobbled stone over one log on either side of a tin ingot, in a helmet shape. ");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc", "Place your bronze pickaxe head and two sticks in the Artisan Table, " +
+                    "and you are now ready to explore even farther underground using your new Bronze Pickaxe.\n\n " +
+                    "Although simple tools and weapons can also be crafted in a normal crafting grid,");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc_right", "Crafting equipment in the Artisan Table bestows a noticeable bonus in durability.");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc", "The greatest artisans of past ages were known to have honed their craft so wonderfully, " +
+                    "resulting in storied blades and armour with extraordinary properties.\n\n" +
+                    "First, craft the inscription table as follow.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table", "Inscription Table");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc", "To use the inscription table, you will need gems, a chisel and the item that you wish to enchant. " +
+                    "Each gem have unique words associated with it, you can explore each combination of words until you find a valid enchant.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc_right", "Here's an example of the Unbreaking enchantment inscription;");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc", "The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +
+                    "Such companions come in all shapes and sizes, each having their own unique advantages and disadvantages.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.broadhoof_goat", "Broadhoof Goat");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_broadhoof_goat_desc", "The Broadhoof Goat is a great mount for Dwarves that can easily climb mountains.\n" +
+                    "You can find them in mountains where Dwarves live, but beware of these fluffy climbers; they can be aggressive if provoked. " +
+                    "They may charge with their horns against enemies and jump very high.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_broadhoof_goat_desc_right", "To tame them, you must be a dwarf and offer them wheat.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.great_horn", "Great Horn");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_great_horn_desc", "The Great Horn lives in the forests of Anduin and northern Wastelands.\n" +
+                    "It's a majestic creature that will flee everyone but elves. " +
+                    "Indeed, as an elf, you may tame it with various items, such as clovers, sweet berries, mushrooms, and more.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_great_horn_desc_right", "Great Horns can leap\n        and pierce.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.warg", "Warg");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_warg_desc", "The wicked wolves are bred for war and hunting. They attack all good-aligned entities and can be ridden by " +
+                    "orcs, snagas, goblins, and uruks.\n To tame this wicked beast, simply give some raw meat.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_warg_desc_right", "Wargs can leap and take down other riders from their mounts.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.cave_troll", "Cave Troll");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_cave_troll_desc", "The Cave Troll, a fearsome creature that dwells deep in caves. " +
+                    "It attacks everyone when hungry, but if you're evil aligned, you may attempt to tame it with chains while it sleeps.\n " +
+                    "The Cave Troll can bear up to three riders on his back and be commanded with a bone.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_cave_troll_desc_right", "It can smash and charge.");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeons_desc", "Throughout your adventures in middle earth you may encounter a variety of dungeons with great riches to behold.\n " +
+                    "Before entering, you should prepare yourself for whatever unfriendly creatures you may find inside, for such bounty is not left unguarded. ");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeons_desc_right", "In each dungeon, you shall find trial spawners, that give keys upon defeating the wave of enemies.\n " +
+                    "The trial key is used for the treasure vaults that may be found deeper in the dungeon.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Cave Troll");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc", "Brigands' dungeons can be found all around Anduin’s Vale.\n " +
+                    "They hold stolen riches from neighboring factions and hide below ruined towers.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.spider_burrows", "Spider Burrows");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_spider_burrows_desc", "The spiders of Shelob have infested the Mirkwood forest.\n " +
+                    "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_spider_burrows_desc_right", "");
 
             put("widget."+ MiddleEarth.MOD_ID +".spawn_tooltip_title", "Spawns");
             put("widget."+ MiddleEarth.MOD_ID +".marker.selected_title_container.before", "[");
