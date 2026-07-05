@@ -20,8 +20,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
@@ -31,6 +33,8 @@ import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import java.util.Objects;
 
 public class ModEvents {
+    private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
+
     public static void register(){
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
@@ -47,6 +51,12 @@ public class ModEvents {
                 } else if(ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
                     RaceUtil.initializeRace(player);
                 }
+            }
+
+            if(!player.getCommandTags().contains(GOT_STARTER_ITEM)) {
+                ItemStack starterItem = new ItemStack(ResourceItemsME.PLAYER_BOOK);
+                player.getInventory().offerOrDrop(starterItem);
+                player.addCommandTag(GOT_STARTER_ITEM);
             }
         });
 
