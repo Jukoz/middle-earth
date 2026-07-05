@@ -105,5 +105,48 @@
     "sounds": [
       "middle-earth:great_horn/great_horn_death"
     ]
+  },
+  "cave_troll_death": {
+    "subtitle": "sounds.middle-earth.cave_troll_death",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_death1",
+      "middle-earth:cave_troll/cave_troll_death2"
+    ]
+  },
+  "cave_troll_hurt": {
+    "subtitle": "sounds.middle-earth.cave_troll_hurt",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_hurt1",
+      "middle-earth:cave_troll/cave_troll_hurt2",
+      "middle-earth:cave_troll/cave_troll_hurt3"
+    ]
+  },
+  "cave_troll_idle": {
+    "subtitle": "sounds.middle-earth.cave_troll_idle",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_idle1",
+      "middle-earth:cave_troll/cave_troll_idle2",
+      "middle-earth:cave_troll/cave_troll_idle3",
+      "middle-earth:cave_troll/cave_troll_idle4"
+    ]
+  },
+  "cave_troll_roar": {
+    "subtitle": "sounds.middle-earth.cave_troll_roar",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_roar1",
+      "middle-earth:cave_troll/cave_troll_roar2",
+      "middle-earth:cave_troll/cave_troll_roar3",
+      "middle-earth:cave_troll/cave_troll_roar4"
+    ]
+  },
+  "cave_troll_step": {
+    "subtitle": "sounds.middle-earth.cave_troll_step",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_step1",
+      "middle-earth:cave_troll/cave_troll_step2",
+      "middle-earth:cave_troll/cave_troll_step3",
+      "middle-earth:cave_troll/cave_troll_step4",
+      "middle-earth:cave_troll/cave_troll_step5"
+    ]
   }
 }

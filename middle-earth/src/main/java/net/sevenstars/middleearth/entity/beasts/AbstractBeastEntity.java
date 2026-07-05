@@ -146,7 +146,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return true;
     }
 
-    protected boolean isTamable() {
+    protected boolean isTamable(PlayerEntity player) {
         return true;
     }
 
@@ -416,7 +416,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable()) {
+        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable(player)) {
             if(!this.getWorld().isClient()) {
                 this.tryBonding(player);
                 this.eat(player, hand, itemStack);
