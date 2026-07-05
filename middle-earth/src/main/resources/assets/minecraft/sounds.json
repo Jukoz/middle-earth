@@ -1,0 +1,11 @@
+{
+  "music.menu": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "middle-earth:music/menu/swept_away",
+        "stream": true
+      }
+    ]
+  }
+}
