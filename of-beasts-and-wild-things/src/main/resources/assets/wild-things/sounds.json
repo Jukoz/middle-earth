@@ -1,12 +1,12 @@
 {
   "deer_death": {
-    "subtitle": "sounds.middle-earth.deer_death",
+    "subtitle": "sounds.wild-things.deer_death",
     "sounds": [
       "wild-things:deer/deer_death"
     ]
   },
   "deer_grunt": {
-    "subtitle": "sounds.middle-earth.deer_grunt",
+    "subtitle": "sounds.wild-things.deer_grunt",
     "sounds": [
       "wild-things:deer/deer_grunt1",
       "wild-things:deer/deer_grunt2",
@@ -14,7 +14,7 @@
     ]
   },
   "deer_idle": {
-    "subtitle": "sounds.middle-earth.deer_idle",
+    "subtitle": "sounds.wild-things.deer_idle",
     "sounds": [
       "wild-things:deer/deer_idle1",
       "wild-things:deer/deer_idle2",
@@ -22,28 +22,28 @@
     ]
   },
   "swan_idle": {
-    "subtitle": "sounds.middle-earth.swan_idle",
+    "subtitle": "sounds.wild-things.swan_idle",
     "sounds": [
       "wild-things:swan/swan_idle1",
       "wild-things:swan/swan_idle2"
     ]
   },
   "swan_hurt": {
-    "subtitle": "sounds.middle-earth.swan_hurt",
+    "subtitle": "sounds.wild-things.swan_hurt",
     "sounds": [
       "wild-things:swan/swan_hurt1",
       "wild-things:swan/swan_hurt2"
     ]
   },
   "swan_step": {
-    "subtitle": "sounds.middle-earth.swan_step",
+    "subtitle": "sounds.wild-things.swan_step",
     "sounds": [
       "wild-things:swan/swan_step1",
       "wild-things:swan/swan_step2"
     ]
   },
   "swan_death": {
-    "subtitle": "sounds.middle-earth.swan_death",
+    "subtitle": "sounds.wild-things.swan_death",
     "sounds": [
       "wild-things:swan/swan_death"
     ]

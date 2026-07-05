@@ -306,6 +306,12 @@ public class TranslationEntries {
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_call", "Great Horn bugles");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_death", "Great Horn dies");
 
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_death", "Cave Troll dies");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_hurt", "Cave Troll hurts");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_idle", "Cave Troll grunts");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_roar", "Cave Troll roars");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_step", "Cave Troll steps");
+
             put("screen."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("screen."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
             put("container."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");

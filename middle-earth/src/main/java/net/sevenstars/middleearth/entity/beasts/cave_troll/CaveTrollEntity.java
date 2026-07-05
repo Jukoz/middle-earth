@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.*;
@@ -48,6 +49,7 @@ import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -203,8 +205,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected boolean isTamable() {
-        return this.isSleeping();
+    protected boolean isTamable(PlayerEntity player) {
+        return this.isSleeping() || player.isCreative();
     }
 
     @Override
@@ -663,16 +665,24 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return target instanceof NpcEntity || target instanceof PlayerEntity;
     }
 
+    @Override
+    protected float calculateNextStepSoundDistance() {
+        if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
+            return this.distanceTraveled + 1.0f;
+        }
+        return this.distanceTraveled + 0.25f;
+    }
+
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return SoundsME.CAVE_TROLL_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return super.getHurtSound(source);
+        return SoundsME.CAVE_TROLL_HURT;
     }
 
     @Nullable
@@ -684,12 +694,22 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return super.getAmbientSound();
+        return SoundsME.CAVE_TROLL_IDLE;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
+            this.playSound(SoundsME.CAVE_TROLL_STEP, 1.5f, 1.0f);
+        }
+        else {
+            this.playSound(SoundsME.CAVE_TROLL_STEP, 1.0f, 1.0f);
+        }
     }
 
     @Nullable
     protected SoundEvent getRoarSound() {
-        return null;
+        return SoundsME.CAVE_TROLL_ROAR;
     }
 
     public void playRoarSound() {
