@@ -57,10 +57,10 @@ public class PlayerBookScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        int i = (this.width - 192) / 2;
-        int j = this.height / 2;
-        this.previousPageButton = this.addDrawableChild(new PageTurnWidget(i - 27, j + 70, false, button -> this.openPreviousPage(), true));
-        this.nextPageButton = this.addDrawableChild(new PageTurnWidget(i + 210, j + 70, true, button -> this.openNextPage(), true));
+        int x = (this.width - 192) / 2;
+        int y = this.height / 2;
+        this.previousPageButton = this.addDrawableChild(new PageTurnWidget(x - 27, y + 70, false, button -> this.openPreviousPage(), true));
+        this.nextPageButton = this.addDrawableChild(new PageTurnWidget(x + 210, y + 70, true, button -> this.openNextPage(), true));
         updatePageButtons();
     }
 
@@ -82,11 +82,11 @@ public class PlayerBookScreen extends Screen {
 
             drawScaledText(textRenderer, context, Text.translatable("screen." + MiddleEarth.MOD_ID + ".playerbook.chapters").formatted(Formatting.UNDERLINE).formatted(Formatting.BOLD),
                     startX + (int)(WIDTH * 0.75), startY + (int)(HEIGHT * 0.11f), 1.5f, Colors.BLACK, true);
-            int i = 0;
+            int index = 0;
             for(Chapter chapter : chapters) {
                 MutableText text = Text.translatable("screen." + MiddleEarth.MOD_ID + "." + chapter.name);
                 int startTooltipX = centerX + 30;
-                int startTooltipY = (context.getScaledWindowHeight() / 2) - (int)(HEIGHT * 0.295f) + (i * 18);
+                int startTooltipY = (context.getScaledWindowHeight() / 2) - (int)(HEIGHT * 0.295f) + (index * 18);
                 if (mouseX >= startTooltipX && mouseX <= startTooltipX + (chapter.name.length() * 4.75) + 5 && mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
                     context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
                             List.of(Text.translatable("screen." + MiddleEarth.MOD_ID + ".navigate_to")
@@ -94,9 +94,9 @@ public class PlayerBookScreen extends Screen {
                     text.formatted(Formatting.UNDERLINE);
                 }
 
-                context.drawItem(chapter.icon.getDefaultStack(), startX + (int)(WIDTH * 0.5f) + 12, startY + (int)(HEIGHT * 0.22f) - 4 + (i * 18));
-                context.drawText(textRenderer, text, startX + (int)(WIDTH * 0.5f) + 32, startY + (int)(HEIGHT * 0.22f) + (i * 18), Colors.BLACK, false);
-                i++;
+                context.drawItem(chapter.icon.getDefaultStack(), startX + (int)(WIDTH * 0.5f) + 12, startY + (int)(HEIGHT * 0.22f) - 4 + (index * 18));
+                context.drawText(textRenderer, text, startX + (int)(WIDTH * 0.5f) + 32, startY + (int)(HEIGHT * 0.22f) + (index * 18), Colors.BLACK, false);
+                index++;
             }
         } else {
             PlayerBookPageData pageData = chaptersPages.get(currentChapter).get(currentPage - 1);
@@ -128,10 +128,10 @@ public class PlayerBookScreen extends Screen {
         if(currentPage == 0) { // Table of content
             if (button == 0) {
                 int centerX = this.width / 2;
-                int i = 0;
+                int index = 0;
                 for (Chapter chapter : chapters) {
                     int startTooltipX = centerX + 30;
-                    int startTooltipY = (this.height / 2) - (int)(HEIGHT * 0.28f) + (i * 18);
+                    int startTooltipY = (this.height / 2) - (int)(HEIGHT * 0.28f) + (index * 18);
                     int textWidth = this.client.textRenderer.getWidth(chapter.name);
 
                     if (mouseX >= startTooltipX && mouseX <= startTooltipX + textWidth + 5 &&
@@ -142,7 +142,7 @@ public class PlayerBookScreen extends Screen {
                         this.client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                         return true;
                     }
-                    i++;
+                    index++;
                 }
             }
         }
