@@ -205,8 +205,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected boolean isTamable() {
-        return this.isSleeping();
+    protected boolean isTamable(PlayerEntity player) {
+        return this.isSleeping() || player.isCreative();
     }
 
     @Override
