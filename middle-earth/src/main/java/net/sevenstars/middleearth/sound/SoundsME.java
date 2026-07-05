@@ -29,6 +29,12 @@ public class SoundsME {
     public static SoundEvent GREAT_HORN_HURT = registerSoundEvent("great_horn_hurt");
     public static SoundEvent GREAT_HORN_DEATH = registerSoundEvent("great_horn_death");
 
+    public static SoundEvent CAVE_TROLL_DEATH = registerSoundEvent("cave_troll_death");
+    public static SoundEvent CAVE_TROLL_HURT = registerSoundEvent("cave_troll_hurt");
+    public static SoundEvent CAVE_TROLL_IDLE = registerSoundEvent("cave_troll_idle");
+    public static SoundEvent CAVE_TROLL_ROAR = registerSoundEvent("cave_troll_roar");
+    public static SoundEvent CAVE_TROLL_STEP = registerSoundEvent("cave_troll_step");
+
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
