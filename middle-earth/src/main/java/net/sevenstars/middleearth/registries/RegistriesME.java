@@ -404,6 +404,9 @@ public class RegistriesME {
             builder.add(ModBlocks.RED_WOOL_STAIRS, 100);
             builder.add(ModBlocks.BLACK_WOOL_STAIRS, 100);
 
+            builder.add(WeaponItemsME.WOODEN_SPEAR, 300);
+            builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
+
             builder.add(WeaponItemsME.GONDORIAN_BOW, 300);
             builder.add(WeaponItemsME.GONDORIAN_LONGBOW, 400);
             builder.add(WeaponItemsME.GONDORIAN_NOBLE_LONGBOW, 400);
@@ -439,8 +442,7 @@ public class RegistriesME {
             builder.add(WeaponItemsME.GOBLIN_CROSSBOW, 400);
 
             builder.add(WeaponItemsME.MORIA_GOBLIN_BOW, 300);
-
-            builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
+            builder.add(WeaponItemsME.GOBLIN_TOWN_BOW, 300);
         }));
     }
 

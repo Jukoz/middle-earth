@@ -37,6 +37,8 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
@@ -100,6 +102,8 @@ public class WargEntity extends AbstractBeastEntity {
         this.goalSelector.add(9, new LookAroundGoal(this));
         this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
         this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
+        this.targetSelector.add(10, new BeastActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
+        this.targetSelector.add(10, new BeastActiveTargetGoal<>(this, GreatHornEntity.class, true));
         this.targetSelector.add(11, new BeastActiveTargetGoal<>(this, SheepEntity.class, true));
         this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
     }

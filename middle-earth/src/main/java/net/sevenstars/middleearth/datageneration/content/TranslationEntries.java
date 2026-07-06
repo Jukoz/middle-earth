@@ -775,10 +775,10 @@ public class TranslationEntries {
                     "Before entering, you should prepare yourself for whatever unfriendly creatures you may find inside, for such bounty is not left unguarded. ");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeons_desc_right", "In each dungeon, you shall find trial spawners, that give keys upon defeating the wave of enemies.\n " +
                     "The trial key is used for the treasure vaults that may be found deeper in the dungeon.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Cave Troll");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Brigands");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc", "Brigands' dungeons can be found all around Anduin’s Vale.\n " +
                     "They hold stolen riches from neighboring factions and hide below ruined towers.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.spider_burrows", "Spider Burrows");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_spider_burrows_desc", "The spiders of Shelob have infested the Mirkwood forest.\n " +
                     "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive.");
