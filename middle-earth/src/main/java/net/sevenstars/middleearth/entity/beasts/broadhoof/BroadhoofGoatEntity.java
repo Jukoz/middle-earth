@@ -291,7 +291,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected boolean isTamable() {
+    protected boolean isTamable(PlayerEntity player) {
         return this.isMountable();
     }
 

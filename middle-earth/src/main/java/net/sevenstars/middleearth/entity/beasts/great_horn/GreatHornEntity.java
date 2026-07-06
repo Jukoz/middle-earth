@@ -191,7 +191,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             }
         }
 
-        if(this.isTame() && this.isTamable()) {
+        if(this.isTame() && this.isTamable(player)) {
             if (this.isBreedingItem(itemStack)) {
                 if(this.getHealth() < this.getMaxHealth()) {
                     itemStack.decrementUnlessCreative(1, player);
@@ -264,7 +264,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     @Override
-    protected boolean isTamable() {
+    protected boolean isTamable(PlayerEntity player) {
         return this.isMountable();
     }
 
