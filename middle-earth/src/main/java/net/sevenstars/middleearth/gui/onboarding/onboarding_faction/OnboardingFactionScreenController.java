@@ -34,6 +34,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
+import net.sevenstars.middleearth.resources.datas.races.RaceStatTooltip;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -600,7 +601,7 @@ public class OnboardingFactionScreenController {
     public void drawRaceTooltip(AbstractClientPlayerEntity player, DrawContext context, TextRenderer textRenderer, int x, int y) {
         if(selectedRace == null)
             return;
-        selectedRace.drawTooltip(player, context, textRenderer, x, y, playerAttributes, shouldBeDetailed);
+        RaceStatTooltip.draw(selectedRace, player, context, textRenderer, x, y, playerAttributes, shouldBeDetailed);
     }
 
     public void modifyStateDetailed(boolean b) {

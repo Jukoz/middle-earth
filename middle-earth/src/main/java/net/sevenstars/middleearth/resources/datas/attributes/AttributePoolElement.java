@@ -7,6 +7,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -127,10 +128,15 @@ public class AttributePoolElement {
 
     public static NbtCompound createAttributeNbtListFromPlayer(PlayerEntity player) {
         NbtList attributeList = new NbtList();
-        var playerAttributes = player.getAttributes();
-        Collection<EntityAttributeInstance> attributes = playerAttributes.getTracked();
-        attributes.add(player.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE));
-
+        var registry = player.getWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
+        Collection<EntityAttributeInstance> attributes = new ArrayList<>();
+        var entries = registry.getIndexedEntries();
+        for(var entry : entries){
+            EntityAttributeInstance instance = player.getAttributeInstance(entry);
+            if(instance == null)
+                continue;
+            attributes.add(instance);
+        }
         attributes.forEach(attribute -> {
             AttributePoolElement attributePoolElement = new AttributePoolElement();
             attributePoolElement.withIdentifier(MiddleEarth.fetchId(attribute.getAttribute().getIdAsString()));

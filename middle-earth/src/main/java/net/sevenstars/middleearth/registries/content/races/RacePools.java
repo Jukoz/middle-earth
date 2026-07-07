@@ -62,7 +62,6 @@ public class RacePools {
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
                     .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.1))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 1.75))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.3)));
                 put(EntityCategories.MALE, new AttributePool()
@@ -86,7 +85,6 @@ public class RacePools {
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.66)),
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.1))
                     .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 1.75))
                     .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.3)));
                 put(EntityCategories.MALE, new AttributePool()

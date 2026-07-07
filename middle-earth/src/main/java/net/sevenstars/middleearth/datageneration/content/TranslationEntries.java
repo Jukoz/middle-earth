@@ -859,6 +859,9 @@ public class TranslationEntries {
             put("attribute.modifiers.creative_mode_block_range", "Creative Mode Block Range");
             put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
 
+            put("attribute.operations.add_value", "Add value");
+            put("attribute.operations.add_multiplied_base", "Add base multiplied");
+            put("attribute.operations.add_multiplied_total", "Add total multiplied");
 
             put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
         }
