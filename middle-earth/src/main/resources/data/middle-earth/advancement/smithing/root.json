@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "forge": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:forge"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "middle-earth:gui/advancements/backgrounds/dolomite_bricks",
+    "description": {
+      "translate": "advancements.smithing.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:forge"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.root.title"
+    }
+  },
+    "requirements": [
+    [
+      "forge"
+    ]
+  ]
+}

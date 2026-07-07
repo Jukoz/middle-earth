@@ -1,0 +1,13 @@
+{
+  "asset_id": "middle-earth:pan_board",
+  "height": 1,
+  "width": 2,
+  "author": {
+    "color": "gray",
+    "translate": "painting.middle-earth.author.boenndal"
+  },
+  "title": {
+    "color": "yellow",
+    "translate": "painting.middle-earth.pan_board.title"
+  }
+}

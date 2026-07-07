@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NGN",
+    " I ",
+    " R "
+  ],
+  "key": {
+    "N": "middle-earth:burzum_steel_nugget",
+    "G": "minecraft:glowstone_dust",
+    "I": "middle-earth:burzum_steel_ingot",
+    "R": {
+      "fabric:type": "fabric:components",
+      "base": "middle-earth:rod",
+      "components": {
+        "minecraft:trim": {
+          "material": "middle-earth:burzum_steel",
+          "pattern": "middle-earth:smithing_part"
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "middle-earth:torch_of_orthanc",
+    "count": 1
+  }
+}

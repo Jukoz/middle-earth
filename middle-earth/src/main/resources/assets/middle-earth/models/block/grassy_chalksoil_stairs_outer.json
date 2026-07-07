@@ -1,0 +1,9 @@
+{
+  "parent": "middle-earth:block/outer_stairs_overlay_tint",
+  "textures": {
+    "bottom": "middle-earth:block/grassy_chalksoil",
+    "side": "middle-earth:block/grassy_chalksoil",
+    "top": "middle-earth:block/grassy_chalksoil",
+    "overlay": "middle-earth:block/grassy_chalksoil_overlay"
+  }
+}

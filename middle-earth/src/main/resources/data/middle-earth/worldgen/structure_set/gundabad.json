@@ -1,0 +1,22 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:gundabad_camp",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:gundabad_watch_tower",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:andesite_ruin_tower",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 9,
+    "salt": 128193254
+  }
+}

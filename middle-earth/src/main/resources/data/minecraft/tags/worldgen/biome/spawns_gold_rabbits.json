@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:desert",
+    "middle-earth:harad_desert",
+    "middle-earth:harad",
+    "middle-earth:corsair_coasts",
+    "middle-earth:oasis"
+  ]
+}

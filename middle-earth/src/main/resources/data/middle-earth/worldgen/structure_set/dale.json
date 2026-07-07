@@ -1,0 +1,30 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:dale_house",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:dale_village",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:dale_watch_tower",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:dale_windmill",
+      "weight": 2
+    },
+    {
+      "structure": "middle-earth:dale_keep",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 17,
+    "separation": 8,
+    "salt": 15327831
+  }
+}

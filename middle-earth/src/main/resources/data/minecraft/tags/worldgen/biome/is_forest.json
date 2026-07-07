@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:forest",
+    "middle-earth:anduin_vales_forest",
+    "middle-earth:eregion",
+    "middle-earth:ithilien",
+    "middle-earth:lothlorien",
+    "middle-earth:lorien_edge",
+    "middle-earth:dunland",
+    "middle-earth:old_cardolan_forest",
+    "middle-earth:shire_woods",
+    "middle-earth:druwaith_iaur"
+  ]
+}

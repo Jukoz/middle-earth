@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:block/candle_heap",
+	"textures": {
+		"0": "middle-earth:block/candle_heap_lit",
+		"particle": "middle-earth:block/candle_heap_lit"
+	}
+}

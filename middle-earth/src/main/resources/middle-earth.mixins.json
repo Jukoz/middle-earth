@@ -1,0 +1,58 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.sevenstars.middleearth.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractHorseEntityMixin",
+    "AnvilScreenHandlerMixin",
+    "BannerPatternRegisterMixin",
+    "BlockEntityTypeMixin",
+    "BlockMixin",
+    "CarvedPumpkinBlockMixin",
+    "ChunkGenerationStepMixin",
+    "ChunkGeneratorMixin",
+    "ComponentsIngredientMixin",
+    "CraftingMixin",
+    "CropBlockMixin",
+    "EntityDataSaverMixin",
+    "EntitySpawnMixin",
+    "FishingBobberEntityMixin",
+    "FoliagePlacerTypeInvoker",
+    "GrassBlockMixin",
+    "LivingEntityMixin",
+    "PigEntityMixin",
+    "PlayerEntityMixin",
+    "PotionEntityMixin",
+    "PowderSnowBlockMixin",
+    "RepairItemRecipeMixin",
+    "ServerPlayerEntityMixin",
+    "ServerPlayNetworkHandlerMixin",
+    "ServerWorldMixin",
+    "ShearItemMixin",
+    "ShovelItemMixin",
+    "ToolItemMixin",
+    "TrunkPlacerTypeInvoker"
+  ],
+  "client": [
+    "IntegratedServerLoaderMixin",
+    "client.AbstractClientPlayerEntityMixin",
+    "client.BakedModelManagerMixin",
+    "client.BipedEntityModelMixin",
+    "client.BipedEntityRendererMixin",
+    "client.BipedEntityRenderStateMixin",
+    "client.GuiRendererMixin",
+    "client.HeldItemRendererMixin",
+    "client.InGameHudMixin",
+    "client.LivingEntityRendererMixin",
+    "client.LivingEntityRenderStateMixin",
+    "client.MinecraftClientMixin",
+    "client.PlayerEntityModelMixin",
+    "client.PlayerEntityRendererMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

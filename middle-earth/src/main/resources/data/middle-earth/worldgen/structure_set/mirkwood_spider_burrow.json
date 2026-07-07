@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "middle-earth:mirkwood_spider_burrow",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 19,
+    "separation": 9,
+    "salt": 1393167610
+  }
+}

@@ -1,0 +1,45 @@
+repositories {
+    maven { url "https://maven.shedaniel.me" }
+}
+
+dependencies {
+    implementation project(path: ':sevenstars-api', configuration: 'dev')
+    implementation project(path: ':of-beasts-and-wild-things', configuration: 'dev')
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:20.0.811"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:20.0.811"
+}
+
+loom {
+    runs {
+        datagenClient {
+            inherit client
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=${modid}"
+
+            runDir "build/datagen"
+        }
+    }
+    accessWidenerPath = file("src/main/resources/middle-earth.accesswidener")
+}
+
+// FIXME:
+//  do not know how to make this work correctly
+//  - use `runDatagenClient`    - not working, at all
+//  - use `mustRunAfter`        - not working, at all
+//  - use `dependsOn`           - not working, but generated data at lease
+//  still need to manually `runDatagenClient` then `build` now
+//  otherwise the jar file will not have the generated data
+build {
+//    runDatagenClient
+//    dependsOn "runDatagenClient"
+//    mustRunAfter "runDatagenClient"
+}
+
+jar {
+    zip64 = true
+}
+tasks.withType(Jar).configureEach {
+    zip64 = true
+}

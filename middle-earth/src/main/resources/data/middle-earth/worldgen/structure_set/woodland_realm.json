@@ -1,0 +1,18 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:woodland_realm_hamlet",
+      "weight": 3
+    },
+	{
+      "structure": "middle-earth:woodland_realm_hall",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 5,
+    "salt": 27241973
+  }
+}

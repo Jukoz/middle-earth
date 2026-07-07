@@ -1,0 +1,181 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 5719701
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 4213634
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:arming_coat",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 5719701
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:arming_coat",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 4213634
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:hood",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 4213634
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gray_fur_hood",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 5719701
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dalish_arming_coat_tan_fur"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dalish_arming_coat_brown_fur"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dalish_arming_coat_black_fur"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dalish_boots",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 3
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fur"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blue_dye"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fabric"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string"
+        }
+      ]
+    }
+  ]
+}

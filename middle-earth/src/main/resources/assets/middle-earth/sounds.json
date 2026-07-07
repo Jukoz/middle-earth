@@ -1,0 +1,152 @@
+{
+  "bellows_push": {
+    "subtitle": "sounds.middle-earth.bellows_push",
+    "sounds": [
+      "middle-earth:bellows/bellows_push1",
+      "middle-earth:bellows/bellows_push2",
+      "middle-earth:bellows/bellows_push3"
+    ]
+  },
+  "chisel_hit_first": {
+    "subtitle": "sounds.middle-earth.chisel_hit",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_hit_first"
+    ]
+  },
+  "chisel_hit_second": {
+    "subtitle": "sounds.middle-earth.chisel_hit",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_hit_second"
+    ]
+  },
+  "chisel_hit_third": {
+    "subtitle": "sounds.middle-earth.chisel_hit",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_hit_third"
+    ]
+  },
+  "chisel_enchant": {
+    "subtitle": "sounds.middle-earth.chisel_enchant",
+    "sounds": [
+      "middle-earth:inscription_table/chisel_enchant"
+    ]
+  },
+  "nazgul_fade": {
+    "subtitle": "sounds.middle-earth.nazgul_fade",
+    "sounds": [
+      "middle-earth:nazgul/nazgul_fade1",
+      "middle-earth:nazgul/nazgul_fade2"
+    ]
+  },
+  "nazgul_scream": {
+    "subtitle": "sounds.middle-earth.nazgul_scream",
+    "sounds": [
+      "middle-earth:nazgul/nazgul_scream1",
+      "middle-earth:nazgul/nazgul_scream2",
+      "middle-earth:nazgul/nazgul_scream3"
+    ]
+  },
+  "orc_drum": {
+    "subtitle": "sounds.middle-earth.orc_drum",
+    "sounds": [
+      "middle-earth:orc_drum/orc_drum"
+    ]
+  },
+  "pipe_exhale": {
+    "subtitle": "sounds.middle-earth.pipe_exhale",
+    "sounds": [
+      "middle-earth:pipe/pipe_exhale1"
+    ]
+  },
+  "pipe_refill": {
+    "subtitle": "sounds.middle-earth.pipe_refill",
+    "sounds": [
+      "minecraft:block/composter/fill1"
+    ]
+  },
+  "pipe_ignite": {
+    "subtitle": "sounds.middle-earth.pipe_ignite",
+    "sounds": [
+      "minecraft:fire/ignite"
+    ]
+  },
+  "pipe_cough": {
+    "subtitle": "sounds.middle-earth.pipe_cough",
+    "sounds": [
+      "middle-earth:pipe/pipe_cough1"
+    ]
+  },
+  "great_horn_idle": {
+    "subtitle": "sounds.middle-earth.great_horn_idle",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_idle1",
+      "middle-earth:great_horn/great_horn_idle2",
+      "middle-earth:great_horn/great_horn_idle3"
+    ]
+  },
+  "great_horn_hurt": {
+    "subtitle": "sounds.middle-earth.great_horn_hurt",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_hurt1",
+      "middle-earth:great_horn/great_horn_hurt2",
+      "middle-earth:great_horn/great_horn_hurt3"
+    ]
+  },
+  "great_horn_call": {
+    "subtitle": "sounds.middle-earth.great_horn_call",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_call1",
+      "middle-earth:great_horn/great_horn_call2",
+      "middle-earth:great_horn/great_horn_call3"
+    ]
+  },
+  "great_horn_death": {
+    "subtitle": "sounds.middle-earth.great_horn_death",
+    "sounds": [
+      "middle-earth:great_horn/great_horn_death"
+    ]
+  },
+  "cave_troll_death": {
+    "subtitle": "sounds.middle-earth.cave_troll_death",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_death1",
+      "middle-earth:cave_troll/cave_troll_death2"
+    ]
+  },
+  "cave_troll_hurt": {
+    "subtitle": "sounds.middle-earth.cave_troll_hurt",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_hurt1",
+      "middle-earth:cave_troll/cave_troll_hurt2",
+      "middle-earth:cave_troll/cave_troll_hurt3"
+    ]
+  },
+  "cave_troll_idle": {
+    "subtitle": "sounds.middle-earth.cave_troll_idle",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_idle1",
+      "middle-earth:cave_troll/cave_troll_idle2",
+      "middle-earth:cave_troll/cave_troll_idle3",
+      "middle-earth:cave_troll/cave_troll_idle4"
+    ]
+  },
+  "cave_troll_roar": {
+    "subtitle": "sounds.middle-earth.cave_troll_roar",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_roar1",
+      "middle-earth:cave_troll/cave_troll_roar2",
+      "middle-earth:cave_troll/cave_troll_roar3",
+      "middle-earth:cave_troll/cave_troll_roar4"
+    ]
+  },
+  "cave_troll_step": {
+    "subtitle": "sounds.middle-earth.cave_troll_step",
+    "sounds": [
+      "middle-earth:cave_troll/cave_troll_step1",
+      "middle-earth:cave_troll/cave_troll_step2",
+      "middle-earth:cave_troll/cave_troll_step3",
+      "middle-earth:cave_troll/cave_troll_step4",
+      "middle-earth:cave_troll/cave_troll_step5"
+    ]
+  }
+}

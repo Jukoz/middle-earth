@@ -1,0 +1,63 @@
+package net.sevenstars.middleearth.gui;
+
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.crockpot.CrockpotScreenHandler;
+import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
+import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
+import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
+import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
+import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
+import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
+import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
+
+public class ModScreenHandlers {
+    public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER
+            = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
+    
+    public static final ScreenHandlerType<CrockpotScreenHandler> CROCKPOT_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(CrockpotScreenHandler::new, BlockPos.PACKET_CODEC.cast());
+
+    public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(ArtisanTableScreenHandler::new, PacketCodecs.STRING.cast());
+
+    public static ScreenHandlerType<InscriptionTableScreenHandler> INSCRIPTION_SCREEN_HANDLER
+            = new ScreenHandlerType<>(InscriptionTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
+
+    public static ScreenHandlerType<ShapingAnvilScreenHandler> TREATED_ANVIL_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(ShapingAnvilScreenHandler::new, BlockPos.PACKET_CODEC.cast());
+
+    public static final ScreenHandlerType<ForgeAlloyingScreenHandler> FORGE_ALLOYING_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(ForgeAlloyingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
+
+    public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, StructureManagerScreenData.PACKET_CODEC.cast());
+
+    public static final ScreenHandlerType<StructureNestScreenHandler> STRUCTURE_NEST_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(StructureNestScreenHandler::new, StructureNestScreenData.PACKET_CODEC.cast());
+
+
+    public static void registerAllScreenHandlers() {
+        register("wood_pile", WOOD_PILE_SCREEN_HANDLER);
+        register("forge_alloying", FORGE_ALLOYING_SCREEN_HANDLER);
+        register("artisan_table", ARTISAN_SCREEN_HANDLER);
+        register("inscription_table", INSCRIPTION_SCREEN_HANDLER);
+        register("treated_anvil", TREATED_ANVIL_SCREEN_HANDLER);
+        register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
+        register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);
+        register("crockpot",CROCKPOT_SCREEN_HANDLER );
+    }
+
+    private static void register(String name, ScreenHandlerType handlerType) {
+        Registry.register(Registries.SCREEN_HANDLER, Identifier.of(MiddleEarth.MOD_ID, name), handlerType);
+    }
+}

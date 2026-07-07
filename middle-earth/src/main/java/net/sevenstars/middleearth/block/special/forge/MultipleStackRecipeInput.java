@@ -1,0 +1,23 @@
+package net.sevenstars.middleearth.block.special.forge;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.input.RecipeInput;
+
+import java.util.List;
+
+public record MultipleStackRecipeInput(List<ItemStack> items) implements RecipeInput {
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        if (slot >= size()) {
+            throw new IllegalArgumentException("No item for index " + slot);
+        }
+        return this.items.get(slot);
+    }
+
+    @Override
+    public int size() {
+        return items.size();
+
+    }
+}

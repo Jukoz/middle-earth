@@ -1,108 +1,106 @@
 plugins {
-	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version "${loom_version}" apply false
 	id 'maven-publish'
+	id 'java'
+	id 'base'
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
-
-archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-repositories {
-	maven { url "https://maven.shedaniel.me" }
-	maven {
-		name = "TerraformersMC"
-		url = "https://maven.terraformersmc.com/"
-	}
-}
-
-dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	// Uncomment the following line to enable the deprecated Fabric API modules.
-	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
-
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
-
-	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
-	modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-loom {
-	runs {
-		//
-		// This adds a new gradle task that runs the datagen API: "gradlew runDatagenClient"
-		//
-		datagenClient {
-			inherit client
-			name "Data Generation"
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-			vmArg "-Dfabric-api.datagen.modid=${modid}"
-
-			runDir "build/datagen"
-		}
-	}
-	accessWidenerPath = file("src/main/resources/me.accesswidener")
-}
-
-sourceSets {
-	main {
-		resources {
-			srcDirs += [
-					'src/main/generated'
-			]
-		}
-	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 21
-}
-
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
+	sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 21
+	}
 }
+
+/* configurations for each projects */
+project(":sevenstars-api") {
+	java {
+		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
+	}
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 21
+	}
+}
+
+project(":middle-earth") {
+	java {
+		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
+	}
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 21
+	}
+}
+
+project(":of-beasts-and-wild-things") {
+	java {
+		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
+	}
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 21
+	}
+}
+
+subprojects() {
+	apply plugin: 'fabric-loom'
+
+	version = project.mod_version
+	group = project.maven_group
+
+	base {
+		archivesName = project.archives_base_name
+	}
+
+	dependencies {
+		minecraft "com.mojang:minecraft:${project.minecraft_version}"
+		mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+		modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+		modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	}
+
+	processResources {
+		inputs.property "version", project.version
+
+		filesMatching("fabric.mod.json") {
+			expand "version": project.version
+		}
+	}
+
+	sourceSets.main.resources.srcDirs += 'src/main/generated'
+
+	jar {
+		from("LICENSE") {
+			rename { "${it}_${project.archives_base_name}"}
+		}
+	}
+}
+
+// root project will not build anything
+jar.enabled = false
 
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+	zip64 = true
+}
+tasks.withType(Jar).configureEach {
+	zip64 = true
+}
+
+tasks.register("copyFiles", Copy) {
+	rootProject.subprojects.each {project ->
+		from project.name + '/build/libs/' + project.archives_base_name + '-' + project.version + '.jar'
+	}
+	into "build/libs"
+}
+
+// make sure the copy task runs after each subproject is built
+copyFiles.dependsOn {
+	subprojects.collect {
+		it.tasks.named("build")
 	}
 }
 
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
+build {
+	finalizedBy copyFiles
 }

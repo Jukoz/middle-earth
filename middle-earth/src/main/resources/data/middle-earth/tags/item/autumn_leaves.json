@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:maple_leaves",
+    "middle-earth:yellow_maple_leaves",
+    "middle-earth:orange_maple_leaves",
+    "middle-earth:red_maple_leaves",
+    "middle-earth:mallorn_leaves"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"2": "middle-earth:block/shelobite_larva_egg_hanging",
+		"particle": "middle-earth:block/shelobite_larva_egg_hanging"
+	},
+	"elements": [
+		{
+			"name": "base_cobweb",
+			"from": [0, 15, 0],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 15, 11]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 0.25], "texture": "#2"},
+				"east": {"uv": [0, 0, 4, 0.25], "texture": "#2"},
+				"south": {"uv": [0, 0, 4, 0.25], "texture": "#2"},
+				"west": {"uv": [0, 0, 4, 0.25], "texture": "#2"},
+				"up": {"uv": [0, 0, 4, 4], "texture": "#2"},
+				"down": {"uv": [0, 0, 4, 4], "texture": "#2"}
+			}
+		},
+		{
+			"from": [4, 11, 4],
+			"to": [12, 15, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 13, 4]},
+			"faces": {
+				"north": {"uv": [10, 7.25, 12, 8.25], "texture": "#2"},
+				"east": {"uv": [8, 7.25, 10, 8.25], "texture": "#2"},
+				"south": {"uv": [14, 7.25, 16, 8.25], "texture": "#2"},
+				"west": {"uv": [12, 7.25, 14, 8.25], "texture": "#2"},
+				"up": {"uv": [12, 7.25, 10, 5.25], "texture": "#2"},
+				"down": {"uv": [14, 5.25, 12, 7.25], "texture": "#2"}
+			}
+		},
+		{
+			"from": [8, 0, 4.5],
+			"to": [8, 15, 12.5],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 7.5, 7.5]},
+			"faces": {
+				"north": {"uv": [12, 8.5, 12, 12.25], "texture": "#2"},
+				"east": {"uv": [10, 8.5, 12, 12.25], "texture": "#2"},
+				"south": {"uv": [14, 8.5, 14, 12.25], "texture": "#2"},
+				"west": {"uv": [12, 8.5, 14, 12.25], "texture": "#2"},
+				"up": {"uv": [12, 8.5, 12, 6.5], "texture": "#2"},
+				"down": {"uv": [12, 6.5, 12, 8.5], "texture": "#2"}
+			}
+		},
+		{
+			"from": [8, 0, 4.5],
+			"to": [8, 15, 11.5],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 7.5, 8.5]},
+			"faces": {
+				"north": {"uv": [12, 8.5, 12, 12.25], "texture": "#2"},
+				"east": {"uv": [10.25, 8.5, 12, 12.25], "texture": "#2"},
+				"south": {"uv": [13.75, 8.5, 13.75, 12.25], "texture": "#2"},
+				"west": {"uv": [12, 8.5, 13.75, 12.25], "texture": "#2"},
+				"up": {"uv": [12, 8.5, 12, 6.75], "texture": "#2"},
+				"down": {"uv": [12, 6.75, 12, 8.5], "texture": "#2"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "root",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

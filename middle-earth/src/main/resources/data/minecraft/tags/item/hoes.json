@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#fabric:hoes",
+      "required": false
+    },
+    "middle-earth:khazad_steel_hoe",
+    "middle-earth:crude_hoe",
+    "middle-earth:burzum_steel_hoe",
+    "middle-earth:edhel_steel_hoe",
+    "middle-earth:steel_hoe",
+    "middle-earth:bronze_hoe",
+    "middle-earth:mithril_hoe"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "middle-earth:smithing/bronze_ingot",
+  "criteria": {
+    "edhel_steel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:edhel_steel_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.edhel_steel.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:edhel_steel_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.edhel_steel.title"
+    }
+  },
+  "requirements": [
+    [
+      "edhel_steel"
+    ]
+  ]
+}

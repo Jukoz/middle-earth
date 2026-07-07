@@ -1,0 +1,15 @@
+{
+  "values": [
+    "middle-earth:copper_smithing_hammer",
+    "middle-earth:bronze_smithing_hammer",
+    "middle-earth:smithing_hammer",
+    "middle-earth:noble_smithing_hammer",
+    "middle-earth:dwarven_smithing_hammer",
+    "middle-earth:dwarven_noble_smithing_hammer",
+    "middle-earth:elven_smithing_hammer",
+    "middle-earth:elven_noble_smithing_hammer",
+    "middle-earth:orcish_smithing_hammer",
+    "middle-earth:orcish_elite_smithing_hammer",
+    "middle-earth:mithril_smithing_hammer"
+  ]
+}

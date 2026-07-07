@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:jadeite",
+    "middle-earth:tin_ingot",
+    "middle-earth:lead_ingot",
+    "middle-earth:silver_ingot",
+    "middle-earth:bronze_ingot",
+    "middle-earth:steel_ingot",
+    "middle-earth:crude_ingot",
+    "middle-earth:burzum_steel_ingot",
+    "middle-earth:edhel_steel_ingot",
+    "middle-earth:khazad_steel_ingot",
+    "middle-earth:mithril_ingot"
+  ]
+}

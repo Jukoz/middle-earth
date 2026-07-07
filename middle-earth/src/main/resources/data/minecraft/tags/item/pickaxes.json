@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#fabric:pickaxes",
+      "required": false
+    },
+    "middle-earth:khazad_steel_pickaxe",
+    "middle-earth:crude_pickaxe",
+    "middle-earth:burzum_steel_pickaxe",
+    "middle-earth:edhel_steel_pickaxe",
+    "middle-earth:steel_pickaxe",
+    "middle-earth:bronze_pickaxe",
+    "middle-earth:mithril_pickaxe"
+  ]
+}

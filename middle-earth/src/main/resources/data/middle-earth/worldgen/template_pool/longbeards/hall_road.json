@@ -1,0 +1,16 @@
+{
+  "name": "middle-earth:longbeards_hall_road",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:longbeards/hall_road",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    }
+  ]
+}

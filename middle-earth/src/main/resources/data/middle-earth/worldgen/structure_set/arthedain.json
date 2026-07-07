@@ -1,0 +1,26 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:larch_windmill",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:traveler_camp",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:limestone_ruin",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:limestone_well",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 21,
+    "separation": 9,
+    "salt": 127832169
+  }
+}
