@@ -47,7 +47,7 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
                 for(int y = (int) -baseHeight-3; y <= baseHeight+3; ++y) {
                     BlockPos offsetBlockPos = blockPos.mutableCopy().add(x, y, z);
                     BlockState mutableBlockState = structureWorldAccess.getBlockState(offsetBlockPos);
-                    if(!mutableBlockState.isSolidBlock(structureWorldAccess, offsetBlockPos.mutableCopy().add(0, 1, 0)) ||
+                    if(!mutableBlockState.isAir() && !mutableBlockState.isSolidBlock(structureWorldAccess, offsetBlockPos.mutableCopy().add(0, 1, 0)) ||
                             mutableBlockState.isIn(BlockTags.LOGS) || CANNOT_REPLACE_BLOCKS.contains(mutableBlockState.getBlock())) {
                         continue;
                     } else if (this.isPointInside(x, y, z, length, width, baseHeight, angle, config.randomness, random)) {
