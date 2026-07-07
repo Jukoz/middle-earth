@@ -27,7 +27,7 @@ public class GundabadBiomeEventPool {
             new BiomeNpcSpawningData(GundabadNpcDataPool.SCOUT).withWeight(4),
             new BiomeNpcSpawningData(GundabadNpcDataPool.MILITIA).withWeight(3),
             new BiomeNpcSpawningData(GundabadNpcDataPool.WARRIOR).withWeight(2),
-            new BiomeNpcSpawningData(GundabadNpcDataPool.SCOUT).withWeight(2).withMount(EntitiesME.WARG)
+            new BiomeNpcSpawningData(GundabadNpcDataPool.MILITIA).withWeight(2).withMount(EntitiesME.WARG)
         ));
     }
 }
