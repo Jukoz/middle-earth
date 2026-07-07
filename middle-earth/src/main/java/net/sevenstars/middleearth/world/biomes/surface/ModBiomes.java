@@ -2438,7 +2438,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         ModSpawnSettingsBuilder.addUncommonWarg(spawnSettings);
         ModSpawnSettingsBuilder.addCommonWolves(spawnSettings);
-        ModSpawnSettingsBuilder.addRareStoneTroll(spawnSettings);
+        ModSpawnSettingsBuilder.addRareCaveTroll(spawnSettings);
         ModSpawnSettingsBuilder.addUncommonBats(spawnSettings);
 
         addMordorVegetation(generationSettings);
@@ -2460,7 +2460,6 @@ public class ModBiomes {
         
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         ModSpawnSettingsBuilder.addRareWarg(spawnSettings);
-        ModSpawnSettingsBuilder.addRareStoneTroll(spawnSettings);
         ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
         ModSpawnSettingsBuilder.addUncommonBats(spawnSettings);
 
@@ -2513,7 +2512,7 @@ public class ModBiomes {
         
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         ModSpawnSettingsBuilder.addRareWarg(spawnSettings);
-        ModSpawnSettingsBuilder.addRareStoneTroll(spawnSettings);
+        ModSpawnSettingsBuilder.addRareCaveTroll(spawnSettings);
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         ModSpawnSettingsBuilder.addUncommonBats(spawnSettings);
 
@@ -3703,7 +3702,7 @@ public class ModBiomes {
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         ModSpawnSettingsBuilder.addRareWarg(spawnSettings);
         ModSpawnSettingsBuilder.addRareWolves(spawnSettings);
-        ModSpawnSettingsBuilder.addRareStoneTroll(spawnSettings);
+        ModSpawnSettingsBuilder.addRareCaveTroll(spawnSettings);
         ModSpawnSettingsBuilder.addUncommonBats(spawnSettings);
 
         addMordorVegetation(generationSettings);

@@ -23,7 +23,6 @@ public class MordorBiomeEventPool {
             new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(5),
             new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(5),
             new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3).withMount(EntitiesME.WARG),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withMount(EntitiesME.CAVE_TROLL),
             new BiomeNpcSpawningData(MordorNpcDataPool.VETERAN).withWeight(2),
             new BiomeNpcSpawningData(MordorNpcDataPool.CAPTAIN)
         ));
@@ -56,8 +55,7 @@ public class MordorBiomeEventPool {
         CAVE = new BiomeEventData(List.of(
             new BiomeNpcSpawningData(MordorNpcDataPool.SNAGA).withWeight(3),
             new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(3),
-            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withMount(EntitiesME.CAVE_TROLL)
+            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2)
         ));
 
         DOL_GULDUR = new BiomeEventData(List.of(

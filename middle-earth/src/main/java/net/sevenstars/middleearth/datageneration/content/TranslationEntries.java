@@ -69,7 +69,11 @@ public class TranslationEntries {
             put("advancements.middle_earth.enter_lonely_mountain.title", "Erebor");
             put("advancements.middle_earth.enter_lonely_mountain.description", "The capital of the dwarves");
             put("advancements.middle_earth.enter_mirkwood.title", "Stay on the path!");
-            put("advancements.middle_earth.enter_mirkwood.description", "Enter the Mirkwood forest");
+            put("advancements.middle_earth.enter_mirkwood.description", "Enter the forest of Mirkwood");
+            put("advancements.middle_earth.enter_dol_guldur.title", "Necromancer's Hill");
+            put("advancements.middle_earth.enter_dol_guldur.description", "Enter Dol Guldur");
+            put("advancements.middle_earth.enter_woodland_realm.title", "Elvenking's Halls");
+            put("advancements.middle_earth.enter_woodland_realm.description", "Enter The Woodland Realm");
             put("advancements.middle_earth.enter_misty_mountains.title", "Far over...");
             put("advancements.middle_earth.enter_misty_mountains.description", "Enter the Misty Mountains");
             put("advancements.middle_earth.enter_mordor.title", "One does not simply...");
@@ -80,6 +84,12 @@ public class TranslationEntries {
             put("advancements.middle_earth.enter_rohan.description", "Enter the Kingdom of the Rohirrim");
             put("advancements.middle_earth.enter_shire.title", "The quiet countryside");
             put("advancements.middle_earth.enter_shire.description", "Enter the Shire");
+            put("advancements.middle_earth.brigand_dungeon.title", "Shirriff, open up!");
+            put("advancements.middle_earth.brigand_dungeon.description", "Raid the thieves in their dungeon!");
+            put("advancements.middle_earth.spider_burrows.title", "Sticky lair");
+            put("advancements.middle_earth.spider_burrows.description", "Climb down to the Spider Burrows");
+            put("advancements.middle_earth.kill_spawn_of_shelob.title", "Attercop?");
+            put("advancements.middle_earth.kill_spawn_of_shelob.description", "Kill a spawn of Shelob!");
             put("advancements.middle_earth.arkenstone.title", "Heart of the Mountain");
             put("advancements.middle_earth.arkenstone.description", "Find the Arkenstone, the jewel of the Lonely Mountain!");
             put("advancements.middle_earth.lembas.title", "Elvish Bread");
@@ -97,6 +107,12 @@ public class TranslationEntries {
             put("advancements.smithing.bellows.description", "Craft bellows to heat up your forge");
             put("advancements.smithing.artisan_table.title", "Artisan Work");
             put("advancements.smithing.artisan_table.description", "Craft the artisan table");
+            put("advancements.smithing.inscription_table.title", "Inspired Smithing");
+            put("advancements.smithing.inscription_table.description", "Improve a piece of equipment like the smiths of yore");
+            put("advancements.smithing.chisel.title", "Chiseled Figure");
+            put("advancements.smithing.chisel.description", "Create an Inscribing Chisel");
+            put("advancements.smithing.smithing_hammer.title", "Hammer Time");
+            put("advancements.smithing.smithing_hammer.description", "Create a Smithing Hammer");
             put("advancements.smithing.bronze_ingot.title", "Bronze Age");
             put("advancements.smithing.bronze_ingot.description", "A bit of tin and some copper");
             put("advancements.smithing.crude_ingot.title", "Orcish Handiwork");
@@ -713,7 +729,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc", "Bronze and Crude are simple alloys, harder and more durable than stone and copper.\n\n " +
                     "Copper alloy tools will enable you to mine deeper than before, entering the Nurgon layer of the world and exploiting the riches found there.\n" +
                     "Make sure to toggle the forge to alloying mode.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc_right", "Here's their recipes");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.casting", "Casting");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_casting_desc", "All molten metals can be cast into Nuggets, Ingots, Rods, Plates, and Large Rods. " +
                     "Different casted parts will require different amounts of molten metal to create.\n\n " +
@@ -733,21 +749,20 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_quenching_desc_right", "Both the cauldron and bucket can be crafted using Tin, which can be found in caves near the surface.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.artisan_table", "Artisan Table");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc", "The Artisan Table is the workstation of choice for armourers, blacksmiths and craftspeople across many realms, " +
-                    "and will be required to piece together smithing components into a final product.\n " +
-                    "Its recipe is one cobbled stone over one log on either side of a tin ingot, in a helmet shape. ");
+                    "and will be required to piece together smithing components into a final product.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc", "Place your bronze pickaxe head and two sticks in the Artisan Table, " +
                     "and you are now ready to explore even farther underground using your new Bronze Pickaxe.\n\n " +
-                    "Although simple tools and weapons can also be crafted in a normal crafting grid,");
+                    "Although simple tools and weapons can also be crafted in a normal crafting grid.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc_right", "Crafting equipment in the Artisan Table bestows a noticeable bonus in durability.");
 
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc", "The greatest artisans of past ages were known to have honed their craft so wonderfully, " +
                     "resulting in storied blades and armour with extraordinary properties.\n\n" +
-                    "First, craft the inscription table as follow.");
+                    "First, craft the inscription table as follows.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table", "Inscription Table");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc", "To use the inscription table, you will need gems, a chisel and the item that you wish to enchant. " +
-                    "Each gem have unique words associated with it, you can explore each combination of words until you find a valid enchant.");
+                    "Each gem has unique words associated with it, you can explore each combination of words until you find a valid enchant.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc_right", "Here's an example of the Unbreaking enchantment inscription;");
 
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc", "The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +

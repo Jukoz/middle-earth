@@ -508,6 +508,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
             reach = damageOpt.get().floatValue();
         } catch (Exception ignored){}
 
+        if(this.getVehicle() != null || entity.getVehicle() != null) {
+            reach += 0.5f;
+        }
+
         return this.distanceTo(entity) <= reach;
     }
 

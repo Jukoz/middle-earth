@@ -19,7 +19,6 @@ public class MoriaBiomeEventPool {
             new BiomeNpcSpawningData(MoriaNpcDataPool.SCOUT).withWeight(4),
             new BiomeNpcSpawningData(MoriaNpcDataPool.WARRIOR).withWeight(6).withNightRequired(),
             new BiomeNpcSpawningData(MoriaNpcDataPool.RIDER).withWeight(4).withMount(EntitiesME.WARG),
-            new BiomeNpcSpawningData(MoriaNpcDataPool.RIDER).withMount(EntitiesME.CAVE_TROLL).withUndegroundRequired(),
             new BiomeNpcSpawningData(MoriaNpcDataPool.VETERAN).withWeight(3).withNightRequired(),
             new BiomeNpcSpawningData(MoriaNpcDataPool.CHIEF).withNightRequired()
         ));
