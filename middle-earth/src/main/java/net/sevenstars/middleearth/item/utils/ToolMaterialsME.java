@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.utils.ItemTagsME;
 
 public class ToolMaterialsME {
 
-    public static final ToolMaterial BONE = new ToolMaterial(BlockTags.INCORRECT_FOR_STONE_TOOL, 150, 4.0F, 1.0F, 5, ItemTagsME.BONE_TOOL_MATERIALS);
+    public static final ToolMaterial BONE = new ToolMaterial(BlockTags.INCORRECT_FOR_STONE_TOOL, 150, 4.0F, 0.0F, 4, ItemTagsME.BONE_TOOL_MATERIALS);
     public static final ToolMaterial BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ItemTagsME.BRONZE_TOOL_MATERIALS);
     public static final ToolMaterial CRUDE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 200, 5.0f, 1.0f, 5, ItemTagsME.CRUDE_TOOL_MATERIALS);
     public static final ToolMaterial STEEL = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);

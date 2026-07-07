@@ -129,7 +129,7 @@ public class NpcRegistry {
 
     // [HOBGOBLINS TRIBES]
     // [GUNDABAD]
-    public final static RegistryKey<NpcData> GUNDABAD_SNAGA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "snaga"));
+    public final static RegistryKey<NpcData> GUNDABAD_GOBLIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "goblin"));
     public final static RegistryKey<NpcData> GUNDABAD_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "militia"));
     public final static RegistryKey<NpcData> GUNDABAD_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "scout"));
     public final static RegistryKey<NpcData> GUNDABAD_RIDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "rider"));
@@ -138,10 +138,19 @@ public class NpcRegistry {
     public final static RegistryKey<NpcData> GUNDABAD_LEADER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "leader"));
     // [MORIA]
     public final static RegistryKey<NpcData> MORIA_GOBLIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "goblin"));
+    public final static RegistryKey<NpcData> MORIA_MILITIA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "militia"));
     public final static RegistryKey<NpcData> MORIA_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "scout"));
     public final static RegistryKey<NpcData> MORIA_RIDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "rider"));
     public final static RegistryKey<NpcData> MORIA_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "warrior"));
     public final static RegistryKey<NpcData> MORIA_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "veteran"));
+    public final static RegistryKey<NpcData> MORIA_CHIEF = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.MORIA, "chief"));
+
+    // [GOBLIN TOWN]
+    public final static RegistryKey<NpcData> GOBLIN_TOWN_GOBLIN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GOBLIN_TOWN, "goblin"));
+    public final static RegistryKey<NpcData> GOBLIN_TOWN_SCOUT = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GOBLIN_TOWN, "scout"));
+    public final static RegistryKey<NpcData> GOBLIN_TOWN_RIDER = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GOBLIN_TOWN, "rider"));
+    public final static RegistryKey<NpcData> GOBLIN_TOWN_WARRIOR = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GOBLIN_TOWN, "warrior"));
+    public final static RegistryKey<NpcData> GOBLIN_TOWN_VETERAN = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.GOBLIN_TOWN, "veteran"));
 
     // [ISENGARD]
     public final static RegistryKey<NpcData> ISENGARD_ORC_SNAGA = DynamicRegistriesME.of(NPC_KEY, createID(FactionRegistry.ISENGARD, "snaga"));
@@ -170,6 +179,7 @@ public class NpcRegistry {
         registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, WoodlandRealmNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, MordorNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, GoblinTownNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, MoriaNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, GundabadNpcDataPool.fetchAll());
         registerAll(context, registryEntryLookup, IsengardNpcDataPool.fetchAll());

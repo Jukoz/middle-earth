@@ -39,6 +39,7 @@ import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SmartFleeEntityGoal;
@@ -115,6 +116,8 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                 PlayerEntity.class, 20.0F, 1.6, 1.9, (entity) -> {
             return !this.canTrust((PlayerEntity)entity);
         }));
+        this.goalSelector.add(4, new SmartFleeEntityGoal<>(this, (Evader) this,
+                WargEntity.class, 20.0F, 1.7, 2.0, (entity) -> true));
         this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> stack.isIn(ItemTagsME.ELK_FOOD), false));

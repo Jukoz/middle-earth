@@ -524,6 +524,7 @@ public class TranslationEntries {
             put("description."+ MiddleEarth.MOD_ID +".rohan.description_0", "Rohan, also called the Riddermark, is a kingdom of Men renowned for its skilled horse-lords and cavalry. Located north of Gondor, it is ruled by the line of Eorl. Though once strong allies with Gondor, Rohan now faces growing internal and external threats.");
             put("description."+ MiddleEarth.MOD_ID +".isengard.description_0", "Once a fortress of Númenor, the keys of the black tower of Orthanc passed to the White Wizard Saruman in the Third Age. Tempted by dark power, he weaves deceit and plots war from his seat in Isengard upon the neighbouring free peoples.");
             put("description."+ MiddleEarth.MOD_ID +".hobgoblin_tribes.gundabad.description_0", "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.");
+            put("description."+ MiddleEarth.MOD_ID +".goblin_town.description_0", "Goblin-Town was a dwelling of the Northern Orcs in the Misty Mountains.  A network of branching caves and tunnels carved by the goblins with many entrances like the Front Porch. They often left their homes to raid the Anduin and plunder homes.");
             put("description."+ MiddleEarth.MOD_ID +".moria.description_0", "Khazad-Dûm, mansion of the Longbeards, spanning from the east range to the west. However, the dwarves dug too deep. Now in ruin, the ancient halls are home to Goblins, Trolls, and nameless things. With them the city earned a new name, Moria.");
             put("description."+ MiddleEarth.MOD_ID +".shire.description_0", "The Shire is a peaceful land inhabited by Hobbits, located in the northwest of Middle-earth. Known for its pastoral beauty and the simple, unadventurous lives of its people. It remains largely untouched by the turmoil of the outside world.");
             put("description."+ MiddleEarth.MOD_ID +".woodland_realm.description_0", "Eryn Galen, or Greenwood was once a vibrant forest that housed many creatures, the Sylvan elves of the woodland realm reigning as the greatest among them. Now, through foul sorcery the land has been twisted into Mirkwood, where spiders and orcs lurk beneath its canopy");
@@ -776,10 +777,10 @@ public class TranslationEntries {
                     "Before entering, you should prepare yourself for whatever unfriendly creatures you may find inside, for such bounty is not left unguarded. ");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeons_desc_right", "In each dungeon, you shall find trial spawners, that give keys upon defeating the wave of enemies.\n " +
                     "The trial key is used for the treasure vaults that may be found deeper in the dungeon.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Cave Troll");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Brigands");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc", "Brigands' dungeons can be found all around Anduin’s Vale.\n " +
                     "They hold stolen riches from neighboring factions and hide below ruined towers.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.spider_burrows", "Spider Burrows");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_spider_burrows_desc", "The spiders of Shelob have infested the Mirkwood forest.\n " +
                     "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive.");

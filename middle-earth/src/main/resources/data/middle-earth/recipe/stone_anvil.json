@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SSS",
+    "WWW"
+  ],
+  "key": {
+    "S": "#minecraft:stone_crafting_materials",
+    "W": "#minecraft:logs"
+  },
+  "result": {
+    "id": "middle-earth:stone_anvil",
+    "count": 1
+  }
+}

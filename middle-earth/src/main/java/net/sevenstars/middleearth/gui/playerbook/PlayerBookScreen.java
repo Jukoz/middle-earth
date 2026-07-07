@@ -282,8 +282,8 @@ public class PlayerBookScreen extends Screen {
                         .withLeftPageDesc("playerbook.dungeons_desc")
                         .withRightPageDesc("playerbook.dungeons_desc_right"),
                 new PlayerBookPageData().withTitle("playerbook.brigands").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "dungeon_brigands.png"))
-                        .withLeftPageDesc("playerbook.dungeon_brigands")
-                        .withRightPageDesc("playerbook.dungeon_brigands_right"),
+                        .withLeftPageDesc("playerbook.dungeon_brigands_desc")
+                        .withRightPageDesc("playerbook.dungeon_brigands_desc_right"),
                 new PlayerBookPageData().withTitle("playerbook.spider_burrows").withImage(Identifier.of(MiddleEarth.MOD_ID, PATH + "dungeon_spider_burrows.png"))
                         .withLeftPageDesc("playerbook.dungeon_spider_burrows_desc")
                         .withRightPageDesc("playerbook.dungeon_spider_burrows_desc_right")

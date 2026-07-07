@@ -104,10 +104,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS, Items.TURTLE_HELMET));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/armor"))).add(ArmorTags.armors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "head_armor"))).add(ArmorTags.headArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "chest_armor"))).add(ArmorTags.chestArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "leg_armor"))).add(ArmorTags.legArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "foot_armor"))).add(ArmorTags.footArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of( "minecraft", "enchantable/head_armor"))).add(ArmorTags.headArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM,Identifier.of( "minecraft", "enchantable/chest_armor"))).add(ArmorTags.chestArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM,Identifier.of( "minecraft", "enchantable/leg_armor"))).add(ArmorTags.legArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM,Identifier.of( "minecraft", "enchantable/foot_armor"))).add(ArmorTags.footArmors.toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "basic_armor"))).add(ArmorTags.basicArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
@@ -226,6 +226,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         characterShowEars.add(EquipmentItemsME.RUSTED_MORDOR_KETTLE_HAT);
         characterShowEars.add(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR);
         characterShowEars.add(EquipmentItemsME.WEATHERED_DOL_GULDUR_JAILER_COLLAR);
+
+        characterShowEars.add(EquipmentItemsME.MORIA_GOBLIN_MANDIBLE_HELMET);
+        characterShowEars.add(EquipmentItemsME.MORIA_GOBLIN_SCREECHER_HELMET);
+        characterShowEars.add(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET);
 
         // HIDE Hairs
         characterHideHair.add(EquipmentItemsME.MAIL_COIF);

@@ -8,7 +8,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/fifth_corridor",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     }
   ]
