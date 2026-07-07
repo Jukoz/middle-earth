@@ -7,21 +7,21 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributeModifierElement;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Race {
     private static final String ID_FIELD = "id";
@@ -34,7 +34,7 @@ public class Race {
     public static final Codec<Race> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf(ID_FIELD).forGetter(Race::getIdValue),
             Codec.STRING.fieldOf(TYPE_FIELD).forGetter(Race::getRaceTypeValue),
-            NbtCompound.CODEC.fieldOf(BASE_ATTRIBUTE_FIELD).forGetter(Race::getBaseAttributePool),
+            NbtCompound.CODEC.fieldOf(BASE_ATTRIBUTE_FIELD).forGetter(Race::getBaseAttributePoolNbt),
             NbtCompound.CODEC.fieldOf(CATEGORY_BASED_ATTRIBUTE_FIELD).forGetter(Race::getCategoryBasedAttributePool),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf(COMMAND_JOIN_FIELD).forGetter(Race::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf(COMMAND_LEAVE_FIELD).forGetter(Race::getLeaveCommands)
@@ -95,10 +95,13 @@ public class Race {
         return raceType.toString().toUpperCase();
     }
 
-    private NbtCompound getBaseAttributePool() {
+    private NbtCompound getBaseAttributePoolNbt() {
         if(baseAttributePool == null)
             return null;
         return baseAttributePool.getNbt();
+    }
+    public AttributePool getBaseAttributePool() {
+        return baseAttributePool;
     }
 
     private NbtCompound getCategoryBasedAttributePool() {
@@ -141,37 +144,6 @@ public class Race {
 
     public RaceType getRaceType() {
         return raceType;
-    }
-
-    public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y){
-        List<Text> texts = new ArrayList<>();
-        texts.add(getFullName());
-        texts.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE));
-        List<AttributePoolElement> elements = baseAttributePool.getPool();
-        for(var element : elements){
-            double value = element.getValue();
-            Double attributeValue = baseAttributePool.getEntityCurrentAttributeValue(entity, element.getIdentifier());
-            if(attributeValue == null){
-                MiddleEarth.LOGGER.logWarn("Can't find attribute in player : %s".formatted(element.getIdentifier()));
-                continue;
-            }
-            double difference = value - attributeValue;
-
-            // Round them
-            value = Math.round(value * 1000) / 1000.0;
-            difference = Math.round(difference * 1000) / 1000.0;
-
-            String differenceChar = (difference > 0) ? "+" : "";
-            Formatting white = Formatting.WHITE;
-            Formatting differenceColor = (difference < 0) ? Formatting.RED : (difference > 0) ? Formatting.GREEN : white;
-            if(baseAttributePool.isBuffReversed(element.getIdentifier())){
-                differenceColor = (difference < 0) ? Formatting.GREEN : (difference > 0) ? Formatting.RED : white;
-            }
-            MutableText rawValue = Text.literal(String.valueOf(value)).formatted(white);
-            MutableText valueText = rawValue.append(Text.literal(" (").formatted(white).append(Text.literal(differenceChar + difference).formatted(differenceColor).append(Text.literal(") ").formatted(white))));
-            texts.add(valueText.append(Text.translatable("attribute.name."+element.getIdentifier().getPath()).formatted(Formatting.WHITE)));
-        }
-        context.drawTooltip(renderer, texts, x, y);
     }
 
     public void applyNpcAttributes(NpcEntity npcEntity) {
