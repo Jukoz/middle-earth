@@ -855,13 +855,9 @@ public class TranslationEntries {
             put("attribute.name.detection_range", "Detection Range");
             put("attribute.name.width_scale", "Width Scale");
 
-            put("attribute.modifiers." + RacePools.RaceAttributes.TOTAL_DAMAGE_MODIFIER.getPath(), "Total Attack Damage");
+            put("attribute.modifiers." + RacePools.RaceAttributes.TOTAL_DAMAGE_MODIFIER.getPath(), "Add Total Damage Multiplied");
             put("attribute.modifiers.creative_mode_block_range", "Creative Mode Block Range");
             put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
-
-            put("attribute.operations.add_value", "Add value");
-            put("attribute.operations.add_multiplied_base", "Add base multiplied");
-            put("attribute.operations.add_multiplied_total", "Add total multiplied");
 
             put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
         }

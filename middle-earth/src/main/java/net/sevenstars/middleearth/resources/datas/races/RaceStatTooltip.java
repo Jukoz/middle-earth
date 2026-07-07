@@ -4,6 +4,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -12,6 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributeModifierElement;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
@@ -27,6 +29,7 @@ public class RaceStatTooltip {
     private static final String additionSign = "+";
     private static final String continuationSign = "▶";
     private static final String listStart = "●";
+    private static final String modifierSpacing = "   ";
 
     private static List<Text> tooltipText;
 
@@ -39,7 +42,7 @@ public class RaceStatTooltip {
         var registry = entity.getWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
         List<AttributePoolElement> nextBoundAttributes = race.getBaseAttributePool().getPool();
         for (AttributePoolElement currentEntityAttribute : playerAttributes){
-            hasAttribute = addAttributeSection(entity, registry, currentEntityAttribute, nextBoundAttributes, detailed) || hasAttribute;
+            hasAttribute = addAttributeLine(entity, registry, currentEntityAttribute, nextBoundAttributes, detailed) || hasAttribute;
         }
         if(!hasAttribute){
             addNoAttributeChanges();
@@ -60,96 +63,129 @@ public class RaceStatTooltip {
         tooltipText.add(Text.translatable(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip")).formatted(Formatting.DARK_GRAY));
     }
 
-    private static boolean addAttributeSection(LivingEntity entity, Registry<EntityAttribute> registry, AttributePoolElement currentEntityAttribute, List<AttributePoolElement> nextBoundAttributes, boolean detailed) {
+    private static boolean addAttributeLine(LivingEntity entity, Registry<EntityAttribute> registry, AttributePoolElement currentEntityAttribute, List<AttributePoolElement> nextBoundAttributes, boolean detailed) {
         Identifier attributeId = currentEntityAttribute.getIdentifier();
-        double currentValue = round(currentEntityAttribute.getValue());
-        double attributeDefaultValue = round(AttributePool.getDefaultAttributeValue(attributeId, entity));
-        double nextValue = attributeDefaultValue;
-
-        AttributePoolElement linkedAttribute = nextBoundAttributes.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier()))
-                .findFirst().orElse(null);
-
-        Formatting signFormatting = Formatting.GRAY;
-        Formatting textFormatting = Formatting.GRAY;
-        String sign = equalSign;
-
         boolean buffIsReversed = registry.getEntry(attributeId).get().isIn(TagKey.of(RegistryKeys.ATTRIBUTE, MiddleEarth.of("is_buff_reversed")));
+
+        AttributePoolElement nextAttribute = nextBoundAttributes.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier())).findFirst().orElse(null);
+
+        double currentValue = round(currentEntityAttribute.getValue());
+        double defaultValue = round(AttributePool.getDefaultAttributeValue(attributeId, entity));
+
+        double expectedNextValue = nextAttribute == null ? defaultValue : nextAttribute.getValue();
 
         // Compare modifiers
         List<Text> modifierTexts = new ArrayList<>();
 
-        boolean hasModifiers = false;
+        List<AttributeModifierElement> currentModifiers = filterAttributeModifiers(currentEntityAttribute);
+        List<AttributeModifierElement> nextBoundModifiers = filterAttributeModifiers(nextAttribute);
 
-        List<AttributeModifierElement> currentModifiers = currentEntityAttribute.getModifiers().stream().filter(modifier -> !modifier.getIdentifier().getPath().contains("creative")).toList();
-        List<AttributeModifierElement> nextModifiers = linkedAttribute != null
-                ? linkedAttribute.getModifiers().stream().filter(modifier -> !modifier.getIdentifier().getPath().contains("creative")).toList()
-                : new ArrayList<>();
-
-        if(!currentModifiers.isEmpty() || !nextModifiers.isEmpty()){
+        if(!currentModifiers.isEmpty() || !nextBoundModifiers.isEmpty()){
             List<AttributeModifierElement> removedModifiersList = new ArrayList<>();
-            List<AttributeModifierElement> nextModifiersList = new ArrayList<>();
+            List<AttributeModifierElement> willFollowInNextModifiersList = new ArrayList<>();
 
-            hasModifiers = true;
 
-            double newCurrentValue = currentValue;
-            for (var currentModifier : currentModifiers) {
-                newCurrentValue += switch (currentModifier.getOperation()){
-                    case ADD_VALUE -> currentModifier.getValue();
-                    case ADD_MULTIPLIED_BASE -> round(currentValue * currentModifier.getValue());
-                    case ADD_MULTIPLIED_TOTAL -> round(newCurrentValue * currentModifier.getValue());
+            List<AttributeModifierElement> unchangedModifierList = new ArrayList<>();
+            List<AttributeModifierElement> modifiedModifierList = new ArrayList<>();
+            List<AttributeModifierElement> addedModifiersList = new ArrayList<>();
+
+            /// Compute the current value following the modifiers
+            double currentTotal = currentValue;
+            for(AttributeModifierElement currentModifier : currentModifiers){
+                boolean willFollow = verifyIfModifierExistInList(currentModifier, nextBoundModifiers);
+                double modifierValue = currentModifier.getValue();
+                currentTotal += switch (currentModifier.getOperation()){
+                    case ADD_VALUE -> modifierValue;
+                    case ADD_MULTIPLIED_BASE -> round(currentValue * modifierValue);
+                    case ADD_MULTIPLIED_TOTAL -> round(currentTotal * modifierValue);
                 };
-                currentValue = newCurrentValue;
-                boolean containModifierInNextList = !nextModifiers.stream().filter(nextModifier -> nextModifier.getIdentifier().toString().equals(currentModifier.getIdentifier().toString())).toList().isEmpty();
-                if(containModifierInNextList){
-                    nextModifiersList.add(currentModifier);
-                } else {
+
+                if(!willFollow){
                     removedModifiersList.add(currentModifier);
+                } else {
+                    willFollowInNextModifiersList.add(currentModifier);
                 }
             }
+            currentValue = currentTotal;
 
-            if(linkedAttribute != null){
-                nextValue = linkedAttribute.getValue();
-
-                for (var nextModifier : nextModifiersList) {
-                    nextValue += switch (nextModifier.getOperation()){
-                        case ADD_VALUE -> nextModifier.getValue();
-                        case ADD_MULTIPLIED_BASE -> round(linkedAttribute.getValue() * nextModifier.getValue());
-                        case ADD_MULTIPLIED_TOTAL -> round(nextValue * nextModifier.getValue());
+            /// Compute the future value based on the bound modifiers
+            if(nextAttribute != null){
+                double nextTotal = nextAttribute.getValue();
+                for(AttributeModifierElement nextModifier : nextBoundModifiers){
+                    AttributeModifierElement linkedCurrentModifier = willFollowInNextModifiersList.stream().filter(x -> x.getIdentifier().equals(nextModifier.getIdentifier())).findAny().orElse(null);
+                    if(linkedCurrentModifier != null){
+                        if(linkedCurrentModifier.getValue() == nextModifier.getValue()){
+                            unchangedModifierList.add(linkedCurrentModifier);
+                        } else if(linkedCurrentModifier.getValue() != nextModifier.getValue()){
+                            modifiedModifierList.add(linkedCurrentModifier);
+                        }
+                    } else {
+                        addedModifiersList.add(nextModifier);
+                    }
+                    double modifierValue = nextModifier.getValue();
+                    nextTotal += switch (nextModifier.getOperation()){
+                        case ADD_VALUE -> modifierValue;
+                        case ADD_MULTIPLIED_BASE -> round( nextAttribute.getValue() * modifierValue);
+                        case ADD_MULTIPLIED_TOTAL -> round(nextTotal * modifierValue);
                     };
                 }
+                expectedNextValue = nextTotal;
             }
 
-            String spacing = "   ";
+            for (var modifiedModifier : modifiedModifierList){
+                String sign = betterSign;
+                Formatting formatting = Formatting.GREEN;
 
-            for (var nextModifier : nextModifiersList){
-                MutableText modifierLine = Text.literal(spacing + listStart).formatted(Formatting.GOLD);
+                AttributeModifierElement nextModifier = nextBoundModifiers.stream().filter(x -> x.getIdentifier().equals(modifiedModifier.getIdentifier())).findAny().orElse(null);
+                if(modifiedModifier.getValue() > nextModifier.getValue()){
+                    sign = worstSign;
+                    formatting = Formatting.RED;
+                }
+
+                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
+                modifierLine.append(Text.literal(" " + sign + " ").formatted(formatting));
+                modifierLine.append(Text.translatable("attribute.modifiers." + modifiedModifier.getIdentifier().getPath()).formatted(Formatting.GRAY));
+                modifierLine.append(Text.literal(" ["+ modifiedModifier.getValue() + " " + continuationSign + " " + nextModifier.getValue() + "] ").formatted(Formatting.WHITE));
+                double difference = nextModifier.getValue() - modifiedModifier.getValue();
+                String differencePrefix = (difference > 0) ? "+" : "";
+                modifierLine.append(Text.literal("(" + differencePrefix + round(difference) + ")").formatted(Formatting.GRAY));
+                modifierTexts.add(modifierLine);
+            }
+
+            for (var addedModifier : addedModifiersList){
+                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
                 modifierLine.append(Text.literal(" " + additionSign + " ").formatted(Formatting.GREEN));
-                modifierLine.append(Text.translatable("attribute.modifiers." + nextModifier.getIdentifier().getPath()).formatted(Formatting.GRAY));
-                modifierLine.append(Text.literal(" ["+ nextModifier.getValue() + " " + continuationSign + " " + nextModifier.getValue() + "] ").formatted(Formatting.WHITE));
-                modifierLine.append(Text.literal(" (").formatted(Formatting.GRAY));
-                modifierLine.append(Text.translatable("attribute.operations." + nextModifier.getOperation().toString().toLowerCase()).formatted(Formatting.GRAY));
-                modifierLine.append(Text.literal(")").formatted(Formatting.GRAY));
+                modifierLine.append(Text.translatable("attribute.modifiers." + addedModifier.getIdentifier().getPath()).formatted(Formatting.GRAY));
+                modifierLine.append(Text.literal(" ["+ addedModifier.getValue() + "] ").formatted(Formatting.WHITE));
+                modifierTexts.add(modifierLine);
+            }
+
+            for (var unchangedModifier : unchangedModifierList){
+                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
+                modifierLine.append(Text.literal(" " + equalSign + " ").formatted(Formatting.GRAY));
+                modifierLine.append(Text.translatable("attribute.modifiers." + unchangedModifier.getIdentifier().getPath()).formatted(Formatting.GRAY));
+                modifierLine.append(Text.literal(" ["+ unchangedModifier.getValue() + " " + continuationSign + " " + unchangedModifier.getValue() + "] ").formatted(Formatting.WHITE));
                 modifierTexts.add(modifierLine);
             }
 
             for (var removedModifier : removedModifiersList){
-                MutableText modifierLine = Text.literal(spacing + listStart).formatted(Formatting.GOLD);
+                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
                 modifierLine.append(Text.literal(" " + removedSign + " ").formatted(Formatting.DARK_GRAY));
                 modifierLine.append(Text.translatable("attribute.modifiers." + removedModifier.getIdentifier().getPath()).formatted(Formatting.DARK_GRAY));
                 modifierLine.append(Text.literal(" ["+ removedModifier.getValue() + "] ").formatted(Formatting.WHITE));
-                modifierLine.append(Text.literal(" (").formatted(Formatting.DARK_GRAY));
-                modifierLine.append(Text.translatable("attribute.operations." + removedModifier.getOperation().toString().toLowerCase()).formatted(Formatting.DARK_GRAY));
-                modifierLine.append(Text.literal(")").formatted(Formatting.DARK_GRAY));
                 modifierTexts.add(modifierLine);
             }
         }
 
         // The new race does not include that attribute
-        if(linkedAttribute == null) {
-            if(attributeDefaultValue == currentValue){
+        Formatting signFormatting = Formatting.GRAY;
+        Formatting textFormatting = Formatting.GRAY;
+        String sign = equalSign;
+        if(nextAttribute == null) {
+            if(defaultValue == currentValue){
                 return false;
             }
-            else if(attributeDefaultValue == 0){
+            else if(defaultValue == 0){
                 if(buffIsReversed){
                     sign = additionSign;
                     signFormatting = Formatting.YELLOW;
@@ -159,7 +195,7 @@ public class RaceStatTooltip {
                     signFormatting = Formatting.DARK_GRAY;
                     textFormatting = Formatting.DARK_GRAY;
                 }
-            } else if(attributeDefaultValue > currentValue){
+            } else if(defaultValue > currentValue){
                 if(buffIsReversed){
                     sign = worstSign;
                     signFormatting = Formatting.RED;
@@ -169,7 +205,7 @@ public class RaceStatTooltip {
                     signFormatting = Formatting.GREEN;
                     textFormatting = Formatting.GREEN;
                 }
-            } else if(attributeDefaultValue < currentValue){
+            } else if(defaultValue < currentValue){
                 if(buffIsReversed){
                     sign = betterSign;
                     signFormatting = Formatting.GREEN;
@@ -181,7 +217,7 @@ public class RaceStatTooltip {
                 }
             }
         } else {
-            if(nextValue < currentValue){
+            if(expectedNextValue < currentValue){
                 if(buffIsReversed){
                     sign = betterSign;
                     signFormatting = Formatting.GREEN;
@@ -191,7 +227,7 @@ public class RaceStatTooltip {
                     signFormatting = Formatting.RED;
                     textFormatting = Formatting.RED;
                 }
-            } else if(nextValue > currentValue){
+            } else if(expectedNextValue > currentValue){
                 if(buffIsReversed){
                     sign = worstSign;
                     signFormatting = Formatting.RED;
@@ -207,22 +243,20 @@ public class RaceStatTooltip {
         MutableText newCustomLine = Text.literal(sign).formatted(signFormatting);
         newCustomLine.append(Text.literal(" "));
         newCustomLine.append(Text.translatable("attribute.name." + attributeId.getPath()).formatted(textFormatting));
-        if(hasModifiers){
+        if(!modifierTexts.isEmpty()){
             newCustomLine.append(Text.literal("*").formatted(Formatting.GOLD));
-
-            newCustomLine.append(Text.literal(" "));
         }
         if(!detailed){
             tooltipText.add(newCustomLine);
         } else {
             double difference;
-            if(linkedAttribute == null){
+            if(nextAttribute == null){
                 newCustomLine.append(Text.literal(" "));
-                newCustomLine.append(Text.literal("["+ currentValue +" " + continuationSign + " "+ attributeDefaultValue +"]").formatted(Formatting.WHITE));
-                difference = attributeDefaultValue - currentValue;
+                newCustomLine.append(Text.literal("["+ currentValue +" " + continuationSign + " "+ defaultValue +"]").formatted(Formatting.WHITE));
+                difference = defaultValue - currentValue;
             } else {
                 newCustomLine.append(Text.literal(" "));
-                double newValue = round(nextValue);
+                double newValue = round(expectedNextValue);
                 newCustomLine.append(Text.literal("[" + currentValue +" " + continuationSign + " "+ newValue +"]").formatted(Formatting.WHITE));
                 difference = newValue - currentValue;
             }
@@ -232,11 +266,22 @@ public class RaceStatTooltip {
             newCustomLine.append(Text.literal("(" + differencePrefix + round(difference) + ")").formatted(Formatting.GRAY));
 
             tooltipText.add(newCustomLine);
-            if(hasModifiers){
-                tooltipText.addAll(modifierTexts);
-            }
+            tooltipText.addAll(modifierTexts);
         }
         return true;
+    }
+
+    private static boolean verifyIfModifierExistInList(AttributeModifierElement currentModifier, List<AttributeModifierElement> nextBoundModifiers) {
+        if(nextBoundModifiers == null || nextBoundModifiers.isEmpty()){
+            return false;
+        }
+        return nextBoundModifiers.stream().anyMatch(x -> x.getIdentifier().equals(currentModifier.getIdentifier()));
+    }
+
+    private static List<AttributeModifierElement> filterAttributeModifiers(AttributePoolElement attributePoolElement) {
+        if(attributePoolElement == null)
+            return new ArrayList<>();
+        return attributePoolElement.getModifiers().stream().filter(modifier -> !modifier.getIdentifier().getPath().contains("creative")).toList();
     }
 
 
