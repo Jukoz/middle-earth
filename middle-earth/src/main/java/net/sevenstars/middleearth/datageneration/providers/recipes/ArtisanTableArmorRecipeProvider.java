@@ -3485,13 +3485,13 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORIA_GOBLIN_CLOTH_COAT.getDefaultStack(), "leggings", DispositionType.EVIL)
-                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.CRUDE_INGOT)
-                        .input(Items.LEATHER)
-                        .input(Items.LEATHER)
-                        .input(Items.LEATHER)
-                        .input(Items.LEATHER)
-                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
                         .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
                                 conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter);
@@ -3503,6 +3503,15 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
+                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
+                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORIA_GOBLIN_CRUDE_BOOTS.getDefaultStack(), "boots", DispositionType.EVIL)
+                        .input(ResourceItemsME.FUR)
+                        .input(ResourceItemsME.FUR)
+                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(ResourceItemsME.CRUDE_INGOT)
                         .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
                                 conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter);
@@ -3635,6 +3644,16 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .input(Items.GOAT_HORN)
                         .criterion(hasItem(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET),
                                 conditionsFromItem(EquipmentItemsME.MORIA_GOBLIN_CAPTAIN_HELMET))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GOBLIN_KING_CROWN.getDefaultStack(), "helmet", DispositionType.EVIL)
+                        .input(ResourceItemsME.DIRTY_BONE)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.DIRTY_BONE)
+                        .input(ResourceItemsME.DIRTY_BONE)
+                        .input(ResourceItemsME.DIRTY_BONE)
+                        .criterion(hasItem(ResourceItemsME.DIRTY_BONE),
+                                conditionsFromItem(ResourceItemsME.DIRTY_BONE))
                         .offerTo(exporter);
                 //endregion
 

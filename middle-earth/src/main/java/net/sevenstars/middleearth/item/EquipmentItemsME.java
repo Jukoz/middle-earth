@@ -1974,7 +1974,7 @@ public class EquipmentItemsME {
     //region GOBLIN TOWN
     public static final Item GOBLIN_KING_CROWN = registerCustomModelArmorPiece("goblin_king_crown",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.BONE_T0, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
 
     public static final Item GOBLIN_TOWN_CAP = registerCustomModelArmorPiece("goblin_town_cap",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings()

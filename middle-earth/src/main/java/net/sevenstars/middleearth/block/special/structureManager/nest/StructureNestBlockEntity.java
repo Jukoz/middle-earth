@@ -47,7 +47,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     protected int spawnRadius;
     protected boolean isEnabled;
 
-    protected int lifetime = 0;
+    protected int fails = 0;
     boolean initialized = false;
 
     public StructureNestBlockEntity(BlockPos pos, BlockState state) {
@@ -138,7 +138,10 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         if(world.isClient)
             return;
 
-        if(!blockState.get(StructureNestBlock.ENABLED)) return;
+        if(!blockState.get(StructureNestBlock.ENABLED)) {
+            fails = 0;
+            return;
+        }
 
         if(managerId == null || nestId == null || world.getTickOrder() % 20 != 0) // every 1 seconds
             return;
@@ -161,7 +164,17 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
                 world.removeBlockEntity(pos);
                 initialized = true;
                 updateListeners();
+            } else {
+                fails++;
             }
+        } else {
+            fails++;
+        }
+
+        if(fails >= 12) {
+            world.breakBlock(pos, false);
+            world.removeBlockEntity(pos);
+            updateListeners();
         }
     }
 }
