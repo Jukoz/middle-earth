@@ -16,6 +16,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
+import org.jetbrains.annotations.Nullable;
 
 public class WebbingBlock extends MultifaceGrowthBlock {
     public static final BooleanProperty PERSISTENT = Properties.PERSISTENT;
@@ -52,6 +54,19 @@ public class WebbingBlock extends MultifaceGrowthBlock {
         }
 
         entity.slowMovement(state, vec3d);
+    }
+
+    @Override
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
+        if (!world.isClient) {
+            for (Direction direction : Direction.values()) {
+                if (world.getFluidState(pos.offset(direction)).isIn(net.minecraft.registry.tag.FluidTags.WATER)) {
+                    world.breakBlock(pos, true);
+                    return;
+                }
+            }
+        }
+        super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
     }
 
     protected boolean hasRandomTicks(BlockState state) {

@@ -862,7 +862,7 @@ public class WeaponItemsME {
     public static final Item GUNDABAD_LONGBOW = registerBigBowItem("gundabad_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
-    public static final Item GUNDABAD_CROSSBOW = registerCrossbowItem("gundabad_crossbow",
+    public static final Item GOBLIN_CROSSBOW = registerCrossbowItem("goblin_crossbow",
             (settings) -> new CustomCrossbowWeaponItem(RangedWeaponTypesME.CROSSBOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
 
@@ -922,41 +922,41 @@ public class WeaponItemsME {
     //region GOBLIN TOWN
     public static final Item GOBLIN_TOWN_FALCHION = registerItemWithModel("goblin_town_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)), true);
     public static final Item GOBLIN_TOWN_SCIMITAR = registerItemWithModel("goblin_town_scimitar",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)), true);
     public static final Item GOBLIN_TOWN_SHANK = registerItemWithModel("goblin_town_shank",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), false);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)), false);
     public static final Item GOBLIN_TOWN_AXE = registerItemWithModel("goblin_town_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)), true);
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)), true);
     public static final Item GOBLIN_TOWN_SPEAR = registerItemWithSpearModel("goblin_town_spear",
             (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
 
     public static final Item GOBLIN_TOWN_BOW = registerBigBowItem("goblin_town_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
 
     public static final Item GOBLIN_TOWN_BONE_SHIELD = registerShield("goblin_town_bone_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
 
     public static final Item GOBLIN_TOWN_WOODEN_SHIELD = registerShield("goblin_town_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
-    public static final Item GOBLIN_BONE_TOWN_WOODEN_SHIELD = registerShield("goblin_town_bone_wooden_shield",
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
+    public static final Item GOBLIN_TOWN_BONE_WOODEN_SHIELD = registerShield("goblin_town_bone_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
-    public static final Item GOBLIN_LEATHER_TOWN_WOODEN_SHIELD = registerShield("goblin_town_leather_wooden_shield",
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
+    public static final Item GOBLIN_TOWN_LEATHER_WOODEN_SHIELD = registerShield("goblin_town_leather_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
 
     public static final Item GOBLIN_TOWN_HEAVY_SHIELD = registerShield("goblin_town_heavy_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
     //endregion
 
     //region TROLL WEAPONS

@@ -105,6 +105,13 @@ public class EnchantmentsME {
                                 AttributeModifierSlot.MAINHAND))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.MINING_EXCLUSIVE_SET)));
 
+        register(registry, TREE_FELLER, Enchantment.builder(
+                        Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.MINING_ENCHANTABLE), 5, 4,
+                                Enchantment.leveledCost(18, 8),
+                                Enchantment.leveledCost(10, 8), 2,
+                                AttributeModifierSlot.MAINHAND))
+                .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.MINING_EXCLUSIVE_SET)));
+
         register(registry, HIGH_STEP, Enchantment.builder(
                 Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.FOOT_ARMOR), 1, 3,
                         Enchantment.leveledCost(30, 30),

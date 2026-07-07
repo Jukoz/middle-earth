@@ -15,6 +15,8 @@ public class ModClientConfigs {
     public static int LOD_NPC_ARMOR_DISTANCE;
     /**Distance of rendering NPCs features (long hair, ears, etc.)**/
     public static int LOD_NPC_FEATURES_DISTANCE;
+    /**Should glint be disabled in Middle-earth**/
+    public static boolean DISABLE_GLINT;
 
     private static ModConfigProvider configs;
 
@@ -42,6 +44,10 @@ public class ModClientConfigs {
         configs.addKeyValuePair(new Pair<>("npcsArmorDistanceLOD", 48), "int");
         configs.addDescription("Distance of rendering NPCs features (long hair, ears, etc.)");
         configs.addKeyValuePair(new Pair<>("npcsFeaturesDistanceLOD", 24), "int");
+        configs.addLineJump();
+        configs.addComment("Glint config");
+        configs.addDescription("Should glint be disabled in middle-earth");
+        configs.addKeyValuePair(new Pair<>("disableGlint", true), "boolean");
     }
 
     private static void assignClientConfigs() {
@@ -49,6 +55,7 @@ public class ModClientConfigs {
         ENABLE_SIMPLIFIED_CHARACTER_RENDERING = CONFIG.getOrDefault("enableSimplifiedCharacterRendering", false);
         LOD_NPC_ARMOR_DISTANCE = CONFIG.getOrDefault("npcsArmorDistanceLOD", 48);
         LOD_NPC_FEATURES_DISTANCE = CONFIG.getOrDefault("npcsArmorDistanceLOD", 24);
+        DISABLE_GLINT = CONFIG.getOrDefault("disableGlint", true);
         MiddleEarth.LOGGER.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }

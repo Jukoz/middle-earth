@@ -51,7 +51,7 @@ public class WildGoblinNpcDataPool {
     }
 
     static {
-        GATHERER = new NpcData(NpcRegistry.WILD_GOBLIN_GATHERER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
+        GATHERER = new NpcData(NpcRegistry.WILD_GOBLIN_GATHERER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
             WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -85,7 +85,7 @@ public class WildGoblinNpcDataPool {
                 )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT);
 
-        SCOUT = new NpcData(NpcRegistry.WILD_GOBLIN_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
+        SCOUT = new NpcData(NpcRegistry.WILD_GOBLIN_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
             WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))

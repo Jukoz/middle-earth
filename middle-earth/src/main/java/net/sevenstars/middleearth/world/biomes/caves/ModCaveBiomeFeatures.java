@@ -47,17 +47,17 @@ public class ModCaveBiomeFeatures {
 
     public static void addGroupWildGoblins(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 3, 5))
-                .spawnCost(EntitiesME.NPC, 0.7, 0.3);
+                .spawnCost(EntitiesME.NPC, 1.7, 0.1);
     }
 
     public static void addSpiders(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 1, 2))
-                .spawnCost(EntitiesME.SHELOBITE_SCUTTLER, 0.7, 0.1);
+                .spawnCost(EntitiesME.SHELOBITE_SCUTTLER, 1.4, 0.1);
     }
 
     public static void addCaveTroll(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.MONSTER, 1, new SpawnSettings.SpawnEntry(EntitiesME.CAVE_TROLL, 1, 1))
-                .spawnCost(EntitiesME.CAVE_TROLL, 0.7, 1);
+                .spawnCost(EntitiesME.CAVE_TROLL, 10, 0.1);
     }
     public static void addSpiderLarvas(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_LARVA, 2, 4))

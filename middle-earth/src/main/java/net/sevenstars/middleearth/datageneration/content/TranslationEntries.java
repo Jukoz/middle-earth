@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.content.races.RacePools;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.ArrayList;
@@ -68,7 +69,11 @@ public class TranslationEntries {
             put("advancements.middle_earth.enter_lonely_mountain.title", "Erebor");
             put("advancements.middle_earth.enter_lonely_mountain.description", "The capital of the dwarves");
             put("advancements.middle_earth.enter_mirkwood.title", "Stay on the path!");
-            put("advancements.middle_earth.enter_mirkwood.description", "Enter the Mirkwood forest");
+            put("advancements.middle_earth.enter_mirkwood.description", "Enter the forest of Mirkwood");
+            put("advancements.middle_earth.enter_dol_guldur.title", "Necromancer's Hill");
+            put("advancements.middle_earth.enter_dol_guldur.description", "Enter Dol Guldur");
+            put("advancements.middle_earth.enter_woodland_realm.title", "Elvenking's Halls");
+            put("advancements.middle_earth.enter_woodland_realm.description", "Enter The Woodland Realm");
             put("advancements.middle_earth.enter_misty_mountains.title", "Far over...");
             put("advancements.middle_earth.enter_misty_mountains.description", "Enter the Misty Mountains");
             put("advancements.middle_earth.enter_mordor.title", "One does not simply...");
@@ -79,6 +84,12 @@ public class TranslationEntries {
             put("advancements.middle_earth.enter_rohan.description", "Enter the Kingdom of the Rohirrim");
             put("advancements.middle_earth.enter_shire.title", "The quiet countryside");
             put("advancements.middle_earth.enter_shire.description", "Enter the Shire");
+            put("advancements.middle_earth.brigand_dungeon.title", "Shirriff, open up!");
+            put("advancements.middle_earth.brigand_dungeon.description", "Raid the thieves in their dungeon!");
+            put("advancements.middle_earth.spider_burrows.title", "Sticky lair");
+            put("advancements.middle_earth.spider_burrows.description", "Climb down to the Spider Burrows");
+            put("advancements.middle_earth.kill_spawn_of_shelob.title", "Attercop?");
+            put("advancements.middle_earth.kill_spawn_of_shelob.description", "Kill a spawn of Shelob!");
             put("advancements.middle_earth.arkenstone.title", "Heart of the Mountain");
             put("advancements.middle_earth.arkenstone.description", "Find the Arkenstone, the jewel of the Lonely Mountain!");
             put("advancements.middle_earth.lembas.title", "Elvish Bread");
@@ -96,6 +107,12 @@ public class TranslationEntries {
             put("advancements.smithing.bellows.description", "Craft bellows to heat up your forge");
             put("advancements.smithing.artisan_table.title", "Artisan Work");
             put("advancements.smithing.artisan_table.description", "Craft the artisan table");
+            put("advancements.smithing.inscription_table.title", "Inspired Smithing");
+            put("advancements.smithing.inscription_table.description", "Improve a piece of equipment like the smiths of yore");
+            put("advancements.smithing.chisel.title", "Chiseled Figure");
+            put("advancements.smithing.chisel.description", "Create an Inscribing Chisel");
+            put("advancements.smithing.smithing_hammer.title", "Hammer Time");
+            put("advancements.smithing.smithing_hammer.description", "Create a Smithing Hammer");
             put("advancements.smithing.bronze_ingot.title", "Bronze Age");
             put("advancements.smithing.bronze_ingot.description", "A bit of tin and some copper");
             put("advancements.smithing.crude_ingot.title", "Orcish Handiwork");
@@ -459,7 +476,8 @@ public class TranslationEntries {
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
 
-            put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
+            put(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip"), "Attributes : ");
+            put(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip"), "Nothing changes!");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");
@@ -521,9 +539,11 @@ public class TranslationEntries {
             put("description."+ MiddleEarth.MOD_ID +".lothlorien.description_0", "Lothlórien, the Golden Wood, is an enchanted Elven realm ruled by Galadriel and Celeborn. Sheltered by powerful enchantments and nestled within the golden mallorn trees, it is one of the last strongholds of the Elves in Middle-earth, renowned for its beauty and serenity.");
             put("description."+ MiddleEarth.MOD_ID +".rohan.description_0", "Rohan, also called the Riddermark, is a kingdom of Men renowned for its skilled horse-lords and cavalry. Located north of Gondor, it is ruled by the line of Eorl. Though once strong allies with Gondor, Rohan now faces growing internal and external threats.");
             put("description."+ MiddleEarth.MOD_ID +".isengard.description_0", "Once a fortress of Númenor, the keys of the black tower of Orthanc passed to the White Wizard Saruman in the Third Age. Tempted by dark power, he weaves deceit and plots war from his seat in Isengard upon the neighbouring free peoples.");
-            put("description."+ MiddleEarth.MOD_ID +".hobgoblins_tribes.gundabad.description_0", "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.");
+            put("description."+ MiddleEarth.MOD_ID +".hobgoblin_tribes.gundabad.description_0", "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.");
+            put("description."+ MiddleEarth.MOD_ID +".goblin_town.description_0", "Goblin-Town was a dwelling of the Northern Orcs in the Misty Mountains.  A network of branching caves and tunnels carved by the goblins with many entrances like the Front Porch. They often left their homes to raid the Anduin and plunder homes.");
             put("description."+ MiddleEarth.MOD_ID +".moria.description_0", "Khazad-Dûm, mansion of the Longbeards, spanning from the east range to the west. However, the dwarves dug too deep. Now in ruin, the ancient halls are home to Goblins, Trolls, and nameless things. With them the city earned a new name, Moria.");
             put("description."+ MiddleEarth.MOD_ID +".shire.description_0", "The Shire is a peaceful land inhabited by Hobbits, located in the northwest of Middle-earth. Known for its pastoral beauty and the simple, unadventurous lives of its people. It remains largely untouched by the turmoil of the outside world.");
+            put("description."+ MiddleEarth.MOD_ID +".woodland_realm.description_0", "Eryn Galen, or Greenwood was once a vibrant forest that housed many creatures, the Sylvan elves of the woodland realm reigning as the greatest among them. Now, through foul sorcery the land has been twisted into Mirkwood, where spiders and orcs lurk beneath its canopy");
 
             put("command."+ MiddleEarth.MOD_ID +".fail", "Command couldn't be sent properly");
 
@@ -709,7 +729,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc", "Bronze and Crude are simple alloys, harder and more durable than stone and copper.\n\n " +
                     "Copper alloy tools will enable you to mine deeper than before, entering the Nurgon layer of the world and exploiting the riches found there.\n" +
                     "Make sure to toggle the forge to alloying mode.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc_right", "Here's their recipes");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.casting", "Casting");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_casting_desc", "All molten metals can be cast into Nuggets, Ingots, Rods, Plates, and Large Rods. " +
                     "Different casted parts will require different amounts of molten metal to create.\n\n " +
@@ -729,21 +749,20 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_quenching_desc_right", "Both the cauldron and bucket can be crafted using Tin, which can be found in caves near the surface.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.artisan_table", "Artisan Table");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc", "The Artisan Table is the workstation of choice for armourers, blacksmiths and craftspeople across many realms, " +
-                    "and will be required to piece together smithing components into a final product.\n " +
-                    "Its recipe is one cobbled stone over one log on either side of a tin ingot, in a helmet shape. ");
+                    "and will be required to piece together smithing components into a final product.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc", "Place your bronze pickaxe head and two sticks in the Artisan Table, " +
                     "and you are now ready to explore even farther underground using your new Bronze Pickaxe.\n\n " +
-                    "Although simple tools and weapons can also be crafted in a normal crafting grid,");
+                    "Although simple tools and weapons can also be crafted in a normal crafting grid.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc_right", "Crafting equipment in the Artisan Table bestows a noticeable bonus in durability.");
 
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc", "The greatest artisans of past ages were known to have honed their craft so wonderfully, " +
                     "resulting in storied blades and armour with extraordinary properties.\n\n" +
-                    "First, craft the inscription table as follow.");
+                    "First, craft the inscription table as follows.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table", "Inscription Table");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc", "To use the inscription table, you will need gems, a chisel and the item that you wish to enchant. " +
-                    "Each gem have unique words associated with it, you can explore each combination of words until you find a valid enchant.");
+                    "Each gem has unique words associated with it, you can explore each combination of words until you find a valid enchant.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc_right", "Here's an example of the Unbreaking enchantment inscription;");
 
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc", "The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +
@@ -773,10 +792,10 @@ public class TranslationEntries {
                     "Before entering, you should prepare yourself for whatever unfriendly creatures you may find inside, for such bounty is not left unguarded. ");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeons_desc_right", "In each dungeon, you shall find trial spawners, that give keys upon defeating the wave of enemies.\n " +
                     "The trial key is used for the treasure vaults that may be found deeper in the dungeon.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Cave Troll");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Brigands");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc", "Brigands' dungeons can be found all around Anduin’s Vale.\n " +
                     "They hold stolen riches from neighboring factions and hide below ruined towers.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc_right", "");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.spider_burrows", "Spider Burrows");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_spider_burrows_desc", "The spiders of Shelob have infested the Mirkwood forest.\n " +
                     "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive.");
@@ -847,11 +866,16 @@ public class TranslationEntries {
             put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
             put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
 
+            put("attribute.name.powdered_snow_immunity", "Powdered Snow Immunity");
+            put("attribute.name.climbing_strength", "Climbing Strength");
+            put("attribute.name.detection_range", "Detection Range");
+            put("attribute.name.width_scale", "Width Scale");
 
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_soldier", "Mordor Soldier");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_snaga", "Mordor Snaga");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_scout", "Mordor Scout");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_militia", "Mordor Militia");
+            put("attribute.modifiers." + RacePools.RaceAttributes.TOTAL_DAMAGE_MODIFIER.getPath(), "Add Total Damage Multiplied");
+            put("attribute.modifiers.creative_mode_block_range", "Creative Mode Block Range");
+            put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
+
+            put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
         }
     };
 }

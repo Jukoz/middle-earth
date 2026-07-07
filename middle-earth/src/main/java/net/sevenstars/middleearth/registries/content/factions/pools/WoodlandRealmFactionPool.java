@@ -46,8 +46,8 @@ public class WoodlandRealmFactionPool {
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
-                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.BROWN),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.GREEN),
+                        new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.GREEN),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT_UP, DyeColor.GRAY),
                         new BannerData.BannerPatternWithColor(BannerPatternsME.ELK, DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
@@ -59,8 +59,11 @@ public class WoodlandRealmFactionPool {
                         new InitialDiplomacy(FactionRegistry.ROHAN, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.LONGBEARDS_EREBOR, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.GOBLIN_TOWN, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.MORIA, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.HOSTILE),

@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.api.utils.IdentifierUtil;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -33,7 +32,7 @@ public class HobgoblinTribesFactionPool {
         GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, DispositionType.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            GundabadNpcDataPool.SNAGA
+                            GundabadNpcDataPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
                             GundabadNpcDataPool.MILITIA
@@ -61,8 +60,7 @@ public class HobgoblinTribesFactionPool {
                 new SpawnDataHandler(List.of(
                         new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "gundabad"), new Vector2d(1595, 640)),
                         new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "grey_mountains"), new Vector2d(1652, 640)),
-                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "goblin_town"), new Vector2d(1581.5, 874.5)),
-                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "moria"), new Vector2d(1521, 1138))
+                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "mount_gram"), new Vector2d(1401, 686))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),
@@ -70,9 +68,12 @@ public class HobgoblinTribesFactionPool {
                         new InitialDiplomacy(FactionRegistry.ROHAN, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.LONGBEARDS_EREBOR, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.WOODLAND_REALM, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.ALLY),
+                        new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, AffinityLevel.ALLY),
+                        new InitialDiplomacy(FactionRegistry.GOBLIN_TOWN, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.MORIA, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.FRIENDLY),

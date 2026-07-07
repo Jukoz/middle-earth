@@ -236,7 +236,7 @@ public class ModCaveBiomes {
 
         addBasicFeatures(generationSettings, true);
 
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, true);
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, true, false);
     }
 
     public static Biome createIzherAbanCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {

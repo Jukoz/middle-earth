@@ -19,9 +19,6 @@ public class TargetNPCDiplomacyGoal extends ActiveTargetGoal<NpcEntity> {
     @Override
     public boolean canStart() {
         if (mob.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-            if(mob.getTarget() instanceof NpcEntity) {
-                mob.setTarget(null);
-            }
             return false;
         } else {
             if(mob.getTarget() instanceof NpcEntity npcEntity) {

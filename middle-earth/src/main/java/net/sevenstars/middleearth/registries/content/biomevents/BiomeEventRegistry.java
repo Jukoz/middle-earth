@@ -86,7 +86,10 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> MOUNT_GUNDABAD      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MOUNT_GUNDABAD.getValue());
     public final static RegistryKey<BiomeEventData> MISTY_MOUNTAINS     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MISTY_MOUNTAINS.getValue());
     // endregion
-    public final static RegistryKey<BiomeEventData> CELEBDIL_BASE     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.CELEBDIL_BASE.getValue());
+
+    // MORIA
+    public final static RegistryKey<BiomeEventData> CELEBDIL_BASE       = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.CELEBDIL_BASE.getValue());
+    public final static RegistryKey<BiomeEventData> EREGION             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.EREGION.getValue());
 
     // region GONDOR
     public final static RegistryKey<BiomeEventData> GONDOR              = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GONDOR.getValue());
@@ -208,6 +211,7 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, MISTY_MOUNTAINS      , GundabadBiomeEventPool.SCOUTS);
 
         register(context, registryEntryLookup, CELEBDIL_BASE        , MoriaBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, EREGION              , MoriaBiomeEventPool.EREGION);
 
         register(context, registryEntryLookup, GONDOR               , GondorBiomeEventPool.PEASANT_FIEF);
         register(context, registryEntryLookup, OSGILIATH            , GondorBiomeEventPool.OSGILIATH);

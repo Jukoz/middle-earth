@@ -8,7 +8,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_tunnel",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -17,7 +18,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_t_junction",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -26,7 +28,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_cross_junction",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -35,7 +38,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_nest_room",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -44,7 +48,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_descent",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -53,7 +58,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:mirkwood/spider/burrow_descent_1",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     }
   ]

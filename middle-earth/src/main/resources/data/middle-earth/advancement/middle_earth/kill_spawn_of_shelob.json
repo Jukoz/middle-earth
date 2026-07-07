@@ -1,0 +1,40 @@
+{
+  "parent": "middle-earth:middle_earth/walk_mirkwood",
+  "criteria": {
+    "kill_spawn_of_shelob": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "middle-earth:spawn_of_shelob"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.kill_spawn_of_shelob.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:spawn_of_shelob_spawn_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.kill_spawn_of_shelob.title"
+    }
+  },
+  "requirements": [
+    [
+      "kill_spawn_of_shelob"
+    ]
+  ]
+}

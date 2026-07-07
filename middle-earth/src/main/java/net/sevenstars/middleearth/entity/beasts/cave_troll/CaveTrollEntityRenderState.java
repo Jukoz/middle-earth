@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.entity.beasts.BeastEntityRenderState;
 public class CaveTrollEntityRenderState extends BeastEntityRenderState {
     public final ItemRenderState handItemState = new ItemRenderState();
 
+    public CaveTrollVariant variant = CaveTrollVariant.GREEN;
     public boolean isEnraged = false;
     public AnimationState chaseAnimationState = new AnimationState();
     public AnimationState scavengingAnimationState = new AnimationState();

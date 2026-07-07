@@ -8,22 +8,25 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.compat.REICommonPluginME;
 import net.sevenstars.middleearth.gui.artisantable.InputType;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay> {
     public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "artisan_table_rei.png");
-    public static final CategoryIdentifier<ArtisanTableDisplay> ARTISAN_TABLE = CategoryIdentifier.of(MiddleEarth.MOD_ID, "artisan_table");
 
     @Override
     public CategoryIdentifier<? extends ArtisanTableDisplay> getCategoryIdentifier() {
-        return ARTISAN_TABLE;
+        return REICommonPluginME.ARTISAN_TABLE_CATEGORY;
     }
 
     @Override

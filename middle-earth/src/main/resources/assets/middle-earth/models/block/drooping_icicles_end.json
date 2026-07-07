@@ -1,6 +1,7 @@
 {
 	"parent": "middle-earth:block/drooping_icicles",
 	"textures": {
-		"crop": "middle-earth:block/drooping_icicles_end"
+		"crop": "middle-earth:block/drooping_icicles_end",
+		"particle": "middle-earth:block/drooping_icicles_end"
 	}
 }

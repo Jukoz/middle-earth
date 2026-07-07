@@ -9,7 +9,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "middle-earth:textures/block/white_daub.png",
+    "background": "middle-earth:gui/advancements/backgrounds/white_daub",
     "description": {
       "translate": "advancements.middle_earth.root.description"
     },

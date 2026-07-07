@@ -1,0 +1,42 @@
+{
+  "parent": "middle-earth:middle_earth/walk_mirkwood",
+  "criteria": {
+    "brigand_dungeon": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "middle-earth:brigand_dungeon"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.brigand_dungeon.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:brigand_trial_spawner"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.brigand_dungeon.title"
+    }
+  },
+  "requirements": [
+    [
+      "brigand_dungeon"
+    ]
+  ]
+}

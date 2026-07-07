@@ -166,7 +166,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
         SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
         this.structureNestList.addNest(manager);
-        MiddleEarth.LOGGER.logDebugMsg("Subscribed new nest to [%s] with a nest at [%s] which is <%s>".formatted(this.pos, nestPos, nestId));
         return true;
     }
 
@@ -223,7 +222,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureNestList == null)
             this.structureNestList = new StructureNestList();
         if(managerData == null) {
-            this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
             return;
         };
 

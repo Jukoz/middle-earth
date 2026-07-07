@@ -16,6 +16,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.compat.REICommonPluginME;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableInputsShape;
 import net.sevenstars.middleearth.mixin.ComponentsIngredientMixin;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
@@ -99,7 +100,7 @@ public class ArtisanTableDisplay extends BasicDisplay {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return ArtisanTableCategory.ARTISAN_TABLE;
+        return REICommonPluginME.ARTISAN_TABLE_CATEGORY;
     }
 
     @Override

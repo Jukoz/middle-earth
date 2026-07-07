@@ -8,7 +8,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:longbeards/hall_well",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     }
   ]
