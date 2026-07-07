@@ -16,7 +16,7 @@ public class AttributeModifierElement {
         );
     }
 
-    public AttributeModifierElement(Identifier identifier, double value, EntityAttributeModifier.Operation operation, boolean isReversed) {
+    public AttributeModifierElement(Identifier identifier, double value, EntityAttributeModifier.Operation operation) {
         this.modifier = new EntityAttributeModifier(identifier, value, operation);
     }
 
@@ -38,5 +38,9 @@ public class AttributeModifierElement {
 
     public EntityAttributeModifier.Operation getOperation() {
         return modifier.operation();
+    }
+
+    public EntityAttributeModifier getEntityAttributeModifier() {
+        return modifier;
     }
 }

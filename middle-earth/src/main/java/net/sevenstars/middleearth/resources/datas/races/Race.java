@@ -5,8 +5,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
@@ -17,13 +19,15 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributeModifierElement;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
+import org.jetbrains.annotations.UnknownNullability;
 
-import javax.swing.text.html.Option;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Race {
     private static final String ID_FIELD = "id";
@@ -145,47 +149,140 @@ public class Race {
         return raceType;
     }
 
-    public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y, boolean detailed){
+    public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y, List<AttributePoolElement> playerAttributes, boolean detailed){
         List<Text> textLines = new ArrayList<>();
         /// Race name
         textLines.add(getFullName().formatted(Formatting.BOLD).formatted(Formatting.WHITE));
         /// Attribute List Header
         textLines.add(Text.translatable(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip")).formatted(Formatting.GRAY));
 
-        Set<EntityAttributeInstance> allEntityAttributes = entity.getAttributes().getTracked();
-        List<AttributePoolElement> attributesToCompare = baseAttributePool.getPool();
+        List<AttributePoolElement> racialAttributes = baseAttributePool.getPool();
 
         String betterSign = "▲";
         String equalSign = "=";
         String worstSign = "▼";
-        String removedSign = "Х"; //- ◀ ×❌ Х
+        String removedSign = "Х";
         String additionSign = "+";
-        String continuationSign = "▶"; //▶
-        String listStart = "✦"; //•, ●, 〢, |၊
+        String continuationSign = "▶";
+        String listStart = "●";
 
         boolean hasAttribute = false;
-
-        for(EntityAttributeInstance attributeInstance : allEntityAttributes){
-            Identifier attributeId = MiddleEarth.fetchId(attributeInstance.getAttribute().getIdAsString());
-
-            double currentBaseValue = round(attributeInstance.getBaseValue());
-            double currentValue = round(attributeInstance.getValue());
+        var registry = entity.getWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
+        for(AttributePoolElement currentEntityAttribute : playerAttributes){
+            Identifier attributeId = currentEntityAttribute.getIdentifier();
+            double currentValue = round(currentEntityAttribute.getValue());
 
             double attributeDefaultValue = round(AttributePool.getDefaultAttributeValue(attributeId ,entity));
 
-            AttributePoolElement linkedAttribute = attributesToCompare.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier()))
+            AttributePoolElement linkedAttribute = racialAttributes.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier()))
                                                                                .findFirst().orElse(null);
-
 
             Formatting signFormatting = Formatting.GRAY;
             Formatting textFormatting = Formatting.GRAY;
             String sign = equalSign;
 
-            boolean buffIsReversed = attributeInstance.getAttribute().isIn(TagKey.of(RegistryKeys.ATTRIBUTE, MiddleEarth.of("is_buff_reversed")));
+            boolean buffIsReversed = registry.getEntry(attributeId).get().isIn(TagKey.of(RegistryKeys.ATTRIBUTE, MiddleEarth.of("is_buff_reversed")));
+
+            // Compare modifiers
+            List<Text> modifierTexts = new ArrayList<>();
+
+            boolean hasModifiers = false;
+
+            List<AttributeModifierElement> currentModifiers = currentEntityAttribute.getModifiers().stream().filter(modifier -> !modifier.getIdentifier().toString().contains("creative")).toList();
+            List<AttributeModifierElement> nextModifiers = linkedAttribute != null
+                    ? linkedAttribute.getModifiers().stream().filter(modifier -> !modifier.getIdentifier().toString().contains("creative")).toList()
+                    : new ArrayList<>();
+
+            if(!currentModifiers.isEmpty() || !nextModifiers.isEmpty()){
+                List<EntityAttributeModifier> nextModifiersList = new ArrayList<>();
+                List<EntityAttributeModifier> removedModifiersList = new ArrayList<>();
+
+                hasModifiers = true;
+
+                double newCurrentValue = currentValue;
+                for (var currentModifier : currentModifiers) {
+                    newCurrentValue += switch (currentModifier.getOperation()){
+                        case ADD_VALUE -> currentModifier.getValue();
+                        case ADD_MULTIPLIED_BASE -> round(currentValue * currentModifier.getValue());
+                        case ADD_MULTIPLIED_TOTAL -> round(newCurrentValue * currentModifier.getValue());
+                    };
+                    currentValue = newCurrentValue;
+                    boolean containModifierInNextList = !nextModifiers.stream().filter(nextModifier -> nextModifier.getIdentifier().toString().equals(currentModifier.getIdentifier().toString())).toList().isEmpty();
+                    if(containModifierInNextList){
+                        nextModifiersList.add(currentModifier.getEntityAttributeModifier());
+                    } else {
+                        removedModifiersList.add(currentModifier.getEntityAttributeModifier());
+                    }
+                }
+
+                for (var nextModifier : nextModifiers) {
+                    nextModifiersList.add(nextModifier.getEntityAttributeModifier());
+                }
+
+                String spacing = "   ";
+                for (var nextModifier : nextModifiersList){
+                    MutableText modifierLine = Text.literal(spacing + listStart).formatted(Formatting.GOLD);
+                    modifierLine.append(Text.literal(" ").formatted(Formatting.WHITE));
+                    modifierLine.append(Text.translatable("attribute.modifiers." + nextModifier.id().getPath()).formatted(Formatting.GRAY));
+                    modifierLine.append(Text.literal("("+ nextModifier.operation() + " " + nextModifier.value()  + ")").formatted(Formatting.WHITE));
+
+                    modifierTexts.add(modifierLine);
+                }
+
+                for (var removedModifier : removedModifiersList){
+                    MutableText modifierLine = Text.literal(spacing + listStart).formatted(Formatting.GOLD);
+                    modifierLine.append(Text.literal(" ").formatted(Formatting.WHITE));
+                    modifierLine.append(Text.translatable("attribute.modifiers." + removedModifier.id().getPath()).formatted(Formatting.DARK_GRAY));
+                    modifierLine.append(Text.literal("("+ removedModifier.operation() + " " + removedModifier.value()  + ")").formatted(Formatting.WHITE));
+
+                    modifierTexts.add(modifierLine);
+                }
+            }
+
+            /*
+
+            if(currentValue != currentValue){
+                currentValue = currentValue;
+                hasModifiers = true;
+                Set<EntityAttributeModifier> modifiers = attributeInstance.getModifiers();
+
+                if(linkedAttribute != null && linkedAttribute.hasModifiers()){
+                    double baseLinkedValue = linkedAttribute.getValue();
+                    double newModifiedValue = linkedAttribute.getValue();
+                    for(var linkedModifier : linkedAttribute.getModifiers()){
+                        newModifiedValue += switch (linkedModifier.getOperation()){
+                            case ADD_VALUE -> linkedModifier.getValue();
+                            case ADD_MULTIPLIED_BASE -> baseLinkedValue * linkedModifier.getValue();
+                            case ADD_MULTIPLIED_TOTAL -> newModifiedValue * linkedModifier.getValue();
+                        };
+                    }
+                    MutableText modifierLine = Text.literal(listStart).formatted(Formatting.GOLD);
+                    modifierLine.append(Text.translatable("attribute.modifiers." + "add_value"));
+                    "new : " + linkedAttribute.getIdentifier().toString());
+                    modifierLine.append(Text.literal(" "));
+                    modifierLine.append(Text.literal("(" + newModifiedValue + ")"));
+                    modifierTexts.add(modifierLine);
+                }
+
+                double baseLinkedValue = linkedAttribute.getValue();
+                double newModifiedValue = linkedAttribute.getValue();
+                for(var modifier : modifiers){
+
+                    newModifiedValue += switch (modifier.operation()){
+                        case ADD_VALUE -> modifier.value();
+                        case ADD_MULTIPLIED_BASE -> baseLinkedValue * modifier.value();
+                        case ADD_MULTIPLIED_TOTAL -> newModifiedValue * modifier.value();
+                    };
+                }
+                MutableText modifierLine = Text.literal("current : " + linkedAttribute.getIdentifier().toString());
+                modifierLine.append(Text.literal(" "));
+                modifierLine.append(Text.literal("(" + newModifiedValue + ")"));
+                modifierTexts.add(modifierLine);
+             */
 
             // The new race does not include that attribute
             if(linkedAttribute == null) {
-                if(attributeDefaultValue == currentBaseValue){
+                if(attributeDefaultValue == currentValue){
                     continue;
                 }
                 else if(attributeDefaultValue == 0){
@@ -198,7 +295,7 @@ public class Race {
                         signFormatting = Formatting.DARK_GRAY;
                         textFormatting = Formatting.DARK_GRAY;
                     }
-                } else if(attributeDefaultValue > currentBaseValue){
+                } else if(attributeDefaultValue > currentValue){
                     if(buffIsReversed){
                         sign = worstSign;
                         signFormatting = Formatting.RED;
@@ -208,7 +305,7 @@ public class Race {
                         signFormatting = Formatting.GREEN;
                         textFormatting = Formatting.GREEN;
                     }
-                } else if(attributeDefaultValue < currentBaseValue){
+                } else if(attributeDefaultValue < currentValue){
                     if(buffIsReversed){
                         sign = betterSign;
                         signFormatting = Formatting.GREEN;
@@ -221,7 +318,7 @@ public class Race {
                 }
             } else {
                 double linkedAttributeValue = linkedAttribute.getValue();
-                if(linkedAttributeValue < currentBaseValue){
+                if(linkedAttributeValue < currentValue){
                     if(buffIsReversed){
                         sign = betterSign;
                         signFormatting = Formatting.GREEN;
@@ -231,7 +328,7 @@ public class Race {
                         signFormatting = Formatting.RED;
                         textFormatting = Formatting.RED;
                     }
-                } else if(linkedAttributeValue > currentBaseValue){
+                } else if(linkedAttributeValue > currentValue){
                     if(buffIsReversed){
                         sign = worstSign;
                         signFormatting = Formatting.RED;
@@ -247,11 +344,14 @@ public class Race {
             MutableText newCustomLine = Text.literal(sign).formatted(signFormatting);
             newCustomLine.append(Text.literal(" "));
             newCustomLine.append(Text.translatable("attribute.name." + attributeId.getPath()).formatted(textFormatting));
+            if(hasModifiers){
+                newCustomLine.append(Text.literal("*").formatted(Formatting.GOLD));
 
+                newCustomLine.append(Text.literal(" "));
+            }
             hasAttribute = true;
 
             if(!detailed){
-
                 textLines.add(newCustomLine);
                 continue;
             }
@@ -259,13 +359,13 @@ public class Race {
             double difference;
             if(linkedAttribute == null){
                 newCustomLine.append(Text.literal(" "));
-                newCustomLine.append(Text.literal("["+ currentBaseValue +" " + continuationSign + " "+ attributeDefaultValue +"]").formatted(Formatting.WHITE));
-                difference = attributeDefaultValue - currentBaseValue;
+                newCustomLine.append(Text.literal("["+ currentValue +" " + continuationSign + " "+ attributeDefaultValue +"]").formatted(Formatting.WHITE));
+                difference = attributeDefaultValue - currentValue;
             } else {
                 newCustomLine.append(Text.literal(" "));
                 double newValue = round(linkedAttribute.getValue());
-                newCustomLine.append(Text.literal("[" + currentBaseValue +" " + continuationSign + " "+ newValue +"]").formatted(Formatting.WHITE));
-                difference = newValue - currentBaseValue;
+                newCustomLine.append(Text.literal("[" + currentValue +" " + continuationSign + " "+ newValue +"]").formatted(Formatting.WHITE));
+                difference = newValue - currentValue;
             }
             newCustomLine.append(Text.literal(" "));
             String differencePrefix = (difference > 0) ? "+" : "";
@@ -273,6 +373,9 @@ public class Race {
             newCustomLine.append(Text.literal("(" + differencePrefix + round(difference) + ")").formatted(Formatting.GRAY));
 
             textLines.add(newCustomLine);
+            if(hasModifiers){
+                textLines.addAll(modifierTexts);
+            }
         }
 
         if(!hasAttribute){

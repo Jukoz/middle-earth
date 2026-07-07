@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -23,6 +24,8 @@ import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
 import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -56,13 +59,15 @@ public class OnboardingFactionScreenController {
     private Race selectedRace;
     private NpcEntity currentNpcEntity;
     private List<SearchBarResult> searchBarResults;
+    private List<AttributePoolElement> playerAttributes;
 
-    public OnboardingFactionScreenController(World world, float delay) {
+    public OnboardingFactionScreenController(World world, float delay, List<AttributePoolElement> playerAttributes) {
         screen = new OnboardingFactionScreen(this);
         this.world = world;
         this.currentDelay = delay;
         this.service = new OnboardingFactionScreenService(world);
         INSTANCE = this;
+        this.playerAttributes = playerAttributes;
         setupInitialDatas();
     }
     public static OnboardingFactionScreenController getInstance(){
@@ -595,7 +600,7 @@ public class OnboardingFactionScreenController {
     public void drawRaceTooltip(AbstractClientPlayerEntity player, DrawContext context, TextRenderer textRenderer, int x, int y) {
         if(selectedRace == null)
             return;
-        selectedRace.drawTooltip(player, context, textRenderer, x, y, shouldBeDetailed);
+        selectedRace.drawTooltip(player, context, textRenderer, x, y, playerAttributes, shouldBeDetailed);
     }
 
     public void modifyStateDetailed(boolean b) {

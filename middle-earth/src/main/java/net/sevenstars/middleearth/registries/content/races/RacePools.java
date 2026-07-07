@@ -53,7 +53,7 @@ public class RacePools {
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.06))
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 20.0))
-                .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0))
+                .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.1))
                 .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 3.25))
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.1))
                 .addElement(AttributePoolElement.create(EntityAttributesME.POWDERED_SNOW_IMMUNITY, 1.0f))
@@ -77,7 +77,7 @@ public class RacePools {
         HOBBIT = new Race(MiddleEarth.of("hobbit"), RaceType.HOBBIT,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
-                    .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.2))
+                .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.2))
                 .addElement(AttributePoolElement.create(EntityAttributes.ENTITY_INTERACTION_RANGE, 2.5))
                 .addElement(AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.1))
                 .addElement(AttributePoolElement.create(EntityAttributes.SNEAKING_SPEED, 0.435))

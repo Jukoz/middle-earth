@@ -51,7 +51,7 @@ public class CommandOnboarding {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                ServerPlayNetworking.send(source, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
+                ServerPlayNetworking.send(source, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION, source));
             }
         }
         return 0;
@@ -60,7 +60,7 @@ public class CommandOnboarding {
     private static int openForTarget(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity targetPlayer = EntityArgumentType.getPlayer(context, PLAYER);
         if(targetPlayer != null){
-            ServerPlayNetworking.send(targetPlayer, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
+            ServerPlayNetworking.send(targetPlayer, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION, targetPlayer));
         }
 
         return 0;
@@ -72,7 +72,7 @@ public class CommandOnboarding {
             if(playerSource != null){
                 boolean playerPassedOnboarding = PlayerDataService.playerPassedOnboarding(playerSource);
                 if(playerPassedOnboarding){
-                    ServerPlayNetworking.send(playerSource, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
+                    ServerPlayNetworking.send(playerSource, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION, playerSource));
                 } else {
                     MutableText sourceText = Text.translatable("command.%s.open.onboarding.error".formatted(MiddleEarth.MOD_ID));
                     playerSource.sendMessage(sourceText.withColor(ModColors.WARNING.color));
@@ -87,7 +87,7 @@ public class CommandOnboarding {
         if(playerTarget != null){
             boolean playerPassedOnboarding = PlayerDataService.playerPassedOnboarding(playerTarget);
             if(playerPassedOnboarding){
-                ServerPlayNetworking.send(playerTarget, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION));
+                ServerPlayNetworking.send(playerTarget, new PacketForceOnboardingScreen(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION, playerTarget));
                 MutableText sourceText = Text.translatable("command.%s.open_target.onboarding.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             } else {

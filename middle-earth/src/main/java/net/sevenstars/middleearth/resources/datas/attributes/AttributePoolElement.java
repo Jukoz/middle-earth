@@ -1,15 +1,17 @@
 package net.sevenstars.middleearth.resources.datas.attributes;
 
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class AttributePoolElement {
     private Identifier identifier;
@@ -89,15 +91,15 @@ public class AttributePoolElement {
     }
 
     public AttributePoolElement withModifier(Identifier identifier, double value) {
-        withModifier(identifier, value, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL, false);
+        withModifier(identifier, value, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         return this;
     }
 
-    public AttributePoolElement withModifier(Identifier identifier, double value, EntityAttributeModifier.Operation operation, boolean isReversed) {
+    public AttributePoolElement withModifier(Identifier identifier, double value, EntityAttributeModifier.Operation operation) {
         if(modifiers == null)
             modifiers = new ArrayList<>();
 
-        modifiers.add(new AttributeModifierElement(identifier, value, operation, isReversed));
+        modifiers.add(new AttributeModifierElement(identifier, value, operation));
         return this;
     }
 
@@ -118,6 +120,38 @@ public class AttributePoolElement {
     }
 
     public List<AttributeModifierElement> getModifiers() {
+        if(modifiers == null)
+            return new ArrayList<>();
         return modifiers;
+    }
+
+    public static NbtCompound createAttributeNbtListFromPlayer(PlayerEntity player) {
+        NbtList attributeList = new NbtList();
+        var playerAttributes = player.getAttributes();
+        Collection<EntityAttributeInstance> attributes = playerAttributes.getTracked();
+        attributes.add(player.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE));
+
+        attributes.forEach(attribute -> {
+            AttributePoolElement attributePoolElement = new AttributePoolElement();
+            attributePoolElement.withIdentifier(MiddleEarth.fetchId(attribute.getAttribute().getIdAsString()));
+            attributePoolElement.withDefineValue(attribute.getBaseValue());
+            for(var modifier : attribute.getModifiers())
+                attributePoolElement.withModifier(modifier.id(), modifier.value(), modifier.operation());
+            attributeList.add(attributePoolElement.createNbt());
+        });
+        NbtCompound compound = new NbtCompound();
+        compound.put("attributes", attributeList);
+        return compound;
+    }
+
+    public static List<AttributePoolElement> obtainAttributeList(NbtCompound nbtCompound) {
+        List<AttributePoolElement> attributePoolElementList = new ArrayList<>();
+
+        NbtList nbtList = nbtCompound.getListOrEmpty("attributes");
+
+        nbtList.forEach(attribute -> {
+            attributePoolElementList.add(AttributePoolElement.createFromNbt(attribute.asCompound().get()));
+        });
+        return attributePoolElementList;
     }
 }
