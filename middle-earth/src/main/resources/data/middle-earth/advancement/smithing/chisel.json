@@ -1,0 +1,64 @@
+{
+  "parent": "middle-earth:smithing/artisan_table",
+  "criteria": {
+    "iron_chisel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:iron_chisel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "steel_chisel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:steel_chisel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "mithril_chisel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:mithril_chisel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.chisel.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:steel_chisel"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.chisel.title"
+    }
+  },
+  "requirements": [
+    [
+      "iron_chisel",
+      "steel_chisel",
+      "mithril_chisel"
+    ]
+  ]
+}

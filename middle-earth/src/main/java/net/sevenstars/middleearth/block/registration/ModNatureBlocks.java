@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.minecraft.block.piston.PistonBehavior;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.crop.*;
@@ -482,29 +483,37 @@ public class ModNatureBlocks {
             (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block DRY_LARCH_LEAVES = registerBlock("dry_larch_leaves",
-            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                    .strength(LEAVES_STRENGTH).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block FLOWERING_MALLORN_LEAVES = registerBlock("flowering_mallorn_leaves",
-            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                    .strength(LEAVES_STRENGTH).mapColor(MapColor.PALE_YELLOW).sounds(BlockSoundGroup.GRASS), true);
 
     public static final Block ORANGE_MAPLE_LEAVES = registerBlock("orange_maple_leaves",
-            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                    .strength(LEAVES_STRENGTH).mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.GRASS).burnable(), true);
     public static final Block RED_MAPLE_LEAVES = registerBlock("red_maple_leaves",
-            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                    .strength(LEAVES_STRENGTH).mapColor(MapColor.RED).sounds(BlockSoundGroup.GRASS).burnable(), true);
     public static final Block YELLOW_MAPLE_LEAVES = registerBlock("yellow_maple_leaves",
-            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                    .strength(LEAVES_STRENGTH).mapColor(MapColor.YELLOW).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block DRY_PINE_LEAVES = registerBlock("dry_pine_leaves",
-            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
+            (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                    .strength(LEAVES_STRENGTH).mapColor(MapColor.PALE_GREEN).sounds(BlockSoundGroup.GRASS).burnable(), true);
     public static final Block PINE_BRANCHES = registerBlock("pine_branches",
             Block::new, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).sounds(BlockSoundGroup.GRASS).burnable(), true);
 
     public static final Block FALLEN_LEAVES = registerBlock("fallen_leaves",
             FallenLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision(), true);
     public static final Block FALLEN_MALLORN_LEAVES = registerBlock("fallen_mallorn_leaves",
-            FallenLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision(), true);
+            FallenLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f)
+                    .sounds(BlockSoundGroup.MOSS_CARPET).mapColor(MapColor.YELLOW).nonOpaque().replaceable().noCollision(), true);
     public static final Block FALLEN_MIRKWOOD_LEAVES = registerBlock("fallen_mirkwood_leaves",
-            FallenLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.1f).sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision(), true);
+            FallenLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).strength(0.1f)
+                    .sounds(BlockSoundGroup.MOSS_CARPET).nonOpaque().replaceable().noCollision(), true);
 
     public static final Block WILLOW_VINES = registerBlock("willow_vines",
             CustomHangingBlock::new, AbstractBlock.Settings.copy(Blocks.PALE_HANGING_MOSS), true);
@@ -575,10 +584,11 @@ public class ModNatureBlocks {
             HangingCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB), true);
 
     public static final Block CORNER_COBWEB = registerBlock("corner_cobweb",
-            CornerCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB), true);
+            CornerCobwebBlock::new, AbstractBlock.Settings.copy(Blocks.COBWEB).noCollision().pistonBehavior(PistonBehavior.DESTROY), true);
 
     public static final Block WEBBING = registerBlock("webbing",
-            WebbingBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.COBWEB).burnable().ticksRandomly(), true);
+            WebbingBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).replaceable().noCollision().strength(0.2f)
+                    .pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.COBWEB).burnable().ticksRandomly(), true);
 
     public static final Block SHELOBITE_LARVA_EGG = registerBlock("shelobite_larva_egg",
             ShelobiteLarvaEggBlock::new, AbstractBlock.Settings.copy(Blocks.TURTLE_EGG), true);

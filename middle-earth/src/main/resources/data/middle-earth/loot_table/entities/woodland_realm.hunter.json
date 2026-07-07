@@ -1,0 +1,72 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "middle-earth:entities/woodland_realm.artisan",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
+            }
+          ],
+          "name": "minecraft:leather"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:feather",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:tin_nugget"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fabric"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

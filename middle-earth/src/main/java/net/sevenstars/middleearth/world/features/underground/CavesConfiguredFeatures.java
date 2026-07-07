@@ -483,18 +483,18 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_COAL, Feature.ORE, new OreFeatureConfig(coalList, 17, 0.25f));
         ConfiguredFeatures.register(featureRegisterable, ORE_COPPER, Feature.ORE, new OreFeatureConfig(copperList, 15, 0.25f));
         ConfiguredFeatures.register(featureRegisterable, ORE_TIN, Feature.ORE, new OreFeatureConfig(tinList, 12, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, Feature.ORE, new OreFeatureConfig(lapisList, 5, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, Feature.ORE, new OreFeatureConfig(lapisList, 6, 0.3f));
         ConfiguredFeatures.register(featureRegisterable, ORE_LEAD, Feature.ORE, new OreFeatureConfig(leadList, 12, 0.3f));
         ConfiguredFeatures.register(featureRegisterable, ORE_QUARTZITE, Feature.ORE, new OreFeatureConfig(quartziteList, 21, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ORE_IRON, Feature.ORE, new OreFeatureConfig(ironList, 10, 0.3f));
         ConfiguredFeatures.register(featureRegisterable, ORE_SILVER, Feature.ORE, new OreFeatureConfig(silverList, 7, 0.5f));
         ConfiguredFeatures.register(featureRegisterable, ORE_JADE, Feature.ORE, new OreFeatureConfig(jadeList, 16, 0.5f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 5, 0.42f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 7, 0.42f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new OreFeatureConfig(emeraldList, 3, 0.7f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new OreFeatureConfig(rubyList, 3, 0.7f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SAPPHIRE, Feature.SCATTERED_ORE, new OreFeatureConfig(sapphireList, 3, 0.7f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ADAMANT, Feature.SCATTERED_ORE, new OreFeatureConfig(adamentList, 2, 0.77f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new OreFeatureConfig(emeraldList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new OreFeatureConfig(rubyList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SAPPHIRE, Feature.SCATTERED_ORE, new OreFeatureConfig(sapphireList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ADAMANT, Feature.SCATTERED_ORE, new OreFeatureConfig(adamentList, 3, 0.72f));
         ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new OreFeatureConfig(mithrilList, 1, 1.0f));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_CAVE_AMANITA, Feature.RANDOM_PATCH,

@@ -48,7 +48,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "middle-earth:cooked_swan",
+          "name": "wild-things:cooked_swan",
           "functions": [
             {
               "function": "minecraft:set_count",

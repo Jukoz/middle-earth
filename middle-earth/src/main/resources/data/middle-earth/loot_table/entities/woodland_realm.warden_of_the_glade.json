@@ -1,0 +1,73 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "middle-earth:entities/woodland_realm.artisan",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
+            }
+          ],
+          "name": "middle-earth:silver_coin"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_ingot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gold_coin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_nugget",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

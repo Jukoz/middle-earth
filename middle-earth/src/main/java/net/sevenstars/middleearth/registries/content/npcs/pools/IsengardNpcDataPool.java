@@ -75,7 +75,7 @@ public class IsengardNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        SNAGA = new NpcData(NpcRegistry.ISENGARD_ORC_SNAGA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
+        SNAGA = new NpcData(NpcRegistry.ISENGARD_ORC_SNAGA.getValue(), RaceRegistry.SNAGA, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(4))

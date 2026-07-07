@@ -29,6 +29,7 @@ public class MoriaFactionPool {
                             MoriaNpcDataPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
+                            MoriaNpcDataPool.MILITIA,
                             MoriaNpcDataPool.SCOUT
                     ));
                     put(NpcRank.SOLDIER, List.of(
@@ -41,7 +42,7 @@ public class MoriaFactionPool {
                             MoriaNpcDataPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MoriaNpcDataPool.VETERAN
+                            MoriaNpcDataPool.CHIEF
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -50,7 +51,8 @@ public class MoriaFactionPool {
                 )),
                 new SpawnDataHandler(List.of(
                         new SpawnData(MiddleEarth.of("moria",  "east_gate"), new Vector2d(1522, 1143)),
-                        new SpawnData(MiddleEarth.of("moria",  "west_gate"), new Vector2d(1465, 1143))
+                        new SpawnData(MiddleEarth.of("moria",  "west_gate"), new Vector2d(1465, 1143)),
+                        new SpawnData(MiddleEarth.of("moria",  "goblin_camp"), new Vector2d(1546, 1115))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),
@@ -58,9 +60,12 @@ public class MoriaFactionPool {
                         new InitialDiplomacy(FactionRegistry.ROHAN, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.SHIRE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.LONGBEARDS, AffinityLevel.HOSTILE),
+                        new InitialDiplomacy(FactionRegistry.LONGBEARDS_EREBOR, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.DALE, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.WOODLAND_REALM, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, AffinityLevel.FRIENDLY),
+                        new InitialDiplomacy(FactionRegistry.GOBLIN_TOWN, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.MORIA, AffinityLevel.ALLY),
                         new InitialDiplomacy(FactionRegistry.MORDOR, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.ISENGARD, AffinityLevel.FRIENDLY),

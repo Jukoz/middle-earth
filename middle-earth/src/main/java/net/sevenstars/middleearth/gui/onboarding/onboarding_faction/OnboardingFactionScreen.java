@@ -436,6 +436,9 @@ public class OnboardingFactionScreen extends Screen {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         this.elements.mapWidget.keyPressed(keyCode, scanCode, modifiers);
         this.elements.searchBarWidget.keyPressed(keyCode, scanCode, modifiers);
+        if(keyCode == 340 && modifiers == 1) {
+            controller.modifyStateDetailed(true);
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
@@ -452,6 +455,9 @@ public class OnboardingFactionScreen extends Screen {
         this.elements.npcPreviewWidget.keyReleased(keyCode, scanCode, modifiers);
         this.elements.mapWidget.keyReleased(keyCode, scanCode, modifiers);
         this.elements.searchBarWidget.keyReleased(keyCode, scanCode, modifiers);
+        if(keyCode == 340 && modifiers == 0) {
+            controller.modifyStateDetailed(false);
+        }
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 

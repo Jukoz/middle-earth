@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +15,7 @@ import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,13 +25,13 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(CraftingScreenHandler.class)
 public class CraftingMixin {
 
-
-    /*@Inject(method = "updateResult", at = @At(value = "INVOKE",
+    @Inject(method = "updateResult", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/inventory/CraftingResultInventory;setStack(ILnet/minecraft/item/ItemStack;)V", ordinal = 0),
-            cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
-    private static void updateResultCancel(ScreenHandler handler, World world, PlayerEntity player, RecipeInputInventory craftingInventory,
-                                           CraftingResultInventory resultInventory, RecipeEntry<CraftingRecipe> recipe, CallbackInfo ci,
-                                           CraftingRecipeInput craftingRecipeInput, ServerPlayerEntity serverPlayerEntity, ItemStack itemStack){
+            cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
+    private static void updateResultCancel(ScreenHandler handler, ServerWorld world, PlayerEntity player,
+                                           RecipeInputInventory craftingInventory, CraftingResultInventory resultInventory,
+                                           @Nullable RecipeEntry<CraftingRecipe> recipe, CallbackInfo ci, CraftingRecipeInput craftingRecipeInput,
+                                           ServerPlayerEntity serverPlayerEntity, ItemStack itemStack){
         if (world.isClient){
             return;
         }
@@ -39,5 +41,5 @@ public class CraftingMixin {
         }
         resultInventory.setStack(0, itemStack);
         ci.cancel();
-    }*/
+    }
 }

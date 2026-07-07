@@ -15,7 +15,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "middle-earth:textures/block/dolomite_bricks.png",
+    "background": "middle-earth:gui/advancements/backgrounds/dolomite_bricks",
     "description": {
       "translate": "advancements.smithing.root.description"
     },

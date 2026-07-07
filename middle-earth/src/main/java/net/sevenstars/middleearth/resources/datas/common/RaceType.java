@@ -13,6 +13,8 @@ public enum RaceType {
     ELF,
     ORC,
     URUK,
+    GOBLIN,
+    SNAGA,
     BEAST,
     OTHER;
 

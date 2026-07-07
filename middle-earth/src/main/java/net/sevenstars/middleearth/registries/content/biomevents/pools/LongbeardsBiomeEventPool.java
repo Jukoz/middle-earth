@@ -29,7 +29,7 @@ public class LongbeardsBiomeEventPool {
             new BiomeNpcSpawningData(GundabadNpcDataPool.SCOUT).withWeight(5),
             new BiomeNpcSpawningData(GundabadNpcDataPool.MILITIA).withWeight(4),
             new BiomeNpcSpawningData(GundabadNpcDataPool.WARRIOR).withWeight(3),
-            new BiomeNpcSpawningData(GundabadNpcDataPool.SCOUT).withWeight(2).withMount(EntitiesME.WARG)
+            new BiomeNpcSpawningData(GundabadNpcDataPool.MILITIA).withWeight(2).withMount(EntitiesME.WARG)
         ));
     }
 }

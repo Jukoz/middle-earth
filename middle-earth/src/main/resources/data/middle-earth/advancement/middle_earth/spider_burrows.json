@@ -1,0 +1,42 @@
+{
+  "parent": "middle-earth:middle_earth/walk_mirkwood",
+  "criteria": {
+    "spider_burrows": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "middle-earth:mirkwood_spider_burrow"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.spider_burrows.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:spider_trial_spawner"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.spider_burrows.title"
+    }
+  },
+  "requirements": [
+    [
+      "spider_burrows"
+    ]
+  ]
+}

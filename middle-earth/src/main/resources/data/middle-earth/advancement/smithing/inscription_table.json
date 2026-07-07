@@ -1,0 +1,38 @@
+{
+  "parent": "middle-earth:smithing/artisan_table",
+  "criteria": {
+    "inscription_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:inscription_table"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.inscription_table.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:inscription_table"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.inscription_table.title"
+    }
+  },
+  "requirements": [
+    [
+      "inscription_table"
+    ]
+  ]
+}

@@ -121,9 +121,9 @@ public class ModBlocks {
             (settings) -> new StairsBlock(COARSE_CHALKSOIL.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
 
     public static final Block CHALKSOIL_PATH = registerMiscBlock("chalksoil_path",
-            (settings) -> new CustomPathBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+            (settings) -> new CustomPathBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),false);
     public static final Block CHALKSOIL_FARMLAND = registerMiscBlock("chalksoil_farmland",
-            (settings) -> new CustomFarmlandBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+            (settings) -> new CustomFarmlandBlock(settings, CHALKSOIL), AbstractBlock.Settings.copy(Blocks.FARMLAND),false);
 
     public static final Block LOAM = registerMiscBlock("loam",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
@@ -150,9 +150,9 @@ public class ModBlocks {
             (settings) -> new StairsBlock(COARSE_LOAM.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
 
     public static final Block LOAM_PATH = registerMiscBlock("loam_path",
-            (settings) -> new CustomPathBlock(settings, LOAM), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+            (settings) -> new CustomPathBlock(settings, LOAM), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),false);
     public static final Block LOAM_FARMLAND = registerMiscBlock("loam_farmland",
-            (settings) -> new CustomFarmlandBlock(settings, LOAM), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+            (settings) -> new CustomFarmlandBlock(settings, LOAM), AbstractBlock.Settings.copy(Blocks.FARMLAND),false);
 
     public static final Block PEAT = registerMiscBlock("peat",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
@@ -179,9 +179,9 @@ public class ModBlocks {
             (settings) -> new StairsBlock(COARSE_PEAT.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
 
     public static final Block PEAT_PATH = registerMiscBlock("peat_path",
-            (settings) -> new CustomPathBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+            (settings) -> new CustomPathBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),false);
     public static final Block PEAT_FARMLAND = registerMiscBlock("peat_farmland",
-            (settings) -> new CustomFarmlandBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+            (settings) -> new CustomFarmlandBlock(settings, PEAT), AbstractBlock.Settings.copy(Blocks.FARMLAND),false);
 
     public static final Block SILT = registerMiscBlock("silt",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.GRAVEL),true);
@@ -208,9 +208,9 @@ public class ModBlocks {
             (settings) -> new StairsBlock(COARSE_SILT.getDefaultState(), settings), AbstractBlock.Settings.copy(DRY_DIRT),true);
 
     public static final Block SILT_PATH = registerMiscBlock("silt_path",
-            (settings) -> new CustomPathBlock(settings, SILT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),true);
+            (settings) -> new CustomPathBlock(settings, SILT), AbstractBlock.Settings.copy(Blocks.DIRT_PATH),false);
     public static final Block SILT_FARMLAND = registerMiscBlock("silt_farmland",
-            (settings) -> new CustomFarmlandBlock(settings, SILT), AbstractBlock.Settings.copy(Blocks.FARMLAND),true);
+            (settings) -> new CustomFarmlandBlock(settings, SILT), AbstractBlock.Settings.copy(Blocks.FARMLAND),false);
 
     public static final Block MIRE = registerMiscBlock("mire",
             MudBlock::new, AbstractBlock.Settings.copy(Blocks.DIRT).strength(DIRT_STRENGTH).sounds(BlockSoundGroup.MUD),true);

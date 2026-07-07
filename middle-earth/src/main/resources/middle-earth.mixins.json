@@ -5,12 +5,15 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractHorseEntityMixin",
+    "AnvilScreenHandlerMixin",
     "BannerPatternRegisterMixin",
     "BlockEntityTypeMixin",
     "BlockMixin",
+    "CarvedPumpkinBlockMixin",
     "ChunkGenerationStepMixin",
     "ChunkGeneratorMixin",
     "ComponentsIngredientMixin",
+    "CraftingMixin",
     "CropBlockMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
@@ -25,8 +28,10 @@
     "RepairItemRecipeMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayNetworkHandlerMixin",
+    "ServerWorldMixin",
     "ShearItemMixin",
     "ShovelItemMixin",
+    "ToolItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
   "client": [
@@ -41,6 +46,7 @@
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.LivingEntityRenderStateMixin",
+    "client.MinecraftClientMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin"
   ],

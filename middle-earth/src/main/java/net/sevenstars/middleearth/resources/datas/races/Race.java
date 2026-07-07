@@ -7,71 +7,78 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributeModifierElement;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Race {
+    private static final String ID_FIELD = "id";
+    private static final String TYPE_FIELD = "type";
+    private static final String BASE_ATTRIBUTE_FIELD = "base_attributes";
+    private static final String CATEGORY_BASED_ATTRIBUTE_FIELD = "category_based_attributes";
+    private static final String COMMAND_JOIN_FIELD = "command_join";
+    private static final String COMMAND_LEAVE_FIELD = "command_leave";
+
     public static final Codec<Race> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.STRING.fieldOf("id").forGetter(Race::getIdValue),
-            Codec.STRING.fieldOf("type").forGetter(Race::getRaceTypeValue),
-            NbtCompound.CODEC.fieldOf("player_attributes").forGetter(Race::getPlayerAttributePool),
-            NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(Race::getNpcAttributePool),
-            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Race::getJoinCommands),
-            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Race::getLeaveCommands)
+            Codec.STRING.fieldOf(ID_FIELD).forGetter(Race::getIdValue),
+            Codec.STRING.fieldOf(TYPE_FIELD).forGetter(Race::getRaceTypeValue),
+            NbtCompound.CODEC.fieldOf(BASE_ATTRIBUTE_FIELD).forGetter(Race::getBaseAttributePoolNbt),
+            NbtCompound.CODEC.fieldOf(CATEGORY_BASED_ATTRIBUTE_FIELD).forGetter(Race::getCategoryBasedAttributePool),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf(COMMAND_JOIN_FIELD).forGetter(Race::getJoinCommands),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf(COMMAND_LEAVE_FIELD).forGetter(Race::getLeaveCommands)
     ).apply(instance, Race::new));
 
     private final Identifier id;
     private final RaceType raceType;
     private final String translatableKey;
-    private final AttributePool playerAttributePool;
-    private final HashMap<EntityCategories, AttributePool> npcAttributePools;
-    private List<String> joinCommands;
-    private List<String> leaveCommands;
+    private final AttributePool baseAttributePool;
+    private final HashMap<EntityCategories, AttributePool> categoryBasedAttributePool;
+    private final List<String> joinCommands;
+    private final List<String> leaveCommands;
 
 
-    public Race(String id, String raceTypeValue, NbtCompound playerAttributes, NbtCompound npcAttributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands){
+    public Race(String id, String raceTypeValue, NbtCompound baseAttributes, NbtCompound categoryBasedAttributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands){
         // Create id
         this.id = MiddleEarth.fetchId(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         // Create model
         this.raceType = RaceType.valueOf(raceTypeValue.toUpperCase());
         // Attribute Datas
-        this.playerAttributePool = new AttributePool(playerAttributes);
-        this.npcAttributePools = new HashMap<>();
-        // new AttributePool(npcAttributes);
+        this.baseAttributePool = new AttributePool(baseAttributes);
+        this.categoryBasedAttributePool = new HashMap<>();
+        // new AttributePool(categoryBasedAttributes);
         for(var category : EntityCategories.values()){
-            if(npcAttributes.contains(category.name())){
-                this.npcAttributePools.put(category, new AttributePool(npcAttributes.getCompound(category.name()).get()));
+            if(categoryBasedAttributes.contains(category.name())){
+                this.categoryBasedAttributePool.put(category, new AttributePool(categoryBasedAttributes.getCompound(category.name()).get()));
             }
         }
 
         // Join commands
         this.joinCommands = new ArrayList<>();
-        joinCommands.ifPresent(nbtCompound -> this.joinCommands.addAll(nbtCompound));
+        joinCommands.ifPresent(this.joinCommands::addAll);
         // Leave commands
         this.leaveCommands = new ArrayList<>();
-        leaveCommands.ifPresent(nbtCompound -> this.leaveCommands.addAll(nbtCompound));
+        leaveCommands.ifPresent(this.leaveCommands::addAll);
     }
 
-    public Race(Identifier id, RaceType raceType, AttributePool playerAttributePool, HashMap<EntityCategories, AttributePool> npcAttributePools, List<String> joinCommands, List<String> leaveCommands) {
+    public Race(Identifier id, RaceType raceType, AttributePool baseAttributePool, HashMap<EntityCategories, AttributePool> categoryBasedAttributePool, List<String> joinCommands, List<String> leaveCommands) {
         this.id = id;
         this.raceType = raceType;
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
-        this.playerAttributePool = playerAttributePool;
-        this.npcAttributePools = npcAttributePools;
+        this.baseAttributePool = baseAttributePool;
+        this.categoryBasedAttributePool = categoryBasedAttributePool;
         this.joinCommands = joinCommands;
         this.leaveCommands = leaveCommands;
     }
@@ -88,18 +95,21 @@ public class Race {
         return raceType.toString().toUpperCase();
     }
 
-    private NbtCompound getPlayerAttributePool() {
-        if(playerAttributePool == null)
+    private NbtCompound getBaseAttributePoolNbt() {
+        if(baseAttributePool == null)
             return null;
-        return playerAttributePool.getNbt();
+        return baseAttributePool.getNbt();
+    }
+    public AttributePool getBaseAttributePool() {
+        return baseAttributePool;
     }
 
-    private NbtCompound getNpcAttributePool() {
-        if(npcAttributePools == null)
+    private NbtCompound getCategoryBasedAttributePool() {
+        if(categoryBasedAttributePool == null)
             return null;
         var nbt = new NbtCompound();
-        for(var category : npcAttributePools.keySet()){
-            nbt.put(category.name(), npcAttributePools.get(category).getNbt());
+        for(var category : categoryBasedAttributePool.keySet()){
+            nbt.put(category.name(), categoryBasedAttributePool.get(category).getNbt());
         }
         return nbt;
     }
@@ -121,7 +131,7 @@ public class Race {
     }
 
     public void applyPlayerAttributes(PlayerEntity playerEntity){
-        playerAttributePool.apply(playerEntity);
+        baseAttributePool.apply(playerEntity);
     }
 
     public void reverseAttributes(PlayerEntity playerEntity){
@@ -136,40 +146,10 @@ public class Race {
         return raceType;
     }
 
-    public void drawTooltip(LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y){
-        List<Text> texts = new ArrayList<>();
-        texts.add(getFullName());
-        texts.add(Text.translatable("race_tooltip.%s.attribute_header".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.UNDERLINE));
-        List<AttributePoolElement> elements = playerAttributePool.getPool();
-        for(var element : elements){
-            double value = element.getValue();
-            Double attributeValue = playerAttributePool.getEntityCurrentAttributeValue(entity, element.getIdentifier());
-            if(attributeValue == null){
-                MiddleEarth.LOGGER.logWarn("Can't find attribute in player : %s".formatted(element.getIdentifier()));
-                continue;
-            }
-            double difference = value - attributeValue;
-
-            // Round them
-            value = Math.round(value * 1000) / 1000.0;
-            difference = Math.round(difference * 1000) / 1000.0;
-
-            String differenceChar = (difference > 0) ? "+" : "";
-            Formatting white = Formatting.WHITE;
-            Formatting differenceColor = (difference < 0) ? Formatting.RED : (difference > 0) ? Formatting.GREEN : white;
-            if(playerAttributePool.isBuffReversed(element.getIdentifier())){
-                differenceColor = (difference < 0) ? Formatting.GREEN : (difference > 0) ? Formatting.RED : white;
-            }
-            MutableText rawValue = Text.literal(String.valueOf(value)).formatted(white);
-            MutableText valueText = rawValue.append(Text.literal(" (").formatted(white).append(Text.literal(differenceChar + difference).formatted(differenceColor).append(Text.literal(") ").formatted(white))));
-            texts.add(valueText.append(Text.translatable("attribute.name."+element.getIdentifier().getPath()).formatted(Formatting.WHITE)));
-        }
-        context.drawTooltip(renderer, texts, x, y);
-    }
-
     public void applyNpcAttributes(NpcEntity npcEntity) {
         AttributePool.reverse(npcEntity);
-        npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
-        npcAttributePools.get(npcEntity.getNpcCategory()).apply(npcEntity);
+        baseAttributePool.apply(npcEntity);
+        categoryBasedAttributePool.get(EntityCategories.SHARED).apply(npcEntity);
+        categoryBasedAttributePool.get(npcEntity.getNpcCategory()).apply(npcEntity);
     }
 }

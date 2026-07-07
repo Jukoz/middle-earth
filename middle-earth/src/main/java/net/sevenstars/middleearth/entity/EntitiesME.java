@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.*;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -11,6 +11,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntity;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -18,6 +19,7 @@ import net.sevenstars.middleearth.entity.barrel.BarrelEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
@@ -36,6 +38,7 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
 import java.util.function.Supplier;
 public class EntitiesME {
@@ -50,18 +53,24 @@ public class EntitiesME {
     public static final EntityType<BarrelEntity> REINFORCED_BARREL;
 
     // Spiders
-    public static final EntityType<ShelobiteLarvaEntity> SHELOBITE_LARVA = register("shelobite_larva", EntityType.Builder.create(ShelobiteLarvaEntity::new, SpawnGroup.CREATURE).dimensions(0.4f, 0.3f));
-    public static final EntityType<ShelobiteScuttlerEntity> SHELOBITE_SCUTTLER = register("shelobite_scuttler", EntityType.Builder.create(ShelobiteScuttlerEntity::new, SpawnGroup.CREATURE).dimensions(1.15f, 0.9f));
-    public static final EntityType<SpawnOfShelobEntity> SPAWN_OF_SHELOB = register("spawn_of_shelob", EntityType.Builder.create(SpawnOfShelobEntity::new, SpawnGroup.CREATURE).dimensions(1.75f, 1.4f));
+    public static final EntityType<ShelobiteLarvaEntity> SHELOBITE_LARVA = register("shelobite_larva",
+            EntityType.Builder.create(ShelobiteLarvaEntity::new, SpawnGroup.MONSTER).dimensions(0.4f, 0.3f));
+    public static final EntityType<ShelobiteScuttlerEntity> SHELOBITE_SCUTTLER = register("shelobite_scuttler",
+            EntityType.Builder.create(ShelobiteScuttlerEntity::new, SpawnGroup.MONSTER).dimensions(1.15f, 0.9f));
+    public static final EntityType<SpawnOfShelobEntity> SPAWN_OF_SHELOB = register("spawn_of_shelob",
+            EntityType.Builder.create(SpawnOfShelobEntity::new, SpawnGroup.MONSTER).dimensions(1.75f, 1.4f));
 
     // Trolls
-    public static final EntityType<SnowTrollEntity> SNOW_TROLL = register("snow_troll", EntityType.Builder.create(SnowTrollEntity::new, SpawnGroup.CREATURE).dimensions(2.2f, 2.5f));
+    public static final EntityType<SnowTrollEntity> SNOW_TROLL = register("snow_troll",
+            EntityType.Builder.create(SnowTrollEntity::new, SpawnGroup.MONSTER).dimensions(2.2f, 2.5f));
     public static final EntityType<CaveTrollEntity> CAVE_TROLL = register("cave_troll",
-            EntityType.Builder.create(CaveTrollEntity::new, SpawnGroup.CREATURE)
+            EntityType.Builder.create(CaveTrollEntity::new, SpawnGroup.MONSTER)
                     .dimensions(2.2f, 3.5f)
                     .passengerAttachments(new Vec3d(0, 3.825, -0.65), new Vec3d(-0.8, 3.4, -1.2), new Vec3d(0.8, 3.4, -1.2)));
-    public static final EntityType<StoneTrollEntity> STONE_TROLL = register("stone_troll", EntityType.Builder.create(StoneTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
-    public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = register("petrified_troll", EntityType.Builder.create(PetrifiedTrollEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 3.4f));
+    public static final EntityType<StoneTrollEntity> STONE_TROLL = register("stone_troll",
+            EntityType.Builder.create(StoneTrollEntity::new, SpawnGroup.MONSTER).dimensions(1.4f, 3.4f));
+    public static final EntityType<PetrifiedTrollEntity> PETRIFIED_TROLL = register("petrified_troll",
+            EntityType.Builder.create(PetrifiedTrollEntity::new, SpawnGroup.MONSTER).dimensions(1.4f, 3.4f));
 
     ///* Weapons *///
     public static final EntityType<FireOfOrthancEntity> FIRE_OF_ORTHANC = registerEntity("fire_of_orthanc", FireOfOrthancEntity::new, SpawnGroup.MISC, 0.65F, 0.65F);
@@ -86,6 +95,7 @@ public class EntitiesME {
                 Identifier.of(MiddleEarth.MOD_ID, name),
                 EntityType.Builder.create(entity, spawnGroup).dimensions(width, height).build(keyOf("name")));
     }
+
     private static <T extends Entity> EntityType<T> register(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
         EntityType<T> entityType = (EntityType)Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
         TranslationEntries.entityEntries.add(entityType);
@@ -112,6 +122,15 @@ public class EntitiesME {
 
     public static void registerModEntities() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        SpawnRestriction.register(SHELOBITE_LARVA, SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
+        SpawnRestriction.register(SHELOBITE_SCUTTLER, SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
+        SpawnRestriction.register(SPAWN_OF_SHELOB, SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
+
+        SpawnRestriction.register(CAVE_TROLL, SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CaveTrollEntity::canSpawn);
 
         FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
@@ -132,6 +151,8 @@ public class EntitiesME {
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(NPC, NpcEntity.setAttributes());
+        SpawnRestriction.register(NPC, SpawnLocationTypes.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, NpcEntity::canSpawn);
     }
 
     static {

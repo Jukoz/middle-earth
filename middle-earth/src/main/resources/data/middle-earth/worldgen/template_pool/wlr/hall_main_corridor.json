@@ -8,7 +8,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/branch_junction",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -17,7 +18,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/bridge_hall",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -26,7 +28,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/left_junction",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -35,7 +38,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/right_junction",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -44,7 +48,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/lush_hall",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -53,7 +58,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/straight_corridor",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -62,7 +68,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/marketplace_hall",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     },
     {
@@ -71,7 +78,8 @@
         "element_type": "minecraft:single_pool_element",
         "location": "middle-earth:wlr/hall/lord_hall",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_wlr_walls"
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
       }
     }
   ]

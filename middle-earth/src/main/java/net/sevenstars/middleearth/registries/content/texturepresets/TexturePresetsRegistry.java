@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.GenericTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.brigand.BrigandTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.dale.DaleTexturePresetsPool;
+import net.sevenstars.middleearth.registries.content.texturepresets.pools.goblintown.GoblinTownTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.gondor.GondorTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.hobgoblintribes.GundabadTexturePresetsPool.GundabadTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.hobgoblintribes.HobgoblinTribesTexturePresetsPool;
@@ -95,6 +96,10 @@ public class TexturePresetsRegistry {
 
     public final static RegistryKey<TexturePresetDataPool> MORIA_GOBLIN         = of(FactionRegistry.MORIA, "goblin");
 
+    public final static RegistryKey<TexturePresetDataPool> GOBLIN_TOWN_GOBLIN         = of(FactionRegistry.GOBLIN_TOWN, "goblin");
+    public final static RegistryKey<TexturePresetDataPool> GOBLIN_TOWN_WARRIOR         = of(FactionRegistry.GOBLIN_TOWN, "warrior");
+    public final static RegistryKey<TexturePresetDataPool> GOBLIN_TOWN_BRUTE         = of(FactionRegistry.GOBLIN_TOWN, "brute");
+
     /* [ISENGARD] */
     public final static RegistryKey<TexturePresetDataPool> ISENGARD_ORC = of(FactionRegistry.ISENGARD, "orc");
     public final static RegistryKey<TexturePresetDataPool> ISENGARD_URUK_HAI = of(FactionRegistry.ISENGARD, "uruk_hai");
@@ -120,6 +125,7 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, MordorTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, HobgoblinTribesTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, GundabadTexturePresetsPool.fetchAll());
+        registerAll(context, registryEntryLookup, GoblinTownTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, MoriaTexturePresetsPool.fetchAll());
         registerAll(context, registryEntryLookup, IsengardTexturePresetsPool.fetchAll());
     }
