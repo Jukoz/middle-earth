@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.biomevents;
 
 import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -75,74 +76,78 @@ public class BiomeEventRegistry {
     // endregion
 
     // region ISENGARD //
-    public final static RegistryKey<BiomeEventData> ISENGARD            = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ISENGARD.getValue());
-    public final static RegistryKey<BiomeEventData> NAN_CURUNIR         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.NAN_CURUNIR.getValue());
+    public final static RegistryKey<BiomeEventData> ISENGARD            = of(MEBiomeKeys.ISENGARD);
+    public final static RegistryKey<BiomeEventData> NAN_CURUNIR         = of(MEBiomeKeys.NAN_CURUNIR);
     // endregion
 
     // region GUNDABAD
-    public final static RegistryKey<BiomeEventData> GUNDABAD_PLAINS     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GUNDABAD_PLAINS.getValue());
-    public final static RegistryKey<BiomeEventData> GUNDABAD_WOODS      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GUNDABAD_WOODS.getValue());
-    public final static RegistryKey<BiomeEventData> MOUNT_GUNDABAD_BASE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MOUNT_GUNDABAD_BASE.getValue());
-    public final static RegistryKey<BiomeEventData> MOUNT_GUNDABAD      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MOUNT_GUNDABAD.getValue());
-    public final static RegistryKey<BiomeEventData> MISTY_MOUNTAINS     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MISTY_MOUNTAINS.getValue());
+    public final static RegistryKey<BiomeEventData> GUNDABAD_PLAINS     = of(MEBiomeKeys.GUNDABAD_PLAINS);
+    public final static RegistryKey<BiomeEventData> GUNDABAD_WOODS      = of(MEBiomeKeys.GUNDABAD_WOODS);
+    public final static RegistryKey<BiomeEventData> MOUNT_GUNDABAD_BASE = of(MEBiomeKeys.MOUNT_GUNDABAD_BASE);
+    public final static RegistryKey<BiomeEventData> MOUNT_GUNDABAD      = of(MEBiomeKeys.MOUNT_GUNDABAD);
+    public final static RegistryKey<BiomeEventData> MISTY_MOUNTAINS     = of(MEBiomeKeys.MISTY_MOUNTAINS);
     // endregion
 
     // MORIA
-    public final static RegistryKey<BiomeEventData> CELEBDIL_BASE       = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.CELEBDIL_BASE.getValue());
-    public final static RegistryKey<BiomeEventData> EREGION             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.EREGION.getValue());
+    public final static RegistryKey<BiomeEventData> CELEBDIL_BASE       = of(MEBiomeKeys.CELEBDIL_BASE);
+    public final static RegistryKey<BiomeEventData> EREGION             = of(MEBiomeKeys.EREGION);
 
     // region GONDOR
-    public final static RegistryKey<BiomeEventData> GONDOR              = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GONDOR.getValue());
-    public final static RegistryKey<BiomeEventData> OSGILIATH           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.OSGILIATH.getValue());
-    public final static RegistryKey<BiomeEventData> ANORIEN             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ANORIEN.getValue());
-    public final static RegistryKey<BiomeEventData> BELFALAS            = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BELFALAS.getValue());
-    public final static RegistryKey<BiomeEventData> ITHILIEN_GLADE      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ITHILIEN_GLADE.getValue());
-    public final static RegistryKey<BiomeEventData> PELENNOR_FIELDS     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.PELENNOR_FIELDS.getValue());
-    public final static RegistryKey<BiomeEventData> LAMEDON             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LAMEDON.getValue());
-    public final static RegistryKey<BiomeEventData> LEBENNIN            = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LEBENNIN.getValue());
-    public final static RegistryKey<BiomeEventData> LOSSARNACH          = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOSSARNACH.getValue());
-    public final static RegistryKey<BiomeEventData> LOSSARNACH_VALLEY   = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOSSARNACH_VALLEY.getValue());
-    public final static RegistryKey<BiomeEventData> BLACKROOT_VALE      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BLACKROOT_VALE.getValue());
+    public final static RegistryKey<BiomeEventData> GONDOR              = of(MEBiomeKeys.GONDOR);
+    public final static RegistryKey<BiomeEventData> OSGILIATH           = of(MEBiomeKeys.OSGILIATH);
+    public final static RegistryKey<BiomeEventData> ANORIEN             = of(MEBiomeKeys.ANORIEN);
+    public final static RegistryKey<BiomeEventData> BELFALAS            = of(MEBiomeKeys.BELFALAS);
+    public final static RegistryKey<BiomeEventData> ITHILIEN_GLADE      = of(MEBiomeKeys.ITHILIEN_GLADE);
+    public final static RegistryKey<BiomeEventData> PELENNOR_FIELDS     = of(MEBiomeKeys.PELENNOR_FIELDS);
+    public final static RegistryKey<BiomeEventData> LAMEDON             = of(MEBiomeKeys.LAMEDON);
+    public final static RegistryKey<BiomeEventData> LEBENNIN            = of(MEBiomeKeys.LEBENNIN);
+    public final static RegistryKey<BiomeEventData> LOSSARNACH          = of(MEBiomeKeys.LOSSARNACH);
+    public final static RegistryKey<BiomeEventData> LOSSARNACH_VALLEY   = of(MEBiomeKeys.LOSSARNACH_VALLEY);
+    public final static RegistryKey<BiomeEventData> BLACKROOT_VALE      = of(MEBiomeKeys.BLACKROOT_VALE);
     // endregion
 
     // region ROHAN
-    public final static RegistryKey<BiomeEventData> ROHAN              = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ROHAN.getValue());
-    public final static RegistryKey<BiomeEventData> ROHAN_FIELD        = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ROHAN_FIELD.getValue());
-    public final static RegistryKey<BiomeEventData> THE_WOLD           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.THE_WOLD.getValue());
-    public final static RegistryKey<BiomeEventData> THE_WOLD_WHEAT_FIELD = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.THE_WOLD_WHEAT_FIELD.getValue());
+    public final static RegistryKey<BiomeEventData> ROHAN              = of(MEBiomeKeys.ROHAN);
+    public final static RegistryKey<BiomeEventData> ROHAN_FIELD        = of(MEBiomeKeys.ROHAN_FIELD);
+    public final static RegistryKey<BiomeEventData> THE_WOLD           = of(MEBiomeKeys.THE_WOLD);
+    public final static RegistryKey<BiomeEventData> THE_WOLD_WHEAT_FIELD = of(MEBiomeKeys.THE_WOLD_WHEAT_FIELD);
     // endregion
 
     // region DALE
-    public final static RegistryKey<BiomeEventData> DALE                = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DALE.getValue());
-    public final static RegistryKey<BiomeEventData> DALE_CITY           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DALE_CITY.getValue());
-    public final static RegistryKey<BiomeEventData> DALE_MEADOW         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DALE_MEADOW.getValue());
+    public final static RegistryKey<BiomeEventData> DALE                = of(MEBiomeKeys.DALE);
+    public final static RegistryKey<BiomeEventData> DALE_CITY           = of(MEBiomeKeys.DALE_CITY);
+    public final static RegistryKey<BiomeEventData> DALE_MEADOW         = of(MEBiomeKeys.DALE_MEADOW);
     // endregion
 
     // region LONGBEARDS
-    public final static RegistryKey<BiomeEventData> LONELY_MOUNTAIN_TAIGA       = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA.getValue());
-    public final static RegistryKey<BiomeEventData> LONELY_MOUNTAIN_FOOTHILLS   = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS.getValue());
-    public final static RegistryKey<BiomeEventData> IRON_HILLS_PLAINS           = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.IRON_HILLS_PLAINS.getValue());
-    public final static RegistryKey<BiomeEventData> IRON_HILLS_BASE             = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.IRON_HILLS_BASE.getValue());
-    public final static RegistryKey<BiomeEventData> GREY_PLAINS                 = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GREY_PLAINS.getValue());
+    public final static RegistryKey<BiomeEventData> LONELY_MOUNTAIN_TAIGA       = of(MEBiomeKeys.LONELY_MOUNTAIN_TAIGA);
+    public final static RegistryKey<BiomeEventData> LONELY_MOUNTAIN_FOOTHILLS   = of(MEBiomeKeys.LONELY_MOUNTAIN_FOOTHILLS);
+    public final static RegistryKey<BiomeEventData> IRON_HILLS_PLAINS           = of(MEBiomeKeys.IRON_HILLS_PLAINS);
+    public final static RegistryKey<BiomeEventData> IRON_HILLS_BASE             = of(MEBiomeKeys.IRON_HILLS_BASE);
+    public final static RegistryKey<BiomeEventData> GREY_PLAINS                 = of(MEBiomeKeys.GREY_PLAINS);
     // endregion
 
     // region LOTHLORIEN
-    public final static RegistryKey<BiomeEventData> LOTHLORIEN          = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOTHLORIEN.getValue());
-    public final static RegistryKey<BiomeEventData> LOTHLORIEN_GLADE    = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOTHLORIEN_GLADE.getValue());
-    public final static RegistryKey<BiomeEventData> LOTHLORIEN_BLOSSOM  = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LOTHLORIEN_BLOSSOM.getValue());
-    public final static RegistryKey<BiomeEventData> LORIEN_EDGE         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LORIEN_EDGE.getValue());
+    public final static RegistryKey<BiomeEventData> LOTHLORIEN          = of(MEBiomeKeys.LOTHLORIEN);
+    public final static RegistryKey<BiomeEventData> LOTHLORIEN_GLADE    = of(MEBiomeKeys.LOTHLORIEN_GLADE);
+    public final static RegistryKey<BiomeEventData> LOTHLORIEN_BLOSSOM  = of(MEBiomeKeys.LOTHLORIEN_BLOSSOM);
+    public final static RegistryKey<BiomeEventData> LORIEN_EDGE         = of(MEBiomeKeys.LORIEN_EDGE);
     // endregion
 
     // region WOODLAND_REALM
-    public final static RegistryKey<BiomeEventData> WOODLAND_REALM      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_REALM.getValue());
-    public final static RegistryKey<BiomeEventData> WOODLAND_GLADE      = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_GLADE.getValue());
-    public final static RegistryKey<BiomeEventData> AUTUMN_WOODLAND     = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.AUTUMN_WOODLAND.getValue());
-    public final static RegistryKey<BiomeEventData> WOODLAND_FOOTHILLS  = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.WOODLAND_FOOTHILLS.getValue());
-    public final static RegistryKey<BiomeEventData> MIRKWOOD            = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MIRKWOOD.getValue());
+    public final static RegistryKey<BiomeEventData> WOODLAND_REALM      = of(MEBiomeKeys.WOODLAND_REALM);
+    public final static RegistryKey<BiomeEventData> WOODLAND_GLADE      = of(MEBiomeKeys.WOODLAND_GLADE);
+    public final static RegistryKey<BiomeEventData> AUTUMN_WOODLAND     = of(MEBiomeKeys.AUTUMN_WOODLAND);
+    public final static RegistryKey<BiomeEventData> WOODLAND_FOOTHILLS  = of(MEBiomeKeys.WOODLAND_FOOTHILLS);
+    public final static RegistryKey<BiomeEventData> MIRKWOOD            = of(MEBiomeKeys.MIRKWOOD);
     // endregion
 
-    public final static RegistryKey<BiomeEventData> SHIRE               = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.SHIRE.getValue());
-    public final static RegistryKey<BiomeEventData> SHIRE_EDGE          = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.SHIRE_EDGE.getValue());
+    public final static RegistryKey<BiomeEventData> SHIRE               = of(MEBiomeKeys.SHIRE);
+    public final static RegistryKey<BiomeEventData> SHIRE_EDGE          = of(MEBiomeKeys.SHIRE_EDGE);
+
+    private static RegistryKey<BiomeEventData> of(RegistryKey<Biome> key){
+        return DynamicRegistriesME.of(BIOME_EVENT_KEY, key.getValue());
+    }
 
     public static void bootstrapStructureEvents(Registerable<BiomeEventData> context) {
         RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(STRUCTURE_EVENT_KEY);

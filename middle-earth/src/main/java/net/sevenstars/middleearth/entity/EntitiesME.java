@@ -43,7 +43,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import java.util.function.Supplier;
 public class EntitiesME {
     // Npc
-    public static final EntityType<NpcEntity> NPC = register("npc", EntityType.Builder.create(NpcEntity::new, SpawnGroup.CREATURE).dimensions(0.8f, 1.8f));
+    public static final EntityType<NpcEntity> NPC = register("npc", EntityType.Builder.create(NpcEntity::new, SpawnGroup.MONSTER).dimensions(0.8f, 1.8f));
 
     // Mounts
     public static final EntityType<WargEntity> WARG = register("warg", EntityType.Builder.create(WargEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.4f));
@@ -91,13 +91,11 @@ public class EntitiesME {
 
     public static <T extends Entity> EntityType<T> registerEntity(String name, EntityType.EntityFactory<T> entity, SpawnGroup spawnGroup,
                                                                   float width, float height) {
-        return Registry.register(Registries.ENTITY_TYPE,
-                Identifier.of(MiddleEarth.MOD_ID, name),
-                EntityType.Builder.create(entity, spawnGroup).dimensions(width, height).build(keyOf("name")));
+        return Registry.register(Registries.ENTITY_TYPE, MiddleEarth.of(name), EntityType.Builder.create(entity, spawnGroup).dimensions(width, height).build(keyOf("name")));
     }
 
     private static <T extends Entity> EntityType<T> register(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {
-        EntityType<T> entityType = (EntityType)Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
+        EntityType<T> entityType = Registry.register(Registries.ENTITY_TYPE, key, type.build(key));
         TranslationEntries.entityEntries.add(entityType);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ENTITY_TYPE, entityType.getUntranslatedName()));
         return entityType;
@@ -105,10 +103,6 @@ public class EntitiesME {
 
     private static EntityType.EntityFactory<BarrelEntity> getBoatFactory(Supplier<Item> itemSupplier) {
         return (type, world) -> new BarrelEntity(type, world, itemSupplier);
-    }
-
-    private static <T> RegistryKey<Registry<T>> registerRegistry(String id) {
-        return RegistryKey.ofRegistry(Identifier.of(MiddleEarth.MOD_ID, id));
     }
 
     private static RegistryKey<EntityType<?>> keyOf(String id) {

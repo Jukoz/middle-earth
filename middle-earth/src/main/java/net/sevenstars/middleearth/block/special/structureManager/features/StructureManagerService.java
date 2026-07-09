@@ -5,11 +5,15 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
+
+import java.util.Optional;
+import java.util.function.Predicate;
 
 public class StructureManagerService {
     public static StructureManagerData GetStructureManagerData(World world, Identifier structureManagerDataId){
@@ -50,5 +54,17 @@ public class StructureManagerService {
             return livEntity;
         }
         return null;
+    }
+
+    public static StructureManagerBlockEntity getClosest(World world, BlockPos pos, int structureManagerDistance) {
+        Optional<BlockPos> blockPosOptional =  BlockPos.findClosest(pos, structureManagerDistance, structureManagerDistance, blockPos -> {
+            var blockEntity = world.getBlockEntity(blockPos);
+            return blockEntity instanceof StructureManagerBlockEntity;
+        });
+        return blockPosOptional.map(blockPos -> ((StructureManagerBlockEntity) world.getBlockEntity(blockPos))).orElse(null);
+    }
+
+    public static boolean isClose(World world, BlockPos pos, int structureManagerDistance){
+        return getClosest(world, pos, structureManagerDistance) != null;
     }
 }

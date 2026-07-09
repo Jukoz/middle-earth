@@ -14,7 +14,7 @@ public class MoriaBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(MoriaNpcDataPool.GOBLIN).withWeight(7).withUndegroundRequired(),
+            new BiomeNpcSpawningData(MoriaNpcDataPool.GOBLIN).withWeight(7).withUndergroundRequired(),
             new BiomeNpcSpawningData(MoriaNpcDataPool.MILITIA).withWeight(5),
             new BiomeNpcSpawningData(MoriaNpcDataPool.SCOUT).withWeight(4),
             new BiomeNpcSpawningData(MoriaNpcDataPool.WARRIOR).withWeight(6).withNightRequired(),
