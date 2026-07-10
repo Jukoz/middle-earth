@@ -124,7 +124,7 @@ public class ReinforcedScaffoldingBlock extends ScaffoldingBlock {
             BlockState belowState = world.getBlockState(belowPos);
 
             if (belowState.isOf(scaffoldingBlock)) {
-                AddSupportPosition(positionsToCheck, supportDistances, belowPos, currentDistance, true);
+                addSupportPosition(positionsToCheck, supportDistances, belowPos, currentDistance, true);
             } else if (belowState.isSideSolidFullSquare(world, belowPos, Direction.UP)) {
                 return Math.min(currentDistance, MAX_SUPPORT_DISTANCE);
             }
@@ -136,7 +136,7 @@ public class ReinforcedScaffoldingBlock extends ScaffoldingBlock {
             for (Direction direction : Direction.Type.HORIZONTAL) {
                 BlockPos horizontalPos = currentPos.offset(direction);
                 if (world.getBlockState(horizontalPos).isOf(scaffoldingBlock)) {
-                    AddSupportPosition(positionsToCheck, supportDistances, horizontalPos, currentDistance + 1, false);
+                    addSupportPosition(positionsToCheck, supportDistances, horizontalPos, currentDistance + 1, false);
                 }
             }
         }
@@ -144,7 +144,7 @@ public class ReinforcedScaffoldingBlock extends ScaffoldingBlock {
         return MAX_SUPPORT_DISTANCE;
     }
 
-    private static void AddSupportPosition(ArrayDeque<BlockPos> positionsToCheck, Map<BlockPos, Integer> supportDistances, BlockPos pos, int distance, boolean checkFirst) {
+    private static void addSupportPosition(ArrayDeque<BlockPos> positionsToCheck, Map<BlockPos, Integer> supportDistances, BlockPos pos, int distance, boolean checkFirst) {
         Integer knownDistance = supportDistances.get(pos);
         if (knownDistance != null && knownDistance <= distance) {
             return;
