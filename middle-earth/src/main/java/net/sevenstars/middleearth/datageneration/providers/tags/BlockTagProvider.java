@@ -269,16 +269,19 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(OreRockSets.NURGON.silver_ore());
         needsIronTools.add(OreRockSets.NURGON.gold_ore());
         needsIronTools.add(OreRockSets.NURGON.iron_ore());
+        needsIronTools.add(OreRockSets.NURGON.sapphire_ore());
+        needsIronTools.add(OreRockSets.NURGON.emerald_ore());
+        needsIronTools.add(OreRockSets.NURGON.ruby_ore());
 
         needsDiamondTools.add(OreRockSets.MEDGON.lead_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.silver_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.gold_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
-        needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
-        needsDiamondTools.add(OreRockSets.MEDGON.adamant_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.emerald_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.ruby_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.sapphire_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.adamant_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
 
         needsStoneTools.add(ModDecorativeBlocks.STONE_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.TREATED_ANVIL);

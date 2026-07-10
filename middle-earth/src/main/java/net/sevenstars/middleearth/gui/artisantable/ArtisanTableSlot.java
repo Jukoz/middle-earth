@@ -32,7 +32,8 @@ public class ArtisanTableSlot extends Slot {
         if(!isEnabled()) return false;
         if(inputType == InputType.ANY) return super.canInsert(stack);
 
-        else if(inputType == InputType.HANDLE && !(stack.isOf(Items.STICK) || stack.isOf(ResourceItemsME.ROD))) {
+        else if(inputType == InputType.HANDLE && !(stack.isOf(Items.STICK) || stack.isOf(ResourceItemsME.ROD)
+                || stack.isOf(Items.BONE) || stack.isOf(ResourceItemsME.DIRTY_BONE))) {
             return false;
         }
         else if(inputType == InputType.HILT && !(stack.isOf(ResourceItemsME.SWORD_HILT))) {

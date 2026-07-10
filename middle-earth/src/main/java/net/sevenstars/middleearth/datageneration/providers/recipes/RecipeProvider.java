@@ -103,6 +103,8 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                     if(record.cobblestoneBlocks != null && record.baseBlocks != null) {
                         offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.cobblestoneBlocks.base(), record.baseBlocks.base(), 1);
+                        offerSmelting(List.of(record.baseBlocks.base()), RecipeCategory.BUILDING_BLOCKS,
+                                record.cobblestoneBlocks.base(), 0.1f, 200, "blocks");
                     }
 
                     if (record.baseBlocks != null) {
@@ -805,7 +807,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter, "reinforced_scaffolding");
 
                 //region CANVAS
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.CANVAS.blockSet.base(), 2)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.CANVAS.blockSet.base(), 3)
                         .pattern("FF")
                         .pattern("FF")
                         .input('F', ResourceItemsME.FABRIC)

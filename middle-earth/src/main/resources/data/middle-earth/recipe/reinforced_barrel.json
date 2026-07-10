@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "R": "minecraft:resin_clump",
+    "S": "#minecraft:wooden_slabs",
+    "V": "#middle-earth:wooden_vertical_slabs"
+  },
+  "pattern": [
+    "V V",
+    "VRV",
+    "VSV"
+  ],
+  "result": {
+    "count": 1,
+    "id": "middle-earth:reinforced_barrel"
+  }
+}
