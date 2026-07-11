@@ -102,15 +102,15 @@ public class CandleStickBlock extends Block {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            if(player.isInCreativeMode()){
+            ItemStack itemStack = player.getStackInHand(hand);
+            if(player.isInCreativeMode() && itemStack == ItemStack.EMPTY){
                 world.setBlockState(pos, state.cycle(LIT));
-            } else {
-                ItemStack itemStack = player.getStackInHand(hand);
-                if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
-                    extinguish(null, state, world, pos);
-                } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
-                    setLit(world, state, pos, true);
-                }
+                return ActionResult.SUCCESS;
+            }
+            if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
+                extinguish(null, state, world, pos);
+            } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+                setLit(world, state, pos, true);
             }
         }
         return ActionResult.SUCCESS;

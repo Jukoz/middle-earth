@@ -40,6 +40,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
+    protected static final float[] SAPLING_COMMON_DROP_CHANCE = new float[]{0.1F, 0.1625F, 0.183333336F, 0.2F};
 
     public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
@@ -102,7 +103,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
             RegistryWrapper.Impl<Enchantment> impl = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT);
             if (drop.toString().contains("pine")) {
-                leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(this.createWithoutShearsOrSilkTouchCondition()).with(((LeafEntry.Builder)this.addSurvivesExplosionCondition(drop.block(), ItemEntry.builder(Items.APPLE))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F}))));
+                addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_COMMON_DROP_CHANCE).pool(
+                        LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(this.createWithoutShearsOrSilkTouchCondition())
+                                .with(((LeafEntry.Builder<?>)this.addSurvivesExplosionCondition(drop.block(), ItemEntry.builder(ResourceItemsME.PINECONE)))
+                                        .conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE),
+                                                0.025F, 0.03F, 0.035F, 0.04F, 0.045F)))));
             } else {
                 addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE));
             }

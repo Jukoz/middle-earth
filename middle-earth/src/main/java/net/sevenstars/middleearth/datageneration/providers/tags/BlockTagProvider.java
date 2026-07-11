@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
@@ -70,6 +71,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "leaves"))).add(LeavesSets.leaves.toArray(new Block[0])).add(LeavesSets.grayscaleLeaves.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs_that_burn"))).add(Logs.logs.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
