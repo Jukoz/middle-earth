@@ -3486,25 +3486,25 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORIA_GOBLIN_CLOTH_COAT.getDefaultStack(), "leggings", DispositionType.EVIL)
                         .input(ResourceItemsME.FABRIC)
-                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
-                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
-                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
+                        .criterion(hasItem(ResourceItemsME.CRUDE_NUGGET),
+                                conditionsFromItem(ResourceItemsME.CRUDE_NUGGET))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORIA_GOBLIN_SNAGA_SKIRT.getDefaultStack(), "leggings", DispositionType.EVIL)
                         .input(Items.LEATHER)
-                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
-                        .criterion(hasItem(ResourceItemsME.CRUDE_INGOT),
-                                conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
+                        .criterion(hasItem(ResourceItemsME.CRUDE_NUGGET),
+                                conditionsFromItem(ResourceItemsME.CRUDE_NUGGET))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORIA_GOBLIN_CRUDE_BOOTS.getDefaultStack(), "boots", DispositionType.EVIL)
@@ -3535,26 +3535,26 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ironHelmetPlate.getItem()))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORIA_GOBLIN_HAUBERK.getDefaultStack(), "chestplate", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(EquipmentItemsME.ORCISH_MAIL_HAUBERK)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                        .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                        .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
                         .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK),
                                 conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORIA_RUINED_DWARVEN_HAUBERK.getDefaultStack(), "chestplate", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
+                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(ResourceItemsME.CRUDE_INGOT)
+                        .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(EquipmentItemsME.ORCISH_MAIL_HAUBERK)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
+                        .input(Items.LEATHER)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
+                        .input(Items.LEATHER)
                         .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK),
                                 conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_HAUBERK))
                         .offerTo(exporter);

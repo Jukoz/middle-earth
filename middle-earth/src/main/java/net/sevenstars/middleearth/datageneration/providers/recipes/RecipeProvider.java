@@ -1231,6 +1231,77 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBrickRecipe(exporter, GenericBlockSets.AGED_WOOD_PANELS.blockSet.base().asItem(), GenericBlockSets.AGED_WOOD_BOARDS.blockSet.base(), 4);
                 //endregion
 
+                //region AGED_WOOD_REDDISH
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.AGED_WOOD_REDDISH_BEAM.blockSet.base(), 8)
+                        .pattern("PPP")
+                        .pattern("PRP")
+                        .pattern("PPP")
+                        .input('P', GenericBlockSets.AGED_WOOD_BEAM.blockSet.base())
+                        .input('R', Items.RED_DYE)
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_BEAM.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_BEAM.blockSet.base()))
+                        .offerTo(exporter);
+
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_REDDISH_BEAM);
+                 //endregion
+
+                //region AGED_WOOD_GILDED_CARVED_PILLAR
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.AGED_WOOD_GILDED_CARVED_PILLAR.blockSet.base(), 8)
+                        .pattern("PPP")
+                        .pattern("PGP")
+                        .pattern("PPP")
+                        .input('P', GenericBlockSets.AGED_WOOD_BEAM.blockSet.base())
+                        .input('G', Items.GOLD_NUGGET)
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_BEAM.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_BEAM.blockSet.base()))
+                        .offerTo(exporter);
+
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_CARVED_PILLAR);
+                 //endregion
+
+                //region AGED_WOOD_GILDED_CARVED_PILLAR
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.AGED_WOOD_GILDED_CARVING.blockSet.base(), 8)
+                        .pattern("PPP")
+                        .pattern("PGP")
+                        .pattern("PPP")
+                        .input('P', GenericBlockSets.AGED_WOOD_CARVING.blockSet.base())
+                        .input('G', Items.GOLD_NUGGET)
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_CARVING.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_CARVING.blockSet.base()))
+                        .offerTo(exporter);
+
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_CARVED_PILLAR);
+                 //endregion
+
+                //region AGED_WOOD_GILDED_CARVED_PILLAR
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.AGED_WOOD_GILDED_HORSES.blockSet.base(), 8)
+                        .pattern("PPP")
+                        .pattern("PGP")
+                        .pattern("PPP")
+                        .input('P', GenericBlockSets.AGED_WOOD_FISH_CARVING.blockSet.base())
+                        .input('G', Items.GOLD_NUGGET)
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_FISH_CARVING.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_FISH_CARVING.blockSet.base()))
+                        .offerTo(exporter);
+
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_HORSES);
+                 //endregion
+
+                //region AGED_WOOD_GILDED_CARVED_PILLAR
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.AGED_WOOD_GILDED_TRIM.blockSet.base(), 8)
+                        .pattern("PPP")
+                        .pattern("PGP")
+                        .pattern("PPP")
+                        .input('P', GenericBlockSets.AGED_WOOD_PANELS.blockSet.base())
+                        .input('G', Items.GOLD_NUGGET)
+                        .criterion(hasItem(GenericBlockSets.AGED_WOOD_PANELS.blockSet.base()),
+                                conditionsFromItem(GenericBlockSets.AGED_WOOD_PANELS.blockSet.base()))
+                        .offerTo(exporter);
+
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_TRIM);
+                 //endregion
+
+
                 createCombinedItemRecipe(exporter, Blocks.SKELETON_SKULL, ItemTags.CANDLES, ModDecorativeBlocks.SKULL_CANDLE);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CANDLESTICK, 1)
@@ -1977,6 +2048,13 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('I', ResourceItemsME.KHAZAD_STEEL_INGOT)
                         .criterion(hasItem(ResourceItemsME.KHAZAD_STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.KHAZAD_STEEL_INGOT))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EMBERS, 1)
+                        .input(Items.MAGMA_BLOCK, 1)
+                        .input(ResourceItemsME.ASH, 1)
+                        .criterion(hasItem(Items.MAGMA_BLOCK),
+                                conditionsFromItem(Items.MAGMA_BLOCK))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CHIMNEY, 2)

@@ -347,13 +347,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             ItemStack originalStack = invSlot.getStack();
             Item item = originalStack.getItem();
             stack = originalStack.copy();
-            if (slot == 6){
-                item.onCraft(originalStack, player.getWorld());
-                if (!this.insertItem(originalStack, 4, this.slots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-                invSlot.onQuickTransfer(originalStack, stack);
-            } else if(slot < this.input.size()) {
+            if(slot < this.input.size()) {
                 if(!this.insertItem(originalStack, this.input.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
