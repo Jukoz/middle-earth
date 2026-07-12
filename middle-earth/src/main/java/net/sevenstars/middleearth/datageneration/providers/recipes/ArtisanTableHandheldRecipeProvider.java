@@ -1910,7 +1910,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                     .input(Items.STICK)
                     .criterion(hasItem(pickaxeHead.getItem()),
                             conditionsFromItem(pickaxeHead.getItem(), itemLookup))
-                    .offerTo(exporter);
+                    .offerTo(exporter, Registries.ITEM.getId(output.getItem()).getPath() + "_artisan");
         }
     }
 

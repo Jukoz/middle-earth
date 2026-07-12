@@ -367,6 +367,7 @@ public class HelpingGenerator {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 0));
         WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
+        Planks.planksSlabs.add(set.slab());
     }
 
     public static void woodBlocks(BlockRecordTypes.WoodSet set) {

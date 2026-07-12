@@ -33,6 +33,7 @@ import net.sevenstars.middleearth.datageneration.content.loot_tables.PotDrops;
 import net.sevenstars.middleearth.datageneration.content.models.SimplePaneModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleRocksModel;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
+import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
@@ -111,6 +112,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             } else {
                 addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE));
             }
+        }
+        for (Block sapling : Saplings.saplings) {
+            addDrop(sapling);
         }
         for (CropDrops.CropDrop cd : CropDrops.crops) {
             addDrop(cd.crop_block, cropDrops(cd.crop_block, cd.fruit, cd.seeds, cd.builder));

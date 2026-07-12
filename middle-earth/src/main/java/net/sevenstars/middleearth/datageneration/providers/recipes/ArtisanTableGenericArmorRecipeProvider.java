@@ -93,6 +93,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
         ItemStack bronzeChainmail = new ItemStack(ResourceItemsME.MAIL);
         bronzeChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BRONZE.getName()))), getPattern()));
+        ItemStack crudeChainmail = new ItemStack(ResourceItemsME.MAIL);
+        crudeChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
+                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.CRUDE.getName()))), getPattern()));
+
 
         ItemStack steelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         steelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -919,46 +923,50 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BRONZED_ELVEN_PADDED_MAIL_HAUBERK.getDefaultStack(), "leggings", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BRONZED_ELVEN_PADDED_MAIL_HAUBERK.getDefaultStack(), "chestplate", DispositionType.GOOD)
                         .input(ResourceItemsME.BRONZE_INGOT)
                         .input(ResourceItemsME.BRONZE_INGOT)
                         .input(Items.LEATHER)
                         .input(EquipmentItemsME.BRONZED_ELVEN_MAIL_HAUBERK)
                         .input(Items.LEATHER)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .criterion(hasItem(ironChainmail.getItem()),
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BRONZED_ELVEN_GORGET_MAIL_HAUBERK.getDefaultStack(), "leggings", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BRONZED_ELVEN_GORGET_MAIL_HAUBERK.getDefaultStack(), "chestplate", DispositionType.GOOD)
                         .input(ResourceItemsME.BRONZE_INGOT)
                         .input(ResourceItemsME.BRONZE_INGOT)
                         .input(Items.LEATHER)
                         .input(EquipmentItemsME.BRONZED_ELVEN_MAIL_HAUBERK)
                         .input(Items.LEATHER)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .criterion(hasItem(ironChainmail.getItem()),
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_SILVER_PADDED_MAIL_HAUBERK.getDefaultStack(), "leggings", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_SILVER_PADDED_MAIL_HAUBERK.getDefaultStack(), "chestplate", DispositionType.GOOD)
                         .input(ResourceItemsME.SILVER_NUGGET)
                         .input(ResourceItemsME.SILVER_NUGGET)
                         .input(Items.LEATHER)
                         .input(EquipmentItemsME.BRONZED_ELVEN_MAIL_HAUBERK)
                         .input(Items.LEATHER)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .criterion(hasItem(ironChainmail.getItem()),
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_SILVER_GORGET_MAIL_HAUBERK.getDefaultStack(), "leggings", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ELVEN_SILVER_GORGET_MAIL_HAUBERK.getDefaultStack(), "chestplate", DispositionType.GOOD)
                         .input(ResourceItemsME.SILVER_NUGGET)
                         .input(ResourceItemsME.SILVER_NUGGET)
                         .input(Items.LEATHER)
                         .input(EquipmentItemsME.BRONZED_ELVEN_MAIL_HAUBERK)
                         .input(Items.LEATHER)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .criterion(hasItem(ironChainmail.getItem()),
@@ -1143,35 +1151,35 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_MAIL_HAUBERK.getDefaultStack(), "chestplate", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
                         .criterion(hasItem(ironChainmail.getItem()),
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_MAIL_SHIRT.getDefaultStack(), "chestplate", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
                         .criterion(hasItem(ironChainmail.getItem()),
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LEATHER_SKIRT.getDefaultStack(), "leggings", DispositionType.EVIL)
+                        .input(ResourceItemsME.FUR)
                         .input(Items.LEATHER)
-                        .input(Items.LEATHER)
-                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.FUR)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
@@ -1194,10 +1202,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LEG_BRACER.getDefaultStack(), "leggings", DispositionType.EVIL)
                         .input(Items.LEATHER)
-                        .input(Items.IRON_NUGGET)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
-                        .input(Items.IRON_NUGGET)
-                        .input(Items.IRON_NUGGET)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
                         .criterion(hasItem(Items.LEATHER),
@@ -1205,39 +1213,39 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_MAIL_COAT.getDefaultStack(), "leggings", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .criterion(hasItem(ironChainmail.getItem()),
-                                conditionsFromItem(ironChainmail.getItem()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .criterion(hasItem(crudeChainmail.getItem()),
+                                conditionsFromItem(crudeChainmail.getItem()))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_REINFORCED_LEATHER_SKIRT.getDefaultStack(), "leggings", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
-                        .criterion(hasItem(ironChainmail.getItem()),
-                                conditionsFromItem(ironChainmail.getItem()))
+                        .criterion(hasItem(crudeChainmail.getItem()),
+                                conditionsFromItem(crudeChainmail.getItem()))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.RUSTED_ORCISH_REINFORCED_STRIP_LEATHER_SKIRT.getDefaultStack(), "leggings", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeChainmail.getItem()), crudeChainmail.getComponentChanges()))
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
-                        .criterion(hasItem(ironChainmail.getItem()),
-                                conditionsFromItem(ironChainmail.getItem()))
+                        .criterion(hasItem(crudeChainmail.getItem()),
+                                conditionsFromItem(crudeChainmail.getItem()))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_BLACK_FUR_BOOTS.getDefaultStack(), "boots", DispositionType.EVIL)

@@ -127,21 +127,21 @@ public class RecipeProvider extends FabricRecipeProvider {
                             createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledBlocks.base(), 2);
                             offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledBlocks.base(), record.baseBlocks.base(), 1);
                         }
-                        if(record.chiseledBricksBlocks != null) {
-                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledBricksBlocks.base(), 2);
-                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledBricksBlocks.base(), record.baseBlocks.base(), 1);
+                        if(record.chiseledBricksBlocks != null && record.brickBlocks != null) {
+                            createChiseledRecipe(exporter, record.brickBlocks.base(), record.chiseledBricksBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledBricksBlocks.base(), record.brickBlocks.base(), 1);
                         }
-                        if(record.chiseledPolishedBlocks != null) {
-                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledPolishedBlocks.base(), 2);
-                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledPolishedBlocks.base(), record.baseBlocks.base(), 1);
+                        if(record.chiseledPolishedBlocks != null && record.polishedBlocks != null) {
+                            createChiseledRecipe(exporter, record.polishedBlocks.base(), record.chiseledPolishedBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledPolishedBlocks.base(), record.polishedBlocks.base(), 1);
                         }
-                        if(record.chiseledSmoothBlocks != null) {
-                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledSmoothBlocks.base(), 2);
-                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledSmoothBlocks.base(), record.baseBlocks.base(), 1);
+                        if(record.chiseledSmoothBlocks != null && record.smoothBlocks != null) {
+                            createChiseledRecipe(exporter, record.smoothBlocks.base(), record.chiseledSmoothBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledSmoothBlocks.base(), record.smoothBlocks.base(), 1);
                         }
-                        if(record.chiseledTilesBlocks != null) {
-                            createChiseledRecipe(exporter, record.baseBlocks.base(), record.chiseledTilesBlocks.base(), 2);
-                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledTilesBlocks.base(), record.baseBlocks.base(), 1);
+                        if(record.chiseledTilesBlocks != null && record.tileBlocks != null) {
+                            createChiseledRecipe(exporter, record.tileBlocks.base(), record.chiseledTilesBlocks.base(), 2);
+                            offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.chiseledTilesBlocks.base(), record.tileBlocks.base(), 1);
                         }
 
                         createFilledRecipe(exporter, record.baseBlocks.base().asItem(), record.baseBlocks.trapdoor(), 3);
@@ -1154,9 +1154,9 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("PHP")
                         .pattern("PPP")
                         .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("logs")))
-                        .input('H', ResourceItemsME.ASH)
-                        .criterion(hasItem(ResourceItemsME.ASH),
-                                conditionsFromItem(ResourceItemsME.ASH))
+                        .input('H', Items.HONEYCOMB)
+                        .criterion(hasItem(Items.HONEYCOMB),
+                                conditionsFromItem(Items.HONEYCOMB))
                         .offerTo(exporter);
 
                 createBrickRecipe(exporter, GenericBlockSets.TREATED_WOOD.blockSet.base().asItem(), GenericBlockSets.TREATED_WOOD_BEAM.blockSet.base(), 3);
