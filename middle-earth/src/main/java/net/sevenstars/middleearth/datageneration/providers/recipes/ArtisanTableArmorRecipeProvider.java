@@ -1604,29 +1604,29 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(edhelSteelScaleMail.getItem()))
                         .offerTo(exporter);
 
-                //T5 GALADHRIM
+                //T5 WLR
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WOODLAND_REALM_SOLDIER_CHESTPLATE.getDefaultStack(), "chestplate", DispositionType.GOOD)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                        .input(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_HAUBERK)
+                        .input(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelChainmail.getItem()), edhelSteelChainmail.getComponentChanges()))
-                        .criterion(hasItem(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_HAUBERK),
-                                conditionsFromItem(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_HAUBERK))
+                        .criterion(hasItem(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK),
+                                conditionsFromItem(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WOODLAND_REALM_SOLDIER_LEGGINGS.getDefaultStack(), "leggings", DispositionType.GOOD)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                        .input(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_SKIRT)
+                        .input(EquipmentItemsME.WOODLAND_REALM_SCALE_SKIRT)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
-                        .criterion(hasItem(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_SKIRT),
-                                conditionsFromItem(EquipmentItemsME.WOODLAND_REALM_GILDED_SCALE_SKIRT))
+                        .criterion(hasItem(EquipmentItemsME.WOODLAND_REALM_SCALE_SKIRT),
+                                conditionsFromItem(EquipmentItemsME.WOODLAND_REALM_SCALE_SKIRT))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARDEN_OF_THE_GLADE_CHESTPLATE.getDefaultStack(), "chestplate", DispositionType.GOOD)
@@ -1667,14 +1667,14 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_LEGGINGS.getDefaultStack(), "leggings", DispositionType.GOOD)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
-                        .input(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK)
+                        .input(EquipmentItemsME.WOODLAND_REALM_SCALE_SKIRT)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelArmorPlate.getItem()), edhelSteelArmorPlate.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(edhelSteelScaleMail.getItem()), edhelSteelScaleMail.getComponentChanges()))
-                        .criterion(hasItem(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK),
-                                conditionsFromItem(EquipmentItemsME.WOODLAND_REALM_SCALE_HAUBERK))
+                        .criterion(hasItem(EquipmentItemsME.WOODLAND_REALM_SCALE_SKIRT),
+                                conditionsFromItem(EquipmentItemsME.WOODLAND_REALM_SCALE_SKIRT))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WOODLAND_REALM_COMMANDER_CHESTPLATE.getDefaultStack(), "chestplate", DispositionType.GOOD)
@@ -3731,18 +3731,18 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GOBLIN_TOWN_NASAL_HELMET.getDefaultStack(), "helmet", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironHelmetPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .criterion(hasItem(crudeArmorPlate.getItem()),
                                 conditionsFromItem(crudeArmorPlate.getItem()))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GOBLIN_TOWN_MANDIBLE_HELMET.getDefaultStack(), "helmet", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironHelmetPlate.getComponentChanges()))
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .criterion(hasItem(crudeArmorPlate.getItem()),
@@ -3768,9 +3768,9 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GOBLIN_TOWN_SKULL_CAP.getDefaultStack(), "helmet", DispositionType.EVIL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
                         .input(Items.SKELETON_SKULL)
-                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), ironArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
                         .input(Items.BONE)
                         .input(Items.BONE)
                         .criterion(hasItem(Items.SKELETON_SKULL),
@@ -3799,12 +3799,12 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GOBLIN_TOWN_CRUDE_SCALE_CHESTPLATE.getDefaultStack(), "chestplate", DispositionType.NEUTRAL)
                         .input(Items.BONE)
                         .input(Items.BONE)
-                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(crudeArmorPlate.getItem()), crudeArmorPlate.getComponentChanges()))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .input(Items.LEATHER)
-                        .input(ResourceItemsME.CRUDE_NUGGET)
-                        .input(ResourceItemsME.CRUDE_NUGGET)
-                        .input(Items.LEATHER)
-                        .input(ResourceItemsME.CRUDE_NUGGET)
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(ironChainmail.getItem()), ironChainmail.getComponentChanges()))
                         .criterion(hasItem(ResourceItemsME.CRUDE_NUGGET),
                                 conditionsFromItem(ResourceItemsME.CRUDE_NUGGET))
                         .offerTo(exporter);

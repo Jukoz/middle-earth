@@ -538,6 +538,7 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.DEAD_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.DRY_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.HEATH, 0.30f);
+        registry.add(ModNatureBlocks.TALL_BULRUSH, 0.30f);
 
         registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
 

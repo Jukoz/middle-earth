@@ -15,7 +15,9 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -103,7 +105,9 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(this.input, 2, 180, 48){
             @Override
             public boolean canInsert(ItemStack stack) {
-                return (stack.isEnchantable() || stack.hasEnchantments()) && !stack.isOf(Items.BOOK);
+                return (stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"))) ||
+                        stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/crossbow")))
+                        || stack.isEnchantable() || stack.hasEnchantments()) && !stack.isOf(Items.BOOK);
             }
         });
 

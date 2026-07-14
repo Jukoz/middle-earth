@@ -1270,7 +1270,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(GenericBlockSets.AGED_WOOD_CARVING.blockSet.base()))
                         .offerTo(exporter);
 
-                createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_CARVED_PILLAR);
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_CARVING);
                  //endregion
 
                 //region AGED_WOOD_GILDED_CARVED_PILLAR

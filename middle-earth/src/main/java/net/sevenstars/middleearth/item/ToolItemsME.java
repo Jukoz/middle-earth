@@ -37,6 +37,8 @@ public class ToolItemsME {
             (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.COPPER_HAMMER, -3.5f), new Item.Settings());
     public static final Item BRONZE_SMITHING_HAMMER = registerItemHandheld("bronze_smithing_hammer",
             (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BRONZE_HAMMER, -3.35f), new Item.Settings());
+    public static final Item CRUDE_SMITHING_HAMMER = registerItemHandheld("crude_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.CRUDE_HAMMER, -3.35f), new Item.Settings());
 
     public static final Item SMITHING_HAMMER = registerItemHandheld("smithing_hammer",
             (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.STEEL_HAMMER, -3.2f), new Item.Settings());

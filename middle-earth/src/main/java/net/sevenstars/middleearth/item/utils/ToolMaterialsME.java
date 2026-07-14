@@ -20,6 +20,7 @@ public class ToolMaterialsME {
 
     public static final ToolMaterial COPPER_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 32, 7.0f, 2.0f, 10, ItemTagsME.COPPER_TOOL_MATERIALS);
     public static final ToolMaterial BRONZE_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 128, 7.0f, 2.0f, 10, ItemTagsME.BRONZE_TOOL_MATERIALS);
+    public static final ToolMaterial CRUDE_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 128, 7.0f, 2.0f, 10, ItemTagsME.CRUDE_TOOL_MATERIALS);
 
     public static final ToolMaterial STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 256, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);
     public static final ToolMaterial NOBLE_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, ItemTagsME.STEEL_TOOL_MATERIALS);
@@ -34,5 +35,4 @@ public class ToolMaterialsME {
     public static final ToolMaterial BURZUM_NOBLE_STEEL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 512, 7.0f, 2.0f, 10, ItemTagsME.BURZUM_STEEL_TOOL_MATERIALS);
 
     public static final ToolMaterial MITHRIL_HAMMER = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 1024, 7.0f, 2.0f, 10, ItemTagsME.MITHRIL_TOOL_MATERIALS);
-    ;
 }

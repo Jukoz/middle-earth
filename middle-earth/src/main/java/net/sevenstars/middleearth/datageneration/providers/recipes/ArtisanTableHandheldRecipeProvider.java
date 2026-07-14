@@ -206,6 +206,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_SWORD.getDefaultStack(), false, DispositionType.GOOD);
                 createArtisanTableSwordRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_NOBLE_SWORD.getDefaultStack(), true, DispositionType.GOOD);
 
+                createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_DAGGER.getDefaultStack(), false, DispositionType.GOOD);
                 createArtisanTableDaggerRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER.getDefaultStack(), true, DispositionType.GOOD);
 
                 createArtisanTableLongswordRecipe(itemLookup, recipeExporter, MetalTypes.EDHEL_STEEL, WeaponItemsME.WOODLAND_REALM_LONGSWORD.getDefaultStack(), false, DispositionType.GOOD);
