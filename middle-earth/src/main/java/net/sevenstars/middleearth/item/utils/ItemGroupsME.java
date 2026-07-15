@@ -20,9 +20,7 @@ import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
-import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -56,7 +54,7 @@ public class ItemGroupsME {
         NbtElement element = NpcInitializationData.CODEC
                 .encodeStart(ops, npcInitializationData)
                 .getOrThrow();
-        compoundData.put(NpcEntity.KeyStrings.NPC_INITIALIZATION_DATA, element);
+        compoundData.put(NpcEntity.KeyStrings.INITIALIZATION_DATA, element);
 
         randomNpcSpawnEgg.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compoundData));
         randomNpcSpawnEgg.set(DataComponentTypes.ITEM_NAME, Text.translatable(randomSpawnEggId.toTranslationKey("item")));

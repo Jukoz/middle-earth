@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.renderer;
+package net.sevenstars.middleearth.entity.npcs.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,9 +8,10 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.resources.datas.texture_presets.SimplifiedTexturePreset;
 
-public class NpcEntityTextureData {
+public class NpcTextureData {
     private Identifier simplifiedSkin;
     private Identifier simplifiedEar;
     private Identifier simplifiedFeet;
@@ -36,14 +37,14 @@ public class NpcEntityTextureData {
 
     private Boolean eyeIsEmissive;
 
-    public static final Codec<NpcEntityTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-        NbtCompound.CODEC.fieldOf("dynamic").forGetter(NpcEntityTextureData::writeDynamic),
-        NbtCompound.CODEC.fieldOf("simplified").forGetter(NpcEntityTextureData::writeSimplified)
-    ).apply(instance, NpcEntityTextureData::new));
+    public static final Codec<NpcTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+        NbtCompound.CODEC.fieldOf("dynamic").forGetter(NpcTextureData::writeDynamic),
+        NbtCompound.CODEC.fieldOf("simplified").forGetter(NpcTextureData::writeSimplified)
+    ).apply(instance, NpcTextureData::new));
 
-    public static final PacketCodec<RegistryByteBuf, NpcEntityTextureData> PACKET_CODEC;
+    public static final PacketCodec<RegistryByteBuf, NpcTextureData> PACKET_CODEC;
 
-    public NpcEntityTextureData(NbtCompound dynamic, NbtCompound simplified)
+    public NpcTextureData(NbtCompound dynamic, NbtCompound simplified)
     {
         this.simplifiedSkin = MiddleEarth.fetchId(simplified.getString("skin", null));
         this.simplifiedEar = MiddleEarth.fetchId(simplified.getString("ear", null));
@@ -138,7 +139,7 @@ public class NpcEntityTextureData {
         return nbt;
     }
 
-    public NpcEntityTextureData() {
+    public NpcTextureData() {
         this.eyeIsEmissive = false;
     }
 
@@ -153,63 +154,63 @@ public class NpcEntityTextureData {
         this.simplifiedNose = preset.nose;
     }
 
-    public NpcEntityTextureData withSkinTexture(Identifier texture){
+    public NpcTextureData withSkinTexture(Identifier texture){
         this.bodyTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withHeadTexture(Identifier texture){
+    public NpcTextureData withHeadTexture(Identifier texture){
         this.headTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withFeetTexture(Identifier texture){
+    public NpcTextureData withFeetTexture(Identifier texture){
         this.feetTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withScarTexture(Identifier texture){
+    public NpcTextureData withScarTexture(Identifier texture){
         this.scarTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withEarTexture(Identifier texture){
+    public NpcTextureData withEarTexture(Identifier texture){
         this.earTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withNoseTexture(Identifier texture){
+    public NpcTextureData withNoseTexture(Identifier texture){
         this.noseTexture = texture;
         return this;
     }
 
-    public NpcEntityTextureData withEyeTexture(Identifier eyeTexture, Identifier eyeEmissiveTexture, Boolean isEmissive){
+    public NpcTextureData withEyeTexture(Identifier eyeTexture, Identifier eyeEmissiveTexture, Boolean isEmissive){
         this.eyeTexture = eyeTexture;
         this.eyeEmissiveTexture = eyeEmissiveTexture;
         this.eyeIsEmissive = isEmissive;
         return this;
     }
 
-    public NpcEntityTextureData withHairTexture(Identifier texture){
+    public NpcTextureData withHairTexture(Identifier texture){
         this.hairTexture = texture;
         return this;
     }
 
-    public NpcEntityTextureData withHairAddonTexture(Identifier texture){
+    public NpcTextureData withHairAddonTexture(Identifier texture){
         this.hairAddonTexture = texture;
         return this;
     }
 
-    public NpcEntityTextureData withEyebrowTexture(Identifier texture){
+    public NpcTextureData withEyebrowTexture(Identifier texture){
         this.eyebrowTexture = texture;
         return this;
     }
 
-    public NpcEntityTextureData withBeardTexture(Identifier texture){
+    public NpcTextureData withBeardTexture(Identifier texture){
         this.beardTexture = texture;
         return this;
     }
 
-    public NpcEntityTextureData withBeardAddonTexture(Identifier texture){
+    public NpcTextureData withBeardAddonTexture(Identifier texture){
         this.beardAddonTexture = texture;
         return this;
     }
-    public NpcEntityTextureData withClothingTexture(Identifier textureBase, Identifier textureOver, Identifier textureExtra){
+    public NpcTextureData withClothingTexture(Identifier textureBase, Identifier textureOver, Identifier textureExtra){
         this.clothingBaseTexture = textureBase;
         this.clothingOverTexture = textureOver;
         this.clothingExtraTexture = textureExtra;
@@ -243,9 +244,9 @@ public class NpcEntityTextureData {
     }
     static {
         PACKET_CODEC = PacketCodec.tuple(
-                PacketCodecs.NBT_COMPOUND, NpcEntityTextureData::writeDynamic,
-                PacketCodecs.NBT_COMPOUND, NpcEntityTextureData::writeSimplified,
-                NpcEntityTextureData::new);
+                PacketCodecs.NBT_COMPOUND, NpcTextureData::writeDynamic,
+                PacketCodecs.NBT_COMPOUND, NpcTextureData::writeSimplified,
+                NpcTextureData::new);
     }
 
     public boolean needToBeRefreshed() {

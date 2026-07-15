@@ -69,7 +69,6 @@ public class NpcEntityInitializer {
         npcEntity.prepare();
         NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
         npcEntity.updateTargetGoals();
-        npcEntity.setInitializationTick();
     }
 
 
@@ -146,7 +145,7 @@ public class NpcEntityInitializer {
     }
 
     public static void initializeNpcForCurrentData(NpcEntity npcEntity, ServerWorld serverWorld) {
-        boolean shouldRefreshVisuals = npcEntity.getNpcTextureData().needToBeRefreshed();
+        boolean shouldRefreshVisuals = npcEntity.shouldRefreshVisuals();
         if(shouldRefreshVisuals)
             NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
     }

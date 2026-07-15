@@ -10,13 +10,11 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryOps;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.EggItemsME;
@@ -60,7 +58,7 @@ public class NpcSpawnEggHelper {
         NbtElement element = NpcInitializationData.CODEC
                 .encodeStart(ops, npcInitializationData)
                 .getOrThrow();
-        compoundData.put(NpcEntity.KeyStrings.NPC_INITIALIZATION_DATA, element);
+        compoundData.put(NpcEntity.KeyStrings.INITIALIZATION_DATA, element);
 
         itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compoundData));
         itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcType.getFactionIdentifier()));
