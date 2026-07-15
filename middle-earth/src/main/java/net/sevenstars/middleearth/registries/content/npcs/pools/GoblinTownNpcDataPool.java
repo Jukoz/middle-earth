@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.registries.content.npcs.pools;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
@@ -14,10 +13,10 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
 
 import java.util.List;
 
@@ -29,11 +28,11 @@ public class GoblinTownNpcDataPool {
     private static final int DARK_BROWN = 0x4a3c34;
     private static final int BROWN_GOBLIN = 7628899;
 
-    public final static NpcData GOBLIN;
-    public final static NpcData SCOUT;
-    public final static NpcData WARRIOR;
-    public final static NpcData RIDER;
-    public final static NpcData VETERAN;
+    public final static NpcType GOBLIN;
+    public final static NpcType SCOUT;
+    public final static NpcType WARRIOR;
+    public final static NpcType RIDER;
+    public final static NpcType VETERAN;
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
@@ -51,7 +50,7 @@ public class GoblinTownNpcDataPool {
                 DARK_BROWN
         );
 
-        GOBLIN = new NpcData(NpcRegistry.GOBLIN_TOWN_GOBLIN.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_GOBLIN, List.of(
+        GOBLIN = new NpcType(NpcRegistry.GOBLIN_TOWN_GOBLIN.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
@@ -92,7 +91,7 @@ public class GoblinTownNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        SCOUT = new NpcData(NpcRegistry.GOBLIN_TOWN_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_GOBLIN, List.of(
+        SCOUT = new NpcType(NpcRegistry.GOBLIN_TOWN_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_GOBLIN, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
@@ -129,7 +128,7 @@ public class GoblinTownNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        WARRIOR = new NpcData(NpcRegistry.GOBLIN_TOWN_WARRIOR.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
+        WARRIOR = new NpcType(NpcRegistry.GOBLIN_TOWN_WARRIOR.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
@@ -186,7 +185,7 @@ public class GoblinTownNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        RIDER = new NpcData(NpcRegistry.GOBLIN_TOWN_RIDER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
+        RIDER = new NpcType(NpcRegistry.GOBLIN_TOWN_RIDER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GOBLIN_TOWN_SKULL_CAP))
@@ -234,7 +233,7 @@ public class GoblinTownNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        VETERAN = new NpcData(NpcRegistry.GOBLIN_TOWN_VETERAN.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_BRUTE, List.of(
+        VETERAN = new NpcType(NpcRegistry.GOBLIN_TOWN_VETERAN.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_BRUTE, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.GOBLIN_TOWN_SKULKER_GUARD_HELMET))

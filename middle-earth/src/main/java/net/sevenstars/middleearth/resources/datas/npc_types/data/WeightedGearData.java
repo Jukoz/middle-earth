@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.resources.datas.npcs.data;
+package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;

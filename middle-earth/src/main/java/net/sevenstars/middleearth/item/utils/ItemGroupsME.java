@@ -1,15 +1,16 @@
 package net.sevenstars.middleearth.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -18,11 +19,14 @@ import net.sevenstars.middleearth.block.registration.GenericBlockSets;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.data.NpcData;
+import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -31,17 +35,30 @@ import java.util.function.Predicate;
 
 public class ItemGroupsME {
 
-    private static final Comparator<RegistryEntry<NpcData>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcData::getId));
+    private static final Comparator<RegistryEntry<NpcType>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcType::getId));
 
-    private static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcData> registryWrapper, Predicate<RegistryEntry<NpcData>> filter, ItemGroup.StackVisibility stackVisibility) {
+    private static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcType> registryWrapper, Predicate<RegistryEntry<NpcType>> filter, ItemGroup.StackVisibility stackVisibility) {
         Identifier randomSpawnEggId = MiddleEarth.of("npc_random_spawn_egg");
 
         ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
-        NbtCompound randomCompound = new NbtCompound();
-        randomCompound.putString("id", MiddleEarth.of("npc").toString());
-        randomCompound.putString("NpcDataId", NpcEntityInitializer.RANDOM.toString());
-        randomNpcSpawnEgg.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(randomCompound));
+        NbtCompound compoundData = new NbtCompound();
+        compoundData.putString("id", MiddleEarth.of("npc").toString());
+
+        NpcInitializationData npcInitializationData = new NpcInitializationData(null, true);
+        DynamicRegistryManager manager = MinecraftClient.getInstance().getServer().getRegistryManager();
+
+        RegistryOps<NbtElement> ops = RegistryOps.of(
+                NbtOps.INSTANCE,
+                manager
+        );
+
+        NbtElement element = NpcInitializationData.CODEC
+                .encodeStart(ops, npcInitializationData)
+                .getOrThrow();
+        compoundData.put(NpcEntity.KeyStrings.NPC_INITIALIZATION_DATA, element);
+
+        randomNpcSpawnEgg.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compoundData));
         randomNpcSpawnEgg.set(DataComponentTypes.ITEM_NAME, Text.translatable(randomSpawnEggId.toTranslationKey("item")));
         randomNpcSpawnEgg.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
                 List.of(),
@@ -176,7 +193,7 @@ public class ItemGroupsME {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
                 };
-                displayContext.lookup().getOptional(DynamicRegistriesME.NPC)
+                displayContext.lookup().getOptional(DynamicRegistriesME.NPC_TYPE)
                         .ifPresent(registryWrapper -> addNpcEggs(
                                 entries,
                                 registryWrapper,

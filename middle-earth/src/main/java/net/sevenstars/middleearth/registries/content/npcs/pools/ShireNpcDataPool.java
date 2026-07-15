@@ -12,12 +12,11 @@ import net.sevenstars.middleearth.registries.content.texturepresets.TexturePrese
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
 
 import java.util.List;
 
@@ -29,9 +28,9 @@ public class ShireNpcDataPool {
     private final static int BROWN = 0x59341e;
     private final static int DARK = 0x342c27;
 
-    public final static NpcData PEASANT;
-    public final static NpcData MILITIA;
-    public final static NpcData SHIRRIFF;
+    public final static NpcType PEASANT;
+    public final static NpcType MILITIA;
+    public final static NpcType SHIRRIFF;
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
@@ -42,7 +41,7 @@ public class ShireNpcDataPool {
     }
 
     static {
-        PEASANT = new NpcData(NpcRegistry.SHIRE_PEASANT.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_PEASANT, List.of(
+        PEASANT = new NpcType(NpcRegistry.SHIRE_PEASANT.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_PEASANT, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
@@ -51,7 +50,7 @@ public class ShireNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        MILITIA = new NpcData(NpcRegistry.SHIRE_MILITIA.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
+        MILITIA = new NpcType(NpcRegistry.SHIRE_MILITIA.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
@@ -78,7 +77,7 @@ public class ShireNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        SHIRRIFF = new NpcData(NpcRegistry.SHIRE_SHIRRIFF.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_SHIRRIFF, List.of(
+        SHIRRIFF = new NpcType(NpcRegistry.SHIRE_SHIRRIFF.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_SHIRRIFF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.SHIRRIFF_HAT)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()

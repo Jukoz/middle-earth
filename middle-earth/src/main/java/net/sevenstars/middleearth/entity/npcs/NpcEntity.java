@@ -31,6 +31,7 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -42,21 +43,24 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.sevenstars.middleearth.entity.goals.*;
+import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
+import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
+import net.sevenstars.middleearth.entity.goals.TargetNPCDiplomacyGoal;
+import net.sevenstars.middleearth.entity.goals.TargetPlayerDiplomacyGoal;
+import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcEntityDataHolder;
-import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
-import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
+import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityTextureData;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
@@ -68,7 +72,7 @@ import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
@@ -78,10 +82,19 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class NpcEntity extends PassiveEntity implements EquipmentHolder, CrossbowUser {
-    // Data to use
-    NpcEntityDataHolder entityDataHolder;
+
+
+    public static class KeyStrings {
+        public static final String NPC_DATA = "NpcData";
+        public static final String NPC_INITIALIZATION_DATA = "InitializationData";
+    }
+    // [TrackedDatas]
+    private static final TrackedData<NpcData> NPC_DATA;
+    private static final TrackedData<NpcInitializationData> NPC_INITIALIZATION_DATA;
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    NpcEntityDataHolder entityDataHolder;
 
     private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 16.0F);
     private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, 1.0, 11.0F);
@@ -111,6 +124,69 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         this.updateAttackType();
     }
 
+    @Nullable
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData) {
+        this.saveSpawnReason(spawnReason);
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+    // [NpcInitializationData]
+    public void saveNpcInitializationData(NpcInitializationData npcInitializationData) {
+        this.dataTracker.set(NPC_INITIALIZATION_DATA, npcInitializationData);
+    }
+    public NpcInitializationData retrieveNpcInitializationData() {
+        return this.dataTracker.get(NPC_INITIALIZATION_DATA);
+    }
+    public void prepare() {
+        NpcInitializationData npcInitializationData = retrieveNpcInitializationData();
+        boolean result = npcInitializationData.tryToInitialize(this);
+        if(result)
+            resetInitializationData();
+    }
+    public void resetInitializationData() {
+        this.dataTracker.set(NPC_INITIALIZATION_DATA, new NpcInitializationData());
+    }
+    // [NpcTypeIdentifier]
+    public void prepareNpcIdentifier(Identifier npcTypeIdentifier){
+        NpcInitializationData newNpcInitializationData = this.retrieveNpcInitializationData().withType(npcTypeIdentifier);
+        this.saveNpcInitializationData(newNpcInitializationData);
+    }
+    // [NpcData]
+    public void saveNpcData(NpcData npcData) {
+        this.dataTracker.set(NPC_DATA, npcData);
+    }
+    public NpcData retrieveNpcData() {
+        return this.dataTracker.get(NPC_DATA);
+    }
+    // [NpcType]
+    public NpcType getNpcType(){
+        return retrieveNpcData().getNpcType();
+    }
+    public void saveNpcType(RegistryEntry<NpcType> npcType){
+        NpcData newNpcData = this.retrieveNpcData().withType(npcType);
+        this.saveNpcData(newNpcData);
+    }
+    // [Category]
+    public EntityCategories getNpcCategory() {
+        return retrieveNpcData().getCategory();
+    }
+    public void saveCategory(EntityCategories category) {
+        NpcData newNpcData = this.retrieveNpcData().withCategory(category);
+        this.saveNpcData(newNpcData);
+    }
+    // [SpawnReason]
+    private void saveSpawnReason(SpawnReason spawnReason) {
+        NpcData newNpcData = this.retrieveNpcData().withSpawnReason(spawnReason);
+        this.saveNpcData(newNpcData);
+    }
+    public SpawnReason getSpawnReason() {
+        return this.retrieveNpcData().getSpawnReason();
+    }
+    // [StructureManager]
+    public void assignStructureManager(StructureManagerBlockEntity blockEntity){
+        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(blockEntity.getPos());
+        this.saveNpcData(newNpcData);
+    }
+
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.FOLLOW_RANGE, 32.0)
@@ -134,19 +210,48 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
-        if(entityDataHolder == null)
-            entityDataHolder = new NpcEntityDataHolder(this);
-
         super.initDataTracker(builder);
-        entityDataHolder.initDataTracker(builder);
+        builder.add(NPC_INITIALIZATION_DATA, new NpcInitializationData());
+        builder.add(NPC_DATA, new NpcData());
         builder.add(CROSSBOW_CHARGING, false);
         builder.add(USING_ITEM, 0);
+        if(entityDataHolder == null)
+            entityDataHolder = new NpcEntityDataHolder(this);
+        entityDataHolder.initDataTracker(builder);
     }
 
     @Override
     public void writeData(WriteView view) {
         super.writeData(view);
-        this.writeEntityData(view);
+        writeCustomData(view);
+    }
+
+    @Override
+    public void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.put(KeyStrings.NPC_INITIALIZATION_DATA, NpcInitializationData.CODEC, this.retrieveNpcInitializationData());
+        view.put(KeyStrings.NPC_DATA, NpcData.CODEC, this.retrieveNpcData());
+        entityDataHolder.writeEntityData( view);
+    }
+
+    @Override
+    public void readData(ReadView view) {
+        super.readData(view);
+        readCustomData(view);
+    }
+
+    @Override
+    public void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        NpcInitializationData foundNpcInitializationData = view.read(KeyStrings.NPC_INITIALIZATION_DATA, NpcInitializationData.CODEC).orElse(new NpcInitializationData());
+        NpcData foundNpcData = view.read(KeyStrings.NPC_DATA, NpcData.CODEC).orElse(new NpcData());
+        this.dataTracker.set(NPC_DATA, foundNpcData);
+        this.dataTracker.set(NPC_INITIALIZATION_DATA, foundNpcInitializationData);
+
+        foundNpcInitializationData.tryToInitialize(this);
+
+        entityDataHolder.readEntityData(view);
+        this.updateAttackType();
     }
 
     @Override
@@ -155,23 +260,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     @Override
-    public void readData(ReadView view) {
-        super.readData(view);
-        this.readEntityData(view);
-    }
-
-    @Override
     public @Nullable ItemStack getPickBlockStack() {
-        return NpcSpawnEggHelper.getSpawnEgg(getWorld(), getNpcData().getId());
-    }
-
-    private void writeEntityData(WriteView view){
-        entityDataHolder.writeEntityData( view);
-    }
-
-    private void readEntityData(ReadView view) {
-        entityDataHolder.readEntityData(view);
-        this.updateAttackType();
+        return NpcSpawnEggHelper.getSpawnEgg(getWorld(), getNpcType().getId());
     }
 
     public void updateAttackType() {
@@ -208,15 +298,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     public static boolean canSpawn(EntityType<NpcEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up())
-                && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS);
+        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up()) && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS);
     }
 
     //region [DATA TRANSFER]
     // SETTERS
-    public void assignStructureManager(StructureManagerBlockEntity blockEntity){
-        entityDataHolder.assignStructureManager(blockEntity);
-    }
     public void assignBed(BedBlockEntity bedBlockEntity){
         entityDataHolder.assignBed(bedBlockEntity);
     }
@@ -229,42 +315,23 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     public void setBlocking(boolean blockingState){
         entityDataHolder.setBlockingState(blockingState);
     }
-    public void setNpcData(Identifier npcDataIdentifier){
-        entityDataHolder.setNpcData(npcDataIdentifier);
-    }
-    public void setNpcData(NpcData npcData){
-        entityDataHolder.setNpcData(npcData);
-        CombatArchetypeRuntimeData combatArchetypeRuntimeData = npcData.getCombatArchetypeRuntime();
-        entityDataHolder.setCombatRuntimeData(combatArchetypeRuntimeData);
-        entityDataHolder.setFactionId(npcData.getFactionIdentifier());
-        entityDataHolder.setNpcCategory(npcData.getNpcTextureData(getWorld()).getRandomCategory().name());
-
-        /*switch (combatArchetypeRuntimeData.getArchetype()){
-            case MELEE -> NpcBrain.setMeleeActivities((Brain<NpcEntity>) this.brain, this, (MeleeCombatArchetypeRuntimeData) combatArchetypeRuntimeData);
-            case RANGED ->  NpcBrain.setRangedActivities((Brain<NpcEntity>) this.brain, this, (RangedCombatArchetypeRuntimeData) combatArchetypeRuntimeData);
-        }*/
-    }
 
     public void setNpcTextureData(NpcEntityTextureData npcEntityTextureData){
         entityDataHolder.setNpcTextureData(npcEntityTextureData);
     }
 
     // GETTERS
-    public Identifier getNpcDataIdentifier(){
-        NpcData npcData = entityDataHolder.getNpcData();
-        if(npcData == null)
-            return null;
-        return npcData.getId();
+    public Identifier getNpcTypeIdentifier(){
+        return retrieveNpcData().getNpcTypeId();
     }
-    public NpcData getNpcData(){
-        return entityDataHolder.getNpcData();
+    public Identifier getFactionIdentifier(){
+        return retrieveNpcData().getFaction();
     }
+
     public boolean getFighting(){
         return entityDataHolder.getFighting();
     }
-    public Identifier getFactionIdentifier(){
-        return entityDataHolder.getFactionId();
-    }
+
     public Long getInitializationTick() {
         return entityDataHolder.getInitializationTick();
     }
@@ -275,11 +342,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     public boolean isBlocking() {
         return entityDataHolder.isBlocking();
     }
-    public EntityCategories getNpcCategory() {
-        return entityDataHolder.getNpcCategory();
-    }
     public BlockPos getStructureManagerHostPos() {
-        return entityDataHolder.getStructureManagerPos();
+        return this.retrieveNpcData().getStructureManagerPos();
     }
     public BlockPos getAssignedBedPos() {
         return entityDataHolder.getAssignedBedPos();
@@ -294,6 +358,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         if(Objects.equals(getBlockPos(), new BlockPos(0, 0, 0))) // 0,0,0 is what's used for commands, needs to be delayed
             return;
 
+        this.prepare();
+
         World world = getWorld();
         if(world.isClient)
             return;
@@ -306,13 +372,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     public void initializeForCurrentNpcData() {
-        if(this.getNpcData() == null)
+        if(this.retrieveNpcData() == null)
             return;
         World world = getWorld();
         if(world.isClient)
             return;
         if(world instanceof ServerWorld serverWorld){
-            NpcEntityInitializer.initializeNpcForCurrentData(this, serverWorld, getNpcData().getId());
+            NpcEntityInitializer.initializeNpcForCurrentData(this, serverWorld);
         }
     }
 
@@ -433,8 +499,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
             }
         }
         super.onDeath(damageSource);
-        if(entityDataHolder.getStructureManagerPos() != null){
-            StructureManagerBlockEntity.triggerDeathSignal(getStructureManagerHostPos(), this);
+        BlockPos structureManagerPos = getStructureManagerHostPos();
+        if(structureManagerPos != null){
+            StructureManagerBlockEntity.triggerDeathSignal(structureManagerPos, this);
         }
     }
 
@@ -456,7 +523,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         if(!canDropLoot)
             return;
 
-        RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcData().getId().withPrefixedPath("entities/"));
+        RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcType().getId().withPrefixedPath("entities/"));
         LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
 
         if (lootTable != null) {
@@ -566,10 +633,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     protected Text getDefaultName() {
-        if(this.getNpcDataIdentifier() == null) {
+        if(this.getNpcTypeIdentifier() == null) {
             return Text.translatable("npc_data."+ MiddleEarth.MOD_ID +".npc");
         }
-        return Text.translatable(this.getNpcDataIdentifier().toTranslationKey("npc_data"));
+        return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_data"));
     }
 
     @Override
@@ -782,6 +849,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     static {
+        NPC_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA);
+        NPC_INITIALIZATION_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_INITIALIZATION_DATA);
+
         NpcEntityDataHolder.initialize();
     }
 }

@@ -12,12 +12,11 @@ import net.sevenstars.middleearth.registries.content.texturepresets.TexturePrese
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedItemData;
-import net.sevenstars.middleearth.resources.datas.npcs.data.GearSlotPool;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
 
 import java.util.List;
 
@@ -33,13 +32,13 @@ public class RohirricNpcDataPool {
     private final static int LIGHT_BROWN = 0x69594d;
     private final static int DARK_BROWN = 0x44382f;
 
-    public final static NpcData PEASANT;
-    public final static NpcData MILITIA;
-    public final static NpcData SOLDIER;
-    public final static NpcData KNIGHT;
-    public final static NpcData ROYAL_GUARD;
-    public final static NpcData EORLING_MARSHAL;
-    public final static NpcData HORSE_LORD;
+    public final static NpcType PEASANT;
+    public final static NpcType MILITIA;
+    public final static NpcType SOLDIER;
+    public final static NpcType KNIGHT;
+    public final static NpcType ROYAL_GUARD;
+    public final static NpcType EORLING_MARSHAL;
+    public final static NpcType HORSE_LORD;
 
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
@@ -56,7 +55,7 @@ public class RohirricNpcDataPool {
 
 
     static {
-        PEASANT = new NpcData(NpcRegistry.ROHAN_PEASANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_PEASANT, List.of(
+        PEASANT = new NpcType(NpcRegistry.ROHAN_PEASANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_PEASANT, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT))
@@ -72,7 +71,7 @@ public class RohirricNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        MILITIA = new NpcData(NpcRegistry.ROHAN_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_PEASANT, List.of(
+        MILITIA = new NpcType(NpcRegistry.ROHAN_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_PEASANT, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.ROHIRRIC_LEATHER_HELMET).withWeight(6))
@@ -115,7 +114,7 @@ public class RohirricNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        SOLDIER = new NpcData(NpcRegistry.ROHAN_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_SOLDIER, List.of(
+        SOLDIER = new NpcType(NpcRegistry.ROHAN_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_SOLDIER, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.ROHIRRIC_MILITIA_HELMET).withWeight(6))
@@ -165,7 +164,7 @@ public class RohirricNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        KNIGHT = new NpcData(NpcRegistry.ROHAN_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_SOLDIER, List.of(
+        KNIGHT = new NpcType(NpcRegistry.ROHAN_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_SOLDIER, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.ROHIRRIC_SOLDIER_HELMET).withWeight(6))
@@ -207,7 +206,7 @@ public class RohirricNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        ROYAL_GUARD = new NpcData(NpcRegistry.ROHAN_ROYAL_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_SOLDIER, List.of(
+        ROYAL_GUARD = new NpcType(NpcRegistry.ROHAN_ROYAL_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_SOLDIER, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ROHIRRIC_ROYAL_GUARD_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
@@ -223,7 +222,7 @@ public class RohirricNpcDataPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.ROHIRRIC_ROYAL_GUARD_SHIELD)))
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        EORLING_MARSHAL = new NpcData(NpcRegistry.ROHAN_EORLING_MARSHAL.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_LORD, List.of(
+        EORLING_MARSHAL = new NpcType(NpcRegistry.ROHAN_EORLING_MARSHAL.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_LORD, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.EORLING_MARSHAL_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.EORLING_MARSHAL_CHESTPLATE)))
@@ -239,7 +238,7 @@ public class RohirricNpcDataPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
 
-        HORSE_LORD = new NpcData(NpcRegistry.ROHAN_HORSE_LORD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_LORD, List.of(
+        HORSE_LORD = new NpcType(NpcRegistry.ROHAN_HORSE_LORD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.ROHAN_LORD, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.HORSE_LORD_HELMET)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.HORSE_LORD_CHESTPLATE)))

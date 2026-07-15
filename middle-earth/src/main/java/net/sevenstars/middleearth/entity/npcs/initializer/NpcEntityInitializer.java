@@ -5,15 +5,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentHolder;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -30,7 +26,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,19 +41,21 @@ public class NpcEntityInitializer {
     }
 
     private static void initializeForServer(ServerWorld serverWorld, NpcEntity npcEntity){
-        Identifier currentNpcDataId = npcEntity.getNpcDataIdentifier();
-
-        if(Objects.equals(currentNpcDataId, RANDOM)){
-            var ids = serverWorld.getRegistryManager().getOptional(DynamicRegistriesME.NPC).get().getIds();
-
-            Random random = new Random();
-            currentNpcDataId = ids.stream().toList().get(random.nextInt(ids.size()));
-        } else if(!NpcEntityInitializerUtil.characterIdentifierExist(serverWorld, currentNpcDataId)){
+        Identifier npcTypeId = npcEntity.getNpcTypeIdentifier();
+        if(!NpcEntityInitializerUtil.characterIdentifierExist(serverWorld, npcTypeId))
+        {
             BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = null;
             try{
                 contextualizedBiomeData = findContextualizedNpcData(serverWorld, npcEntity);
-                currentNpcDataId = contextualizedBiomeData.npcData().getId();
+                if(contextualizedBiomeData == null)
+                {
+                    npcEntity.discard();
+                    return;
+                }
+                NpcType npcType = contextualizedBiomeData.npcType();
+                npcTypeId = npcType.getId();
             } catch (Exception e){
+                MiddleEarth.LOGGER.logError("NpcEntity initializer failed : ", e);
                 npcEntity.discard();
                 return;
             }
@@ -67,7 +65,9 @@ public class NpcEntityInitializer {
             }
         }
 
-        NpcGenerator.generateCharacterTextures(serverWorld, currentNpcDataId, npcEntity);
+        npcEntity.prepareNpcIdentifier(npcTypeId);
+        npcEntity.prepare();
+        NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
         npcEntity.updateTargetGoals();
         npcEntity.setInitializationTick();
     }
@@ -121,18 +121,19 @@ public class NpcEntityInitializer {
         if(contextualizedBiomeData != null){
             return contextualizedBiomeData;
         } else {
-            throw new Exception();
+            //throw new Exception();
         }
+        return contextualizedBiomeData;
     }
 
 
     public static boolean shouldInitialize(ServerWorld serverWorld, NpcEntity npcEntity){
-        Identifier currentNpcDataId = npcEntity.getNpcDataIdentifier();
+        Identifier currentNpcDataId = npcEntity.getNpcTypeIdentifier();
         if(currentNpcDataId == null)
             return true;
 
         DynamicRegistryManager registryManager = serverWorld.getRegistryManager();
-        Optional<RegistryEntry.Reference<NpcData>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(currentNpcDataId);
+        Optional<RegistryEntry.Reference<NpcType>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC_TYPE).get().getEntry(currentNpcDataId);
 
 
         if(!npcEntity.hasTextureData())
@@ -144,9 +145,9 @@ public class NpcEntityInitializer {
         return true;
     }
 
-    public static void initializeNpcForCurrentData(NpcEntity npcEntity, ServerWorld serverWorld, Identifier npcDataId) {
+    public static void initializeNpcForCurrentData(NpcEntity npcEntity, ServerWorld serverWorld) {
         boolean shouldRefreshVisuals = npcEntity.getNpcTextureData().needToBeRefreshed();
         if(shouldRefreshVisuals)
-            NpcGenerator.generateCharacterTextures(serverWorld, npcDataId, npcEntity);
+            NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
     }
 }

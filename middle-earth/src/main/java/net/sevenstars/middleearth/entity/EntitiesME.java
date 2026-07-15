@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,7 +18,6 @@ import net.sevenstars.middleearth.entity.barrel.BarrelEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
@@ -38,7 +36,6 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
-import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
 import java.util.function.Supplier;
 public class EntitiesME {
@@ -116,15 +113,6 @@ public class EntitiesME {
 
     public static void registerModEntities() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
-        SpawnRestriction.register(SHELOBITE_LARVA, SpawnLocationTypes.ON_GROUND,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-        SpawnRestriction.register(SHELOBITE_SCUTTLER, SpawnLocationTypes.ON_GROUND,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-        SpawnRestriction.register(SPAWN_OF_SHELOB, SpawnLocationTypes.ON_GROUND,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-
-        SpawnRestriction.register(CAVE_TROLL, SpawnLocationTypes.ON_GROUND,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CaveTrollEntity::canSpawn);
 
         FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
@@ -145,8 +133,19 @@ public class EntitiesME {
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(NPC, NpcEntity.setAttributes());
-        SpawnRestriction.register(NPC, SpawnLocationTypes.ON_GROUND,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, NpcEntity::canSpawn);
+        registerSpawnRestrictions();
+    }
+
+    private static void registerSpawnRestrictions(){
+        SpawnLocation onGroundLocation = SpawnLocationTypes.ON_GROUND;
+        Heightmap.Type heightmapType = Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
+
+        SpawnRestriction.register(SHELOBITE_LARVA, onGroundLocation, heightmapType, HostileEntity::canSpawnInDark);
+        SpawnRestriction.register(SHELOBITE_SCUTTLER, onGroundLocation, heightmapType, HostileEntity::canSpawnInDark);
+        SpawnRestriction.register(SPAWN_OF_SHELOB, onGroundLocation, heightmapType, HostileEntity::canSpawnInDark);
+
+        SpawnRestriction.register(CAVE_TROLL, onGroundLocation, heightmapType, CaveTrollEntity::canSpawn);
+        SpawnRestriction.register(NPC, onGroundLocation, heightmapType, NpcEntity::canSpawn);
     }
 
     static {

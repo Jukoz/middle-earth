@@ -9,9 +9,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.Optional;
 
@@ -73,8 +75,8 @@ public class BiomeNpcSpawningData {
         this.mountArmorColor = mountArmorColor;
     }
 
-    public BiomeNpcSpawningData(NpcData npcData){
-        this.npcDataIdentifier = npcData.getId();
+    public BiomeNpcSpawningData(NpcType npcType){
+        this.npcDataIdentifier = npcType.getId();
         this.weight = Optional.empty();
         this.nearbyLimitAmount = Optional.empty();
         this.nearbyLimitDistance = Optional.empty();
@@ -201,73 +203,68 @@ public class BiomeNpcSpawningData {
     // endregion
 
     public boolean conditionsAreMet(World world, BlockPos pos){
-        if(meetEntityThresholdRequirement(world, pos))
+        if(lightLevelRequirementUnmet(world, pos))
             return false;
-        if(meetStructureManagerClearanceRequirement(world, pos))
+        if(worldHeightRequirementUnmet(pos))
             return false;
-        if(!meetLightLevelRequirement(world, pos))
+        if(skyAccessRequirementUnmet(world, pos))
             return false;
-        if(!meetWorldHeightRequirement(pos))
+        if(undergroundRequirementUnmet(world, pos))
             return false;
-        if(!meetSkyAccessRequirement(world, pos))
+        if(nightTimeRequirementUnmet(world))
             return false;
-        if(!meetUndergroundRequirement(world, pos))
+        if(entityThresholdRequirementUnmet(world, pos))
             return false;
-        if(!meetNightTimeRequirement(world, pos))
+        if(structureManagerClearanceRequirementUnmet(world, pos))
             return false;
         return true;
     }
 
     // region [CONDITIONS]
-    private boolean meetEntityThresholdRequirement(World world, BlockPos pos) {
+    private boolean entityThresholdRequirementUnmet(World world, BlockPos pos) {
         int sameEntityDistance = getOptionalNearbyLimitDistance().orElse(64);
-        long sameEntityCount = world.getEntitiesByClass(NpcEntity.class, Box.of(pos.toCenterPos(), sameEntityDistance, sameEntityDistance, sameEntityDistance), x -> x.getNpcDataIdentifier().equals(npcDataIdentifier)).size();
-        return sameEntityCount >= nearbyLimitAmount.orElse(1);
+        int sameEntityAmount = nearbyLimitAmount.orElse(1);
+        Box box = Box.of(pos.toCenterPos(), sameEntityDistance, sameEntityDistance, sameEntityDistance);
+        long currentEntityCount = world.getEntitiesByType(EntitiesME.NPC, box, this::compareId).size();
+        return currentEntityCount >= sameEntityAmount;
     }
 
-    private boolean meetStructureManagerClearanceRequirement(World world, BlockPos pos) {
+    private boolean structureManagerClearanceRequirementUnmet(World world, BlockPos pos) {
         int structureManagerDistance = getOptionalNearbyStructureManagerAvoidanceDistance().orElse(16);
         return StructureManagerService.isClose(world, pos, structureManagerDistance);
     }
 
-    private boolean meetLightLevelRequirement(World world, BlockPos pos) {
-        int lightLevel = world.getLightLevel(pos);
-        if(lightLevelMin.isPresent() && lightLevel < lightLevelMin.get())
-            return false;
-        if(lightLevelMax.isPresent() && lightLevel > lightLevelMax.get())
-            return false;
-
-        return true;
+    private boolean lightLevelRequirementUnmet(World world, BlockPos pos) {
+        int currentLightLevel = world.getLightLevel(pos);
+        boolean result = (lightLevelMin.isPresent() && currentLightLevel < lightLevelMin.get());
+        if(!result && lightLevelMax.isPresent() && currentLightLevel > lightLevelMax.get())
+            result = true;
+        return result;
     }
 
-    private boolean meetWorldHeightRequirement(BlockPos pos) {
-        if(worldHeightMax.isPresent() && pos.getY() > worldHeightMax.get())
-            return false;
-
-        if(worldHeightMin.isPresent() && pos.getY() < worldHeightMin.get())
-            return false;
-        return true;
+    private boolean worldHeightRequirementUnmet(BlockPos pos) {
+        int currentY = pos.getY();
+        boolean result = (worldHeightMax.isPresent() && currentY > worldHeightMax.get());
+        if(!result && worldHeightMin.isPresent() && currentY < worldHeightMin.get())
+            result = true;
+        return result;
     }
 
-    private boolean meetSkyAccessRequirement(World world, BlockPos pos) {
-        return requireSkyAccess.isEmpty() || !requireSkyAccess.get() || world.isSkyVisible(pos);
+    private boolean skyAccessRequirementUnmet(World world, BlockPos pos) {
+        return requireSkyAccess.orElse(false) && !world.isSkyVisible(pos);
     }
 
-    private boolean meetUndergroundRequirement(World world, BlockPos pos) {
-        if(requireUnderground.isPresent() && requireUnderground.get() && world.isSkyVisible(pos))
-            return false;
-        return true;
+    private boolean undergroundRequirementUnmet(World world, BlockPos pos) {
+        return requireUnderground.orElse(false) && world.isSkyVisible(pos);
     }
 
-    private boolean meetNightTimeRequirement(World world, BlockPos pos) {
-        if(requireNight.isEmpty() || !requireNight.get() || !world.isDay())
-            return true;
-        return false;
+    private boolean nightTimeRequirementUnmet(World world) {
+        return requireNight.orElse(false) && world.isDay();
     }
     // endregion
 
 
-    // region [TO REWORK]
+    // region [TODO : TO REWORK]
     public BiomeNpcSpawningData withMount(EntityType mount){
         this.mount = Optional.of(EntityType.getId(mount));
         return this;
@@ -285,7 +282,6 @@ public class BiomeNpcSpawningData {
         return this;
     }
 
-
     public Optional<Identifier> getMount(){
         return mount;
     }
@@ -294,6 +290,18 @@ public class BiomeNpcSpawningData {
     }
     public Optional<Integer> getMountArmorColor(){
         return mountArmorColor;
+    }
+    // endregion
+
+    // region [UTILS]
+
+    private boolean compareId(NpcEntity entity) {
+        if(entity == null)
+            return false;
+        Identifier entityId = entity.getNpcTypeIdentifier();
+        if(entityId == null)
+            return false;
+        return MiddleEarth.compareId(entityId, npcDataIdentifier);
     }
     // endregion
 }

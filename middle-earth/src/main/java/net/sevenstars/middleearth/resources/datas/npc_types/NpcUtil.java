@@ -1,7 +1,7 @@
-package net.sevenstars.middleearth.resources.datas.npcs;
+package net.sevenstars.middleearth.resources.datas.npc_types;
 
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
-import net.sevenstars.middleearth.resources.datas.npcs.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;

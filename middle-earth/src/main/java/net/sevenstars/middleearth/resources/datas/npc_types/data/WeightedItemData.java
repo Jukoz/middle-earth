@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.resources.datas.npcs.data;
+package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -9,7 +9,6 @@ import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 
-import java.awt.*;
 import java.util.List;
 
 public class WeightedItemData extends WeightedItem<GearItemData> {

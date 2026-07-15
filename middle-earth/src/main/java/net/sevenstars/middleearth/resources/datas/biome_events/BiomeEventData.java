@@ -13,7 +13,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +60,8 @@ public class BiomeEventData {
             return null;
 
         BiomeNpcSpawningData spawningData = weightedData.get(Random.create().nextInt(weightedData.size()));
-        Registry<NpcData> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC);
-        NpcData foundNpcData = npcDataRegistry.get(spawningData.getNpcDataIdentifier());
+        Registry<NpcType> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC_TYPE);
+        NpcType foundNpcType = npcDataRegistry.get(spawningData.getNpcDataIdentifier());
 
         EntityType entityType = null;
         ItemStack mountArmorItemStack = null;
@@ -74,10 +74,10 @@ public class BiomeEventData {
                 }
             }
         }
-        return new ContextualizedBiomeData(foundNpcData, entityType, mountArmorItemStack);
+        return new ContextualizedBiomeData(foundNpcType, entityType, mountArmorItemStack);
     }
 
-    public record ContextualizedBiomeData(NpcData npcData, EntityType hasMount, ItemStack mountArmor){
+    public record ContextualizedBiomeData(NpcType npcType, EntityType hasMount, ItemStack mountArmor){
 
     }
 }
