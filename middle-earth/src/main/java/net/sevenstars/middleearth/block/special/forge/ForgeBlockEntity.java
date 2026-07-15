@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special.forge;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponent;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
@@ -10,6 +11,7 @@ import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
@@ -536,6 +538,8 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 new MultipleStackRecipeInput(inputs), world).orElse(null);
 
         if(match == null) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
+
+        ExperienceOrbEntity.spawn(world, entity.getPos().toCenterPos().add(0, 1, 0), match.value().getXp());
 
         if(hasAlloyingRecipe(entity, world)) {
             for (int i = 1; i <= 4; i++) {

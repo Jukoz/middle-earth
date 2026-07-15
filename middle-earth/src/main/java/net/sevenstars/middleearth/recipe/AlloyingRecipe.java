@@ -22,17 +22,19 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
     public final String output;
     public final int amount;
     public final List<Ingredient> inputs;
-    final CraftingRecipeCategory category;
-    final String group;
+    private final CraftingRecipeCategory category;
+    private final String group;
+    private final int xp;
 
     private IngredientPlacement ingredientPlacement;
 
-    public AlloyingRecipe(String group, CraftingRecipeCategory category, String output, List<Ingredient> recipeItems, int amount) {
+    public AlloyingRecipe(String group, CraftingRecipeCategory category, String output, List<Ingredient> recipeItems, int amount, int xp) {
         this.output = output;
         this.group = group;
         this.inputs = recipeItems;
         this.amount = amount;
         this.category = category;
+        this.xp = xp;
     }
 
     public DefaultedList<Ingredient> getIngredients() {
@@ -88,6 +90,10 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
         return amount;
     }
 
+    public int getXp() {
+        return xp;
+    }
+
     @Override
     public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
@@ -130,7 +136,8 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
                     CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(recipe -> recipe.category),
                     Codec.STRING.fieldOf("output").forGetter(recipe -> recipe.output),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
-                    Codec.INT.fieldOf("amount").forGetter(recipe -> recipe.amount)
+                    Codec.INT.fieldOf("amount").forGetter(recipe -> recipe.amount),
+                    Codec.INT.fieldOf("xp").forGetter(recipe -> recipe.xp)
                     ).apply(instance, AlloyingRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
@@ -154,7 +161,8 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
             int i = buf.readVarInt();
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i);
             defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
-            return new AlloyingRecipe(string, craftingRecipeCategory, output, defaultedList, amount);
+            int xp = buf.readVarInt();
+            return new AlloyingRecipe(string, craftingRecipeCategory, output, defaultedList, amount, xp);
         }
 
         private static void write(RegistryByteBuf buf, AlloyingRecipe recipe) {
@@ -166,6 +174,7 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
             for (Ingredient ingredient : recipe.inputs) {
                 Ingredient.PACKET_CODEC.encode(buf, ingredient);
             }
+            buf.writeVarInt(recipe.xp);
         }
     }
 }

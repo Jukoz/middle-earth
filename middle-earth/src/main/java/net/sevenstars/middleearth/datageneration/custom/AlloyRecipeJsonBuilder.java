@@ -32,14 +32,16 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     private final int metalAmount;
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
     private String group;
+    private final int xp;
 
     private final RegistryEntryLookup<Item> registryLookup;
 
-    public AlloyRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String metalOutput, int metalAmount) {
+    public AlloyRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String metalOutput, int metalAmount, int xp) {
         this.registryLookup = registryLookup;
         this.category = category;
         this.metalOutput = metalOutput;
         this.metalAmount = metalAmount;
+        this.xp = xp;
     }
 
     @Override
@@ -59,7 +61,8 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey)).rewards(AdvancementRewards.Builder.recipe(recipeKey)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        AlloyingRecipe alloyRecipeJsonBuilder = new AlloyingRecipe((String)Objects.requireNonNullElse(this.group, ""), CraftingRecipeJsonBuilder.toCraftingCategory(this.category), this.metalOutput, this.inputs, this.metalAmount);
+        AlloyingRecipe alloyRecipeJsonBuilder = new AlloyingRecipe((String)Objects.requireNonNullElse(this.group, ""),
+                CraftingRecipeJsonBuilder.toCraftingCategory(this.category), this.metalOutput, this.inputs, this.metalAmount, this.xp);
         exporter.accept(recipeKey, alloyRecipeJsonBuilder, builder.build(recipeKey.getValue().withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 
@@ -71,8 +74,8 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         return this.metalAmount;
     }
 
-    public static AlloyRecipeJsonBuilder createAlloyRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String output, int amount) {
-        return new AlloyRecipeJsonBuilder(registryLookup, category, output, amount);
+    public static AlloyRecipeJsonBuilder createAlloyRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String output, int amount, int xp) {
+        return new AlloyRecipeJsonBuilder(registryLookup, category, output, amount, xp);
     }
 
     public AlloyRecipeJsonBuilder input(TagKey<Item> tag) {

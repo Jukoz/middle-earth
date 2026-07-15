@@ -21,7 +21,7 @@
     "description": {
       "translate": "advancements.middle_earth.kill_spawn_of_shelob.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "count": 1,
@@ -36,5 +36,8 @@
     [
       "kill_spawn_of_shelob"
     ]
-  ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
 }

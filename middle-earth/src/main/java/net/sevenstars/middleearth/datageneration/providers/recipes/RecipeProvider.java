@@ -898,7 +898,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 ComplexRecipeJsonBuilder.create(MountArmorTopSkullAddonRecipe::new).offerTo(exporter, "custom_mount_armor_top_skull_addon");
 
                 //region Alloying
-                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "bronze", INGOT_LIQUID_VALUE * 4)
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "bronze", INGOT_LIQUID_VALUE * 4,  4)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
@@ -907,7 +907,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.COPPER_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "bronze" + "_from_alloying")));
 
-                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "crude", INGOT_LIQUID_VALUE * 3)
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "crude", INGOT_LIQUID_VALUE * 3, 3)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin")))
@@ -916,7 +916,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.COPPER_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "crude" + "_from_alloying")));
 
-                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "steel", INGOT_LIQUID_VALUE * 3)
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "steel", INGOT_LIQUID_VALUE * 3, 3)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
@@ -925,7 +925,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.IRON_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "steel" + "_from_alloying_tags")));
 
-                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "khazad_steel", INGOT_LIQUID_VALUE * 3)
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "khazad_steel", INGOT_LIQUID_VALUE * 3, 3)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")))
@@ -934,7 +934,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.IRON_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "khazad_steel" + "_from_alloying_tags")));
 
-                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "edhel_steel", INGOT_LIQUID_VALUE * 3)
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "edhel_steel", INGOT_LIQUID_VALUE * 3, 3)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
@@ -943,7 +943,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.IRON_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "edhel_steel" + "_from_alloying_tags")));
 
-                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "burzum_steel", INGOT_LIQUID_VALUE * 3)
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "burzum_steel", INGOT_LIQUID_VALUE * 3, 3)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")))
@@ -952,7 +952,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.IRON_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "burzum_steel" + "_from_alloying_tags")));
 
-                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "chicken_nugget", INGOT_LIQUID_VALUE)
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "chicken_nugget", INGOT_LIQUID_VALUE, 1)
                         .input(Items.CHICKEN)
                         .input(Items.WHEAT)
                         .input(Items.EGG)
@@ -2775,25 +2775,25 @@ public class RecipeProvider extends FabricRecipeProvider {
 
             private void createMeltRecipe(RecipeExporter exporter, Item input, String output, int ingots, int amount) {
                 switch (ingots) {
-                    case 1 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount)
+                    case 1 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount, 0)
                             .input(input)
                             .criterion(hasItem(input),
                                     conditionsFromItem(input))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_1_" + Registries.ITEM.getId(input).getPath())));
-                    case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2)
+                    case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2, 0)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(input),
                                     conditionsFromItem(input))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_2_" + Registries.ITEM.getId(input).getPath())));
-                    case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3)
+                    case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3,0)
                             .input(input)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(input),
                                     conditionsFromItem(input))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_3_" + Registries.ITEM.getId(input).getPath())));
-                    case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4)
+                    case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4, 0)
                             .input(input)
                             .input(input)
                             .input(input)
@@ -2813,25 +2813,25 @@ public class RecipeProvider extends FabricRecipeProvider {
 
             private void createMeltRecipeTag(RecipeExporter exporter, TagKey input, String output, int ingots, int amount) {
                 switch (ingots) {
-                    case 1 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount)
+                    case 1 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount, 0)
                             .input(input)
                             .criterion(hasItem(DecorativeItemsME.FORGE),
                                     conditionsFromItem(DecorativeItemsME.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_1_" + input.id().getPath())));
-                    case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2)
+                    case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2, 0)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(DecorativeItemsME.FORGE),
                                     conditionsFromItem(DecorativeItemsME.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_2_" + input.id().getPath())));
-                    case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3)
+                    case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3, 0)
                             .input(input)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(DecorativeItemsME.FORGE),
                                     conditionsFromItem(DecorativeItemsME.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_3_" + input.id().getPath())));
-                    case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4)
+                    case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4, 0)
                             .input(input)
                             .input(input)
                             .input(input)

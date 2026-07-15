@@ -232,6 +232,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return ActionResult.PASS; // Player is of incompatible race - don't interact
     }
 
+    @Override
+    protected int getExperienceToDrop(ServerWorld world) {
+        return 18 + this.random.nextInt(8);
+    }
+
     public static boolean canSpawn(EntityType<CaveTrollEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up())
                 && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS) && world.getLightLevel(pos) < 14;
