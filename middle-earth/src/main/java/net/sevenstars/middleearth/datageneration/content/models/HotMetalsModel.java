@@ -49,6 +49,16 @@ public class HotMetalsModel {
         }
     };
 
+    public static List<Item> nuggies = new ArrayList<>() {
+        {
+            add(ResourceItemsME.PTEROSAUR_NUGGET);
+            add(ResourceItemsME.THERAPOD_NUGGET);
+            add(ResourceItemsME.CERATOPSIAN_NUGGET);
+            add(ResourceItemsME.THYREOPHORAN_NUGGET);
+            add(ResourceItemsME.SAUROPOD_NUGGET);
+        }
+    };
+
     public static List<Item> items = new ArrayList<>() {
         {
             add(ResourceItemsME.AXE_HEAD);

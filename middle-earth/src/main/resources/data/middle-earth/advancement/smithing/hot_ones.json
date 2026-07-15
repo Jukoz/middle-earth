@@ -1,11 +1,11 @@
 {
-  "parent": "middle-earth:middle_earth/walk_misty_mountains",
+  "parent": "middle-earth:smithing/root",
   "criteria": {
-    "raw_mithril": {
+    "hot_ones": {
       "conditions": {
         "items": [
           {
-            "items": "middle-earth:raw_mithril"
+            "items": "#middle-earth:chicken_nuggets"
           }
         ]
       },
@@ -15,22 +15,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.mithril.description"
+      "translate": "advancements.smithing.hot_ones.description"
     },
-    "frame": "goal",
-    "hidden": false,
+    "frame": "challenge",
+    "hidden": true,
     "icon": {
       "count": 1,
-      "id":  "middle-earth:medgon_mithril_ore"
+      "id":  "middle-earth:therapod_nugget"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.mithril.title"
+      "translate": "advancements.smithing.hot_ones.title"
     }
   },
   "requirements": [
     [
-      "raw_mithril"
+      "hot_ones"
     ]
   ],
   "rewards": {

@@ -43,8 +43,10 @@ public class REICommonPluginME implements REICommonPlugin {
         Collection<RecipeEntry<AlloyingRecipe>> alloyRecipeEntryList = GameInstance.getServer().getRecipeManager().getAllOfType(RecipesME.FORGE);
         for(RecipeEntry<AlloyingRecipe> recipeEntry : alloyRecipeEntryList) {
             AlloyingRecipe alloyRecipe = recipeEntry.value();
-            List<EntryIngredient> inputs = AlloyingDisplay.getInputs(alloyRecipe);
-            registry.add(new AlloyingDisplay(inputs, alloyRecipe.output, alloyRecipe.amount));
+            if(!alloyRecipe.output.contains("nugget")) {
+                List<EntryIngredient> inputs = AlloyingDisplay.getInputs(alloyRecipe);
+                registry.add(new AlloyingDisplay(inputs, alloyRecipe.output, alloyRecipe.amount));
+            }
         }
     }
 }

@@ -688,6 +688,10 @@ public class RegistriesME {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
 
+        HotMetalsModel.nuggies.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
         SimpleDyeableItemModel.items.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, CLEAN_EQUIPMENT);
         });

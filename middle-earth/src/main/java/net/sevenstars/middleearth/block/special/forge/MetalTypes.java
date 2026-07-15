@@ -27,6 +27,8 @@ public enum MetalTypes implements StringIdentifiable {
     MITHRIL(12, "mithril", ResourceItemsME.MITHRIL_INGOT, ResourceItemsME.MITHRIL_NUGGET, false,14278631),
 
     NETHERITE(13, "netherite", Items.NETHERITE_INGOT, null, true, 6445145),
+
+    CHICKEN_NUGGY(14, "chicken_nugget", ResourceItemsME.THERAPOD_NUGGET, ResourceItemsME.PTEROSAUR_NUGGET, false, 11242339),
     ;
 
     public static MetalTypes fromValue(String name) {

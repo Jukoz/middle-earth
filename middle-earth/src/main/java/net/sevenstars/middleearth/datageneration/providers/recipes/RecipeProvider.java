@@ -952,6 +952,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.IRON_INGOT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "burzum_steel" + "_from_alloying_tags")));
 
+                AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "chicken_nugget", INGOT_LIQUID_VALUE)
+                        .input(Items.CHICKEN)
+                        .input(Items.WHEAT)
+                        .input(Items.EGG)
+                        .input(FoodItemsME.GARLIC)
+                        .criterion(hasItem(ResourceItemsME.PTEROSAUR_NUGGET),
+                                conditionsFromItem(ResourceItemsME.PTEROSAUR_NUGGET))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "chicken_nugget" + "_from_alloying")));
+
+
                 HotMetalsModel.nuggets.forEach(nugget -> {
                     //createMeltRecipe(exporter, nugget, Registries.ITEM.getId(nugget).getPath().replace("_nugget", ""), INGOT_LIQUID_VALUE / 9);
                 });
