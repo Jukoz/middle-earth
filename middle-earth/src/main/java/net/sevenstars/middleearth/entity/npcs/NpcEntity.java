@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -275,6 +276,14 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         NpcTextureData foundNpcTextureData = view.read(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC).orElse(new NpcTextureData());
         boolean isFighting = view.read(KeyStrings.IS_FIGHTING, Codec.BOOL).orElse(false);
 
+        String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
+        if(npcDataId != null){
+            foundNpcInitializationData = foundNpcInitializationData.withType(MiddleEarth.fetchId(npcDataId));
+            foundNpcData = new NpcData();
+            foundNpcTextureData = new  NpcTextureData();
+            isFighting = false;
+        }
+
         this.dataTracker.set(NPC_DATA, foundNpcData);
         this.dataTracker.set(NPC_INITIALIZATION_DATA, foundNpcInitializationData);
         this.dataTracker.set(NPC_TEXTURE_DATA, foundNpcTextureData);
@@ -329,9 +338,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     public static boolean canSpawn(EntityType<NpcEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up()) && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS);
-    }
+        MiddleEarth.LOGGER.logDebugMsg("Checking NPC spawn");
 
+        BlockPos below = pos.down();
+        return world.getBlockState(below).isSolidBlock(world, below)
+                && !world.getBlockState(below).isIn(BlockTags.LOGS);
+    }
     //region [DATA TRANSFER]
     // GETTERS
     public Identifier getNpcTypeIdentifier(){
@@ -460,6 +472,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         if(bowPullProgress > 0) {
             this.aimingState.startIfNotRunning(this.age);
         }
+
     }
 
     @Override
@@ -478,22 +491,26 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     @Override
-    public void onDeath(DamageSource damageSource) {
+    public void onDeath(DamageSource source) {
         if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity){
             vehicleEntity.equipStack(EquipmentSlot.SADDLE, Items.AIR.getDefaultStack());
             vehicleEntity.equipStack(EquipmentSlot.BODY, Items.AIR.getDefaultStack());
             if(vehicleEntity instanceof AbstractHorseEntity abstractHorseEntity){
                 abstractHorseEntity.setTame(false);
+                abstractHorseEntity.resetLoveTicks();
+                abstractHorseEntity.setSprinting(false);
+                abstractHorseEntity.setOwner(null);
             }
             if(vehicleEntity instanceof AbstractBeastEntity abstractBeastEntity){
                 abstractBeastEntity.setTameness(0);
             }
+
         }
-        super.onDeath(damageSource);
         BlockPos structureManagerPos = getStructureManagerHostPos();
         if(structureManagerPos != null){
             StructureManagerBlockEntity.triggerDeathSignal(structureManagerPos, this);
         }
+        super.onDeath(source);
     }
 
     @Override
@@ -510,7 +527,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
                     canDropLoot = data.getFaction().compareTo(getFactionIdentifier()) != 0;
             }
         }
-
         if(!canDropLoot)
             return;
 
@@ -524,7 +540,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
                     .addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker())
                     .addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
             PlayerEntity playerEntity = this.getAttackingPlayer();
-            if (causedByPlayer && playerEntity != null) {
+            if (playerEntity != null) {
                 builder = builder.add(LootContextParameters.LAST_DAMAGE_PLAYER, playerEntity).luck(playerEntity.getLuck());
             }
 
@@ -535,10 +551,11 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     public boolean isPersistent() {
-        //if(getBrain() == null) return super.isPersistent();
-        if(getStructureManagerHostPos() != null) return true;
-        //if(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).isPresent())
-        //    return getWorld().getBlockEntity(getBrain().getOptionalMemory(MemoryModulesME.STRUCTURE_MANAGER_HOST_POS).get()) != null;
+        BlockPos structureManagerPos = getStructureManagerHostPos();
+        if(structureManagerPos == null)
+            return super.isPersistent();
+        if(getWorld().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity structureManagerBlockEntity)
+            return true;
         return super.isPersistent();
     }
 
