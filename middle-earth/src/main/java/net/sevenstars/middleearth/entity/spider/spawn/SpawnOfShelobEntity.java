@@ -258,6 +258,12 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
             leapingTicks++;
         }
     }
+
+    @Override
+    protected int getExperienceToDrop(ServerWorld world) {
+        return 13 + this.random.nextInt(4);
+    }
+
     public SpiderVariant getVariant() {
         return getRegistryVariant().value();
     }

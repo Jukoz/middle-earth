@@ -267,6 +267,11 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         }
     }
 
+    @Override
+    protected int getExperienceToDrop(ServerWorld world) {
+        return 6 + this.random.nextInt(3);
+    }
+
     public SpiderVariant getVariant() {
         return getRegistryVariant().value();
     }

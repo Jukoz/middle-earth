@@ -151,6 +151,11 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         }
     }
 
+    @Override
+    protected int getExperienceToDrop(ServerWorld world) {
+        return 1;
+    }
+
     public SpiderVariant getVariant() {
         return getRegistryVariant().value();
     }
