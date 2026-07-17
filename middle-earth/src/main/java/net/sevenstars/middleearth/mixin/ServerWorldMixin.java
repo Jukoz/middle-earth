@@ -29,8 +29,15 @@ public class ServerWorldMixin {
     // Reason of addition
     // MC-188578 - Sleeping in a bed in a custom dimension doesn't set time to day
     // Link : https://bugs.mojang.com/browse/MC-188578
-    @Inject(method = "wakeSleepingPlayers", at = @At(value = "RETURN"))
+    @Inject(method = "wakeSleepingPlayers", at = @At("TAIL"))
     private void wakeSleepingPlayers(CallbackInfo ci) {
+        ServerWorld world = (ServerWorld) (Object) this;
+
+        if (world.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE)) {
+            long currentTimeOfDay = world.getTimeOfDay() + 24000L;
+            world.setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
+        }
+
         // The math is like vanilla (ServerWorld lines ~[310-319])
         if (server.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE)) {
             long currentTimeOfDay = server.getWorld(World.OVERWORLD).getTimeOfDay() + 24000L;
