@@ -16,12 +16,24 @@ public class BiomeEventRegistry {
 
     public final static RegistryKey<BiomeEventData> DEFAULT = DynamicRegistriesME.of(BIOME_EVENT_KEY, MiddleEarth.of("default"));
 
-    public final static RegistryKey<BiomeEventData> CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BASIC_CAVE.getValue());
-    public final static RegistryKey<BiomeEventData> FUNGUS_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.FUNGUS_CAVE.getValue());
+    // region CAVES
+    public final static RegistryKey<BiomeEventData> BASIC_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BASIC_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> LUSH_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LUSH_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> DRIPSTONE_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DRIPSTONE_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> DOLOMITE_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DOLOMITE_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> GALONN_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GALONN_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> GILDED_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.GILDED_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> IZHERABAN_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.IZHERABAN_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> LIMESTONE_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.LIMESTONE_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> MOUNTAIN_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MOUNTAIN_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> MUD_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MUD_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> FUNGUS_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.FUNGUS_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> BASALT_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BASALT_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> MAGMA_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MAGMA_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> MITHRIL_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MITHRIL_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> DRY_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.DRY_CAVE.getValue());
+    public final static RegistryKey<BiomeEventData> ICE_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ICE_CAVE.getValue());
+    // endregion
 
     // region STRUCTURES
     public final static RegistryKey<Structure> WLR_HALL_STRUCTURE = register("woodland_realm_hall");
@@ -64,8 +76,6 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> EPHEL_DUATH         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.EPHEL_DUATH.getValue());
     public final static RegistryKey<BiomeEventData> ERED_LITHUI_BASE    = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ERED_LITHUI_BASE.getValue());
     public final static RegistryKey<BiomeEventData> ERED_LITHUI         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.ERED_LITHUI.getValue());
-    public final static RegistryKey<BiomeEventData> BASALT_CAVE         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.BASALT_CAVE.getValue());
-    public final static RegistryKey<BiomeEventData> MAGMA_CAVE          = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MAGMA_CAVE.getValue());
     // endregion
 
     // region DOL GULDUR //
@@ -160,14 +170,27 @@ public class BiomeEventRegistry {
         RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(BIOME_EVENT_KEY);
 
         register(context, registryEntryLookup, DEFAULT, GenericHostilesBiomeEventPool.EMPTY);
-        register(context, registryEntryLookup, CAVE, GenericHostilesBiomeEventPool.CAVE);
-        register(context, registryEntryLookup, FUNGUS_CAVE, GenericHostilesBiomeEventPool.CAVE);
+
+
+        register(context, registryEntryLookup, BASIC_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, LUSH_CAVE , GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, DRIPSTONE_CAVE, GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, DOLOMITE_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, GALONN_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, GILDED_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, IZHERABAN_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, LIMESTONE_CAVE, GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, MOUNTAIN_CAVE, GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, MUD_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, FUNGUS_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, BASALT_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, MAGMA_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, MITHRIL_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, DRY_CAVE, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, ICE_CAVE, GenericHostilesBiomeEventPool.CAVE);
 
-        register(context, registryEntryLookup, ANDUIN_VALES     , GenericHostilesBiomeEventPool.BRIGANDS);
+
+        register(context, registryEntryLookup, ANDUIN_VALES     , GenericHostilesBiomeEventPool.ANDUIN);
         register(context, registryEntryLookup, ENEDWAITH        , GenericHostilesBiomeEventPool.BRIGANDS);
         register(context, registryEntryLookup, MINHIRIATH       , GenericHostilesBiomeEventPool.BRIGANDS);
         register(context, registryEntryLookup, OLD_RHUDAUR      , GenericHostilesBiomeEventPool.BRIGANDS);
@@ -198,8 +221,6 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, EPHEL_DUATH      , MordorBiomeEventPool.SCOUTS);
         register(context, registryEntryLookup, ERED_LITHUI_BASE , MordorBiomeEventPool.SCOUTS);
         register(context, registryEntryLookup, ERED_LITHUI      , MordorBiomeEventPool.SCOUTS);
-        register(context, registryEntryLookup, BASALT_CAVE      , MordorBiomeEventPool.CAVE);
-        register(context, registryEntryLookup, MAGMA_CAVE       , MordorBiomeEventPool.CAVE);
 
         register(context, registryEntryLookup, DOL_GULDUR       , MordorBiomeEventPool.DOL_GULDUR);
         register(context, registryEntryLookup, DOL_GULDUR_HILL  , MordorBiomeEventPool.DOL_GULDUR);

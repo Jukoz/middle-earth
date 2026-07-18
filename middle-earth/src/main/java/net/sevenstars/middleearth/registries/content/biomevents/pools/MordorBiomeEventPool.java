@@ -1,10 +1,9 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
-import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
 import net.sevenstars.middleearth.registries.content.npcs.pools.MordorNpcDataPool;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeNpcSpawningData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
 import java.util.List;
 
@@ -17,51 +16,47 @@ public class MordorBiomeEventPool {
     public final static BiomeEventData DOL_GULDUR;
 
     static {
-        DEFAULT = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(MordorNpcDataPool.SNAGA).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3).withMount(EntitiesME.WARG),
-            new BiomeNpcSpawningData(MordorNpcDataPool.VETERAN).withWeight(2),
-            new BiomeNpcSpawningData(MordorNpcDataPool.CAPTAIN)
+        DEFAULT = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(MordorNpcDataPool.SNAGA).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.SCOUT).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.MILITIA).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.WARRIOR).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.VETERAN).withWeight(2),
+            new WildSpawnEventData(MordorNpcDataPool.CAPTAIN)
         ));
 
-        NURN = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(MordorNpcDataPool.SNAGA).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3).withMount(EntitiesME.WARG)
+        NURN = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(MordorNpcDataPool.SNAGA).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.SCOUT).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.MILITIA).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.WARRIOR).withWeight(5)
         ));
 
-        SCOUTS = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(4),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3),
-            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(2).withMount(EntitiesME.WARG)
+        SCOUTS = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(MordorNpcDataPool.SCOUT).withWeight(4),
+            new WildSpawnEventData(MordorNpcDataPool.MILITIA).withWeight(3),
+            new WildSpawnEventData(MordorNpcDataPool.WARRIOR).withWeight(2)
         ));
 
 
-        ITHILIEN = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(4),
-            new BiomeNpcSpawningData(MordorNpcDataPool.MILITIA).withWeight(3),
-            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2),
+        ITHILIEN = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(MordorNpcDataPool.SCOUT).withWeight(4),
+            new WildSpawnEventData(MordorNpcDataPool.MILITIA).withWeight(3),
+            new WildSpawnEventData(MordorNpcDataPool.WARRIOR).withWeight(2),
 
-            new BiomeNpcSpawningData(GondorianNpcDataPool.SOLDIER).withWeight(4),
-            new BiomeNpcSpawningData(GondorianNpcDataPool.KNIGHT).withWeight(1)
+            new WildSpawnEventData(GondorianNpcDataPool.SOLDIER).withWeight(4),
+            new WildSpawnEventData(GondorianNpcDataPool.KNIGHT).withWeight(1)
         ));
 
-        CAVE = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(MordorNpcDataPool.SNAGA).withWeight(3),
-            new BiomeNpcSpawningData(MordorNpcDataPool.SCOUT).withWeight(3),
-            new BiomeNpcSpawningData(MordorNpcDataPool.WARRIOR).withWeight(2)
+        CAVE = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(MordorNpcDataPool.SNAGA).withWeight(3),
+            new WildSpawnEventData(MordorNpcDataPool.SCOUT).withWeight(3),
+            new WildSpawnEventData(MordorNpcDataPool.WARRIOR).withWeight(2)
         ));
 
-        DOL_GULDUR = new BiomeEventData(List.of(
-            new BiomeNpcSpawningData(MordorNpcDataPool.DOL_GULDUR_SCOUT).withWeight(5),
-            new BiomeNpcSpawningData(MordorNpcDataPool.DOL_GULDUR_WARRIOR).withWeight(2),
-            new BiomeNpcSpawningData(MordorNpcDataPool.DOL_GULDUR_WARRIOR).withWeight(1).withMount(EntitiesME.WARG)
+        DOL_GULDUR = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(MordorNpcDataPool.DOL_GULDUR_SCOUT).withWeight(5),
+            new WildSpawnEventData(MordorNpcDataPool.DOL_GULDUR_WARRIOR).withWeight(2)
         ));
     }
 }

@@ -103,8 +103,7 @@ public class NpcEntityInitializer {
     private static BiomeEventData.ContextualizedBiomeData findContextualizedNpcData(ServerWorld world, NpcEntity npcEntity) throws Exception {
         BlockPos blockPos = npcEntity.getBlockPos();
         RegistryEntry<Biome> biome = world.getBiome(blockPos);
-        Registry<Structure> structureRegistry = world.getRegistryManager()
-                .getOrThrow(RegistryKeys.STRUCTURE);
+        Registry<Structure> structureRegistry = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE);
         List<StructureStart> structureStarts = world.getStructureAccessor().getStructureStarts(world.getChunk(blockPos).getPos(), s -> true);
 
         for (StructureStart structureStart : structureStarts) {

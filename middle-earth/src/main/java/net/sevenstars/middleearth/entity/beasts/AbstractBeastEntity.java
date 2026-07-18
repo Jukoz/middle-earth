@@ -171,6 +171,10 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         return isTame() || getTameness() <= 0;
     }
 
+    public void resetTameness(){
+        this.setTameness(75);
+    }
+
     protected boolean isClientWorld() {
         return this.getWorld().isClient();
     }

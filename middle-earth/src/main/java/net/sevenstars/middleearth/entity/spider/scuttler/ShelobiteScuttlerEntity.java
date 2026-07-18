@@ -20,8 +20,7 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -40,16 +39,18 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
+import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -125,9 +126,22 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
-    public static boolean canSpawn(EntityType<NpcEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up())
-                && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS);
+    @Override
+    public boolean isPersistent() {
+        return false;
+    }
+
+    public static boolean canSpawn(EntityType<NpcEntity> type, WorldAccess worldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        BlockPos below = pos.down();
+        boolean isOnSolidGround = worldAccess.getBlockState(below).isSolidBlock(worldAccess, below);
+        boolean isNotOnTopOfLogs = !worldAccess.getBlockState(below).isIn(BlockTags.LOGS);
+
+        if (spawnReason == SpawnReason.NATURAL && worldAccess instanceof World world) {
+            RegistryEntry<Biome> biome = world.getBiome(pos);
+            boolean canSpawn = BiomeEventDataLookup.canEntitySpawn(world, biome, pos, type, random);
+            return isOnSolidGround && isNotOnTopOfLogs && canSpawn;
+        }
+        return isOnSolidGround && isNotOnTopOfLogs;
     }
 
     @Override
@@ -354,6 +368,12 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         BITE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
         POUNCE_FLAG = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistry.INTEGER);
         VARIANT = DataTracker.registerData(ShelobiteScuttlerEntity.class, TrackedDataHandlerRegistryME.SPIDER_VARIANT);
+    }
+
+    public static boolean canSpawn(EntityType<ShelobiteScuttlerEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        if(spawnReason != SpawnReason.NATURAL)
+            return ShelobiteScuttlerEntity.canSpawnInDark(type, serverWorldAccess, spawnReason, blockPos, random);
+        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
     }
 
     public static class SpiderData implements EntityData {

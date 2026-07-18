@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -10,7 +9,6 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -51,6 +49,7 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
 import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
@@ -58,9 +57,9 @@ import net.sevenstars.middleearth.entity.goals.TargetNPCDiplomacyGoal;
 import net.sevenstars.middleearth.entity.goals.TargetPlayerDiplomacyGoal;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
+import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
-import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
@@ -75,6 +74,7 @@ import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -337,13 +337,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         //}
     }
 
-    public static boolean canSpawn(EntityType<NpcEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        MiddleEarth.LOGGER.logDebugMsg("Checking NPC spawn");
-
-        BlockPos below = pos.down();
-        return world.getBlockState(below).isSolidBlock(world, below)
-                && !world.getBlockState(below).isIn(BlockTags.LOGS);
-    }
     //region [DATA TRANSFER]
     // GETTERS
     public Identifier getNpcTypeIdentifier(){
@@ -502,9 +495,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
                 abstractHorseEntity.setOwner(null);
             }
             if(vehicleEntity instanceof AbstractBeastEntity abstractBeastEntity){
-                abstractBeastEntity.setTameness(0);
+                abstractBeastEntity.resetTameness();
             }
-
         }
         BlockPos structureManagerPos = getStructureManagerHostPos();
         if(structureManagerPos != null){
@@ -850,6 +842,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     @Override
     public void postShoot() {
         this.dataTracker.set(CROSSBOW_CHARGING, false);
+    }
+
+    public static boolean canSpawn(EntityType<NpcEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
     }
 
     static {

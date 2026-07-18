@@ -28,6 +28,7 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -47,21 +48,25 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.*;
+import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.PlayerUtil;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
+import static net.minecraft.entity.mob.HostileEntity.isSpawnDark;
 
 // TODO Add sounds
 public class CaveTrollEntity extends AbstractBeastEntity {
@@ -86,7 +91,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
-
         if(scavengeLootTable == null && !world.isClient()) {
             if(world instanceof ServerWorld serverWorld) {
 
@@ -232,10 +236,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return ActionResult.PASS; // Player is of incompatible race - don't interact
     }
 
-    public static boolean canSpawn(EntityType<CaveTrollEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up())
-                && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS) && world.getLightLevel(pos) < 14;
-    }
 
     @Override
     public boolean canBeLeashed() {
@@ -761,5 +761,18 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public void playRoarSound() {
         this.playSound(this.getRoarSound());
+    }
+
+    public static boolean canSpawn(EntityType<CaveTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        boolean canSpawn =  SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
+        if(canSpawn) {
+           // serverWorldAccess.getPlayers().getFirst().teleport((double)blockPos.getX(), (double)blockPos.getY(),(double)blockPos.getZ(), true);
+        }
+        return canSpawn;
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return true;
     }
 }
