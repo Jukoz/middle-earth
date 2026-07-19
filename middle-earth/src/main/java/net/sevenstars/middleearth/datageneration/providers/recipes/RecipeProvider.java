@@ -26,6 +26,7 @@ import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -236,6 +237,10 @@ public class RecipeProvider extends FabricRecipeProvider {
                     if(record.shinglesBlocks != null) {
                         createShinglesRecipe(exporter, record.planksBlocks.base(), record.shinglesBlocks.base());
                         createRegularSetRecipes(record.shinglesBlocks);
+                    }
+                    if(record.roofingBlocks != null) {
+                        createRoofingRecipe(exporter, record.planksBlocks.slab(), record.roofingBlocks.base());
+                        createRegularSetRecipes(record.roofingBlocks);
                     }
 
                     if(!record.vanilla)createVerticalSlabsRecipe(exporter, record.planksBlocks.slab(), record.planksBlocks.verticalSlab());
@@ -1917,6 +1922,36 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.MOSS_BLOCK))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WASTE_PILE, 8)
+                        .pattern("DDD")
+                        .pattern("DWD")
+                        .pattern("DDD")
+                        .input('W', Items.ROTTEN_FLESH)
+                        .input('D', ItemTagsME.DIRT)
+                        .criterion(hasItem(Items.MOSS_BLOCK),
+                                conditionsFromItem(Items.MOSS_BLOCK))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SKELETAL_PILE, 8)
+                        .pattern("DDD")
+                        .pattern("DBD")
+                        .pattern("DDD")
+                        .input('B', ItemTagsME.BONES)
+                        .input('D', ModBlocks.WASTE_PILE)
+                        .criterion(hasItem(ModBlocks.WASTE_PILE),
+                                conditionsFromItem(ModBlocks.WASTE_PILE))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.FOUL_DIRT, 8)
+                        .pattern("DDD")
+                        .pattern("DAD")
+                        .pattern("DDD")
+                        .input('A', ResourceItemsME.ASH)
+                        .input('D', ModBlocks.WASTE_PILE)
+                        .criterion(hasItem(ModBlocks.WASTE_PILE),
+                                conditionsFromItem(ModBlocks.WASTE_PILE))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOWY_DIRT, 4)
                         .pattern("DS")
                         .pattern("SD")
@@ -2283,10 +2318,12 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 createBannerPatternRecipe(exporter, ResourceItemsME.PIPEWEED, ResourceItemsME.PIPEWEED_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, ModNatureBlocks.LEBETHRON_SAPLING.asItem(), ResourceItemsME.GONDOR_BANNER_PATTERN);
-                //createBannerPatternRecipe(exporter, WoodBlockSets.MALLORN.sapling().asItem(), ResourceItemsME.LOTHLORIEN_BANNER_PATTERN);
+                createBannerPatternRecipe(exporter, ModNatureBlocks.MALLORN_SAPLING.asItem(), ResourceItemsME.LOTHLORIEN_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.MAGMA_BLOCK, ResourceItemsME.MORDOR_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.HAY_BLOCK, ResourceItemsME.ROHAN_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.BONE, ResourceItemsME.MISTY_MOUNTAINS_ORCS_BANNER_PATTERN);
+                createBannerPatternRecipe(exporter, Items.BONE_BLOCK, ResourceItemsME.GOBLIN_SKULL_BANNER_PATTERN);
+                createBannerPatternRecipe(exporter, Items.SKELETON_SKULL, ResourceItemsME.SCREECHING_SKULL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.WHITE_DYE, ResourceItemsME.ISENGARD_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, ToolItemsME.DWARVEN_SMITHING_HAMMER, ResourceItemsME.ANVIL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, ResourceItemsME.BRONZE_INGOT, ResourceItemsME.BELL_BANNER_PATTERN);
@@ -2918,6 +2955,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                 ShapedRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 7)
                         .pattern(" w ")
                         .pattern("www")
+                        .pattern("www")
+                        .input('w', input)
+                        .criterion(hasItem(input),
+                                conditionsFromItem(input))
+                        .offerTo(exporter);
+            }
+
+            private void createRoofingRecipe(RecipeExporter exporter, Block input, Block output) {
+                ShapedRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 2)
+                        .pattern(" w ")
                         .pattern("www")
                         .input('w', input)
                         .criterion(hasItem(input),

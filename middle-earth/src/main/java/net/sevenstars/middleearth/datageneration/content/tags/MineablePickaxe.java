@@ -33,6 +33,8 @@ public class MineablePickaxe {
             add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
+            add(ModBlocks.BURZUM_SPIKES);
+
             add(ModDecorativeBlocks.BRONZE_CHAIN);
             add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);
             add(ModDecorativeBlocks.CRUDE_CHAIN);

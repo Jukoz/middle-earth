@@ -38,7 +38,8 @@ import static net.minecraft.data.recipe.RecipeGenerator.conditionsFromPredicates
 import static net.minecraft.data.recipe.RecipeGenerator.hasItem;
 
 public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
-
+    private final int XP_MEDIUM_SHIELD = 2;
+    private final int XP_HEAVY_SHIELD = 4;
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
     public ArtisanTableHandheldRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
@@ -429,7 +430,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 burzumSteelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                         Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, Items.SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, Items.SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -441,7 +442,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(Items.SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -453,7 +454,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROUND_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.HEATER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.HEATER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -465,7 +466,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.HEATER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.KITE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.KITE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -477,7 +478,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.KITE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.GONDOR_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -489,7 +490,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GONDORIAN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.GONDOR_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -501,7 +502,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GONDORIAN_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.GONDOR_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -513,7 +514,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LAST_ALLIANCE_HEIRLOOM_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LAST_ALLIANCE_HEIRLOOM_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.GONDOR_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -525,7 +526,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.LAST_ALLIANCE_HEIRLOOM_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_HERO_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_HERO_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.LEATHER)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -537,7 +538,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GONDORIAN_HERO_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_KNIGHT_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_KNIGHT_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(ResourceItemsME.GONDOR_BANNER_PATTERN)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -551,7 +552,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(ResourceItemsME.GONDOR_BANNER_PATTERN)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -565,7 +566,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.WHITE_DYE)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -577,7 +578,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_BUCKING_HORSE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_BUCKING_HORSE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.ROHAN_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -589,7 +590,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_BUCKING_HORSE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_GALLOPING_HORSE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_GALLOPING_HORSE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.ROHAN_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -601,7 +602,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_GALLOPING_HORSE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_HORSE_HEAD_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_HORSE_HEAD_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.ROHAN_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -613,7 +614,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_HORSE_HEAD_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_PLAINSMAN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_PLAINSMAN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.YELLOW_DYE)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -625,7 +626,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_PLAINSMAN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.ROHAN_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -637,7 +638,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_TWIN_HORSES_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_EORLING_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_EORLING_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(Items.YELLOW_DYE)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -651,7 +652,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_EORLING_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(ResourceItemsME.ROHAN_BANNER_PATTERN)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -665,7 +666,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_ORNAMENTED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_ROYAL_GUARD_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.ROHIRRIC_ROYAL_GUARD_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(Items.YELLOW_DYE)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -679,7 +680,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.ROHIRRIC_ROYAL_GUARD_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BLUE_OVAL_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BLUE_OVAL_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.BLUE_DYE)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -691,7 +692,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_BLUE_OVAL_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BARDING_OVAL_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BARDING_OVAL_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.BLUE_DYE)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -703,7 +704,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_BARDING_OVAL_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BLUE_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BLUE_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.IRON_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -715,7 +716,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_BLUE_BRACED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BARDING_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BARDING_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.IRON_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -727,7 +728,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_BARDING_BRACED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(Items.WHITE_DYE)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -741,7 +742,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(Items.BLUE_DYE)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -755,7 +756,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_ROYAL_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_ROYAL_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(Items.GOLD_NUGGET)
                         .input(Items.LIGHT_BLUE_DYE)
                         .input(Items.GOLD_NUGGET)
@@ -769,7 +770,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_ROYAL_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_ROYAL_ROUND_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_ROYAL_ROUND_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(Items.GOLD_NUGGET)
                         .input(Items.LIGHT_BLUE_DYE)
                         .input(Items.GOLD_NUGGET)
@@ -783,7 +784,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_ROYAL_ROUND_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_HEYDAY_ROUND_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DALISH_HEYDAY_ROUND_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.STEEL_NUGGET)
                         .input(Items.ORANGE_DYE)
                         .input(ResourceItemsME.STEEL_NUGGET)
@@ -797,7 +798,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DALISH_HEYDAY_ROUND_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LORIEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LORIEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.LEATHER)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -809,7 +810,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.LORIEN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LORIEN_LAURELS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LORIEN_LAURELS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.YELLOW_DYE)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -821,7 +822,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.LORIEN_LAURELS_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LORIEN_MALLORN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.LORIEN_MALLORN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.YELLOW_DYE)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -833,7 +834,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.LORIEN_MALLORN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GALADHRIM_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GALADHRIM_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.YELLOW_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -847,7 +848,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GALADHRIM_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GALADHRIM_LORD_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GALADHRIM_LORD_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.YELLOW_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -861,7 +862,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GALADHRIM_LORD_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_BUCKLER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_BUCKLER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.COPPER_INGOT)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -873,7 +874,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_BUCKLER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_SCOUT_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_SCOUT_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.SILVER_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -884,7 +885,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_SCOUT_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_SCOUT_BRONZE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_SCOUT_BRONZE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.BRONZE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -896,7 +897,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_SCOUT_BRONZE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GALADHRIM_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GALADHRIM_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.BROWN_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -909,7 +910,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.GREEN_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -922,7 +923,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.BLUE_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -936,7 +937,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.BROWN_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -949,7 +950,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.GREEN_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -963,7 +964,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_GLADE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_GLADE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.GREEN_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -977,7 +978,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_GLADE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.BLACK_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -990,7 +991,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_ORNAMENTED_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
                         .input(Items.BLACK_DYE)
                         .input(ResourceItemsME.EDHEL_STEEL_NUGGET)
@@ -1007,7 +1008,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
 
 
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.BRONZE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1019,7 +1020,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.BRONZE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1031,7 +1032,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_CROSS_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_PLATED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_PLATED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.BRONZE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1043,7 +1044,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_PLATED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.GOLD_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1055,7 +1056,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_ORNAMENTED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.IRON_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1067,7 +1068,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_REINFORCED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_BUCKLER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_BUCKLER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(ResourceItemsME.BRONZE_INGOT)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
@@ -1081,7 +1082,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_BUCKLER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(ResourceItemsME.KHAZAD_STEEL_INGOT)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
@@ -1095,7 +1096,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(ResourceItemsME.KHAZAD_STEEL_INGOT)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
@@ -1109,7 +1110,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(Items.GOLD_NUGGET)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
@@ -1123,7 +1124,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RAVENHILL_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RAVENHILL_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(ResourceItemsME.KHAZAD_STEEL_INGOT)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
@@ -1137,7 +1138,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RAVENHILL_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RAVENHILL_REINFORCED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RAVENHILL_REINFORCED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(ResourceItemsME.KHAZAD_STEEL_INGOT)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
@@ -1151,7 +1152,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RAVENHILL_REINFORCED_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RAVENHILL_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RAVENHILL_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.GOOD, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
                         .input(Items.GOLD_NUGGET)
                         .input(ResourceItemsME.KHAZAD_STEEL_NUGGET)
@@ -1182,7 +1183,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(WeaponItemsME.MORDOR_WOODEN_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_PAINTED_WOODEN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1194,7 +1195,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_ROUND_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.MORDOR_BANNER_PATTERN)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1206,14 +1207,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.MORDOR_BANNER_PATTERN))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_PAINTED_ROUND_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(WeaponItemsME.MORDOR_PAINTED_ROUND_SHIELD)
                         .input(Items.BLACK_DYE)
                         .criterion(hasItem(WeaponItemsME.MORDOR_PAINTED_ROUND_SHIELD),
                                 conditionsFromItem(WeaponItemsME.MORDOR_PAINTED_ROUND_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.IRON_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1225,21 +1226,21 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_BRACED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(WeaponItemsME.MORDOR_BRACED_SHIELD)
                         .input(ResourceItemsME.MORDOR_BANNER_PATTERN)
                         .criterion(hasItem(WeaponItemsME.MORDOR_BRACED_SHIELD),
                                 conditionsFromItem(WeaponItemsME.MORDOR_BRACED_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_PAINTED_BRACED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BLACK_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BLACK_BRACED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(WeaponItemsME.MORDOR_PAINTED_BRACED_SHIELD)
                         .input(Items.BLACK_DYE)
                         .criterion(hasItem(WeaponItemsME.MORDOR_PAINTED_BRACED_SHIELD),
                                 conditionsFromItem(WeaponItemsME.MORDOR_PAINTED_BRACED_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_BLACK_BRACED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_LARGE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_LARGE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.IRON_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1251,21 +1252,21 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_LARGE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_LARGE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_LARGE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(WeaponItemsME.MORDOR_LARGE_SHIELD)
                         .input(ResourceItemsME.MORDOR_BANNER_PATTERN)
                         .criterion(hasItem(WeaponItemsME.MORDOR_LARGE_SHIELD),
                                 conditionsFromItem(WeaponItemsME.MORDOR_LARGE_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_PAINTED_LARGE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BLACK_LARGE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_BLACK_LARGE_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(WeaponItemsME.MORDOR_PAINTED_LARGE_SHIELD)
                         .input(Items.BLACK_DYE)
                         .criterion(hasItem(WeaponItemsME.MORDOR_PAINTED_LARGE_SHIELD),
                                 conditionsFromItem(WeaponItemsME.MORDOR_PAINTED_LARGE_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_BLACK_LARGE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.IRON_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1277,7 +1278,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DOL_GULDUR_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_PAVISE.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_PAVISE.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
@@ -1292,14 +1293,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DOL_GULDUR_PAVISE).getPath() + "_artisan");
 
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_CONVERTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_CONVERTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(WeaponItemsME.GONDORIAN_SHIELD)
                         .input(ResourceItemsME.MORDOR_BANNER_PATTERN)
                         .criterion(hasItem(WeaponItemsME.GONDORIAN_SHIELD),
                                 conditionsFromItem(WeaponItemsME.GONDORIAN_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
@@ -1313,14 +1314,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORDOR_PAINTED_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(WeaponItemsME.MORDOR_HEAVY_SHIELD)
                         .input(ResourceItemsME.MORDOR_BANNER_PATTERN)
                         .criterion(hasItem(WeaponItemsME.MORDOR_HEAVY_SHIELD),
                                 conditionsFromItem(WeaponItemsME.MORDOR_HEAVY_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORDOR_PAINTED_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(Items.RED_DYE)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1332,7 +1333,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_HEATER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_HEATER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(ResourceItemsME.CRUDE_INGOT)
                         .input(ResourceItemsME.CRUDE_NUGGET)
@@ -1344,7 +1345,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.URUK_HAI_HEATER_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
@@ -1358,28 +1359,28 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.URUK_HAI_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_WHITE_HAND_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(WeaponItemsME.URUK_HAI_SHIELD)
                         .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
                         .criterion(hasItem(WeaponItemsME.URUK_HAI_SHIELD),
                                 conditionsFromItem(WeaponItemsME.URUK_HAI_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.URUK_HAI_WHITE_HAND_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(WeaponItemsME.URUK_HAI_SHIELD)
                         .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
                         .criterion(hasItem(WeaponItemsME.URUK_HAI_SHIELD),
                                 conditionsFromItem(WeaponItemsME.URUK_HAI_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_S_RUNE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_S_RUNE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(WeaponItemsME.URUK_HAI_SHIELD)
                         .input(ResourceItemsME.ISENGARD_BANNER_PATTERN)
                         .criterion(hasItem(WeaponItemsME.URUK_HAI_SHIELD),
                                 conditionsFromItem(WeaponItemsME.URUK_HAI_SHIELD))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.URUK_HAI_S_RUNE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_SIEGE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.URUK_HAI_SIEGE_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
@@ -1433,7 +1434,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GUNDABAD_PEAKS_PAINTED_WOODEN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GUNDABAD_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GUNDABAD_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1445,7 +1446,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GUNDABAD_REINFORCED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GUNDABAD_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GUNDABAD_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
@@ -1459,7 +1460,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GUNDABAD_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORIA_GOBLINS_BUCKLER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORIA_GOBLINS_BUCKLER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1470,7 +1471,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORIA_GOBLINS_BUCKLER_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
@@ -1484,7 +1485,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1495,7 +1496,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1506,7 +1507,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1517,7 +1518,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1529,7 +1530,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(Items.LEATHER)
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
@@ -1540,7 +1541,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_TOWER_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_TOWER_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(Items.LEATHER)
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
@@ -1564,7 +1565,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.CRUDE_INGOT))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_BONE_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1575,7 +1576,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_WOODEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(Items.BONE)
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.BONE)
@@ -1586,7 +1587,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(Items.LEATHER)
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(Items.LEATHER)
@@ -1598,7 +1599,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GOBLIN_TOWN_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
                         .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
@@ -1672,6 +1673,19 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         };
     }
 
+    private int getXpFor(MetalTypes metalTypes) {
+        return switch (metalTypes) {
+            default -> 0;
+            case EMPTY -> 0;
+            case COPPER, TIN -> 2;
+            case BRONZE, CRUDE -> 3;
+            case IRON, SILVER, LEAD -> 4;
+            case STEEL, EDHEL_STEEL, KHAZAD_STEEL, BURZUM_STEEL -> 5;
+            case GOLD, NETHERITE -> 7;
+            case MITHRIL -> 12;
+        };
+    }
+
     private void createToolSet(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, ItemStack outputPickaxe, ItemStack outputAxe, ItemStack outputShovel, ItemStack outputHoe, Optional<MetalTypes> rodMetal, DispositionType dispositionType) {
         createArtisanTablePickaxeRecipe(itemLookup, exporter, metal, outputPickaxe, rodMetal, dispositionType);
         createArtisanTableAxeRecipe(itemLookup, exporter, metal, outputAxe, false, rodMetal, dispositionType);
@@ -1689,6 +1703,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 getMetalIdentifier(metal))), getPattern()));
 
         ItemStack swordHilt = new ItemStack(ResourceItemsME.SWORD_HILT);
+        int xp = getXpFor(metal);
 
         if (!noble) {
             swordHilt.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -1696,9 +1711,10 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         } else {
             swordHilt.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
+            xp++;
         }
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType, xp)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(blade.getItem()), blade.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(swordHilt.getItem()), swordHilt.getComponentChanges()))
                 .input(stick)
@@ -1717,6 +1733,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 getMetalIdentifier(metal))), getPattern()));
 
         ItemStack swordHilt = new ItemStack(ResourceItemsME.SWORD_HILT);
+        int xp = (int) (getXpFor(metal) * 1.5f);
 
         if (!noble) {
             swordHilt.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -1724,9 +1741,10 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         } else {
             swordHilt.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
+            xp++;
         }
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType, xp)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(longBlade.getItem()), longBlade.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(swordHilt.getItem()), swordHilt.getComponentChanges()))
                 .input(stick)
@@ -1745,6 +1763,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                 getMetalIdentifier(metal))), getPattern()));
 
         ItemStack swordHilt = new ItemStack(ResourceItemsME.SWORD_HILT);
+        int xp = (int) (getXpFor(metal) * 0.5f);
 
         if (!noble) {
             swordHilt.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -1752,9 +1771,10 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         } else {
             swordHilt.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
+            xp++;
         }
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "sword", dispositionType, xp)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(shortBlade.getItem()), shortBlade.getComponentChanges()))
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(swordHilt.getItem()), swordHilt.getComponentChanges()))
                 .input(stick)
@@ -1771,9 +1791,10 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ItemStack blade = new ItemStack(ResourceItemsME.SHORT_BLADE);
         blade.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
+        int xp = (int) (getXpFor(metal) * 0.5f);
 
         if (!noble) {
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "spear", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "spear", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(blade.getItem()), blade.getComponentChanges()))
                     .input(stick)
                     .input(stick)
@@ -1782,9 +1803,10 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                     .offerTo(exporter);
         } else {
             ItemStack rod = new ItemStack(ResourceItemsME.ROD);
+            xp++;
             rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "spear", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "spear", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(blade.getItem()), blade.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                     .input(stick)
@@ -1811,7 +1833,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ItemStack rod = new ItemStack(ResourceItemsME.ROD);
         rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "bow", dispositionType)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "bow", dispositionType, XP_MEDIUM_SHIELD)
                 .input(Items.STICK)
                 .input(Items.STRING)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
@@ -1840,7 +1862,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ItemStack rod = new ItemStack(ResourceItemsME.ROD);
         rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "bow", dispositionType)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "bow", dispositionType, 2)
                 .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_fences")))
                 .input(Items.STRING)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
@@ -1857,7 +1879,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MetalTypes.IRON.getName()))), getPattern()));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "crossbow", dispositionType)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "crossbow", dispositionType, 2)
                 .input(Items.STICK)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                 .input(Items.STICK)
@@ -1875,7 +1897,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
 
-        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "crossbow", dispositionType)
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "crossbow", dispositionType, 2)
                 .input(Items.STICK)
                 .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                 .input(Items.STICK)
@@ -1892,12 +1914,13 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ItemStack pickaxeHead = new ItemStack(ResourceItemsME.PICKAXE_HEAD);
         pickaxeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
+        int xp = (int) (getXpFor(metal) * 1.5f);
 
         if (rodMetal.isPresent()){
             ItemStack rod = new ItemStack(ResourceItemsME.ROD);
             rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     getMetalIdentifier(rodMetal.get()))), getPattern()));
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "pickaxe", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "pickaxe", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
@@ -1905,7 +1928,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                             conditionsFromItem(pickaxeHead.getItem(), itemLookup))
                     .offerTo(exporter, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan");
         } else {
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "pickaxe", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "pickaxe", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(pickaxeHead.getItem()), pickaxeHead.getComponentChanges()))
                     .input(Items.STICK)
                     .input(Items.STICK)
@@ -1923,13 +1946,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ItemStack axeHead = new ItemStack(ResourceItemsME.AXE_HEAD);
         axeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
+        int xp = (int) (getXpFor(metal) * 1.5f);
 
         if (!noble){
             if (rodMetal.isPresent()){
                 ItemStack rod = new ItemStack(ResourceItemsME.ROD);
                 rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                         getMetalIdentifier(rodMetal.get()))), getPattern()));
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType, xp)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
@@ -1937,7 +1961,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(axeHead.getItem(), itemLookup))
                         .offerTo(exporter, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan");
             } else {
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType, xp)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
                         .input(stick)
                         .input(stick)
@@ -1949,7 +1973,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
             ItemStack rod = new ItemStack(ResourceItemsME.ROD);
             rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     Identifier.of(MetalTypes.GOLD.getName()))), getPattern()));
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "axe", dispositionType, xp + 1)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(axeHead.getItem()), axeHead.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                     .input(stick)
@@ -1963,12 +1987,13 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ItemStack shovelHead = new ItemStack(ResourceItemsME.SHOVEL_HEAD);
         shovelHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
+        int xp = (int) (getXpFor(metal) * 0.5f);
 
         if (rodMetal.isPresent()){
             ItemStack rod = new ItemStack(ResourceItemsME.ROD);
             rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     getMetalIdentifier(rodMetal.get()))), getPattern()));
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "shovel", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "shovel", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(shovelHead.getItem()), shovelHead.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
@@ -1976,7 +2001,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                             conditionsFromItem(shovelHead.getItem(), itemLookup))
                     .offerTo(exporter, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan");
         } else {
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "shovel", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "shovel", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(shovelHead.getItem()), shovelHead.getComponentChanges()))
                     .input(Items.STICK)
                     .input(Items.STICK)
@@ -1990,13 +2015,14 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         ItemStack hoeHead = new ItemStack(ResourceItemsME.HOE_HEAD);
         hoeHead.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                 getMetalIdentifier(metal))), getPattern()));
+        int xp = getXpFor(metal);
 
         if (rodMetal.isPresent()){
             ItemStack rod = new ItemStack(ResourceItemsME.ROD);
             rod.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
                     getMetalIdentifier(rodMetal.get()))), getPattern()));
             
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "hoe", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "hoe", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(hoeHead.getItem()), hoeHead.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(rod.getItem()), rod.getComponentChanges()))
@@ -2004,7 +2030,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                             conditionsFromItem(hoeHead.getItem(), itemLookup))
                     .offerTo(exporter, Registries.ITEM.getId(output.getItem()).getPath() + "_" + rodMetal.get().getName() + "_artisan");
         } else {
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "hoe", dispositionType)
+            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "hoe", dispositionType, xp)
                     .componentInput(new ComponentsIngredient(Ingredient.ofItems(hoeHead.getItem()), hoeHead.getComponentChanges()))
                     .input(Items.STICK)
                     .input(Items.STICK)
@@ -2017,14 +2043,15 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
     private void createArtisanTableChiselRecipe(RegistryEntryLookup<Item> itemLookup, RecipeExporter exporter, MetalTypes metal, Item nugget, ItemStack output) {
         ItemStack shortBlade = new ItemStack(ResourceItemsME.SHORT_BLADE);
         shortBlade.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                getMetalIdentifier(metal))), getPattern()));
+            getMetalIdentifier(metal))), getPattern()));
+        int xp = (int) (getXpFor(metal) * 0.5f);
 
-            ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "chisel", DispositionType.NEUTRAL)
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(shortBlade.getItem()), shortBlade.getComponentChanges()))
-                    .input(nugget)
-                    .input(Items.STICK)
-                    .criterion(hasItem(shortBlade.getItem()),
-                            conditionsFromItem(shortBlade.getItem(), itemLookup))
+        ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, output, "chisel", DispositionType.NEUTRAL, xp)
+                .componentInput(new ComponentsIngredient(Ingredient.ofItems(shortBlade.getItem()), shortBlade.getComponentChanges()))
+                .input(nugget)
+                .input(Items.STICK)
+                .criterion(hasItem(shortBlade.getItem()),
+                        conditionsFromItem(shortBlade.getItem(), itemLookup))
                     .offerTo(exporter, Registries.ITEM.getId(output.getItem()).getPath() + "_" + metal.getName() + "_artisan");
     }
 
