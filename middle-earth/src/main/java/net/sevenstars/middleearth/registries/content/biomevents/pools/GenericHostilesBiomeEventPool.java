@@ -1,9 +1,7 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.registries.content.npcs.pools.BrigandNpcDataPool;
-import net.sevenstars.middleearth.registries.content.npcs.pools.GoblinTownNpcDataPool;
-import net.sevenstars.middleearth.registries.content.npcs.pools.WildGoblinNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
@@ -18,23 +16,23 @@ public class GenericHostilesBiomeEventPool {
     static {
         ANDUIN = new BiomeEventData( false, List.of(
             //Npcs
-            new WildSpawnEventData(BrigandNpcDataPool.CHIEFTAIN),
-            new WildSpawnEventData(BrigandNpcDataPool.MERCENARY).withWeight(4),
-            new WildSpawnEventData(BrigandNpcDataPool.THIEF).withWeight(7).requireNight().lightShouldBeAtMost(5),
-            new WildSpawnEventData(BrigandNpcDataPool.THUG).withWeight(8).requireNight(),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(4),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(7).requireNight().lightShouldBeAtMost(5),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(8).requireNight(),
 
-            new WildSpawnEventData(GoblinTownNpcDataPool.GOBLIN).withWeight(5).lightShouldBeAtLeast(0).withoutSkyRequirement(),
-            new WildSpawnEventData(GoblinTownNpcDataPool.SCOUT).withWeight(4).lightShouldBeAtLeast(0).withoutSkyRequirement(),
-            new WildSpawnEventData(GoblinTownNpcDataPool.WARRIOR).withWeight(3).requireNight().lightShouldBeAtMost(5).withoutSkyRequirement(),
-            new WildSpawnEventData(GoblinTownNpcDataPool.RIDER).withWeight(2).lightShouldBeAtLeast(0).withoutSkyRequirement(),
-            new WildSpawnEventData(GoblinTownNpcDataPool.VETERAN).withWeight(2).lightShouldBeAtMost(5).withoutSkyRequirement()
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_GOBLIN).withWeight(5).lightShouldBeAtLeast(0).withoutSkyRequirement(),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_SCOUT).withWeight(4).lightShouldBeAtLeast(0).withoutSkyRequirement(),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_WARRIOR).withWeight(3).requireNight().lightShouldBeAtMost(5).withoutSkyRequirement(),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_RIDER).withWeight(2).lightShouldBeAtLeast(0).withoutSkyRequirement(),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_VETERAN).withWeight(2).lightShouldBeAtMost(5).withoutSkyRequirement()
         ));
 
         BRIGANDS = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(BrigandNpcDataPool.CHIEFTAIN),
-            new WildSpawnEventData(BrigandNpcDataPool.MERCENARY).withWeight(3),
-            new WildSpawnEventData(BrigandNpcDataPool.THIEF).withWeight(5),
-            new WildSpawnEventData(BrigandNpcDataPool.THUG).withWeight(5)
+            new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(3),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(5),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(5)
         ));
 
         CAVE = new BiomeEventData(false, List.of(
@@ -45,21 +43,21 @@ public class GenericHostilesBiomeEventPool {
                     .withDiscardChance(0.35)
                     .shouldSpawnAbove(0),
                 // Npcs
-                new WildSpawnEventData(WildGoblinNpcDataPool.GATHERER)
+                new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_GATHERER)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .withSameNpc(4, 64),
-                new WildSpawnEventData(WildGoblinNpcDataPool.SCOUT)
+                new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_SCOUT)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .withSameNpc(7, 64),
-                new WildSpawnEventData(WildGoblinNpcDataPool.WARRIOR)
+                new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_WARRIOR)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .shouldSpawnAbove(0)
                     .withSameNpc(4, 64)
                     .withDiscardChance(0.45),
-                new WildSpawnEventData(WildGoblinNpcDataPool.BRUTE)
+                new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_BRUTE)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .shouldSpawnAbove(0)
@@ -72,19 +70,19 @@ public class GenericHostilesBiomeEventPool {
                     .requireUnderground(),
             // Lower Levels (Medium Difficulty)
                 //Npcs
-                new WildSpawnEventData(WildGoblinNpcDataPool.WARRIOR)
+                new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_WARRIOR)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .shouldSpawnBelow(0)
                     .withSameNpcTypeLimitAmount(10)
                     .withDiscardChance(0.05),
-                new WildSpawnEventData(WildGoblinNpcDataPool.BRUTE)
+                new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_BRUTE)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .shouldSpawnBelow(0)
                     .withSameNpc(2, 64)
                     .withDiscardChance(0.15),
-                new WildSpawnEventData(WildGoblinNpcDataPool.RIDER)
+                new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_RIDER)
                     .lightShouldBeBetween(0, 7)
                     .shouldSpawnBelow(0)
                     .withoutSkyRequirement()

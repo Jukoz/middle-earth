@@ -13,7 +13,6 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public class SpawnEventDataUtil {
     // # Comparators
@@ -107,9 +106,6 @@ public class SpawnEventDataUtil {
     public static boolean isConsideredForSpawning(WildSpawnEventData data, Identifier id, World world, BlockPos blockPos) {
         if(!data.getEntityType().equals(id))
             return false;
-        if(id.toString().contains("spawn") || id.toString().contains("troll")){
-            var test= 1;
-        }
         if(!meetLightLevelRequirement(data, world, blockPos))
             return false;
         if(!meetWorldHeightRequirement(data, blockPos))

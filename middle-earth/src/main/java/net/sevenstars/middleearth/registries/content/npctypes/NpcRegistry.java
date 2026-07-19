@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.registries.content.npcs;
+package net.sevenstars.middleearth.registries.content.npctypes;
 
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
@@ -10,7 +10,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.pools.*;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.*;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -30,7 +30,7 @@ public class NpcRegistry {
         ));
     }};
 
-    public static ArrayList<RegistryKey<NpcType>> allNpcDatas;
+    public static ArrayList<RegistryKey<NpcType>> allNpcTypes;
 
     // [BRIGANDS]
     public final static RegistryKey<NpcType> BRIGAND_THUG = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.BRIGAND, "thug"));
@@ -167,35 +167,35 @@ public class NpcRegistry {
     public static void bootstrap(Registerable<NpcType> context) {
         RegistryEntryLookup<NpcType> registryEntryLookup = context.getRegistryLookup(NPC_TYPE_KEY);
 
-        allNpcDatas = new ArrayList<>();
+        allNpcTypes = new ArrayList<>();
 
-        registerAll(context, registryEntryLookup, BrigandNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, WildGoblinNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, DalishNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, GondorianNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, RohirricNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, ShireNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, EreborNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, LorienNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, WoodlandRealmNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, MordorNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, GoblinTownNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, MoriaNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, GundabadNpcDataPool.fetchAll());
-        registerAll(context, registryEntryLookup, IsengardNpcDataPool.fetchAll());
+        registerAll(context, registryEntryLookup, BrigandNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, WildGoblinNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, DalishNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, GondorianNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, RohirricNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, ShireNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, EreborNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, LorienNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, WoodlandRealmNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, MordorNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, GoblinTownNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, MoriaNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, GundabadNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, IsengardNpcTypePool.fetchAll());
     }
 
     private static void registerAll(Registerable<NpcType> context, RegistryEntryLookup<NpcType> registryEntryLookup, List<RegisterableNpcData> npcDatas) {
         for(RegisterableNpcData registerable : npcDatas){
             register(context, registryEntryLookup, registerable.npcDataRegistryKey, registerable.content);
-            allNpcDatas.add(registerable.npcDataRegistryKey);
+            allNpcTypes.add(registerable.npcDataRegistryKey);
         }
     }
 
     private static void register(Registerable<NpcType> context, RegistryEntryLookup<NpcType> registryEntryLookup, RegistryKey<NpcType> registryKey, NpcType element){
         DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
         // [LANG datagen]
-        TranslationEntries.npcDataEntries.add(registryKey.getValue().getPath());
+        TranslationEntries.npcTypeEntries.add(registryKey.getValue().getPath());
         TranslationEntries.spawnEggEntries.add(element.getId());
     }
 

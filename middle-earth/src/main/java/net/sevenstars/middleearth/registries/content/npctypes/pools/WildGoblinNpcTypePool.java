@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.registries.content.npcs.pools;
+package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -6,29 +6,28 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.registries.content.npcs.CombatArchetypePool;
-import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.*;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class WildGoblinNpcDataPool {
+public class WildGoblinNpcTypePool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.WILD_GOBLINS;
     
     private static final int DARK_BROWN_GOBLIN = 0x4a3c34;
@@ -48,6 +47,13 @@ public class WildGoblinNpcDataPool {
             new NpcRegistry.RegisterableNpcData(NpcRegistry.WILD_GOBLIN_BRUTE, BRUTE)
         );
     }
+
+    public static final HashMap<EntityCategories, AttributePool> TANKY_ATTRIBUTES = new HashMap<>(){{
+        put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
+            AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.35, 0.45),
+            AttributePoolElement.create(EntityAttributes.ARMOR, 5, 10)
+        )));
+    }};
 
     static {
         GATHERER = new NpcType(NpcRegistry.WILD_GOBLIN_GATHERER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
@@ -146,7 +152,17 @@ public class WildGoblinNpcDataPool {
                                 .add(WeightedItemData.create(Items.BONE).withWeight(3))
                                 .add(WeightedItemData.create().withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), new HashMap<>(){{
+            put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
+                    AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
+                    AttributePoolElement.create(EntityAttributes.SCALE, 0.85, 0.91),
+                    AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22),
+                    AttributePoolElement.create(EntityAttributes.ARMOR, 5, 10)
+            )));
+        }}, CombatArchetypePool.DEFAULT, new MountData(EntitiesME.CAVE_TROLL).withPassengerSlots(
+                new MountPassengerSlotData(new MountPassengerData(NpcRegistry.WILD_GOBLIN_SCOUT).withDiscardChance(0.25)),
+                new MountPassengerSlotData(new MountPassengerData(NpcRegistry.WILD_GOBLIN_SCOUT).withDiscardChance(0.25))
+        ));
 
         WARRIOR = new NpcType(NpcRegistry.WILD_GOBLIN_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
                 WeightedGearData.create()
@@ -222,6 +238,6 @@ public class WildGoblinNpcDataPool {
                     AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
                 )
             ));
-        }} , CombatArchetypePool.DEFAULT);
+        }}, CombatArchetypePool.DEFAULT);
     }
 }

@@ -42,7 +42,7 @@ public class ModCaveBiomeFeatures {
 
     // Monsters
     public static void addSparseNpc(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 5));
+        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 1));
                 //.spawnCost(EntitiesME.NPC, 0.7, 0.5);
     }
     public static void addCaveTroll(SpawnSettings.Builder spawnSettings) {

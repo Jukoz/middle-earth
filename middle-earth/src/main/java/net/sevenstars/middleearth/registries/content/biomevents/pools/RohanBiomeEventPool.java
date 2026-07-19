@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
-import net.sevenstars.middleearth.registries.content.npcs.pools.RohirricNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
@@ -11,10 +11,10 @@ public class RohanBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(RohirricNpcDataPool.MILITIA).withWeight(7),
-            new WildSpawnEventData(RohirricNpcDataPool.SOLDIER).withWeight(3),
-            new WildSpawnEventData(RohirricNpcDataPool.KNIGHT).withWeight(2),
-            new WildSpawnEventData(RohirricNpcDataPool.EORLING_MARSHAL).withWeight(1)
+            new WildSpawnEventData(NpcRegistry.ROHAN_MILITIA).withWeight(7),
+            new WildSpawnEventData(NpcRegistry.ROHAN_SOLDIER).withWeight(3),
+            new WildSpawnEventData(NpcRegistry.ROHAN_KNIGHT).withWeight(2),
+            new WildSpawnEventData(NpcRegistry.ROHAN_EORLING_MARSHAL).withWeight(1)
         ));
     }
 }

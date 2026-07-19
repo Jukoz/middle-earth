@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
-import net.sevenstars.middleearth.registries.content.npcs.pools.WoodlandRealmNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
@@ -13,25 +13,25 @@ public class WoodlandRealmBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(WoodlandRealmNpcDataPool.HUNTER).withWeight(7),
-            new WildSpawnEventData(WoodlandRealmNpcDataPool.RANGER).withWeight(5),
-            new WildSpawnEventData(WoodlandRealmNpcDataPool.LANCER).withWeight(3),
-            new WildSpawnEventData(WoodlandRealmNpcDataPool.WARRIOR).withWeight(2),
-            new WildSpawnEventData(WoodlandRealmNpcDataPool.WARDEN_OF_THE_GLADE)
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(7),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(5),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_LANCER).withWeight(3),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE)
         ));
 
         SCOUTS = new BiomeEventData(false, List.of(
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.RANGER).withWeight(4),
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.SENTINEL).withWeight(3),
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.NIGHTSHADE).withWeight(1).requireNight()
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_SENTINEL).withWeight(3),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE).withWeight(1).requireNight()
         ));
 
         HALL = new BiomeEventData(false, List.of(
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.ARTISAN).withWeight(10),
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.HUNTER).withWeight(6),
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.RANGER).withWeight(4),
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.WARRIOR).withWeight(2),
-                new WildSpawnEventData(WoodlandRealmNpcDataPool.WARDEN_OF_THE_GLADE)
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_ARTISAN).withWeight(10),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(6),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE)
         ));
     }
 }

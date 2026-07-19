@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.registries.content.npcs;
+package net.sevenstars.middleearth.registries.content.npctypes;
 
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;

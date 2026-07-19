@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.registries.content.npcs.pools;
+package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
@@ -8,10 +8,10 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.registries.content.npcs.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -21,7 +21,7 @@ import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
 
 import java.util.List;
 
-public class IsengardNpcDataPool {
+public class IsengardNpcTypePool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.ISENGARD;
 
     private static List<Integer> allColors;

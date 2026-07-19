@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.Melee
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.RangedCombatArchetypeRuntimeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.utils.CombatArchetypeDataUtil;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
@@ -28,6 +29,7 @@ import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class NpcType {
     public static final Codec<NpcType> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -37,7 +39,8 @@ public class NpcType {
             Identifier.CODEC.fieldOf("base_npc_texture").forGetter(NpcType::getNpcTextureDataValue),
             NbtCompound.CODEC.fieldOf("gear").forGetter(NpcType::getGearDataValues),
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcType::getNpcAttributePool),
-            NbtCompound.CODEC.fieldOf("combat_archetype").forGetter(NpcType::getCombatArchetypeData)
+            NbtCompound.CODEC.fieldOf("combat_archetype").forGetter(NpcType::getCombatArchetypeData),
+            MountData.CODEC.optionalFieldOf("mount").forGetter(NpcType::getOptionalMountData)
     ).apply(instance, NpcType::new));
 
     private final Identifier id;
@@ -47,8 +50,8 @@ public class NpcType {
     private final CombatArchetypeData combatArchetypeData;
     private final WeightedPool<WeightedGearData> gearDatas;
     private final HashMap<EntityCategories, AttributePool> npcAttributePools;
-
-    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData) {
+    private final MountData mountData;
+    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount) {
         this.id = id;
         this.raceId = raceId;
         this.factionId = factionId;
@@ -70,9 +73,13 @@ public class NpcType {
         }
 
         this.combatArchetypeData = CombatArchetypeDataUtil.create(combatArchetypeData);
+        this.mountData = mount.orElse(null);
+    }
+    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData) {
+        this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, combatArchetypeData, null);
     }
 
-    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData) {
+    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, MountData mount) {
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
@@ -80,6 +87,7 @@ public class NpcType {
         this.gearDatas = new WeightedPool<>(weightedGearData);
         this.npcAttributePools = npcAttributePools;
         this.combatArchetypeData = combatArchetypeData;
+        this.mountData = mount;
     }
 
     public Identifier getId() {
@@ -96,6 +104,11 @@ public class NpcType {
     private NbtCompound getCombatArchetypeData() {
         return combatArchetypeData.getNbt();
     }
+
+    private Optional<MountData> getOptionalMountData() {
+        return Optional.ofNullable(mountData);
+    }
+
 
     private NbtCompound getGearDataValues() {
         NbtCompound nbt = new NbtCompound();
@@ -140,11 +153,11 @@ public class NpcType {
         Race race = RaceLookup.getRace(npcEntity.getWorld(), raceId);
         if(race != null)
             race.applyNpcAttributes(npcEntity);
-        //EntityCategories category = npcEntity.getNpcCategory();
-        //if(npcAttributePools.containsKey(EntityCategories.SHARED))
-        //    npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
-        //if(npcAttributePools.containsKey(category))
-        //    npcAttributePools.get(category).apply(npcEntity);
+        EntityCategories category = npcEntity.getNpcCategory();
+        if(npcAttributePools.containsKey(EntityCategories.SHARED))
+            npcAttributePools.get(EntityCategories.SHARED).apply(npcEntity);
+        if(npcAttributePools.containsKey(category))
+            npcAttributePools.get(category).apply(npcEntity);
 
         npcEntity.heal(npcEntity.getMaxHealth() - npcEntity.getHealth());
     }
@@ -166,5 +179,13 @@ public class NpcType {
     public boolean hasCategory(World world, EntityCategories category) {
        TexturePresetDataPool pool =  getNpcTextureData(world);
        return pool.hasCategory(category);
+    }
+
+    public boolean hasMount() {
+        return this.mountData != null;
+    }
+
+    public MountData getMountData() {
+        return this.mountData;
     }
 }

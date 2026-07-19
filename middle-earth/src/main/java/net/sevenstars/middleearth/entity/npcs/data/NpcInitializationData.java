@@ -97,8 +97,10 @@ public class NpcInitializationData {
 
             entity.saveCategory(category);
             entity.saveNpcType(entry);
+
             return true;
         }
+
         return false;
     }
 }

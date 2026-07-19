@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
-import net.sevenstars.middleearth.registries.content.npcs.pools.DalishNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
@@ -11,11 +11,11 @@ public class DaleBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(DalishNpcDataPool.MILITIA).withWeight(7),
-            new WildSpawnEventData(DalishNpcDataPool.SOLDIER).withWeight(3),
-            new WildSpawnEventData(DalishNpcDataPool.ELITE_ARCHER).withWeight(3),
-            new WildSpawnEventData(DalishNpcDataPool.KNIGHT).withWeight(1),
-            new WildSpawnEventData(DalishNpcDataPool.SERGEANT).withWeight(1)
+            new WildSpawnEventData(NpcRegistry.DALE_MILITIA).withWeight(7),
+            new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(3),
+            new WildSpawnEventData(NpcRegistry.DALE_ELITE_ARCHER).withWeight(3),
+            new WildSpawnEventData(NpcRegistry.DALE_KNIGHT).withWeight(1),
+            new WildSpawnEventData(NpcRegistry.DALE_SERGEANT).withWeight(1)
         ));
     }
 }

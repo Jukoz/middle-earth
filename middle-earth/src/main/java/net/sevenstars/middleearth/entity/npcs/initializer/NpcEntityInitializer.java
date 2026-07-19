@@ -29,9 +29,7 @@ import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLoo
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 public class NpcEntityInitializer {
     public static final Identifier RANDOM = MiddleEarth.of("full_random");
@@ -58,10 +56,6 @@ public class NpcEntityInitializer {
                 MiddleEarth.LOGGER.logError("NpcEntity initializer failed : ", e);
                 npcEntity.discard();
                 return;
-            }
-
-            if(contextualizedBiomeData.hasMount() != null && !npcEntity.hasVehicle()) {
-                generateMountData(serverWorld, contextualizedBiomeData, npcEntity);
             }
         }
 

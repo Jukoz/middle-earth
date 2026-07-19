@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
-import net.sevenstars.middleearth.registries.content.npcs.pools.BrigandNpcDataPool;
-import net.sevenstars.middleearth.registries.content.npcs.pools.MoriaNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
@@ -13,20 +12,20 @@ public class MoriaBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(MoriaNpcDataPool.GOBLIN).withWeight(7).requireUnderground(),
-            new WildSpawnEventData(MoriaNpcDataPool.MILITIA).withWeight(5),
-            new WildSpawnEventData(MoriaNpcDataPool.SCOUT).withWeight(4),
-            new WildSpawnEventData(MoriaNpcDataPool.WARRIOR).withWeight(6).requireUnderground(),
-            new WildSpawnEventData(MoriaNpcDataPool.RIDER).withWeight(4),
-            new WildSpawnEventData(MoriaNpcDataPool.VETERAN).withWeight(3).requireNight(),
-            new WildSpawnEventData(MoriaNpcDataPool.CHIEF).requireNight()
+            new WildSpawnEventData(NpcRegistry.MORIA_GOBLIN).withWeight(7).requireUnderground(),
+            new WildSpawnEventData(NpcRegistry.MORIA_MILITIA).withWeight(5),
+            new WildSpawnEventData(NpcRegistry.MORIA_SCOUT).withWeight(4),
+            new WildSpawnEventData(NpcRegistry.MORIA_WARRIOR).withWeight(6).requireUnderground(),
+            new WildSpawnEventData(NpcRegistry.MORIA_RIDER).withWeight(4),
+            new WildSpawnEventData(NpcRegistry.MORIA_VETERAN).withWeight(3).requireNight(),
+            new WildSpawnEventData(NpcRegistry.MORIA_CHIEF).requireNight()
         ));
 
         EREGION = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(BrigandNpcDataPool.THIEF).withWeight(2),
-            new WildSpawnEventData(BrigandNpcDataPool.THUG).withWeight(1),
-            new WildSpawnEventData(MoriaNpcDataPool.SCOUT).withWeight(3),
-            new WildSpawnEventData(MoriaNpcDataPool.RIDER)
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(2),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(1),
+            new WildSpawnEventData(NpcRegistry.MORIA_SCOUT).withWeight(3),
+            new WildSpawnEventData(NpcRegistry.MORIA_RIDER)
         ));
     }
 }

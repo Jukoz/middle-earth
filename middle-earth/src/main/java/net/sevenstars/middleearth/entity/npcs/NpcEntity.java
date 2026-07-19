@@ -32,7 +32,6 @@ import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
@@ -43,13 +42,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.*;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
 import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
@@ -170,6 +171,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         if(result)
             resetInitializationData();
     }
+
     public void resetInitializationData() {
         this.dataTracker.set(NPC_INITIALIZATION_DATA, new NpcInitializationData());
     }
@@ -485,9 +487,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     public void onDeath(DamageSource source) {
-        if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity){
+        if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity && vehicleEntity.getControllingPassenger() == this){
             vehicleEntity.equipStack(EquipmentSlot.SADDLE, Items.AIR.getDefaultStack());
             vehicleEntity.equipStack(EquipmentSlot.BODY, Items.AIR.getDefaultStack());
+            vehicleEntity.removeAllPassengers();
             if(vehicleEntity instanceof AbstractHorseEntity abstractHorseEntity){
                 abstractHorseEntity.setTame(false);
                 abstractHorseEntity.resetLoveTicks();

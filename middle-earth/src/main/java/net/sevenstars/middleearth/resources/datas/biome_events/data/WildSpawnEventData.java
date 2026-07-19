@@ -4,17 +4,17 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.registries.content.npcs.pools.BrigandNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.Optional;
 
 public class WildSpawnEventData {
-    private final static WildSpawnEventData EXAMPLE = new WildSpawnEventData(BrigandNpcDataPool.THIEF)
+    private final static WildSpawnEventData EXAMPLE = new WildSpawnEventData(NpcRegistry.BRIGAND_THUG)
             .withWeight(2)
             // Can have at most 10 other npcs around 32 blocks
             .withSameEntity(10, 32)
@@ -143,9 +143,9 @@ public class WildSpawnEventData {
         this.entityType = Registries.ENTITY_TYPE.getId(entityType);
     }
 
-    public WildSpawnEventData(NpcType npcType){
+    public WildSpawnEventData(RegistryKey<NpcType> npcType){
         this.entityType = Registries.ENTITY_TYPE.getId(EntitiesME.NPC);
-        this.npcType = npcType.getId();
+        this.npcType = npcType.getValue();
         this.lightLevelMinimum = 3;
         this.requireSky = true;
     }

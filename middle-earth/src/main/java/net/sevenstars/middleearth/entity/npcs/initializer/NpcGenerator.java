@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.initializer;
 
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -12,6 +13,7 @@ import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcUtil;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.texture_presets.ClothingSelection;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
@@ -54,8 +56,21 @@ public class NpcGenerator {
 
             NpcUtil.equipAll(npcEntity, currentNpcType.getGear());
             npcEntity.updateAttackType();
+            spawnMount(npcEntity);
+
         } catch (Exception exception){
             MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s | Triggered by %s", currentNpcTypeId, exception.getLocalizedMessage(), currentStep));
+        }
+    }
+
+    private static void spawnMount(NpcEntity entity) {
+        if(entity.getWorld() instanceof ServerWorld serverWorld)
+        {
+            NpcType type = entity.getNpcType();
+            if(type == null || !type.hasMount())
+                return;
+            MountData mountData = type.getMountData();
+            mountData.createEntity(serverWorld, entity);
         }
     }
 

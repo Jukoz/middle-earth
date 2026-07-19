@@ -135,7 +135,6 @@ public class ModSpawnSettingsBuilder {
 
     public static void addNpcs(SpawnSettings.Builder spawnSettings) {
         spawnSettings.spawn(SpawnGroup.MONSTER, 3, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 1));
-                //.spawnCost(EntitiesME.NPC, 1.2, 0.3);
     }
 
     public static void addGreatHorn(SpawnSettings.Builder builder) {
