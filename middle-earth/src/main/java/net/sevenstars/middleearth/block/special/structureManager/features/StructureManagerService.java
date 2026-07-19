@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -13,7 +15,6 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class StructureManagerService {
     public static StructureManagerData GetStructureManagerData(World world, Identifier structureManagerDataId){
@@ -23,7 +24,7 @@ public class StructureManagerService {
         return data.orElse(null);
     }
 
-    public static LivingEntity SpawnEntity(World world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
+    public static LivingEntity SpawnEntity(ServerWorld world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
         var random = world.getRandom();
         int chances = 5;
         BlockPos chosenBlockPos = null;
@@ -46,6 +47,8 @@ public class StructureManagerService {
                     .build();
         } else {
             entity = (LivingEntity) pool.getEntityType().create(world, SpawnReason.STRUCTURE);
+            if(entity instanceof AbstractHorseEntity horse)
+                horse.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null);
             entity.setPosition(chosenBlockPos.toCenterPos());
         }
 

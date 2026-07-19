@@ -154,8 +154,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public void respawnAllEntities() {
         if(structureNestList == null)
             return;
+        if(world == null || world.isClient)
+            return;
         for(var nest : structureNestList.getManagers()){
-            nest.forceRespawn(managerData, world, pos);
+            nest.forceRespawn(managerData, (ServerWorld) world, pos);
         }
     }
 

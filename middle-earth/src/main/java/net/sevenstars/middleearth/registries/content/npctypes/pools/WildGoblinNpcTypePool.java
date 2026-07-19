@@ -155,7 +155,6 @@ public class WildGoblinNpcTypePool {
         ), new HashMap<>(){{
             put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
                     AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
-                    AttributePoolElement.create(EntityAttributes.SCALE, 0.85, 0.91),
                     AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22),
                     AttributePoolElement.create(EntityAttributes.ARMOR, 5, 10)
             )));
