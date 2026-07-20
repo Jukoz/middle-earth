@@ -2404,6 +2404,8 @@ public class ModBiomes {
             vegetation.add(VegetationPlacedFeatures.BROWN_MUSHROOM_NORMAL);
             vegetation.add(VegetationPlacedFeatures.RED_MUSHROOM_NORMAL);
             vegetation.add(VegetationPlacedFeatures.PATCH_BERRY_RARE);
+            ModSpawnSettingsBuilder.addRareWarg(spawnSettings);
+            ModSpawnSettingsBuilder.addMountainsMobs(spawnSettings);
             ModBiomeFeatures.addBracken(vegetation);
             ModBiomeFeatures.addCampion(vegetation);
             ModBiomeFeatures.addWildGrass(vegetation);
@@ -3958,6 +3960,7 @@ public class ModBiomes {
             ModBiomeFeatures.addOrangeMapleTree(vegetation);
             ModBiomeFeatures.addVeryRareMegaMirkwoodTrees(vegetation);
         } else if(step == 1) { // Glade
+            ModSpawnSettingsBuilder.addFarmAnimals(spawnSettings);
             vegetation.add(VegetationPlacedFeatures.TREES_PLAINS);
             vegetation.add(VegetationPlacedFeatures.FLOWER_DEFAULT);
             ModBiomeFeatures.addRedHeather(vegetation);
@@ -3966,6 +3969,7 @@ public class ModBiomes {
             ModBiomeFeatures.addTuftGrass(vegetation);
             ModBiomeFeatures.addMixedWildWheatPatch(vegetation);
         } else if(step == 2) {
+            ModSpawnSettingsBuilder.addRabbits(spawnSettings);
             ModBiomeFeatures.addFireflyBushes(vegetation);
             ModBiomeFeatures.addRedFlowers(vegetation);
             ModBiomeFeatures.addRedHeather(vegetation);

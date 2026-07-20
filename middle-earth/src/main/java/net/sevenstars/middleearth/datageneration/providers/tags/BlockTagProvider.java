@@ -313,6 +313,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(ModBlocks.BRONZE_TRAPDOOR);
         needsStoneTools.add(ModBlocks.CRUDE_TRAPDOOR);
         needsIronTools.add(ModBlocks.TREATED_STEEL_TRAPDOOR);
+        needsIronTools.add(ModBlocks.BURZUM_SPIKES);
 
         needsStoneTools.add(ModBlocks.BRONZE_BARS);
         needsStoneTools.add(ModBlocks.CRUDE_BARS);

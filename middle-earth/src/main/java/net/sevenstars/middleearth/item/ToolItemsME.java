@@ -66,10 +66,10 @@ public class ToolItemsME {
 
     public static final Item IRON_CHISEL = registerItemHandheld("iron_chisel",
             Item::new, new Item.Settings().maxCount(1)
-                    .component(DataComponentTypes.MAX_DAMAGE, 2));
+                    .component(DataComponentTypes.MAX_DAMAGE, 4));
     public static final Item STEEL_CHISEL = registerItemHandheld("steel_chisel",
             Item::new, new Item.Settings().maxCount(1)
-                    .component(DataComponentTypes.MAX_DAMAGE, 4));
+                    .component(DataComponentTypes.MAX_DAMAGE, 16));
     public static final Item MITHRIL_CHISEL = registerItemHandheld("mithril_chisel",
             Item::new, new Item.Settings().maxCount(1));
 
