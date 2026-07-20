@@ -26,7 +26,10 @@ public class HelpingGenerator {
         for (StoneBlockSetBuilder set : StoneBlockSets.stoneSetsList){
             set.existingList.forEach(stoneBlockTypes -> {
                 switch (stoneBlockTypes){
-                    case BASE_BLOCKS -> mainStoneBlocks(set.baseBlocks);
+                    case BASE_BLOCKS -> {
+                        mainStoneBlocks(set.baseBlocks);
+                        MineablePickaxe.baseStoneOverworld.add(set.baseBlocks.base());
+                    }
                     case COBBLED_BLOCKS,COBBLESTONE_BLOCKS,PILLAR_BASE_BLOCKS -> {
                         regularBlocks(set.cobblestoneBlocks, 1);
                         if(set.hasMossy) regularBlocks(set.mossyCobblestoneBlocks, 1);
@@ -52,7 +55,10 @@ public class HelpingGenerator {
                         if(set.hasCracked) regularBlocks(set.crackedPolishedBlocks, 1);
                     }
                     case BRICKWORK_BLOCKS -> regularBlocks(set.brickworkBlocks, 1);
-                    case OLD_BLOCKS, OLD_BLOCKS_PILLAR -> regularBlocks(set.oldBlocks, 1);
+                    case OLD_BLOCKS, OLD_BLOCKS_PILLAR -> {
+                        regularBlocks(set.oldBlocks, 1);
+                        MineablePickaxe.baseStoneOverworld.add(set.oldBlocks.base());
+                    }
                     case PILLAR_BLOCKS -> {
                         pillarBlocks(set.pillarBlocks, set.brickBlocks.base(), 1);
                         if(set.hasMossy) pillarBlocks(set.mossyPillarBlocks, set.pillarBlocks.base(), 1);

@@ -178,6 +178,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         BlockRecordTypes.CarvedWindow.getAllBlocks(StoneBlockSets.MEDGON_SET.carvedWindows).forEach(needsDiamondTools::add);
 
         baseStoneOverworld.add(Blocks.CALCITE);
+        baseStoneOverworld.add(MineablePickaxe.baseStoneOverworld.toArray(new Block[0]));
 
         cobwebs.add(Blocks.COBWEB);
         cobwebs.add(ModNatureBlocks.HANGING_WEBS);
