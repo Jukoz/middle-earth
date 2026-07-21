@@ -633,6 +633,7 @@ public class ModNatureBlocks {
 
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
+        Saplings.saplings.add(resultBlock);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
         return resultBlock;
@@ -647,6 +648,7 @@ public class ModNatureBlocks {
 
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
+        Saplings.saplings.add(resultBlock);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
         return resultBlock;

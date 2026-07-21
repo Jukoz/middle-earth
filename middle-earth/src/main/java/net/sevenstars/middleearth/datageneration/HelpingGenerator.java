@@ -119,7 +119,12 @@ public class HelpingGenerator {
         }
 
         for (GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
-            regularBlocks(set.blockSet, -1);
+            int tool = -1;
+            if(set.requiresTool) {
+                if(set.setName.contains("wood")) tool = 0;
+                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick") || set.setName.contains("tiles")) tool = 1;
+            }
+            regularBlocks(set.blockSet, tool);
         }
         for (SimpleBlockSetBuilder set : GenericBlockSets.simpleSetsList) {
             regularBlocks(set.blockSet, -1);

@@ -18,13 +18,13 @@ public class GondorBiomeEventPool {
                 new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(2).withSameNpcType(1, 256),
                 new WildSpawnEventData(NpcRegistry.GONDOR_VETERAN).withWeight(2).withSameNpcType(0, 256),
                 new WildSpawnEventData(NpcRegistry.GONDOR_LEADER).withSameNpcType(0, 512)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
+        ));
 
         PEASANT_FIEF = new BiomeEventData(false, List.of(
                 new WildSpawnEventData(NpcRegistry.GONDOR_MILITIA).withWeight(6).withSameNpcType(4, 256),
                 new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(3).withSameNpcType(2, 256),
                 new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(1).withSameNpcType(0, 256)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
+        ));
 
 
         OSGILIATH = new BiomeEventData(false, List.of(

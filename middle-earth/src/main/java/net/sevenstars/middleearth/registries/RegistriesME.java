@@ -608,9 +608,7 @@ public class RegistriesME {
         });
 
         registry.add(ModNatureBlocks.LEBETHRON_LEAVES, 0.3F);
-
         registry.add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 0.4F);
-
         registry.add(ModNatureBlocks.DRY_LARCH_LEAVES, 0.2F);
 
         registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);

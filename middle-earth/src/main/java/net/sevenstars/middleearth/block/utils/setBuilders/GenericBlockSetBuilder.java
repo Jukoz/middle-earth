@@ -21,7 +21,7 @@ public class GenericBlockSetBuilder {
     public NoteBlockInstrument instrument;
     public BlockSoundGroup soundGroup;
     public boolean requiresTool;
-    public  List<ItemStack> group;
+    public List<ItemStack> group;
 
     public GenericBlockSetBuilder(String name, float hardness, float blastResistance,
                                   MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean requiresTool,
