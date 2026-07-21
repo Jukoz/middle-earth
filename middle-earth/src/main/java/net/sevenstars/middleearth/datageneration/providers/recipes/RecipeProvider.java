@@ -2477,6 +2477,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.STICK),
                                 conditionsFromItem(Items.STICK))
                         .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.THORNY_GROWTH.asItem(), 6)
+                        .pattern("sls")
+                        .pattern("sls")
+                        .input('s', Items.STICK)
+                        .input('l', FoodItemsME.TOUGH_BERRIES)
+                        .criterion(hasItem(FoodItemsME.TOUGH_BERRIES),
+                                conditionsFromItem(FoodItemsME.TOUGH_BERRIES))
+                        .offerTo(exporter);
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModNatureBlocks.GREEN_GROWTH.asItem(), 8)
                         .pattern("lll")
                         .pattern("lll")

@@ -2672,43 +2672,6 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(EquipmentItemsME.BLACK_URUK_PLATE_CHESTPLATE))
                         .offerTo(exporter);
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_CASTELLAN_CHESTPLATE.getDefaultStack(), "chestplate", DispositionType.EVIL, XP_T5)
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .input(EquipmentItemsME.MORDOR_CHESTPLATE)
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .criterion(hasItem(EquipmentItemsME.MORDOR_CHESTPLATE),
-                            conditionsFromItem(EquipmentItemsME.MORDOR_CHESTPLATE))
-                    .offerTo(exporter);
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_CASTELLAN_LEGGINGS.getDefaultStack(), "leggings", DispositionType.EVIL, XP_T5)
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                    .input(EquipmentItemsME.ORCISH_MAIL_COAT)
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelArmorPlate.getItem()), burzumSteelArmorPlate.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelChainmail.getItem()), burzumSteelChainmail.getComponentChanges()))
-                    .criterion(hasItem(EquipmentItemsME.ORCISH_MAIL_COAT),
-                            conditionsFromItem(EquipmentItemsME.ORCISH_MAIL_COAT))
-                    .offerTo(exporter);
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACK_CASTELLAN_CAPE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
-                    .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
-                    .input(Items.STRING)
-                    .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
-                    .input(Items.BLACK_DYE)
-                    .input(ResourceItemsME.FABRIC)
-                    .input(Items.BLACK_DYE)
-                    .input(Items.RED_DYE)
-                    .input(ResourceItemsME.FABRIC)
-                    .input(Items.RED_DYE)
-                    .criterion(hasItem(ResourceItemsME.FABRIC),
-                            conditionsFromItem(ResourceItemsME.FABRIC))
-                    .offerTo(exporter);
-
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_CHESTPLATE.getDefaultStack(), "chestplate", DispositionType.EVIL, XP_T5)
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
                         .componentInput(new ComponentsIngredient(Ingredient.ofItems(steelArmorPlate.getItem()), steelArmorPlate.getComponentChanges()))
