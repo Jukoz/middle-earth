@@ -31,6 +31,7 @@ import net.sevenstars.middleearth.client.RenderUtil;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.ear.EarFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.feet.FeetFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.hair.HairFeatureRenderer;
@@ -39,7 +40,6 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
-import net.sevenstars.middleearth.utils.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
@@ -94,7 +94,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.aimingState = npcEntity.aimingState;
 
         super.updateRenderState(npcEntity, npcEntityRenderState, tickDelta);
-        var npcTextureData = npcEntity.getNpcTextureData();
+        NpcTextureData npcTextureData = npcEntity.retrieveNpcTextureData();
         float currentLightLevel = npcEntity.getWorld().getLightLevel(npcEntity.getBlockPos());
 
         npcEntityRenderState.pose = npcEntity.getPose();
@@ -130,9 +130,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             npcEntityRenderState.clothingOver = npcTextureData.get(NpcRenderedPart.CLOTHING_OVER);
             npcEntityRenderState.clothingExtra = npcTextureData.get(NpcRenderedPart.CLOTHING_EXTRA);
 
-            long initializationTick = npcEntity.getInitializationTick();
             long age = npcEntity.age;
-            npcEntityRenderState.blinking = (initializationTick + age) % BLINKING_INTERVAL >= BLINKING_INTERVAL - BLINKING_DURATION;
+            npcEntityRenderState.blinking = (0 + age) % BLINKING_INTERVAL >= BLINKING_INTERVAL - BLINKING_DURATION;
         }
         ItemStack currentHelmet = npcEntity.getEquippedStack(EquipmentSlot.HEAD);
         if(currentHelmet == null || currentHelmet.isEmpty()){

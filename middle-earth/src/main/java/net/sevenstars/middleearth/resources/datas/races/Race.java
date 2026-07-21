@@ -2,23 +2,15 @@ package net.sevenstars.middleearth.resources.datas.races;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.attributes.AttributeModifierElement;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
-import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
 import java.util.*;
@@ -150,6 +142,8 @@ public class Race {
         AttributePool.reverse(npcEntity);
         baseAttributePool.apply(npcEntity);
         categoryBasedAttributePool.get(EntityCategories.SHARED).apply(npcEntity);
-        categoryBasedAttributePool.get(npcEntity.getNpcCategory()).apply(npcEntity);
+        EntityCategories category = npcEntity.getNpcCategory();
+        if(category != null)
+            categoryBasedAttributePool.get(category).apply(npcEntity);
     }
 }

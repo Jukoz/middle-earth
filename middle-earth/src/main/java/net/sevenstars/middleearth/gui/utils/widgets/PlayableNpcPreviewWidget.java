@@ -121,9 +121,9 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             haveBeenInitialized = true;
 
         NpcEntity npcEntity = new NpcEntityBuilder(world, null)
-                .withNpcData(npcDataIdentifier)
+                .withNpcType(npcDataIdentifier)
                 .forceBuild();
-
+        npcEntity.prepare();
         npcEntity.setAiDisabled(deactivatedAI);
 
         npcEntity.setBodyYaw(currentAngle);

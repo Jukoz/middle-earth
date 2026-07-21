@@ -7,6 +7,7 @@ import net.minecraft.block.BedBlock;
 import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
@@ -122,7 +123,7 @@ public class SpawnNestManager {
         return (entities.isEmpty() && time > respawnEventTriggerTick + respawnTickDelay);
     }
 
-    public void tick(StructureManagerData structureManagerData, long currentTick, World world, BlockPos sourcePos) {
+    public void tick(StructureManagerData structureManagerData, long currentTick, ServerWorld world, BlockPos sourcePos) {
         if(canRespawn(currentTick)){
             respawnAll(structureManagerData, world, sourcePos);
         }
@@ -142,7 +143,7 @@ public class SpawnNestManager {
     }
 
 
-    private void respawnAll(StructureManagerData structureManagerData, World world, BlockPos structureManagerPos) {
+    private void respawnAll(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
         if(structureManagerData == null)
             return;
         SpawnNestNodeData data = structureManagerData.getNpcSpawnNest(id);
@@ -151,7 +152,7 @@ public class SpawnNestManager {
             StructureSpawnNestPool pool = data.getRandomPool();
             int entityAmountToSpawn = pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                LivingEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool, originPos, spawnRadius);
+                LivingEntity entityToAdd = StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
                 }
@@ -170,7 +171,7 @@ public class SpawnNestManager {
         return false;
     }
 
-    public void forceRespawn(StructureManagerData structureManagerData, World world, BlockPos structureManagerPos) {
+    public void forceRespawn(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
         for(var uuid : getEntityUuids()){
             if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
                 livingEntity.setRemoved(Entity.RemovalReason.DISCARDED);

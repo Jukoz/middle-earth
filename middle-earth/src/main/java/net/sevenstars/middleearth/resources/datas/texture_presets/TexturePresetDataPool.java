@@ -107,6 +107,10 @@ public class TexturePresetDataPool {
         return EntityCategories.MALE;
     }
 
+    public boolean hasCategory(EntityCategories category) {
+        return this.presetsByCategory.containsKey(category);
+    }
+
     public record Identity(EntityCategories category, WeightedTexturePresetHolder preset){
         public static Identity create(TexturePresetDataPool data, EntityCategories entityCategories){
             if(!data.presetsByCategory.containsKey(entityCategories))

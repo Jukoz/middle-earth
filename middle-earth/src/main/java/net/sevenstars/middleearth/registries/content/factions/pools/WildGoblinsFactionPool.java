@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.pools.WildGoblinNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.WildGoblinNpcTypePool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
@@ -22,25 +22,25 @@ public class WildGoblinsFactionPool {
             WILD_GOBLIN = new Faction(FactionRegistry.WILD_GOBLINS, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        WildGoblinNpcDataPool.GATHERER
+                        WildGoblinNpcTypePool.GATHERER
                     ));
                     put(NpcRank.MILITIA, List.of(
-                        WildGoblinNpcDataPool.GATHERER
+                        WildGoblinNpcTypePool.GATHERER
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                        WildGoblinNpcDataPool.GATHERER,
-                        WildGoblinNpcDataPool.WARRIOR,
-                        WildGoblinNpcDataPool.SCOUT,
-                        WildGoblinNpcDataPool.RIDER
+                        WildGoblinNpcTypePool.GATHERER,
+                        WildGoblinNpcTypePool.WARRIOR,
+                        WildGoblinNpcTypePool.SCOUT,
+                        WildGoblinNpcTypePool.RIDER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                        WildGoblinNpcDataPool.WARRIOR
+                        WildGoblinNpcTypePool.WARRIOR
                     ));
                     put(NpcRank.VETERAN, List.of(
-                        WildGoblinNpcDataPool.BRUTE
+                        WildGoblinNpcTypePool.BRUTE
                     ));
                     put(NpcRank.LEADER, List.of(
-                        WildGoblinNpcDataPool.BRUTE
+                        WildGoblinNpcTypePool.BRUTE
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

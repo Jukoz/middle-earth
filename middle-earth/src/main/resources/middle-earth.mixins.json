@@ -17,6 +17,7 @@
     "CropBlockMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
+    "FilledMapItemMixin",
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
     "GrassBlockMixin",
