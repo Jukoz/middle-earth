@@ -494,7 +494,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     protected boolean couldAcceptPassenger() {
-        return false;
+        return true;
     }
 
     @Override

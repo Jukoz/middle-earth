@@ -14,9 +14,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,27 +30,32 @@ import java.util.Optional;
 public class MountData {
     public static class Fields {
         public static final String ENTITY_TYPE = "entity_type";
+        public static final String NPC_TYPE = "npc_type";
         public static final String ARMOR = "armor_id";
         public static final String PASSENGER_SLOTS = "passenger_slots";
     }
 
     public static final Codec<MountData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf(MountData.Fields.ENTITY_TYPE).forGetter(MountData::getEntityType),
+            Identifier.CODEC.fieldOf(Fields.ENTITY_TYPE).forGetter(MountData::getEntityType),
+            Identifier.CODEC.optionalFieldOf(Fields.NPC_TYPE).forGetter(MountData::getOptionalNpcType),
             ItemStack.CODEC.optionalFieldOf(Fields.ARMOR).forGetter(MountData::getOptionalArmor),
             MountPassengerSlotData.CODEC.listOf().fieldOf(Fields.PASSENGER_SLOTS).forGetter(MountData::getPassengerSlots)
     ).apply(instance, MountData::new));
 
 
     private Identifier entityType;
+    private Identifier npcType;
     private ItemStack armor;
     private List<MountPassengerSlotData> passengerSlots;
 
     private MountData(
             Identifier entityType,
+            Optional<Identifier> npcType,
             Optional<ItemStack> armor,
             List<MountPassengerSlotData> passengerSlots
     ) {
         this.entityType = entityType;
+        this.npcType = npcType.orElse(null);
         this.armor = armor.orElse(null);
         this.passengerSlots = passengerSlots;
     }
@@ -54,6 +63,11 @@ public class MountData {
     public MountData(EntityType<?> entity) {
         this.entityType = Registries.ENTITY_TYPE.getId(entity);
         this.armor = null;
+    }
+
+    public MountData(RegistryKey<NpcType> npcType){
+        this.entityType = Registries.ENTITY_TYPE.getId(EntitiesME.NPC);
+        this.npcType = npcType.getValue();
     }
 
     public MountData withArmor(ItemStack armorItem){
@@ -75,6 +89,9 @@ public class MountData {
 
     private Identifier getEntityType() {
         return entityType;
+    }
+    private Optional<Identifier> getOptionalNpcType() {
+        return Optional.ofNullable(npcType);
     }
     private Optional<ItemStack> getOptionalArmor() {
         return Optional.ofNullable(armor);
@@ -100,6 +117,11 @@ public class MountData {
         if(notLiving == null)
             return;
         if(notLiving instanceof LivingEntity entity){
+            if(entity instanceof NpcEntity npc && npcType != null){
+                npc.prepareNpcIdentifier(npcType);
+                npc.prepare();
+            }
+
             entity.setPosition(owner.getPos());
             entity.equipStack(EquipmentSlot.SADDLE, Items.SADDLE.asItem().getDefaultStack());
             if(armor != null)
