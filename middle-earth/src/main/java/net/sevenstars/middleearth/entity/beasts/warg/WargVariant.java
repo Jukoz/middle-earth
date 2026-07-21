@@ -8,10 +8,9 @@ public enum WargVariant {
     BLACK(1),
     GRAY(2),
     LIGHT_GRAY(3),
-    GRAY_FACE(4),
-    RED_BALD(5),
-    TAN(6),
-    TAN_GRAY(7);
+    SNOW(4),
+    MOTTLED(5),
+    TAN(6);
 
     private static final WargVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(WargVariant::getId)).toArray(WargVariant[]::new);
     private final int id;
