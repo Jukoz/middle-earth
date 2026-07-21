@@ -42,6 +42,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -419,6 +420,23 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     @Override
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        Vec3d pos = super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor);
+
+        Vec3d offset = new Vec3d(
+                0.0,
+                -0.3 * scaleFactor,
+                -0.25 * scaleFactor
+        );
+
+        return pos.add(rotatePoint(offset, this.getYaw()));
+    }
+
+    private static Vec3d rotatePoint(Vec3d point, float yaw) {
+        return point.rotateY(-yaw * ((float)Math.PI / 180F));
+    }
+
+    @Override
     public boolean isUsingItem() {
         boolean value = super.isUsingItem();
         if(!value) {
@@ -494,7 +512,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     protected boolean couldAcceptPassenger() {
-        return true;
+        return !this.hasVehicle();
     }
 
     @Override
@@ -713,13 +731,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         // TODO : datadriven
         if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity || target instanceof Pouncer)
             return true;
-        Faction faction = npcEntity.getFaction();
-        if(faction != null){
+        Faction currentFaction = npcEntity.getFaction();
+        if(currentFaction != null){
             if(target instanceof PlayerEntity player && player.canTakeDamage()){
                 var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
                 if(playerFaction == null)
                     return true;
-                if(faction.isHostileToward(playerFaction))
+                if(currentFaction.isHostileToward(playerFaction))
                     return true;
             }
 
@@ -728,10 +746,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
                     return false;
 
                 Faction targetFaction = targetNpcEntity.getFaction();
-                if(targetFaction == null || faction.isHostileToward(targetFaction.getId()))
+                if(targetFaction == null || currentFaction.isHostileToward(targetFaction.getId()))
                     return true;
                 else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                    if(faction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                    if(currentFaction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                         return true;
                 }
             }
@@ -742,16 +760,16 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
                     for(Entity entity : entityList){
                         if(entity instanceof NpcEntity targetNpcEntity){
                             Faction targetFaction = targetNpcEntity.getFaction();
-                            if(targetFaction == null || faction.isHostileToward(targetFaction.getId()))
+                            if(targetFaction == null || currentFaction.isHostileToward(targetFaction.getId()))
                                 return true;
                             else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                                if(faction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
+                                if(currentFaction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
                                     return true;
                             }
                         }
                     }
                     if(abstractHorseEntity instanceof AbstractBeastEntity abstractBeastEntity){
-                        if(abstractBeastEntity.getDisposition() != faction.getDisposition()){
+                        if(abstractBeastEntity.getDisposition() != currentFaction.getDisposition()){
                             return true;
                         }
                     }

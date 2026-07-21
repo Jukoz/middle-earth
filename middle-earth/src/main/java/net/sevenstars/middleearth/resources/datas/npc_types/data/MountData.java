@@ -4,10 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.item.Item;
@@ -110,18 +107,13 @@ public class MountData {
     }
 
     public void createEntity(ServerWorld world, LivingEntity owner) {
-        if(this.entityType == null || owner.hasVehicle())
+        if(this.entityType == null || owner.hasVehicle() || owner.hasPassengers())
             return;
         EntityType<?> type = Registries.ENTITY_TYPE.get(this.entityType);
         var notLiving = type.create(world, SpawnReason.JOCKEY);
         if(notLiving == null)
             return;
         if(notLiving instanceof LivingEntity entity){
-            if(entity instanceof NpcEntity npc && npcType != null){
-                npc.prepareNpcIdentifier(npcType);
-                npc.prepare();
-            }
-
             entity.setPosition(owner.getPos());
             entity.equipStack(EquipmentSlot.SADDLE, Items.SADDLE.asItem().getDefaultStack());
             if(armor != null)
@@ -143,8 +135,16 @@ public class MountData {
                 }
 
             }
-            world.spawnEntity(entity);
+
             owner.startRiding(entity, true);
+            boolean a = owner.hasVehicle();
+            world.spawnEntity(entity);
+
+            if(entity instanceof NpcEntity npc && npcType != null){
+                npc.prepareNpcIdentifier(npcType);
+                npc.prepare();
+            }
+
             // Set other passengers
             passengerSlots.forEach(slot -> {
                LivingEntity passengerEntity = slot.createRandom(world, owner);
