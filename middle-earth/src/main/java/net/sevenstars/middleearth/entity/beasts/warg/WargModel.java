@@ -134,10 +134,14 @@ public class WargModel extends EntityModel<WargEntityRenderState> {
                 || state.isCharging;
 
         if(!running) {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2f);
+            float speed = 3.5f;
+            if(state.conrollingPassenger != null) {
+                speed = 2f;
+            }
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, speed, 2f);
         }
         else {
-            this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.2f, 1.2f);
+            this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.4f, 1.2f);
         }
 
         this.idleAnimation.apply(state.idleAnimationState, state.age);

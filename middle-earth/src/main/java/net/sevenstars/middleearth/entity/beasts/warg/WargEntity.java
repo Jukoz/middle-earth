@@ -23,6 +23,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -277,14 +278,15 @@ public class WargEntity extends AbstractBeastEntity {
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float animationSpeed = this.limbAnimator.getSpeed();
         float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
+        float f = this.limbAnimator.getAnimationProgress() / 20;
 
         boolean sprinting = passenger.isSprinting();
 
         // frequency is calculated by dividing the speed of the animation by the duration of the animation.
-        float frequency = sprinting ? (1.2f/0.74f) : 4;
+        float frequency = sprinting ? (0.75f/1.4f) : 4;
 
         double y = sprinting ?
-                MathHelper.sin(animationProgress * frequency + MathHelper.PI / 4) * 0.11 * animationSpeed - 0.05 :
+                0.025 - MathHelper.cos((f/frequency) * (MathHelper.PI*2)) * 0.06f :
                 MathHelper.cos(animationProgress * frequency) * 0.06 * animationSpeed - 0.05;
 
         if(this.isSitting()) {
