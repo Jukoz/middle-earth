@@ -16,11 +16,13 @@ public class SpawnUtil {
         BlockPos below = blockPos.down();
         boolean isOnSolidGround = serverWorldAccess.getBlockState(below).isSolidBlock(serverWorldAccess, below);
         boolean isNotOnTopOfLogs = !serverWorldAccess.getBlockState(below).isIn(BlockTags.LOGS);
-        if (serverWorldAccess instanceof World world) {
+
+        if (spawnReason == SpawnReason.NATURAL && serverWorldAccess instanceof World world) {
             RegistryEntry<Biome> biome = world.getBiome(blockPos);
             boolean canSpawn = BiomeEventDataLookup.canEntitySpawn(world, biome, blockPos, type, random);
             return isOnSolidGround && isNotOnTopOfLogs && canSpawn;
         }
+
         return isOnSolidGround && isNotOnTopOfLogs;
     }
 }

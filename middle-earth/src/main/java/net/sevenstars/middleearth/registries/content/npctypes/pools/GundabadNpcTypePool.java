@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.registries.content.npctypes.pools;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
@@ -14,9 +15,7 @@ import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.*;
 
 import java.util.List;
 
@@ -188,7 +187,7 @@ public class GundabadNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.WARG).withArmor(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR));
 
         SCOUT = new NpcType(NpcRegistry.GUNDABAD_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()

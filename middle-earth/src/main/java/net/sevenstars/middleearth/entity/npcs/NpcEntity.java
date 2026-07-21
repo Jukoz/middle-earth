@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -381,6 +382,14 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     @Override
+    public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
+        if (source.isOf(DamageTypes.IN_WALL) && this.hasVehicle()) {
+            return true;
+        }
+        return super.isInvulnerableTo(world, source);
+    }
+
+    @Override
     protected void mobTick(ServerWorld world) {
         tryToInitializeData();
         //CombatArchetypeRuntimeData runtimeData = getCombatRuntimeData();
@@ -637,9 +646,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     @Override
     protected Text getDefaultName() {
         if(this.getNpcTypeIdentifier() == null) {
-            return Text.translatable("npc_data."+ MiddleEarth.MOD_ID +".npc");
+            return Text.translatable("npc_type."+ MiddleEarth.MOD_ID +".npc");
         }
-        return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_data"));
+        return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_type"));
     }
 
     @Override

@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.block.special.structureManager.features;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -14,9 +16,11 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
-import java.util.Optional;
+import java.util.*;
 
 public class StructureManagerService {
+    private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
+
     public static StructureManagerData GetStructureManagerData(World world, Identifier structureManagerDataId){
         if(world == null)
             return null;
@@ -59,15 +63,71 @@ public class StructureManagerService {
         return null;
     }
 
-    public static StructureManagerBlockEntity getClosest(World world, BlockPos pos, int structureManagerDistance) {
-        Optional<BlockPos> blockPosOptional =  BlockPos.findClosest(pos, structureManagerDistance, structureManagerDistance, blockPos -> {
-            var blockEntity = world.getBlockEntity(blockPos);
-            return blockEntity instanceof StructureManagerBlockEntity;
-        });
-        return blockPosOptional.map(blockPos -> ((StructureManagerBlockEntity) world.getBlockEntity(blockPos))).orElse(null);
+    public static void register(StructureManagerBlockEntity manager) {
+        World world = manager.getWorld();
+        if (world == null || world.isClient())
+            return;
+        STRUCTURE_MANAGERS.computeIfAbsent(world.getRegistryKey(), key -> new HashSet<>())
+                          .add(manager.getPos().toImmutable());
     }
 
-    public static boolean isClose(World world, BlockPos pos, int structureManagerDistance){
-        return getClosest(world, pos, structureManagerDistance) != null;
+    public static void unregister(StructureManagerBlockEntity manager) {
+        World world = manager.getWorld();
+        if (world == null || world.isClient())
+            return;
+        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+        if (managers == null)
+            return;
+
+        managers.remove(manager.getPos());
+        if (managers.isEmpty())
+            STRUCTURE_MANAGERS.remove(world.getRegistryKey());
+    }
+
+    public static boolean isClose(World world, BlockPos pos, int radius) {
+        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+
+        if (managers == null) {
+            return false;
+        }
+
+        int radiusSquared = radius * radius;
+
+        for (BlockPos managerPos : managers) {
+            if (managerPos.getSquaredDistance(pos) <= radiusSquared) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static StructureManagerBlockEntity getClosest(World world, BlockPos pos, int radius) {
+        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+
+        if (managers == null) {
+            return null;
+        }
+
+        int radiusSquared = radius * radius;
+        double closestDistance = Double.MAX_VALUE;
+        StructureManagerBlockEntity closest = null;
+
+        for (BlockPos managerPos : managers) {
+            double distance = managerPos.getSquaredDistance(pos);
+
+            if (distance > radiusSquared || distance >= closestDistance) {
+                continue;
+            }
+
+            BlockEntity blockEntity = world.getBlockEntity(managerPos);
+
+            if (blockEntity instanceof StructureManagerBlockEntity structureManager) {
+                closestDistance = distance;
+                closest = structureManager;
+            }
+        }
+
+        return closest;
     }
 }

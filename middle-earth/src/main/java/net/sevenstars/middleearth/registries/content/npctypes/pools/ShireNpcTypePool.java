@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -7,16 +8,17 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
-import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
 
 import java.util.List;
 
@@ -94,6 +96,6 @@ public class ShireNpcTypePool {
                                 .add(WeightedItemData.create(ToolItemsME.BRIMMINGBEND_PIPE))
                                 .add(WeightedItemData.create(Items.BOOK))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntityType.PIG));
     }
 }

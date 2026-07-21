@@ -11,11 +11,11 @@ public class DaleBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.DALE_MILITIA).withWeight(7),
-            new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.DALE_ELITE_ARCHER).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.DALE_KNIGHT).withWeight(1),
-            new WildSpawnEventData(NpcRegistry.DALE_SERGEANT).withWeight(1)
-        ));
+            new WildSpawnEventData(NpcRegistry.DALE_MILITIA).withWeight(7).withSameNpc(5, 256),
+            new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(3).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.DALE_ELITE_ARCHER).withWeight(3).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.DALE_KNIGHT).withWeight(1).withSameNpc(0, 256),
+            new WildSpawnEventData(NpcRegistry.DALE_SERGEANT).withWeight(0).withSameNpc(0, 512)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
     }
 }

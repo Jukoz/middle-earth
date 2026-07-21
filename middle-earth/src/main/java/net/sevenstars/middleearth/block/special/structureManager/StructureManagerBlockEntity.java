@@ -36,7 +36,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
-    ModLogger logger = MiddleEarth.LOGGER;
     private static final String ID = "structure_manager";
 
     private enum SyncedData {
@@ -63,6 +62,13 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     // Runtime
     private StructureManagerData managerData;
     private boolean worldWasSet = false;
+    private boolean registered = false;
+
+    @Override
+    public void markRemoved() {
+        StructureManagerService.unregister(this);
+        super.markRemoved();
+    }
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
@@ -185,6 +191,11 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(!world.isClient && worldWasSet){
             tryToInitializeManager(world);
             this.worldWasSet = false;
+        }
+
+        if (!world.isClient && !this.registered) {
+            StructureManagerService.register(this);
+            this.registered = true;
         }
 
         if(!enabled)

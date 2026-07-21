@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.biome_events.data;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -11,8 +11,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-
-import java.util.List;
 
 public class SpawnEventDataUtil {
     // # Comparators
@@ -28,47 +26,47 @@ public class SpawnEventDataUtil {
     static boolean compareEntitiesByType(LivingEntity entity, Identifier entityType) {
         if(entity == null)
             return false;
-        Identifier entityId = entityType;
-        if(entityId == null)
-            return false;
-        return MiddleEarth.compareId(entityId, entityType);
+        return MiddleEarth.compareId(Registries.ENTITY_TYPE.getId(entity.getType()), entityType);
     }
 
     // Conditions
     static boolean meetEntityThresholdRequirements(WildSpawnEventData data, World world, BlockPos pos) {
-        // Default is 16 npcs in 64 blocks around
-        int sameEntityDistance = data.getSameEntityLimitDistance().orElse(64);
-        int sameEntityAmount = data.getSameEntityLimitAmount().orElse(16);
+        EntityType<?> targetEntityType = Registries.ENTITY_TYPE.get(data.getEntityType());
+        int sameEntityDistance = data.getSameEntityLimitDistance().orElse(256);
+        int sameEntityAmount = data.getSameEntityLimitAmount().orElse(10);
+        Box searchBox = Box.of(pos.toCenterPos(), sameEntityDistance, sameEntityDistance, sameEntityDistance);
 
-        Box sameEntityTypeBox = Box.of(pos.toCenterPos(),
-                sameEntityDistance,
-                sameEntityDistance,
-                sameEntityDistance);
+        boolean hasNpcTypeLimit = targetEntityType == EntitiesME.NPC && data.getNpcType(null) != null;
+        int sameNpcTypeAmount = data.getSameNpcTypeLimitAmount().orElse(5);
+        int sameNpcTypeDistance = data.getSameNpcTypeLimitDistance().orElse(128);
+        Box npcSearchBox = hasNpcTypeLimit ? Box.of(pos.toCenterPos(), sameNpcTypeDistance, sameNpcTypeDistance, sameNpcTypeDistance) : null;
 
-        List<Entity> sameEntities = world.getOtherEntities(null, sameEntityTypeBox,
-                entity -> Registries.ENTITY_TYPE.getId(entity.getType()).equals(data.getEntityType())
-                        && SpawnEventDataUtil.compareEntitiesByType((LivingEntity) entity, data.getEntityType()));
-
-        if(sameEntities.size() > sameEntityAmount)
+        int[] counts = new int[2]; // [0] = entity count, [1] = npc type count
+        world.getOtherEntities(null, searchBox, entity -> {
+            // Same entity type limit
+            if (entity.getType() == targetEntityType) {
+                if (SpawnEventDataUtil.compareEntitiesByType((LivingEntity) entity, data.getEntityType())) {
+                    counts[0]++;
+                    if (counts[0] >= sameEntityAmount)
+                        return true;
+                }
+            }
+            // Same NPC type limit
+            if (hasNpcTypeLimit && entity instanceof NpcEntity npc && npcSearchBox.contains(entity.getPos()) && SpawnEventDataUtil.compareId(npc, data.getNpcType(null))) {
+                counts[1]++;
+                return counts[1] >= sameNpcTypeAmount;
+            }
             return false;
-        if(data.getNpcType(null) == null || !data.getEntityType().equals(Registries.ENTITY_TYPE.getId(EntitiesME.NPC)))
-            return true;
-
-        // Default is 1 npc of same type in 64 blocks around
-        int sameNpcTypeDistance = data.getSameNpcTypeLimitDistance().orElse(64);
-        int sameNpcTypeAmount = data.getSameNpcTypeLimitAmount().orElse(1);
-
-        Box sameNpcTypeBox = Box.of(pos.toCenterPos(),
-                sameNpcTypeDistance,
-                sameNpcTypeDistance,
-                sameNpcTypeDistance);
-
-        List<NpcEntity> sameNpcType = world.getEntitiesByType(EntitiesME.NPC, sameNpcTypeBox, x -> SpawnEventDataUtil.compareId(x, data.getNpcType(null)));
-        return sameNpcType.size() < sameNpcTypeAmount;
+        });
+        // Entity amount exceeded
+        if (counts[0] >= sameEntityAmount)
+            return false;
+        // Same NPC type amount exceeded
+        return !hasNpcTypeLimit || counts[1] < sameNpcTypeAmount;
     }
 
     static boolean meetStructureManagerClearanceRequirementUnmet(WildSpawnEventData data, World world, BlockPos pos) {
-        int structureManagerDistance = data.getStructureManagerRadiusAvoidance().orElse(16);
+        int structureManagerDistance = data.getStructureManagerRadiusAvoidance().orElse(64);
         return !StructureManagerService.isClose(world, pos, structureManagerDistance);
     }
 
@@ -120,7 +118,6 @@ public class SpawnEventDataUtil {
             return false;
         if(!meetStructureManagerClearanceRequirementUnmet(data, world, blockPos))
             return false;
-
         return true;
     }
 }

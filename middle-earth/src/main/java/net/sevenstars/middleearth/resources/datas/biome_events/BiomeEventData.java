@@ -36,10 +36,23 @@ public class BiomeEventData {
     private Boolean shouldSpawnDefaultWhenUnmet;
     private List<WildSpawnEventData> wildSpawnEventDatas;
 
+
     public BiomeEventData(boolean shouldSpawnDefaultWhenUnmet, List<WildSpawnEventData> wildNpcs){
         this(wildNpcs);
         this.shouldSpawnDefaultWhenUnmet = shouldSpawnDefaultWhenUnmet;
     }
+
+    public BiomeEventData withMoreWildSpawns(List<WildSpawnEventData> wildNpcs){
+
+        List<WildSpawnEventData> newWildSpawns = new ArrayList<>();
+        if(wildSpawnEventDatas != null)
+            newWildSpawns.addAll(wildSpawnEventDatas);
+        newWildSpawns.addAll(wildNpcs);
+        this.wildSpawnEventDatas = newWildSpawns;
+        return this;
+    }
+
+
 
     private List<WildSpawnEventData> getWildSpawnEventDatas() {
         return this.wildSpawnEventDatas;

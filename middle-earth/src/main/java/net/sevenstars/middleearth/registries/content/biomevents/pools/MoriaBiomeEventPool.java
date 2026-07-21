@@ -12,20 +12,20 @@ public class MoriaBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORIA_GOBLIN).withWeight(7).requireUnderground(),
-            new WildSpawnEventData(NpcRegistry.MORIA_MILITIA).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORIA_SCOUT).withWeight(4),
-            new WildSpawnEventData(NpcRegistry.MORIA_WARRIOR).withWeight(6).requireUnderground(),
-            new WildSpawnEventData(NpcRegistry.MORIA_RIDER).withWeight(4),
-            new WildSpawnEventData(NpcRegistry.MORIA_VETERAN).withWeight(3).requireNight(),
-            new WildSpawnEventData(NpcRegistry.MORIA_CHIEF).requireNight()
-        ));
+            new WildSpawnEventData(NpcRegistry.MORIA_GOBLIN).withWeight(7).withSameNpc(4, 256).requireUnderground(),
+            new WildSpawnEventData(NpcRegistry.MORIA_WARRIOR).withWeight(6).withSameNpc(2, 256).requireUnderground(),
+            new WildSpawnEventData(NpcRegistry.MORIA_MILITIA).withWeight(5).withSameNpc(2, 256),
+            new WildSpawnEventData(NpcRegistry.MORIA_SCOUT).withWeight(4).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORIA_RIDER).withWeight(4).withSameNpc(0, 256).withoutSkyRequirement(),
+            new WildSpawnEventData(NpcRegistry.MORIA_VETERAN).withWeight(3).withSameNpc(0, 256).requireNight(),
+            new WildSpawnEventData(NpcRegistry.MORIA_CHIEF).withSameNpc(0, 512).requireNight()
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
         EREGION = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(2),
-            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(1),
-            new WildSpawnEventData(NpcRegistry.MORIA_SCOUT).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.MORIA_RIDER)
-        ));
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withSameNpc(3, 256).withWeight(2),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withSameNpc(2, 256).withWeight(1),
+            new WildSpawnEventData(NpcRegistry.MORIA_SCOUT).withSameNpc(3, 256).withWeight(3),
+            new WildSpawnEventData(NpcRegistry.MORIA_RIDER).withSameNpc(0, 512)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
     }
 }

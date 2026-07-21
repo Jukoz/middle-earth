@@ -11,51 +11,46 @@ public class MordorBiomeEventPool {
     public final static BiomeEventData NURN;
     public final static BiomeEventData SCOUTS;
     public final static BiomeEventData ITHILIEN;
-    public final static BiomeEventData CAVE;
     public final static BiomeEventData DOL_GULDUR;
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORDOR_VETERAN).withWeight(2),
-            new WildSpawnEventData(NpcRegistry.MORDOR_CAPTAIN)
-        ));
+            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(5).withSameNpc(3, 64),
+            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(5).withSameNpc(3, 64),
+            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5).withSameNpc(2, 64),
+            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5).withSameNpc(3, 64),
+            new WildSpawnEventData(NpcRegistry.MORDOR_VETERAN).withWeight(2).withSameNpc(0, 64),
+            new WildSpawnEventData(NpcRegistry.MORDOR_CAPTAIN).withSameNpc(0, 512)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
         NURN = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5)
-        ));
+            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(5).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(5).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5).withSameNpc(1, 256)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
         SCOUTS = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4),
-            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2)
-        ));
+            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3).withSameNpc(2, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2).withSameNpc(0, 256)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
 
         ITHILIEN = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4),
-            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2),
+            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4).withSameNpc(4, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3).withSameNpc(1, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2).withSameNpc(2, 256),
 
-            new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(4),
-            new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(1)
-        ));
-
-        CAVE = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2)
-        ));
+            new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(4).withSameNpc(2, 256),
+            new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(1).withSameNpc(0, 256)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
         DOL_GULDUR = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.DOL_GULDUR_SCOUT).withWeight(5),
-            new WildSpawnEventData(NpcRegistry.DOL_GULDUR_WARRIOR).withWeight(2)
-        ));
+            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(4).withSameNpc(2, 256),
+            new WildSpawnEventData(NpcRegistry.DOL_GULDUR_SCOUT).withWeight(5).withSameNpc(4, 256),
+            new WildSpawnEventData(NpcRegistry.DOL_GULDUR_WARRIOR).withWeight(2).withSameNpc(1, 256)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
     }
 }

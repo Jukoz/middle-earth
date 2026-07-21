@@ -9,6 +9,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
@@ -16,6 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +60,11 @@ public class MountData {
         return this;
     }
 
+    public MountData withArmor(Item armorItem){
+        this.armor = armorItem.getDefaultStack();
+        return this;
+    }
+
     public MountData withColor(DyedColorComponent color){
         if(this.armor == null)
             return this;
@@ -74,6 +81,8 @@ public class MountData {
 
 
     private List<MountPassengerSlotData> getPassengerSlots() {
+        if(passengerSlots == null)
+            return new ArrayList<>();
         return passengerSlots;
     }
 

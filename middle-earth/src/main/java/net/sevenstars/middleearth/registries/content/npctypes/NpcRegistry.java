@@ -26,7 +26,7 @@ public class NpcRegistry {
 
     public static final HashMap<EntityCategories, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
         put(EntityCategories.SHARED, new AttributePool().addElement(
-            AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.35, 0.45)
+            AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.35)
         ));
     }};
 

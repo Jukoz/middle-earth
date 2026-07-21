@@ -11,9 +11,9 @@ public class ShireBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(12),
-            new WildSpawnEventData(NpcRegistry.SHIRE_MILITIA).withWeight(3),
-            new WildSpawnEventData(NpcRegistry.SHIRE_SHIRRIFF)
-        ));
+            new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(12).withSameNpc(3, 256),
+            new WildSpawnEventData(NpcRegistry.SHIRE_MILITIA).withWeight(3).withSameNpc(1, 256),
+            new WildSpawnEventData(NpcRegistry.SHIRE_SHIRRIFF).withSameNpc(0, 256)
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
@@ -14,6 +15,7 @@ import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
@@ -255,7 +257,7 @@ public class MoriaNpcTypePool {
                                 .add(WeightedItemData.create(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem()))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.WARG));
 
         VETERAN = new NpcType(NpcRegistry.MORIA_VETERAN.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()

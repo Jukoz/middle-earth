@@ -5,11 +5,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -193,6 +193,14 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
                 !this.getPassengerList().contains(livingEntity) &&                      // Is not a passenger
                 !(this.getOwner() != null && this.getOwner().equals(livingEntity)) &&   // Is not its owner
                 !(livingEntity instanceof PlayerEntity player && player.isCreative());  // Is not a creative player
+    }
+
+    @Override
+    public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
+        if (source.isOf(DamageTypes.IN_WALL) && this.hasPassengers() && getControllingPassenger() instanceof NpcEntity) {
+            return true;
+        }
+        return super.isInvulnerableTo(world, source);
     }
     // endregion
 

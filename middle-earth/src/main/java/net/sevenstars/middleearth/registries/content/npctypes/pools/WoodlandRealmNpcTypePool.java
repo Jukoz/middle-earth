@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
@@ -14,12 +16,17 @@ import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePoo
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
+import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class WoodlandRealmNpcTypePool {
@@ -251,7 +258,7 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.GREAT_HORN).withArmor(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR.getDefaultStack()));
 
         NIGHTSHADE = new NpcType(NpcRegistry.WOODLAND_REALM_NIGHTSHADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_NIGHTSHADE, List.of(
                 WeightedGearData.create()
@@ -390,6 +397,13 @@ public class WoodlandRealmNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_ORNAMENTED_GREEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT);
+        ), new HashMap<>(){{
+            put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
+                    AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
+                    AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 28),
+                    AttributePoolElement.create(EntityAttributes.ARMOR, 10, 20),
+                    AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.5, 3)
+            )));
+        }}, CombatArchetypePool.DEFAULT);
     }
 }

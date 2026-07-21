@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -28,8 +29,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -48,15 +47,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
-import net.minecraft.world.*;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -65,8 +63,6 @@ import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-
-import static net.minecraft.entity.mob.HostileEntity.isSpawnDark;
 
 // TODO Add sounds
 public class CaveTrollEntity extends AbstractBeastEntity {
