@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -113,6 +114,15 @@ public class MountPassengerData {
                 npc.prepareNpcIdentifier(npcType);
                 npc.prepare();
             }
+            if (entity instanceof MobEntity mob) {
+                mob.initialize(
+                        serverWorld,
+                        serverWorld.getLocalDifficulty(owner.getBlockPos()),
+                        SpawnReason.EVENT,
+                        null
+                );
+            }
+
             return entity;
         }
         return null;

@@ -137,7 +137,6 @@ public class MountData {
             }
 
             owner.startRiding(entity, true);
-            boolean a = owner.hasVehicle();
             world.spawnEntity(entity);
 
             if(entity instanceof NpcEntity npc && npcType != null){
