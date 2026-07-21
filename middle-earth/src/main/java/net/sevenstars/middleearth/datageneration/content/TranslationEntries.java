@@ -35,7 +35,7 @@ public class TranslationEntries {
     };
     public static List<String> factionEntries = new ArrayList<>() {
     };
-    public static List<String> npcDataEntries = new ArrayList<>() {
+    public static List<String> npcTypeEntries = new ArrayList<>() {
     };
     public static List<StructureManagerData> structureManagerEntries = new ArrayList<>() {
     };

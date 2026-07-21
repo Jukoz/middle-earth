@@ -175,4 +175,8 @@ public class MiddleEarth implements ModInitializer {
     public static String createAggregate(char splitter, String... names){
         return IdentifierUtil.createAggregateValue(splitter, names);
     }
+
+	public static boolean compareId(Identifier id1, Identifier id2) {
+		return id1.compareTo(id2) == 0;
+	}
 }
