@@ -13,7 +13,6 @@ import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
@@ -28,6 +27,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -277,20 +277,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private void renderTexture(MatrixStack matrices, VertexConsumer vertexConsumer, Identifier textureId, int light, int overlay, boolean isEmissive){
-        RenderLayer renderLayer = ModTexturedRenderLayers.getCharacterTexturesRenderLayer();
-        render(matrices, vertexConsumer, renderLayer, textureId, light, overlay);
-    }
-
-    private void render(MatrixStack matrices, VertexConsumer vertexConsumer, RenderLayer renderLayer, Identifier textureId, int light, int overlay){
-        Sprite sprite = characterTextureAtlas.getSprite(textureId);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay);
-    }
-
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
-        if(sprite != null){
-            VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            model.render(matrices, newLayerVertexConsumer, light, overlay);
-        }
+        RenderUtil.renderAtlasTexture(characterTextureAtlas, model, matrices, vertexConsumer, textureId, light, overlay);
     }
 
     @Override
