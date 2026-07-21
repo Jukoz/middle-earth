@@ -18,13 +18,13 @@ public class WoodlandRealmBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_LANCER).withWeight(3).withSameNpcType(0, 256).withoutSkyRequirement().shouldSpawnAbove(64),
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2).withSameNpcType(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE).withSameNpcType(0, 512)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
 
         SCOUTS = new BiomeEventData(false, List.of(
                 new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4).withSameNpcType(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
                 new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_SENTINEL).withWeight(3).withSameNpcType(0, 256).withoutSkyRequirement().shouldSpawnAbove(64),
                 new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE).withWeight(1).withSameNpcType(0, 256).withoutSkyRequirement().shouldSpawnAbove(64).requireNight()
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
 
         HALL = new BiomeEventData(false, List.of(
                 new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_ARTISAN).withWeight(10).withSameNpcType(5, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),

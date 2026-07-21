@@ -19,7 +19,7 @@ public class GundabadBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.GUNDABAD_RIDER).withWeight(2).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_VETERAN).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_LEADER).withSameNpcType(0, 512)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
 
 
         SCOUTS = new BiomeEventData(false, List.of(
@@ -27,6 +27,6 @@ public class GundabadBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.GUNDABAD_MILITIA).withWeight(3).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_WARRIOR).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_RIDER).withSameNpcType(0, 256)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
     }
 }

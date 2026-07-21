@@ -15,6 +15,6 @@ public class RohanBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.ROHAN_SOLDIER).withWeight(3).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.ROHAN_KNIGHT).withWeight(2).withSameNpcType(1, 256),
             new WildSpawnEventData(NpcRegistry.ROHAN_EORLING_MARSHAL).withWeight(1).withSameNpcType(0, 512)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
+        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
     }
 }

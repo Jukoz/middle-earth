@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEve
 import java.util.List;
 
 public class GenericHostilesBiomeEventPool {
-    public final static List<WildSpawnEventData> wildBrigands_easy = List.of(
+    public final static List<WildSpawnEventData> WILD_BRIGANDS_EASY = List.of(
             new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 512),
             new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(3).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(3, 256),
@@ -35,7 +35,7 @@ public class GenericHostilesBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_VETERAN).withWeight(2).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpcType(0, 256).requireNight()
         ));
 
-        BRIGANDS = new BiomeEventData(false, wildBrigands_easy);
+        BRIGANDS = new BiomeEventData(false, WILD_BRIGANDS_EASY);
 
         CAVE = new BiomeEventData(false, List.of(
             // Higher Levels
