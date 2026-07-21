@@ -97,6 +97,6 @@ public class ShireNpcTypePool {
                                 .add(WeightedItemData.create(ToolItemsME.BRIMMINGBEND_PIPE))
                                 .add(WeightedItemData.create(Items.BOOK))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntityType.PIG), NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
     }
 }

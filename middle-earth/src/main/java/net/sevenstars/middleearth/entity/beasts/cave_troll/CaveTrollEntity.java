@@ -760,11 +760,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     public static boolean canSpawn(EntityType<CaveTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-        boolean canSpawn =  SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
-        if(canSpawn) {
-           // serverWorldAccess.getPlayers().getFirst().teleport((double)blockPos.getX(), (double)blockPos.getY(),(double)blockPos.getZ(), true);
-        }
-        return canSpawn;
+        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
     }
 
     @Override

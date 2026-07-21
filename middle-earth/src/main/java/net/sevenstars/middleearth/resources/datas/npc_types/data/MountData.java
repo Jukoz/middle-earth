@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -104,13 +105,15 @@ public class MountData {
             if(armor != null)
                 entity.equipStack(EquipmentSlot.BODY, this.armor);
 
-            if(entity instanceof AbstractHorseEntity horse){
-                horse.initialize(
+            if (entity instanceof MobEntity mob) {
+                mob.initialize(
                         world,
                         world.getLocalDifficulty(owner.getBlockPos()),
                         SpawnReason.EVENT,
                         null
                 );
+            }
+            if(entity instanceof AbstractHorseEntity horse){
                 horse.setTame(true);
                 horse.setOwner(owner);
                 if(horse instanceof AbstractBeastEntity beast){

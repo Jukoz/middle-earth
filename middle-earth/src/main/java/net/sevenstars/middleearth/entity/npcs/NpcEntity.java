@@ -311,9 +311,10 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     public @Nullable ItemStack getPickBlockStack() {
+        if(getNpcType() == null)
+            return ItemStack.EMPTY;
         return NpcSpawnEggHelper.getSpawnEgg(getWorld(), getNpcType().getId());
     }
-
     public void updateAttackType() {
         if (this.getWorld() != null && !this.getWorld().isClient) {
             this.goalSelector.remove(this.meleeAttackGoal);
