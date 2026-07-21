@@ -171,7 +171,7 @@ public class WargEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
-            if(playerRace == null || playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
+            if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;
             }
         }
