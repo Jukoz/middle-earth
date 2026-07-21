@@ -44,8 +44,15 @@ public class ItemGroupsME {
         compoundData.putString("id", MiddleEarth.of("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(null, true);
-        DynamicRegistryManager manager = MinecraftClient.getInstance().getServer().getRegistryManager();
 
+        MinecraftClient client = MinecraftClient.getInstance();
+        DynamicRegistryManager manager = null;
+        if(client != null && client.getNetworkHandler() != null)
+            manager = client.getNetworkHandler().getRegistryManager();
+
+        if(manager == null)
+            return;
+        
         RegistryOps<NbtElement> ops = RegistryOps.of(
                 NbtOps.INSTANCE,
                 manager
