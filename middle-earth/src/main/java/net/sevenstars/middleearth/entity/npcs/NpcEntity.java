@@ -60,6 +60,7 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
+import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
@@ -708,7 +709,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     }
 
     public static boolean shouldTarget(NpcEntity npcEntity, LivingEntity target){
-        if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity)
+        // TODO : datadriven
+        if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity || target instanceof Pouncer)
             return true;
         Faction faction = npcEntity.getFaction();
         if(faction != null){

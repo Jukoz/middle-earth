@@ -12,7 +12,6 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -55,6 +54,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -705,7 +705,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     public static boolean shouldTarget(LivingEntity target) {
-        return target instanceof NpcEntity || target instanceof PlayerEntity;
+        return target instanceof NpcEntity || target instanceof PlayerEntity || target instanceof Pouncer;
     }
 
     @Override

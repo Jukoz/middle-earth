@@ -23,7 +23,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -36,9 +35,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.goals.PounceRetreatGoal;
 import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjectileGoal;
 import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
@@ -49,11 +48,9 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
-import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -113,6 +110,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, CaveTrollEntity.class, true));
     }
 
     @Nullable
