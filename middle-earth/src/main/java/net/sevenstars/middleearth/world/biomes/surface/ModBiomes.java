@@ -2512,7 +2512,6 @@ public class ModBiomes {
         
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
         ModSpawnSettingsBuilder.addRareWarg(spawnSettings);
-        ModSpawnSettingsBuilder.addRareCaveTroll(spawnSettings);
         ModSpawnSettingsBuilder.addWolves(spawnSettings);
         ModSpawnSettingsBuilder.addUncommonBats(spawnSettings);
 

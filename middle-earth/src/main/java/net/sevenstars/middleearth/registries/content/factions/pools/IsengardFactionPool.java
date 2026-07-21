@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -15,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npcs.pools.IsengardNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.IsengardNpcTypePool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -29,24 +28,24 @@ public class IsengardFactionPool {
         ISENGARD = new Faction(FactionRegistry.ISENGARD, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            IsengardNpcDataPool.SNAGA
+                            IsengardNpcTypePool.SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            IsengardNpcDataPool.WARRIOR
+                            IsengardNpcTypePool.WARRIOR
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            IsengardNpcDataPool.URUK_HAI_SOLDIER,
-                            IsengardNpcDataPool.URUK_HAI_SCOUT
+                            IsengardNpcTypePool.URUK_HAI_SOLDIER,
+                            IsengardNpcTypePool.URUK_HAI_SCOUT
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            IsengardNpcDataPool.URUK_HAI_BERSERKER,
-                            IsengardNpcDataPool.ORTHANC_GUARD
+                            IsengardNpcTypePool.URUK_HAI_BERSERKER,
+                            IsengardNpcTypePool.ORTHANC_GUARD
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            IsengardNpcDataPool.URUK_HAI_VETERAN
+                            IsengardNpcTypePool.URUK_HAI_VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            IsengardNpcDataPool.URUK_HAI_LEADER
+                            IsengardNpcTypePool.URUK_HAI_LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

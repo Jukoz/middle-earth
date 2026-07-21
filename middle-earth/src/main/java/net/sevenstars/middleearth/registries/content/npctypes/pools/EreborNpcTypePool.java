@@ -1,0 +1,346 @@
+package net.sevenstars.middleearth.registries.content.npctypes.pools;
+
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
+import net.sevenstars.middleearth.item.ToolItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
+import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
+
+import java.util.List;
+
+public class EreborNpcTypePool {
+    private final static RegistryKey<Faction> FACTION = FactionRegistry.LONGBEARDS_EREBOR;
+
+    private final static int LIGHT_BLUE = 0x4b6274;
+    private final static int LIGHT_RED = 0x7f4442;
+    private final static int DARK_RED = 0x56302d;
+    private final static int DARK_BROWN = 0x3b291e;
+
+    public final static NpcType PEASANT;
+    public final static NpcType MINER;
+    public final static NpcType MILITIA;
+    public final static NpcType SOLDIER;
+    public final static NpcType ARCHER;
+    public final static NpcType ELITE;
+    public final static NpcType VETERAN;
+    public final static NpcType GATEWARDEN;
+    public final static NpcType LEADER;
+
+    public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
+        return List.of(
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_PEASANT, PEASANT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_MINER, MINER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_MILITIA, MILITIA),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_SOLDIER, SOLDIER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_ARCHER, ARCHER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_ELITE, ELITE),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_VETERAN, VETERAN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_GATEWARDEN, GATEWARDEN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_LEADER, LEADER)
+        );
+    }
+
+    static {
+        PEASANT = new NpcType(NpcRegistry.EREBOR_PEASANT.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GAMBESON_CAP).withColor(DARK_RED).withWeight(1))
+                                .add(WeightedItemData.create(EquipmentItemsME.GAMBESON_COWL).withColor(DARK_RED).withWeight(1))
+                                .add(WeightedItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withColor(DARK_RED).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_MINER_HELMET))
+                                .add(WeightedItemData.create().withWeight(21))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(ToolItemsME.BRONZE_PICKAXE))
+                                .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
+                                .add(WeightedItemData.create(Items.IRON_PICKAXE))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_DAGGER))
+                                .add(WeightedItemData.create(Items.AIR).withWeight(3))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
+
+        MINER = new NpcType(NpcRegistry.EREBOR_MINER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
+            WeightedGearData.create()
+                .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                        .add(WeightedItemData.create(EquipmentItemsME.GAMBESON_CAP).withColor(DARK_RED))
+                        .add(WeightedItemData.create(EquipmentItemsME.GAMBESON_COWL).withColor(DARK_RED))
+                        .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withColor(DARK_RED))
+                        .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_MINER_HELMET))
+                        .add(WeightedItemData.create())
+                )
+                .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                        .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_GAMBESON).withColor(LIGHT_RED))
+                        .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_MINER_GAMBESON).withColor(LIGHT_RED))
+                        .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_GAMBESON).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, DARK_BROWN))
+                        .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_MINER_GAMBESON).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, DARK_BROWN))
+                )
+                .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                        .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_LEATHER_LEGGINGS).withColor(DARK_RED))
+                )
+                .add(EquipmentSlot.FEET, GearSlotPool.create()
+                        .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_BOOTS).withWeight(3))
+                        .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_REINFORCED_BOOTS))
+                )
+                .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                        .add(WeightedItemData.create(ToolItemsME.KHAZAD_STEEL_PICKAXE))
+                        .add(WeightedItemData.create(ToolItemsME.KHAZAD_STEEL_AXE))
+                )
+                .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                        .add(WeightedItemData.create(Items.TORCH))
+                        .add(WeightedItemData.create(Items.AIR))
+                )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
+
+        MILITIA = new NpcType(NpcRegistry.EREBOR_MILITIA.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_SEGMENTED_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_NASAL_LEATHER_HELMET))
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_PARTISAN_OUTFIT).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_LEATHER_LEGGINGS).withColor(LIGHT_RED))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.DWARVEN_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_SWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_AXE))
+                                .add(WeightedItemData.create(WeaponItemsME.KHAZAD_STEEL_SWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.KHAZAD_STEEL_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.HEATER_SHIELD))
+                                .add(WeightedItemData.create(Items.AIR))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
+
+        SOLDIER = new NpcType(NpcRegistry.EREBOR_SOLDIER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_HELMET).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_COIF).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_SEGMENTED_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_NASAL_LEATHER_HELMET))
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PADDED_MAIL_HAUBERK).withCape(BackAttachmentsME.EREBOR_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PADDED_MAIL_HAUBERK).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LONG_COAT).withColor(LIGHT_RED))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LONG_COAT).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withCape(BackAttachmentsME.EREBOR_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_REINFORCED_LEATHER_HAUBERK).withColor(LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_REINFORCED_COAT).withColor(LIGHT_BLUE).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_LEGGINGS).withColor(LIGHT_RED).withWeight(5))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_COAT).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_LEGGINGS))
+                                .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_LEATHER_LEGGINGS).withColor(LIGHT_RED))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.EREBOR_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_SWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_AXE))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_SHIELD).withWeight(4))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_CROSS_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.HEATER_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+
+        ARCHER = new NpcType(NpcRegistry.EREBOR_ARCHER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_HELMET).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_COIF).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_SEGMENTED_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRACED_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_NASAL_LEATHER_HELMET))
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PADDED_MAIL_HAUBERK).withCape(BackAttachmentsME.EREBOR_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PADDED_MAIL_HAUBERK).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LONG_COAT).withColor(LIGHT_RED))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LONG_COAT).withColor(LIGHT_RED).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withCape(BackAttachmentsME.EREBOR_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_REINFORCED_LEATHER_HAUBERK).withColor(LIGHT_BLUE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_REINFORCED_COAT).withColor(LIGHT_BLUE).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_LEGGINGS).withColor(LIGHT_RED).withWeight(5))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_COAT).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_LEGGINGS))
+                                .add(WeightedItemData.create(EquipmentItemsME.LONGBEARD_LEATHER_LEGGINGS).withColor(LIGHT_RED))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.EREBOR_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_CROSSBOW).withWeight(7))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_BOW).withWeight(3))
+                                .add(WeightedItemData.create(Items.BOW))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+
+        ELITE = new NpcType(NpcRegistry.EREBOR_ELITE.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GUARD_HELMET).withWeight(8))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GILDED_MAIL_COIF).withWeight(4))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_CAPTAIN_HELMET))
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(DARK_RED).withCape(BackAttachmentsME.EREBOR_CAPE))
+
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_BRAWLER_CHESTPLATE).withColor(LIGHT_BLUE).withCape(BackAttachmentsME.EREBOR_CAPE))
+
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE).withCape(BackAttachmentsME.EREBOR_CAPE).withWeight(3))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_LEATHER_LEGGINGS).withColor(DARK_RED))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_BOOTS).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_SWORD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_AXE).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_LONGSWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_SHIELD).withWeight(5))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_SHIELD).withWeight(4))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_CROSS_SHIELD))
+                                .add(WeightedItemData.create(Items.AIR).withWeight(5))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+
+        VETERAN = new NpcType(NpcRegistry.EREBOR_VETERAN.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GUARD_HELMET))
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_LEGGINGS))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_SCALE_COAT))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.DWARVEN_BOOTS).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_SWORD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_AXE).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_LONGSWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_SHIELD).withWeight(5))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+
+        GATEWARDEN = new NpcType(NpcRegistry.EREBOR_GATEWARDEN.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_HELMET))
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_CHESTPLATE).withCape(BackAttachmentsME.EREBOR_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_CHESTPLATE).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_GATEWARDEN_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_SWORD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_AXE).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_SPEAR).withWeight(2))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_LONGSWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+
+
+        LEADER = new NpcType(NpcRegistry.EREBOR_LEADER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_MIGHTY_DWARF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_CAPTAIN_HELMET))
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE).withCape(BackAttachmentsME.EREBOR_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_CHESTPLATE).withCape(BackAttachmentsME.SURCOAT, LIGHT_BLUE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_SCALE_COAT).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_MAIL_COAT).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EREBOR_PLATE_BOOTS).withWeight(3))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_SWORD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_AXE).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_NOBLE_LONGSWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
+    }
+}
