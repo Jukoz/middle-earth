@@ -19,7 +19,7 @@ public class WildSpawnEventData {
             // Can have at most 10 other npcs around 32 blocks
             .withSameEntity(10, 32)
             // Can have at most 1 npcs of the same type around 64 blocks
-            .withSameNpc(1, 64)
+            .withSameNpcType(1, 64)
             // Cannot spawn if there's a structure manager block in a radius of 64 blocks
             .structureManagerRadiusAvoidance(64)
             // Set limits of light levels for spawns
@@ -34,26 +34,24 @@ public class WildSpawnEventData {
             .withDiscardChance(0.25);
 
     public static class Fields {
-        public static final String ENTITY_TYPE = "EntityType";
-        public static final String NPC_TYPE = "EntityType_Npc";
-        public static final String WEIGHT = "Weight";
+        public static final String ENTITY_TYPE = "entity_type";
+        public static final String NPC_TYPE = "npc_type";
+        public static final String WEIGHT = "weight";
 
-        public static final String SAME_ENTITY_LIMIT_DISTANCE = "SameEntityLimit_Distance";
-        public static final String SAME_ENTITY_LIMIT_AMOUNT = "SameEntityLimit_Amount";
-        public static final String SAME_NPC_TYPE_LIMIT_DISTANCE = "SameNpcTypeLimit_Distance";
-        public static final String SAME_NPC_TYPE_LIMIT_AMOUNT = "SameNpcTypeLimit_Amount";
-        public static final String STRUCTURE_MANAGER_AVOIDANCE_DISTANCE = "StructureManagerAvoidanceDistance";
+        public static final String SAME_ENTITY_LIMITATION = "same_entity_limitation";
+        public static final String SAME_NPC_TYPE_LIMITATION = "same_npc_type_limitation";
+        public static final String STRUCTURE_MANAGER_AVOIDANCE_DISTANCE = "structure_manager_avoidance_distance";
 
-        public static final String LIGHT_LEVEL_MAXIMUM = "LightLevel_Maximum";
-        public static final String LIGHT_LEVEL_MINIMUM = "LightLevel_Minimum";
-        public static final String WORLD_HEIGHT_MAXIMUM = "yWorld_ShouldSpawnBelow";
-        public static final String WORLD_HEIGHT_MINIMUM = "yWorld_ShouldSpawnAbove";
+        public static final String LIGHT_LEVEL_MAXIMUM = "light_level_maximum";
+        public static final String LIGHT_LEVEL_MINIMUM = "light_level_minimum";
+        public static final String WORLD_HEIGHT_MAXIMUM = "should_spawn_below";
+        public static final String WORLD_HEIGHT_MINIMUM = "should_spawn_above";
 
-        public static final String REQUIRE_SKY = "Require_Sky";
-        public static final String REQUIRE_UNDERGROUND = "Require_Underground";
-        public static final String REQUIRE_NIGHT = "Require_Night";
+        public static final String REQUIRE_SKY = "require_sky";
+        public static final String REQUIRE_UNDERGROUND = "require_underground";
+        public static final String REQUIRE_NIGHT = "require_night";
 
-        public static final String DISCARD_CHANCE = "DiscardChance";
+        public static final String DISCARD_CHANCE = "discard_chance";
     }
 
     public static final Codec<WildSpawnEventData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -61,10 +59,8 @@ public class WildSpawnEventData {
             Identifier.CODEC.optionalFieldOf(Fields.NPC_TYPE).forGetter(WildSpawnEventData::getOptionalNpcType),
             Codec.INT.optionalFieldOf(Fields.WEIGHT).forGetter(WildSpawnEventData::getOptionalWeight),
 
-            Codec.INT.optionalFieldOf(Fields.SAME_ENTITY_LIMIT_DISTANCE).forGetter(WildSpawnEventData::getSameEntityLimitDistance),
-            Codec.INT.optionalFieldOf(Fields.SAME_ENTITY_LIMIT_AMOUNT).forGetter(WildSpawnEventData::getSameEntityLimitAmount),
-            Codec.INT.optionalFieldOf(Fields.SAME_NPC_TYPE_LIMIT_DISTANCE).forGetter(WildSpawnEventData::getSameNpcTypeLimitDistance),
-            Codec.INT.optionalFieldOf(Fields.SAME_NPC_TYPE_LIMIT_AMOUNT).forGetter(WildSpawnEventData::getSameNpcTypeLimitAmount),
+            EntityLimitationData.CODEC.optionalFieldOf(Fields.SAME_ENTITY_LIMITATION).forGetter(WildSpawnEventData::getSameEntityLimitation),
+            EntityLimitationData.CODEC.optionalFieldOf(Fields.SAME_NPC_TYPE_LIMITATION).forGetter(WildSpawnEventData::getSameNpcTypeLimitation),
             Codec.INT.optionalFieldOf(Fields.STRUCTURE_MANAGER_AVOIDANCE_DISTANCE).forGetter(WildSpawnEventData::getStructureManagerRadiusAvoidance),
 
             Codec.INT.optionalFieldOf(Fields.WORLD_HEIGHT_MAXIMUM).forGetter(WildSpawnEventData::getShouldSpawnBelow),
@@ -81,20 +77,12 @@ public class WildSpawnEventData {
 
     ).apply(instance, WildSpawnEventData::new));
 
-
-    /*
-            Identifier.CODEC.optionalFieldOf("mount_id").forGetter(WildNpcSpawningData::getMount),
-            Identifier.CODEC.optionalFieldOf("mount_armor_id").forGetter(WildNpcSpawningData::getMountArmor),
-            Codec.INT.optionalFieldOf("mount_armor_color").forGetter(WildNpcSpawningData::getMountArmorColor)
-     */
     private final Identifier entityType;
     private Identifier npcType = null;
     private Integer weight = null;
-    private Integer sameEntityLimitDistance = null;
-    private Integer sameEntityLimitAmount = null;
+    private EntityLimitationData sameEntityLimitation = null;
+    private EntityLimitationData sameNpcTypeLimitation = null;
     private Integer structureManagerRadiusAvoidance = null;
-    private Integer sameNpcTypeLimitDistance = null;
-    private Integer sameNpcTypeLimitAmount = null;
     private Integer shouldSpawnBelow = null;
     private Integer shouldSpawnAbove = null;
     private Integer lightLevelMaximum = null;
@@ -108,10 +96,8 @@ public class WildSpawnEventData {
             Identifier entityType, 
             Optional<Identifier> npcType,
             Optional<Integer> weight,
-            Optional<Integer> sameEntityLimitDistance,
-            Optional<Integer> sameEntityLimitAmount,
-            Optional<Integer> sameNpcTypeLimitDistance,
-            Optional<Integer> sameNpcTypeLimitAmount,
+            Optional<EntityLimitationData> sameEntityLimitation,
+            Optional<EntityLimitationData> sameNpcTypeLimitation,
             Optional<Integer> structureManagerRadiusAvoidance,
             Optional<Integer> shouldSpawnBelow,
             Optional<Integer> shouldSpawnAbove,
@@ -124,10 +110,8 @@ public class WildSpawnEventData {
         this.entityType = entityType;
         this.npcType = npcType.orElse(null);
         this.weight = weight.orElse(null);
-        this.sameEntityLimitDistance = sameEntityLimitDistance.orElse(null);
-        this.sameEntityLimitAmount = sameEntityLimitAmount.orElse(null);
-        this.sameNpcTypeLimitDistance = sameNpcTypeLimitDistance.orElse(null);
-        this.sameNpcTypeLimitAmount = sameNpcTypeLimitAmount.orElse(null);
+        this.sameEntityLimitation = sameEntityLimitation.orElse(null);
+        this.sameNpcTypeLimitation = sameNpcTypeLimitation.orElse(null);
         this.structureManagerRadiusAvoidance = structureManagerRadiusAvoidance.orElse(null);
         this.shouldSpawnBelow = shouldSpawnBelow.orElse(null);
         this.shouldSpawnAbove = shouldSpawnAbove.orElse(null);
@@ -147,6 +131,8 @@ public class WildSpawnEventData {
         this.entityType = Registries.ENTITY_TYPE.getId(EntitiesME.NPC);
         this.npcType = npcType.getValue();
         this.lightLevelMinimum = 3;
+        this.sameEntityLimitation = new EntityLimitationData();
+        this.sameEntityLimitation.withEntitySurfaceOnly();
         this.requireSky = true;
     }
 
@@ -175,45 +161,124 @@ public class WildSpawnEventData {
         this.weight = newWeight;
         return this;
     }
-    public Optional<Integer> getSameEntityLimitDistance() {
-        return Optional.ofNullable(sameEntityLimitDistance);
+
+    public Optional<EntityLimitationData> getSameEntityLimitation() {
+        return Optional.ofNullable(this.sameEntityLimitation);
     }
-    public WildSpawnEventData withSameEntityLimitDistance(int newSameEntityLimitDistance) {
-        this.sameEntityLimitDistance = newSameEntityLimitDistance;
+    public Optional<EntityLimitationData> getSameNpcTypeLimitation() {
+        return Optional.ofNullable(this.sameNpcTypeLimitation);
+    }
+
+    // #Region [Same Entity]
+    public Optional<Integer> getSameEntityLimitDistance() {
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) return Optional.empty();
+        return data.getEntityLimitDistance();
+    }
+    public WildSpawnEventData withSameEntityLimitDistance(int newDistance) {
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntityLimitDistance(newDistance);
+        this.sameEntityLimitation = data;
         return this;
     }
     public Optional<Integer> getSameEntityLimitAmount() {
-        return Optional.ofNullable(sameEntityLimitAmount);
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) return Optional.empty();
+        return data.getEntityLimitAmount();
     }
-    public WildSpawnEventData withSameEntityLimitAmount(int newSameEntityLimitAmount) {
-        this.sameEntityLimitAmount = newSameEntityLimitAmount;
+    public WildSpawnEventData withSameEntityLimitAmount(int newLimitAmount) {
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntityLimitAmount(newLimitAmount);
+        this.sameEntityLimitation = data;
         return this;
     }
     public WildSpawnEventData withSameEntity(int maxAmount, int distance) {
-        this.sameEntityLimitDistance = distance;
-        this.sameEntityLimitAmount = maxAmount;
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntityLimitAmount(maxAmount);
+        data.withEntityLimitDistance(distance);
+        this.sameEntityLimitation = data;
         return this;
     }
-
-    public Optional<Integer> getSameNpcTypeLimitDistance() {
-        return Optional.ofNullable(sameNpcTypeLimitDistance);
+    public Optional<Boolean> getSameEntitySurfaceOnly() {
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) return Optional.empty();
+        return data.getEntitySurfaceOnly();
     }
-    public WildSpawnEventData withSameNpcTypeLimitDistance(int newSameNpcTypeLimitDistance) {
-        this.sameNpcTypeLimitDistance = newSameNpcTypeLimitDistance;
+
+    public WildSpawnEventData withEntitySurfaceOnly() {
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntitySurfaceOnly();
+        this.sameEntityLimitation = data;
+        return this;
+    }
+    public WildSpawnEventData withoutEntitySurfaceOnly() {
+        EntityLimitationData data = getSameEntityLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withoutEntitySurfaceOnly();
+        this.sameEntityLimitation = data;
+        return this;
+    }
+    // #endregion
+
+    // #Region [Same NPC]
+    public Optional<Integer> getSameNpcTypeLimitDistance() {
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) return Optional.empty();
+        return data.getEntityLimitDistance();
+    }
+    public WildSpawnEventData withSameNpcTypeLimitDistance(int newDistance) {
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntityLimitDistance(newDistance);
+        this.sameNpcTypeLimitation = data;
         return this;
     }
     public Optional<Integer> getSameNpcTypeLimitAmount() {
-        return Optional.ofNullable(sameNpcTypeLimitAmount);
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) return Optional.empty();
+        return data.getEntityLimitAmount();
     }
-    public WildSpawnEventData withSameNpcTypeLimitAmount(int newSameNpcTypeLimitAmount) {
-        this.sameNpcTypeLimitAmount = newSameNpcTypeLimitAmount;
+    public WildSpawnEventData withSameNpcTypeLimitAmount(int newLimitAmount) {
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntityLimitAmount(newLimitAmount);
+        this.sameNpcTypeLimitation = data;
         return this;
     }
-    public WildSpawnEventData withSameNpc(int maxAmount, int distance) {
-        this.sameNpcTypeLimitDistance = distance;
-        this.sameNpcTypeLimitAmount = maxAmount;
+    public WildSpawnEventData withSameNpcType(int maxAmount, int distance) {
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntityLimitAmount(maxAmount);
+        data.withEntityLimitDistance(distance);
+        this.sameNpcTypeLimitation = data;
         return this;
     }
+    public Optional<Boolean> getSameNpcTypeSurfaceOnly() {
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) return Optional.empty();
+        return data.getEntitySurfaceOnly();
+    }
+    public WildSpawnEventData withNpcTypeSurfaceOnly() {
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withEntitySurfaceOnly();
+        this.sameNpcTypeLimitation = data;
+        return this;
+    }
+    public WildSpawnEventData withoutNpcTypeSurfaceOnly() {
+        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+        if(data == null) data = new EntityLimitationData();
+        data.withoutEntitySurfaceOnly();
+        this.sameNpcTypeLimitation = data;
+        return this;
+    }
+    // #endregion
+
+
     public Optional<Integer> getStructureManagerRadiusAvoidance() {
         return Optional.ofNullable(structureManagerRadiusAvoidance);
     }

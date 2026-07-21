@@ -19,10 +19,10 @@ import java.util.Random;
 
 public class MountPassengerData {
     public static class Fields {
-        public static final String ENTITY_TYPE = "EntityType";
-        public static final String NPC_TYPE = "EntityType_Npc";
-        public static final String WEIGHT = "Weight";
-        public static final String DISCARD_CHANCE = "DiscardChance";
+        public static final String ENTITY_TYPE = "entity_type";
+        public static final String NPC_TYPE = "npc_type";
+        public static final String WEIGHT = "weight";
+        public static final String DISCARD_CHANCE = "discard_chance";
     }
 
     public static final Codec<MountPassengerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(

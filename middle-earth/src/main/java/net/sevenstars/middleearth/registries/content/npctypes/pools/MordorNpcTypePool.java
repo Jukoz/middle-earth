@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
@@ -78,7 +79,7 @@ public class MordorNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
 
         SNAGA = new NpcType(NpcRegistry.MORDOR_SNAGA.getValue(), RaceRegistry.SNAGA, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -123,7 +124,7 @@ public class MordorNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_PAINTED_WOODEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
         MILITIA = new NpcType(NpcRegistry.MORDOR_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -178,7 +179,7 @@ public class MordorNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         SCOUT = new NpcType(NpcRegistry.MORDOR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -229,7 +230,7 @@ public class MordorNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         WARRIOR = new NpcType(NpcRegistry.MORDOR_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -297,7 +298,7 @@ public class MordorNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
         VETERAN = new NpcType(NpcRegistry.MORDOR_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 WeightedGearData.create()
@@ -317,7 +318,7 @@ public class MordorNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
         CAPTAIN = new NpcType(NpcRegistry.MORDOR_CAPTAIN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 WeightedGearData.create()
@@ -339,7 +340,7 @@ public class MordorNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
         DOL_GULDUR_SCOUT = new NpcType(NpcRegistry.DOL_GULDUR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -416,7 +417,7 @@ public class MordorNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         DOL_GULDUR_WARRIOR = new NpcType(NpcRegistry.DOL_GULDUR_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -469,6 +470,6 @@ public class MordorNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
     }
 }

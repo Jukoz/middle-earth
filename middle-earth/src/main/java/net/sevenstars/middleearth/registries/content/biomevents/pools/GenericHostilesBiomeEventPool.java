@@ -9,10 +9,10 @@ import java.util.List;
 
 public class GenericHostilesBiomeEventPool {
     public final static List<WildSpawnEventData> wildBrigands_easy = List.of(
-            new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).lightShouldBeBetween(0, 7).requireNight().withSameNpc(0, 512),
-            new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(3).lightShouldBeBetween(0, 7).requireNight().withSameNpc(0, 256),
-            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpc(3, 256),
-            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpc(5, 256)
+            new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 512),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(3).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 256),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(5, 256)
     );
 
     public final static BiomeEventData CAVE;
@@ -23,16 +23,16 @@ public class GenericHostilesBiomeEventPool {
     static {
         ANDUIN = new BiomeEventData( false, List.of(
             //Npcs
-            new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).withSameNpc(0, 256).lightShouldBeAtMost(7),
-            new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(4).withSameNpc(1, 256).lightShouldBeAtMost(7),
-            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(7).requireNight().lightShouldBeAtMost(5).withSameNpc(3, 256).lightShouldBeAtMost(7),
-            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(8).requireNight().withSameNpc(4, 256).lightShouldBeAtMost(7),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).withSameNpcType(0, 256).lightShouldBeAtMost(7),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(4).withSameNpcType(1, 256).lightShouldBeAtMost(7),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(7).requireNight().lightShouldBeAtMost(5).withSameNpcType(3, 256).lightShouldBeAtMost(7),
+            new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(8).requireNight().withSameNpcType(4, 256).lightShouldBeAtMost(7),
 
-            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_GOBLIN).withWeight(5).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpc(5, 128).requireNight(),
-            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_SCOUT).withWeight(4).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpc(2, 128),
-            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_WARRIOR).withWeight(3).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpc(1, 256).requireNight(),
-            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_RIDER).withWeight(2).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpc(0, 256),
-            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_VETERAN).withWeight(2).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpc(0, 256).requireNight()
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_GOBLIN).withWeight(5).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpcType(5, 128).requireNight(),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_SCOUT).withWeight(4).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpcType(2, 128),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_WARRIOR).withWeight(3).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpcType(1, 256).requireNight(),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_RIDER).withWeight(2).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpcType(0, 256),
+            new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_VETERAN).withWeight(2).withoutSkyRequirement().lightShouldBeBetween(0, 7).withSameNpcType(0, 256).requireNight()
         ));
 
         BRIGANDS = new BiomeEventData(false, wildBrigands_easy);
@@ -44,33 +44,38 @@ public class GenericHostilesBiomeEventPool {
                     .lightShouldBeBetween(0, 7)
                     .withDiscardChance(0.35)
                     .shouldSpawnAbove(0)
-                    .withSameEntity(15, 128),
+                    .withSameEntity(15, 128)
+                    .withoutEntitySurfaceOnly(),
                 // Npcs
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_GATHERER)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
-                    .withSameNpc(4, 64)
-                    .withSameEntity(35, 128),
+                    .withSameNpcType(4, 64)
+                    .withSameEntity(35, 128)
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_SCOUT)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
-                    .withSameNpc(7, 64)
-                    .withSameEntity(35, 128),
+                    .withSameNpcType(7, 64)
+                    .withSameEntity(35, 128)
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_WARRIOR)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .shouldSpawnAbove(0)
-                    .withSameNpc(4, 64)
+                    .withSameNpcType(4, 64)
                     .withDiscardChance(0.45)
-                    .withSameEntity(35, 128),
+                    .withSameEntity(35, 128)
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_BRUTE)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .shouldSpawnAbove(0)
-                    .withSameNpc(3, 128)
+                    .withSameNpcType(3, 128)
                     .withDiscardChance(0.65)
-                    .withSameEntity(35, 128),
-            // Lower Levels (Medium Difficulty)
+                    .withSameEntity(35, 128)
+                    .withoutEntitySurfaceOnly(),
+                // Lower Levels (Medium Difficulty)
                 //Npcs
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_WARRIOR)
                     .lightShouldBeBetween(0, 7)
@@ -78,52 +83,60 @@ public class GenericHostilesBiomeEventPool {
                     .shouldSpawnBelow(0)
                     .withSameNpcTypeLimitAmount(10)
                     .withDiscardChance(0.05)
-                    .withSameEntity(50, 128),
+                    .withSameEntity(50, 128)
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_BRUTE)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .shouldSpawnBelow(0)
-                    .withSameNpc(3, 64)
-                    .withDiscardChance(0.15),
+                    .withSameNpcType(3, 64)
+                    .withDiscardChance(0.15)
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_RIDER)
                     .lightShouldBeBetween(0, 7)
                     .shouldSpawnBelow(0)
                     .withoutSkyRequirement()
-                    .withSameNpc(1, 128)
+                    .withSameNpcType(1, 128)
                     .withDiscardChance(0.3)
-                    .withSameEntity(50, 128),
+                    .withSameEntity(50, 128)
+                    .withoutEntitySurfaceOnly(),
                 //Creatures
                 new WildSpawnEventData(EntitiesME.CAVE_TROLL)
                     .shouldSpawnBetween(16, -32)
                     .lightShouldBeBetween(0, 7)
                     .withDiscardChance(0.16)
                     .withSameEntity(3, 128)
-                    .requireUnderground(),
+                    .requireUnderground()
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(EntitiesME.SHELOBITE_SCUTTLER)
                     .shouldSpawnBetween(0, -32)
                     .withDiscardChance(0.15)
                     .lightShouldBeBetween(0, 7)
                     .requireUnderground()
-                    .withSameEntity(35, 128),
-            // Very Low Levels (Higher Difficulty)
+                    .withSameEntity(35, 128)
+                    .withoutEntitySurfaceOnly(),
+                // Very Low Levels (Higher Difficulty)
                 //Creatures
                 new WildSpawnEventData(EntitiesME.CAVE_TROLL)
                     .shouldSpawnBelow(-16)
                     .lightShouldBeBetween(0, 7)
                     .requireUnderground()
-                    .withSameEntity(3, 128),
+                    .withSameEntity(3, 128)
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(EntitiesME.SHELOBITE_SCUTTLER)
                     .shouldSpawnBelow(-32)
                     .withDiscardChance(0.25)
                     .lightShouldBeBetween(0, 7)
                     .requireUnderground()
-                    .withSameEntity(50, 128),
+                    .withSameEntity(50, 128)
+                    .withoutEntitySurfaceOnly(),
                 new WildSpawnEventData(EntitiesME.SPAWN_OF_SHELOB)
                     .shouldSpawnBelow(-32)
                     .withDiscardChance(0.55)
                     .withSameEntity(1, 64)
                     .lightShouldBeBetween(0, 7)
                     .requireUnderground()
+                    .withoutEntitySurfaceOnly()
                 ));
 
         EMPTY = new BiomeEventData(false, List.of());

@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
@@ -88,7 +89,7 @@ public class GoblinTownNpcTypePool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_BONE_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
         SCOUT = new NpcType(NpcRegistry.GOBLIN_TOWN_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -125,7 +126,7 @@ public class GoblinTownNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_CROSSBOW).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(1))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         WARRIOR = new NpcType(NpcRegistry.GOBLIN_TOWN_WARRIOR.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
                 WeightedGearData.create()
@@ -182,7 +183,7 @@ public class GoblinTownNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
         RIDER = new NpcType(NpcRegistry.GOBLIN_TOWN_RIDER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
                 WeightedGearData.create()
@@ -230,7 +231,7 @@ public class GoblinTownNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, new MountData(EntitiesME.WARG).withArmor(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR));
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, new MountData(EntitiesME.WARG).withArmor(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR), NpcLoot.FROM_10_TO_16);
 
 
         VETERAN = new NpcType(NpcRegistry.GOBLIN_TOWN_VETERAN.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_BRUTE, List.of(
@@ -263,6 +264,6 @@ public class GoblinTownNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_HEAVY_SHIELD).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
     }
 }

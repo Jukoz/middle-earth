@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
@@ -65,7 +66,7 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_DAGGER))
                                 .add(WeightedItemData.create(DecorativeItemsME.WATERING_CAN))
                                 .add(WeightedItemData.create().withWeight(3)))
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
         SENTINEL = new NpcType(NpcRegistry.LOTHLORIEN_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -81,7 +82,7 @@ public class LorienNpcTypePool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SWORD)))
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD)))
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         RANGER = new NpcType(NpcRegistry.LOTHLORIEN_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -104,7 +105,7 @@ public class LorienNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         WARRIOR = new NpcType(NpcRegistry.LOTHLORIEN_WARRIOR.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -131,7 +132,7 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
         KNIGHT = new NpcType(NpcRegistry.LOTHLORIEN_KNIGHT.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -156,7 +157,7 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
         GUARD = new NpcType(NpcRegistry.LOTHLORIEN_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -184,7 +185,7 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
         EGLADIL_SENTINEL = new NpcType(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -207,7 +208,7 @@ public class LorienNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
         EGLADIL_COMMANDER = new NpcType(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
                 WeightedGearData.create()
@@ -227,7 +228,7 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SWORD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_LONGBOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
 
         LORD = new NpcType(NpcRegistry.LOTHLORIEN_LORD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
                 WeightedGearData.create()
@@ -250,6 +251,6 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
     }
 }

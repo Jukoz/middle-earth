@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.Melee
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.RangedCombatArchetypeRuntimeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.utils.CombatArchetypeDataUtil;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
@@ -40,7 +41,8 @@ public class NpcType {
             NbtCompound.CODEC.fieldOf("gear").forGetter(NpcType::getGearDataValues),
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcType::getNpcAttributePool),
             NbtCompound.CODEC.fieldOf("combat_archetype").forGetter(NpcType::getCombatArchetypeData),
-            MountData.CODEC.optionalFieldOf("mount").forGetter(NpcType::getOptionalMountData)
+            MountData.CODEC.optionalFieldOf("mount").forGetter(NpcType::getOptionalMountData),
+            LootData.CODEC.optionalFieldOf("loot").forGetter(NpcType::getOptionalLootData)
     ).apply(instance, NpcType::new));
 
     private final Identifier id;
@@ -51,7 +53,9 @@ public class NpcType {
     private final WeightedPool<WeightedGearData> gearDatas;
     private final HashMap<EntityCategories, AttributePool> npcAttributePools;
     private final MountData mountData;
-    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount) {
+    private final LootData lootData;
+
+    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount, Optional<LootData> lootData) {
         this.id = id;
         this.raceId = raceId;
         this.factionId = factionId;
@@ -74,12 +78,13 @@ public class NpcType {
 
         this.combatArchetypeData = CombatArchetypeDataUtil.create(combatArchetypeData);
         this.mountData = mount.orElse(null);
+        this.lootData = lootData.orElse(null);
     }
-    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData) {
-        this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, combatArchetypeData, null);
+    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, LootData lootData) {
+        this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, combatArchetypeData, null, lootData);
     }
 
-    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, MountData mount) {
+    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, MountData mount, LootData lootData) {
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
@@ -88,6 +93,7 @@ public class NpcType {
         this.npcAttributePools = npcAttributePools;
         this.combatArchetypeData = combatArchetypeData;
         this.mountData = mount;
+        this.lootData = lootData;
     }
 
     public Identifier getId() {
@@ -107,6 +113,12 @@ public class NpcType {
 
     private Optional<MountData> getOptionalMountData() {
         return Optional.ofNullable(mountData);
+    }
+    private Optional<LootData> getOptionalLootData() {
+        return Optional.ofNullable(lootData);
+    }
+    public LootData getLootData() {
+        return lootData;
     }
 
 

@@ -24,9 +24,9 @@ import java.util.Optional;
 
 public class MountData {
     public static class Fields {
-        public static final String ENTITY_TYPE = "EntityType";
-        public static final String ARMOR = "Armor_Id";
-        public static final String PASSENGER_SLOTS = "PassengerSlots";
+        public static final String ENTITY_TYPE = "entity_type";
+        public static final String ARMOR = "armor_id";
+        public static final String PASSENGER_SLOTS = "passenger_slots";
     }
 
     public static final Codec<MountData> CODEC = RecordCodecBuilder.create(instance -> instance.group(

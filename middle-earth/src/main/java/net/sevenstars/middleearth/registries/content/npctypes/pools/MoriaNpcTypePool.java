@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
@@ -94,7 +95,7 @@ public class MoriaNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
 
         MILITIA = new NpcType(NpcRegistry.MORIA_MILITIA.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
@@ -142,7 +143,7 @@ public class MoriaNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         SCOUT = new NpcType(NpcRegistry.MORIA_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -176,7 +177,7 @@ public class MoriaNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_CROSSBOW).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(1))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
         WARRIOR = new NpcType(NpcRegistry.MORIA_WARRIOR.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -223,7 +224,7 @@ public class MoriaNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
         RIDER = new NpcType(NpcRegistry.MORIA_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -257,7 +258,7 @@ public class MoriaNpcTypePool {
                                 .add(WeightedItemData.create(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem()))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.WARG));
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.WARG), NpcLoot.FROM_10_TO_16);
 
         VETERAN = new NpcType(NpcRegistry.MORIA_VETERAN.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -308,7 +309,7 @@ public class MoriaNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD))
                         ).withWeight(4)
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
 
         CHIEF = new NpcType(NpcRegistry.MORIA_CHIEF.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -334,6 +335,6 @@ public class MoriaNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
     }
 }

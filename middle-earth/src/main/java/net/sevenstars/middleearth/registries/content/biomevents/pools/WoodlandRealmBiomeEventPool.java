@@ -13,25 +13,25 @@ public class WoodlandRealmBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(7).withSameNpc(1, 256).withoutSkyRequirement().shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(5).withSameNpc(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_LANCER).withWeight(3).withSameNpc(0, 256).withoutSkyRequirement().shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2).withSameNpc(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE).withSameNpc(0, 512)
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(7).withSameNpcType(1, 256).withoutSkyRequirement().shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(5).withSameNpcType(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_LANCER).withWeight(3).withSameNpcType(0, 256).withoutSkyRequirement().shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2).withSameNpcType(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE).withSameNpcType(0, 512)
         )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
         SCOUTS = new BiomeEventData(false, List.of(
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4).withSameNpc(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_SENTINEL).withWeight(3).withSameNpc(0, 256).withoutSkyRequirement().shouldSpawnAbove(64),
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE).withWeight(1).withSameNpc(0, 256).withoutSkyRequirement().shouldSpawnAbove(64).requireNight()
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4).withSameNpcType(3, 256).withoutSkyRequirement().shouldSpawnAbove(64),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_SENTINEL).withWeight(3).withSameNpcType(0, 256).withoutSkyRequirement().shouldSpawnAbove(64),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE).withWeight(1).withSameNpcType(0, 256).withoutSkyRequirement().shouldSpawnAbove(64).requireNight()
         )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
         HALL = new BiomeEventData(false, List.of(
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_ARTISAN).withWeight(10).withSameNpc(5, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(6).withSameNpc(3, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4).withSameNpc(2, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2).withSameNpc(2, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE).withSameNpc(0, 512).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8)
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_ARTISAN).withWeight(10).withSameNpcType(5, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(6).withSameNpcType(3, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4).withSameNpcType(2, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2).withSameNpcType(2, 256).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE).withSameNpcType(0, 512).withoutSkyRequirement().structureManagerRadiusAvoidance(0).lightShouldBeAtLeast(8)
         ));
     }
 }

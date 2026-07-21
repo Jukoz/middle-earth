@@ -12,17 +12,17 @@ public class LothlorienBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_CIVILIAN).withWeight(10).withSameNpc(3, 256).shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_RANGER).withWeight(9).withSameNpc(2, 256).shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_WARRIOR).withWeight(7).withSameNpc(2, 256).shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_KNIGHT).withWeight(4).withSameNpc(1, 256).shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL).withSameNpc(1, 256).shouldSpawnAbove(64),
-            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER).withSameNpc(0, 256).shouldSpawnAbove(64)
+            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_CIVILIAN).withWeight(10).withSameNpcType(3, 256).shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_RANGER).withWeight(9).withSameNpcType(2, 256).shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_WARRIOR).withWeight(7).withSameNpcType(2, 256).shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_KNIGHT).withWeight(4).withSameNpcType(1, 256).shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL).withSameNpcType(1, 256).shouldSpawnAbove(64),
+            new WildSpawnEventData(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER).withSameNpcType(0, 256).shouldSpawnAbove(64)
         )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
 
         SCOUTS = new BiomeEventData(false, List.of(
-                new WildSpawnEventData(NpcRegistry.LOTHLORIEN_RANGER).withWeight(4).withSameNpc(2, 256).shouldSpawnAbove(64),
-                new WildSpawnEventData(NpcRegistry.LOTHLORIEN_SENTINEL).withWeight(1).withSameNpc(1, 256).shouldSpawnAbove(64)
+                new WildSpawnEventData(NpcRegistry.LOTHLORIEN_RANGER).withWeight(4).withSameNpcType(2, 256).shouldSpawnAbove(64),
+                new WildSpawnEventData(NpcRegistry.LOTHLORIEN_SENTINEL).withWeight(1).withSameNpcType(1, 256).shouldSpawnAbove(64)
         )).withMoreWildSpawns(GenericHostilesBiomeEventPool.wildBrigands_easy);
     }
 }

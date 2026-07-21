@@ -43,10 +43,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
@@ -74,6 +71,7 @@ import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
@@ -196,6 +194,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         NpcData newNpcData = this.retrieveNpcData().withType(npcType);
         this.saveNpcData(newNpcData);
     }
+    // [Loot Data]
+    public LootData retrieveLootData(){
+        NpcType npcType = retrieveNpcData().getNpcType();
+        if(npcType == null)
+            return null;
+        return npcType.getLootData();
+    }
     // [Category]
     public EntityCategories getNpcCategory() {
         return retrieveNpcData().getCategory();
@@ -238,6 +243,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         this.targetSelector.add(8, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
         this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
     }
+
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -517,22 +523,48 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         super.onDeath(source);
     }
 
-    @Override
-    protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
+    private boolean canDropLoot(DamageSource damageSource, boolean causedByPlayer){
         boolean canDropLoot = false;
-        if(causedByPlayer){
-            if(damageSource.getAttacker() instanceof PlayerEntity player){
-                PlayerData data = StateSaverAndLoader.getPlayerState(player);
-                if(data == null)
+        if(!causedByPlayer)
+            return canDropLoot;
+        if(damageSource == null)
+            return canDropLoot;
+
+        if(damageSource.getAttacker() instanceof PlayerEntity player){
+            PlayerData data = StateSaverAndLoader.getPlayerState(player);
+            if(data == null)
+                canDropLoot = true;
+            else if(data.getFaction() == null)
+                canDropLoot = true;
+            else{
+                try{
+                    Faction faction = FactionLookup.getFactionById(getWorld(), data.getFaction());
+                    if(faction.isHostileToward(this.getFactionIdentifier()))
+                        canDropLoot = true;
+                } catch (FactionIdentifierException e){
                     canDropLoot = true;
-                else if(data.getFaction() == null)
-                    canDropLoot = true;
-                else
-                    canDropLoot = data.getFaction().compareTo(getFactionIdentifier()) != 0;
+                }
             }
         }
-        if(!canDropLoot)
+
+        return canDropLoot;
+    }
+
+    protected void drop(ServerWorld world, DamageSource damageSource) {
+        if(!canDropLoot(damageSource, damageSource.getAttacker() != null && damageSource.getAttacker().isPlayer()))
             return;
+        super.drop(world, damageSource);
+    }
+
+    protected int getExperienceToDrop(ServerWorld world) {
+        LootData lootData = retrieveLootData();
+        if(lootData == null)
+            return 1;
+        return lootData.getExperience(world);
+    }
+
+    @Override
+    protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
 
         RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcType().getId().withPrefixedPath("entities/"));
         LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);

@@ -34,11 +34,14 @@ public class SpawnEventDataUtil {
         EntityType<?> targetEntityType = Registries.ENTITY_TYPE.get(data.getEntityType());
         int sameEntityDistance = data.getSameEntityLimitDistance().orElse(256);
         int sameEntityAmount = data.getSameEntityLimitAmount().orElse(10);
+        boolean sameEntitySurfaceOnly = data.getSameEntitySurfaceOnly().orElse(false);
+
         Box searchBox = Box.of(pos.toCenterPos(), sameEntityDistance, sameEntityDistance, sameEntityDistance);
 
         boolean hasNpcTypeLimit = targetEntityType == EntitiesME.NPC && data.getNpcType(null) != null;
         int sameNpcTypeAmount = data.getSameNpcTypeLimitAmount().orElse(5);
         int sameNpcTypeDistance = data.getSameNpcTypeLimitDistance().orElse(128);
+        boolean sameNpcTypeSurfaceOnly = data.getSameNpcTypeSurfaceOnly().orElse(false);
         Box npcSearchBox = hasNpcTypeLimit ? Box.of(pos.toCenterPos(), sameNpcTypeDistance, sameNpcTypeDistance, sameNpcTypeDistance) : null;
 
         int[] counts = new int[2]; // [0] = entity count, [1] = npc type count
@@ -46,6 +49,8 @@ public class SpawnEventDataUtil {
             // Same entity type limit
             if (entity.getType() == targetEntityType) {
                 if (SpawnEventDataUtil.compareEntitiesByType((LivingEntity) entity, data.getEntityType())) {
+                    if(sameEntitySurfaceOnly && !entity.getWorld().isSkyVisible(entity.getBlockPos()))
+                        return false;
                     counts[0]++;
                     if (counts[0] >= sameEntityAmount)
                         return true;
@@ -53,6 +58,9 @@ public class SpawnEventDataUtil {
             }
             // Same NPC type limit
             if (hasNpcTypeLimit && entity instanceof NpcEntity npc && npcSearchBox.contains(entity.getPos()) && SpawnEventDataUtil.compareId(npc, data.getNpcType(null))) {
+                if(sameNpcTypeSurfaceOnly && !entity.getWorld().isSkyVisible(entity.getBlockPos()))
+                    return false;
+
                 counts[1]++;
                 return counts[1] >= sameNpcTypeAmount;
             }
