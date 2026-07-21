@@ -19,7 +19,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
@@ -213,7 +212,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         boolean haveToDoWellnessCheck = (timeOfDay > 11000 && timeOfDay < 12000) || (timeOfDay >= 23000) && !wellnessChecked;
         for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
-                managerData = StructureManagerService.GetStructureManagerData(serverWorld, structureManagerIdentifier);
+                managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
             if(haveToDoWellnessCheck){
                 data.doWellnessCheck(managerData, serverWorld, blockPos);
             }
@@ -231,7 +230,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureManagerIdentifier == null)
             return;
 
-        this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
+        this.managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
         if(structureNestList == null)
             this.structureNestList = new StructureNestList();
         if(managerData == null) {

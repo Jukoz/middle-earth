@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -16,19 +16,22 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class StructureManagerService {
     private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
 
-    public static StructureManagerData GetStructureManagerData(World world, Identifier structureManagerDataId){
+    public static StructureManagerData getStructureManagerData(World world, Identifier structureManagerDataId){
         if(world == null)
             return null;
         var data =  StructureManagerDataLookup.getStructureManagerData(world, structureManagerDataId);
         return data.orElse(null);
     }
 
-    public static LivingEntity SpawnEntity(ServerWorld world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
+    public static LivingEntity spawnEntity(ServerWorld world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
         var random = world.getRandom();
         int chances = 5;
         BlockPos chosenBlockPos = null;
@@ -42,7 +45,6 @@ public class StructureManagerService {
         if(chosenBlockPos == null)
             chosenBlockPos = pos;
 
-
         LivingEntity entity;
         if(pool.getEntityType() == EntitiesME.NPC){
 
@@ -51,8 +53,8 @@ public class StructureManagerService {
                     .build();
         } else {
             entity = (LivingEntity) pool.getEntityType().create(world, SpawnReason.STRUCTURE);
-            if(entity instanceof AbstractHorseEntity horse)
-                horse.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null);
+            if(entity instanceof MobEntity mob)
+                mob.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null);
             entity.setPosition(chosenBlockPos.toCenterPos());
         }
 

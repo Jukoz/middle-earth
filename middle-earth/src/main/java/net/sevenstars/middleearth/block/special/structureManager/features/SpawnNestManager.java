@@ -152,7 +152,7 @@ public class SpawnNestManager {
             StructureSpawnNestPool pool = data.getRandomPool();
             int entityAmountToSpawn = pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                LivingEntity entityToAdd = StructureManagerService.SpawnEntity(world, pool, originPos, spawnRadius);
+                LivingEntity entityToAdd = StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
                 }
