@@ -14,8 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npcs.pools.DalishNpcDataPool;
-import net.sevenstars.api.utils.IdentifierUtil;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.DalishNpcTypePool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -29,24 +28,24 @@ public class DaleFactionPool {
         DALE = new Faction(FactionRegistry.DALE, true, DispositionType.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        DalishNpcDataPool.PEASANT
+                        DalishNpcTypePool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
-                        DalishNpcDataPool.MILITIA
+                        DalishNpcTypePool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                        DalishNpcDataPool.SOLDIER,
-                        DalishNpcDataPool.ARCHER
+                        DalishNpcTypePool.SOLDIER,
+                        DalishNpcTypePool.ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                        DalishNpcDataPool.KNIGHT,
-                        DalishNpcDataPool.ELITE_ARCHER
+                        DalishNpcTypePool.KNIGHT,
+                        DalishNpcTypePool.ELITE_ARCHER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                        DalishNpcDataPool.VETERAN
+                        DalishNpcTypePool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                        DalishNpcDataPool.SERGEANT
+                        DalishNpcTypePool.SERGEANT
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

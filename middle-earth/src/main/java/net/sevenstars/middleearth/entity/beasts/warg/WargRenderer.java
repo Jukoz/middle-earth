@@ -19,6 +19,7 @@ import java.util.Map;
 public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRenderState, WargModel> {
     private static final String PATH = "textures/entities/warg/";
     private static final float SIZE = 1f;
+    private static final int LIGHT_LEVEL_EMISSIVE_EYES = 8;
 
     public WargRenderer(EntityRendererFactory.Context context) {
         super(context, new WargModel(context.getPart(EntityModelLayersME.WARG)), 0.8f);
@@ -34,9 +35,9 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
         );
         this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new WargArmorSideSkullsFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
-        this.addFeature(new WargSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new WargArmorFrontSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new WargArmorBackSkullFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+        this.addFeature(new WargSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
     }
 
     @Override
@@ -66,14 +67,12 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_gray.png"));
                 map.put(WargVariant.LIGHT_GRAY,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_light_gray.png"));
-                map.put(WargVariant.GRAY_FACE,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_gray_face.png"));
-                map.put(WargVariant.RED_BALD,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_red_bald.png"));
+                map.put(WargVariant.SNOW,
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_snow.png"));
+                map.put(WargVariant.MOTTLED,
+                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_mottled.png"));
                 map.put(WargVariant.TAN,
                         Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_tan.png"));
-                map.put(WargVariant.TAN_GRAY,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_tan_gray.png"));
             });
 
     @Override
@@ -86,13 +85,16 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
         super.updateRenderState(warg, state, f);
 
         state.variant = warg.getVariant();
+        state.eyeVariant = warg.getEyeVariant();
 
         state.isSprinting = warg.isSprinting();
+        state.isRunning = warg.isRunning();
         state.isCharging = warg.isCharging();
         state.isTame = warg.isTame();
         state.conrollingPassenger = warg.getControllingPassenger();
         state.saddle = warg.getEquippedStack(EquipmentSlot.SADDLE);
         state.armor = warg.getBodyArmor();
+        state.haveEmissiveEyes = warg.getWorld().isNight() || warg.getWorld().getLightLevel(warg.getBlockPos()) <= LIGHT_LEVEL_EMISSIVE_EYES;
 
         state.chargeAnimationState = warg.chargeAnimationState;
         state.startSittingAnimationState = warg.startSittingAnimationState;

@@ -19,7 +19,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
@@ -36,7 +35,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
-    ModLogger logger = MiddleEarth.LOGGER;
     private static final String ID = "structure_manager";
 
     private enum SyncedData {
@@ -63,6 +61,13 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     // Runtime
     private StructureManagerData managerData;
     private boolean worldWasSet = false;
+    private boolean registered = false;
+
+    @Override
+    public void markRemoved() {
+        StructureManagerService.unregister(this);
+        super.markRemoved();
+    }
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
@@ -154,8 +159,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public void respawnAllEntities() {
         if(structureNestList == null)
             return;
+        if(world == null || world.isClient)
+            return;
         for(var nest : structureNestList.getManagers()){
-            nest.forceRespawn(managerData, world, pos);
+            nest.forceRespawn(managerData, (ServerWorld) world, pos);
         }
     }
 
@@ -185,6 +192,11 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             this.worldWasSet = false;
         }
 
+        if (!world.isClient && !this.registered) {
+            StructureManagerService.register(this);
+            this.registered = true;
+        }
+
         if(!enabled)
             return;
 
@@ -200,7 +212,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         boolean haveToDoWellnessCheck = (timeOfDay > 11000 && timeOfDay < 12000) || (timeOfDay >= 23000) && !wellnessChecked;
         for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
-                managerData = StructureManagerService.GetStructureManagerData(serverWorld, structureManagerIdentifier);
+                managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
             if(haveToDoWellnessCheck){
                 data.doWellnessCheck(managerData, serverWorld, blockPos);
             }
@@ -218,7 +230,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureManagerIdentifier == null)
             return;
 
-        this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
+        this.managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
         if(structureNestList == null)
             this.structureNestList = new StructureNestList();
         if(managerData == null) {

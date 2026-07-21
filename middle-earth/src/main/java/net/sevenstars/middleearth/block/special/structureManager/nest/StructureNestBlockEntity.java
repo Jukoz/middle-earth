@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 import org.jetbrains.annotations.Nullable;
@@ -146,19 +147,12 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         if(managerId == null || nestId == null || world.getTickOrder() % 20 != 0) // every 1 seconds
             return;
 
-        Optional<BlockPos> nearestBlockEntity =  BlockPos.findClosest(pos, 20, 20, new Predicate<BlockPos>() {
-            @Override
-            public boolean test(BlockPos blockPos) {
-                var blockEntity = world.getBlockEntity(blockPos);
-                if(blockEntity != null && blockEntity instanceof StructureManagerBlockEntity)
-                    return true;
-                return false;
-            }
-        });
-
-        if(nearestBlockEntity.isPresent()){
-            StructureManagerBlockEntity blockEntity= ((StructureManagerBlockEntity)world.getBlockEntity(nearestBlockEntity.get()));
-            if(blockEntity.subscribeNest(this.pos, this.managerId, this.nestId, this.spawnRadius))
+        StructureManagerBlockEntity structureManagerBlockEntity = StructureManagerService.getClosest(world, pos, 20);
+        if(structureManagerBlockEntity == null) {
+            fails++;
+        }
+        else {
+            if(structureManagerBlockEntity.subscribeNest(this.pos, this.managerId, this.nestId, this.spawnRadius))
             {
                 world.breakBlock(pos, false);
                 world.removeBlockEntity(pos);
@@ -167,10 +161,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
             } else {
                 fails++;
             }
-        } else {
-            fails++;
         }
-
         if(fails >= 12) {
             world.breakBlock(pos, false);
             world.removeBlockEntity(pos);

@@ -28,7 +28,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -55,10 +54,12 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.PlayerUtil;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -86,7 +87,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
-
         if(scavengeLootTable == null && !world.isClient()) {
             if(world instanceof ServerWorld serverWorld) {
 
@@ -230,16 +230,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
 
         return ActionResult.PASS; // Player is of incompatible race - don't interact
-    }
-
-    @Override
-    protected int getExperienceToDrop(ServerWorld world) {
-        return 18 + this.random.nextInt(8);
-    }
-
-    public static boolean canSpawn(EntityType<CaveTrollEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.down()).isSolidBlock(world, pos.mutableCopy().up())
-                && !world.getBlockState(pos.down()).isIn(BlockTags.LOGS) && world.getLightLevel(pos) < 14;
     }
 
     @Override
@@ -714,7 +704,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     public static boolean shouldTarget(LivingEntity target) {
-        return target instanceof NpcEntity || target instanceof PlayerEntity;
+        return target instanceof NpcEntity || target instanceof PlayerEntity || target instanceof Pouncer;
     }
 
     @Override
@@ -766,5 +756,14 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public void playRoarSound() {
         this.playSound(this.getRoarSound());
+    }
+
+    public static boolean canSpawn(EntityType<CaveTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return true;
     }
 }

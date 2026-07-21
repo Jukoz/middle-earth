@@ -36,10 +36,10 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addRareStoneTroll(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE,3,  new SpawnSettings.SpawnEntry(EntitiesME.STONE_TROLL, 1, 2));
+        builder.spawn(SpawnGroup.MONSTER,3,  new SpawnSettings.SpawnEntry(EntitiesME.STONE_TROLL, 1, 2));
     }
     public static void addRareCaveTroll(SpawnSettings.Builder builder){
-        builder.spawn(SpawnGroup.CREATURE,3,  new SpawnSettings.SpawnEntry(EntitiesME.CAVE_TROLL, 1, 1));
+        builder.spawn(SpawnGroup.MONSTER,3,  new SpawnSettings.SpawnEntry(EntitiesME.CAVE_TROLL, 1, 1));
     }
     public static void addMirkwoodSpider(SpawnSettings.Builder builder){
         builder.spawn(SpawnGroup.CREATURE, 9, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 2, 4));
@@ -134,8 +134,7 @@ public class ModSpawnSettingsBuilder {
     }
 
     public static void addNpcs(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 2))
-                .spawnCost(EntitiesME.NPC, 0.7, 0.3);
+        spawnSettings.spawn(SpawnGroup.MONSTER, 3, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 1));
     }
 
     public static void addGreatHorn(SpawnSettings.Builder builder) {

@@ -23,6 +23,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -59,6 +60,9 @@ public class WargEntity extends AbstractBeastEntity {
     private static final float MIN_HEALTH_BONUS = WargEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = WargEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> EYE_VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final double PASSENGER_SADDLE_Y_OFFSET = 0.12;
+    private static final double PASSENGER_SADDLE_BACKWARD_OFFSET = 0.18;
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
     private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.WARG.getDimensions().scaled(0.5f);
 
@@ -112,18 +116,21 @@ public class WargEntity extends AbstractBeastEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
+        builder.add(EYE_VARIANT, 0);
     }
 
     @Override
-    public void writeData(WriteView view) {
-        super.writeData(view);
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
         view.putInt("Variant", this.getTypeVariant());
+        view.putInt("EyeVariant", this.getEyeTypeVariant());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+        this.dataTracker.set(EYE_VARIANT, view.getInt("EyeVariant", 0));
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -199,6 +206,9 @@ public class WargEntity extends AbstractBeastEntity {
             int i = this.random.nextInt(9);
             WargVariant wargVariant = i < 4 ? this.getVariant() : (i < 8 ? wargEntity.getVariant() : Util.getRandom(WargVariant.values(), this.random));
             wargEntity2.setVariant(wargVariant);
+            int j = this.random.nextInt(9);
+            WargEyeVariant eyeVariant = j < 4 ? this.getEyeVariant() : (j < 8 ? wargEntity.getEyeVariant() : Util.getRandom(WargEyeVariant.values(), this.random));
+            wargEntity2.setEyeVariant(eyeVariant);
             this.setChildAttributes(entity, wargEntity2);
         }
         return wargEntity2;
@@ -268,21 +278,27 @@ public class WargEntity extends AbstractBeastEntity {
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
         float animationSpeed = this.limbAnimator.getSpeed();
         float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
+        float f = this.limbAnimator.getAnimationProgress() / 20;
 
         boolean sprinting = passenger.isSprinting();
 
         // frequency is calculated by dividing the speed of the animation by the duration of the animation.
-        float frequency = sprinting ? (1.2f/0.5f) : (2f/1.25f);
+        float frequency = sprinting ? (0.75f/1.4f) : 4;
 
         double y = sprinting ?
-                MathHelper.cos(animationProgress * frequency) * 0.095 * animationSpeed :
-                MathHelper.sin(animationProgress * frequency * 2f) * 0.06 * animationSpeed;
+                0.025 - MathHelper.cos((f/frequency) * (MathHelper.PI*2)) * 0.06f :
+                MathHelper.cos(animationProgress * frequency) * 0.06 * animationSpeed - 0.05;
 
         if(this.isSitting()) {
             y = -0.5;
         }
 
-        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
+        double side = 0;
+        double front = -PASSENGER_SADDLE_BACKWARD_OFFSET;
+        double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
+        double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
+
+        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y + PASSENGER_SADDLE_Y_OFFSET, z);
     }
 
     @Override
@@ -313,14 +329,24 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void setupAnimationStates() {
         if(this.isSitting()) {
-            this.startSittingAnimationState.startIfNotRunning(this.age);
+            if(!this.startSittingAnimationState.isRunning() && !this.sittingAnimationState.isRunning()) {
+                this.startSittingAnimationState.startIfNotRunning(this.age);
+            }
+            if(this.startSittingAnimationState.getTimeInMilliseconds(this.age) > 2000) {
+                this.sittingAnimationState.startIfNotRunning(this.age);
+                this.startSittingAnimationState.stop();
+            }
         }
-        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
+        else if(this.startSittingAnimationState.isRunning() || this.sittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
-            this.stopSittingAnimationState.start(this.age);
+            this.sittingAnimationState.stop();
+            this.stopSittingAnimationState.startIfNotRunning(this.age);
+        }
+        if(this.stopSittingAnimationState.getTimeInMilliseconds(this.age) > 1500) {
+            this.stopSittingAnimationState.stop();
         }
     }
-
+    @Override
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
     }
@@ -328,6 +354,16 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     public boolean isFoodItem(ItemStack itemStack) {
         return false;
+    }
+
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        boolean result = super.tryAttack(world, target);
+        if(result) {
+            this.setRunning(true);
+            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        }
+        return result;
     }
 
     @Override
@@ -353,8 +389,9 @@ public class WargEntity extends AbstractBeastEntity {
 
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
 
+        Entity owner = this.getOwner();
         for(Entity entity : entities) {
-            if(this.getOwner() != null && entity.getUuid() != this.getOwner().getUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
+            if((owner == null || entity.getUuid() != owner.getUuid()) && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                 if(getWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), this.getAttackDamage());
 
@@ -436,6 +473,8 @@ public class WargEntity extends AbstractBeastEntity {
                                  @Nullable EntityData entityData) {
         WargVariant variant = Util.getRandom(WargVariant.values(), this.random);
         setVariant(variant);
+        WargEyeVariant eyeVariant = Util.getRandom(WargEyeVariant.values(), this.random);
+        setEyeVariant(eyeVariant);
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
@@ -443,14 +482,23 @@ public class WargEntity extends AbstractBeastEntity {
         return WargVariant.byId(this.getTypeVariant() & 255);
     }
 
+    public WargEyeVariant getEyeVariant() {
+        return WargEyeVariant.byId(this.getEyeTypeVariant() & 255);
+    }
     private int getTypeVariant() {
         return this.dataTracker.get(VARIANT);
     }
 
+    private int getEyeTypeVariant() {
+        return this.dataTracker.get(EYE_VARIANT);
+    }
     private void setVariant(WargVariant variant) {
         this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 
+    private void setEyeVariant(WargEyeVariant variant) {
+        this.dataTracker.set(EYE_VARIANT, variant.getId() & 255);
+    }
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {

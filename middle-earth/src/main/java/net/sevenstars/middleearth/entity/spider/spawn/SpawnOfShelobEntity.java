@@ -33,12 +33,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.goals.PounceRetreatGoal;
 import net.sevenstars.middleearth.entity.goals.ShieldAgainstProjectileGoal;
 import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
@@ -52,6 +51,7 @@ import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -110,6 +110,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, CaveTrollEntity.class, true));
     }
 
     @Nullable
@@ -383,5 +384,16 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         POUNCE_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         BLOCK_FLAG = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistry.INTEGER);
         VARIANT = DataTracker.registerData(SpawnOfShelobEntity.class, TrackedDataHandlerRegistryME.SPIDER_VARIANT);
+    }
+
+    public static boolean canSpawn(EntityType<SpawnOfShelobEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        if(spawnReason != SpawnReason.NATURAL)
+            return SpawnOfShelobEntity.canSpawnInDark(type, serverWorldAccess, spawnReason, blockPos, random);
+        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return true;
     }
 }
