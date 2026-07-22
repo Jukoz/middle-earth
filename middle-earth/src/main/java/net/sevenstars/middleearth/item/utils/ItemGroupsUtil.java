@@ -24,6 +24,8 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.ArrayList;
@@ -131,4 +133,15 @@ public class ItemGroupsUtil {
             SmithingTrimMaterialsME.BURZUM_STEEL,
             SmithingTrimMaterialsME.MITHRIL
     );
+
+    public static Collection<ItemStack> addFactionBanners(RegistryWrapper.WrapperLookup lookup) {
+        List<ItemStack> bannerList = new ArrayList<>();
+        List<RegistryEntry.Reference<Faction>> factions = lookup.getOrThrow(DynamicRegistriesME.FACTION).streamEntries().toList();
+        for(RegistryEntry.Reference<Faction> factionReference : factions){
+            ItemStack bannerItem = factionReference.value().getBannerItem(lookup);
+            if(!bannerItem.isEmpty())
+                bannerList.add(bannerItem);
+        }
+        return bannerList;
+    }
 }

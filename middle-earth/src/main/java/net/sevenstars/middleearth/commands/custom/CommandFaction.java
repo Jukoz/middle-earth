@@ -107,7 +107,7 @@ public class CommandFaction {
 
             try{
                 Faction faction = FactionLookup.getFactionById(source.getWorld(), factionIdentifier);
-                source.giveItemStack(faction.getBannerItem(source.getWorld()));
+                source.giveItemStack(faction.getBannerItem(source.getWorld().getRegistryManager()));
                 MutableText sourceText = Text.translatable("command.%s.faction.banner.success".formatted(MiddleEarth.MOD_ID), faction.getFullName().formatted(Formatting.GOLD));
                 source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
             } catch (FactionIdentifierException e){

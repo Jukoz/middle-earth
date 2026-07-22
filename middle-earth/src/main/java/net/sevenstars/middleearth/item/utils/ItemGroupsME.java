@@ -74,6 +74,7 @@ public class ItemGroupsME {
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
                 };
+                entries.addAll(ItemGroupsUtil.addFactionBanners(displayContext.lookup()));
             })
             .build();
 
