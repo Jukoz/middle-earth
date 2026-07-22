@@ -13,16 +13,17 @@ import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLoo
 
 public class SpawnUtil {
     public static boolean canCreatureSpawn(EntityType<?> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        if (spawnReason == SpawnReason.NATURAL && serverWorldAccess instanceof World world) {
+            RegistryEntry<Biome> biome = world.getBiome(blockPos);
+            return BiomeEventDataLookup.canEntitySpawn(world, biome, blockPos, type, random);
+        }
+        return true;
+    }
+
+    public static boolean canSpawn(BlockPos blockPos, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason) {
         BlockPos below = blockPos.down();
         boolean isOnSolidGround = serverWorldAccess.getBlockState(below).isSolidBlock(serverWorldAccess, below);
         boolean isNotOnTopOfLogs = !serverWorldAccess.getBlockState(below).isIn(BlockTags.LOGS);
-
-        if (spawnReason == SpawnReason.NATURAL && serverWorldAccess instanceof World world) {
-            RegistryEntry<Biome> biome = world.getBiome(blockPos);
-            boolean canSpawn = BiomeEventDataLookup.canEntitySpawn(world, biome, blockPos, type, random);
-            return isOnSolidGround && isNotOnTopOfLogs && canSpawn;
-        }
-
         return isOnSolidGround && isNotOnTopOfLogs;
     }
 }

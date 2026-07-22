@@ -389,7 +389,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public static boolean canSpawn(EntityType<SpawnOfShelobEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
         if(spawnReason != SpawnReason.NATURAL)
             return SpawnOfShelobEntity.canSpawnInDark(type, serverWorldAccess, spawnReason, blockPos, random);
-        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
     }
 
     @Override
