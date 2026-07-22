@@ -22,7 +22,7 @@ import net.minecraft.world.gen.placementmodifier.*;
 import java.util.List;
 
 public class CavesPlacedFeatures {
-    public static final int MAX_MITHRIL_HEIGHT = -55;
+    public static final int MAX_MITHRIL_HEIGHT = -54;
 
     // region GEODES
     public static final RegistryKey<PlacedFeature> AMETHYST_GEODE = registerKey("amethyst_geode");
@@ -378,7 +378,7 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_RUBY, rubyOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_SAPPHIRE, sapphireOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-49), YOffset.fixed(-11))));
         PlacedFeatures.register(featureRegisterable, ORE_ADAMANT, adamantOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(-42))));
-        PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MAX_MITHRIL_HEIGHT))));
+        PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-62), YOffset.fixed(MAX_MITHRIL_HEIGHT))));
 
         // region MUSHROOMS
         PlacedFeatures.register(featureRegisterable, TREE_BROWN_BOLETTE, brownBoletteTree, List.of(RarityFilterPlacementModifier.of(1), SquarePlacementModifier.of(),
