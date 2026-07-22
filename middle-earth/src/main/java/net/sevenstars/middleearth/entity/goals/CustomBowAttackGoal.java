@@ -121,12 +121,15 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                     this.backward = true;
                 }
 
-                float baseSpeed = (float)this.actor.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
-                float strafe = Math.min(baseSpeed * 2.0F, 0.35F);
+                float input = 0.5F;
+                if (this.actor.hasVehicle() && this.actor.getVehicle() instanceof LivingEntity mount) {
+                    double speed = mount.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+                    input = (float)Math.max(0.15F, Math.min(0.3F, speed * input));
+                }
 
                 this.actor.getMoveControl().strafeTo(
-                        this.backward ? -strafe : strafe,
-                        this.movingToLeft ? strafe : -strafe
+                        this.backward ? -input : input,
+                        this.movingToLeft ? input : -input
                 );
 
                 Entity var7 = this.actor.getControllingVehicle();
@@ -145,7 +148,7 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                 } else if (bl) {
                     int i = this.actor.getItemUseTime();
                     ItemStack itemStack = this.actor.getMainHandStack();
-                    if (i >= 20) {
+                    if (i >= 20 && !livingEntity.isInvulnerable()) {
                         if(itemStack.getItem() instanceof CustomLongbowWeaponItem) {
                             if(i >= 30) {
                                 this.actor.shootAt(livingEntity, 2.5f);

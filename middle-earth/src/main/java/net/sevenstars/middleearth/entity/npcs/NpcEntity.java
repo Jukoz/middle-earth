@@ -50,6 +50,9 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
+import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
 import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
@@ -69,7 +72,6 @@ import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -244,6 +246,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         this.targetSelector.add(7, new ActiveTargetGoal<>(this, SpawnOfShelobEntity.class, true));
         this.targetSelector.add(8, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
         this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
+        this.targetSelector.add(10, new ActiveTargetGoal<>(this, AbstractHorseEntity.class, true));
     }
 
 
@@ -585,7 +588,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
-
         RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcType().getId().withPrefixedPath("entities/"));
         LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
 
@@ -648,12 +650,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
-            return mountEntity.tryAttack((ServerWorld) target.getWorld(), target);
-        }
-
         this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        boolean bl;
+        boolean targetDamaged;
         float damage = 1.0f;
         try{
             Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE));
@@ -666,8 +664,12 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         var bonusDamage =  itemStack.getItem().getBonusAttackDamage(target, enchantmentDamage, damageSource);
         var finalDamage = damage + bonusDamage;
 
-        bl = target.damage(world, damageSource, finalDamage);
-        if (bl) {
+        if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
+            mountEntity.tryAttack((ServerWorld) target.getWorld(), target);
+        }
+
+        targetDamaged = target.damage(world, damageSource, finalDamage);
+        if (targetDamaged) {
             LivingEntity livingEntity;
             float g = this.getAttackKnockbackAgainst(target, damageSource);
             if (g > 0.0f && target instanceof LivingEntity) {
@@ -682,8 +684,9 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
             EnchantmentHelper.onTargetDamaged(world, target, damageSource);
             this.onAttacking(target);
             this.playAttackSound();
+
         }
-        return bl;
+        return targetDamaged;
     }
 
     @Override
@@ -731,52 +734,8 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         // TODO : datadriven
         if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity || target instanceof Pouncer)
             return true;
-        Faction currentFaction = npcEntity.getFaction();
-        if(currentFaction != null){
-            if(target instanceof PlayerEntity player && player.canTakeDamage()){
-                var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
-                if(playerFaction == null)
-                    return true;
-                if(currentFaction.isHostileToward(playerFaction))
-                    return true;
-            }
-
-            if(target instanceof NpcEntity targetNpcEntity){
-                if(targetNpcEntity.hasVehicle() && targetNpcEntity.getVehicle() instanceof AbstractHorseEntity)
-                    return false;
-
-                Faction targetFaction = targetNpcEntity.getFaction();
-                if(targetFaction == null || currentFaction.isHostileToward(targetFaction.getId()))
-                    return true;
-                else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                    if(currentFaction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
-                        return true;
-                }
-            }
-
-            if(target instanceof AbstractHorseEntity abstractHorseEntity){
-                if(abstractHorseEntity.hasPassengers()){
-                    var entityList = abstractHorseEntity.getPassengersDeep();
-                    for(Entity entity : entityList){
-                        if(entity instanceof NpcEntity targetNpcEntity){
-                            Faction targetFaction = targetNpcEntity.getFaction();
-                            if(targetFaction == null || currentFaction.isHostileToward(targetFaction.getId()))
-                                return true;
-                            else if(targetFaction.getFactionType() == FactionType.SUBFACTION){
-                                if(currentFaction.isHostileToward(targetFaction.getParentFaction(npcEntity.getWorld()).getId()))
-                                    return true;
-                            }
-                        }
-                    }
-                    if(abstractHorseEntity instanceof AbstractBeastEntity abstractBeastEntity){
-                        if(abstractBeastEntity.getDisposition() != currentFaction.getDisposition()){
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            // Beasts/mobs (spiders, trolls, etc, other data set.)
+        if(!npcEntity.isInSameTeam(target)){
+            return true;
         }
         return false;
     }
@@ -930,6 +889,53 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     @Override
     public void postShoot() {
         this.dataTracker.set(CROSSBOW_CHARGING, false);
+    }
+
+    @Override
+    protected boolean isInSameTeam(Entity other) {
+        if(other instanceof NpcEntity npc){
+            return !isHostileToward(npc);
+        }
+        else if(other instanceof PlayerEntity player){
+            return !isHostileTowardPlayer(player);
+        }
+        return !isHostileToward(other);
+    }
+
+    private boolean isHostileTowardPlayer(PlayerEntity player) {
+        if(!player.canTakeDamage())
+            return false;
+        var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
+        if(playerFaction == null)
+            return true;
+        if(getFaction().isHostileToward(playerFaction))
+            return true;
+        return false;
+    }
+
+    private boolean isHostileToward(Entity other) {
+        if(other instanceof SnailEntity || other instanceof HostileEntity || other instanceof TrollEntity || other instanceof Pouncer)
+            return true;
+
+        if(!other.hasPassengers())
+            return false;
+
+        if(other.getControllingPassenger() instanceof NpcEntity npc && isHostileToward(npc)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isHostileToward(NpcEntity npc) {
+        if(getFaction() == null)
+            return true;
+        Identifier otherNpcFaction = npc.getFactionIdentifier();
+        if(otherNpcFaction == null)
+            return true;
+        if(getFaction().isHostileToward(otherNpcFaction))
+            return true;
+
+        return false;
     }
 
     public static boolean canSpawn(EntityType<NpcEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {

@@ -327,10 +327,10 @@ public class ModNatureBlocks {
 
     public static final Block SHORT_CATTAILS = registerBlock("short_cattails",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GREEN), true);
+                    .mapColor(MapColor.TERRACOTTA_BROWN), true);
     public static final Block SHORT_BULRUSH = registerBlock("short_bulrush",
             CustomPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).offset(AbstractBlock.OffsetType.XYZ)
-                    .mapColor(DyeColor.GREEN), true);
+                    .mapColor(MapColor.TERRACOTTA_BROWN), true);
 
     public static final Block TALL_CATTAILS = registerBlock("tall_cattails",
             (settings) -> new CustomWaterloggableTallPlantBlock(settings, false), AbstractBlock.Settings.copy(Blocks.TALL_GRASS).breakInstantly(), true);
