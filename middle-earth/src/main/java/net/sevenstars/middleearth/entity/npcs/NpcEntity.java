@@ -859,30 +859,46 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         //return false;
     }
 
-    public void shootAt(LivingEntity livingEntity) {
-        try{
-            this.shootAt(livingEntity, BowItem.getPullProgress(getItemUseTime()), 2f);
-        } catch (IllegalArgumentException e){
-            this.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 3f);
-        }
-    }
-
     private void shootAt(LivingEntity target, float pullProgress, float powerModifier) {
-        if(!isReadyToShoot())
+        if (!isReadyToShoot())
             return;
-        ItemStack shotFromItem = this.getMainHandStack();
-        ItemStack itemStack2 = this.getProjectileType(shotFromItem);
-        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack2, pullProgress, shotFromItem);
-        double xDifference = target.getX() - this.getX();
-        double heightDifference = target.getBodyY(0.3f) - persistentProjectileEntity.getY();
-        double zDifference = target.getZ() - this.getZ();
-        double angle = Math.sqrt(xDifference * xDifference + zDifference * zDifference);
-        World var15 = this.getWorld();
-        if (var15 instanceof ServerWorld serverWorld) {
-            ProjectileEntity.spawnWithVelocity(persistentProjectileEntity, serverWorld, itemStack2, xDifference, heightDifference + angle * (double)0.2F, zDifference, 1.6F * powerModifier, (float)(14 - serverWorld.getDifficulty().getId() * 4));
+
+        ItemStack weapon = this.getMainHandStack();
+        ItemStack projectileStack = this.getProjectileType(weapon);
+
+        PersistentProjectileEntity projectile = this.createArrowProjectile(projectileStack, pullProgress, weapon);
+
+        double distanceX = target.getX() - this.getX();
+        double distanceZ = target.getZ() - this.getZ();
+        double horizontalDistance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
+
+        double distanceY = target.getBodyY(0.3F) - projectile.getY();
+
+        float scale = this.getScale();
+        float velocity = 1.6F * powerModifier;
+
+        // Reduce the vanilla arc compensation for larger entities and faster arrows.
+        double arcCompensation = horizontalDistance * (0.2F / (scale * powerModifier));
+
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            ProjectileEntity.spawnWithVelocity(
+                    projectile,
+                    serverWorld,
+                    projectileStack,
+                    distanceX,
+                    distanceY + arcCompensation,
+                    distanceZ,
+                    velocity,
+                    (float) (14 - serverWorld.getDifficulty().getId() * 4)
+            );
         }
 
-        this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.playSound(
+                SoundEvents.ENTITY_ARROW_SHOOT,
+                1.0F,
+                1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F)
+        );
+
         stopAiming();
     }
 
@@ -891,6 +907,13 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         this.shootAt(target, 1, pullProgress);
     }
 
+    public void shootAt(LivingEntity livingEntity) {
+        try{
+            this.shootAt(livingEntity, BowItem.getPullProgress(getItemUseTime()), 2f);
+        } catch (IllegalArgumentException e){
+            this.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 3f);
+        }
+    }
     public void shootCrossbowAt(LivingEntity target) {
         this.shootAt(target, 1, 1.25f);
     }

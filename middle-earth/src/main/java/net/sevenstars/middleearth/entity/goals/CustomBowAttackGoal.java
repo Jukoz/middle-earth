@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -120,7 +121,14 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                     this.backward = true;
                 }
 
-                this.actor.getMoveControl().strafeTo(this.backward ? -0.5F : 0.5F, this.movingToLeft ? 0.5F : -0.5F);
+                float baseSpeed = (float)this.actor.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+                float strafe = Math.min(baseSpeed * 2.0F, 0.35F);
+
+                this.actor.getMoveControl().strafeTo(
+                        this.backward ? -strafe : strafe,
+                        this.movingToLeft ? strafe : -strafe
+                );
+
                 Entity var7 = this.actor.getControllingVehicle();
                 if (var7 instanceof MobEntity mobEntity) {
                     mobEntity.lookAtEntity(livingEntity, 30.0F, 30.0F);

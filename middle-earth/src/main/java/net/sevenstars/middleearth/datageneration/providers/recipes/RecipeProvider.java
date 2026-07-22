@@ -618,10 +618,10 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("EEE")
                         .pattern("EGE")
                         .pattern("EEE")
-                        .input('E', StoneBlockSets.DRYSTONE_SET.baseBlocks.base())
+                        .input('E', StoneBlockSets.DRYSTONE_SET.cobblestoneBlocks.base())
                         .input('G', Items.GLASS)
-                        .criterion(hasItem(StoneBlockSets.DRYSTONE_SET.baseBlocks.base()),
-                                conditionsFromItem(StoneBlockSets.DRYSTONE_SET.baseBlocks.base()))
+                        .criterion(hasItem(StoneBlockSets.DRYSTONE_SET.cobblestoneBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.DRYSTONE_SET.cobblestoneBlocks.base()))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.MEDGON_SET.carvedWindows.block(), 2)
