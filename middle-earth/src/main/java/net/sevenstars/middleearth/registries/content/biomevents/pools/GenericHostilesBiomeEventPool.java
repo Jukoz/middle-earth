@@ -48,20 +48,23 @@ public class GenericHostilesBiomeEventPool {
                     .withDiscardChance(0.35)
                     .shouldSpawnAbove(0)
                     .withSameEntity(15, 128)
-                    .withoutEntitySurfaceOnly(),
+                    .withoutEntitySurfaceOnly()
+                    .structureManagerRadiusAvoidance(64),
                 // Npcs
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_GATHERER)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .withSameNpcType(4, 64)
                     .withSameEntity(35, 128)
-                    .withoutEntitySurfaceOnly(),
+                    .withoutEntitySurfaceOnly()
+                    .structureManagerRadiusAvoidance(64),
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_SCOUT)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
                     .withSameNpcType(7, 64)
                     .withSameEntity(35, 128)
-                    .withoutEntitySurfaceOnly(),
+                    .withoutEntitySurfaceOnly()
+                    .structureManagerRadiusAvoidance(64),
                 new WildSpawnEventData(NpcRegistry.WILD_GOBLIN_WARRIOR)
                     .lightShouldBeBetween(0, 7)
                     .withoutSkyRequirement()
