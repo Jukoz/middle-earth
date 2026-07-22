@@ -33,7 +33,7 @@ public class MapScreenController {
             if (mc.currentScreen == null) {
                 screen = new MapScreen();
                 isInDimension = ModDimensions.isInMiddleEarth(world);
-                hasTeleportPermission = player.hasPermissionLevel(2);
+                hasTeleportPermission = player.isCreative();
 
                 screen.playerIsInDimension = isInDimension;
                 screen.hasTeleportPermission = hasTeleportPermission;

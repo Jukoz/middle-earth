@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
-import net.minecraft.entity.EntityType;
+import net.minecraft.util.math.Vec3i;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
@@ -105,7 +105,8 @@ public class GenericHostilesBiomeEventPool {
                     .withSameNpcType(1, 128)
                     .withDiscardChance(0.3)
                     .withSameEntity(50, 128)
-                    .withoutEntitySurfaceOnly(),
+                    .withoutEntitySurfaceOnly()
+                    .withMinimumSpaceCubeSize(new Vec3i(3, 5, 3)),
                 //Creatures
                 new WildSpawnEventData(EntitiesME.CAVE_TROLL)
                     .shouldSpawnBetween(16, -32)

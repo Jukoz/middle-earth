@@ -6,6 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
@@ -116,16 +117,33 @@ public class SpawnEventDataUtil {
             return false;
         if(!meetWorldHeightRequirement(data, blockPos))
             return false;
+        if(!meetMinimumSpaceRequirement(data, world, blockPos))
+            return false;
         if(!meetSkyAccessRequirement(data, world, blockPos))
             return false;
         if(!meetUndergroundRequirement(data, world, blockPos))
             return false;
         if(!meetNightTimeRequirement(data, world))
             return false;
+        
         if(!meetEntityThresholdRequirements(data, world, blockPos))
             return false;
         if(!meetStructureManagerClearanceRequirementUnmet(data, world, blockPos))
             return false;
+        return true;
+    }
+
+    private static boolean meetMinimumSpaceRequirement(WildSpawnEventData data, World world, BlockPos blockPos) {
+        Vec3i size = data.getMinimumSpaceCubeSize().orElse(null);
+        if(size == null)
+            return true;
+        BlockPos max = blockPos.add(size.getX() - 1, size.getY() - 1, size.getZ() - 1);
+
+        for (BlockPos pos : BlockPos.iterate(blockPos, max)) {
+            if (!world.isAir(pos)) {
+                return false;
+            }
+        }
         return true;
     }
 }
