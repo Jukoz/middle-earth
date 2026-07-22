@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -46,6 +47,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
@@ -54,10 +57,7 @@ import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.sevenstars.middleearth.entity.goals.CustomBowAttackGoal;
-import net.sevenstars.middleearth.entity.goals.NpcCrossBowAttackGoal;
-import net.sevenstars.middleearth.entity.goals.TargetNPCDiplomacyGoal;
-import net.sevenstars.middleearth.entity.goals.TargetPlayerDiplomacyGoal;
+import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
@@ -85,7 +85,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class NpcEntity extends PassiveEntity implements EquipmentHolder, CrossbowUser {
+public class NpcEntity extends PathAwareEntity implements EquipmentHolder, CrossbowUser {
     public static class KeyStrings {
         public static final String DATA = "NpcData";
         public static final String INITIALIZATION_DATA = "InitializationData";
@@ -126,6 +126,7 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
         this.updateAttackType();
+        this.navigation.setCanOpenDoors(true);
     }
 
     @Nullable
@@ -239,16 +240,15 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        //this.targetSelector.add(2, new TargetEvilBeastsGoal(this));
         this.targetSelector.add(3, new TargetPlayerDiplomacyGoal(this));
-        this.targetSelector.add(4, new TargetNPCDiplomacyGoal(this));
+        this.targetSelector.add(4, new NpcDoorInteractGoal(this, true));
+        this.targetSelector.add(5, new TargetNPCDiplomacyGoal(this));
         this.targetSelector.add(6, new ActiveTargetGoal<>(this, SnowTrollEntity.class, true));
         this.targetSelector.add(7, new ActiveTargetGoal<>(this, SpawnOfShelobEntity.class, true));
         this.targetSelector.add(8, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
         this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
         this.targetSelector.add(10, new ActiveTargetGoal<>(this, AbstractHorseEntity.class, true));
     }
-
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -744,12 +744,6 @@ public class NpcEntity extends PassiveEntity implements EquipmentHolder, Crossbo
         if(!this.getAttributes().hasAttribute(EntityAttributes.ATTACK_SPEED))
             return 1;
         return (int)this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
-    }
-
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
     }
 
     @Override
