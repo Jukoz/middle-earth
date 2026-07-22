@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
+import net.minecraft.entity.EntityType;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;

@@ -28,6 +28,7 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -759,7 +760,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     public static boolean canSpawn(EntityType<CaveTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
     }
 
     @Override

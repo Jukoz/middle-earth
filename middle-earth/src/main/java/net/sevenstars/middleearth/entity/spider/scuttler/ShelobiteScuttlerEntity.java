@@ -382,7 +382,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     public static boolean canSpawn(EntityType<ShelobiteScuttlerEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
         if(spawnReason != SpawnReason.NATURAL)
             return ShelobiteScuttlerEntity.canSpawnInDark(type, serverWorldAccess, spawnReason, blockPos, random);
-        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
     }
 
     public static class SpiderData implements EntityData {
