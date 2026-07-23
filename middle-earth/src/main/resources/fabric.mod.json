@@ -47,8 +47,8 @@
     "minecraft": "~1.21.8",
     "java": ">=21",
     "fabric-permissions-api-v0": "*",
-    "sevenstars-api": "1.0.0-1.21.8-beta",
-    "wild-things": "1.0.0-1.21.8-beta"
+    "sevenstars-api": "1.0.1-1.21.8-beta",
+    "wild-things": "1.0.1-1.21.8-beta"
   },
   "recommends": {
     "modmenu": "*"
