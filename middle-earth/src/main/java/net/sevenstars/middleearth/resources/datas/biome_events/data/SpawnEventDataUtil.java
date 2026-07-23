@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
@@ -48,9 +49,10 @@ public class SpawnEventDataUtil {
         int[] counts = new int[2]; // [0] = entity count, [1] = npc type count
         world.getOtherEntities(null, searchBox, entity -> {
             // Same entity type limit
+            boolean isSurface = isSurface(world, pos);
             if (entity.getType() == targetEntityType) {
                 if (SpawnEventDataUtil.compareEntitiesByType((LivingEntity) entity, data.getEntityType())) {
-                    if(sameEntitySurfaceOnly && !entity.getWorld().isSkyVisible(entity.getBlockPos()))
+                    if(sameEntitySurfaceOnly && !isSurface)
                         return false;
                     counts[0]++;
                     if (counts[0] >= sameEntityAmount)
@@ -59,7 +61,7 @@ public class SpawnEventDataUtil {
             }
             // Same NPC type limit
             if (hasNpcTypeLimit && entity instanceof NpcEntity npc && npcSearchBox.contains(entity.getPos()) && SpawnEventDataUtil.compareId(npc, data.getNpcType(null))) {
-                if(sameNpcTypeSurfaceOnly && !entity.getWorld().isSkyVisible(entity.getBlockPos()))
+                if(sameNpcTypeSurfaceOnly && !isSurface)
                     return false;
 
                 counts[1]++;
@@ -95,42 +97,44 @@ public class SpawnEventDataUtil {
         return currentY < data.getShouldSpawnBelow().orElse(Integer.MAX_VALUE);
     }
 
-    static boolean meetSkyAccessRequirement(WildSpawnEventData data, World world, BlockPos pos) {
+    static boolean meetEnvironmentRequirements(WildSpawnEventData data, World world, BlockPos pos) {
         boolean requireSky = data.getSkyRequirement().orElse(false);
-        return !requireSky || world.isSkyVisible(pos);
+        boolean requireUnderground = data.getUndergroundRequirement().orElse(false);
+
+        boolean isSurface = isSurface(world, pos);
+        boolean isUnderground = isUnderground(world, pos);
+
+        if (requireSky && !isSurface) {
+            return false;
+        }
+
+        if (requireUnderground && !isUnderground) {
+            return false;
+        }
+
+        return true;
     }
 
-    static boolean meetUndergroundRequirement(WildSpawnEventData data, World world, BlockPos pos) {
-        boolean requireUnderground = data.getUndergroundRequirement().orElse(false);
-        return !requireUnderground || !world.isSkyVisible(pos);
+    public static boolean isSurface(World world, BlockPos pos) {
+        int surfaceY = world.getTopY(
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                pos.getX(),
+                pos.getZ()
+        );
+        return pos.getY() >= surfaceY;
+    }
+    public static boolean isUnderground(World world, BlockPos pos) {
+        int surfaceY = world.getTopY(
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                pos.getX(),
+                pos.getZ()
+        );
+        return pos.getY() < surfaceY;
     }
 
     static boolean meetNightTimeRequirement(WildSpawnEventData data, World world) {
         boolean requireNight = data.getNightRequirement().orElse(false);
         return !requireNight || world.isNight();
-    }
-
-    public static boolean isConsideredForSpawning(WildSpawnEventData data, Identifier id, World world, BlockPos blockPos) {
-        if(!data.getEntityType().equals(id))
-            return false;
-        if(!meetLightLevelRequirement(data, world, blockPos))
-            return false;
-        if(!meetWorldHeightRequirement(data, blockPos))
-            return false;
-        if(!meetMinimumSpaceRequirement(data, world, blockPos))
-            return false;
-        if(!meetSkyAccessRequirement(data, world, blockPos))
-            return false;
-        if(!meetUndergroundRequirement(data, world, blockPos))
-            return false;
-        if(!meetNightTimeRequirement(data, world))
-            return false;
-        
-        if(!meetEntityThresholdRequirements(data, world, blockPos))
-            return false;
-        if(!meetStructureManagerClearanceRequirementUnmet(data, world, blockPos))
-            return false;
-        return true;
     }
 
     private static boolean meetMinimumSpaceRequirement(WildSpawnEventData data, World world, BlockPos blockPos) {
@@ -146,4 +150,25 @@ public class SpawnEventDataUtil {
         }
         return true;
     }
+
+    public static boolean isConsideredForSpawning(WildSpawnEventData data, Identifier id, World world, BlockPos blockPos) {
+        if(!data.getEntityType().equals(id))
+            return false;
+        if(!meetLightLevelRequirement(data, world, blockPos))
+            return false;
+        if(!meetWorldHeightRequirement(data, blockPos))
+            return false;
+        if(!meetMinimumSpaceRequirement(data, world, blockPos))
+            return false;
+        if(!meetEnvironmentRequirements(data, world, blockPos))
+            return false;
+        if(!meetNightTimeRequirement(data, world))
+            return false;
+        if(!meetEntityThresholdRequirements(data, world, blockPos))
+            return false;
+        if(!meetStructureManagerClearanceRequirementUnmet(data, world, blockPos))
+            return false;
+        return true;
+    }
+
 }
