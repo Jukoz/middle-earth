@@ -614,7 +614,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     protected Faction getFaction(){
-        Identifier factionId = getFactionIdentifier();
+        NpcData data = retrieveNpcData();
+        if(data == null)
+            return null;
+        Identifier factionId = data.getFaction();
         if(factionId == null)
             return null;
         try {
