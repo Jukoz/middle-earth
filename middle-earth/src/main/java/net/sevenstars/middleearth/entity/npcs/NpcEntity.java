@@ -358,7 +358,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return retrieveNpcData().getNpcTypeId();
     }
     public Identifier getFactionIdentifier(){
-        return retrieveNpcData().getFaction();
+        Faction faction = getFaction();
+        if(faction == null) return null;
+        return faction.getId();
     }
     public BlockPos getStructureManagerHostPos() {
         return this.retrieveNpcData().getStructureManagerPos();
@@ -379,17 +381,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
                 NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
             }
-        }
-    }
-
-    public void initializeForCurrentNpcData() {
-        if(this.retrieveNpcData() == null)
-            return;
-        World world = getWorld();
-        if(world.isClient)
-            return;
-        if(world instanceof ServerWorld serverWorld){
-            NpcEntityInitializer.initializeNpcForCurrentData(this, serverWorld);
         }
     }
 
@@ -716,14 +707,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             blocksAttacksComponent.applyShieldCooldown(world, this, f, itemStack);
         }
     }
-
-    /*public Optional<LivingEntity> getHurtBy() {
-        return this.getBrain()
-                .getOptionalRegisteredMemory(MemoryModuleType.HURT_BY)
-                .map(DamageSource::getAttacker)
-                .filter(attacker -> attacker instanceof LivingEntity)
-                .map(livingAttacker -> (LivingEntity)livingAttacker);
-    }*/
 
     @Override
     public boolean canTarget(LivingEntity target) {
