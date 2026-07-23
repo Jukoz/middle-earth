@@ -883,7 +883,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private boolean isHostileTowardPlayer(PlayerEntity player) {
-        if(!player.canTakeDamage())
+        if(player.getWorld().isClient || !player.canTakeDamage())
             return false;
         PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
         if(playerData == null || playerData.getFaction() == null)
