@@ -49,15 +49,13 @@ public class SpawnEventDataUtil {
         int[] counts = new int[2]; // [0] = entity count, [1] = npc type count
         world.getOtherEntities(null, searchBox, entity -> {
             // Same entity type limit
-            boolean isSurface = isSurface(world, pos);
+            boolean isSurface = isSurface(world, entity.getBlockPos());
             if (entity.getType() == targetEntityType) {
-                if (SpawnEventDataUtil.compareEntitiesByType((LivingEntity) entity, data.getEntityType())) {
-                    if(sameEntitySurfaceOnly && !isSurface)
-                        return false;
-                    counts[0]++;
-                    if (counts[0] >= sameEntityAmount)
-                        return true;
-                }
+                if(sameEntitySurfaceOnly && !isSurface)
+                    return false;
+                counts[0]++;
+                if (counts[0] >= sameEntityAmount)
+                    return true;
             }
             // Same NPC type limit
             if (hasNpcTypeLimit && entity instanceof NpcEntity npc && npcSearchBox.contains(entity.getPos()) && SpawnEventDataUtil.compareId(npc, data.getNpcType(null))) {
@@ -76,7 +74,7 @@ public class SpawnEventDataUtil {
         return !hasNpcTypeLimit || counts[1] < sameNpcTypeAmount;
     }
 
-    static boolean meetStructureManagerClearanceRequirementUnmet(WildSpawnEventData data, World world, BlockPos pos) {
+    static boolean meetsStructureManagerClearance(WildSpawnEventData data, World world, BlockPos pos) {
         int structureManagerDistance = data.getStructureManagerRadiusAvoidance().orElse(64);
         return !StructureManagerService.isClose(world, pos, structureManagerDistance);
     }
@@ -121,7 +119,7 @@ public class SpawnEventDataUtil {
                 pos.getX(),
                 pos.getZ()
         );
-        return pos.getY() >= surfaceY - 1;
+        return pos.getY() >= surfaceY - 1 && pos.getY() <= surfaceY + 2;
     }
     public static boolean isUnderground(World world, BlockPos pos) {
         int surfaceY = world.getTopY(
@@ -129,7 +127,7 @@ public class SpawnEventDataUtil {
                 pos.getX(),
                 pos.getZ()
         );
-        return pos.getY() < surfaceY - 1;
+        return pos.getY() < surfaceY - 2;
     }
 
     static boolean meetNightTimeRequirement(WildSpawnEventData data, World world) {
@@ -142,9 +140,8 @@ public class SpawnEventDataUtil {
         if(size == null)
             return true;
         BlockPos max = blockPos.add(size.getX() - 1, size.getY() - 1, size.getZ() - 1);
-
         for (BlockPos pos : BlockPos.iterate(blockPos, max)) {
-            if (!world.isAir(pos)) {
+            if (!world.getBlockState(pos).isSolidBlock(world, pos)) {
                 return false;
             }
         }
@@ -166,7 +163,7 @@ public class SpawnEventDataUtil {
             return false;
         if(!meetEntityThresholdRequirements(data, world, blockPos))
             return false;
-        if(!meetStructureManagerClearanceRequirementUnmet(data, world, blockPos))
+        if(!meetsStructureManagerClearance(data, world, blockPos))
             return false;
         return true;
     }
