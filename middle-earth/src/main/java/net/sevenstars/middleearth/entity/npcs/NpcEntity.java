@@ -899,10 +899,13 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private boolean isHostileTowardPlayer(PlayerEntity player) {
         if(!player.canTakeDamage())
             return false;
-        var playerFaction = StateSaverAndLoader.getPlayerState(player).getFaction();
-        if(playerFaction == null)
+        PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+        if(playerData == null || playerData.getFaction() == null)
             return true;
-        if(getFaction().isHostileToward(playerFaction))
+        Faction ownFaction = getFaction();
+        if(ownFaction == null)
+            return true;
+        if(ownFaction.isHostileToward(playerData.getFaction()))
             return true;
         return false;
     }
@@ -921,15 +924,14 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private boolean isHostileToward(NpcEntity npc) {
-        if(getFaction() == null)
+        Faction ownFaction = getFaction();
+        if(ownFaction == null)
             return true;
         Identifier otherNpcFaction = npc.getFactionIdentifier();
         if(otherNpcFaction == null)
             return true;
-        Faction ownFaction = getFaction();
-        if(ownFaction != null && getFaction().isHostileToward(otherNpcFaction))
+        if(ownFaction.isHostileToward(otherNpcFaction))
             return true;
-
         return false;
     }
 
