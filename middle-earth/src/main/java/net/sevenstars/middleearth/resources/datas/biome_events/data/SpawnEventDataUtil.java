@@ -121,7 +121,7 @@ public class SpawnEventDataUtil {
                 pos.getX(),
                 pos.getZ()
         );
-        return pos.getY() >= surfaceY;
+        return pos.getY() >= surfaceY - 1;
     }
     public static boolean isUnderground(World world, BlockPos pos) {
         int surfaceY = world.getTopY(
@@ -129,7 +129,7 @@ public class SpawnEventDataUtil {
                 pos.getX(),
                 pos.getZ()
         );
-        return pos.getY() < surfaceY;
+        return pos.getY() < surfaceY - 1;
     }
 
     static boolean meetNightTimeRequirement(WildSpawnEventData data, World world) {

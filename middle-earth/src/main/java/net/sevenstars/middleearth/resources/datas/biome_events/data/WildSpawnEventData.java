@@ -138,7 +138,6 @@ public class WildSpawnEventData {
     public WildSpawnEventData(RegistryKey<NpcType> npcType){
         this.entityType = Registries.ENTITY_TYPE.getId(EntitiesME.NPC);
         this.npcType = npcType.getValue();
-        this.lightLevelMinimum = 3;
         this.sameEntityLimitation = new EntityLimitationData();
         this.sameEntityLimitation.withEntitySurfaceOnly();
         this.requireSky = true;

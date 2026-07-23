@@ -17,6 +17,7 @@ public class ModClientNetworkHandler {
         ClientPlayNetworking.registerGlobalReceiver(InscriptionEnchantInfoPacket.ID, wrapClientHandler(connection, InscriptionEnchantInfoPacket::process));
         ClientPlayNetworking.registerGlobalReceiver(ShapingAnvilRecipePacket.ID, wrapClientHandler(connection, ShapingAnvilRecipePacket::process));
         ClientPlayNetworking.registerGlobalReceiver(ArtisanRecipePacket.ID, wrapClientHandler(connection, ArtisanRecipePacket::process));
+        ClientPlayNetworking.registerGlobalReceiver(PacketOpenMapScreen.ID, wrapClientHandler(connection, PacketOpenMapScreen::process));
     }
 
     private static <T extends ServerToClientPacket<T>> ClientPlayNetworking.PlayPayloadHandler<T> wrapClientHandler(IConnectionToServer connection, BiConsumer<T, ClientPacketContext> consumer) {
