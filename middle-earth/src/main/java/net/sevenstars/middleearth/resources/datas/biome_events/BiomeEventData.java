@@ -87,21 +87,8 @@ public class BiomeEventData {
         Registry<NpcType> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC_TYPE);
         Identifier npcId = spawningData.getNpcType(null);
         NpcType foundNpcType = (npcId != null) ? npcDataRegistry.get(npcId) : null;
-        EntityType entityType = null;
-        /*
-                ItemStack mountArmorItemStack = null;
-        if( spawningData.getMount().isPresent()){
-            entityType = manager.getOrThrow(RegistryKeys.ENTITY_TYPE).get(spawningData.getMount().get());
-            if(spawningData.getMountArmor().isPresent()){
-                mountArmorItemStack = new ItemStack(manager.getOrThrow(RegistryKeys.ITEM).get(spawningData.getMountArmor().get()));
-                if(spawningData.getMountArmorColor().isPresent()){
-                    mountArmorItemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(spawningData.getMountArmorColor().get()));
-                }
-            }
-        }
 
-         */
-        return new ContextualizedBiomeData(foundNpcType, entityType, ItemStack.EMPTY);
+        return new ContextualizedBiomeData(foundNpcType);
     }
 
     public boolean canSpawn(EntityType<?> type, World world, BlockPos pos, Random random) {
@@ -129,7 +116,7 @@ public class BiomeEventData {
     }
 
 
-    public record ContextualizedBiomeData(NpcType npcType, EntityType hasMount, ItemStack mountArmor){
+    public record ContextualizedBiomeData(NpcType npcType){
 
     }
 }

@@ -15,11 +15,11 @@ public class MordorBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(5).withSameNpcType(3, 64),
-            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(5).withSameNpcType(3, 64),
-            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5).withSameNpcType(2, 64),
-            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5).withSameNpcType(3, 64),
-            new WildSpawnEventData(NpcRegistry.MORDOR_VETERAN).withWeight(2).withSameNpcType(0, 64),
+            new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(5).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(5).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5).withSameNpcType(2, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_VETERAN).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_CAPTAIN).withSameNpcType(0, 512)
         ));
 
