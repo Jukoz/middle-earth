@@ -926,7 +926,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         Identifier otherNpcFaction = npc.getFactionIdentifier();
         if(otherNpcFaction == null)
             return true;
-        if(getFaction().isHostileToward(otherNpcFaction))
+        Faction ownFaction = getFaction();
+        if(ownFaction != null && getFaction().isHostileToward(otherNpcFaction))
             return true;
 
         return false;

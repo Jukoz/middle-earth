@@ -493,7 +493,7 @@ public class Faction {
 
     public boolean isHostileToward(Identifier playerFaction) {
         for(InitialDiplomacy diplomacy : initialDiplomacies){
-            if(diplomacy.isHostileToward(playerFaction)){
+            if(playerFaction == null || diplomacy.isHostileToward(playerFaction)){
                 return true;
             }
         }
