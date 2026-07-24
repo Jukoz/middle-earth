@@ -122,7 +122,7 @@ public class DecorativeItemsME {
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(ModDecorativeBlocks.REINFORCED_CHEST, settings), new Item.Settings());
     public static final Item SACK = registerItem("sack",
-            (settings) -> new BlockItem(ModDecorativeBlocks.SACK, settings), new Item.Settings());
+            (settings) -> new BlockItem(ModDecorativeBlocks.SACK, settings), new Item.Settings().maxCount(1));
 
     public static final Item WOOD_PILE = registerItem("wood_pile",
             (settings) -> new BlockItem(ModDecorativeBlocks.WOOD_PILE, settings), new Item.Settings());

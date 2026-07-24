@@ -16,6 +16,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/mining",
+  "supported_items": "#minecraft:axes",
   "weight": 10
 }

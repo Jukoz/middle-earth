@@ -1,6 +1,9 @@
 package net.sevenstars.middleearth.world.features.columns;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Block;
+import net.minecraft.block.PointedDripstoneBlock;
+import net.minecraft.world.gen.feature.DripstoneClusterFeatureConfig;
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedDolomiteBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -93,10 +96,10 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
                 }
 
                 boolean bl3 = random.nextDouble() < dripstoneChance;
-                int m;
+                int stalagmiteHeight;
                 if (optionalInt3.isPresent() && bl3 && !this.isLava(world, pos.withY(optionalInt3.getAsInt()))) {
-                    m = config.dripstoneBlockLayerThickness.get(random);
-                    this.placeDripstoneBlocks(world, pos.withY(optionalInt3.getAsInt()), m, Direction.DOWN, config.blockState);
+                    stalagmiteHeight = config.dripstoneBlockLayerThickness.get(random);
+                    this.placeDripstoneBlocks(world, pos.withY(optionalInt3.getAsInt()), stalagmiteHeight, Direction.DOWN, config.blockState);
                     if (optionalInt.isPresent()) {
                         j = Math.max(0, l + MathHelper.nextBetween(random, -config.maxStalagmiteStalactiteHeightDiff, config.maxStalagmiteStalactiteHeightDiff));
                     } else {
@@ -106,7 +109,7 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
                     j = 0;
                 }
 
-                int t;
+                int stalactiteHeight;
                 if (optionalInt.isPresent() && optionalInt3.isPresent() && optionalInt.getAsInt() - l <= optionalInt3.getAsInt() + j) {
                     int n = optionalInt3.getAsInt();
                     int o = optionalInt.getAsInt();
@@ -114,22 +117,21 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
                     int q = Math.min(n + j, o - 1);
                     int r = MathHelper.nextBetween(random, p, q + 1);
                     int s = r - 1;
-                    m = o - r;
-                    t = s - n;
+                    stalagmiteHeight = o - r;
+                    stalactiteHeight = s - n;
                 } else {
-                    m = l;
-                    t = j;
+                    stalagmiteHeight = l;
+                    stalactiteHeight = j;
                 }
 
-                boolean bl4 = random.nextBoolean() && m > 0 && t > 0 && caveSurface.getOptionalHeight().isPresent() && m + t == caveSurface.getOptionalHeight().getAsInt();
+                boolean bl4 = random.nextBoolean() && stalagmiteHeight > 0 && stalactiteHeight > 0 && caveSurface.getOptionalHeight().isPresent() && stalagmiteHeight + stalactiteHeight == caveSurface.getOptionalHeight().getAsInt();
                 if (optionalInt.isPresent()) {
-                    generatePointedBlock(world, pos.withY(optionalInt.getAsInt() - 1), Direction.DOWN, m, bl4, config.pointedBlockState);
+                    generatePointedBlock(world, pos.withY(optionalInt.getAsInt() - 1), Direction.DOWN, stalagmiteHeight, bl4, config.pointedBlockState);
                 }
 
                 if (optionalInt3.isPresent()) {
-                    generatePointedBlock(world, pos.withY(optionalInt3.getAsInt() + 1), Direction.UP, t, bl4, config.pointedBlockState);
+                    generatePointedBlock(world, pos.withY(optionalInt3.getAsInt() + 1), Direction.UP, stalactiteHeight, bl4, config.pointedBlockState);
                 }
-
             }
         }
     }
@@ -144,15 +146,15 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
         }
     }
 
-    public static void generatePointedBlock(WorldAccess world, BlockPos pos, Direction direction, int height, boolean merge, BlockState blockState) {
+    protected static void generatePointedBlock(WorldAccess world, BlockPos pos, Direction direction, int height, boolean merge, BlockState blockState) {
         if (canReplace(world.getBlockState(pos.offset(direction.getOpposite())))) {
             BlockPos.Mutable mutable = pos.mutableCopy();
-            getDripstoneThickness(direction, height, merge, (state) -> {
+            getDripstoneThickness(direction, height, merge, state -> {
                 if (state.isOf(blockState.getBlock())) {
-                    state = state.with(PointedDolomiteBlock.WATERLOGGED, world.isWater(mutable));
+                    state = state.with(PointedDripstoneBlock.WATERLOGGED, world.isWater(mutable));
                 }
 
-                world.setBlockState(mutable, state, 2);
+                world.setBlockState(mutable, state, Block.NOTIFY_LISTENERS);
                 mutable.move(direction);
             }, blockState);
         }
@@ -161,20 +163,16 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
     public static void getDripstoneThickness(Direction direction, int height, boolean merge, Consumer<BlockState> callback, BlockState blockState) {
         if (height >= 3) {
             callback.accept(getState(direction, Thickness.BASE, blockState));
-
             for(int i = 0; i < height - 3; ++i) {
                 callback.accept(getState(direction, Thickness.MIDDLE, blockState));
             }
         }
-
         if (height >= 2) {
             callback.accept(getState(direction, Thickness.FRUSTUM, blockState));
         }
-
         if (height >= 1) {
             callback.accept(getState(direction, merge ? Thickness.TIP_MERGE : Thickness.TIP, blockState));
         }
-
     }
 
     public static boolean canGenerate(BlockState state) {
@@ -206,8 +204,8 @@ public class ClusterFeature extends Feature<ClusterFeatureConfig> {
             return 0;
         } else {
             int i = Math.abs(localX) + Math.abs(localZ);
-            float f = (float)MathHelper.clampedMap((double)i, 0.0, (double)config.maxDistanceFromCenterAffectingHeightBias, (double)height / 2.0, 0.0);
-            return (int)clampedGaussian(random, 0.0F, (float)height, f, (float)config.heightDeviation);
+            float f = (float)MathHelper.clampedMap((double)i, 0.0, (double)config.maxDistanceFromCenterAffectingHeightBias, height / 2.0, 0.0);
+            return (int)clampedGaussian(random, 0.0F, height, f, config.heightDeviation);
         }
     }
 

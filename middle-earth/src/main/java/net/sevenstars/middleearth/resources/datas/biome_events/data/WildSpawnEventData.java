@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
@@ -47,6 +48,8 @@ public class WildSpawnEventData {
         public static final String WORLD_HEIGHT_MAXIMUM = "should_spawn_below";
         public static final String WORLD_HEIGHT_MINIMUM = "should_spawn_above";
 
+        public static final String MINIMUM_SPACE_CUBE_SIZE = "minimum_space_cube_size";
+
         public static final String REQUIRE_SKY = "require_sky";
         public static final String REQUIRE_UNDERGROUND = "require_underground";
         public static final String REQUIRE_NIGHT = "require_night";
@@ -69,6 +72,8 @@ public class WildSpawnEventData {
             Codec.INT.optionalFieldOf(Fields.LIGHT_LEVEL_MAXIMUM).forGetter(WildSpawnEventData::getLightLevelMaximum),
             Codec.INT.optionalFieldOf(Fields.LIGHT_LEVEL_MINIMUM).forGetter(WildSpawnEventData::getLightLevelMinimum),
 
+            Vec3i.CODEC.optionalFieldOf(Fields.MINIMUM_SPACE_CUBE_SIZE).forGetter(WildSpawnEventData::getMinimumSpaceCubeSize),
+
             Codec.BOOL.optionalFieldOf(Fields.REQUIRE_SKY).forGetter(WildSpawnEventData::getSkyRequirement),
             Codec.BOOL.optionalFieldOf(Fields.REQUIRE_UNDERGROUND).forGetter(WildSpawnEventData::getUndergroundRequirement),
             Codec.BOOL.optionalFieldOf(Fields.REQUIRE_NIGHT).forGetter(WildSpawnEventData::getNightRequirement),
@@ -87,6 +92,7 @@ public class WildSpawnEventData {
     private Integer shouldSpawnAbove = null;
     private Integer lightLevelMaximum = null;
     private Integer lightLevelMinimum = null;
+    private Vec3i minimumSpaceCubeSize = null;
     private Boolean requireSky = null;
     private Boolean requireUnderground = null;
     private Boolean requireNight = null;
@@ -103,6 +109,7 @@ public class WildSpawnEventData {
             Optional<Integer> shouldSpawnAbove,
             Optional<Integer> lightLevelMaximum,
             Optional<Integer> lightLevelMinimum,
+            Optional<Vec3i> minimumSpaceCubeSize,
             Optional<Boolean> requireSky,
             Optional<Boolean> requireUnderground,
             Optional<Boolean> requireNight,
@@ -117,6 +124,7 @@ public class WildSpawnEventData {
         this.shouldSpawnAbove = shouldSpawnAbove.orElse(null);
         this.lightLevelMaximum = lightLevelMaximum.orElse(null);
         this.lightLevelMinimum = lightLevelMinimum.orElse(null);
+        this.minimumSpaceCubeSize = minimumSpaceCubeSize.orElse(null);
         this.requireSky = requireSky.orElse(null);
         this.requireUnderground = requireUnderground.orElse(null);
         this.requireNight = requireNight.orElse(null);
@@ -130,7 +138,6 @@ public class WildSpawnEventData {
     public WildSpawnEventData(RegistryKey<NpcType> npcType){
         this.entityType = Registries.ENTITY_TYPE.getId(EntitiesME.NPC);
         this.npcType = npcType.getValue();
-        this.lightLevelMinimum = 3;
         this.sameEntityLimitation = new EntityLimitationData();
         this.sameEntityLimitation.withEntitySurfaceOnly();
         this.requireSky = true;
@@ -344,6 +351,16 @@ public class WildSpawnEventData {
     public Optional<Boolean> getSkyRequirement() {
         return Optional.ofNullable(requireSky);
     }
+
+    public WildSpawnEventData withMinimumSpaceCubeSize(Vec3i minimumBoxSize){
+        this.minimumSpaceCubeSize = minimumBoxSize;
+        return this;
+    }
+
+    public Optional<Vec3i> getMinimumSpaceCubeSize() {
+        return Optional.ofNullable(minimumSpaceCubeSize);
+    }
+
     public WildSpawnEventData withoutSkyRequirement() {
         this.requireSky = null;
         return this;

@@ -48,7 +48,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.LETTUCE_SEEDS);
 
             add(ResourceItemsME.STRAW);
-            add(ResourceItemsME.REEDS.asItem());
 
             add(ResourceItemsME.PIPEWEED_BANNER_PATTERN);
             add(ResourceItemsME.GONDOR_BANNER_PATTERN);

@@ -462,6 +462,17 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.FOREST_MOSS_CARPET, 0.30f);
         registry.add(ModNatureBlocks.FOREST_MOSS_BLOCK, 0.65f);
 
+        registry.add(ModNatureBlocks.AZALEA_FLOWER_GROWTH, 0.50f);
+        registry.add(ModNatureBlocks.DRY_GROWTH, 0.35f);
+        registry.add(ModNatureBlocks.GREEN_GROWTH, 0.50f);
+        registry.add(ModNatureBlocks.IVY_GROWTH, 0.50f);
+        registry.add(ModNatureBlocks.LILAC_FLOWER_GROWTH, 0.50f);
+        registry.add(ModNatureBlocks.PINK_FLOWER_GROWTH, 0.50f);
+        registry.add(ModNatureBlocks.RED_FLOWER_GROWTH, 0.50f);
+        registry.add(ModNatureBlocks.THORNY_GROWTH, 0.35f);
+        registry.add(ModNatureBlocks.WHITE_FLOWER_GROWTH, 0.50f);
+        registry.add(ModNatureBlocks.YELLOW_FLOWER_GROWTH, 0.50f);
+
         registry.add(ModNatureBlocks.ELANOR, 0.65f);
         registry.add(ModNatureBlocks.MALLOS, 0.65f);
         registry.add(ModNatureBlocks.NIPHREDIL, 0.65f);
@@ -480,10 +491,13 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.WHITE_FLOWERS, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_FLOWERS, 0.65f);
 
+        registry.add(ModNatureBlocks.AZALEA_FLOWER_GROWTH, 0.65f);
+
         registry.add(ModNatureBlocks.BLUE_LAVENDER, 0.65f);
         registry.add(ModNatureBlocks.LAVENDER, 0.65f);
         registry.add(ModNatureBlocks.WHITE_LAVENDER, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_TROLLIUS, 0.65f);
+        registry.add(ModNatureBlocks.HOBBIT_SUNFLOWERS, 0.65f);
 
         registry.add(ModNatureBlocks.ATHELAS, 0.30f);
 
@@ -491,6 +505,7 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.DYING_GRASS, 0.30f);
         registry.add(ModNatureBlocks.FROZEN_GRASS, 0.10f);
         registry.add(ModNatureBlocks.GRIM_GRASS, 0.30f);
+        registry.add(ModNatureBlocks.SHORT_HOGWEED, 0.30f);
         registry.add(ModNatureBlocks.HOGWEED, 0.30f);
         registry.add(ModNatureBlocks.MEADOWGRASS, 0.30f);
         registry.add(ModNatureBlocks.SPARSE_GRASS, 0.30f);
@@ -524,6 +539,10 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.LARGE_BLUE_FESCUE, 0.30f);
         registry.add(ModNatureBlocks.LARGE_BUSH, 0.30f);
         registry.add(ModNatureBlocks.LARGE_SHRIVELED_SHRUB, 0.10f);
+        registry.add(ModNatureBlocks.LILY_PADS, 0.65f);
+        registry.add(ModNatureBlocks.FLOWERING_LILY_PADS, 0.65f);
+        registry.add(ModNatureBlocks.SMALL_LILY_PADS, 0.65f);
+        registry.add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS, 0.65f);
         registry.add(ModNatureBlocks.RED_HEATHER_BUSH, 0.30f);
         registry.add(ModNatureBlocks.RUSHES, 0.30f);
         registry.add(ModNatureBlocks.BRAMBLES_OF_MORDOR, 0.10f);
@@ -533,11 +552,13 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.SHORT_REEDS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_CATTAILS, 0.30f);
         registry.add(ModNatureBlocks.SHORT_BULRUSH, 0.30f);
+        registry.add(ModNatureBlocks.TALL_CATTAILS, 0.30f);
         registry.add(ModNatureBlocks.HEATHER, 0.50f);
         registry.add(ModNatureBlocks.RED_HEATHER, 0.50f);
         registry.add(ModNatureBlocks.DEAD_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.DRY_HEATHER, 0.30f);
         registry.add(ModNatureBlocks.HEATH, 0.30f);
+        registry.add(ModNatureBlocks.TALL_BULRUSH, 0.30f);
 
         registry.add(ModNatureBlocks.SHRIVELED_SHRUB, 0.30f);
 
@@ -554,7 +575,7 @@ public class RegistriesME {
         registry.add(ModNatureBlocks.TRUMPET_SHROOM, 0.65f);
         registry.add(ModNatureBlocks.TALL_TRUMPET_SHROOM, 0.85f);
         registry.add(ModNatureBlocks.TUBESHRROM, 0.65f);
-        registry.add(ModNatureBlocks.TALL_TRUMPET_SHROOM, 0.85f);
+        registry.add(ModNatureBlocks.TALL_TUBESHROOM, 0.85f);
         registry.add(ModNatureBlocks.VIOLET_CAPS, 0.65f);
         registry.add(ModNatureBlocks.WHITE_MUSHROOM, 0.65f);
         registry.add(ModNatureBlocks.YELLOW_AMANITA, 0.65f);
@@ -587,9 +608,7 @@ public class RegistriesME {
         });
 
         registry.add(ModNatureBlocks.LEBETHRON_LEAVES, 0.3F);
-
         registry.add(ModNatureBlocks.BERRY_HOLLY_LEAVES, 0.4F);
-
         registry.add(ModNatureBlocks.DRY_LARCH_LEAVES, 0.2F);
 
         registry.add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, 0.4F);
@@ -645,11 +664,11 @@ public class RegistriesME {
         registry.add(FoodItemsME.SACK_OF_HORSEFEED, 1.0F);
 
         registry.add(ResourceItemsME.STRAW, 0.3F);
-
         registry.add(ResourceItemsME.REEDS, 0.3F);
 
         registry.add(ResourceItemsME.FLAX, 0.3F);
         registry.add(ResourceItemsME.PIPEWEED, 0.3F);
+        registry.add(ResourceItemsME.DRIED_PIPEWEED, 0.3F);
         registry.add(ResourceItemsME.PINECONE, 0.3F);
 
         registry.add(ResourceItemsME.BELL_PEPPER_SEEDS, 0.3F);
@@ -684,6 +703,10 @@ public class RegistriesME {
         });
 
         HotMetalsModel.nuggets.forEach(item -> {
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
+        });
+
+        HotMetalsModel.nuggies.forEach(item -> {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(item, COOL_DOWN_METAL);
         });
 

@@ -65,36 +65,7 @@ public class NpcEntityInitializer {
         npcEntity.updateTargetGoals();
     }
 
-
-    private static void generateMountData(ServerWorld serverWorld, BiomeEventData.ContextualizedBiomeData contextualizedBiomeData, NpcEntity npcEntity) {
-        // Assign mount if needed
-        if(contextualizedBiomeData.hasMount() != null && !npcEntity.hasVehicle()){
-            Entity mount = contextualizedBiomeData.hasMount().spawn(serverWorld, npcEntity.getBlockPos(), SpawnReason.JOCKEY);
-            if(mount instanceof HorseEntity horseEntity)
-                horseEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(npcEntity.getBlockPos()), SpawnReason.JOCKEY, null);
-            else if(mount instanceof AbstractBeastEntity beastEntity){
-                beastEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(npcEntity.getBlockPos()), SpawnReason.JOCKEY, null);
-            }
-
-            if(mount instanceof AbstractHorseEntity abstractHorseEntity){
-                abstractHorseEntity.setOwner(npcEntity);
-                abstractHorseEntity.setTame(true);
-                if(contextualizedBiomeData.mountArmor() != null)
-                    abstractHorseEntity.equipBodyArmor(contextualizedBiomeData.mountArmor());
-
-                if(mount instanceof AbstractBeastEntity abstractBeastEntity){
-                    abstractBeastEntity.tameBeast(npcEntity);
-                }
-            }
-            if(contextualizedBiomeData.hasMount().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("can_equip_saddle"))) && mount instanceof EquipmentHolder equipmentHolder){
-                equipmentHolder.equipStack(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
-            }
-
-            npcEntity.startRiding(mount);
-        }
-    }
-
-    private static BiomeEventData.ContextualizedBiomeData findContextualizedNpcData(ServerWorld world, NpcEntity npcEntity) throws Exception {
+    private static BiomeEventData.ContextualizedBiomeData findContextualizedNpcData(ServerWorld world, NpcEntity npcEntity)  {
         BlockPos blockPos = npcEntity.getBlockPos();
         RegistryEntry<Biome> biome = world.getBiome(blockPos);
         Registry<Structure> structureRegistry = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE);
@@ -109,13 +80,7 @@ public class NpcEntityInitializer {
             }
         }
 
-        BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = BiomeEventDataLookup.findNpcDataForBiome(world, biome, npcEntity);
-        if(contextualizedBiomeData != null){
-            return contextualizedBiomeData;
-        } else {
-            //throw new Exception();
-        }
-        return contextualizedBiomeData;
+        return BiomeEventDataLookup.findNpcDataForBiome(world, biome, npcEntity);
     }
 
 

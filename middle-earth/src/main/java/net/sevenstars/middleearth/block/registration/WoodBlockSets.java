@@ -184,7 +184,8 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
-            .addToSet(WoodBlockTypes.LEAVES));
+            .addToSet(WoodBlockTypes.LEAVES)
+            .leavesColor(MapColor.DARK_GREEN));
 
     public static WoodBlockSetBuilder DEADWOOD_SET = registerWoodSet(new WoodBlockSetBuilder("deadwood",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.LIGHT_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
@@ -269,7 +270,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder MAPLE_SET = registerWoodSet(new WoodBlockSetBuilder("maple",
-            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DULL_RED, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.MAPLE_SAPLING)
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.MAPLE_SAPLING)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -277,7 +278,8 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
-            .addToSet(WoodBlockTypes.LEAVES));
+            .addToSet(WoodBlockTypes.LEAVES)
+            .leavesColor(MapColor.TERRACOTTA_LIME));
 
     public static WoodBlockSetBuilder SILVER_MAPLE_SET = registerWoodSet(new WoodBlockSetBuilder("silver_maple",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.SILVER_MAPLE_SAPLING)
@@ -290,7 +292,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
 
     public static WoodBlockSetBuilder MIRKWOOD_SET = registerWoodSet(new WoodBlockSetBuilder("mirkwood",
-            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_GREEN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.MIRKWOOD_SAPLING)
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.MIRKWOOD_SAPLING)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -298,7 +300,8 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
-            .addToSet(WoodBlockTypes.LEAVES));
+            .addToSet(WoodBlockTypes.LEAVES)
+            .leavesColor(MapColor.DARK_GREEN));
 
     public static WoodBlockSetBuilder PALM_SET = registerWoodSet(new WoodBlockSetBuilder("palm",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.DIRT_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.PALM_SAPLING)
@@ -353,7 +356,7 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.LEAVES));
 
     public static WoodBlockSetBuilder WILLOW_SET = registerWoodSet(new WoodBlockSetBuilder("willow",
-            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_GREEN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WILLOW_SAPLING)
+            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, ModNatureBlocks.WILLOW_SAPLING)
             .addToSet(WoodBlockTypes.LOG_BLOCKS)
             .addToSet(WoodBlockTypes.STRIPPED_LOG_BLOCKS)
             .addToSet(WoodBlockTypes.PLANK_BLOCKS)
@@ -361,7 +364,8 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS)
-            .addToSet(WoodBlockTypes.LEAVES));
+            .addToSet(WoodBlockTypes.LEAVES)
+            .leavesColor(MapColor.TERRACOTTA_GREEN));
 
     public static WoodBlockSetBuilder ROTTEN_SET = registerWoodSet(new WoodBlockSetBuilder("rotten",
             WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.PALE_GREEN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
@@ -382,11 +386,6 @@ public class WoodBlockSets {
             .addToSet(WoodBlockTypes.FURNITURE_BLOCKS)
             .addToSet(WoodBlockTypes.ROOFING_BLOCKS)
             .addToSet(WoodBlockTypes.SHINGLE_BLOCKS));
-
-    public static WoodBlockSetBuilder DEAD_SET = registerWoodSet(new WoodBlockSetBuilder("dead",
-            WOOD_STRENGTH, WOOD_BLAST_RESISTANCE, MapColor.GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)
-            .addToSet(WoodBlockTypes.LOG_BLOCKS)
-            .addToSet(WoodBlockTypes.PLANK_BLOCKS));
 
     public static WoodBlockSetBuilder MUSHROOM_SET = registerWoodSet(new WoodBlockSetBuilder("mushroom",
             2f, 0f, MapColor.WHITE_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, null)

@@ -355,9 +355,24 @@ public class MEBiomeDataConfigs {
             .addLayerData(0.03f, StoneBlockSets.GALONN_SET.baseBlocks.base())
             .addLayerData(0.53f, StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
 
+    public static BlocksLayeringData limeStoneTravertineLayers = new BlocksLayeringData()
+            .addLayerData(0.35f, StoneBlockSets.SLATE_SET.baseBlocks.base())
+            .addLayerData(0.1f, Blocks.STONE)
+            .addLayerData(0.2f, StoneBlockSets.GALONN_SET.baseBlocks.base())
+            .addLayerData(0.25f, StoneBlockSets.LIMESTONE_SET.baseBlocks.base())
+            .addLayerData(0.1f, StoneBlockSets.TRAVERTINE_SET.baseBlocks.base());
+
     public static BlocksLayeringData sandstoneLayers = new BlocksLayeringData()
             .addLayerData(0.1f, Blocks.SANDSTONE)
-            .addLayerData(0.9f, Blocks.STONE);
+            .addLayerData(0.85f, Blocks.STONE)
+            .addLayerData(0.05f, Blocks.SANDSTONE);
+
+    public static BlocksLayeringData sandstoneTravertineLayers = new BlocksLayeringData()
+            .addLayerData(0.1f, StoneBlockSets.SLATE_SET.baseBlocks.base())
+            .addLayerData(0.55f, Blocks.STONE)
+            .addLayerData(0.1f, StoneBlockSets.LIMESTONE_SET.baseBlocks.base())
+            .addLayerData(0.18f, StoneBlockSets.TRAVERTINE_SET.baseBlocks.base())
+            .addLayerData(0.07f, Blocks.SANDSTONE);
 
     public static BlocksLayeringData gondorLayers = new BlocksLayeringData()
             .addLayerData(0.55f, Blocks.CALCITE)

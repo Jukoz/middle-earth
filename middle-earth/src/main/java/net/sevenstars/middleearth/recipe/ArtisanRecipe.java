@@ -22,12 +22,14 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     public final ItemStack output;
     public final String disposition;
     public final List<Ingredient> inputs;
+    public final int xp;
 
-    public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems, String disposition) {
+    public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems, String disposition, int xp) {
         this.category = category;
         this.output = output;
         this.inputs = recipeItems;
         this.disposition = disposition;
+        this.xp = xp;
     }
 
     public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems) {
@@ -35,6 +37,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         this.output = output;
         this.inputs = recipeItems;
         this.disposition = null;
+        this.xp = 0;
     }
 
     public ItemStack createIcon() {
@@ -75,6 +78,10 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
     public ItemStack getOutput() {
         return output;
+    }
+
+    public int getXp() {
+        return xp;
     }
 
     public DefaultedList<Ingredient> getIngredients() {
@@ -129,7 +136,8 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
                     Codec.STRING.fieldOf("category").forGetter(recipe -> recipe.category),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
-                    Codec.STRING.fieldOf("disposition").forGetter(recipe -> recipe.disposition)
+                    Codec.STRING.fieldOf("disposition").forGetter(recipe -> recipe.disposition),
+                    Codec.INT.fieldOf("xp").forGetter(recipe -> recipe.xp)
             ).apply(instance, ArtisanRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
@@ -152,7 +160,8 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i);
             defaultedList.replaceAll(empty -> CustomIngredientImpl.PACKET_CODEC.decode(buf));
             String disposition = buf.readString();
-            return new ArtisanRecipe(category, output, defaultedList, disposition);
+            int xp = buf.readVarInt();
+            return new ArtisanRecipe(category, output, defaultedList, disposition, xp);
         }
 
         private static void write(RegistryByteBuf buf, ArtisanRecipe recipe) {
@@ -163,6 +172,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
                 CustomIngredientImpl.PACKET_CODEC.encode(buf, ingredient);
             }
             buf.writeString(recipe.disposition);
+            buf.writeVarInt(recipe.xp);
         }
     }
 }

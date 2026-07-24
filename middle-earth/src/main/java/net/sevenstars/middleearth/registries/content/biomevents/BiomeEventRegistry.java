@@ -49,6 +49,11 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> OLD_RHUDAUR         = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.OLD_RHUDAUR.getValue());
     // endregion
 
+    // region TROLLSHAWS //
+    public final static RegistryKey<BiomeEventData> TROLLSHAWS        = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.TROLLSHAWS.getValue());
+
+    // endregion
+
     // region MORDOR
     public final static RegistryKey<BiomeEventData> MORDOR = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MORDOR.getValue());
     public final static RegistryKey<BiomeEventData> MORDOR_ASHEN_FOREST = DynamicRegistriesME.of(BIOME_EVENT_KEY, MEBiomeKeys.MORDOR_ASHEN_FOREST.getValue());
@@ -194,6 +199,9 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, ENEDWAITH        , GenericHostilesBiomeEventPool.BRIGANDS);
         register(context, registryEntryLookup, MINHIRIATH       , GenericHostilesBiomeEventPool.BRIGANDS);
         register(context, registryEntryLookup, OLD_RHUDAUR      , GenericHostilesBiomeEventPool.BRIGANDS);
+
+        register(context, registryEntryLookup, TROLLSHAWS      , TrollShawBiomeEventPool.TROLLSHAWS);
+
 
         register(context, registryEntryLookup, MORDOR, MordorBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, MORDOR_ASHEN_FOREST, MordorBiomeEventPool.SCOUTS);

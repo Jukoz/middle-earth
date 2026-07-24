@@ -225,74 +225,74 @@ public class GenericBlockSets {
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder WEATHERED_SHINGLES = registerBlockSet(new GenericBlockSetBuilder(
-            "weathered_shingles", 2.0f, 3.0f, MapColor.WHITE_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "weathered_shingles", 2.0f, 3.0f, MapColor.WHITE_GRAY, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder TREATED_WOOD = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "treated_wood", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "treated_wood", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder TREATED_WOOD_PLANKS = registerBlockSet(new GenericBlockSetBuilder(
-            "treated_wood_planks", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "treated_wood_planks", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder TREATED_WOOD_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "treated_wood_beam", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "treated_wood_beam", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder TREATED_WOOD_CARVED_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "treated_wood_carved_beam", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "treated_wood_carved_beam", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder TREATED_WOOD_PANELS = registerBlockSet(new GenericBlockSetBuilder(
-            "treated_wood_panels", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "treated_wood_panels", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder TREATED_WOOD_TILING = registerBlockSet(new GenericBlockSetBuilder(
-            "treated_wood_tiling", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "treated_wood_tiling", 2.0f, 3.0f, MapColor.SPRUCE_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder AGED_WOOD = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_BOARDS = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_boards", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_boards", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_CARVING = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_PLANKS = registerBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_planks", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_planks", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_FISH_CARVING = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_fish_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_fish_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_PANELS = registerBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_panels", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_panels", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_SHINGLES = registerBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_shingles", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_shingles", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder AGED_WOOD_CARVED_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_carved_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_carved_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_KNOTTED_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_knotted_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_knotted_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_REDDISH_BEAM = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_reddish_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_reddish_beam", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder AGED_WOOD_GILDED_CARVED_PILLAR = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_gilded_carved_pillar", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_gilded_carved_pillar", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_GILDED_CARVING = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_gilded_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_gilded_carving", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_GILDED_HORSES = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_gilded_horses", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_gilded_horses", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder AGED_WOOD_GILDED_TRIM = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "aged_wood_gilded_trim", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, false,
+            "aged_wood_gilded_trim", 2.0f, 3.0f, MapColor.TERRACOTTA_BROWN, NoteBlockInstrument.BASS, BlockSoundGroup.WOOD, true,
             ItemGroupsME.WOOD_BLOCKS_CONTENTS));
 
     public static OxidizableBlockSetBuilder THATCH = registerOxidizableBlockSet(new OxidizableBlockSetBuilder(

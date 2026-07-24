@@ -89,7 +89,7 @@ public class PlayerBookScreen extends Screen {
                 int startTooltipY = (context.getScaledWindowHeight() / 2) - (int)(HEIGHT * 0.295f) + (index * 18);
                 if (mouseX >= startTooltipX && mouseX <= startTooltipX + (chapter.name.length() * 4.75) + 5 && mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
                     context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
-                            List.of(Text.translatable("screen." + MiddleEarth.MOD_ID + ".navigate_to")
+                            List.of(Text.translatable("screen." + MiddleEarth.MOD_ID + ".playerbook.navigate_to")
                             ), Text::asOrderedText), mouseX, mouseY);
                     text.formatted(Formatting.UNDERLINE);
                 }

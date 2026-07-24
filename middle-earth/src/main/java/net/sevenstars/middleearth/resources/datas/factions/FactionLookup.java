@@ -17,6 +17,8 @@ public class FactionLookup {
         return world.getRegistryManager().getOrThrow(DynamicRegistriesME.FACTION).stream().toList();
     }
     public static Faction getFactionById(World world, Identifier id) throws FactionIdentifierException {
+        if(id == null)
+            return null;
         Faction faction = world.getRegistryManager().getOrThrow(DynamicRegistriesME.FACTION).get(id);
         if(faction == null)
             throw new FactionIdentifierException();

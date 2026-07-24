@@ -290,9 +290,26 @@ public class ResourceItemsME {
             Item::new, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, BannerPatternTagsME.SNAIL_PATTERN_ITEM));
 
+    public static final Item PTEROSAUR_NUGGET = registerHiddenItem("pterosaur_nugget",
+            HotChickenFoodItem::new, new Item.Settings());
+    public static final Item THERAPOD_NUGGET = registerHiddenItem("therapod_nugget",
+            HotChickenFoodItem::new, new Item.Settings());
+    public static final Item CERATOPSIAN_NUGGET = registerHiddenItem("ceratopsian_nugget",
+            HotChickenFoodItem::new, new Item.Settings());
+    public static final Item THYREOPHORAN_NUGGET = registerHiddenItem("thyreophoran_nugget",
+            HotChickenFoodItem::new, new Item.Settings());
+    public static final Item SAUROPOD_NUGGET = registerHiddenItem("sauropod_nugget",
+            HotChickenFoodItem::new, new Item.Settings().maxCount(16));
+
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.RESOURCES_CONTENTS.add(item.getDefaultStack());
+        TranslationEntries.itemEntries.add(item);
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+    private static Item registerHiddenItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

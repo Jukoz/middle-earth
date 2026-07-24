@@ -259,6 +259,12 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
             leapingTicks++;
         }
     }
+
+    @Override
+    protected int getExperienceToDrop(ServerWorld world) {
+        return 13 + this.random.nextInt(4);
+    }
+
     public SpiderVariant getVariant() {
         return getRegistryVariant().value();
     }
@@ -383,7 +389,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     public static boolean canSpawn(EntityType<SpawnOfShelobEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
         if(spawnReason != SpawnReason.NATURAL)
             return SpawnOfShelobEntity.canSpawnInDark(type, serverWorldAccess, spawnReason, blockPos, random);
-        return SpawnUtil.canCreatureSpawn(type, serverWorldAccess, spawnReason, blockPos, random);
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
     }
 
     @Override

@@ -19,7 +19,7 @@
     "description": {
       "translate": "advancements.smithing.treated_anvil.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "count": 1,
@@ -34,5 +34,8 @@
     [
       "treated_anvil"
     ]
-  ]
+  ],
+  "rewards": {
+    "experience": 50
+  }
 }

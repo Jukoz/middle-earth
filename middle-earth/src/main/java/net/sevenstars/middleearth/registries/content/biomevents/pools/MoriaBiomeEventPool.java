@@ -19,7 +19,7 @@ public class MoriaBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.MORIA_RIDER).withWeight(4).withSameNpcType(0, 256).withoutSkyRequirement(),
             new WildSpawnEventData(NpcRegistry.MORIA_VETERAN).withWeight(3).withSameNpcType(0, 256).requireNight(),
             new WildSpawnEventData(NpcRegistry.MORIA_CHIEF).withSameNpcType(0, 512).requireNight()
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
+        ));
 
         EREGION = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withSameNpcType(3, 256).withWeight(2),

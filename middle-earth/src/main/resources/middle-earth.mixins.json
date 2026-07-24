@@ -32,6 +32,7 @@
     "ServerWorldMixin",
     "ShearItemMixin",
     "ShovelItemMixin",
+    "SpawnHelperMixin",
     "ToolItemMixin",
     "TrunkPlacerTypeInvoker"
   ],

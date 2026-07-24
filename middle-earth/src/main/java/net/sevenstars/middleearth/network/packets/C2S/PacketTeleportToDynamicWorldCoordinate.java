@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
+import net.sevenstars.middleearth.permissions.PermissionsME;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -37,6 +39,8 @@ public class PacketTeleportToDynamicWorldCoordinate extends ClientToServerPacket
     @Override
     public void process(ServerPacketContext context) {
         context.player().getServer().execute(() -> {
+            if(!PermissionsME.checkMapTeleport(context.player()))
+                return;
             Vec3d coordinates = new Vec3d(xCoordinate, ModDimensions.getDimensionHeight((int)xCoordinate, (int)zCoordinate).y, zCoordinate);
             ModDimensions.teleportPlayerToMe(context.player(), coordinates, false, false);
         });
