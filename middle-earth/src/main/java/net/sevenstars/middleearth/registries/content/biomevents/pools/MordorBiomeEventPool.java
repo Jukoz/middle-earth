@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
@@ -20,7 +21,8 @@ public class MordorBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_VETERAN).withWeight(2).withSameNpcType(0, 256),
-            new WildSpawnEventData(NpcRegistry.MORDOR_CAPTAIN).withSameNpcType(0, 512)
+            new WildSpawnEventData(NpcRegistry.MORDOR_CAPTAIN).withSameNpcType(0, 512),
+            new WildSpawnEventData(EntitiesME.CAVE_TROLL).withSameEntity(1, 256).withEntitySurfaceOnly()
         ));
 
         NURN = new BiomeEventData(false, List.of(
@@ -35,7 +37,6 @@ public class MordorBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2).withSameNpcType(0, 256)
         ));
-
 
         ITHILIEN = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4).withSameNpcType(4, 256),
