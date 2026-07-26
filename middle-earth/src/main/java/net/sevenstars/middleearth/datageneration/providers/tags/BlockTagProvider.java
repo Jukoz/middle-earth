@@ -10,9 +10,11 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
+import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
@@ -69,6 +71,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "leaves"))).add(LeavesSets.leaves.toArray(new Block[0])).add(LeavesSets.grayscaleLeaves.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs_that_burn"))).add(Logs.logs.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
@@ -120,47 +123,62 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
             }
         }
 
-        /*for (StoneBlockSets.SimpleBlockSet record : StoneBlockSets.sets) {
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
-                needsIronTools.add(record.base());
-                needsIronTools.add(record.slab());
-                needsIronTools.add(record.verticalSlab());
-                needsIronTools.add(record.stairs());
-                needsIronTools.add(record.wall());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
-                needsDiamondTools.add(record.base());
-                needsDiamondTools.add(record.slab());
-                needsDiamondTools.add(record.verticalSlab());
-                needsDiamondTools.add(record.stairs());
-                needsDiamondTools.add(record.wall());
-            }
-        }
+        BlockRecordTypes.BaseStoneSet.getAllBlocks(StoneBlockSets.NURGON_SET.baseBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.cobblestoneBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.mossyCobblestoneBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.brickBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.mossyBrickBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.crackedBrickBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.tileBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.mossyTileBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.crackedTileBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.smoothBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.mossySmoothBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.crackedSmoothBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.polishedBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.mossyPolishedBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.crackedPolishedBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.pillarBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.mossyPillarBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.crackedPillarBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.chiseledBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.chiseledBricksBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.chiseledPolishedBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.chiseledSmoothBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.NURGON_SET.chiseledTilesBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.brickworkBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.NURGON_SET.oldBlocks).forEach(needsIronTools::add);
+        BlockRecordTypes.CarvedWindow.getAllBlocks(StoneBlockSets.NURGON_SET.carvedWindows).forEach(needsIronTools::add);
+
+        BlockRecordTypes.BaseStoneSet.getAllBlocks(StoneBlockSets.MEDGON_SET.baseBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.cobblestoneBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.mossyCobblestoneBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.brickBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.mossyBrickBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.crackedBrickBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.tileBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.mossyTileBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.crackedTileBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.smoothBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.mossySmoothBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.crackedSmoothBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.polishedBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.mossyPolishedBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.crackedPolishedBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.pillarBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.mossyPillarBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.crackedPillarBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.chiseledBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.chiseledBricksBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.chiseledPolishedBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.chiseledSmoothBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.PillarSet.getAllBlocks(StoneBlockSets.MEDGON_SET.chiseledTilesBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.brickworkBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.RegularSet.getAllBlocks(StoneBlockSets.MEDGON_SET.oldBlocks).forEach(needsDiamondTools::add);
+        BlockRecordTypes.CarvedWindow.getAllBlocks(StoneBlockSets.MEDGON_SET.carvedWindows).forEach(needsDiamondTools::add);
 
         baseStoneOverworld.add(Blocks.CALCITE);
-
-        for (StoneBlockSets.SimpleBlockSetMain record : StoneBlockSets.setsMain) {
-            if(record.base() != StoneBlockSets.ASHEN_STONE.base()) baseStoneOverworld.add(record.base());
-            if (Registries.BLOCK.getId(record.base()).getPath().contains("nurgon")){
-                needsIronTools.add(record.base());
-                needsIronTools.add(record.slab());
-                needsIronTools.add(record.verticalSlab());
-                needsIronTools.add(record.stairs());
-                needsIronTools.add(record.wall());
-                needsIronTools.add(record.stool());
-                needsIronTools.add(record.table());
-                needsIronTools.add(record.rocks());
-            }else if (Registries.BLOCK.getId(record.base()).getPath().contains("medgon")){
-                needsDiamondTools.add(record.base());
-                needsDiamondTools.add(record.slab());
-                needsDiamondTools.add(record.verticalSlab());
-                needsDiamondTools.add(record.stairs());
-                needsDiamondTools.add(record.wall());
-                needsDiamondTools.add(record.stool());
-                needsDiamondTools.add(record.table());
-                needsDiamondTools.add(record.rocks());
-            }
-            snapsGoatHorn.add(record.base());
-        }*/
+        baseStoneOverworld.add(MineablePickaxe.baseStoneOverworld.toArray(new Block[0]));
 
         cobwebs.add(Blocks.COBWEB);
         cobwebs.add(ModNatureBlocks.HANGING_WEBS);
@@ -254,16 +272,19 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(OreRockSets.NURGON.silver_ore());
         needsIronTools.add(OreRockSets.NURGON.gold_ore());
         needsIronTools.add(OreRockSets.NURGON.iron_ore());
+        needsIronTools.add(OreRockSets.NURGON.sapphire_ore());
+        needsIronTools.add(OreRockSets.NURGON.emerald_ore());
+        needsIronTools.add(OreRockSets.NURGON.ruby_ore());
 
         needsDiamondTools.add(OreRockSets.MEDGON.lead_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.silver_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.gold_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.iron_ore());
-        needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
-        needsDiamondTools.add(OreRockSets.MEDGON.adamant_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.emerald_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.ruby_ore());
         needsDiamondTools.add(OreRockSets.MEDGON.sapphire_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.adamant_ore());
+        needsDiamondTools.add(OreRockSets.MEDGON.mithril_ore());
 
         needsStoneTools.add(ModDecorativeBlocks.STONE_ANVIL);
         needsIronTools.add(ModDecorativeBlocks.TREATED_ANVIL);
@@ -273,7 +294,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsIronTools.add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
 
-        needsDiamondTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
+        needsIronTools.add(ModDecorativeBlocks.REINFORCED_CHEST);
         mineableAxe.add(ModDecorativeBlocks.REINFORCED_CHEST);
 
         needsDiamondTools.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
@@ -293,6 +314,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(ModBlocks.BRONZE_TRAPDOOR);
         needsStoneTools.add(ModBlocks.CRUDE_TRAPDOOR);
         needsIronTools.add(ModBlocks.TREATED_STEEL_TRAPDOOR);
+        needsIronTools.add(ModBlocks.BURZUM_SPIKES);
 
         needsStoneTools.add(ModBlocks.BRONZE_BARS);
         needsStoneTools.add(ModBlocks.CRUDE_BARS);

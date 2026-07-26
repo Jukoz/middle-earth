@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryOps;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -26,18 +27,19 @@ import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import java.util.List;
 
 public class NpcSpawnEggHelper {
-    public static ItemStack getSpawnEgg(NpcType npcType) {
+    public static ItemStack getSpawnEgg(NpcType npcType, RegistryWrapper.WrapperLookup wrapper) {
         if(npcType == null)
             return ItemStack.EMPTY;
-        return buildItemStackBasedOnNpcData(npcType);
+        return buildItemStackBasedOnNpcData(npcType, wrapper);
     }
 
     public static ItemStack getSpawnEgg(World world, Identifier identifier) {
         NpcType npcType = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_TYPE).get(identifier);
-        return buildItemStackBasedOnNpcData(npcType);
+        RegistryWrapper.WrapperLookup wrapperLookup = world.getRegistryManager();
+        return buildItemStackBasedOnNpcData(npcType, wrapperLookup);
     }
 
-    private static ItemStack buildItemStackBasedOnNpcData(NpcType npcType) {
+    private static ItemStack buildItemStackBasedOnNpcData(NpcType npcType, RegistryWrapper.WrapperLookup wrapper) {
         if(npcType == null)
             return ItemStack.EMPTY;
 
@@ -48,11 +50,10 @@ public class NpcSpawnEggHelper {
         compoundData.putString("id", MiddleEarth.of("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(npcType.getId(), false);
-        DynamicRegistryManager manager = MinecraftClient.getInstance().getServer().getRegistryManager();
 
         RegistryOps<NbtElement> ops = RegistryOps.of(
                 NbtOps.INSTANCE,
-                manager
+                wrapper
         );
 
         NbtElement element = NpcInitializationData.CODEC

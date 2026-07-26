@@ -355,8 +355,9 @@ public class Faction {
         return bannerData.getBannerPatternsWithColors(world);
     }
 
-    public ItemStack getBannerItem(World world){
-        return bannerData.getBannerItem(world, Text.translatable("block.%s.faction_banner".formatted(MiddleEarth.MOD_ID), getFullName()).formatted(Formatting.GOLD));
+    public ItemStack getBannerItem(RegistryWrapper.WrapperLookup wrapper){
+        if(bannerData == null) return ItemStack.EMPTY;
+        return bannerData.getBannerItem(wrapper, Text.translatable("block.%s.faction_banner".formatted(MiddleEarth.MOD_ID), getFullName()).formatted(Formatting.GOLD));
     }
 
     public List<Identifier> getSubFactions(){
@@ -492,7 +493,7 @@ public class Faction {
 
     public boolean isHostileToward(Identifier playerFaction) {
         for(InitialDiplomacy diplomacy : initialDiplomacies){
-            if(diplomacy.isHostileToward(playerFaction)){
+            if(playerFaction == null || diplomacy.isHostileToward(playerFaction)){
                 return true;
             }
         }

@@ -803,6 +803,106 @@
             }
 		  ]
         },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:black_castellan_helmet",
+          "weight": 5,
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:black_castellan_chestplate",
+          "weight": 5,
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:black_castellan_leggings",
+          "weight": 5,
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:black_castellan_boots",
+          "weight": 5,
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+          ]
+        },
 		{
           "type": "minecraft:item",
           "name": "middle-earth:black_castellan_cape",

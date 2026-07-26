@@ -314,7 +314,7 @@ public class WargEntity extends AbstractBeastEntity {
                 this.setRunning(true);
             }
 
-            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
+            //this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
         }
 
         if(!this.isAttacking() && this.getAttacker() == null) {
@@ -328,6 +328,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     protected void setupAnimationStates() {
+        this.idleAnimationState.startIfNotRunning(this.age);
         if(this.isSitting()) {
             if(!this.startSittingAnimationState.isRunning() && !this.sittingAnimationState.isRunning()) {
                 this.startSittingAnimationState.startIfNotRunning(this.age);

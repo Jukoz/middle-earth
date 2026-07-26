@@ -139,6 +139,10 @@ public class ItemModelProvider extends FabricModelProvider {
             registerHotNuggetItem(item, itemModelGenerator);
         }
 
+        for (Item item : HotMetalsModel.nuggies) {
+            registerHotItem(item, itemModelGenerator);
+        }
+
         // Dyeables needs to be done manually (because of layers)
 
         SimpleDyeableItemModel.items.forEach(item -> {

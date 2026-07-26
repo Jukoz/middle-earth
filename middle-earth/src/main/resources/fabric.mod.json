@@ -6,7 +6,7 @@
   "name": "Middle-earth",
   "description": "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!",
   "authors": [
-    " Lead Dev: Jukoz, ObliviousCrab\n\nDevelopers: Jukoz, ObliviousCrab, Slooshyboi, TomSchlom\n\nArtists: Boenndal, Jooble, Sindavar, Angmarzku, Jukoz, Khuz, ObliviousCrab, R3tt0\n\nBuilders: Angmarzku, Arwaeneth, Boenndal, Slooshyboi, Jooble, Jukoz, ObliviousCrab"
+    " Lead Dev: Jukoz, ObliviousCrab\n\nDevelopers: Jukoz, ObliviousCrab, TomSchlom\n\nArtists: Boenndal, Jooble, Sindavar, Angmarzku, Scosher, ObliviousCrab, Jukoz, Osserc, Kolhosp, CoffeeViking, Nautilus\n\nBuilders: Angmarzku, Arwaeneth, Boenndal, Thud, Akkon, Jooble, CoffeeViking, Nautilus, Jukoz, ObliviousCrab, Louise"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/middle-earth",
@@ -46,8 +46,9 @@
     "fabric-api": "*",
     "minecraft": "~1.21.8",
     "java": ">=21",
-    "sevenstars-api": "1.0.0-1.21.8-beta",
-    "wild-things": "1.0.0-1.21.8-beta"
+    "fabric-permissions-api-v0": "*",
+    "sevenstars-api": "1.0.1-1.21.8-beta",
+    "wild-things": "1.0.1-1.21.8-beta"
   },
   "recommends": {
     "modmenu": "*"

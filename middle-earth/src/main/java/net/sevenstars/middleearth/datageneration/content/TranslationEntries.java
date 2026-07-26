@@ -145,6 +145,8 @@ public class TranslationEntries {
             put("advancements.smithing.dwarven_lantern.description", "Craft a dwarven lantern");
             put("advancements.smithing.elven_lantern.title", "Light of the Elves");
             put("advancements.smithing.elven_lantern.description", "Light your way like the Quendi");
+            put("advancements.smithing.hot_ones.title", "Hot Ones");
+            put("advancements.smithing.hot_ones.description", "Eat a spicy chicken nugget");
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
             put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");

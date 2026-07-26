@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "RHR",
+    " R "
+  ],
+  "key": {
+    "R": "middle-earth:red_agate_shard",
+    "H": "#middle-earth:thatchy"
+  },
+  "result": {
+    "id": "minecraft:target",
+    "count": 1
+  }
+}

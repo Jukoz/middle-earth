@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AvoidSunlightGoal;
 import net.minecraft.entity.ai.goal.EscapeSunlightGoal;
 import net.minecraft.entity.conversion.EntityConversionContext;
@@ -22,12 +23,17 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.goals.BeastTargetPlayerGoal;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 
 import java.util.List;
 
@@ -171,5 +177,14 @@ public class StoneTrollEntity extends TrollEntity {
         if(!this.isPetrified()) {
             super.onDamaged(damageSource);
         }
+    }
+
+    public static boolean canSpawn(EntityType<StoneTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return true;
     }
 }

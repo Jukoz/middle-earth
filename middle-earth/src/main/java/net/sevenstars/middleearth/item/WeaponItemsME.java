@@ -445,6 +445,9 @@ public class WeaponItemsME {
     public static final Item WOODLAND_REALM_LONGSWORD = registerItemWithModel("woodland_realm_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)), true);
+    public static final Item WOODLAND_REALM_DAGGER = registerItemWithModel("woodland_realm_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)), false);
     public static final Item WOODLAND_REALM_AXE = registerItemWithModel("woodland_realm_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)), true);

@@ -19,11 +19,11 @@ public class IsengardBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_VETERAN).withWeight(4).withSameNpcType(1, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_BERSERKER).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_LEADER).withSameNpcType(0, 256)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
+        ));
 
         SCOUTS = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT).withWeight(3).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_ORC_WARRIOR).withWeight(2).withSameNpcType(1, 256)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
+        ));
     }
 }

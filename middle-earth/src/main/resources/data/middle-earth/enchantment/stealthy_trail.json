@@ -14,8 +14,8 @@
     "per_level_above_first": 10
   },
   "slots": [
-    "chest"
+    "legs"
   ],
-  "supported_items": "#middle-earth:enchantable/light_chest",
+  "supported_items": "#middle-earth:enchantable/light_leg",
   "weight": 1
 }

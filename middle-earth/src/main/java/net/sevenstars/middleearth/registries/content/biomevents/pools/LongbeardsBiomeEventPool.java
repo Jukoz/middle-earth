@@ -16,7 +16,7 @@ public class LongbeardsBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.EREBOR_SOLDIER).withWeight(5).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.EREBOR_VETERAN).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.EREBOR_ELITE).withWeight(1).withSameNpcType(0, 256)
-        )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
+        ));
 
         GREY_PLAINS = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.EREBOR_MILITIA).withWeight(4).withSameNpcType(2, 256).lightShouldBeAtLeast(5),

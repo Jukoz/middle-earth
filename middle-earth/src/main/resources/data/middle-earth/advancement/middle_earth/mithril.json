@@ -32,5 +32,8 @@
     [
       "raw_mithril"
     ]
-  ]
+  ],
+  "rewards": {
+    "experience": 500
+  }
 }

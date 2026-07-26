@@ -23,6 +23,8 @@ public class TargetPlayerDiplomacyGoal extends ActiveTargetGoal<PlayerEntity> {
             if(mob.getTarget() instanceof PlayerEntity playerEntity && !playerEntity.isCreative() && !playerEntity.isSpectator()) {
                 try {
                     Faction currentFaction = FactionLookup.getFactionById(mob.getWorld(), mob.getFactionIdentifier());
+                    if(currentFaction == null)
+                        return true;
                     Faction playerFaction = PlayerUtil.fetchFaction(playerEntity);
                     if(playerFaction != null && !currentFaction.isHostileToward(playerFaction.getId())) return false;
                 } catch (Exception e) {

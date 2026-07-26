@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.world.biomes.caves;
 
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 import net.sevenstars.middleearth.world.biomes.surface.BiomeData;

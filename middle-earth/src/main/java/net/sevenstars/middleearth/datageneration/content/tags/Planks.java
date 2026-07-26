@@ -15,7 +15,21 @@ public class Planks {
 
     public static List<Item> getItemPlanks() {
         ArrayList<Item> newList = new ArrayList<>();
-        for (Block block : planks) {
+        for(Block block : planks) {
+            newList.add(block.asItem());
+        }
+        return newList;
+    }
+
+    public static List<Block> planksSlabs = new ArrayList<>() {
+        {
+
+        }
+    };
+
+    public static List<Item> getItemPlanksSlabs() {
+        ArrayList<Item> newList = new ArrayList<>();
+        for(Block block : planksSlabs) {
             newList.add(block.asItem());
         }
         return newList;
