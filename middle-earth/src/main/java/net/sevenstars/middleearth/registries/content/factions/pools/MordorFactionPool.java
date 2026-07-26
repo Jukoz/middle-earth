@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.registries.content.factions.pools;
 
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -15,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npcs.pools.MordorNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.MordorNpcTypePool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -28,24 +27,24 @@ public class MordorFactionPool {
         MORDOR = new Faction(FactionRegistry.MORDOR, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MordorNpcDataPool.SNAGA
+                            MordorNpcTypePool.SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MordorNpcDataPool.MILITIA
+                            MordorNpcTypePool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MordorNpcDataPool.WARRIOR
+                            MordorNpcTypePool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MordorNpcDataPool.WARRIOR,
-                            MordorNpcDataPool.VETERAN
+                            MordorNpcTypePool.WARRIOR,
+                            MordorNpcTypePool.VETERAN
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MordorNpcDataPool.VETERAN
+                            MordorNpcTypePool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MordorNpcDataPool.CAPTAIN,
-                            MordorNpcDataPool.BLACK_NUMENOREAN
+                            MordorNpcTypePool.CAPTAIN,
+                            MordorNpcTypePool.BLACK_NUMENOREAN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

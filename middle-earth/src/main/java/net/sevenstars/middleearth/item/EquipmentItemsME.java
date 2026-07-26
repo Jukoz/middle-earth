@@ -1489,14 +1489,14 @@ public class EquipmentItemsME {
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item BLACK_CASTELLAN_CHESTPLATE = registerCustomModelArmorPiece("black_castellan_chestplate",
-            (settings) -> new CustomChestplateItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.BLACK_CASTELLAN_CAPE))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item BLACK_CASTELLAN_LEGGINGS = registerArmorPiece("black_castellan_leggings",
-            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+            (settings) -> new CustomLeggingsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     public static final Item BLACK_CASTELLAN_BOOTS = registerArmorPiece("black_castellan_boots",
-            (settings) -> new CustomBootsItem(ArmorMaterialsME.STEEL_T5, settings), new Item.Settings()
+            (settings) -> new CustomBootsItem(ArmorMaterialsME.BURZUM_STEEL_T5, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_BLACK_NUMENOREAN_PLATE_HELMET = registerCustomModelArmorPiece("mordor_black_numenorean_plate_helmet",

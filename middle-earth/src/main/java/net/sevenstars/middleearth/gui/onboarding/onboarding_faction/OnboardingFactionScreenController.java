@@ -7,7 +7,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -24,7 +23,6 @@ import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
 import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
@@ -32,7 +30,7 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceStatTooltip;
 import org.joml.Vector2d;
@@ -349,7 +347,8 @@ public class OnboardingFactionScreenController {
 
         selectedRace = currentFaction.getRaces(world).get(index);
         currentNpcEntity = new NpcEntity(EntitiesME.NPC, world);
-        currentNpcEntity.setNpcData(currentFaction.getRandomNpcDataIdentifier());
+        currentNpcEntity.prepareNpcIdentifier(currentFaction.getRandomNpcDataIdentifier());
+        currentNpcEntity.prepare();
 
         updateNpcPreview();
     }
@@ -362,7 +361,7 @@ public class OnboardingFactionScreenController {
         Faction currentFaction = getCurrentFaction();
 
         if(!forced){
-            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionIdentifier() == currentFaction.getId() && currentNpcEntity.getNpcData().getRace() == selectedRace.getId())
+            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionIdentifier() == currentFaction.getId() && currentNpcEntity.getNpcType().getRace() == selectedRace.getId())
                 return;
         }
 
@@ -372,7 +371,7 @@ public class OnboardingFactionScreenController {
         var idList = currentFaction.getAllNpcDatas().values().stream().flatMap(List::stream).toList();
 
         // filter list by race
-        var optionalNpcRegistry = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC);
+        var optionalNpcRegistry = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC_TYPE);
         if(optionalNpcRegistry.isEmpty())
             return;
 
@@ -392,8 +391,8 @@ public class OnboardingFactionScreenController {
             this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, clientWorld, false);
     }
 
-    private boolean filterNpc(Registry<NpcData> registry, Identifier elementToFilter){
-        NpcData foundData = registry.get(elementToFilter);
+    private boolean filterNpc(Registry<NpcType> registry, Identifier elementToFilter){
+        NpcType foundData = registry.get(elementToFilter);
         if(foundData == null) return false;
 
         if(selectedRace == null)

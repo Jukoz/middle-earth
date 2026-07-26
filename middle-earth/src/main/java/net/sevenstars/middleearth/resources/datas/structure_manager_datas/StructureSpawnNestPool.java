@@ -7,6 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.Optional;
 import java.util.Random;
@@ -56,9 +57,9 @@ public class StructureSpawnNestPool {
         this.maxAmount = Optional.empty();
     }
 
-    public StructureSpawnNestPool SetNpcData(RegistryKey<Faction> factionKey, Identifier npcIdentifier){
+    public StructureSpawnNestPool SetNpcData(RegistryKey<Faction> factionKey, RegistryKey<NpcType> npc){
         this.factionKey = Optional.of(factionKey);
-        this.npcIdentifier = Optional.of(npcIdentifier);
+        this.npcIdentifier = Optional.of(npc.getValue());
         return this;
     }
     public StructureSpawnNestPool SetFixAmount(int amount){

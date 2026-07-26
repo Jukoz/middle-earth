@@ -14,7 +14,7 @@ public class WargArmorBaseAddonsModel extends WargArmorModel {
 
     public static TexturedModelData getTexturedModelDataSpine() {
         ModelData modelData = getArmorModelData();
-        ModelPartData front_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_armor").getChild("front_armor");
+        ModelPartData front_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_no_legs").getChild("body_fur").getChild("body_armor").getChild("front_armor");
 
         ModelPartData addons_front_armor = front_armor.addChild("addons_front_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 

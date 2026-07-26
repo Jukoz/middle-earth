@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
@@ -12,6 +13,7 @@ import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
@@ -148,7 +150,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
             entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f - (float) temperature / 1000);
 
-            int minRandProgress = 6;
+            int minRandProgress = 7;
             int maxRandProgress = 14;
 
             if (input.getMaxDamage() == 0 && input.getDamage() == 0){
@@ -177,6 +179,11 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
 
             if (input.getDamage() == 0){
+                int xp = 2;
+                if(input.getItem() == ResourceItemsME.ROD || input.getItem() == ResourceItemsME.ARMOR_PLATE) xp = 4;
+                if(input.getItem() == ResourceItemsME.LARGE_ROD) xp = 7;
+                ExperienceOrbEntity.spawn(world, entity.getPos().toCenterPos().add(0, 1, 0), xp);
+
                 ItemStack output = match.get(entity.outputIndex).value().craft(new SingleStackRecipeInput(input), entity.world.getRegistryManager());
 
                 if(input.get(DataComponentTypes.TRIM) != null){

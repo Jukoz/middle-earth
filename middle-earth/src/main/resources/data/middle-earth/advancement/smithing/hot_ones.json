@@ -1,0 +1,39 @@
+{
+  "parent": "middle-earth:smithing/root",
+  "criteria": {
+    "hot_ones": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#middle-earth:chicken_nuggets"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.hot_ones.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:therapod_nugget"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.hot_ones.title"
+    }
+  },
+  "requirements": [
+    [
+      "hot_ones"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  }
+}

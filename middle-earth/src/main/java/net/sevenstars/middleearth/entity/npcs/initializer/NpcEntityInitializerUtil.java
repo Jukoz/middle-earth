@@ -1,18 +1,17 @@
 package net.sevenstars.middleearth.entity.npcs.initializer;
 
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
-
-import java.util.Optional;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 public class NpcEntityInitializerUtil {
-    public static boolean characterIdentifierExist(World world, Identifier unitIdentifier){
+    public static boolean characterIdentifierExist(World world, Identifier typeId){
+        if(typeId == null)
+            return false;
         DynamicRegistryManager registryManager = world.getRegistryManager();
-        Optional<RegistryEntry.Reference<NpcData>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC).get().getEntry(unitIdentifier);
-        return !optionalEntry.isEmpty();
+        NpcType type =  registryManager.getOrThrow(DynamicRegistriesME.NPC_TYPE).get(typeId);
+        return type != null;
     }
 }

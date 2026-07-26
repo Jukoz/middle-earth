@@ -89,7 +89,7 @@ public class ModEvents {
             float hardness = blockState.getBlock().getHardness();
 
             if (hasEnchant) {
-                if (!playerEntity.isCreative()) {
+                if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
                     assert toolComponent != null;
                     if (toolComponent.isCorrectForDrops(blockState)){
                         if (playerEntity.getFacing() == Direction.DOWN || playerEntity.getFacing() == Direction.UP){
@@ -124,7 +124,7 @@ public class ModEvents {
             float hardness = blockState.getBlock().getHardness();
 
             if (hasEnchant) {
-                if (!playerEntity.isCreative()) {
+                if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
                     assert toolComponent != null;
                     if (toolComponent.isCorrectForDrops(blockState)){
                         int[] blockCount = new int[]{16};

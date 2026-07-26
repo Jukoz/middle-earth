@@ -13,7 +13,6 @@ import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.model.ArmorEntityModel;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
@@ -28,9 +27,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.sevenstars.middleearth.config.ModClientConfigs;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.ear.EarFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.feet.FeetFeatureRenderer;
 import net.sevenstars.middleearth.entity.npcs.renderer.features.hair.HairFeatureRenderer;
@@ -39,7 +40,6 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
-import net.sevenstars.middleearth.utils.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
@@ -94,7 +94,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.aimingState = npcEntity.aimingState;
 
         super.updateRenderState(npcEntity, npcEntityRenderState, tickDelta);
-        var npcTextureData = npcEntity.getNpcTextureData();
+        NpcTextureData npcTextureData = npcEntity.retrieveNpcTextureData();
         float currentLightLevel = npcEntity.getWorld().getLightLevel(npcEntity.getBlockPos());
 
         npcEntityRenderState.pose = npcEntity.getPose();
@@ -130,9 +130,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             npcEntityRenderState.clothingOver = npcTextureData.get(NpcRenderedPart.CLOTHING_OVER);
             npcEntityRenderState.clothingExtra = npcTextureData.get(NpcRenderedPart.CLOTHING_EXTRA);
 
-            long initializationTick = npcEntity.getInitializationTick();
             long age = npcEntity.age;
-            npcEntityRenderState.blinking = (initializationTick + age) % BLINKING_INTERVAL >= BLINKING_INTERVAL - BLINKING_DURATION;
+            npcEntityRenderState.blinking = (0 + age) % BLINKING_INTERVAL >= BLINKING_INTERVAL - BLINKING_DURATION;
         }
         ItemStack currentHelmet = npcEntity.getEquippedStack(EquipmentSlot.HEAD);
         if(currentHelmet == null || currentHelmet.isEmpty()){
@@ -277,20 +276,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private void renderTexture(MatrixStack matrices, VertexConsumer vertexConsumer, Identifier textureId, int light, int overlay, boolean isEmissive){
-        RenderLayer renderLayer = ModTexturedRenderLayers.getCharacterTexturesRenderLayer();
-        render(matrices, vertexConsumer, renderLayer, textureId, light, overlay);
-    }
-
-    private void render(MatrixStack matrices, VertexConsumer vertexConsumer, RenderLayer renderLayer, Identifier textureId, int light, int overlay){
-        Sprite sprite = characterTextureAtlas.getSprite(textureId);
-        renderModel(sprite, matrices, vertexConsumer, light, overlay);
-    }
-
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
-        if(sprite != null){
-            VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            model.render(matrices, newLayerVertexConsumer, light, overlay);
-        }
+        RenderUtil.renderAtlasTexture(characterTextureAtlas, model, matrices, vertexConsumer, textureId, light, overlay);
     }
 
     @Override

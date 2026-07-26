@@ -14,10 +14,10 @@ public class NpcProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.NPC));
+        entries.addAll(registries.getOrThrow(DynamicRegistriesME.NPC_TYPE));
     }
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.NPC.getValue().getPath();
+        return DynamicRegistriesME.NPC_TYPE.getValue().getPath();
     }}
