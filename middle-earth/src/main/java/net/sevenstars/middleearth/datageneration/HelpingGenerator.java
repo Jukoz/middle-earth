@@ -97,7 +97,7 @@ public class HelpingGenerator {
                         ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
                         woodBlocks(set.strippedLogBlocks);
                     }
-                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks);
+                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks, set.vanilla);
                     case SHINGLE_BLOCKS -> {
                         Shingles.shingles.add(set.shinglesBlocks.base());
                         regularBlocks(set.shinglesBlocks, 0);
@@ -374,10 +374,11 @@ public class HelpingGenerator {
         BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 1));
     }
 
-    public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
+    public static void plankBlocks(BlockRecordTypes.PlanksSet set, boolean vanilla) {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 0));
         WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
+        if(!vanilla) Planks.moddedPlanks.add(set.base());
         Planks.planksSlabs.add(set.slab());
     }
 
