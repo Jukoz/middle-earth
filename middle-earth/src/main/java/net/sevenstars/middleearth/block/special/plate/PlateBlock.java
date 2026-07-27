@@ -59,6 +59,11 @@ public class PlateBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.setPlacedBy(world, pos, state, placer, itemStack);
         PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);

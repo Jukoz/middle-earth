@@ -106,7 +106,6 @@ public class ShapingAnvilScreen extends AbstractContainerScreen<ShapingAnvilScre
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        renderBackground(context, mouseX,mouseY,delta);
         super.render(context, mouseX, mouseY, delta);
         renderTooltip(context, mouseX, mouseY);
         int x = (width - imageWidth) / 2;

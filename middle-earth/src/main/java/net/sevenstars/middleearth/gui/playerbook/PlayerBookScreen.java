@@ -63,13 +63,11 @@ public class PlayerBookScreen extends Screen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
+        renderBackground(context, mouseX, mouseY, deltaTicks);
+
         int centerX = context.guiWidth() / 2;
         int startX = 5 + centerX - (WIDTH / 2);
         int startY = (context.guiHeight() / 2) - (HEIGHT / 2);
-
-        context.blit(TEXTURE,
-                startX, startY, 0, 0,
-                WIDTH, HEIGHT, 384, 384);
 
         if(currentPage == 0) {
             drawScaledText(font, context, Component.translatable("screen." + MiddleEarth.MOD_ID + ".playerbook.title").withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD),
@@ -114,8 +112,20 @@ public class PlayerBookScreen extends Screen {
             }
         }
 
+        this.renderables.forEach(renderable -> renderable.render(context, mouseX, mouseY, deltaTicks));
         renderTooltip(context, mouseX, mouseY);
-        super.render(context, mouseX, mouseY, deltaTicks);
+    }
+
+    @Override
+    public void renderBackground(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
+        super.renderBackground(context, mouseX, mouseY, deltaTicks);
+
+        int centerX = context.guiWidth() / 2;
+        int startX = 5 + centerX - (WIDTH / 2);
+        int startY = (context.guiHeight() / 2) - (HEIGHT / 2);
+        context.blit(TEXTURE,
+                startX, startY, 0, 0,
+                WIDTH, HEIGHT, 384, 384);
     }
 
 

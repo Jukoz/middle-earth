@@ -278,7 +278,6 @@ public class ForgeAlloyingScreen extends AbstractContainerScreen<ForgeAlloyingSc
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        renderBackground(context, mouseX,mouseY,delta);
         super.render(context, mouseX, mouseY, delta);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;

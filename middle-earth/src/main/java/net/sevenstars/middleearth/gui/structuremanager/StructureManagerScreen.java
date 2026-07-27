@@ -94,7 +94,6 @@ public class StructureManagerScreen extends AbstractContainerScreen<StructureMan
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
-        renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
 
         ModWidget.updateMouse(mouseX, mouseY);

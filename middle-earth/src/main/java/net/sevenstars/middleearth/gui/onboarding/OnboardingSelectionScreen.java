@@ -74,6 +74,7 @@ private static final Component ONBOARDING_SELECTION_TITLE = Component.translatab
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        renderBackground(context, mouseX, mouseY, delta);
         Entity cameraEntity = this.minecraft.getCameraEntity();
         if (cameraEntity != null) {
             if (cameraEntity instanceof LocalPlayer clientPlayerEntity) {

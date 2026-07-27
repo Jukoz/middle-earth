@@ -213,6 +213,7 @@ public class OnboardingFactionScreen extends Screen {
     //region [GUI Render]
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        renderBackground(context, mouseX, mouseY, delta);
         ModWidget.updateMouse(mouseX, mouseY);
 
         this.renderDisplays(context, mouseX, mouseY, delta);

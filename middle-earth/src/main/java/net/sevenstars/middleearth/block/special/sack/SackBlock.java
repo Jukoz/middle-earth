@@ -45,6 +45,11 @@ public class SackBlock extends BaseEntityBlock {
         return CODEC;
     }
 
+    @Override
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
