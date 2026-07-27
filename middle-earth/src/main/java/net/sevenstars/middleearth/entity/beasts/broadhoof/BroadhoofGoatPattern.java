@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
-import net.minecraft.util.function.ValueLists;
+import net.minecraft.util.ByIdMap;
 import net.sevenstars.api.dtos.WeightedPool;
 
 import java.util.*;
@@ -69,8 +69,8 @@ public enum BroadhoofGoatPattern {
             BroadhoofGoatColor.BLACK, new WeightedPool<>(Stream.of(GENERIC_SET, BROWN_SET, PALE_SET))
     );
 
-    private static final IntFunction<BroadhoofGoatPattern> INDEX_MAPPER = ValueLists.createIndexToValueFunction(
-            BroadhoofGoatPattern::getIndex, values(), ValueLists.OutOfBoundsHandling.WRAP
+    private static final IntFunction<BroadhoofGoatPattern> INDEX_MAPPER = ByIdMap.continuous(
+            BroadhoofGoatPattern::getIndex, values(), ByIdMap.OutOfBoundsStrategy.WRAP
     );
     private final int index;
 

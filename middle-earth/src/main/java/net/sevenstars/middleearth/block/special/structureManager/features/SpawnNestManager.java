@@ -3,15 +3,15 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BedBlock;
-import net.minecraft.block.DoubleBlockProperties;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Uuids;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -26,8 +26,8 @@ import java.util.function.Predicate;
 
 public class SpawnNestManager {
     public static final Codec<SpawnNestManager> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf("id").forGetter(SpawnNestManager::getId),
-            Codec.list(Uuids.CODEC).fieldOf("entity_uuid").forGetter(SpawnNestManager::getEntityUuids),
+            ResourceLocation.CODEC.fieldOf("id").forGetter(SpawnNestManager::getId),
+            Codec.list(UUIDUtil.AUTHLIB_CODEC).fieldOf("entity_uuid").forGetter(SpawnNestManager::getEntityUuids),
             Codec.LONG.fieldOf("respawn_event_trigger_tick").forGetter(SpawnNestManager::getRespawnEventTriggerTick),
             Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestManager::getRespawnTickDelay),
             BlockPos.CODEC.fieldOf("origin_pos").forGetter(SpawnNestManager::getOriginPos),
@@ -36,7 +36,7 @@ public class SpawnNestManager {
 
     private static final String ID = "spawn_nest_data";
 
-    private Identifier id;
+    private ResourceLocation id;
     private ArrayList<UUID> entities;
     private long respawnEventTriggerTick;
     private int respawnTickDelay;
@@ -45,7 +45,7 @@ public class SpawnNestManager {
 
     private List<BedBlock> beds = new ArrayList<>();
 
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius) {
+    public SpawnNestManager(ResourceLocation dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius) {
         this.id = dataId;
         this.entities =  Lists.newArrayList();
         this.entities.addAll(dataEntities);
@@ -59,12 +59,12 @@ public class SpawnNestManager {
         this.entities = new ArrayList<UUID>();
         this.id = spawnNestNodeData.getId();
         this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
-        this.respawnEventTriggerTick = 0;
+        this.respawnEventTriggerTick = -((long) this.respawnTickDelay) - 1L;
         this.originPos = position;
         this.spawnRadius = spawnRadius;
     }
 
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return this.id;
     }
 
@@ -87,10 +87,10 @@ public class SpawnNestManager {
     }
 
     public void addEntity(LivingEntity entity){
-        if(entity.getWorld().isClient)
+        if(entity.level().isClientSide)
             return;
 
-        UUID uuid = entity.getUuid();
+        UUID uuid = entity.getUUID();
         if(this.entities == null)
             this.entities = new ArrayList<UUID>();
 
@@ -98,16 +98,16 @@ public class SpawnNestManager {
     }
 
     public boolean removeEntity(LivingEntity entity){
-        if(entity.getWorld().isClient || !this.entities.contains(entity.getUuid()))
+        if(entity.level().isClientSide || !this.entities.contains(entity.getUUID()))
             return false;
-        this.entities.remove(entity.getUuid());
+        this.entities.remove(entity.getUUID());
         if(this.entities.isEmpty()){
-            beginRespawnSequence(entity.getWorld());
+            beginRespawnSequence(entity.level());
         }
         return true;
     }
-    public void removeEntity(World world, UUID uuid){
-        if(world.isClient || !this.entities.contains(uuid))
+    public void removeEntity(Level world, UUID uuid){
+        if(world.isClientSide || !this.entities.contains(uuid))
             return;
         this.entities.remove(uuid);
         if(this.entities.isEmpty()){
@@ -115,21 +115,21 @@ public class SpawnNestManager {
         }
     }
 
-    private void beginRespawnSequence(World world) {
-        this.respawnEventTriggerTick = world.getTime();
+    private void beginRespawnSequence(Level world) {
+        this.respawnEventTriggerTick = world.getGameTime();
     }
 
     public boolean canRespawn(long time){
         return (entities.isEmpty() && time > respawnEventTriggerTick + respawnTickDelay);
     }
 
-    public void tick(StructureManagerData structureManagerData, long currentTick, ServerWorld world, BlockPos sourcePos) {
+    public void tick(StructureManagerData structureManagerData, long currentTick, ServerLevel world, BlockPos sourcePos) {
         if(canRespawn(currentTick)){
             respawnAll(structureManagerData, world, sourcePos);
         }
     }
 
-    public void doWellnessCheck(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
+    public void doWellnessCheck(StructureManagerData structureManagerData, ServerLevel world, BlockPos sourcePos) {
         if(entities != null && !entities.isEmpty()){
             List<UUID> toRemove = new ArrayList<>();
             for (UUID uuid : entities){ // Wellness check
@@ -143,7 +143,7 @@ public class SpawnNestManager {
     }
 
 
-    private void respawnAll(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
+    private void respawnAll(StructureManagerData structureManagerData, ServerLevel world, BlockPos structureManagerPos) {
         if(structureManagerData == null)
             return;
         SpawnNestNodeData data = structureManagerData.getNpcSpawnNest(id);
@@ -159,9 +159,9 @@ public class SpawnNestManager {
                 if(entityToAdd != null)
                     addEntity(entityToAdd);
             }
-            world.markDirty(structureManagerPos);
+            world.blockEntityChanged(structureManagerPos);
         }
-        this.respawnEventTriggerTick = -1;
+        this.respawnEventTriggerTick = entities.isEmpty() ? world.getGameTime() : -1L;
     }
 
     public boolean computeDeath(LivingEntity entity) {
@@ -171,7 +171,7 @@ public class SpawnNestManager {
         return false;
     }
 
-    public void forceRespawn(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
+    public void forceRespawn(StructureManagerData structureManagerData, ServerLevel world, BlockPos structureManagerPos) {
         for(var uuid : getEntityUuids()){
             if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
                 livingEntity.setRemoved(Entity.RemovalReason.DISCARDED);
@@ -184,18 +184,18 @@ public class SpawnNestManager {
         respawnAll(structureManagerData, world, structureManagerPos);
     }
 
-    public void refreshBeds(StructureManagerData structureManagerData, World world){
+    public void refreshBeds(StructureManagerData structureManagerData, Level world){
         // TODO : Connect with the @StructureManagerBlockEntity.fetchBeds() / Redistribute
 
         BlockPos origin = getOriginPos();
         int bedRadius = 10;
         List<BlockPos> bedBlockPositions = new ArrayList<>();
-        BlockPos.findClosest(origin, bedRadius, 5, new Predicate<BlockPos>() {
+        BlockPos.findClosestMatch(origin, bedRadius, 5, new Predicate<BlockPos>() {
             @Override
             public boolean test(BlockPos blockPos) {
                 var blockState = world.getBlockState(blockPos);
                 if(blockState.getBlock() instanceof BedBlock bedBlock){
-                    if(BedBlock.getBedPart(blockState) == DoubleBlockProperties.Type.FIRST){
+                    if(BedBlock.getBlockType(blockState) == DoubleBlockCombiner.BlockType.FIRST){
                         bedBlockPositions.add(blockPos);
                     }
                 }

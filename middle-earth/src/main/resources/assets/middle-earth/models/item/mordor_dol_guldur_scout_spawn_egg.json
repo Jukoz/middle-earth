@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/mordor_dol_guldur_scout_spawn_egg"
+                 }
+}

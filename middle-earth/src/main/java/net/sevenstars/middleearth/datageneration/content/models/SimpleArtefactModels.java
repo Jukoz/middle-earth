@@ -1,10 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.Item;
 
 public class SimpleArtefactModels {
 

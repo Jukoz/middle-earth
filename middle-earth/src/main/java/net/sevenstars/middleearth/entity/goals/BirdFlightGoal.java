@@ -1,23 +1,23 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class BirdFlightGoal extends Goal {
-    private final MobEntity mob;
+    private final Mob mob;
     private LivingEntity target;
 
-    public BirdFlightGoal(MobEntity mob) {
+    public BirdFlightGoal(Mob mob) {
         this.mob = mob;
     }
 
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         this.target = this.mob.getTarget();
 
-        if(!this.mob.isOnGround()){
+        if(!this.mob.onGround()){
             return false;
         } else if(this.target == null) {
             return true;
@@ -27,12 +27,12 @@ public class BirdFlightGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinue() {
-        return !this.mob.isOnGround();
+    public boolean canContinueToUse() {
+        return !this.mob.onGround();
     }
 
     @Override
     public void start() {
-        this.mob.setVelocity(this.mob.getVelocity().x * 4, 0.8D, this.mob.getVelocity().z * 4);
+        this.mob.setDeltaMovement(this.mob.getDeltaMovement().x * 4, 0.8D, this.mob.getDeltaMovement().z * 4);
     }
 }

@@ -1,12 +1,17 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
 
-public class SwanEntityModel extends EntityModel<SwanEntityRenderState> {
+public abstract class SwanEntityModel extends HierarchicalModel<SwanEntity> {
+    protected final ModelPart root;
 
     protected SwanEntityModel(ModelPart root) {
-        super(root);
+        this.root = root;
+    }
+
+    @Override
+    public ModelPart root() {
+        return this.root;
     }
 }

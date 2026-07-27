@@ -1,20 +1,19 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.ItemStack;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-
 import java.util.EnumSet;
 
-public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> extends Goal {
+public class CustomBowAttackGoal<T extends PathfinderMob & RangedAttackMob> extends Goal {
     private final T actor;
     private final double speed;
     private int attackInterval;
@@ -31,7 +30,7 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
             this.speed = speed;
             this.attackInterval = attackInterval;
             this.squaredRange = range * range;
-            this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     public void setAttackInterval(int attackInterval) {
@@ -39,7 +38,7 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (this.actor.getTarget() == null) {
             return false;
         }
@@ -47,32 +46,32 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
     }
 
     protected boolean isHoldingBow() {
-        ItemStack stack = actor.getStackInHand(Hand.MAIN_HAND);
+        ItemStack stack = actor.getItemInHand(InteractionHand.MAIN_HAND);
         return stack.getItem() instanceof BowItem;
     }
 
     @Override
-    public boolean shouldContinue() {
-        return (this.canStart() || !this.actor.getNavigation().isIdle()) && this.isHoldingBow();
+    public boolean canContinueToUse() {
+        return (this.canUse() || !this.actor.getNavigation().isDone()) && this.isHoldingBow();
     }
 
     @Override
     public void start() {
         super.start();
-        this.actor.setAttacking(true);
+        this.actor.setAggressive(true);
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.actor.setAttacking(false);
+        this.actor.setAggressive(false);
         this.targetSeeingTicker = 0;
         this.cooldown = -1;
-        this.actor.clearActiveItem();
+        this.actor.stopUsingItem();
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    public boolean requiresUpdateEveryTick() {
         return true;
     }
 
@@ -80,8 +79,8 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
     public void tick() {
         LivingEntity livingEntity = this.actor.getTarget();
         if (livingEntity != null) {
-            double d = this.actor.squaredDistanceTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
-            boolean bl = this.actor.getVisibilityCache().canSee(livingEntity);
+            double d = this.actor.distanceToSqr(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
+            boolean bl = this.actor.getSensing().hasLineOfSight(livingEntity);
             boolean bl2 = this.targetSeeingTicker > 0;
             if (bl != bl2) {
                 this.targetSeeingTicker = 0;
@@ -98,7 +97,7 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
 
                 ++this.combatTicks;
             } else {
-                this.actor.getNavigation().startMovingTo(livingEntity, this.speed);
+                this.actor.getNavigation().moveTo(livingEntity, this.speed);
                 this.combatTicks = -1;
             }
 
@@ -122,48 +121,48 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                 }
 
                 float input = 0.5F;
-                if (this.actor.hasVehicle() && this.actor.getVehicle() instanceof LivingEntity mount) {
-                    double speed = mount.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+                if (this.actor.isPassenger() && this.actor.getVehicle() instanceof LivingEntity mount) {
+                    double speed = mount.getAttributeValue(Attributes.MOVEMENT_SPEED);
                     input = (float)Math.max(0.15F, Math.min(0.3F, speed * input));
                 }
 
-                this.actor.getMoveControl().strafeTo(
+                this.actor.getMoveControl().strafe(
                         this.backward ? -input : input,
                         this.movingToLeft ? input : -input
                 );
 
-                Entity var7 = this.actor.getControllingVehicle();
-                if (var7 instanceof MobEntity mobEntity) {
-                    mobEntity.lookAtEntity(livingEntity, 30.0F, 30.0F);
+                Entity var7 = this.actor.getControlledVehicle();
+                if (var7 instanceof Mob mobEntity) {
+                    mobEntity.lookAt(livingEntity, 30.0F, 30.0F);
                 }
 
-                this.actor.lookAtEntity(livingEntity, 30.0F, 30.0F);
+                this.actor.lookAt(livingEntity, 30.0F, 30.0F);
             } else {
-                this.actor.getLookControl().lookAt(livingEntity, 30.0F, 30.0F);
+                this.actor.getLookControl().setLookAt(livingEntity, 30.0F, 30.0F);
             }
 
             if (this.actor.isUsingItem()) {
                 if (!bl && this.targetSeeingTicker < -60) {
-                    this.actor.clearActiveItem();
+                    this.actor.stopUsingItem();
                 } else if (bl) {
-                    int i = this.actor.getItemUseTime();
-                    ItemStack itemStack = this.actor.getMainHandStack();
+                    int i = this.actor.getTicksUsingItem();
+                    ItemStack itemStack = this.actor.getMainHandItem();
                     if (i >= 20 && !livingEntity.isInvulnerable()) {
                         if(itemStack.getItem() instanceof CustomLongbowWeaponItem) {
                             if(i >= 30) {
-                                this.actor.shootAt(livingEntity, 2.5f);
+                                this.actor.performRangedAttack(livingEntity, 2.5f);
                                 this.cooldown = this.attackInterval;
-                                this.actor.clearActiveItem();
+                                this.actor.stopUsingItem();
                             }
                         } else {
-                            this.actor.shootAt(livingEntity, 1.5f);
+                            this.actor.performRangedAttack(livingEntity, 1.5f);
                             this.cooldown = this.attackInterval;
-                            this.actor.clearActiveItem();
+                            this.actor.stopUsingItem();
                         }
                     }
                 }
             } else if (--this.cooldown <= 0 && this.targetSeeingTicker >= -60) {
-                this.actor.setCurrentHand(Hand.MAIN_HAND);
+                this.actor.startUsingItem(InteractionHand.MAIN_HAND);
             }
         }
     }

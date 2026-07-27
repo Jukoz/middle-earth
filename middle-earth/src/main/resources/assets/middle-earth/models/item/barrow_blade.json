@@ -1,0 +1,20 @@
+{
+    "parent":  "minecraft:item/handheld",
+    "textures":  {
+                     "layer0":  "middle-earth:item/barrow_blade"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "broken":  1
+                                        },
+                          "model":  "middle-earth:item/barrow_blade_broken"
+                      },
+                      {
+                          "predicate":  {
+                                            "middle-earth:sneak_attack":  1
+                                        },
+                          "model":  "middle-earth:item/barrow_blade_strike"
+                      }
+                  ]
+}

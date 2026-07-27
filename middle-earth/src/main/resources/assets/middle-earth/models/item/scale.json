@@ -1,0 +1,14 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/scale"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "middle-earth:hot_component":  1
+                                        },
+                          "model":  "middle-earth:item/scale_hot"
+                      }
+                  ]
+}

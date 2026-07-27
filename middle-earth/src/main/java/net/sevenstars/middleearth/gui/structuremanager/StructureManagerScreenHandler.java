@@ -1,46 +1,53 @@
 package net.sevenstars.middleearth.gui.structuremanager;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.neoforged.neoforge.network.PacketDistributor;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerRespawnEntities;
 import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerShowAllEntities;
 import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerUpdateBlockEntityRequest;
 
-public class StructureManagerScreenHandler extends ScreenHandler {
+public class StructureManagerScreenHandler extends AbstractContainerMenu {
 
-    private final World world;
+    private final Level world;
     private StructureManagerScreenData data;
     StructureManagerBlockEntity blockEntity;
 
     // Client side Constructor
-    public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory, StructureManagerScreenData structureManagerScreenData) {
+    public StructureManagerScreenHandler(int syncId, Inventory playerInventory, StructureManagerScreenData structureManagerScreenData) {
         super(ModScreenHandlers.STRUCTURE_MANAGER_SCREEN_HANDLER, syncId);
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.level();
         this.data = structureManagerScreenData;
         this.blockEntity = (StructureManagerBlockEntity) this.world.getBlockEntity(data.getPos());
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
+    public ItemStack quickMoveStack(Player player, int slot) {
         return null;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return true;
+    public boolean stillValid(Player player) {
+        BlockPos pos = data.getPos();
+        return blockEntity != null
+                && !blockEntity.isRemoved()
+                && world.hasChunkAt(pos)
+                && world.getBlockEntity(pos) == blockEntity
+                && player.distanceToSqr(Vec3.atCenterOf(pos)) <= 64.0D;
     }
 
-    public void selectIdentifier(PlayerEntity player, Identifier identifier) {
+    public void selectIdentifier(Player player, ResourceLocation identifier) {
         this.data.setStructureManagerIdentifier(identifier);
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(
+        PacketDistributor.sendToServer(new PacketStructureManagerUpdateBlockEntityRequest(
                 data.getPos(),
                 data.getStructureManagerIdentifier(),
                 data.getToInitialize(),
@@ -51,7 +58,7 @@ public class StructureManagerScreenHandler extends ScreenHandler {
         return this.data.getPos();
     }
 
-    public Identifier getDataIdentifier() {
+    public ResourceLocation getDataIdentifier() {
         return this.data.getStructureManagerIdentifier();
     }
 
@@ -68,7 +75,7 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     }
 
     private void updateServer() {
-        ClientPlayNetworking.send(new PacketStructureManagerUpdateBlockEntityRequest(this.data.getPos(), this.data.getStructureManagerIdentifier(), this.data.getToInitialize(), this.data.getIsActive()));
+        PacketDistributor.sendToServer(new PacketStructureManagerUpdateBlockEntityRequest(this.data.getPos(), this.data.getStructureManagerIdentifier(), this.data.getToInitialize(), this.data.getIsActive()));
     }
 
     public void toggleToActivate() {
@@ -76,11 +83,11 @@ public class StructureManagerScreenHandler extends ScreenHandler {
         updateServer();
     }
     public void triggerGlowOnAllEntities() {
-        ClientPlayNetworking.send(new PacketStructureManagerShowAllEntities(this.data.getPos()));
+        PacketDistributor.sendToServer(new PacketStructureManagerShowAllEntities(this.data.getPos()));
     }
 
     public void triggerRespawnAllEntities() {
-        ClientPlayNetworking.send(new PacketStructureManagerRespawnEntities(this.data.getPos()));
+        PacketDistributor.sendToServer(new PacketStructureManagerRespawnEntities(this.data.getPos()));
     }
 }
 

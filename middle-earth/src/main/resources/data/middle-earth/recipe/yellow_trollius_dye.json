@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:yellow_trollius"
+    {
+      "item": "middle-earth:yellow_trollius"
+    }
   ],
   "result": {
     "id": "minecraft:yellow_dye"

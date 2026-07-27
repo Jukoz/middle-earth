@@ -7,8 +7,8 @@
   ],
   "key": {
     "G": {
-      "fabric:type": "fabric:components",
-      "base": "middle-earth:rod",
+      "type": "neoforge:components",
+      "items": "middle-earth:rod",
       "components": {
         "minecraft:trim": {
           "material": "middle-earth:steel",
@@ -16,7 +16,9 @@
         }
       }
     },
-    "M": "middle-earth:mithril_ingot"
+    "M": {
+      "item": "middle-earth:mithril_ingot"
+    }
   },
   "result": {
     "id": "middle-earth:mithril_smithing_hammer",

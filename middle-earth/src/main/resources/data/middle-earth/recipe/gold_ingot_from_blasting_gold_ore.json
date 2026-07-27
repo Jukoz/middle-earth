@@ -1,6 +1,8 @@
 {
   "type": "minecraft:blasting",
-  "ingredient": "#minecraft:gold_ores",
+  "ingredient": {
+    "tag": "minecraft:gold_ores"
+  },
   "result": {
     "id": "minecraft:gold_ingot"
   },

@@ -1,23 +1,17 @@
 package net.sevenstars.middleearth.datageneration.providers;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.sevenstars.middleearth.datageneration.DataGeneration;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class DataWorldGenerator extends FabricDynamicRegistryProvider {
-    public DataWorldGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
-    }
-
-    @Override
-    protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(RegistryKeys.BIOME));
-        entries.addAll(registries.getOrThrow(RegistryKeys.CONFIGURED_FEATURE));
-        entries.addAll(registries.getOrThrow(RegistryKeys.PLACED_FEATURE));
+public class DataWorldGenerator extends DatapackBuiltinEntriesProvider {
+    public DataWorldGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture, DataGeneration.createRegistrySetBuilder(), Set.of(MiddleEarth.MOD_ID));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class IsengardFactionPool {
     public final static Faction ISENGARD;
-    private final static String FACTION_PATH = FactionRegistry.ISENGARD.getValue().getPath();
+    private final static String FACTION_PATH = FactionRegistry.ISENGARD.location().getPath();
 
     static {
         ISENGARD = new Faction(FactionRegistry.ISENGARD, true, DispositionType.EVIL, FactionType.FACTION, null,null,

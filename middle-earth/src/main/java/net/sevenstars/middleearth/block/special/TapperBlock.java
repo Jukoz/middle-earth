@@ -1,87 +1,97 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.item.FoodItemsME;
 
-public class TapperBlock extends HorizontalFacingBlock {
+public class TapperBlock extends HorizontalDirectionalBlock {
+    public static final MapCodec<TapperBlock> CODEC = simpleCodec(TapperBlock::new);
     public static final int FULL_TAP_LEVEL = 5;
-    public static final IntProperty TAP_LEVEL = IntProperty.of("tap_level", 0, FULL_TAP_LEVEL);
+    public static final IntegerProperty TAP_LEVEL = IntegerProperty.create("tap_level", 0, FULL_TAP_LEVEL);
     public static final int RANDOM_TICK_CHANCE = 7;
+    private static final Item RESIN_CLUMP = ModNatureBlocks.RESIN_CLUMP.asItem();
 
-    public TapperBlock(Settings settings) {
-        super(settings.ticksRandomly());
+    public TapperBlock(Properties settings) {
+        super(settings.randomTicks());
 
-        this.setDefaultState(((this.stateManager.getDefaultState())
-                .with(TAP_LEVEL, 0))
-                .with(FACING, Direction.NORTH));
+        this.registerDefaultState(((this.stateDefinition.any())
+                .setValue(TAP_LEVEL, 0))
+                .setValue(FACING, Direction.NORTH));
     }
 
-    protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return state.get(TAP_LEVEL);
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
-        return null;
+    protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+        return state.getValue(TAP_LEVEL);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
-    }
-
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockState behindBlock = world.getBlockState(pos.offset(state.get(FACING).getOpposite()));
-        return behindBlock.isIn(BlockTags.LOGS);
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(FACING)) {
-            case SOUTH -> Block.createCuboidShape(4.0, 0.0, 0.0, 12.0, 10.0, 8.0);
-            default -> Block.createCuboidShape(4.0, 0.0, 8.0, 12.0, 10.0, 16.0);
-            case WEST -> Block.createCuboidShape(8.0, 0.0, 4.0, 16.0, 10.0, 12.0);
-            case EAST -> Block.createCuboidShape(0.0, 0.0, 4.0, 8.0, 10.0, 12.0);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+    }
+
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockState behindBlock = world.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
+        return behindBlock.is(BlockTags.LOGS);
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return switch (state.getValue(FACING)) {
+            case SOUTH -> Block.box(4.0, 0.0, 0.0, 12.0, 10.0, 8.0);
+            default -> Block.box(4.0, 0.0, 8.0, 12.0, 10.0, 16.0);
+            case WEST -> Block.box(8.0, 0.0, 4.0, 16.0, 10.0, 12.0);
+            case EAST -> Block.box(0.0, 0.0, 4.0, 8.0, 10.0, 12.0);
         };
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        int i = state.get(TAP_LEVEL);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        int i = state.getValue(TAP_LEVEL);
         boolean bl = false;
         if (i >= FULL_TAP_LEVEL) {
             Item item = stack.getItem();
 
-            BlockState behindBlock = world.getBlockState(pos.offset(state.get(FACING).getOpposite()));
+            BlockState behindBlock = world.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
 
-            Item result = Items.RESIN_CLUMP;
+            Item result = RESIN_CLUMP;
             if(behindBlock.getBlock() == WoodBlockSets.MAPLE_SET.logBlocks.log() || behindBlock.getBlock() == WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log()) {
                 result = FoodItemsME.MAPLE_SYRUP;
             } else if (behindBlock.getBlock() == Blocks.BIRCH_LOG) {
@@ -89,72 +99,72 @@ public class TapperBlock extends HorizontalFacingBlock {
             }
 
             ItemStack stackResult = new ItemStack(result);
-            if(result.equals(Items.RESIN_CLUMP)) {
-                if (!player.getInventory().insertStack(stackResult)) {
-                    player.dropItem(stackResult, false);
+            if(result.equals(RESIN_CLUMP)) {
+                if (!player.getInventory().add(stackResult)) {
+                    player.drop(stackResult, false);
                 }
-                world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
+                world.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
                 emptyBucket(state, world, pos);
             }
-            else if (stack.isOf(Items.GLASS_BOTTLE)) {
-                if(result != Items.RESIN_CLUMP) stack.decrement(1);
-                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 1.1F);
+            else if (stack.is(Items.GLASS_BOTTLE)) {
+                if(result != RESIN_CLUMP) stack.shrink(1);
+                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.1F);
 
                 if (stack.isEmpty()) {
-                    player.setStackInHand(hand, stackResult);
-                } else if (!player.getInventory().insertStack(stackResult)) {
-                    player.dropItem(stackResult, false);
+                    player.setItemInHand(hand, stackResult);
+                } else if (!player.getInventory().add(stackResult)) {
+                    player.drop(stackResult, false);
                 }
 
                 bl = true;
-                world.emitGameEvent(player, GameEvent.FLUID_PICKUP, pos);
+                world.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
                 emptyBucket(state, world, pos);
             }
 
-            if (!world.isClient() && bl) {
-                player.incrementStat(Stats.USED.getOrCreateStat(item));
+            if (!world.isClientSide() && bl) {
+                player.awardStat(Stats.ITEM_USED.get(item));
             }
         }
 
         if (bl) {
-            return ActionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         } else {
-            return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+            return super.useItemOn(stack, state, world, pos, player, hand, hit);
         }
     }
 
-    private void emptyBucket(BlockState state, World world, BlockPos pos) {
-        if(world instanceof ServerWorld serverWorld) {
-            serverWorld.setBlockState(pos, state.with(TAP_LEVEL, 0), 2);
+    private void emptyBucket(BlockState state, Level world, BlockPos pos) {
+        if(world instanceof ServerLevel serverWorld) {
+            serverWorld.setBlock(pos, state.setValue(TAP_LEVEL, 0), 2);
         }
     }
 
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         int rand = world.random.nextInt(RANDOM_TICK_CHANCE);
         if (rand == 0) {
-            int i = state.get(TAP_LEVEL);
+            int i = state.getValue(TAP_LEVEL);
             if (i < FULL_TAP_LEVEL) {
-                world.setBlockState(pos, state.with(TAP_LEVEL, i + 1), 2);
+                world.setBlock(pos, state.setValue(TAP_LEVEL, i + 1), 2);
             }
         }
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(TAP_LEVEL, FACING);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 }

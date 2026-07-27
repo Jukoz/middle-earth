@@ -3,5 +3,7 @@
   "description": {
     "color": "#EAF2F2",
     "translate": "trim_material.middle-earth.silver"
-  }
+  },
+  "ingredient": "middle-earth:silver_ingot",
+  "item_model_index": 0.004
 }

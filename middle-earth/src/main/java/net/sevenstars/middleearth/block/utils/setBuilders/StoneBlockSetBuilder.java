@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.block.utils.setBuilders;
 
-import net.minecraft.block.MapColor;
-import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
 
@@ -55,12 +55,12 @@ public class StoneBlockSetBuilder {
     public float blastResistance;
     public MapColor mapColor;
     public NoteBlockInstrument instrument;
-    public BlockSoundGroup soundGroup;
+    public SoundType soundGroup;
     public boolean hasMossy;
     public boolean hasCracked;
 
     public StoneBlockSetBuilder(String name, float hardness, float blastResistance,
-                                MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean hasMossy, boolean hasCracked){
+                                MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, boolean hasMossy, boolean hasCracked){
         this.setName = name;
         this.hardness = hardness;
         this.blastResistance = blastResistance;

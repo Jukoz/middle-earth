@@ -9,7 +9,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "middle-earth:gui/advancements/backgrounds/white_daub",
+    "background": "middle-earth:textures/gui/advancements/backgrounds/white_daub.png",
     "description": {
       "translate": "advancements.middle_earth.root.description"
     },
@@ -17,14 +17,14 @@
     "hidden": false,
     "icon": {
       "count": 1,
-      "id":  "middle-earth:starlight_phial"
+      "id": "middle-earth:starlight_phial"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.middle_earth.root.title"
     }
   },
-    "requirements": [
+  "requirements": [
     [
       "entered_middle_earth"
     ]

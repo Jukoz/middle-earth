@@ -1,100 +1,116 @@
 package net.sevenstars.middleearth.block.special.plants;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Fertilizable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.ParticleUtil;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import org.jetbrains.annotations.Nullable;
 
-public class MistweedPlantBlock extends CustomPlantBlock implements Fertilizable {
-    public static final MapCodec<CustomPlantBlock> CODEC = createCodec(MistweedPlantBlock::new);
-    public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+import java.util.Optional;
 
-    public MistweedPlantBlock(Settings settings) {
+public class MistweedPlantBlock extends CustomPlantBlock implements BonemealableBlock {
+    public static final MapCodec<CustomPlantBlock> CODEC = simpleCodec(MistweedPlantBlock::new);
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+
+    public MistweedPlantBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(ACTIVE, true));
+        this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, true));
     }
 
     @Override
-    protected MapCodec<CustomPlantBlock> getCodec() {
+    protected MapCodec<CustomPlantBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ACTIVE);
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (state.get(ACTIVE) && random.nextDouble() <= 0.45) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+        if (state.getValue(ACTIVE) && random.nextDouble() <= 0.45) {
             double d = (double)pos.getX() + random.nextDouble() * 16.0 - 8.0;
             double e = (double)pos.getY() + random.nextDouble() * 5.0;
             double f = (double)pos.getZ() + random.nextDouble() * 16.0 - 8.0;
-            world.addImportantParticleClient(ModParticleTypes.BIOME_FOG_PARTICLE, true, d, e, f, 0.0, 0.0, 0.0);
+            world.addAlwaysVisibleParticle(ModParticleTypes.BIOME_FOG_PARTICLE, true, d, e, f, 0.0, 0.0, 0.0);
         }
-        super.randomDisplayTick(state, world, pos, random);
+        super.animateTick(state, world, pos, random);
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            ItemStack itemStack = player.getStackInHand(hand);
-            if (!state.get(ACTIVE) && itemStack.isIn(ItemTags.AXES)) {
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        InteractionHand hand = player.getUsedItemHand();
+        if (!world.isClientSide && player.getAbilities().mayBuild) {
+            ItemStack itemStack = player.getItemInHand(hand);
+            if (!state.getValue(ACTIVE) && itemStack.is(ItemTags.AXES)) {
                 activateState(null, state, world, pos);
-            } else if (state.get(ACTIVE) && itemStack.isOf(Items.HONEYCOMB)) {
+            } else if (state.getValue(ACTIVE) && itemStack.is(Items.HONEYCOMB)) {
                 deactivateState(null, state, world, pos);
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    protected static void activateState(@Nullable PlayerEntity player, BlockState state, World world, BlockPos pos) {
-        world.setBlockState(pos, state.with(ACTIVE, true), 11);
-        world.playSound(null, pos, SoundEvents.ITEM_AXE_WAX_OFF, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-        ParticleUtil.spawnParticlesAround(world, pos, 3, 3.0, 1.0, true, ParticleTypes.WAX_OFF);
+    protected static void activateState(@Nullable Player player, BlockState state, Level world, BlockPos pos) {
+        world.setBlock(pos, state.setValue(ACTIVE, true), 11);
+        world.playSound(null, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+        world.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+        ParticleUtils.spawnParticles(world, pos, 3, 3.0, 1.0, true, ParticleTypes.WAX_OFF);
     }
 
-    protected static void deactivateState(@Nullable PlayerEntity player, BlockState state, World world, BlockPos pos) {
-        world.setBlockState(pos, state.with(ACTIVE, false), 11);
-        world.playSound(null, pos, SoundEvents.ITEM_HONEYCOMB_WAX_ON, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-        ParticleUtil.spawnParticlesAround(world, pos, 3, 3.0, 1.0, true, ParticleTypes.WAX_ON);
+    protected static void deactivateState(@Nullable Player player, BlockState state, Level world, BlockPos pos) {
+        world.setBlock(pos, state.setValue(ACTIVE, false), 11);
+        world.playSound(null, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
+        world.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+        ParticleUtils.spawnParticles(world, pos, 3, 3.0, 1.0, true, ParticleTypes.WAX_ON);
     }
 
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return Fertilizable.canSpread(world, pos, state);
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+        return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> {
+            BlockPos targetPos = pos.relative(direction);
+            return world.isEmptyBlock(targetPos) && state.canSurvive(world, targetPos);
+        });
     }
 
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        Fertilizable.findPosToSpreadTo(world, pos, state).ifPresent((blockPos) -> {
-            world.setBlockState(blockPos, this.getDefaultState());
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+        findSpreadableNeighbourPos(world, pos, state).ifPresent((blockPos) -> {
+            world.setBlockAndUpdate(blockPos, this.defaultBlockState());
         });
+    }
+
+    private static Optional<BlockPos> findSpreadableNeighbourPos(ServerLevel world, BlockPos pos, BlockState state) {
+        for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(world.random)) {
+            BlockPos targetPos = pos.relative(direction);
+            if (world.isEmptyBlock(targetPos) && state.canSurvive(world, targetPos)) {
+                return Optional.of(targetPos);
+            }
+        }
+        return Optional.empty();
     }
 }

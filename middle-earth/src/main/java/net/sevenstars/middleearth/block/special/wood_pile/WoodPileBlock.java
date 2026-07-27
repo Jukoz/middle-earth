@@ -1,96 +1,108 @@
 package net.sevenstars.middleearth.block.special.wood_pile;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.FurnaceBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvider {
-    public static final IntProperty STAGE = IntProperty.of("stage", 0, 3);
-    public static final EnumProperty<Direction> HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
+public class WoodPileBlock  extends BaseEntityBlock implements EntityBlock {
+    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 3);
+    public static final EnumProperty<Direction> HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape STAGE_0, STAGE_1, STAGE_2, STAGE_3;
-    public static final MapCodec<WoodPileBlock> CODEC = FurnaceBlock.createCodec(WoodPileBlock::new);
+    public static final MapCodec<WoodPileBlock> CODEC = FurnaceBlock.simpleCodec(WoodPileBlock::new);
 
-    public WoodPileBlock(Settings settings) {
+    public WoodPileBlock(Properties settings) {
         super(settings);
-        this.setDefaultState((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH).with(STAGE, 0));
+        this.registerDefaultState((this.stateDefinition.any()).setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(STAGE, 0));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    protected VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
-        return VoxelShapes.empty();
+    protected VoxelShape getBlockSupportShape(BlockState state, BlockGetter world, BlockPos pos) {
+        return Shapes.empty();
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HORIZONTAL_FACING, STAGE);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(STAGE, 0);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(HORIZONTAL_FACING, ctx.getHorizontalDirection().getOpposite()).setValue(STAGE, 0);
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, world, pos);
+    protected void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+        Containers.dropContentsOnDestroy(state, newState, world, pos);
+        super.onRemove(state, world, pos, newState, moved);
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (world.isClientSide) {
+            return InteractionResult.SUCCESS;
         }  else {
-            if (player.isInCreativeMode() && player.isSneaking()) {
-                world.setBlockState(pos, state.cycle(STAGE));
+            if (player.hasInfiniteMaterials() && player.isShiftKeyDown()) {
+                world.setBlockAndUpdate(pos, state.cycle(STAGE));
             } else {
-                if (addStackRightClick(world, pos, player, player.getActiveHand())) {
-                    NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                if (addStackRightClick(world, pos, player, player.getUsedItemHand())) {
+                    MenuProvider screenHandlerFactory = state.getMenuProvider(world, pos);
                     if (screenHandlerFactory != null) {
-                        player.openHandledScreen(screenHandlerFactory);
+                        player.openMenu(screenHandlerFactory);
                     }
                 }
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    public boolean addStackRightClick(World world, BlockPos pos, PlayerEntity player, Hand hand){
-        Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
+    public boolean addStackRightClick(Level world, BlockPos pos, Player player, InteractionHand hand){
+        Container blockEntity = (Container) world.getBlockEntity(pos);
 
-        if (!player.getStackInHand(hand).isEmpty() && player.getStackInHand(hand).isIn(ItemTags.LOGS)) {
+        if (!player.getItemInHand(hand).isEmpty() && player.getItemInHand(hand).is(ItemTags.LOGS)) {
             for(int i = 0;i <= 8; i++){
-                if (blockEntity.getStack(i).isEmpty()) {
-                    blockEntity.setStack(i, player.getStackInHand(hand).copy());
-                    player.getStackInHand(hand).setCount(0);
+                if (blockEntity.getItem(i).isEmpty()) {
+                    blockEntity.setItem(i, player.getItemInHand(hand).copy());
+                    player.getItemInHand(hand).setCount(0);
                 }
             }
         } else {
@@ -101,21 +113,21 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new WoodPileBlockEntity(pos,state);
     }
 
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(HORIZONTAL_FACING, rotation.rotate(state.get(HORIZONTAL_FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(HORIZONTAL_FACING, rotation.rotate(state.getValue(HORIZONTAL_FACING)));
     }
 
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(HORIZONTAL_FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(HORIZONTAL_FACING)));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(STAGE)) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return switch (state.getValue(STAGE)) {
             case 3 -> STAGE_3;
             case 2 -> STAGE_2;
             case 1 -> STAGE_1;
@@ -124,15 +136,15 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
     }
 
     static {
-        STAGE_0 = VoxelShapes.union(
-                Block.createCuboidShape(0, 0, 0, 16, 4, 16));
+        STAGE_0 = Shapes.or(
+                Block.box(0, 0, 0, 16, 4, 16));
 
-        STAGE_1 = VoxelShapes.union(
-                Block.createCuboidShape(0, 0, 0, 16, 7, 16));
+        STAGE_1 = Shapes.or(
+                Block.box(0, 0, 0, 16, 7, 16));
 
-        STAGE_2 = VoxelShapes.union(
-                Block.createCuboidShape(0, 0, 0, 16, 9, 16));
+        STAGE_2 = Shapes.or(
+                Block.box(0, 0, 0, 16, 9, 16));
 
-        STAGE_3 = Block.createCuboidShape(0, 0, 0, 16, 16, 16);
+        STAGE_3 = Block.box(0, 0, 0, 16, 16, 16);
     }
 }

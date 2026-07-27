@@ -1,6 +1,8 @@
 {
   "type": "minecraft:blasting",
-  "ingredient": "#minecraft:copper_ores",
+  "ingredient": {
+    "tag": "minecraft:copper_ores"
+  },
   "result": {
     "id": "minecraft:copper_ingot"
   },

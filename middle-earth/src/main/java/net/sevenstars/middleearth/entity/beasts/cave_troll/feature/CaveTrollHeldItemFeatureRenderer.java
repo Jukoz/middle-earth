@@ -1,31 +1,42 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll.feature;
 
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.item.ItemRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Arm;
-import net.minecraft.util.math.RotationAxis;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 
-public class CaveTrollHeldItemFeatureRenderer extends FeatureRenderer<CaveTrollEntityRenderState, CaveTrollEntityModel> {
-    public CaveTrollHeldItemFeatureRenderer(FeatureRendererContext context) {
+public class CaveTrollHeldItemFeatureRenderer extends RenderLayer<CaveTrollEntity, CaveTrollEntityModel> {
+    private final ItemRenderer itemRenderer;
+
+    public CaveTrollHeldItemFeatureRenderer(
+            RenderLayerParent<CaveTrollEntity, CaveTrollEntityModel> context, ItemRenderer itemRenderer) {
         super(context);
+        this.itemRenderer = itemRenderer;
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CaveTrollEntityRenderState state, float limbAngle, float limbDistance) {
-        this.getContextModel().setArmAngle(matrices);
-        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-90.0F));
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
+    public void render(PoseStack matrices, MultiBufferSource vertexConsumers, int light, CaveTrollEntity entity,
+                       float limbAngle, float limbDistance, float tickDelta, float animationProgress,
+                       float headYaw, float headPitch) {
+        if (entity.getMainHandItem().isEmpty()) {
+            return;
+        }
+        matrices.pushPose();
+        this.getParentModel().setArmAngle(matrices);
+        matrices.mulPose(Axis.XP.rotationDegrees(-90.0F));
+        matrices.mulPose(Axis.YP.rotationDegrees(180.0F));
         matrices.translate(0.3f, 0, -2.6);
         matrices.scale(1.5f,1.5f,1.5f);
 
-        state.handItemState.render(matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV);
+        this.itemRenderer.renderStatic(entity.getMainHandItem(), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
+                light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, entity.level(), entity.getId());
+        matrices.popPose();
     }
 
 }

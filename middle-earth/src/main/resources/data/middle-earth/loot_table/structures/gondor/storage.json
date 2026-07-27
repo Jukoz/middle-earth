@@ -5,7 +5,7 @@
       "entries": [
 	    {
           "type": "minecraft:item",
-          "name": "minecraft:light_gray_bundle"
+          "name": "middle-earth:light_gray_bundle"
         },
         {
           "type": "minecraft:item",

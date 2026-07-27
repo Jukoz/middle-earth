@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.world.biomes.surface;
 
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-
 import java.util.ArrayList;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 
 public class SubBiome {
     public ArrayList<SubBiomeData> subBiomesData;
@@ -23,11 +22,11 @@ public class SubBiome {
         this.frequency = frequency;
     }
 
-    public SubBiome addSubBiomeData(float noiseMin, float noiseMax, RegistryKey<Biome> biome) {
+    public SubBiome addSubBiomeData(float noiseMin, float noiseMax, ResourceKey<Biome> biome) {
         return this.addSubBiomeData(noiseMin, noiseMax, biome, false);
     }
 
-    public SubBiome addSubBiomeData(float noiseMin, float noiseMax, RegistryKey<Biome> biome, boolean additionalHeight) {
+    public SubBiome addSubBiomeData(float noiseMin, float noiseMax, ResourceKey<Biome> biome, boolean additionalHeight) {
         SubBiomeData newSubBiomeData = new SubBiomeData(noiseMin, noiseMax, biome, additionalHeight);
         if(!subBiomesData.isEmpty()) {
             for(SubBiomeData subBiomeData : subBiomesData) {
@@ -49,7 +48,7 @@ public class SubBiome {
         return null;
     }
 
-    public boolean containsSubBiome(RegistryKey<Biome> biomeRegistryKey) {
+    public boolean containsSubBiome(ResourceKey<Biome> biomeRegistryKey) {
         for(SubBiomeData subBiomeData : subBiomesData) {
             if(biomeRegistryKey == subBiomeData.biome) return true;
         }
@@ -89,10 +88,10 @@ public class SubBiome {
     public class SubBiomeData {
         public float noiseMin;
         public float noiseMax;
-        public RegistryKey<Biome> biome;
+        public ResourceKey<Biome> biome;
         public boolean additionalHeight;
 
-        public SubBiomeData(float noiseMin, float noiseMax, RegistryKey<Biome> biome, boolean additionalHeight) {
+        public SubBiomeData(float noiseMin, float noiseMax, ResourceKey<Biome> biome, boolean additionalHeight) {
             this.noiseMin = noiseMin;
             this.noiseMax = noiseMax;
             this.biome = biome;

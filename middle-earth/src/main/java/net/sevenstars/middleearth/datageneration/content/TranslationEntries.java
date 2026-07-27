@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.datageneration.content;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.content.races.RacePools;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -20,7 +20,7 @@ public class TranslationEntries {
     public static List<Item> itemEntries = new ArrayList<>() {
     };
 
-    public static List<Identifier> spawnEggEntries = new ArrayList<>() {
+    public static List<ResourceLocation> spawnEggEntries = new ArrayList<>() {
     };
 
     public static List<EntityType<?>> entityEntries = new ArrayList<>() {
@@ -319,6 +319,7 @@ public class TranslationEntries {
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_refill", "Pipe refills");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_exhale", "Pipe exhales");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_ignite", "Pipe ignites");
+            put("sounds."+ MiddleEarth.MOD_ID +".pipe_cough", "Pipe coughs");
             put("sounds."+ MiddleEarth.MOD_ID +".orc_drum", "Orc drums");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_idle", "Great Horn grunts");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_hurt", "Great Horn hurts");
@@ -478,8 +479,8 @@ public class TranslationEntries {
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
 
-            put(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip"), "Attributes : ");
-            put(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip"), "Nothing changes!");
+            put(MiddleEarth.of("attribute_header").toLanguageKey("race_tooltip"), "Attributes : ");
+            put(MiddleEarth.of("no_attribute_change").toLanguageKey("race_tooltip"), "Nothing changes!");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");

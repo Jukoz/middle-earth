@@ -1,22 +1,26 @@
 package net.sevenstars.middleearth.statusEffects;
 
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.sevenstars.api.registries.RegistrationBridge;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
 
 public class ModStatusEffects {
-    public static final RegistryEntry<StatusEffect> ENSHROUDED = register("enshrouded", new EnshroudedStatusEffect(StatusEffectCategory.HARMFUL, 0x35F253));
-    public static final RegistryEntry<StatusEffect> RESTRAINED = register("restrained", new RestrainedStatusEffect(StatusEffectCategory.HARMFUL, 0xC3D3D9)
-            .addAttributeModifier(EntityAttributes.ATTACK_DAMAGE, Identifier.ofVanilla("effect.weakness"), -5.0, EntityAttributeModifier.Operation.ADD_VALUE));
+    public static final Holder<MobEffect> ENSHROUDED = register("enshrouded", new EnshroudedStatusEffect(MobEffectCategory.HARMFUL, 0x35F253));
+    public static final Holder<MobEffect> RESTRAINED = register("restrained", new RestrainedStatusEffect(MobEffectCategory.HARMFUL, 0xC3D3D9)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, ResourceLocation.withDefaultNamespace("effect.weakness"), -5.0, AttributeModifier.Operation.ADD_VALUE));
 
-    private static RegistryEntry<StatusEffect> register(String id, StatusEffect statusEffect) {
-        return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(MiddleEarth.MOD_ID, id), statusEffect);
+    private static Holder<MobEffect> register(String id, MobEffect statusEffect) {
+        return RegistrationBridge.registerForHolder(
+                BuiltInRegistries.MOB_EFFECT,
+                ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, id),
+                statusEffect
+        );
     }
 
     public static void registerStatusEffects() {

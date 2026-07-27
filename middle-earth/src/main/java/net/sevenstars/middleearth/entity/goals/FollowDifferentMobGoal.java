@@ -1,35 +1,33 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.control.LookControl;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.pathing.BirdNavigation;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.ai.pathing.MobNavigation;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.level.pathfinder.PathType;
 
-public class FollowDifferentMobGoal<T extends MobEntity> extends Goal {
-    private final MobEntity mob;
-    private final Predicate<MobEntity> targetPredicate;
+public class FollowDifferentMobGoal<T extends Mob> extends Goal {
+    private final Mob mob;
+    private final Predicate<Mob> targetPredicate;
     @Nullable
-    private MobEntity target;
+    private Mob target;
     private final double speed;
-    private final EntityNavigation navigation;
+    private final PathNavigation navigation;
     private int updateCountdownTicks;
     private final float minDistance;
     private float oldWaterPathFindingPenalty;
     private final float maxDistance;
     private final Class<T> followedClass;
 
-    public FollowDifferentMobGoal(MobEntity follower, Class<T> followed, double speed, float minDistance, float maxDistance) {
+    public FollowDifferentMobGoal(Mob follower, Class<T> followed, double speed, float minDistance, float maxDistance) {
         this.mob = follower;
         this.followedClass = followed;
         this.targetPredicate = target -> target != null && followed != target.getClass();
@@ -37,17 +35,17 @@ public class FollowDifferentMobGoal<T extends MobEntity> extends Goal {
         this.navigation = follower.getNavigation();
         this.minDistance = minDistance;
         this.maxDistance = maxDistance;
-        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
-        if (!(follower.getNavigation() instanceof MobNavigation) && !(follower.getNavigation() instanceof BirdNavigation)) {
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        if (!(follower.getNavigation() instanceof GroundPathNavigation) && !(follower.getNavigation() instanceof FlyingPathNavigation)) {
             throw new IllegalArgumentException("Unsupported follower type for FollowMobGoal");
         }
     }
 
     @Override
-    public boolean canStart() {
-        List<T> list = this.mob.getWorld().getEntitiesByClass(this.followedClass, this.mob.getBoundingBox().expand(this.maxDistance), EntityPredicates.VALID_ENTITY);
+    public boolean canUse() {
+        List<T> list = this.mob.level().getEntitiesOfClass(this.followedClass, this.mob.getBoundingBox().inflate(this.maxDistance), EntitySelector.ENTITY_STILL_ALIVE);
         if (!list.isEmpty()) {
-            for (MobEntity mobEntity : list) {
+            for (Mob mobEntity : list) {
                 if (!mobEntity.isInvisible()) {
                     this.target = mobEntity;
                     return true;
@@ -59,44 +57,44 @@ public class FollowDifferentMobGoal<T extends MobEntity> extends Goal {
     }
 
     @Override
-    public boolean shouldContinue() {
-        return this.target != null && !this.navigation.isIdle() && this.mob.squaredDistanceTo(this.target) > (this.minDistance/2) * (this.minDistance/2);
+    public boolean canContinueToUse() {
+        return this.target != null && !this.navigation.isDone() && this.mob.distanceToSqr(this.target) > (this.minDistance/2) * (this.minDistance/2);
     }
 
     @Override
     public void start() {
         this.updateCountdownTicks = 0;
-        this.oldWaterPathFindingPenalty = this.mob.getPathfindingPenalty(PathNodeType.WATER);
-        this.mob.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+        this.oldWaterPathFindingPenalty = this.mob.getPathfindingMalus(PathType.WATER);
+        this.mob.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
     @Override
     public void stop() {
         this.target = null;
         this.navigation.stop();
-        this.mob.setPathfindingPenalty(PathNodeType.WATER, this.oldWaterPathFindingPenalty);
+        this.mob.setPathfindingMalus(PathType.WATER, this.oldWaterPathFindingPenalty);
     }
 
     @Override
     public void tick() {
         if (this.target != null && !this.mob.isLeashed()) {
-            this.mob.getLookControl().lookAt(this.target, 10.0F, this.mob.getMaxLookPitchChange());
+            this.mob.getLookControl().setLookAt(this.target, 10.0F, this.mob.getMaxHeadXRot());
             if (--this.updateCountdownTicks <= 0) {
-                this.updateCountdownTicks = this.getTickCount(10);
+                this.updateCountdownTicks = this.adjustedTickDelay(10);
                 double d = this.mob.getX() - this.target.getX();
                 double e = this.mob.getY() - this.target.getY();
                 double f = this.mob.getZ() - this.target.getZ();
                 double g = d * d + e * e + f * f;
                 if (!(g <= this.minDistance * this.minDistance)) {
-                    this.navigation.startMovingTo(this.target, this.speed);
+                    this.navigation.moveTo(this.target, this.speed);
                 } else {
                     this.navigation.stop();
                     LookControl lookControl = this.target.getLookControl();
                     if (g <= this.minDistance
-                            || lookControl.getLookX() == this.mob.getX() && lookControl.getLookY() == this.mob.getY() && lookControl.getLookZ() == this.mob.getZ()) {
+                            || lookControl.getWantedX() == this.mob.getX() && lookControl.getWantedY() == this.mob.getY() && lookControl.getWantedZ() == this.mob.getZ()) {
                         double h = this.target.getX() - this.mob.getX();
                         double i = this.target.getZ() - this.mob.getZ();
-                        this.navigation.startMovingTo(this.mob.getX() - h, this.mob.getY(), this.mob.getZ() - i, this.speed);
+                        this.navigation.moveTo(this.mob.getX() - h, this.mob.getY(), this.mob.getZ() - i, this.speed);
                     }
                 }
             }

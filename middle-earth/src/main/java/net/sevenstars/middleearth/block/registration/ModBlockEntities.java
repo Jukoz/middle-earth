@@ -1,9 +1,12 @@
 package net.sevenstars.middleearth.block.registration;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.api.registries.RegistrationBridge;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
 import net.sevenstars.middleearth.block.special.coffers.*;
@@ -17,10 +20,6 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnv
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 public class ModBlockEntities {
@@ -83,34 +82,19 @@ public class ModBlockEntities {
             ModDecorativeBlocks.STRAW_BED);
 
     public static void registerBlockEntities() {
-        BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.SMALL_CRATE);
-        BlockEntityType.BARREL.addSupportedBlock(ModDecorativeBlocks.THIN_BARREL);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.AMPHORA);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_AMPHORA);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_JUG);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_POT);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.LARGE_JUG);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_VASE);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_JAR);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.CLAY_JAR);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_JAR);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.BROWN_FAT_POT);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.FAT_POT);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.GRAY_FAT_POT);
-        BlockEntityType.DECORATED_POT.addSupportedBlock(ModDecorativeBlocks.POT_OF_GOLD);
-
-        BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.BRIGAND_TRIAL_SPAWNER);
-        BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.SPIDER_TRIAL_SPAWNER);
-        BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.BRIGAND_VAULT);
-        BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.SPIDER_VAULT);
+        // Class initialization queues the static block entity types through the registration bridge.
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name,
-                                                                       FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
+                                                                       BlockEntityType.BlockEntitySupplier<T> entityFactory,
                                                                        Block... blocks) {
-        Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK_ENTITY_TYPE, name));
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, name);
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(BuiltInRegistries.BLOCK_ENTITY_TYPE, name));
 
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
+        return RegistrationBridge.register(
+                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                id,
+                BlockEntityType.Builder.of(entityFactory, blocks).build(null)
+        );
     }
 }

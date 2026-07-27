@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-
 import java.util.EnumSet;
 
 public class BeastSitGoal extends Goal {
@@ -11,27 +10,27 @@ public class BeastSitGoal extends Goal {
 
     public BeastSitGoal(AbstractBeastEntity mob) {
         this.mob = mob;
-        this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
+        this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return this.mob.isSitting();
     }
 
     @Override
-    public boolean canStart() {
-        if (!this.mob.isTame()) {
+    public boolean canUse() {
+        if (!this.mob.isTamed()) {
             return false;
         }
-        if (!this.mob.isOnGround()) {
+        if (!this.mob.onGround()) {
             return false;
         }
         LivingEntity livingEntity = this.mob.getOwner();
         if (livingEntity == null) {
             return true;
         }
-        if (this.mob.squaredDistanceTo(livingEntity) < 144.0 && livingEntity.getAttacker() != null) {
+        if (this.mob.distanceToSqr(livingEntity) < 144.0 && livingEntity.getLastHurtByMob() != null) {
             return false;
         }
         return this.mob.isSitting();

@@ -1,35 +1,34 @@
 package net.sevenstars.middleearth.statusEffects;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 
-import java.util.Map;
-
-public class EnshroudedStatusEffect extends StatusEffect {
-    public EnshroudedStatusEffect(StatusEffectCategory statusEffectCategory, int i) {
+public class EnshroudedStatusEffect extends MobEffect {
+    public EnshroudedStatusEffect(MobEffectCategory statusEffectCategory, int i) {
         super(statusEffectCategory, i);
     }
 
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 
     @Override
-    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        if(entity instanceof PlayerEntity){
-            Map<RegistryEntry<StatusEffect>, StatusEffectInstance> map = entity.getActiveStatusEffects();
-            int ticksLeft = map.get(ModStatusEffects.ENSHROUDED).getDuration();
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+        if(entity instanceof Player && entity instanceof IEntityDataSaver dataSaver){
+            MobEffectInstance effect = entity.getEffect(ModStatusEffects.ENSHROUDED);
+            if (effect == null) {
+                return true;
+            }
+            int ticksLeft = effect.getDuration();
             if(ticksLeft != -1 && ticksLeft < EnshroudedData.STOPPING_TICK)
-                EnshroudedData.addEffect((IEntityDataSaver) entity, -2);
+                EnshroudedData.addEffect(dataSaver, -2);
             else{
-                EnshroudedData.addEffect((IEntityDataSaver) entity, 2);
+                EnshroudedData.addEffect(dataSaver, 2);
             }
         }
 
@@ -37,7 +36,9 @@ public class EnshroudedStatusEffect extends StatusEffect {
     }
 
     public void stop(LivingEntity entity){
-        EnshroudedData.stopEffect((IEntityDataSaver) entity);
+        if (entity instanceof IEntityDataSaver dataSaver) {
+            EnshroudedData.stopEffect(dataSaver);
+        }
     }
 
 

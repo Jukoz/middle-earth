@@ -3,7 +3,13 @@ package net.sevenstars.middleearth.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.component.type.DyedColorComponent;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.commands.suggestions.AllBackAttachmentsSuggestionProvider;
@@ -19,17 +25,10 @@ import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmen
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsStatesME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.utils.ModColors;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-
 import java.util.Objects;
 
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class CommandCustomEquipment {
     private static final String EQUIPMENT = "equipment";
@@ -38,10 +37,10 @@ public class CommandCustomEquipment {
     private static final String BACK_ATTACHMENT_VALUE = "back_attachment_value";
     private static final String HELMENT_ATTACHMENT_VALUE = "helmet_attachment_value";
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess, Commands.CommandSelection registrationEnvironment) {
 
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermission(2))
                 .then(literal(EQUIPMENT)
                     .then(literal(BACK_ATTACHMENT)
                         .then(argument(BACK_ATTACHMENT_VALUE, StringArgumentType.string())
@@ -49,7 +48,7 @@ public class CommandCustomEquipment {
                                 .executes(CommandCustomEquipment::setBackAttachment)))));
 
         dispatcher.register(literal(ModCommands.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermission(2))
                 .then(literal(EQUIPMENT)
                     .then(literal(HELMET_ATTACHMENT)
                         .then(argument(HELMENT_ATTACHMENT_VALUE, StringArgumentType.string())
@@ -57,52 +56,52 @@ public class CommandCustomEquipment {
                                 .executes(CommandCustomEquipment::setHelmetAttachment)))));
     }
 
-    private static int setBackAttachment(CommandContext<ServerCommandSource> context) {
+    private static int setBackAttachment(CommandContext<CommandSourceStack> context) {
         BackAttachmentsME backAttachment = BackAttachmentsME.valueOf(StringArgumentType.getString(context, BACK_ATTACHMENT_VALUE).toUpperCase());
 
-        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
+        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getMainHandItem();
 
         if (handStack.isEmpty()){
-            MutableText sourceText = Text.translatable("command.%s.back_attachment.hand_empty".formatted(MiddleEarth.MOD_ID));
-            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            MutableComponent sourceText = Component.translatable("command.%s.back_attachment.hand_empty".formatted(MiddleEarth.MOD_ID));
+            context.getSource().sendSystemMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
 
         if ((handStack.getItem() instanceof CustomChestplateItem || handStack.getItem() instanceof BackAttachmentItem)){
             handStack.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(backAttachment));
-            MutableText sourceText = Text.translatable("command.%s.back_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + backAttachment.getName()));
-            context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
+            MutableComponent sourceText = Component.translatable("command.%s.back_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Component.translatable("tooltip." + MiddleEarth.MOD_ID + "." + backAttachment.getName()));
+            context.getSource().sendSystemMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;
         } else {
-            MutableText sourceText = Text.translatable("command.%s.back_attachment.wrong_item".formatted(MiddleEarth.MOD_ID));
-            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            MutableComponent sourceText = Component.translatable("command.%s.back_attachment.wrong_item".formatted(MiddleEarth.MOD_ID));
+            context.getSource().sendSystemMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
     }
 
-    private static int setHelmetAttachment(CommandContext<ServerCommandSource> context) {
+    private static int setHelmetAttachment(CommandContext<CommandSourceStack> context) {
         HelmetAttachmentsME helmetAttachment = HelmetAttachmentsME.valueOf(StringArgumentType.getString(context, HELMENT_ATTACHMENT_VALUE).toUpperCase());
 
-        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
+        ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getMainHandItem();
 
         if (handStack.isEmpty()){
-            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.hand_empty".formatted(MiddleEarth.MOD_ID));
-            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            MutableComponent sourceText = Component.translatable("command.%s.helmet_attachment.hand_empty".formatted(MiddleEarth.MOD_ID));
+            context.getSource().sendSystemMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
 
         if ((handStack.getItem() instanceof CustomHelmetItem || handStack.getItem() instanceof HelmetAttachmentItem)){
             if (helmetAttachment.getConstantState() == HelmetAttachmentsStatesME.DOWN){
-                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(true, helmetAttachment, DyedColorComponent.DEFAULT_COLOR));
+                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(true, helmetAttachment, DyedItemColor.LEATHER_COLOR));
             } else if (helmetAttachment.getConstantState() == HelmetAttachmentsStatesME.UP || helmetAttachment.getConstantState() == null){
-                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachment, DyedColorComponent.DEFAULT_COLOR));
+                handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachment, DyedItemColor.LEATHER_COLOR));
             }
-            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + helmetAttachment.getName()));
-            context.getSource().sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
+            MutableComponent sourceText = Component.translatable("command.%s.helmet_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Component.translatable("tooltip." + MiddleEarth.MOD_ID + "." + helmetAttachment.getName()));
+            context.getSource().sendSystemMessage(sourceText.withColor(ModColors.SUCCESS.color));
             return 0;
         } else {
-            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.wrong_item".formatted(MiddleEarth.MOD_ID));
-            context.getSource().sendMessage(sourceText.withColor(ModColors.WARNING.color));
+            MutableComponent sourceText = Component.translatable("command.%s.helmet_attachment.wrong_item".formatted(MiddleEarth.MOD_ID));
+            context.getSource().sendSystemMessage(sourceText.withColor(ModColors.WARNING.color));
             return 0;
         }
     }

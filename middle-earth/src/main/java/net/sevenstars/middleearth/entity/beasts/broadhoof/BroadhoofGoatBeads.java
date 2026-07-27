@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.function.ValueLists;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
 import java.util.Map;
@@ -33,8 +33,8 @@ public enum BroadhoofGoatBeads {
         return BEARD_MATERIALS.get(stack.getItem());
     }
 
-    private static final IntFunction<BroadhoofGoatBeads> INDEX_MAPPER = ValueLists.createIndexToValueFunction(
-            BroadhoofGoatBeads::getIndex, values(), ValueLists.OutOfBoundsHandling.WRAP
+    private static final IntFunction<BroadhoofGoatBeads> INDEX_MAPPER = ByIdMap.continuous(
+            BroadhoofGoatBeads::getIndex, values(), ByIdMap.OutOfBoundsStrategy.WRAP
     );
     private final int index;
 

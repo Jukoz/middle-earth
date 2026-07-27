@@ -1,85 +1,86 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCollisionHandler;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.block.WireOrientation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class WebbingBlock extends MultifaceGrowthBlock {
-    public static final BooleanProperty PERSISTENT = Properties.PERSISTENT;
-    public static final MapCodec<WebbingBlock> CODEC = createCodec(WebbingBlock::new);
-    private final MultifaceGrower grower = new MultifaceGrower(this);
+public class WebbingBlock extends MultifaceBlock {
+    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
+    public static final MapCodec<WebbingBlock> CODEC = simpleCodec(WebbingBlock::new);
+    private final MultifaceSpreader grower = new MultifaceSpreader(this);
 
-    public WebbingBlock(Settings settings) {
+    public WebbingBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(PERSISTENT, true));
+        this.registerDefaultState(this.defaultBlockState().setValue(PERSISTENT, true));
     }
 
     @Override
-    public MapCodec<? extends MultifaceGrowthBlock> getCodec() {
+    public MapCodec<? extends MultifaceBlock> codec() {
         return CODEC;
     }
 
     @Override
-    public MultifaceGrower getGrower() {
+    public MultifaceSpreader getSpreader() {
         return this.grower;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(PERSISTENT);
-        super.appendProperties(builder);
+        super.createBlockStateDefinition(builder);
     }
 
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-        Vec3d vec3d = new Vec3d(0.75, 0.50, 0.75);
+    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
+        Vec3 vec3d = new Vec3(0.75, 0.50, 0.75);
         if (entity instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasStatusEffect(StatusEffects.WEAVING)) {
-                vec3d = new Vec3d(0.90, 0.75, 0.90);
+            if (livingEntity.hasEffect(MobEffects.WEAVING)) {
+                vec3d = new Vec3(0.90, 0.75, 0.90);
             }
         }
 
-        entity.slowMovement(state, vec3d);
+        entity.makeStuckInBlock(state, vec3d);
     }
 
     @Override
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-        if (!world.isClient) {
+    protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!world.isClientSide) {
             for (Direction direction : Direction.values()) {
-                if (world.getFluidState(pos.offset(direction)).isIn(net.minecraft.registry.tag.FluidTags.WATER)) {
-                    world.breakBlock(pos, true);
+                if (world.getFluidState(pos.relative(direction)).is(net.minecraft.tags.FluidTags.WATER)) {
+                    world.destroyBlock(pos, true);
                     return;
                 }
             }
         }
-        super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
+        super.neighborChanged(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
-    protected boolean hasRandomTicks(BlockState state) {
-        return !(Boolean)state.get(PERSISTENT);
+    protected boolean isRandomlyTicking(BlockState state) {
+        return !(Boolean)state.getValue(PERSISTENT);
     }
 
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (this.shouldDecay(state)) {
             world.removeBlock(pos, false);
         }
     }
 
     protected boolean shouldDecay(BlockState state) {
-        return !(Boolean)state.get(PERSISTENT);
+        return !(Boolean)state.getValue(PERSISTENT);
     }
 }

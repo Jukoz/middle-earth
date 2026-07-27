@@ -5,7 +5,9 @@
     "FF"
   ],
   "key": {
-    "F": "middle-earth:flax"
+    "F": {
+      "item": "middle-earth:flax"
+    }
   },
   "result": {
     "id": "minecraft:string",

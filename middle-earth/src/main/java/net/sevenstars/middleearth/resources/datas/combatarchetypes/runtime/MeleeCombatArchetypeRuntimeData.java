@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 
@@ -13,7 +13,7 @@ public class MeleeCombatArchetypeRuntimeData extends CombatArchetypeRuntimeData 
     }
 
     @Override
-    public void tick(NpcEntity npcEntity, World world){
+    public void tick(NpcEntity npcEntity, Level world){
         super.tick(npcEntity, world);
     }
 

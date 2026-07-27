@@ -1,27 +1,27 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof.features;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatBeads;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatPattern;
 
 import java.util.Map;
 
-public class BroadhoofGoatBeadsFeatureRenderer extends FeatureRenderer<BroadhoofGoatEntityRenderState, BroadhoofGoatModel> {
+public class BroadhoofGoatBeadsFeatureRenderer extends RenderLayer<BroadhoofGoatEntity, BroadhoofGoatModel> {
     private static final String PATH = "textures/entities/broadhoof_goat/beads/";
-    private static final Identifier INVISIBLE_ID = Identifier.ofVanilla("invisible");
+    private static final ResourceLocation INVISIBLE_ID = ResourceLocation.withDefaultNamespace("invisible");
 
-    private static final Map<BroadhoofGoatBeads, Identifier> TEXTURES = Maps.newEnumMap(
+    private static final Map<BroadhoofGoatBeads, ResourceLocation> TEXTURES = Maps.newEnumMap(
             Map.of(
                     BroadhoofGoatBeads.NONE,
                     INVISIBLE_ID,
@@ -38,17 +38,18 @@ public class BroadhoofGoatBeadsFeatureRenderer extends FeatureRenderer<Broadhoof
             )
     );
 
-    public BroadhoofGoatBeadsFeatureRenderer(FeatureRendererContext<BroadhoofGoatEntityRenderState, BroadhoofGoatModel> featureRendererContext) {
+    public BroadhoofGoatBeadsFeatureRenderer(RenderLayerParent<BroadhoofGoatEntity, BroadhoofGoatModel> featureRendererContext) {
         super(featureRendererContext);
     }
 
     public void render(
-            MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BroadhoofGoatEntityRenderState state, float f, float g
+            PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int light, BroadhoofGoatEntity entity,
+            float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch
     ) {
-        Identifier identifier = (Identifier)TEXTURES.get(state.beads);
-        if (identifier != INVISIBLE_ID && !state.invisible) {
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(identifier));
-            this.getContextModel().render(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlay(state, 0.0F));
+        ResourceLocation identifier = TEXTURES.get(entity.getGoatBeads());
+        if (identifier != INVISIBLE_ID && !entity.isInvisible()) {
+            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucent(identifier));
+            this.getParentModel().renderToBuffer(matrixStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0.0F));
         }
     }
 }

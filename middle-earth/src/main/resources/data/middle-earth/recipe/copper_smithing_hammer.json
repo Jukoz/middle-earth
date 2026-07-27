@@ -6,8 +6,12 @@
     " S "
   ],
   "key": {
-    "M": "minecraft:copper_ingot",
-    "S": "minecraft:stick"
+    "M": {
+      "item": "minecraft:copper_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "middle-earth:copper_smithing_hammer",

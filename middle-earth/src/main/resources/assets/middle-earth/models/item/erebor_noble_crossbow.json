@@ -1,0 +1,41 @@
+{
+    "parent":  "minecraft:item/crossbow",
+    "textures":  {
+                     "layer0":  "middle-earth:item/erebor_noble_crossbow"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "pulling":  1
+                                        },
+                          "model":  "middle-earth:item/erebor_noble_crossbow_pulling_0"
+                      },
+                      {
+                          "predicate":  {
+                                            "pulling":  1,
+                                            "pull":  0.58
+                                        },
+                          "model":  "middle-earth:item/erebor_noble_crossbow_pulling_1"
+                      },
+                      {
+                          "predicate":  {
+                                            "pulling":  1,
+                                            "pull":  1
+                                        },
+                          "model":  "middle-earth:item/erebor_noble_crossbow_pulling_2"
+                      },
+                      {
+                          "predicate":  {
+                                            "charged":  1
+                                        },
+                          "model":  "middle-earth:item/erebor_noble_crossbow_arrow"
+                      },
+                      {
+                          "predicate":  {
+                                            "charged":  1,
+                                            "firework":  1
+                                        },
+                          "model":  "middle-earth:item/erebor_noble_crossbow_firework"
+                      }
+                  ]
+}

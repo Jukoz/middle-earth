@@ -160,7 +160,7 @@
       "entries": [
 	    {
           "type": "minecraft:item",
-          "name": "minecraft:red_bundle"
+          "name": "middle-earth:red_bundle"
         }
       ]
     }

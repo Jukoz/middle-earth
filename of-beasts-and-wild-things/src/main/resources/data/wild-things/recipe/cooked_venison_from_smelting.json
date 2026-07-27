@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 200,
   "experience": 0.35,
-  "ingredient": "wild-things:raw_venison",
+  "ingredient": {
+    "item": "wild-things:raw_venison"
+  },
   "result": {
     "id": "wild-things:cooked_venison"
   }

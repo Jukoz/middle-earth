@@ -3,8 +3,7 @@
   "generator": {
     "type": "middle-earth:middle_earth",
     "biome_source": {
-      "type": "minecraft:fixed",
-      "biome": "minecraft:plains"
+      "type": "middle-earth:middle_earth_biome_source"
     }
   }
 }

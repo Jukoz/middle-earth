@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -26,7 +26,7 @@ public class LongbeardsFactionPool {
 
     static {
         LONGBEARDS = new Faction(FactionRegistry.LONGBEARDS, true, DispositionType.GOOD, FactionType.FACTION, null,
-                List.of(FactionRegistry.LONGBEARDS_EREBOR.getValue()),
+                List.of(FactionRegistry.LONGBEARDS_EREBOR.location()),
                 null, null, null, List.of(), List.of(), List.of());
 
         EREBOR = new Faction(FactionRegistry.LONGBEARDS_EREBOR, true, DispositionType.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,

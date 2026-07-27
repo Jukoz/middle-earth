@@ -1,7 +1,13 @@
 package net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.gondor;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartNames;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.EggHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
@@ -11,17 +17,17 @@ public class FountainGuardHelmetModel extends EggHelmetModel {
         super(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = getModelData();
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = getModelData();
         //+0.75
-        modelData.getRoot().addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create()
-                        .uv(29, 0).cuboid(-3.0F, -15.35F, -4.35F, 6.0F, 12.0F, 0.0F, new Dilation(0.5F))
-                        .uv(0, 15).mirrored().cuboid(-4.0F, -7.75F, -4.314F, 8.0F, 8.0F, 0.0F, new Dilation(0.0F)).mirrored(false)
-                        .uv(50, 0).mirrored().cuboid(2.0F, -19.55F, 0.0F, 7.0F, 16.0F, 0.0F, new Dilation(0.0F)).mirrored(false)
-                        .uv(50, 16).cuboid(-9.0F, -19.55F, 0.0F, 7.0F, 16.0F, 0.0F, new Dilation(0.0F)),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelData.getRoot().addOrReplaceChild(PartNames.HEAD, CubeListBuilder.create()
+                        .texOffs(29, 0).addBox(-3.0F, -15.35F, -4.35F, 6.0F, 12.0F, 0.0F, new CubeDeformation(0.5F))
+                        .texOffs(0, 15).mirror().addBox(-4.0F, -7.75F, -4.314F, 8.0F, 8.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
+                        .texOffs(50, 0).mirror().addBox(2.0F, -19.55F, 0.0F, 7.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
+                        .texOffs(50, 16).addBox(-9.0F, -19.55F, 0.0F, 7.0F, 16.0F, 0.0F, new CubeDeformation(0.0F)),
+                PartPose.offset(0.0F, 0.0F, 0.0F));
 
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return LayerDefinition.create(modelData, 64, 64);
     }
 }

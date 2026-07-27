@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:green_jewel_cornflower"
+    {
+      "item": "middle-earth:green_jewel_cornflower"
+    }
   ],
   "result": {
     "id": "minecraft:green_dye"

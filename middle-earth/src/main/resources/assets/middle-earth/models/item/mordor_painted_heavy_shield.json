@@ -1,8 +1,19 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/mordor_heavy_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"2": "middle-earth:item/mordor_painted_heavy_shield"
-	}
+    "credit":  "Made with Blockbench",
+    "parent":  "middle-earth:item/mordor_heavy_shield_template",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "textures":  {
+                     "2":  "middle-earth:item/mordor_painted_heavy_shield"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/mordor_painted_heavy_shield_blocking"
+                      }
+                  ]
 }

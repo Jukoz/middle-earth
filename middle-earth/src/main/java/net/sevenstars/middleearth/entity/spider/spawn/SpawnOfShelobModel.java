@@ -1,197 +1,199 @@
 package net.sevenstars.middleearth.entity.spider.spawn;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 
-public class SpawnOfShelobModel extends EntityModel<SpawnOfShelobRenderState> {
+public class SpawnOfShelobModel extends HierarchicalModel<SpawnOfShelobEntity> {
     private final ModelPart root;
 
-    private final Animation idleAnimation;
-    private final Animation walkingAnimation;
-    private final Animation biteAnimation;
-    private final Animation walkingBlockAnimation;
-    private final Animation pounceAnimation;
-
     public SpawnOfShelobModel(ModelPart root) {
-        super(root);
         this.root = root.getChild("root");
-
-        this.idleAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_IDLE.createAnimation(root);
-        this.walkingAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_WALK.createAnimation(root);
-        this.biteAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BITE.createAnimation(root);
-        this.walkingBlockAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BLOCK.createAnimation(root);
-        this.pounceAnimation = SpawnOfShelobAnimations.SPAWN_OF_SHELOB_POUNCE.createAnimation(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 12.0F, 0.0F));
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition root = modelPartData.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 12.0F, 0.0F));
 
-        ModelPartData legscore = root.addChild("legscore", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 6.0F, -5.0F));
+        PartDefinition legscore = root.addOrReplaceChild("legscore", CubeListBuilder.create(), PartPose.offset(0.0F, 6.0F, -5.0F));
 
-        ModelPartData rights = legscore.addChild("rights", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition rights = legscore.addOrReplaceChild("rights", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData rrotation = rights.addChild("rrotation", ModelPartBuilder.create(), ModelTransform.origin(-3.0F, 0.0F, -4.5F));
+        PartDefinition rrotation = rights.addOrReplaceChild("rrotation", CubeListBuilder.create(), PartPose.offset(-3.0F, 0.0F, -4.5F));
 
-        ModelPartData rleg = rrotation.addChild("rleg", ModelPartBuilder.create().uv(150, 129).cuboid(-4.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new Dilation(0.0F))
-                .uv(146, 135).cuboid(-6.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition rleg = rrotation.addOrReplaceChild("rleg", CubeListBuilder.create().texOffs(150, 129).addBox(-4.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(146, 135).addBox(-6.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData rleg2 = rleg.addChild("rleg2", ModelPartBuilder.create().uv(50, 130).cuboid(-10.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-5.0F, -13.0F, 0.0F));
+        PartDefinition rleg2 = rleg.addOrReplaceChild("rleg2", CubeListBuilder.create().texOffs(50, 130).addBox(-10.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -13.0F, 0.0F));
 
-        ModelPartData rleg3 = rleg2.addChild("rleg3", ModelPartBuilder.create().uv(147, 96).cuboid(-7.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new Dilation(0.0F))
-                .uv(84, 83).cuboid(-15.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new Dilation(0.0F)), ModelTransform.origin(-9.0F, 1.0F, 0.0F));
+        PartDefinition rleg3 = rleg2.addOrReplaceChild("rleg3", CubeListBuilder.create().texOffs(147, 96).addBox(-7.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(84, 83).addBox(-15.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-9.0F, 1.0F, 0.0F));
 
-        ModelPartData rrotation1 = rights.addChild("rrotation1", ModelPartBuilder.create(), ModelTransform.origin(-3.0F, 0.0F, -1.0F));
+        PartDefinition rrotation1 = rights.addOrReplaceChild("rrotation1", CubeListBuilder.create(), PartPose.offset(-3.0F, 0.0F, -1.0F));
 
-        ModelPartData rleg4 = rrotation1.addChild("rleg4", ModelPartBuilder.create().uv(52, 99).cuboid(-5.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition rleg4 = rrotation1.addOrReplaceChild("rleg4", CubeListBuilder.create().texOffs(52, 99).addBox(-5.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData rleg5 = rleg4.addChild("rleg5", ModelPartBuilder.create().uv(144, 110).cuboid(-1.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-5.0F, 0.0F, 0.0F));
+        PartDefinition rleg5 = rleg4.addOrReplaceChild("rleg5", CubeListBuilder.create().texOffs(144, 110).addBox(-1.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, 0.0F));
 
-        ModelPartData rleg6 = rleg5.addChild("rleg6", ModelPartBuilder.create().uv(84, 133).cuboid(-3.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -15.0F, -0.5F));
+        PartDefinition rleg6 = rleg5.addOrReplaceChild("rleg6", CubeListBuilder.create().texOffs(84, 133).addBox(-3.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -15.0F, -0.5F));
 
-        ModelPartData rleg7 = rleg6.addChild("rleg7", ModelPartBuilder.create().uv(0, 167).cuboid(-1.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new Dilation(0.0F))
-                .uv(112, 25).cuboid(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new Dilation(0.0F)), ModelTransform.origin(1.0F, 11.0F, 0.0F));
+        PartDefinition rleg7 = rleg6.addOrReplaceChild("rleg7", CubeListBuilder.create().texOffs(0, 167).addBox(-1.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(112, 25).addBox(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, 11.0F, 0.0F));
 
-        ModelPartData rrotation2 = rights.addChild("rrotation2", ModelPartBuilder.create(), ModelTransform.origin(-3.0F, 0.0F, 3.0F));
+        PartDefinition rrotation2 = rights.addOrReplaceChild("rrotation2", CubeListBuilder.create(), PartPose.offset(-3.0F, 0.0F, 3.0F));
 
-        ModelPartData rleg8 = rrotation2.addChild("rleg8", ModelPartBuilder.create().uv(52, 99).cuboid(-5.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new Dilation(0.01F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition rleg8 = rrotation2.addOrReplaceChild("rleg8", CubeListBuilder.create().texOffs(52, 99).addBox(-5.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData rleg9 = rleg8.addChild("rleg9", ModelPartBuilder.create().uv(144, 110).cuboid(-1.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-5.0F, 0.0F, 0.0F));
+        PartDefinition rleg9 = rleg8.addOrReplaceChild("rleg9", CubeListBuilder.create().texOffs(144, 110).addBox(-1.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, 0.0F));
 
-        ModelPartData rleg10 = rleg9.addChild("rleg10", ModelPartBuilder.create().uv(84, 133).cuboid(-3.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -15.0F, -0.5F));
+        PartDefinition rleg10 = rleg9.addOrReplaceChild("rleg10", CubeListBuilder.create().texOffs(84, 133).addBox(-3.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -15.0F, -0.5F));
 
-        ModelPartData rleg11 = rleg10.addChild("rleg11", ModelPartBuilder.create().uv(0, 167).cuboid(-1.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new Dilation(0.0F))
-                .uv(112, 25).cuboid(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new Dilation(0.0F)), ModelTransform.origin(1.0F, 11.0F, 0.0F));
+        PartDefinition rleg11 = rleg10.addOrReplaceChild("rleg11", CubeListBuilder.create().texOffs(0, 167).addBox(-1.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(112, 25).addBox(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, 11.0F, 0.0F));
 
-        ModelPartData rrotation3 = rights.addChild("rrotation3", ModelPartBuilder.create(), ModelTransform.origin(-3.0F, 0.0F, 6.5F));
+        PartDefinition rrotation3 = rights.addOrReplaceChild("rrotation3", CubeListBuilder.create(), PartPose.offset(-3.0F, 0.0F, 6.5F));
 
-        ModelPartData rleg12 = rrotation3.addChild("rleg12", ModelPartBuilder.create().uv(150, 129).cuboid(-4.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new Dilation(0.0F))
-                .uv(146, 135).cuboid(-6.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition rleg12 = rrotation3.addOrReplaceChild("rleg12", CubeListBuilder.create().texOffs(150, 129).addBox(-4.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(146, 135).addBox(-6.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData rleg13 = rleg12.addChild("rleg13", ModelPartBuilder.create().uv(50, 130).cuboid(-10.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-5.0F, -13.0F, 0.0F));
+        PartDefinition rleg13 = rleg12.addOrReplaceChild("rleg13", CubeListBuilder.create().texOffs(50, 130).addBox(-10.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -13.0F, 0.0F));
 
-        ModelPartData rleg14 = rleg13.addChild("rleg14", ModelPartBuilder.create().uv(147, 96).cuboid(-7.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new Dilation(0.0F))
-                .uv(84, 83).cuboid(-15.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new Dilation(0.0F)), ModelTransform.origin(-9.0F, 1.0F, 0.0F));
+        PartDefinition rleg14 = rleg13.addOrReplaceChild("rleg14", CubeListBuilder.create().texOffs(147, 96).addBox(-7.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(84, 83).addBox(-15.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-9.0F, 1.0F, 0.0F));
 
-        ModelPartData lefts = legscore.addChild("lefts", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition lefts = legscore.addOrReplaceChild("lefts", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData lrotation = lefts.addChild("lrotation", ModelPartBuilder.create(), ModelTransform.origin(3.0F, 0.0F, -4.5F));
+        PartDefinition lrotation = lefts.addOrReplaceChild("lrotation", CubeListBuilder.create(), PartPose.offset(3.0F, 0.0F, -4.5F));
 
-        ModelPartData lleg = lrotation.addChild("lleg", ModelPartBuilder.create().uv(150, 129).mirrored().cuboid(-1.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(146, 135).mirrored().cuboid(4.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition lleg = lrotation.addOrReplaceChild("lleg", CubeListBuilder.create().texOffs(150, 129).mirror().addBox(-1.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(146, 135).mirror().addBox(4.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData lleg2 = lleg.addChild("lleg2", ModelPartBuilder.create().uv(50, 130).mirrored().cuboid(0.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(5.0F, -13.0F, 0.0F));
+        PartDefinition lleg2 = lleg.addOrReplaceChild("lleg2", CubeListBuilder.create().texOffs(50, 130).mirror().addBox(0.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, -13.0F, 0.0F));
 
-        ModelPartData lleg3 = lleg2.addChild("lleg3", ModelPartBuilder.create().uv(147, 96).mirrored().cuboid(-1.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(84, 83).mirrored().cuboid(-12.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(9.0F, 1.0F, 0.0F));
+        PartDefinition lleg3 = lleg2.addOrReplaceChild("lleg3", CubeListBuilder.create().texOffs(147, 96).mirror().addBox(-1.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(84, 83).mirror().addBox(-12.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(9.0F, 1.0F, 0.0F));
 
-        ModelPartData lrotation2 = lefts.addChild("lrotation2", ModelPartBuilder.create(), ModelTransform.origin(3.0F, 0.0F, -1.0F));
+        PartDefinition lrotation2 = lefts.addOrReplaceChild("lrotation2", CubeListBuilder.create(), PartPose.offset(3.0F, 0.0F, -1.0F));
 
-        ModelPartData lleg4 = lrotation2.addChild("lleg4", ModelPartBuilder.create().uv(52, 99).mirrored().cuboid(-1.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition lleg4 = lrotation2.addOrReplaceChild("lleg4", CubeListBuilder.create().texOffs(52, 99).mirror().addBox(-1.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData lleg5 = lleg4.addChild("lleg5", ModelPartBuilder.create().uv(144, 110).mirrored().cuboid(-2.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(5.0F, 0.0F, 0.0F));
+        PartDefinition lleg5 = lleg4.addOrReplaceChild("lleg5", CubeListBuilder.create().texOffs(144, 110).mirror().addBox(-2.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, 0.0F, 0.0F));
 
-        ModelPartData lleg6 = lleg5.addChild("lleg6", ModelPartBuilder.create().uv(84, 133).mirrored().cuboid(-1.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, -15.0F, -0.5F));
+        PartDefinition lleg6 = lleg5.addOrReplaceChild("lleg6", CubeListBuilder.create().texOffs(84, 133).mirror().addBox(-1.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, -15.0F, -0.5F));
 
-        ModelPartData lleg7 = lleg6.addChild("lleg7", ModelPartBuilder.create().uv(0, 167).mirrored().cuboid(-2.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(112, 25).mirrored().cuboid(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-1.0F, 11.0F, 0.0F));
+        PartDefinition lleg7 = lleg6.addOrReplaceChild("lleg7", CubeListBuilder.create().texOffs(0, 167).mirror().addBox(-2.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(112, 25).mirror().addBox(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-1.0F, 11.0F, 0.0F));
 
-        ModelPartData lrotation3 = lefts.addChild("lrotation3", ModelPartBuilder.create(), ModelTransform.origin(3.0F, 0.0F, 3.0F));
+        PartDefinition lrotation3 = lefts.addOrReplaceChild("lrotation3", CubeListBuilder.create(), PartPose.offset(3.0F, 0.0F, 3.0F));
 
-        ModelPartData lleg8 = lrotation3.addChild("lleg8", ModelPartBuilder.create().uv(52, 99).mirrored().cuboid(-1.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition lleg8 = lrotation3.addOrReplaceChild("lleg8", CubeListBuilder.create().texOffs(52, 99).mirror().addBox(-1.0F, -2.0F, -2.0F, 6.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData lleg9 = lleg8.addChild("lleg9", ModelPartBuilder.create().uv(144, 110).mirrored().cuboid(-2.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(5.0F, 0.0F, 0.0F));
+        PartDefinition lleg9 = lleg8.addOrReplaceChild("lleg9", CubeListBuilder.create().texOffs(144, 110).mirror().addBox(-2.0F, -15.0F, -2.0F, 3.0F, 15.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, 0.0F, 0.0F));
 
-        ModelPartData lleg10 = lleg9.addChild("lleg10", ModelPartBuilder.create().uv(84, 133).mirrored().cuboid(-1.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, -15.0F, -0.5F));
+        PartDefinition lleg10 = lleg9.addOrReplaceChild("lleg10", CubeListBuilder.create().texOffs(84, 133).mirror().addBox(-1.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, -15.0F, -0.5F));
 
-        ModelPartData lleg11 = lleg10.addChild("lleg11", ModelPartBuilder.create().uv(0, 167).mirrored().cuboid(-2.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(112, 25).mirrored().cuboid(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-1.0F, 11.0F, 0.0F));
+        PartDefinition lleg11 = lleg10.addOrReplaceChild("lleg11", CubeListBuilder.create().texOffs(0, 167).mirror().addBox(-2.0F, -1.0F, -1.0F, 3.0F, 10.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(112, 25).mirror().addBox(-10.0F, -13.0F, 0.0F, 20.0F, 29.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-1.0F, 11.0F, 0.0F));
 
-        ModelPartData lrotation4 = lefts.addChild("lrotation4", ModelPartBuilder.create(), ModelTransform.origin(3.0F, 0.0F, 6.5F));
+        PartDefinition lrotation4 = lefts.addOrReplaceChild("lrotation4", CubeListBuilder.create(), PartPose.offset(3.0F, 0.0F, 6.5F));
 
-        ModelPartData lleg12 = lrotation4.addChild("lleg12", ModelPartBuilder.create().uv(150, 129).mirrored().cuboid(-1.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(146, 135).mirrored().cuboid(4.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition lleg12 = lrotation4.addOrReplaceChild("lleg12", CubeListBuilder.create().texOffs(150, 129).mirror().addBox(-1.0F, -1.0F, -1.5F, 5.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(146, 135).mirror().addBox(4.0F, -13.0F, -1.5F, 2.0F, 14.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData lleg13 = lleg12.addChild("lleg13", ModelPartBuilder.create().uv(50, 130).mirrored().cuboid(0.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(5.0F, -13.0F, 0.0F));
+        PartDefinition lleg13 = lleg12.addOrReplaceChild("lleg13", CubeListBuilder.create().texOffs(50, 130).mirror().addBox(0.0F, -2.0F, -2.0F, 10.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, -13.0F, 0.0F));
 
-        ModelPartData lleg14 = lleg13.addChild("lleg14", ModelPartBuilder.create().uv(147, 96).mirrored().cuboid(-1.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(84, 83).mirrored().cuboid(-12.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(9.0F, 1.0F, 0.0F));
+        PartDefinition lleg14 = lleg13.addOrReplaceChild("lleg14", CubeListBuilder.create().texOffs(147, 96).mirror().addBox(-1.0F, -2.0F, -1.0F, 8.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(84, 83).mirror().addBox(-12.0F, -12.0F, -0.5F, 27.0F, 25.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(9.0F, 1.0F, 0.0F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 6.0F, -1.0F));
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 6.0F, -1.0F));
 
-        ModelPartData abdomen = body.addChild("abdomen", ModelPartBuilder.create().uv(6, 63).cuboid(-8.0F, -6.0F, 0.0F, 16.0F, 9.0F, 19.0F, new Dilation(0.0F))
-                .uv(5, 96).cuboid(-3.0F, -8.0F, -2.0F, 6.0F, 7.0F, 11.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -4.0F, 1.0F));
+        PartDefinition abdomen = body.addOrReplaceChild("abdomen", CubeListBuilder.create().texOffs(6, 63).addBox(-8.0F, -6.0F, 0.0F, 16.0F, 9.0F, 19.0F, new CubeDeformation(0.0F))
+                .texOffs(5, 96).addBox(-3.0F, -8.0F, -2.0F, 6.0F, 7.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, 1.0F));
 
-        ModelPartData stinger = abdomen.addChild("stinger", ModelPartBuilder.create().uv(156, 134).cuboid(-1.0F, 3.0F, -5.0F, 2.0F, 2.0F, 6.0F, new Dilation(0.0F))
-                .uv(0, 30).cuboid(0.0F, -2.0F, -10.0F, 0.0F, 10.0F, 15.0F, new Dilation(0.0F))
-                .uv(156, 142).cuboid(-1.0F, -2.0F, -2.0F, 2.0F, 5.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 3.0F, 19.0F));
+        PartDefinition stinger = abdomen.addOrReplaceChild("stinger", CubeListBuilder.create().texOffs(156, 134).addBox(-1.0F, 3.0F, -5.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 30).addBox(0.0F, -2.0F, -10.0F, 0.0F, 10.0F, 15.0F, new CubeDeformation(0.0F))
+                .texOffs(156, 142).addBox(-1.0F, -2.0F, -2.0F, 2.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 3.0F, 19.0F));
 
-        ModelPartData thorns = abdomen.addChild("thorns", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition thorns = abdomen.addOrReplaceChild("thorns", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData cube_r1 = thorns.addChild("cube_r1", ModelPartBuilder.create().uv(21, 36).mirrored().cuboid(-6.0F, 0.0F, -11.0F, 9.0F, 0.0F, 22.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-3.0F, -8.0F, 8.0F, 0.0F, 0.0F, 0.7854F));
-        ModelPartData cube_r2 = thorns.addChild("cube_r2", ModelPartBuilder.create().uv(21, 36).cuboid(-3.0F, 0.0F, -11.0F, 9.0F, 0.0F, 22.0F, new Dilation(0.0F)), ModelTransform.of(3.0F, -8.0F, 8.0F, 0.0F, 0.0F, -0.7854F));
-        ModelPartData cube_r3 = thorns.addChild("cube_r3", ModelPartBuilder.create().uv(-16, 217).mirrored().cuboid(-14.0F, 0.0F, -19.5F, 23.0F, 0.0F, 39.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-8.0F, -6.0F, 16.5F, 0.0F, 0.0F, 0.2618F));
-        ModelPartData cube_r4 = thorns.addChild("cube_r4", ModelPartBuilder.create().uv(-16, 217).cuboid(-9.0F, 0.0F, -19.5F, 23.0F, 0.0F, 39.0F, new Dilation(0.0F)), ModelTransform.of(8.0F, -6.0F, 16.5F, 0.0F, 0.0F, -0.2618F));
+        PartDefinition cube_r1 = thorns.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(21, 36).mirror().addBox(-6.0F, 0.0F, -11.0F, 9.0F, 0.0F, 22.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-3.0F, -8.0F, 8.0F, 0.0F, 0.0F, 0.7854F));
+        PartDefinition cube_r2 = thorns.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(21, 36).addBox(-3.0F, 0.0F, -11.0F, 9.0F, 0.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, -8.0F, 8.0F, 0.0F, 0.0F, -0.7854F));
+        PartDefinition cube_r3 = thorns.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(-16, 217).mirror().addBox(-14.0F, 0.0F, -19.5F, 23.0F, 0.0F, 39.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-8.0F, -6.0F, 16.5F, 0.0F, 0.0F, 0.2618F));
+        PartDefinition cube_r4 = thorns.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(-16, 217).addBox(-9.0F, 0.0F, -19.5F, 23.0F, 0.0F, 39.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(8.0F, -6.0F, 16.5F, 0.0F, 0.0F, -0.2618F));
 
-        ModelPartData prosoma = body.addChild("prosoma", ModelPartBuilder.create().uv(88, 62).cuboid(-4.0F, -2.0F, -15.0F, 8.0F, 6.0F, 15.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -4.0F, 3.0F));
+        PartDefinition prosoma = body.addOrReplaceChild("prosoma", CubeListBuilder.create().texOffs(88, 62).addBox(-4.0F, -2.0F, -15.0F, 8.0F, 6.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, 3.0F));
 
-        ModelPartData chelicerae = prosoma.addChild("chelicerae", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 1.0F, -13.0F));
+        PartDefinition chelicerae = prosoma.addOrReplaceChild("chelicerae", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, -13.0F));
 
-        ModelPartData leftchel = chelicerae.addChild("leftchel", ModelPartBuilder.create().uv(140, 80).mirrored().cuboid(-2.0F, -3.0F, -8.0F, 3.0F, 6.0F, 8.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(2.0F, -1.0F, 1.0F));
+        PartDefinition leftchel = chelicerae.addOrReplaceChild("leftchel", CubeListBuilder.create().texOffs(140, 80).mirror().addBox(-2.0F, -3.0F, -8.0F, 3.0F, 6.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, -1.0F, 1.0F));
 
-        ModelPartData leftooth = leftchel.addChild("leftooth", ModelPartBuilder.create().uv(9, 130).cuboid(-1.0F, 0.0F, -9.0F, 2.0F, 4.0F, 13.0F, new Dilation(0.0F))
-                .uv(0, 154).mirrored().cuboid(-1.0F, -3.0F, -9.0F, 2.0F, 3.0F, 10.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-0.5F, -1.0F, -7.0F));
+        PartDefinition leftooth = leftchel.addOrReplaceChild("leftooth", CubeListBuilder.create().texOffs(9, 130).addBox(-1.0F, 0.0F, -9.0F, 2.0F, 4.0F, 13.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 154).mirror().addBox(-1.0F, -3.0F, -9.0F, 2.0F, 3.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-0.5F, -1.0F, -7.0F));
 
-        ModelPartData leftjaw = leftchel.addChild("leftjaw", ModelPartBuilder.create().uv(0, 132).mirrored().cuboid(-1.0F, -1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(26, 132).mirrored().cuboid(-1.0F, 1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-0.5F, 1.0F, -8.0F));
+        PartDefinition leftjaw = leftchel.addOrReplaceChild("leftjaw", CubeListBuilder.create().texOffs(0, 132).mirror().addBox(-1.0F, -1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(26, 132).mirror().addBox(-1.0F, 1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-0.5F, 1.0F, -8.0F));
 
-        ModelPartData rightchel = chelicerae.addChild("rightchel", ModelPartBuilder.create().uv(140, 80).cuboid(-1.0F, -3.0F, -8.0F, 3.0F, 6.0F, 8.0F, new Dilation(0.0F)), ModelTransform.origin(-2.0F, -1.0F, 1.0F));
+        PartDefinition rightchel = chelicerae.addOrReplaceChild("rightchel", CubeListBuilder.create().texOffs(140, 80).addBox(-1.0F, -3.0F, -8.0F, 3.0F, 6.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -1.0F, 1.0F));
 
-        ModelPartData rightooth = rightchel.addChild("rightooth", ModelPartBuilder.create().uv(9, 130).mirrored().cuboid(-1.0F, 0.0F, -9.0F, 2.0F, 4.0F, 13.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(0, 154).cuboid(-1.0F, -3.0F, -9.0F, 2.0F, 3.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(0.5F, -1.0F, -7.0F));
+        PartDefinition rightooth = rightchel.addOrReplaceChild("rightooth", CubeListBuilder.create().texOffs(9, 130).mirror().addBox(-1.0F, 0.0F, -9.0F, 2.0F, 4.0F, 13.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(0, 154).addBox(-1.0F, -3.0F, -9.0F, 2.0F, 3.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -1.0F, -7.0F));
 
-        ModelPartData rightjaw = rightchel.addChild("rightjaw", ModelPartBuilder.create().uv(0, 132).cuboid(-1.0F, -1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new Dilation(0.0F))
-                .uv(26, 132).cuboid(-1.0F, 1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new Dilation(0.0F)), ModelTransform.origin(0.5F, 1.0F, -8.0F));
-        return TexturedModelData.of(modelData, 256, 256);
+        PartDefinition rightjaw = rightchel.addOrReplaceChild("rightjaw", CubeListBuilder.create().texOffs(0, 132).addBox(-1.0F, -1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new CubeDeformation(0.0F))
+                .texOffs(26, 132).addBox(-1.0F, 1.0F, -7.0F, 2.0F, 2.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 1.0F, -8.0F));
+        return LayerDefinition.create(modelData, 256, 256);
     }
 
     @Override
-    public void setAngles(SpawnOfShelobRenderState state) {
-        super.setAngles(state);
+    public ModelPart root() {
+        return this.root;
+    }
 
-        int croppedClimbingTicks = Math.min(ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION, state.climbingTicks);
+    @Override
+    public void setupAnim(SpawnOfShelobEntity entity, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root.getAllParts().forEach(ModelPart::resetPose);
+        int climbingTicks = entity.getClimbingTicks();
+        int leapingTicks = entity.getLeapingTicks();
+        int croppedClimbingTicks = Math.min(ShelobiteScuttlerEntity.CLIMBING_TIME_TRANSITION, climbingTicks);
         float climbingPercentage = (float) croppedClimbingTicks / SpawnOfShelobEntity.CLIMBING_TIME_TRANSITION;
 
-        int croppedLeapingTicks = Math.min(ShelobiteScuttlerEntity.LEAPING_TIME_TRANSITION, state.leapingTicks);
+        int croppedLeapingTicks = Math.min(ShelobiteScuttlerEntity.LEAPING_TIME_TRANSITION, leapingTicks);
         float leapingPercentage = (float) croppedLeapingTicks / SpawnOfShelobEntity.LEAPING_TIME_TRANSITION;
 
-        if(state.climbingTicks > 0 && climbingPercentage > leapingPercentage) {
-            this.root.pitch = -1.5f * climbingPercentage;
-            this.walkingAnimation.applyWalking(state.age, 0.4f, 1.75F, 2F);
+        if(climbingTicks > 0 && climbingPercentage > leapingPercentage) {
+            this.root.xRot = -1.5f * climbingPercentage;
+            this.animateWalk(SpawnOfShelobAnimations.SPAWN_OF_SHELOB_WALK, ageInTicks, 0.4f, 1.75F, 2F);
             return;
-        } else if(state.leapingTicks > 0 && leapingPercentage > climbingPercentage) {
-            this.root.pitch = -0.8f * leapingPercentage;
-            this.walkingAnimation.applyWalking((float)state.leapingTicks / 3.1f, 0.75f, 2.2F, 2.5F);
+        } else if(leapingTicks > 0 && leapingPercentage > climbingPercentage) {
+            this.root.xRot = -0.8f * leapingPercentage;
+            this.animateWalk(SpawnOfShelobAnimations.SPAWN_OF_SHELOB_WALK,
+                    (float)leapingTicks / 3.1f, 0.75f, 2.2F, 2.5F);
             return;
         }
 
-        if(state.limbSwingAmplitude <= 0.4) {
-            this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
-        } else if(state.blockAnimationState.isRunning()) {
-            this.walkingBlockAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.2F, 2.25F);
+        if(limbSwingAmount <= 0.4) {
+            this.animate(entity.idleAnimation, SpawnOfShelobAnimations.SPAWN_OF_SHELOB_IDLE, ageInTicks, 0.75f);
+        } else if(entity.blockAnimation.isStarted()) {
+            this.animateWalk(SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BLOCK,
+                    limbSwing, limbSwingAmount, 2.2F, 2.25F);
         } else {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
+            this.animateWalk(SpawnOfShelobAnimations.SPAWN_OF_SHELOB_WALK,
+                    limbSwing, limbSwingAmount, 2.25F, 2.5F);
         }
 
-        if(state.biteAnimationState.isRunning()) {
-            this.biteAnimation.apply(state.biteAnimationState, state.age, 1.3f);
+        if(entity.biteAnimation.isStarted()) {
+            this.animate(entity.biteAnimation, SpawnOfShelobAnimations.SPAWN_OF_SHELOB_BITE, ageInTicks, 1.3f);
         }
-        if(state.pounceAnimationState.isRunning()) {
-            this.pounceAnimation.apply(state.pounceAnimationState, state.age, 1.0f);
+        if(entity.pounceAnimation.isStarted()) {
+            this.animate(entity.pounceAnimation, SpawnOfShelobAnimations.SPAWN_OF_SHELOB_POUNCE, ageInTicks, 1.0f);
         }
     }
 }

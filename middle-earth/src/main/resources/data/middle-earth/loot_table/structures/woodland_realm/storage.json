@@ -54,7 +54,7 @@
       "entries": [
 	    {
           "type": "minecraft:item",
-          "name": "minecraft:green_bundle",
+          "name": "middle-earth:green_bundle",
 		  "weight": 2
         },
         {

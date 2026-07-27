@@ -1,42 +1,47 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.projectile.thrown;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
-public class SwanEggEntity extends ThrownItemEntity {
+public class SwanEggEntity extends ThrowableItemProjectile {
     private static final EntityDimensions EMPTY_DIMENSIONS = EntityDimensions.fixed(0.0F, 0.0F);
 
-    public SwanEggEntity(EntityType<SwanEggEntity> entityType, World world) {
+    public SwanEggEntity(EntityType<SwanEggEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public SwanEggEntity(World world, LivingEntity owner, ItemStack stack) {
-        super(EntitiesWT.SWAN_EGG, owner, world, stack);
+    public SwanEggEntity(Level world, LivingEntity owner, ItemStack stack) {
+        super(EntitiesWT.SWAN_EGG, owner, world);
+        this.setItem(stack);
     }
 
-    public SwanEggEntity(World world, double x, double y, double z, ItemStack stack) {
-        super(EntitiesWT.SWAN_EGG, x, y, z, world, stack);
+    public SwanEggEntity(Level world, double x, double y, double z, ItemStack stack) {
+        super(EntitiesWT.SWAN_EGG, x, y, z, world);
+        this.setItem(stack);
     }
 
     @Override
-    public void handleStatus(byte status) {
-        if (status == EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES) {
+    public void handleEntityEvent(byte status) {
+        if (status == EntityEvent.DEATH) {
             double d = 0.08;
 
             for (int i = 0; i < 8; i++) {
-                this.getWorld()
-                        .addParticleClient(
-                                new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()),
+                this.level()
+                        .addParticle(
+                                new ItemParticleOption(ParticleTypes.ITEM, this.getItem()),
                                 this.getX(),
                                 this.getY(),
                                 this.getZ(),
@@ -49,16 +54,16 @@ public class SwanEggEntity extends ThrownItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
-        entityHitResult.getEntity().serverDamage(this.getDamageSources().thrown(this, this.getOwner()), 0.0F);
+    protected void onHitEntity(EntityHitResult entityHitResult) {
+        super.onHitEntity(entityHitResult);
+        entityHitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 0.0F);
 
     }
 
     @Override
-    protected void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
-        if (!this.getWorld().isClient) {
+    protected void onHit(HitResult hitResult) {
+        super.onHit(hitResult);
+        if (!this.level().isClientSide) {
             if (this.random.nextInt(8) == 0) {
                 int i = 1;
                 if (this.random.nextInt(32) == 0) {
@@ -66,20 +71,20 @@ public class SwanEggEntity extends ThrownItemEntity {
                 }
 
                 for (int j = 0; j < i; j++) {
-                    SwanEntity swanEntity = EntitiesWT.SWAN.create(this.getWorld(), SpawnReason.TRIGGERED);
+                    SwanEntity swanEntity = EntitiesWT.SWAN.create(this.level());
                     if (swanEntity != null) {
-                        swanEntity.setBreedingAge(-24000);
-                        swanEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
-                        if (!swanEntity.recalculateDimensions(EMPTY_DIMENSIONS)) {
+                        swanEntity.setAge(-24000);
+                        swanEntity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                        if (!swanEntity.fudgePositionAfterSizeChange(EMPTY_DIMENSIONS)) {
                             break;
                         }
 
-                        this.getWorld().spawnEntity(swanEntity);
+                        this.level().addFreshEntity(swanEntity);
                     }
                 }
             }
 
-            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
+            this.level().broadcastEntityEvent(this, EntityEvent.DEATH);
             this.discard();
         }
     }

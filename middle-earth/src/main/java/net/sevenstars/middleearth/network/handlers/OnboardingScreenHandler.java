@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.network.handlers;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.gui.onboarding.OnboardingSelectionScreen;
@@ -16,16 +17,16 @@ import java.util.List;
  * Client side only
  */
 public class OnboardingScreenHandler {
-    public static void handle(ClientPacketContext context, boolean havePlayerData, float delay, List<AttributePoolElement> playerAttributes){
+    public static void handle(ClientPacketContext context, boolean havePlayerData, boolean canChangeFaction, float delay, List<AttributePoolElement> playerAttributes, InteractionHand hand){
         try{
-            World world = context.player().getWorld();
+            Level world = context.player().level();
             if(ModDimensions.isInOverworld(world)){
-                MinecraftClient client = MinecraftClient.getInstance();
+                Minecraft client = Minecraft.getInstance();
                 if(!havePlayerData){
-                    var controller = new OnboardingFactionScreenController(world, delay, playerAttributes);
+                    var controller = new OnboardingFactionScreenController(world, delay, playerAttributes, hand);
                     controller.open();
                 } else {
-                    client.setScreen(new OnboardingSelectionScreen(delay, ModServerConfigs.ENABLE_FACTION_RESET, playerAttributes));
+                    client.setScreen(new OnboardingSelectionScreen(delay, canChangeFaction, playerAttributes, hand));
                 }
             }
         } catch (Exception e){

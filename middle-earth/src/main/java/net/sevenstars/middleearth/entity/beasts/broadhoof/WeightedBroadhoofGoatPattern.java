@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
-import net.minecraft.util.Util;
 import net.sevenstars.api.dtos.WeightedItem;
 
 import java.util.*;

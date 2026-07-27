@@ -1,21 +1,19 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes.utils;
 
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 
-import java.util.Optional;
-
 public class CombatArchetypeDataUtil {
-    public static CombatArchetypeData create(NbtCompound combatArchetypeData) {
-        Optional<String> type = combatArchetypeData.getString("type");
-        if(type.isEmpty())
+    public static CombatArchetypeData create(CompoundTag combatArchetypeData) {
+        if(!combatArchetypeData.contains("type", Tag.TAG_STRING))
             return null;
-        CombatArchetype combatArchetype = CombatArchetype.valueOf(type.get());
+        CombatArchetype combatArchetype = CombatArchetype.valueOf(combatArchetypeData.getString("type"));
 
-        NbtCompound data = combatArchetypeData.getCompoundOrEmpty("data");
+        CompoundTag data = combatArchetypeData.getCompound("data");
         return switch (combatArchetype) {
             case MELEE -> new MeleeCombatArchetypeData(data);
             case RANGED -> new RangedCombatArchetypeData(data);

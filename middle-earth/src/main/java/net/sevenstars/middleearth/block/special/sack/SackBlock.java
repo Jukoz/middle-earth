@@ -1,113 +1,116 @@
 package net.sevenstars.middleearth.block.special.sack;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.mob.PiglinBrain;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.piglin.PiglinAi;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SackBlock extends BlockWithEntity {
-    public static final Identifier CONTENTS_DYNAMIC_DROP_ID;
-    public static final MapCodec<BarrelBlock> CODEC = createCodec(BarrelBlock::new);
+public class SackBlock extends BaseEntityBlock {
+    public static final ResourceLocation CONTENTS_DYNAMIC_DROP_ID;
+    public static final MapCodec<SackBlock> CODEC = simpleCodec(SackBlock::new);
     public static final BooleanProperty OPEN;
 
-    public SackBlock(Settings settings) {
+    public SackBlock(Properties settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(OPEN, false));
+        registerDefaultState(defaultBlockState().setValue(OPEN, false));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new SackBlockEntity(pos, state);
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(4, 0, 4, 12, 9, 12);
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Block.box(4, 0, 4, 12, 9, 12);
     }
 
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world instanceof ServerWorld serverWorld) {
-            NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (world instanceof ServerLevel serverWorld) {
+            MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, world, pos);
             if (namedScreenHandlerFactory != null) {
-                player.openHandledScreen(namedScreenHandlerFactory);
-                PiglinBrain.onGuardedBlockInteracted(serverWorld, player, true);
+                player.openMenu(namedScreenHandlerFactory);
+                PiglinAi.angerNearbyPiglins(player, true);
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof SackBlockEntity sackBlockEntity) {
-            if (!world.isClient && player.shouldSkipBlockDrops() && !sackBlockEntity.isEmpty()) {
+            if (!world.isClientSide && player.isCreative() && !sackBlockEntity.isEmpty()) {
                 ItemStack itemStack = new ItemStack(DecorativeItemsME.SACK);
-                itemStack.applyComponentsFrom(blockEntity.createComponentMap());
+                itemStack.applyComponents(blockEntity.collectComponents());
                 ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, itemStack);
-                itemEntity.setToDefaultPickupDelay();
-                world.spawnEntity(itemEntity);
+                itemEntity.setDefaultPickUpDelay();
+                world.addFreshEntity(itemEntity);
             } else {
-                sackBlockEntity.generateLoot(player);
+                sackBlockEntity.unpackLootTable(player);
             }
         }
 
-        return super.onBreak(world, pos, state, player);
+        return super.playerWillDestroy(world, pos, state, player);
     }
 
     @Override
-    protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
-        BlockEntity blockEntity = builder.getOptional(LootContextParameters.BLOCK_ENTITY);
+    protected List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+        BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         if (blockEntity instanceof SackBlockEntity sackBlockEntity) {
-            builder = builder.addDynamicDrop(CONTENTS_DYNAMIC_DROP_ID, (lootConsumer) -> {
-                for(int i = 0; i < sackBlockEntity.size(); ++i) {
-                    lootConsumer.accept(sackBlockEntity.getStack(i));
+            builder = builder.withDynamicDrop(CONTENTS_DYNAMIC_DROP_ID, (lootConsumer) -> {
+                for(int i = 0; i < sackBlockEntity.getContainerSize(); ++i) {
+                    lootConsumer.accept(sackBlockEntity.getItem(i));
                 }
             });
         }
-        return super.getDroppedStacks(state, builder);
+        return super.getDrops(state, builder);
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, world, pos);
+    protected void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.is(newState.getBlock())) {
+            world.updateNeighbourForOutputSignal(pos, state.getBlock());
+        }
+        super.onRemove(state, world, pos, newState, moved);
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(OPEN);
     }
 
     static {
-        CONTENTS_DYNAMIC_DROP_ID = Identifier.ofVanilla("contents");
-        OPEN = Properties.OPEN;
+        CONTENTS_DYNAMIC_DROP_ID = ResourceLocation.withDefaultNamespace("contents");
+        OPEN = BlockStateProperties.OPEN;
     }
 }

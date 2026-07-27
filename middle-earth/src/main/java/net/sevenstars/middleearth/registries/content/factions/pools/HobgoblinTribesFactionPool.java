@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -26,7 +26,7 @@ public class HobgoblinTribesFactionPool {
 
     static {
         HOBGOBLIN_TRIBES = new Faction(FactionRegistry.HOBGOBLIN_TRIBES, true, DispositionType.EVIL, FactionType.FACTION, null,
-                List.of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.getValue()),
+                List.of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD.location()),
                 null, null, null, List.of(), List.of(), List.of());
 
         GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, DispositionType.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,

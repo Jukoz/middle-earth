@@ -1,18 +1,16 @@
 package net.sevenstars.middleearth.gui.artisantable;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 enum ArtisanTableTabType {
-    ABOVE(new Textures(Identifier.ofVanilla("advancements/tab_above_left_selected"), Identifier.ofVanilla("advancements/tab_above_middle_selected"), Identifier.ofVanilla("advancements/tab_above_right_selected")), new Textures(Identifier.ofVanilla("advancements/tab_above_left"), Identifier.ofVanilla("advancements/tab_above_middle"), Identifier.ofVanilla("advancements/tab_above_right")), 28, 32, 8),
-    BELOW(new Textures(Identifier.ofVanilla("advancements/tab_below_left_selected"), Identifier.ofVanilla("advancements/tab_below_middle_selected"), Identifier.ofVanilla("advancements/tab_below_right_selected")), new Textures(Identifier.ofVanilla("advancements/tab_below_left"), Identifier.ofVanilla("advancements/tab_below_middle"), Identifier.ofVanilla("advancements/tab_below_right")), 28, 32, 8),
-    LEFT(new Textures(Identifier.ofVanilla("advancements/tab_left_top_selected"), Identifier.ofVanilla("advancements/tab_left_middle_selected"), Identifier.ofVanilla("advancements/tab_left_bottom_selected")), new Textures(Identifier.ofVanilla("advancements/tab_left_top"), Identifier.ofVanilla("advancements/tab_left_middle"), Identifier.ofVanilla("advancements/tab_left_bottom")), 32, 28, 5),
-    RIGHT(new Textures(Identifier.ofVanilla("advancements/tab_right_top_selected"), Identifier.ofVanilla("advancements/tab_right_middle_selected"), Identifier.ofVanilla("advancements/tab_right_bottom_selected")), new Textures(Identifier.ofVanilla("advancements/tab_right_top"), Identifier.ofVanilla("advancements/tab_right_middle"), Identifier.ofVanilla("advancements/tab_right_bottom")), 32, 28, 5);
+    ABOVE(new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_above_left_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_above_middle_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_above_right_selected")), new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_above_left"), ResourceLocation.withDefaultNamespace("advancements/tab_above_middle"), ResourceLocation.withDefaultNamespace("advancements/tab_above_right")), 28, 32, 8),
+    BELOW(new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_below_left_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_below_middle_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_below_right_selected")), new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_below_left"), ResourceLocation.withDefaultNamespace("advancements/tab_below_middle"), ResourceLocation.withDefaultNamespace("advancements/tab_below_right")), 28, 32, 8),
+    LEFT(new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_left_top_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_left_middle_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_left_bottom_selected")), new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_left_top"), ResourceLocation.withDefaultNamespace("advancements/tab_left_middle"), ResourceLocation.withDefaultNamespace("advancements/tab_left_bottom")), 32, 28, 5),
+    RIGHT(new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_right_top_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_right_middle_selected"), ResourceLocation.withDefaultNamespace("advancements/tab_right_bottom_selected")), new Textures(ResourceLocation.withDefaultNamespace("advancements/tab_right_top"), ResourceLocation.withDefaultNamespace("advancements/tab_right_middle"), ResourceLocation.withDefaultNamespace("advancements/tab_right_bottom")), 32, 28, 5);
 
     private final Textures selectedTextures;
     private final Textures unselectedTextures;
@@ -32,14 +30,14 @@ enum ArtisanTableTabType {
         return this.tabCount;
     }
 
-    public void drawBackground(DrawContext context, int x, int y, boolean selected, int index) {
+    public void drawBackground(GuiGraphics context, int x, int y, boolean selected, int index) {
         Textures textures;
         Textures textures2 = textures = selected ? this.selectedTextures : this.unselectedTextures;
-        Identifier identifier = index == 0 ? textures.first() : (index == this.tabCount - 1 ? textures.last() : textures.middle());
-        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, identifier, x + this.getTabX(index), y + this.getTabY(index), this.width, this.height);
+        ResourceLocation identifier = index == 0 ? textures.first() : (index == this.tabCount - 1 ? textures.last() : textures.middle());
+        context.blitSprite(identifier, x + this.getTabX(index), y + this.getTabY(index), this.width, this.height);
     }
 
-    public void drawIcon(DrawContext context, int x, int y, int index, ItemStack stack) {
+    public void drawIcon(GuiGraphics context, int x, int y, int index, ItemStack stack) {
         int i = x + this.getTabX(index);
         int j = y + this.getTabY(index);
         switch (this.ordinal()) {
@@ -63,7 +61,7 @@ enum ArtisanTableTabType {
                 j += 5;
             }
         }
-        context.drawItemWithoutEntity(stack, i, j);
+        context.renderFakeItem(stack, i, j);
     }
 
     public int getTabX(int index) {
@@ -92,8 +90,8 @@ enum ArtisanTableTabType {
         return mouseX > (double)i && mouseX < (double)(i + this.width) && mouseY > (double)j && mouseY < (double)(j + this.height);
     }
 
-    @Environment(value=EnvType.CLIENT)
-    record Textures(Identifier first, Identifier middle, Identifier last) {
+    @OnlyIn(Dist.CLIENT)
+    record Textures(ResourceLocation first, ResourceLocation middle, ResourceLocation last) {
     }
 }
 

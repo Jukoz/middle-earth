@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wild-things:snail_spawns",
+  "spawners": {
+    "type": "wild-things:snail",
+    "weight": 40,
+    "minCount": 2,
+    "maxCount": 5
+  }
+}

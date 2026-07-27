@@ -1,23 +1,23 @@
 package net.sevenstars.middleearth.world.features.tree.saplings;
 
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 public class ModLargeSaplingGenerator {
-    private final RegistryKey<ConfiguredFeature<?, ?>> treeKey;
-    private final RegistryKey<ConfiguredFeature<?, ?>> largeTreeKey;
+    private final ResourceKey<ConfiguredFeature<?, ?>> treeKey;
+    private final ResourceKey<ConfiguredFeature<?, ?>> largeTreeKey;
 
-    public ModLargeSaplingGenerator(RegistryKey<ConfiguredFeature<?, ?>> treeKey, RegistryKey<ConfiguredFeature<?, ?>> largeTreeKey) {
+    public ModLargeSaplingGenerator(ResourceKey<ConfiguredFeature<?, ?>> treeKey, ResourceKey<ConfiguredFeature<?, ?>> largeTreeKey) {
         this.treeKey = treeKey;
         this.largeTreeKey = largeTreeKey;
     }
 
-    protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
+    protected ResourceKey<ConfiguredFeature<?, ?>> getTreeFeature(RandomSource random, boolean bees) {
         return treeKey;
     }
 
-    protected RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
+    protected ResourceKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(RandomSource random) {
         return largeTreeKey;
     }
 }

@@ -1,10 +1,21 @@
 {
-	"format_version": "1.21.6",
-	"credit": "Made with Blockbench",
-	"texture_size": [64, 64],
-	"parent": "middle-earth:item/eryn_galen_shield",
-	"textures": {
-		"0": "middle-earth:item/eryn_galen_tarnished_shield",
-		"particle": "block/dark_oak_planks"
-	}
+    "format_version":  "1.21.6",
+    "credit":  "Made with Blockbench",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "parent":  "middle-earth:item/eryn_galen_shield",
+    "textures":  {
+                     "0":  "middle-earth:item/eryn_galen_tarnished_shield",
+                     "particle":  "block/dark_oak_planks"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/eryn_galen_tarnished_shield_blocking"
+                      }
+                  ]
 }

@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.block.special.artisantable;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum ArtisanTablePart implements StringIdentifiable {
+public enum ArtisanTablePart implements StringRepresentable {
     LEFT("left"),
     RIGHT("right");
 
@@ -16,7 +16,7 @@ public enum ArtisanTablePart implements StringIdentifiable {
         return this.name;
     }
 
-    public String asString() {
+    public String getSerializedName() {
         return this.name;
     }
 

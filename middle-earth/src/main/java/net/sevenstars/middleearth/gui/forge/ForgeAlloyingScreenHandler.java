@@ -1,38 +1,38 @@
 package net.sevenstars.middleearth.gui.forge;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-public class ForgeAlloyingScreenHandler extends ScreenHandler {
-    protected final Inventory inventory;
-    protected final PropertyDelegate propertyDelegate;
-    protected final World world;
+public class ForgeAlloyingScreenHandler extends AbstractContainerMenu {
+    protected final Container inventory;
+    protected final ContainerData propertyDelegate;
+    protected final Level world;
     protected BlockPos pos;
 
-    public ForgeAlloyingScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory, new SimpleInventory(6), new ArrayPropertyDelegate(6));
+    public ForgeAlloyingScreenHandler(int syncId, Inventory playerInventory, BlockPos blockPos) {
+        this(syncId, playerInventory, new SimpleContainer(6), new SimpleContainerData(6));
         this.pos = blockPos;
     }
 
-    public ForgeAlloyingScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
+    public ForgeAlloyingScreenHandler(int syncId, Inventory playerInventory, Container inventory, ContainerData delegate) {
         super(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, syncId);
         this.inventory = inventory;
         this.propertyDelegate = delegate;
-        this.world = playerInventory.player.getWorld();
-        this.pos = BlockPos.ORIGIN;
+        this.world = playerInventory.player.level();
+        this.pos = inventory instanceof ForgeBlockEntity forge ? forge.getBlockPos() : BlockPos.ZERO;
         int maxItemStack = 64;
-        checkSize(inventory, 6);
+        checkContainerSize(inventory, 6);
 
         this.addSlot(new ForgeAlloyingFuelSlot(inventory, this, 0, 35, 61));
         this.addSlot(new ForgeSlot(inventory, 1, 8,  16, maxItemStack));
@@ -43,8 +43,8 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
-        inventory.onOpen(playerInventory.player);
-        addProperties(delegate);
+        inventory.startOpen(playerInventory.player);
+        addDataSlots(delegate);
     }
 
     public BlockPos getPos() {
@@ -52,31 +52,31 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
+    public ItemStack quickMoveStack(Player player, int slot) {
         ItemStack stack = ItemStack.EMPTY;
         Slot invSlot = this.slots.get(slot);
 
-        if(invSlot.hasStack()) {
-            ItemStack originalStack = invSlot.getStack();
-            if(slot < this.inventory.size()) {
-                if(!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+        if(invSlot.hasItem()) {
+            ItemStack originalStack = invSlot.getItem();
+            if(slot < this.inventory.getContainerSize()) {
+                if(!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size() - 1, false)) {
+            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize() - 1, false)) {
                 return ItemStack.EMPTY;
             }
             if (originalStack.isEmpty()) {
-                invSlot.setStack(ItemStack.EMPTY);
+                invSlot.setByPlayer(ItemStack.EMPTY);
             } else {
-                invSlot.markDirty();
+                invSlot.setChanged();
             }
         }
         return stack;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
+    public boolean stillValid(Player player) {
+        return this.inventory.stillValid(player);
     }
 
     public boolean isCooking() {
@@ -135,7 +135,7 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
         return (float) progress / ForgeBlockEntity.MAX_PROGRESS;
     }
 
-    private void addPlayerInventory(PlayerInventory playerInventory) {
+    private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
@@ -143,7 +143,7 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 149));
         }

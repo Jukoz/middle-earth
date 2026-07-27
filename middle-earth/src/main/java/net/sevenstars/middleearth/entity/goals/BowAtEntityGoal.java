@@ -1,65 +1,62 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 
 public class BowAtEntityGoal extends Goal {
 	public static final float DEFAULT_CHANCE = 0.02F;
-	protected final PathAwareEntity mob;
+	protected final PathfinderMob mob;
 	@Nullable
 	protected Entity target;
 	protected final float range;
 	private int lookTime;
 	private final boolean lookForward;
-	private final EntityNavigation navigation;
+	private final PathNavigation navigation;
 	protected final Class<? extends LivingEntity> targetType;
-	protected final TargetPredicate targetPredicate;
+	protected final TargetingConditions targetPredicate;
 	protected final Predicate<LivingEntity> targetSelector;
 
-	public BowAtEntityGoal(PathAwareEntity mob, Class<? extends LivingEntity> targetType, float range, Predicate<LivingEntity> targetSelector) {
+	public BowAtEntityGoal(PathfinderMob mob, Class<? extends LivingEntity> targetType, float range, Predicate<LivingEntity> targetSelector) {
 		this(mob, targetType, range, targetSelector, false);
 	}
 
-	public BowAtEntityGoal(PathAwareEntity mob, Class<? extends LivingEntity> targetType, float range, Predicate<LivingEntity> targetSelector, boolean lookForward) {
+	public BowAtEntityGoal(PathfinderMob mob, Class<? extends LivingEntity> targetType, float range, Predicate<LivingEntity> targetSelector, boolean lookForward) {
 		this.mob = mob;
 		this.targetType = targetType;
 		this.range = range;
 		this.lookForward = lookForward;
 		this.navigation = mob.getNavigation();
 		this.targetSelector = targetSelector;
-		this.setControls(EnumSet.of(Control.LOOK));
-		if (targetType == PlayerEntity.class) {
-			Predicate<Entity> predicate = EntityPredicates.rides(mob);
-			this.targetPredicate = TargetPredicate.createNonAttackable().setBaseMaxDistance((double)range).setPredicate((entity, world) -> {
-				return targetSelector.test(entity);
-			});
+		this.setFlags(EnumSet.of(Flag.LOOK));
+		if (targetType == Player.class) {
+			this.targetPredicate = TargetingConditions.forNonCombat().range((double)range).selector(targetSelector);
 		} else {
-			this.targetPredicate = TargetPredicate.createNonAttackable().setBaseMaxDistance((double)range);
+			this.targetPredicate = TargetingConditions.forNonCombat().range((double)range);
 		}
 	}
 
-	public boolean canStart() {
+	public boolean canUse() {
 		if (this.mob.getTarget() != null) {
 			this.target = this.mob.getTarget();
 		}
 
-		ServerWorld serverWorld = getServerWorld(this.mob);
-		if (this.targetType == PlayerEntity.class) {
-			this.target = serverWorld.getClosestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+		if (!(this.mob.level() instanceof ServerLevel serverWorld)) {
+			return false;
+		}
+		if (this.targetType == Player.class) {
+			this.target = serverWorld.getNearestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
 		} else {
-			this.target = serverWorld.getClosestEntity(this.mob.getWorld().getEntitiesByClass(this.targetType, this.mob.getBoundingBox().expand((double)this.range, 3.0, (double)this.range), (livingEntity) -> {
+			this.target = serverWorld.getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.mob.getBoundingBox().inflate((double)this.range, 3.0, (double)this.range), (livingEntity) -> {
 				return true;
 			}), this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
 		}
@@ -68,10 +65,10 @@ public class BowAtEntityGoal extends Goal {
 
 	}
 
-	public boolean shouldContinue() {
-		if (!this.target.isAlive()) {
+	public boolean canContinueToUse() {
+		if (this.target == null || !this.target.isAlive()) {
 			return false;
-		} else if (this.mob.squaredDistanceTo(this.target) > (double)(this.range * this.range)) {
+		} else if (this.mob.distanceToSqr(this.target) > (double)(this.range * this.range)) {
 			return false;
 		} else {
 			return this.lookTime > 0;
@@ -91,7 +88,7 @@ public class BowAtEntityGoal extends Goal {
 		if (this.target.isAlive()) {
 			this.navigation.stop();
 			double d = this.lookForward ? this.mob.getEyeY() : this.target.getEyeY();
-			this.mob.getLookControl().lookAt(this.target.getX(), d, this.target.getZ());
+			this.mob.getLookControl().setLookAt(this.target.getX(), d, this.target.getZ());
 			--this.lookTime;
 		}
 	}

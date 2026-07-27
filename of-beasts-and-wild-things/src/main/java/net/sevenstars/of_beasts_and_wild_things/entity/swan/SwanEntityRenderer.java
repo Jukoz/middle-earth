@@ -1,25 +1,26 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.model.BabyModelPair;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.Util;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.EntityModelLayersWT;
 
 import java.util.Map;
 
-public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntityRenderState, SwanEntityModel> {
+public class SwanEntityRenderer extends MobRenderer<SwanEntity, SwanEntityModel> {
     private static final String PATH = "textures/entity/swan/";
-    BabyModelPair<SwanEntityModel> babyModelPair;
+    private final SwanEntityModel adultModel;
+    private final SwanEntityModel babyModel;
 
-    public SwanEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new SwanEntityModel(context.getPart(EntityModelLayersWT.SWAN)), 0.5f);
-        babyModelPair = new BabyModelPair<>(new SwanAdultModel(context.getPart(EntityModelLayersWT.SWAN)), new SwanBabyModel(context.getPart(EntityModelLayersWT.SWAN_BABY)));
+    public SwanEntityRenderer(EntityRendererProvider.Context context) {
+        super(context, new SwanAdultModel(context.bakeLayer(EntityModelLayersWT.SWAN)), 0.5f);
+        this.adultModel = this.model;
+        this.babyModel = new SwanBabyModel(context.bakeLayer(EntityModelLayersWT.SWAN_BABY));
     }
 
     public static final Map<SwanEntityVariant, String> LOCATION_BY_VARIANT =
@@ -35,30 +36,16 @@ public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntit
             });
 
     @Override
-    public Identifier getTexture(SwanEntityRenderState state) {
-        return state.baby ? Identifier.of(OfBeastsAndWildThings.MOD_ID, PATH + "swan_baby.png") : Identifier.of(OfBeastsAndWildThings.MOD_ID, LOCATION_BY_VARIANT.get(state.variant));
+    public ResourceLocation getTextureLocation(SwanEntity entity) {
+        return entity.isBaby()
+                ? OfBeastsAndWildThings.of(PATH + "swan_baby.png")
+                : OfBeastsAndWildThings.of(LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 
     @Override
-    public void render(SwanEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        this.model = babyModelPair.get(state.baby);
-        super.render(state, matrixStack, vertexConsumerProvider, i);
-    }
-
-    @Override
-    public SwanEntityRenderState createRenderState() {
-        return new SwanEntityRenderState();
-    }
-
-    @Override
-    public void updateRenderState(SwanEntity swan, SwanEntityRenderState swanEntityRenderState, float f) {
-        super.updateRenderState(swan, swanEntityRenderState, f);
-        swanEntityRenderState.variant = swan.getVariant();
-        swanEntityRenderState.sleepingAnimationState = swan.sleepingAnimationState;
-        swanEntityRenderState.swimmingAnimationState = swan.swimmingAnimationState;
-        swanEntityRenderState.intimidateAnimationState = swan.intimidateAnimationState;
-        swanEntityRenderState.eatAnimationState = swan.eatAnimationState;
-        swanEntityRenderState.swimIdleAnimationState = swan.swimIdleAnimationState;
-        swanEntityRenderState.flapAnimationState = swan.flapAnimationState;
+    public void render(SwanEntity entity, float entityYaw, float partialTick, PoseStack poseStack,
+                       MultiBufferSource bufferSource, int packedLight) {
+        this.model = entity.isBaby() ? this.babyModel : this.adultModel;
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

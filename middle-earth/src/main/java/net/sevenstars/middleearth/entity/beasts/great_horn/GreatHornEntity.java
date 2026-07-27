@@ -1,44 +1,62 @@
 package net.sevenstars.middleearth.entity.beasts.great_horn;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.spawn.SpawnContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
+import net.sevenstars.middleearth.entity.VariantHolderUtils;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
@@ -58,111 +76,116 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 
 public class GreatHornEntity extends AbstractBeastEntity implements Evader {
+    private static final TagKey<net.minecraft.world.level.biome.Biome> WARM_VARIANT_BIOMES =
+            TagKey.create(Registries.BIOME, MiddleEarth.of("spawns_warm_variant_great_horn"));
+    private static final TagKey<net.minecraft.world.level.biome.Biome> COLD_VARIANT_BIOMES =
+            TagKey.create(Registries.BIOME, MiddleEarth.of("spawns_cold_variant_great_horn"));
     private static final int HORNS_ATTACK_COOLDOWN = 50;
-    private static final float MIN_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 0.0);
-    private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.getChildMovementSpeedBonus(() -> 1.0);
-    private static final float MIN_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> 0);
-    private static final float MAX_HEALTH_BONUS = GreatHornEntity.getChildHealthBonus(max -> max - 1);
-    private static final TrackedData<RegistryEntry<GreatHornVariant>> VARIANT = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistryME.GREAT_HORN_VARIANT);;
-    private static final TrackedData<Integer> BOW = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Integer> ATTACK = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Boolean> BLUE_SADDLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> MOUNTABLE = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> EVADING = DataTracker.registerData(GreatHornEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final float MIN_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.generateSpeed(() -> 0.0);
+    private static final float MAX_MOVEMENT_SPEED_BONUS = (float) GreatHornEntity.generateSpeed(() -> 1.0);
+    private static final float MIN_HEALTH_BONUS = GreatHornEntity.generateMaxHealth(max -> 0);
+    private static final float MAX_HEALTH_BONUS = GreatHornEntity.generateMaxHealth(max -> max - 1);
+    private static final EntityDataAccessor<Holder<GreatHornVariant>> VARIANT = SynchedEntityData.defineId(GreatHornEntity.class, TrackedDataHandlerRegistryME.GREAT_HORN_VARIANT);;
+    private static final EntityDataAccessor<Integer> BOW = SynchedEntityData.defineId(GreatHornEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ATTACK = SynchedEntityData.defineId(GreatHornEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> BLUE_SADDLE = SynchedEntityData.defineId(GreatHornEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> MOUNTABLE = SynchedEntityData.defineId(GreatHornEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> EVADING = SynchedEntityData.defineId(GreatHornEntity.class, EntityDataSerializers.BOOLEAN);
     public final AnimationState earWigglingAnimationState = new AnimationState();
     public final AnimationState gallopAnimationState = new AnimationState();
     public final AnimationState bowAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
-    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.GREAT_HORN.getDimensions().scaled(0.5f);
+    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.GREAT_HORN.getDimensions().scale(0.5f);
     protected int attackAnimationCooldown = 0;
     protected int bowAnimationTimeout = 0;
 
-    public GreatHornEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
+    public GreatHornEntity(EntityType<? extends AbstractBeastEntity> entityType, Level world) {
         super(entityType, world);
         idleAnimationTimeout = 200;
     }
 
-    public static DefaultAttributeContainer.Builder setAttributes() {
-        return AnimalEntity.createAnimalAttributes()
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.3)
-                .add(EntityAttributes.MAX_HEALTH, 50.0d)
-                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.3d)
-                .add(EntityAttributes.ATTACK_SPEED, 1.0d)
-                .add(EntityAttributes.FOLLOW_RANGE, 38.0d)
-                .add(EntityAttributes.ATTACK_DAMAGE, 4.0d)
-                .add(EntityAttributes.WATER_MOVEMENT_EFFICIENCY, 0.5f)
-                .add(EntityAttributes.STEP_HEIGHT, 1.15d)
-                .add(EntityAttributes.SAFE_FALL_DISTANCE, 7.0d)
-                .add(EntityAttributes.JUMP_STRENGTH, 0.75d);
+    public static AttributeSupplier.Builder setAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.MAX_HEALTH, 50.0d)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.3d)
+                .add(Attributes.ATTACK_SPEED, 1.0d)
+                .add(Attributes.FOLLOW_RANGE, 38.0d)
+                .add(Attributes.ATTACK_DAMAGE, 4.0d)
+                .add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.5f)
+                .add(Attributes.STEP_HEIGHT, 1.15d)
+                .add(Attributes.SAFE_FALL_DISTANCE, 7.0d)
+                .add(Attributes.JUMP_STRENGTH, 0.75d);
     }
 
     @Override
-    protected void initAttributes(Random random) {
-        this.getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(this.getChildHealthBonus(random::nextInt));
-        this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(this.getChildMovementSpeedBonus(random::nextDouble));
-        this.getAttributeInstance(EntityAttributes.JUMP_STRENGTH).setBaseValue(this.getChildJumpStrengthBonus(random::nextDouble));
+    protected void randomizeAttributes(RandomSource random) {
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(this.generateMaxHealth(random::nextInt));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.generateSpeed(random::nextDouble));
+        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(this.generateJumpStrength(random::nextDouble));
     }
 
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BowAtEntityGoal(this, PlayerEntity.class, 16, (livingEntity -> {
-            return this.shouldBow((PlayerEntity) livingEntity);
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new BowAtEntityGoal(this, Player.class, 16, (livingEntity -> {
+            return this.shouldBow((Player) livingEntity);
         }) ));
-        this.goalSelector.add(3, new SmartFleeEntityGoal<>(this, (Evader) this,
-                PlayerEntity.class, 20.0F, 1.6, 1.9, (entity) -> {
-            return !this.canTrust((PlayerEntity)entity);
+        this.goalSelector.addGoal(3, new SmartFleeEntityGoal<>(this, (Evader) this,
+                Player.class, 20.0F, 1.6, 1.9, (entity) -> {
+            return !this.canTrust((Player)entity);
         }));
-        this.goalSelector.add(4, new SmartFleeEntityGoal<>(this, (Evader) this,
+        this.goalSelector.addGoal(4, new SmartFleeEntityGoal<>(this, (Evader) this,
                 WargEntity.class, 20.0F, 1.7, 2.0, (entity) -> true));
-        this.goalSelector.add(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
-        this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
-        this.goalSelector.add(6, new TemptGoal(this, 1.0, (stack) -> stack.isIn(ItemTagsME.ELK_FOOD), false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
-        this.goalSelector.add(9, new LookAroundGoal(this));
+        this.goalSelector.addGoal(4, new ChargeAttackGoal(this, null, maxChargeCooldown()));
+        this.goalSelector.addGoal(5, new BreedGoal(this, 1.5));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0, (stack) -> stack.is(ItemTagsME.ELK_FOOD), false));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        RegistryEntry<GreatHornVariant> greatHornVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), GreatHornVariantRegistry.DEFAULT);
-        builder.add(BOW, 0);
-        builder.add(BLUE_SADDLE, false);
-        builder.add(MOUNTABLE, true);
-        builder.add(EVADING, false);
-        builder.add(ATTACK, 0);
-        builder.add(VARIANT, greatHornVariantRegistryEntry);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        Holder<GreatHornVariant> greatHornVariantRegistryEntry =
+                VariantHolderUtils.getDefaultOrAny(this.registryAccess(), GreatHornVariantRegistry.DEFAULT);
+        builder.define(BOW, 0);
+        builder.define(BLUE_SADDLE, false);
+        builder.define(MOUNTABLE, true);
+        builder.define(EVADING, false);
+        builder.define(ATTACK, 0);
+        builder.define(VARIANT, greatHornVariantRegistryEntry);
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
-        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+    public void addAdditionalSaveData(CompoundTag view) {
+        super.addAdditionalSaveData(view);
+        VariantHolderUtils.writeVariant(view, this.getRegistryVariant());
     }
 
     @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        Variants.readVariantFromNbt(view, DynamicRegistriesME.GREAT_HORN_VARIANTS).ifPresent(this::setVariant);
-        this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+    public void readAdditionalSaveData(CompoundTag view) {
+        super.readAdditionalSaveData(view);
+        VariantHolderUtils.readVariant(view, this.registryAccess(), DynamicRegistriesME.GREAT_HORN_VARIANTS)
+                .ifPresent(this::setVariant);
+        this.entityData.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
-    protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
+    protected static float generateMaxHealth(IntUnaryOperator randomIntGetter) {
         return 20.0f + (float)randomIntGetter.applyAsInt(8) + (float)randomIntGetter.applyAsInt(8);
     }
 
-    protected static double getChildJumpStrengthBonus(DoubleSupplier randomDoubleGetter) {
+    protected static double generateJumpStrength(DoubleSupplier randomDoubleGetter) {
         return 0;
     }
 
-    protected static double getChildMovementSpeedBonus(DoubleSupplier randomDoubleGetter) {
+    protected static double generateSpeed(DoubleSupplier randomDoubleGetter) {
         return ((double)0.4f + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.2) * 0.27;
     }
 
@@ -182,45 +205,45 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     public boolean hasBlueSaddle() {
-        return this.dataTracker.get(BLUE_SADDLE);
+        return this.entityData.get(BLUE_SADDLE);
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
 
-        if(!this.getWorld().isClient() && !player.isCreative()) {
+        if(!this.level().isClientSide() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
             if(playerRace == null || playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
-                return ActionResult.FAIL;
+                return InteractionResult.FAIL;
             }
         }
 
-        if(this.isTame() && this.isTamable(player)) {
-            if (this.isBreedingItem(itemStack)) {
+        if(this.isTamed() && this.isTamable(player)) {
+            if (this.isFood(itemStack)) {
                 if(this.getHealth() < this.getMaxHealth()) {
-                    itemStack.decrementUnlessCreative(1, player);
-                    FoodComponent foodComponent = itemStack.get(DataComponentTypes.FOOD);
+                    itemStack.consume(1, player);
+                    FoodProperties foodComponent = itemStack.get(DataComponents.FOOD);
                     float f = foodComponent != null ? (float)foodComponent.nutrition() : 1.0f;
                     this.heal(2.0f * f);
-                    return ActionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
-                else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
-                    this.eat(player, hand, itemStack);
-                    this.lovePlayer(player);
-                    return ActionResult.SUCCESS;
+                else if (!this.level().isClientSide && this.getAge() == 0 && this.canFallInLove()) {
+                    this.usePlayerItem(player, hand, itemStack);
+                    this.setInLove(player);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
 
-        if(itemStack.getItem().equals(Items.BLUE_DYE) && !this.dataTracker.get(BLUE_SADDLE)) {
-            this.dataTracker.set(BLUE_SADDLE, true);
-        } else if(itemStack.getItem().equals(Items.RED_DYE) && this.dataTracker.get(BLUE_SADDLE)) {
-            this.dataTracker.set(BLUE_SADDLE, false);
+        if(itemStack.getItem().equals(Items.BLUE_DYE) && !this.entityData.get(BLUE_SADDLE)) {
+            this.entityData.set(BLUE_SADDLE, true);
+        } else if(itemStack.getItem().equals(Items.RED_DYE) && this.entityData.get(BLUE_SADDLE)) {
+            this.entityData.set(BLUE_SADDLE, false);
         }
 
-        return super.interactMob(player, hand);
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -229,26 +252,26 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     @Override
-    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        float f = this.limbAnimator.getAnimationProgress() / 20;
-        float g = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
+    protected Vec3 getPassengerAttachmentPoint(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        float f = this.walkAnimation.position() / 20;
+        float g = this.walkAnimation.position() * (Mth.PI / 180) * 18; // TODO : Fix,was using limbAnimator.getPos()
 
         double y = 0.45;
-        if(gallopAnimationState.isRunning()) {
-            y += -0.025 + MathHelper.cos((f/0.75f) * (MathHelper.PI*2)) * 0.15;
+        if(gallopAnimationState.isStarted()) {
+            y += -0.025 + Mth.cos((f/0.75f) * (Mth.PI*2)) * 0.15;
         } else {
-            y += MathHelper.cos(g - MathHelper.PI) * 0.02 - 0.2;
+            y += Mth.cos(g - Mth.PI) * 0.02 - 0.2;
         }
 
-        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
+        return super.getPassengerAttachmentPoint(passenger, dimensions, scaleFactor).add(0, y,0);
     }
 
     @Override
     @Nullable
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        GreatHornEntity greatHornEntity2 = EntitiesME.GREAT_HORN.create(world, SpawnReason.BREEDING);
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
+        GreatHornEntity greatHornEntity2 = EntitiesME.GREAT_HORN.create(world);
         if (greatHornEntity2 != null) {
-            this.setChildAttributes(entity, greatHornEntity2);
+            this.setOffspringAttributes(entity, greatHornEntity2);
             if (this.random.nextBoolean()) {
                 greatHornEntity2.setVariant(this.getRegistryVariant());
             } else {
@@ -259,72 +282,73 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     @Override
-    protected void setChildAttributes(PassiveEntity other, AbstractHorseEntity child) {
-        this.setChildAttribute(other, child, EntityAttributes.MAX_HEALTH, MIN_HEALTH_BONUS, MAX_HEALTH_BONUS);
-        this.setChildAttribute(other, child, EntityAttributes.MOVEMENT_SPEED, MIN_MOVEMENT_SPEED_BONUS, MAX_MOVEMENT_SPEED_BONUS);
+    protected void setOffspringAttributes(AgeableMob other, AbstractHorse child) {
+        this.setOffspringAttribute(other, child, Attributes.MAX_HEALTH, MIN_HEALTH_BONUS, MAX_HEALTH_BONUS);
+        this.setOffspringAttribute(other, child, Attributes.MOVEMENT_SPEED, MIN_MOVEMENT_SPEED_BONUS, MAX_MOVEMENT_SPEED_BONUS);
     }
 
     @Override
-    public EntityDimensions getBaseDimensions(EntityPose pose) {
-        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getBaseDimensions(pose);
+    public EntityDimensions getDefaultDimensions(Pose pose) {
+        return this.isBaby() ? BABY_BASE_DIMENSIONS : super.getDefaultDimensions(pose);
     }
 
     @Override
-    protected boolean isTamable(PlayerEntity player) {
+    protected boolean isTamable(Player player) {
         return this.isMountable();
     }
 
     @Override
-    public boolean canBreedWith(AnimalEntity other) {
+    public boolean canMate(Animal other) {
         return other instanceof GreatHornEntity;
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ItemTagsME.ELK_FOOD);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ItemTagsME.ELK_FOOD);
     }
 
     @Override
-    protected void jump(float strength, Vec3d movementInput) {
+    protected void executeRidersJump(float strength, Vec3 movementInput) {
         if(this.chargeTimeout <= 0 && this.hasControllingPassenger()
                 && this.getControllingPassenger().isSprinting()) {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
-            float entitySpeed = (float) this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue();
-            if(!this.getWorld().isClient) {
-                Vec2f vec2f = this.getControlledRotation(this.getControllingPassenger());
-                this.setVelocity(new Vec3d(vec2f.x,0,vec2f.y).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
+            float entitySpeed = (float) this.getAttribute(Attributes.MOVEMENT_SPEED).getValue();
+            if(!this.level().isClientSide) {
+                Vec2 vec2f = this.getRiddenRotation(this.getControllingPassenger());
+                this.setDeltaMovement(new Vec3(vec2f.x,0,vec2f.y).normalize().add(0,0.4,0).scale(strength * (1.4f + entitySpeed)));
             }
-            else if (this.getWorld().isClient) {
-                this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
+            else if (this.level().isClientSide) {
+                this.setDeltaMovement(this.getLookAngle().multiply(1,0,1).normalize().add(0,0.4,0).scale(strength * (1.4f + entitySpeed)));
             }
-            this.chargeAnimationState.startIfNotRunning(this.age);
+            this.chargeAnimationState.startIfStopped(this.tickCount);
         }
     }
 
     @Override
-    public void startJumping(int height) {
+    public void handleStartJump(int height) {
         if(this.hasControllingPassenger()) {
-            this.jumping = true;
+            this.allowStandSliding = true;
             this.playJumpSound();
             float jumpPercentage = (float)height/100;
             if(!this.getControllingPassenger().isSprinting()) {
                 this.setChargeTimeout(HORNS_ATTACK_COOLDOWN);
-                dataTracker.set(ATTACK, HORNS_ATTACK_COOLDOWN);
+                entityData.set(ATTACK, HORNS_ATTACK_COOLDOWN);
                 attackAnimationCooldown = HORNS_ATTACK_COOLDOWN;
-                List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(2.5,2,2.5));
-
-                for(Entity entity : entities) {
-                    if(!this.getPassengerList().contains(entity)) {
-                        if(!this.getWorld().isClient()) {
-                            entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), jumpPercentage * getAttackDamage());
-                        }
+                if (this.level() instanceof ServerLevel serverLevel) {
+                    List<Entity> entities = serverLevel.getEntities(
+                            this,
+                            this.getBoundingBox().inflate(2.5, 2, 2.5),
+                            entity -> !this.getPassengers().contains(entity)
+                    );
+                    for(Entity entity : entities) {
+                            entity.hurt(entity.damageSources().mobAttack(this), jumpPercentage * getAttackDamage());
                         double dx = entity.getX() - this.getX();
                         double dz = entity.getZ() - this.getZ();
 
-                        Vec3d velocity = new Vec3d(dx, 1.25f + getRandom().nextFloat() * 0.5f, dz).normalize();
-                        velocity.multiply(jumpPercentage);
-                        entity.addVelocity(velocity);
+                        Vec3 velocity = new Vec3(dx, 1.25f + getRandom().nextFloat() * 0.5f, dz).normalize();
+                        velocity = velocity.scale(jumpPercentage);
+                        entity.push(velocity);
 
                         this.setCharging(false);
                     }
@@ -334,7 +358,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             }
         }
         else {
-            super.startJumping(height);
+            super.handleStartJump(height);
         }
     }
 
@@ -345,7 +369,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public int getJumpCooldown() {
-        return Math.max(super.getJumpCooldown(), this.dataTracker.get(ATTACK));
+        return Math.max(super.getJumpCooldown(), this.entityData.get(ATTACK));
     }
 
     @Override
@@ -363,7 +387,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         super.tick();
 
         if(this.isCharging()) {
-            if(this.chargeTimeout <= maxChargeCooldown() - 10 && this.isOnGround()) {
+            if(this.chargeTimeout <= maxChargeCooldown() - 10 && this.onGround()) {
                 this.setCharging(false);
                 this.setHasCharged(false);
             }
@@ -372,62 +396,62 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         if(bowAnimationTimeout > 0) {
             bowAnimationTimeout = Math.max(bowAnimationTimeout - 1, 0);
             if(bowAnimationTimeout == 0) {
-                dataTracker.set(BOW, -1);
+                entityData.set(BOW, -1);
             }
         }
         if(attackAnimationCooldown > 0) {
             attackAnimationCooldown = Math.max(attackAnimationCooldown - 1, 0);
-            dataTracker.set(ATTACK, attackAnimationCooldown);
+            entityData.set(ATTACK, attackAnimationCooldown);
         }
-        if (this.getWorld().isClient && bowAnimationState.isRunning()) {
+        if (this.level().isClientSide && bowAnimationState.isStarted()) {
             if(random.nextInt(2) == 0) {
                 Vector3f randPos = new Vector3f(this.random.nextFloat()*6 - 3f, this.random.nextFloat()*1.25f, this.random.nextFloat()*6 - 3f);
-                this.getWorld().addParticleClient(ParticleTypes.INSTANT_EFFECT, this.getX() + randPos.x, this.getY() + randPos.y, this.getZ() + randPos.z,
+                this.level().addParticle(ParticleTypes.INSTANT_EFFECT, this.getX() + randPos.x, this.getY() + randPos.y, this.getZ() + randPos.z,
                         0.0, 0.75f + this.random.nextFloat(), 0.0);
             }
         }
     }
 
-    public void slowMovement(BlockState state, Vec3d multiplier) {
+    public void makeStuckInBlock(BlockState state, Vec3 multiplier) {
         float pow = 0.1f;
-        Vec3d lessPenalty = new Vec3d(Math.pow(multiplier.x, pow), Math.pow(multiplier.y, pow), Math.pow(multiplier.z, pow));
-        super.slowMovement(state, lessPenalty);
+        Vec3 lessPenalty = new Vec3(Math.pow(multiplier.x, pow), Math.pow(multiplier.y, pow), Math.pow(multiplier.z, pow));
+        super.makeStuckInBlock(state, lessPenalty);
     }
 
     protected void setupAnimationStates() {
-        this.idleAnimationState.startIfNotRunning(this.age);
+        this.idleAnimationState.startIfStopped(this.tickCount);
 
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(40) + 80;
-            this.earWigglingAnimationState.start(this.age);
+            this.earWigglingAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
         }
 
-        int bowState = dataTracker.get(BOW);
+        int bowState = entityData.get(BOW);
         if(bowState == 1) {
-            this.bowAnimationState.startIfNotRunning(this.age);
-            dataTracker.set(BOW, 0);
+            this.bowAnimationState.startIfStopped(this.tickCount);
+            entityData.set(BOW, 0);
         } else if(bowState == -1) {
             this.bowAnimationState.stop();
-            dataTracker.set(BOW, 0);
+            entityData.set(BOW, 0);
         }
 
-        int attack = dataTracker.get(ATTACK);
+        int attack = entityData.get(ATTACK);
         if(attack == HORNS_ATTACK_COOLDOWN) {
-            this.attackAnimationState.start(this.age);
+            this.attackAnimationState.start(this.tickCount);
         } else if(attack == 0) {
             this.attackAnimationState.stop();
         }
 
         if(hasControllingPassenger()) {
             if((getControllingPassenger().isSprinting())) {
-                this.gallopAnimationState.startIfNotRunning(this.age);
+                this.gallopAnimationState.startIfStopped(this.tickCount);
             } else {
                 this.gallopAnimationState.stop();
             }
-        } else if(this.dataTracker.get(EVADING)) {
-            this.gallopAnimationState.startIfNotRunning(this.age);
+        } else if(this.entityData.get(EVADING)) {
+            this.gallopAnimationState.startIfStopped(this.tickCount);
         } else {
             this.gallopAnimationState.stop();
         }
@@ -435,23 +459,23 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     public void startFlee() {
-        this.dataTracker.set(EVADING, true);
+        this.entityData.set(EVADING, true);
     }
 
     @Override
     public void stopFlee() {
-        this.dataTracker.set(EVADING, false);
+        this.entityData.set(EVADING, false);
     }
 
     @Override
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isOf(Items.STICK);
+        return stack.is(Items.STICK);
     }
 
     @Override
-    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        float speed = ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
-        if(this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_FOREST)) {
+    protected float getRiddenSpeed(Player controllingPlayer) {
+        float speed = ((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+        if(this.level().getBiome(this.blockPosition()).is(BiomeTags.IS_FOREST)) {
             speed *= 1.1f;
         }
         if (controllingPlayer.isSprinting()) {
@@ -462,27 +486,27 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     @Override
-    public boolean canSprintAsVehicle() {
+    public boolean canSprint() {
         return true;
     }
 
-    public boolean canTrust(PlayerEntity playerEntity) {
+    public boolean canTrust(Player playerEntity) {
         RaceType playerRace = RaceUtil.getRaceType(playerEntity);
         return (playerRace != null && playerRace != RaceType.NONE) && (this.getCompatibleRaces() != null && this.getCompatibleRaces().contains(playerRace));
     }
 
-    public boolean shouldBow(PlayerEntity playerEntity) {
+    public boolean shouldBow(Player playerEntity) {
         return isOwner(playerEntity) && bowAnimationTimeout > 0;
     }
 
-    public boolean isOwner(PlayerEntity playerEntity) {
-        PlayerEntity owner = this.getOwner();
-        return (owner != null && owner.getUuid().equals(playerEntity.getUuid()));
+    public boolean isOwner(Player playerEntity) {
+        Player owner = this.getOwner();
+        return (owner != null && owner.getUUID().equals(playerEntity.getUUID()));
     }
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isIn(ItemTagsME.ELK_FOOD);
+        return itemStack.is(ItemTagsME.ELK_FOOD);
     }
 
     @Override
@@ -493,35 +517,43 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     public void setOwner(@Nullable LivingEntity entity) {
         super.setOwner(entity);
-        this.dataTracker.set(BOW, 1);
+        this.entityData.set(BOW, 1);
         bowAnimationTimeout = 80;
     }
 
     /* VARIANTS */
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
-                                 @Nullable EntityData entityData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason,
+                                 @Nullable SpawnGroupData entityData) {
         if (entityData instanceof GreatHornData greatHornData) {
             this.setVariant(greatHornData.variant);
         } else {
-            Optional<? extends RegistryEntry<GreatHornVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), DynamicRegistriesME.GREAT_HORN_VARIANTS);
-            if (optional.isPresent()) {
-                this.setVariant(optional.get());
-                entityData = new GreatHornData(optional.get());
-            }
+            var biome = world.getBiome(this.blockPosition());
+            var variantKey = biome.is(COLD_VARIANT_BIOMES)
+                    ? GreatHornVariantRegistry.COLD
+                    : biome.is(WARM_VARIANT_BIOMES)
+                    ? GreatHornVariantRegistry.WARM
+                    : this.random.nextBoolean()
+                    ? GreatHornVariantRegistry.BROWN
+                    : GreatHornVariantRegistry.TEMPERATE;
+            Holder<GreatHornVariant> variant = world.registryAccess()
+                    .registryOrThrow(DynamicRegistriesME.GREAT_HORN_VARIANTS)
+                    .getHolderOrThrow(variantKey);
+            this.setVariant(variant);
+            entityData = new GreatHornData(variant);
         }
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
-    private void setVariant(RegistryEntry<GreatHornVariant> variant) {
-        this.dataTracker.set(VARIANT, variant);
+    private void setVariant(Holder<GreatHornVariant> variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
     public GreatHornVariant getVariant() {
         return getRegistryVariant().value();
     }
 
-    private RegistryEntry<GreatHornVariant> getRegistryVariant() {
-        return this.dataTracker.get(VARIANT);
+    private Holder<GreatHornVariant> getRegistryVariant() {
+        return this.entityData.get(VARIANT);
     }
 
     @Nullable
@@ -549,34 +581,34 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_GOAT_STEP, 0.15f, 0.7f);
+        this.playSound(SoundEvents.GOAT_STEP, 0.15f, 0.7f);
     }
 
     @Override
-    protected void playWalkSound(BlockSoundGroup group) {
-        this.playSound(SoundEvents.ENTITY_GOAT_STEP, 1.0f, 0.7f);
+    protected void playGallopSound(SoundType group) {
+        this.playSound(SoundEvents.GOAT_STEP, 1.0f, 0.7f);
     }
 
     @Override
     protected void playJumpSound() {
-        this.playSound(SoundEvents.ENTITY_GOAT_LONG_JUMP, 1.0f, 0.7f);
+        this.playSound(SoundEvents.GOAT_LONG_JUMP, 1.0f, 0.7f);
     }
 
-    public static class GreatHornData extends PassiveEntity.PassiveData {
-        public final RegistryEntry<GreatHornVariant> variant;
+    public static class GreatHornData extends AgeableMob.AgeableMobGroupData {
+        public final Holder<GreatHornVariant> variant;
 
-        public GreatHornData(RegistryEntry<GreatHornVariant> variant) {
+        public GreatHornData(Holder<GreatHornVariant> variant) {
             super(0.075f);
             this.variant = variant;
         }
     }
 
-    public static boolean canSpawn(EntityType<GreatHornEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+    public static boolean canSpawn(EntityType<GreatHornEntity> type, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
         return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
     }
 
     @Override
-    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+    public boolean checkSpawnRules(LevelAccessor world, MobSpawnType spawnReason) {
         return true;
     }
 }

@@ -69,7 +69,7 @@
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:rohan/village/beekeeper_house_house_1",
+        "location": "middle-earth:rohan/village/beekeeper_house_1",
         "projection": "rigid",
         "processors": "middle-earth:randomize_rohan_road"
       }

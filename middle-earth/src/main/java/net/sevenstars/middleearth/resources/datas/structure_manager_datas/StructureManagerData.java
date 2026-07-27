@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class StructureManagerData {
             Codec.list(SpawnNestNodeData.CODEC).fieldOf("spawn_nest").forGetter(StructureManagerData::getNpcSpawnNest)
     ).apply(instance, StructureManagerData::new));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<SpawnNestNodeData> spawnNestNodeData;
 
     public StructureManagerData(String id, List<SpawnNestNodeData> nests) {
@@ -23,7 +23,7 @@ public class StructureManagerData {
         this.spawnNestNodeData = nests;
     }
 
-    public StructureManagerData(Identifier id, List<SpawnNestNodeData> nests) {
+    public StructureManagerData(ResourceLocation id, List<SpawnNestNodeData> nests) {
         this.id = id;
         this.spawnNestNodeData = nests;
     }
@@ -32,7 +32,7 @@ public class StructureManagerData {
         return this.id.toString();
     }
 
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return this.id;
     }
 
@@ -42,7 +42,7 @@ public class StructureManagerData {
         return spawnNestNodeData;
     }
 
-    public SpawnNestNodeData getNpcSpawnNest(Identifier idToCompare) {
+    public SpawnNestNodeData getNpcSpawnNest(ResourceLocation idToCompare) {
         for (var nest : spawnNestNodeData){
             if(nest.getId().equals(idToCompare))
                 return nest;

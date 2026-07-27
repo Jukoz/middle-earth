@@ -1,0 +1,6 @@
+{
+    "parent":  "middle-earth:item/big_weapon",
+    "textures":  {
+                     "layer0":  "middle-earth:item/hammer_of_helm_hammerhand_broken"
+                 }
+}

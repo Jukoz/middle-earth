@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.block.special.forge;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum ForgePart implements StringIdentifiable {
+public enum ForgePart implements StringRepresentable {
     BOTTOM("bottom"),
     TOP("top");
 
@@ -16,7 +16,7 @@ public enum ForgePart implements StringIdentifiable {
         return this.name;
     }
 
-    public String asString() {
+    public String getSerializedName() {
         return this.name;
     }
 

@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/brigand_mercenary_spawn_egg"
+                 }
+}

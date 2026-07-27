@@ -1,137 +1,135 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCollisionHandler;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
+public abstract class AbstractToggleableFireBlock extends BaseEntityBlock {
 
-    public static final BooleanProperty LIT = Properties.LIT;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-    public AbstractToggleableFireBlock(Settings settings) {
+    public AbstractToggleableFireBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, true));
+        this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true));
     }
 
-    protected abstract MapCodec<? extends AbstractToggleableFireBlock> getCodec();
+    protected abstract MapCodec<? extends AbstractToggleableFireBlock> codec();
 
     @Override
-    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            if(player.isInCreativeMode()){
-                world.setBlockState(pos, state.cycle(LIT));
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        InteractionHand hand = player.getUsedItemHand();
+        if (!world.isClientSide && player.getAbilities().mayBuild) {
+            if(player.hasInfiniteMaterials()){
+                world.setBlockAndUpdate(pos, state.cycle(LIT));
             } else {
-                ItemStack itemStack = player.getStackInHand(hand);
-                if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
+                ItemStack itemStack = player.getItemInHand(hand);
+                if (state.getValue(LIT) && itemStack.is(ItemTags.SHOVELS)) {
                     extinguish((Entity)null, world, pos, state);
-                } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+                } else if (!state.getValue(LIT)
+                        && (itemStack.is(Items.FLINT_AND_STEEL) || itemStack.is(Items.TORCH))) {
                     setLit(world, state, pos, true);
                 }
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    protected static void setLit(WorldAccess world, BlockState state, BlockPos pos, boolean lit) {
-        world.setBlockState(pos, state.with(LIT, lit), 2 | 3);
+    protected static void setLit(LevelAccessor world, BlockState state, BlockPos pos, boolean lit) {
+        world.setBlock(pos, state.setValue(LIT, lit), 2 | 3);
         if(lit){
-            world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.5F, 1.0F);
+            world.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.5F, 1.0F);
         }
     }
 
-    public static void extinguish(@Nullable Entity entity, WorldAccess world, BlockPos pos, BlockState state) {
-        if (world.isClient()) {
+    public static void extinguish(@Nullable Entity entity, LevelAccessor world, BlockPos pos, BlockState state) {
+        setLit(world, state, pos, false);
+        if (world.isClientSide()) {
             for(int i = 0; i < 20; ++i) {
-                spawnSmokeParticle((World)world, pos, true, true);
+                spawnSmokeParticle((Level)world, pos, true, true);
             }
         }
 
-        world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
+        world.gameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
     }
 
-    public static void spawnSmokeParticle(World world, BlockPos pos, boolean isSignal, boolean lotsOfSmoke) {
-        Random random = world.getRandom();
+    public static void spawnSmokeParticle(Level world, BlockPos pos, boolean isSignal, boolean lotsOfSmoke) {
+        RandomSource random = world.getRandom();
         SimpleParticleType simpleParticleType = isSignal ? ParticleTypes.CAMPFIRE_SIGNAL_SMOKE : ParticleTypes.CAMPFIRE_COSY_SMOKE;
-        world.addImportantParticleClient(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
+        world.addAlwaysVisibleParticle(simpleParticleType, true, (double)pos.getX() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + random.nextDouble() + random.nextDouble(), (double)pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
         if (lotsOfSmoke) {
-            world.addParticleClient(ParticleTypes.SMOKE, (double)pos.getX() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.4, (double)pos.getZ() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.005, 0.0);
+            world.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), (double)pos.getY() + 0.4, (double)pos.getZ() + 0.5 + random.nextDouble() / 4.0 * (double)(random.nextBoolean() ? 1 : -1), 0.0, 0.005, 0.0);
         }
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{LIT});
     }
 
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-        if (state.get(LIT) && entity instanceof LivingEntity) {
-            if (!world.isClient) {
-                ServerWorld serverWorld = (ServerWorld)world;
+    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
+        if (state.getValue(LIT) && entity instanceof LivingEntity) {
+            if (!world.isClientSide) {
                 if (isEntityAbove(pos, entity)) {
-                    entity.damage(serverWorld, world.getDamageSources().campfire(), (float) 1);
+                    entity.hurt(world.damageSources().campfire(), 1.0F);
                 }
             }
         }
 
-        super.onEntityCollision(state, world, pos, entity, handler);
+        super.entityInside(state, world, pos, entity);
     }
 
-    protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
+    protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         BlockPos blockPos = hit.getBlockPos();
-        if (!world.isClient && projectile.isOnFire()) {
-            ServerWorld serverWorld = (ServerWorld)world;
-            if (projectile.canModifyAt(serverWorld, blockPos) && !(Boolean)state.get(LIT)){
-                world.setBlockState(blockPos, (BlockState)state.with(Properties.LIT, true), 11);
+        if (!world.isClientSide && projectile.isOnFire()) {
+            ServerLevel serverWorld = (ServerLevel)world;
+            if (projectile.mayInteract(serverWorld, blockPos) && !(Boolean)state.getValue(LIT)){
+                world.setBlock(blockPos, (BlockState)state.setValue(BlockStateProperties.LIT, true), 11);
             }
         }
     }
 
     public static boolean isLitFireBlock(BlockState state) {
-        return state.contains(LIT) && (Boolean)state.get(LIT) && state.getBlock() instanceof AbstractToggleableFireBlock;
+        return state.hasProperty(LIT) && (Boolean)state.getValue(LIT) && state.getBlock() instanceof AbstractToggleableFireBlock;
     }
 
     private static boolean isEntityAbove(BlockPos pos, Entity entity) {
-        return entity.isOnGround() && entity.getPos().y > (double)((float)pos.getY() + 0.51F);
+        return entity.onGround() && entity.position().y > (double)((float)pos.getY() + 0.51F);
     }
 }

@@ -1,25 +1,31 @@
 package net.sevenstars.middleearth.datageneration.providers.dynamic;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
+import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class CharacterAtlasTexturesProvider extends FabricDynamicRegistryProvider {
-    public CharacterAtlasTexturesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
+public class CharacterAtlasTexturesProvider extends DatapackBuiltinEntriesProvider {
+    public CharacterAtlasTexturesProvider(PackOutput output,
+                                           CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture, createRegistrySetBuilder(), Set.of(MiddleEarth.MOD_ID));
     }
 
-    @Override
-    protected void configure(RegistryWrapper.WrapperLookup registries, FabricDynamicRegistryProvider.Entries entries) {
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.SKIN_PATTERN));
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.SKIN_MATERIAL));
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.EYE_PATTERN));
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.EYE_MATERIAL));
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.HAIR_PATTERN));
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.HAIR_MATERIAL));
+    private static RegistrySetBuilder createRegistrySetBuilder() {
+        return new RegistrySetBuilder()
+                .add(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsRegistryME::bootstrapSkins)
+                .add(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsRegistryME::bootstrapSkins)
+                .add(DynamicRegistriesME.EYE_PATTERN, CharacterPatternsRegistryME::bootstrapEyes)
+                .add(DynamicRegistriesME.EYE_MATERIAL, CharacterMaterialsRegistryME::bootstrapEyes)
+                .add(DynamicRegistriesME.HAIR_PATTERN, CharacterPatternsRegistryME::bootstrapHairs)
+                .add(DynamicRegistriesME.HAIR_MATERIAL, CharacterMaterialsRegistryME::bootstrapHairs);
     }
 
     @Override

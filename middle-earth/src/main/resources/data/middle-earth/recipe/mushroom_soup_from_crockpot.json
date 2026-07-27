@@ -2,9 +2,15 @@
   "type": "middle-earth:crockpot",
   "ingredients_amount": 3,
   "ingredients": [
-    "minecraft:brown_mushroom",
-    "minecraft:red_mushroom",
-    "minecraft:water_bucket"
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
   ],
   "output": {
     "count": 3,

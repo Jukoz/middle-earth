@@ -1,18 +1,18 @@
 package net.sevenstars.middleearth.item.items.weapons.ranged;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
 import net.sevenstars.middleearth.item.utils.RangedWeaponTypesME;
@@ -22,36 +22,35 @@ import java.util.List;
 public class CustomLongbowWeaponItem extends BowItem {
     public RangedWeaponTypesME type;
 
-    public static final int RANGE = 25;
+    public static final int DEFAULT_RANGE = 25;
 
-    public CustomLongbowWeaponItem(RangedWeaponTypesME type, Item.Settings settings) {
-        super(settings.maxDamage(type.durability)
+    public CustomLongbowWeaponItem(RangedWeaponTypesME type, Item.Properties settings) {
+        super(settings.durability(type.durability)
                 .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if (user instanceof PlayerEntity playerEntity) {
-            ItemStack itemStack = playerEntity.getProjectileType(stack);
+    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
+        if (user instanceof Player playerEntity) {
+            ItemStack itemStack = playerEntity.getProjectile(stack);
             if (!itemStack.isEmpty()) {
-                int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
+                int i = this.getUseDuration(stack, user) - remainingUseTicks;
                 float f = getPullProgressLongbow(i);
                 if (!((double)f < 0.1)) {
-                    List<ItemStack> list = load(stack, itemStack, playerEntity);
-                    if (world instanceof ServerWorld) {
-                        ServerWorld serverWorld = (ServerWorld)world;
+                    List<ItemStack> list = draw(stack, itemStack, playerEntity);
+                    if (world instanceof ServerLevel) {
+                        ServerLevel serverWorld = (ServerLevel)world;
                         if (!list.isEmpty()) {
-                            this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 5.0F, 1.0F, f == 1.0F, (LivingEntity)null);
+                            this.shoot(serverWorld, playerEntity, playerEntity.getUsedItemHand(), stack, list, f * 5.0F, 1.0F, f == 1.0F, (LivingEntity)null);
                         }
                     }
 
-                    world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-                    playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+                    world.playSound((Player)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    playerEntity.awardStat(Stats.ITEM_USED.get(this));
                 }
             }
         }
-        return true;
     }
 
     public static float getPullProgressLongbow(int useTicks) {
@@ -65,19 +64,19 @@ public class CustomLongbowWeaponItem extends BowItem {
     }
 
     @Override
-    public Text getName(ItemStack stack) {
-        if(Registries.ITEM.getId(this).getPath().contains("_noble")
-                || Registries.ITEM.getId(this).getPath().contains("_elite")
-                || Registries.ITEM.getId(this).getPath().contains("uruk_hai")
-                || Registries.ITEM.getId(this).getPath().contains("heyday")
-                || Registries.ITEM.getId(this).getPath().contains("numenorean")){
-            return Text.translatable(this.getTranslationKey()).formatted(Formatting.GOLD);
+    public Component getName(ItemStack stack) {
+        if(BuiltInRegistries.ITEM.getKey(this).getPath().contains("_noble")
+                || BuiltInRegistries.ITEM.getKey(this).getPath().contains("_elite")
+                || BuiltInRegistries.ITEM.getKey(this).getPath().contains("uruk_hai")
+                || BuiltInRegistries.ITEM.getKey(this).getPath().contains("heyday")
+                || BuiltInRegistries.ITEM.getKey(this).getPath().contains("numenorean")){
+            return Component.translatable(this.getDescriptionId()).withStyle(ChatFormatting.GOLD);
         }
         return super.getName(stack);
     }
 
     @Override
-    public int getRange() {
+    public int getDefaultProjectileRange() {
         return 25;
     }
 }

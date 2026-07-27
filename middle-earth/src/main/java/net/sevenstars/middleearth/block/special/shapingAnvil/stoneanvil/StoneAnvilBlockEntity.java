@@ -1,16 +1,14 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.trim.ArmorTrim;
-import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
@@ -28,17 +26,17 @@ public class StoneAnvilBlockEntity extends ShapingAnvilBlockEntity {
     }
 
     @Override
-    public void bonk(ShapingAnvilBlockEntity entity, ServerWorld world) {
-        ItemStack input = entity.getStack(0);
+    public void bonk(ShapingAnvilBlockEntity entity, ServerLevel world) {
+        ItemStack input = entity.getItem(0);
 
-        ArmorTrim trim = input.get(DataComponentTypes.TRIM);
+        ArmorTrim trim = input.get(DataComponents.TRIM);
         if (trim != null){
-            Optional<RegistryKey<ArmorTrimMaterial>> armorTrimMaterialRegistryKey = trim.material().getKey();
+            Optional<ResourceKey<TrimMaterial>> armorTrimMaterialRegistryKey = trim.material().unwrapKey();
             if(armorTrimMaterialRegistryKey.isPresent()) {
-                RegistryKey<ArmorTrimMaterial> armorTrimMaterial = armorTrimMaterialRegistryKey.get();
-                if (!armorTrimMaterial.getValue().equals(MiddleEarth.of("bronze")) &&
-                        !armorTrimMaterial.getValue().equals(MiddleEarth.of("crude")) &&
-                        !armorTrimMaterial.getValue().equals(MiddleEarth.of("iron"))) {
+                ResourceKey<TrimMaterial> armorTrimMaterial = armorTrimMaterialRegistryKey.get();
+                if (!armorTrimMaterial.location().equals(MiddleEarth.of("bronze")) &&
+                        !armorTrimMaterial.location().equals(MiddleEarth.of("crude")) &&
+                        !armorTrimMaterial.location().equals(MiddleEarth.of("iron"))) {
                     return;
                 }
             }

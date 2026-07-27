@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 

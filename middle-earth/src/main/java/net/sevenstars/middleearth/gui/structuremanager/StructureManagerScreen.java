@@ -1,17 +1,16 @@
 package net.sevenstars.middleearth.gui.structuremanager;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
@@ -24,31 +23,32 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Environment(value= EnvType.CLIENT)
-public class StructureManagerScreen extends HandledScreen<StructureManagerScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.ofPath("textures", "gui", "structure_manager.png");
+@OnlyIn(Dist.CLIENT)
+public class StructureManagerScreen extends AbstractContainerScreen<StructureManagerScreenHandler> {
+    private static final ResourceLocation TEXTURE = MiddleEarth.ofPath("textures", "gui", "structure_manager.png");
 
     public SearchBarWidget searchBarWidget;
-    public Text runtimeDataText;
-    public Identifier dataIdentifier;
-    public ButtonWidget toInitializeToggleButton;
-    public ButtonWidget isEnabledToggleButton;
-    public ButtonWidget showAllButton;
-    public ButtonWidget respawnAllButton;
+    public Component runtimeDataText;
+    public ResourceLocation dataIdentifier;
+    public Button toInitializeToggleButton;
+    public Button isEnabledToggleButton;
+    public Button showAllButton;
+    public Button respawnAllButton;
 
-    public ArrayList<Identifier> identifiers;
+    public ArrayList<ResourceLocation> identifiers;
 
     private static final int TEXT_COLOR = Color.WHITE.getRGB();
 
-    public StructureManagerScreen(StructureManagerScreenHandler handler, PlayerInventory playerInventory, Text title) {
+    public StructureManagerScreen(StructureManagerScreenHandler handler, Inventory playerInventory, Component title) {
         super(handler, playerInventory, title);
 
-        World world = playerInventory.player.getWorld();
+        Level world = playerInventory.player.level();
 
         this.identifiers = new ArrayList<>();
-        for(RegistryKey<StructureManagerData> data : world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get().getKeys()){
-            this.identifiers.add(data.getValue());
-        }
+        world.registryAccess().lookupOrThrow(DynamicRegistriesME.STRUCTURE_MANAGER_DATA)
+                .listElementIds()
+                .map(ResourceKey::location)
+                .forEach(this.identifiers::add);
 
         this.dataIdentifier = handler.getDataIdentifier();
     }
@@ -58,77 +58,77 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         super.init();
 
         List<SearchBarResult> results = new ArrayList<>();
-        for(Identifier identifier : this.identifiers){
-            results.add(new SearchBarResult(Text.translatable(identifier.toTranslationKey("structure_manager_data")), identifier, SearchBarResultType.NORMAL, button -> selectIdentifier(identifier)));
+        for(ResourceLocation identifier : this.identifiers){
+            results.add(new SearchBarResult(Component.translatable(identifier.toLanguageKey("structure_manager_data")), identifier, SearchBarResultType.NORMAL, button -> selectIdentifier(identifier)));
         }
 
         this.searchBarWidget = new SearchBarWidget(9, results, x -> updateScreenInformation(), 170);
-        addDrawableChild(this.searchBarWidget.getSearchBarToggleButton());
-        this.searchBarWidget.getAllButtons().forEach(this::addDrawableChild);
-        addDrawableChild(this.searchBarWidget.getScreenClickButton());
+        addRenderableWidget(this.searchBarWidget.getSearchBarToggleButton());
+        this.searchBarWidget.getAllButtons().forEach(this::addRenderableWidget);
+        addRenderableWidget(this.searchBarWidget.getScreenClickButton());
 
-        toInitializeToggleButton = ButtonWidget.builder(Text.of("toInitializeToggleButton"),x -> toggleToInitialize()).build();
-        toInitializeToggleButton.setDimensions(15, 15);
-        addDrawableChild(toInitializeToggleButton);
+        toInitializeToggleButton = Button.builder(Component.nullToEmpty("toInitializeToggleButton"),x -> toggleToInitialize()).build();
+        toInitializeToggleButton.setSize(15, 15);
+        addRenderableWidget(toInitializeToggleButton);
 
-        isEnabledToggleButton = ButtonWidget.builder(Text.of("isEnabledToggleButton"),x -> toggleEnable()).build();
-        isEnabledToggleButton.setDimensions(15, 15);
-        addDrawableChild(isEnabledToggleButton);
+        isEnabledToggleButton = Button.builder(Component.nullToEmpty("isEnabledToggleButton"),x -> toggleEnable()).build();
+        isEnabledToggleButton.setSize(15, 15);
+        addRenderableWidget(isEnabledToggleButton);
 
-        showAllButton = ButtonWidget.builder(Text.of("showAll"),x -> handler.triggerGlowOnAllEntities()).build();
-        showAllButton.setDimensions(104, 20);
-        addDrawableChild(showAllButton);
+        showAllButton = Button.builder(Component.nullToEmpty("showAll"),x -> menu.triggerGlowOnAllEntities()).build();
+        showAllButton.setSize(104, 20);
+        addRenderableWidget(showAllButton);
 
-        respawnAllButton = ButtonWidget.builder(Text.of("showAll"),x -> handler.triggerRespawnAllEntities()).build();
-        respawnAllButton.setDimensions(104, 20);
-        addDrawableChild(respawnAllButton);
+        respawnAllButton = Button.builder(Component.nullToEmpty("showAll"),x -> menu.triggerRespawnAllEntities()).build();
+        respawnAllButton.setSize(104, 20);
+        addRenderableWidget(respawnAllButton);
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
     }
 
     @Override
-    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphics context, int mouseX, int mouseY) {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
 
         ModWidget.updateMouse(mouseX, mouseY);
 
-        int centerX = (int) (client.currentScreen.width / 2f);
+        int centerX = (int) (minecraft.screen.width / 2f);
         int startY = 70;
 
 
         int managerSearchBarWidgetStartY = startY;
-        managerSearchBarWidgetStartY += this.searchBarWidget.drawSearchBar(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), managerSearchBarWidgetStartY, textRenderer);
+        managerSearchBarWidgetStartY += this.searchBarWidget.drawSearchBar(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), managerSearchBarWidgetStartY, font);
         this.searchBarWidget.setEndY(startY + 500);
 
         if(this.searchBarWidget.searchIsToggled()) {
             this.searchBarWidget.drawSearchResults(context, centerX - 5 - this.searchBarWidget.searchBarToggleButton.getWidth(), managerSearchBarWidgetStartY - 20);
         }
 
-        Text selectedIdText = (dataIdentifier == null)
-                ? Text.translatable("N/A")
-                : Text.translatable(dataIdentifier.toTranslationKey("structure_manager_data"));
-        this.runtimeDataText = Text.translatable("ui.middle-earth.structure_manager.label_selected_id", selectedIdText).formatted(Formatting.BOLD).formatted(Formatting.WHITE);
+        Component selectedIdText = (dataIdentifier == null)
+                ? Component.translatable("N/A")
+                : Component.translatable(dataIdentifier.toLanguageKey("structure_manager_data"));
+        this.runtimeDataText = Component.translatable("ui.middle-earth.structure_manager.label_selected_id", selectedIdText).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.WHITE);
 
-        context.drawText(this.textRenderer, this.runtimeDataText, centerX + 5, startY + 5, TEXT_COLOR, false);
+        context.drawString(this.font, this.runtimeDataText, centerX + 5, startY + 5, TEXT_COLOR, false);
 
         startY += 20;
         toInitializeToggleButton.setPosition(centerX + 5, startY);
 
         boolean toInitializeToggleButtonFocused = toInitializeToggleButton.isMouseOver(mouseX, mouseY) || toInitializeToggleButton.isFocused();
         int toInitializeToggleButtonUvY = 1;
-        if(handler.getToInitialize())
+        if(menu.getToInitialize())
             toInitializeToggleButtonUvY = toInitializeToggleButtonFocused ? 52 : 35;
         else if(toInitializeToggleButtonFocused)
             toInitializeToggleButtonUvY = 18;
 
-        if(handler.getDataIdentifier() == null){
+        if(menu.getDataIdentifier() == null){
             toInitializeToggleButton.active = false;
             isEnabledToggleButton.active = false;
             showAllButton.active = false;
@@ -141,46 +141,46 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
             respawnAllButton.active = true;
         }
 
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+        context.blit(TEXTURE,
                 toInitializeToggleButton.getX(), toInitializeToggleButton.getY(),
                 1, toInitializeToggleButtonUvY,
                 toInitializeToggleButton.getWidth(), toInitializeToggleButton.getHeight(), 256, 256);
         if(toInitializeToggleButton.isMouseOver(mouseX, mouseY))
-            context.drawTooltip(Text.of("[SET TO TRUE] Before saving a structure."), toInitializeToggleButton.getX(), toInitializeToggleButton.getY());
+            context.renderTooltip(this.font, Component.nullToEmpty("[SET TO TRUE] Before saving a structure."), toInitializeToggleButton.getX(), toInitializeToggleButton.getY());
 
         isEnabledToggleButton.setPosition(centerX + 25, startY);
         boolean isEnabledToggleButtonFocused = isEnabledToggleButton.isMouseOver(mouseX, mouseY) || isEnabledToggleButton.isFocused();
         int isEnabledToggleButtonUvY = 1;
-        if(handler.getIsEnabled())
+        if(menu.getIsEnabled())
             isEnabledToggleButtonUvY = isEnabledToggleButtonFocused ? 52 : 35;
         else if(isEnabledToggleButtonFocused)
             isEnabledToggleButtonUvY = 18;
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+        context.blit(TEXTURE,
                 isEnabledToggleButton.getX(), isEnabledToggleButton.getY(),
                 18, isEnabledToggleButtonUvY,
                 isEnabledToggleButton.getWidth(), isEnabledToggleButton.getHeight(), 256, 256);
         if(isEnabledToggleButton.isMouseOver(mouseX, mouseY))
-            context.drawTooltip(Text.of("[SET TO FALSE] Before saving a structure."), isEnabledToggleButton.getX(), isEnabledToggleButton.getY());
+            context.renderTooltip(this.font, Component.nullToEmpty("[SET TO FALSE] Before saving a structure."), isEnabledToggleButton.getX(), isEnabledToggleButton.getY());
 
         startY += 15;
         showAllButton.setPosition(centerX + 5, startY);
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+        context.blit(TEXTURE,
                 showAllButton.getX(), showAllButton.getY(),
                 35, showAllButton.isMouseOver(mouseX, mouseY) ? 23 : 1,
                 showAllButton.getWidth(), showAllButton.getHeight(), 256, 256);
-        Text showAllText = Text.translatable("Show all");
-        int showAllStartX = showAllButton.getX() + (showAllButton.getWidth() / 2) - (textRenderer.getWidth(showAllText) / 2);
-        context.drawText(textRenderer, showAllText,showAllStartX,showAllButton.getY() + 6, Color.BLACK.getRGB(), false);
+        Component showAllText = Component.translatable("Show all");
+        int showAllStartX = showAllButton.getX() + (showAllButton.getWidth() / 2) - (font.width(showAllText) / 2);
+        context.drawString(font, showAllText,showAllStartX,showAllButton.getY() + 6, Color.BLACK.getRGB(), false);
 
         startY += showAllButton.getHeight() + 4;
         respawnAllButton.setPosition(centerX + 5, startY);
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE,
+        context.blit(TEXTURE,
                 respawnAllButton.getX(), respawnAllButton.getY(),
                 35, respawnAllButton.isMouseOver(mouseX, mouseY) ? 23 : 1,
                 respawnAllButton.getWidth(), respawnAllButton.getHeight(), 256, 256);
-        Text respawnAllText = Text.translatable("Respawn all");
-        int respawnAllStartX = respawnAllButton.getX() + (respawnAllButton.getWidth() / 2) - (textRenderer.getWidth(respawnAllText) / 2);
-        context.drawText(textRenderer, respawnAllText, respawnAllStartX,respawnAllButton.getY() + 6, Color.BLACK.getRGB(), false);
+        Component respawnAllText = Component.translatable("Respawn all");
+        int respawnAllStartX = respawnAllButton.getX() + (respawnAllButton.getWidth() / 2) - (font.width(respawnAllText) / 2);
+        context.drawString(font, respawnAllText, respawnAllStartX,respawnAllButton.getY() + 6, Color.BLACK.getRGB(), false);
     }
 
     @Override
@@ -224,17 +224,17 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
     }
 
-    private void selectIdentifier(Identifier identifier) {
-        this.handler.selectIdentifier(client.player, identifier);
+    private void selectIdentifier(ResourceLocation identifier) {
+        this.menu.selectIdentifier(minecraft.player, identifier);
         this.dataIdentifier = identifier;
     }
 
     private void toggleToInitialize() {
-        this.handler.toggleToInitialize();
+        this.menu.toggleToInitialize();
     }
 
     private void toggleEnable() {
-        this.handler.toggleToActivate();
+        this.menu.toggleToActivate();
     }
 
     private void updateScreenInformation() {

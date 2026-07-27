@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.texture_presets;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
-public record ClothingSelection(Identifier base, Identifier over, Identifier extra) {
+public record ClothingSelection(ResourceLocation base, ResourceLocation over, ResourceLocation extra) {
 
 }

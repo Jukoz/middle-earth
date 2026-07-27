@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.minecraft.block.Block;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.level.block.Block;
 
 public class SimpleStoneStoolModel {
 

@@ -1,32 +1,31 @@
 package net.sevenstars.middleearth.block.special.plate;
 
-import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.SingleStackInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.ticks.ContainerSingleItem;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
-public class PlateBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory {
+public class PlateBlockEntity extends BlockEntity implements ContainerSingleItem.BlockContainerSingleItem {
     private ItemStack food = ItemStack.EMPTY;
-    private RegistryKey lootTable;
+    private ResourceKey lootTable;
     private long lootTableSeed;
     private boolean blockPlaced = false;
 
@@ -35,45 +34,46 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
-        view.put("placed", Codec.BOOL, blockPlaced);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putBoolean("placed", blockPlaced);
 
-        if (!this.writeLootTableToData(view) && !this.food.isEmpty()) {
-            view.put("item", ItemStack.CODEC, this.food);
+        if (!this.writeLootTableToData(tag) && !this.food.isEmpty()) {
+            tag.put("item", this.food.save(registries));
         }
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
-        this.food.copyAndEmpty();
-        this.blockPlaced = view.getBoolean("placed", false);
-        if (!this.readLootTableFromData(view)) {
-            this.food = view.read("item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        this.food.copyAndClear();
+        this.blockPlaced = tag.getBoolean("placed");
+        if (!this.readLootTableFromData(tag) && tag.contains("item")) {
+            this.food = ItemStack.parse(registries, tag.get("item")).orElse(ItemStack.EMPTY);
         } else {
             this.food = ItemStack.EMPTY;
         }
     }
 
-    public void setLootTable(RegistryKey<LootTable> lootTable, long seed) {
+    public void setLootTable(ResourceKey<LootTable> lootTable, long seed) {
         this.lootTable = lootTable;
         this.lootTableSeed = seed;
     }
 
-    private boolean readLootTableFromData(ReadView view) {
-        this.lootTable = (RegistryKey)view.read("LootTable", LootTable.TABLE_KEY).orElse(null);
-        this.lootTableSeed = view.getLong("LootTableSeed", 0L);
+    private boolean readLootTableFromData(CompoundTag tag) {
+        ResourceLocation id = tag.contains("LootTable") ? ResourceLocation.tryParse(tag.getString("LootTable")) : null;
+        this.lootTable = id == null ? null : ResourceKey.create(Registries.LOOT_TABLE, id);
+        this.lootTableSeed = tag.getLong("LootTableSeed");
         return this.lootTable != null;
     }
 
-    private boolean writeLootTableToData(WriteView view) {
+    private boolean writeLootTableToData(CompoundTag tag) {
         if (this.lootTable == null) {
             return false;
         } else {
-            view.put("LootTable", LootTable.TABLE_KEY, this.lootTable);
+            tag.putString("LootTable", this.lootTable.location().toString());
             if (this.lootTableSeed != 0L) {
-                view.putLong("LootTableSeed", this.lootTableSeed);
+                tag.putLong("LootTableSeed", this.lootTableSeed);
             }
 
             return true;
@@ -88,45 +88,48 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
         return blockPlaced;
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, PlateBlockEntity blockEntity) {
+    public static void tick(Level world, BlockPos pos, BlockState state, PlateBlockEntity blockEntity) {
         if(blockEntity.blockPlaced) {
-            blockEntity.generateItem((ServerWorld) world);
+            blockEntity.generateItem((ServerLevel) world);
         }
     }
 
     @Nullable
     @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
-        return createNbt(registries);
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
     }
 
     @Override
-    public BlockEntity asBlockEntity() {
+    public BlockEntity getContainerBlockEntity() {
         return this;
     }
 
     @Override
-    public ItemStack getStack() {
+    public ItemStack getTheItem() {
         return food;
     }
 
     @Override
-    public void setStack(ItemStack stack) {
+    public void setTheItem(ItemStack stack) {
+        if (ItemStack.matches(this.food, stack)) {
+            return;
+        }
         this.food = stack;
         update();
     }
 
-    public void generateItem(ServerWorld world) {
+    public void generateItem(ServerLevel world) {
         if (this.lootTable != null && blockPlaced) {
-            LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(this.lootTable);
+            LootTable lootTable = world.getServer().reloadableRegistries().getLootTable(this.lootTable);
 
-            LootWorldContext lootWorldContext = (new LootWorldContext.Builder(world)).build(LootContextTypes.EMPTY);
-            ObjectArrayList<ItemStack> lootList = lootTable.generateLoot(lootWorldContext, this.lootTableSeed);
+            LootParams lootWorldContext = (new LootParams.Builder(world)).create(LootContextParamSets.EMPTY);
+            ObjectArrayList<ItemStack> lootList = lootTable.getRandomItems(lootWorldContext, this.lootTableSeed);
             ItemStack itemLoot = ItemStack.EMPTY;
             if(!lootList.isEmpty()) itemLoot = lootList.get(world.getRandom().nextInt(lootList.size()));
 
@@ -138,7 +141,14 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
     }
 
     public void update() {
-        markDirty();
-        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+        setChanged();
+        if (level != null) {
+            level.sendBlockUpdated(
+                    worldPosition,
+                    getBlockState(),
+                    getBlockState(),
+                    Block.UPDATE_CLIENTS
+            );
+        }
     }
 }

@@ -1,10 +1,8 @@
 package net.sevenstars.middleearth.datageneration.providers;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.block.Block;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -15,15 +13,18 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnN
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 
-public class LanguageProvider extends FabricLanguageProvider {
+public class LanguageProvider extends net.neoforged.neoforge.common.data.LanguageProvider {
 
     private final Map<String, String> specialNames = new HashMap<>();
+    private final Map<String, String> emittedTranslations = new HashMap<>();
+    private final Set<String> manualTranslationKeys = new HashSet<>();
 
-    public LanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataOutput, "en_us", registryLookup);
+    public LanguageProvider(PackOutput output) {
+        super(output, MiddleEarth.MOD_ID, "en_us");
 
         specialNames.put("Izheraban", "Izhêr'Aban");
         specialNames.put("Khagalaban", "Khagal'Aban");
@@ -50,9 +51,14 @@ public class LanguageProvider extends FabricLanguageProvider {
     }
 
     @Override
-    public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
+    protected void addTranslations() {
+        TranslationEntries.manualEntries.forEach((key, value) -> {
+            manualTranslationKeys.add(key);
+            add(key, value);
+        });
+
         TranslationEntries.blockEntries.forEach(block -> {
-            translateBlock(translationBuilder, block);
+            translateBlock(block);
         });
 
         TranslationEntries.spawnEggEntries.forEach(spawnEgg -> {
@@ -60,88 +66,99 @@ public class LanguageProvider extends FabricLanguageProvider {
             if(!path.contains("_spawn_egg"))
                 path += "_spawn_egg";
 
-            translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
+            add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
         });
 
         TranslationEntries.itemEntries.forEach(item -> {
-            translationBuilder.add(item, generateName(Registries.ITEM.getId(item).getPath()));
+            add(item, generateName(BuiltInRegistries.ITEM.getKey(item).getPath()));
         });
 
         TranslationEntries.entityEntries.forEach(entityType -> {
-            translationBuilder.add(entityType, generateName(Registries.ENTITY_TYPE.getId(entityType).getPath()));
+            add(entityType, generateName(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).getPath()));
         });
 
         TranslationEntries.biomeEntries.forEach(name -> {
-            translationBuilder.add("biome." + MiddleEarth.MOD_ID + "." + name, generateName(name));
+            add("biome." + MiddleEarth.MOD_ID + "." + name, generateName(name));
         });
 
         TranslationEntries.bannerPatternEntries.forEach(name -> {
-            createBannerTranslation(translationBuilder, "block", "banner." + name);
+            createBannerTranslation("block", "banner." + name);
         });
 
         for (MetalTypes metalTypes : MetalTypes.values()){
-            createTranslation(translationBuilder, "tooltip", "liquid_" + metalTypes.getName());
+            createTranslation("tooltip", "liquid_" + metalTypes.getName());
         }
 
         for (BackAttachmentsME cape : BackAttachmentsME.values()){
-            createTranslation(translationBuilder, "tooltip", cape.getName());
+            createTranslation("tooltip", cape.getName());
         }
 
         for (HelmetAttachmentsME hood : HelmetAttachmentsME.values()){
-            createTranslation(translationBuilder, "tooltip", hood.getName());
+            createTranslation("tooltip", hood.getName());
         }
 
         for (DispositionType dispositionType : DispositionType.values()){
-            createTranslation(translationBuilder, "disposition", dispositionType.name().toLowerCase());
+            createTranslation("disposition", dispositionType.name().toLowerCase());
         }
 
         TranslationEntries.factionEntries.forEach(faction -> {
-            createTranslation(translationBuilder, "faction", faction);
+            createTranslation("faction", faction);
         });
 
         TranslationEntries.npcTypeEntries.forEach(npcData -> {
-            createNpcDataTranslation(translationBuilder, "npc_type", npcData);
+            createNpcDataTranslation("npc_type", npcData);
         });
 
         TranslationEntries.raceEntries.forEach(race -> {
-            createTranslation(translationBuilder, "race", race);
+            createTranslation("race", race);
         });
 
         TranslationEntries.structureManagerEntries.forEach(structureManagerData -> {
-            createTranslation(translationBuilder, "structure_manager_data", structureManagerData.getId().getPath());
+            createTranslation("structure_manager_data", structureManagerData.getId().getPath());
             for(SpawnNestNodeData spawnNest : structureManagerData.getNpcSpawnNest()) {
-                createTranslation(translationBuilder, "structure_nest", spawnNest.getId().getPath());
+                createTranslation("structure_nest", spawnNest.getId().getPath());
             }
         });
 
         TranslationEntries.spawnEntries.forEach(faction -> {
-            createTranslation(translationBuilder, "spawn", faction);
+            createTranslation("spawn", faction);
         });
 
-        TranslationEntries.manualEntries.forEach(translationBuilder::add);
-
-        createBannerTranslation(translationBuilder, "item", "round_shield");
-        createBannerTranslation(translationBuilder, "item", "heater_shield");
-        createBannerTranslation(translationBuilder, "item", "kite_shield");
+        createBannerTranslation("item", "round_shield");
+        createBannerTranslation("item", "heater_shield");
+        createBannerTranslation("item", "kite_shield");
     }
 
-    public void translateBlock(TranslationBuilder translationBuilder, Block block){
+    @Override
+    public void add(String key, String value) {
+        String existing = emittedTranslations.putIfAbsent(key, value);
+        if (existing == null) {
+            super.add(key, value);
+            return;
+        }
+        if (manualTranslationKeys.contains(key) || existing.equals(value)) {
+            return;
+        }
+        throw new IllegalStateException(
+                "Conflicting generated translation key " + key + ": '" + existing + "' vs '" + value + "'"
+        );
+    }
+
+    public void translateBlock(Block block){
         if (block == null) return;
-        translationBuilder.add(block, generateName(Registries.BLOCK.getId(block).getPath()));
-        if (block.asItem() == null) return;
-        translationBuilder.add(block.asItem(), generateName(Registries.ITEM.getId(block.asItem()).getPath()));
+        add(block, generateName(BuiltInRegistries.BLOCK.getKey(block).getPath()));
     }
 
-    public void createTranslation(TranslationBuilder translationBuilder, String prefix, String suffix){
+    public void createTranslation(String prefix, String suffix){
         String suffixSplit = suffix;
         if (suffix.contains(".")){
             String [] sub = suffix.split("\\.");
             suffixSplit = Arrays.stream(sub).toList().getLast();
         }
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generateName(suffixSplit));
+        add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generateName(suffixSplit));
     }
 
-    public void createNpcDataTranslation(TranslationBuilder translationBuilder, String prefix, String suffix) {
+    public void createNpcDataTranslation(String prefix, String suffix) {
         StringBuilder generatedName = new StringBuilder();
         if (suffix.contains(".")){
             String [] sub = suffix.split("\\.");
@@ -160,28 +177,28 @@ public class LanguageProvider extends FabricLanguageProvider {
             }
         }
 
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generatedName.toString());
+        add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generatedName.toString());
     }
 
-    public void createBannerTranslation(TranslationBuilder translationBuilder, String prefix, String suffix){
+    public void createBannerTranslation(String prefix, String suffix){
         String baseTranslationKey = prefix + "." + MiddleEarth.MOD_ID + "." + suffix;
 
-        translationBuilder.add(baseTranslationKey + ".black", "Black " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".blue", "Blue " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".brown", "Brown " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".cyan", "Cyan " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".gray", "Gray " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".green", "Green " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".light_blue", "Light Blue " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".light_gray", "light Gray " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".lime", "Lime " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".magenta", "Magenta " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".orange", "Orange " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".pink", "Pink " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".purple", "Purple " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".red", "Red " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".white", "White " + generateName(suffix));
-        translationBuilder.add(baseTranslationKey + ".yellow", "yellow " + generateName(suffix));
+        add(baseTranslationKey + ".black", "Black " + generateName(suffix));
+        add(baseTranslationKey + ".blue", "Blue " + generateName(suffix));
+        add(baseTranslationKey + ".brown", "Brown " + generateName(suffix));
+        add(baseTranslationKey + ".cyan", "Cyan " + generateName(suffix));
+        add(baseTranslationKey + ".gray", "Gray " + generateName(suffix));
+        add(baseTranslationKey + ".green", "Green " + generateName(suffix));
+        add(baseTranslationKey + ".light_blue", "Light Blue " + generateName(suffix));
+        add(baseTranslationKey + ".light_gray", "light Gray " + generateName(suffix));
+        add(baseTranslationKey + ".lime", "Lime " + generateName(suffix));
+        add(baseTranslationKey + ".magenta", "Magenta " + generateName(suffix));
+        add(baseTranslationKey + ".orange", "Orange " + generateName(suffix));
+        add(baseTranslationKey + ".pink", "Pink " + generateName(suffix));
+        add(baseTranslationKey + ".purple", "Purple " + generateName(suffix));
+        add(baseTranslationKey + ".red", "Red " + generateName(suffix));
+        add(baseTranslationKey + ".white", "White " + generateName(suffix));
+        add(baseTranslationKey + ".yellow", "yellow " + generateName(suffix));
     }
 
     public String generateName(String registryName) {

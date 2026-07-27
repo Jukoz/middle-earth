@@ -1,17 +1,50 @@
 package net.sevenstars.middleearth.block.special.forge;
 
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.component.type.ConsumableComponents;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.item.equipment.trim.ArmorTrim;
-import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
-import net.minecraft.item.equipment.trim.ArmorTrimPattern;
-import net.minecraft.recipe.ServerRecipeManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.sevenstars.middleearth.block.utils.ExtendedMenuProviderME;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.item.armortrim.TrimPattern;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
@@ -22,57 +55,21 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.sevenstars.middleearth.recipe.AlloyingRecipe;
-import net.minecraft.block.AbstractFurnaceBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
+public class ForgeBlockEntity extends BlockEntity implements ExtendedMenuProviderME, WorldlyContainer {
     private static final String ID = "forge";
     public static final int MAX_PROGRESS = 1200;
     public static final int MAX_STORAGE = 2304;
     public static final int MAX_BOOST_TIME = 10;
     public static final int FUEL_SLOT = 0;
     public static final int OUTPUT_SLOT = 5;
-    private final DefaultedList<ItemStack> inventory =
-            DefaultedList.ofSize(6, ItemStack.EMPTY);
-    protected final PropertyDelegate propertyDelegate;
+    private final NonNullList<ItemStack> inventory =
+            NonNullList.withSize(6, ItemStack.EMPTY);
+    protected final ContainerData propertyDelegate;
     private int progress = 0;
     private int boostTime = 0;
     private int fuelTime = 0;
@@ -80,9 +77,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     private int mode = 0;
     private int storage = 0;
 
-    private final ServerRecipeManager.MatchGetter<MultipleStackRecipeInput, ? extends AlloyingRecipe> matchGetter;
+    private final RecipeManager.CachedCheck<MultipleStackRecipeInput, ? extends AlloyingRecipe> matchGetter;
 
     private MetalTypes currentMetal = MetalTypes.EMPTY;
+    @Nullable
+    private RecipeHolder<? extends AlloyingRecipe> cachedAlloyingRecipe;
+    private boolean cachedHasHeatingRecipe;
+    private boolean processingInputsDirty = true;
+    private boolean clientSyncPending;
 
     //TODO melting smithing parts
     //TODO convert metals to registry, enum constant datagen if no registry
@@ -90,7 +92,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FORGE, pos, state);
-        this.propertyDelegate = new PropertyDelegate() {
+        this.propertyDelegate = new ContainerData() {
             @Override
             public int get(int index) {
                 return switch (index) {
@@ -116,25 +118,25 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             }
 
             @Override
-            public int size() {
+            public int getCount() {
                 return 6;
             }
         };
 
-        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(RecipesME.FORGE);
+        this.matchGetter = RecipeManager.createCheck(RecipesME.FORGE);
     }
 
     public ItemStack getRenderStack(ForgeBlockEntity entity) {
         if (this.currentMetal != MetalTypes.EMPTY){
-            return entity.currentMetal.getIngot().getDefaultStack();
+            return entity.currentMetal.getIngot().getDefaultInstance();
         } else {
             return ItemStack.EMPTY;
         }
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + "." + ID);
+    public Component getDisplayName() {
+        return Component.translatable("screen." + MiddleEarth.MOD_ID + "." + ID);
     }
 
     public int getStorage() {
@@ -147,20 +149,20 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, Player player) {
         return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public int hasBellows(World world, BlockPos pos, BlockState state){
-        Direction direction = state.get(Properties.HORIZONTAL_FACING);
-        BlockPos pos1 = pos.offset(direction.rotateYClockwise());
-        BlockPos pos2 = pos.offset(direction.rotateYClockwise().getOpposite());
+    public int hasBellows(Level world, BlockPos pos, BlockState state){
+        Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+        BlockPos pos1 = pos.relative(direction.getClockWise());
+        BlockPos pos2 = pos.relative(direction.getClockWise().getOpposite());
 
-        Direction directionForge = state.get(ForgeBlock.FACING);
+        Direction directionForge = state.getValue(ForgeBlock.FACING);
 
-        if(world.getBlockState(pos1).isOf(ModDecorativeBlocks.BELLOWS) && world.getBlockState(pos2).isOf(ModDecorativeBlocks.BELLOWS)){
-            Direction direction1 = world.getBlockState(pos1).get(BellowsBlock.FACING);
-            Direction direction2 = world.getBlockState(pos2).get(BellowsBlock.FACING);
+        if(world.getBlockState(pos1).is(ModDecorativeBlocks.BELLOWS) && world.getBlockState(pos2).is(ModDecorativeBlocks.BELLOWS)){
+            Direction direction1 = world.getBlockState(pos1).getValue(BellowsBlock.FACING);
+            Direction direction2 = world.getBlockState(pos2).getValue(BellowsBlock.FACING);
             switch (directionForge){
                 case NORTH -> {
                     if (direction1 == Direction.WEST && direction2 == Direction.EAST){
@@ -190,59 +192,95 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     @Nullable
     @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
-        Inventories.writeData(view, this.inventory, true);
-        view.putInt(ID + ".progress", this.progress);
-        view.putInt(ID + ".boost-time", this.boostTime);
-        view.putInt(ID + ".fuel-time", this.fuelTime);
-        view.putInt(ID + ".max-fuel-time", this.maxFuelTime);
-        view.putInt(ID + ".mode", this.mode);
-        view.putInt(ID + ".storage", this.storage);
-        view.putString(ID + ".current-metal", this.currentMetal.getName());
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ContainerHelper.saveAllItems(tag, this.inventory, true, registries);
+        tag.putInt(ID + ".progress", this.progress);
+        tag.putInt(ID + ".boost-time", this.boostTime);
+        tag.putInt(ID + ".fuel-time", this.fuelTime);
+        tag.putInt(ID + ".max-fuel-time", this.maxFuelTime);
+        tag.putInt(ID + ".mode", this.mode);
+        tag.putInt(ID + ".storage", this.storage);
+        tag.putString(ID + ".current-metal", this.currentMetal.getName());
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         this.inventory.clear();
-        Inventories.readData(view, this.inventory);
-        this.progress = view.getInt(ID + ".progress", 0);
-        this.boostTime = view.getInt(ID + ".boost-time", 0);
-        this.fuelTime = view.getInt(ID + ".fuel-time", 0);
-        this.maxFuelTime = view.getInt(ID + ".max-fuel-time", 0);
-        this.mode = view.getInt(ID + ".mode", 0);
-        this.storage = view.getInt(ID + ".storage", 0);
-        this.currentMetal = MetalTypes.fromValue(view.getString(ID + ".current-metal", "bronze").toLowerCase());
+        ContainerHelper.loadAllItems(tag, this.inventory, registries);
+        this.progress = tag.getInt(ID + ".progress");
+        this.boostTime = tag.getInt(ID + ".boost-time");
+        this.fuelTime = tag.getInt(ID + ".fuel-time");
+        this.maxFuelTime = tag.getInt(ID + ".max-fuel-time");
+        this.mode = tag.getInt(ID + ".mode");
+        this.storage = tag.getInt(ID + ".storage");
+        String metalName = tag.contains(ID + ".current-metal") ? tag.getString(ID + ".current-metal") : "bronze";
+        this.currentMetal = MetalTypes.fromValue(metalName.toLowerCase());
+        this.processingInputsDirty = true;
     }
 
-    public void update() {
-        markDirty();
-        world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+    private void markPersistedChanged() {
+        super.setChanged();
+    }
+
+    private void markClientVisibleChanged() {
+        this.markPersistedChanged();
+        this.clientSyncPending = true;
+    }
+
+    private void markInventoryChanged(int slot) {
+        if (slot >= 1 && slot <= 4) {
+            this.processingInputsDirty = true;
+        }
+        this.markClientVisibleChanged();
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
-        return createNbt(registryLookup);
+    public void setChanged() {
+        this.processingInputsDirty = true;
+        this.markClientVisibleChanged();
     }
 
-    public void setInventory(DefaultedList<ItemStack> inventory) {
-        for (int i = 0; i < inventory.size(); i++) {
-            this.inventory.set(i, inventory.get(i));
+    private void flushClientSync(ServerLevel world) {
+        if (this.clientSyncPending) {
+            BlockState state = this.getBlockState();
+            world.sendBlockUpdated(this.worldPosition, state, state, Block.UPDATE_CLIENTS);
+            this.clientSyncPending = false;
+        }
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
+        return saveWithoutMetadata(registryLookup);
+    }
+
+    public void setInventory(NonNullList<ItemStack> inventory) {
+        boolean changed = false;
+        for (int i = 0; i < Math.min(inventory.size(), this.inventory.size()); i++) {
+            ItemStack stack = inventory.get(i);
+            if (!ItemStack.matches(this.inventory.get(i), stack)) {
+                this.inventory.set(i, stack);
+                changed = true;
+            }
+        }
+        if (changed) {
+            this.processingInputsDirty = true;
+            this.markClientVisibleChanged();
         }
     }
 
     protected boolean isFuel(ItemStack stack) {
-        return this.world.getFuelRegistry().isFuel(stack);
+        return stack.getBurnTime(RecipeType.SMELTING) > 0;
     }
 
     @Override
-    public int[] getAvailableSlots(Direction side) {
+    public int[] getSlotsForFace(Direction side) {
         int[] slots = new int[inventory.size()];
         for (int i = 0; i < slots.length; i++) {
             slots[i] = i;
@@ -251,8 +289,8 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        if (this.world.getBlockState(this.pos).get(ForgeBlock.PART) == ForgePart.TOP) return false;
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
+        if (this.level.getBlockState(this.worldPosition).getValue(ForgeBlock.PART) == ForgePart.TOP) return false;
 
         if (mode == 0 && dir != null) return false;
 
@@ -263,8 +301,8 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        if (this.world.getBlockState(this.pos).get(ForgeBlock.PART) == ForgePart.TOP) return false;
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction dir) {
+        if (this.level.getBlockState(this.worldPosition).getValue(ForgeBlock.PART) == ForgePart.TOP) return false;
 
         if (dir == Direction.DOWN && slot < 5) return false;
 
@@ -272,14 +310,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    public int size() {
+    public int getContainerSize() {
         return inventory.size();
     }
 
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < size(); i++) {
-            ItemStack itemStack = getStack(i);
+        for (int i = 0; i < getContainerSize(); i++) {
+            ItemStack itemStack = getItem(i);
             if (!itemStack.isEmpty()) {
                 return false;
             }
@@ -288,46 +326,59 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    public ItemStack getStack(int slot) {
+    public ItemStack getItem(int slot) {
         return inventory.get(slot);
     }
 
     @Override
-    public ItemStack removeStack(int slot, int amount) {
-        return Inventories.splitStack(this.inventory, slot, amount);
+    public ItemStack removeItem(int slot, int amount) {
+        ItemStack removed = ContainerHelper.removeItem(this.inventory, slot, amount);
+        if (!removed.isEmpty()) {
+            this.markInventoryChanged(slot);
+        }
+        return removed;
     }
 
     @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(inventory, slot);
+    public ItemStack removeItemNoUpdate(int slot) {
+        return ContainerHelper.takeItem(inventory, slot);
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
-        this.inventory.set(slot, stack);
-        if (stack.getCount() > getMaxCountPerStack()) {
-            stack.setCount(getMaxCountPerStack());
+    public void setItem(int slot, ItemStack stack) {
+        if (stack.getCount() > getMaxStackSize()) {
+            stack.setCount(getMaxStackSize());
+        }
+        if (!ItemStack.matches(this.inventory.get(slot), stack)) {
+            this.inventory.set(slot, stack);
+            this.markInventoryChanged(slot);
         }
     }
 
     @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return Inventory.canPlayerUse(this, player);
+    public boolean stillValid(Player player) {
+        return Container.stillValidBlockEntity(this, player);
     }
 
     @Override
-    public void clear() {
-        this.inventory.clear();
+    public void clearContent() {
+        if (!this.isEmpty()) {
+            this.inventory.clear();
+            this.processingInputsDirty = true;
+            this.markClientVisibleChanged();
+        }
     }
 
     public void bellowsBoost() {
-        this.boostTime = MAX_BOOST_TIME;
-        update();
+        if (this.boostTime != MAX_BOOST_TIME) {
+            this.boostTime = MAX_BOOST_TIME;
+            this.markPersistedChanged();
+        }
     }
 
-    public static void switchMode(Vec3d coords, ServerPlayerEntity player){
-        BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
+    public static void switchMode(Vec3 coords, ServerPlayer player){
+        BlockPos pos = new BlockPos((int) coords.x(), (int) coords.y(), (int) coords.z());
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.level().getBlockEntity(pos, ModBlockEntities.FORGE);
 
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
@@ -336,30 +387,32 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             } else if (entity.mode == 0) {
                 entity.mode = 1;
             }
+            entity.processingInputsDirty = true;
+            entity.markClientVisibleChanged();
         }
     }
 
-    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player, int mode){
-        BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
+    public static void outputItemStack(int amount, Vec3 coords, ServerPlayer player, int mode){
+        BlockPos pos = new BlockPos((int) coords.x(), (int) coords.y(), (int) coords.z());
 
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.level().getBlockEntity(pos, ModBlockEntities.FORGE);
 
         ItemStack itemstack = ItemStack.EMPTY;
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
 
-            if (entity.getStack(OUTPUT_SLOT).getMaxCount() <= entity.getStack(OUTPUT_SLOT).getCount()) return;
+            if (entity.getItem(OUTPUT_SLOT).getMaxStackSize() <= entity.getItem(OUTPUT_SLOT).getCount()) return;
 
-            RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_MATERIAL);
-            RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_PATTERN);
+            HolderLookup.RegistryLookup<TrimMaterial>  armorTrimMaterialRegistry = entity.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL);
+            HolderLookup.RegistryLookup<TrimPattern>  armorTrimPatternRegistry = entity.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_PATTERN);
 
             switch (amount){
                 case 16 -> {
                     if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
                         itemstack = new ItemStack(ResourceItemsME.PTEROSAUR_NUGGET);
-                        FoodComponent foodComponent = new FoodComponent(1, 0.5f, false);
-                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
-                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                        FoodProperties foodComponent = new FoodProperties.Builder()
+                                .nutrition(1).saturationModifier(0.5F).build();
+                        itemstack.set(DataComponents.FOOD, foodComponent);
                         itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                     } else if (entity.currentMetal.getNugget() != null){
                         itemstack = new ItemStack(entity.currentMetal.getNugget());
@@ -369,9 +422,9 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 case 144 -> {
                     if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
                         itemstack = new ItemStack(ResourceItemsME.THERAPOD_NUGGET);
-                        FoodComponent foodComponent = new FoodComponent(7, 0.8f, false);
-                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
-                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                        FoodProperties foodComponent = new FoodProperties.Builder()
+                                .nutrition(7).saturationModifier(0.8F).build();
+                        itemstack.set(DataComponents.FOOD, foodComponent);
                     } else {
                         itemstack = new ItemStack(entity.currentMetal.getIngot());
                     }
@@ -384,18 +437,18 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
                         if(mode == 4) itemstack = new ItemStack(ResourceItemsME.THYREOPHORAN_NUGGET);
                         else itemstack = new ItemStack(ResourceItemsME.CERATOPSIAN_NUGGET);
-                        FoodComponent foodComponent = new FoodComponent(10, 0.8f, false);
-                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
-                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                        FoodProperties foodComponent = new FoodProperties.Builder()
+                                .nutrition(10).saturationModifier(0.8F).build();
+                        itemstack.set(DataComponents.FOOD, foodComponent);
                     }
                     else if(entity.currentMetal.isVanilla()) {
-                        itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
-                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
+                        itemstack.set(DataComponents.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_MATERIAL, ResourceLocation.parse(entity.currentMetal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_PATTERN, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "smithing_part")))));
                     } else {
-                        itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
-                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
+                        itemstack.set(DataComponents.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_MATERIAL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_PATTERN, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     }itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
@@ -403,177 +456,199 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     itemstack = new ItemStack(ResourceItemsME.LARGE_ROD);
                     if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
                         itemstack = new ItemStack(ResourceItemsME.SAUROPOD_NUGGET);
-                        FoodComponent foodComponent = new FoodComponent(14, 0.85f, false);
-                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
-                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                        FoodProperties foodComponent = new FoodProperties.Builder()
+                                .nutrition(14).saturationModifier(0.85F).build();
+                        itemstack.set(DataComponents.FOOD, foodComponent);
                     } else if (entity.currentMetal.isVanilla()){
-                        itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
-                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
+                        itemstack.set(DataComponents.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_MATERIAL, ResourceLocation.parse(entity.currentMetal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_PATTERN, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     } else {
-                        itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
-                                armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
-                                armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
+                        itemstack.set(DataComponents.TRIM, new ArmorTrim(
+                                armorTrimMaterialRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_MATERIAL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
+                                armorTrimPatternRegistry.getOrThrow(ResourceKey.create(Registries.TRIM_PATTERN, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "smithing_part")))));
 
                     }
                     itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
             }
 
-            if (entity.getStack(OUTPUT_SLOT).isOf(itemstack.getItem()) && !itemstack.isEmpty()){
-                if (Objects.equals(entity.getStack(OUTPUT_SLOT).get(DataComponentTypes.TRIM), itemstack.get(DataComponentTypes.TRIM))) {
+            if (entity.getItem(OUTPUT_SLOT).is(itemstack.getItem()) && !itemstack.isEmpty()){
+                if (Objects.equals(entity.getItem(OUTPUT_SLOT).get(DataComponents.TRIM), itemstack.get(DataComponents.TRIM))) {
                     if (amount <= entity.storage && amount > 0) {
-                        itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
+                        itemstack.setCount(entity.getItem(OUTPUT_SLOT).getCount() + 1);
                         entity.storage = entity.storage - amount;
                         if (entity.storage == 0) {
                             entity.currentMetal = MetalTypes.EMPTY;
                         }
-                        entity.setStack(OUTPUT_SLOT, itemstack);
-                        playExtractSound(entity.getWorld(), pos);
-                        entity.update();
+                        entity.setItem(OUTPUT_SLOT, itemstack);
+                        playExtractSound(entity.getLevel(), pos);
                     } else {
-                        playFailedExtractSound(entity.getWorld(), pos);
+                        playFailedExtractSound(entity.getLevel(), pos);
                     }
                 }else {
-                    playFailedExtractSound(entity.getWorld(), pos);
+                    playFailedExtractSound(entity.getLevel(), pos);
                 }
-            } else if(entity.getStack(OUTPUT_SLOT).isEmpty() && !itemstack.isEmpty()){
+            } else if(entity.getItem(OUTPUT_SLOT).isEmpty() && !itemstack.isEmpty()){
                 if (amount <= entity.storage && amount > 0) {
-                    itemstack.setCount(entity.getStack(OUTPUT_SLOT).getCount() + 1);
+                    itemstack.setCount(entity.getItem(OUTPUT_SLOT).getCount() + 1);
                     entity.storage = entity.storage - amount;
                     if (entity.storage == 0) {
                         entity.currentMetal = MetalTypes.EMPTY;
                     }
-                    entity.setStack(OUTPUT_SLOT, itemstack);
-                    playExtractSound(entity.getWorld(), pos);
-                    entity.update();
+                    entity.setItem(OUTPUT_SLOT, itemstack);
+                    playExtractSound(entity.getLevel(), pos);
                 } else {
-                    playFailedExtractSound(entity.getWorld(), pos);
+                    playFailedExtractSound(entity.getLevel(), pos);
                 }
             } else {
-                playFailedExtractSound(entity.getWorld(), pos);
+                playFailedExtractSound(entity.getLevel(), pos);
             }
         }
     }
 
-    private static void playExtractSound(World world, BlockPos pos){
-        world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0f, 1.0f);
+    private static void playExtractSound(Level world, BlockPos pos){
+        world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0f, 1.0f);
     }
 
-    private static void playFailedExtractSound(World world, BlockPos pos){
-        world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_INSERT_FAIL, SoundCategory.BLOCKS, 1.0f, 1.0f);
+    private static void playFailedExtractSound(Level world, BlockPos pos){
+        world.playSound(null, pos, SoundEvents.DECORATED_POT_INSERT_FAIL, SoundSource.BLOCKS, 1.0f, 1.0f);
     }
 
-    public static void tick(ServerWorld world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {
-        if (blockState.get(ForgeBlock.PART) == ForgePart.TOP) return;
+    public static void tick(ServerLevel world, BlockPos blockPos, BlockState blockState, ForgeBlockEntity entity) {
+        if (blockState.getValue(ForgeBlock.PART) == ForgePart.TOP) {
+            entity.flushClientSync(world);
+            return;
+        }
 
-        entity.fuelTime = Math.max(0, entity.fuelTime - 1);
-        entity.boostTime = Math.max(0, entity.boostTime - 1);
+        boolean persistedStateChanged = false;
+        if (entity.fuelTime > 0) {
+            entity.fuelTime--;
+            persistedStateChanged = true;
+        }
+        if (entity.boostTime > 0) {
+            entity.boostTime--;
+            persistedStateChanged = true;
+        }
 
-        boolean progress = false;
+        entity.refreshProcessingCache(world);
+        boolean madeProgress = false;
 
-        entity.update();
-
-        if(entity.mode == 1) { // Alloying mode
-            if(hasAlloyingRecipe(entity, world)) {
-                if(entity.hasFuel(entity)) {
-                    int progressValue = 1;
-                    if(entity.boostTime > 0) {
-                        progressValue = 8;
-                    }
-                    entity.progress += progressValue;
-                    progress = true;
-                    entity.update();
-                    if(entity.progress >= MAX_PROGRESS) {
-                        craftItem(entity, world);
-                        entity.progress = 0;
-                        entity.update();
-                    }
+        if (entity.mode == 1) {
+            RecipeHolder<? extends AlloyingRecipe> recipe = entity.cachedAlloyingRecipe;
+            if (recipe != null
+                    && canInsertLiquid(entity.storage, entity.currentMetal, recipe)
+                    && entity.hasFuel()) {
+                entity.progress += entity.boostTime > 0 ? 8 : 1;
+                madeProgress = true;
+                persistedStateChanged = true;
+                if (entity.progress >= MAX_PROGRESS) {
+                    craftItem(entity, world, recipe);
+                    entity.progress = 0;
                 }
             }
-        } else { // Heating mode
-            dropExtraItems(entity);
-            if(hasHeatingRecipe(entity)) {
-                if(entity.hasFuel(entity)) {
-                    int progressValue = 2;
-                    if(entity.boostTime > 0) {
-                        progressValue = 16;
-                    }
-                    entity.progress += progressValue;
-                    progress = true;
-                    entity.update();
-                    if(entity.progress >= MAX_PROGRESS) {
-                        for (int i = 1; i <= 4; i++) {
-                            entity.getStack(i).set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
-                        }
-                        entity.progress = 0;
-                        entity.update();
+        } else if (entity.cachedHasHeatingRecipe && entity.hasFuel()) {
+            entity.progress += entity.boostTime > 0 ? 16 : 2;
+            madeProgress = true;
+            persistedStateChanged = true;
+            if (entity.progress >= MAX_PROGRESS) {
+                for (int i = 1; i <= 4; i++) {
+                    ItemStack stack = entity.getItem(i);
+                    if (!stack.isEmpty()) {
+                        stack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                     }
                 }
+                entity.progress = 0;
+                entity.processingInputsDirty = true;
             }
         }
 
-        if (!progress){
+        if (!madeProgress && entity.progress > 0) {
             entity.progress = Math.max(entity.progress - 2, 0);
-            entity.update();
+            persistedStateChanged = true;
         }
-        boolean isCooking = entity.fuelTime > 0;
 
-        blockState = blockState.with(AbstractFurnaceBlock.LIT, isCooking);
-        BlockState blockStateUp = blockState.with(AbstractFurnaceBlock.LIT, isCooking).with(ForgeBlock.PART, ForgePart.TOP);
-        world.setBlockState(blockPos, blockState, Block.NOTIFY_ALL);
-        world.setBlockState(blockPos.up(), blockStateUp, Block.NOTIFY_ALL);
+        if (persistedStateChanged) {
+            entity.markPersistedChanged();
+        }
+
+        boolean isLit = entity.fuelTime > 0;
+        if (blockState.getValue(AbstractFurnaceBlock.LIT) != isLit) {
+            BlockState lowerState = blockState.setValue(AbstractFurnaceBlock.LIT, isLit);
+            BlockState upperState = lowerState.setValue(ForgeBlock.PART, ForgePart.TOP);
+            world.setBlock(blockPos, lowerState, Block.UPDATE_ALL);
+            world.setBlock(blockPos.above(), upperState, Block.UPDATE_ALL);
+        }
+
+        entity.flushClientSync(world);
     }
 
-    private static void craftItem(ForgeBlockEntity entity, ServerWorld world) {
-        SimpleInventory inventory1 = new SimpleInventory(entity.size());
-        List<ItemStack> inputs = new ArrayList<>();
-        for (int i = 0; i < entity.size(); i++) {
-            inventory1.setStack(i, entity.getStack(i));
-            if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
+    private static void craftItem(
+            ForgeBlockEntity entity,
+            ServerLevel world,
+            RecipeHolder<? extends AlloyingRecipe> recipe
+    ) {
+        ExperienceOrb.award(world, entity.getBlockPos().getCenter().add(0, 1, 0), recipe.value().getXp());
+
+        for (int i = 1; i <= 4; i++) {
+            entity.getItem(i).shrink(1);
+        }
+        entity.storage += recipe.value().amount;
+        entity.currentMetal = MetalTypes.fromValue(recipe.value().output.toLowerCase());
+        entity.processingInputsDirty = true;
+        entity.markClientVisibleChanged();
+    }
+
+    private void refreshProcessingCache(ServerLevel world) {
+        if (!this.processingInputsDirty) {
+            return;
         }
 
-        RecipeEntry<? extends AlloyingRecipe> match = entity.matchGetter.getFirstMatch(
-                new MultipleStackRecipeInput(inputs), world).orElse(null);
-
-        if(match == null) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
-
-        ExperienceOrbEntity.spawn(world, entity.getPos().toCenterPos().add(0, 1, 0), match.value().getXp());
-
-        if(hasAlloyingRecipe(entity, world)) {
-            for (int i = 1; i <= 4; i++) {
-                entity.removeStack(i, 1);
+        if (this.mode == 1) {
+            this.cachedHasHeatingRecipe = false;
+            if (this.hasAnyProcessingInput()) {
+                List<ItemStack> inputs = List.of(
+                        this.getItem(1),
+                        this.getItem(2),
+                        this.getItem(3),
+                        this.getItem(4)
+                );
+                this.cachedAlloyingRecipe = this.matchGetter
+                        .getRecipeFor(new MultipleStackRecipeInput(inputs), world)
+                        .orElse(null);
+            } else {
+                this.cachedAlloyingRecipe = null;
             }
-            entity.storage = entity.storage + match.value().amount;
-            entity.currentMetal = MetalTypes.fromValue(match.value().output.toLowerCase());
-            entity.update();
+        } else {
+            this.cachedAlloyingRecipe = null;
+            if (dropExtraItems(this)) {
+                this.markClientVisibleChanged();
+            }
+            this.cachedHasHeatingRecipe = this.computeHasHeatingRecipe();
         }
+
+        this.processingInputsDirty = false;
     }
 
-    private static boolean hasAlloyingRecipe(ForgeBlockEntity entity, ServerWorld world) {
-        SimpleInventory inventory1 = new SimpleInventory(entity.size());
-        List<ItemStack> inputs = new ArrayList<>();
-        for (int i = 0; i < entity.size(); i++) {
-            inventory1.setStack(i, entity.getStack(i));
-            if(i != FUEL_SLOT && i != OUTPUT_SLOT) inputs.add(entity.getStack(i));
+    private boolean hasAnyProcessingInput() {
+        for (int i = 1; i <= 4; i++) {
+            if (!this.getItem(i).isEmpty()) {
+                return true;
+            }
         }
-        if(inputs.isEmpty()) return false;
-
-        RecipeEntry<? extends AlloyingRecipe> match = entity.matchGetter.getFirstMatch(
-                new MultipleStackRecipeInput(inputs), world).orElse(null);
-
-        if(match == null) return false;
-
-        return canInsertLiquid(entity.storage, entity.currentMetal, match);
+        return false;
     }
 
-    private static void dropExtraItems(ForgeBlockEntity entity) {
-    {
-        if(entity.getWorld() == null) return;
-        for (int i = 0; i < entity.size(); i++)
+    private static boolean dropExtraItems(ForgeBlockEntity entity) {
+        if (entity.getLevel() == null) {
+            return false;
+        }
+
+        boolean changed = false;
+        for (int i = 0; i < entity.getContainerSize(); i++)
             if (i != FUEL_SLOT) {
-                ItemStack itemStack = entity.getStack(i);
+                ItemStack itemStack = entity.getItem(i);
                 if (!itemStack.isEmpty() && itemStack.getCount() > 1) {
                     int difference = itemStack.getCount() - 1;
                     if(i == OUTPUT_SLOT){
@@ -583,76 +658,70 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                     ItemStack extraStack = itemStack.copy();
                     extraStack.setCount(difference);
 
-                    ItemEntity itemEntity = new ItemEntity(entity.getWorld(),
-                            entity.getPos().getX() + 0.5f,
-                            entity.getPos().getY() + 1.5f,
-                            entity.getPos().getZ() + 0.5f, extraStack);
-                    itemEntity.setToDefaultPickupDelay();
-                    float f = (float) (Math.random() * 0.15f);
-                    float g = (float) (Math.random() * 0.15f);
-                    itemEntity.setVelocity(f, 0.25f, g);
-                    entity.getWorld().spawnEntity(itemEntity);
+                    ItemEntity itemEntity = new ItemEntity(entity.getLevel(),
+                            entity.getBlockPos().getX() + 0.5f,
+                            entity.getBlockPos().getY() + 1.5f,
+                            entity.getBlockPos().getZ() + 0.5f, extraStack);
+                    itemEntity.setDefaultPickUpDelay();
+                    float f = (float) (entity.getLevel().getRandom().nextDouble() * 0.15f);
+                    float g = (float) (entity.getLevel().getRandom().nextDouble() * 0.15f);
+                    itemEntity.setDeltaMovement(f, 0.25f, g);
+                    entity.getLevel().addFreshEntity(itemEntity);
 
                     itemStack.setCount(1);
                     if(i == OUTPUT_SLOT){
                         itemStack.setCount(0);
                     }
+                    changed = true;
                 }
             }
-        }
+        return changed;
     }
 
-    private static boolean hasHeatingRecipe(ForgeBlockEntity entity) {
-        List<ItemStack> inputs = new ArrayList<>();
+    private boolean computeHasHeatingRecipe() {
         boolean hasColdItem = false;
-        for (int i = 0; i < entity.size(); i++) {
+        for (int i = 0; i < this.getContainerSize(); i++) {
             if(i != FUEL_SLOT && i != OUTPUT_SLOT) {
-                Item item = entity.getStack(i).getItem();
-                if (entity.getStack(i).isEmpty()){
-                    hasColdItem = true;
-                } else if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
-                    return false; // One of the items cannot be heated
-                } else {
-                    TemperatureDataComponent temperatureComponent = entity.getStack(i).get(DataComponentTypesME.TEMPERATURE_DATA);
+                ItemStack stack = this.getItem(i);
+                if (!stack.isEmpty()) {
+                    Item item = stack.getItem();
+                    if (!HotMetalsModel.nuggets.contains(item)
+                            && !HotMetalsModel.ingots.contains(item)
+                            && !HotMetalsModel.items.contains(item)) {
+                        return false;
+                    }
+                    TemperatureDataComponent temperatureComponent = stack.get(DataComponentTypesME.TEMPERATURE_DATA);
                     if(temperatureComponent == null || temperatureComponent.temperature() < 100) {
                         hasColdItem = true;
-                        inputs.add(entity.getStack(i));
                     }
                 }
             }
         }
-        if(inputs.isEmpty()) return false;
-        else return hasColdItem;
+        return hasColdItem;
     }
 
-    private boolean hasFuel(ForgeBlockEntity entity) {
-
-        SimpleInventory inventory1 = new SimpleInventory(entity.size());
-        for (int i = 0; i < entity.size(); i++) {
-            inventory1.setStack(i, entity.getStack(i));
+    private boolean hasFuel() {
+        if (this.fuelTime > 0) {
+            return true;
         }
 
-        ItemStack fuelStack = inventory1.getStack(FUEL_SLOT);
-        if(this.fuelTime > 0) return true;
-        else {
-            if(isFuel(fuelStack)) {
-                getFuel(entity, fuelStack);
-                return true;
-            } else return false;
+        ItemStack fuelStack = this.getItem(FUEL_SLOT);
+        if (!this.isFuel(fuelStack)) {
+            return false;
         }
+
+        this.fuelTime = Math.round((float) fuelStack.getBurnTime(RecipeType.SMELTING) / 16);
+        this.maxFuelTime = this.fuelTime;
+        if (fuelStack.is(Items.LAVA_BUCKET)) {
+            this.inventory.set(FUEL_SLOT, Items.BUCKET.getDefaultInstance());
+        } else {
+            fuelStack.shrink(1);
+        }
+        this.markInventoryChanged(FUEL_SLOT);
+        return true;
     }
 
-    private void getFuel(ForgeBlockEntity entity, ItemStack fuelStack) {
-        fuelTime = Math.round((float) this.world.getFuelRegistry().getFuelTicks(fuelStack) / 16);
-        maxFuelTime = fuelTime;
-        if(fuelStack.isOf(Items.LAVA_BUCKET)) {
-            entity.removeStack(FUEL_SLOT);
-            entity.setStack(FUEL_SLOT, Items.BUCKET.getDefaultStack());
-        }
-        else entity.getStack(FUEL_SLOT).decrement(1);
-    }
-
-    private static boolean canInsertLiquid(int storage, MetalTypes currentMetal, RecipeEntry<? extends AlloyingRecipe> match) {
+    private static boolean canInsertLiquid(int storage, MetalTypes currentMetal, RecipeHolder<? extends AlloyingRecipe> match) {
         var value = match.value().output.toLowerCase();
         MetalTypes metal = MetalTypes.fromValue(value);
         if((storage + match.value().amount) <= MAX_STORAGE){
@@ -665,7 +734,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    public Object getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
+    public void writeOpeningData(RegistryFriendlyByteBuf buffer) {
+        BlockPos.STREAM_CODEC.encode(buffer, worldPosition);
     }
 }

@@ -2,14 +2,13 @@ package net.sevenstars.middleearth.item.utils.armor.helmetAttachments;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.function.ValueLists;
-
 import java.util.function.IntFunction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 
-public enum HelmetAttachmentsME implements StringIdentifiable {
+public enum HelmetAttachmentsME implements StringRepresentable {
 
     HOOD(0,"hood"),
     TALL_HOOD(1,"tall_hood"),
@@ -29,14 +28,14 @@ public enum HelmetAttachmentsME implements StringIdentifiable {
     SKULL(11,"skull", HelmetAttachmentsStatesME.UP),
     ;
 
-    private static final IntFunction<HelmetAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(HelmetAttachmentsME::getId, HelmetAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;
+    private static final IntFunction<HelmetAttachmentsME> BY_ID = ByIdMap.continuous(HelmetAttachmentsME::getId, HelmetAttachmentsME.values(), ByIdMap.OutOfBoundsStrategy.ZERO);;
 
     private final String name;
     private final int id;
     private final HelmetAttachmentsStatesME constantState;
 
-    public static final Codec<HelmetAttachmentsME> CODEC = StringIdentifiable.createBasicCodec(HelmetAttachmentsME::values);
-    public static final PacketCodec<ByteBuf, HelmetAttachmentsME> PACKET_CODEC = PacketCodecs.indexed(BY_ID, HelmetAttachmentsME::getId);;
+    public static final Codec<HelmetAttachmentsME> CODEC = StringRepresentable.fromValues(HelmetAttachmentsME::values);
+    public static final StreamCodec<ByteBuf, HelmetAttachmentsME> PACKET_CODEC = ByteBufCodecs.idMapper(BY_ID, HelmetAttachmentsME::getId);;
 
     HelmetAttachmentsME(int id, String name){
         this.id = id;
@@ -63,7 +62,7 @@ public enum HelmetAttachmentsME implements StringIdentifiable {
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

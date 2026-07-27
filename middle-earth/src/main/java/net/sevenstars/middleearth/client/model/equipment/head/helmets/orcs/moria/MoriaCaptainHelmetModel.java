@@ -1,7 +1,14 @@
 package net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.moria;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartNames;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
 public class MoriaCaptainHelmetModel extends MoriaScreecherHelmetModel {
@@ -10,18 +17,18 @@ public class MoriaCaptainHelmetModel extends MoriaScreecherHelmetModel {
         super(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = getModelData();
-        ModelPartData modelPartData = modelData.getRoot();
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = getModelData();
+        PartDefinition modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition head = modelPartData.addOrReplaceChild(PartNames.HEAD, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.HAT, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        head.addChild("side_spikes", ModelPartBuilder.create()
-                .uv(48, 13).cuboid(-4.0F, -3.25F, -1.0F, 8.0F, 10.0F, 0.0F, new Dilation(0.0F))
-                .uv(47, 25).cuboid(-21.0F, -3.25F, -1.0F, 8.0F, 10.0F, 0.0F, new Dilation(0.0F)),
-                ModelTransform.of(8.5F, -7.2F, -1.0F, -0.4363F, 0.0F, 0.0F));
+        head.addOrReplaceChild("side_spikes", CubeListBuilder.create()
+                .texOffs(48, 13).addBox(-4.0F, -3.25F, -1.0F, 8.0F, 10.0F, 0.0F, new CubeDeformation(0.0F))
+                .texOffs(47, 25).addBox(-21.0F, -3.25F, -1.0F, 8.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(8.5F, -7.2F, -1.0F, -0.4363F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return LayerDefinition.create(modelData, 64, 64);
     }
 }

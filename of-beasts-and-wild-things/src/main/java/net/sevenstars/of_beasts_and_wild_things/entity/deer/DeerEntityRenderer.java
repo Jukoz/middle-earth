@@ -1,21 +1,20 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.deer;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.EntityModelLayersWT;
 
 import java.util.Map;
 
-public class DeerEntityRenderer extends MobEntityRenderer<DeerEntity, DeerEntityRenderState, DeerEntityModel> {
+public class DeerEntityRenderer extends MobRenderer<DeerEntity, DeerEntityModel> {
     private static final String PATH = "textures/entity/deer/";
 
-    public DeerEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new DeerEntityModel(context.getPart(EntityModelLayersWT.DEER)), 0.5f);
+    public DeerEntityRenderer(EntityRendererProvider.Context context) {
+        super(context, new DeerEntityModel(context.bakeLayer(EntityModelLayersWT.DEER)), 0.5f);
     }
 
     public static final Map<DeerEntityVariant, String> LOCATION_BY_VARIANT =
@@ -27,18 +26,7 @@ public class DeerEntityRenderer extends MobEntityRenderer<DeerEntity, DeerEntity
             });
 
     @Override
-    public Identifier getTexture(DeerEntityRenderState state) {
-        return OfBeastsAndWildThings.of(LOCATION_BY_VARIANT.get(state.variant));
-    }
-
-    @Override
-    public DeerEntityRenderState createRenderState() {
-        return new DeerEntityRenderState();
-    }
-
-    public void updateRenderState(DeerEntity deerEntity, DeerEntityRenderState deerEntityRenderState, float f) {
-        super.updateRenderState(deerEntity, deerEntityRenderState, f);
-        deerEntityRenderState.variant = deerEntity.getVariant();
-        deerEntityRenderState.isRunning = deerEntity.getPose().equals(EntityPose.SHOOTING);
+    public ResourceLocation getTextureLocation(DeerEntity entity) {
+        return OfBeastsAndWildThings.of(LOCATION_BY_VARIANT.get(entity.getVariant()));
     }
 }

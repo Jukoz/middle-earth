@@ -6,9 +6,15 @@
     "S"
   ],
   "key": {
-    "M": "#middle-earth:raw_meat",
-    "V": "#middle-earth:vegetable",
-    "S": "minecraft:stick"
+    "M": {
+      "tag": "middle-earth:raw_meat"
+    },
+    "V": {
+      "tag": "middle-earth:vegetable"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "middle-earth:meat_skewer",

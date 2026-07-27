@@ -1,8 +1,19 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/small_round_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"8": "middle-earth:item/dol_guldur_shield"
-	}
+    "credit":  "Made with Blockbench",
+    "parent":  "middle-earth:item/small_round_shield_template",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "textures":  {
+                     "8":  "middle-earth:item/dol_guldur_shield"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/dol_guldur_shield_blocking"
+                      }
+                  ]
 }

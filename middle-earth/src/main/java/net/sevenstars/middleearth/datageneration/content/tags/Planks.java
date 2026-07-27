@@ -1,10 +1,9 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class Planks {
     public static List<Block> planks = new ArrayList<>() {

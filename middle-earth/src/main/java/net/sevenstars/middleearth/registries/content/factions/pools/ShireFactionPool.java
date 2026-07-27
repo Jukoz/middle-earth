@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -48,12 +48,12 @@ public class ShireFactionPool {
                 new BannerData(DyeColor.WHITE, List.of(
                         new BannerData.BannerPatternWithColor(BannerPatternsME.CLOTH, DyeColor.LIME),
                         new BannerData.BannerPatternWithColor(BannerPatterns.GRADIENT, DyeColor.LIME),
-                        new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE, DyeColor.YELLOW),
+                        new BannerData.BannerPatternWithColor(BannerPatterns.CIRCLE_MIDDLE, DyeColor.YELLOW),
                         new BannerData.BannerPatternWithColor(BannerPatternsME.PIPE, DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(FactionRegistry.SHIRE.getValue().getPath(), "hobbiton"), new Vector2d(933, 900)),
-                        new SpawnData(MiddleEarth.of(FactionRegistry.SHIRE.getValue().getPath(), "willowbottom"), new Vector2d(981, 970))
+                        new SpawnData(MiddleEarth.of(FactionRegistry.SHIRE.location().getPath(), "hobbiton"), new Vector2d(933, 900)),
+                        new SpawnData(MiddleEarth.of(FactionRegistry.SHIRE.location().getPath(), "willowbottom"), new Vector2d(981, 970))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),

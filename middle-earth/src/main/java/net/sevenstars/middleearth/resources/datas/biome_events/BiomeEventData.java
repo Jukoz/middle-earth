@@ -2,15 +2,14 @@ package net.sevenstars.middleearth.resources.datas.biome_events;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -67,52 +66,69 @@ public class BiomeEventData {
         return shouldSpawnDefaultWhenUnmet;
     }
 
-    public ContextualizedBiomeData findNpcData(World world, NpcEntity entity) {
-        List<WildSpawnEventData> weightedData = new ArrayList<>();
-        DynamicRegistryManager manager = world.getRegistryManager();
+    public ContextualizedBiomeData findNpcData(Level world, NpcEntity entity) {
+        RegistryAccess manager = world.registryAccess();
+        ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(EntitiesME.NPC);
+        WildSpawnEventData spawningData = null;
+        long totalWeight = 0L;
 
         for(WildSpawnEventData data : getWildSpawnEventDatas()){
-            if(SpawnEventDataUtil.isConsideredForSpawning(data, Registries.ENTITY_TYPE.getId(EntitiesME.NPC), world, entity.getBlockPos()))
-            {
-                int weightAmount = data.getWeight(1);
-                for(int i = 0; i < weightAmount; i ++){
-                    weightedData.add(data);
+            if (SpawnEventDataUtil.isConsideredForSpawning(data, entityId, world, entity.blockPosition())) {
+                long weight = Math.max(0, data.getWeight(1));
+                if (weight == 0L) {
+                    continue;
+                }
+                totalWeight += weight;
+                if (nextLong(world.random, totalWeight) < weight) {
+                    spawningData = data;
                 }
             }
         }
-        if(weightedData.isEmpty())
+        if(spawningData == null)
             return null;
 
-        WildSpawnEventData spawningData = weightedData.get(Random.create().nextInt(weightedData.size()));
-        Registry<NpcType> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC_TYPE);
-        Identifier npcId = spawningData.getNpcType(null);
+        Registry<NpcType> npcDataRegistry = manager.registryOrThrow(DynamicRegistriesME.NPC_TYPE);
+        ResourceLocation npcId = spawningData.getNpcType(null);
         NpcType foundNpcType = (npcId != null) ? npcDataRegistry.get(npcId) : null;
 
         return new ContextualizedBiomeData(foundNpcType);
     }
 
-    public boolean canSpawn(EntityType<?> type, World world, BlockPos pos, Random random) {
-        List<WildSpawnEventData> weightedData = new ArrayList<>();
+    public boolean canSpawn(EntityType<?> type, Level world, BlockPos pos, RandomSource random) {
         boolean containEntityType = false;
+        ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+        WildSpawnEventData spawningData = null;
+        long totalWeight = 0L;
         for(WildSpawnEventData data : getWildSpawnEventDatas()){
-            Identifier entityId = Registries.ENTITY_TYPE.getId(type);
             if(!containEntityType && MiddleEarth.compareId(data.getEntityType(), entityId))
                 containEntityType = true;
-            if(SpawnEventDataUtil.isConsideredForSpawning(data, entityId, world, pos))
-            {
-                int weightAmount = data.getWeight(1);
-                for(int i = 0; i < weightAmount; i ++){
-                    weightedData.add(data);
+            if (SpawnEventDataUtil.isConsideredForSpawning(data, entityId, world, pos)) {
+                long weight = Math.max(0, data.getWeight(1));
+                if (weight == 0L) {
+                    continue;
+                }
+                totalWeight += weight;
+                if (nextLong(random, totalWeight) < weight) {
+                    spawningData = data;
                 }
             }
         }
         if(!containEntityType)
             return true;
-        if(weightedData.isEmpty())
+        if(spawningData == null)
             return false;
 
-        WildSpawnEventData spawningData = weightedData.get(Random.create().nextInt(weightedData.size()));
         return !spawningData.isDiscarded(random);
+    }
+
+    private static long nextLong(RandomSource random, long bound) {
+        long value = random.nextLong() >>> 1;
+        long result = value % bound;
+        while (value - result + (bound - 1L) < 0L) {
+            value = random.nextLong() >>> 1;
+            result = value % bound;
+        }
+        return result;
     }
 
 

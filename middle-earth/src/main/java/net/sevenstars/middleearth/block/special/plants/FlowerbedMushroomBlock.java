@@ -1,29 +1,29 @@
 package net.sevenstars.middleearth.block.special.plants;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FlowerbedBlock;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.PinkPetalsBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class FlowerbedMushroomBlock extends FlowerbedBlock {
-    public FlowerbedMushroomBlock(Settings settings) {
+public class FlowerbedMushroomBlock extends PinkPetalsBlock {
+    public FlowerbedMushroomBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.down();
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.below();
         BlockState blockState = world.getBlockState(blockPos);
-        if (blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK)) {
+        if (blockState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
             return true;
         }
-        return world.getBaseLightLevel(pos, 0) < 13 && this.canPlantOnTop(blockState, world, blockPos);
+        return world.getRawBrightness(pos, 0) < 13 && this.mayPlaceOn(blockState, world, blockPos);
     }
 
     @Override
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOpaqueFullCube();
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
+        return floor.isSolidRender(world, pos);
     }
 }

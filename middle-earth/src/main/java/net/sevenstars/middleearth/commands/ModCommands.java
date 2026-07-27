@@ -1,22 +1,32 @@
 package net.sevenstars.middleearth.commands;
 
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.sevenstars.middleearth.commands.custom.*;
 
 public class ModCommands {
     public static String BASE_COMMAND = "middle_earth";
+
     public static void register() {
+        NeoForge.EVENT_BUS.addListener(ModCommands::registerCommands);
+    }
+
+    private static void registerCommands(RegisterCommandsEvent event) {
+        var dispatcher = event.getDispatcher();
+        var buildContext = event.getBuildContext();
+        var commandSelection = event.getCommandSelection();
+
         // PlayerFactionPayload Commands
-        CommandRegistrationCallback.EVENT.register(CommandFaction::register);
-        CommandRegistrationCallback.EVENT.register(CommandSpawn::register);
-        CommandRegistrationCallback.EVENT.register(CommandRace::register);
+        CommandFaction.register(dispatcher, buildContext, commandSelection);
+        CommandSpawn.register(dispatcher, buildContext, commandSelection);
+        CommandRace.register(dispatcher, buildContext, commandSelection);
 
         // Onboarding Commands
-        CommandRegistrationCallback.EVENT.register(CommandOnboarding::register);
+        CommandOnboarding.register(dispatcher, buildContext, commandSelection);
 
         //Misc commands
-        CommandRegistrationCallback.EVENT.register(CommandCustomEquipment::register);
-        CommandRegistrationCallback.EVENT.register(CommandInformation::register);
-        CommandRegistrationCallback.EVENT.register(CommandDimensionTeleport::register);
+        CommandCustomEquipment.register(dispatcher, buildContext, commandSelection);
+        CommandInformation.register(dispatcher, buildContext, commandSelection);
+        CommandDimensionTeleport.register(dispatcher, buildContext, commandSelection);
     }
 }

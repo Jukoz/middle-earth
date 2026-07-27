@@ -2,12 +2,10 @@ package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.world.ServerWorld;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 
 public class MountPassengerSlotData {
     public static class Fields {
@@ -34,19 +32,28 @@ public class MountPassengerSlotData {
         return passengers;
     }
 
-    public LivingEntity createRandom(ServerWorld serverWorld, LivingEntity owner) {
-        List<MountPassengerData> weightedPassengers = new ArrayList<>();
-        for (MountPassengerData weightedPassenger : passengers) {
-            for(int i = 0; i < weightedPassenger.getWeight(1); i++){
-                weightedPassengers.add(weightedPassenger);
-            }
+    public LivingEntity createRandom(ServerLevel serverWorld, LivingEntity owner) {
+        int totalWeight = 0;
+        for (MountPassengerData passenger : passengers) {
+            totalWeight += Math.max(0, passenger.getWeight(1));
         }
-
-        if(weightedPassengers.isEmpty())
+        if(totalWeight <= 0)
             return null;
-        Random random = new Random();
 
-        MountPassengerData data =  weightedPassengers.get(random.nextInt(weightedPassengers.size()));
+        Random random = new Random();
+        int selectedWeight = random.nextInt(totalWeight);
+        MountPassengerData data = null;
+        for (MountPassengerData passenger : passengers) {
+            int weight = Math.max(0, passenger.getWeight(1));
+            if (selectedWeight < weight) {
+                data = passenger;
+                break;
+            }
+            selectedWeight -= weight;
+        }
+        if (data == null) {
+            return null;
+        }
         if(data.isDiscarded(random))
             return null;
         return data.createEntity(serverWorld, owner);

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.UiDirections;
@@ -9,8 +9,6 @@ import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.world.chunkgen.map.ImageUtils;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.util.Identifier;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -76,11 +74,11 @@ public class MapWidget extends ModWidget {
     private float getMinZoom(){
         return 1f;
     }
-    protected Identifier getMapTexture(){
-        return Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
+    protected ResourceLocation getMapTexture(){
+        return ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID,"textures/map.png");
     }
-    protected Identifier getOverlayMapTexture(){
-        return Identifier.of(MiddleEarth.MOD_ID,"textures/map_overlay.png");
+    protected ResourceLocation getOverlayMapTexture(){
+        return ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID,"textures/map_overlay.png");
     }
     public void setOverlayState(boolean state){
         isOverlayEnabled = state;
@@ -106,12 +104,12 @@ public class MapWidget extends ModWidget {
         return getMapPointFromMapCoordinate(point);
     }
 
-    public void drawCentered(DrawContext context, int centerX, int startY){
+    public void drawCentered(GuiGraphics context, int centerX, int startY){
         int startX = centerX - (uiWidth / 2);
         draw(context, startX, startY);
     }
 
-    public void drawAnchored(DrawContext context, int anchorX, int startY, boolean isLeftAnchor){
+    public void drawAnchored(GuiGraphics context, int anchorX, int startY, boolean isLeftAnchor){
         int startX = anchorX;
         if(!isLeftAnchor)
             startX -= uiWidth;
@@ -119,7 +117,7 @@ public class MapWidget extends ModWidget {
         draw(context, startX, startY);
     }
 
-    protected void draw(DrawContext context, int startX, int startY){
+    protected void draw(GuiGraphics context, int startX, int startY){
         this.startX = startX;
         this.startY = startY;
 
@@ -142,20 +140,20 @@ public class MapWidget extends ModWidget {
         }
     }
 
-    protected void drawMapTexture(DrawContext context, int startX, int startY) {
+    protected void drawMapTexture(GuiGraphics context, int startX, int startY) {
         int size = Math.max(getCurrentWidth(), getCurrentHeight());
 
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, getMapTexture(),
+        context.blit(getMapTexture(),
                 startX, startY, uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
                 size, size
         );
     }
 
-    protected void drawOverlayMapTexture(DrawContext context, int startX, int startY) {
+    protected void drawOverlayMapTexture(GuiGraphics context, int startX, int startY) {
         int size = Math.max(getCurrentWidth(), getCurrentHeight());
 
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, getOverlayMapTexture(),
+        context.blit(getOverlayMapTexture(),
                 startX, startY, uvX.floatValue(), uvY.floatValue(),
                 getWidth(), getHeight(),
                 size, size

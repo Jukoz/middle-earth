@@ -6,10 +6,18 @@
     "L L"
   ],
   "key": {
-    "S": "#minecraft:wooden_slabs",
-    "P": "#minecraft:planks",
-    "W": "minecraft:blue_wool",
-    "L": "#minecraft:logs"
+    "S": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "W": {
+      "item": "minecraft:blue_wool"
+    },
+    "L": {
+      "tag": "minecraft:logs"
+    }
   },
   "result": {
     "id": "middle-earth:inscription_table",

@@ -1,60 +1,71 @@
 package net.sevenstars.middleearth.entity.npcs;
 
-import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BlocksAttacksComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentUser;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.monster.CrossbowAttackMob;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ProjectileWeaponItem;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.*;
@@ -82,10 +93,7 @@ import net.sevenstars.middleearth.utils.SpawnUtil;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-import java.util.Optional;
-
-public class NpcEntity extends PathAwareEntity implements EquipmentHolder, CrossbowUser {
+public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowAttackMob {
     public static class KeyStrings {
         public static final String DATA = "NpcData";
         public static final String INITIALIZATION_DATA = "InitializationData";
@@ -93,13 +101,13 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         public static final String IS_FIGHTING = "IsFighting";
     }
     // [TrackedDatas]
-    private static final TrackedData<NpcData> NPC_DATA;
-    private static final TrackedData<NpcInitializationData> NPC_INITIALIZATION_DATA;
-    private static final TrackedData<NpcTextureData> NPC_TEXTURE_DATA;
-    private static final TrackedData<Boolean> IS_FIGHTING;
+    private static final EntityDataAccessor<NpcData> NPC_DATA;
+    private static final EntityDataAccessor<NpcInitializationData> NPC_INITIALIZATION_DATA;
+    private static final EntityDataAccessor<NpcTextureData> NPC_TEXTURE_DATA;
+    private static final EntityDataAccessor<Boolean> IS_FIGHTING;
 
-    private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final EntityDataAccessor<Integer> USING_ITEM = SynchedEntityData.defineId(NpcEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> CROSSBOW_CHARGING = SynchedEntityData.defineId(NpcEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 16.0F);
     private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, 1.0, 11.0F);
@@ -107,13 +115,13 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         @Override
         public void stop() {
             super.stop();
-            NpcEntity.this.setAttacking(false);
+            NpcEntity.this.setAggressive(false);
         }
 
         @Override
         public void start() {
             super.start();
-            NpcEntity.this.setAttacking(true);
+            NpcEntity.this.setAggressive(true);
         }
     };
 
@@ -123,24 +131,26 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     public final AnimationState attackState = new AnimationState();
     public final AnimationState swingState = new AnimationState();
 
-    public NpcEntity(EntityType<NpcEntity> entityType, World world) {
+    public NpcEntity(EntityType<NpcEntity> entityType, Level world) {
         super(entityType, world);
         this.updateAttackType();
-        this.navigation.setCanOpenDoors(true);
+        if (this.navigation instanceof GroundPathNavigation groundNavigation) {
+            groundNavigation.setCanOpenDoors(true);
+        }
     }
 
     @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, SpawnGroupData entityData) {
         this.saveSpawnReason(spawnReason);
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     // [IsFighting]
     public void setFighting(boolean state){
-        this.dataTracker.set(IS_FIGHTING, state);
+        this.entityData.set(IS_FIGHTING, state);
     }
     public boolean getFighting(){
-        return this.dataTracker.get(IS_FIGHTING);
+        return this.entityData.get(IS_FIGHTING);
     }
     // [IsBlocking] // TODO
     public void setBlocking(boolean state){
@@ -151,10 +161,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
     // [NpcTextureData]
     public void saveNpcTextureData(NpcTextureData npcTextureData) {
-        this.dataTracker.set(NPC_TEXTURE_DATA, npcTextureData);
+        this.entityData.set(NPC_TEXTURE_DATA, npcTextureData);
     }
     public NpcTextureData retrieveNpcTextureData() {
-        return this.dataTracker.get(NPC_TEXTURE_DATA);
+        return this.entityData.get(NPC_TEXTURE_DATA);
     }
     public boolean hasTextureData(){
         return retrieveNpcTextureData().get(NpcRenderedPart.BODY) != null;
@@ -164,10 +174,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
     // [NpcInitializationData]
     public void saveNpcInitializationData(NpcInitializationData npcInitializationData) {
-        this.dataTracker.set(NPC_INITIALIZATION_DATA, npcInitializationData);
+        this.entityData.set(NPC_INITIALIZATION_DATA, npcInitializationData);
     }
     public NpcInitializationData retrieveNpcInitializationData() {
-        return this.dataTracker.get(NPC_INITIALIZATION_DATA);
+        return this.entityData.get(NPC_INITIALIZATION_DATA);
     }
     public void prepare() {
         NpcInitializationData npcInitializationData = retrieveNpcInitializationData();
@@ -177,25 +187,25 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     public void resetInitializationData() {
-        this.dataTracker.set(NPC_INITIALIZATION_DATA, new NpcInitializationData());
+        this.entityData.set(NPC_INITIALIZATION_DATA, new NpcInitializationData());
     }
     // [NpcTypeIdentifier]
-    public void prepareNpcIdentifier(Identifier npcTypeIdentifier){
+    public void prepareNpcIdentifier(ResourceLocation npcTypeIdentifier){
         NpcInitializationData newNpcInitializationData = this.retrieveNpcInitializationData().withType(npcTypeIdentifier);
         this.saveNpcInitializationData(newNpcInitializationData);
     }
     // [NpcData]
     public void saveNpcData(NpcData npcData) {
-        this.dataTracker.set(NPC_DATA, npcData);
+        this.entityData.set(NPC_DATA, npcData);
     }
     public NpcData retrieveNpcData() {
-        return this.dataTracker.get(NPC_DATA);
+        return this.entityData.get(NPC_DATA);
     }
     // [NpcType]
     public NpcType getNpcType(){
         return retrieveNpcData().getNpcType();
     }
-    public void saveNpcType(RegistryEntry<NpcType> npcType){
+    public void saveNpcType(Holder<NpcType> npcType){
         NpcData newNpcData = this.retrieveNpcData().withType(npcType);
         this.saveNpcData(newNpcData);
     }
@@ -215,82 +225,81 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.saveNpcData(newNpcData);
     }
     // [SpawnReason]
-    private void saveSpawnReason(SpawnReason spawnReason) {
+    private void saveSpawnReason(MobSpawnType spawnReason) {
         NpcData newNpcData = this.retrieveNpcData().withSpawnReason(spawnReason);
         this.saveNpcData(newNpcData);
     }
-    public SpawnReason getSpawnReason() {
+    public MobSpawnType getSpawnReason() {
         return this.retrieveNpcData().getSpawnReason();
     }
     // [StructureManager]
     public void assignStructureManager(StructureManagerBlockEntity blockEntity){
-        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(blockEntity.getPos());
+        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(blockEntity.getBlockPos());
         this.saveNpcData(newNpcData);
     }
 
-    public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.ATTACK_DAMAGE, 1.0);
+    public static AttributeSupplier.Builder setAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.FOLLOW_RANGE, 32.0)
+                .add(Attributes.ATTACK_DAMAGE, 1.0);
     }
 
-    protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new TargetPlayerDiplomacyGoal(this));
-        this.targetSelector.add(4, new NpcDoorInteractGoal(this, true));
-        this.targetSelector.add(5, new TargetNPCDiplomacyGoal(this));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, SnowTrollEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, SpawnOfShelobEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
-        this.targetSelector.add(10, new ActiveTargetGoal<>(this, AbstractHorseEntity.class, true));
-    }
-
-    @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(NPC_INITIALIZATION_DATA, new NpcInitializationData());
-        builder.add(NPC_DATA, new NpcData());
-        builder.add(NPC_TEXTURE_DATA, new NpcTextureData());
-        builder.add(IS_FIGHTING, false);
-        builder.add(CROSSBOW_CHARGING, false);
-        builder.add(USING_ITEM, 0);
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(3, new TargetPlayerDiplomacyGoal(this));
+        this.targetSelector.addGoal(4, new NpcDoorInteractGoal(this, true));
+        this.targetSelector.addGoal(5, new TargetNPCDiplomacyGoal(this));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, SnowTrollEntity.class, true));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, SpawnOfShelobEntity.class, true));
+        this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
+        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
+        this.targetSelector.addGoal(10, new NearestAttackableTargetGoal<>(this, AbstractHorse.class, true));
     }
 
     @Override
-    public void writeData(WriteView view) {
-        super.writeData(view);
-        writeCustomData(view);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(NPC_INITIALIZATION_DATA, new NpcInitializationData());
+        builder.define(NPC_DATA, new NpcData());
+        builder.define(NPC_TEXTURE_DATA, new NpcTextureData());
+        builder.define(IS_FIGHTING, false);
+        builder.define(CROSSBOW_CHARGING, false);
+        builder.define(USING_ITEM, 0);
     }
 
     @Override
-    public void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
-        view.put(KeyStrings.DATA, NpcData.CODEC, this.retrieveNpcData());
-        view.put(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC, this.retrieveNpcInitializationData());
-        view.put(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC, this.retrieveNpcTextureData());
-        view.put(KeyStrings.IS_FIGHTING, Codec.BOOL, this.getFighting());
+    public void addAdditionalSaveData(CompoundTag view) {
+        super.addAdditionalSaveData(view);
+        RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, this.level().registryAccess());
+        NpcData.CODEC.encodeStart(ops, this.retrieveNpcData())
+                .result().ifPresent(tag -> view.put(KeyStrings.DATA, tag));
+        NpcInitializationData.CODEC.encodeStart(ops, this.retrieveNpcInitializationData())
+                .result().ifPresent(tag -> view.put(KeyStrings.INITIALIZATION_DATA, tag));
+        NpcTextureData.CODEC.encodeStart(ops, this.retrieveNpcTextureData())
+                .result().ifPresent(tag -> view.put(KeyStrings.TEXTURE_DATA, tag));
+        view.putBoolean(KeyStrings.IS_FIGHTING, this.getFighting());
     }
 
     @Override
-    public void readData(ReadView view) {
-        super.readData(view);
-        readCustomData(view);
-    }
+    public void readAdditionalSaveData(CompoundTag view) {
+        super.readAdditionalSaveData(view);
+        RegistryOps<Tag> ops = RegistryOps.create(NbtOps.INSTANCE, this.level().registryAccess());
+        NpcData foundNpcData = view.contains(KeyStrings.DATA)
+                ? NpcData.CODEC.parse(ops, view.get(KeyStrings.DATA)).result().orElse(new NpcData())
+                : new NpcData();
+        NpcInitializationData foundNpcInitializationData = view.contains(KeyStrings.INITIALIZATION_DATA)
+                ? NpcInitializationData.CODEC.parse(ops, view.get(KeyStrings.INITIALIZATION_DATA)).result().orElse(new NpcInitializationData())
+                : new NpcInitializationData();
+        NpcTextureData foundNpcTextureData = view.contains(KeyStrings.TEXTURE_DATA)
+                ? NpcTextureData.CODEC.parse(ops, view.get(KeyStrings.TEXTURE_DATA)).result().orElse(new NpcTextureData())
+                : new NpcTextureData();
+        boolean isFighting = view.getBoolean(KeyStrings.IS_FIGHTING);
 
-    @Override
-    public void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        NpcData foundNpcData = view.read(KeyStrings.DATA, NpcData.CODEC).orElse(new NpcData());
-        NpcInitializationData foundNpcInitializationData = view.read(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC).orElse(new NpcInitializationData());
-        NpcTextureData foundNpcTextureData = view.read(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC).orElse(new NpcTextureData());
-        boolean isFighting = view.read(KeyStrings.IS_FIGHTING, Codec.BOOL).orElse(false);
-
-        String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
+        String npcDataId = view.contains("NpcDataId", Tag.TAG_STRING) ? view.getString("NpcDataId") : null;
         if(npcDataId != null){
             foundNpcInitializationData = foundNpcInitializationData.withType(MiddleEarth.fetchId(npcDataId));
             foundNpcData = new NpcData();
@@ -298,10 +307,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             isFighting = false;
         }
 
-        this.dataTracker.set(NPC_DATA, foundNpcData);
-        this.dataTracker.set(NPC_INITIALIZATION_DATA, foundNpcInitializationData);
-        this.dataTracker.set(NPC_TEXTURE_DATA, foundNpcTextureData);
-        this.dataTracker.set(IS_FIGHTING, isFighting);
+        this.entityData.set(NPC_DATA, foundNpcData);
+        this.entityData.set(NPC_INITIALIZATION_DATA, foundNpcInitializationData);
+        this.entityData.set(NPC_TEXTURE_DATA, foundNpcTextureData);
+        this.entityData.set(IS_FIGHTING, isFighting);
 
         foundNpcInitializationData.tryToInitialize(this);
 
@@ -309,55 +318,45 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     @Override
-    public boolean canUseRangedWeapon(RangedWeaponItem weapon) {
+    public boolean canFireProjectileWeapon(ProjectileWeaponItem weapon) {
         return true;
     }
 
     @Override
-    public @Nullable ItemStack getPickBlockStack() {
+    public @Nullable ItemStack getPickResult() {
         if(getNpcType() == null)
             return ItemStack.EMPTY;
-        return NpcSpawnEggHelper.getSpawnEgg(getWorld(), getNpcType().getId());
+        return NpcSpawnEggHelper.getSpawnEgg(level(), getNpcType().getId());
     }
     public void updateAttackType() {
-        if (this.getWorld() != null && !this.getWorld().isClient) {
-            this.goalSelector.remove(this.meleeAttackGoal);
-            this.goalSelector.remove(this.bowAttackGoal);
-            ItemStack itemStack = this.getMainHandStack();
-            if (itemStack.isOf(Items.BOW) || itemStack.isIn(ItemTagsME.BOW)) {
+        if (this.level() != null && !this.level().isClientSide) {
+            this.goalSelector.removeGoal(this.meleeAttackGoal);
+            this.goalSelector.removeGoal(this.bowAttackGoal);
+            ItemStack itemStack = this.getMainHandItem();
+            if (itemStack.is(Items.BOW) || itemStack.is(ItemTagsME.BOW)) {
                 int i = 30;
-                if (this.getWorld().getDifficulty() != Difficulty.HARD) {
+                if (this.level().getDifficulty() != Difficulty.HARD) {
                     i = 20;
                 }
                 this.bowAttackGoal.setAttackInterval(i);
-                this.goalSelector.add(4, this.bowAttackGoal);
-            } if (itemStack.isOf(Items.CROSSBOW) || itemStack.isIn(ItemTagsME.CROSSBOW)) {
-                this.goalSelector.add(4, this.crossBowAttackGoal);
+                this.goalSelector.addGoal(4, this.bowAttackGoal);
+            } if (itemStack.is(Items.CROSSBOW) || itemStack.is(ItemTagsME.CROSSBOW)) {
+                this.goalSelector.addGoal(4, this.crossBowAttackGoal);
             } else {
-                this.goalSelector.add(4, this.meleeAttackGoal);
+                this.goalSelector.addGoal(4, this.meleeAttackGoal);
             }
         }
     }
 
     public void updateTargetGoals() {
-        //if (this.getWorld() != null && !this.getWorld().isClient) {
-        //    if(getFaction().getDisposition() == DispositionType.EVIL) {
-        //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
-        //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, GreatHornEntity.class, true));
-        //    } else {
-        //        this.targetSelector.add(5, new ActiveTargetGoal<>(this, CaveTrollEntity.class, true));
-        //        this.targetSelector.add(5, new ActiveTargetGoal<>(this, StoneTrollEntity.class, true));
-        //        this.targetSelector.add(6, new ActiveTargetGoal<>(this, WargEntity.class, true));
-        //    }
-        //}
     }
 
     //region [DATA TRANSFER]
     // GETTERS
-    public Identifier getNpcTypeIdentifier(){
+    public ResourceLocation getNpcTypeIdentifier(){
         return retrieveNpcData().getNpcTypeId();
     }
-    public Identifier getFactionIdentifier(){
+    public ResourceLocation getFactionIdentifier(){
         Faction faction = getFaction();
         if(faction == null) return null;
         return faction.getId();
@@ -368,16 +367,18 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     //endregion
 
     public void tryToInitializeData(){
-        if(Objects.equals(getBlockPos(), new BlockPos(0, 0, 0))) // 0,0,0 is what's used for commands, needs to be delayed
+        if(blockPosition().equals(BlockPos.ZERO)) // 0,0,0 is what's used for commands, needs to be delayed
+            return;
+        if(getNpcType() != null && hasTextureData())
             return;
 
         this.prepare();
 
-        World world = getWorld();
-        if(world.isClient)
+        Level world = level();
+        if(world.isClientSide)
             return;
 
-        if(world instanceof ServerWorld serverWorld){
+        if(world instanceof ServerLevel serverWorld){
             if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
                 NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
             }
@@ -385,15 +386,15 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     @Override
-    public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
-        if (source.isOf(DamageTypes.IN_WALL) && this.hasVehicle()) {
+    public boolean isInvulnerableTo(DamageSource source) {
+        if (source.is(DamageTypes.IN_WALL) && this.isPassenger()) {
             return true;
         }
-        return super.isInvulnerableTo(world, source);
+        return super.isInvulnerableTo(source);
     }
 
     @Override
-    protected void mobTick(ServerWorld world) {
+    protected void customServerAiStep() {
         tryToInitializeData();
         //CombatArchetypeRuntimeData runtimeData = getCombatRuntimeData();
        // if(runtimeData != null)
@@ -406,60 +407,43 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         profiler.push("npcActivityUpdate");
         NpcBrain.updateActivities(this);
         profiler.pop();*/
-        super.mobTick(world);
+        super.customServerAiStep();
 
-        if(hasVehicle()){
-            rotate(getVehicle().getYaw(), getVehicle().getPitch());
+        if(isPassenger()){
+            this.setRot(getVehicle().getYRot(), getVehicle().getXRot());
         }
     }
 
     @Override
-    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        Vec3d pos = super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor);
-
-        Vec3d offset = new Vec3d(
-                0.0,
-                -0.3 * scaleFactor,
-                -0.25 * scaleFactor
-        );
-
-        return pos.add(rotatePoint(offset, this.getYaw()));
-    }
-
-    private static Vec3d rotatePoint(Vec3d point, float yaw) {
-        return point.rotateY(-yaw * ((float)Math.PI / 180F));
+    protected Vec3 getPassengerAttachmentPoint(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        Vec3 pos = super.getPassengerAttachmentPoint(passenger, dimensions, scaleFactor);
+        float yaw = this.getYRot() * Mth.DEG_TO_RAD;
+        double backwards = -0.25 * scaleFactor;
+        return pos.add(-backwards * Mth.sin(yaw), -0.3 * scaleFactor, backwards * Mth.cos(yaw));
     }
 
     @Override
     public boolean isUsingItem() {
         boolean value = super.isUsingItem();
         if(!value) {
-            return this.dataTracker.get(USING_ITEM) > 0;
+            return this.entityData.get(USING_ITEM) > 0;
         }
         return value;
     }
 
     public void setNpcFlag(int mask, boolean value) {
-        setLivingFlag(mask, value);
+        setLivingEntityFlag(mask, value);
 
         if(value) {
-            int i = this.dataTracker.get(USING_ITEM) + 1;
-            this.dataTracker.set(USING_ITEM, i);
+            int i = this.entityData.get(USING_ITEM) + 1;
+            this.entityData.set(USING_ITEM, i);
         } else {
-            this.dataTracker.set(USING_ITEM, 0);
+            this.entityData.set(USING_ITEM, 0);
         }
     }
 
-    /*protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-        return NpcBrain.create(dynamic);
-    }
-
-    public Brain<NpcEntity> getBrain() {
-        return (Brain<NpcEntity>) super.getBrain();
-    }*/
-
     public float getFightingMovementSpeed(){
-        double currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+        double currentSpeed = this.getAttributeValue(Attributes.MOVEMENT_SPEED);
         return (float) (currentSpeed);
     }
 
@@ -467,17 +451,17 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         boolean isFighting = getFighting();
 
         this.setSprinting(isFighting);
-        if(this.hasVehicle() && getVehicle() instanceof AbstractHorseEntity abstractHorseEntity){
+        if(this.isPassenger() && getVehicle() instanceof AbstractHorse abstractHorseEntity){
             abstractHorseEntity.setSprinting(isFighting);
         }
         return isFighting;
     }
 
     @Override
-    public void tickMovement() {
-        super.tickMovement();
+    public void aiStep() {
+        super.aiStep();
 
-        if(!this.getWorld().isClient) {
+        if(!this.level().isClientSide) {
 
         } else {
             setupAnimationStates();
@@ -486,45 +470,45 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private void setupAnimationStates() {
-        if(this.forwardSpeed > 0) {
-            this.walkingState.startIfNotRunning(this.age);
+        if(this.zza > 0) {
+            this.walkingState.startIfStopped(this.tickCount);
         } else {
-            this.idleState.startIfNotRunning(this.age);
+            this.idleState.startIfStopped(this.tickCount);
         }
 
-        int bowPullProgress = this.getItemUseTime();
+        int bowPullProgress = this.getTicksUsingItem();
         if(bowPullProgress > 0) {
-            this.aimingState.startIfNotRunning(this.age);
+            this.aimingState.startIfStopped(this.tickCount);
         }
 
     }
 
     @Override
-    public boolean shouldControlVehicles() {
+    public boolean canControlVehicle() {
         return true;
     }
 
     @Override
     protected boolean couldAcceptPassenger() {
-        return !this.hasVehicle();
+        return !this.isPassenger();
     }
 
     @Override
-    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance localDifficulty) {
         // Overrides vanilla init equipment (gold sets???)
     }
 
     @Override
-    public void onDeath(DamageSource source) {
+    public void die(DamageSource source) {
         if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity && vehicleEntity.getControllingPassenger() == this){
-            vehicleEntity.equipStack(EquipmentSlot.SADDLE, Items.AIR.getDefaultStack());
-            vehicleEntity.equipStack(EquipmentSlot.BODY, Items.AIR.getDefaultStack());
-            vehicleEntity.removeAllPassengers();
-            if(vehicleEntity instanceof AbstractHorseEntity abstractHorseEntity){
-                abstractHorseEntity.setTame(false);
-                abstractHorseEntity.resetLoveTicks();
+            vehicleEntity.setItemSlot(EquipmentSlot.BODY, Items.AIR.getDefaultInstance());
+            vehicleEntity.ejectPassengers();
+            if(vehicleEntity instanceof AbstractHorse abstractHorseEntity){
+                abstractHorseEntity.getSlot(AbstractHorse.EQUIPMENT_SLOT_OFFSET).set(ItemStack.EMPTY);
+                abstractHorseEntity.setTamed(false);
+                abstractHorseEntity.resetLove();
                 abstractHorseEntity.setSprinting(false);
-                abstractHorseEntity.setOwner(null);
+                abstractHorseEntity.setOwnerUUID(null);
             }
             if(vehicleEntity instanceof AbstractBeastEntity abstractBeastEntity){
                 abstractBeastEntity.resetTameness();
@@ -534,7 +518,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(structureManagerPos != null){
             StructureManagerBlockEntity.triggerDeathSignal(structureManagerPos, this);
         }
-        super.onDeath(source);
+        super.die(source);
     }
 
     private boolean canDropLoot(DamageSource damageSource, boolean causedByPlayer){
@@ -544,15 +528,15 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(damageSource == null)
             return canDropLoot;
 
-        if(damageSource.getAttacker() instanceof PlayerEntity player){
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
+        if(damageSource.getEntity() instanceof Player player){
+            PlayerData data = StateSaverAndLoader.getPlayerStateReadOnly(player);
             if(data == null)
                 canDropLoot = true;
             else if(data.getFaction() == null)
                 canDropLoot = true;
             else{
                 try{
-                    Faction faction = FactionLookup.getFactionById(getWorld(), data.getFaction());
+                    Faction faction = FactionLookup.getFactionById(level(), data.getFaction());
                     if(faction.isHostileToward(this.getFactionIdentifier()))
                         canDropLoot = true;
                 } catch (FactionIdentifierException e){
@@ -564,52 +548,57 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return canDropLoot;
     }
 
-    protected void drop(ServerWorld world, DamageSource damageSource) {
-        if(!canDropLoot(damageSource, damageSource.getAttacker() != null && damageSource.getAttacker().isPlayer()))
+    @Override
+    protected void dropAllDeathLoot(ServerLevel world, DamageSource damageSource) {
+        if(!canDropLoot(damageSource, damageSource.getEntity() instanceof Player))
             return;
-        super.drop(world, damageSource);
+        super.dropAllDeathLoot(world, damageSource);
     }
 
-    protected int getExperienceToDrop(ServerWorld world) {
+    @Override
+    protected int getBaseExperienceReward() {
         LootData lootData = retrieveLootData();
-        if(lootData == null)
+        if(lootData == null || !(level() instanceof ServerLevel world))
             return 1;
         return lootData.getExperience(world);
     }
 
     @Override
-    protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
-        RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcType().getId().withPrefixedPath("entities/"));
-        LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
+    protected void dropFromLootTable(DamageSource damageSource, boolean causedByPlayer) {
+        if (!(level() instanceof ServerLevel world) || getNpcType() == null) {
+            return;
+        }
+        ResourceKey<LootTable> lootTableRegistryKey = ResourceKey.create(Registries.LOOT_TABLE, getNpcType().getId().withPrefix("entities/"));
+        LootTable lootTable = world.getServer().reloadableRegistries().getLootTable(lootTableRegistryKey);
 
         if (lootTable != null) {
-            LootWorldContext.Builder builder = (new LootWorldContext.Builder(world)).add(LootContextParameters.THIS_ENTITY, this)
-                    .add(LootContextParameters.ORIGIN, this.getPos())
-                    .add(LootContextParameters.DAMAGE_SOURCE, damageSource)
-                    .addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker())
-                    .addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
-            PlayerEntity playerEntity = this.getAttackingPlayer();
+            LootParams.Builder builder = (new LootParams.Builder(world)).withParameter(LootContextParams.THIS_ENTITY, this)
+                    .withParameter(LootContextParams.ORIGIN, this.position())
+                    .withParameter(LootContextParams.DAMAGE_SOURCE, damageSource)
+                    .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, damageSource.getEntity())
+                    .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, damageSource.getDirectEntity());
+            Player playerEntity = causedByPlayer ? this.lastHurtByPlayer : null;
             if (playerEntity != null) {
-                builder = builder.add(LootContextParameters.LAST_DAMAGE_PLAYER, playerEntity).luck(playerEntity.getLuck());
+                builder = builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, playerEntity).withLuck(playerEntity.getLuck());
             }
 
-            LootWorldContext lootWorldContext = builder.build(LootContextTypes.ENTITY);
-            lootTable.generateLoot(lootWorldContext, this.getLootTableSeed(), (stack) -> this.dropStack(world, stack));
+            LootParams lootWorldContext = builder.create(LootContextParamSets.ENTITY);
+            lootTable.getRandomItems(lootWorldContext, this.getLootTableSeed(), this::spawnAtLocation);
         }
     }
 
     @Override
-    public boolean isPersistent() {
+    public boolean isPersistenceRequired() {
         BlockPos structureManagerPos = getStructureManagerHostPos();
         if(structureManagerPos == null)
-            return super.isPersistent();
-        if(getWorld().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity structureManagerBlockEntity)
+            return super.isPersistenceRequired();
+        if(level().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity structureManagerBlockEntity)
             return true;
-        return super.isPersistent();
+        return super.isPersistenceRequired();
     }
 
     @Override
-    public void setCustomName(@Nullable Text name) {
+    public void setCustomName(@Nullable Component name) {
         super.setCustomName(name);
     }
 
@@ -617,23 +606,23 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         NpcData data = retrieveNpcData();
         if(data == null)
             return null;
-        Identifier factionId = data.getFaction();
+        ResourceLocation factionId = data.getFaction();
         if(factionId == null)
             return null;
         try {
-            return FactionLookup.getFactionById(getWorld(), factionId);
+            return FactionLookup.getFactionById(level(), factionId);
         } catch (FactionIdentifierException e) {
             return null;
         }
     }
 
     @Override
-    public boolean isInAttackRange(LivingEntity entity) {
+    public boolean isWithinMeleeAttackRange(LivingEntity entity) {
         float reach = 1.75f;
-        try{
-            Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ENTITY_INTERACTION_RANGE));
-            reach = damageOpt.get().floatValue();
-        } catch (Exception ignored){}
+        AttributeInstance interactionRange = this.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
+        if (interactionRange != null) {
+            reach = (float)interactionRange.getValue();
+        }
 
         if(this.getVehicle() != null || entity.getVehicle() != null) {
             reach += 0.5f;
@@ -643,40 +632,39 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     @Override
-    public boolean tryAttack(ServerWorld world, Entity target) {
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+    public boolean doHurtTarget(Entity target) {
+        if (!(this.level() instanceof ServerLevel world)) {
+            return false;
+        }
+        this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
         boolean targetDamaged;
-        float damage = 1.0f;
-        try{
-            Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE));
-            damage = damageOpt.get().floatValue();
-        } catch (Exception ignored){}
-        ItemStack itemStack = this.getWeaponStack();
-        DamageSource damageSource = Optional.ofNullable(itemStack.getItem().getDamageSource(this)).orElse(this.getDamageSources().mobAttack(this));
+        float damage = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        ItemStack itemStack = this.getWeaponItem();
+        DamageSource damageSource = this.damageSources().mobAttack(this);
 
-        var enchantmentDamage = EnchantmentHelper.getDamage(world, itemStack, target, damageSource, damage);
-        var bonusDamage =  itemStack.getItem().getBonusAttackDamage(target, enchantmentDamage, damageSource);
-        var finalDamage = damage + bonusDamage;
+        var enchantmentDamage = EnchantmentHelper.modifyDamage(world, itemStack, target, damageSource, damage);
+        var bonusDamage =  itemStack.getItem().getAttackDamageBonus(target, enchantmentDamage, damageSource);
+        var finalDamage = enchantmentDamage + bonusDamage;
 
-        if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
-            mountEntity.tryAttack((ServerWorld) target.getWorld(), target);
+        if(isPassenger() && getVehicle() instanceof AbstractBeastEntity mountEntity){
+            mountEntity.doHurtTarget(target);
         }
 
-        targetDamaged = target.damage(world, damageSource, finalDamage);
+        targetDamaged = target.hurt(damageSource, finalDamage);
         if (targetDamaged) {
-            LivingEntity livingEntity;
-            float g = this.getAttackKnockbackAgainst(target, damageSource);
-            if (g > 0.0f && target instanceof LivingEntity) {
-                livingEntity = (LivingEntity)target;
-                livingEntity.takeKnockback(g * 0.5f, MathHelper.sin(this.getYaw() * ((float)Math.PI / 180)), -MathHelper.cos(this.getYaw() * ((float)Math.PI / 180)));
-                this.setVelocity(this.getVelocity().multiply(0.6, 1.0, 0.6));
+            float g = this.getKnockback(target, damageSource);
+            if (g > 0.0f && target instanceof LivingEntity livingEntity) {
+                livingEntity.knockback(g * 0.5f, Mth.sin(this.getYRot() * ((float)Math.PI / 180)), -Mth.cos(this.getYRot() * ((float)Math.PI / 180)));
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
             }
-            if (target instanceof LivingEntity) {
-                livingEntity = (LivingEntity)target;
-                itemStack.postHit(livingEntity, this);
+            if (target instanceof LivingEntity livingEntity) {
+                var item = itemStack.getItem();
+                if (item.hurtEnemy(itemStack, livingEntity, this)) {
+                    item.postHurtEnemy(itemStack, livingEntity, this);
+                }
             }
-            EnchantmentHelper.onTargetDamaged(world, target, damageSource);
-            this.onAttacking(target);
+            EnchantmentHelper.doPostAttackEffects(world, target, damageSource);
+            this.setLastHurtMob(target);
             this.playAttackSound();
 
         }
@@ -684,52 +672,50 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     @Override
-    public void tickRiding() {
-        super.tickRiding();
-        Entity entity = this.getControllingVehicle();
-        if (entity instanceof PathAwareEntity pathAwareEntity) {
-            this.bodyYaw = pathAwareEntity.bodyYaw;
+    public void rideTick() {
+        super.rideTick();
+        Entity entity = this.getControlledVehicle();
+        if (entity instanceof PathfinderMob pathAwareEntity) {
+            this.yBodyRot = pathAwareEntity.yBodyRot;
         }
     }
 
     @Override
-    protected Text getDefaultName() {
+    protected Component getTypeName() {
         if(this.getNpcTypeIdentifier() == null) {
-            return Text.translatable("npc_type."+ MiddleEarth.MOD_ID +".npc");
+            return Component.translatable("npc_type."+ MiddleEarth.MOD_ID +".npc");
         }
-        return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_type"));
+        return Component.translatable(this.getNpcTypeIdentifier().toLanguageKey("npc_type"));
     }
 
     @Override
-    protected void takeShieldHit(ServerWorld world, LivingEntity attacker) {
-        super.takeShieldHit(world, attacker);
-        ItemStack itemStack = this.getBlockingItem();
-        BlocksAttacksComponent blocksAttacksComponent = itemStack != null ? itemStack.get(DataComponentTypes.BLOCKS_ATTACKS) : null;
-        float f = attacker.getWeaponDisableBlockingForSeconds();
-        if (f > 0.0f && blocksAttacksComponent != null) {
-            blocksAttacksComponent.applyShieldCooldown(world, this, f, itemStack);
+    protected void blockUsingShield(LivingEntity attacker) {
+        super.blockUsingShield(attacker);
+        if (attacker.canDisableShield()) {
+            this.stopUsingItem();
+            this.level().broadcastEntityEvent(this, (byte)30);
         }
     }
 
     @Override
-    public boolean canTarget(LivingEntity target) {
-        return shouldTarget(this, target) && super.canTarget(target);
+    public boolean canAttack(LivingEntity target) {
+        return shouldTarget(this, target) && super.canAttack(target);
     }
 
     public static boolean shouldTarget(NpcEntity npcEntity, LivingEntity target){
         // TODO : datadriven
-        if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity || target instanceof Pouncer)
+        if(target instanceof SnailEntity || target instanceof Monster || target instanceof SnowTrollEntity || target instanceof Pouncer)
             return true;
-        if(!npcEntity.isInSameTeam(target)){
+        if(!npcEntity.isAlliedTo(target)){
             return true;
         }
         return false;
     }
 
     public int getTickAttackSpeedCooldown(){
-        if(!this.getAttributes().hasAttribute(EntityAttributes.ATTACK_SPEED))
+        if(!this.getAttributes().hasAttribute(Attributes.ATTACK_SPEED))
             return 1;
-        return (int)this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
+        return (int)this.getAttributes().getValue(Attributes.ATTACK_SPEED);
     }
 
     @Override
@@ -738,7 +724,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     @Override
-    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+    protected void dropCustomDeathLoot(ServerLevel world, DamageSource source, boolean causedByPlayer) {
         // No drop allowed
     }
 
@@ -763,34 +749,34 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return runtimeData.getCombatArchetypeData().isInOptimalRange(this, entity.getBlockPos());
     }*/
 
-    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier, @Nullable ItemStack shotFrom) {
-        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, shotFrom);
+    protected AbstractArrow createArrowProjectile(ItemStack arrow, float damageModifier, @Nullable ItemStack shotFrom) {
+        return ProjectileUtil.getMobArrow(this, arrow, damageModifier, shotFrom);
     }
 
     public boolean isAiming() {
-        int i = this.getItemUseTime();
+        int i = this.getTicksUsingItem();
         return i > 0;
     }
 
     public void aim() {
-        var currentItem = getActiveItem();
+        var currentItem = getUseItem();
         if(currentItem.isEmpty()){
-            clearActiveItem();
-            setCurrentHand(Hand.MAIN_HAND);
+            stopUsingItem();
+            startUsingItem(InteractionHand.MAIN_HAND);
         }
     }
 
     public void stopAiming() {
-        var currentItem = getActiveItem();
+        var currentItem = getUseItem();
         if(currentItem.isEmpty()){
-            this.clearActiveItem();
+            this.stopUsingItem();
             return;
         }
-        this.clearActiveItem();
+        this.stopUsingItem();
     }
 
     public boolean isReadyToShoot() {
-        return getMainHandStack() != null;
+        return getMainHandItem() != null;
         //int i = this.getItemUseTime();
         //if (i >= 20) {
         //    return true;
@@ -802,16 +788,16 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if (!isReadyToShoot())
             return;
 
-        ItemStack weapon = this.getMainHandStack();
-        ItemStack projectileStack = this.getProjectileType(weapon);
+        ItemStack weapon = this.getMainHandItem();
+        ItemStack projectileStack = this.getProjectile(weapon);
 
-        PersistentProjectileEntity projectile = this.createArrowProjectile(projectileStack, pullProgress, weapon);
+        AbstractArrow projectile = this.createArrowProjectile(projectileStack, pullProgress, weapon);
 
         double distanceX = target.getX() - this.getX();
         double distanceZ = target.getZ() - this.getZ();
         double horizontalDistance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
 
-        double distanceY = target.getBodyY(0.3F) - projectile.getY();
+        double distanceY = target.getY(0.3F) - projectile.getY();
 
         float scale = this.getScale();
         float velocity = 1.6F * powerModifier;
@@ -819,21 +805,18 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         // Reduce the vanilla arc compensation for larger entities and faster arrows.
         double arcCompensation = horizontalDistance * (0.2F / (scale * powerModifier));
 
-        if (this.getWorld() instanceof ServerWorld serverWorld) {
-            ProjectileEntity.spawnWithVelocity(
-                    projectile,
-                    serverWorld,
-                    projectileStack,
+        if (this.level() instanceof ServerLevel serverWorld) {
+            projectile.shoot(
                     distanceX,
                     distanceY + arcCompensation,
                     distanceZ,
                     velocity,
-                    (float) (14 - serverWorld.getDifficulty().getId() * 4)
-            );
+                    (float) (14 - serverWorld.getDifficulty().getId() * 4));
+            serverWorld.addFreshEntity(projectile);
         }
 
         this.playSound(
-                SoundEvents.ENTITY_ARROW_SHOOT,
+                SoundEvents.ARROW_SHOOT,
                 1.0F,
                 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F)
         );
@@ -842,15 +825,15 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     @Override
-    public void shootAt(LivingEntity target, float pullProgress) {
+    public void performRangedAttack(LivingEntity target, float pullProgress) {
         this.shootAt(target, 1, pullProgress);
     }
 
     public void shootAt(LivingEntity livingEntity) {
         try{
-            this.shootAt(livingEntity, BowItem.getPullProgress(getItemUseTime()), 2f);
+            this.shootAt(livingEntity, BowItem.getPowerForTime(getTicksUsingItem()), 2f);
         } catch (IllegalArgumentException e){
-            this.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 3f);
+            this.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(getTicksUsingItem()), 3f);
         }
     }
     public void shootCrossbowAt(LivingEntity target) {
@@ -858,34 +841,34 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     public boolean isCharging() {
-        return this.dataTracker.get(CROSSBOW_CHARGING);
+        return this.entityData.get(CROSSBOW_CHARGING);
     }
 
     @Override
-    public void setCharging(boolean charging) {
-        this.dataTracker.set(CROSSBOW_CHARGING, charging);
+    public void setChargingCrossbow(boolean charging) {
+        this.entityData.set(CROSSBOW_CHARGING, charging);
     }
 
     @Override
-    public void postShoot() {
-        this.dataTracker.set(CROSSBOW_CHARGING, false);
+    public void onCrossbowAttackPerformed() {
+        this.entityData.set(CROSSBOW_CHARGING, false);
     }
 
     @Override
-    protected boolean isInSameTeam(Entity other) {
+    public boolean isAlliedTo(Entity other) {
         if(other instanceof NpcEntity npc){
             return !isHostileToward(npc);
         }
-        else if(other instanceof PlayerEntity player){
+        else if(other instanceof Player player){
             return !isHostileTowardPlayer(player);
         }
         return !isHostileToward(other);
     }
 
-    private boolean isHostileTowardPlayer(PlayerEntity player) {
-        if(player.getWorld().isClient || !player.canTakeDamage())
+    private boolean isHostileTowardPlayer(Player player) {
+        if(player.level().isClientSide || !player.canBeSeenAsEnemy())
             return false;
-        PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+        PlayerData playerData = StateSaverAndLoader.getPlayerStateReadOnly(player);
         if(playerData == null || playerData.getFaction() == null)
             return true;
         Faction ownFaction = getFaction();
@@ -897,10 +880,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private boolean isHostileToward(Entity other) {
-        if(other instanceof SnailEntity || other instanceof HostileEntity || other instanceof TrollEntity || other instanceof Pouncer)
+        if(other instanceof SnailEntity || other instanceof Monster || other instanceof TrollEntity || other instanceof Pouncer)
             return true;
 
-        if(!other.hasPassengers())
+        if(!other.isVehicle())
             return false;
 
         if(other.getControllingPassenger() instanceof NpcEntity npc && isHostileToward(npc)) {
@@ -913,7 +896,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         Faction ownFaction = getFaction();
         if(ownFaction == null)
             return true;
-        Identifier otherNpcFaction = npc.getFactionIdentifier();
+        ResourceLocation otherNpcFaction = npc.getFactionIdentifier();
         if(otherNpcFaction == null)
             return true;
         if(ownFaction.isHostileToward(otherNpcFaction))
@@ -921,14 +904,14 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return false;
     }
 
-    public static boolean canSpawn(EntityType<NpcEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+    public static boolean canSpawn(EntityType<NpcEntity> type, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos blockPos, RandomSource random) {
         return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
     }
 
     static {
-        NPC_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA);
-        NPC_INITIALIZATION_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_INITIALIZATION_DATA);
-        NPC_TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_TEXTURE_DATA);
-        IS_FIGHTING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        NPC_DATA = SynchedEntityData.defineId(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA);
+        NPC_INITIALIZATION_DATA = SynchedEntityData.defineId(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_INITIALIZATION_DATA);
+        NPC_TEXTURE_DATA = SynchedEntityData.defineId(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_TEXTURE_DATA);
+        IS_FIGHTING = SynchedEntityData.defineId(NpcEntity.class, EntityDataSerializers.BOOLEAN);
     }
 }

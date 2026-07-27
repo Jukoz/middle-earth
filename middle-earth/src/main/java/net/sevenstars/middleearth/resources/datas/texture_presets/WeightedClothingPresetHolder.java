@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.resources.datas.texture_presets;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.util.Identifier;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.api.dtos.WeightedIdentifier;
 import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.api.dtos.WeightedPool;
@@ -31,31 +31,31 @@ public class WeightedClothingPresetHolder extends WeightedItem<ClothingPreset> {
         this.weight = weight;
     }
 
-    public WeightedClothingPresetHolder(NbtCompound source){
+    public WeightedClothingPresetHolder(CompoundTag source){
         super(source);
         this.item = new ClothingPreset(source);
     }
 
-    public Identifier getRandomBase(){
+    public ResourceLocation getRandomBase(){
         WeightedIdentifier data = item.bases.getRandom();
         return computeData(data);
     }
 
-    public Identifier getRandomOver(){
+    public ResourceLocation getRandomOver(){
         WeightedIdentifier data = item.overs.getRandom();
         return computeData(data);
     }
 
-    public Identifier getRandomExtra(){
+    public ResourceLocation getRandomExtra(){
         WeightedIdentifier data = item.extras.getRandom();
         return computeData(data);
     }
 
-    private Identifier computeData(WeightedIdentifier data) {
+    private ResourceLocation computeData(WeightedIdentifier data) {
         if(data == null)
             return null;
-        Identifier foundItem = data.getItem();
-        Identifier emptyId = Identifier.of("empty");
+        ResourceLocation foundItem = data.getItem();
+        ResourceLocation emptyId = ResourceLocation.parse("empty");
         if(foundItem.equals(emptyId))
             return null;
         return data.getItem();
@@ -68,10 +68,10 @@ public class WeightedClothingPresetHolder extends WeightedItem<ClothingPreset> {
     }
 
     @Override
-    public NbtElement getNbt(){
-        NbtElement newNbt = super.getNbt();
+    public Tag getNbt(){
+        Tag newNbt = super.getNbt();
         if(newNbt == null)
-            newNbt = new NbtCompound();
+            newNbt = new CompoundTag();
         return this.item.getNbt(newNbt);
     }
 }

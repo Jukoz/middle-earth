@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 
 import java.util.ArrayList;

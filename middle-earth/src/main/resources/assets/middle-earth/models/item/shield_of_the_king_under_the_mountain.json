@@ -1,8 +1,19 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/erebor_tower_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"4": "middle-earth:item/shield_of_the_king_under_the_mountain"
-	}
+    "credit":  "Made with Blockbench",
+    "parent":  "middle-earth:item/erebor_tower_shield_template",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "textures":  {
+                     "4":  "middle-earth:item/shield_of_the_king_under_the_mountain"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/shield_of_the_king_under_the_mountain_blocking"
+                      }
+                  ]
 }

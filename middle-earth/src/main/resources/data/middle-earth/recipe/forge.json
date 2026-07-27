@@ -6,9 +6,15 @@
     "SSS"
   ],
   "key": {
-    "B": "minecraft:bricks",
-    "F": "minecraft:furnace",
-    "S": "#minecraft:stone_crafting_materials"
+    "B": {
+      "item": "minecraft:bricks"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "S": {
+      "tag": "minecraft:stone_crafting_materials"
+    }
   },
   "result": {
     "id": "middle-earth:forge",

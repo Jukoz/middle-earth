@@ -4,7 +4,9 @@
     "FF"
   ],
   "key": {
-    "F": "minecraft:wheat"
+    "F": {
+      "item": "minecraft:wheat"
+    }
   },
   "result": {
     "id": "middle-earth:straw",

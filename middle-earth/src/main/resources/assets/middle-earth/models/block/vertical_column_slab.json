@@ -1,11 +1,5 @@
 {
 	"parent": "middle-earth:block/vertical_slab",
-	"textures": {
-		"particle": "middle-earth:block/epmosto",
-		"top": "middle-earth:block/epmosto",
-		"bottom": "middle-earth:block/epmosto",
-		"side": "middle-earth:block/epmosto"
-	},
 	"elements": [
 		{
 			"from": [0, 0, 8],

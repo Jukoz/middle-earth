@@ -1,56 +1,68 @@
 package net.sevenstars.middleearth.gui.structuremanager.structurenest;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.neoforged.neoforge.network.PacketDistributor;
+
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.network.packets.C2S.PacketStructureNestUpdateBlockEntityRequest;
 
 import java.util.Optional;
 
-public class StructureNestScreenHandler  extends ScreenHandler {
-    private final World world;
+public class StructureNestScreenHandler  extends AbstractContainerMenu {
+    private final Level world;
     private StructureNestScreenData data;
     StructureNestBlockEntity blockEntity;
 
-    public StructureNestScreenHandler(int syncId, PlayerInventory playerInventory, StructureNestScreenData structureNestScreenData) {
+    public StructureNestScreenHandler(int syncId, Inventory playerInventory, StructureNestScreenData structureNestScreenData) {
         super(ModScreenHandlers.STRUCTURE_NEST_SCREEN_HANDLER, syncId);
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.level();
         this.data = structureNestScreenData;
         this.blockEntity = (StructureNestBlockEntity) this.world.getBlockEntity(data.getPos());
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
+    public ItemStack quickMoveStack(Player player, int slot) {
         return null;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return true;
+    public boolean stillValid(Player player) {
+        BlockPos pos = data.getPos();
+        return blockEntity != null
+                && !blockEntity.isRemoved()
+                && world.hasChunkAt(pos)
+                && world.getBlockEntity(pos) == blockEntity
+                && player.distanceToSqr(Vec3.atCenterOf(pos)) <= 64.0D;
     }
 
-    public Identifier getManagerKey() {
+    public BlockPos getPos() {
+        return data.getPos();
+    }
+
+    public ResourceLocation getManagerKey() {
         return data.getStructureManagerId();
     }
 
-    public Identifier getNestKey() {
+    public ResourceLocation getNestKey() {
         return data.getStructureNestId();
     }
 
-    public void selectManagerId(ClientPlayerEntity player, Identifier identifier) {
+    public void selectManagerId(LocalPlayer player, ResourceLocation identifier) {
         this.data.setStructureManagerId(identifier);
         this.data.setStructureNestId(null);
         updateBlockEntity();
     }
 
-    public void selectNestId(ClientPlayerEntity player, Identifier identifier) {
+    public void selectNestId(LocalPlayer player, ResourceLocation identifier) {
         this.data.setStructureNestId(identifier);
         updateBlockEntity();
     }
@@ -61,7 +73,7 @@ public class StructureNestScreenHandler  extends ScreenHandler {
     }
 
     private void updateBlockEntity() {
-        ClientPlayNetworking.send(new PacketStructureNestUpdateBlockEntityRequest(data.getPos(), Optional.ofNullable(getManagerKey()), Optional.ofNullable(getNestKey()), data.getSpawnRadius(), data.getIsEnabled()));
+        PacketDistributor.sendToServer(new PacketStructureNestUpdateBlockEntityRequest(data.getPos(), Optional.ofNullable(getManagerKey()), Optional.ofNullable(getNestKey()), data.getSpawnRadius(), data.getIsEnabled()));
     }
 
     public boolean getIsEnabled() {

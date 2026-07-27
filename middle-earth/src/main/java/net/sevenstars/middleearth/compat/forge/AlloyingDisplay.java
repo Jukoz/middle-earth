@@ -1,44 +1,31 @@
 package net.sevenstars.middleearth.compat.forge;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.world.item.ItemStack;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.compat.REICommonPluginME;
 import net.sevenstars.middleearth.recipe.AlloyingRecipe;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlloyingDisplay extends BasicDisplay {
-    protected String output;
-    protected int amount;
+public final class AlloyingDisplay extends BasicDisplay {
+    public static final DisplaySerializer<AlloyingDisplay> SERIALIZER =
+            BasicDisplay.Serializer.ofRecipeLess(
+                    (inputs, outputs, tag) ->
+                            new AlloyingDisplay(inputs, tag.getString("output"), tag.getInt("amount")),
+                    (display, tag) -> {
+                        tag.putString("output", display.output);
+                        tag.putInt("amount", display.amount);
+                    }
+            );
 
-    public static final DisplaySerializer<AlloyingDisplay> SERIALIZER = DisplaySerializer.of(
-            RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(AlloyingDisplay::getInputEntries),
-                    Codec.STRING.fieldOf("output").forGetter(AlloyingDisplay::getOutput),
-                    Codec.INT.fieldOf("amount").forGetter(AlloyingDisplay::getAmount)
-            ).apply(instance, AlloyingDisplay::new)),
-            PacketCodec.tuple(
-                    EntryIngredient.streamCodec().collect(PacketCodecs.toList()),
-                    AlloyingDisplay::getInputEntries,
-                    PacketCodecs.STRING,
-                    AlloyingDisplay::getOutput,
-                    PacketCodecs.INTEGER,
-                    AlloyingDisplay::getAmount,
-                    AlloyingDisplay::new
-            )
-    );
+    final String output;
+    final int amount;
 
     public AlloyingDisplay(List<EntryIngredient> inputs, String output, int amount) {
         super(inputs, List.of(EntryIngredients.of(new ItemStack(MetalTypes.fromValue(output).getIngot()))));
@@ -51,8 +38,7 @@ public class AlloyingDisplay extends BasicDisplay {
     }
 
     public static List<EntryIngredient> getInputs(AlloyingRecipe recipe) {
-        List<EntryIngredient> inputs = new ArrayList<>(EntryIngredients.ofIngredients(recipe.getIngredients()));
-        return inputs;
+        return new ArrayList<>(EntryIngredients.ofIngredients(recipe.getIngredients()));
     }
 
     public String getOutput() {
@@ -66,10 +52,5 @@ public class AlloyingDisplay extends BasicDisplay {
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
         return REICommonPluginME.FORGE_CATEGORY;
-    }
-
-    @Override
-    public @Nullable DisplaySerializer<? extends Display> getSerializer() {
-        return SERIALIZER;
     }
 }

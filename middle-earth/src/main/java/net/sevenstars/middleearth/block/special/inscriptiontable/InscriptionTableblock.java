@@ -1,60 +1,63 @@
 package net.sevenstars.middleearth.block.special.inscriptiontable;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.screen.*;
-import net.minecraft.state.StateManager;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class InscriptionTableblock extends HorizontalFacingBlock {
+public class InscriptionTableblock extends HorizontalDirectionalBlock {
 
-    private static final Text TITLE = Text.translatable(MiddleEarth.of("inscription_table").toTranslationKey("container"));
+    private static final Component TITLE = Component.translatable(MiddleEarth.of("inscription_table").toLanguageKey("container"));
 
-    public InscriptionTableblock(Settings settings) {
+    public InscriptionTableblock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
-        return InscriptionTableblock.createCodec(InscriptionTableblock::new);
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return InscriptionTableblock.simpleCodec(InscriptionTableblock::new);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState)((BlockState)this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()));
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient) {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!world.isClientSide) {
+            player.openMenu(state.getMenuProvider(world, pos));
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
-    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> {
-            return new InscriptionTableScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos));
+    protected MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
+        return new SimpleMenuProvider((syncId, inventory, player) -> {
+            return new InscriptionTableScreenHandler(syncId, inventory, ContainerLevelAccess.create(world, pos));
         }, TITLE);
     }
 }

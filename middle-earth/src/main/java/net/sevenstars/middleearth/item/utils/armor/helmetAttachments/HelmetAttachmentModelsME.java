@@ -8,16 +8,16 @@ import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.
 import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.unarmored.UnarmoredTallHoodModel;
 
 public enum HelmetAttachmentModelsME {
-    REGULAR_MODELS(new HoodModel(HoodModel.getTexturedModelData().createModel()), new HoodModel(HoodModel.getTexturedModelData().createModel()),
-            new UnarmoredHoodModel(UnarmoredHoodModel.getTexturedModelData().createModel()), new UnarmoredHoodModel(UnarmoredHoodModel.getTexturedModelData().createModel())),
-    TALL_MODELS(new TallHoodModel(TallHoodModel.getTexturedModelData().createModel()), new TallHoodModel(TallHoodModel.getTexturedModelData().createModel()),
-            new UnarmoredTallHoodModel(UnarmoredTallHoodModel.getTexturedModelData().createModel()), new UnarmoredTallHoodModel(UnarmoredTallHoodModel.getTexturedModelData().createModel())),
-    FUR_MODELS(new FurHoodModel(FurHoodModel.getTexturedModelData().createModel()), new FurHoodDownModel(FurHoodDownModel.getTexturedModelData().createModel()),
-            new UnarmoredFurHoodModel(UnarmoredFurHoodModel.getTexturedModelData().createModel()), new UnarmoredFurHoodDownModel(UnarmoredFurHoodDownModel.getTexturedModelData().createModel())),
-    NAZGUL_MODELS(new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()),
-            new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().createModel())),
-    SKULL_MODELS(new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel()), new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel()),
-            new HelmetSkullModel(NazgulHoodModel.getTexturedModelData().createModel()), new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().createModel())),
+    REGULAR_MODELS(new HoodModel(HoodModel.getTexturedModelData().bakeRoot()), new HoodModel(HoodModel.getTexturedModelData().bakeRoot()),
+            new UnarmoredHoodModel(UnarmoredHoodModel.getTexturedModelData().bakeRoot()), new UnarmoredHoodModel(UnarmoredHoodModel.getTexturedModelData().bakeRoot())),
+    TALL_MODELS(new TallHoodModel(TallHoodModel.getTexturedModelData().bakeRoot()), new TallHoodModel(TallHoodModel.getTexturedModelData().bakeRoot()),
+            new UnarmoredTallHoodModel(UnarmoredTallHoodModel.getTexturedModelData().bakeRoot()), new UnarmoredTallHoodModel(UnarmoredTallHoodModel.getTexturedModelData().bakeRoot())),
+    FUR_MODELS(new FurHoodModel(FurHoodModel.getTexturedModelData().bakeRoot()), new FurHoodDownModel(FurHoodDownModel.getTexturedModelData().bakeRoot()),
+            new UnarmoredFurHoodModel(UnarmoredFurHoodModel.getTexturedModelData().bakeRoot()), new UnarmoredFurHoodDownModel(UnarmoredFurHoodDownModel.getTexturedModelData().bakeRoot())),
+    NAZGUL_MODELS(new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().bakeRoot()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().bakeRoot()),
+            new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().bakeRoot()), new NazgulHoodModel(NazgulHoodModel.getTexturedModelData().bakeRoot())),
+    SKULL_MODELS(new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().bakeRoot()), new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().bakeRoot()),
+            new HelmetSkullModel(NazgulHoodModel.getTexturedModelData().bakeRoot()), new HelmetSkullModel(HelmetSkullModel.getTexturedModelData().bakeRoot())),
     ;
 
     private final HelmetAddonModel armoredModel;

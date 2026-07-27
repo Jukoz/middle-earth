@@ -1,9 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-
 import java.util.ArrayList;
 import java.util.List;
 

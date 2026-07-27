@@ -1,9 +1,10 @@
 package net.sevenstars.middleearth.world.map;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -17,7 +18,6 @@ public class MiddleEarthMapUtils {
     public final float ratioZ;
     private final int maxImageCoordinateX;
     private final int maxImageCoordinateZ;
-    private MinecraftServer server;
     public static synchronized MiddleEarthMapUtils getInstance()
     {
         if (single_instance == null)
@@ -26,23 +26,34 @@ public class MiddleEarthMapUtils {
         return single_instance;
     }
     public MiddleEarthMapUtils(){
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            this.server = server;
-        });
-
         BufferedImage initial = FileUtils.getInstance().getResourceImage(MiddleEarthMapConfigs.INITIAL_IMAGE);
-        ratioX = (float) (MiddleEarthMapConfigs.REGION_SIZE / initial.getWidth() * Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION) * MiddleEarthMapConfigs.PIXEL_WEIGHT);
-        ratioZ = (float) (MiddleEarthMapConfigs.REGION_SIZE / initial.getHeight() * Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION) * MiddleEarthMapConfigs.PIXEL_WEIGHT);
-        maxImageCoordinateX = (int) (initial.getWidth() * ratioX);
-        maxImageCoordinateZ = (int) (initial.getHeight() * ratioZ);
+        int imageWidth = initial != null ? initial.getWidth() : MiddleEarthMapConfigs.REGION_SIZE;
+        int imageHeight = initial != null ? initial.getHeight() : MiddleEarthMapConfigs.REGION_SIZE;
+        if (initial == null) {
+            MiddleEarth.LOGGER.logError(
+                    "Missing map resource " + MiddleEarthMapConfigs.INITIAL_IMAGE
+                            + "; using the configured map bounds as a safe fallback."
+            );
+        }
+        double iterationScale = Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION)
+                * MiddleEarthMapConfigs.PIXEL_WEIGHT;
+        ratioX = (float) ((double) MiddleEarthMapConfigs.REGION_SIZE / imageWidth * iterationScale);
+        ratioZ = (float) ((double) MiddleEarthMapConfigs.REGION_SIZE / imageHeight * iterationScale);
+        maxImageCoordinateX = (int) (imageWidth * ratioX);
+        maxImageCoordinateZ = (int) (imageHeight * ratioZ);
     }
 
-    public List<ServerPlayerEntity> getPlayers() {
-        return server.getPlayerManager().getPlayerList();
+    public List<ServerPlayer> getPlayers() {
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        if (server == null) {
+            return List.of();
+        }
+        return server.getPlayerList().getPlayers();
     }
     public int getTick() {
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if(server == null) return 1;
-        return server.getTicks();
+        return server.getTickCount();
     }
 
     public Vector2d getWorldCoordinateFromInitialMap(double x, double z){
@@ -51,10 +62,10 @@ public class MiddleEarthMapUtils {
 
     public Vector2i getRegionByWorldCoordinate(int x, int z){
         Vector2i region = new Vector2i();
-        x /= MiddleEarthMapConfigs.PIXEL_WEIGHT;
-        z /= MiddleEarthMapConfigs.PIXEL_WEIGHT;
-        region.x = ((x - (x % MiddleEarthMapConfigs.REGION_SIZE)) / MiddleEarthMapConfigs.REGION_SIZE);
-        region.y = ((z - (z % MiddleEarthMapConfigs.REGION_SIZE)) / MiddleEarthMapConfigs.REGION_SIZE);
+        x = Math.floorDiv(x, MiddleEarthMapConfigs.PIXEL_WEIGHT);
+        z = Math.floorDiv(z, MiddleEarthMapConfigs.PIXEL_WEIGHT);
+        region.x = Math.floorDiv(x, MiddleEarthMapConfigs.REGION_SIZE);
+        region.y = Math.floorDiv(z, MiddleEarthMapConfigs.REGION_SIZE);
         return region;
     }
 

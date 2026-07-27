@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "#middle-earth:cooked_meat",
-    "middle-earth:boiled_egg",
-    "minecraft:bowl"
+    {
+      "tag": "middle-earth:cooked_meat"
+    },
+    {
+      "item": "middle-earth:boiled_egg"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
   ],
   "result": {
     "id": "middle-earth:meat_egg_meal"

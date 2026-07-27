@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:book",
-    "minecraft:ink_sac",
-    "#middle-earth:feathers"
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "minecraft:ink_sac"
+    },
+    {
+      "tag": "middle-earth:feathers"
+    }
   ],
   "result": {
     "id": "minecraft:writable_book"

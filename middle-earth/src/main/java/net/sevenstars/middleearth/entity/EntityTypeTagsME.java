@@ -1,15 +1,15 @@
 package net.sevenstars.middleearth.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class EntityTypeTagsME {
     public static TagKey<EntityType<?>> UNGOLIENI = of("ungolieni");
 
     private static TagKey<EntityType<?>> of(String id) {
-        return TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(MiddleEarth.MOD_ID, id));
+        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, id));
     }
 }

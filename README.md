@@ -18,6 +18,22 @@
 
 -----
 
+## Unofficial NeoForge 1.21.1 backport
+
+The `1.0.1-1.21.1-neoforge-backport` branch is an unofficial compatibility
+backport based on upstream commit
+[`2313bc1776fa05555a7dd66499e171d8ffa51116`](https://github.com/Jukoz/middle-earth/commit/2313bc1776fa05555a7dd66499e171d8ffa51116).
+It is not an official release from the original Middle-earth mod team.
+
+All original copyright notices, credits, trademarks and the ARR license remain
+unchanged. This fork grants no additional rights; see [LICENSE](./LICENSE) and
+the [upstream repository](https://github.com/Jukoz/middle-earth).
+
+Target runtime: Minecraft 1.21.1, Java 21 and NeoForge 21.1.233 or newer within
+the 21.1 line. The build currently validates against NeoForge 21.1.244.
+
+-----
+
 ## Current state of the mod
 As of now, the mod is in the Alpha development stage, meaning this project is still a prototype, and missing many core features we are planning on adding.
 
@@ -82,6 +98,18 @@ As of now, the mod is in the Alpha development stage, meaning this project is st
 ### Special Thanks
 dylanhugh and Angmarzku for their ideas & arts for Gundabad and more.
 </details>
+
+-----
+
+## Building the NeoForge 1.21.1 backport
+
+Build all three source modules with Java 21:
+
+```shell
+./gradlew build
+```
+
+The player artifact is `middle-earth/build/libs/Middle-earth-<version>.jar`. It embeds Seven Stars API and Of Beasts and Wild Things through NeoForge Jar-in-Jar, so players should install only this outer Middle-earth jar. The standalone jars under the two subproject build directories are intermediate development artifacts and are not part of the player release.
 
 -----
 

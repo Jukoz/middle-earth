@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class RohanFactionPool {
     public final static Faction ROHAN;
-    private final static String FACTION_PATH = FactionRegistry.ROHAN.getValue().getPath();
+    private final static String FACTION_PATH = FactionRegistry.ROHAN.location().getPath();
 
     static {
         ROHAN = new Faction(FactionRegistry.ROHAN, true, DispositionType.GOOD, FactionType.FACTION, null,null,

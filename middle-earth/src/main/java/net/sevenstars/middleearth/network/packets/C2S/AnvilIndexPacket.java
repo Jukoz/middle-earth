@@ -1,27 +1,25 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
+import net.sevenstars.middleearth.network.handlers.ServerPacketGuards;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
 public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
-    public static final Id<AnvilIndexPacket> ID = new Id<>(MiddleEarth.of("anvil_index_packet"));
-    public static final PacketCodec<RegistryByteBuf, AnvilIndexPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, p -> p.index,
-            PacketCodecs.DOUBLE, p -> p.x,
-            PacketCodecs.DOUBLE, p -> p.y,
-            PacketCodecs.DOUBLE, p -> p.z,
+    public static final Type<AnvilIndexPacket> ID = new Type<>(MiddleEarth.of("anvil_index_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, AnvilIndexPacket> CODEC = StreamCodec.composite(
+            ByteBufCodecs.INT, p -> p.index,
+            ByteBufCodecs.DOUBLE, p -> p.x,
+            ByteBufCodecs.DOUBLE, p -> p.y,
+            ByteBufCodecs.DOUBLE, p -> p.z,
             AnvilIndexPacket::new
     );
 
@@ -54,29 +52,39 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
     }
 
     @Override
-    public Id<AnvilIndexPacket> getId() {
+    public Type<AnvilIndexPacket> type() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, AnvilIndexPacket> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, AnvilIndexPacket> streamCodec() {
         return CODEC;
     }
 
     @Override
     public void process(ServerPacketContext context) {
         try{
+            ServerPlayer player = context.player();
+            BlockPos pos = ServerPacketGuards.exactBlockPos(x, y, z);
+            if (pos == null
+                    || index < -1
+                    || !(player.containerMenu instanceof ShapingAnvilScreenHandler anvilScreenHandler)
+                    || !anvilScreenHandler.getPos().equals(pos)
+                    || !anvilScreenHandler.stillValid(player)
+                    || !ServerPacketGuards.isLoadedAndNearby(player, pos)
+                    || !(player.level().getBlockEntity(pos) instanceof ShapingAnvilBlockEntity)
+                    || !ServerPacketGuards.tryAcquire(player, ID.id(), 1)) {
+                return;
+            }
+
             if(index >= 0) {
-                context.player().getServer().execute(() -> {
-                    Vec3d coordinates = new Vec3d(x, y, z);
-                    ShapingAnvilBlockEntity.updateIndex(index, coordinates, context.player());
-                });
-            } else {
-                ServerPlayerEntity player = context.player();
-                ScreenHandler screenHandler = player.currentScreenHandler;
-                if (screenHandler instanceof ShapingAnvilScreenHandler anvilScreenHandler) {
-                    anvilScreenHandler.updateScreen();
+                if (index >= anvilScreenHandler.getAvailableRecipeCount()) {
+                    return;
                 }
+                Vec3 coordinates = new Vec3(x, y, z);
+                ShapingAnvilBlockEntity.updateIndex(index, coordinates, player);
+            } else {
+                anvilScreenHandler.updateScreen();
             }
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketAnvilIndex error: ", e);

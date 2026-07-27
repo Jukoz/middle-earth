@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.utils.sounds;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 
 public class SoundUtils {
     /**
@@ -16,7 +16,7 @@ public class SoundUtils {
      * @param volume   The volume of the sound.
      * @param pitch    The pitch of the sound.
      */
-    public static void playSoundAtEntity(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume, float pitch) {
+    public static void playSoundAtEntity(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume, float pitch) {
         world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), sound, category, volume, pitch);
     }
 
@@ -29,7 +29,7 @@ public class SoundUtils {
      * @param category The category of the sound.
      * @param volume   The volume of the sound.
      */
-    public static void playSoundAtEntity(World world, Entity entity, SoundEvent sound, SoundCategory category, float volume) {
+    public static void playSoundAtEntity(Level world, Entity entity, SoundEvent sound, SoundSource category, float volume) {
         playSoundAtEntity(world, entity, sound, category, volume, 1.0F);
     }
 
@@ -41,7 +41,7 @@ public class SoundUtils {
      * @param sound    The sound event to play.
      * @param category The category of the sound.
      */
-    public static void playSoundAtEntity(World world, Entity entity, SoundEvent sound, SoundCategory category) {
+    public static void playSoundAtEntity(Level world, Entity entity, SoundEvent sound, SoundSource category) {
         playSoundAtEntity(world, entity, sound, category, 1.0F, 1.0F);
     }
 }

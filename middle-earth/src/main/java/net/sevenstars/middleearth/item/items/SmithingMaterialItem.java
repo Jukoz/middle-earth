@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.item.items;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class SmithingMaterialItem extends Item {
 
-    public SmithingMaterialItem(Settings settings) {
+    public SmithingMaterialItem(Properties settings) {
         super(settings);
     }
 }

@@ -46,7 +46,7 @@
       "entries": [
 	    {
           "type": "minecraft:item",
-          "name": "minecraft:white_bundle"
+          "name": "middle-earth:white_bundle"
         }
       ]
     },

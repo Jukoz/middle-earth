@@ -2,18 +2,21 @@ package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.entity.*;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -33,21 +36,21 @@ public class MountData {
     }
 
     public static final Codec<MountData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf(Fields.ENTITY_TYPE).forGetter(MountData::getEntityType),
-            Identifier.CODEC.optionalFieldOf(Fields.NPC_TYPE).forGetter(MountData::getOptionalNpcType),
+            ResourceLocation.CODEC.fieldOf(Fields.ENTITY_TYPE).forGetter(MountData::getEntityType),
+            ResourceLocation.CODEC.optionalFieldOf(Fields.NPC_TYPE).forGetter(MountData::getOptionalNpcType),
             ItemStack.CODEC.optionalFieldOf(Fields.ARMOR).forGetter(MountData::getOptionalArmor),
             MountPassengerSlotData.CODEC.listOf().fieldOf(Fields.PASSENGER_SLOTS).forGetter(MountData::getPassengerSlots)
     ).apply(instance, MountData::new));
 
 
-    private Identifier entityType;
-    private Identifier npcType;
+    private ResourceLocation entityType;
+    private ResourceLocation npcType;
     private ItemStack armor;
     private List<MountPassengerSlotData> passengerSlots;
 
     private MountData(
-            Identifier entityType,
-            Optional<Identifier> npcType,
+            ResourceLocation entityType,
+            Optional<ResourceLocation> npcType,
             Optional<ItemStack> armor,
             List<MountPassengerSlotData> passengerSlots
     ) {
@@ -58,13 +61,13 @@ public class MountData {
     }
 
     public MountData(EntityType<?> entity) {
-        this.entityType = Registries.ENTITY_TYPE.getId(entity);
+        this.entityType = BuiltInRegistries.ENTITY_TYPE.getKey(entity);
         this.armor = null;
     }
 
-    public MountData(RegistryKey<NpcType> npcType){
-        this.entityType = Registries.ENTITY_TYPE.getId(EntitiesME.NPC);
-        this.npcType = npcType.getValue();
+    public MountData(ResourceKey<NpcType> npcType){
+        this.entityType = BuiltInRegistries.ENTITY_TYPE.getKey(EntitiesME.NPC);
+        this.npcType = npcType.location();
     }
 
     public MountData withArmor(ItemStack armorItem){
@@ -73,21 +76,21 @@ public class MountData {
     }
 
     public MountData withArmor(Item armorItem){
-        this.armor = armorItem.getDefaultStack();
+        this.armor = armorItem.getDefaultInstance();
         return this;
     }
 
-    public MountData withColor(DyedColorComponent color){
+    public MountData withColor(DyedItemColor color){
         if(this.armor == null)
             return this;
-        this.armor.set(DataComponentTypes.DYED_COLOR, color);
+        this.armor.set(DataComponents.DYED_COLOR, color);
         return this;
     }
 
-    private Identifier getEntityType() {
+    private ResourceLocation getEntityType() {
         return entityType;
     }
-    private Optional<Identifier> getOptionalNpcType() {
+    private Optional<ResourceLocation> getOptionalNpcType() {
         return Optional.ofNullable(npcType);
     }
     private Optional<ItemStack> getOptionalArmor() {
@@ -106,30 +109,32 @@ public class MountData {
         return this;
     }
 
-    public void createEntity(ServerWorld world, LivingEntity owner) {
-        if(this.entityType == null || owner.hasVehicle() || owner.hasPassengers())
+    public void createEntity(ServerLevel world, LivingEntity owner) {
+        if(this.entityType == null || owner.isPassenger() || owner.isVehicle())
             return;
-        EntityType<?> type = Registries.ENTITY_TYPE.get(this.entityType);
-        var notLiving = type.create(world, SpawnReason.JOCKEY);
+        EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.get(this.entityType);
+        var notLiving = type.create(world);
         if(notLiving == null)
             return;
         if(notLiving instanceof LivingEntity entity){
-            entity.setPosition(owner.getPos());
-            entity.equipStack(EquipmentSlot.SADDLE, Items.SADDLE.asItem().getDefaultStack());
+            entity.setPos(owner.position());
+            if (entity instanceof AbstractHorse horse) {
+                horse.equipSaddle(Items.SADDLE.getDefaultInstance(), null);
+            }
             if(armor != null)
-                entity.equipStack(EquipmentSlot.BODY, this.armor);
+                entity.setItemSlot(EquipmentSlot.BODY, this.armor);
 
-            if (entity instanceof MobEntity mob) {
-                mob.initialize(
+            if (entity instanceof Mob mob) {
+                mob.finalizeSpawn(
                         world,
-                        world.getLocalDifficulty(owner.getBlockPos()),
-                        SpawnReason.EVENT,
+                        world.getCurrentDifficultyAt(owner.blockPosition()),
+                        MobSpawnType.EVENT,
                         null
                 );
             }
-            if(entity instanceof AbstractHorseEntity horse){
-                horse.setTame(true);
-                horse.setOwner(owner);
+            if(entity instanceof AbstractHorse horse){
+                horse.setTamed(true);
+                horse.setOwnerUUID(owner.getUUID());
                 if(horse instanceof AbstractBeastEntity beast){
                     beast.tameBeast(owner);
                 }
@@ -137,7 +142,7 @@ public class MountData {
             }
 
             owner.startRiding(entity, true);
-            world.spawnEntity(entity);
+            world.addFreshEntity(entity);
 
             if(entity instanceof NpcEntity npc && npcType != null){
                 npc.prepareNpcIdentifier(npcType);

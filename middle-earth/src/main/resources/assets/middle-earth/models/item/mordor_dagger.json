@@ -1,0 +1,14 @@
+{
+    "parent":  "minecraft:item/handheld",
+    "textures":  {
+                     "layer0":  "middle-earth:item/mordor_dagger"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "middle-earth:sneak_attack":  1
+                                        },
+                          "model":  "middle-earth:item/mordor_dagger_strike"
+                      }
+                  ]
+}

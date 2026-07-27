@@ -4,9 +4,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.chunkgen.map.ImageUtils;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
 
 import javax.imageio.ImageIO;
@@ -17,18 +14,15 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class FileUtils {
-
-    private static FileUtils single_instance = null;
-
-    public static synchronized FileUtils getInstance()
-    {
-        if (single_instance == null)
-            single_instance = new FileUtils(ClassLoader.getSystemClassLoader());
-
-        return single_instance;
+    private static final class InstanceHolder {
+        private static final FileUtils INSTANCE = new FileUtils(ClassLoader.getSystemClassLoader());
     }
 
-    private ClassLoader classLoader;
+    public static FileUtils getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
+
+    private final ClassLoader classLoader;
 
     public FileUtils(ClassLoader classLoader){
         this.classLoader = classLoader;
@@ -94,20 +88,14 @@ public class FileUtils {
         }
     }
 
-    public static boolean isLanguageFileExist(String languageCode) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        ResourceManager resourceManager = client.getResourceManager();
-        Identifier path = Identifier.of(MiddleEarth.MOD_ID, String.format("lang/%s.json", languageCode));
-        return resourceManager.getResource(path).isPresent();
-    }
-
     public ClassLoader getClassLoader() {
         return classLoader;
     }
 
     public File getFolder(String path) {
         try{
-            return new File(classLoader.getResource(path).toURI());
+            var resource = classLoader.getResource(path);
+            return resource == null ? null : new File(resource.toURI());
         } catch (URISyntaxException e) {
             MiddleEarth.LOGGER.logError("FileUtils::getFolder", e);
             return null;

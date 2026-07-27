@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:quartz",
+    "middle-earth:quartz_shard"
+  ]
+}

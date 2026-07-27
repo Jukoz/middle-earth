@@ -1,11 +1,10 @@
 package net.sevenstars.middleearth.client.model.equipment.chest;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.state.BipedEntityRenderState;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.LivingEntity;
 
-public class ChestplateAddonModel extends BipedEntityModel<BipedEntityRenderState> {
+public class ChestplateAddonModel<T extends LivingEntity> extends HumanoidModel<T> {
     public ChestplateAddonModel(ModelPart root) {
         super(root);
     }

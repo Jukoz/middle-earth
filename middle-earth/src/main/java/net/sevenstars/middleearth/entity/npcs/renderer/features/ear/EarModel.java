@@ -1,65 +1,70 @@
 package net.sevenstars.middleearth.entity.npcs.renderer.features.ear;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.util.math.MathHelper;
-import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
-public class EarModel extends EntityModel<NpcEntityRenderState> {
+public class EarModel extends HierarchicalModel<NpcEntity> {
+    private final ModelPart root;
     public final ModelPart ears;
     public final ModelPart planeFlatLeft;
     public final ModelPart planeFlatRight;
 
     public EarModel(ModelPart modelPart) {
-        super(modelPart);
-
+        this.root = modelPart;
         this.ears = modelPart.getChild("ears");
         this.planeFlatLeft = this.ears.getChild("leftFlatEarPlane");
         this.planeFlatRight = this.ears.getChild("rightFlatEarPlane");
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
 
-        ModelPartData planeFlatSides = modelPartData.addChild("ears", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -3f, -1.0f));
-        planeFlatSides.addChild("leftFlatEarPlane",
-                ModelPartBuilder.create()
-                        .uv(0, 6)
-                        .cuboid(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, Dilation.NONE),
-                ModelTransform.rotation(0.0F, -0.35F, 0.0F)
-                        .moveOrigin(4F, -5F, 0.0F));
-        planeFlatSides.addChild("rightFlatEarPlane",
-                ModelPartBuilder.create()
-                        .uv(0, 6)
-                        .cuboid(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, Dilation.NONE)
-                        .mirrored(),
-                ModelTransform.rotation(0.0F, 0.35F, 0.0F)
-                        .moveOrigin(-4F, -5F, 0.0F));
+        PartDefinition planeFlatSides = modelPartData.addOrReplaceChild("ears", CubeListBuilder.create(), PartPose.offset(0.0F, -3f, -1.0f));
+        planeFlatSides.addOrReplaceChild("leftFlatEarPlane",
+                CubeListBuilder.create()
+                        .texOffs(0, 6)
+                        .addBox(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, CubeDeformation.NONE),
+                PartPose.offsetAndRotation(4F, -5F, 0.0F, 0.0F, -0.35F, 0.0F));
+        planeFlatSides.addOrReplaceChild("rightFlatEarPlane",
+                CubeListBuilder.create()
+                        .texOffs(0, 6)
+                        .addBox(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, CubeDeformation.NONE)
+                        .mirror(),
+                PartPose.offsetAndRotation(-4F, -5F, 0.0F, 0.0F, 0.35F, 0.0F));
 
-        return TexturedModelData.of(modelData, 16, 16);
+        return LayerDefinition.create(modelData, 16, 16);
     }
 
     @Override
-    public void setAngles(NpcEntityRenderState state) {
-        super.setAngles(state);
-
-        // Taken from BipedEntityModel.class
-        float f = state.leaningPitch;
-        boolean bl = state.isGliding;
-
-        this.ears.pitch = state.pitch * ((float)Math.PI / 180);
-        this.ears.yaw = state.relativeHeadYaw * ((float)Math.PI / 180);
-        if (bl) {
-            this.ears.pitch = -0.7853982f;
-        } else if (f > 0.0f) {
-            this.ears.pitch = MathHelper.lerpAngleRadians(f, this.ears.pitch, -0.7853982f);
+    public void setupAnim(NpcEntity entity, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
+        this.ears.resetPose();
+        this.planeFlatLeft.resetPose();
+        this.planeFlatRight.resetPose();
+        float swimAmount = entity.getSwimAmount(0.0F);
+        this.ears.xRot = headPitch * Mth.DEG_TO_RAD;
+        this.ears.yRot = netHeadYaw * Mth.DEG_TO_RAD;
+        if (entity.isFallFlying()) {
+            this.ears.xRot = -0.7853982f;
+        } else if (swimAmount > 0.0f) {
+            this.ears.xRot = ModelUtils.rotlerpRad(this.ears.xRot, -0.7853982f, swimAmount);
         }
 
-        this.ears.yaw = state.relativeHeadYaw * 0.017453292F;
-        this.ears.pitch = state.pitch * 0.017453292F;
+        this.planeFlatLeft.yRot = (float)Math.toRadians(-20);
+        this.planeFlatRight.yRot = (float)Math.toRadians(-160);
+    }
 
-        this.planeFlatLeft.yaw = (float)Math.toRadians(-20);
-        this.planeFlatRight.yaw = (float)Math.toRadians(-160);
+    @Override
+    public ModelPart root() {
+        return this.root;
     }
 }

@@ -3,95 +3,96 @@ package net.sevenstars.middleearth.item.items;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.resource.featuretoggle.FeatureSet;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Objects;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 public class CustomSpawnEggItem extends Item {
-    private static final MapCodec<EntityType<?>> ENTITY_TYPE_MAP_CODEC = Registries.ENTITY_TYPE.getCodec().fieldOf("id");
-    private static final Map<EntityType<? extends MobEntity>, CustomSpawnEggItem> SPAWN_EGGS = Maps.newIdentityHashMap();
+    private static final MapCodec<EntityType<?>> ENTITY_TYPE_MAP_CODEC = BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("id");
+    private static final Map<EntityType<? extends Mob>, CustomSpawnEggItem> SPAWN_EGGS = Maps.newIdentityHashMap();
     private final EntityType<?> type;
-    public CustomSpawnEggItem(EntityType<? extends MobEntity> type, Settings settings) {
+    public CustomSpawnEggItem(EntityType<? extends Mob> type, Properties settings) {
         super(settings);
         this.type = type;
         SPAWN_EGGS.put(type, this);
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        World world = context.getWorld();
-        if (!(world instanceof ServerWorld)) {
-            return ActionResult.SUCCESS;
+    public InteractionResult useOn(UseOnContext context) {
+        Level world = context.getLevel();
+        if (!(world instanceof ServerLevel)) {
+            return InteractionResult.SUCCESS;
         }
-        ItemStack itemStack = context.getStack();
-        BlockPos blockPos = context.getBlockPos();
-        Direction direction = context.getSide();
+        ItemStack itemStack = context.getItemInHand();
+        BlockPos blockPos = context.getClickedPos();
+        Direction direction = context.getClickedFace();
         BlockState blockState = world.getBlockState(blockPos);
-        BlockPos blockPos2 = blockState.getCollisionShape(world, blockPos).isEmpty() ? blockPos : blockPos.offset(direction);
+        BlockPos blockPos2 = blockState.getCollisionShape(world, blockPos).isEmpty() ? blockPos : blockPos.relative(direction);
         EntityType<?> entityType2 = this.getEntityType(itemStack);
-        if (entityType2.spawnFromItemStack((ServerWorld)world, itemStack, context.getPlayer(), blockPos2, SpawnReason.SPAWNER, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
-            itemStack.decrement(1);
-            world.emitGameEvent((Entity)context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
+        if (entityType2.spawn((ServerLevel)world, itemStack, context.getPlayer(), blockPos2, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
+            itemStack.shrink(1);
+            world.gameEvent((Entity)context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
         }
-        return ActionResult.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        BlockHitResult blockHitResult = SpawnEggItem.raycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        ItemStack itemStack = user.getItemInHand(hand);
+        BlockHitResult blockHitResult = SpawnEggItem.getPlayerPOVHitResult(world, user, ClipContext.Fluid.SOURCE_ONLY);
         if (blockHitResult.getType() != HitResult.Type.BLOCK) {
-            return ActionResult.PASS;
+            return InteractionResultHolder.pass(itemStack);
         }
-        if (!(world instanceof ServerWorld)) {
-            return ActionResult.SUCCESS.withNewHandStack(itemStack);
+        if (!(world instanceof ServerLevel)) {
+            return InteractionResultHolder.success(itemStack);
         }
         BlockHitResult blockHitResult2 = blockHitResult;
         BlockPos blockPos = blockHitResult2.getBlockPos();
-        if (!(world.getBlockState(blockPos).getBlock() instanceof FluidBlock)) {
-            return ActionResult.PASS;
+        if (!(world.getBlockState(blockPos).getBlock() instanceof LiquidBlock)) {
+            return InteractionResultHolder.pass(itemStack);
         }
-        if (!world.canEntityModifyAt(user, blockPos) || !user.canPlaceOn(blockPos, blockHitResult2.getSide(), itemStack)) {
-            return ActionResult.FAIL;
+        if (!world.mayInteract(user, blockPos) || !user.mayUseItemAt(blockPos, blockHitResult2.getDirection(), itemStack)) {
+            return InteractionResultHolder.fail(itemStack);
         }
         EntityType<?> entityType = this.getEntityType(itemStack);
-        Object entity = entityType.spawnFromItemStack((ServerWorld)world, itemStack, user, blockPos, SpawnReason.SPAWNER, false, false);
+        Object entity = entityType.spawn((ServerLevel)world, itemStack, user, blockPos, MobSpawnType.SPAWN_EGG, false, false);
         if (entity == null) {
-            return ActionResult.PASS;
+            return InteractionResultHolder.pass(itemStack);
         }
-        if (!user.getAbilities().creativeMode) {
-            itemStack.decrement(1);
+        if (!user.getAbilities().instabuild) {
+            itemStack.shrink(1);
         }
-        user.incrementStat(Stats.USED.getOrCreateStat(this));
-        world.emitGameEvent((Entity)user, GameEvent.ENTITY_PLACE, ((Entity)entity).getPos());
-        return ActionResult.CONSUME;
+        user.awardStat(Stats.ITEM_USED.get(this));
+        world.gameEvent((Entity)user, GameEvent.ENTITY_PLACE, ((Entity)entity).position());
+        return InteractionResultHolder.consume(itemStack);
     }
 
     public boolean isOfSameEntityType(ItemStack stack, EntityType<?> type) {
@@ -108,15 +109,15 @@ public class CustomSpawnEggItem extends Item {
     }
 
     public EntityType<?> getEntityType(ItemStack stack) {
-        NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
+        CustomData nbtComponent = stack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
         if (!nbtComponent.isEmpty()) {
-            return nbtComponent.get(ENTITY_TYPE_MAP_CODEC).result().orElse(this.type);
+            return nbtComponent.read(ENTITY_TYPE_MAP_CODEC).result().orElse(this.type);
         }
         return this.type;
     }
 
     @Override
-    public FeatureSet getRequiredFeatures() {
-        return this.type.getRequiredFeatures();
+    public FeatureFlagSet requiredFeatures() {
+        return this.type.requiredFeatures();
     }
 }

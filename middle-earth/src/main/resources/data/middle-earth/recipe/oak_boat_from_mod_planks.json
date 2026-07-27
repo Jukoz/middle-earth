@@ -3,7 +3,9 @@
   "category": "misc",
   "group": "boat",
   "key": {
-    "#": "#middle-earth:mod_planks"
+    "#": {
+      "tag": "middle-earth:mod_planks"
+    }
   },
   "pattern": [
     "# #",

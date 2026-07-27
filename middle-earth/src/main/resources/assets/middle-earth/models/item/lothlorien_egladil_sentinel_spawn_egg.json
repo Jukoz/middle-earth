@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/lothlorien_egladil_sentinel_spawn_egg"
+                 }
+}

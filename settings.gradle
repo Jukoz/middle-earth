@@ -1,16 +1,64 @@
 pluginManagement {
     repositories {
+        mavenLocal()
         maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
+            url = uri("${settingsDir}/.gradle-local-maven")
+        }
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
+            content {
+                includeGroupByRegex 'net\\.neoforged.*'
+            }
         }
         mavenCentral()
         gradlePluginPortal()
     }
 }
 
-rootProject.name = 'sevenstars-project'
-include 'sevenstars-api'
-include 'of-beasts-and-wild-things'
-include 'middle-earth'
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
 
+    repositories {
+        maven {
+            url = uri("${settingsDir}/.gradle-local-maven")
+        }
+        mavenLocal {
+            metadataSources {
+                gradleMetadata()
+                mavenPom()
+                artifact()
+            }
+        }
+        mavenCentral()
+        maven {
+            name = 'Minecraft Libraries'
+            url = 'https://libraries.minecraft.net'
+        }
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
+            content {
+                includeGroupByRegex 'net\\.neoforged.*'
+            }
+        }
+        maven {
+            name = 'TerraformersMC'
+            url = 'https://maven.terraformersmc.com/'
+        }
+        maven {
+            name = 'Shedaniel'
+            url = 'https://maven.shedaniel.me'
+        }
+        maven {
+            name = 'ModMaven'
+            url = 'https://modmaven.dev'
+        }
+        maven {
+            url = 'https://api.modrinth.com/maven'
+        }
+    }
+}
+
+rootProject.name = 'sevenstars-project'
+include 'sevenstars-api', 'of-beasts-and-wild-things', 'middle-earth'

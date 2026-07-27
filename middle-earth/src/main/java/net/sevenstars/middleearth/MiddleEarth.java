@@ -1,8 +1,12 @@
 package net.sevenstars.middleearth;
 
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.middleearth.block.ModBlockEntityCompatibility;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModClientConfigs;
@@ -20,8 +24,8 @@ import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.network.ModServerNetworkHandler;
-import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
+import net.sevenstars.middleearth.permissions.PermissionsME;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
@@ -31,7 +35,6 @@ import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
-import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBiomeData;
@@ -40,23 +43,33 @@ import net.sevenstars.middleearth.world.gen.ModWorldGeneration;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
 import net.sevenstars.middleearth.world.spawners.ModEntitySpawning;
 
-public class MiddleEarth implements ModInitializer {
+@Mod(MiddleEarth.NEOFORGE_MOD_ID)
+public class MiddleEarth {
+	public static final String NEOFORGE_MOD_ID = "middle_earth";
 	public static final String MOD_ID = "middle-earth";
 	public static final String OLD_MOD_ID = "me";
-	public static final String MOD_VERSION = "1.0.0-1.21.8-beta";
-	public static final boolean IS_DEBUG = true;
+	public static final String MOD_VERSION = "1.0.1-1.21.1-beta";
+	public static final boolean IS_DEBUG = false;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 
-    @Override
-	public void onInitialize() {
-		new FileUtils(getClass().getClassLoader());
+	public MiddleEarth(IEventBus modEventBus) {
+		modEventBus.addListener(ModServerNetworkHandler::register);
+		modEventBus.addListener((DataPackRegistryEvent.NewRegistry event) -> DynamicRegistriesME.register(event));
+		modEventBus.addListener(this::commonSetup);
+		modEventBus.addListener(EntitiesME::registerAttributes);
+		modEventBus.addListener(EntitiesME::registerSpawnPlacements);
+		ModBlockEntityCompatibility.register(modEventBus);
+		initialize();
+	}
 
+	private void initialize() {
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
-		ModServerNetworkHandler.register(new ConnectionToClient());
 		ModEvents.register();
+		PermissionsME.register();
+		RegistriesME.registerPlatformHooks();
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
@@ -88,15 +101,6 @@ public class MiddleEarth implements ModInitializer {
 
 		EnchantmentsME.registerModEnchantmentEffects();
 
-		RegistriesME.registerFuels();
-		RegistriesME.registerToolTipAppenders();
-		RegistriesME.registerFlammableBlocks();
-		RegistriesME.registerTillableBlocks();
-		RegistriesME.registerAgingCopperBlocks();
-		RegistriesME.registerComposterBlocks();
-		RegistriesME.registerCauldronBehaviour();
-		RegistriesME.registerLandPathNodeTypesBlocks();
-
 		ModBlockEntities.registerBlockEntities();
 
 		ModScreenHandlers.registerAllScreenHandlers();
@@ -116,7 +120,6 @@ public class MiddleEarth implements ModInitializer {
 
 		SoundsME.registerModSounds();
 		ModParticleTypes.registerParticleTypes();
-		ModStatusEffects.registerStatusEffects();
 
 		ModDimensions.register();
 		MapBiomeData.loadBiomes();
@@ -127,10 +130,6 @@ public class MiddleEarth implements ModInitializer {
 		LootModifiers.modifyLootTables();
 		InscriptionWordBank.addWordsToBank();
 
-		// Dynamic Data
-        DynamicRegistriesME.register();
-		RegistriesME.registerRegistryAliases();
-
 		try {
 			new MiddleEarthMapGeneration();
 		} catch (Exception e) {
@@ -138,45 +137,60 @@ public class MiddleEarth implements ModInitializer {
 		}
 	}
 
-    public static Identifier fetchId(String stringId){
+	private void commonSetup(FMLCommonSetupEvent event) {
+		event.enqueueWork(() -> {
+			RegistriesME.registerFuels();
+			RegistriesME.registerToolTipAppenders();
+			RegistriesME.registerFlammableBlocks();
+			RegistriesME.registerTillableBlocks();
+			RegistriesME.registerAgingCopperBlocks();
+			RegistriesME.registerComposterBlocks();
+			RegistriesME.registerCauldronBehaviour();
+			RegistriesME.registerLandPathNodeTypesBlocks();
+			RegistriesME.registerRegistryAliases();
+			ModDecorativeBlocks.registerFlowerPots();
+		});
+	}
+
+    public static ResourceLocation fetchId(String stringId){
         return IdentifierUtil.getIdentifierFromString(stringId);
     }
 
-    public static Identifier ofPrefix(Identifier base, Identifier prefixId) {
+    public static ResourceLocation ofPrefix(ResourceLocation base, ResourceLocation prefixId) {
 		if(base == null)
 			return null;
-        return base.withPrefixedPath(String.format("%s/", prefixId.getPath()));
+        return base.withPrefix(String.format("%s/", prefixId.getPath()));
     }
 
-    public static Identifier of(String path){
+    public static ResourceLocation of(String path){
         return IdentifierUtil.build(MOD_ID, path);
     }
 
 
 
-    public static Identifier of(String... names){
+    public static ResourceLocation of(String... names){
         return IdentifierUtil.buildAggregate(MOD_ID, names);
     }
 
-	public static Identifier of(char splitter, String... names){
+	public static ResourceLocation of(char splitter, String... names){
 		return IdentifierUtil.build(MOD_ID, createAggregate(splitter, names));
 	}
-    public static Identifier ofPath(String... names){
+    public static ResourceLocation ofPath(String... names){
         return IdentifierUtil.build(MOD_ID, createAggregate('/', names));
     }
-	public static Identifier ofVanillaPath(String... names){
+	public static ResourceLocation ofVanillaPath(String... names){
 		return IdentifierUtil.ofVanilla(createAggregate('/', names));
 	}
-    public static Identifier append(Identifier base, String suffix) {
+    public static ResourceLocation append(ResourceLocation base, String suffix) {
         String id = base.toString();
-        return Identifier.of(id + suffix);
+        return ResourceLocation.parse(id + suffix);
     }
 
     public static String createAggregate(char splitter, String... names){
         return IdentifierUtil.createAggregateValue(splitter, names);
     }
 
-	public static boolean compareId(Identifier id1, Identifier id2) {
+	public static boolean compareId(ResourceLocation id1, ResourceLocation id2) {
 		return id1.compareTo(id2) == 0;
 	}
 }

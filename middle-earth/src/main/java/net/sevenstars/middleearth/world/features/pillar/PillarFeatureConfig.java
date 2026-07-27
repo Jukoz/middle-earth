@@ -2,21 +2,21 @@ package net.sevenstars.middleearth.world.features.pillar;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.floatprovider.FloatProvider;
-import net.minecraft.util.math.intprovider.IntProvider;
-import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.util.valueproviders.FloatProvider;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class PillarFeatureConfig implements FeatureConfig {
+public class PillarFeatureConfig implements FeatureConfiguration {
     public static final Codec<PillarFeatureConfig> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
             (Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range")).orElse(30).forGetter(config -> config.floorToCeilingSearchRange),
-            (IntProvider.createValidatingCodec(1, 60).fieldOf("column_radius")).forGetter(config -> config.columnRadius),
-            (FloatProvider.createValidatedCodec(0.0f, 20.0f).fieldOf("height_scale")).forGetter(config -> config.heightScale),
+            (IntProvider.codec(1, 60).fieldOf("column_radius")).forGetter(config -> config.columnRadius),
+            (FloatProvider.codec(0.0f, 20.0f).fieldOf("height_scale")).forGetter(config -> config.heightScale),
             (Codec.floatRange(0.1f, 1.0f).fieldOf("max_column_radius_to_cave_height_ratio")).forGetter(config -> Float.valueOf(config.maxColumnRadiusToCaveHeightRatio)),
-            (FloatProvider.createValidatedCodec(0.1f, 10.0f).fieldOf("stalactite_bluntness")).forGetter(config -> config.stalactiteBluntness),
-            (FloatProvider.createValidatedCodec(0.1f, 10.0f).fieldOf("stalagmite_bluntness")).forGetter(config -> config.stalagmiteBluntness),
-            (FloatProvider.createValidatedCodec(0.0f, 2.0f).fieldOf("wind_speed")).forGetter(config -> config.windSpeed),
+            (FloatProvider.codec(0.1f, 10.0f).fieldOf("stalactite_bluntness")).forGetter(config -> config.stalactiteBluntness),
+            (FloatProvider.codec(0.1f, 10.0f).fieldOf("stalagmite_bluntness")).forGetter(config -> config.stalagmiteBluntness),
+            (FloatProvider.codec(0.0f, 2.0f).fieldOf("wind_speed")).forGetter(config -> config.windSpeed),
             (Codec.intRange(0, 100).fieldOf("min_radius_for_wind")).forGetter(config -> config.minRadiusForWind),
             (Codec.floatRange(0.0f, 5.0f).fieldOf("min_bluntness_for_wind")).forGetter(config -> Float.valueOf(config.minBluntnessForWind)),
             (BlockState.CODEC.fieldOf("blockstate")).forGetter(config -> config.blockState)).apply(instance, PillarFeatureConfig::new));

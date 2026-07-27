@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:yellow_flower"
+    {
+      "item": "middle-earth:yellow_flower"
+    }
   ],
   "result": {
     "id": "minecraft:yellow_dye"

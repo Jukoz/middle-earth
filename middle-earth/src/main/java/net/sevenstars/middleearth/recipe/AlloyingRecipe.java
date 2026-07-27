@@ -3,18 +3,19 @@ package net.sevenstars.middleearth.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategories;
-import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -22,13 +23,11 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
     public final String output;
     public final int amount;
     public final List<Ingredient> inputs;
-    private final CraftingRecipeCategory category;
+    private final CraftingBookCategory category;
     private final String group;
     private final int xp;
 
-    private IngredientPlacement ingredientPlacement;
-
-    public AlloyingRecipe(String group, CraftingRecipeCategory category, String output, List<Ingredient> recipeItems, int amount, int xp) {
+    public AlloyingRecipe(String group, CraftingBookCategory category, String output, List<Ingredient> recipeItems, int amount, int xp) {
         this.output = output;
         this.group = group;
         this.inputs = recipeItems;
@@ -37,48 +36,49 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
         this.xp = xp;
     }
 
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> defaultedList = DefaultedList.of();
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> defaultedList = NonNullList.create();
         defaultedList.addAll(this.inputs);
         return defaultedList;
     }
 
+    @Override
     public String getGroup() {
         return this.group;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
-    public CraftingRecipeCategory getCategory() {
+    public CraftingBookCategory getCategory() {
         return this.category;
     }
 
     @Override
-    public boolean matches(MultipleStackRecipeInput input, World world) {
-        if(world.isClient()) return false;
+    public boolean matches(MultipleStackRecipeInput input, Level world) {
+        if(world.isClientSide()) return false;
         int i = 0;
         for (int j = 0; j < input.size(); j++) {
-            ItemStack itemStack = input.getStackInSlot(j);
+            ItemStack itemStack = input.getItem(j);
             if (itemStack.isEmpty()) continue;
             i++;
         }
         if(i != this.inputs.size()) return false;
 
         for (int j = 0; j < inputs.size(); j++) {
-            if(!inputs.get(j).test(input.getStackInSlot(j))) return false;
+            if(!inputs.get(j).test(input.getItem(j))) return false;
         }
         return true;
     }
 
     @Override
-    public ItemStack craft(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
-        return null;
+    public ItemStack assemble(MultipleStackRecipeInput input, HolderLookup.Provider lookup) {
+        return ItemStack.EMPTY;
     }
 
-    public String craftAlloy(MultipleStackRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public String craftAlloy(MultipleStackRecipeInput input, HolderLookup.Provider lookup) {
         return output;
     }
 
@@ -95,27 +95,23 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
+    public boolean canCraftInDimensions(int width, int height) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getResultItem(HolderLookup.Provider lookup) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<? extends Recipe<MultipleStackRecipeInput>> getType() {
+    public RecipeType<?> getType() {
         return Type.INSTANCE;
-    }
-
-    @Override
-    public IngredientPlacement getIngredientPlacement() {
-        if (this.ingredientPlacement == null) {
-            this.ingredientPlacement = IngredientPlacement.forShapeless(this.inputs);
-        }
-
-        return this.ingredientPlacement;
-    }
-
-    @Override
-    public RecipeBookCategory getRecipeBookCategory() {
-        return RecipeBookCategories.FURNACE_MISC;
     }
 
     public static class Type implements RecipeType<AlloyingRecipe> {
@@ -128,19 +124,19 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "alloying";
         private final MapCodec<AlloyingRecipe> codec;
-        private final PacketCodec<RegistryByteBuf, AlloyingRecipe> packetCodec;
+        private final StreamCodec<RegistryFriendlyByteBuf, AlloyingRecipe> packetCodec;
 
         protected Serializer() {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
-                    CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(recipe -> recipe.category),
+                    CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(recipe -> recipe.category),
                     Codec.STRING.fieldOf("output").forGetter(recipe -> recipe.output),
-                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
+                    Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
                     Codec.INT.fieldOf("amount").forGetter(recipe -> recipe.amount),
                     Codec.INT.fieldOf("xp").forGetter(recipe -> recipe.xp)
                     ).apply(instance, AlloyingRecipe::new));
 
-            this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
+            this.packetCodec = StreamCodec.of(Serializer::write, Serializer::read);
         }
 
         @Override
@@ -149,30 +145,30 @@ public class AlloyingRecipe implements Recipe<MultipleStackRecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, AlloyingRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, AlloyingRecipe> streamCodec() {
             return this.packetCodec;
         }
 
-        private static AlloyingRecipe read(RegistryByteBuf buf) {
-            String string = buf.readString();
-            CraftingRecipeCategory craftingRecipeCategory = (CraftingRecipeCategory)buf.readEnumConstant(CraftingRecipeCategory.class);
-            String output = PacketCodecs.STRING.decode(buf);
-            int amount = PacketCodecs.INTEGER.decode(buf);
+        private static AlloyingRecipe read(RegistryFriendlyByteBuf buf) {
+            String string = buf.readUtf();
+            CraftingBookCategory craftingRecipeCategory = (CraftingBookCategory)buf.readEnum(CraftingBookCategory.class);
+            String output = ByteBufCodecs.STRING_UTF8.decode(buf);
+            int amount = ByteBufCodecs.INT.decode(buf);
             int i = buf.readVarInt();
-            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i);
-            defaultedList.replaceAll(empty -> Ingredient.PACKET_CODEC.decode(buf));
+            NonNullList<Ingredient> defaultedList = NonNullList.withSize(i, Ingredient.EMPTY);
+            defaultedList.replaceAll(empty -> Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
             int xp = buf.readVarInt();
             return new AlloyingRecipe(string, craftingRecipeCategory, output, defaultedList, amount, xp);
         }
 
-        private static void write(RegistryByteBuf buf, AlloyingRecipe recipe) {
-            buf.writeString(recipe.group);
-            buf.writeEnumConstant(recipe.category);
-            PacketCodecs.STRING.encode(buf, recipe.output);
-            PacketCodecs.INTEGER.encode(buf, recipe.amount);
+        private static void write(RegistryFriendlyByteBuf buf, AlloyingRecipe recipe) {
+            buf.writeUtf(recipe.group);
+            buf.writeEnum(recipe.category);
+            ByteBufCodecs.STRING_UTF8.encode(buf, recipe.output);
+            ByteBufCodecs.INT.encode(buf, recipe.amount);
             buf.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {
-                Ingredient.PACKET_CODEC.encode(buf, ingredient);
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
             }
             buf.writeVarInt(recipe.xp);
         }

@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#middle-earth:tin_ores",
+  "ingredient": {
+    "tag": "middle-earth:tin_ores"
+  },
   "result": {
     "id": "middle-earth:tin_ingot"
   },

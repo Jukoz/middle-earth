@@ -1,42 +1,41 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.NoPenaltyTargeting;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.util.math.Vec3d;
-
 import java.util.EnumSet;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.Vec3;
 
 public class PounceRetreatGoal extends Goal {
-    private final HostileEntity spider;
+    private final Monster spider;
     private LivingEntity target;
     private final float verticalVelocity;
     private final float horizontalVelocity;
-    protected final EntityNavigation fleeingEntityNavigation;
+    protected final PathNavigation fleeingEntityNavigation;
     private boolean leaping;
     private Path path;
     private float healthPercentage;
     private int timer;
 
-    public PounceRetreatGoal(HostileEntity mob, float verticalVelocity, float horizontalVelocity,
+    public PounceRetreatGoal(Monster mob, float verticalVelocity, float horizontalVelocity,
                              float healthPercentage) {
         this.spider = mob;
         this.verticalVelocity = verticalVelocity;
         this.horizontalVelocity = horizontalVelocity;
         this.healthPercentage = healthPercentage;
         this.fleeingEntityNavigation = mob.getNavigation();
-        this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
+        this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         leaping = false;
     }
 
     @Override
-    public boolean canStart() {
-        if (this.spider.hasPassengers()) {
+    public boolean canUse() {
+        if (this.spider.isVehicle()) {
             return false;
         }
         this.target = this.spider.getTarget();
@@ -44,7 +43,7 @@ public class PounceRetreatGoal extends Goal {
             return false;
         }
 
-        if(this.spider.hasStatusEffect(StatusEffects.REGENERATION)) {
+        if(this.spider.hasEffect(MobEffects.REGENERATION)) {
             return false;
         }
 
@@ -53,31 +52,31 @@ public class PounceRetreatGoal extends Goal {
             return false;
         }
 
-        return this.spider.isOnGround();
+        return this.spider.onGround();
     }
 
     @Override
     public void tick() {
         super.tick();
         if(leaping) {
-            if(this.spider.isOnGround()) {
+            if(this.spider.onGround()) {
                 leaping = false;
             }
         } else {
-            Vec3d vec3d = NoPenaltyTargeting.findFrom(this.spider, 28, 12, this.target.getPos());
+            Vec3 vec3d = DefaultRandomPos.getPosAway(this.spider, 28, 12, this.target.position());
             if (vec3d != null) {
-                this.path = this.fleeingEntityNavigation.findPathTo(vec3d.x, vec3d.y, vec3d.z, 0);
+                this.path = this.fleeingEntityNavigation.createPath(vec3d.x, vec3d.y, vec3d.z, 0);
                 if(this.path != null) {
-                    this.fleeingEntityNavigation.startMovingAlong(this.path, 1.05f);
+                    this.fleeingEntityNavigation.moveTo(this.path, 1.05f);
                 }
             }
         }
         timer = Math.max(0, timer - 1);
-        this.spider.getLookControl().lookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
+        this.spider.getLookControl().setLookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         double distance = this.spider.distanceTo(this.target);
         return timer > 0 && distance > 4.5f;
     }
@@ -85,11 +84,11 @@ public class PounceRetreatGoal extends Goal {
     @Override
     public void start() {
         this.spider.getNavigation().stop();
-        this.spider.getLookControl().lookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
-        this.spider.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 1));
+        this.spider.getLookControl().setLookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
+        this.spider.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 1));
 
-        Vec3d backPounce = new Vec3d(1, 1, 1).multiply(-horizontalVelocity);
-        this.spider.setVelocity(backPounce.x, this.verticalVelocity, backPounce.z);
+        Vec3 backPounce = new Vec3(1, 1, 1).scale(-horizontalVelocity);
+        this.spider.setDeltaMovement(backPounce.x, this.verticalVelocity, backPounce.z);
         leaping = true;
         timer = 100;
     }

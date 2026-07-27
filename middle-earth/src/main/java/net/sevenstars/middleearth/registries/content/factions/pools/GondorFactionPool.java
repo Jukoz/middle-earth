@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class GondorFactionPool {
     public final static Faction GONDOR;
-    private final static String FACTION_PATH = FactionRegistry.GONDOR.getValue().getPath();
+    private final static String FACTION_PATH = FactionRegistry.GONDOR.location().getPath();
 
     static {
         GONDOR = new Faction(FactionRegistry.GONDOR, true, DispositionType.GOOD, FactionType.FACTION, null, null,

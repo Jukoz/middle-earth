@@ -1,0 +1,6 @@
+{
+    "parent":  "middle-earth:item/big_weapon",
+    "textures":  {
+                     "layer0":  "middle-earth:item/noldorin_longsword_broken"
+                 }
+}

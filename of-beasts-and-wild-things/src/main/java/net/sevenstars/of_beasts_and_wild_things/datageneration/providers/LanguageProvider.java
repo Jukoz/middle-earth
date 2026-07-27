@@ -1,39 +1,36 @@
 package net.sevenstars.of_beasts_and_wild_things.datageneration.providers;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.data.PackOutput;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.datageneration.content.TranslationEntries;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-
-public class LanguageProvider extends FabricLanguageProvider {
+public class LanguageProvider extends net.neoforged.neoforge.common.data.LanguageProvider {
 
     private Map<String, String> specialNames = new HashMap<>();
 
-    public LanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataOutput, "en_us", registryLookup);
+    public LanguageProvider(PackOutput output) {
+        super(output, OfBeastsAndWildThings.MOD_ID, "en_us");
     }
 
     @Override
-    public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
+    protected void addTranslations() {
 
         TranslationEntries.blockEntries.forEach(block -> {
-            translationBuilder.add(block, generateName(Registries.BLOCK.getId(block).getPath()));
+            add(block, generateName(BuiltInRegistries.BLOCK.getKey(block).getPath()));
         });
 
         TranslationEntries.itemEntries.forEach(item -> {
-            translationBuilder.add(item, generateName(Registries.ITEM.getId(item).getPath()));
+            add(item, generateName(BuiltInRegistries.ITEM.getKey(item).getPath()));
         });
 
         TranslationEntries.entityEntries.forEach(entityType -> {
-            translationBuilder.add(entityType, generateName(Registries.ENTITY_TYPE.getId(entityType).getPath()));
+            add(entityType, generateName(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).getPath()));
         });
 
-        TranslationEntries.manualEntries.forEach(translationBuilder::add);
+        TranslationEntries.manualEntries.forEach(this::add);
     }
 
     public String generateName(String registryName) {

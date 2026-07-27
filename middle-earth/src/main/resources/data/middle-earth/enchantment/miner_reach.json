@@ -11,8 +11,8 @@
           "base": 1.0,
           "per_level_above_first": 0.5
         },
-        "attribute": "minecraft:block_interaction_range",
-        "id": "minecraft:middle-earth.miner_reach",
+        "attribute": "minecraft:player.block_interaction_range",
+        "id": "middle-earth:enchantment.miner_reach",
         "operation": "add_value"
       }
     ]

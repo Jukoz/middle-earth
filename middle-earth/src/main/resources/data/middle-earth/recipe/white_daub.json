@@ -1,15 +1,33 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "middle-earth:straw",
-    "middle-earth:straw",
-    "middle-earth:straw",
-    "#minecraft:smelts_to_glass",
-    "#minecraft:smelts_to_glass",
-    "#minecraft:smelts_to_glass",
-    "minecraft:clay",
-    "minecraft:clay",
-    "minecraft:clay"
+    {
+      "item": "middle-earth:straw"
+    },
+    {
+      "item": "middle-earth:straw"
+    },
+    {
+      "item": "middle-earth:straw"
+    },
+    {
+      "tag": "minecraft:smelts_to_glass"
+    },
+    {
+      "tag": "minecraft:smelts_to_glass"
+    },
+    {
+      "tag": "minecraft:smelts_to_glass"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "minecraft:clay"
+    }
   ],
   "result": {
     "id": "middle-earth:white_daub",

@@ -5,9 +5,15 @@
     "WCW"
   ],
   "key": {
-    "S": "#minecraft:stone_crafting_materials",
-    "C": "middle-earth:crude_nugget",
-    "W": "#minecraft:logs"
+    "S": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "C": {
+      "item": "middle-earth:crude_nugget"
+    },
+    "W": {
+      "tag": "minecraft:logs"
+    }
   },
   "result": {
     "id": "middle-earth:orcish_artisan_table",

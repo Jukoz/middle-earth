@@ -1,18 +1,31 @@
 package net.sevenstars.middleearth.world.biomes.surface;
 
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SubBiomes {
-    public static HashMap<RegistryKey<Biome>, SubBiome> subBiomesMap;
+    private static final Map<ResourceKey<Biome>, ResourceKey<Biome>> DIRECT_HEIGHT_PARENTS = Map.ofEntries(
+            Map.entry(MEBiomeKeys.BLUE_MOUNTAINS_WOODS, MEBiomeKeys.BLUE_MOUNTAINS),
+            Map.entry(MEBiomeKeys.EASTERN_RHOVANION_FOREST, MEBiomeKeys.EASTERN_RHOVANION),
+            Map.entry(MEBiomeKeys.GONDOR_FOREST, MEBiomeKeys.GONDOR),
+            Map.entry(MEBiomeKeys.GONDOR_HILL, MEBiomeKeys.GONDOR),
+            Map.entry(MEBiomeKeys.GREY_ASHEN_WOODS, MEBiomeKeys.GREY_MOUNTAINS_BASE),
+            Map.entry(MEBiomeKeys.MORDOR_ASHEN_FOREST, MEBiomeKeys.MORDOR),
+            Map.entry(MEBiomeKeys.MORDOR_HILL, MEBiomeKeys.MORDOR),
+            Map.entry(MEBiomeKeys.NORTHERN_RHOVANION_FOREST, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA),
+            Map.entry(MEBiomeKeys.NORTHERN_RHOVANION_HILLS, MEBiomeKeys.LONELY_MOUNTAIN_TAIGA),
+            Map.entry(MEBiomeKeys.SHIRE_HILLS, MEBiomeKeys.SHIRE),
+            Map.entry(MEBiomeKeys.SHIRE_WOODS, MEBiomeKeys.SHIRE)
+    );
+    public static HashMap<ResourceKey<Biome>, SubBiome> subBiomesMap;
+    private static Map<ResourceKey<Biome>, SubBiome> subBiomesByChild = Map.of();
 
     public static void loadSubBiomes() {
-        subBiomesMap = new HashMap<>();
+        subBiomesMap = new LinkedHashMap<>();
 
         subBiomesMap.put(MEBiomeKeys.ANDUIN_VALES, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.1f, MEBiomeKeys.ANDUIN_VALES_FOREST));
@@ -191,28 +204,37 @@ public class SubBiomes {
         subBiomesMap.put(MEBiomeKeys.HARAD, new SubBiome()
                 .addSubBiomeData(-1.0f, -0.37f, MEBiomeKeys.HARAD_WOODS)
                 .addSubBiomeData(0.36f, 1.0f, MEBiomeKeys.HARAD_WOODS));
-    }
 
-    public static boolean isSubBiome(RegistryKey<Biome> biomeRegistryKey) {
-        AtomicBoolean containsBiome = new AtomicBoolean(false);
-        subBiomesMap.forEach((key, value) -> {
-            if(value.containsSubBiome(biomeRegistryKey)) {
-                containsBiome.set(true);
+        HashMap<ResourceKey<Biome>, SubBiome> reverseLookup = new HashMap<>();
+        for (Map.Entry<ResourceKey<Biome>, SubBiome> parentEntry : subBiomesMap.entrySet()) {
+            SubBiome subBiome = parentEntry.getValue();
+            for (SubBiome.SubBiomeData child : subBiome.subBiomesData) {
+                SubBiome previous = reverseLookup.putIfAbsent(child.biome, subBiome);
+                if (previous != null && previous != subBiome) {
+                    ResourceKey<Biome> canonicalParent = DIRECT_HEIGHT_PARENTS.get(child.biome);
+                    SubBiome canonicalProfile = subBiomesMap.get(canonicalParent);
+                    if (canonicalProfile == null || !canonicalProfile.containsSubBiome(child.biome)) {
+                        throw new IllegalStateException(
+                                "Shared sub-biome requires a valid canonical height parent: "
+                                        + child.biome.location()
+                        );
+                    }
+                    reverseLookup.put(child.biome, canonicalProfile);
+                }
             }
-        });
-        return containsBiome.get();
+        }
+        subBiomesByChild = Map.copyOf(reverseLookup);
     }
 
-    public static SubBiome getSubBiome(RegistryKey<Biome> biomeRegistryKey) {
+    public static boolean isSubBiome(ResourceKey<Biome> biomeRegistryKey) {
+        return subBiomesByChild.containsKey(biomeRegistryKey);
+    }
+
+    public static SubBiome getSubBiome(ResourceKey<Biome> biomeRegistryKey) {
         return subBiomesMap.get(biomeRegistryKey);
     }
 
-    public static SubBiome getSubBiomeFromChild(RegistryKey<Biome> biomeRegistryKey) {
-        for(Map.Entry<RegistryKey<Biome>, SubBiome> entry : subBiomesMap.entrySet()) {
-            if(entry.getValue().containsSubBiome(biomeRegistryKey)) {
-                return entry.getValue();
-            }
-        }
-        return null;
+    public static SubBiome getSubBiomeFromChild(ResourceKey<Biome> biomeRegistryKey) {
+        return subBiomesByChild.get(biomeRegistryKey);
     }
 }

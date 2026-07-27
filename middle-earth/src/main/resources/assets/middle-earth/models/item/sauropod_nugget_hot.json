@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/sauropod_nugget_hot"
+                 }
+}

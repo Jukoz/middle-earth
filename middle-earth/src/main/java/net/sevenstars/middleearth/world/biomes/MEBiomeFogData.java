@@ -1,13 +1,12 @@
 package net.sevenstars.middleearth.world.biomes;
 
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 
 public class MEBiomeFogData {
-    public static Map<RegistryKey<Biome>, MEBiomeFogData> DATA;
+    public static Map<ResourceKey<Biome>, MEBiomeFogData> DATA;
     static {
         DATA = new HashMap<>();
         DATA.put(MEBiomeKeys.BARROW_DOWNS, new MEBiomeFogData(0.0f, 0.3f));

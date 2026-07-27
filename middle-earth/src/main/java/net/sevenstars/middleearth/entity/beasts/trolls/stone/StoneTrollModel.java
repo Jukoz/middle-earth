@@ -1,103 +1,98 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.util.math.MathHelper;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
-import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollAnimations;
-import net.sevenstars.middleearth.entity.beasts.warg.WargAnimations;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 
-public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
+public class StoneTrollModel extends HierarchicalModel<StoneTrollEntity> {
     private final ModelPart r;
     private final ModelPart head;
 
-    private final Animation walkingAnimation;
-    private final Animation attackinggAnimation;
-    private final Animation chargingAnimation;
-    private final Animation throwingAnimation;
-
     public StoneTrollModel(ModelPart root) {
-        super(root);
-
         this.r = root.getChild("r");
         this.head = r.getChild("upperbody").getChild("upperbodynoarms").getChild("head");
-
-        this.walkingAnimation = StoneTrollAnimations.WALK.createAnimation(root);
-        this.attackinggAnimation = StoneTrollAnimations.ATTACK.createAnimation(root);
-        this.chargingAnimation = StoneTrollAnimations.CHARGE.createAnimation(root);
-        this.throwingAnimation = StoneTrollAnimations.THROW.createAnimation(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData r = modelPartData.addChild("r", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 26.0F, 0.0F));
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition r = modelPartData.addOrReplaceChild("r", CubeListBuilder.create(), PartPose.offset(0.0F, 26.0F, 0.0F));
 
-        ModelPartData upperbody = r.addChild("upperbody", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -20.0F, 1.0F));
+        PartDefinition upperbody = r.addOrReplaceChild("upperbody", CubeListBuilder.create(), PartPose.offset(0.0F, -20.0F, 1.0F));
 
-        ModelPartData arms = upperbody.addChild("arms", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 20.0F, -1.0F));
+        PartDefinition arms = upperbody.addOrReplaceChild("arms", CubeListBuilder.create(), PartPose.offset(0.0F, 20.0F, -1.0F));
 
-        ModelPartData right_arm = arms.addChild("right_arm", ModelPartBuilder.create().uv(28, 82).cuboid(-5.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.2F))
-                .uv(84, 96).cuboid(-5.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.0F)), ModelTransform.origin(-14.0F, -46.0F, 2.0F));
+        PartDefinition right_arm = arms.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(28, 82).addBox(-5.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new CubeDeformation(0.2F))
+                .texOffs(84, 96).addBox(-5.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(-14.0F, -46.0F, 2.0F));
 
-        ModelPartData left_arm = arms.addChild("left_arm", ModelPartBuilder.create().uv(0, 82).cuboid(-3.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.2F))
-                .uv(56, 96).mirrored().cuboid(-3.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new Dilation(0.0F)).mirrored(), ModelTransform.origin(15.0F, -46.0F, 2.0F));
+        PartDefinition left_arm = arms.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 82).addBox(-3.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new CubeDeformation(0.2F))
+                .texOffs(56, 96).mirror().addBox(-3.0F, -2.0F, -4.0F, 6.0F, 36.0F, 8.0F, new CubeDeformation(0.0F)).mirror(), PartPose.offset(15.0F, -46.0F, 2.0F));
 
-        ModelPartData upperbodynoarms = upperbody.addChild("upperbodynoarms", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -2.0F, -1.0F));
+        PartDefinition upperbodynoarms = upperbody.addOrReplaceChild("upperbodynoarms", CubeListBuilder.create(), PartPose.offset(0.0F, -2.0F, -1.0F));
 
-        ModelPartData head = upperbodynoarms.addChild("head", ModelPartBuilder.create().uv(74, 0).cuboid(-6.5F, -9.6306F, -6.7491F, 13.0F, 14.0F, 12.0F, new Dilation(0.0F))
-                .uv(62, 70).cuboid(-6.5F, -9.6306F, -6.7491F, 13.0F, 14.0F, 12.0F, new Dilation(0.2F))
-                .uv(0, 0).mirrored().cuboid(6.4F, -5.6306F, -1.7491F, 4.0F, 4.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(0, 5).cuboid(-10.4F, -5.6306F, -1.7491F, 4.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(-0.5F, -27.3694F, -1.2509F));
+        PartDefinition head = upperbodynoarms.addOrReplaceChild("head", CubeListBuilder.create().texOffs(74, 0).addBox(-6.5F, -9.6306F, -6.7491F, 13.0F, 14.0F, 12.0F, new CubeDeformation(0.0F))
+                .texOffs(62, 70).addBox(-6.5F, -9.6306F, -6.7491F, 13.0F, 14.0F, 12.0F, new CubeDeformation(0.2F))
+                .texOffs(0, 0).mirror().addBox(6.4F, -5.6306F, -1.7491F, 4.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(0, 5).addBox(-10.4F, -5.6306F, -1.7491F, 4.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -27.3694F, -1.2509F));
 
-        ModelPartData nose = head.addChild("nose", ModelPartBuilder.create().uv(62, 0).cuboid(-2.5F, -1.5F, -3.0F, 5.0F, 5.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -3.1306F, -4.7491F, -0.3054F, 0.0F, 0.0F));
+        PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(62, 0).addBox(-2.5F, -1.5F, -3.0F, 5.0F, 5.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -3.1306F, -4.7491F, -0.3054F, 0.0F, 0.0F));
 
-        ModelPartData jaw = head.addChild("jaw", ModelPartBuilder.create().uv(126, 29).cuboid(-4.5F, -2.0F, -4.0F, 9.0F, 4.0F, 4.0F, new Dilation(0.3F)), ModelTransform.origin(0.0F, 3.3694F, -2.7491F));
+        PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(126, 29).addBox(-4.5F, -2.0F, -4.0F, 9.0F, 4.0F, 4.0F, new CubeDeformation(0.3F)), PartPose.offset(0.0F, 3.3694F, -2.7491F));
 
-        ModelPartData hair = head.addChild("hair", ModelPartBuilder.create().uv(192, 158).cuboid(-33.0F, -55.2728F, -0.4462F, 13.0F, 19.0F, 12.0F, new Dilation(0.1F)), ModelTransform.origin(26.5F, 51.3694F, -5.7491F));
+        PartDefinition hair = head.addOrReplaceChild("hair", CubeListBuilder.create().texOffs(192, 158).addBox(-33.0F, -55.2728F, -0.4462F, 13.0F, 19.0F, 12.0F, new CubeDeformation(0.1F)), PartPose.offset(26.5F, 51.3694F, -5.7491F));
 
-        ModelPartData hair1 = hair.addChild("hair1", ModelPartBuilder.create().uv(204, 105).cuboid(-6.3F, -22.2272F, -5.9945F, 13.0F, 19.0F, 12.0F, new Dilation(0.1F)), ModelTransform.of(-26.7F, -37.5249F, 16.9945F, 0.5236F, 0.0F, 0.0F));
+        PartDefinition hair1 = hair.addOrReplaceChild("hair1", CubeListBuilder.create().texOffs(204, 105).addBox(-6.3F, -22.2272F, -5.9945F, 13.0F, 19.0F, 12.0F, new CubeDeformation(0.1F)), PartPose.offsetAndRotation(-26.7F, -37.5249F, 16.9945F, 0.5236F, 0.0F, 0.0F));
 
-        ModelPartData torso = upperbodynoarms.addChild("torso", ModelPartBuilder.create().uv(0, 41).cuboid(-13.0F, -50.0F, -4.0F, 25.0F, 29.0F, 12.0F, new Dilation(0.0F))
-                .uv(0, 0).cuboid(-13.0F, -50.0F, -4.0F, 25.0F, 29.0F, 12.0F, new Dilation(0.2F)), ModelTransform.origin(0.0F, 22.0F, 0.0F));
+        PartDefinition torso = upperbodynoarms.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 41).addBox(-13.0F, -50.0F, -4.0F, 25.0F, 29.0F, 12.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 0).addBox(-13.0F, -50.0F, -4.0F, 25.0F, 29.0F, 12.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 22.0F, 0.0F));
 
-        ModelPartData frontloin = torso.addChild("frontloin", ModelPartBuilder.create().uv(74, 48).cuboid(-12.5F, -1.5F, -0.5F, 25.0F, 21.0F, 1.0F, new Dilation(0.3F)), ModelTransform.origin(-0.5F, -26.5F, -3.504F));
+        PartDefinition frontloin = torso.addOrReplaceChild("frontloin", CubeListBuilder.create().texOffs(74, 48).addBox(-12.5F, -1.5F, -0.5F, 25.0F, 21.0F, 1.0F, new CubeDeformation(0.3F)), PartPose.offset(-0.5F, -26.5F, -3.504F));
 
-        ModelPartData backloin = torso.addChild("backloin", ModelPartBuilder.create().uv(74, 26).cuboid(-12.5F, -1.5F, -0.5F, 25.0F, 21.0F, 1.0F, new Dilation(0.3F)), ModelTransform.origin(-0.5F, -26.5F, 7.85F));
+        PartDefinition backloin = torso.addOrReplaceChild("backloin", CubeListBuilder.create().texOffs(74, 26).addBox(-12.5F, -1.5F, -0.5F, 25.0F, 21.0F, 1.0F, new CubeDeformation(0.3F)), PartPose.offset(-0.5F, -26.5F, 7.85F));
 
-        ModelPartData bodynoarmswithlegs = upperbodynoarms.addChild("bodynoarmswithlegs", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -11.0F, 0.0F));
+        PartDefinition bodynoarmswithlegs = upperbodynoarms.addOrReplaceChild("bodynoarmswithlegs", CubeListBuilder.create(), PartPose.offset(0.0F, -11.0F, 0.0F));
 
-        ModelPartData legs = r.addChild("legs", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition legs = r.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData right_leg = legs.addChild("right_leg", ModelPartBuilder.create().uv(126, 0).cuboid(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new Dilation(0.0F))
-                .uv(112, 99).cuboid(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new Dilation(0.2F)), ModelTransform.origin(-7.0F, -21.5F, 2.0F));
+        PartDefinition right_leg = legs.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(126, 0).addBox(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new CubeDeformation(0.0F))
+                .texOffs(112, 99).addBox(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new CubeDeformation(0.2F)), PartPose.offset(-7.0F, -21.5F, 2.0F));
 
-        ModelPartData left_leg = legs.addChild("left_leg", ModelPartBuilder.create().uv(0, 126).cuboid(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new Dilation(0.0F))
-                .uv(112, 70).cuboid(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new Dilation(0.2F)), ModelTransform.origin(6.0F, -21.5F, 2.0F));
+        PartDefinition left_leg = legs.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 126).addBox(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new CubeDeformation(0.0F))
+                .texOffs(112, 70).addBox(-5.0F, 0.5F, -5.0F, 10.0F, 19.0F, 10.0F, new CubeDeformation(0.2F)), PartPose.offset(6.0F, -21.5F, 2.0F));
 
-        ModelPartData club = modelPartData.addChild("club", ModelPartBuilder.create(), ModelTransform.of(-15.3115F, 10.3091F, -12.2077F, -0.1309F, 0.0F, 0.0873F));
+        PartDefinition club = modelPartData.addOrReplaceChild("club", CubeListBuilder.create(), PartPose.offsetAndRotation(-15.3115F, 10.3091F, -12.2077F, -0.1309F, 0.0F, 0.0873F));
 
-        ModelPartData cube_r1 = club.addChild("cube_r1", ModelPartBuilder.create().uv(16, 158).mirrored().cuboid(-4.5F, -4.5F, -22.0F, 9.0F, 9.0F, 22.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(17, 194).cuboid(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 22.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.1993F, 0.0145F, -0.0979F));
-        return TexturedModelData.of(modelData, 256, 256);
+        PartDefinition cube_r1 = club.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(16, 158).mirror().addBox(-4.5F, -4.5F, -22.0F, 9.0F, 9.0F, 22.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(17, 194).addBox(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.1993F, 0.0145F, -0.0979F));
+        return LayerDefinition.create(modelData, 256, 256);
     }
     @Override
-    public void setAngles(TrollEntityRenderState state) {
-        super.setAngles(state);
-        this.setHeadAngles(state.relativeHeadYaw, state.pitch);
-
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
-        this.attackinggAnimation.apply(state.attackAnimationState, state.age);
-        this.chargingAnimation.apply(state.chargeAnimationState, state.age);
-        this.throwingAnimation.apply(state.throwingAnimationState, state.age);
+    public void setupAnim(StoneTrollEntity entity, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.setHeadAngles(netHeadYaw, headPitch);
+        this.animateWalk(StoneTrollAnimations.WALK, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+        this.animate(entity.attackAnimationState, StoneTrollAnimations.ATTACK, ageInTicks);
+        this.animate(entity.chargeAnimationState, StoneTrollAnimations.CHARGE, ageInTicks);
+        this.animate(entity.throwingAnimationState, StoneTrollAnimations.THROW, ageInTicks);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
-        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch, -25.0F, 40.0F);
+        headYaw = Mth.clamp(headYaw, -30.0F, 30.0F);
+        headPitch = Mth.clamp(headPitch, -25.0F, 40.0F);
 
-        this.head.yaw = headYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
+        this.head.yRot = headYaw * 0.017453292F;
+        this.head.xRot = headPitch * 0.017453292F;
+    }
+
+    @Override
+    public ModelPart root() {
+        return this.r;
     }
 }

@@ -1,53 +1,53 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.CompoundContainer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
+import net.minecraft.world.level.block.state.BlockState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.ViewerCountManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.screen.GenericContainerScreenHandler;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ReinforcedChestBlockEntity extends ChestBlockEntity {
 
-    private final ViewerCountManager stateManager = new ViewerCountManager(){
+    private final ContainerOpenersCounter stateManager = new ContainerOpenersCounter(){
         @Override
-        protected void onContainerOpen(World world, BlockPos pos, BlockState state) {
-            ReinforcedChestBlockEntity.playSound(world, pos, state, SoundEvents.BLOCK_CHEST_OPEN);
+        protected void onOpen(Level world, BlockPos pos, BlockState state) {
+            ReinforcedChestBlockEntity.playSound(world, pos, state, SoundEvents.CHEST_OPEN);
         }
 
         @Override
-        protected void onContainerClose(World world, BlockPos pos, BlockState state) {
-            ReinforcedChestBlockEntity.playSound(world, pos, state, SoundEvents.BLOCK_CHEST_CLOSE);
+        protected void onClose(Level world, BlockPos pos, BlockState state) {
+            ReinforcedChestBlockEntity.playSound(world, pos, state, SoundEvents.CHEST_CLOSE);
         }
 
         @Override
-        protected void onViewerCountUpdate(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
-            ReinforcedChestBlockEntity.this.onViewerCountUpdate(world, pos, state, oldViewerCount, newViewerCount);
+        protected void openerCountChanged(Level world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
+            ReinforcedChestBlockEntity.this.signalOpenCount(world, pos, state, oldViewerCount, newViewerCount);
         }
 
         @Override
-        protected boolean isPlayerViewing(PlayerEntity player) {
-            if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
-                Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
-                return inventory == ReinforcedChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(ReinforcedChestBlockEntity.this);
+        protected boolean isOwnContainer(Player player) {
+            if (player.containerMenu instanceof ChestMenu) {
+                Container inventory = ((ChestMenu)player.containerMenu).getContainer();
+                return inventory == ReinforcedChestBlockEntity.this || inventory instanceof CompoundContainer && ((CompoundContainer)inventory).contains(ReinforcedChestBlockEntity.this);
             }
             return false;
         }
@@ -56,65 +56,65 @@ public class ReinforcedChestBlockEntity extends ChestBlockEntity {
     public ReinforcedChestBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.REINFORCED_CHEST, pos, state);
 
-        this.setHeldStacks(DefaultedList.ofSize(this.size(), ItemStack.EMPTY));
+        this.setItems(NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY));
     }
 
     @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return GenericContainerScreenHandler.createGeneric9x6(syncId, playerInventory, this);
+    protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
+        return ChestMenu.sixRows(syncId, playerInventory, this);
     }
 
-    static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
+    static void playSound(Level world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
         double d = (double)pos.getX() + 0.5;
         double e = (double)pos.getY() + 0.5;
         double f = (double)pos.getZ() + 0.5;
 
-        world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f - 1.0f);
+        world.playSound(null, d, e, f, soundEvent, SoundSource.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f - 1.0f);
     }
 
 
-    protected void onViewerCountUpdate(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
+    protected void signalOpenCount(Level world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
         Block block = state.getBlock();
-        world.addSyncedBlockEvent(pos, block, 1, newViewerCount);
+        world.blockEvent(pos, block, 1, newViewerCount);
     }
 
     @Override
-    public void onOpen(PlayerEntity player) {
-        if (!this.removed && !player.isSpectator()) {
-            this.stateManager.openContainer(player, this.getWorld(), this.getPos(), this.getCachedState());
+    public void startOpen(Player player) {
+        if (!this.remove && !player.isSpectator()) {
+            this.stateManager.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
     }
 
     @Override
-    public void onClose(PlayerEntity player) {
-        if (!this.removed && !player.isSpectator()) {
-            this.stateManager.closeContainer(player, this.getWorld(), this.getPos(), this.getCachedState());
+    public void stopOpen(Player player) {
+        if (!this.remove && !player.isSpectator()) {
+            this.stateManager.decrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
         }
     }
 
     @Nullable
     @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    protected Text getContainerName() {
-        return super.getContainerName();
+    protected Component getDefaultName() {
+        return super.getDefaultName();
     }
 
     @Override
-    public int size() {
+    public int getContainerSize() {
         return 54;
     }
 
     @Override
-    public void markDirty() {
-        super.markDirty();
+    public void setChanged() {
+        super.setChanged();
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".reinforced_chest" );
+    public Component getDisplayName() {
+        return Component.translatable("screen." + MiddleEarth.MOD_ID + ".reinforced_chest" );
     }
 }

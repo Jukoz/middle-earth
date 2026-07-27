@@ -5,7 +5,7 @@
       "entries": [
 	    {
           "type": "minecraft:item",
-          "name": "minecraft:black_bundle",
+          "name": "middle-earth:black_bundle",
           "weight": 2
         },
         {

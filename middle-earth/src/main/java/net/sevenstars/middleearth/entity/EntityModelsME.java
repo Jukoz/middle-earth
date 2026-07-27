@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.entity;
 
 import com.google.common.collect.ImmutableMap;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
@@ -16,19 +17,14 @@ import net.sevenstars.middleearth.entity.npcs.renderer.features.nose.NoseModel;
 import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;
-import net.minecraft.client.model.Dilation;
-import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobModel;
 
 import java.util.Map;
-
-@Environment(value= EnvType.CLIENT)
 public class EntityModelsME {
-    public static Map<EntityModelLayer, TexturedModelData> getModels() {
-        ImmutableMap.Builder<EntityModelLayer, TexturedModelData> builder = ImmutableMap.builder();
+    public static Map<ModelLayerLocation, LayerDefinition> getModels() {
+        ImmutableMap.Builder<ModelLayerLocation, LayerDefinition> builder = ImmutableMap.builder();
 
-        builder.put(EntityModelLayersME.NPC, NpcEntityModel.getTexturedModelData(Dilation.NONE));
+        builder.put(EntityModelLayersME.NPC, NpcEntityModel.getTexturedModelData(CubeDeformation.NONE));
         builder.put(EntityModelLayersME.NPC_ENTITY_HAIR, HairModel.getTexturedModelData());
         builder.put(EntityModelLayersME.NPC_ENTITY_EAR, EarModel.getTexturedModelData());
         builder.put(EntityModelLayersME.NPC_ENTITY_NOSE, NoseModel.getTexturedModelData());
@@ -54,7 +50,7 @@ public class EntityModelsME {
         builder.put(EntityModelLayersME.REINFORCED_BARREL, BarrelEntityModel.getTexturedModelData());
         builder.put(EntityModelLayersME.REINFORCED_BARREL_WATER_MASK, BarrelEntityModel.getBaseTexturedModelData());
 
-        ImmutableMap<EntityModelLayer, TexturedModelData> immutableMap = builder.build();
+        ImmutableMap<ModelLayerLocation, LayerDefinition> immutableMap = builder.build();
         return immutableMap;
     }
 }

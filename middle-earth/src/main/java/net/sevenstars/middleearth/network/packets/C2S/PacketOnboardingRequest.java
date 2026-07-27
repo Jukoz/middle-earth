@@ -1,51 +1,70 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
+import net.sevenstars.middleearth.network.handlers.OnboardingServerHandler;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardingRequest>
 {
-    public static final Id<PacketOnboardingRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_onboarding_request"));
-    public static final PacketOnboardingRequest INSTANCE = new PacketOnboardingRequest();
-    public static final PacketCodec<RegistryByteBuf, PacketOnboardingRequest> CODEC = PacketCodec.unit(INSTANCE);
+    public static final Type<PacketOnboardingRequest> ID = new Type<>(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "packet_onboarding_request"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, PacketOnboardingRequest> CODEC = StreamCodec.composite(
+            ByteBufCodecs.BOOL, PacketOnboardingRequest::offHand,
+            PacketOnboardingRequest::new
+    );
+    private final boolean offHand;
+
+    public PacketOnboardingRequest() {
+        this(false);
+    }
+
+    public PacketOnboardingRequest(boolean offHand) {
+        this.offHand = offHand;
+    }
 
     @Override
-    public Id<PacketOnboardingRequest> getId() {
+    public Type<PacketOnboardingRequest> type() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, PacketOnboardingRequest> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, PacketOnboardingRequest> streamCodec() {
         return CODEC;
     }
 
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
-                ServerPlayerEntity player = context.player();
-
-                PacketOnboardingResult newPacket = new PacketOnboardingResult(
-                        PlayerDataService.playerPassedOnboarding(context.player()),
-                        ModServerConfigs.ENABLE_FACTION_RESET,
-                        ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD,
-                        ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION,
-                        AttributePoolElement.createAttributeNbtListFromPlayer(player)
-                );
-                ServerPlayNetworking.send(player, newPacket);
-            });
+            ServerPlayer player = context.player();
+            InteractionHand hand = offHand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+            if (!OnboardingServerHandler.begin(player, hand)) {
+                return;
+            }
+            PacketOnboardingResult newPacket = new PacketOnboardingResult(
+                    PlayerDataService.playerPassedOnboarding(context.player()),
+                    ModServerConfigs.ENABLE_FACTION_RESET,
+                    ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD,
+                    ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION,
+                    AttributePoolElement.createAttributeNbtListFromPlayer(player),
+                    offHand
+            );
+            context.connection().sendPacketToClient(newPacket, player);
         } catch(Exception e){
             MiddleEarth.LOGGER.logError("OnboardingDetailFetchingPacket::Apply - Tried sending packet with data", e);
         }
+    }
+
+    public boolean offHand() {
+        return offHand;
     }
 }

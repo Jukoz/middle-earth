@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#wild-things:deer_spawns",
+  "spawners": {
+    "type": "wild-things:deer",
+    "weight": 50,
+    "minCount": 2,
+    "maxCount": 6
+  }
+}

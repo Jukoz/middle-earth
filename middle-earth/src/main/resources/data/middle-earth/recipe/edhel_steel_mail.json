@@ -8,8 +8,8 @@
   ],
   "key": {
     "N": {
-      "fabric:type": "fabric:components",
-      "base": "middle-earth:mail_ring",
+      "type": "neoforge:components",
+      "items": "middle-earth:mail_ring",
       "components": {
         "minecraft:trim": {
           "material": "middle-earth:edhel_steel",

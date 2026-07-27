@@ -1,26 +1,31 @@
 package net.sevenstars.of_beasts_and_wild_things.datageneration.providers;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
+public class ItemTagProvider extends ItemTagsProvider {
 
-    public ItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
+    public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture,
+                           CompletableFuture<TagsProvider.TagLookup<Block>> blockTags,
+                           ExistingFileHelper existingFileHelper) {
+        super(output, registriesFuture, blockTags, OfBeastsAndWildThings.MOD_ID, existingFileHelper);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        TagKey<Item> swan_food = TagKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.of("swan_food"));
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
+        TagKey<Item> swan_food = TagKey.create(Registries.ITEM, OfBeastsAndWildThings.of("swan_food"));
 
-        valueLookupBuilder(swan_food).add(Items.TADPOLE_BUCKET);
+        tag(swan_food).add(Items.TADPOLE_BUCKET);
     }
 }

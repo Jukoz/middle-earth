@@ -1,56 +1,56 @@
 package net.sevenstars.middleearth.block.special.doors;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.enums.DoorHinge;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 
 public class LargeThickDoor3x2 extends LargeDoorBlock {
-    public static final IntProperty PART = IntProperty.of("part", 0, 5);
+    public static final IntegerProperty PART = IntegerProperty.create("part", 0, 5);
 
 
-    protected static final VoxelShape NORTH_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 16, 8);
-    protected static final VoxelShape SOUTH_SHAPE = Block.createCuboidShape(0, 0, 8, 16, 16, 16);
-    protected static final VoxelShape EAST_SHAPE = Block.createCuboidShape(8, 0, 0, 16, 16, 16);
-    protected static final VoxelShape WEST_SHAPE = Block.createCuboidShape(0, 0, 0, 8, 16, 16);
+    protected static final VoxelShape NORTH_SHAPE = Block.box(0, 0, 0, 16, 16, 8);
+    protected static final VoxelShape SOUTH_SHAPE = Block.box(0, 0, 8, 16, 16, 16);
+    protected static final VoxelShape EAST_SHAPE = Block.box(8, 0, 0, 16, 16, 16);
+    protected static final VoxelShape WEST_SHAPE = Block.box(0, 0, 0, 8, 16, 16);
 
-    public LargeThickDoor3x2(Settings settings) {
+    public LargeThickDoor3x2(Properties settings) {
         super(settings);
         this.doorHeight = 3;
         this.doorWidth  = 2;
     }
 
     @Override
-    public IntProperty getPart() {
+    public IntegerProperty getPart() {
         return PART;
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(state.get(PART) == 4 && player.getMainHandStack().getItem() == ResourceItemsME.DWARVEN_KEY){
-            return super.onUse(state, world, pos, player, hit);
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if(state.getValue(PART) == 4 && player.getMainHandItem().getItem() == ResourceItemsME.DWARVEN_KEY){
+            return super.useWithoutItem(state, world, pos, player, hit);
         } else {
-            return ActionResult.PASS;
+            return InteractionResult.PASS;
         }
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        Direction direction = (Direction) state.get(HORIZONTAL_FACING);
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        Direction direction = (Direction) state.getValue(HORIZONTAL_FACING);
         VoxelShape var10000 = null;
-        if (state.get(HINGE) == DoorHinge.LEFT) {
-            if (!state.get(OPEN)) {
+        if (state.getValue(HINGE) == DoorHingeSide.LEFT) {
+            if (!state.getValue(OPEN)) {
                 return switch (direction) {
                     case WEST -> EAST_SHAPE;
                     case EAST -> WEST_SHAPE;
@@ -66,7 +66,7 @@ public class LargeThickDoor3x2 extends LargeDoorBlock {
                 };
             }
         } else {
-            if (!state.get(OPEN)) {
+            if (!state.getValue(OPEN)) {
                 return switch (direction) {
                     case WEST -> EAST_SHAPE;
                     case EAST -> WEST_SHAPE;

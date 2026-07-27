@@ -2,10 +2,18 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "#middle-earth:berries",
-    "minecraft:wheat",
-    "minecraft:sugar",
-    "minecraft:egg"
+    {
+      "tag": "middle-earth:berries"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:egg"
+    }
   ],
   "result": {
     "count": 1,

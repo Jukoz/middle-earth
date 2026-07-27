@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.MiddleEarth;
 
@@ -40,12 +40,12 @@ public class GearSlotPool {
         return npcGearItemPool != null && !npcGearItemPool.isEmpty();
     }
 
-    public static NbtElement createNbt(GearSlotPool slotData){
+    public static Tag createNbt(GearSlotPool slotData){
         if(slotData.isPool()){
-            NbtCompound nbt = new NbtCompound();
-            NbtList nbtList = new NbtList();
+            CompoundTag nbt = new CompoundTag();
+            ListTag nbtList = new ListTag();
             for(WeightedItemData gearItemData : slotData.npcGearItemPool.elements){
-                nbtList.add(gearItemData.getNbt());
+                nbtList.add(WeightedPool.toCompoundListElement(gearItemData.getNbt()));
             }
             nbt.put("pool",nbtList);
             return nbt;
@@ -54,31 +54,30 @@ public class GearSlotPool {
             return null;
         }
         var nbt = slotData.weightedItemData.getNbt();
-        if(nbt.asString().isPresent()){
+        if(nbt instanceof net.minecraft.nbt.StringTag){
             return nbt;
-        } else if(nbt.asCompound().isPresent())
-            return nbt.asCompound().get();
+        } else if(nbt instanceof CompoundTag compound)
+            return compound;
         return null;
     }
 
-    public static GearSlotPool readNbt(NbtElement nbt){
-        if(nbt.asCompound().isPresent()){
-            NbtCompound nbtCompound = nbt.asCompound().get();
-            if(nbtCompound.get("pool") == null){
+    public static GearSlotPool readNbt(Tag nbt){
+        if(nbt instanceof CompoundTag nbtCompound){
+            if(!(nbtCompound.get("pool") instanceof ListTag list)){
                 return GearSlotPool.create(new WeightedItemData(nbtCompound));
             }
-            NbtList list = nbtCompound.getList("pool").get();
             GearSlotPool gearSlotPool = GearSlotPool.create();
             for(int i = 0; i < list.size(); i++){
-                if(list.getString(i).isPresent()){
-                    gearSlotPool.add(new WeightedItemData(MiddleEarth.fetchId(list.getString(i).get())));
-                } else if(list.getCompound(i).isPresent()){
-                    gearSlotPool.add(new WeightedItemData(list.getCompound(i).get()));
+                Tag element = list.get(i);
+                if(element instanceof net.minecraft.nbt.StringTag){
+                    gearSlotPool.add(new WeightedItemData(MiddleEarth.fetchId(element.getAsString())));
+                } else if(element instanceof CompoundTag compound){
+                    gearSlotPool.add(new WeightedItemData(compound));
                 }
             }
             return gearSlotPool;
-        } else if(nbt.asString().isPresent()){
-            return new GearSlotPool(new WeightedItemData(MiddleEarth.fetchId(nbt.asString().get())));
+        } else if(nbt instanceof net.minecraft.nbt.StringTag){
+            return new GearSlotPool(new WeightedItemData(MiddleEarth.fetchId(nbt.getAsString())));
         }
 
         return null;

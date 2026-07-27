@@ -6,7 +6,9 @@
     " N "
   ],
   "key": {
-    "N": "minecraft:iron_nugget"
+    "N": {
+      "item": "minecraft:iron_nugget"
+    }
   },
   "result": {
     "id": "middle-earth:mail_ring",

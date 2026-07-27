@@ -1,32 +1,31 @@
 package net.sevenstars.middleearth.item.items;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import java.util.List;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 public class HeldBannerItem extends Item {
-    public HeldBannerItem(Settings settings) {
-        super(settings.maxCount(1));
+    public HeldBannerItem(Properties settings) {
+        super(settings.stacksTo(1));
     }
 
-    public static void appendBannerTooltip(ItemStack stack, List<Text> tooltip) {
-        BannerPatternsComponent bannerPatternsComponent = (BannerPatternsComponent)stack.get(DataComponentTypes.BANNER_PATTERNS);
+    public static void appendBannerTooltip(ItemStack stack, List<Component> tooltip) {
+        BannerPatternLayers bannerPatternsComponent = (BannerPatternLayers)stack.get(DataComponents.BANNER_PATTERNS);
         if (bannerPatternsComponent != null) {
             for(int i = 0; i < Math.min(bannerPatternsComponent.layers().size(), 6); ++i) {
-                BannerPatternsComponent.Layer layer = (BannerPatternsComponent.Layer)bannerPatternsComponent.layers().get(i);
-                tooltip.add(layer.getTooltipText().formatted(Formatting.GRAY));
+                BannerPatternLayers.Layer layer = (BannerPatternLayers.Layer)bannerPatternsComponent.layers().get(i);
+                tooltip.add(layer.description().withStyle(ChatFormatting.GRAY));
             }
 
         }
     }
 
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag type) {
         appendBannerTooltip(stack, tooltip);
     }
 }

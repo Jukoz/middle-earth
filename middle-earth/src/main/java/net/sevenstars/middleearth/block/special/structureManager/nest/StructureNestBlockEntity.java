@@ -1,21 +1,21 @@
 package net.sevenstars.middleearth.block.special.structureManager.nest;
 
-import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.sevenstars.middleearth.block.utils.ExtendedMenuProviderME;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
@@ -24,10 +24,11 @@ import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNe
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class StructureNestBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
+public class StructureNestBlockEntity extends BlockEntity implements ExtendedMenuProviderME {
     private static final String ID = "structure_nest";
 
     private enum SyncedData {
@@ -42,9 +43,9 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
         }
     }
     @Nullable
-    protected Identifier managerId;
+    protected ResourceLocation managerId;
     @Nullable
-    protected Identifier nestId;
+    protected ResourceLocation nestId;
     protected int spawnRadius;
     protected boolean isEnabled;
 
@@ -56,23 +57,19 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     @Override
-    public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
-        return new StructureNestScreenData(this.pos,
-                Optional.ofNullable(this.managerId),
-                Optional.ofNullable(this.nestId),
-                spawnRadius,
-                isEnabled
-            );
+    public void writeOpeningData(RegistryFriendlyByteBuf buffer) {
+        StructureNestScreenData.PACKET_CODEC.encode(buffer, new StructureNestScreenData(this.worldPosition,
+                Optional.ofNullable(this.managerId), Optional.ofNullable(this.nestId), spawnRadius, isEnabled));
     }
 
-    public Text getDisplayName() {
-        return Text.translatable("screen.%s.%s".formatted(MiddleEarth.MOD_ID, ID));
+    public Component getDisplayName() {
+        return Component.translatable("screen.%s.%s".formatted(MiddleEarth.MOD_ID, ID));
     }
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new StructureNestScreenHandler(syncId, playerInventory, new StructureNestScreenData(this.pos,
+    public AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, Player player) {
+        return new StructureNestScreenHandler(syncId, playerInventory, new StructureNestScreenData(this.worldPosition,
                 Optional.ofNullable(this.managerId),
                 Optional.ofNullable(this.nestId),
                 this.spawnRadius,
@@ -80,82 +77,94 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
-        Optional<Identifier> managerId = view.read(SyncedData.MANAGER_ID.name, Identifier.CODEC);
-        managerId.ifPresent(identifier -> this.managerId = identifier);
-        Optional<Identifier> nestId = view.read(SyncedData.NEST_ID.name, Identifier.CODEC);
-        nestId.ifPresent(identifier -> this.nestId = identifier);
-        spawnRadius = view.getInt(SyncedData.SPAWN_RADIUS.name, 0);
-        isEnabled = view.getBoolean(SyncedData.IS_ENABLED.name, false);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        if (tag.contains(SyncedData.MANAGER_ID.name)) {
+            managerId = ResourceLocation.tryParse(tag.getString(SyncedData.MANAGER_ID.name));
+        }
+        if (tag.contains(SyncedData.NEST_ID.name)) {
+            nestId = ResourceLocation.tryParse(tag.getString(SyncedData.NEST_ID.name));
+        }
+        spawnRadius = tag.getInt(SyncedData.SPAWN_RADIUS.name);
+        isEnabled = tag.getBoolean(SyncedData.IS_ENABLED.name);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
-        if(nestId != null)
-            view.put(SyncedData.NEST_ID.name, Identifier.CODEC, this.nestId);
-        if(managerId != null)
-            view.put(SyncedData.MANAGER_ID.name, Identifier.CODEC, this.managerId);
-        view.put(SyncedData.SPAWN_RADIUS.name, Codec.INT, this.spawnRadius);
-        view.put(SyncedData.IS_ENABLED.name, Codec.BOOL, this.isEnabled);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        if (nestId != null) {
+            tag.putString(SyncedData.NEST_ID.name, nestId.toString());
+        }
+        if (managerId != null) {
+            tag.putString(SyncedData.MANAGER_ID.name, managerId.toString());
+        }
+        tag.putInt(SyncedData.SPAWN_RADIUS.name, this.spawnRadius);
+        tag.putBoolean(SyncedData.IS_ENABLED.name, this.isEnabled);
     }
 
     @Override
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    public void setStructureManagerId(Identifier structureManagerId) {
+    public void applySettings(
+            @Nullable ResourceLocation structureManagerId,
+            @Nullable ResourceLocation structureNestId,
+            int newRadius,
+            boolean enabled
+    ) {
+        if (Objects.equals(this.managerId, structureManagerId)
+                && Objects.equals(this.nestId, structureNestId)
+                && this.spawnRadius == newRadius
+                && this.isEnabled == enabled) {
+            return;
+        }
         this.managerId = structureManagerId;
-        updateListeners();
-    }
-
-    public void setStructureNestId(Identifier structureNestId) {
         this.nestId = structureNestId;
-        updateListeners();
-    }
-
-    public void setSpawnRadius(int newRadius) {
         this.spawnRadius = newRadius;
-        updateListeners();
-    }
-
-    public void setIsEnabled(boolean isEnabled) {
-        this.isEnabled = isEnabled;
+        this.isEnabled = enabled;
         updateListeners();
     }
 
     private void updateListeners() {
-        this.markDirty();
-        this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+        this.setChanged();
+        if (this.level != null) {
+            this.level.sendBlockUpdated(
+                    this.getBlockPos(),
+                    this.getBlockState(),
+                    this.getBlockState(),
+                    Block.UPDATE_CLIENTS
+            );
+        }
     }
 
-    public static void tickEvent(World world, BlockPos blockPos, BlockState blockState, StructureNestBlockEntity entity) {
+    public static void tickEvent(Level world, BlockPos blockPos, BlockState blockState, StructureNestBlockEntity entity) {
         entity.tickEvent(world, blockState);
     }
 
-    private void tickEvent(World world, BlockState blockState) {
-        if(world.isClient)
+    private void tickEvent(Level world, BlockState blockState) {
+        if(world.isClientSide)
             return;
 
-        if(!blockState.get(StructureNestBlock.ENABLED)) {
+        if(!blockState.getValue(StructureNestBlock.ENABLED)) {
             fails = 0;
             return;
         }
 
-        if(managerId == null || nestId == null || world.getTickOrder() % 20 != 0) // every 1 seconds
+        long tickOffset = Math.floorMod(worldPosition.asLong(), 20L);
+        if(managerId == null || nestId == null
+                || Math.floorMod(world.getGameTime() + tickOffset, 20L) != 0)
             return;
 
-        StructureManagerBlockEntity structureManagerBlockEntity = StructureManagerService.getClosest(world, pos, 20);
+        StructureManagerBlockEntity structureManagerBlockEntity = StructureManagerService.getClosest(world, worldPosition, 20);
         if(structureManagerBlockEntity == null) {
             fails++;
         }
         else {
-            if(structureManagerBlockEntity.subscribeNest(this.pos, this.managerId, this.nestId, this.spawnRadius))
+            if(structureManagerBlockEntity.subscribeNest(this.worldPosition, this.managerId, this.nestId, this.spawnRadius))
             {
-                world.breakBlock(pos, false);
-                world.removeBlockEntity(pos);
+                world.destroyBlock(worldPosition, false);
+                world.removeBlockEntity(worldPosition);
                 initialized = true;
                 updateListeners();
             } else {
@@ -163,8 +172,8 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
             }
         }
         if(fails >= 12) {
-            world.breakBlock(pos, false);
-            world.removeBlockEntity(pos);
+            world.destroyBlock(worldPosition, false);
+            world.removeBlockEntity(worldPosition);
             updateListeners();
         }
     }

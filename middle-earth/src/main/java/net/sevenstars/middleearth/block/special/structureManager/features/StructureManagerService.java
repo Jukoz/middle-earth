@@ -1,14 +1,15 @@
 package net.sevenstars.middleearth.block.special.structureManager.features;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
@@ -22,22 +23,22 @@ import java.util.Map;
 import java.util.Set;
 
 public class StructureManagerService {
-    private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
+    private static final Map<ResourceKey<Level>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
 
-    public static StructureManagerData getStructureManagerData(World world, Identifier structureManagerDataId){
+    public static StructureManagerData getStructureManagerData(Level world, ResourceLocation structureManagerDataId){
         if(world == null)
             return null;
         var data =  StructureManagerDataLookup.getStructureManagerData(world, structureManagerDataId);
         return data.orElse(null);
     }
 
-    public static LivingEntity spawnEntity(ServerWorld world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
+    public static LivingEntity spawnEntity(ServerLevel world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
         var random = world.getRandom();
         int chances = 5;
         BlockPos chosenBlockPos = null;
-        for(BlockPos blockPos : BlockPos.iterateRandomly(random, chances, pos, spawnRadius)){
-            blockPos = blockPos.withY(pos.getY());
-            if(world.getBlockState(blockPos).isAir() && world.getBlockState(blockPos.up()).isAir()){
+        for(BlockPos blockPos : BlockPos.randomInCube(random, chances, pos, spawnRadius)){
+            blockPos = blockPos.atY(pos.getY());
+            if(world.getBlockState(blockPos).isAir() && world.getBlockState(blockPos.above()).isAir()){
                 chosenBlockPos = blockPos;
                 break;
             }
@@ -45,49 +46,49 @@ public class StructureManagerService {
         if(chosenBlockPos == null)
             chosenBlockPos = pos;
 
-        LivingEntity entity;
+        Entity entity;
         if(pool.getEntityType() == EntitiesME.NPC){
 
             entity = new NpcEntityBuilder(world, chosenBlockPos)
                     .withNpcType(pool.getNpcIdentifier().get())
                     .build();
         } else {
-            entity = (LivingEntity) pool.getEntityType().create(world, SpawnReason.STRUCTURE);
-            if(entity instanceof MobEntity mob)
-                mob.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null);
-            entity.setPosition(chosenBlockPos.toCenterPos());
+            entity = pool.getEntityType().create(world);
+            if(entity instanceof Mob mob)
+                mob.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), MobSpawnType.STRUCTURE, null);
+            entity.setPos(chosenBlockPos.getCenter());
         }
 
         if(entity instanceof LivingEntity livEntity){
-            world.spawnEntity(entity);
+            world.addFreshEntity(entity);
             return livEntity;
         }
         return null;
     }
 
     public static void register(StructureManagerBlockEntity manager) {
-        World world = manager.getWorld();
-        if (world == null || world.isClient())
+        Level world = manager.getLevel();
+        if (world == null || world.isClientSide())
             return;
-        STRUCTURE_MANAGERS.computeIfAbsent(world.getRegistryKey(), key -> new HashSet<>())
-                          .add(manager.getPos().toImmutable());
+        STRUCTURE_MANAGERS.computeIfAbsent(world.dimension(), key -> new HashSet<>())
+                          .add(manager.getBlockPos().immutable());
     }
 
     public static void unregister(StructureManagerBlockEntity manager) {
-        World world = manager.getWorld();
-        if (world == null || world.isClient())
+        Level world = manager.getLevel();
+        if (world == null || world.isClientSide())
             return;
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.dimension());
         if (managers == null)
             return;
 
-        managers.remove(manager.getPos());
+        managers.remove(manager.getBlockPos());
         if (managers.isEmpty())
-            STRUCTURE_MANAGERS.remove(world.getRegistryKey());
+            STRUCTURE_MANAGERS.remove(world.dimension());
     }
 
-    public static boolean isClose(World world, BlockPos pos, int radius) {
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+    public static boolean isClose(Level world, BlockPos pos, int radius) {
+        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.dimension());
 
         if (managers == null) {
             return false;
@@ -96,7 +97,7 @@ public class StructureManagerService {
         int radiusSquared = radius * radius;
 
         for (BlockPos managerPos : managers) {
-            if (managerPos.getSquaredDistance(pos) <= radiusSquared) {
+            if (managerPos.distSqr(pos) <= radiusSquared) {
                 return true;
             }
         }
@@ -104,8 +105,8 @@ public class StructureManagerService {
         return false;
     }
 
-    public static StructureManagerBlockEntity getClosest(World world, BlockPos pos, int radius) {
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+    public static StructureManagerBlockEntity getClosest(Level world, BlockPos pos, int radius) {
+        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.dimension());
 
         if (managers == null) {
             return null;
@@ -116,7 +117,7 @@ public class StructureManagerService {
         StructureManagerBlockEntity closest = null;
 
         for (BlockPos managerPos : managers) {
-            double distance = managerPos.getSquaredDistance(pos);
+            double distance = managerPos.distSqr(pos);
 
             if (distance > radiusSquared || distance >= closestDistance) {
                 continue;

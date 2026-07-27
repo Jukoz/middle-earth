@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/crossbow",
+    "textures":  {
+                     "layer0":  "middle-earth:item/uruk_hai_crossbow_pulling_2"
+                 }
+}

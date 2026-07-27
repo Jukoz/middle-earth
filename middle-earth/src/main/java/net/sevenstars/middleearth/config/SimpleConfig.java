@@ -24,7 +24,7 @@ package net.sevenstars.middleearth.config;
  * THE SOFTWARE.
  */
 
-import net.fabricmc.loader.api.FabricLoader;
+import net.neoforged.fml.loading.FMLPaths;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.io.File;
@@ -99,7 +99,7 @@ public class SimpleConfig {
      * @return new config request object
      */
     public static ConfigRequest of( String filename ) {
-        Path path = FabricLoader.getInstance().getConfigDir();
+        Path path = FMLPaths.CONFIGDIR.get();
         return new ConfigRequest( path.resolve( filename + FILE_TYPE).toFile(), filename );
     }
 

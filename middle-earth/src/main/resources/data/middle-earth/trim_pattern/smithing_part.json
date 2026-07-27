@@ -3,5 +3,6 @@
   "decal": false,
   "description": {
     "translate": "trim_pattern.middle-earth.smithing_part"
-  }
+  },
+  "template_item": "middle-earth:smithing_hammer"
 }

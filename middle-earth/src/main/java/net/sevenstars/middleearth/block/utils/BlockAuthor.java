@@ -2,13 +2,13 @@ package net.sevenstars.middleearth.block.utils;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.function.ValueLists;
 import java.util.function.IntFunction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 
-public enum BlockAuthor implements StringIdentifiable {
+public enum BlockAuthor implements StringRepresentable {
     BOENNDAL(0, "Boenndal"),
     SCOSHER(1, "Scosher"),
     COFFEE_VIKING(2, "CoffeeViking"),
@@ -17,12 +17,12 @@ public enum BlockAuthor implements StringIdentifiable {
     ANGMARZKU(5, "Angmarzku")
     ;
 
-    private static final IntFunction<BlockAuthor> BY_ID = ValueLists.createIndexToValueFunction(BlockAuthor::getId, BlockAuthor.values(), ValueLists.OutOfBoundsHandling.ZERO);;
+    private static final IntFunction<BlockAuthor> BY_ID = ByIdMap.continuous(BlockAuthor::getId, BlockAuthor.values(), ByIdMap.OutOfBoundsStrategy.ZERO);;
     private final int id;
     private final String authorName;
 
-    public static final Codec<BlockAuthor> CODEC = StringIdentifiable.createBasicCodec(BlockAuthor::values);
-    public static final PacketCodec<ByteBuf, BlockAuthor> PACKET_CODEC = PacketCodecs.indexed(BY_ID, BlockAuthor::getId);
+    public static final Codec<BlockAuthor> CODEC = StringRepresentable.fromValues(BlockAuthor::values);
+    public static final StreamCodec<ByteBuf, BlockAuthor> PACKET_CODEC = ByteBufCodecs.idMapper(BY_ID, BlockAuthor::getId);
 
     BlockAuthor(int id, String authorName) {
         this.id = id;
@@ -34,7 +34,7 @@ public enum BlockAuthor implements StringIdentifiable {
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return this.name();
     }
 

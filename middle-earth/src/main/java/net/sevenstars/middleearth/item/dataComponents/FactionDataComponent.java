@@ -2,16 +2,15 @@ package net.sevenstars.middleearth.item.dataComponents;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.component.ComponentsAccess;
-import net.minecraft.item.Item;
-import net.minecraft.item.tooltip.TooltipAppender;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -20,29 +19,23 @@ import net.sevenstars.middleearth.utils.ModColors;
 
 import java.util.function.Consumer;
 
-public class FactionDataComponent implements TooltipAppender {
-    private static final Codec<FactionDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> instance.group(Identifier.CODEC.fieldOf("faction").forGetter(FactionDataComponent::getFactionId))
+public record FactionDataComponent(ResourceLocation factionId) implements TooltipProvider {
+    private static final Codec<FactionDataComponent> BASE_CODEC = RecordCodecBuilder.create((instance) -> instance.group(ResourceLocation.CODEC.fieldOf("faction").forGetter(FactionDataComponent::getFactionId))
             .apply(instance, FactionDataComponent::new));
-    public static final Codec<FactionDataComponent> CODEC = Codec.withAlternative(BASE_CODEC, Identifier.CODEC, FactionDataComponent::new);
+    public static final Codec<FactionDataComponent> CODEC = Codec.withAlternative(BASE_CODEC, ResourceLocation.CODEC, FactionDataComponent::new);
 
-    public static final PacketCodec<RegistryByteBuf, FactionDataComponent> PACKET_CODEC =
-            PacketCodec.tuple(Identifier.PACKET_CODEC, FactionDataComponent::getFactionId, FactionDataComponent::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, FactionDataComponent> PACKET_CODEC =
+            StreamCodec.composite(ResourceLocation.STREAM_CODEC, FactionDataComponent::getFactionId, FactionDataComponent::new);
 
-    private final Identifier factionId;
-
-    public FactionDataComponent(Identifier identifier){
-        this.factionId = identifier;
-    }
-
-    public FactionDataComponent(RegistryKey<Faction> faction){
-        this.factionId = faction.getValue();
+    public FactionDataComponent(ResourceKey<Faction> faction){
+        this(faction.location());
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> textConsumer, TooltipFlag type) {
         try{
-            Faction faction = context.getRegistryLookup().getOrThrow(DynamicRegistriesME.FACTION).getOrThrow(RegistryKey.of(DynamicRegistriesME.FACTION, this.factionId)).value();
-            Faction parent = faction.getParentFaction(context.getRegistryLookup());
+            Faction faction = context.registries().lookupOrThrow(DynamicRegistriesME.FACTION).getOrThrow(ResourceKey.create(DynamicRegistriesME.FACTION, this.factionId)).value();
+            Faction parent = faction.getParentFaction(context.registries());
             if (parent != null){
                 appendFaction(textConsumer, parent);
                 appendSubfaction(textConsumer, faction);
@@ -50,22 +43,22 @@ public class FactionDataComponent implements TooltipAppender {
                 appendFaction(textConsumer, faction);
             }
         } catch (Exception e){
-            textConsumer.accept(Text.translatable(FactionIdentifierException.KEY, this.factionId)
+            textConsumer.accept(Component.translatable(FactionIdentifierException.KEY, this.factionId)
                     .withColor(ModColors.ALERT.color));
         }
     }
 
-    private void appendFaction(Consumer<Text> textConsumer, Faction faction){
-        textConsumer.accept(Text.translatable("tooltip.%s.faction".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GOLD)
-                .append(Text.translatable(faction.getId().toTranslationKey("faction")).formatted(Formatting.WHITE)));
+    private void appendFaction(Consumer<Component> textConsumer, Faction faction){
+        textConsumer.accept(Component.translatable("tooltip.%s.faction".formatted(MiddleEarth.MOD_ID)).withStyle(ChatFormatting.GOLD)
+                .append(Component.translatable(faction.getId().toLanguageKey("faction")).withStyle(ChatFormatting.WHITE)));
     }
 
-    private void appendSubfaction(Consumer<Text> textConsumer, Faction faction){
-        textConsumer.accept(Text.translatable("tooltip.%s.sub_faction".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY)
-                .append(Text.translatable(faction.getId().toTranslationKey("faction")).formatted(Formatting.WHITE)));
+    private void appendSubfaction(Consumer<Component> textConsumer, Faction faction){
+        textConsumer.accept(Component.translatable("tooltip.%s.sub_faction".formatted(MiddleEarth.MOD_ID)).withStyle(ChatFormatting.GRAY)
+                .append(Component.translatable(faction.getId().toLanguageKey("faction")).withStyle(ChatFormatting.WHITE)));
     }
 
-    public Identifier getFactionId(){
+    public ResourceLocation getFactionId(){
         return factionId;
     }
 }

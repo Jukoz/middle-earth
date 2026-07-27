@@ -11,8 +11,8 @@
           "base": 0.5,
           "per_level_above_first": 0.5
         },
-        "attribute": "minecraft:step_height",
-        "id": "minecraft:middle-earth.high_step",
+        "attribute": "minecraft:generic.step_height",
+        "id": "middle-earth:enchantment.high_step",
         "operation": "add_value"
       }
     ]

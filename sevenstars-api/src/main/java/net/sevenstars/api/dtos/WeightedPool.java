@@ -1,11 +1,13 @@
 package net.sevenstars.api.dtos;
 
-import net.minecraft.nbt.NbtList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 
 public class WeightedPool<T extends WeightedItem> {
     final static Random RANDOM = new Random();
@@ -23,10 +25,10 @@ public class WeightedPool<T extends WeightedItem> {
     }
 
     public WeightedPool(List<T> elements){
-        this.elements = elements;
+        this.elements = elements == null ? new ArrayList<>() : new ArrayList<>(elements);
     }
     public WeightedPool(T elements){
-        this.elements = List.of(elements);
+        this.elements = elements == null ? new ArrayList<>() : new ArrayList<>(List.of(elements));
     }
 
     public T get(int index){
@@ -65,12 +67,24 @@ public class WeightedPool<T extends WeightedItem> {
         return this.elements.size();
     }
 
-    public NbtList getNbt() {
-        NbtList nbtList = new NbtList();
+    public ListTag getNbt() {
+        ListTag nbtList = new ListTag();
         for(int i = 0; i < this.elements.size(); i++){
-            nbtList.add(i, this.elements.get(i).getNbt());
+            nbtList.add(i, toCompoundListElement(this.elements.get(i).getNbt()));
         }
         return nbtList;
+    }
+
+    public static CompoundTag toCompoundListElement(Tag element) {
+        if (element instanceof CompoundTag compound) {
+            return compound;
+        }
+        if (element instanceof StringTag stringTag) {
+            CompoundTag compound = new CompoundTag();
+            compound.putString("id", stringTag.getAsString());
+            return compound;
+        }
+        throw new IllegalArgumentException("Weighted list entries must serialize as a compound or identifier string");
     }
 
     public void add(T value){

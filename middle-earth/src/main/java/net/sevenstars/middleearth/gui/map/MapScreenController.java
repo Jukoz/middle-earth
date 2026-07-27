@@ -1,9 +1,10 @@
 package net.sevenstars.middleearth.gui.map;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.neoforged.neoforge.network.PacketDistributor;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
@@ -14,23 +15,23 @@ import org.joml.Vector2d;
 import java.awt.event.KeyEvent;
 
 public class MapScreenController {
-    private World world;
-    private PlayerEntity player;
+    private Level world;
+    private Player player;
     private MapScreen screen;
     private boolean isInDimension;
     private boolean isFullscreen;
     private boolean hasTeleportPermission;
 
-    public MapScreenController(World world, PlayerEntity player) {
+    public MapScreenController(Level world, Player player) {
         this.world = world;
         this.player = player;
     }
 
     public boolean open(boolean canTeleport) {
-        MinecraftClient mc = MinecraftClient.getInstance();
+        Minecraft mc = Minecraft.getInstance();
 
-        if(world.isClient) {
-            if (mc.currentScreen == null) {
+        if(world.isClientSide) {
+            if (mc.screen == null) {
                 screen = new MapScreen();
                 isInDimension = ModDimensions.isInMiddleEarth(world);
 
@@ -39,7 +40,7 @@ public class MapScreenController {
                 screen.hasTeleportPermission = hasTeleportPermission;
                 screen.isFullscreen = false;
 
-                screen.playerBlockPos = player.getBlockPos();
+                screen.playerBlockPos = player.blockPosition();
                 screen.controller  = this;
                 mc.setScreen(screen);
                 return true;
@@ -55,8 +56,8 @@ public class MapScreenController {
             double x = mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE;
             double y = mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE;
 
-            ClientPlayNetworking.send(new PacketTeleportToDynamicWorldCoordinate(x, y));
-            screen.close();
+            PacketDistributor.sendToServer(new PacketTeleportToDynamicWorldCoordinate(x, y));
+            screen.onClose();
         }
     }
 
@@ -73,11 +74,11 @@ public class MapScreenController {
     }
 
     public boolean keyPressed(int keyCode, int scanCode, int modifiers, int mouseX, int mouseY) {
-        if(KeyInputHandler.mapTeleportKey.matchesKey(keyCode, modifiers)){
+        if(KeyInputHandler.mapTeleportKey.matches(keyCode, modifiers)){
             teleportToCursor(mouseX, mouseY);
             return true;
         }
-        if(KeyInputHandler.mapFullscreenToggle.matchesKey(keyCode, modifiers)){
+        if(KeyInputHandler.mapFullscreenToggle.matches(keyCode, modifiers)){
             screen.isFullscreen = !screen.isFullscreen;
         }
         if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){

@@ -1,7 +1,14 @@
 package net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.armored;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartNames;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
 public class HelmetSkullModel extends HelmetAddonModel {
@@ -10,27 +17,27 @@ public class HelmetSkullModel extends HelmetAddonModel {
         super(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition head = modelPartData.addOrReplaceChild(PartNames.HEAD, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.HAT, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        head.addChild("skull", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -40.0F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.0F))
-                .uv(0, 13).cuboid(-3.0F, -39.25F, -3.0F, 6.0F, 7.0F, 6.0F, new Dilation(0.2F))
-                .uv(0, 26).cuboid(-3.0F, -39.25F, -3.0F, 6.0F, 9.0F, 6.0F, new Dilation(0.4F))
-                .uv(36, 53).cuboid(-0.5F, -41.25F, -0.5F, 1.0F, 10.0F, 1.0F, new Dilation(0.0F))
-                .uv(40, 60).cuboid(-5.0F, -37.55F, -1.0F, 10.0F, 2.0F, 2.0F, new Dilation(0.0F)),
-                ModelTransform.origin(0.0F, 23.0F, 0.0F));
+        head.addOrReplaceChild("skull", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -40.0F, -3.0F, 6.0F, 7.0F, 6.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 13).addBox(-3.0F, -39.25F, -3.0F, 6.0F, 7.0F, 6.0F, new CubeDeformation(0.2F))
+                .texOffs(0, 26).addBox(-3.0F, -39.25F, -3.0F, 6.0F, 9.0F, 6.0F, new CubeDeformation(0.4F))
+                .texOffs(36, 53).addBox(-0.5F, -41.25F, -0.5F, 1.0F, 10.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(40, 60).addBox(-5.0F, -37.55F, -1.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)),
+                PartPose.offset(0.0F, 23.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.BODY, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.RIGHT_ARM, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.LEFT_ARM, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.RIGHT_LEG, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.LEFT_LEG, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return LayerDefinition.create(modelData, 64, 64);
     }
 }

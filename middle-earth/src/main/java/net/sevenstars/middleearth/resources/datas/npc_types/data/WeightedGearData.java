@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.sevenstars.api.dtos.WeightedItem;
 import net.sevenstars.middleearth.MiddleEarth;
 
@@ -19,7 +19,7 @@ public class WeightedGearData extends WeightedItem<HashMap<EquipmentSlot, GearSl
         return new WeightedGearData();
     }
 
-    public WeightedGearData(NbtCompound gearNbt) {
+    public WeightedGearData(CompoundTag gearNbt) {
         this.item = new HashMap<>();
 
         addSlot(gearNbt, EquipmentSlot.HEAD);
@@ -30,10 +30,10 @@ public class WeightedGearData extends WeightedItem<HashMap<EquipmentSlot, GearSl
         addSlot(gearNbt, EquipmentSlot.OFFHAND);
     }
 
-    private void addSlot(NbtCompound gearNbt, EquipmentSlot equipmentSlot) {
-        if(gearNbt.get(equipmentSlot.asString().toLowerCase()) != null){
-            if(gearNbt.get(equipmentSlot.asString().toLowerCase()) != null){
-                NbtElement element = gearNbt.get(equipmentSlot.asString());
+    private void addSlot(CompoundTag gearNbt, EquipmentSlot equipmentSlot) {
+        if(gearNbt.get(equipmentSlot.getSerializedName().toLowerCase()) != null){
+            if(gearNbt.get(equipmentSlot.getSerializedName().toLowerCase()) != null){
+                Tag element = gearNbt.get(equipmentSlot.getSerializedName());
                 this.item.put(equipmentSlot, GearSlotPool.readNbt(element));
             }
         }
@@ -61,13 +61,13 @@ public class WeightedGearData extends WeightedItem<HashMap<EquipmentSlot, GearSl
     }
 
     @Override
-    public NbtElement getNbt(){
-        NbtElement nbt = super.getNbt();
+    public Tag getNbt(){
+        Tag nbt = super.getNbt();
         if(nbt == null)
-            nbt = new NbtCompound();
+            nbt = new CompoundTag();
 
         for(EquipmentSlot slot : item.keySet()){
-            nbt.asCompound().get().put(slot.getName().toLowerCase(), GearSlotPool.createNbt(item.get(slot)));
+            ((CompoundTag) nbt).put(slot.getName().toLowerCase(), GearSlotPool.createNbt(item.get(slot)));
         }
         return nbt;
     }
@@ -78,7 +78,7 @@ public class WeightedGearData extends WeightedItem<HashMap<EquipmentSlot, GearSl
         return this;
     }
 
-    public static WeightedGearData readNbt(NbtCompound nbt){
+    public static WeightedGearData readNbt(CompoundTag nbt){
         return new WeightedGearData(nbt);
     }
 }

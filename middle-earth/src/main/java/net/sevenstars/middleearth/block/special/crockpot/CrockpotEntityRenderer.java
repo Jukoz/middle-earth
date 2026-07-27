@@ -1,67 +1,63 @@
 package net.sevenstars.middleearth.block.special.crockpot;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 
-@Environment(value= EnvType.CLIENT)
 public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlockEntity> {
     private static final float SIZE_FACTOR = 0.25f;
-    private static SpriteIdentifier waterSpriteId = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.ofVanilla("block/water_still"));
+    private static Material waterSpriteId = new Material(TextureAtlas.LOCATION_BLOCKS, ResourceLocation.withDefaultNamespace("block/water_still"));
 
-    public CrockpotEntityRenderer(BlockEntityRendererFactory.Context context) {
+    public CrockpotEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override
-    public void render(CrockpotBlockEntity entity, float tickProgress, MatrixStack matrices,
-                       VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
+    public void render(CrockpotBlockEntity entity, float tickProgress, PoseStack matrices,
+                       MultiBufferSource vertexConsumers, int light, int overlay) {
         int color = 4161734;
         int red = color >> 16 & 255;
         int green = color >> 8 & 255;
         int blue = color & 255;
 
-        matrices.push();
+        matrices.pushPose();
         if(entity.hasOutput()) {
             float liquidTopLevel = entity.getLiquidTopLevel();
             matrices.translate(0, liquidTopLevel, 0); // 0.0625 per pixel
 
-            VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucentMovingBlock());
+            VertexConsumer consumer = vertexConsumers.getBuffer(RenderType.translucentMovingBlock());
             //matrices.peek();
 
-            Sprite waterSprite = waterSpriteId.getSprite();
+            TextureAtlasSprite waterSprite = waterSpriteId.sprite();
 
-            MatrixStack.Entry entry = matrices.peek();
+            PoseStack.Pose entry = matrices.last();
 
-            float minU = waterSprite.getMinU();
-            float minV = waterSprite.getMinV();
-            float maxU = waterSprite.getMaxU();
-            float maxV = waterSprite.getMaxV();
+            float minU = waterSprite.getU0();
+            float minV = waterSprite.getV0();
+            float maxU = waterSprite.getU1();
+            float maxV = waterSprite.getV1();
 
             float tempMin = minU;
-            minU = MathHelper.lerp(SIZE_FACTOR, minU, maxU);
-            maxU = MathHelper.lerp(1 - SIZE_FACTOR, tempMin, maxU);
+            minU = Mth.lerp(SIZE_FACTOR, minU, maxU);
+            maxU = Mth.lerp(1 - SIZE_FACTOR, tempMin, maxU);
             tempMin = minV;
-            minV = MathHelper.lerp(SIZE_FACTOR, minV, maxV);
-            maxV = MathHelper.lerp(1 - SIZE_FACTOR, tempMin, maxV);
+            minV = Mth.lerp(SIZE_FACTOR, minV, maxV);
+            maxV = Mth.lerp(1 - SIZE_FACTOR, tempMin, maxV);
 
-            consumer.vertex(entry, SIZE_FACTOR, 0, SIZE_FACTOR)               .color(50, 80, 240, 190).texture(minU, minV).light(light).overlay(overlay).normal(1, 1, 1);
-            consumer.vertex(entry, SIZE_FACTOR, 0, 1 - SIZE_FACTOR)  .color(50, 80, 190, 190).texture(minU, maxV).light(light).overlay(overlay).normal(1, 1, 1);
-            consumer.vertex(entry, 1 - SIZE_FACTOR, 0, 1 - SIZE_FACTOR)        .color(50, 80, 240, 190).texture(maxU, maxV).light(light).overlay(overlay).normal(1, 1, 1);
-            consumer.vertex(entry, 1 - SIZE_FACTOR, 0, SIZE_FACTOR)               .color(50, 80, 240, 190).texture(maxU, minV).light(light).overlay(overlay).normal(1, 1, 1);
+            consumer.addVertex(entry, SIZE_FACTOR, 0, SIZE_FACTOR)               .setColor(50, 80, 240, 190).setUv(minU, minV).setLight(light).setOverlay(overlay).setNormal(1, 1, 1);
+            consumer.addVertex(entry, SIZE_FACTOR, 0, 1 - SIZE_FACTOR)  .setColor(50, 80, 190, 190).setUv(minU, maxV).setLight(light).setOverlay(overlay).setNormal(1, 1, 1);
+            consumer.addVertex(entry, 1 - SIZE_FACTOR, 0, 1 - SIZE_FACTOR)        .setColor(50, 80, 240, 190).setUv(maxU, maxV).setLight(light).setOverlay(overlay).setNormal(1, 1, 1);
+            consumer.addVertex(entry, 1 - SIZE_FACTOR, 0, SIZE_FACTOR)               .setColor(50, 80, 240, 190).setUv(maxU, minV).setLight(light).setOverlay(overlay).setNormal(1, 1, 1);
         }
 
-        matrices.pop();
+        matrices.popPose();
     }
 }

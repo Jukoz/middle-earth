@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Items;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
@@ -24,7 +23,7 @@ import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemDat
 import java.util.List;
 
 public class ShireNpcTypePool {
-    private final static RegistryKey<Faction> FACTION = FactionRegistry.SHIRE;
+    private final static ResourceKey<Faction> FACTION = FactionRegistry.SHIRE;
 
     private final static int DARK_BEIGE = 0xa89371;
     private final static int DARK_GREEN = 0x336339;
@@ -44,7 +43,7 @@ public class ShireNpcTypePool {
     }
 
     static {
-        PEASANT = new NpcType(NpcRegistry.SHIRE_PEASANT.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_PEASANT, List.of(
+        PEASANT = new NpcType(NpcRegistry.SHIRE_PEASANT.location(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_PEASANT, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
@@ -53,7 +52,7 @@ public class ShireNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
-        MILITIA = new NpcType(NpcRegistry.SHIRE_MILITIA.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
+        MILITIA = new NpcType(NpcRegistry.SHIRE_MILITIA.location(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
@@ -80,7 +79,7 @@ public class ShireNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
-        SHIRRIFF = new NpcType(NpcRegistry.SHIRE_SHIRRIFF.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_SHIRRIFF, List.of(
+        SHIRRIFF = new NpcType(NpcRegistry.SHIRE_SHIRRIFF.location(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_SHIRRIFF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.SHIRRIFF_HAT)))
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()

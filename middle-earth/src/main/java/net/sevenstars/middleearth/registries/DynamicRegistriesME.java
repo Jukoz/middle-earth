@@ -1,16 +1,13 @@
 package net.sevenstars.middleearth.registries;
 
 import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryFixedCodec;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.resources.ResourceKey;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.datageneration.providers.dynamic.GreatHornVariantsProvider;
-import net.sevenstars.middleearth.datageneration.providers.dynamic.*;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariant;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
@@ -31,71 +28,60 @@ import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextu
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRegistries {
-    public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.of("race"));
-    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(MiddleEarth.of("faction"));
-    public static final RegistryKey<Registry<NpcType>> NPC_TYPE = RegistryKey.ofRegistry(MiddleEarth.of("npc_type"));
-    public static final Codec<RegistryEntry<NpcType>> NPC_TYPE_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.NPC_TYPE);
-    public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.of("structure_manager_data"));
-    public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("biome_event"));
-    public static final RegistryKey<Registry<BiomeEventData>> STRUCTURE_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("structure_event"));
+    public static final ResourceKey<Registry<Race>> RACE = ResourceKey.createRegistryKey(MiddleEarth.of("race"));
+    public static final ResourceKey<Registry<Faction>> FACTION = ResourceKey.createRegistryKey(MiddleEarth.of("faction"));
+    public static final ResourceKey<Registry<NpcType>> NPC_TYPE = ResourceKey.createRegistryKey(MiddleEarth.of("npc_type"));
+    public static final Codec<Holder<NpcType>> NPC_TYPE_CODEC = RegistryFixedCodec.create(DynamicRegistriesME.NPC_TYPE);
+    public static final ResourceKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = ResourceKey.createRegistryKey(MiddleEarth.of("structure_manager_data"));
+    public static final ResourceKey<Registry<BiomeEventData>> BIOME_EVENT = ResourceKey.createRegistryKey(MiddleEarth.of("biome_event"));
+    public static final ResourceKey<Registry<BiomeEventData>> STRUCTURE_EVENT = ResourceKey.createRegistryKey(MiddleEarth.of("structure_event"));
 
-    public static final RegistryKey<Registry<TexturePresetDataPool>> TEXTURE_PRESETS = RegistryKey.ofRegistry(MiddleEarth.of( "texture_presets"));
+    public static final ResourceKey<Registry<TexturePresetDataPool>> TEXTURE_PRESETS = ResourceKey.createRegistryKey(MiddleEarth.of( "texture_presets"));
 
-    public static final RegistryKey<Registry<CharacterTextureMaterial>> SKIN_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("skin_material"));
-    public static final RegistryKey<Registry<CharacterTextureMaterial>> EYE_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("eye_material"));
-    public static final RegistryKey<Registry<CharacterTextureMaterial>> HAIR_MATERIAL = RegistryKey.ofRegistry(MiddleEarth.of("hair_material"));
+    public static final ResourceKey<Registry<CharacterTextureMaterial>> SKIN_MATERIAL = ResourceKey.createRegistryKey(MiddleEarth.of("skin_material"));
+    public static final ResourceKey<Registry<CharacterTextureMaterial>> EYE_MATERIAL = ResourceKey.createRegistryKey(MiddleEarth.of("eye_material"));
+    public static final ResourceKey<Registry<CharacterTextureMaterial>> HAIR_MATERIAL = ResourceKey.createRegistryKey(MiddleEarth.of("hair_material"));
 
-    public static final RegistryKey<Registry<CharacterTexturePattern>> SKIN_PATTERN = RegistryKey.ofRegistry(MiddleEarth.of("skin_pattern"));
-    public static final RegistryKey<Registry<CharacterTexturePattern>> EYE_PATTERN = RegistryKey.ofRegistry(MiddleEarth.of("eye_pattern"));
-    public static final RegistryKey<Registry<CharacterTexturePattern>> HAIR_PATTERN = RegistryKey.ofRegistry(MiddleEarth.of("hair_pattern"));
+    public static final ResourceKey<Registry<CharacterTexturePattern>> SKIN_PATTERN = ResourceKey.createRegistryKey(MiddleEarth.of("skin_pattern"));
+    public static final ResourceKey<Registry<CharacterTexturePattern>> EYE_PATTERN = ResourceKey.createRegistryKey(MiddleEarth.of("eye_pattern"));
+    public static final ResourceKey<Registry<CharacterTexturePattern>> HAIR_PATTERN = ResourceKey.createRegistryKey(MiddleEarth.of("hair_pattern"));
 
-    public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.of("spider_variants"));
-    public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.of("great_horn_variants"));
+    public static final ResourceKey<Registry<SpiderVariant>> SPIDER_VARIANTS = ResourceKey.createRegistryKey(MiddleEarth.of("spider_variants"));
+    public static final ResourceKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = ResourceKey.createRegistryKey(MiddleEarth.of("great_horn_variants"));
 
-    public static void register() {
+    public static void register(DataPackRegistryEvent.NewRegistry event) {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
-        DynamicRegistries.registerSynced(RACE, Race.CODEC);
-        DynamicRegistries.registerSynced(NPC_TYPE, NpcType.CODEC);
-        DynamicRegistries.registerSynced(FACTION, Faction.CODEC);
-        DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
-        DynamicRegistries.registerSynced(STRUCTURE_EVENT, BiomeEventData.CODEC);
-        DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
-        DynamicRegistries.registerSynced(TEXTURE_PRESETS, TexturePresetDataPool.CODEC);
+        event.dataPackRegistry(RACE, Race.CODEC, Race.CODEC);
+        event.dataPackRegistry(NPC_TYPE, NpcType.CODEC, NpcType.CODEC);
+        event.dataPackRegistry(FACTION, Faction.CODEC, Faction.CODEC);
+        event.dataPackRegistry(BIOME_EVENT, BiomeEventData.CODEC, BiomeEventData.CODEC);
+        event.dataPackRegistry(STRUCTURE_EVENT, BiomeEventData.CODEC, BiomeEventData.CODEC);
+        event.dataPackRegistry(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC, StructureManagerData.CODEC);
+        event.dataPackRegistry(TEXTURE_PRESETS, TexturePresetDataPool.CODEC, TexturePresetDataPool.CODEC);
 
-        DynamicRegistries.registerSynced(SKIN_PATTERN, CharacterTexturePattern.CODEC);
-        DynamicRegistries.registerSynced(EYE_PATTERN, CharacterTexturePattern.CODEC);
-        DynamicRegistries.registerSynced(HAIR_PATTERN, CharacterTexturePattern.CODEC);
+        event.dataPackRegistry(SKIN_PATTERN, CharacterTexturePattern.CODEC, CharacterTexturePattern.CODEC);
+        event.dataPackRegistry(EYE_PATTERN, CharacterTexturePattern.CODEC, CharacterTexturePattern.CODEC);
+        event.dataPackRegistry(HAIR_PATTERN, CharacterTexturePattern.CODEC, CharacterTexturePattern.CODEC);
 
-        DynamicRegistries.registerSynced(SKIN_MATERIAL, CharacterTextureMaterial.CODEC);
-        DynamicRegistries.registerSynced(EYE_MATERIAL, CharacterTextureMaterial.CODEC);
-        DynamicRegistries.registerSynced(HAIR_MATERIAL, CharacterTextureMaterial.CODEC);
+        event.dataPackRegistry(SKIN_MATERIAL, CharacterTextureMaterial.CODEC, CharacterTextureMaterial.CODEC);
+        event.dataPackRegistry(EYE_MATERIAL, CharacterTextureMaterial.CODEC, CharacterTextureMaterial.CODEC);
+        event.dataPackRegistry(HAIR_MATERIAL, CharacterTextureMaterial.CODEC, CharacterTextureMaterial.CODEC);
 
-        DynamicRegistries.registerSynced(SPIDER_VARIANTS, SpiderVariant.CODEC);
-        DynamicRegistries.registerSynced(GREAT_HORN_VARIANTS, GreatHornVariant.CODEC);
+        event.dataPackRegistry(SPIDER_VARIANTS, SpiderVariant.CODEC, SpiderVariant.CODEC);
+        event.dataPackRegistry(GREAT_HORN_VARIANTS, GreatHornVariant.CODEC, GreatHornVariant.CODEC);
     }
 
-    public static void prepareBoostrap(RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RACE, RaceRegistry::bootstrap);
-        registryBuilder.addRegistry(NPC_TYPE, NpcRegistry::bootstrap);
-        registryBuilder.addRegistry(FACTION, FactionRegistry::bootstrap);
-        registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
-        registryBuilder.addRegistry(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
-        registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
-        registryBuilder.addRegistry(TEXTURE_PRESETS, TexturePresetsRegistry::bootstrap);
+    public static void prepareBoostrap(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(RACE, RaceRegistry::bootstrap);
+        registryBuilder.add(NPC_TYPE, NpcRegistry::bootstrap);
+        registryBuilder.add(FACTION, FactionRegistry::bootstrap);
+        registryBuilder.add(BIOME_EVENT, BiomeEventRegistry::bootstrap);
+        registryBuilder.add(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
+        registryBuilder.add(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
+        registryBuilder.add(TEXTURE_PRESETS, TexturePresetsRegistry::bootstrap);
 
-        registryBuilder.addRegistry(SPIDER_VARIANTS, SpiderVariantRegistry::bootstrap);
-        registryBuilder.addRegistry(GREAT_HORN_VARIANTS, GreatHornVariantRegistry::bootstrap);
+        registryBuilder.add(SPIDER_VARIANTS, SpiderVariantRegistry::bootstrap);
+        registryBuilder.add(GREAT_HORN_VARIANTS, GreatHornVariantRegistry::bootstrap);
     }
 
-    public static void addProviders(FabricDataGenerator.Pack pack) {
-        pack.addProvider(SpiderVariantsProvider::new);
-        pack.addProvider(RaceProvider::new);
-        pack.addProvider(TexturePresetsProvider::new);
-        pack.addProvider(NpcProvider::new);
-        pack.addProvider(FactionProvider::new);
-        pack.addProvider(StructureDataProvider::new);
-        pack.addProvider(BiomeEventProvider::new);
-        pack.addProvider(StructureEventProvider::new);
-        pack.addProvider(GreatHornVariantsProvider::new);
-    }
 }

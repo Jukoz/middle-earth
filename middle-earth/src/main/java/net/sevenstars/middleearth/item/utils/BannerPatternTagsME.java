@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.item.utils;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.entity.BannerPattern;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 
 public class BannerPatternTagsME {
     public static final TagKey<BannerPattern> GONDOR_PATTERN_ITEM = of("gondor");
@@ -32,6 +32,6 @@ public class BannerPatternTagsME {
     public static final TagKey<BannerPattern> OAK_LEAF_PATTERN_ITEM = of("oak_leaf");
 
     private static TagKey<BannerPattern> of(String name) {
-        return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "pattern_item/" + name));
+        return TagKey.create(Registries.BANNER_PATTERN, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "pattern_item/" + name));
     }
 }

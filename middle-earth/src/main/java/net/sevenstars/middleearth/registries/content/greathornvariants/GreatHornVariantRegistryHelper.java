@@ -1,13 +1,5 @@
 package net.sevenstars.middleearth.registries.content.greathornvariants;
 
-import net.minecraft.entity.spawn.BiomeSpawnCondition;
-import net.minecraft.entity.spawn.SpawnConditionSelectors;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.AssetInfo;
-import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariant;
 
@@ -17,14 +9,6 @@ public class GreatHornVariantRegistryHelper {
 
     public static GreatHornVariant.GreatHornAssetInfo createAssetInfos(String textureName){
         return new GreatHornVariant.GreatHornAssetInfo(
-                new AssetInfo(MiddleEarth.of(TEXTURE_PATH + textureName + ENTITY_NAME)));
-    }
-
-    public static SpawnConditionSelectors createSpawnConditions(Registerable<GreatHornVariant> registry, TagKey<Biome> biomeTag, int priority) {
-        return createSpawnConditions(registry.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(biomeTag), priority);
-    }
-
-    public static SpawnConditionSelectors createSpawnConditions(RegistryEntryList<Biome> requiredBiomes, int priority) {
-        return SpawnConditionSelectors.createSingle(new BiomeSpawnCondition(requiredBiomes), priority);
+                MiddleEarth.of(TEXTURE_PATH + textureName + ENTITY_NAME));
     }
 }

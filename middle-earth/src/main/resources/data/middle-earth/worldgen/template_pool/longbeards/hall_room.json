@@ -12,7 +12,7 @@
         "override_liquid_settings": "ignore_waterlogging"
       }
     },
-	{
+    {
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -22,7 +22,7 @@
         "override_liquid_settings": "ignore_waterlogging"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -32,7 +32,7 @@
         "override_liquid_settings": "ignore_waterlogging"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -42,7 +42,7 @@
         "override_liquid_settings": "ignore_waterlogging"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -52,7 +52,7 @@
         "override_liquid_settings": "ignore_waterlogging"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",

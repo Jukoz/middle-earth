@@ -2,13 +2,12 @@ package net.sevenstars.middleearth.world.features.chain;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.gen.feature.FeatureConfig;
-
 import java.util.List;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class ChainFeatureConfig implements FeatureConfig {
+public class ChainFeatureConfig implements FeatureConfiguration {
     public static final Codec<ChainFeatureConfig> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     Codec.INT.fieldOf("max_length").forGetter(config ->config.maxLength),

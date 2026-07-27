@@ -1,23 +1,26 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
+import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
+import net.sevenstars.middleearth.network.handlers.ServerPacketGuards;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
 public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
-    public static final Id<ForgeOutputPacket> ID = new Id<>(MiddleEarth.of("forge_output_packet"));
-    public static final PacketCodec<RegistryByteBuf, ForgeOutputPacket> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, p -> p.amount,
-            PacketCodecs.DOUBLE, p -> p.x,
-            PacketCodecs.DOUBLE, p -> p.y,
-            PacketCodecs.DOUBLE, p -> p.z,
-            PacketCodecs.INTEGER, p -> p.mode,
+    public static final Type<ForgeOutputPacket> ID = new Type<>(MiddleEarth.of("forge_output_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ForgeOutputPacket> CODEC = StreamCodec.composite(
+            ByteBufCodecs.INT, p -> p.amount,
+            ByteBufCodecs.DOUBLE, p -> p.x,
+            ByteBufCodecs.DOUBLE, p -> p.y,
+            ByteBufCodecs.DOUBLE, p -> p.z,
+            ByteBufCodecs.INT, p -> p.mode,
             ForgeOutputPacket::new
     );
 
@@ -56,24 +59,44 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
     }
 
     @Override
-    public Id<ForgeOutputPacket> getId() {
+    public Type<ForgeOutputPacket> type() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, ForgeOutputPacket> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, ForgeOutputPacket> streamCodec() {
         return CODEC;
     }
 
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
-                Vec3d coordinates = new Vec3d(x, y, z);
-                ForgeBlockEntity.outputItemStack(amount, coordinates, context.player(), mode);
-            });
+            ServerPlayer player = context.player();
+            BlockPos pos = ServerPacketGuards.exactBlockPos(x, y, z);
+            if (pos == null
+                    || !(player.containerMenu instanceof ForgeAlloyingScreenHandler menu)
+                    || !menu.getPos().equals(pos)
+                    || !menu.stillValid(player)
+                    || !ServerPacketGuards.isLoadedAndNearby(player, pos)
+                    || !(player.level().getBlockEntity(pos) instanceof ForgeBlockEntity)
+                    || !isValidOutputSelection()
+                    || !ServerPacketGuards.tryAcquire(player, ID.id(), 2)) {
+                return;
+            }
+            Vec3 coordinates = new Vec3(x, y, z);
+            ForgeBlockEntity.outputItemStack(amount, coordinates, player, mode);
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketForgeOutput error: ", e);
         }
+    }
+
+    private boolean isValidOutputSelection() {
+        return switch (mode) {
+            case 1 -> amount == 16;
+            case 2 -> amount == 144;
+            case 3, 4 -> amount == 288;
+            case 5 -> amount == 432;
+            default -> false;
+        };
     }
 }

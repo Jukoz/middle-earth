@@ -1,7 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "middle-earth:raw_mithril_block"
+    {
+      "item": "middle-earth:raw_mithril_block"
+    }
   ],
   "result": {
     "id": "middle-earth:raw_mithril",

@@ -1,0 +1,20 @@
+{
+    "parent":  "minecraft:item/handheld",
+    "textures":  {
+                     "layer0":  "middle-earth:item/morgul_knife"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "broken":  1
+                                        },
+                          "model":  "middle-earth:item/morgul_knife_broken"
+                      },
+                      {
+                          "predicate":  {
+                                            "middle-earth:sneak_attack":  1
+                                        },
+                          "model":  "middle-earth:item/morgul_knife_strike"
+                      }
+                  ]
+}

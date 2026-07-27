@@ -1,22 +1,20 @@
 package net.sevenstars.middleearth.datageneration.custom;
 
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementCriterion;
-import net.minecraft.advancement.AdvancementRequirements;
-import net.minecraft.advancement.AdvancementRewards;
-import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
@@ -24,20 +22,20 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
+public class InscriptionRecipeJsonBuilder implements RecipeBuilder {
 
     private final RecipeCategory category;
-    public RegistryEntry<Enchantment> enchant;
+    public Holder<Enchantment> enchant;
     public int level;
     private List<String> inputWords;
     private Ingredient chiselInput;
     private int levelCost;
-    private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
+    private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private String group;
 
-    private final RegistryEntryLookup<Item> registryLookup;
+    private final HolderGetter<Item> registryLookup;
 
-    public InscriptionRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, int levelCost) {
+    public InscriptionRecipeJsonBuilder(HolderGetter<Item> registryLookup, RecipeCategory category, Holder<Enchantment> enchant, int level, int levelCost) {
         this.registryLookup = registryLookup;
         this.category = category;
         this.enchant = enchant;
@@ -49,33 +47,33 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     }
 
     public InscriptionRecipeJsonBuilder chisel(TagKey<Item> tag) {
-        this.chiselInput = Ingredient.ofTag(this.registryLookup.getOrThrow(tag));
+        this.chiselInput = Ingredient.of(tag);
         return this;
     }
 
     @Override
-    public CraftingRecipeJsonBuilder group(@Nullable String group) {
+    public RecipeBuilder group(@Nullable String group) {
         this.group = group;
         return this;
     }
 
     @Override
-    public Item getOutputItem() {
+    public Item getResult() {
         return ToolItemsME.MITHRIL_CHISEL;
     }
 
     @Override
-    public void offerTo(RecipeExporter exporter, RegistryKey<Recipe<?>> recipeKey) {
-        this.validate(recipeKey);
-        Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey)).rewards(AdvancementRewards.Builder.recipe(recipeKey)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
+    public void save(RecipeOutput exporter, ResourceLocation recipeId) {
+        this.validate(recipeId);
+        Advancement.Builder builder = exporter.advancement().addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).requirements(AdvancementRequirements.Strategy.OR);
         Objects.requireNonNull(builder);
-        this.criteria.forEach(builder::criterion);
+        this.criteria.forEach(builder::addCriterion);
         InscriptionRecipe inscriptionRecipeBuilder = new InscriptionRecipe(this.enchant, this.level, this.inputWords, this.chiselInput, this.levelCost);
-        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.ofPath( "recipes",
-                this.category.getName(), "inscription%s%s".formatted(enchant.getKey().get().getRegistry().getPath(), level))));
+        exporter.accept(recipeId, inscriptionRecipeBuilder, builder.build(MiddleEarth.ofPath( "recipes",
+                this.category.getFolderName(), "inscription%s%s".formatted(enchant.unwrapKey().get().registry().getPath(), level))));
     }
 
-    public static InscriptionRecipeJsonBuilder createInscriptionRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, RegistryEntry<Enchantment> enchant, int level, int levelCost) {
+    public static InscriptionRecipeJsonBuilder createInscriptionRecipe(HolderGetter<Item> registryLookup, RecipeCategory category, Holder<Enchantment> enchant, int level, int levelCost) {
         return new InscriptionRecipeJsonBuilder(registryLookup, category, enchant, level, levelCost);
     }
 
@@ -86,14 +84,14 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     }
 
     @Override
-    public InscriptionRecipeJsonBuilder criterion(String string, AdvancementCriterion<?> advancementCriterion) {
+    public InscriptionRecipeJsonBuilder unlockedBy(String string, Criterion<?> advancementCriterion) {
         this.criteria.put(string, advancementCriterion);
         return this;
     }
 
-    private void validate(RegistryKey<Recipe<?>> recipeKey) {
+    private void validate(ResourceLocation recipeId) {
         if (this.criteria.isEmpty()) {
-            throw new IllegalStateException("No way of obtaining recipe " + recipeKey);
+            throw new IllegalStateException("No way of obtaining recipe " + recipeId);
         }
     }
 }

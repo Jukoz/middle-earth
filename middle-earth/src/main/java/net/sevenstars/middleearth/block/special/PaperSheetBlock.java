@@ -1,117 +1,114 @@
 package net.sevenstars.middleearth.block.special;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
-
 import java.util.Objects;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PaperSheetBlock extends Block {
     private static final int MAX_PAPERS = 6;
-    public static final IntProperty PAPERS = IntProperty.of("papers", 1, MAX_PAPERS);
-    public static final EnumProperty<Direction> HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
+    public static final IntegerProperty PAPERS = IntegerProperty.create("papers", 1, MAX_PAPERS);
+    public static final EnumProperty<Direction> HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape[] SHAPES_BY_PAPERS;
 
-    public PaperSheetBlock(Settings settings) {
+    public PaperSheetBlock(Properties settings) {
         super(settings);
-        this.setDefaultState((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH).with(PAPERS, 1));
+        this.registerDefaultState((this.stateDefinition.any()).setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(PAPERS, 1));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HORIZONTAL_FACING, PAPERS);
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPES_BY_PAPERS[state.get(PAPERS) - 1];
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return SHAPES_BY_PAPERS[state.getValue(PAPERS) - 1];
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (world.isClientSide) {
+            return InteractionResult.SUCCESS;
         }  else {
-            if (player.isInCreativeMode()) {
-                world.setBlockState(pos, state.cycle(PAPERS));
+            if (player.hasInfiniteMaterials()) {
+                world.setBlockAndUpdate(pos, state.cycle(PAPERS));
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if(itemStack.getItem() == this.asItem() && state.get(PAPERS) < MAX_PAPERS) {
-            stack.decrementUnlessCreative(1, player);
-            world.setBlockState(pos, state.cycle(PAPERS));
-            return ActionResult.CONSUME;
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if(itemStack.getItem() == this.asItem() && state.getValue(PAPERS) < MAX_PAPERS) {
+            stack.consume(1, player);
+            world.setBlockAndUpdate(pos, state.cycle(PAPERS));
+            return ItemInteractionResult.CONSUME;
         }
-        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+        return super.useItemOn(stack, state, world, pos, player, hand, hit);
     }
 
     @Override
-    protected boolean canReplace(BlockState state, ItemPlacementContext context) {
-        boolean bl1 = !context.shouldCancelInteraction();
-        boolean bl2 = context.getStack().getItem() == this.asItem();
-        boolean bl3 = state.get(PAPERS) <= MAX_PAPERS;
-        return bl1 && bl2 && bl3 || super.canReplace(state, context);
+    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+        boolean bl1 = !context.isSecondaryUseActive();
+        boolean bl2 = context.getItemInHand().getItem() == this.asItem();
+        boolean bl3 = state.getValue(PAPERS) <= MAX_PAPERS;
+        return bl1 && bl2 && bl3 || super.canBeReplaced(state, context);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos());
-        if (blockState.isOf(this)) {
-            return blockState.cycle(PAPERS).with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos());
+        if (blockState.is(this)) {
+            return blockState.cycle(PAPERS).setValue(HORIZONTAL_FACING, ctx.getHorizontalDirection().getOpposite());
         } else {
-            return Objects.requireNonNull(super.getPlacementState(ctx)).with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+            return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(HORIZONTAL_FACING, ctx.getHorizontalDirection().getOpposite());
         }
     }
 
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        return direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() :
-                super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return direction == Direction.DOWN && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() :
+                super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(HORIZONTAL_FACING, rotation.rotate(state.get(HORIZONTAL_FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(HORIZONTAL_FACING, rotation.rotate(state.getValue(HORIZONTAL_FACING)));
     }
 
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(HORIZONTAL_FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(HORIZONTAL_FACING)));
     }
 
     static {
         SHAPES_BY_PAPERS = new VoxelShape[]{
-                Block.createColumnShape(8.0, 0.0, 1.0),
-                Block.createColumnShape(12.0, 0.0, 1.0),
-                Block.createColumnShape(14.0, 0.0, 1.0),
-                Block.createColumnShape(16.0, 0.0, 3.0),
-                Block.createColumnShape(16.0, 0.0, 8.0),
-                Block.createColumnShape(16.0, 0.0, 12.0),
+                Block.box(4, 0, 4, 12, 1, 12),
+                Block.box(2, 0, 2, 14, 1, 14),
+                Block.box(1, 0, 1, 15, 1, 15),
+                Block.box(0, 0, 0, 16, 3, 16),
+                Block.box(0, 0, 0, 16, 8, 16),
+                Block.box(0, 0, 0, 16, 12, 16),
         };
     }
 }

@@ -3,5 +3,7 @@
   "description": {
     "color": "#D9DFE7",
     "translate": "trim_material.middle-earth.mithril"
-  }
+  },
+  "ingredient": "middle-earth:mithril_ingot",
+  "item_model_index": 0.012
 }

@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.recipe.inscription;
 
 import com.google.common.collect.ArrayListMultimap;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
 public class InscriptionWordBank {

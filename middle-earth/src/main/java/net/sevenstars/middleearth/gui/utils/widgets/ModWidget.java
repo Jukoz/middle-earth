@@ -1,16 +1,16 @@
 package net.sevenstars.middleearth.gui.utils.widgets;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
 
 public abstract class ModWidget {
     protected static final int MARGIN = 4;
     private static int mouseX = 0;
     private static int mouseY = 0;
     private static boolean focusedEnabled = false;
-    protected final MinecraftClient client;
+    protected final Minecraft client;
     public ModWidget(){
-        client = MinecraftClient.getInstance();
+        client = Minecraft.getInstance();
     }
     public static void updateMouse(int mouseX, int mouseY){
         ModWidget.mouseX = mouseX;
@@ -30,7 +30,7 @@ public abstract class ModWidget {
                 && mouseY >= startY && mouseY <= startY + sizeY;
     }
 
-    public static boolean isMouseOver(ButtonWidget widget) {
+    public static boolean isMouseOver(Button widget) {
         return isMouseOver(widget.getWidth(), widget.getHeight(), widget.getX(), widget.getY());
     }
 

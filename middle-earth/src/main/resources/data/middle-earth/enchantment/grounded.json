@@ -11,7 +11,7 @@
           "base": 0.025,
           "per_level_above_first": 0.025
         },
-        "attribute": "minecraft:knockback_resistance",
+        "attribute": "minecraft:generic.knockback_resistance",
         "id": "middle-earth:enchantment.grounded",
         "operation": "add_value"
       }

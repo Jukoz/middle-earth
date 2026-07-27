@@ -1,23 +1,23 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.phys.AABB;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.GameRules;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.List;
 
-public class BeastRevengeGoal extends TrackTargetGoal {
-    private static final TargetPredicate VALID_AVOIDABLES_PREDICATE = TargetPredicate.createAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
+public class BeastRevengeGoal extends TargetGoal {
+    private static final TargetingConditions VALID_AVOIDABLES_PREDICATE = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
     private static final int BOX_VERTICAL_EXPANSION = 10;
     private boolean groupRevenge;
     private int lastAttackedTime;
@@ -28,27 +28,27 @@ public class BeastRevengeGoal extends TrackTargetGoal {
     public BeastRevengeGoal(AbstractBeastEntity mob, Class<?> ... noRevengeTypes) {
         super(mob, true);
         this.noRevengeTypes = noRevengeTypes;
-        this.setControls(EnumSet.of(Control.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
 
     @Override
-    public boolean canStart() {
-        int i = this.mob.getLastAttackedTime();
-        LivingEntity livingEntity = this.mob.getAttacker();
+    public boolean canUse() {
+        int i = this.mob.getLastHurtByMobTimestamp();
+        LivingEntity livingEntity = this.mob.getLastHurtByMob();
         if (i == this.lastAttackedTime || livingEntity == null) {
             return false;
         }
-        if (this.mob.getWorld() instanceof ServerWorld serverWorld && livingEntity.getType() == EntityType.PLAYER && serverWorld.getGameRules().getBoolean(GameRules.UNIVERSAL_ANGER)) {
+        if (this.mob.level() instanceof ServerLevel serverWorld && livingEntity.getType() == EntityType.PLAYER && serverWorld.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
             return false;
         }
-        if (((AbstractBeastEntity)this.mob).isTame()) {
+        if (((AbstractBeastEntity)this.mob).isTamed()) {
             return false;
         }
         for (Class<?> class_ : this.noRevengeTypes) {
             if (!class_.isAssignableFrom(livingEntity.getClass())) continue;
             return false;
         }
-        return this.canTrack(livingEntity, VALID_AVOIDABLES_PREDICATE);
+        return this.canAttack(livingEntity, VALID_AVOIDABLES_PREDICATE);
     }
 
     public BeastRevengeGoal setGroupRevenge(Class<?> ... noHelpTypes) {
@@ -59,10 +59,10 @@ public class BeastRevengeGoal extends TrackTargetGoal {
 
     @Override
     public void start() {
-        this.mob.setTarget(this.mob.getAttacker());
-        this.target = this.mob.getTarget();
-        this.lastAttackedTime = this.mob.getLastAttackedTime();
-        this.maxTimeWithoutVisibility = 300;
+        this.mob.setTarget(this.mob.getLastHurtByMob());
+        this.targetMob = this.mob.getTarget();
+        this.lastAttackedTime = this.mob.getLastHurtByMobTimestamp();
+        this.unseenMemoryTicks = 300;
         if (this.groupRevenge) {
             this.callSameTypeForRevenge();
         }
@@ -70,11 +70,11 @@ public class BeastRevengeGoal extends TrackTargetGoal {
     }
 
     protected void callSameTypeForRevenge() {
-        double d = this.getFollowRange();
-        Box box = Box.from(this.mob.getPos()).expand(d, 10.0, d);
-        List<MobEntity> list = (List<MobEntity>)this.mob.getWorld().getEntitiesByClass(this.mob.getClass(), box, EntityPredicates.EXCEPT_SPECTATOR);
-        for (MobEntity mobEntity : list) {
-            if (this.mob == mobEntity || mobEntity.getTarget() != null || this.mob instanceof TameableEntity && ((TameableEntity)this.mob).getOwner() != ((TameableEntity)mobEntity).getOwner() || mobEntity.isTeammate(this.mob.getAttacker())) continue;
+        double d = this.getFollowDistance();
+        AABB box = AABB.unitCubeFromLowerCorner(this.mob.position()).inflate(d, 10.0, d);
+        List<Mob> list = (List<Mob>)this.mob.level().getEntitiesOfClass(this.mob.getClass(), box, EntitySelector.NO_SPECTATORS);
+        for (Mob mobEntity : list) {
+            if (this.mob == mobEntity || mobEntity.getTarget() != null || this.mob instanceof TamableAnimal && ((TamableAnimal)this.mob).getOwner() != ((TamableAnimal)mobEntity).getOwner() || mobEntity.isAlliedTo(this.mob.getLastHurtByMob())) continue;
             if (this.noHelpTypes != null) {
                 boolean bl = false;
                 for (Class<?> class_ : this.noHelpTypes) {
@@ -84,11 +84,11 @@ public class BeastRevengeGoal extends TrackTargetGoal {
                 }
                 if (bl) continue;
             }
-            this.setMobEntityTarget(mobEntity, this.mob.getAttacker());
+            this.setMobEntityTarget(mobEntity, this.mob.getLastHurtByMob());
         }
     }
 
-    protected void setMobEntityTarget(MobEntity mob, LivingEntity target) {
+    protected void setMobEntityTarget(Mob mob, LivingEntity target) {
         mob.setTarget(target);
     }
 }

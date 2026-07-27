@@ -3,18 +3,20 @@ package net.sevenstars.middleearth.world.features.tree.roots;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.gen.root.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.world.level.levelgen.feature.rootplacers.*;
+import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement;
+import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
+import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.sevenstars.middleearth.world.features.tree.ModRootPlacerType;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Direction.Type;
-import net.minecraft.util.math.intprovider.IntProvider;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.TestableWorld;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +27,7 @@ public class MirkwoodRootPlacer extends RootPlacer {
     public static final int field_38770 = 15;
 
     public static final MapCodec<MirkwoodRootPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return createCodecParts(instance).and(MirkwoodRootPlacement.CODEC.fieldOf("mirkwood_root_placement").forGetter((rootPlacer) -> {
+        return rootPlacerParts(instance).and(MirkwoodRootPlacement.CODEC.fieldOf("mirkwood_root_placement").forGetter((rootPlacer) -> {
             return rootPlacer.mirkwoodRootPlacement;
         })).apply(instance, MirkwoodRootPlacer::new);
     });
@@ -37,44 +39,44 @@ public class MirkwoodRootPlacer extends RootPlacer {
         this.mirkwoodRootPlacement = mirkwoodRootPlacement;
     }
 
-    public boolean generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos pos, BlockPos trunkPos, TreeFeatureConfig config) {
+    public boolean placeRoots(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos pos, BlockPos trunkPos, TreeConfiguration config) {
         List<BlockPos> list = Lists.newArrayList();
-        BlockPos.Mutable mutable = pos.mutableCopy();
+        BlockPos.MutableBlockPos mutable = pos.mutable();
 
         while(mutable.getY() < trunkPos.getY()) {
-            if (!this.canGrowThrough(world, mutable)) {
+            if (!this.canPlaceRoot(world, mutable)) {
                 return false;
             }
 
             mutable.move(Direction.UP);
         }
 
-        list.add(trunkPos.down());
-        Iterator var9 = Type.HORIZONTAL.iterator();
+        list.add(trunkPos.below());
+        Iterator var9 = Plane.HORIZONTAL.iterator();
 
         while(var9.hasNext()) {
             Direction direction = (Direction)var9.next();
-            BlockPos blockPos = trunkPos.offset(direction);
+            BlockPos blockPos = trunkPos.relative(direction);
             List<BlockPos> list2 = Lists.newArrayList();
             if (!this.canGrow(world, random, blockPos, direction, trunkPos, list2, 0)) {
                 return false;
             }
 
             list.addAll(list2);
-            list.add(trunkPos.offset(direction));
+            list.add(trunkPos.relative(direction));
         }
 
         var9 = list.iterator();
 
         while(var9.hasNext()) {
             BlockPos blockPos2 = (BlockPos)var9.next();
-            this.placeRoots(world, replacer, random, blockPos2, config);
+            this.placeRoot(world, replacer, random, blockPos2, config);
         }
 
         return true;
     }
 
-    private boolean canGrow(TestableWorld world, Random random, BlockPos pos, Direction direction, BlockPos origin, List<BlockPos> offshootPositions, int rootLength) {
+    private boolean canGrow(LevelSimulatedReader world, RandomSource random, BlockPos pos, Direction direction, BlockPos origin, List<BlockPos> offshootPositions, int rootLength) {
         int i = this.mirkwoodRootPlacement.maxRootLength();
         if (rootLength != i && offshootPositions.size() <= i) {
             List<BlockPos> list = this.getOffshootPositions(pos, direction, random, origin);
@@ -82,7 +84,7 @@ public class MirkwoodRootPlacer extends RootPlacer {
 
             while(var10.hasNext()) {
                 BlockPos blockPos = (BlockPos)var10.next();
-                if (this.canGrowThrough(world, blockPos)) {
+                if (this.canPlaceRoot(world, blockPos)) {
                     offshootPositions.add(blockPos);
                     if (!this.canGrow(world, random, blockPos, direction, origin, offshootPositions, rootLength + 1)) {
                         return false;
@@ -96,14 +98,14 @@ public class MirkwoodRootPlacer extends RootPlacer {
         }
     }
 
-    protected List<BlockPos> getOffshootPositions(BlockPos pos, Direction direction, Random random, BlockPos origin) {
-        BlockPos blockPos = pos.down();
-        BlockPos blockPos2 = pos.offset(direction);
-        int i = pos.getManhattanDistance(origin);
+    protected List<BlockPos> getOffshootPositions(BlockPos pos, Direction direction, RandomSource random, BlockPos origin) {
+        BlockPos blockPos = pos.below();
+        BlockPos blockPos2 = pos.relative(direction);
+        int i = pos.distManhattan(origin);
         int j = this.mirkwoodRootPlacement.maxRootWidth();
         float f = this.mirkwoodRootPlacement.randomSkewChance();
         if (i > j - 3 && i <= j) {
-            return random.nextFloat() < f ? List.of(blockPos, blockPos2.down()) : List.of(blockPos);
+            return random.nextFloat() < f ? List.of(blockPos, blockPos2.below()) : List.of(blockPos);
         } else if (i > j) {
             return List.of(blockPos);
         } else if (random.nextFloat() < f) {
@@ -113,25 +115,25 @@ public class MirkwoodRootPlacer extends RootPlacer {
         }
     }
 
-    protected boolean canGrowThrough(TestableWorld world, BlockPos pos) {
-        return super.canGrowThrough(world, pos) || world.testBlockState(pos, (state) -> {
-            return state.isIn(this.mirkwoodRootPlacement.canGrowThrough());
+    protected boolean canPlaceRoot(LevelSimulatedReader world, BlockPos pos) {
+        return super.canPlaceRoot(world, pos) || world.isStateAtPosition(pos, (state) -> {
+            return state.is(this.mirkwoodRootPlacement.canGrowThrough());
         });
     }
 
-    protected void placeRoots(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos pos, TreeFeatureConfig config) {
-        if (world.testBlockState(pos, (state) -> {
-            return state.isIn(this.mirkwoodRootPlacement.muddyRootsIn());
+    protected void placeRoot(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, BlockPos pos, TreeConfiguration config) {
+        if (world.isStateAtPosition(pos, (state) -> {
+            return state.is(this.mirkwoodRootPlacement.muddyRootsIn());
         })) {
-            BlockState blockState = this.mirkwoodRootPlacement.muddyRootsProvider().get(random, pos);
-            replacer.accept(pos, this.applyWaterlogging(world, pos, blockState));
+            BlockState blockState = this.mirkwoodRootPlacement.muddyRootsProvider().getState(random, pos);
+            replacer.accept(pos, this.getPotentiallyWaterloggedState(world, pos, blockState));
         } else {
-            super.placeRoots(world, replacer, random, pos, config);
+            super.placeRoot(world, replacer, random, pos, config);
         }
 
     }
 
-    protected RootPlacerType<?> getType() {
+    protected RootPlacerType<?> type() {
         return ModRootPlacerType.MIRKWOOD_ROOT_PLACER;
     }
 }

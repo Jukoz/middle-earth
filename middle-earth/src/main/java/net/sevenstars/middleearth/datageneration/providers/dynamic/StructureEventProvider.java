@@ -1,24 +1,28 @@
 package net.sevenstars.middleearth.datageneration.providers.dynamic;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class StructureEventProvider extends FabricDynamicRegistryProvider {
-    public StructureEventProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
-    }
-
-    @Override
-    protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.STRUCTURE_EVENT));
+public class StructureEventProvider extends DatapackBuiltinEntriesProvider {
+    public StructureEventProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture,
+                new RegistrySetBuilder().add(
+                        DynamicRegistriesME.STRUCTURE_EVENT,
+                        BiomeEventRegistry::bootstrapStructureEvents
+                ),
+                Set.of(MiddleEarth.MOD_ID));
     }
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.STRUCTURE_EVENT.getValue().getPath();
+        return DynamicRegistriesME.STRUCTURE_EVENT.location().getPath();
     }
 }

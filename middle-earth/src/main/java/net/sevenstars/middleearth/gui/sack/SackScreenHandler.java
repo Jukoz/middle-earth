@@ -1,36 +1,36 @@
 package net.sevenstars.middleearth.gui.sack;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
-public class SackScreenHandler extends ScreenHandler {
+public class SackScreenHandler extends AbstractContainerMenu {
 	private static final int CONTAINER_SIZE = 9;
 	private static final int INVENTORY_START = 9;
 	private static final int INVENTORY_END = 36;
 	private static final int HOTBAR_START = 36;
 	private static final int HOTBAR_END = 45;
-	private final Inventory inventory;
+	private final Container inventory;
 
-	public SackScreenHandler(int syncId, PlayerInventory playerInventory) {
-		this(syncId, playerInventory, new SimpleInventory(9));
+	public SackScreenHandler(int syncId, Inventory playerInventory) {
+		this(syncId, playerInventory, new SimpleContainer(9));
 	}
 
-	public SackScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-		super(ScreenHandlerType.GENERIC_3X3, syncId);
-		checkSize(inventory, CONTAINER_SIZE);
+	public SackScreenHandler(int syncId, Inventory playerInventory, Container inventory) {
+		super(MenuType.GENERIC_3x3, syncId);
+		checkContainerSize(inventory, CONTAINER_SIZE);
 		this.inventory = inventory;
-		inventory.onOpen(playerInventory.player);
+		inventory.startOpen(playerInventory.player);
 		this.add3x3Slots(inventory, 62, 17);
-		this.addPlayerSlots(playerInventory, 8, 84);
+		this.addPlayerInventorySlots(playerInventory, 8, 84);
 	}
 
-	protected void add3x3Slots(Inventory inventory, int x, int y) {
+	protected void add3x3Slots(Container inventory, int x, int y) {
 		for(int i = 0; i < 3; ++i) {
 			for(int j = 0; j < 3; ++j) {
 				int k = j + i * 3;
@@ -39,42 +39,58 @@ public class SackScreenHandler extends ScreenHandler {
 		}
 	}
 
-	public boolean canUse(PlayerEntity player) {
-		return this.inventory.canPlayerUse(player);
+	protected void addPlayerInventorySlots(Inventory playerInventory, int x, int y) {
+		for (int row = 0; row < 3; ++row) {
+			for (int column = 0; column < 9; ++column) {
+				this.addSlot(new Slot(playerInventory, column + row * 9 + 9, x + column * 18, y + row * 18));
+			}
+		}
+
+		for (int column = 0; column < 9; ++column) {
+			this.addSlot(new Slot(playerInventory, column, x + column * 18, y + 58));
+		}
 	}
 
-	public ItemStack quickMove(PlayerEntity player, int slot) {
+	public boolean stillValid(Player player) {
+		return this.inventory.stillValid(player);
+	}
+
+	public boolean isContainer(Container container) {
+		return this.inventory == container;
+	}
+
+	public ItemStack quickMoveStack(Player player, int slot) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot2 = (Slot)this.slots.get(slot);
-		if (slot2 != null && slot2.hasStack()) {
-			ItemStack itemStack2 = slot2.getStack();
+		if (slot2 != null && slot2.hasItem()) {
+			ItemStack itemStack2 = slot2.getItem();
 			itemStack = itemStack2.copy();
 			if (slot < 9) {
-				if (!this.insertItem(itemStack2, INVENTORY_START, HOTBAR_END, true)) {
+				if (!this.moveItemStackTo(itemStack2, INVENTORY_START, HOTBAR_END, true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.insertItem(itemStack2, 0, INVENTORY_START, false)) {
+			} else if (!this.moveItemStackTo(itemStack2, 0, INVENTORY_START, false)) {
 				return ItemStack.EMPTY;
 			}
 
 			if (itemStack2.isEmpty()) {
-				slot2.setStack(ItemStack.EMPTY);
+				slot2.setByPlayer(ItemStack.EMPTY);
 			} else {
-				slot2.markDirty();
+				slot2.setChanged();
 			}
 
 			if (itemStack2.getCount() == itemStack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot2.onTakeItem(player, itemStack2);
+			slot2.onTake(player, itemStack2);
 		}
 
 		return itemStack;
 	}
 
-	public void onClosed(PlayerEntity player) {
-		super.onClosed(player);
-		this.inventory.onClose(player);
+	public void removed(Player player) {
+		super.removed(player);
+		this.inventory.stopOpen(player);
 	}
 }

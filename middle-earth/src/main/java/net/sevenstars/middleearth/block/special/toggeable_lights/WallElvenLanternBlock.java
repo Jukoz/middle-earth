@@ -1,59 +1,58 @@
 package net.sevenstars.middleearth.block.special.toggeable_lights;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class WallElvenLanternBlock extends CrystalLampBlock {
     private static final EnumProperty<Direction> FACING;
     private static final VoxelShape WALL_SHAPE;
 
-    public WallElvenLanternBlock(Settings settings) {
+    public WallElvenLanternBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(FACING, Direction.EAST));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.EAST));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
-        super.appendProperties(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        Direction direction = state.get(FACING);
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        Direction direction = state.getValue(FACING);
         switch (mirror) {
             case LEFT_RIGHT -> {
                 if (direction.getAxis() != Direction.Axis.Z) break;
-                return state.rotate(BlockRotation.CLOCKWISE_180);
+                return state.rotate(Rotation.CLOCKWISE_180);
             }
             case FRONT_BACK -> {
                 if (direction.getAxis() != Direction.Axis.X) break;
-                return state.rotate(BlockRotation.CLOCKWISE_180);
+                return state.rotate(Rotation.CLOCKWISE_180);
             }
         }
         return super.mirror(state, mirror);
@@ -61,18 +60,18 @@ public class WallElvenLanternBlock extends CrystalLampBlock {
 
     @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        Direction[] var3 = ctx.getPlacementDirections();
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        Direction[] var3 = ctx.getNearestLookingDirections();
         int var4 = var3.length;
 
         for(int var5 = 0; var5 < var4; ++var5) {
             Direction direction = var3[var5];
-            BlockState blockState = this.getDefaultState()
-                    .with(HANGING, false)
-                    .with(FACING, direction.getOpposite());
-            if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
-                return blockState.with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+            BlockState blockState = this.defaultBlockState()
+                    .setValue(HANGING, false)
+                    .setValue(FACING, direction.getOpposite());
+            if (blockState.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
+                return blockState.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
             }
         }
 
@@ -80,49 +79,49 @@ public class WallElvenLanternBlock extends CrystalLampBlock {
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        switch (state.get(FACING)){
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        switch (state.getValue(FACING)){
             case SOUTH -> {
-                return Block.createCuboidShape(5, 0, 8, 11, 11, 14);
+                return Block.box(5, 0, 8, 11, 11, 14);
             }
             case EAST -> {
-                return Block.createCuboidShape(8, 0, 5, 14, 11, 11);
+                return Block.box(8, 0, 5, 14, 11, 11);
             }
             case WEST -> {
-                return Block.createCuboidShape(2, 0, 5, 8, 11, 11);
+                return Block.box(2, 0, 5, 8, 11, 11);
             }
             default -> {
-                return Block.createCuboidShape(5, 0, 2, 11, 11, 8);
+                return Block.box(5, 0, 2, 11, 11, 8);
             }
         }
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         Direction direction = attachedDirection(state).getOpposite();
-        return Block.sideCoversSmallSquare(world, pos.offset(direction), direction.getOpposite());
+        return Block.canSupportCenter(world, pos.relative(direction), direction.getOpposite());
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if (state.get(WATERLOGGED)) {
-            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        return attachedDirection(state).getOpposite() == direction && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+        return attachedDirection(state).getOpposite() == direction && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
 
     }
 
 
     protected Direction attachedDirection(BlockState state) {
-        return state.get(FACING);
+        return state.getValue(FACING);
     }
 
     static {
-        FACING = Properties.FACING;
+        FACING = BlockStateProperties.FACING;
 
-        WALL_SHAPE  = VoxelShapes.union(
-                Block.createCuboidShape(5.0, 3.0, 5.0, 11.0, 9.0, 11.0),
-                Block.createCuboidShape(6.0, 9.0, 6.0, 10.0, 10.0, 10.0));
+        WALL_SHAPE  = Shapes.or(
+                Block.box(5.0, 3.0, 5.0, 11.0, 9.0, 11.0),
+                Block.box(6.0, 9.0, 6.0, 10.0, 10.0, 10.0));
     }
 }

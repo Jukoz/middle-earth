@@ -1,7 +1,14 @@
 package net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.gondor;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartNames;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.EggHelmetModel;
 
 public class CitadelGuardHelmetModel extends EggHelmetModel {
@@ -10,18 +17,18 @@ public class CitadelGuardHelmetModel extends EggHelmetModel {
         super(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = getModelData();
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = getModelData();
         //+0.75
-        ModelPartData head = modelData.getRoot().addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition head = modelData.getRoot().addOrReplaceChild(PartNames.HEAD, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        head.addChild("side_left", ModelPartBuilder.create()
-                .uv(40, 32).cuboid(-0.5F, -9.75F, 0.284F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)),
-                ModelTransform.of(5.0F, -6.0F, -2.5F, 0.0F, -1.3963F, 0.0F));
-        head.addChild("side_right", ModelPartBuilder.create()
-                .uv(52, 32).cuboid(-5.25F, -9.75F, 0.252F, 6.0F, 15.0F, 0.0F, new Dilation(0.0F)),
-                ModelTransform.of(-5.0F, -6.0F, -2.5F, 0.0F, 1.3963F, 0.0F));
+        head.addOrReplaceChild("side_left", CubeListBuilder.create()
+                .texOffs(40, 32).addBox(-0.5F, -9.75F, 0.284F, 6.0F, 15.0F, 0.0F, new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(5.0F, -6.0F, -2.5F, 0.0F, -1.3963F, 0.0F));
+        head.addOrReplaceChild("side_right", CubeListBuilder.create()
+                .texOffs(52, 32).addBox(-5.25F, -9.75F, 0.252F, 6.0F, 15.0F, 0.0F, new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(-5.0F, -6.0F, -2.5F, 0.0F, 1.3963F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return LayerDefinition.create(modelData, 64, 64);
     }
 }

@@ -1,31 +1,24 @@
 package net.sevenstars.middleearth.network.packets.S2C;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.return_confirmation.ReturnConfirmationScreen;
-import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
-import net.sevenstars.middleearth.network.handlers.OnboardingScreenHandler;
 import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.Identifier;
 
 public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardingResult> {
-    public static final Id<PacketOnboardingResult> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_onboarding_result"));
-    public static final PacketCodec<RegistryByteBuf, PacketOnboardingResult> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOLEAN, p -> p.havePlayerData,
-            PacketCodecs.BOOLEAN, p -> p.canChangeFaction,
-            PacketCodecs.BOOLEAN, p -> p.canReturnToOverworld,
-            PacketCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
-            PacketCodecs.NBT_COMPOUND, p -> p.attributeList,
+    public static final Type<PacketOnboardingResult> ID = new Type<>(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "packet_onboarding_result"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, PacketOnboardingResult> CODEC = StreamCodec.composite(
+            ByteBufCodecs.BOOL, p -> p.havePlayerData,
+            ByteBufCodecs.BOOL, p -> p.canChangeFaction,
+            ByteBufCodecs.BOOL, p -> p.canReturnToOverworld,
+            ByteBufCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
+            ByteBufCodecs.COMPOUND_TAG, p -> p.attributeList,
+            ByteBufCodecs.BOOL, p -> p.offHand,
             PacketOnboardingResult::new
     );
 
@@ -33,48 +26,53 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
     private final boolean canChangeFaction;
     private final boolean canReturnToOverworld;
     private final float delayOnTeleportationConfirm;
-    private final NbtCompound attributeList;
+    private final CompoundTag attributeList;
+    private final boolean offHand;
 
-    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld, float delayOnTeleportationConfirm, NbtCompound attributeList) {
+    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld, float delayOnTeleportationConfirm, CompoundTag attributeList, boolean offHand) {
         this.havePlayerData = havePlayerData;
         this.canChangeFaction = canChangeFaction;
         this.canReturnToOverworld = canReturnToOverworld;
         this.delayOnTeleportationConfirm = delayOnTeleportationConfirm;
         this.attributeList = attributeList;
+        this.offHand = offHand;
     }
 
-    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld, float delayOnTeleportationConfirm,  PlayerEntity player) {
-        this.havePlayerData = havePlayerData;
-        this.canChangeFaction = canChangeFaction;
-        this.canReturnToOverworld = canReturnToOverworld;
-        this.delayOnTeleportationConfirm = delayOnTeleportationConfirm;
-        this.attributeList = AttributePoolElement.createAttributeNbtListFromPlayer(player);
+    public PacketOnboardingResult(boolean havePlayerData, boolean canChangeFaction, boolean canReturnToOverworld, float delayOnTeleportationConfirm, Player player, boolean offHand) {
+        this(havePlayerData, canChangeFaction, canReturnToOverworld, delayOnTeleportationConfirm, AttributePoolElement.createAttributeNbtListFromPlayer(player), offHand);
     }
 
     @Override
-    public Id<PacketOnboardingResult> getId() {
+    public Type<PacketOnboardingResult> type() {
         return ID;
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, PacketOnboardingResult> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, PacketOnboardingResult> streamCodec() {
         return CODEC;
     }
 
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void process(ClientPacketContext context) {
-        float delay = delayOnTeleportationConfirm;
-        if(context.player().isInCreativeMode())
-            delay = 0;
-        if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
-            if(!canReturnToOverworld){
-                return;
-            }
-            MinecraftClient client = MinecraftClient.getInstance();
-            client.setScreen(new ReturnConfirmationScreen(delay));
-        } else if(ModDimensions.isInOverworld(context.player().getWorld())){
-            OnboardingScreenHandler.handle(context, havePlayerData, delay, AttributePoolElement.obtainAttributeList(attributeList));
-        }
+    public boolean havePlayerData() {
+        return havePlayerData;
+    }
+
+    public boolean canChangeFaction() {
+        return canChangeFaction;
+    }
+
+    public boolean canReturnToOverworld() {
+        return canReturnToOverworld;
+    }
+
+    public float delayOnTeleportationConfirm() {
+        return delayOnTeleportationConfirm;
+    }
+
+    public CompoundTag attributeList() {
+        return attributeList;
+    }
+
+    public boolean offHand() {
+        return offHand;
     }
 }
