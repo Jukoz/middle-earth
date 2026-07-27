@@ -21,8 +21,11 @@
 ## Unofficial NeoForge 1.21.1 backport
 
 The `1.0.1-1.21.1-neoforge-backport` branch is an unofficial compatibility
-backport based on upstream commit
-[`2313bc1776fa05555a7dd66499e171d8ffa51116`](https://github.com/Jukoz/middle-earth/commit/2313bc1776fa05555a7dd66499e171d8ffa51116).
+backport aligned through the latest adopted upstream fixes snapshot
+[`2563784f8b701aaa13f3921290eb5ee5600a0896`](https://github.com/Jukoz/middle-earth/commit/2563784f8b701aaa13f3921290eb5ee5600a0896).
+It also incorporates the NPC translation-key correction from
+[`8be17cac2e285afd3b6f6656fe53392ed5ef6533`](https://github.com/Jukoz/middle-earth/commit/8be17cac2e285afd3b6f6656fe53392ed5ef6533),
+which is on a separate upstream branch and is not an ancestor of the fixes snapshot.
 It is not an official release from the original Middle-earth mod team.
 
 All original copyright notices, credits, trademarks and the ARR license remain

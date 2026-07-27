@@ -80,6 +80,11 @@ public class NpcData {
     public NpcData withStructureManagerPos(BlockPos structureManagerPos) {
         return new NpcData(this.type, this.category, this.spawnReason, Optional.of(structureManagerPos));
     }
+
+    public NpcData withoutStructureManagerPos() {
+        return new NpcData(this.type, this.category, this.spawnReason, Optional.empty());
+    }
+
     public NpcData withType(Level world, ResourceLocation npcDataIdentifier) {
         if(npcDataIdentifier == null || world == null)
             return this;

@@ -10,16 +10,19 @@ import net.minecraft.world.entity.animal.Cow;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalKind;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantClientState;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantHolder;
-import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantModel;
 
 public final class VariantCowRenderer extends CowRenderer {
+    private final CowModel<Cow> legacyModel;
     private final CowModel<Cow> normalModel;
     private final CowModel<Cow> coldModel;
+    private final CowModel<Cow> warmModel;
 
     public VariantCowRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.normalModel = this.model;
-        this.coldModel = new CowModel<>(context.bakeLayer(FarmAnimalVariantModels.COLD_COW));
+        this.legacyModel = this.model;
+        this.normalModel = new BackportedCowModel<>(context.bakeLayer(FarmAnimalVariantModels.NORMAL_COW));
+        this.coldModel = new BackportedCowModel<>(context.bakeLayer(FarmAnimalVariantModels.COLD_COW));
+        this.warmModel = new BackportedCowModel<>(context.bakeLayer(FarmAnimalVariantModels.WARM_COW));
     }
 
     @Override
@@ -32,11 +35,20 @@ public final class VariantCowRenderer extends CowRenderer {
             int packedLight
     ) {
         ResourceLocation variant = ((FarmAnimalVariantHolder) cow).wildThings$getFarmVariant();
-        this.model = FarmAnimalVariantClientState.model(FarmAnimalKind.COW, variant)
-                == FarmAnimalVariantModel.COLD ? this.coldModel : this.normalModel;
-        ((VanillaFarmAnimalRendererBridge) (Object) this).wildThings$renderBase(
-                cow, entityYaw, partialTick, poseStack, buffer, packedLight
-        );
+        CowModel<Cow> previousModel = this.model;
+        try {
+            this.model = switch (FarmAnimalVariantClientState.visualModel(FarmAnimalKind.COW, variant)) {
+                case LEGACY -> this.legacyModel;
+                case NORMAL -> this.normalModel;
+                case COLD -> this.coldModel;
+                case WARM -> this.warmModel;
+            };
+            ((VanillaFarmAnimalRendererBridge) (Object) this).wildThings$renderBase(
+                    cow, entityYaw, partialTick, poseStack, buffer, packedLight
+            );
+        } finally {
+            this.model = previousModel;
+        }
     }
 
     @Override

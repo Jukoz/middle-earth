@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "middle-earth:limestone"
+    },
+    {
+      "item": "minecraft:potion"
+    },
+    {
+      "tag": "minecraft:smelts_to_glass"
+    }
+  ],
+  "result": {
+    "id": "middle-earth:stucco",
+    "count": 4
+  }
+}

@@ -59,7 +59,11 @@ public final class OfBeastsAndWildThingsClient {
         event.registerLayerDefinition(EntityModelLayersWT.SWAN_BABY, net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanBabyModel::getTexturedModelData);
         event.registerLayerDefinition(EntityModelLayersWT.DEER, net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel::getTexturedModelData);
         event.registerLayerDefinition(FarmAnimalVariantModels.COLD_CHICKEN, FarmAnimalVariantModels::coldChickenLayer);
+        event.registerLayerDefinition(FarmAnimalVariantModels.NORMAL_COW, FarmAnimalVariantModels::normalCowLayer);
         event.registerLayerDefinition(FarmAnimalVariantModels.COLD_COW, FarmAnimalVariantModels::coldCowLayer);
+        event.registerLayerDefinition(FarmAnimalVariantModels.WARM_COW, FarmAnimalVariantModels::warmCowLayer);
+        event.registerLayerDefinition(FarmAnimalVariantModels.NORMAL_PIG, FarmAnimalVariantModels::normalPigLayer);
+        event.registerLayerDefinition(FarmAnimalVariantModels.COLD_PIG, FarmAnimalVariantModels::coldPigLayer);
     }
 
     private static void registerBlockColors(RegisterColorHandlersEvent.Block event) {

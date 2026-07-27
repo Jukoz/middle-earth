@@ -92,7 +92,7 @@ public final class FarmAnimalVariants {
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToClient(
+        event.registrar("2").playToClient(
                 FarmAnimalVariantSyncPayload.TYPE,
                 FarmAnimalVariantSyncPayload.STREAM_CODEC,
                 (payload, context) -> FarmAnimalVariantClientState.replace(payload.definitions())
@@ -117,7 +117,7 @@ public final class FarmAnimalVariants {
             JsonObject json = GsonHelper.parse(reader);
             ResourceLocation assetId = parseLocation(GsonHelper.getAsString(json, "asset_id"), "asset_id");
             FarmAnimalVariantModel model =
-                    FarmAnimalVariantModel.parse(GsonHelper.getAsString(json, "model", "normal"));
+                    FarmAnimalVariantModel.parse(kind, GsonHelper.getAsString(json, "model", "normal"));
             JsonArray selectorJson = GsonHelper.getAsJsonArray(json, "spawn_conditions");
             List<FarmAnimalVariantSelector> selectors = new ArrayList<>(selectorJson.size());
             for (JsonElement element : selectorJson) {
@@ -219,15 +219,16 @@ public final class FarmAnimalVariants {
             for (FarmAnimalKind kind : FarmAnimalKind.values()) {
                 TreeMap<ResourceLocation, FarmAnimalVariantDefinition> values = new TreeMap<>();
                 values.put(COLD, baselineDefinition(kind, COLD, COLD_BIOMES, 1));
+                String kindName = kind.name().toLowerCase();
                 values.put(TEMPERATE, new FarmAnimalVariantDefinition(
                         kind,
                         TEMPERATE,
                         ResourceLocation.withDefaultNamespace(
-                                "entity/" + kind.name().toLowerCase() + "/temperate"
+                                "entity/" + kindName + "/temperate_" + kindName
                         ),
                         FarmAnimalVariantModel.NORMAL,
                         List.of(new FarmAnimalVariantSelector(Optional.empty(), 0)),
-                        true
+                        false
                 ));
                 values.put(WARM, baselineDefinition(kind, WARM, WARM_BIOMES, 1));
                 definitions.put(kind, values);
@@ -241,13 +242,19 @@ public final class FarmAnimalVariants {
                 ResourceLocation biomeTag,
                 int priority
         ) {
+            String kindName = kind.name().toLowerCase();
+            FarmAnimalVariantModel model = id.equals(COLD)
+                    ? FarmAnimalVariantModel.COLD
+                    : kind == FarmAnimalKind.COW
+                    ? FarmAnimalVariantModel.WARM
+                    : FarmAnimalVariantModel.NORMAL;
             return new FarmAnimalVariantDefinition(
                     kind,
                     id,
                     ResourceLocation.withDefaultNamespace(
-                            "entity/" + kind.name().toLowerCase() + "/" + id.getPath()
+                            "entity/" + kindName + "/" + id.getPath() + "_" + kindName
                     ),
-                    FarmAnimalVariantModel.NORMAL,
+                    model,
                     List.of(new FarmAnimalVariantSelector(
                             Optional.of(new FarmAnimalVariantSelector.BiomeCondition(List.of(
                                     new FarmAnimalVariantSelector.RegistryEntryMatcher.Tag<>(
@@ -256,7 +263,7 @@ public final class FarmAnimalVariants {
                             ))),
                             priority
                     )),
-                    true
+                    false
             );
         }
     }

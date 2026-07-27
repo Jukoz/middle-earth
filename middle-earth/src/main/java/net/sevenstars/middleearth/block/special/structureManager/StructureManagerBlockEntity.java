@@ -84,9 +84,21 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     // region [Basic Overrides]
     public void updateData(ResourceLocation structureManagerId, boolean isActive, boolean toInitialize) {
+        if (!canChangeStructureManagerId(structureManagerId)) {
+            return;
+        }
+        if (registered) {
+            StructureManagerService.unregister(this);
+            registered = false;
+        }
         this.structureManagerIdentifier = structureManagerId;
         this.enabled = isActive;
         this.toInitialize = toInitialize;
+        this.managerData = null;
+        if (this.level != null && !this.level.isClientSide && this.enabled) {
+            resolveManagerData(this.level);
+        }
+        syncRegistration();
         updateListeners();
     }
 
@@ -171,49 +183,77 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             return;
         if(level == null || level.isClientSide)
             return;
+        resolveManagerData(level);
+        if (managerData == null) {
+            return;
+        }
         for(var nest : structureNestList.getManagers()){
             nest.forceRespawn(managerData, (ServerLevel) level, worldPosition);
         }
     }
 
     public boolean subscribeNest(BlockPos nestPos, ResourceLocation managerId, ResourceLocation nestId, int spawnRadius) {
-        if(!enabled || managerId == null || structureManagerIdentifier == null || managerData == null || managerId.compareTo(this.structureManagerIdentifier) != 0)
+        if(!acceptsNest(managerId) || nestId == null)
             return false;
 
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
+        if (data == null) {
+            return false;
+        }
+        if (this.structureNestList == null) {
+            this.structureNestList = new StructureNestList();
+        }
         SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
         this.structureNestList.addNest(manager);
         this.setChanged();
         return true;
     }
 
-    public static void triggerDeathSignal(BlockPos pos, LivingEntity entity) {
-        if(entity.level().isClientSide)
+    public boolean isOperational() {
+        return enabled
+                && structureManagerIdentifier != null
+                && managerData != null
+                && !isRemoved();
+    }
+
+    public boolean acceptsNest(@Nullable ResourceLocation managerId) {
+        return managerId != null
+                && isOperational()
+                && managerId.equals(this.structureManagerIdentifier);
+    }
+
+    public void removeManagedEntity(UUID uuid) {
+        if (level == null || level.isClientSide || structureNestList == null) {
             return;
-        if(entity.level().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity
-                && !blockEntity.isRemoved()
-                && blockEntity.structureNestList != null){
-            blockEntity.structureNestList.computeDeath(entity);
-            blockEntity.level.blockEntityChanged(pos);
+        }
+        if (structureNestList.removeEntity(level, uuid)) {
+            setChanged();
+            level.blockEntityChanged(worldPosition);
         }
     }
 
     private void tickEvent(Level world, BlockPos blockPos, BlockState blockState) {
-        if(!world.isClientSide && worldWasSet){
+        long tickOffset = Math.floorMod(worldPosition.asLong(), 20L);
+        boolean shouldRetryInitialization = toInitialize
+                && !enabled
+                && Math.floorMod(world.getGameTime() + tickOffset, 20L) == 0;
+        if(!world.isClientSide && (worldWasSet || shouldRetryInitialization)){
             tryToInitializeManager(world);
             this.worldWasSet = false;
         }
 
         if (!world.isClientSide && !this.registered) {
-            StructureManagerService.register(this);
-            this.registered = true;
+            resolveManagerData(world);
+        }
+        if (!world.isClientSide) {
+            syncRegistration();
         }
 
         if(!enabled)
             return;
 
         ServerLevel serverWorld = (ServerLevel) world;
-        if(structureNestList == null)
+        if(structureNestList == null || managerData == null)
             return;
 
         long timeOfDay = serverWorld.getGameTime() % 24000;
@@ -226,13 +266,16 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         boolean insideWellnessWindow = (timeOfDay > 11000 && timeOfDay < 12000)
                 || timeOfDay >= 23000;
         boolean haveToDoWellnessCheck = insideWellnessWindow && !wellnessChecked;
+        boolean wellnessStateChanged = false;
         for(SpawnNestManager data : structureNestList.getManagers()){
-            if(managerData == null)
-                managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
             if(haveToDoWellnessCheck){
-                data.doWellnessCheck(managerData, serverWorld, blockPos);
+                wellnessStateChanged |= data.doWellnessCheck(managerData, serverWorld, blockPos);
             }
             data.tick(managerData, gameTick, serverWorld, blockPos);
+        }
+        if (wellnessStateChanged) {
+            setChanged();
+            world.blockEntityChanged(worldPosition);
         }
         if(haveToDoWellnessCheck && !wellnessChecked)
             wellnessChecked = true;
@@ -247,14 +290,40 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             return;
 
         this.managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
-        if(structureNestList == null)
-            this.structureNestList = new StructureNestList();
         if(managerData == null) {
             return;
-        };
+        }
 
+        this.structureNestList = new StructureNestList();
         this.toInitialize = false;
         this.enabled = true;
+        updateListeners();
+    }
+
+    private void resolveManagerData(Level world) {
+        if (!enabled || managerData != null || structureManagerIdentifier == null) {
+            return;
+        }
+        managerData = StructureManagerService.getStructureManagerData(
+                world, structureManagerIdentifier);
+        if (managerData != null && structureNestList == null) {
+            structureNestList = new StructureNestList();
+        }
+    }
+
+    private void syncRegistration() {
+        if (level == null || level.isClientSide) {
+            return;
+        }
+        if (isOperational()) {
+            if (!registered) {
+                StructureManagerService.register(this);
+                registered = true;
+            }
+        } else if (registered) {
+            StructureManagerService.unregister(this);
+            registered = false;
+        }
     }
 
     public void setInitializationState(boolean toInitialize) {
@@ -270,6 +339,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             return;
         }
         this.enabled = activate;
+        if (!activate) {
+            this.managerData = null;
+        }
+        syncRegistration();
         updateListeners();
     }
 
@@ -277,8 +350,19 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if (Objects.equals(this.structureManagerIdentifier, identifier)) {
             return;
         }
+        if (!canChangeStructureManagerId(identifier)) {
+            return;
+        }
         this.structureManagerIdentifier = identifier;
+        this.managerData = null;
+        syncRegistration();
         updateListeners();
+    }
+
+    private boolean canChangeStructureManagerId(ResourceLocation identifier) {
+        return Objects.equals(this.structureManagerIdentifier, identifier)
+                || structureNestList == null
+                || structureNestList.getManagers().isEmpty();
     }
 
     private void updateListeners() {
@@ -297,6 +381,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         // TODO : Fetch all beds surrounding the nodes, making sure there's no duplicate
         StructureManagerData managerData = StructureManagerService.getStructureManagerData(getLevel(), structureManagerIdentifier);
         if (managerData == null) {
+            return;
+        }
+        if (structureNestList == null) {
             return;
         }
         for(SpawnNestManager data : structureNestList.getManagers()) {

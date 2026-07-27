@@ -1,9 +1,12 @@
 package net.sevenstars.middleearth.event;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,9 +17,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -24,11 +31,16 @@ import net.neoforged.neoforge.event.level.ModifyCustomSpawnersEvent;
 import net.neoforged.neoforge.event.level.SleepFinishedTimeEvent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagedEntityData;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.spawners.ModEntitySpawning;
 import net.sevenstars.middleearth.world.spawners.SpawnerNPCs;
 
 public final class NeoForgeCommonEvents {
@@ -58,7 +70,8 @@ public final class NeoForgeCommonEvents {
         public static void checkNaturalSpawn(MobSpawnEvent.SpawnPlacementCheck event) {
             if (event.getSpawnType() != MobSpawnType.NATURAL
                     || !(event.getLevel() instanceof Level level)
-                    || !level.dimension().equals(ModDimensions.ME_DIMENSION_KEY)) {
+                    || !level.dimension().equals(ModDimensions.ME_DIMENSION_KEY)
+                    || event.getEntityType() == EntitiesME.NPC) {
                 return;
             }
 
@@ -107,7 +120,76 @@ public final class NeoForgeCommonEvents {
 
         @SubscribeEvent
         public static void addNpcSpawner(ModifyCustomSpawnersEvent event) {
-            event.addCustomSpawner(new SpawnerNPCs());
+            if (ModEntitySpawning.hasSpawns()) {
+                event.addCustomSpawner(new SpawnerNPCs());
+            }
+        }
+
+        @SubscribeEvent(priority = EventPriority.LOWEST)
+        public static void handleManagedEntityDeath(LivingDeathEvent event) {
+            if (event.isCanceled()) {
+                return;
+            }
+            if (event.getEntity() instanceof NpcEntity npc
+                    && npc.getStructureManagerHostPos() != null) {
+                StructureManagerService.signalManagedEntityDeath(
+                        npc, npc.getStructureManagerHostPos());
+            } else {
+                StructureManagerService.signalManagedEntityDeath(event.getEntity());
+            }
+        }
+
+        @SubscribeEvent
+        public static void trackManagedEntityJoin(EntityJoinLevelEvent event) {
+            if (!(event.getLevel() instanceof ServerLevel)
+                    || !(event.getEntity() instanceof LivingEntity living)) {
+                return;
+            }
+            BlockPos managerPos = getManagedEntityManagerPos(living);
+            if (managerPos != null) {
+                StructureManagedEntityData.Entry tracked =
+                        StructureManagedEntityData.get((ServerLevel) event.getLevel())
+                                .get(living.getUUID());
+                if (tracked != null && tracked.dead()) {
+                    event.setCanceled(true);
+                    StructureManagerService.clearBoundManager(living);
+                    return;
+                }
+                StructureManagerService.bindManagedEntity(living, managerPos);
+            }
+        }
+
+        @SubscribeEvent
+        public static void trackManagedEntityLeave(EntityLeaveLevelEvent event) {
+            if (!(event.getLevel() instanceof ServerLevel)
+                    || !(event.getEntity() instanceof LivingEntity living)) {
+                return;
+            }
+            BlockPos managerPos = getManagedEntityManagerPos(living);
+            if (managerPos == null || living.getRemovalReason() == null) {
+                return;
+            }
+            Entity.RemovalReason removalReason = living.getRemovalReason();
+            if (removalReason == Entity.RemovalReason.KILLED) {
+                return;
+            }
+            if (removalReason == Entity.RemovalReason.UNLOADED_TO_CHUNK
+                    || removalReason == Entity.RemovalReason.UNLOADED_WITH_PLAYER) {
+                StructureManagerService.recordManagedEntityPosition(living, managerPos);
+            } else {
+                StructureManagerService.signalManagedEntityDeath(living, managerPos);
+                if (removalReason == Entity.RemovalReason.CHANGED_DIMENSION) {
+                    StructureManagerService.clearBoundManager(living);
+                }
+            }
+        }
+
+        private static BlockPos getManagedEntityManagerPos(LivingEntity entity) {
+            if (entity instanceof NpcEntity npc
+                    && npc.getStructureManagerHostPos() != null) {
+                return npc.getStructureManagerHostPos();
+            }
+            return StructureManagerService.getBoundManagerPos(entity);
         }
 
         @SubscribeEvent

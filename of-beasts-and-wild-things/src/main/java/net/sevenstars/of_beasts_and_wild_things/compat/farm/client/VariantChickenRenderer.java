@@ -10,7 +10,6 @@ import net.minecraft.world.entity.animal.Chicken;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalKind;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantClientState;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantHolder;
-import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantModel;
 
 public final class VariantChickenRenderer extends ChickenRenderer {
     private final ChickenModel<Chicken> normalModel;
@@ -32,11 +31,16 @@ public final class VariantChickenRenderer extends ChickenRenderer {
             int packedLight
     ) {
         ResourceLocation variant = ((FarmAnimalVariantHolder) chicken).wildThings$getFarmVariant();
-        this.model = FarmAnimalVariantClientState.model(FarmAnimalKind.CHICKEN, variant)
-                == FarmAnimalVariantModel.COLD ? this.coldModel : this.normalModel;
-        ((VanillaFarmAnimalRendererBridge) (Object) this).wildThings$renderBase(
-                chicken, entityYaw, partialTick, poseStack, buffer, packedLight
-        );
+        ChickenModel<Chicken> previousModel = this.model;
+        try {
+            this.model = FarmAnimalVariantClientState.visualModel(FarmAnimalKind.CHICKEN, variant)
+                    == FarmAnimalVariantClientState.VisualModel.COLD ? this.coldModel : this.normalModel;
+            ((VanillaFarmAnimalRendererBridge) (Object) this).wildThings$renderBase(
+                    chicken, entityYaw, partialTick, poseStack, buffer, packedLight
+            );
+        } finally {
+            this.model = previousModel;
+        }
     }
 
     @Override

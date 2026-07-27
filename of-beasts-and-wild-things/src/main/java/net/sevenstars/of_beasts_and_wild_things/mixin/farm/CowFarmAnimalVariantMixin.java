@@ -2,8 +2,8 @@ package net.sevenstars.of_beasts_and_wild_things.mixin.farm;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.animal.Cow;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalKind;
@@ -18,10 +18,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Cow.class)
 public abstract class CowFarmAnimalVariantMixin {
     @Unique
-    private static final EntityDataAccessor<String> WILD_THINGS_VARIANT =
+    private static final EntityDataAccessor<ResourceLocation> WILD_THINGS_VARIANT =
             FarmAnimalVariantData.register(
                     FarmAnimalKind.COW,
-                    SynchedEntityData.defineId(Cow.class, EntityDataSerializers.STRING)
+                    SynchedEntityData.defineId(Cow.class, FarmAnimalVariantData.serializer())
             );
 
     @Inject(

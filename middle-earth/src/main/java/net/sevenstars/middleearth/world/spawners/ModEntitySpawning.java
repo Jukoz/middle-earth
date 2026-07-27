@@ -245,4 +245,8 @@ public class ModEntitySpawning {
         if(spawns.containsKey(biomeRegistryKey)) return spawns.get(biomeRegistryKey);
         return null;
     }
+
+    public static boolean hasSpawns() {
+        return !spawns.isEmpty();
+    }
 }

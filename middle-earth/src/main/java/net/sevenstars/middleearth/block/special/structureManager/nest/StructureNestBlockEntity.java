@@ -151,30 +151,36 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedMen
             return;
         }
 
-        long tickOffset = Math.floorMod(worldPosition.asLong(), 20L);
+        int retryInterval = fails < 12 ? 20 : 100;
+        long tickOffset = Math.floorMod(worldPosition.asLong(), retryInterval);
         if(managerId == null || nestId == null
-                || Math.floorMod(world.getGameTime() + tickOffset, 20L) != 0)
+                || Math.floorMod(world.getGameTime() + tickOffset, retryInterval) != 0)
             return;
 
-        StructureManagerBlockEntity structureManagerBlockEntity = StructureManagerService.getClosest(world, worldPosition, 20);
+        StructureManagerBlockEntity structureManagerBlockEntity =
+                StructureManagerService.getClosest(world, worldPosition, 20, managerId);
         if(structureManagerBlockEntity == null) {
-            fails++;
+            recordFailure();
         }
         else {
             if(structureManagerBlockEntity.subscribeNest(this.worldPosition, this.managerId, this.nestId, this.spawnRadius))
             {
                 world.destroyBlock(worldPosition, false);
-                world.removeBlockEntity(worldPosition);
                 initialized = true;
-                updateListeners();
             } else {
-                fails++;
+                recordFailure();
             }
         }
-        if(fails >= 12) {
-            world.destroyBlock(worldPosition, false);
-            world.removeBlockEntity(worldPosition);
-            updateListeners();
+    }
+
+    private void recordFailure() {
+        if (fails < 12) {
+            fails++;
+            if (fails == 12) {
+                MiddleEarth.LOGGER.logWarn(
+                        "Structure nest at %s is waiting for manager %s and nest data %s"
+                                .formatted(worldPosition, managerId, nestId));
+            }
         }
     }
 }

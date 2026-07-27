@@ -234,7 +234,16 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
     }
     // [StructureManager]
     public void assignStructureManager(StructureManagerBlockEntity blockEntity){
-        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(blockEntity.getBlockPos());
+        assignStructureManager(blockEntity.getBlockPos());
+    }
+
+    public void assignStructureManager(BlockPos managerPos) {
+        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(managerPos);
+        this.saveNpcData(newNpcData);
+    }
+
+    public void clearStructureManager() {
+        NpcData newNpcData = this.retrieveNpcData().withoutStructureManagerPos();
         this.saveNpcData(newNpcData);
     }
 
@@ -514,10 +523,6 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
                 abstractBeastEntity.resetTameness();
             }
         }
-        BlockPos structureManagerPos = getStructureManagerHostPos();
-        if(structureManagerPos != null){
-            StructureManagerBlockEntity.triggerDeathSignal(structureManagerPos, this);
-        }
         super.die(source);
     }
 
@@ -590,9 +595,7 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
     @Override
     public boolean isPersistenceRequired() {
         BlockPos structureManagerPos = getStructureManagerHostPos();
-        if(structureManagerPos == null)
-            return super.isPersistenceRequired();
-        if(level().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity structureManagerBlockEntity)
+        if(structureManagerPos != null)
             return true;
         return super.isPersistenceRequired();
     }

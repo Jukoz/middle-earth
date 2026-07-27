@@ -3,14 +3,18 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class StructureNestList {
     ModLogger logger = MiddleEarth.LOGGER;
@@ -35,6 +39,15 @@ public class StructureNestList {
         }
     }
 
+    public boolean removeEntity(Level world, UUID uuid) {
+        for (SpawnNestManager nest : managers) {
+            if (nest.removeEntity(world, uuid)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<SpawnNestManager> getManagers() {
         return managers;
     }
@@ -51,7 +64,20 @@ public class StructureNestList {
         PACKET_CODEC = ByteBufCodecs.fromCodec(CODEC);
     }
 
-    public void addNest(SpawnNestManager spawnNestManager) {
+    public boolean addNest(SpawnNestManager spawnNestManager) {
+        if (contains(spawnNestManager.getId(), spawnNestManager.getOriginPos())) {
+            return false;
+        }
         this.managers.add(spawnNestManager);
+        return true;
+    }
+
+    public boolean contains(ResourceLocation id, BlockPos originPos) {
+        for (SpawnNestManager manager : managers) {
+            if (manager.getId().equals(id) && manager.getOriginPos().equals(originPos)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

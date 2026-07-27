@@ -62,7 +62,7 @@ public class EntitiesME {
 
     // Trolls
     public static final EntityType<SnowTrollEntity> SNOW_TROLL = register("snow_troll",
-            EntityType.Builder.of(SnowTrollEntity::new, MobCategory.CREATURE).sized(2.2f, 2.5f));
+            EntityType.Builder.of(SnowTrollEntity::new, MobCategory.MONSTER).sized(2.2f, 2.5f));
     public static final EntityType<CaveTrollEntity> CAVE_TROLL = register("cave_troll", EntityType.Builder.of(CaveTrollEntity::new, MobCategory.MONSTER).sized(2.2f, 3.5f)
                     .passengerAttachments(new Vec3(0, 3.825, -0.65), new Vec3(-0.8, 3.4, -1.2), new Vec3(0.8, 3.4, -1.2)));
 

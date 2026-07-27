@@ -10,6 +10,7 @@ import net.sevenstars.api.registries.RegistrationBridge;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
+import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantData;
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariants;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ActivitiesWT;
@@ -45,6 +46,7 @@ public class OfBeastsAndWildThings {
 	}
 
 	public void onInitialize() {
+		FarmAnimalVariantData.registerSerializer();
 		EntitiesWT.registerModEntities();
 		SchedulesWT.registerModSchedules();
 		ActivitiesWT.registerModActivities();

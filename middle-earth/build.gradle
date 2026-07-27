@@ -4,4 +4,16 @@ dependencies {
     jarJar project(':sevenstars-api')
     jarJar project(':of-beasts-and-wild-things')
     compileOnly 'me.shedaniel:RoughlyEnoughItems-api-neoforge:16.0.799'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testImplementation 'org.ow2.asm:asm:9.7.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.named('jar') {
+    dependsOn tasks.named('runData')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from('src/main/generated')
 }

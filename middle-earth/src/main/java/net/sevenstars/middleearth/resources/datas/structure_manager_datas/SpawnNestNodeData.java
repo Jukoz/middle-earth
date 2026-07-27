@@ -3,8 +3,9 @@ package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
-import java.util.Random;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.Nullable;
 
 /// NpcSpawnNest is a specific area where entities can spawn with the different parameters.
 public class SpawnNestNodeData {
@@ -53,8 +54,30 @@ public class SpawnNestNodeData {
         return structureSpawnNestPools;
     }
 
-    public StructureSpawnNestPool getRandomPool() {
-        Random random = new Random();
-        return structureSpawnNestPools.get(random.nextInt(0, structureSpawnNestPools.size()));
+    @Nullable
+    public StructureSpawnNestPool getRandomPool(RandomSource random) {
+        StructureSpawnNestPool selected = null;
+        long totalWeight = 0L;
+        for (StructureSpawnNestPool pool : structureSpawnNestPools) {
+            int weight = Math.max(0, pool.getWeight());
+            if (weight == 0) {
+                continue;
+            }
+            totalWeight += weight;
+            if (nextLong(random, totalWeight) < weight) {
+                selected = pool;
+            }
+        }
+        return selected;
+    }
+
+    private static long nextLong(RandomSource random, long bound) {
+        long value = random.nextLong() >>> 1;
+        long result = value % bound;
+        while (value - result + (bound - 1L) < 0L) {
+            value = random.nextLong() >>> 1;
+            result = value % bound;
+        }
+        return result;
     }
 }

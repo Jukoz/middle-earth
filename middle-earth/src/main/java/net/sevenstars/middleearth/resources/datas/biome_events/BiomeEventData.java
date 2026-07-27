@@ -86,6 +86,9 @@ public class BiomeEventData {
         }
         if(spawningData == null)
             return null;
+        if (spawningData.isDiscarded(world.random)) {
+            return null;
+        }
 
         Registry<NpcType> npcDataRegistry = manager.registryOrThrow(DynamicRegistriesME.NPC_TYPE);
         ResourceLocation npcId = spawningData.getNpcType(null);

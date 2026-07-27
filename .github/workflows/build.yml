@@ -27,10 +27,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: data generation
-        run: ./gradlew :middle-earth:runData --console=plain
-
-      - name: build
+      - name: generate data and build
         run: ./gradlew build --console=plain
 
       - name: verify bundled modules
@@ -42,4 +39,7 @@ jobs:
           jar tf "${player_jars[0]}" > "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Eq '^META-INF/jarjar/.+SevenStarsAPI.+\.jar$' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Eq '^META-INF/jarjar/.+Of-Beasts-and-Wild-Things.+\.jar$' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'data/middle-earth/recipe/corrupted_moss_carpet.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'data/middle-earth/recipe/forest_moss_carpet.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'assets/middle-earth/models/item/gondorian_sword.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           sha256sum "${player_jars[0]}"

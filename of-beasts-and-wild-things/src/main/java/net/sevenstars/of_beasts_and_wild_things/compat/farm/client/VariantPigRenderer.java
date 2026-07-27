@@ -12,11 +12,15 @@ import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantCli
 import net.sevenstars.of_beasts_and_wild_things.compat.farm.FarmAnimalVariantHolder;
 
 public final class VariantPigRenderer extends PigRenderer {
+    private final PigModel<Pig> legacyModel;
     private final PigModel<Pig> normalModel;
+    private final PigModel<Pig> coldModel;
 
     public VariantPigRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.normalModel = this.model;
+        this.legacyModel = this.model;
+        this.normalModel = new PigModel<>(context.bakeLayer(FarmAnimalVariantModels.NORMAL_PIG));
+        this.coldModel = new PigModel<>(context.bakeLayer(FarmAnimalVariantModels.COLD_PIG));
     }
 
     @Override
@@ -28,10 +32,20 @@ public final class VariantPigRenderer extends PigRenderer {
             MultiBufferSource buffer,
             int packedLight
     ) {
-        this.model = this.normalModel;
-        ((VanillaFarmAnimalRendererBridge) (Object) this).wildThings$renderBase(
-                pig, entityYaw, partialTick, poseStack, buffer, packedLight
-        );
+        ResourceLocation variant = ((FarmAnimalVariantHolder) pig).wildThings$getFarmVariant();
+        PigModel<Pig> previousModel = this.model;
+        try {
+            this.model = switch (FarmAnimalVariantClientState.visualModel(FarmAnimalKind.PIG, variant)) {
+                case LEGACY -> this.legacyModel;
+                case COLD -> this.coldModel;
+                case NORMAL, WARM -> this.normalModel;
+            };
+            ((VanillaFarmAnimalRendererBridge) (Object) this).wildThings$renderBase(
+                    pig, entityYaw, partialTick, poseStack, buffer, packedLight
+            );
+        } finally {
+            this.model = previousModel;
+        }
     }
 
     @Override

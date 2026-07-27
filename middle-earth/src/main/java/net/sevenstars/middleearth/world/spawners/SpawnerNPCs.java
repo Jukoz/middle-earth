@@ -39,7 +39,9 @@ public class SpawnerNPCs implements CustomSpawner {
 
     @Override
     public int tick(ServerLevel world, boolean spawnMonsters, boolean spawnAnimals) {
-        if (!spawnMonsters || !ModDimensions.isInMiddleEarth(world)) {
+        if (!ModEntitySpawning.hasSpawns()
+                || !spawnMonsters
+                || !ModDimensions.isInMiddleEarth(world)) {
             return 0;
         }
         RandomSource random = world.random;

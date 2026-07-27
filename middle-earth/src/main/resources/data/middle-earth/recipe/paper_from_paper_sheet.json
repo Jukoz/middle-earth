@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "middle-earth:paper_sheet"
+    }
+  ],
+  "result": {
+    "id": "minecraft:paper"
+  }
+}

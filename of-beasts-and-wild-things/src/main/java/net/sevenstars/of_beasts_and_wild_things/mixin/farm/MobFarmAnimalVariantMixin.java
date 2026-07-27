@@ -33,7 +33,7 @@ public abstract class MobFarmAnimalVariantMixin implements FarmAnimalVariantHold
         if (kind != null) {
             builder.define(
                     FarmAnimalVariantData.accessor(kind),
-                    FarmAnimalVariants.TEMPERATE.toString()
+                    FarmAnimalVariants.TEMPERATE
             );
         }
     }
@@ -89,7 +89,7 @@ public abstract class MobFarmAnimalVariantMixin implements FarmAnimalVariantHold
         if (kind == null) {
             return FarmAnimalVariants.TEMPERATE;
         }
-        return ResourceLocation.parse(self.getEntityData().get(FarmAnimalVariantData.accessor(kind)));
+        return self.getEntityData().get(FarmAnimalVariantData.accessor(kind));
     }
 
     @Override
@@ -97,7 +97,7 @@ public abstract class MobFarmAnimalVariantMixin implements FarmAnimalVariantHold
         Mob self = (Mob) (Object) this;
         FarmAnimalKind kind = FarmAnimalKind.of(self);
         if (kind != null) {
-            self.getEntityData().set(FarmAnimalVariantData.accessor(kind), variant.toString());
+            self.getEntityData().set(FarmAnimalVariantData.accessor(kind), variant);
         }
     }
 }

@@ -55,7 +55,9 @@ public class SpawnEventDataUtil {
                 data.getSameEntityLimitAmount().orElse(10), 0, MAX_ENTITY_THRESHOLD);
         boolean sameEntitySurfaceOnly = data.getSameEntitySurfaceOnly().orElse(false);
 
-        AABB searchBox = AABB.ofSize(pos.getCenter(), sameEntityDistance, sameEntityDistance, sameEntityDistance);
+        double sameEntityDiameter = sameEntityDistance * 2.0D;
+        AABB searchBox = AABB.ofSize(
+                pos.getCenter(), sameEntityDiameter, sameEntityDiameter, sameEntityDiameter);
         if (sameEntityAmount == 0 || hasAtLeast(world, searchBox, entity ->
                 entity.getType() == targetEntityType
                         && (!sameEntitySurfaceOnly || isSurface(world, entity.blockPosition())), sameEntityAmount)) {
@@ -75,8 +77,9 @@ public class SpawnEventDataUtil {
         if (sameNpcTypeAmount == 0) {
             return false;
         }
+        double sameNpcTypeDiameter = sameNpcTypeDistance * 2.0D;
         AABB npcSearchBox = AABB.ofSize(
-                pos.getCenter(), sameNpcTypeDistance, sameNpcTypeDistance, sameNpcTypeDistance);
+                pos.getCenter(), sameNpcTypeDiameter, sameNpcTypeDiameter, sameNpcTypeDiameter);
         ResourceLocation npcType = data.getNpcType(null);
         return !hasAtLeast(world, npcSearchBox, entity ->
                 entity instanceof NpcEntity npc

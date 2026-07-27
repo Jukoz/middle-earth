@@ -48,7 +48,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -62,7 +61,6 @@ import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.entity.spider.SpiderVariantSelector;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -145,11 +143,6 @@ public class ShelobiteScuttlerEntity extends Monster implements Pouncer {
         boolean isOnSolidGround = worldAccess.getBlockState(below).isRedstoneConductor(worldAccess, below);
         boolean isNotOnTopOfLogs = !worldAccess.getBlockState(below).is(BlockTags.LOGS);
 
-        if (spawnReason == MobSpawnType.NATURAL && worldAccess instanceof Level world) {
-            Holder<Biome> biome = world.getBiome(pos);
-            boolean canSpawn = BiomeEventDataLookup.canEntitySpawn(world, biome, pos, type, random);
-            return isOnSolidGround && isNotOnTopOfLogs && canSpawn;
-        }
         return isOnSolidGround && isNotOnTopOfLogs;
     }
 
