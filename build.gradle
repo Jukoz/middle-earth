@@ -1,37 +1,12 @@
 plugins {
     id 'base'
-    id 'net.neoforged.moddev' version '1.0.17' apply false
+    id 'net.neoforged.moddev' apply false
 }
 
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
     apply plugin: 'net.neoforged.moddev'
-
-    repositories {
-        maven {
-            url = uri("${rootDir}/.gradle-local-maven")
-        }
-        mavenLocal {
-            metadataSources {
-                gradleMetadata()
-                mavenPom()
-                artifact()
-            }
-        }
-        mavenCentral()
-        maven {
-            name = 'Minecraft Libraries'
-            url = 'https://libraries.minecraft.net'
-        }
-        maven {
-            name = 'NeoForged'
-            url = 'https://maven.neoforged.net/releases'
-            content {
-                includeGroupByRegex 'net\\.neoforged.*'
-            }
-        }
-    }
 
     version = project.mod_version
     group = project.maven_group

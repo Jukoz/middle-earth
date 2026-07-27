@@ -1,9 +1,5 @@
 pluginManagement {
     repositories {
-        mavenLocal()
-        maven {
-            url = uri("${settingsDir}/.gradle-local-maven")
-        }
         maven {
             name = 'NeoForged'
             url = 'https://maven.neoforged.net/releases'
@@ -16,32 +12,13 @@ pluginManagement {
     }
 }
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+plugins {
+    id 'net.neoforged.moddev.repositories' version '1.0.17'
+}
 
+dependencyResolutionManagement {
     repositories {
-        maven {
-            url = uri("${settingsDir}/.gradle-local-maven")
-        }
-        mavenLocal {
-            metadataSources {
-                gradleMetadata()
-                mavenPom()
-                artifact()
-            }
-        }
         mavenCentral()
-        maven {
-            name = 'Minecraft Libraries'
-            url = 'https://libraries.minecraft.net'
-        }
-        maven {
-            name = 'NeoForged'
-            url = 'https://maven.neoforged.net/releases'
-            content {
-                includeGroupByRegex 'net\\.neoforged.*'
-            }
-        }
         maven {
             name = 'TerraformersMC'
             url = 'https://maven.terraformersmc.com/'
