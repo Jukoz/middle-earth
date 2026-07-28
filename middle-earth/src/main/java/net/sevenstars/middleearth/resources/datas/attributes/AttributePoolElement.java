@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.sevenstars.middleearth.MiddleEarth;
 
@@ -133,7 +134,10 @@ public class AttributePoolElement {
         var registry = player.level().registryAccess().registryOrThrow(Registries.ATTRIBUTE);
         Collection<AttributeInstance> attributes = new ArrayList<>();
         var entries = registry.holders().toList();
+        AttributeSupplier defaultAttributes = AttributeDefaults.get(player);
         for(var entry : entries){
+            if(!defaultAttributes.hasAttribute(entry))
+                continue;
             AttributeInstance instance = player.getAttribute(entry);
             if(instance == null)
                 continue;

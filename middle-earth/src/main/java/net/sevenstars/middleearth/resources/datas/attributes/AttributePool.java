@@ -6,11 +6,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,9 +77,11 @@ public class AttributePool {
     }
 
     public static boolean reverse(LivingEntity entity){
+        AttributeSupplier defaultAttributes = AttributeDefaults.get(entity);
+
         for (var identifier : BuiltInRegistries.ATTRIBUTE.keySet()) {
             Holder.Reference<Attribute> attribute = BuiltInRegistries.ATTRIBUTE.getHolder(identifier).orElse(null);
-            if (attribute == null) {
+            if (attribute == null || !defaultAttributes.hasAttribute(attribute)) {
                 continue;
             }
             var attributeInstance = entity.getAttribute(attribute);
@@ -88,11 +89,7 @@ public class AttributePool {
                 continue;
             }
 
-            double defaultBaseValue = getDefaultAttributeValue(identifier, entity);
-            if(defaultBaseValue == -99)
-                continue;
-
-            attributeInstance.setBaseValue(defaultBaseValue);
+            attributeInstance.setBaseValue(defaultAttributes.getBaseValue(attribute));
             attributeInstance.removeModifiers();
         }
         return true;
@@ -109,7 +106,10 @@ public class AttributePool {
             return -99;
         }
 
-        var defaultAttributeContainer = DefaultAttributes.getSupplier((EntityType<? extends LivingEntity>) entity.getType());
+        var defaultAttributeContainer = AttributeDefaults.get(entity);
+        if (!defaultAttributeContainer.hasAttribute(defaultAttributeEntry.get())) {
+            return defaultAttribute.getDefaultValue();
+        }
         return defaultAttributeContainer.getBaseValue(defaultAttributeEntry.get());
     }
     public static double getDefaultAttributeModifiers(ResourceLocation identifier, LivingEntity entity) {
@@ -123,7 +123,10 @@ public class AttributePool {
             return -99;
         }
 
-        var defaultAttributeContainer = DefaultAttributes.getSupplier((EntityType<? extends LivingEntity>) entity.getType());
+        var defaultAttributeContainer = AttributeDefaults.get(entity);
+        if (!defaultAttributeContainer.hasAttribute(defaultAttributeEntry.get())) {
+            return defaultAttribute.getDefaultValue();
+        }
         return defaultAttributeContainer.getBaseValue(defaultAttributeEntry.get());
     }
 
