@@ -1485,7 +1485,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1496,7 +1496,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1507,7 +1507,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1518,7 +1518,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))

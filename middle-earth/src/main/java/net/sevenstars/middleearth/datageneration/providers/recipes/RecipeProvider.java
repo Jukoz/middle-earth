@@ -184,6 +184,19 @@ public class RecipeProvider extends FabricRecipeProvider {
                     createStoneSetRecipes(record.brickworkBlocks);
                     createStoneSetRecipes(record.pillarBlocks);
                     createStoneSetRecipes(record.oldBlocks);
+
+                    if(record.carvedWindows != null && record.baseBlocks != null) {
+                        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.carvedWindows.block(), 4)
+                                .pattern("EEE")
+                                .pattern("EGE")
+                                .pattern("EEE")
+                                .input('E', record.baseBlocks.base())
+                                .input('G', Items.GLASS)
+                                .criterion(hasItem(record.baseBlocks.base()),
+                                        conditionsFromItem(record.baseBlocks.base()))
+                                .offerTo(exporter);
+                        createPaneRecipe(exporter, record.carvedWindows.block().asItem(), record.carvedWindows.verticalSlab(), 12);
+                    }
                 }
                 //endregion
 
@@ -304,45 +317,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                         createRegularSetRecipes(set.blockSet);
                     }
                 }
-
-                //region ROOF RECIPES
-                /*for (GenericBlockSets.RoofBlockSet record : GenericBlockSets.sets) {
-
-                    if (record.origin() != null) {
-                        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.block(), 7)
-                                .pattern(" l ")
-                                .pattern("lll")
-                                .pattern("lll")
-                                .input('l', record.origin())
-                                .criterion(hasItem(record.origin()),
-                                        conditionsFromItem(record.origin()))
-                                .offerTo(exporter);
-                    }
-                    offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.slab(), record.block());
-                    createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
-                    createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
-                    createStairsRecipe(exporter, record.block(), record.stairs());
-                    offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.wall(), record.block());
-                }
-
-                for (GenericBlockSets.MiscBlockSet record : GenericBlockSets.specialWoodSets) {
-                    if (record.origin() != null) {
-                        ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.block(), 7)
-                                .pattern(" l ")
-                                .pattern("lll")
-                                .pattern("lll")
-                                .input('l', record.origin())
-                                .criterion(hasItem(record.origin()),
-                                        conditionsFromItem(record.origin()))
-                                .offerTo(exporter);
-                    }
-                    offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.slab(), record.block());
-                    createVerticalSlabsRecipe(exporter, record.slab(), record.verticalSlab());
-                    createSlabsFromVerticalRecipe(exporter, record.verticalSlab(), record.slab());
-                    createStairsRecipe(exporter, record.block(), record.stairs());
-                    offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.wall(), record.block());
-                }*/
-                //endregion
 
                 //region BLOCK LIST SPECIFIC RECIPES
                 for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
@@ -643,61 +617,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(StoneBlockSets.DRYSTONE_SET.cobblestoneBlocks.base()))
                         .offerTo(exporter);
                 createPaneRecipe(exporter, StoneBlockSets.DRYSTONE_SET.carvedWindows.block().asItem(), StoneBlockSets.DRYSTONE_SET.carvedWindows.verticalSlab(), 12);
-
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.MEDGON_SET.carvedWindows.block(), 2)
-                        .pattern("EEE")
-                        .pattern("EGE")
-                        .pattern("EEE")
-                        .input('E', StoneBlockSets.MEDGON_SET.baseBlocks.base())
-                        .input('G', Items.GLASS)
-                        .criterion(hasItem(StoneBlockSets.MEDGON_SET.baseBlocks.base()),
-                                conditionsFromItem(StoneBlockSets.MEDGON_SET.baseBlocks.base()))
-                        .offerTo(exporter);
-                createPaneRecipe(exporter, StoneBlockSets.MEDGON_SET.carvedWindows.block().asItem(), StoneBlockSets.MEDGON_SET.carvedWindows.verticalSlab(), 12);
-
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.KHAGALABAN_SET.carvedWindows.block(), 2)
-                        .pattern("EEE")
-                        .pattern("EGE")
-                        .pattern("EEE")
-                        .input('E', StoneBlockSets.KHAGALABAN_SET.baseBlocks.base())
-                        .input('G', Items.GLASS)
-                        .criterion(hasItem(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base()),
-                                conditionsFromItem(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base()))
-                        .offerTo(exporter);
-                createPaneRecipe(exporter, StoneBlockSets.KHAGALABAN_SET.carvedWindows.block().asItem(), StoneBlockSets.KHAGALABAN_SET.carvedWindows.verticalSlab(), 12);
-
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.TUFF_SET.carvedWindows.block(), 2)
-                        .pattern("EEE")
-                        .pattern("EGE")
-                        .pattern("EEE")
-                        .input('E', Blocks.TUFF)
-                        .input('G', Items.GLASS)
-                        .criterion(hasItem(Blocks.TUFF),
-                                conditionsFromItem(Blocks.TUFF))
-                        .offerTo(exporter);
-                createPaneRecipe(exporter, StoneBlockSets.TUFF_SET.carvedWindows.block().asItem(), StoneBlockSets.TUFF_SET.carvedWindows.verticalSlab(), 12);
-
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.BLACKSTONE_SET.carvedWindows.block(), 2)
-                        .pattern("EEE")
-                        .pattern("EGE")
-                        .pattern("EEE")
-                        .input('E', Blocks.BLACKSTONE)
-                        .input('G', Items.GLASS)
-                        .criterion(hasItem(Blocks.BLACKSTONE),
-                                conditionsFromItem(Blocks.BLACKSTONE))
-                        .offerTo(exporter);
-                createPaneRecipe(exporter, StoneBlockSets.BLACKSTONE_SET.carvedWindows.block().asItem(), StoneBlockSets.BLACKSTONE_SET.carvedWindows.verticalSlab(), 12);
-
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.IZHERABAN_SET.carvedWindows.block(), 2)
-                        .pattern("EEE")
-                        .pattern("EGE")
-                        .pattern("EEE")
-                        .input('E', StoneBlockSets.IZHERABAN_SET.baseBlocks.base())
-                        .input('G', Items.GLASS)
-                        .criterion(hasItem(StoneBlockSets.IZHERABAN_SET.baseBlocks.base()),
-                                conditionsFromItem(StoneBlockSets.IZHERABAN_SET.baseBlocks.base()))
-                        .offerTo(exporter);
-                createPaneRecipe(exporter, StoneBlockSets.IZHERABAN_SET.carvedWindows.block().asItem(), StoneBlockSets.IZHERABAN_SET.carvedWindows.verticalSlab(), 12);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.LEAD_GLASS, 4)
                         .pattern("LGL")
@@ -1195,6 +1114,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModBlocks.BURZUM_BARS, 16)
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .input('S', ResourceItemsME.BURZUM_STEEL_INGOT)
+                        .criterion(hasItem(ResourceItemsME.BURZUM_STEEL_INGOT),
+                                conditionsFromItem(ResourceItemsME.BURZUM_STEEL_INGOT))
                         .offerTo(exporter);
 
 

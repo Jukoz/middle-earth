@@ -122,7 +122,9 @@ public class HelpingGenerator {
             int tool = -1;
             if(set.requiresTool) {
                 if(set.setName.contains("wood")) tool = 0;
-                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick") || set.setName.contains("tiles")) tool = 1;
+                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick")
+                        || set.setName.contains("tiles") || set.setName.contains("stucco")) tool = 1;
+                else if(set.setName.contains("plaster")) tool = 2;
             }
             regularBlocks(set.blockSet, tool);
         }
@@ -238,6 +240,7 @@ public class HelpingGenerator {
         switch(tool) {
             case 0 -> MineableAxe.blocks.add(block);
             case 1 -> MineablePickaxe.blocks.add(block);
+            case 2 -> MineableShovel.blocks.add(block);
             case 3 -> MineableHoe.blocks.add(block);
         }
 
