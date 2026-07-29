@@ -21,18 +21,19 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
-import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class StructureManagerService {
     private static final String MANAGER_POS_TAG =
             MiddleEarth.NEOFORGE_MOD_ID + ":structure_manager_pos";
-    private static final Map<Level, Set<BlockPos>> STRUCTURE_MANAGERS = new WeakHashMap<>();
+    private static final Map<
+            Level,
+            SpatialIdentityIndex<StructureManagerBlockEntity>
+            > STRUCTURE_MANAGERS =
+            new ConcurrentHashMap<>();
 
     public static StructureManagerData getStructureManagerData(Level world, ResourceLocation structureManagerDataId){
         if(world == null)
@@ -112,8 +113,9 @@ public class StructureManagerService {
         Level world = manager.getLevel();
         if (world == null || world.isClientSide() || !manager.isOperational())
             return;
-        STRUCTURE_MANAGERS.computeIfAbsent(world, key -> new HashSet<>())
-                          .add(manager.getBlockPos().immutable());
+        STRUCTURE_MANAGERS
+                .computeIfAbsent(world, key -> new SpatialIdentityIndex<>())
+                .register(indexPosition(manager.getBlockPos()), manager);
         applyRecordedDeaths(manager);
     }
 
@@ -121,83 +123,67 @@ public class StructureManagerService {
         Level world = manager.getLevel();
         if (world == null || world.isClientSide())
             return;
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world);
-        if (managers == null)
-            return;
-
-        managers.remove(manager.getBlockPos());
-        if (managers.isEmpty())
-            STRUCTURE_MANAGERS.remove(world);
+        SpatialIdentityIndex<StructureManagerBlockEntity> managers =
+                STRUCTURE_MANAGERS.get(world);
+        if (managers != null) {
+            managers.unregister(indexPosition(manager.getBlockPos()), manager);
+        }
     }
 
     public static boolean isClose(Level world, BlockPos pos, int radius) {
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world);
-
-        if (managers == null) {
-            return false;
-        }
-
-        int radiusSquared = radius * radius;
-
-        Iterator<BlockPos> iterator = managers.iterator();
-        while (iterator.hasNext()) {
-            BlockPos managerPos = iterator.next();
-            BlockEntity blockEntity = world.getBlockEntity(managerPos);
-            if (!(blockEntity instanceof StructureManagerBlockEntity manager)
-                    || !manager.isOperational()) {
-                iterator.remove();
-                continue;
-            }
-            if (managerPos.distSqr(pos) <= radiusSquared) {
-                return true;
-            }
-        }
-        if (managers.isEmpty()) {
-            STRUCTURE_MANAGERS.remove(world);
-        }
-
-        return false;
+        SpatialIdentityIndex<StructureManagerBlockEntity> managers =
+                STRUCTURE_MANAGERS.get(world);
+        return managers != null
+                && managers.containsWithin(
+                        pos.getX(), pos.getY(), pos.getZ(), radius
+                );
     }
 
     public static StructureManagerBlockEntity getClosest(
             Level world, BlockPos pos, int radius, ResourceLocation managerId
     ) {
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world);
-
+        SpatialIdentityIndex<StructureManagerBlockEntity> managers =
+                STRUCTURE_MANAGERS.get(world);
         if (managers == null) {
             return null;
         }
 
-        int radiusSquared = radius * radius;
-        double closestDistance = Double.MAX_VALUE;
-        StructureManagerBlockEntity closest = null;
+        SpatialIdentityIndex.Registration<StructureManagerBlockEntity> closest =
+                managers.findClosest(
+                        pos.getX(),
+                        pos.getY(),
+                        pos.getZ(),
+                        radius,
+                        registration -> {
+                            StructureManagerBlockEntity manager =
+                                    registration.owner();
+                            SpatialIdentityIndex.Position position =
+                                    registration.position();
+                            BlockEntity current = world.getBlockEntity(new BlockPos(
+                                    position.x(), position.y(), position.z()
+                            ));
+                            if (current != manager || !manager.isOperational()) {
+                                managers.remove(registration);
+                                return false;
+                            }
+                            return manager.acceptsNest(managerId);
+                        }
+                );
+        return closest == null ? null : closest.owner();
+    }
 
-        Iterator<BlockPos> iterator = managers.iterator();
-        while (iterator.hasNext()) {
-            BlockPos managerPos = iterator.next();
-            double distance = managerPos.distSqr(pos);
+    private static SpatialIdentityIndex.Position indexPosition(BlockPos position) {
+        return new SpatialIdentityIndex.Position(
+                position.getX(), position.getY(), position.getZ()
+        );
+    }
 
-            if (distance > radiusSquared || distance >= closestDistance) {
-                continue;
-            }
+    public static void clear(Level world) {
+        STRUCTURE_MANAGERS.remove(world);
+    }
 
-            BlockEntity blockEntity = world.getBlockEntity(managerPos);
-
-            if (!(blockEntity instanceof StructureManagerBlockEntity structureManager)
-                    || !structureManager.isOperational()) {
-                iterator.remove();
-                continue;
-            }
-            if (structureManager.acceptsNest(managerId)) {
-                closestDistance = distance;
-                closest = structureManager;
-            }
-        }
-        if (managers.isEmpty()) {
-            STRUCTURE_MANAGERS.remove(world);
-        }
-
-        return closest;
+    public static void clearAll() {
+        STRUCTURE_MANAGERS.clear();
     }
 
     public static void bindManagedEntity(LivingEntity entity, BlockPos managerPos) {

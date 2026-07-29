@@ -27,8 +27,10 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.level.ModifyCustomSpawnersEvent;
 import net.neoforged.neoforge.event.level.SleepFinishedTimeEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagedEntityData;
@@ -84,6 +86,18 @@ public final class NeoForgeCommonEvents {
             )) {
                 event.setResult(MobSpawnEvent.SpawnPlacementCheck.Result.FAIL);
             }
+        }
+
+        @SubscribeEvent
+        public static void clearStructureManagers(LevelEvent.Unload event) {
+            if (event.getLevel() instanceof Level level && !level.isClientSide) {
+                StructureManagerService.clear(level);
+            }
+        }
+
+        @SubscribeEvent
+        public static void clearStructureManagers(ServerStoppedEvent event) {
+            StructureManagerService.clearAll();
         }
 
         @SubscribeEvent

@@ -829,7 +829,8 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
     }*/
 
     protected AbstractArrow createArrowProjectile(ItemStack arrow, float damageModifier, @Nullable ItemStack shotFrom) {
-        return ProjectileUtil.getMobArrow(this, arrow, damageModifier, shotFrom);
+        ItemStack ammunition = arrow.isEmpty() ? Items.ARROW.getDefaultInstance() : arrow;
+        return ProjectileUtil.getMobArrow(this, ammunition, damageModifier, shotFrom);
     }
 
     public boolean isAiming() {
@@ -855,7 +856,7 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
     }
 
     public boolean isReadyToShoot() {
-        return getMainHandItem() != null;
+        return !getMainHandItem().isEmpty();
         //int i = this.getItemUseTime();
         //if (i >= 20) {
         //    return true;

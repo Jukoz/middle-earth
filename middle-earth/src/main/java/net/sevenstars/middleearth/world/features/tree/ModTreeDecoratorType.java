@@ -9,6 +9,7 @@ import net.sevenstars.api.registries.RegistrationBridge;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.world.features.tree.backport.AttachedToLogsTreeDecorator;
 import net.sevenstars.middleearth.world.features.tree.backport.PlaceOnGroundTreeDecorator;
+import net.sevenstars.middleearth.world.features.tree.decorators.ConnectedLeavesTreeDecorator;
 import net.sevenstars.middleearth.world.features.tree.decorators.PaleMossTreeDecorator;
 
 public class ModTreeDecoratorType {
@@ -18,6 +19,8 @@ public class ModTreeDecoratorType {
             "place_on_ground", PlaceOnGroundTreeDecorator.CODEC);
     public static final TreeDecoratorType<PaleMossTreeDecorator> PALE_MOSS = register(
             "pale_moss", PaleMossTreeDecorator.CODEC);
+    public static final TreeDecoratorType<ConnectedLeavesTreeDecorator> CONNECTED_LEAVES = register(
+            "connected_leaves", ConnectedLeavesTreeDecorator.CODEC);
 
     private static <P extends TreeDecorator> TreeDecoratorType<P> register(String id, MapCodec<P> codec) {
         return RegistrationBridge.register(

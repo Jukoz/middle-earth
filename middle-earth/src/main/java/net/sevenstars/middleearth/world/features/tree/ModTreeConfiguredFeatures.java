@@ -50,6 +50,7 @@ import net.sevenstars.middleearth.block.special.plants.BackportedLeafLitterBlock
 import net.sevenstars.middleearth.world.features.tree.backport.AttachedToLogsTreeDecorator;
 import net.sevenstars.middleearth.world.features.tree.backport.FallenTreeFeatureConfig;
 import net.sevenstars.middleearth.world.features.tree.backport.PlaceOnGroundTreeDecorator;
+import net.sevenstars.middleearth.world.features.tree.decorators.ConnectedLeavesTreeDecorator;
 import net.sevenstars.middleearth.world.features.tree.decorators.PaleMossTreeDecorator;
 import net.sevenstars.middleearth.world.features.tree.foliages.OvalFoliagePlacer;
 import net.sevenstars.middleearth.world.features.tree.foliages.PalmFoliagePlacer;
@@ -172,6 +173,7 @@ public class ModTreeConfiguredFeatures {
                 BlockStateProvider.simple(WoodBlockSets.ASPEN_SET.leaves),
                 new OvalFoliagePlacer(3, ConstantInt.of(0), ConstantInt.of(2), emptyList,0.4f),
                 new TwoLayersFeatureSize(1, 0, 2))
+                .decorators(connectedLeaves())
                 .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         
         register(context, BEECH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -180,6 +182,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.BEECH_SET.leaves),
             new OvalFoliagePlacer(3, ConstantInt.of(0), ConstantInt.of(2), emptyList,0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, BIRCH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -188,6 +191,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.BIRCH_LEAVES),
             new OvalFoliagePlacer(3, ConstantInt.of(0), ConstantInt.of(2), emptyList,0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_BIRCH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(Blocks.BIRCH_LOG),
@@ -195,6 +199,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.BIRCH_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList,0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, CHESTNUT_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -203,6 +208,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.CHESTNUT_SET.leaves),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(2), emptyList,0.14f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -211,6 +217,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList, 0.3f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, PALE_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.PALE_OAK_SET.logBlocks.log()),
@@ -293,6 +300,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList,0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, DEADWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -301,6 +309,7 @@ public class ModTreeConfiguredFeatures {
                 BlockStateProvider.simple(Blocks.AIR),
                 new OvalFoliagePlacer(1, ConstantInt.of(-1), ConstantInt.of(1), emptyList, 0.0f),
                 new TwoLayersFeatureSize(1, 0, 2))
+                .decorators(connectedLeaves())
                 .dirt(BlockStateProvider.simple(ModBlocks.FOUL_DIRT)).build());
 
         register(context, FIR_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -317,6 +326,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.HOLLY_SET.leaves),
             new OvalFoliagePlacer(3, ConstantInt.of(-1), ConstantInt.of(2), hollyLeaves, 0.17f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, LARCH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -333,6 +343,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.LEBETHRON_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(2), emptyList, 0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, WHITE_LEBETHRON_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.WHITE_LEBETHRON_SET.logBlocks.log()),
@@ -340,6 +351,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.LEBETHRON_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(2), emptyList, 0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, MALLORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -348,6 +360,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.leaves),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList,0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, SMALL_MALLORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.logBlocks.log()),
@@ -355,6 +368,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.leaves),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList,  0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_MALLORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.logBlocks.log()),
@@ -362,6 +376,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.leaves),
             new OvalFoliagePlacer(3, ConstantInt.of(-1), ConstantInt.of(4), emptyList,  0.7f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, MEGA_MALLORN_STRUCTURE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.logBlocks.log()),
@@ -370,17 +385,20 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.leaves),
             new OvalFoliagePlacer(3, ConstantInt.of(-1), ConstantInt.of(4), emptyList,  0.7f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, MALLORN_BUSH_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.logBlocks.log()),
             new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.leaves),
             new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-            new TwoLayersFeatureSize(0, 0, 0)).build());
+            new TwoLayersFeatureSize(0, 0, 0))
+            .decorators(connectedLeaves()).build());
         register(context, MALLORN_FLOWERING_BUSH_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MALLORN_SET.logBlocks.log()),
             new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(ModNatureBlocks.FLOWERING_MALLORN_LEAVES),
             new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 1),
-            new TwoLayersFeatureSize(0, 0, 0)).build());
+            new TwoLayersFeatureSize(0, 0, 0))
+            .decorators(connectedLeaves()).build());
 
         CanopyTrunkPlacer mapleTrunk = new CanopyTrunkPlacer(11, 2, 0.91f, 0.87f,
                 5.1f, 2, 0.37f, -0.1f, 1,1);
@@ -392,6 +410,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MAPLE_SET.leaves),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, YELLOW_MAPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MAPLE_SET.logBlocks.log()),
@@ -399,6 +418,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.YELLOW_MAPLE_LEAVES),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, ORANGE_MAPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MAPLE_SET.logBlocks.log()),
@@ -406,6 +426,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.ORANGE_MAPLE_LEAVES),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, RED_MAPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MAPLE_SET.logBlocks.log()),
@@ -413,6 +434,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.RED_MAPLE_LEAVES),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, SILVER_MAPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log()),
@@ -420,6 +442,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MAPLE_SET.leaves),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, SILVER_YELLOW_MAPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log()),
@@ -427,6 +450,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.YELLOW_MAPLE_LEAVES),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, SILVER_ORANGE_MAPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log()),
@@ -434,6 +458,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.ORANGE_MAPLE_LEAVES),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, SILVER_RED_MAPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.SILVER_MAPLE_SET.logBlocks.log()),
@@ -441,6 +466,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.RED_MAPLE_LEAVES),
             mapleFoliage,
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, SMALL_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -449,7 +475,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MIRKWOOD_SET.leaves),
             new OvalFoliagePlacer(2, ConstantInt.of(-1), ConstantInt.of(2), emptyList, 0.3f),
             new TwoLayersFeatureSize(1, 0, 2))
-            .decorators(ImmutableList.of(new LeaveVineDecorator(0.1F)))
+            .decorators(connectedLeaves(new LeaveVineDecorator(0.1F)))
             .dirt(BlockStateProvider.simple(ModBlocks.LOAM)).build());
         register(context, MIRKWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MIRKWOOD_SET.logBlocks.wood()),
@@ -457,7 +483,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MIRKWOOD_SET.leaves),
             new OvalFoliagePlacer(2, ConstantInt.of(-1), ConstantInt.of(3), emptyList, 0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
-            .decorators(ImmutableList.of(new LeaveVineDecorator(0.25F)))
+            .decorators(connectedLeaves(new LeaveVineDecorator(0.25F)))
             .dirt(BlockStateProvider.simple(ModBlocks.LOAM)).build());
         register(context, MEGA_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()),
@@ -465,7 +491,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.MIRKWOOD_SET.leaves),
             new OvalFoliagePlacer(3, ConstantInt.of(-1), ConstantInt.of(4), emptyList, 0.5f),
             new TwoLayersFeatureSize(1, 0, 2))
-            .decorators(ImmutableList.of(new LeaveVineDecorator(0.25F)))
+            .decorators(connectedLeaves(new LeaveVineDecorator(0.25F)))
             .dirt(BlockStateProvider.simple(ModBlocks.LOAM)).build());
 
         register(context, DEAD_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -474,6 +500,7 @@ public class ModTreeConfiguredFeatures {
                 BlockStateProvider.simple(Blocks.AIR),
                 new OvalFoliagePlacer(2, ConstantInt.of(-1), ConstantInt.of(3), emptyList, 0.4f),
                 new TwoLayersFeatureSize(1, 0, 2))
+                .decorators(connectedLeaves())
                 .dirt(BlockStateProvider.simple(ModBlocks.LOAM)).build());
         register(context, DEAD_MEGA_MIRKWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()),
@@ -481,13 +508,15 @@ public class ModTreeConfiguredFeatures {
                 BlockStateProvider.simple(Blocks.AIR),
                 new OvalFoliagePlacer(3, ConstantInt.of(-1), ConstantInt.of(4), emptyList, 0.5f),
                 new TwoLayersFeatureSize(1, 0, 2))
+                .decorators(connectedLeaves())
                 .dirt(BlockStateProvider.simple(ModBlocks.LOAM)).build());
 
         register(context, OAK_BUSH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(Blocks.OAK_LOG),
             new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(Blocks.OAK_LEAVES),
             new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-            new TwoLayersFeatureSize(0, 0, 0)).build());
+            new TwoLayersFeatureSize(0, 0, 0))
+            .decorators(connectedLeaves()).build());
 
 
         register(context, OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -496,6 +525,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.OAK_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList, 0.3f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, BEES_OAK_TREE_KEY, Feature.TREE, oak().decorators(List.of(new BeehiveDecorator(0.25F))).build());
         register(context, OAK_TREE_VINES_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -504,7 +534,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.OAK_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList, 0.3f),
             new TwoLayersFeatureSize(1, 0, 2))
-            .decorators(ImmutableList.of(new LeaveVineDecorator(0.25F)))
+            .decorators(connectedLeaves(new LeaveVineDecorator(0.25F)))
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
         register(context, OAK_SMALL_TREE_VINES_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -520,6 +550,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.OAK_LEAVES),
             new OvalFoliagePlacer(2, ConstantInt.of(0), ConstantInt.of(3), emptyList, 0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
 
         register(context, PALM_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -562,7 +593,8 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(ModNatureBlocks.PINE_BRANCHES),
             new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(ModNatureBlocks.DRY_PINE_LEAVES),
             new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-            new TwoLayersFeatureSize(0, 0, 0)).build());
+            new TwoLayersFeatureSize(0, 0, 0))
+            .decorators(connectedLeaves()).build());
 
         register(context, BLACK_PINE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.BLACK_PINE_SET.logBlocks.log()),
@@ -606,7 +638,8 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(Blocks.SPRUCE_LOG),
             new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
             new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-            new TwoLayersFeatureSize(0, 0, 0)).build());
+            new TwoLayersFeatureSize(0, 0, 0))
+            .decorators(connectedLeaves()).build());
 
         register(context, WHITE_SPRUCE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(WoodBlockSets.WHITE_SPRUCE_SET.logBlocks.log()),
@@ -619,7 +652,8 @@ public class ModTreeConfiguredFeatures {
                 BlockStateProvider.simple(WoodBlockSets.WHITE_SPRUCE_SET.logBlocks.log()),
                 new StraightTrunkPlacer(1, 0, 0), BlockStateProvider.simple(WoodBlockSets.WHITE_SPRUCE_SET.leaves),
                 new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-                new TwoLayersFeatureSize(0, 0, 0)).build());
+                new TwoLayersFeatureSize(0, 0, 0))
+                .decorators(connectedLeaves()).build());
 
         register(context, WILLOW_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(WoodBlockSets.WILLOW_SET.logBlocks.log()),
@@ -627,6 +661,7 @@ public class ModTreeConfiguredFeatures {
             BlockStateProvider.simple(WoodBlockSets.WILLOW_SET.leaves),
             new OvalFoliagePlacer(2, ConstantInt.of(-1), ConstantInt.of(3), emptyList, 0.4f),
             new TwoLayersFeatureSize(1, 0, 2))
+            .decorators(connectedLeaves())
             .dirt(BlockStateProvider.simple(Blocks.GRASS_BLOCK)).build());
     }
 
@@ -636,6 +671,15 @@ public class ModTreeConfiguredFeatures {
 
     private static TreeConfiguration.TreeConfigurationBuilder oak() {
         return builder(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 4, 2, 0, 2).ignoreVines();
+    }
+
+    private static List<TreeDecorator> connectedLeaves(
+            TreeDecorator... decorators
+    ) {
+        List<TreeDecorator> result = new ArrayList<>(decorators.length + 1);
+        result.add(ConnectedLeavesTreeDecorator.INSTANCE);
+        result.addAll(Arrays.asList(decorators));
+        return List.copyOf(result);
     }
 
     private static List<TreeDecorator> leafLitterDecorators() {
