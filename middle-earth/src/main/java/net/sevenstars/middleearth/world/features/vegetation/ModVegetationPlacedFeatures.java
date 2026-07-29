@@ -490,7 +490,7 @@ public class ModVegetationPlacedFeatures {
         PlacementUtils.register(featureRegisterable, FIELD_HEATHER, fieldHeather, common, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_DRY_HEATHER, fieldDryHeather, sparse, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_LAVENDER, fieldLavender, abundant, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-        PlacementUtils.register(featureRegisterable, FIELD_WILD_WHEAT, fieldWildWeather, common, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(featureRegisterable, FIELD_WILD_WHEAT, fieldWildWeather, common, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_DEAD_NORMAL_HEATHER, fieldDeadNormalHeather, scarce, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_SPARSE_DEAD_NORMAL_HEATHER, fieldDeadNormalHeather, sparse, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_BLUE_FESCUE, fieldBlueFescue, occasional, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());

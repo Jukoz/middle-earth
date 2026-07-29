@@ -54,7 +54,8 @@ public class ModClientConfigs {
         ENABLE_MAP_OVERLAY = CONFIG.getOrDefault("enableMapOverlay", false);
         ENABLE_SIMPLIFIED_CHARACTER_RENDERING = CONFIG.getOrDefault("enableSimplifiedCharacterRendering", false);
         LOD_NPC_ARMOR_DISTANCE = CONFIG.getOrDefault("npcsArmorDistanceLOD", 48);
-        LOD_NPC_FEATURES_DISTANCE = CONFIG.getOrDefault("npcsFeaturesDistanceLOD", 24);
+        // Upstream 1.21.8 effectively uses the armor LOD for modeled NPC features too.
+        LOD_NPC_FEATURES_DISTANCE = LOD_NPC_ARMOR_DISTANCE;
         DISABLE_GLINT = CONFIG.getOrDefault("disableGlint", true);
         MiddleEarth.LOGGER.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
     }

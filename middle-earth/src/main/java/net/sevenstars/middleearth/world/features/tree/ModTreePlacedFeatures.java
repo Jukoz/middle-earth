@@ -213,7 +213,7 @@ public class ModTreePlacedFeatures {
                         Blocks.BIRCH_SAPLING));
         register(context, FALLEN_BIRCH_PLACED_TREE_KEY,
                 configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FALLEN_BIRCH_TREE_KEY),
-                List.of(PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)));
+                List.of(PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING), BiomeFilter.biome()));
         register(context, FALLEN_OAK_PLACED_TREE_KEY,
                 configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FALLEN_OAK_TREE_KEY),
                 List.of(PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)));

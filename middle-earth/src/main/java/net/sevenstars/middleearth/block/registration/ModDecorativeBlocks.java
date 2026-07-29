@@ -243,11 +243,32 @@ public class ModDecorativeBlocks {
             (settings) -> new TorchOfOrthancBlock(settings, ParticleTypes.FLAME), BlockBehaviour.Properties.ofFullCopy(Blocks.TORCH).lightLevel(createLightLevelFromLitBlockState(15)).noOcclusion().requiresCorrectToolForDrops());
 
     public static final Block CERAMIC_PLATE = registerBlockWithItem("ceramic_plate",
-            PlateBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).instabreak());
+            PlateBlock::new, BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .forceSolidOn()
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .noCollission()
+                    .strength(0.5F)
+                    .instabreak()
+                    .pushReaction(PushReaction.DESTROY));
     public static final Block ROTTEN_PLATE = registerBlockWithItem("rotten_plate",
-            PlateBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).instabreak());
+            PlateBlock::new, BlockBehaviour.Properties.of()
+                    .mapColor(Blocks.OAK_PLANKS.defaultMapColor())
+                    .forceSolidOn()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .noCollission()
+                    .strength(0.5F)
+                    .instabreak()
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY));
     public static final Block SILVER_PLATE = registerBlockWithItem("silver_plate",
-            PlateBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE).instabreak());
+            PlateBlock::new, BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.GOLD)
+                    .forceSolidOn()
+                    .noCollission()
+                    .strength(0.5F)
+                    .instabreak()
+                    .pushReaction(PushReaction.DESTROY));
     public static final Block TAPPER = registerBlock("tapper",
             TapperBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).instabreak().noOcclusion());
 

@@ -79,6 +79,30 @@ class MigrationRegressionContractTest {
         assertTrue(plate.contains("player.addItem(removed)"));
         assertTrue(plate.contains("ItemInteractionResult.sidedSuccess(world.isClientSide)"));
 
+        String decorativeBlocks = source(
+                "net/sevenstars/middleearth/block/registration/ModDecorativeBlocks.java"
+        );
+        int plateRegistrationsStart = decorativeBlocks.indexOf(
+                "public static final Block CERAMIC_PLATE"
+        );
+        int plateRegistrationsEnd = decorativeBlocks.indexOf(
+                "public static final Block TAPPER",
+                plateRegistrationsStart
+        );
+        String plateRegistrations = decorativeBlocks.substring(
+                plateRegistrationsStart,
+                plateRegistrationsEnd
+        );
+        assertEquals(
+                3,
+                plateRegistrations.split(
+                        "PlateBlock::new, BlockBehaviour\\.Properties\\.of\\(\\)",
+                        -1
+                ).length - 1
+        );
+        assertFalse(plateRegistrations.contains("Properties.ofFullCopy"));
+        assertFalse(plateRegistrations.contains("requiresCorrectToolForDrops"));
+
         String blockEntity = source(
                 "net/sevenstars/middleearth/block/special/plate/PlateBlockEntity.java"
         );
