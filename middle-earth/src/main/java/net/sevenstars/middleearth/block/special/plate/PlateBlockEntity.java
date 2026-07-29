@@ -88,12 +88,6 @@ public class PlateBlockEntity extends BlockEntity implements ContainerSingleItem
         return blockPlaced;
     }
 
-    public static void tick(Level world, BlockPos pos, BlockState state, PlateBlockEntity blockEntity) {
-        if(blockEntity.blockPlaced) {
-            blockEntity.generateItem((ServerLevel) world);
-        }
-    }
-
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {

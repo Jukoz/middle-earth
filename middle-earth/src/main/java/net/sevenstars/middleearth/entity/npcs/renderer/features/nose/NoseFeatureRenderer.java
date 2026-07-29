@@ -35,6 +35,7 @@ public class NoseFeatureRenderer extends RenderLayer<NpcEntity, NpcEntityModel> 
     public void render(PoseStack matrices, MultiBufferSource buffers, int light, NpcEntity entity,
                        float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks,
                        float netHeadYaw, float headPitch) {
+        if (entity.isInvisible()) return;
         if (NpcEntityRenderer.getLOD(entity.position()) > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE) return;
         var data = entity.retrieveNpcTextureData();
         boolean simplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING

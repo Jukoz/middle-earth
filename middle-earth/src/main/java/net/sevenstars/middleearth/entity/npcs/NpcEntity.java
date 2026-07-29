@@ -255,12 +255,12 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(3, new NpcDoorInteractGoal(this));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new TargetPlayerDiplomacyGoal(this));
-        this.targetSelector.addGoal(4, new NpcDoorInteractGoal(this, true));
         this.targetSelector.addGoal(5, new TargetNPCDiplomacyGoal(this));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, SnowTrollEntity.class, true));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, SpawnOfShelobEntity.class, true));

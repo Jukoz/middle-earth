@@ -9,6 +9,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -42,6 +43,7 @@ import net.sevenstars.middleearth.entity.npcs.renderer.features.nose.NoseFeature
 import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.CharacterClothesRegistryME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
+import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityRenderer extends HumanoidMobRenderer<NpcEntity, NpcEntityModel> {
     public static final int LIGHT_LEVEL_EMISSIVE_EYES = 8;
@@ -106,6 +108,17 @@ public class NpcEntityRenderer extends HumanoidMobRenderer<NpcEntity, NpcEntityM
     @Override
     public ResourceLocation getTextureLocation(NpcEntity entity) {
         return EMPTY_TEXTURE;
+    }
+
+    @Nullable
+    @Override
+    protected RenderType getRenderType(NpcEntity entity, boolean bodyVisible,
+                                       boolean translucent, boolean glowing) {
+        if (!glowing) {
+            return null;
+        }
+        this.model.setAllVisible(true);
+        return RenderType.outline(EMPTY_TEXTURE);
     }
 
     public static HumanoidModel.ArmPose getArmPose(NpcEntity npc, ItemStack stack, InteractionHand hand) {
@@ -189,6 +202,9 @@ public class NpcEntityRenderer extends HumanoidMobRenderer<NpcEntity, NpcEntityM
         public void render(PoseStack matrices, MultiBufferSource buffers, int light, NpcEntity entity,
                            float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks,
                            float netHeadYaw, float headPitch) {
+            if (entity.isInvisible()) {
+                return;
+            }
             NpcTextureData data = entity.retrieveNpcTextureData();
             boolean simplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING
                     && data.getSimplifiedSkin() != null;
