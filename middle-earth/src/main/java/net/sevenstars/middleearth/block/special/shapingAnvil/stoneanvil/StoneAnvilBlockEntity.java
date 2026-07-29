@@ -28,7 +28,7 @@ public class StoneAnvilBlockEntity extends ShapingAnvilBlockEntity {
     }
 
     @Override
-    public void bonk(ShapingAnvilBlockEntity entity, ServerWorld world) {
+    public void bonk(ShapingAnvilBlockEntity entity, ServerWorld world, ItemStack tool) {
         ItemStack input = entity.getStack(0);
 
         ArmorTrim trim = input.get(DataComponentTypes.TRIM);
@@ -44,6 +44,6 @@ public class StoneAnvilBlockEntity extends ShapingAnvilBlockEntity {
             }
         }
 
-        super.bonk(entity, world);
+        super.bonk(entity, world, tool);
     }
 }

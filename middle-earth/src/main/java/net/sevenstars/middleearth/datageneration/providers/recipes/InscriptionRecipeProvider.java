@@ -835,6 +835,35 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_4")));
                 //endregion
 
+                //region AULE BLESSING
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AULE_BLESSING), 1, 4)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("gifted")
+                        .addWord("core")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aule_blessing_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 2, 6)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("gifted")
+                        .addWord("core")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aule_blessing_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 3, 8)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("gifted")
+                        .addWord("core")
+                        .criterion(hasItem(Items.EMERALD),
+                                conditionsFromItem(Items.EMERALD))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aule_blessing_3")));
+                //endregion
+
                 //region BANE OF GIANTS
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(EnchantmentsME.BANE_OF_GIANTS), 1, 3)
@@ -968,7 +997,6 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(Items.EMERALD))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_hewing_3")));
                 //endregion
-
 
                 //region TREE_FELLER
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,

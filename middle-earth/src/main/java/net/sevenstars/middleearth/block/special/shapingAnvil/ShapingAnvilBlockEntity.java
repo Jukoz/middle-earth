@@ -1,16 +1,20 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -139,19 +143,33 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         return entity.getStack(0);
     }
 
-    public void bonk(ShapingAnvilBlockEntity entity, ServerWorld world){
+    public void bonk(ShapingAnvilBlockEntity entity, ServerWorld world, ItemStack tool){
         ItemStack input = entity.getStack(0);
 
         ServerRecipeManager serverRecipeManager = (ServerRecipeManager)entity.getWorld().getRecipeManager();
         List<RecipeEntry<AnvilShapingRecipe>> match = serverRecipeManager.getAllMatches(AnvilShapingRecipe.Type.INSTANCE, new SingleStackRecipeInput(input), entity.getWorld()).toList();
 
-        if (!match.isEmpty() && input.get(DataComponentTypesME.TEMPERATURE_DATA) != null  && hasShapingRecipe(entity)){
-            int temperature = input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature();
-
+        if (!match.isEmpty() && hasShapingRecipe(entity)){
+            int temperature = 0;
+            if(input.get(DataComponentTypesME.TEMPERATURE_DATA) != null) {
+                temperature = input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature();
+            }
             entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f - (float) temperature / 1000);
 
             int minRandProgress = 7;
             int maxRandProgress = 14;
+            if(temperature <= 0) {
+                minRandProgress = maxRandProgress = 1;
+            } else {
+                RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
+                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.AULE_BLESSING).orElseThrow();
+                boolean hasEnchant = tool.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
+                if (hasEnchant) {
+                    int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, tool);
+                    minRandProgress = 7 + level;
+                    maxRandProgress = 14 + (2 * level);
+                }
+            }
 
             if (input.getMaxDamage() == 0 && input.getDamage() == 0){
                 input.set(DataComponentTypes.MAX_DAMAGE, match.get(entity.outputIndex).value().getAmount());
