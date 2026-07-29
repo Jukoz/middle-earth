@@ -103,16 +103,16 @@ public final class OnboardingServerHandler {
             }
 
             Vec3 target = spawn.getBlockPos().getCenter();
-            if (!ModDimensions.teleportPlayerToMe(player, target, false, false)) {
-                return false;
-            }
             if (!PlayerDataService.setOrigin(
                     player,
                     player.level(),
                     BuiltinDimensionTypes.OVERWORLD.location(),
                     session.origin()
             )) {
-                MiddleEarth.LOGGER.logError("Onboarding completed its dimension transition but could not persist the overworld origin.");
+                MiddleEarth.LOGGER.logError("Onboarding could not persist the overworld origin; teleport cancelled.");
+                return false;
+            }
+            if (!ModDimensions.teleportPlayerToMe(player, target, false, false)) {
                 return false;
             }
 
@@ -147,17 +147,30 @@ public final class OnboardingServerHandler {
         if (session == null || !PlayerDataService.playerPassedOnboarding(player)) {
             return false;
         }
-        SpawnData spawnData = PlayerDataService.getPlayerSpawnData(player, player.level());
-        if (spawnData == null || !isFinite(spawnData.getCoordinates())
-                || !ModDimensions.teleportPlayerToMe(player, spawnData.getBlockPos().getCenter(), true, welcomeNeeded)) {
-            return false;
-        }
         if (!PlayerDataService.setOrigin(
                 player,
                 player.level(),
                 BuiltinDimensionTypes.OVERWORLD.location(),
                 session.origin()
         )) {
+            return false;
+        }
+
+        BlockPos returnPos = PlayerDataService.getMiddleEarthReturnPos(player);
+        boolean teleported = returnPos != null
+                && ModDimensions.teleportPlayerToMeReturnPoint(player, returnPos, welcomeNeeded);
+        if (!teleported) {
+            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(player, player.level());
+            teleported = spawnData != null
+                    && isFinite(spawnData.getCoordinates())
+                    && ModDimensions.teleportPlayerToMe(
+                            player,
+                            spawnData.getBlockPos().getCenter(),
+                            true,
+                            welcomeNeeded
+                    );
+        }
+        if (!teleported) {
             return false;
         }
         consumePhial(player, session);
@@ -167,7 +180,9 @@ public final class OnboardingServerHandler {
 
     public static boolean returnToOverworld(ServerPlayer player, InteractionHand hand) {
         Session session = validateSession(player, hand, null, ModDimensions.ME_WORLD_KEY);
-        if (session == null || !ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD
+        if (session == null
+                || !ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD
+                || !PlayerDataService.setMiddleEarthReturnPos(player, session.origin())
                 || !ModDimensions.teleportPlayerToOverworld(player)) {
             return false;
         }

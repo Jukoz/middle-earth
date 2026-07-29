@@ -7,7 +7,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -68,10 +67,6 @@ public class WillowVinesFeature extends Feature<NoneFeatureConfiguration> {
 
                 if(blockStateAbove.isAir())
                     break;
-
-                if(blockStateAbove.is(WoodBlockSets.WILLOW_SET.leaves)){
-                    world.setBlock(pos.above(), WoodBlockSets.WILLOW_SET.leaves.defaultBlockState().setValue(LeavesBlock.PERSISTENT, false), 2);
-                }
 
                 if (i == length || !world.getBlockState(pos.below()).isAir()) {
                     world.setBlock(pos, ModNatureBlocks.WILLOW_VINES.defaultBlockState(), 2);

@@ -27,7 +27,7 @@ public class ModTexturedRenderLayers extends Sheets {
 
 
     static {
-        CHARACTER_TEXTURES_RENDER_LAYER = RenderType.entityCutout(CHARACTER_ATLAS_TEXTURES);
+        CHARACTER_TEXTURES_RENDER_LAYER = RenderType.entityCutoutNoCull(CHARACTER_ATLAS_TEXTURES);
         CHARACTER_TEXTURES_EMISSIVE_RENDER_LAYER = RenderType.entityTranslucentEmissive(CHARACTER_ATLAS_TEXTURES);
 
         HEATER_SHIELD_BASE = new Material(SHIELD_SHEET, MiddleEarth.ofVanillaPath("entity", "heater_shield", "base" ));

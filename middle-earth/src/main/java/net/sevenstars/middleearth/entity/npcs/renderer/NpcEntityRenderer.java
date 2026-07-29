@@ -114,7 +114,7 @@ public class NpcEntityRenderer extends HumanoidMobRenderer<NpcEntity, NpcEntityM
     @Override
     protected RenderType getRenderType(NpcEntity entity, boolean bodyVisible,
                                        boolean translucent, boolean glowing) {
-        if (!glowing) {
+        if (bodyVisible || !glowing) {
             return null;
         }
         this.model.setAllVisible(true);

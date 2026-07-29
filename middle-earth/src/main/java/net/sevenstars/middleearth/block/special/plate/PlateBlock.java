@@ -83,7 +83,8 @@ public class PlateBlock extends BaseEntityBlock {
     @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         super.tick(state, world, pos, random);
-        if (world.getBlockEntity(pos) instanceof PlateBlockEntity plateBlockEntity) {
+        if (world.getBlockEntity(pos) instanceof PlateBlockEntity plateBlockEntity
+                && plateBlockEntity.hasPendingLoot()) {
             plateBlockEntity.setBlockPlaced();
             plateBlockEntity.generateItem(world);
         }

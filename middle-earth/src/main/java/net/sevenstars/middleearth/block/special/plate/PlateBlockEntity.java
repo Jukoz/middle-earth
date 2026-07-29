@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.block.special.plate;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -12,7 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.component.SeededContainerLoot;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,6 +22,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.ticks.ContainerSingleItem;
+import net.minecraft.world.ticks.TickPriority;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,7 +49,7 @@ public class PlateBlockEntity extends BlockEntity implements ContainerSingleItem
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        this.food.copyAndClear();
+        this.food = ItemStack.EMPTY;
         this.blockPlaced = tag.getBoolean("placed");
         if (!this.readLootTableFromData(tag) && tag.contains("item")) {
             this.food = ItemStack.parse(registries, tag.get("item")).orElse(ItemStack.EMPTY);
@@ -58,6 +61,34 @@ public class PlateBlockEntity extends BlockEntity implements ContainerSingleItem
     public void setLootTable(ResourceKey<LootTable> lootTable, long seed) {
         this.lootTable = lootTable;
         this.lootTableSeed = seed;
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        SeededContainerLoot componentLoot = this.components().get(DataComponents.CONTAINER_LOOT);
+        if (componentLoot != null) {
+            if (this.lootTable == null && this.food.isEmpty()) {
+                this.lootTable = componentLoot.lootTable();
+                this.lootTableSeed = componentLoot.seed();
+            }
+            DataComponentMap.Builder components = DataComponentMap.builder().addAll(this.components());
+            components.set(DataComponents.CONTAINER_LOOT, null);
+            this.setComponents(components.build());
+            this.setChanged();
+        }
+
+        if (this.hasPendingLoot()) {
+            serverLevel.scheduleTick(this.worldPosition, this.getBlockState().getBlock(), 1, TickPriority.NORMAL);
+        }
+    }
+
+    public boolean hasPendingLoot() {
+        return this.lootTable != null;
     }
 
     private boolean readLootTableFromData(CompoundTag tag) {

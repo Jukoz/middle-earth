@@ -52,7 +52,8 @@ public final class PlayerRespawnEvents {
         BlockPos spawnCoordinates = spawnData.getWorldCoordinateBlockPos();
         var safeTarget = ModDimensions.findSafeMiddleEarthTeleportTarget(
                 middleEarth,
-                new Vec3(spawnCoordinates.getX(), spawnCoordinates.getY() + 1, spawnCoordinates.getZ())
+                new Vec3(spawnCoordinates.getX(), spawnCoordinates.getY() + 1, spawnCoordinates.getZ()),
+                player
         );
         if (safeTarget.isEmpty()) {
             MiddleEarth.LOGGER.logError("No safe Middle-earth respawn position was found; keeping the original respawn transition.");

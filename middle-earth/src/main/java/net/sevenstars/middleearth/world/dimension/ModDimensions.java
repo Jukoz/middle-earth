@@ -12,6 +12,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -40,6 +42,8 @@ public class ModDimensions {
     private static final int NO_SAFE_Y = Integer.MIN_VALUE;
     private static final int SAFE_VERTICAL_SEARCH_UP = 16;
     private static final int SAFE_VERTICAL_SEARCH_DOWN = 32;
+    private static final EntityDimensions DEFAULT_PLAYER_DIMENSIONS =
+            EntityDimensions.scalable(0.6F, 1.8F);
 
     public static ResourceLocation ME_DIMENSION_ID = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "middle_earth");
     public static ResourceLocation OW_DIMENSION_ID = ResourceLocation.parse("overworld");
@@ -84,12 +88,58 @@ public class ModDimensions {
             return false;
         }
 
-        Optional<Vec3> safeTarget = findSafeMiddleEarthTeleportTarget(serverWorld, coordinates);
+        Optional<Vec3> safeTarget = findSafeMiddleEarthTeleportTarget(
+                serverWorld,
+                coordinates,
+                serverPlayer
+        );
         if (safeTarget.isEmpty()) {
             MiddleEarth.LOGGER.logError("No safe Middle-earth landing position was found; teleport cancelled.");
             return false;
         }
-        Vec3 target = safeTarget.get();
+        return completeMiddleEarthTeleport(
+                serverPlayer,
+                serverWorld,
+                safeTarget.get(),
+                setSpawnPoint,
+                welcomeNeeded
+        );
+    }
+
+    public static boolean teleportPlayerToMeReturnPoint(
+            Player player,
+            BlockPos returnPos,
+            boolean welcomeNeeded
+    ) {
+        if (player.level().isClientSide() || !(player instanceof ServerPlayer serverPlayer)) {
+            return false;
+        }
+        ServerLevel serverWorld = serverPlayer.getServer().getLevel(ME_WORLD_KEY);
+        if (serverWorld == null) {
+            return false;
+        }
+        Optional<Vec3> safeTarget = findSafeMiddleEarthReturnTarget(
+                serverWorld,
+                returnPos,
+                serverPlayer
+        );
+        return safeTarget.isPresent()
+                && completeMiddleEarthTeleport(
+                        serverPlayer,
+                        serverWorld,
+                        safeTarget.get(),
+                        true,
+                        welcomeNeeded
+                );
+    }
+
+    private static boolean completeMiddleEarthTeleport(
+            ServerPlayer serverPlayer,
+            ServerLevel serverWorld,
+            Vec3 target,
+            boolean setSpawnPoint,
+            boolean welcomeNeeded
+    ) {
         BlockPos targetPos = BlockPos.containing(target);
         if (!transitionPlayer(serverPlayer, serverWorld, target)) {
             return false;
@@ -98,16 +148,59 @@ public class ModDimensions {
             serverPlayer.setRespawnPosition(ME_WORLD_KEY, targetPos, serverPlayer.getYRot(), true, true);
         }
         if (welcomeNeeded) {
-            FactionUtil.sendOnFactionJoinMessage(player);
+            FactionUtil.sendOnFactionJoinMessage(serverPlayer);
         }
-        Race race = PlayerDataService.getPlayerRace(player, serverWorld);
+        Race race = PlayerDataService.getPlayerRace(serverPlayer, serverWorld);
         if (race != null) {
-            RaceUtil.updateRace(player, race, false);
+            RaceUtil.updateRace(serverPlayer, race, false);
         }
         return true;
     }
 
+    public static Optional<Vec3> findSafeMiddleEarthReturnTarget(
+            ServerLevel level,
+            BlockPos returnPos,
+            ServerPlayer player
+    ) {
+        if (level == null
+                || returnPos == null
+                || !Level.isInSpawnableBounds(returnPos)
+                || !MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(
+                        returnPos.getX(),
+                        returnPos.getZ()
+                )) {
+            return Optional.empty();
+        }
+        ChunkPos chunkPos = new ChunkPos(returnPos);
+        level.getChunk(chunkPos.x, chunkPos.z);
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        int safeY = findSafeY(
+                level,
+                returnPos.getX(),
+                returnPos.getY(),
+                returnPos.getZ(),
+                cursor,
+                player
+        );
+        if (safeY == NO_SAFE_Y) {
+            return Optional.empty();
+        }
+        return Optional.of(new Vec3(
+                returnPos.getX() + 0.5D,
+                safeY,
+                returnPos.getZ() + 0.5D
+        ));
+    }
+
     public static Optional<Vec3> findSafeMiddleEarthTeleportTarget(ServerLevel level, Vec3 coordinates) {
+        return findSafeMiddleEarthTeleportTarget(level, coordinates, null);
+    }
+
+    public static Optional<Vec3> findSafeMiddleEarthTeleportTarget(
+            ServerLevel level,
+            Vec3 coordinates,
+            ServerPlayer player
+    ) {
         if (level == null || !isFinite(coordinates)) {
             return Optional.empty();
         }
@@ -119,10 +212,10 @@ public class ModDimensions {
             z = fallback.z;
         }
 
-        Optional<BlockPos> landing = findSafeLandingInChunk(level, x, z);
+        Optional<BlockPos> landing = findSafeLandingInChunk(level, x, z, player);
         Vector3i fallback = getSpawnCoordinate();
         if (landing.isEmpty() && (x != fallback.x || z != fallback.z)) {
-            landing = findSafeLandingInChunk(level, fallback.x, fallback.z);
+            landing = findSafeLandingInChunk(level, fallback.x, fallback.z, player);
         }
         return landing.map(pos -> new Vec3(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D));
     }
@@ -147,7 +240,17 @@ public class ModDimensions {
 
             ServerLevel serverWorld = serverPlayer.getServer().getLevel(OW_WORLD_KEY);
             if (serverWorld != null) {
-                Vec3 target = new Vec3(coordinate.getX() + 0.5D, coordinate.getY(), coordinate.getZ() + 0.5D);
+                Optional<Vec3> safeTarget = findSafeOverworldReturnTarget(
+                        serverWorld,
+                        serverPlayer,
+                        coordinate
+                );
+                if (safeTarget.isEmpty()) {
+                    MiddleEarth.LOGGER.logError("No safe Overworld return position was found; teleport cancelled.");
+                    return false;
+                }
+                Vec3 target = safeTarget.get();
+                coordinate = BlockPos.containing(target);
                 if (!transitionPlayer(serverPlayer, serverWorld, target)) {
                     return false;
                 }
@@ -161,6 +264,60 @@ public class ModDimensions {
             }
         }
         return false;
+    }
+
+    private static Optional<Vec3> findSafeOverworldReturnTarget(
+            ServerLevel level,
+            ServerPlayer player,
+            BlockPos preferred
+    ) {
+        Optional<Vec3> preferredTarget = findSafeTargetAt(
+                level,
+                player,
+                preferred,
+                preferred.getY()
+        );
+        if (preferredTarget.isPresent()) {
+            return preferredTarget;
+        }
+
+        BlockPos sharedSpawn = level.getSharedSpawnPos();
+        int surfaceY = level.getHeight(
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                sharedSpawn.getX(),
+                sharedSpawn.getZ()
+        );
+        return findSafeTargetAt(level, player, sharedSpawn, surfaceY);
+    }
+
+    private static Optional<Vec3> findSafeTargetAt(
+            ServerLevel level,
+            ServerPlayer player,
+            BlockPos horizontalTarget,
+            int preferredY
+    ) {
+        if (horizontalTarget == null || !Level.isInSpawnableBounds(horizontalTarget)) {
+            return Optional.empty();
+        }
+        ChunkPos chunkPos = new ChunkPos(horizontalTarget);
+        level.getChunk(chunkPos.x, chunkPos.z);
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        int safeY = findSafeY(
+                level,
+                horizontalTarget.getX(),
+                preferredY,
+                horizontalTarget.getZ(),
+                cursor,
+                player
+        );
+        if (safeY == NO_SAFE_Y) {
+            return Optional.empty();
+        }
+        return Optional.of(new Vec3(
+                horizontalTarget.getX() + 0.5D,
+                safeY,
+                horizontalTarget.getZ() + 0.5D
+        ));
     }
 
     public static boolean transitionPlayer(ServerPlayer player, ServerLevel targetLevel, Vec3 target) {
@@ -192,12 +349,24 @@ public class ModDimensions {
         return Double.isFinite(position.x) && Double.isFinite(position.y) && Double.isFinite(position.z);
     }
 
-    private static Optional<BlockPos> findSafeLandingInChunk(ServerLevel level, int centerX, int centerZ) {
+    private static Optional<BlockPos> findSafeLandingInChunk(
+            ServerLevel level,
+            int centerX,
+            int centerZ,
+            ServerPlayer player
+    ) {
         ChunkPos chunkPos = new ChunkPos(Math.floorDiv(centerX, 16), Math.floorDiv(centerZ, 16));
         level.getChunk(chunkPos.x, chunkPos.z);
         BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
 
-        BlockPos landing = findSafeLandingInColumn(level, chunkPos, centerX, centerZ, cursor);
+        BlockPos landing = findSafeLandingInColumn(
+                level,
+                chunkPos,
+                centerX,
+                centerZ,
+                cursor,
+                player
+        );
         if (landing != null) {
             return Optional.of(landing);
         }
@@ -210,21 +379,21 @@ public class ModDimensions {
             int minZ = centerZ - radius;
             int maxZ = centerZ + radius;
             for (int x = minX; x <= maxX; x++) {
-                landing = findSafeLandingInColumn(level, chunkPos, x, minZ, cursor);
+                landing = findSafeLandingInColumn(level, chunkPos, x, minZ, cursor, player);
                 if (landing != null) {
                     return Optional.of(landing);
                 }
-                landing = findSafeLandingInColumn(level, chunkPos, x, maxZ, cursor);
+                landing = findSafeLandingInColumn(level, chunkPos, x, maxZ, cursor, player);
                 if (landing != null) {
                     return Optional.of(landing);
                 }
             }
             for (int z = minZ + 1; z < maxZ; z++) {
-                landing = findSafeLandingInColumn(level, chunkPos, minX, z, cursor);
+                landing = findSafeLandingInColumn(level, chunkPos, minX, z, cursor, player);
                 if (landing != null) {
                     return Optional.of(landing);
                 }
-                landing = findSafeLandingInColumn(level, chunkPos, maxX, z, cursor);
+                landing = findSafeLandingInColumn(level, chunkPos, maxX, z, cursor, player);
                 if (landing != null) {
                     return Optional.of(landing);
                 }
@@ -238,7 +407,8 @@ public class ModDimensions {
             ChunkPos loadedChunk,
             int x,
             int z,
-            BlockPos.MutableBlockPos cursor
+            BlockPos.MutableBlockPos cursor,
+            ServerPlayer player
     ) {
         if (Math.floorDiv(x, 16) != loadedChunk.x
                 || Math.floorDiv(z, 16) != loadedChunk.z
@@ -246,7 +416,7 @@ public class ModDimensions {
             return null;
         }
         int surfaceY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
-        int safeY = findSafeY(level, x, surfaceY, z, cursor);
+        int safeY = findSafeY(level, x, surfaceY, z, cursor, player);
         return safeY == NO_SAFE_Y ? null : new BlockPos(x, safeY, z);
     }
 
@@ -255,20 +425,23 @@ public class ModDimensions {
             int x,
             int preferredY,
             int z,
-            BlockPos.MutableBlockPos cursor
+            BlockPos.MutableBlockPos cursor,
+            ServerPlayer player
     ) {
         int minY = level.getMinBuildHeight() + 1;
         int maxY = level.getMaxBuildHeight() - 2;
         int startY = Mth.clamp(preferredY, minY, maxY);
         for (int offset = 0; offset <= SAFE_VERTICAL_SEARCH_UP; offset++) {
             int candidateY = startY + offset;
-            if (candidateY <= maxY && isSafeLanding(level, x, candidateY, z, cursor)) {
+            if (candidateY <= maxY
+                    && isSafeLanding(level, x, candidateY, z, cursor, player)) {
                 return candidateY;
             }
         }
         for (int offset = 1; offset <= SAFE_VERTICAL_SEARCH_DOWN; offset++) {
             int candidateY = startY - offset;
-            if (candidateY >= minY && isSafeLanding(level, x, candidateY, z, cursor)) {
+            if (candidateY >= minY
+                    && isSafeLanding(level, x, candidateY, z, cursor, player)) {
                 return candidateY;
             }
         }
@@ -280,7 +453,8 @@ public class ModDimensions {
             int x,
             int y,
             int z,
-            BlockPos.MutableBlockPos cursor
+            BlockPos.MutableBlockPos cursor,
+            ServerPlayer player
     ) {
         cursor.set(x, y, z);
         var feetState = level.getBlockState(cursor);
@@ -300,8 +474,15 @@ public class ModDimensions {
         boolean floorLava = floorState.getFluidState().is(FluidTags.LAVA);
         boolean supported = !floorState.getCollisionShape(level, cursor).isEmpty()
                 || floorState.getFluidState().is(FluidTags.WATER);
+        EntityDimensions dimensions = player == null
+                ? DEFAULT_PLAYER_DIMENSIONS
+                : player.getDimensions(Pose.STANDING);
+        Vec3 target = new Vec3(x + 0.5D, y, z + 0.5D);
+        var standingBounds = dimensions.makeBoundingBox(target);
+        boolean fullBodyClear = level.getWorldBorder().isWithinBounds(standingBounds)
+                && level.noBlockCollision(player, standingBounds);
 
-        return feetClear && headClear && supported
+        return feetClear && headClear && supported && fullBodyClear
                 && !feetHazard && !headHazard && !floorHazard
                 && !feetLava && !headLava && !floorLava;
     }

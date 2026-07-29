@@ -12,6 +12,7 @@ public class PlayerData {
     private ResourceLocation spawn;
     private ResourceLocation race;
     private BlockPos posOrigin;
+    private BlockPos middleEarthReturnPos;
     private ResourceLocation dimensionOrigin;
     private int delversFearCountInSeconds;
     private transient Runnable dirtyMarker = () -> {};
@@ -30,6 +31,14 @@ public class PlayerData {
                 : nbt.getIntArray("posOrigin");
         if (origin.length == 3) {
             posOrigin = new BlockPos(origin[0], origin[1], origin[2]);
+        }
+        int[] middleEarthReturn = nbt.getIntArray("middle_earth_return_pos");
+        if (middleEarthReturn.length == 3) {
+            middleEarthReturnPos = new BlockPos(
+                    middleEarthReturn[0],
+                    middleEarthReturn[1],
+                    middleEarthReturn[2]
+            );
         }
 
         delversFearCountInSeconds = nbt.getInt("delversFearCountInSeconds");
@@ -59,6 +68,16 @@ public class PlayerData {
         }
         if (dimensionOrigin != null) {
             nbt.putString("dimensionOrigin", dimensionOrigin.toString());
+        }
+        if (middleEarthReturnPos != null) {
+            nbt.putIntArray(
+                    "middle_earth_return_pos",
+                    new int[]{
+                            middleEarthReturnPos.getX(),
+                            middleEarthReturnPos.getY(),
+                            middleEarthReturnPos.getZ()
+                    }
+            );
         }
         nbt.putInt("delversFearCountInSeconds", delversFearCountInSeconds);
         return nbt;
@@ -93,6 +112,15 @@ public class PlayerData {
         return true;
     }
 
+    public boolean assignMiddleEarthReturnPos(BlockPos newBlockPos) {
+        if (Objects.equals(this.middleEarthReturnPos, newBlockPos)) {
+            return true;
+        }
+        this.middleEarthReturnPos = newBlockPos;
+        markDirty();
+        return true;
+    }
+
     public ResourceLocation getFaction() {
         return faction;
     }
@@ -111,6 +139,10 @@ public class PlayerData {
 
     public BlockPos getOriginPos() {
         return posOrigin;
+    }
+
+    public BlockPos getMiddleEarthReturnPos() {
+        return middleEarthReturnPos;
     }
 
     public int getDelversFearCountInSeconds() {

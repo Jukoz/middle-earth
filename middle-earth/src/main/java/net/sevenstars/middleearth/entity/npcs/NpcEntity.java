@@ -31,6 +31,7 @@ import net.minecraft.world.entity.EquipmentUser;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -99,7 +100,10 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
         public static final String INITIALIZATION_DATA = "InitializationData";
         public static final String TEXTURE_DATA = "TextureData";
         public static final String IS_FIGHTING = "IsFighting";
+        public static final String DOOR_TRAVERSAL = "DoorTraversal";
     }
+    private static final float MAX_DOOR_TRAVERSAL_WIDTH = 0.60F;
+
     // [TrackedDatas]
     private static final EntityDataAccessor<NpcData> NPC_DATA;
     private static final EntityDataAccessor<NpcInitializationData> NPC_INITIALIZATION_DATA;
@@ -108,6 +112,10 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
 
     private static final EntityDataAccessor<Integer> USING_ITEM = SynchedEntityData.defineId(NpcEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CROSSBOW_CHARGING = SynchedEntityData.defineId(NpcEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DOOR_TRAVERSAL_DIMENSIONS =
+            SynchedEntityData.defineId(NpcEntity.class, EntityDataSerializers.BOOLEAN);
+    private boolean usingDoorTraversalDimensions;
+    private boolean restoreDoorTraversalDimensions;
 
     private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 16.0F);
     private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, 1.0, 11.0F);
@@ -136,7 +144,56 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
         this.updateAttackType();
         if (this.navigation instanceof GroundPathNavigation groundNavigation) {
             groundNavigation.setCanOpenDoors(true);
+            groundNavigation.setCanPassDoors(true);
         }
+    }
+
+    public void beginDoorTraversal() {
+        this.restoreDoorTraversalDimensions = false;
+        if (!this.usingDoorTraversalDimensions) {
+            this.setDoorTraversalDimensions(true);
+        }
+    }
+
+    public void endDoorTraversal() {
+        this.restoreDoorTraversalDimensions = true;
+        this.tryRestoreDoorTraversalDimensions();
+    }
+
+    private void tryRestoreDoorTraversalDimensions() {
+        if (this.level().isClientSide
+                || !this.usingDoorTraversalDimensions
+                || !this.restoreDoorTraversalDimensions) {
+            return;
+        }
+        EntityDimensions normalDimensions = super.getDefaultDimensions(this.getPose()).scale(this.getScale());
+        if (this.level().noBlockCollision(
+                this,
+                normalDimensions.makeBoundingBox(this.position())
+        )) {
+            this.restoreDoorTraversalDimensions = false;
+            this.setDoorTraversalDimensions(false);
+        }
+    }
+
+    private void setDoorTraversalDimensions(boolean usingDoorTraversalDimensions) {
+        if (this.usingDoorTraversalDimensions == usingDoorTraversalDimensions) {
+            return;
+        }
+        this.usingDoorTraversalDimensions = usingDoorTraversalDimensions;
+        this.entityData.set(DOOR_TRAVERSAL_DIMENSIONS, usingDoorTraversalDimensions);
+        this.refreshDimensions();
+    }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        EntityDimensions dimensions = super.getDefaultDimensions(pose);
+        if (!this.usingDoorTraversalDimensions) {
+            return dimensions;
+        }
+        float scaledWidth = dimensions.width() * Math.max(this.getScale(), 0.001F);
+        float widthScale = Math.min(1.0F, MAX_DOOR_TRAVERSAL_WIDTH / scaledWidth);
+        return dimensions.scale(widthScale, 1.0F);
     }
 
     @Nullable
@@ -278,6 +335,19 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
         builder.define(IS_FIGHTING, false);
         builder.define(CROSSBOW_CHARGING, false);
         builder.define(USING_ITEM, 0);
+        builder.define(DOOR_TRAVERSAL_DIMENSIONS, false);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> data) {
+        if (DOOR_TRAVERSAL_DIMENSIONS.equals(data)) {
+            boolean syncedTraversal = this.entityData.get(DOOR_TRAVERSAL_DIMENSIONS);
+            if (this.usingDoorTraversalDimensions != syncedTraversal) {
+                this.usingDoorTraversalDimensions = syncedTraversal;
+                this.refreshDimensions();
+            }
+        }
+        super.onSyncedDataUpdated(data);
     }
 
     @Override
@@ -291,6 +361,7 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
         NpcTextureData.CODEC.encodeStart(ops, this.retrieveNpcTextureData())
                 .result().ifPresent(tag -> view.put(KeyStrings.TEXTURE_DATA, tag));
         view.putBoolean(KeyStrings.IS_FIGHTING, this.getFighting());
+        view.putBoolean(KeyStrings.DOOR_TRAVERSAL, this.usingDoorTraversalDimensions);
     }
 
     @Override
@@ -307,6 +378,7 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
                 ? NpcTextureData.CODEC.parse(ops, view.get(KeyStrings.TEXTURE_DATA)).result().orElse(new NpcTextureData())
                 : new NpcTextureData();
         boolean isFighting = view.getBoolean(KeyStrings.IS_FIGHTING);
+        boolean doorTraversal = view.getBoolean(KeyStrings.DOOR_TRAVERSAL);
 
         String npcDataId = view.contains("NpcDataId", Tag.TAG_STRING) ? view.getString("NpcDataId") : null;
         if(npcDataId != null){
@@ -320,6 +392,8 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
         this.entityData.set(NPC_INITIALIZATION_DATA, foundNpcInitializationData);
         this.entityData.set(NPC_TEXTURE_DATA, foundNpcTextureData);
         this.entityData.set(IS_FIGHTING, isFighting);
+        this.restoreDoorTraversalDimensions = doorTraversal;
+        this.setDoorTraversalDimensions(doorTraversal);
 
         foundNpcInitializationData.tryToInitialize(this);
 
@@ -341,6 +415,7 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
         if (this.level() != null && !this.level().isClientSide) {
             this.goalSelector.removeGoal(this.meleeAttackGoal);
             this.goalSelector.removeGoal(this.bowAttackGoal);
+            this.goalSelector.removeGoal(this.crossBowAttackGoal);
             ItemStack itemStack = this.getMainHandItem();
             if (itemStack.is(Items.BOW) || itemStack.is(ItemTagsME.BOW)) {
                 int i = 30;
@@ -349,7 +424,7 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
                 }
                 this.bowAttackGoal.setAttackInterval(i);
                 this.goalSelector.addGoal(4, this.bowAttackGoal);
-            } if (itemStack.is(Items.CROSSBOW) || itemStack.is(ItemTagsME.CROSSBOW)) {
+            } else if (itemStack.is(Items.CROSSBOW) || itemStack.is(ItemTagsME.CROSSBOW)) {
                 this.goalSelector.addGoal(4, this.crossBowAttackGoal);
             } else {
                 this.goalSelector.addGoal(4, this.meleeAttackGoal);
@@ -469,6 +544,7 @@ public class NpcEntity extends PathfinderMob implements EquipmentUser, CrossbowA
     @Override
     public void aiStep() {
         super.aiStep();
+        this.tryRestoreDoorTraversalDimensions();
 
         if(!this.level().isClientSide) {
 

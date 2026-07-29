@@ -17,6 +17,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
 
 public class PlayerDataService {
     private static PlayerData getPlayerData(Player player){
@@ -35,6 +36,7 @@ public class PlayerDataService {
         data.assignNewRace(null);
         data.assignNewFactionInformation(null, null);
         data.assignNewOrigin(null, null);
+        data.assignMiddleEarthReturnPos(null);
         return true;
     }
     public static boolean playerPassedOnboarding(Player player){
@@ -126,7 +128,8 @@ public class PlayerDataService {
             }
             var safeTarget = ModDimensions.findSafeMiddleEarthTeleportTarget(
                     middleEarth,
-                    configuredSpawn.getBlockPos().getCenter()
+                    configuredSpawn.getBlockPos().getCenter(),
+                    player
             );
             if (safeTarget.isEmpty()) {
                 return false;
@@ -210,6 +213,30 @@ public class PlayerDataService {
         data.assignNewOrigin(newOrigin.dimensionId, newOrigin.origin);
         return true;
     }
+
+    public static BlockPos getMiddleEarthReturnPos(Player player) {
+        PlayerData data = getPlayerDataReadOnly(player);
+        return data == null ? null : data.getMiddleEarthReturnPos();
+    }
+
+    public static boolean setMiddleEarthReturnPos(ServerPlayer player, BlockPos returnPos) {
+        if (player == null
+                || returnPos == null
+                || !Level.isInSpawnableBounds(returnPos)
+                || !MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(
+                        returnPos.getX(),
+                        returnPos.getZ()
+                )) {
+            return false;
+        }
+        PlayerData data = getPlayerData(player);
+        if (data == null) {
+            return false;
+        }
+        data.assignMiddleEarthReturnPos(returnPos.immutable());
+        return true;
+    }
+
     private static OriginAggregate getDefaultOriginAggregate(Level world){
         return new OriginAggregate(
                 BuiltinDimensionTypes.OVERWORLD.location(),

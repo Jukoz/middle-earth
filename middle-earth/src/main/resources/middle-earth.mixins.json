@@ -12,6 +12,7 @@
     "BlockStatePathTypeMixin",
     "CarvedPumpkinBlockMixin",
     "ChunkGeneratorMixin",
+    "ChunkStepBuilderMixin",
     "CraftingMixin",
     "CropBlockMixin",
     "EntityDataSaverMixin",
@@ -30,8 +31,7 @@
     "ServerPlayNetworkHandlerMixin",
     "ShearItemMixin",
     "StructureTemplateMixin",
-    "ToolItemMixin",
-    "WorldGenRegionMixin"
+    "ToolItemMixin"
   ],
   "client": [
     "client.AbstractClientPlayerEntityMixin",
