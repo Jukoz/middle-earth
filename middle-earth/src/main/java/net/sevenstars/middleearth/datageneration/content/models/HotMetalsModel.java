@@ -41,7 +41,10 @@ public class HotMetalsModel {
             add(Items.GOLD_NUGGET);
             add(ResourceItemsME.BRONZE_NUGGET);
             add(ResourceItemsME.CRUDE_NUGGET);
+            add(ResourceItemsME.TIN_NUGGET);
+            add(ResourceItemsME.LEAD_NUGGET);
             add(ResourceItemsME.STEEL_NUGGET);
+            add(ResourceItemsME.SILVER_NUGGET);
             add(ResourceItemsME.KHAZAD_STEEL_NUGGET);
             add(ResourceItemsME.EDHEL_STEEL_NUGGET);
             add(ResourceItemsME.BURZUM_STEEL_NUGGET);

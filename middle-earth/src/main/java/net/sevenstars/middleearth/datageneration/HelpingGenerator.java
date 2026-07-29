@@ -322,7 +322,8 @@ public class HelpingGenerator {
                     SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
                 }
                 case ButtonBlock buttonBlock -> {
-                    Buttons.buttons.add(buttonBlock);
+                    if(woodModel) Buttons.woodButtons.add(buttonBlock);
+                    else Buttons.stoneButtons.add(buttonBlock);
                     SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 }
                 case TrapdoorBlock trapdoorBlock -> {
