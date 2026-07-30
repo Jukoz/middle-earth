@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/small_chandelier"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/small_chandelier"
+    }
+  }
+}

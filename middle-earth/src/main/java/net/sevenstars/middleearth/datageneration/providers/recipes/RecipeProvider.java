@@ -1508,6 +1508,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SMALL_CHANDELIER, 1)
+                        .pattern(" N ")
+                        .pattern("CNC")
+                        .pattern("N N")
+                        .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .criterion(hasItem(Items.CANDLE),
+                                conditionsFromItem(Items.CANDLE))
+                        .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.STONE_LECTERN.asItem(), 1)
                         .pattern("SSS")
                         .pattern(" B ")

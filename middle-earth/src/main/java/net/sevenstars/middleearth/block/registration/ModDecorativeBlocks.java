@@ -8,10 +8,7 @@ import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneWa
 import net.sevenstars.middleearth.block.special.artisantable.ArtisanTable;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
-import net.sevenstars.middleearth.block.special.candles.CandleHolderBlock;
-import net.sevenstars.middleearth.block.special.candles.CandleStickBlock;
-import net.sevenstars.middleearth.block.special.candles.CeramicLampBlock;
-import net.sevenstars.middleearth.block.special.candles.SkullCandleBlock;
+import net.sevenstars.middleearth.block.special.candles.*;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
 import net.sevenstars.middleearth.block.special.curtains.SmallCurtainsBlock;
@@ -188,6 +185,8 @@ public class ModDecorativeBlocks {
             SkullCandleBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
             CandleHeapBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10)));
+    public static final Block SMALL_CHANDELIER = registerBlockWithItem("small_chandelier",
+            ChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
 
     public static final Block STONE_LECTERN = registerBlockWithItem("stone_lectern",
             StoneLecternBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
