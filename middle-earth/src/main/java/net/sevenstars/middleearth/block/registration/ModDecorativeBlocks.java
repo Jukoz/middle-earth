@@ -171,6 +171,9 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
 
+    public static final Block SKELETON = registerBlockWithItem("skeleton",
+            SkeletonBlock::new, AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).nonOpaque());
+
     public static final Block CANDLESTICK = registerBlockWithItem("candlestick",
             CandleStickBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CERAMIC_LAMP = registerBlockWithItem("ceramic_lamp",

@@ -1,0 +1,37 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "middle-earth:block/skeleton8",
+		"particle": "middle-earth:block/skeleton8"
+	},
+	"elements": [
+		{
+			"from": [6.9, -0.1, 0.9],
+			"to": [15.1, 8.1, 9.1],
+			"rotation": {"angle": -17.5, "axis": "y", "origin": [11, 0, 5]},
+			"faces": {
+				"north": {"uv": [2, 14, 4, 16], "texture": "#0"},
+				"east": {"uv": [0, 14, 2, 16], "texture": "#0"},
+				"south": {"uv": [6, 14, 8, 16], "texture": "#0"},
+				"west": {"uv": [4, 14, 6, 16], "texture": "#0"},
+				"up": {"uv": [4, 14, 2, 12], "texture": "#0"},
+				"down": {"uv": [6, 12, 4, 14], "texture": "#0"}
+			}
+		},
+		{
+			"from": [1, 0, 8],
+			"to": [9, 8, 16],
+			"rotation": {"angle": 12.5, "axis": "y", "origin": [5, 0, 12]},
+			"faces": {
+				"north": {"uv": [10, 14, 12, 16], "texture": "#0"},
+				"east": {"uv": [8, 14, 10, 16], "texture": "#0"},
+				"south": {"uv": [14, 14, 16, 16], "texture": "#0"},
+				"west": {"uv": [12, 14, 14, 16], "texture": "#0"},
+				"up": {"uv": [12, 14, 10, 12], "texture": "#0"},
+				"down": {"uv": [14, 12, 12, 14], "texture": "#0"}
+			}
+		}
+	]
+}
