@@ -7,12 +7,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.sevenstars.middleearth.block.special.hangingstuff.CustomHangingBlock;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 
@@ -69,16 +68,14 @@ public class MirkwoodVinesFeature  extends Feature<NoneFeatureConfiguration> {
                 if(blockStateAbove.isAir())
                     break;
 
-                if(blockStateAbove.is(WoodBlockSets.MIRKWOOD_SET.leaves)){
-                    world.setBlock(pos.above(), WoodBlockSets.MIRKWOOD_SET.leaves.defaultBlockState().setValue(LeavesBlock.PERSISTENT, false), 2);
-                }
-
                 if (i == length || !world.getBlockState(pos.below()).isAir()) {
-                    world.setBlock(pos, ModNatureBlocks.MIRKWOOD_VINES.defaultBlockState(), 2);
+                    world.setBlock(pos, ModNatureBlocks.MIRKWOOD_VINES.defaultBlockState()
+                            .setValue(CustomHangingBlock.TIP, true), 2);
                     break;
                 }
 
-                world.setBlock(pos, ModNatureBlocks.MIRKWOOD_VINES.defaultBlockState(), 2);
+                world.setBlock(pos, ModNatureBlocks.MIRKWOOD_VINES.defaultBlockState()
+                        .setValue(CustomHangingBlock.TIP, false), 2);
             }
 
             pos.move(Direction.DOWN);

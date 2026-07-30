@@ -199,7 +199,7 @@ class MigrationRegressionContractTest {
     }
 
     @Test
-    void willowVinesKeepAuthoredPlacementAndStableNaturalSupport() throws IOException {
+    void hangingVinesKeepAuthoredPlacementAndStableNaturalSupport() throws IOException {
         String biomes = source(
                 "net/sevenstars/middleearth/world/biomes/surface/ModBiomes.java"
         );
@@ -212,11 +212,15 @@ class MigrationRegressionContractTest {
                         + "ModVegetationPlacedFeatures.WILLOW_VINES"
         ));
 
-        String feature = source(
+        String willowFeature = source(
                 "net/sevenstars/middleearth/world/features/columns/WillowVinesFeature.java"
         );
-        assertFalse(feature.contains("setValue(LeavesBlock.PERSISTENT"));
-        assertFalse(feature.contains("world.setBlock(pos.above()"));
+        assertStableHangingVineFeature(willowFeature);
+
+        String mirkwoodFeature = source(
+                "net/sevenstars/middleearth/world/features/columns/MirkwoodVinesFeature.java"
+        );
+        assertStableHangingVineFeature(mirkwoodFeature);
     }
 
     @Test
@@ -245,5 +249,12 @@ class MigrationRegressionContractTest {
 
     private static String source(String relativePath) throws IOException {
         return Files.readString(MAIN_JAVA.resolve(relativePath));
+    }
+
+    private static void assertStableHangingVineFeature(String feature) {
+        assertFalse(feature.contains("setValue(LeavesBlock.PERSISTENT"));
+        assertFalse(feature.contains("world.setBlock(pos.above()"));
+        assertTrue(feature.contains(".setValue(CustomHangingBlock.TIP, false)"));
+        assertTrue(feature.contains(".setValue(CustomHangingBlock.TIP, true)"));
     }
 }
