@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestB
 import net.sevenstars.middleearth.block.special.sack.SackBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlockEntity;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlockEntity;
@@ -49,6 +50,8 @@ public class ModBlockEntities {
     public static BlockEntityType<ChestnutCofferBlockEntity> CHESTNUT_COFFER = register("chestnut_coffer", ChestnutCofferBlockEntity::new, ModDecorativeBlocks.CHESTNUT_COFFER);
     public static BlockEntityType<OakCofferBlockEntity> OAK_COFFER = register("oak_coffer", OakCofferBlockEntity::new, ModDecorativeBlocks.OAK_COFFER);
     public static BlockEntityType<WillowCofferBlockEntity> WILLOW_COFFER = register("willow_coffer", WillowCofferBlockEntity::new, ModDecorativeBlocks.WILLOW_COFFER);
+
+    public static BlockEntityType<OldSkullBlockEntity> OLD_SKULL = register("old_skull", OldSkullBlockEntity::new, ModDecorativeBlocks.OLD_SKULL);
 
     public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new, ModDecorativeBlocks.SACK);
 

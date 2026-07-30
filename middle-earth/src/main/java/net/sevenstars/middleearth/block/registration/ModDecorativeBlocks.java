@@ -32,6 +32,7 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.E
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlock;
 import net.sevenstars.middleearth.block.special.statues.FlipStatueBlock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
@@ -171,8 +172,11 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
 
+    public static final Block OLD_SKULL = registerBlockWithItem("old_skull",
+            OldSkullBlock::new, AbstractBlock.Settings.copy(Blocks.SKELETON_SKULL).nonOpaque().sounds(BlockSoundGroup.BONE));
     public static final Block SKELETON = registerBlockWithItem("skeleton",
-            SkeletonBlock::new, AbstractBlock.Settings.copy(Blocks.BONE_BLOCK).nonOpaque());
+            SkeletonBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW)
+                    .instrument(NoteBlockInstrument.XYLOPHONE).strength(0.5F).sounds(BlockSoundGroup.BONE));
 
     public static final Block CANDLESTICK = registerBlockWithItem("candlestick",
             CandleStickBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());

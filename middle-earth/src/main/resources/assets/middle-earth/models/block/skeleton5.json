@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "middle-earth:block/skeleton3",
-		"particle": "middle-earth:block/skeleton3"
+		"particle": "minecraft:block/bone_block_side"
 	},
 	"elements": [
 		{

@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
@@ -166,6 +167,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.OAK_COFFER, OakCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.WILLOW_COFFER, WillowCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.OLD_SKULL, OldSkullBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.PLATE, PlateEntityRenderer::new);

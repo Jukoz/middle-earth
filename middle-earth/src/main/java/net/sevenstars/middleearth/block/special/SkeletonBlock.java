@@ -76,6 +76,9 @@ public class SkeletonBlock extends Block {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 12.0, 14.0);
+        int pose = state.get(POSE);
+        if(pose == 1 || pose == 2 || pose == 9) return Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 12.0, 14.0);
+        else if(pose == 6 || pose == 7) return Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 4.0, 14.0);
+        else return Block.createCuboidShape(2.0, 0.0, 2.0, 14.0, 8.0, 14.0);
     }
 }
