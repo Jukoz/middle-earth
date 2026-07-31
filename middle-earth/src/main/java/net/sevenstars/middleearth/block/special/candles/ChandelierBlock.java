@@ -16,6 +16,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
@@ -39,6 +40,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.ToIntFunction;
 
 public class ChandelierBlock extends Block {
+    private static final int MAX_VARIANT = 2;
+    public static final IntProperty VARIANT = IntProperty.of("variant", 1, MAX_VARIANT);
     public static final BooleanProperty LIT;
 
     public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
@@ -51,12 +54,12 @@ public class ChandelierBlock extends Block {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(LIT);
+        builder.add(LIT).add(VARIANT);
     }
 
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = this.getDefaultState();
+        BlockState blockState = this.getDefaultState().with(VARIANT, 1);
         if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
             return blockState;
         }
@@ -80,9 +83,10 @@ public class ChandelierBlock extends Block {
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
             ItemStack itemStack = player.getStackInHand(hand);
             if(player.isInCreativeMode() && itemStack == ItemStack.EMPTY){
-                world.setBlockState(pos, state.cycle(LIT));
+                world.setBlockState(pos, state.cycle(VARIANT));
                 return ActionResult.SUCCESS;
             }
+
             if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
                 extinguish(null, state, world, pos);
             } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
@@ -94,10 +98,17 @@ public class ChandelierBlock extends Block {
 
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(LIT)) {
-            spawnCandleParticles(world, pos.toCenterPos().add(0.0625, 12.5 * 0.0625, 0.0625), random);
-            spawnCandleParticles(world, pos.toCenterPos().add(0.0625, 12.5 * 0.0625, 0.9375), random);
-            spawnCandleParticles(world, pos.toCenterPos().add(0.9375, 12.5 * 0.0625, 0.0625), random);
-            spawnCandleParticles(world, pos.toCenterPos().add(0.9375, 12.5 * 0.0625, 0.9375), random);
+            if(state.get(VARIANT) == 1) {
+                spawnCandleParticles(world, pos.toCenterPos().add(0.0625, 12.5 * 0.0625, 0.0625), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.0625, 12.5 * 0.0625, 0.9375), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.9375, 12.5 * 0.0625, 0.0625), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.9375, 12.5 * 0.0625, 0.9375), random);
+            } else if(state.get(VARIANT) == 2) {
+                spawnCandleParticles(world, pos.toCenterPos().add(0.125, 12.5 * 0.0625, 0.5), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 0.875), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 0.125), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.875, 12.5 * 0.0625, 0.5), random);
+            }
         }
     }
 

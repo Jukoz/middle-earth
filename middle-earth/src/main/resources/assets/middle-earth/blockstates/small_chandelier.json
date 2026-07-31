@@ -1,10 +1,16 @@
 {
   "variants": {
-    "lit=false": {
+    "variant=1,lit=false": {
       "model": "middle-earth:block/small_chandelier"
     },
-    "lit=true": {
+    "variant=1,lit=true": {
       "model": "middle-earth:block/small_chandelier"
+    },
+    "variant=2,lit=false": {
+      "model": "middle-earth:block/small_chandelier_1"
+    },
+    "variant=2,lit=true": {
+      "model": "middle-earth:block/small_chandelier_1"
     }
   }
 }
