@@ -1479,7 +1479,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 has(ResourceItemsME.SHIELD_PLATE))
                         .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
@@ -1490,7 +1490,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .unlockedBy(getHasName(ResourceItemsME.SHIELD_BORDER),
                                 has(ResourceItemsME.SHIELD_BORDER))
                         .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.RUINED_DWARVEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
@@ -1501,7 +1501,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .unlockedBy(getHasName(ResourceItemsME.SHIELD_BORDER),
                                 has(ResourceItemsME.SHIELD_BORDER))
                         .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
@@ -1512,7 +1512,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .unlockedBy(getHasName(ResourceItemsME.SHIELD_BORDER),
                                 has(ResourceItemsME.SHIELD_BORDER))
                         .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))

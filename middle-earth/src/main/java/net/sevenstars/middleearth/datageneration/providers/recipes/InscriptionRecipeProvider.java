@@ -827,6 +827,32 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .save(output, String.valueOf(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "inscription_ailment_protection_4")));
                 //endregion
 
+                //region AULE BLESSING
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AULE_BLESSING), 1, 4)
+                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .addWord("gifted")
+                        .addWord("core")
+                        .unlockedBy(getHasName(Items.EMERALD), has(Items.EMERALD))
+                        .save(output, String.valueOf(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "inscription_aule_blessing_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AULE_BLESSING), 2, 6)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("gifted")
+                        .addWord("core")
+                        .unlockedBy(getHasName(Items.EMERALD), has(Items.EMERALD))
+                        .save(output, String.valueOf(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "inscription_aule_blessing_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(EnchantmentsME.AULE_BLESSING), 3, 8)
+                        .chisel(ItemTagsME.LATE_CHISELS)
+                        .addWord("gifted")
+                        .addWord("core")
+                        .unlockedBy(getHasName(Items.EMERALD), has(Items.EMERALD))
+                        .save(output, String.valueOf(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "inscription_aule_blessing_3")));
+                //endregion
+
                 //region BANE OF GIANTS
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(EnchantmentsME.BANE_OF_GIANTS), 1, 3)

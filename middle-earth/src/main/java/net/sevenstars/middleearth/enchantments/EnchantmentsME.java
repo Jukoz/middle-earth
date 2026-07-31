@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 /**
  * Middle-earth mod enchantment effects registry
@@ -29,6 +31,7 @@ import net.sevenstars.middleearth.MiddleEarth;
  */
 public class EnchantmentsME {
     public static final ResourceKey<Enchantment> AILMENT_PROTECTION = of("ailment_protection");
+    public static final ResourceKey<Enchantment> AULE_BLESSING = of("aule_blessing");
     public static final ResourceKey<Enchantment> BANE_OF_GIANTS = of("bane_of_giants");
     public static final ResourceKey<Enchantment> BEHEADING = of("beheading");
     public static final ResourceKey<Enchantment> CELERITY = of("celerity");
@@ -42,6 +45,10 @@ public class EnchantmentsME {
     public static final ResourceKey<Enchantment> STRIDE = of("stride");
     public static final ResourceKey<Enchantment> TREE_FELLER = of("tree_feller");
     public static final ResourceKey<Enchantment> VANTAGE = of("vantage");
+    private static final TagKey<Enchantment> SMITHING_HAMMER_EXCLUSIVE = TagKey.create(
+            Registries.ENCHANTMENT,
+            MiddleEarth.of("exclusive_set/smithing_hammer")
+    );
 
     private static ResourceKey<Enchantment> of(String path) {
         ResourceLocation id = MiddleEarth.of(path);
@@ -58,6 +65,13 @@ public class EnchantmentsME {
                         EquipmentSlotGroup.ARMOR))
                 .exclusiveWith(registryEntryLookup2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE)));
 
+        register(registry, AULE_BLESSING, Enchantment.enchantment(
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTagsME.SMITHING_HAMMER_ENCHANTABLE), 10, 3,
+                        Enchantment.dynamicCost(1, 5),
+                        Enchantment.dynamicCost(1, 12), 3,
+                        EquipmentSlotGroup.MAINHAND))
+                .exclusiveWith(registryEntryLookup2.getOrThrow(SMITHING_HAMMER_EXCLUSIVE)));
+
         register(registry, BANE_OF_GIANTS, Enchantment.enchantment(
                 Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                         registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 5, 5,
@@ -72,7 +86,7 @@ public class EnchantmentsME {
                                         .of(EntityTypeTags.SENSITIVE_TO_SMITE)))));
 
         register(registry, CELERITY, Enchantment.enchantment(
-                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 2, 1,
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTagsME.CELERITY_ENCHANTABLE), 2, 1,
                         Enchantment.dynamicCost(10, 20),
                         Enchantment.dynamicCost(40, 20), 4,
                         EquipmentSlotGroup.MAINHAND))

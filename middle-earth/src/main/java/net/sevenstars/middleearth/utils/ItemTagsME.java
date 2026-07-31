@@ -39,6 +39,9 @@ public class ItemTagsME {
 
     public static TagKey<Item> BOW = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/bow"));
     public static TagKey<Item> CROSSBOW = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/crossbow"));
+    public static TagKey<Item> SMITHING_HAMMERS = TagKey.create(Registries.ITEM, MiddleEarth.of("smithing_hammers"));
+    public static TagKey<Item> SMITHING_HAMMER_ENCHANTABLE = TagKey.create(Registries.ITEM, MiddleEarth.of("enchantable/smithing_hammers"));
+    public static TagKey<Item> CELERITY_ENCHANTABLE = TagKey.create(Registries.ITEM, MiddleEarth.of("enchantable/celerity"));
 
     public static TagKey<Item> ELK_FOOD = TagKey.create(Registries.ITEM, MiddleEarth.of("elk_food"));
     public static TagKey<Item> MUSHROOMS = TagKey.create(Registries.ITEM, MiddleEarth.of("mushrooms"));

@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.item.DataComponentTypesME;
 
 public class AnvilShapingRecipe implements Recipe<SingleRecipeInput> {
     protected final Ingredient input;
@@ -36,8 +35,6 @@ public class AnvilShapingRecipe implements Recipe<SingleRecipeInput> {
     @Override
     public boolean matches(SingleRecipeInput input, Level world) {
         if(input.item().isEmpty()) return false;
-
-        if(input.item().get(DataComponentTypesME.TEMPERATURE_DATA) == null) return false;
 
         return this.input.test(input.item());
     }

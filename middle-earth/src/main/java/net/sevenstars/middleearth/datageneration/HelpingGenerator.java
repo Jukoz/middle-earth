@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.datageneration;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.*;
@@ -122,7 +123,9 @@ public class HelpingGenerator {
             int tool = -1;
             if(set.requiresTool) {
                 if(set.setName.contains("wood")) tool = 0;
-                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick") || set.setName.contains("tiles")) tool = 1;
+                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick")
+                        || set.setName.contains("tiles") || set.setName.contains("stucco")) tool = 1;
+                else if(set.setName.contains("plaster")) tool = 2;
             }
             regularBlocks(set.blockSet, tool);
         }
@@ -238,6 +241,7 @@ public class HelpingGenerator {
         switch(tool) {
             case 0 -> MineableAxe.blocks.add(block);
             case 1 -> MineablePickaxe.blocks.add(block);
+            case 2 -> MineableShovel.blocks.add(block);
             case 3 -> MineableHoe.blocks.add(block);
         }
 
@@ -319,7 +323,8 @@ public class HelpingGenerator {
                     SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
                 }
                 case ButtonBlock buttonBlock -> {
-                    Buttons.buttons.add(buttonBlock);
+                    if(woodModel || baseName.contains("planks")) Buttons.woodButtons.add(buttonBlock);
+                    else Buttons.stoneButtons.add(buttonBlock);
                     SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 }
                 case TrapDoorBlock trapdoorBlock -> {
@@ -378,6 +383,9 @@ public class HelpingGenerator {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 0));
         WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
+        if(!BuiltInRegistries.BLOCK.getKey(set.base()).getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
+            Planks.moddedPlanks.add(set.base());
+        }
         Planks.planksSlabs.add(set.slab());
     }
 

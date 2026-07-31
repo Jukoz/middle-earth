@@ -126,10 +126,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.RAW_SILVER);
             add(ResourceItemsME.RAW_MITHRIL);
 
-            add(ResourceItemsME.TIN_NUGGET);
-            add(ResourceItemsME.LEAD_NUGGET);
-            add(ResourceItemsME.SILVER_NUGGET);
-
             add(ResourceItemsME.ADAMANT);
             add(ResourceItemsME.RUBY);
             add(ResourceItemsME.SAPPHIRE);

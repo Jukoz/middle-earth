@@ -58,9 +58,20 @@ public class StoneBlockSetBuilder {
     public SoundType soundGroup;
     public boolean hasMossy;
     public boolean hasCracked;
+    public boolean isVanilla;
+    public boolean hasVanillaCobble;
+    public boolean hasVanillaPolished;
 
     public StoneBlockSetBuilder(String name, float hardness, float blastResistance,
                                 MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, boolean hasMossy, boolean hasCracked){
+        this(name, hardness, blastResistance, mapColor, instrument, soundGroup, hasMossy, hasCracked,
+                false, false, false);
+    }
+
+    public StoneBlockSetBuilder(String name, float hardness, float blastResistance,
+                                MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup,
+                                boolean hasMossy, boolean hasCracked, boolean isVanilla,
+                                boolean hasVanillaCobble, boolean hasVanillaPolished) {
         this.setName = name;
         this.hardness = hardness;
         this.blastResistance = blastResistance;
@@ -69,6 +80,9 @@ public class StoneBlockSetBuilder {
         this.soundGroup = soundGroup;
         this.hasMossy = hasMossy;
         this.hasCracked = hasCracked;
+        this.isVanilla = isVanilla;
+        this.hasVanillaCobble = hasVanillaCobble;
+        this.hasVanillaPolished = hasVanillaPolished;
 
         this.existingList = new ArrayList<>();
     }

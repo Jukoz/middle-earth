@@ -21,6 +21,8 @@ import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.ToolMaterialsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public class ToolItemsME {
@@ -37,35 +39,37 @@ public class ToolItemsME {
     private static final float IRON_AXE_ATTACK_SPEED = -3.1f;
     private static final float IRON_HOE_ATTACK_SPEED = -2f;
 
-    public static final Item COPPER_SMITHING_HAMMER = registerItemHandheld("copper_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.COPPER_HAMMER, -3.5f), new Item.Properties());
-    public static final Item BRONZE_SMITHING_HAMMER = registerItemHandheld("bronze_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BRONZE_HAMMER, -3.35f), new Item.Properties());
-    public static final Item CRUDE_SMITHING_HAMMER = registerItemHandheld("crude_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.CRUDE_HAMMER, -3.35f), new Item.Properties());
+    public static final List<Item> smithingHammers = new ArrayList<>();
 
-    public static final Item SMITHING_HAMMER = registerItemHandheld("smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.STEEL_HAMMER, -3.2f), new Item.Properties());
-    public static final Item NOBLE_SMITHING_HAMMER = registerItemHandheld("noble_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.NOBLE_STEEL_HAMMER, -3.0f), new Item.Properties());
+    public static final Item COPPER_SMITHING_HAMMER = registerSmithingHammerItem("copper_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.COPPER_HAMMER, -3.5f, 8), new Item.Properties());
+    public static final Item BRONZE_SMITHING_HAMMER = registerSmithingHammerItem("bronze_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BRONZE_HAMMER, -3.35f, 10), new Item.Properties());
+    public static final Item CRUDE_SMITHING_HAMMER = registerSmithingHammerItem("crude_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.CRUDE_HAMMER, -3.35f, 10), new Item.Properties());
 
-    public static final Item DWARVEN_SMITHING_HAMMER = registerItemHandheld("dwarven_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.KHAZAD_STEEL_HAMMER, -3.2f), new Item.Properties());
-    public static final Item DWARVEN_NOBLE_SMITHING_HAMMER = registerItemHandheld("dwarven_noble_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.KHAZAD_NOBLE_STEEL_HAMMER, -3.0f), new Item.Properties());
+    public static final Item SMITHING_HAMMER = registerSmithingHammerItem("smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.STEEL_HAMMER, -3.2f, 12), new Item.Properties());
+    public static final Item NOBLE_SMITHING_HAMMER = registerSmithingHammerItem("noble_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.NOBLE_STEEL_HAMMER, -3.0f, 15), new Item.Properties());
 
-    public static final Item ELVEN_SMITHING_HAMMER = registerItemHandheld("elven_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.EDHEL_STEEL_HAMMER, -3.2f), new Item.Properties());
-    public static final Item ELVEN_NOBLE_SMITHING_HAMMER = registerItemHandheld("elven_noble_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.EDHEL_NOBLE_STEEL_HAMMER, -3.0f), new Item.Properties());
+    public static final Item DWARVEN_SMITHING_HAMMER = registerSmithingHammerItem("dwarven_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.KHAZAD_STEEL_HAMMER, -3.2f, 12), new Item.Properties());
+    public static final Item DWARVEN_NOBLE_SMITHING_HAMMER = registerSmithingHammerItem("dwarven_noble_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.KHAZAD_NOBLE_STEEL_HAMMER, -3.0f, 15), new Item.Properties());
 
-    public static final Item ORCISH_SMITHING_HAMMER = registerItemHandheld("orcish_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BURZUM_STEEL_HAMMER, -3.2f), new Item.Properties());
-    public static final Item ORCISH_ELITE_SMITHING_HAMMER = registerItemHandheld("orcish_elite_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BURZUM_NOBLE_STEEL_HAMMER, -3.0f), new Item.Properties());
+    public static final Item ELVEN_SMITHING_HAMMER = registerSmithingHammerItem("elven_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.EDHEL_STEEL_HAMMER, -3.2f, 12), new Item.Properties());
+    public static final Item ELVEN_NOBLE_SMITHING_HAMMER = registerSmithingHammerItem("elven_noble_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.EDHEL_NOBLE_STEEL_HAMMER, -3.0f, 15), new Item.Properties());
 
-    public static final Item MITHRIL_SMITHING_HAMMER = registerItemHandheld("mithril_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.MITHRIL_HAMMER, -2.5f), new Item.Properties()
+    public static final Item ORCISH_SMITHING_HAMMER = registerSmithingHammerItem("orcish_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BURZUM_STEEL_HAMMER, -3.2f, 12), new Item.Properties());
+    public static final Item ORCISH_ELITE_SMITHING_HAMMER = registerSmithingHammerItem("orcish_elite_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BURZUM_NOBLE_STEEL_HAMMER, -3.0f, 15), new Item.Properties());
+
+    public static final Item MITHRIL_SMITHING_HAMMER = registerSmithingHammerItem("mithril_smithing_hammer",
+            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.MITHRIL_HAMMER, -2.5f, 20), new Item.Properties()
                     .component(DataComponents.UNBREAKABLE, new Unbreakable(true)));
 
     public static final Item IRON_CHISEL = registerItemHandheld("iron_chisel",
@@ -185,6 +189,12 @@ public class ToolItemsME {
         ItemGroupsME.TOOLS_CONTENTS.add(item.getDefaultInstance());
         SimpleHandheldItemModel.items.add(item);
         return registerItem(item, name);
+    }
+
+    private static Item registerSmithingHammerItem(String name, Function<Item.Properties, Item> factory, Item.Properties settings) {
+        Item item = registerItemHandheld(name, factory, settings);
+        smithingHammers.add(item);
+        return item;
     }
 
     private static Item registerItemDualModel(String name, Function<Item.Properties, Item> factory, Item.Properties settings) {

@@ -72,7 +72,7 @@ public final class NeoForgeCommonEvents {
         public static void checkNaturalSpawn(MobSpawnEvent.SpawnPlacementCheck event) {
             if (event.getSpawnType() != MobSpawnType.NATURAL
                     || !(event.getLevel() instanceof Level level)
-                    || !level.dimension().equals(ModDimensions.ME_DIMENSION_KEY)
+                    || !ModDimensions.isInMiddleEarth(level)
                     || event.getEntityType() == EntitiesME.NPC) {
                 return;
             }

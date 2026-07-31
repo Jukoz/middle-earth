@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 
-import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagProvider extends BlockTagsProvider {
@@ -56,18 +55,20 @@ public class BlockTagProvider extends BlockTagsProvider {
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
+        mineableShovel.add(MineableShovel.blocks.toArray(new Block[0]));
+        mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
 
         wool.add(Wool.blocks.toArray(new Block[0]));
 
         leaves.add(LeavesSets.leaves.toArray(new Block[0]));
-        mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
 
         swordEfficient.add(LeavesSets.leaves.toArray(new Block[0]));
 
         tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse( "saplings"))).add(Saplings.saplings.toArray(new Block[0]));
         tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse( "doors"))).add(Doors.doors.toArray(new Block[0]));
         tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse( "trapdoors"))).add(Trapdoors.trapdoors.toArray(new Block[0]));
-        tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse( "buttons"))).add(Buttons.buttons.toArray(new Block[0]));
+        tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse("stone_buttons"))).add(Buttons.stoneButtons.toArray(new Block[0]));
+        tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse("wooden_buttons"))).add(Buttons.woodButtons.toArray(new Block[0]));
         tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse( "fences"))).add(Fences.fences.toArray(new Block[0]));
         tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse( "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
         tag(TagKey.create(Registries.BLOCK, ResourceLocation.parse( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
@@ -347,14 +348,6 @@ public class BlockTagProvider extends BlockTagsProvider {
         needsIronTools.add(ModBlocks.SAPPHIRE_BLOCK);
 
         mineablePickaxe.add(ModBlocks.STONE_MYCELIUM);
-        mineableShovel.add(ModBlocks.ASH_BLOCK);
-        mineableShovel.add(ModBlocks.RIVER_SAND);
-        mineableShovel.add(ModBlocks.BLACK_SAND);
-        mineableShovel.add(ModBlocks.WHITE_SAND);
-
-        mineableShovel.add(ModBlocks.SNOWY_GRASS_BLOCK);
-        mineableShovel.add(ModNatureBlocks.OLD_PODZOL);
-        mineableShovel.add(ModNatureBlocks.LORIEN_PODZOL);
 
         mineablePickaxe.add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
 
@@ -379,139 +372,15 @@ public class BlockTagProvider extends BlockTagsProvider {
         mineablePickaxe.add(ModDecorativeBlocks.COPPER_COIN_PILE);
         mineablePickaxe.add(ModDecorativeBlocks.SILVER_COIN_PILE);
         mineablePickaxe.add(ModDecorativeBlocks.GOLD_COIN_PILE);
-
-
-        mineableShovel.add(ModBlocks.GRASSY_DIRT);
-        mineableShovel.add(ModBlocks.GRASSY_DIRT_SLAB);
-        mineableShovel.add(ModBlocks.GRASSY_DIRT_STAIRS);
-
-        mineableShovel.add(ModBlocks.CHALKSOIL_GRASS_BLOCK);
-
-        mineableShovel.add(ModBlocks.CHALKSOIL);
-        mineableShovel.add(ModBlocks.CHALKSOIL_SLAB);
-        mineableShovel.add(ModBlocks.CHALKSOIL_STAIRS);
-
-        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL);
-        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL_SLAB);
-        mineableShovel.add(ModBlocks.GRASSY_CHALKSOIL_STAIRS);
-
-        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL);
-        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL_SLAB);
-        mineableShovel.add(ModBlocks.COARSE_CHALKSOIL_STAIRS);
-
-        mineableShovel.add(ModBlocks.CHALKSOIL_PATH);
-        mineableShovel.add(ModBlocks.CHALKSOIL_FARMLAND);
-
-        mineableShovel.add(ModBlocks.LOAM_GRASS_BLOCK);
-        
-        mineableShovel.add(ModBlocks.LOAM);
-        mineableShovel.add(ModBlocks.LOAM_SLAB);
-        mineableShovel.add(ModBlocks.LOAM_STAIRS);
-        
-        mineableShovel.add(ModBlocks.GRASSY_LOAM);
-        mineableShovel.add(ModBlocks.GRASSY_LOAM_SLAB);
-        mineableShovel.add(ModBlocks.GRASSY_LOAM_STAIRS);
-
-        mineableShovel.add(ModBlocks.COARSE_LOAM);
-        mineableShovel.add(ModBlocks.COARSE_LOAM_SLAB);
-        mineableShovel.add(ModBlocks.COARSE_LOAM_STAIRS);
-        
-        mineableShovel.add(ModBlocks.LOAM_PATH);
-        mineableShovel.add(ModBlocks.LOAM_FARMLAND);
-
-        mineableShovel.add(ModBlocks.PEAT_GRASS_BLOCK);
-
-        mineableShovel.add(ModBlocks.PEAT);
-        mineableShovel.add(ModBlocks.PEAT_SLAB);
-        mineableShovel.add(ModBlocks.PEAT_STAIRS);
-
-        mineableShovel.add(ModBlocks.GRASSY_PEAT);
-        mineableShovel.add(ModBlocks.GRASSY_PEAT_SLAB);
-        mineableShovel.add(ModBlocks.GRASSY_PEAT_STAIRS);
-
-        mineableShovel.add(ModBlocks.COARSE_PEAT);
-        mineableShovel.add(ModBlocks.COARSE_PEAT_SLAB);
-        mineableShovel.add(ModBlocks.COARSE_PEAT_STAIRS);
-
-        mineableShovel.add(ModBlocks.PEAT_PATH);
-        mineableShovel.add(ModBlocks.PEAT_FARMLAND);
-
-        mineableShovel.add(ModBlocks.SILT_GRASS_BLOCK);
-
-        mineableShovel.add(ModBlocks.SILT);
-        mineableShovel.add(ModBlocks.SILT_SLAB);
-        mineableShovel.add(ModBlocks.SILT_STAIRS);
-        
-        mineableShovel.add(ModBlocks.GRASSY_SILT);
-        mineableShovel.add(ModBlocks.GRASSY_SILT_SLAB);
-        mineableShovel.add(ModBlocks.GRASSY_SILT_STAIRS);
-
-        mineableShovel.add(ModBlocks.COARSE_SILT);
-        mineableShovel.add(ModBlocks.COARSE_SILT_SLAB);
-        mineableShovel.add(ModBlocks.COARSE_SILT_STAIRS);
-
-        mineableShovel.add(ModBlocks.SILT_PATH);
-        mineableShovel.add(ModBlocks.SILT_FARMLAND);
         
         mineablePickaxe.add(ModBlocks.PEBBLED_GRASS);
         mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_SLAB);
         mineablePickaxe.add(ModBlocks.PEBBLED_GRASS_STAIRS);
-        
-        mineableShovel.add(ModBlocks.TURF);
-        mineableShovel.add(ModBlocks.TURF_SLAB);
-        mineableShovel.add(ModBlocks.TURF_STAIRS);
-        mineableShovel.add(ModBlocks.TURF_VERTICAL_SLAB);
-
-        mineableShovel.add(ModBlocks.MIRE);
-        mineableShovel.add(ModBlocks.MIRE_SLAB);
-        mineableShovel.add(ModBlocks.MIRE_STAIRS);
 
         mineablePickaxe.add(ModBlocks.EMBERS);
 
-        mineableShovel.add(ModBlocks.ASHEN_SAND);
-        mineableShovel.add(ModBlocks.ASHEN_SAND_LAYER);
-
-        mineableShovel.add(ModBlocks.ASHEN_GRAVEL);
-        mineableShovel.add(ModBlocks.ASHEN_GRAVEL_LAYER);
-
         mineablePickaxe.add(ModBlocks.SKELETAL_PILE);
         mineablePickaxe.add(ModBlocks.SKELETAL_PILE_LAYER);
-
-        mineableShovel.add(ModBlocks.WASTE_PILE);
-        mineableShovel.add(ModBlocks.WASTE_PILE_LAYER);
-
-
-        mineableShovel.add(ModBlocks.DRY_DIRT);
-        mineableShovel.add(ModBlocks.DRY_DIRT_SLAB);
-        mineableShovel.add(ModBlocks.DRY_DIRT_STAIRS);
-
-        mineableShovel.add(ModBlocks.FOUL_DIRT);
-        mineableShovel.add(ModBlocks.FOUL_DIRT_SLAB);
-        mineableShovel.add(ModBlocks.FOUL_DIRT_STAIRS);
-
-        mineableShovel.add(ModBlocks.DIRTY_ROOTS);
-        mineableShovel.add(ModBlocks.DIRTY_ROOTS_SLAB);
-        mineableShovel.add(ModBlocks.DIRTY_ROOTS_STAIRS);
-
-        mineableShovel.add(ModBlocks.ASHEN_DIRT);
-        mineableShovel.add(ModBlocks.ASHEN_DIRT_SLAB);
-        mineableShovel.add(ModBlocks.ASHEN_DIRT_STAIRS);
-
-        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT);
-        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_SLAB);
-        mineableShovel.add(ModBlocks.COBBLY_ASHEN_DIRT_STAIRS);
-
-        mineableShovel.add(ModBlocks.COBBLY_DIRT);
-        mineableShovel.add(ModBlocks.COBBLY_DIRT_SLAB);
-        mineableShovel.add(ModBlocks.COBBLY_DIRT_STAIRS);
-
-        mineableShovel.add(ModBlocks.SNOWY_DIRT);
-        mineableShovel.add(ModBlocks.SNOWY_DIRT_SLAB);
-        mineableShovel.add(ModBlocks.SNOWY_DIRT_STAIRS);
-
-        mineableShovel.add(ModBlocks.SNOWY_GRASS_BLOCK);
-
-        mineableShovel.add(ModNatureBlocks.LORIEN_PODZOL);
 
         mineableAxe.add(ModDecorativeBlocks.WOOD_PILE);
         mineableAxe.add(ModDecorativeBlocks.ARTISAN_TABLE);
@@ -569,8 +438,6 @@ public class BlockTagProvider extends BlockTagsProvider {
         mineableShovel.add(ModBlocks.COARSE_DIRT_STAIRS);
         mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
 
-        mineableShovel.add(ModBlocks.ROOTED_DIRT_SLAB);
-        
         mineablePickaxe.add(ModBlocks.PACKED_MUD_SLAB);
         mineablePickaxe.add(ModBlocks.PACKED_MUD_VERTICAL_SLAB);
         mineablePickaxe.add(ModBlocks.PACKED_MUD_STAIRS);

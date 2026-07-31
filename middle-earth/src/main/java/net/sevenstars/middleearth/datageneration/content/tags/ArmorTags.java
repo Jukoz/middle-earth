@@ -39,6 +39,7 @@ public class ArmorTags {
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.EGLADIL_SENTINEL_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, true, EquipmentItemsME.EGLADIL_COMMANDER_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.GALADHRIM_HELMET));
+                add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.GALADHRIM_LORD_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.WOODLAND_REALM_SOLDIER_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET));

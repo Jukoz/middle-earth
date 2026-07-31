@@ -26,6 +26,11 @@ public class CustomBowWeaponItem extends BowItem {
     }
 
     @Override
+    public int getEnchantmentValue() {
+        return 2;
+    }
+
+    @Override
     public Component getName(ItemStack stack) {
         if(BuiltInRegistries.ITEM.getKey(this).getPath().contains("_noble")
                 || BuiltInRegistries.ITEM.getKey(this).getPath().contains("_elite")

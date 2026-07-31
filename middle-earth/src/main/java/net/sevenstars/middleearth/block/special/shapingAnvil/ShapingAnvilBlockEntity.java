@@ -4,6 +4,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.sevenstars.middleearth.block.utils.ExtendedMenuProviderME;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -29,6 +30,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
@@ -44,6 +47,7 @@ import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -140,26 +144,32 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedMenu
         return entity.getItem(0);
     }
 
-    public void bonk(ShapingAnvilBlockEntity entity, ServerLevel world){
+    public void bonk(ShapingAnvilBlockEntity entity, ServerLevel world, ItemStack tool){
         ItemStack input = entity.getItem(0);
 
         List<RecipeHolder<AnvilShapingRecipe>> match = entity.getMatchingRecipes(world);
 
-        if (!match.isEmpty() && input.get(DataComponentTypesME.TEMPERATURE_DATA) != null){
-            int temperature = input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature();
+        if (!match.isEmpty()){
+            TemperatureDataComponent temperatureData = input.get(DataComponentTypesME.TEMPERATURE_DATA);
+            int temperature = temperatureData == null ? 0 : temperatureData.temperature();
 
             entity.getLevel().playSound(null, worldPosition, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 1.5f, 1.0f - (float) temperature / 1000);
 
-            int minRandProgress = 7;
-            int maxRandProgress = 14;
+            int auleBlessingLevel = 0;
+            if (temperature > 0 && tool.isEnchanted()) {
+                Holder<Enchantment> auleBlessing = world.registryAccess()
+                        .lookupOrThrow(Registries.ENCHANTMENT)
+                        .getOrThrow(EnchantmentsME.AULE_BLESSING);
+                auleBlessingLevel = EnchantmentHelper.getItemEnchantmentLevel(auleBlessing, tool);
+            }
+            int progress = ShapingProgress.roll(world.getRandom()::nextInt, temperature, auleBlessingLevel);
+            int requiredProgress = match.get(entity.outputIndex).value().getAmount();
 
             if (input.getMaxDamage() == 0 && input.getDamageValue() == 0){
-                input.set(DataComponents.MAX_DAMAGE, match.get(entity.outputIndex).value().getAmount());
-                input.setDamageValue(match.get(entity.outputIndex).value().getAmount()
-                        - (int) (world.getRandom().nextDouble() * (maxRandProgress - minRandProgress) + minRandProgress));
+                input.set(DataComponents.MAX_DAMAGE, requiredProgress);
+                input.setDamageValue(Math.max(0, requiredProgress - progress));
             } else{
-                input.setDamageValue(input.getDamageValue()
-                        - (int) (world.getRandom().nextDouble() * (maxRandProgress - minRandProgress) + minRandProgress));
+                input.setDamageValue(Math.max(0, input.getDamageValue() - progress));
             }
 
             Level serverWorld = this.getLevel();
@@ -167,15 +177,14 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedMenu
                 ((ServerLevel)serverWorld).sendParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, worldPosition.getX()+ 0.5f, worldPosition.getY() + 1.0f, worldPosition.getZ() + 0.5f, Math.max(temperature / 10, 3), 0.0, 0.0, 0.0, 0.0);
             }
 
-            int minRandTemperature = 10;
-            int maxRandTemperature = 18;
-            int value = (int) (world.getRandom().nextDouble()
-                    * (maxRandTemperature - minRandTemperature) + minRandTemperature);
-
-            if ((input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature() - value) <= 0){
-                input.remove(DataComponentTypesME.TEMPERATURE_DATA);
-            } else {
-                input.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature() - value));
+            if (temperatureData != null) {
+                int cooling = 10 + world.getRandom().nextInt(8);
+                int cooledTemperature = temperature - cooling;
+                if (cooledTemperature <= 0){
+                    input.remove(DataComponentTypesME.TEMPERATURE_DATA);
+                } else {
+                    input.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(cooledTemperature));
+                }
             }
             entity.markInventoryChanged();
             HolderLookup.RegistryLookup<TrimMaterial>  armorTrimMaterialRegistry = entity.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL);

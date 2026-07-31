@@ -21,11 +21,15 @@
 ## Unofficial NeoForge 1.21.1 backport
 
 The `1.0.1-1.21.1-neoforge-backport` branch is an unofficial compatibility
-backport aligned through the latest adopted upstream fixes snapshot
-[`2563784f8b701aaa13f3921290eb5ee5600a0896`](https://github.com/Jukoz/middle-earth/commit/2563784f8b701aaa13f3921290eb5ee5600a0896).
-It also incorporates the NPC translation-key correction from
-[`8be17cac2e285afd3b6f6656fe53392ed5ef6533`](https://github.com/Jukoz/middle-earth/commit/8be17cac2e285afd3b6f6656fe53392ed5ef6533),
-which is on a separate upstream branch and is not an ancestor of the fixes snapshot.
+backport of the upstream `1.0.1-1.21.8-beta` release at
+[`1f047d55dd1509c001596876617b4ae660eb006e`](https://github.com/Jukoz/middle-earth/commit/1f047d55dd1509c001596876617b4ae660eb006e),
+aligned through the adopted upstream fixes snapshot
+[`a76bbb197c2334feabea6858507b94c46b085c62`](https://github.com/Jukoz/middle-earth/commit/a76bbb197c2334feabea6858507b94c46b085c62).
+It also incorporates the zh-CN localization lineage through
+[`30e65328a37ab9d2481c26dee83afcb7b2773820`](https://github.com/Jukoz/middle-earth/commit/30e65328a37ab9d2481c26dee83afcb7b2773820).
+Known defects in those upstream commits are corrected as part of the 1.21.1
+semantic backport. Unmerged `new-stuff` content and the first-iteration global
+mob-cap experiment are not part of this stable baseline.
 It is not an official release from the original Middle-earth mod team.
 
 All original copyright notices, credits, trademarks and the ARR license remain

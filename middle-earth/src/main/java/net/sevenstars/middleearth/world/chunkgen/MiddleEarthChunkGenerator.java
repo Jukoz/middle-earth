@@ -1141,7 +1141,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public int getBaseHeight(int x, int z, Heightmap.Types heightmap, LevelHeightAccessor world, RandomState noiseConfig) {
         float worldHeight = 1 + DIRT_HEIGHT
                 + MiddleEarthHeightMap.getHeight(x, z, middleEarthBiomeSource.getWorldSeed());
-        return (int) worldHeight;
+        return Math.max(WATER_HEIGHT, (int) worldHeight);
     }
 
     @Override

@@ -63,6 +63,16 @@ public class MineableAxe {
             add(ModDecorativeBlocks.THIN_BARREL);
             add(ModDecorativeBlocks.SMALL_CRATE);
 
+            add(ModDecorativeBlocks.BEECH_COFFER);
+            add(ModDecorativeBlocks.CHESTNUT_COFFER);
+            add(ModDecorativeBlocks.FIR_COFFER);
+            add(ModDecorativeBlocks.LARCH_COFFER);
+            add(ModDecorativeBlocks.OAK_COFFER);
+            add(ModDecorativeBlocks.PINE_COFFER);
+            add(ModDecorativeBlocks.SPRUCE_COFFER);
+            add(ModDecorativeBlocks.WILLOW_COFFER);
+            add(ModDecorativeBlocks.REINFORCED_CHEST);
+
             add(ModNatureBlocks.BROWN_BOLETE_BLOCK);
             add(ModNatureBlocks.CAVE_AMANITA_BLOCK);
             add(ModNatureBlocks.DEEP_FIRECAP_BLOCK);

@@ -105,10 +105,11 @@ public abstract class AbstractShapingAnvilBlock extends BaseEntityBlock implemen
             if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackStrengthScale(0.5f) > 0.9f) {
                 player.awardStat(Stats.ITEM_USED.get(hammer));
                 stack.use(world, player, player.getUsedItemHand());
+                ItemStack usedTool = stack.copy();
                 player.getItemInHand(player.getUsedItemHand()).hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 if (blockEntity instanceof ShapingAnvilBlockEntity shapingAnvilBlockEntity) {
                     ServerLevel serverWorld = (ServerLevel) world;
-                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld);
+                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld, usedTool);
                 }
             }
         }

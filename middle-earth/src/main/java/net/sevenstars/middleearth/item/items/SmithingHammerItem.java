@@ -13,9 +13,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SmithingHammerItem extends Item {
+    private final int enchantmentValue;
 
-    public SmithingHammerItem(Properties settings, Tier material, float speed) {
+    public SmithingHammerItem(Properties settings, Tier material, float speed, int enchantmentValue) {
         super(settings.stacksTo(1).attributes(createAttributeModifiers(speed)).durability(material.getUses()));
+        this.enchantmentValue = enchantmentValue;
     }
 
     public static ItemAttributeModifiers createAttributeModifiers(float attackSpeed) {
@@ -25,5 +27,10 @@ public class SmithingHammerItem extends Item {
     @Override
     public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, net.minecraft.world.entity.player.Player user) {
         return !user.isCreative();
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return enchantmentValue;
     }
 }

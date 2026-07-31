@@ -21,6 +21,7 @@ import net.sevenstars.middleearth.datageneration.content.tags.*;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
@@ -80,7 +81,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
         TagKey<Item> mod_stripped_logs = TagKey.create(Registries.ITEM, MiddleEarth.of("mod_stripped_logs"));
         TagKey<Item> stripped_logs = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "stripped_logs"));
-        tag(TagKey.create(Registries.ITEM, MiddleEarth.of("mod_planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, MiddleEarth.of("mod_planks"))).add(Planks.getItemPlanksWithoutVanilla().toArray(new Item[0]));
 
         tag(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.parse("wooden_slabs"))).add(Planks.getItemPlanksSlabs().toArray(new Item[0]));
@@ -95,11 +96,21 @@ public class ItemTagProvider extends ItemTagsProvider {
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/weapon"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/sword"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/ranged_weapon")))
+                .add(Bows.bows.toArray(new Item[0]))
+                .add(Crossbows.crossbows.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/bow"))).add(Bows.bows.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/bows"))).add(Bows.bows.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/crossbow"))).add(Crossbows.crossbows.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/crossbow"))).add(Crossbows.crossbows.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/durability"))).add(ArmorTags.armors.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/durability"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/durability"))).add(ToolItemsME.smithingHammers.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/vanishing"))).add(ArmorTags.armors.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/vanishing"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/vanishing"))).add(ToolItemsME.smithingHammers.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/shields"))).add(WeaponItemsME.shields.toArray(new Item[0]));
+        tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/shield"))).add(WeaponItemsME.shields.toArray(new Item[0]));
         tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/equippable"))).add(ArmorTags.armors.toArray(new Item[0]));
 
         ArmorTags.basicArmors.addAll(List.of(new Item[]{Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS}));

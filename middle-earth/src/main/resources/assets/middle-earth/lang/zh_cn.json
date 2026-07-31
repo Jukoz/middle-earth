@@ -81,6 +81,8 @@
   "advancements.smithing.inscription_table.description": "像昔日的铁匠那样铭刻、改进你的装备",
   "advancements.smithing.smithing_hammer.title": "锤砧交响",
   "advancements.smithing.smithing_hammer.description": "制作出锻造锤",
+  "advancements.smithing.hot_ones.title": "小心烫嘴",
+  "advancements.smithing.hot_ones.description": "吃一个热辣鸡块",
 
   "advancements.middle_earth.brigand_dungeon.title": "开门查水表！",
   "advancements.middle_earth.brigand_dungeon.description": "突袭地牢中的匪盗！",
@@ -92,7 +94,7 @@
   "advancements.middle_earth.enter_woodland_realm.description": "进入黑森林王国",
 
   "advancements.middle_earth.kill_spawn_of_shelob.title": "蜘蛛？",
-  "advancements.middle_earth.kill_spawn_of_shelob.description": "杀死希洛布的子嗣！",
+  "advancements.middle_earth.kill_spawn_of_shelob.description": "杀死一只希洛布后裔！",
 
   "advancements.middle_earth.spider_burrows.title": "黏腻巢穴",
   "advancements.middle_earth.spider_burrows.description": "进入蜘蛛网道",
@@ -13142,6 +13144,7 @@
   "enchantment.middle-earth.stride": "阔步",
   "enchantment.middle-earth.tree_feller": "伐木大师",
   "enchantment.middle-earth.vantage": "先发制敌",
+  "enchantment.middle-earth.aule_blessing": "奥力的祝福",
 
   "__COMMENT__": "事件提示 - event",
   "event.middle-earth.join.faction.success": "你加入了%s",
@@ -13180,6 +13183,13 @@
 
   "__COMMENT__": "物品 - item",
   "__TODO__": "整理",
+
+  "item.middle-earth.ceratopsian_nugget": "角龙型鸡块",
+  "item.middle-earth.pterosaur_nugget": "翼龙型鸡块",
+  "item.middle-earth.sauropod_nugget": "梁龙型鸡块",
+  "item.middle-earth.therapod_nugget": "暴龙型鸡块",
+  "item.middle-earth.thyreophoran_nugget": "甲龙型鸡块",
+
   "item.middle-earth.player_book": "玩家之书",
   "item.middle-earth.brigand_key": "匪盗钥匙",
   "item.middle-earth.brigand_trial_spawner": "匪盗试炼刷怪笼",
@@ -13425,6 +13435,7 @@
 
   "item.middle-earth.crude_ingot": "晦铜锭",
   "item.middle-earth.crude_lantern": "晦铜灯笼",
+  "item.middle-earth.crude_smithing_hammer": "晦铜锻造锤",
 
   "__COMMENT__": "装备物品：武器、盔甲、工具等",
   "item.middle-earth.armor_plate": "盔甲板材",
@@ -13704,12 +13715,13 @@
   "item.middle-earth.woodland_realm_scout_bronze_shield": "黑森林王国斥候铜盾牌",
   "item.middle-earth.woodland_realm_leather_silver_arming_coat": "银色黑森林王国皮革武装罩衣",
   "item.middle-earth.woodland_realm_silver_trimmed_ranger_helmet": "黑森林王国镶银游侠头盔",
+  "item.middle-earth.woodland_realm_dagger": "黑森林王国匕首",
 
-  "item.middle-earth.silvan_lord_boots": "希尔凡领主靴子",
-  "item.middle-earth.silvan_lord_cape": "希尔凡领主披风",
-  "item.middle-earth.silvan_lord_chestplate": "希尔凡领主胸甲",
-  "item.middle-earth.silvan_lord_helmet": "希尔凡领主头盔",
-  "item.middle-earth.silvan_lord_leggings": "希尔凡领主护腿",
+  "item.middle-earth.silvan_lord_boots": "西尔凡领主靴子",
+  "item.middle-earth.silvan_lord_cape": "西尔凡领主披风",
+  "item.middle-earth.silvan_lord_chestplate": "西尔凡领主胸甲",
+  "item.middle-earth.silvan_lord_helmet": "西尔凡领主头盔",
+  "item.middle-earth.silvan_lord_leggings": "西尔凡领主护腿",
 
   "item.middle-earth.great_horn_green_plate_armor": "绿色板材大角鹿铠",
   "item.middle-earth.great_horn_light_armor": "大角鹿轻铠",
@@ -15218,7 +15230,7 @@
   "tooltip.middle-earth.lorien_marchwarden_cape": "罗瑞恩边界守卫披风",
   "tooltip.middle-earth.lorien_marchwarden_hood": "罗瑞恩边界守卫兜帽",
   "tooltip.middle-earth.lord_of_the_greenwood_cape": "大绿林之王的披风",
-  "tooltip.middle-earth.silvan_lord_cape": "希尔凡领主披风",
+  "tooltip.middle-earth.silvan_lord_cape": "西尔凡领主披风",
   "tooltip.middle-earth.autumn_leaf_cape": "秋叶披风",
   "tooltip.middle-earth.leaf_cape": "树叶披风",
   "tooltip.middle-earth.leaf_litter_cape": "落叶披风",
@@ -15273,6 +15285,7 @@
   "tooltip.middle-earth.liquid_edhel_steel": "熔融埃蒂尔钢",
   "tooltip.middle-earth.liquid_khazad_steel": "熔融卡扎德钢",
   "tooltip.middle-earth.liquid_mithril": "熔融秘银",
+  "tooltip.middle-earth.liquid_chicken_nugget": "熔融鸡块",
 
   "__COMMENT__": "锻造相关 - trim*",
   "trim_pattern.middle-earth.smithing_part": "锻造部件",
