@@ -32,8 +32,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class NpcEntityInitializer {
-    public static final Identifier RANDOM = MiddleEarth.of("full_random");
-
     public static void initializeNpcEntity(ServerWorld serverWorld, NpcEntity npcEntity){
         initializeForServer(serverWorld, npcEntity);
     }
@@ -83,7 +81,6 @@ public class NpcEntityInitializer {
         return BiomeEventDataLookup.findNpcDataForBiome(world, biome, npcEntity);
     }
 
-
     public static boolean shouldInitialize(ServerWorld serverWorld, NpcEntity npcEntity){
         Identifier currentNpcDataId = npcEntity.getNpcTypeIdentifier();
         if(currentNpcDataId == null)
@@ -96,15 +93,5 @@ public class NpcEntityInitializer {
         if(!npcEntity.hasTextureData())
             return true;
         return optionalEntry.isEmpty();
-    }
-
-    public static boolean assignBedToNpc(NpcEntity npcEntity, BedBlock bedBlock){
-        return true;
-    }
-
-    public static void initializeNpcForCurrentData(NpcEntity npcEntity, ServerWorld serverWorld) {
-        boolean shouldRefreshVisuals = npcEntity.shouldRefreshVisuals();
-        if(shouldRefreshVisuals)
-            NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
     }
 }

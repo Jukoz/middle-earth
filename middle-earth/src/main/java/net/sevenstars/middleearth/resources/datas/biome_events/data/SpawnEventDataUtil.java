@@ -14,6 +14,10 @@ import net.sevenstars.middleearth.block.special.structureManager.features.Struct
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
 public class SpawnEventDataUtil {
     // # Comparators
     static boolean compareId(NpcEntity entity, Identifier npcTypeToCompare) {
