@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class StructureManagerData {
     private final List<SpawnNestNodeData> spawnNestNodeData;
 
     public StructureManagerData(String id, List<SpawnNestNodeData> nests) {
-        this.id = IdentifierUtil.getIdentifierFromString(id);
+        this.id = MiddleEarth.fetchId(id);
         this.spawnNestNodeData = nests;
     }
 

@@ -1,0 +1,169 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarf_crown_banner_pattern"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin_pile"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:erebor_sword",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:erebor_noble_dagger",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:erebor_ornamented_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:erebor_ornamented_tower_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+		},
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_reinforced_boots",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 2
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+		  "name": "minecraft:gold_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blue_dye"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_key"
+        }
+      ]
+    }
+  ]
+}

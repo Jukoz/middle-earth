@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:item/plate_pumpkin_pie",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "middle-earth:item/plate_berry_pie"
+	}
+}

@@ -7,7 +7,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.sound.SoundCategory;
@@ -25,9 +24,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -89,7 +87,7 @@ public class ShelobiteLarvaEggBlock extends AbstractShelobiteLarvaEgg {
     }
 
     public static void SpawnSpider(BlockPos pos, World world){
-        ShelobiteLarvaEntity entity = new ShelobiteLarvaEntity(ModEntities.SHELOBITE_LARVA, world);
+        ShelobiteLarvaEntity entity = new ShelobiteLarvaEntity(EntitiesME.SHELOBITE_LARVA, world);
         entity.age = 0;
         entity.refreshPositionAndAngles(pos, 0, 0);
         if(world instanceof ServerWorldAccess serverWorldAccess) {

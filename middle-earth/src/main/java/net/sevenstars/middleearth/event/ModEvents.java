@@ -13,7 +13,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.PlayerHeadItem;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
@@ -21,8 +20,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
@@ -33,6 +33,8 @@ import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import java.util.Objects;
 
 public class ModEvents {
+    private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
+
     public static void register(){
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
@@ -50,13 +52,19 @@ public class ModEvents {
                     RaceUtil.initializeRace(player);
                 }
             }
+
+            if(!player.getCommandTags().contains(GOT_STARTER_ITEM)) {
+                ItemStack starterItem = new ItemStack(ResourceItemsME.PLAYER_BOOK);
+                player.getInventory().offerOrDrop(starterItem);
+                player.addCommandTag(GOT_STARTER_ITEM);
+            }
         });
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
             if(entity instanceof PlayerEntity playerEntity) {
                 ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
-                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.BEHEADING).orElseThrow();
+                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.BEHEADING).orElseThrow();
                 boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
 
                 if (hasEnchant) {
@@ -75,13 +83,13 @@ public class ModEvents {
         PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
             ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
-            RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.HEWING).orElseThrow();
+            RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.HEWING).orElseThrow();
             boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
             int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
             float hardness = blockState.getBlock().getHardness();
 
             if (hasEnchant) {
-                if (!playerEntity.isCreative()) {
+                if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
                     assert toolComponent != null;
                     if (toolComponent.isCorrectForDrops(blockState)){
                         if (playerEntity.getFacing() == Direction.DOWN || playerEntity.getFacing() == Direction.UP){
@@ -110,13 +118,13 @@ public class ModEvents {
             ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
             RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
-                    .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.TREE_FELLER).orElseThrow();
+                    .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.TREE_FELLER).orElseThrow();
             boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
             int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
             float hardness = blockState.getBlock().getHardness();
 
             if (hasEnchant) {
-                if (!playerEntity.isCreative()) {
+                if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
                     assert toolComponent != null;
                     if (toolComponent.isCorrectForDrops(blockState)){
                         int[] blockCount = new int[]{16};
@@ -215,7 +223,6 @@ public class ModEvents {
         breakAndDamage(world, player, blockPosDown.offset(player.getFacing().rotateYCounterclockwise()), stack, hardness);
     }
 
-    //TODO make silk touch work
     private static void breakAndDamage(World world, PlayerEntity player, BlockPos blockpos, ItemStack stack, float hardness){
         ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
         BlockState blockState = world.getBlockState(blockpos);

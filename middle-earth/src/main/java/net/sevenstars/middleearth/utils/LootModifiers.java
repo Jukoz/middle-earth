@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.utils;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.loot.LootPool;
@@ -19,7 +20,7 @@ public class LootModifiers {
     private static final Identifier HORSE_LOOT_TABLE_IDENTIFIER = Identifier.of("minecraft", "entities/horse");
     private static final Identifier GOAT_LOOT_TABLE_IDENTIFIER = Identifier.of("minecraft", "entities/goat");
 
-    public static final Identifier FISHING_LOOT_TABLE_IDENTIFIER = Identifier.of("me", "gameplay/fishing");
+    public static final Identifier FISHING_LOOT_TABLE_IDENTIFIER = Identifier.of(MiddleEarth.MOD_ID, "gameplay/fishing");
     public static final RegistryKey<LootTable> FISHING_LOOT_TABLE =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, FISHING_LOOT_TABLE_IDENTIFIER);
 

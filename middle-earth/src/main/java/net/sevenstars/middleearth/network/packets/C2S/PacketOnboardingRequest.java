@@ -6,11 +6,11 @@ import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.network.packets.S2C.PacketOnboardingResult;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardingRequest>
@@ -39,7 +39,8 @@ public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardi
                         PlayerDataService.playerPassedOnboarding(context.player()),
                         ModServerConfigs.ENABLE_FACTION_RESET,
                         ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD,
-                        ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION
+                        ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION,
+                        AttributePoolElement.createAttributeNbtListFromPlayer(player)
                 );
                 ServerPlayNetworking.send(player, newPacket);
             });

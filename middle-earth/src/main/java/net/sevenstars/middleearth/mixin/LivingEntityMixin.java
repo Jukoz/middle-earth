@@ -1,6 +1,11 @@
 package net.sevenstars.middleearth.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -16,7 +21,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.enchantments.EnchantmentEffectsME;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
@@ -59,7 +65,7 @@ public abstract class LivingEntityMixin extends Entity {
             ItemStack chestplate = this.getEquippedStack(EquipmentSlot.CHEST);
             if(!chestplate.isEmpty()) {
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = entity.getWorld().getRegistryManager()
-                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentEffectsME.STEALTHY_TRAIL).orElseThrow();
+                        .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.STEALTHY_TRAIL).orElseThrow();
                 boolean hasEnchant = chestplate.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
                 int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, chestplate);
                 if(hasEnchant) {
@@ -134,7 +140,7 @@ public abstract class LivingEntityMixin extends Entity {
     private static int getAilmentProtectionLevel(ItemStack itemStack, World world) {
         int level = 0;
         RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT)
-                .getOptional(EnchantmentEffectsME.AILMENT_PROTECTION).orElseThrow();
+                .getOptional(EnchantmentsME.AILMENT_PROTECTION).orElseThrow();
         boolean hasEnchant = itemStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
         if(hasEnchant) {
             level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, itemStack);
@@ -164,5 +170,10 @@ public abstract class LivingEntityMixin extends Entity {
             }
             cir.setReturnValue(Math.max(currentValue * modifier, 0.25f));
         }
+    }
+    @WrapOperation(method = "applyClimbingSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z", ordinal = 0))
+    private boolean ScaffoldingDescendLogic(BlockState state, Block block, Operation<Boolean> original) {
+        return original.call(state, block)
+                || block == Blocks.SCAFFOLDING && state.isOf(ModDecorativeBlocks.REINFORCED_SCAFFOLDING);
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
@@ -144,14 +145,21 @@ public class BannerData {
         return bannerPatternsComponentBuilder.build();
     }
 
-    public ItemStack getBannerItem(World world, Text text) {
+    public ItemStack getBannerItem(RegistryWrapper.WrapperLookup wrapperLookup, Text text) {
         BannerPatternsComponent.Builder builder = new BannerPatternsComponent.Builder();
+        RegistryWrapper.Impl<BannerPattern> registry = wrapperLookup.getOrThrow(RegistryKeys.BANNER_PATTERN);
+        for (BannerPatternWithColor bannerPatternWithColor : bannerPatternWithColors) {
+            RegistryKey<BannerPattern> key = RegistryKey.of(
+                    RegistryKeys.BANNER_PATTERN,
+                    bannerPatternWithColor.id
+            );
 
-        var registry = world.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN);
-        for(BannerPatternWithColor bannerPatternWithColor :  bannerPatternWithColors){
-            RegistryEntry<BannerPattern> bannerPattern = registry.getEntry(bannerPatternWithColor.id).get();
-            BannerPatternsComponent.Layer layer = new BannerPatternsComponent.Layer(bannerPattern, bannerPatternWithColor.color);
-            builder.add(layer);
+            RegistryEntry<BannerPattern> pattern = registry.getOrThrow(key);
+
+            builder.add(new BannerPatternsComponent.Layer(
+                    pattern,
+                    bannerPatternWithColor.color
+            ));
         }
 
         return formatBanner(new ItemStack(Items.WHITE_BANNER), builder.build(), text);

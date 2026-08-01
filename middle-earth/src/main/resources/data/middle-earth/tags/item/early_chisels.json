@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#middle-earth:late_chisels",
+    "#middle-earth:mid_chisels",
+    "middle-earth:iron_chisel"
+  ]
+}

@@ -10,6 +10,8 @@
             "predicate": {
               "location": {
                 "biomes": [
+                  "middle-earth:dol_guldur",
+                  "middle-earth:dol_guldur_hill",
                   "middle-earth:dark_mirkwood",
                   "middle-earth:dark_mirkwood_edge",
                   "middle-earth:mirkwood",
@@ -23,6 +25,7 @@
                   "middle-earth:northern_mirkwood_swamp",
                   "middle-earth:webbed_woods",
                   "middle-earth:webbed_dark_woods",
+                  "middle-earth:autumn_woodland",
                   "middle-earth:woodland_realm",
                   "middle-earth:woodland_foothills",
                   "middle-earth:woodland_hills"

@@ -20,6 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
 import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
@@ -78,6 +79,7 @@ public class ModVegetationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> IVY_GROWTH = registerKey("ivy_growth");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_FROZEN_GROWTH = registerKey("patch_frozen_growth");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_GREEN_GROWTH = registerKey("patch_green_growth");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_THORNY_GROWTH = registerKey("patch_thorny_growth");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LILAC_FLOWER_GROWTH = registerKey("lilac_flower_growth");
     public static final RegistryKey<ConfiguredFeature<?, ?>> RED_FLOWER_GROWTH = registerKey("red_flower_growth");
     public static final RegistryKey<ConfiguredFeature<?, ?>> YELLOW_FLOWER_GROWTH = registerKey("yellow_flower_growth");
@@ -165,6 +167,7 @@ public class ModVegetationConfiguredFeatures {
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MIRKWOOD = registerKey("patch_mirkwood");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MIRKWOOD_ROOTS = registerKey("patch_mirkwood_roots");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MISTWEED = registerKey("patch_mistweed");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MOSS = registerKey("patch_moss");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_MOSS_CARPET = registerKey("patch_moss_carpet");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_SCORCHED_GRASS = registerKey("patch_scorched_grass");
@@ -364,6 +367,9 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_GREEN_GROWTH, Feature.MULTIFACE_GROWTH,
                 new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.GREEN_GROWTH,
                         20, true, true, true, 0.5f, BLOCKS_GROWTH));
+        ConfiguredFeatures.register(featureRegisterable, PATCH_THORNY_GROWTH, Feature.MULTIFACE_GROWTH,
+                new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.THORNY_GROWTH,
+                        20, true, true, true, 0.5f, BLOCKS_GROWTH));
         ConfiguredFeatures.register(featureRegisterable, LILAC_FLOWER_GROWTH, Feature.MULTIFACE_GROWTH,
                 new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.LILAC_FLOWER_GROWTH,
                         20, true, true, true, 0.5f, BLOCKS_GROWTH));
@@ -436,11 +442,9 @@ public class ModVegetationConfiguredFeatures {
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHORT_CATTAILS))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_TALL_BULRUSH, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TALL_BULRUSH))));
+                createShallowWaterPatchFeatureConfig(ModNatureBlocks.TALL_BULRUSH, 96, 7, 3));
         ConfiguredFeatures.register(featureRegisterable, PATCH_TALL_CATTAIL, Feature.FLOWER,
-                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TALL_CATTAILS))));
+                createShallowWaterPatchFeatureConfig(ModNatureBlocks.TALL_CATTAILS, 96, 7, 3));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_COASTAL_PANIC_GRASS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -614,22 +618,28 @@ public class ModVegetationConfiguredFeatures {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.CAMPION))));
 
-                                                ConfiguredFeatures.register(featureRegisterable, PATCH_REEDS, Feature.RANDOM_PATCH,
+        ConfiguredFeatures.register(featureRegisterable, PATCH_REEDS, Feature.RANDOM_PATCH,
                 new RandomPatchFeatureConfig(256, 12, 3, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ResourceItemsME.REEDS)),
-                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.IS_AIR, BlockPredicate.wouldSurvive(ResourceItemsME.REEDS.getDefaultState(), BlockPos.ORIGIN),
-                                BlockPredicate.anyOf(
-                                    BlockPredicate.matchingFluids(new BlockPos(1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(-1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(0, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(0, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(-1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(-1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
-                                    BlockPredicate.matchingFluids(new BlockPos(1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER)))))));
+                        BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.anyOf(BlockPredicate.allOf(BlockPredicate.IS_AIR,
+                                                BlockPredicate.anyOf(
+                                                        BlockPredicate.matchingFluids(new BlockPos(1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(-1, -1, 0), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(0, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(0, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(-1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(-1, -1, 1), Fluids.WATER, Fluids.FLOWING_WATER),
+                                                        BlockPredicate.matchingFluids(new BlockPos(1, -1, -1), Fluids.WATER, Fluids.FLOWING_WATER))),
+                                BlockPredicate.allOf(BlockPredicate.matchingFluids(BlockPos.ORIGIN, Fluids.WATER, Fluids.FLOWING_WATER), hasAdjacentBank())),
+                                BlockPredicate.wouldSurvive(ResourceItemsME.REEDS.getDefaultState(), BlockPos.ORIGIN))))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_SHORT_REEDS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SHORT_REEDS))));
+
+        ConfiguredFeatures.register(featureRegisterable, PATCH_MISTWEED, Feature.FLOWER,
+                ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.MISTWEED))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_SCORCHED_GRASS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -640,7 +650,6 @@ public class ModVegetationConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, PATCH_SCORCHED_TUFT, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SCORCHED_TUFT))));
-
         ConfiguredFeatures.register(featureRegisterable, PATCH_SEDUM, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SEDUM))));
@@ -863,5 +872,23 @@ public class ModVegetationConfiguredFeatures {
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(MiddleEarth.MOD_ID, name));
+    }
+
+    private static RandomPatchFeatureConfig createShallowWaterPatchFeatureConfig(Block block, int tries, int xzSpread, int ySpread) {
+        BlockState state = block.getDefaultState();
+        return new RandomPatchFeatureConfig(tries, xzSpread, ySpread, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
+                new SimpleBlockFeatureConfig(BlockStateProvider.of(state)),
+                BlockFilterPlacementModifier.of(BlockPredicate.allOf(BlockPredicate.anyOf(
+                                BlockPredicate.IS_AIR,
+                                BlockPredicate.allOf(
+                                        BlockPredicate.matchingFluids(BlockPos.ORIGIN, Fluids.WATER, Fluids.FLOWING_WATER), hasAdjacentBank())), BlockPredicate.wouldSurvive(state, BlockPos.ORIGIN)))));
+    }
+
+    private static BlockPredicate hasAdjacentBank() {
+        return BlockPredicate.anyOf(
+                BlockPredicate.hasSturdyFace(new BlockPos(1, 0, 0), Direction.UP),
+                BlockPredicate.hasSturdyFace(new BlockPos(-1, 0, 0), Direction.UP),
+                BlockPredicate.hasSturdyFace(new BlockPos(0, 0, 1), Direction.UP),
+                BlockPredicate.hasSturdyFace(new BlockPos(0, 0, -1), Direction.UP));
     }
 }

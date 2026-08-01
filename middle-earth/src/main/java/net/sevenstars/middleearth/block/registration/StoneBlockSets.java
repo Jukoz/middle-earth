@@ -449,6 +449,12 @@ public class StoneBlockSets {
             .addToSet(StoneBlockTypes.TILE_BLOCKS)
             .addToSet(StoneBlockTypes.BRICKWORK_BLOCKS));
 
+    public static StoneBlockSetBuilder DRYSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("drystone",
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.BASEDRUM,
+            BlockSoundGroup.STONE, true, false)
+            .addToSet(StoneBlockTypes.PILLAR_BASE_BLOCKS)
+            .addToSet(StoneBlockTypes.CARVED_WINDOW));
+
     private static StoneBlockSetBuilder registerStoneSet(StoneBlockSetBuilder set) {
 
         List<ItemStack> itemGroup = ItemGroupsME.STONE_BLOCKS_CONTENTS;
@@ -456,6 +462,10 @@ public class StoneBlockSets {
         set.existingList.forEach((stoneBlockTypes) -> {
             switch (stoneBlockTypes){
                 case BASE_BLOCKS -> set.baseBlocks = BlockSetRegistration.createMainStoneSet(set.setName, set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
+                case PILLAR_BASE_BLOCKS -> {
+                    set.cobblestoneBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix() , set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, itemGroup, true);
+                    if(set.hasMossy) set.mossyCobblestoneBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, itemGroup, true);
+                }
                 case COBBLED_BLOCKS -> {
                     set.cobblestoneBlocks = BlockSetRegistration.createRegularSet(stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix() , set.hardness + 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup, true);
                     if(set.hasMossy) set.mossyCobblestoneBlocks = BlockSetRegistration.createRegularSet("mossy_" + stoneBlockTypes.getPrefix() + set.setName + stoneBlockTypes.getSuffix(), set.hardness+ 0.5f, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, itemGroup, true);

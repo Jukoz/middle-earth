@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:longbeards_house",
+        "location": "middle-earth:longbeards/house",
         "projection": "rigid",
         "processors": "minecraft:empty"
       }

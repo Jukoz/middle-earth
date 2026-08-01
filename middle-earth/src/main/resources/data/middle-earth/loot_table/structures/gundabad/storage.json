@@ -3,6 +3,10 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:brown_bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:misty_mountains_orcs_banner_pattern",

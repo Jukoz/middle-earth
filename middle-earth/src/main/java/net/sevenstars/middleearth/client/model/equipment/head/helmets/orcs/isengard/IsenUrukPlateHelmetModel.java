@@ -23,8 +23,8 @@ public class IsenUrukPlateHelmetModel extends HelmetAddonModel {
         head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         head.addChild("fan", ModelPartBuilder.create()
-                .uv(36, 29).cuboid(-7.0F, -6.75F, 0.0F, 14.0F, 9.0F, 0.0F, new Dilation(0.0F)),
-                ModelTransform.of(0.0F, -10.0F, 1.0F, -0.5672F, 0.0F, 0.0F));
+                .uv(36, 29).cuboid(-7.0F, -7.75F, 0.0F, 14.0F, 9.0F, 0.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.0F, -15.0F, 4.0F, 2.5744F, 0.0F, 0.0F));
 
         ModelPartData side_spikes = head.addChild("side_spikes", ModelPartBuilder.create(),
                 ModelTransform.origin(6.75F, -1.65F, -1.0F));

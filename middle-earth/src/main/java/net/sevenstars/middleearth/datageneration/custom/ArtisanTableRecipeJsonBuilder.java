@@ -7,7 +7,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementRequirements;
@@ -32,18 +32,21 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     private final String tab;
     private final DefaultedList<Ingredient> inputs = DefaultedList.of();
     private final ItemStack output;
-    private final Disposition disposition;
+    private final DispositionType dispositionType;
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
+    private final int xp;
     private String group;
 
     private final RegistryEntryLookup<Item> registryLookup;
 
-    public ArtisanTableRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
+    public ArtisanTableRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemStack output,
+                                         String tab, DispositionType dispositionType, int xp) {
         this.registryLookup = registryLookup;
         this.category = category;
         this.output = output;
         this.tab = tab;
-        this.disposition = disposition;
+        this.dispositionType = dispositionType;
+        this.xp = xp;
     }
 
     @Override
@@ -63,15 +66,22 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey)).rewards(AdvancementRewards.Builder.recipe(recipeKey)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        ArtisanRecipe artisanRecipe = new ArtisanRecipe(this.tab, this.output, this.inputs, this.disposition.toString().toLowerCase());
+        ArtisanRecipe artisanRecipe = new ArtisanRecipe(this.tab, this.output, this.inputs, this.dispositionType.toString().toLowerCase(), this.xp);
         exporter.accept(recipeKey, artisanRecipe, builder.build(recipeKey.getValue().withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 
-    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemStack output, String tab, Disposition disposition) {
-        return new ArtisanTableRecipeJsonBuilder(registryLookup, category, output, tab, disposition);
+    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category,
+                                                                    ItemStack output, String tab, DispositionType dispositionType, int xp) {
+        return new ArtisanTableRecipeJsonBuilder(registryLookup, category, output, tab, dispositionType, xp);
     }
+
+    public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category,
+                                                                    ItemStack output, String tab, DispositionType dispositionType) {
+        return new ArtisanTableRecipeJsonBuilder(registryLookup, category, output, tab, dispositionType, 0);
+    }
+
     public static ArtisanTableRecipeJsonBuilder createArtisanRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, ItemStack output, String tab) {
-        return new ArtisanTableRecipeJsonBuilder(registryLookup, category, output, tab, null);
+        return new ArtisanTableRecipeJsonBuilder(registryLookup, category, output, tab, null, 0);
     }
 
     public ArtisanTableRecipeJsonBuilder input(TagKey<Item> tag) {

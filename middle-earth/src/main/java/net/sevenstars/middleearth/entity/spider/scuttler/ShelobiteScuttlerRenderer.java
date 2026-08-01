@@ -4,12 +4,12 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 
 public class ShelobiteScuttlerRenderer extends MobEntityRenderer<ShelobiteScuttlerEntity, ShelobiteScuttlerRenderState, ShelobiteScuttlerModel> {
 
     public ShelobiteScuttlerRenderer(EntityRendererFactory.Context context) {
-        this(context, 0.45F, ModEntityModelLayers.SHELOBITE_SCUTTLER);
+        this(context, 0.45F, EntityModelLayersME.SHELOBITE_SCUTTLER);
     }
 
     @Override

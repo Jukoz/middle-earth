@@ -22,7 +22,7 @@ import net.minecraft.world.gen.placementmodifier.*;
 import java.util.List;
 
 public class CavesPlacedFeatures {
-    public static final int MAX_MITHRIL_HEIGHT = -55;
+    public static final int MAX_MITHRIL_HEIGHT = -54;
 
     // region GEODES
     public static final RegistryKey<PlacedFeature> AMETHYST_GEODE = registerKey("amethyst_geode");
@@ -111,8 +111,11 @@ public class CavesPlacedFeatures {
     public static final RegistryKey<PlacedFeature> ORE_JADE = registerKey("ore_jade");
     public static final RegistryKey<PlacedFeature> ORE_GOLD = registerKey("ore_gold");
     public static final RegistryKey<PlacedFeature> ORE_GOLD_RARE = registerKey("ore_gold_rare");
-    public static final RegistryKey<PlacedFeature> ORE_EMERALD = registerKey("ore_emerald");
     public static final RegistryKey<PlacedFeature> ORE_MITHRIL = registerKey("ore_mithril");
+    public static final RegistryKey<PlacedFeature> ORE_ADAMANT = registerKey("ore_adamant");
+    public static final RegistryKey<PlacedFeature> ORE_EMERALD = registerKey("ore_emerald");
+    public static final RegistryKey<PlacedFeature> ORE_RUBY = registerKey("ore_ruby");
+    public static final RegistryKey<PlacedFeature> ORE_SAPPHIRE = registerKey("ore_sapphire");
     // endregion
 
     // region VEGETATION
@@ -237,6 +240,9 @@ public class CavesPlacedFeatures {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> jadeOre = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_JADE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> goldOre = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_GOLD);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> emeraldOre = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_EMERALD);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> rubyOre = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_RUBY);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> sapphireOre = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_SAPPHIRE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> adamantOre = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_ADAMANT);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mithrilOre = registryEntryLookup.getOrThrow(CavesConfiguredFeatures.ORE_MITHRIL);
 
         // region MUSHROOMS
@@ -364,12 +370,15 @@ public class CavesPlacedFeatures {
         PlacedFeatures.register(featureRegisterable, ORE_IRON, ironOre, modifiersWithCount(12, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL + 12))));
         PlacedFeatures.register(featureRegisterable, ORE_SILVER, silverOre, modifiersWithCount(3, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-64), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_JADE, jadeOre, modifiersWithCount(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-40), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, ORE_GOLD, goldOre, List.of(PlacedFeatures.createCountExtraModifier(1, 0.5f, 1), SquarePlacementModifier.of(),
+        PlacedFeatures.register(featureRegisterable, ORE_GOLD, goldOre, List.of(PlacedFeatures.createCountExtraModifier(2, 0.5f, 1), SquarePlacementModifier.of(),
                 HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(-16)), BiomePlacementModifier.of()));
         PlacedFeatures.register(featureRegisterable, ORE_GOLD_RARE, goldOre, List.of(PlacedFeatures.createCountExtraModifier(1, 0.1f, 1), SquarePlacementModifier.of(),
                 HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(-16)), BiomePlacementModifier.of()));
-        PlacedFeatures.register(featureRegisterable, ORE_EMERALD, emeraldOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(3, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MAX_MITHRIL_HEIGHT))));
+        PlacedFeatures.register(featureRegisterable, ORE_EMERALD, emeraldOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
+        PlacedFeatures.register(featureRegisterable, ORE_RUBY, rubyOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL))));
+        PlacedFeatures.register(featureRegisterable, ORE_SAPPHIRE, sapphireOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-49), YOffset.fixed(-11))));
+        PlacedFeatures.register(featureRegisterable, ORE_ADAMANT, adamantOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(-42))));
+        PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-62), YOffset.fixed(MAX_MITHRIL_HEIGHT))));
 
         // region MUSHROOMS
         PlacedFeatures.register(featureRegisterable, TREE_BROWN_BOLETTE, brownBoletteTree, List.of(RarityFilterPlacementModifier.of(1), SquarePlacementModifier.of(),

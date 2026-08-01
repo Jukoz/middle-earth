@@ -6,14 +6,13 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 
@@ -27,7 +26,7 @@ public class GreatHornNoseFeatureRenderer extends FeatureRenderer<GreatHornEntit
 
 	public GreatHornNoseFeatureRenderer(FeatureRendererContext<GreatHornEntityRenderState, GreatHornModel> context, LoadedEntityModels loader) {
 		super(context);
-		this.model = new GreatHornModel(loader.getModelPart(ModEntityModelLayers.GREAT_HORN));
+		this.model = new GreatHornModel(loader.getModelPart(EntityModelLayersME.GREAT_HORN));
 	}
 
 	private boolean isChristmas() {

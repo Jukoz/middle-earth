@@ -1,0 +1,222 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_bow",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_longbow",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_dagger",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_spear",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_axe",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_sword",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_longsword",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.3,
+                "min": 0.7
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_spear",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.3,
+                "min": 0.7
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 2
+    },
+	{
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_buckler_shield",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_scout_shield",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_scout_bronze_shield",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_heavy_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_heavy_green_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.3,
+                "min": 0.7
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_copper"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:copper_ingot"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arrow"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_nugget"
+        }
+      ]
+    }
+  ]
+}

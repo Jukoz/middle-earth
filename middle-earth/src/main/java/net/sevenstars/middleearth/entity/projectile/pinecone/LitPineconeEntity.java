@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.entity.projectile.pinecone;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.projectile.AbstractProjectileEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,7 @@ public class LitPineconeEntity extends AbstractProjectileEntity {
     }
 
     public LitPineconeEntity(World world, LivingEntity owner, float dmg) {
-        super(ModEntities.LIT_PINECONE, owner, world, new ItemStack(ResourceItemsME.LIT_PINECONE));
+        super(EntitiesME.LIT_PINECONE, owner, world, new ItemStack(ResourceItemsME.LIT_PINECONE));
         this.damage = dmg;
     }
 

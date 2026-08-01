@@ -1,8 +1,12 @@
 {
   "structures": [
 	{
+      "structure": "middle-earth:rohan_village",
+      "weight": 1
+    },
+	{
       "structure": "middle-earth:rohan_house",
-      "weight": 4
+      "weight": 2
     },
 	{
       "structure": "middle-earth:rohan_watch_tower",

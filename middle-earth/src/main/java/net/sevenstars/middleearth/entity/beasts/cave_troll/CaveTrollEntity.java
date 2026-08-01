@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.*;
@@ -10,6 +11,7 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -26,27 +28,39 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.entity.spider.Pouncer;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.PlayerUtil;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -63,6 +77,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SMASHING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> ENRAGED = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public final AnimationState chaseAnimationState = new AnimationState();
     public final AnimationState scavengingAnimationState = new AnimationState();
     public final AnimationState startSleepingAnimationState = new AnimationState();
@@ -73,7 +88,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     public CaveTrollEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
-
         if(scavengeLootTable == null && !world.isClient()) {
             if(world instanceof ServerWorld serverWorld) {
 
@@ -112,8 +126,41 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         builder.add(SLEEPING, false);
         builder.add(SMASHING, false);
         builder.add(ENRAGED, false);
+        builder.add(VARIANT, 0);
     }
 
+    @Override
+    public void writeData(WriteView view) {
+        super.writeData(view);
+        view.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+    }
+
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        CaveTrollVariant variant = Util.getRandom(CaveTrollVariant.values(), this.random);
+        setVariant(variant);
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    public CaveTrollVariant getVariant() {
+        return CaveTrollVariant.byId(this.getTypeVariant() & 255);
+    }
+
+    private int getTypeVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(CaveTrollVariant variant) {
+        this.dataTracker.set(VARIANT, variant.getId() & 255);
+    }
 
     @Override
     protected void mobTick(ServerWorld world) {
@@ -201,8 +248,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected boolean isTamable() {
-        return this.isSleeping();
+    protected boolean isTamable(PlayerEntity player) {
+        return this.isSleeping() || player.isCreative();
     }
 
     @Override
@@ -211,17 +258,27 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected void tameBeast(PlayerEntity player) {
+    public void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
+            this.tameBeast((LivingEntity) player);
+            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+        }
+    }
+
+    @Override
+    public void tameBeast(LivingEntity livingEntity) {
+        if(!this.getWorld().isClient()) {
+            this.setTame(true);
             this.setTameness(75);
             this.stopSleeping();
             this.getBrain().remember(MemoryModulesME.TAME, true);
             this.getBrain().forget(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN);
             this.getBrain().forget(MemoryModulesME.FOOD_EATEN_COUNT);
-            this.setOwner(player);
-            this.setTame(true);
-            Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
+            this.getBrain().forget(MemoryModuleType.NEAREST_ATTACKABLE);
+            this.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
+            this.setOwner(livingEntity);
         }
+
     }
 
     @Override
@@ -262,7 +319,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         if(!this.isSitting()) {
-            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.2f);
         }
 
         return super.getSaddledSpeed(controllingPlayer);
@@ -271,7 +328,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
         if(!this.isSitting()) {
-            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.15f);
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 1.25f) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.2f);
         }
 
         return super.getNpcSaddledSpeed(controllingNpc);
@@ -466,7 +523,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             }
         }
-        //this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
     }
 
     public void smashAttack(float strength) { // Strength goes from 0 to 100
@@ -489,7 +546,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
         if(world instanceof ServerWorld serverWorld) {
             for(Entity entity : entities) {
-                if(entity instanceof LivingEntity && entity != this.getOwner() && !this.getPassengerList().contains(entity)) {
+                if(this.isValidTarget(entity)) {
                     entity.damage(serverWorld, this.getDamageSources().mobAttack(this),  (float)weaponDamage + (strength / 12.5f) + (difficulty * 2));
                 }
             }
@@ -623,13 +680,13 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public Disposition getDisposition() {
-        return Disposition.EVIL;
+    public DispositionType getDisposition() {
+        return DispositionType.EVIL;
     }
 
     @Override
     public List<RaceType> getCompatibleRaces() {
-        return ImmutableList.of(RaceType.ORC, RaceType.URUK);
+        return ImmutableList.of(RaceType.SNAGA, RaceType.GOBLIN, RaceType.ORC, RaceType.URUK);
     }
 
     @Override
@@ -648,6 +705,66 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     public static boolean shouldTarget(LivingEntity target) {
-        return target instanceof NpcEntity || target instanceof PlayerEntity;
+        return target instanceof NpcEntity || target instanceof PlayerEntity || target instanceof Pouncer;
+    }
+
+    @Override
+    protected float calculateNextStepSoundDistance() {
+        if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
+            return this.distanceTraveled + 1.0f;
+        }
+        return this.distanceTraveled + 0.25f;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundsME.CAVE_TROLL_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundsME.CAVE_TROLL_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getEatSound() {
+        return super.getEatSound();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundsME.CAVE_TROLL_IDLE;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
+            this.playSound(SoundsME.CAVE_TROLL_STEP, 1.5f, 1.0f);
+        }
+        else {
+            this.playSound(SoundsME.CAVE_TROLL_STEP, 1.0f, 1.0f);
+        }
+    }
+
+    @Nullable
+    protected SoundEvent getRoarSound() {
+        return SoundsME.CAVE_TROLL_ROAR;
+    }
+
+    public void playRoarSound() {
+        this.playSound(this.getRoarSound());
+    }
+
+    public static boolean canSpawn(EntityType<CaveTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return true;
     }
 }

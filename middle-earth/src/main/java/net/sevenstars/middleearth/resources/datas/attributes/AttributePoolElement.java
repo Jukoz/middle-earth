@@ -1,24 +1,25 @@
 package net.sevenstars.middleearth.resources.datas.attributes;
 
 import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 
-import java.util.Random;
+import java.util.*;
 
 public class AttributePoolElement {
     private Identifier identifier;
     private Double value;
     private Double valueMax;
-    private Identifier modifierIdentifier;
-    private Double modifierValue;
-    private String modifierType;
-    private Boolean isBuffReversed;
+    private List<AttributeModifierElement> modifiers;
 
-    public AttributePoolElement(){
-        this.isBuffReversed = false;
-    }
     public static AttributePoolElement create(RegistryEntry<EntityAttribute> attributeEntry, double defineValue){
         return new AttributePoolElement()
                 .withIdentifier(Identifier.of(attributeEntry.getIdAsString()))
@@ -32,7 +33,6 @@ public class AttributePoolElement {
 
     public static AttributePoolElement createFromNbt(NbtCompound nbtCompound){
         var newElement = new AttributePoolElement();
-
         newElement.withIdentifier(Identifier.of(nbtCompound.getString("id").get()));
 
         if(nbtCompound.contains("value"))
@@ -40,17 +40,18 @@ public class AttributePoolElement {
         else if(nbtCompound.contains("min") && nbtCompound.contains("max"))
             newElement.withMinMaxValue(nbtCompound.getDouble("min").get(), nbtCompound.getDouble("max").get());
 
-        if(nbtCompound.contains("buffReversed") && nbtCompound.getBoolean("buffReversed").get())
-            newElement.withBuffReversed();
-
-        if(nbtCompound.contains("modifierId")){
-            newElement.withModifier(
-                    Identifier.of(nbtCompound.getString("modifierId").get()),
-                    nbtCompound.getDouble("modifierValue").get(),
-                    nbtCompound.getString("modifierType").get());
+        if(nbtCompound.contains("modifiers")){
+            newElement.withModifiers(nbtCompound.getList("modifiers").get());
         }
 
         return newElement;
+    }
+
+    private void withModifiers(NbtList modifierList) {
+        this.modifiers = new ArrayList<>();
+        modifierList.forEach(modifierNbt -> {
+            modifiers.add(new AttributeModifierElement(modifierNbt.asCompound().get()));
+        });
     }
 
     public NbtCompound createNbt(){
@@ -64,17 +65,16 @@ public class AttributePoolElement {
             nbtCompound.putDouble("max", this.valueMax);
         }
 
-        if(this.modifierIdentifier != null && this.modifierValue != null && this.modifierType != null){
-            nbtCompound.putString("modifierId", this.modifierIdentifier.toString());
-            nbtCompound.putDouble("modifierValue", this.modifierValue);
-            nbtCompound.putString("modifierType", this.modifierType.toString());
+        if(this.modifiers != null && !this.modifiers.isEmpty()){
+            NbtList modifiersList = new NbtList();
+            for(AttributeModifierElement modifier : this.modifiers){
+                modifiersList.add(modifier.toNbt());
+            }
+            nbtCompound.put("modifiers", modifiersList);
         }
-
-        if(this.isBuffReversed != null && this.isBuffReversed)
-            nbtCompound.putBoolean("buffReversed", true);
-
         return nbtCompound;
     }
+
     public AttributePoolElement withIdentifier(Identifier newIdentifier) {
         this.identifier = newIdentifier;
         return this;
@@ -91,20 +91,16 @@ public class AttributePoolElement {
         return this;
     }
 
-    public AttributePoolElement withBuffReversed() {
-        this.isBuffReversed = true;
-        return this;
-    }
-
     public AttributePoolElement withModifier(Identifier identifier, double value) {
-        withModifier(identifier, value, "ADD_MULTIPLIED_TOTAL");
+        withModifier(identifier, value, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         return this;
     }
 
-    public AttributePoolElement withModifier(Identifier identifier, double value, String type) {
-        this.modifierIdentifier = identifier;
-        this.modifierValue = value;
-        this.modifierType = type;
+    public AttributePoolElement withModifier(Identifier identifier, double value, EntityAttributeModifier.Operation operation) {
+        if(modifiers == null)
+            modifiers = new ArrayList<>();
+
+        modifiers.add(new AttributeModifierElement(identifier, value, operation));
         return this;
     }
 
@@ -120,23 +116,48 @@ public class AttributePoolElement {
         return random.nextDouble(value, valueMax);
     }
 
-    public boolean hasModifier(){
-        return this.modifierIdentifier != null && this.modifierValue != null;
+    public boolean hasModifiers(){
+        return this.modifiers != null && !this.modifiers.isEmpty();
     }
 
-    public Identifier getModifierIdentifier(){
-        return this.modifierIdentifier;
+    public List<AttributeModifierElement> getModifiers() {
+        if(modifiers == null)
+            return new ArrayList<>();
+        return modifiers;
     }
 
-    public Double getModifierValue(){
-        return this.modifierValue;
+    public static NbtCompound createAttributeNbtListFromPlayer(PlayerEntity player) {
+        NbtList attributeList = new NbtList();
+        var registry = player.getWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
+        Collection<EntityAttributeInstance> attributes = new ArrayList<>();
+        var entries = registry.getIndexedEntries();
+        for(var entry : entries){
+            EntityAttributeInstance instance = player.getAttributeInstance(entry);
+            if(instance == null)
+                continue;
+            attributes.add(instance);
+        }
+        attributes.forEach(attribute -> {
+            AttributePoolElement attributePoolElement = new AttributePoolElement();
+            attributePoolElement.withIdentifier(MiddleEarth.fetchId(attribute.getAttribute().getIdAsString()));
+            attributePoolElement.withDefineValue(attribute.getBaseValue());
+            for(var modifier : attribute.getModifiers())
+                attributePoolElement.withModifier(modifier.id(), modifier.value(), modifier.operation());
+            attributeList.add(attributePoolElement.createNbt());
+        });
+        NbtCompound compound = new NbtCompound();
+        compound.put("attributes", attributeList);
+        return compound;
     }
 
-    public String getModifierType(){
-        return this.modifierType;
-    }
+    public static List<AttributePoolElement> obtainAttributeList(NbtCompound nbtCompound) {
+        List<AttributePoolElement> attributePoolElementList = new ArrayList<>();
 
-    public boolean isBuffReversed(){
-        return this.isBuffReversed != null && this.isBuffReversed;
+        NbtList nbtList = nbtCompound.getListOrEmpty("attributes");
+
+        nbtList.forEach(attribute -> {
+            attributePoolElementList.add(AttributePoolElement.createFromNbt(attribute.asCompound().get()));
+        });
+        return attributePoolElementList;
     }
 }

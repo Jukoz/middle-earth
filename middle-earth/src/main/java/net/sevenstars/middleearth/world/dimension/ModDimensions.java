@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.registries.RegistryAliases;
+import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
 import net.sevenstars.middleearth.resources.datas.races.Race;
@@ -46,7 +46,7 @@ public class ModDimensions {
     public static void register() {
         Registry.register(Registries.CHUNK_GENERATOR, ME_DIMENSION_ID, MiddleEarthChunkGenerator.CODEC);
         ME_WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, ME_DIMENSION_ID);
-        RegistryAliases.aliases.add(new RegistryAliases.Alias(Registries.CHUNK_GENERATOR, ME_DIMENSION_ID.getPath()));
+        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.CHUNK_GENERATOR, ME_DIMENSION_ID.getPath()));
 
         MiddleEarth.LOGGER.logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
     }

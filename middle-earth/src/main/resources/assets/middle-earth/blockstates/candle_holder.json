@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "facing=east,lit=false": {
+      "model": "middle-earth:block/candle_holder",
+      "y": 90
+    },
+    "facing=north,lit=false": {
+      "model": "middle-earth:block/candle_holder"
+    },
+    "facing=south,lit=false": {
+      "model": "middle-earth:block/candle_holder",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "middle-earth:block/candle_holder",
+      "y": 270
+    },
+
+    "facing=east,lit=true": {
+      "model": "middle-earth:block/candle_holder_lit",
+      "y": 90
+    },
+    "facing=north,lit=true": {
+      "model": "middle-earth:block/candle_holder_lit"
+    },
+    "facing=south,lit=true": {
+      "model": "middle-earth:block/candle_holder_lit",
+      "y": 180
+    },
+    "facing=west,lit=true": {
+      "model": "middle-earth:block/candle_holder_lit",
+      "y": 270
+    }
+  }
+}

@@ -115,8 +115,11 @@ public class CavesConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SILVER = registerKey("ore_silver");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_JADE = registerKey("ore_jade");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GOLD = registerKey("ore_gold");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_EMERALD = registerKey("ore_emerald");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_MITHRIL = registerKey("ore_mithril");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_ADAMANT = registerKey("ore_adamant");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_EMERALD = registerKey("ore_emerald");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_RUBY = registerKey("ore_ruby");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = registerKey("ore_sapphire");
     // endregion
 
     // region MUSHROOMS
@@ -332,7 +335,15 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.gold_ore().getDefaultState()),
             OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.gold_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> emeraldList = List.of(
-            OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_EMERALD_ORE.getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.emerald_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.emerald_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> rubyList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.ruby_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.ruby_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> sapphireList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.sapphire_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.sapphire_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> adamentList = List.of(OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.adamant_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> mithrilList = List.of(OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.mithril_ore().getDefaultState()));
     // endregion
 
@@ -472,17 +483,19 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_COAL, Feature.ORE, new OreFeatureConfig(coalList, 17, 0.25f));
         ConfiguredFeatures.register(featureRegisterable, ORE_COPPER, Feature.ORE, new OreFeatureConfig(copperList, 15, 0.25f));
         ConfiguredFeatures.register(featureRegisterable, ORE_TIN, Feature.ORE, new OreFeatureConfig(tinList, 12, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, Feature.ORE, new OreFeatureConfig(lapisList, 5, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, Feature.ORE, new OreFeatureConfig(lapisList, 6, 0.3f));
         ConfiguredFeatures.register(featureRegisterable, ORE_LEAD, Feature.ORE, new OreFeatureConfig(leadList, 12, 0.3f));
         ConfiguredFeatures.register(featureRegisterable, ORE_QUARTZITE, Feature.ORE, new OreFeatureConfig(quartziteList, 21, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ORE_IRON, Feature.ORE, new OreFeatureConfig(ironList, 10, 0.3f));
         ConfiguredFeatures.register(featureRegisterable, ORE_SILVER, Feature.ORE, new OreFeatureConfig(silverList, 7, 0.5f));
         ConfiguredFeatures.register(featureRegisterable, ORE_JADE, Feature.ORE, new OreFeatureConfig(jadeList, 16, 0.5f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 5, 0.42f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new OreFeatureConfig(goldList, 7, 0.42f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.ORE, new OreFeatureConfig(emeraldList, 3, 0.6f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new OreFeatureConfig(medgonTest, OreRockSets.MEDGON.mithril_ore().getDefaultState(), 1, 1.0f));
-
+        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new OreFeatureConfig(emeraldList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new OreFeatureConfig(rubyList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SAPPHIRE, Feature.SCATTERED_ORE, new OreFeatureConfig(sapphireList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ADAMANT, Feature.SCATTERED_ORE, new OreFeatureConfig(adamentList, 3, 0.72f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new OreFeatureConfig(mithrilList, 1, 1.0f));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_CAVE_AMANITA, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,

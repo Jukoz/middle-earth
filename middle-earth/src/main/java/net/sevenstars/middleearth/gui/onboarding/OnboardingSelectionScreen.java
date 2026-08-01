@@ -9,14 +9,18 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentSpawn;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class OnboardingSelectionScreen extends Screen {
@@ -28,12 +32,16 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
 
     private int mouseX;
     private int mouseY;
-    private boolean canResetCharacter;
+    private final boolean canResetCharacter;
     private ClientPlayerEntity player;
     float currentDelay;
-    public OnboardingSelectionScreen(float delay, boolean canResetCharacter) {
+
+    List<AttributePoolElement> playerAttributes;
+
+    public OnboardingSelectionScreen(float delay, boolean canResetCharacter, List<AttributePoolElement> playerAttributes) {
         super(ONBOARDING_SELECTION_TITLE);
         this.canResetCharacter = canResetCharacter;
+        this.playerAttributes = playerAttributes;
         focusEnabled = false;
         currentDelay = delay;
     }
@@ -50,7 +58,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
 
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
-                var controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay);
+                var controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay, playerAttributes);
                 controller.open();
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();

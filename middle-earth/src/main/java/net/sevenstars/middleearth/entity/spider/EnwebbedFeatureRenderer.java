@@ -15,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 
 @Environment(EnvType.CLIENT)
 public class EnwebbedFeatureRenderer <S extends BipedEntityRenderState, M extends EntityModel<S>> extends FeatureRenderer<S, M> {
@@ -25,7 +25,7 @@ public class EnwebbedFeatureRenderer <S extends BipedEntityRenderState, M extend
 
     public EnwebbedFeatureRenderer(FeatureRendererContext<S, M> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
-        this.model = new EnwebbedModel(loader.getModelPart(ModEntityModelLayers.ENWEBBED));
+        this.model = new EnwebbedModel(loader.getModelPart(EntityModelLayersME.ENWEBBED));
     }
 
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, S bipedEntityRenderState, float f, float g) {

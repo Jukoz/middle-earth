@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.spawners;
 
-import net.sevenstars.middleearth.entity.TestNpcEntity;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -57,7 +57,7 @@ public class SpawnerNPCs implements SpecialSpawner {
             Vec3d offset = new Vec3d(MAX_SPAWN_RAD, 0, MAX_SPAWN_RAD);
             Vec3d pos1 = blockPos.toCenterPos().add(offset).add(0, 321 - playerEntity.getPos().y, 0);
             Vec3d pos2 = blockPos.toCenterPos().subtract(offset).add(0, -63 - playerEntity.getPos().y, 0);
-            int size = world.getEntitiesByClass(TestNpcEntity.class, new Box(pos1, pos2), (entity) -> true).size();
+            int size = world.getEntitiesByClass(NpcEntity.class, new Box(pos1, pos2), (entity) -> true).size();
             if(size <= SPAWN_COUNT_CAP) {
                 float randomAngle = random.nextInt(360);
                 int distance = SPAWN_DISTANCE + random.nextInt(SPAWN_RAND);

@@ -3,6 +3,11 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:gray_bundle",
+          "weight": 2
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:isengard_banner_pattern",
@@ -58,7 +63,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 3
+          "weight": 2
         }
       ],
       "rolls": 1

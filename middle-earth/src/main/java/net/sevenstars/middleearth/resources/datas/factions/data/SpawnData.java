@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.sevenstars.middleearth.utils.IdentifierUtil;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
@@ -33,7 +33,7 @@ public class SpawnData {
      * @param isDynamic
      */
     public SpawnData(String identifier, Vec3d coordinates, Boolean isDynamic) {
-        this.identifier = IdentifierUtil.getIdentifierFromString(identifier);
+        this.identifier = MiddleEarth.fetchId(identifier);
         this.isDynamic = isDynamic;
 
         if(isDynamic)

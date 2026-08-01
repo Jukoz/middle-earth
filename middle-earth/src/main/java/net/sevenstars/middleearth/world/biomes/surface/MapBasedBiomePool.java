@@ -136,9 +136,9 @@ public class MapBasedBiomePool {
         add(new Color(0x759675), new MapBasedCustomBiome(MEBiomeKeys.DESOLATED_LANDS, 9, MEBiomeDataConfigs.landModifier));
         add(new Color(0x2c2733), new MapBasedCustomBiome(MEBiomeKeys.DOL_GULDUR, 11, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x352d42), new MapBasedCustomBiome(MEBiomeKeys.DOL_GULDUR_HILL, 31, MEBiomeDataConfigs.mountainModifier));
-        add(new Color(0x529250), new MapBasedCustomBiome(MEBiomeKeys.DORWINION, 4, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x529250), new MapBasedCustomBiome(MEBiomeKeys.DORWINION, 4, MEBiomeDataConfigs.foothillModifier.noiseModifier(0.71f)));
         add(new Color(0x467c44), new MapBasedCustomBiome(MEBiomeKeys.DORWINION_LAVENDER_FIELD, 4, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x5d715c), new MapBasedCustomBiome(MEBiomeKeys.DORWINION_HILLS, 34, MEBiomeDataConfigs.foothillModifier));
+        add(new Color(0x5d715c), new MapBasedCustomBiome(MEBiomeKeys.DORWINION_HILLS, 34, MEBiomeDataConfigs.foothillModifier.noiseModifier(1.32f)));
         add(new Color(0x84897c), new MapBasedCustomBiome(MEBiomeKeys.DUNLAND_FOOTHILLS, 34, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0x899478), new MapBasedCustomBiome(MEBiomeKeys.DUNLAND_HILLS, 18, MEBiomeDataConfigs.foothillModifier));
         add(new Color(0xa2c585), new MapBasedCustomBiome(MEBiomeKeys.EAST_BIGHT, 4, MEBiomeDataConfigs.landModifier));
@@ -184,12 +184,13 @@ public class MapBasedBiomePool {
         add(new Color(0x382424), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH, 6, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x3B2826), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH_ASHEN_WOODS, 6, MEBiomeDataConfigs.plainsModifier));
         add(new Color(0x593B38), new MapBasedCustomBiome(MEBiomeKeys.GORGOROTH_DELTA, 6, MEBiomeDataConfigs.plainsModifier));
-        add(new Color(0x5c935c), new MapBasedCustomBiome(MEBiomeKeys.GRAY_PLAINS, 6, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x557A55), new MapBasedCustomBiome(MEBiomeKeys.GRAY_ASHEN_WOODS, 7, MEBiomeDataConfigs.landModifier));
-        add(new Color(0x7d7171), new MapBasedCustomBiome(MEBiomeKeys.GRAY_MOUNTAINS_BASE, 30, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
-        add(new Color(0x6e6262), new MapBasedCustomBiome(MEBiomeKeys.GRAY_MOUNTAINS, 61, MEBiomeDataConfigs.mountainModifier.heightModifier(0.355f)));
-        add(new Color(0x635a5a), new MapBasedCustomBiome(MEBiomeKeys.GRAY_MOUNTAINS_PEAKS, 88, MEBiomeDataConfigs.mountainModifier.heightModifier(0.59f).noiseModifier(1.3f)));
+        add(new Color(0x5c935c), new MapBasedCustomBiome(MEBiomeKeys.GREY_PLAINS, 6, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x557A55), new MapBasedCustomBiome(MEBiomeKeys.GREY_ASHEN_WOODS, 7, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x7d7171), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS_BASE, 30, MEBiomeDataConfigs.mountainModifier.heightModifier(0.24f)));
+        add(new Color(0x6e6262), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS, 61, MEBiomeDataConfigs.mountainModifier.heightModifier(0.355f)));
+        add(new Color(0x635a5a), new MapBasedCustomBiome(MEBiomeKeys.GREY_MOUNTAINS_PEAKS, 88, MEBiomeDataConfigs.mountainModifier.heightModifier(0.59f).noiseModifier(1.3f)));
         add(new Color(0x5d8b5d), new MapBasedCustomBiome(MEBiomeKeys.GUNDABAD_PLAINS, 9, MEBiomeDataConfigs.landModifier));
+        add(new Color(0x538053), new MapBasedCustomBiome(MEBiomeKeys.GUNDABAD_WOODS, 11, MEBiomeDataConfigs.landModifier));
         add(new Color(0xccc471), new MapBasedCustomBiome(MEBiomeKeys.HARAD, 7, MEBiomeDataConfigs.landModifier));
         add(new Color(0xede591), new MapBasedCustomBiome(MEBiomeKeys.HARAD_DESERT, 9, MEBiomeDataConfigs.landModifier));
         add(new Color(0xC0C56B), new MapBasedCustomBiome(MEBiomeKeys.HARAD_WOODS, 7, MEBiomeDataConfigs.landModifier));
@@ -328,6 +329,7 @@ public class MapBasedBiomePool {
         add(new Color(0x16661f), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_REALM, 5, MEBiomeDataConfigs.woodlandModifier));
         add(new Color(0x316b2e), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_FOOTHILLS, 45, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.47f).heightModifier(0.45f)));
         add(new Color(0x367E33), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_GLADE, 5, MEBiomeDataConfigs.woodlandModifier));
+        add(new Color(0x5C7E33), new MapBasedCustomBiome(MEBiomeKeys.AUTUMN_WOODLAND, 5, MEBiomeDataConfigs.woodlandModifier));
         add(new Color(0x4f7c4c), new MapBasedCustomBiome(MEBiomeKeys.WOODLAND_HILLS, 74, MEBiomeDataConfigs.mountainModifier.noiseModifier(0.56f).heightModifier(0.56f)));
 
         coastalBiomes.add(MEBiomeKeys.LINDON_SHORES_CLIFFS);
@@ -379,6 +381,7 @@ public class MapBasedBiomePool {
         mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_REALM);
         mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_HILLS);
         mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_GLADE);
+        mirkwoodSwampBiomes.add(MEBiomeKeys.AUTUMN_WOODLAND);
         mirkwoodSwampBiomes.add(MEBiomeKeys.WOODLAND_FOOTHILLS);
 
         oasisBiomes.add(MEBiomeKeys.HARAD);

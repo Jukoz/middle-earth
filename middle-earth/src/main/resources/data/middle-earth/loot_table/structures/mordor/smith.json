@@ -1,0 +1,296 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_dagger",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_axe",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_spear",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_falchion",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_kettle_hat_with_coif"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_painted_leather_cuirass"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_painted_leather_cuirass"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_plate_boots",
+          "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_gorget_hauberk",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_cuirass",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_chestplate",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_crest_helmet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_mandible_helmet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_mordor_sallet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_crest_helmet",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.6,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 3
+    },
+	{
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_round_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_black_round_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_painted_round_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_braced_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mordor_black_braced_shield"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+	{
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:embers"
+        },
+        {
+          "type": "minecraft:item",
+		  "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "middle-earth:crude_nugget"
+        },
+		{
+          "type": "minecraft:item",
+		  "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "middle-earth:ash_block"
+        },
+		{
+          "type": "minecraft:item",
+		  "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:coal"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:crude_ingot"
+        },
+        {
+          "type": "minecraft:item",
+		  "name": "minecraft:lead"
+        },
+        {
+          "type": "minecraft:item",
+		  "name": "minecraft:skeleton_skull"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3,
+        "min": 2
+      }
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:scorched_log"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:ash"
+        }
+      ]
+    }
+  ]
+}

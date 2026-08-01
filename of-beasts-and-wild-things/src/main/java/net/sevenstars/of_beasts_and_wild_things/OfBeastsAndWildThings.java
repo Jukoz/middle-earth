@@ -1,8 +1,10 @@
 package net.sevenstars.of_beasts_and_wild_things;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
+import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.ModLogger;
-import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ActivitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
@@ -11,6 +13,7 @@ import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SensorsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.EggItemsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemGroupsWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
+import net.sevenstars.of_beasts_and_wild_things.sound.SoundsWT;
 import net.sevenstars.of_beasts_and_wild_things.world.gen.WorldGenerationWT;
 
 public class OfBeastsAndWildThings implements ModInitializer {
@@ -25,10 +28,26 @@ public class OfBeastsAndWildThings implements ModInitializer {
 		ActivitiesWT.registerModActivities();
 		SensorsWT.registerModSensors();
 		MemoryModulesWT.registerModMemoryModules();
+		SoundsWT.registerModSounds();
 		ItemGroupsWT.register();
-		ModBlocks.registerModBlocks();
+		BlocksWT.registerModBlocks();
 		ItemsWT.registerModItems();
 		EggItemsWT.registerModItems();
 		WorldGenerationWT.generateModWorldGen();
 	}
+
+    public static Identifier fetchId(String stringId){
+        return IdentifierUtil.getIdentifierFromString(stringId);
+    }
+
+    public static Identifier of(String path){
+        return IdentifierUtil.build(MOD_ID, path);
+    }
+
+    public static Identifier of(String... names){
+        return IdentifierUtil.buildAggregate(MOD_ID, names);
+    }
+    public static String createAggregate(char splitter, String... names){
+        return IdentifierUtil.createAggregateValue(splitter, names);
+    }
 }

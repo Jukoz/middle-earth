@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special.plants;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -69,9 +70,9 @@ public class WaterloggablePlant extends CustomPlantBlock implements Fertilizable
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        TallPlantBlock tallPlantBlock = (TallPlantBlock)(state.isOf(ModNatureBlocks.SHORT_BULRUSH) ? ModNatureBlocks.TALL_BULRUSH : ModNatureBlocks.TALL_CATTAILS);
+        CustomWaterloggableTallPlantBlock tallPlantBlock = (CustomWaterloggableTallPlantBlock)(state.isOf(ModNatureBlocks.SHORT_BULRUSH) ? ModNatureBlocks.TALL_BULRUSH : ModNatureBlocks.TALL_CATTAILS);
         if (tallPlantBlock.getDefaultState().canPlaceAt(world, pos) && world.isAir(pos.up())) {
-            TallPlantBlock.placeAt(world, tallPlantBlock.getDefaultState(), pos, 2);
+            tallPlantBlock.placeAt(world, pos, state.get(WATERLOGGED), 2);
         }
     }
 }

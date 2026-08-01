@@ -1,0 +1,35 @@
+{
+	"format_version": "1.21.11",
+	"parent": "middle-earth:block/watering_can",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "middle-earth:block/watering_can",
+		"particle": "middle-earth:block/watering_can"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-15, 0, 0],
+			"translation": [0, -6.25, 1],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-15, 0, 0],
+			"translation": [0, -6.25, 1],
+			"scale": [0.85, 0.85, 0.85]
+		}
+	},
+	"groups": [
+		0,
+		1,
+		2,
+		3,
+		4,
+		{
+			"name": "pipe",
+			"origin": [10, 11, 9],
+			"scope": 0,
+			"color": 0,
+			"children": [5, 6]
+		}
+	]
+}

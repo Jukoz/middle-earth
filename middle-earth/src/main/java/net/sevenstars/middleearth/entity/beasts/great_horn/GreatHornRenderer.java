@@ -7,11 +7,10 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornArmorFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornNoseFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornSaddleFeatureRenderer;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
 
 import java.util.Map;
 
@@ -20,8 +19,8 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
     private static final float SIZE = 1f;
 
     public GreatHornRenderer(EntityRendererFactory.Context context) {
-        super(context, new GreatHornModel(context.getPart(ModEntityModelLayers.GREAT_HORN)),
-                new GreatHornModel(context.getPart(ModEntityModelLayers.GREAT_HORN_BABY)), 0.95f);
+        super(context, new GreatHornModel(context.getPart(EntityModelLayersME.GREAT_HORN)),
+                new GreatHornModel(context.getPart(EntityModelLayersME.GREAT_HORN_BABY)), 0.95f);
         this.addFeature(new GreatHornSaddleFeatureRenderer(this,  context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new GreatHornArmorFeatureRenderer(this,  context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new GreatHornNoseFeatureRenderer(this,  context.getEntityModels()));

@@ -2,8 +2,8 @@ package net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil
 
 import com.mojang.serialization.MapCodec;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractTreatedAnvilBlock;
-import net.sevenstars.middleearth.block.special.shapingAnvil.TreatedAnvilBlockEntity;
+import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractShapingAnvilBlock;
+import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class OrcishTreatedAnvilblock extends AbstractTreatedAnvilBlock {
+public class OrcishTreatedAnvilblock extends AbstractShapingAnvilBlock {
     public OrcishTreatedAnvilblock(Settings settings) {
         super(settings);
     }
@@ -61,7 +61,7 @@ public class OrcishTreatedAnvilblock extends AbstractTreatedAnvilBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TreatedAnvilBlockEntity(ModBlockEntities.TREATED_ANVIL, pos, state);
+        return new ShapingAnvilBlockEntity(ModBlockEntities.TREATED_ANVIL, pos, state);
     }
 
     @Nullable
@@ -71,7 +71,7 @@ public class OrcishTreatedAnvilblock extends AbstractTreatedAnvilBlock {
     }
 
     @Nullable
-    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<TreatedAnvilBlockEntity> expectedType) {
-        return world.isClient ? null : OrcishTreatedAnvilblock.validateTicker(givenType, expectedType, TreatedAnvilBlockEntity::tick);
+    protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<ShapingAnvilBlockEntity> expectedType) {
+        return world.isClient ? null : OrcishTreatedAnvilblock.validateTicker(givenType, expectedType, ShapingAnvilBlockEntity::tick);
     }
 }

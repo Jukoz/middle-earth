@@ -1,0 +1,825 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_crown",
+		  "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:weaver_sting",
+		  "weight": 6
+        },		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eryn_galen_watchwarden_helmet",
+		  "weight": 2,
+		  "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 0
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eryn_galen_watchwarden_helmet",
+		  "weight": 2,
+		  "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 1
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eryn_galen_watchwarden_chestplate",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eryn_galen_watchwarden_leggings",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eryn_galen_watchwarden_boots",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:oxidised_eryn_galen_watchwarden_helmet",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+				{
+          "type": "minecraft:item",
+          "name": "middle-earth:oxidised_eryn_galen_watchwarden_helmet",
+		  "weight": 2,
+		  "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 1
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:oxidised_eryn_galen_watchwarden_chestplate",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:oxidised_eryn_galen_watchwarden_leggings",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:oxidised_eryn_galen_watchwarden_boots",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eryn_galen_shield",
+		  "weight": 4,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:eryn_galen_tarnished_shield",
+		  "weight": 4,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_helmet",
+		  "weight": 1,
+		  "functions": [
+		    {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 0
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_helmet",
+		  "weight": 1,
+		  "functions": [
+		    {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 1
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_helmet",
+		  "weight": 1,
+		  "functions": [
+		    {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 2
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_helmet",
+		  "weight": 1,
+		  "functions": [
+		    {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 3
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_helmet",
+		  "weight": 1,
+		  "functions": [
+		    {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 4
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_helmet",
+		  "weight": 1,
+		  "functions": [
+		    {
+              "function": "minecraft:set_components",
+              "components": {
+                "middle-earth:armor_variant": 5
+              }
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_chestplate",
+		  "weight": 6,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_leggings",
+		  "weight": 6,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_boots",
+		  "weight": 6,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:silvan_lord_cape",
+		  "weight": 5
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:lord_of_the_greenwood_cape",
+		  "weight": 5
+        },
+		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_stalker_helmet",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_stalker_chestplate",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_stalker_leggings",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_stalker_boots",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:weathered_dol_guldur_stalker_helmet",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:weathered_dol_guldur_stalker_chestplate",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:weathered_dol_guldur_stalker_leggings",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:weathered_dol_guldur_stalker_boots",
+		  "weight": 3,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:black_castellan_cape",
+		  "weight": 5
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:black_reaver_shoulder_cape",
+		  "weight": 5
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_stalker_cape",
+		  "weight": 5
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

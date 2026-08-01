@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:detection_range",
+    "minecraft:scale",
+    "minecraft:fall_damage_multiplier",
+    "minecraft:burning_time"
+  ]
+}

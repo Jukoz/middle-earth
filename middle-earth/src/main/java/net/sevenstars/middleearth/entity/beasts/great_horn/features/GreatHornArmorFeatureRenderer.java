@@ -5,7 +5,6 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
@@ -16,12 +15,10 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.renderer.armor.ModArmorRenderer;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
@@ -32,7 +29,7 @@ public class GreatHornArmorFeatureRenderer extends FeatureRenderer<GreatHornEnti
 
     public GreatHornArmorFeatureRenderer(FeatureRendererContext<GreatHornEntityRenderState, GreatHornModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
-        this.model = new GreatHornArmorModel(loader.getModelPart(ModEntityModelLayers.GREAT_HORN_ARMOR));
+        this.model = new GreatHornArmorModel(loader.getModelPart(EntityModelLayersME.GREAT_HORN_ARMOR));
         this.equipmentRenderer = equipmentRenderer;
     }
 

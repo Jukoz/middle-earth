@@ -7,14 +7,10 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -26,12 +22,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 import java.util.Iterator;
@@ -164,8 +160,8 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public Disposition getDisposition() {
-        return Disposition.EVIL;
+    public DispositionType getDisposition() {
+        return DispositionType.EVIL;
     }
 
     @Override
@@ -324,7 +320,7 @@ public class TrollEntity extends AbstractBeastEntity {
             this.setThrowing(false);
 
             Vec3d rotationVec = this.getRotationVec(1.0f);
-            BoulderEntity boulder = new BoulderEntity(ModEntities.BOULDER, this.getWorld());
+            BoulderEntity boulder = new BoulderEntity(EntitiesME.BOULDER, this.getWorld());
             double x = target.getX() - this.getX();
             double y = target.getBodyY(0.3333333333333333) - boulder.getY();
             double z = target.getZ() - this.getZ();

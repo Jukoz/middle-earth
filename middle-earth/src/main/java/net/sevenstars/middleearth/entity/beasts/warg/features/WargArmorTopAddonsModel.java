@@ -15,7 +15,7 @@ public class WargArmorTopAddonsModel extends WargArmorModel {
 
     public static TexturedModelData getTexturedModelDataFront() {
         ModelData modelData = getArmorModelData();
-        ModelPartData body_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_armor");
+        ModelPartData body_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_no_legs").getChild("body_fur").getChild("body_armor");
 
         ModelPartData armor_addons = body_armor.addChild("armor_addons", ModelPartBuilder.create(), ModelTransform.origin(-5.0F, -5.0F, -4.0F));
         ModelPartData front_addons = armor_addons.addChild("front_addons", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
@@ -31,7 +31,7 @@ public class WargArmorTopAddonsModel extends WargArmorModel {
 
     public static TexturedModelData getTexturedModelDataBack() {
         ModelData modelData = getArmorModelData();
-        ModelPartData body_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_armor");
+        ModelPartData body_armor = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_no_legs").getChild("body_fur").getChild("body_armor");
 
         ModelPartData armor_addons = body_armor.addChild("armor_addons", ModelPartBuilder.create(), ModelTransform.origin(-5.0F, -5.0F, -4.0F));
 

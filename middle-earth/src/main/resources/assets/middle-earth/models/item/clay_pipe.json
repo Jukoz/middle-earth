@@ -62,13 +62,5 @@
 			"translation": [0, 6.75, 0],
 			"scale": [1.45, 1.45, 1.45]
 		}
-	},
-	"overrides": [
-		{
-			"predicate": {
-				"smoking": 1
-			},
-			"model": "middle-earth:item/smoking_clay_pipe"
-		}
-	]
+	}
 }

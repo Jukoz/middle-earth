@@ -62,7 +62,7 @@ public class FactionSelectionMapWidget extends MapWidget {
     @Override
     protected void draw(DrawContext context, int startX, int startY) {
         super.draw(context, startX, startY);
-        if(spawns.isEmpty()) return;
+        if(spawns == null || spawns.isEmpty()) return;
 
         HashMap<Integer, List<Vector2i>> uniqueIndexes = new HashMap<>();
         for(int i = 0; i < spawns.size() && i < this.spawnMapMarkers.length; i++){

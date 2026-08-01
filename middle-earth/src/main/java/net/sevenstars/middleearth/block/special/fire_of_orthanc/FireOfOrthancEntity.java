@@ -1,18 +1,19 @@
 package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import org.jetbrains.annotations.Nullable;
 
 public class FireOfOrthancEntity extends Entity implements Ownable {
@@ -30,7 +31,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     }
 
     public FireOfOrthancEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter, boolean instant) {
-        this(ModEntities.FIRE_OF_ORTHANC, world);
+        this(EntitiesME.FIRE_OF_ORTHANC, world);
         this.setPosition(x, y, z);
         double d = world.random.nextDouble() * 6.2831854820251465;
         this.setVelocity(-Math.sin(d) * 0.02, 0.20000000298023224, -Math.cos(d) * 0.02);
@@ -55,6 +56,21 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
 
     public void explode() {
         this.getWorld().createExplosion(this, this.getX(), this.getBodyY(0.0625), this.getZ(), EXPLOSION_FORCE, World.ExplosionSourceType.TNT);
+        tryKillOwner();
+    }
+
+    private void tryKillOwner() {
+        Entity owner = this.getOwner();
+        World world = this.getWorld();
+        if(owner instanceof LivingEntity ownerEntity && world instanceof ServerWorld serverWorld) {
+            if(ownerEntity instanceof PlayerEntity playerEntity){
+                if(!playerEntity.isCreative()){
+                    playerEntity.kill(serverWorld);
+                }
+            } else {
+                ownerEntity.kill(serverWorld);
+            }
+        }
     }
 
     @Override

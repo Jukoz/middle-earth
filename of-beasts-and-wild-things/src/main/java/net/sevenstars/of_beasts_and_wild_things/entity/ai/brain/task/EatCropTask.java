@@ -3,11 +3,8 @@ package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.WalkTarget;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -16,7 +13,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.GameRules;
-import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 
 public class EatCropTask extends MultiTickTask<SnailEntity> {

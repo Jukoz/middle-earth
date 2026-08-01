@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:block/skull_candle_one",
+	"textures": {
+		"0": "middle-earth:block/skullcandle_lit",
+		"particle": "middle-earth:block/skullcandle_lit"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:block/red_curtain",
+	"textures": {
+		"particle": "middle-earth:block/green_curtain",
+		"texture": "middle-earth:block/green_curtain"
+	}
+}

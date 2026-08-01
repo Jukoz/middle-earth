@@ -95,6 +95,18 @@
           "name": "minecraft:apple"
         }
       ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:cram"
+        }
+      ]
     }
   ]
 }

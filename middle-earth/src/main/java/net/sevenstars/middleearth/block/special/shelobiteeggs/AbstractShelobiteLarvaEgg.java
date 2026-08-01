@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 
 import java.util.Random;
@@ -32,7 +32,7 @@ public abstract class AbstractShelobiteLarvaEgg extends Block {
     }
 
     private static void SpawnSpider(BlockPos pos, World world){
-        ShelobiteLarvaEntity entity = new ShelobiteLarvaEntity(ModEntities.SHELOBITE_LARVA, world);
+        ShelobiteLarvaEntity entity = new ShelobiteLarvaEntity(EntitiesME.SHELOBITE_LARVA, world);
         entity.age = 0;
         entity.refreshPositionAndAngles(pos, 0, 0);
         if(world instanceof ServerWorldAccess serverWorldAccess) {

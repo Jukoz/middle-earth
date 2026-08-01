@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.models;
 
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -17,7 +18,9 @@ public class SimpleItemModel {
             add(ResourceItemsME.EMPTY_PHIAL);
             add(ResourceItemsME.WATER_PHIAL);
             add(ResourceItemsME.STARLIGHT_PHIAL);
+            add(ResourceItemsME.PLAYER_BOOK);
 
+            add(DecorativeItemsME.TAPPER);
             add(DecorativeItemsME.TROLL_STATUE);
 
             add(FoodItemsME.BIRCH_WATER);
@@ -45,7 +48,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.LETTUCE_SEEDS);
 
             add(ResourceItemsME.STRAW);
-            add(ResourceItemsME.REEDS.asItem());
 
             add(ResourceItemsME.PIPEWEED_BANNER_PATTERN);
             add(ResourceItemsME.GONDOR_BANNER_PATTERN);
@@ -73,6 +75,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
             //Food Items
+            add(FoodItemsME.LAYERED_CAKE);
             add(FoodItemsME.BERRY_PIE);
             add(FoodItemsME.BOILED_EGG);
             add(FoodItemsME.FISH_STEW);
@@ -89,6 +92,7 @@ public class SimpleItemModel {
             add(FoodItemsME.COOKED_HORSE);
 
             add(FoodItemsME.LEMBAS);
+            add(FoodItemsME.CRAM);
             add(FoodItemsME.MAGGOTY_BREAD);
             add(FoodItemsME.TOUGH_BERRIES);
             add(FoodItemsME.STRAWBERRIES);
@@ -102,6 +106,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.FUR);
             add(ResourceItemsME.FABRIC);
 
+            add(ResourceItemsME.BRIGAND_KEY);
             add(ResourceItemsME.DWARVEN_KEY);
 
             add(ResourceItemsME.RED_AGATE_SHARD);
@@ -117,66 +122,62 @@ public class SimpleItemModel {
             add(ResourceItemsME.ASH);
 
             add(ResourceItemsME.RAW_TIN);
-            add(ResourceItemsME.TIN_INGOT);
-            add(ResourceItemsME.TIN_NUGGET);
-
             add(ResourceItemsME.RAW_LEAD);
-            add(ResourceItemsME.LEAD_INGOT);
-            add(ResourceItemsME.LEAD_NUGGET);
-
-            add(ResourceItemsME.BRONZE_INGOT);
-            add(ResourceItemsME.BRONZE_NUGGET);
-
             add(ResourceItemsME.RAW_SILVER);
-            add(ResourceItemsME.SILVER_INGOT);
+            add(ResourceItemsME.RAW_MITHRIL);
+
+            add(ResourceItemsME.TIN_NUGGET);
+            add(ResourceItemsME.LEAD_NUGGET);
             add(ResourceItemsME.SILVER_NUGGET);
 
-            add(ResourceItemsME.BURZUM_STEEL_INGOT);
-            add(ResourceItemsME.BURZUM_STEEL_NUGGET);
-
-            add(ResourceItemsME.CRUDE_INGOT);
-            add(ResourceItemsME.CRUDE_NUGGET);
-
-            add(ResourceItemsME.STEEL_INGOT);
-            add(ResourceItemsME.STEEL_NUGGET);
-
-            add(ResourceItemsME.EDHEL_STEEL_INGOT);
-            add(ResourceItemsME.EDHEL_STEEL_NUGGET);
-
-            add(ResourceItemsME.KHAZAD_STEEL_INGOT);
-            add(ResourceItemsME.KHAZAD_STEEL_NUGGET);
-
-            add(ResourceItemsME.RAW_MITHRIL);
-            add(ResourceItemsME.MITHRIL_INGOT);
-            add(ResourceItemsME.MITHRIL_NUGGET);
+            add(ResourceItemsME.ADAMANT);
+            add(ResourceItemsME.RUBY);
+            add(ResourceItemsME.SAPPHIRE);
 
             add(ResourceItemsME.PEBBLE);
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
 
-            add(DecorativeItemsME.BLUE_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.GREEN_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.LIGHT_BLUE_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.RED_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.YELLOW_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.LARCH_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.SPRUCE_HOBBIT_DOOR.asItem());
-            add(DecorativeItemsME.TALL_BLACK_PINE_DOOR.asItem());
-            add(DecorativeItemsME.OAK_STABLE_DOOR.asItem());
-            add(DecorativeItemsME.REINFORCED_SPRUCE_DOOR.asItem());
-            add(DecorativeItemsME.REINFORCED_BLACK_PINE_DOOR.asItem());
-            add(DecorativeItemsME.SIMPLE_LARCH_GATE.asItem());
-            add(DecorativeItemsME.RICKETY_SIMPLE_LARCH_DOOR.asItem());
-            add(DecorativeItemsME.SPRUCE_STABLE_DOOR.asItem());
-            add(DecorativeItemsME.LARGE_STURDY_DOOR.asItem());
-            add(DecorativeItemsME.LARGE_BEECH_FENCE_GATE.asItem());
-            add(DecorativeItemsME.GREAT_GONDORIAN_GATE.asItem());
-            add(DecorativeItemsME.GREAT_DWARVEN_GATE.asItem());
-            add(DecorativeItemsME.VARNISHED_DWARVEN_DOOR.asItem());
-            add(DecorativeItemsME.RUINED_DWARVEN_DOOR.asItem());
-            add(DecorativeItemsME.HIDDEN_DWARVEN_DOOR.asItem());
-            add(DecorativeItemsME.GREAT_ELVEN_GATE.asItem());
-            add(DecorativeItemsME.GREAT_ORCISH_GATE.asItem());
+            add(ModDecorativeBlocks.CANDLESTICK.asItem());
+            add(ModDecorativeBlocks.CERAMIC_LAMP.asItem());
+
+            add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_BURNT_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_FANCY_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_GRAY_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_ROTTEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_WHITE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.SMALL_YELLOW_CURTAIN.asItem());
+
+            add(ModDecorativeBlocks.BLACK_CURTAIN.asItem());
+            add(ModDecorativeBlocks.BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.BURNT_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_BROWN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.DARK_RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.FANCY_BLUE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.FANCY_GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.FANCY_RED_CURTAIN   .asItem());
+            add(ModDecorativeBlocks.GRAY_CURTAIN.asItem());
+            add(ModDecorativeBlocks.GREEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.PURPLE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.RED_CURTAIN.asItem());
+            add(ModDecorativeBlocks.ROTTEN_CURTAIN.asItem());
+            add(ModDecorativeBlocks.WHITE_CURTAIN.asItem());
+            add(ModDecorativeBlocks.YELLOW_CURTAIN.asItem());
 
             add(ModBlocks.QUARTZ_CLUSTER.asItem());
             add(ModBlocks.SMALL_QUARTZ_BUD.asItem());

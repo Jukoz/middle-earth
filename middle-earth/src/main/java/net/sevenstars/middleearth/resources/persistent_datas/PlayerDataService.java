@@ -11,7 +11,7 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.dimension.DimensionTypes;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
@@ -63,9 +63,9 @@ public class PlayerDataService {
         playerData.assignNewFactionInformation(factionId, spawnId);
         return true;
     }
-    public static Disposition getPlayerDisposition(PlayerEntity player, World world){
+    public static DispositionType getPlayerDisposition(PlayerEntity player, World world){
         Faction faction = getPlayerFaction(player, world);
-        if(faction == null) return Disposition.NEUTRAL;
+        if(faction == null) return DispositionType.NEUTRAL;
         return faction.getDisposition();
     }
     public static Race getPlayerRace(PlayerEntity player, World world){

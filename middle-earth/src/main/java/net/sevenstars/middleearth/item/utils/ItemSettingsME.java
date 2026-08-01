@@ -20,6 +20,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.sevenstars.middleearth.utils.EntityTypeTagsME;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public interface ItemSettingsME {
                 .enchantable(material.enchantmentValue())
                 .attributeModifiers(createWeaponAttibutes(material, type.attack, type.attackSpeed, type.attackRange))
                 .component(DataComponentTypes.TOOL, new ToolComponent(List.of(
-                        ToolComponent.Rule.ofAlwaysDropping(RegistryEntryList.of(new RegistryEntry[]{Blocks.COBWEB.getRegistryEntry()}), 15.0F),
+                        ToolComponent.Rule.ofAlwaysDropping(registryEntryLookup.getOrThrow(BlockTagsME.COBWEBS), 15.0F),
                         ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES), Float.MAX_VALUE),
                         ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_EFFICIENT), 1.5F)), 1.0F, 2, false))
                 .component(DataComponentTypes.WEAPON, new WeaponComponent(1));

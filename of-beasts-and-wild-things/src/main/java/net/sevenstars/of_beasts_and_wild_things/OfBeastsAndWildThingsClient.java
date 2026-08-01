@@ -8,7 +8,7 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.world.biome.DryFoliageColors;
-import net.sevenstars.of_beasts_and_wild_things.block.ModBlocks;
+import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityRenderer;
 import net.sevenstars.of_beasts_and_wild_things.entity.model.EntityModelsWT;
@@ -29,13 +29,13 @@ public class OfBeastsAndWildThingsClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntitiesWT.SWAN_EGG, FlyingItemEntityRenderer::new);
 
-        BlockRenderLayerMap.putBlock(ModBlocks.BIRD_NEST, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlocksWT.BIRD_NEST, BlockRenderLayer.CUTOUT);
 
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
                     if (view == null || pos == null) {
                         return DryFoliageColors.DEFAULT;
                     }
                     return BiomeColors.getDryFoliageColor(view, pos);
-                }, ModBlocks.BIRD_NEST);
+                }, BlocksWT.BIRD_NEST);
     }
 }

@@ -3,7 +3,10 @@ package net.sevenstars.middleearth.datageneration.content;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.content.races.RacePools;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 public class TranslationEntries {
-
     public static List<Block> blockEntries = new ArrayList<>() {
     };
 
     public static List<Item> itemEntries = new ArrayList<>() {
+    };
+
+    public static List<Identifier> spawnEggEntries = new ArrayList<>() {
     };
 
     public static List<EntityType<?>> entityEntries = new ArrayList<>() {
@@ -26,10 +31,14 @@ public class TranslationEntries {
 
     public static List<String> bannerPatternEntries = new ArrayList<>() {
     };
-
+    public static List<String> raceEntries = new ArrayList<>() {
+    };
     public static List<String> factionEntries = new ArrayList<>() {
     };
-
+    public static List<String> npcTypeEntries = new ArrayList<>() {
+    };
+    public static List<StructureManagerData> structureManagerEntries = new ArrayList<>() {
+    };
     public static List<String> spawnEntries = new ArrayList<>() {
     };
 
@@ -60,7 +69,11 @@ public class TranslationEntries {
             put("advancements.middle_earth.enter_lonely_mountain.title", "Erebor");
             put("advancements.middle_earth.enter_lonely_mountain.description", "The capital of the dwarves");
             put("advancements.middle_earth.enter_mirkwood.title", "Stay on the path!");
-            put("advancements.middle_earth.enter_mirkwood.description", "Enter the Mirkwood forest");
+            put("advancements.middle_earth.enter_mirkwood.description", "Enter the forest of Mirkwood");
+            put("advancements.middle_earth.enter_dol_guldur.title", "Necromancer's Hill");
+            put("advancements.middle_earth.enter_dol_guldur.description", "Enter Dol Guldur");
+            put("advancements.middle_earth.enter_woodland_realm.title", "Elvenking's Halls");
+            put("advancements.middle_earth.enter_woodland_realm.description", "Enter The Woodland Realm");
             put("advancements.middle_earth.enter_misty_mountains.title", "Far over...");
             put("advancements.middle_earth.enter_misty_mountains.description", "Enter the Misty Mountains");
             put("advancements.middle_earth.enter_mordor.title", "One does not simply...");
@@ -71,6 +84,12 @@ public class TranslationEntries {
             put("advancements.middle_earth.enter_rohan.description", "Enter the Kingdom of the Rohirrim");
             put("advancements.middle_earth.enter_shire.title", "The quiet countryside");
             put("advancements.middle_earth.enter_shire.description", "Enter the Shire");
+            put("advancements.middle_earth.brigand_dungeon.title", "Shirriff, open up!");
+            put("advancements.middle_earth.brigand_dungeon.description", "Raid the thieves in their dungeon!");
+            put("advancements.middle_earth.spider_burrows.title", "Sticky lair");
+            put("advancements.middle_earth.spider_burrows.description", "Climb down to the Spider Burrows");
+            put("advancements.middle_earth.kill_spawn_of_shelob.title", "Attercop?");
+            put("advancements.middle_earth.kill_spawn_of_shelob.description", "Kill a spawn of Shelob!");
             put("advancements.middle_earth.arkenstone.title", "Heart of the Mountain");
             put("advancements.middle_earth.arkenstone.description", "Find the Arkenstone, the jewel of the Lonely Mountain!");
             put("advancements.middle_earth.lembas.title", "Elvish Bread");
@@ -88,6 +107,12 @@ public class TranslationEntries {
             put("advancements.smithing.bellows.description", "Craft bellows to heat up your forge");
             put("advancements.smithing.artisan_table.title", "Artisan Work");
             put("advancements.smithing.artisan_table.description", "Craft the artisan table");
+            put("advancements.smithing.inscription_table.title", "Inspired Smithing");
+            put("advancements.smithing.inscription_table.description", "Improve a piece of equipment like the smiths of yore");
+            put("advancements.smithing.chisel.title", "Chiseled Figure");
+            put("advancements.smithing.chisel.description", "Create an Inscribing Chisel");
+            put("advancements.smithing.smithing_hammer.title", "Hammer Time");
+            put("advancements.smithing.smithing_hammer.description", "Create a Smithing Hammer");
             put("advancements.smithing.bronze_ingot.title", "Bronze Age");
             put("advancements.smithing.bronze_ingot.description", "A bit of tin and some copper");
             put("advancements.smithing.crude_ingot.title", "Orcish Handiwork");
@@ -120,6 +145,8 @@ public class TranslationEntries {
             put("advancements.smithing.dwarven_lantern.description", "Craft a dwarven lantern");
             put("advancements.smithing.elven_lantern.title", "Light of the Elves");
             put("advancements.smithing.elven_lantern.description", "Light your way like the Quendi");
+            put("advancements.smithing.hot_ones.title", "Hot Ones");
+            put("advancements.smithing.hot_ones.description", "Eat a spicy chicken nugget");
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
             put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
@@ -136,6 +163,7 @@ public class TranslationEntries {
             put("enchantment."+ MiddleEarth.MOD_ID +".miner_reach", "Miner Reach");
             put("enchantment."+ MiddleEarth.MOD_ID +".stealthy_trail", "Stealthy Trail");
             put("enchantment."+ MiddleEarth.MOD_ID +".stride", "Stride");
+            put("enchantment."+ MiddleEarth.MOD_ID +".stalwart", "Stalwart");
             put("enchantment."+ MiddleEarth.MOD_ID +".tree_feller", "Tree Feller");
             put("enchantment."+ MiddleEarth.MOD_ID +".vantage", "Vantage");
 
@@ -198,15 +226,28 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".elven_lantern", "Elven Lantern");
 
             put("block."+ MiddleEarth.MOD_ID +".forge", "Forge");
+            put("block."+ MiddleEarth.MOD_ID +".dwarven_forge", "Dwarven Forge");
+            put("block."+ MiddleEarth.MOD_ID +".elven_forge", "Elven Forge");
+            put("block."+ MiddleEarth.MOD_ID +".orcish_forge", "Orcish Forge");
             put("block."+ MiddleEarth.MOD_ID +".bellows", "Bellows");
             put("block."+ MiddleEarth.MOD_ID +".treated_anvil", "Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".dwarven_treated_anvil", "Dwarven Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".elven_treated_anvil", "Elven Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".orcish_treated_anvil", "Orcish Treated Anvil");
             put("block."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("block."+ MiddleEarth.MOD_ID +".orcish_artisan_table", "Orcish Artisan Table");
+            put("block."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
 
             put("block."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
 
+            put("block."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".pine_coffer", "Pine Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".fir_coffer", "Fir Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".beech_coffer", "Beech Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".chestnut_coffer", "Chestnut Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".oak_coffer", "Oak Coffer");
+            put("block."+ MiddleEarth.MOD_ID +".willow_coffer", "Willow Coffer");
             put("block."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
             put("block."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("block."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
@@ -271,22 +312,41 @@ public class TranslationEntries {
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
 
             put("sounds."+ MiddleEarth.MOD_ID +".bellows_push", "Bellows blowing");
+            put("sounds."+ MiddleEarth.MOD_ID +".chisel_hit", "Chisel hits");
+            put("sounds."+ MiddleEarth.MOD_ID +".chisel_enchant", "Chisel enchants");
             put("sounds."+ MiddleEarth.MOD_ID +".nazgul_fade", "Nazgûl fading");
             put("sounds."+ MiddleEarth.MOD_ID +".nazgul_scream", "Nazgûl screaming");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_refill", "Pipe refills");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_exhale", "Pipe exhales");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_ignite", "Pipe ignites");
+            put("sounds."+ MiddleEarth.MOD_ID +".orc_drum", "Orc drums");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_idle", "Great Horn grunts");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_hurt", "Great Horn hurts");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_call", "Great Horn bugles");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_death", "Great Horn dies");
 
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_death", "Cave Troll dies");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_hurt", "Cave Troll hurts");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_idle", "Cave Troll grunts");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_roar", "Cave Troll roars");
+            put("sounds."+ MiddleEarth.MOD_ID +".cave_troll_step", "Cave Troll steps");
+
             put("screen."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("screen."+ MiddleEarth.MOD_ID +".structure_manager", "Structure Manager");
             put("container."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("container."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
             put("container."+ MiddleEarth.MOD_ID +".small_crate", "Small Crate");
             put("container."+ MiddleEarth.MOD_ID +".thin_barrel", "Thin Barrel");
+            put("screen."+ MiddleEarth.MOD_ID +".larch_coffer", "Larch Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".pine_coffer", "Pine Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".spruce_coffer", "Spruce Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".fir_coffer", "Fir Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".beech_coffer", "Beech Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".chestnut_coffer", "Chestnut Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".oak_coffer", "Oak Coffer");
+            put("screen."+ MiddleEarth.MOD_ID +".willow_coffer", "Willow Coffer");
             put("screen."+ MiddleEarth.MOD_ID +".reinforced_chest", "Reinforced Chest");
+            put("screen."+ MiddleEarth.MOD_ID +".sack", "Sack");
             put("screen."+ MiddleEarth.MOD_ID +".wood_pile", "Wood Pile");
             put("screen."+ MiddleEarth.MOD_ID +".shaping_anvil", "Shaping Anvil");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.weapons", "Weapons");
@@ -299,6 +359,7 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.pickaxe", "Pickaxe");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.shovel", "Shovel");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.hoe", "Hoe");
+            put("screen."+ MiddleEarth.MOD_ID +".artisan_table.chisel", "Chisel");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.armors", "Armors");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.helmet", "Helmet");
             put("screen."+ MiddleEarth.MOD_ID +".artisan_table.chestplate", "Chestplate");
@@ -365,19 +426,18 @@ public class TranslationEntries {
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_top", "Top Armor Addon, Enabled");
             put("tooltip."+ MiddleEarth.MOD_ID +".mount_armor_addon_side", "Side Armor Addon, Enabled");
 
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode_await", "Select a cast");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode0", "Not enough Metal.");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode1", "1 Nugget");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode2", "1 Ingot");
             put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode3", "2 Ingots");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode4", "3 Ingots");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_output_mode5", "3 Ingots");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer", "Left click the anvil with a");
             put("tooltip."+ MiddleEarth.MOD_ID +".anvil_hammer_2", "Smithing Hammer to shape the metal.");
 
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_alloying", "Alloying Mode");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating", "Heating Mode");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating_switch", "To go into alloying mode, add bellows to the");
-            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_heating_switch_2", "sides of the forge containing a small vent.");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_switch_alloying", "Click to switch to Heating Mode");
+            put("tooltip."+ MiddleEarth.MOD_ID +".forge_mode_switch_heating", "Click to switch to Alloying Mode");
             put("tooltip."+ MiddleEarth.MOD_ID +".ingots_number", "Ingots");
             put("tooltip."+ MiddleEarth.MOD_ID +".nuggets_number", "Nuggets");
 
@@ -391,10 +451,14 @@ public class TranslationEntries {
 
             //TODO try to automate
             put("trim_pattern."+ MiddleEarth.MOD_ID +".smithing_part", "Smithing Part");
+            put("trim_material."+ MiddleEarth.MOD_ID +".copper", "Copper");
+            put("trim_material."+ MiddleEarth.MOD_ID +".iron", "Iron");
+            put("trim_material."+ MiddleEarth.MOD_ID +".gold", "Gold");
+            put("trim_material."+ MiddleEarth.MOD_ID +".netherite", "Netherite");
             put("trim_material."+ MiddleEarth.MOD_ID +".jade", "Jade");
             put("trim_material."+ MiddleEarth.MOD_ID +".tin", "Tin");
             put("trim_material."+ MiddleEarth.MOD_ID +".lead", "Lead");
-            put("trim_material."+ MiddleEarth.MOD_ID +".silver", "silver");
+            put("trim_material."+ MiddleEarth.MOD_ID +".silver", "Silver");
             put("trim_material."+ MiddleEarth.MOD_ID +".bronze", "Bronze");
             put("trim_material."+ MiddleEarth.MOD_ID +".steel", "Steel");
             put("trim_material."+ MiddleEarth.MOD_ID +".crude", "Crude");
@@ -414,14 +478,8 @@ public class TranslationEntries {
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
 
-            put("race."+ MiddleEarth.MOD_ID +".dwarf", "Dwarf");
-            put("race."+ MiddleEarth.MOD_ID +".elf", "Elf");
-            put("race."+ MiddleEarth.MOD_ID +".human", "Human");
-            put("race."+ MiddleEarth.MOD_ID +".hobbit", "Hobbit");
-            put("race."+ MiddleEarth.MOD_ID +".orc", "Orc");
-            put("race."+ MiddleEarth.MOD_ID +".uruk", "Uruk");
-
-            put("race_tooltip."+ MiddleEarth.MOD_ID +".attribute_header", "Attributes , ");
+            put(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip"), "Attributes : ");
+            put(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip"), "Nothing changes!");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");
@@ -483,8 +541,11 @@ public class TranslationEntries {
             put("description."+ MiddleEarth.MOD_ID +".lothlorien.description_0", "Lothlórien, the Golden Wood, is an enchanted Elven realm ruled by Galadriel and Celeborn. Sheltered by powerful enchantments and nestled within the golden mallorn trees, it is one of the last strongholds of the Elves in Middle-earth, renowned for its beauty and serenity.");
             put("description."+ MiddleEarth.MOD_ID +".rohan.description_0", "Rohan, also called the Riddermark, is a kingdom of Men renowned for its skilled horse-lords and cavalry. Located north of Gondor, it is ruled by the line of Eorl. Though once strong allies with Gondor, Rohan now faces growing internal and external threats.");
             put("description."+ MiddleEarth.MOD_ID +".isengard.description_0", "Once a fortress of Númenor, the keys of the black tower of Orthanc passed to the White Wizard Saruman in the Third Age. Tempted by dark power, he weaves deceit and plots war from his seat in Isengard upon the neighbouring free peoples.");
-            put("description."+ MiddleEarth.MOD_ID +".misty_mountains_goblins.description_0", "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.");
+            put("description."+ MiddleEarth.MOD_ID +".hobgoblin_tribes.gundabad.description_0", "The Goblins of the Misty Mountains are a warlike race of Orcs inhabiting the caves and tunnels beneath the mountains. Once scattered, they now rebuild their strength, preying on travelers and allying with Sauron’s forces.");
+            put("description."+ MiddleEarth.MOD_ID +".goblin_town.description_0", "Goblin-Town was a dwelling of the Northern Orcs in the Misty Mountains.  A network of branching caves and tunnels carved by the goblins with many entrances like the Front Porch. They often left their homes to raid the Anduin and plunder homes.");
+            put("description."+ MiddleEarth.MOD_ID +".moria.description_0", "Khazad-Dûm, mansion of the Longbeards, spanning from the east range to the west. However, the dwarves dug too deep. Now in ruin, the ancient halls are home to Goblins, Trolls, and nameless things. With them the city earned a new name, Moria.");
             put("description."+ MiddleEarth.MOD_ID +".shire.description_0", "The Shire is a peaceful land inhabited by Hobbits, located in the northwest of Middle-earth. Known for its pastoral beauty and the simple, unadventurous lives of its people. It remains largely untouched by the turmoil of the outside world.");
+            put("description."+ MiddleEarth.MOD_ID +".woodland_realm.description_0", "Eryn Galen, or Greenwood was once a vibrant forest that housed many creatures, the Sylvan elves of the woodland realm reigning as the greatest among them. Now, through foul sorcery the land has been twisted into Mirkwood, where spiders and orcs lurk beneath its canopy");
 
             put("command."+ MiddleEarth.MOD_ID +".fail", "Command couldn't be sent properly");
 
@@ -633,6 +694,114 @@ public class TranslationEntries {
             put("screen."+ MiddleEarth.MOD_ID +".information.races.many", "Races");
             put("screen."+ MiddleEarth.MOD_ID +".information.description", "Description");
 
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.title", "Middle-earth");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.description", "This mod is about the famous universe of Middle-earth.\n" +
+                    "You will find a brand new dimension with custom blocks, items, entities, factions, structures and more!");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapters", "Chapters");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.navigate_to", "Navigate to");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_getting_started", "Getting Started");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_mining", "Mining");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_smithing", "Smithing");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_enchanting", "Enchanting");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_mounts", "Mounts");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.chapter_dungeons", "Dungeons");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.getting_started_desc", "To enter Middle-earth and thus begin your adventure, you shall first craft a starlight phial.\n " +
+                    "Once the phial is crafted, fill it with water and then combine with a glowing item such as glow berries, glowstone or glow ink to finally craft the starlight phial.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.getting_started_desc_right", "Use it and you'll be brought to the onboarding process to Middle-earth.");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_desc", "Basic resources like coal, tin and copper can be found almost anywhere near the surface, " +
+                    "but valuable ores and gems are only found at deeper levels.\n\n From shallowest to deepest, " +
+                    "the strata of the world consists of layers of Stone, Deepslate, Núrgon, and Medgon.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.tools", "Tools");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_tools_desc", "You must Smith stronger tools to extract resources from the rock in deeper layers.\n\n " +
+                    "Deepslate minerals can be obtained using Stone Tools or better, Núrgon ores require at least Bronze Tools, and Steel Tools are needed to mine Medgon. ");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_tools_desc_right", "Read the chapter about Smithing to learn how to get better tools.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.cave_monsters", "Cave Monsters");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_cave_monster_desc", "Delving deep is not without danger —  miners tell of roving bands of Wild Goblins patrolling the dark reaches of Middle-earth, " +
+                    "preying on the unwary. Some tales even say fouler and darker things stalk the roots of the world, lying in wait… go not into the deep unprepared.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mining_cave_monster_desc_right", "The dark depths hide many a glimmering prize, but caution is to be exercised!");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_desc", "Better equipment will be essential for survival in the dangerous wilds of the world.\n\n " +
+                    "Smithing allows you to create new deadly weapons, more complex armour, and efficient tools to delve more deeply.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_desc_right", "To work metals with more finesse than crafting, you’ll need a Forge.\n\n " +
+                    "You can craft it with any cobbled stones, a furnace and bricks.\n To get clay for bricks, either find a lush cave or convert mud to clay");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.copper_alloys", "Copper Alloys");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc", "Bronze and Crude are simple alloys, harder and more durable than stone and copper.\n\n " +
+                    "Copper alloy tools will enable you to mine deeper than before, entering the Nurgon layer of the world and exploiting the riches found there.\n" +
+                    "Make sure to toggle the forge to alloying mode.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_copper_alloys_smithing_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.casting", "Casting");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_casting_desc", "All molten metals can be cast into Nuggets, Ingots, Rods, Plates, and Large Rods. " +
+                    "Different casted parts will require different amounts of molten metal to create.\n\n " +
+                    "A forge’s crucible can hold up to 16 ingots-worth of molten liquid metal");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_casting_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.shaping_anvil", "Shaping Anvil");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_desc", "Smithing Anvils are a handy solution to tackle the next step in smithing.\n " +
+                    "The Stone Anvil is the most basic type of smithing anvil — create one by laying down a base of three logs of any type under six stones of any kind.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_desc_right", "You’ll need a Smithing Hammer to work your casted parts over the Smithing Anvil");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_1_desc", "Now you have all the tools needed for an amateur smith. Put a Hot Large Metal Rod onto the stone anvil.\n\n " +
+                    "Next, shape it into a Pickaxe Head. Using the Smithing Hammer, hit the large rod at a stable tempo.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_shaping_anvil_1_desc_right", "Casted parts can only be worked into new shapes on the smithing anvil while they are hot, " +
+                    "and will also cool down over time while on the anvil.\n\n You can reheat cooled parts in a low-heat forge without resetting their progress.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.quenching", "Quenching");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_quenching_desc", "Once the large rod is fully shaped into the pickaxe head, it must be cool to the touch before being worked further. " +
+                    "You must quench it in a filled Cauldron; cooling it instantly.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_quenching_desc_right", "Both the cauldron and bucket can be crafted using Tin, which can be found in caves near the surface.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.artisan_table", "Artisan Table");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc", "The Artisan Table is the workstation of choice for armourers, blacksmiths and craftspeople across many realms, " +
+                    "and will be required to piece together smithing components into a final product.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc", "Place your bronze pickaxe head and two sticks in the Artisan Table, " +
+                    "and you are now ready to explore even farther underground using your new Bronze Pickaxe.\n\n " +
+                    "Although simple tools and weapons can also be crafted in a normal crafting grid.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.smithing_artisan_table_1_desc_right", "Crafting equipment in the Artisan Table bestows a noticeable bonus in durability.");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc", "The greatest artisans of past ages were known to have honed their craft so wonderfully, " +
+                    "resulting in storied blades and armour with extraordinary properties.\n\n" +
+                    "First, craft the inscription table as follows.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.enchanting_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table", "Inscription Table");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc", "To use the inscription table, you will need gems, a chisel and the item that you wish to enchant. " +
+                    "Each gem has unique words associated with it, you can explore each combination of words until you find a valid enchant.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.inscription_table_desc_right", "Here's an example of the Unbreaking enchantment inscription;");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc", "The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +
+                    "Such companions come in all shapes and sizes, each having their own unique advantages and disadvantages.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.broadhoof_goat", "Broadhoof Goat");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_broadhoof_goat_desc", "The Broadhoof Goat is a great mount for Dwarves that can easily climb mountains.\n" +
+                    "You can find them in mountains where Dwarves live, but beware of these fluffy climbers; they can be aggressive if provoked. " +
+                    "They may charge with their horns against enemies and jump very high.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_broadhoof_goat_desc_right", "To tame them, you must be a dwarf and offer them wheat.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.great_horn", "Great Horn");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_great_horn_desc", "The Great Horn lives in the forests of Anduin and northern Wastelands.\n" +
+                    "It's a majestic creature that will flee everyone but elves. " +
+                    "Indeed, as an elf, you may tame it with various items, such as clovers, sweet berries, mushrooms, and more.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_great_horn_desc_right", "Great Horns can leap\n        and pierce.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.warg", "Warg");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_warg_desc", "The wicked wolves are bred for war and hunting. They attack all good-aligned entities and can be ridden by " +
+                    "orcs, snagas, goblins, and uruks.\n To tame this wicked beast, simply give some raw meat.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_warg_desc_right", "Wargs can leap and take down other riders from their mounts.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.cave_troll", "Cave Troll");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_cave_troll_desc", "The Cave Troll, a fearsome creature that dwells deep in caves. " +
+                    "It attacks everyone when hungry, but if you're evil aligned, you may attempt to tame it with chains while it sleeps.\n " +
+                    "The Cave Troll can bear up to three riders on his back and be commanded with a bone.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_cave_troll_desc_right", "It can smash and charge.");
+
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeons_desc", "Throughout your adventures in middle earth you may encounter a variety of dungeons with great riches to behold.\n " +
+                    "Before entering, you should prepare yourself for whatever unfriendly creatures you may find inside, for such bounty is not left unguarded. ");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeons_desc_right", "In each dungeon, you shall find trial spawners, that give keys upon defeating the wave of enemies.\n " +
+                    "The trial key is used for the treasure vaults that may be found deeper in the dungeon.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.brigands", "Brigands");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc", "Brigands' dungeons can be found all around Anduin’s Vale.\n " +
+                    "They hold stolen riches from neighboring factions and hide below ruined towers.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_brigands_desc_right", "");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.spider_burrows", "Spider Burrows");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_spider_burrows_desc", "The spiders of Shelob have infested the Mirkwood forest.\n " +
+                    "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.dungeon_spider_burrows_desc_right", "");
 
             put("widget."+ MiddleEarth.MOD_ID +".spawn_tooltip_title", "Spawns");
             put("widget."+ MiddleEarth.MOD_ID +".marker.selected_title_container.before", "[");
@@ -649,9 +818,9 @@ public class TranslationEntries {
             put("key."+ MiddleEarth.MOD_ID +".map_teleport", "Map Teleport");
             put("key."+ MiddleEarth.MOD_ID +".map_fullscreen_toggle", "Toggle Map Fullscreen");
 
-            put("modmenu.nameTranslation.me", "Middle-earth");
-            put("modmenu.descriptionTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
-            put("modmenu.summaryTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.nameTranslation."+ MiddleEarth.MOD_ID, "Middle-earth");
+            put("modmenu.descriptionTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.summaryTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
 
             put("emi.category."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("emi.category."+ MiddleEarth.MOD_ID +".anvil_shaping", "Shaping Anvil");
@@ -699,34 +868,16 @@ public class TranslationEntries {
             put("painting."+ MiddleEarth.MOD_ID +".gondorian_tapestry.title", "Gondorian Tapestry");
             put("painting."+ MiddleEarth.MOD_ID +".dwarven_plaque.title", "Dwarven Plaque");
 
+            put("attribute.name.powdered_snow_immunity", "Powdered Snow Immunity");
+            put("attribute.name.climbing_strength", "Climbing Strength");
+            put("attribute.name.detection_range", "Detection Range");
+            put("attribute.name.width_scale", "Width Scale");
 
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_soldier", "Mordor Soldier");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_snaga", "Mordor Snaga");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_scout", "Mordor Scout");
-            put("npc_data."+ MiddleEarth.MOD_ID +".mordor.orc_militia", "Mordor Militia");
+            put("attribute.modifiers." + RacePools.RaceAttributes.TOTAL_DAMAGE_MODIFIER.getPath(), "Add Total Damage Multiplied");
+            put("attribute.modifiers.creative_mode_block_range", "Creative Mode Block Range");
+            put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
 
-            put("structure_manager_data.%s.gondor_generic_nests".formatted(MiddleEarth.MOD_ID), "Gondor Generic Nests");
-            put("structure_nest.%s.gondor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
-            put("structure_nest.%s.gondor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
-            put("structure_nest.%s.gondor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
-            put("structure_nest.%s.gondor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
-            put("structure_nest.%s.gondor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
-
-            put("structure_manager_data.%s.erebor_generic_nests".formatted(MiddleEarth.MOD_ID), "Erebor Generic Nests");
-            put("structure_nest.%s.erebor_generic_nests.captain_nest".formatted(MiddleEarth.MOD_ID), "Captain Room");
-            put("structure_nest.%s.erebor_generic_nests.barrack_nest".formatted(MiddleEarth.MOD_ID), "Barracks Room");
-            put("structure_nest.%s.erebor_generic_nests.worker_nest".formatted(MiddleEarth.MOD_ID), "Worker Room");
-            put("structure_nest.%s.erebor_generic_nests.prisoner_nest".formatted(MiddleEarth.MOD_ID), "Prisoner Cell");
-            put("structure_nest.%s.erebor_generic_nests.stable_nest".formatted(MiddleEarth.MOD_ID), "Stable Room");
-
-            put("structure_manager_data.%s.dale_keep_nests".formatted(MiddleEarth.MOD_ID), "Dale Keep Nests");
-            put("structure_nest.%s.dale_keep_nests.captain".formatted(MiddleEarth.MOD_ID), "Captain Room");
-            put("structure_nest.%s.dale_keep_nests.stable_carers".formatted(MiddleEarth.MOD_ID), "Stable Carers Room");
-            put("structure_nest.%s.dale_keep_nests.stable".formatted(MiddleEarth.MOD_ID), "Stable");
-            put("structure_nest.%s.dale_keep_nests.small_prisoner_cell".formatted(MiddleEarth.MOD_ID), "Small Prisoner Cell");
-            put("structure_nest.%s.dale_keep_nests.large_prisoner_cell".formatted(MiddleEarth.MOD_ID), "Large Prisoner Cell");
-            put("structure_nest.%s.dale_keep_nests.soldier".formatted(MiddleEarth.MOD_ID), "Soldier Bed");
-            put("structure_nest.%s.dale_keep_nests.elite".formatted(MiddleEarth.MOD_ID), "Elite Bed");
+            put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
         }
     };
 }

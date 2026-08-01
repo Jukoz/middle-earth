@@ -21,7 +21,7 @@ public class CaveTrollDroolFeatureRenderer extends FeatureRenderer<CaveTrollEnti
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CaveTrollEntityRenderState state, float limbAngle, float limbDistance) {
-        if(state.tameness < 50) {
+        if(state.tameness < 50 && state.isTame) {
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
             this.getContextModel().render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
         }

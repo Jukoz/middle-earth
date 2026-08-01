@@ -1,0 +1,21 @@
+{
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "middle-earth:item/plate_melon_slice"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 3],
+			"to": [12, 2, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 0, 8]},
+			"faces": {
+				"north": {"uv": [2.5, 2.5, 4.25, 3], "texture": "#0"},
+				"east": {"uv": [0, 2.5, 2.5, 3], "texture": "#0"},
+				"south": {"uv": [6.75, 2.5, 8.5, 3], "texture": "#0"},
+				"west": {"uv": [4.25, 2.5, 6.75, 3], "texture": "#0"},
+				"up": {"uv": [4.25, 2.5, 2.5, 0], "texture": "#0"},
+				"down": {"uv": [6, 0, 4.25, 2.5], "texture": "#0"}
+			}
+		}
+	]
+}

@@ -1,0 +1,78 @@
+{
+  "name": "middle-earth:gondor_village_main_road",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road_end",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road_3",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road_4",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road_5",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+	{
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_main_road_6",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    }
+  ]
+}

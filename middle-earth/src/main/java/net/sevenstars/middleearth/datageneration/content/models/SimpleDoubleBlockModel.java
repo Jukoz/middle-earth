@@ -12,7 +12,6 @@ public class SimpleDoubleBlockModel {
         {
             add(ModNatureBlocks.WILD_PIPEWEED);
             add(ModNatureBlocks.TALL_WILD_WHEAT);
-            add(ModNatureBlocks.WILD_TOMATO);
 
             add(ModNatureBlocks.TALL_TUBESHROOM);
             add(ModNatureBlocks.TALL_TRUMPET_SHROOM);

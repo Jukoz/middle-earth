@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:feathers",
+    "minecraft:ink_sac",
+    "minecraft:red_dye",
+    "minecraft:book"
+  ],
+  "result": {
+    "id": "middle-earth:player_book"
+  }
+}

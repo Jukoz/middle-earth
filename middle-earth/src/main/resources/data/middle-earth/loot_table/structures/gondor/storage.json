@@ -3,6 +3,10 @@
     {
       "bonus_rolls": 0.5,
       "entries": [
+	    {
+          "type": "minecraft:item",
+          "name": "minecraft:light_gray_bundle"
+        },
         {
           "type": "minecraft:item",
           "name": "middle-earth:gondor_banner_pattern",
@@ -10,12 +14,30 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:silver_coin",
-          "weight": 2
+          "name": "middle-earth:gondorian_leather_cuirass",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:gambeson"
+          "name": "middle-earth:gambeson",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:dyed_color": 4671304
+              }
+            }
+          ]
         },
         {
           "type": "minecraft:item",

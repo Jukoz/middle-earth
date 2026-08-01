@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntityModel;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntityModel;
@@ -22,7 +21,7 @@ public class EntityModelLayersWT {
     public static final EntityModelLayer DEER = EntityModelLayersWT.registerEntityModelLayer("deer", DeerEntityModel.getTexturedModelData());
 
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(OfBeastsAndWildThings.MOD_ID, registryName), "main");
+        EntityModelLayer entityModelLayer = new EntityModelLayer(OfBeastsAndWildThings.of(registryName), "main");
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
         return entityModelLayer;
     }

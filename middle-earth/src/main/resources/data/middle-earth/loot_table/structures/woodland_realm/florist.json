@@ -1,0 +1,157 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:firefly_bush",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blue_orchid"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lily_of_the_valley"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:red_tulip",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dandelion",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:green_growth",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:ivy_growth",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:blue_gentian",
+		  "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:red_flowers",
+		  "weight": 3
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "min": 2,
+        "max": 5
+      }
+    },
+	{
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:shears",
+		  "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:wooden_bucket",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:watering_can",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bone_meal"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:flax_seeds"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mirkwood_sapling"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:green_jewel_cornflower"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ]
+    }
+  ]
+}

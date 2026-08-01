@@ -4,25 +4,21 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
-import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
-import net.minecraft.predicate.component.ComponentPredicateTypes;
-import net.minecraft.predicate.item.EnchantmentPredicate;
-import net.minecraft.predicate.item.EnchantmentsPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -37,13 +33,15 @@ import net.sevenstars.middleearth.datageneration.content.loot_tables.PotDrops;
 import net.sevenstars.middleearth.datageneration.content.models.SimplePaneModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleRocksModel;
 import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
+import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
+import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
+    protected static final float[] SAPLING_COMMON_DROP_CHANCE = new float[]{0.1F, 0.1625F, 0.183333336F, 0.2F};
 
     public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
@@ -91,9 +89,14 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                 addDrop(block, doorDrops(block));
             } else if (Registries.BLOCK.getId(block).getPath().contains("vertical_slab")) {
                 addDrop(block, verticalSlabDrops(block));
+            } else if (Registries.BLOCK.getId(block).getPath().contains("slab")) {
+                addDrop(block, slabDrops(block));
+            } else if (Registries.BLOCK.getId(block).getPath().equals("reinforced_scaffolding")) {
+                addDrop(block, drops(DecorativeItemsME.REINFORCED_SCAFFOLDING));
             } else {
-                // TODO : @SlooshyBoi crashes during Datagen
+                // TODO : crashes during Datagen
                 if (block == null) continue;
+                if(block == Blocks.STONE || block == Blocks.DEEPSLATE) continue;
                 addDrop(block);
             }
         }
@@ -101,10 +104,17 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         for (LeavesDrops.LeavesDrop drop : LeavesDrops.blocks) {
             RegistryWrapper.Impl<Enchantment> impl = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT);
             if (drop.toString().contains("pine")) {
-                leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(this.createWithoutShearsOrSilkTouchCondition()).with(((LeafEntry.Builder)this.addSurvivesExplosionCondition(drop.block(), ItemEntry.builder(Items.APPLE))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F}))));
+                addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_COMMON_DROP_CHANCE).pool(
+                        LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).conditionally(this.createWithoutShearsOrSilkTouchCondition())
+                                .with(((LeafEntry.Builder<?>)this.addSurvivesExplosionCondition(drop.block(), ItemEntry.builder(ResourceItemsME.PINECONE)))
+                                        .conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE),
+                                                0.025F, 0.03F, 0.035F, 0.04F, 0.045F)))));
             } else {
                 addDrop(drop.block(), this.leavesDrops(drop.block(), drop.drop(), SAPLING_DROP_CHANCE));
             }
+        }
+        for (Block sapling : Saplings.saplings) {
+            addDrop(sapling);
         }
         for (CropDrops.CropDrop cd : CropDrops.crops) {
             addDrop(cd.crop_block, cropDrops(cd.crop_block, cd.fruit, cd.seeds, cd.builder));
@@ -171,6 +181,18 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             if (set.mithril_ore() != null) {
                 addDrop(set.mithril_ore(), oreDrops(set.mithril_ore(), ResourceItemsME.RAW_MITHRIL));
             }
+            if (set.adamant_ore() != null) {
+                addDrop(set.adamant_ore(), oreDrops(set.adamant_ore(), ResourceItemsME.ADAMANT));
+            }
+            if (set.emerald_ore() != null) {
+                addDrop(set.emerald_ore(), oreDrops(set.emerald_ore(), Items.EMERALD));
+            }
+            if (set.ruby_ore() != null) {
+                addDrop(set.ruby_ore(), oreDrops(set.ruby_ore(), ResourceItemsME.RUBY));
+            }
+            if (set.sapphire_ore() != null) {
+                addDrop(set.sapphire_ore(), oreDrops(set.sapphire_ore(), ResourceItemsME.SAPPHIRE));
+            }
         }
 
         for (SimplePaneModel.Pane pane : SimplePaneModel.panes){
@@ -188,6 +210,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         largeDoorDrop(ModDecorativeBlocks.RED_HOBBIT_DOOR);
         largeDoorDrop(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
         largeDoorDrop(ModDecorativeBlocks.TALL_BLACK_PINE_DOOR);
+        largeDoorDrop(ModDecorativeBlocks.TALL_FIR_DOOR);
         largeDoorDrop(ModDecorativeBlocks.OAK_STABLE_DOOR);
         largeDoorDrop(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
         largeDoorDrop(ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR);
@@ -242,6 +265,11 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
                         .with(ItemEntry.builder(rocksDrop))));
     }
 
+    public LootTable.Builder slabDrops(Block drop) {
+        return LootTable.builder().pool(
+                LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
+                        .with(this.applyExplosionDecay(drop, ItemEntry.builder(drop).apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(2.0F)).conditionally(BlockStatePropertyLootCondition.builder(drop).properties(StatePredicate.Builder.create().exactMatch(SlabBlock.TYPE, SlabType.DOUBLE)))))));
+    }
     public LootTable.Builder verticalSlabDrops(Block drop) {
         return LootTable.builder().pool(
                 LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
@@ -249,24 +277,8 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     }
 
     public void cobbleDrops(Block stoneBlock, Block cobbledBlock) {
-        RegistryWrapper.Impl<Enchantment> enchantmentRegistry;
-
-        try {
-            enchantmentRegistry = registryLookup.get().getOrThrow(RegistryKeys.ENCHANTMENT);
-        } catch (Exception ignored) {
-            throw new IllegalStateException("Data generation without registries failed!");
-        }
-        //TODO to fix/update -> enchant issue
-        addDrop(stoneBlock,
-                LootTable.builder()
-                        .pool(LootPool.builder()
-                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().components(net.minecraft.predicate.component.ComponentsPredicate.Builder.create().partial(ComponentPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1))))).build())))
-                                .rolls(ConstantLootNumberProvider.create(1.0F))
-                                .with(ItemEntry.builder(stoneBlock)))
-                        .pool(LootPool.builder()
-                                .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().components(net.minecraft.predicate.component.ComponentsPredicate.Builder.create().partial(ComponentPredicateTypes.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), NumberRange.IntRange.atLeast(1))))).build())).invert())
-                                .rolls(ConstantLootNumberProvider.create(1.0F))
-                                .with(ItemEntry.builder(cobbledBlock))));
+        addDrop(stoneBlock, this.dropsWithSilkTouch(stoneBlock, this.applyExplosionDecay(cobbledBlock, ((LeafEntry.Builder<?>)
+                ItemEntry.builder(cobbledBlock)))));
     }
 
     public void largeDoorDrop(Block doorblock) {

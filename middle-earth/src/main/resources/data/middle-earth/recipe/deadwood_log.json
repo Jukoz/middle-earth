@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "#M#",
+    "###"
+  ],
+  "key": {
+    "#": "#minecraft:logs",
+    "M": "minecraft:moss_block"
+  },
+  "result": {
+    "id": "middle-earth:deadwood_log",
+    "count": 8
+  }
+}

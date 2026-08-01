@@ -6,9 +6,9 @@ import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
@@ -23,7 +23,7 @@ public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<Broadhoof
     public BroadhoofGoatArmorFeatureRenderer(FeatureRendererContext<BroadhoofGoatEntityRenderState, BroadhoofGoatModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
         super(context);
         this.equipmentRenderer = equipmentRenderer;
-        this.model = new BroadhoofGoatArmorModel(loader.getModelPart(ModEntityModelLayers.BROADHOOF_GOAT_ARMOR));
+        this.model = new BroadhoofGoatArmorModel(loader.getModelPart(EntityModelLayersME.BROADHOOF_GOAT_ARMOR));
     }
 
     @Override

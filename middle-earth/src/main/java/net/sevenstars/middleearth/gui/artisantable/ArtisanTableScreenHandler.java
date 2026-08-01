@@ -1,18 +1,26 @@
 package net.sevenstars.middleearth.gui.artisantable;
 
 import com.google.common.collect.Lists;
-import com.mojang.authlib.GameProfile;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.screen.*;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.WorldEvents;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
+import net.sevenstars.middleearth.network.packets.C2S.ArtisanIndexPacket;
+import net.sevenstars.middleearth.network.packets.S2C.ArtisanRecipePacket;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
-import net.sevenstars.middleearth.recipe.ModRecipes;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.recipe.RecipesME;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -21,10 +29,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.Property;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -39,8 +43,10 @@ import java.util.stream.Collectors;
 public class ArtisanTableScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
     private final Property selectedRecipe;
+    private final Property recipesSize;
     private final World world;
     private List<RecipeEntry<ArtisanRecipe>> availableRecipes;
+    private List<ItemStack> outputs;
     private ItemStack inputStack;
     long lastTakeTime;
     private ArtisanTableSlot[][] inputSlots;
@@ -50,6 +56,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     final CraftingResultInventory output;
     private PlayerEntity playerEntity;
     private ArtisanTableInputsShape inputsShape = null;
+    private int xp = 0;
 
     private String disposition;
     private boolean isCreative;
@@ -65,7 +72,9 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
         super(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, syncId);
         this.selectedRecipe = Property.create();
+        this.recipesSize = Property.create();
         this.availableRecipes = Lists.newArrayList();
+        this.outputs = new ArrayList<>();
         this.inputStack = ItemStack.EMPTY;
         this.contentsChangedListener = () -> {
         };
@@ -76,6 +85,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.input = new SimpleInventory(9) {
             public void markDirty() {
                 super.markDirty();
+                outputs.clear();
                 ArtisanTableScreenHandler.this.onContentChanged(this);
                 ArtisanTableScreenHandler.this.contentsChangedListener.run();
             }
@@ -102,6 +112,8 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
                 itemStack.onCraftByPlayer(player, itemStack.getCount());
                 ArtisanTableScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
+                player.addExperience(getExperience(world));
+                ArtisanTableScreenHandler.this.xp = 0;
 
                 for(int y = 0; y < 3; y++) {
                     for(int x = 0; x < 3; x++) {
@@ -145,6 +157,34 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         return this.availableRecipes;
     }
 
+    public List<ItemStack> getAvailableOutputs() {
+        return this.outputs;
+    }
+
+    public int getAvailableOutputsSize() {
+        return this.recipesSize.get();
+    }
+
+    public void addRecipeOutput(int index, ItemStack itemStack) {
+        boolean exists = outputs.stream().anyMatch(item -> itemStack.getItem().equals(item.getItem()));
+        if(exists) return;
+
+        while (outputs.size() < index) {
+            outputs.add(ItemStack.EMPTY);
+        }
+        outputs.add(itemStack);
+    }
+
+    public void setSelectedRecipe(int index) {
+        selectedRecipe.set(index);
+        ArtisanIndexPacket anvilIndexPacket = new ArtisanIndexPacket(index, this.syncId);
+        ClientPlayNetworking.send(anvilIndexPacket);
+    }
+
+    private int getExperience(World world) {
+        return ArtisanTableScreenHandler.this.xp;
+    }
+
     public int getAvailableRecipeCount() {
         return this.availableRecipes.size();
     }
@@ -168,13 +208,22 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     private boolean isInBounds(int id) {
-        return id >= 0 && id < this.availableRecipes.size();
+        if(this.playerEntity.getWorld().isClient()) {
+            return id >= 0 && id < this.outputs.size();
+        } else {
+            return id >= 0 && id < this.availableRecipes.size();
+        }
     }
 
     public void onContentChanged(Inventory inventory) {
         ItemStack itemStack = this.inputSlots[0][0].getStack();
         this.inputStack = itemStack.copy();
         this.updateInput(inventory);
+    }
+
+    public void updateIndex(int index){
+        this.selectedRecipe.set(index);
+        this.populateResult(this.playerEntity);
     }
 
     public void changeTab(String shapeId) {
@@ -215,21 +264,27 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         if (!inputs.isEmpty()) {
             if (!this.world.isClient){
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-                this.availableRecipes = serverRecipeManager.getAllMatches(ModRecipes.ARTISAN_TABLE, new MultipleStackRecipeInput(inputs), this.world).toList();
+                this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ARTISAN_TABLE_SUPPLIER.get(), new MultipleStackRecipeInput(inputs), this.world).toList();
             }
         }
 
         ArrayList<RecipeEntry<ArtisanRecipe>> filteredRecipes = new ArrayList<>();
         for(RecipeEntry<ArtisanRecipe> recipeEntry : this.availableRecipes) {
             if (recipeEntry.value().category.equals(currentCategory)){
-                if (Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.NEUTRAL){
+                if (DispositionType.valueOf(recipeEntry.value().disposition.toUpperCase()) == DispositionType.NEUTRAL){
                     filteredRecipes.add(recipeEntry);
-                } else if(Disposition.valueOf(recipeEntry.value().disposition.toUpperCase()) == Disposition.valueOf(this.disposition.toUpperCase()) || this.isCreative) {
+                } else if(DispositionType.valueOf(recipeEntry.value().disposition.toUpperCase()) == DispositionType.valueOf(this.disposition.toUpperCase()) || this.isCreative) {
                     filteredRecipes.add(recipeEntry);
                 }
             }
         }
         this.availableRecipes = filteredRecipes;
+        int index = 0;
+        for(RecipeEntry<ArtisanRecipe> recipe : availableRecipes) {
+            ArtisanRecipePacket artisanRecipePacket = new ArtisanRecipePacket(index++, recipe.value().getOutput());
+            ServerPlayNetworking.send((ServerPlayerEntity) this.playerEntity, artisanRecipePacket);
+        }
+        this.recipesSize.set(availableRecipes.size());
     }
 
     void populateResult(PlayerEntity player) {
@@ -243,6 +298,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
             ItemStack itemStack = recipeEntry.value().craft(new MultipleStackRecipeInput(inputs), this.world.getRegistryManager());
             itemStack.set(DataComponentTypesME.ARTISAN_DATA, new ArtisanDataComponent(player.getUuid()));
+            this.xp = recipeEntry.value().xp;
 
             if (itemStack.get(DataComponentTypes.MAX_DAMAGE) != null){
                 int maxDamage = (int) (itemStack.getMaxDamage() + itemStack.getMaxDamage() * 0.25);
@@ -257,6 +313,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             }
         } else {
             this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+            this.xp = 0;
         }
         this.sendContentUpdates();
     }

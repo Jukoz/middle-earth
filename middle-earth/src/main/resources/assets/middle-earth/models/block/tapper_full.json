@@ -3,11 +3,11 @@
 	"texture_size": [32, 32],
 	"ambientocclusion": true,
 	"textures": {
-		"0": "me:block/wooden_bucket",
-		"2": "me:block/syrup",
-		"3": "me:block/wooden_bucket_handle",
-		"4": "me:block/tapper",
-		"particle": "me:block/wooden_bucket"
+		"0": "middle-earth:block/wooden_bucket",
+		"2": "middle-earth:block/syrup",
+		"3": "middle-earth:block/wooden_bucket_handle",
+		"4": "middle-earth:block/tapper",
+		"particle": "middle-earth:block/wooden_bucket"
 	},
 	"elements": [
 		{

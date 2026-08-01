@@ -19,7 +19,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
@@ -27,15 +26,15 @@ import net.sevenstars.middleearth.block.special.structureManager.features.Struct
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureNestList;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
-import net.sevenstars.middleearth.resources.StructureManagerDatasME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
-    ModLogger logger = MiddleEarth.LOGGER;
     private static final String ID = "structure_manager";
 
     private enum SyncedData {
@@ -62,6 +61,13 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     // Runtime
     private StructureManagerData managerData;
     private boolean worldWasSet = false;
+    private boolean registered = false;
+
+    @Override
+    public void markRemoved() {
+        StructureManagerService.unregister(this);
+        super.markRemoved();
+    }
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
@@ -141,8 +147,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public void showAllEntities() {
         if(structureNestList == null)
             return;
-        for(var nest : structureNestList.getManagers()){
-            for(var uuid : nest.getEntityUuids()){
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            for(UUID uuid : nest.getEntityUuids()){
                 if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
                     livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 10*20));
                 }
@@ -153,8 +159,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public void respawnAllEntities() {
         if(structureNestList == null)
             return;
+        if(world == null || world.isClient)
+            return;
         for(var nest : structureNestList.getManagers()){
-            nest.forceRespawn(managerData, world, pos);
+            nest.forceRespawn(managerData, (ServerWorld) world, pos);
         }
     }
 
@@ -165,7 +173,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
         SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
         this.structureNestList.addNest(manager);
-        MiddleEarth.LOGGER.logDebugMsg("Subscribed new nest to [%s] with a nest at [%s] which is <%s>".formatted(this.pos, nestPos, nestId));
         return true;
     }
 
@@ -173,7 +180,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(entity.getWorld().isClient)
             return;
         StructureManagerBlockEntity blockEntity = (StructureManagerBlockEntity) entity.getWorld().getBlockEntity(pos);
-        if(blockEntity!=null && !blockEntity.isRemoved()){
+        if(blockEntity != null && !blockEntity.isRemoved()){
             blockEntity.structureNestList.computeDeath(entity);
             blockEntity.world.markDirty(pos);
         }
@@ -183,6 +190,11 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(!world.isClient && worldWasSet){
             tryToInitializeManager(world);
             this.worldWasSet = false;
+        }
+
+        if (!world.isClient && !this.registered) {
+            StructureManagerService.register(this);
+            this.registered = true;
         }
 
         if(!enabled)
@@ -200,7 +212,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         boolean haveToDoWellnessCheck = (timeOfDay > 11000 && timeOfDay < 12000) || (timeOfDay >= 23000) && !wellnessChecked;
         for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
-                managerData = StructureManagerService.GetStructureManagerData(serverWorld, structureManagerIdentifier);
+                managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
             if(haveToDoWellnessCheck){
                 data.doWellnessCheck(managerData, serverWorld, blockPos);
             }
@@ -218,11 +230,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureManagerIdentifier == null)
             return;
 
-        this.managerData = StructureManagerService.GetStructureManagerData(world, structureManagerIdentifier);
+        this.managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
         if(structureNestList == null)
             this.structureNestList = new StructureNestList();
         if(managerData == null) {
-            this.logger.logDebugMsg("%s::[%s] Couldn't find managerData under <%s>".formatted(ID, pos, managerData));
             return;
         };
 
@@ -252,7 +263,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     public void fetchBeds(){
         // TODO : Fetch all beds surrounding the nodes, making sure there's no duplicate
-        StructureManagerData managerData = getWorld().getRegistryManager().getOptional(StructureManagerDatasME.KEY).get().get(structureManagerIdentifier);
+        StructureManagerData managerData = getWorld().getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get().get(structureManagerIdentifier);
         for(SpawnNestManager data : structureNestList.getManagers()) {
             SpawnNestNodeData nodeData = managerData.getNpcSpawnNest(data.getId());
             if(nodeData == null)

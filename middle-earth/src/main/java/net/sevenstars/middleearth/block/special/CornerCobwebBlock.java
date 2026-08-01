@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CobwebBlock;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -14,8 +15,10 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.block.WireOrientation;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,9 +49,22 @@ public class CornerCobwebBlock extends CobwebBlock {
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockPos sidePos = pos.offset(state.get(FACING));
         BlockPos verticalPos = pos.offset(state.get(HANGING) ? Direction.UP : Direction.DOWN);
-        return !world.isWater(pos) &&
-                world.getBlockState(verticalPos).isSolidBlock(world, verticalPos) ||
+
+        return world.getBlockState(verticalPos).isSolidBlock(world, verticalPos) ||
                 world.getBlockState(sidePos).isSolidBlock(world, sidePos);
+    }
+
+    @Override
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
+        if (!world.isClient) {
+            for (Direction direction : Direction.values()) {
+                if (world.getFluidState(pos.offset(direction)).isIn(net.minecraft.registry.tag.FluidTags.WATER)) {
+                    world.breakBlock(pos, true);
+                    return;
+                }
+            }
+        }
+        super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
     }
 
     @Override

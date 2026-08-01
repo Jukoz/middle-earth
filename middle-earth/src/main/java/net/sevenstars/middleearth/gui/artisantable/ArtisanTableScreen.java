@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
+import net.minecraft.inventory.CraftingResultInventory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
@@ -50,7 +51,6 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     private float scrollAmount;
     private boolean mouseClicked;
     private int scrollOffset;
-    private boolean canCraft;
 
     private static final Vector3f ARMOR_STAND_TRANSLATION = new Vector3f();
     private static final Quaternionf ARMOR_STAND_ROTATION = new Quaternionf().rotationXYZ(0.43633232f, 0.0f, (float)Math.PI);
@@ -83,6 +83,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 0, getTabTranslation("pickaxe"), ToolItemsME.STEEL_PICKAXE.getDefaultStack(), ArtisanTableInputsShape.PICKAXE));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 1, getTabTranslation("shovel"), ToolItemsME.STEEL_SHOVEL.getDefaultStack(), ArtisanTableInputsShape.SHOVEL));
         tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 2, getTabTranslation("hoe"), ToolItemsME.STEEL_HOE.getDefaultStack(), ArtisanTableInputsShape.HOE));
+        tabs.get(index).add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.ABOVE, 3, getTabTranslation("chisel"), ToolItemsME.STEEL_CHISEL.getDefaultStack(), ArtisanTableInputsShape.CHISEL));
         index++;
 
         categories.add(new ArtisanTableTab(this.client, this, ArtisanTableTabType.LEFT, index, getTabTranslation("armors"), EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE.getDefaultStack()));
@@ -145,7 +146,20 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     }
 
-    private void equipArmorStand(ItemStack stack) {
+    private boolean canCraft() {
+        return !handler.getAvailableOutputs().isEmpty();
+    }
+
+    @Override
+    protected void handledScreenTick() {
+        super.handledScreenTick();
+        CraftingResultInventory resultInventory = this.handler.output;
+        if(resultInventory != null && resultInventory.getStack(0) != ItemStack.EMPTY) {
+            equipArmorStand(resultInventory.getStack(0));
+        }
+    }
+
+    public void equipArmorStand(ItemStack stack) {
         if (this.armorStand == null) {
             return;
         }
@@ -200,7 +214,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
         this.renderRecipeIcons(context, l, m, n);
-        InventoryScreen.drawEntity(context, i, j, this.x + 206, this.y + 75, 25.0F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
+        InventoryScreen.drawEntity(context, i, j, this.x + 412, this.y + 128, 27.5F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
 
     }
 
@@ -232,25 +246,25 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     protected void drawMouseoverTooltip(DrawContext context, int x, int y) {
         super.drawMouseoverTooltip(context, x, y);
-        if (this.canCraft) {
+        if (canCraft()) {
             int i = this.x + 76;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
-            List<RecipeEntry<ArtisanRecipe>> list = (this.handler).getAvailableRecipes();
+            List<ItemStack> list = (this.handler).getAvailableOutputs();
 
-            for(int l = this.scrollOffset; l < k && l < (this.handler).getAvailableRecipeCount(); ++l) {
+            for(int l = this.scrollOffset; l < k && l < (this.handler).getAvailableOutputs().size(); ++l) {
                 int m = l - this.scrollOffset;
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-                    context.drawItemTooltip(this.textRenderer, list.get(l).value().getOutput(), x, y);
+                    context.drawItemTooltip(this.textRenderer, list.get(l), x, y);
                 }
             }
         }
     }
 
     private void renderRecipeBackground(DrawContext context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
-        for(int i = this.scrollOffset; i < scrollOffset && i < ((ArtisanTableScreenHandler)this.handler).getAvailableRecipeCount(); ++i) {
+        for(int i = this.scrollOffset; i < scrollOffset && i < ((ArtisanTableScreenHandler)this.handler).getAvailableOutputs().size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
@@ -268,13 +282,13 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<RecipeEntry<ArtisanRecipe>> list = this.handler.getAvailableRecipes();
-        for (int i = this.scrollOffset; i < scrollOffset && i < (this.handler).getAvailableRecipeCount(); ++i) {
+        List<ItemStack> list = this.handler.getAvailableOutputs();
+        for (int i = this.scrollOffset; i < scrollOffset && i < (this.handler).getAvailableOutputs().size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
-            context.drawItem(list.get(i).value().getOutput(), k, m);
+            context.drawItem(list.get(i), k, m);
         }
 
     }
@@ -298,7 +312,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 break;
             }
         }
-        if (this.canCraft) {
+        if (canCraft()) {
             int i = this.x + 76;
             int j = this.y + 14;
             int k = this.scrollOffset + 12;
@@ -309,7 +323,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 double e = mouseY - (double)(j + m / 4 * 18);
                 if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && (this.handler).onButtonClick(this.client.player, l)) {
                     MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-                    this.client.interactionManager.clickButton((this.handler).syncId, l);
+                    this.handler.setSelectedRecipe(l);
                     return true;
                 }
             }
@@ -350,16 +364,15 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private boolean shouldScroll() {
-        return this.canCraft && this.handler.getAvailableRecipeCount() > 12;
+        return canCraft() && this.handler.getAvailableOutputs().size() > 12;
     }
 
     protected int getMaxScroll() {
-        return (this.handler.getAvailableRecipeCount() + 4 - 1) / 4 - 3;
+        return (this.handler.getAvailableOutputs().size() + 4 - 1) / 4 - 3;
     }
 
     private void onInventoryChange() {
-        this.canCraft = this.handler.canCraft();
-        if (!this.canCraft) {
+        if (!canCraft()) {
             this.scrollAmount = 0.0F;
             this.scrollOffset = 0;
         }

@@ -22,6 +22,7 @@ public class MineableAxe {
 
             add(ModNatureBlocks.PINE_BRANCHES);
 
+            add(ModBlocks.AGED_WOOD_DOOR);
             add(ModDecorativeBlocks.BLUE_HOBBIT_DOOR);
             add(ModDecorativeBlocks.GREEN_HOBBIT_DOOR);
             add(ModDecorativeBlocks.LIGHT_BLUE_HOBBIT_DOOR);
@@ -30,6 +31,7 @@ public class MineableAxe {
             add(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
             add(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
             add(ModDecorativeBlocks.TALL_BLACK_PINE_DOOR);
+            add(ModDecorativeBlocks.TALL_FIR_DOOR);
             add(ModDecorativeBlocks.OAK_STABLE_DOOR);
             add(ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR);
             add(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
@@ -42,6 +44,7 @@ public class MineableAxe {
             add(ModDecorativeBlocks.RUINED_DWARVEN_DOOR);
             add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
 
+            add(ModBlocks.AGED_WOOD_TRAPDOOR);
             add(ModBlocks.BLACK_WATTLE_TRAPDOOR);
             add(ModBlocks.DARK_WATTLE_TRAPDOOR);
             add(ModBlocks.GREEN_WATTLE_TRAPDOOR);

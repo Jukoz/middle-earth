@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.gui.structuremanager.structurenest;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -17,7 +19,7 @@ import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
-import net.sevenstars.middleearth.resources.StructureManagerDatasME;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
@@ -25,8 +27,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Environment(value= EnvType.CLIENT)
 public class StructureNestScreen extends HandledScreen<StructureNestScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/structure_manager.png");
+    private static final Identifier TEXTURE = MiddleEarth.ofPath("textures", "gui", "structure_manager.png");
     private static final int TEXT_COLOR = Color.WHITE.getRGB();
 
 
@@ -45,7 +48,7 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
         World world = inventory.player.getWorld();
 
         this.managers = new ArrayList<>();
-        var registryManager = world.getRegistryManager().getOptional(StructureManagerDatasME.KEY).get();
+        var registryManager = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get();
         for(RegistryKey<StructureManagerData> data : registryManager.getKeys()){
             this.managers.add(registryManager.get(data.getValue()));
         }
@@ -126,7 +129,13 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
     }
 
     @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        renderBackground(context, mouseX, mouseY, deltaTicks);
+        super.render(context, mouseX, mouseY, deltaTicks);
         ModWidget.updateMouse(mouseX, mouseY);
 
         int centerX = (int) (client.currentScreen.width / 2f);
@@ -174,7 +183,6 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
         else
             this.isEnabledToggleButton.active = false;
     }
-
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {

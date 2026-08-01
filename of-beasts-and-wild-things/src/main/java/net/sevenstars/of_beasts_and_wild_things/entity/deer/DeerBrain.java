@@ -5,9 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -15,12 +13,10 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.ai.goal.FleeEntityGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.sevenstars.api.entity.ai.brain.task.EatBerriesTask;
 import net.sevenstars.api.entity.ai.brain.task.FleeFromEntityTask;
 import net.sevenstars.api.entity.ai.brain.task.MoveTowardsBlockTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
 
 public class DeerBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super DeerEntity>>> SENSORS;

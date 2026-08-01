@@ -138,18 +138,22 @@ public class CommandRace {
         ServerPlayerEntity targetPlayer = EntityArgumentType.getPlayer(context, PLAYER);
         ServerPlayerEntity source = context.getSource().getPlayer();
 
-        if(raceId != null && targetPlayer != null && source != null) {
+        if(raceId != null && targetPlayer != null) {
             PlayerData playerData = StateSaverAndLoader.getPlayerState(targetPlayer);
             if(playerData != null){
-                Race race = RaceLookup.getRace(source.getWorld(), raceId);
+                Race race = RaceLookup.getRace(targetPlayer.getWorld(), raceId);
                 if(race != null){
                     RaceUtil.updateRace(targetPlayer, race, true);
-                    MutableText sourceText = Text.translatable("command.%s.race.set.target.success".formatted(MiddleEarth.MOD_ID), targetPlayer.getName(),
-                            race.getFullName().copyContentOnly().withColor(RACE_COLOR));
-                    source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
                     MutableText targetText = Text.translatable("command.%s.race.set.success".formatted(MiddleEarth.MOD_ID),
                             race.getFullName().copyContentOnly().withColor(RACE_COLOR));
                     targetPlayer.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
+
+                    if(source != null){
+                        MutableText sourceText = Text.translatable("command.%s.race.set.target.success".formatted(MiddleEarth.MOD_ID), targetPlayer.getName(),
+                                race.getFullName().copyContentOnly().withColor(RACE_COLOR));
+                        source.sendMessage(sourceText.withColor(ModColors.SUCCESS.color));
+                    }
+
                     return 0;
                 }
             }

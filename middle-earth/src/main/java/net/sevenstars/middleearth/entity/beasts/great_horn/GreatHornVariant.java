@@ -12,6 +12,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryFixedCodec;
 import net.minecraft.util.AssetInfo;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
 import java.util.List;
 
@@ -24,9 +25,9 @@ public record GreatHornVariant(GreatHornAssetInfo assetInfo, SpawnConditionSelec
 					.apply(instance, GreatHornVariant::new)
 	);
 
-	public static final Codec<RegistryEntry<GreatHornVariant>> ENTRY_CODEC = RegistryFixedCodec.of(GreatHornVariants.KEY);
+	public static final Codec<RegistryEntry<GreatHornVariant>> ENTRY_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.GREAT_HORN_VARIANTS);
 
-	public static final PacketCodec<RegistryByteBuf, RegistryEntry<GreatHornVariant>> PACKET_CODEC = PacketCodecs.registryEntry(GreatHornVariants.KEY);
+	public static final PacketCodec<RegistryByteBuf, RegistryEntry<GreatHornVariant>> PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.GREAT_HORN_VARIANTS);
 
 	private GreatHornVariant(GreatHornAssetInfo assetInfo) {
 		this(assetInfo, SpawnConditionSelectors.EMPTY);

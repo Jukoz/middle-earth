@@ -1,21 +1,30 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
+import net.fabricmc.fabric.api.client.model.loading.v1.SimpleUnbakedExtraModel;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
+import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
+import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.block.special.forge.ForgeEntityRenderer;
+import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
+import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
@@ -24,11 +33,11 @@ import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.backAttachments.armored.CapeMediumModel;
+import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.armored.HoodModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.ErynGalenWatchwardenHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.SilvanLordHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.elves.woodlandrealm.WoodlandRealmCrownModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.humans.rohan.RohanHelmetModel;
-import net.sevenstars.middleearth.client.model.equipment.head.helmetAttachments.armored.HoodModel;
 import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
@@ -40,19 +49,19 @@ import net.sevenstars.middleearth.client.renderer.handheld.KiteShieldModelRender
 import net.sevenstars.middleearth.client.renderer.handheld.RoundShieldModelRenderer;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.EntityModelsME;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityRenderer;
-import net.sevenstars.middleearth.entity.barrow_wights.BarrowWightEntityRenderer;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatRenderer;
 import net.sevenstars.middleearth.entity.beasts.experimental_mount.ExperimentalMountRenderer;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollRenderer;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.warg.WargRenderer;
-import net.sevenstars.middleearth.entity.model.ModEntityModels;
-import net.sevenstars.middleearth.entity.npcs.NpcEntityRenderer;
+import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileRenderer;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
@@ -64,20 +73,21 @@ import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreen;
+import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
+import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.network.ModClientNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
-import net.sevenstars.middleearth.particles.custom.RingOfSmokeParticle;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -101,54 +111,69 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         KeyInputHandler.register();
 
-        ModEntityModels.getModels();
-        EntityRendererRegistry.register(ModEntities.BARROW_WIGHT, BarrowWightEntityRenderer::new);
+        EntityModelsME.getModels();
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("sneak_attack"), SneakAttackProperty.CODEC);
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("hot_component"), HotComponentProperty.CODEC);
+
         // Entities
 
-        EntityRendererRegistry.register(ModEntities.SNOW_TROLL, SnowTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.CAVE_TROLL, CaveTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.STONE_TROLL, StoneTrollRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SNOW_TROLL, SnowTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.CAVE_TROLL, CaveTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.STONE_TROLL, StoneTrollRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.PETRIFIED_TROLL, PetrifiedTrollRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.BROADHOOF_GOAT, BroadhoofGoatRenderer::new);
-        EntityRendererRegistry.register(ModEntities.GREAT_HORN, GreatHornRenderer::new);
-        EntityRendererRegistry.register(ModEntities.WARG, WargRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.BROADHOOF_GOAT, BroadhoofGoatRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.GREAT_HORN, GreatHornRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.WARG, WargRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.REINFORCED_BARREL, BarrelEntityRenderer::new);
-
-        EntityRendererRegistry.register(ModEntities.SHELOBITE_LARVA, ShelobiteLarvaRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SHELOBITE_SCUTTLER, ShelobiteScuttlerRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SPAWN_OF_SHELOB, SpawnOfShelobRenderer::new);
-        //EntityRendererRegistry.register(ModEntities.BALROG, BalrogRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.REINFORCED_BARREL, BarrelEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.EXPERIMENTAL_ENTITY, ExperimentalMountRenderer::new);
-
-        EntityRendererRegistry.register(ModEntities.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PEBBLE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PINECONE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.LIT_PINECONE, FlyingItemEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SPEAR, SpearEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.BOULDER, BoulderEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.SMOKE_RING_PROJECTILE, SmokeRingProjectileRenderer::new);
-        EntityRendererRegistry.register(ModEntities.WEB, FlyingItemEntityRenderer::new);
-
-        EntityRendererRegistry.register(ModEntities.NPC, NpcEntityRenderer::new);
+        
+        EntityRendererRegistry.register(EntitiesME.SHELOBITE_LARVA, ShelobiteLarvaRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SHELOBITE_SCUTTLER, ShelobiteScuttlerRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SPAWN_OF_SHELOB, SpawnOfShelobRenderer::new);
+        //EntityRendererRegistry.register(EntitiesME.BALROG, BalrogRenderer::new);
 
 
-        EntityRendererRegistry.register(ModEntities.SEAT_ENTITY, SeatRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.PEBBLE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.PINECONE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.LIT_PINECONE, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SPEAR, SpearEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.BOULDER, BoulderEntityRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.SMOKE_RING_PROJECTILE, SmokeRingProjectileRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.WEB, FlyingItemEntityRenderer::new);
 
+        EntityRendererRegistry.register(EntitiesME.NPC, NpcEntityRenderer::new);
+
+
+        EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
+        //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
-        HandledScreens.register(ModScreenHandlers.FORGE_HEATING_SCREEN_HANDLER, ForgeHeatingScreen::new);
         HandledScreens.register(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
+        HandledScreens.register(ModScreenHandlers.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
         HandledScreens.register(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
         HandledScreens.register(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ModScreenHandlers.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ModScreenHandlers.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 
+        BlockEntityRendererFactories.register(ModBlockEntities.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.FORGE, ForgeEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.LARCH_COFFER, LarchCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.PINE_COFFER, PineCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.FIR_COFFER, FirCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.BEECH_COFFER, BeechCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.CHESTNUT_COFFER, ChestnutCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.OAK_COFFER, OakCofferEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.WILLOW_COFFER, WillowCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
+        //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.PLATE, PlateEntityRenderer::new);
+        BlockEntityRendererFactories.register(net.minecraft.block.entity.BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_CHESTPLATE, CustomChestplateModel::getTexturedModelData);
@@ -196,16 +221,19 @@ public class MiddleEarthClient implements ClientModInitializer {
             ArmorRenderer.register(new BootsArmorRenderer(), armor.asItem());
         });
 
-        EquipmentItemsME.helmetAtttachments.forEach(hood -> {
+        EquipmentItemsME.helmetAttachments.forEach(hood -> {
             ArmorRenderer.register(new HelmetAttachmentRenderer(), hood);
         });
         EquipmentItemsME.backAttachments.forEach(cape -> {
             ArmorRenderer.register(new BackAttachmentRenderer(), cape);
         });
 
+        ModelLoadingPlugin.register(pluginContext -> {
+            pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(MiddleEarth.ofPath("item", "plate_apple")));
+        });
+
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.BIOME_FOG_PARTICLE, BiomeFogParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.RING_OF_SMOKE, RingOfSmokeParticle.Factory::new);
 
         initializeRenderLayerMap();
         BlockColorsME.initializeBlockColors();
@@ -277,6 +305,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModNatureBlocks.WILDERGRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.BEACH_GRASS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.COASTAL_PANIC_GRASS, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModNatureBlocks.MISTWEED, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.SEDUM, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.ORANGE_SEDUM, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModNatureBlocks.RED_SEDUM, BlockRenderLayer.CUTOUT);
@@ -332,6 +361,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.SILT_GRASS_BLOCK, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_CHALKSOIL, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_CHALKSOIL_SLAB, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_CHALKSOIL_STAIRS, BlockRenderLayer.CUTOUT);
+
         BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_LOAM, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_LOAM_SLAB, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.GRASSY_LOAM_STAIRS, BlockRenderLayer.CUTOUT);
@@ -349,8 +381,14 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.PEBBLED_GRASS_STAIRS, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FIRE_OF_ORTHANC, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.INSCRIPTION_TABLE, BlockRenderLayer.CUTOUT);
 
-        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.TAPPER, BlockRenderLayer.TRANSLUCENT);
+        /*BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_CROCKPOT, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, BlockRenderLayer.CUTOUT);*/
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_PLATE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ROTTEN_PLATE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SILVER_PLATE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.TAPPER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModBlocks.POINTED_LIMESTONE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.POINTED_GALONN, BlockRenderLayer.CUTOUT);
@@ -358,6 +396,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.POINTED_DOLOMITE, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModBlocks.EMBERS, BlockRenderLayer.CUTOUT);
+
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.REINFORCED_SCAFFOLDING, BlockRenderLayer.CUTOUT);
 
         for(Block block : SimpleDoubleBlockModel.doubleBlocks){
             BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
@@ -436,6 +476,44 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.MEDIUM_GLOWSTONE_BUD, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.LARGE_GLOWSTONE_BUD, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BLACK_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_BURNT_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_FANCY_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_FANCY_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_FANCY_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_GRAY_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_ROTTEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_WHITE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SMALL_YELLOW_CURTAIN, BlockRenderLayer.CUTOUT);
+
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BLACK_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BURNT_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_BROWN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DARK_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FANCY_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FANCY_GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FANCY_RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GRAY_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GREEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.PURPLE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.RED_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ROTTEN_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.WHITE_CURTAIN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.YELLOW_CURTAIN, BlockRenderLayer.CUTOUT);
+
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DWARVEN_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.WALL_DWARVEN_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.TREATED_STEEL_LANTERN, BlockRenderLayer.CUTOUT);
@@ -473,8 +551,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.TREATED_STEEL_BARS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.TREATED_STEEL_DOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.BURZUM_BARS, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.AGED_WOOD_DOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.BRONZE_DOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.CRUDE_DOOR, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.AGED_WOOD_TRAPDOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.BRONZE_TRAPDOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.CRUDE_TRAPDOOR, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.TREATED_STEEL_TRAPDOOR, BlockRenderLayer.CUTOUT);
@@ -546,6 +626,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BROWN_FAT_POT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.FAT_POT, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CANDLESTICK, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_LAMP, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CANDLE_HOLDER, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.SKULL_CANDLE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CANDLE_HEAP, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BIG_BRAZIER, BlockRenderLayer.CUTOUT);
@@ -566,10 +650,15 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GILDED_WALL_SCONCE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ORCISH_WALL_SCONCE, BlockRenderLayer.CUTOUT);
 
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ORCISH_ARTISAN_TABLE, BlockRenderLayer.CUTOUT);
+
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.STONE_LECTERN, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.BASALT_STATUE, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GALONN_STATUE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.DEEPSLATE_STATUE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.PUMICE_STATUE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GABBRO_STATUE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.GALONN_STATUE, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ARKENSTONE, BlockRenderLayer.TRANSLUCENT);
@@ -585,6 +674,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.TREATED_WOOD_ROPE_FENCE, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.STRUCTURE_MANAGER, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModDecorativeBlocks.ORC_STRUCTURE_MANAGER, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.STRUCTURE_NEST, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(ModNatureBlocks.MIRKWOOD_VINES, BlockRenderLayer.CUTOUT);

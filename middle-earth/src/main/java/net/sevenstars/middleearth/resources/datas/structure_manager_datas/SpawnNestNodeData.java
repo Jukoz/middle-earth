@@ -21,7 +21,7 @@ public class SpawnNestNodeData {
     private int bedRadius;
     private final List<StructureSpawnNestPool> structureSpawnNestPools;
 
-    private SpawnNestNodeData(Identifier id, int respawnTickDelay, int bedRadius, List<StructureSpawnNestPool> npcPools) {
+    public SpawnNestNodeData(Identifier id, int respawnTickDelay, int bedRadius, List<StructureSpawnNestPool> npcPools) {
         this.id = id;
         this.respawnTickDelay = respawnTickDelay;
         this.bedRadius = bedRadius;

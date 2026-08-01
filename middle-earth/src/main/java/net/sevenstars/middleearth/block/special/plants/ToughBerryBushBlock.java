@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special.plants;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.entity.EntityCollisionHandler;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -84,7 +84,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
 
     @Override
     protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-        if (entity instanceof LivingEntity && entity.getType() != ModEntities.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
+        if (entity instanceof LivingEntity && entity.getType() != EntitiesME.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
             entity.slowMovement(state, new Vec3d(0.800000011920929, 0.75, 0.800000011920929));
             if (world instanceof ServerWorld) {
                 ServerWorld serverWorld = (ServerWorld)world;

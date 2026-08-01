@@ -1,0 +1,490 @@
+{
+  "pools": [
+    {
+      "entries": [	
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_axe",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_sword",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_longsword",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_dagger",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_spear",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_bow",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_noble_longbow",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_soldier_helmet",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_soldier_chestplate",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_soldier_leggings",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:woodland_realm_soldier_boots",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		
+		
+		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_machete",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_axe",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:orcish_bow",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_jailer_collar",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_marauder_helmet",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_marauder_chestplate",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_marauder_leggings",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_marauder_boots",
+		  "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+			{
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+		  ]
+        }
+
+      ],
+      "rolls": 1
+    }
+  ]
+}

@@ -31,15 +31,11 @@ public class ShearItemMixin {
     private static void createToolComponent(CallbackInfoReturnable<ToolComponent> cir) {
         RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
         cir.setReturnValue(new ToolComponent(List.of(
-                ToolComponent.Rule.of(registryEntryLookup.getOrThrow(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs"))), 15.0F),
+                ToolComponent.Rule.ofAlwaysDropping(
+                        registryEntryLookup.getOrThrow(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs"))), 15.0F),
                 ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.LEAVES), 15.0F),
                 ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.WOOL), 5.0F),
                 ToolComponent.Rule.of(RegistryEntryList.of(Blocks.VINE.getRegistryEntry(), Blocks.GLOW_LICHEN.getRegistryEntry()), 2.0F)), 1.0F, 1, false));
 
-    }
-
-    @Inject(method = "postMine", at = @At(value = "HEAD"), cancellable = true)
-    public void isSuitableFor(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(state.isIn(BlockTags.LEAVES) || state.isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs"))) || state.isOf(Blocks.SHORT_GRASS) || state.isOf(Blocks.FERN) || state.isOf(Blocks.DEAD_BUSH) || state.isOf(Blocks.HANGING_ROOTS) || state.isOf(Blocks.VINE) || state.isOf(Blocks.TRIPWIRE) || state.isIn(BlockTags.WOOL));
     }
 }

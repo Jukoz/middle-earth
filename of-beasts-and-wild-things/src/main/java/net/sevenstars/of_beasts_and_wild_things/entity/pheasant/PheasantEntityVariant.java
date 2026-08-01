@@ -1,7 +1,5 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
-import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityVariant;
-
 import java.util.Arrays;
 import java.util.Comparator;
 

@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.block.special.reinforcedChest;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.client.model.*;
@@ -18,7 +18,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.joml.Quaternionf;
 
 public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends ChestBlockEntityRenderer<T> {
 
@@ -31,7 +30,7 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
 
     public ReinforcedChestEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         super(ctx);
-        ModelPart modelPart = ctx.getLayerModelPart(ModEntityModelLayers.REINFORCED_CHEST);
+        ModelPart modelPart = ctx.getLayerModelPart(EntityModelLayersME.REINFORCED_CHEST);
         this.chestBase = modelPart.getChild(BASE);
         this.chestLid = modelPart.getChild(LID);
         this.chestLatch = modelPart.getChild(LATCH);

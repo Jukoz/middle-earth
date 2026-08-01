@@ -1,9 +1,13 @@
 package net.sevenstars.middleearth.block.special.bellows;
 
+
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -51,13 +55,13 @@ public class BellowsBlockEntity extends BlockEntity {
             if (!world.isClient){
                 if(blockEntity.activate(direction)){
                     BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
-                    if(world.getBlockState(forgePos).getBlock() == ModDecorativeBlocks.FORGE) {
+                    if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("forge")))) {
                         ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
                         if(forgeBlockEntity != null) {
                             forgeBlockEntity.bellowsBoost();
                         }
                     }
-                    world.playSound((PlayerEntity)null,  pos, ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 2.0F, 1.0F);
+                    world.playSound((PlayerEntity)null,  pos, SoundsME.BELLOWS_PUSH, SoundCategory.BLOCKS, 2.0F, 1.0F);
                     world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
                     return true;
                 }

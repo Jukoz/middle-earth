@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MineablePickaxe {
+    public static List<Block> baseStoneOverworld = new ArrayList<>() {
+        {
+
+        }
+    };
+
     public static List<Block> blocks = new ArrayList<>() {
         {
             add(ModBlocks.POINTED_GALONN);
@@ -15,22 +21,32 @@ public class MineablePickaxe {
             add(ModBlocks.POINTED_DOLOMITE);
             add(ModBlocks.POINTED_IZHERABAN);
 
+            add(ModDecorativeBlocks.STONE_LECTERN);
+            add(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF);
+
             add(ModDecorativeBlocks.BASALT_STATUE);
             add(ModDecorativeBlocks.CALCITE_STATUE);
+            add(ModDecorativeBlocks.DEEPSLATE_STATUE);
+            add(ModDecorativeBlocks.DIORITE_STATUE);
+            add(ModDecorativeBlocks.GABBRO_STATUE);
             add(ModDecorativeBlocks.GALONN_STATUE);
             add(ModDecorativeBlocks.KHAGALABAN_STATUE);
             add(ModDecorativeBlocks.MEDGON_SPIKE);
             add(ModDecorativeBlocks.PUMICE_STATUE);
             add(ModDecorativeBlocks.TUFF_STATUE);
+            add(ModDecorativeBlocks.ZIGILABAN_STATUE);
 
             add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+
+            add(ModBlocks.BURZUM_SPIKES);
 
             add(ModDecorativeBlocks.BRONZE_CHAIN);
             add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);
             add(ModDecorativeBlocks.CRUDE_CHAIN);
             add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN);
             add(ModDecorativeBlocks.SPIKY_CHAIN);
+            add(ModDecorativeBlocks.WATERING_CAN);
 
             add(ModDecorativeBlocks.CHIMNEY);
 
@@ -49,6 +65,10 @@ public class MineablePickaxe {
             add(ModBlocks.KHAZAD_STEEL_BLOCK);
             add(ModBlocks.EDHEL_STEEL_BLOCK);
             add(ModBlocks.BURZUM_STEEL_BLOCK);
+
+            add(ModBlocks.ADAMANT_BLOCK);
+            add(ModBlocks.RUBY_BLOCK);
+            add(ModBlocks.SAPPHIRE_BLOCK);
 
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);
@@ -82,6 +102,8 @@ public class MineablePickaxe {
             add(ModBlocks.GILDED_BARS);
 
             add(ModDecorativeBlocks.FORGE);
+
+            add(ModDecorativeBlocks.STONE_ANVIL);
             add(ModDecorativeBlocks.TREATED_ANVIL);
             add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
             add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);

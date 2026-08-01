@@ -10,7 +10,8 @@ import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Khazad Steel", "Khazâd-Steel");
         specialNames.put("Druwaith", "Drúwaith");
         specialNames.put("Lothlorien", "Lothlórien");
+        specialNames.put("Elvenkings Halls", "Elvenking's Halls");
         specialNames.put("Nurn", "Núrn");
         specialNames.put("Rhun", "Rhûn");
         specialNames.put("Lorien", "Lórien");
@@ -49,9 +51,16 @@ public class LanguageProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-
         TranslationEntries.blockEntries.forEach(block -> {
             translateBlock(translationBuilder, block);
+        });
+
+        TranslationEntries.spawnEggEntries.forEach(spawnEgg -> {
+            var path = spawnEgg.getPath();
+            if(!path.contains("_spawn_egg"))
+                path += "_spawn_egg";
+
+            translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
         });
 
         TranslationEntries.itemEntries.forEach(item -> {
@@ -82,12 +91,27 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "tooltip", hood.getName());
         }
 
-        for (Disposition disposition : Disposition.values()){
-            createTranslation(translationBuilder, "disposition", disposition.name().toLowerCase());
+        for (DispositionType dispositionType : DispositionType.values()){
+            createTranslation(translationBuilder, "disposition", dispositionType.name().toLowerCase());
         }
 
         TranslationEntries.factionEntries.forEach(faction -> {
             createTranslation(translationBuilder, "faction", faction);
+        });
+
+        TranslationEntries.npcTypeEntries.forEach(npcData -> {
+            createNpcDataTranslation(translationBuilder, "npc_type", npcData);
+        });
+
+        TranslationEntries.raceEntries.forEach(race -> {
+            createTranslation(translationBuilder, "race", race);
+        });
+
+        TranslationEntries.structureManagerEntries.forEach(structureManagerData -> {
+            createTranslation(translationBuilder, "structure_manager_data", structureManagerData.getId().getPath());
+            for(SpawnNestNodeData spawnNest : structureManagerData.getNpcSpawnNest()) {
+                createTranslation(translationBuilder, "structure_nest", spawnNest.getId().getPath());
+            }
         });
 
         TranslationEntries.spawnEntries.forEach(faction -> {
@@ -117,23 +141,47 @@ public class LanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generateName(suffixSplit));
     }
 
+    public void createNpcDataTranslation(TranslationBuilder translationBuilder, String prefix, String suffix) {
+        StringBuilder generatedName = new StringBuilder();
+        if (suffix.contains(".")){
+            String [] sub = suffix.split("\\.");
+            var splitId = Arrays.stream(sub).toList();
+
+            if(splitId.size() == 3) // Removes the faction when it's a subfaction (Longbeards Erebor Soldier -> Erebor Soldier)
+            {
+                splitId = Arrays.asList(splitId.get(1), splitId.get(2));
+            }
+
+            for(String rawName : splitId){
+                if(!generatedName.isEmpty() && (!generatedName.toString().endsWith(" ") || !generatedName.toString().endsWith("-")))
+                    generatedName.append(" ");
+
+                generatedName.append(generateName(rawName));
+            }
+        }
+
+        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generatedName.toString());
+    }
+
     public void createBannerTranslation(TranslationBuilder translationBuilder, String prefix, String suffix){
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".black", "Black " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".blue", "Blue " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".brown", "Brown " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".cyan", "Cyan " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".gray", "Gray " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".green", "Green " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".light_blue", "Light Blue " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".light_gray", "light Gray " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".lime", "Lime " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".magenta", "Magenta " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".orange", "Orange " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".pink", "Pink " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".purple", "Purple " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".red", "Red " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".white", "White " + generateName(suffix));
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix + ".yellow", "yellow " + generateName(suffix));
+        String baseTranslationKey = prefix + "." + MiddleEarth.MOD_ID + "." + suffix;
+
+        translationBuilder.add(baseTranslationKey + ".black", "Black " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".blue", "Blue " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".brown", "Brown " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".cyan", "Cyan " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".gray", "Gray " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".green", "Green " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".light_blue", "Light Blue " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".light_gray", "light Gray " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".lime", "Lime " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".magenta", "Magenta " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".orange", "Orange " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".pink", "Pink " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".purple", "Purple " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".red", "Red " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".white", "White " + generateName(suffix));
+        translationBuilder.add(baseTranslationKey + ".yellow", "yellow " + generateName(suffix));
     }
 
     public String generateName(String registryName) {
@@ -152,6 +200,10 @@ public class LanguageProvider extends FabricLanguageProvider {
                 result = result.replaceAll(map.getKey(), map.getValue());
             }
         }
+
+        result = result.replace(" Of ", " of ");
+        result = result.replace(" The ", " the ");
+
         return result;
     }
 

@@ -85,13 +85,14 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient) {
             return ActionResult.SUCCESS;
-        } else {
+        } else if(player.isCreative() && player.isCreativeLevelTwoOp()) {
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
             if(screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
             }
             return ActionResult.CONSUME;
         }
+        return ActionResult.FAIL;
     }
 
     @Nullable

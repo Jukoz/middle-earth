@@ -1,20 +1,7 @@
 package net.sevenstars.middleearth.entity.spider.larva;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.entity.spawn.SpawnContext;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.SpiderNavigation;
@@ -28,19 +15,32 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.spawn.SpawnContext;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.ModTrackedDataHandlerRegistry;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.goals.FollowDifferentMobGoal;
-import net.sevenstars.middleearth.entity.spider.MirkwoodSpiderVariants;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
-import net.sevenstars.middleearth.entity.spider.SpiderVariants;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
-import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -79,6 +79,8 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, CaveTrollEntity.class, true));
     }
 
     @Nullable
@@ -87,7 +89,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         if (entityData instanceof ShelobiteScuttlerEntity.SpiderData spiderData) {
             this.setVariant(spiderData.variant);
         } else {
-            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), SpiderVariants.KEY);
+            Optional<? extends RegistryEntry<SpiderVariant>> optional = Variants.select(SpawnContext.of(world, this.getBlockPos()), DynamicRegistriesME.SPIDER_VARIANTS);
             if (optional.isPresent()) {
                 this.setVariant(optional.get());
                 entityData = new ShelobiteScuttlerEntity.SpiderData(optional.get());
@@ -107,7 +109,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariants.DEFAULT);
+        RegistryEntry<SpiderVariant> spiderVariantRegistryEntry = Variants.getOrDefaultOrThrow(this.getRegistryManager(), SpiderVariantRegistry.DEFAULT);
         builder.add(VARIANT, spiderVariantRegistryEntry);
         builder.add(ATTACK_FLAG, false);
         builder.add(SPIDER_FLAGS, (byte)0);
@@ -150,6 +152,11 @@ public class ShelobiteLarvaEntity extends HostileEntity {
         } else {
             this.climbingTicks = Math.max(0, this.climbingTicks - 1);
         }
+    }
+
+    @Override
+    protected int getExperienceToDrop(ServerWorld world) {
+        return 1;
     }
 
     public SpiderVariant getVariant() {
@@ -227,12 +234,18 @@ public class ShelobiteLarvaEntity extends HostileEntity {
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, SpiderVariants.KEY).ifPresent(this::setVariant);
+        Variants.readVariantFromNbt(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
     }
 
     static {
         SPIDER_FLAGS = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistry.BYTE);
         ATTACK_FLAG = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-        VARIANT = DataTracker.registerData(ShelobiteLarvaEntity.class, ModTrackedDataHandlerRegistry.SPIDER_VARIANT);
+        VARIANT = DataTracker.registerData(ShelobiteLarvaEntity.class, TrackedDataHandlerRegistryME.SPIDER_VARIANT);
+    }
+
+    public static boolean canSpawn(EntityType<ShelobiteLarvaEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        if(spawnReason != SpawnReason.NATURAL)
+            return ShelobiteLarvaEntity.canSpawnInDark(type, serverWorldAccess, spawnReason, blockPos, random);
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
     }
 }

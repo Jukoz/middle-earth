@@ -61,7 +61,7 @@ public class DeerEntityModel extends EntityModel<DeerEntityRenderState> {
             this.runningAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.5F, 1.0F);
         }
         else {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 1.0F);
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.0F, 1.0F);
         }
     }
 }

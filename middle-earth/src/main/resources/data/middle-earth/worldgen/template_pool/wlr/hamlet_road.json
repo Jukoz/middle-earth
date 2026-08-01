@@ -1,0 +1,42 @@
+{
+  "name": "middle-earth:hamlet_road",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/road",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/road_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/road_2",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/road_3",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    }
+  ]
+}

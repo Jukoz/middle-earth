@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
@@ -11,7 +11,7 @@ public class SnowTrollRenderer extends MobEntityRenderer<SnowTrollEntity, TrollE
     private static final String PATH = "textures/entities/trolls/snow/snow_troll1.png";
 
     public SnowTrollRenderer(EntityRendererFactory.Context ctx) {
-        super(ctx, new SnowTrollModel(ctx.getPart(ModEntityModelLayers.SNOW_TROLL)), 1.1f);
+        super(ctx, new SnowTrollModel(ctx.getPart(EntityModelLayersME.SNOW_TROLL)), 1.1f);
     }
 
     @Override

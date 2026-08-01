@@ -48,7 +48,6 @@ public class CommandInformation {
         if(race != null)
             source.sendMessage(Text.literal("Race : ").append(Text.translatable(race.getTranslatableKey())));
 
-
         Faction faction =  PlayerDataService.getPlayerFaction(source, source.getWorld());
         if(faction != null)
             source.sendMessage(Text.literal("Faction : ").append(faction.getFullName()));

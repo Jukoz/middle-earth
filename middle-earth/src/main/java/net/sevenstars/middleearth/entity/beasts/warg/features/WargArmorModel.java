@@ -13,58 +13,61 @@ public class WargArmorModel extends WargModel {
                 super(root);
 
                 this.warg = root.getChild("root");
-                this.head = warg.getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild(EntityModelPartNames.HEAD);
+                this.head = warg.getChild(EntityModelPartNames.BODY).getChild("upper_body").getChild("body_no_legs").getChild(EntityModelPartNames.HEAD);
         }
 
         public static TexturedModelData getTexturedModelData() {
                 ModelData modelData = getArmorModelData();
                 ModelPartData upper_body = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body");
-                ModelPartData body_armor = upper_body.getChild("body_armor");
-                ModelPartData head = upper_body.getChild(EntityModelPartNames.HEAD);
+                ModelPartData body_no_legs = upper_body.getChild("body_no_legs");
+                ModelPartData body_armor = body_no_legs.getChild("body_fur").getChild("body_armor");
+                ModelPartData head = body_no_legs.getChild(EntityModelPartNames.HEAD);
                 ModelPartData front_armor = body_armor.getChild("front_armor");
 
-                ModelPartData front_armor_cube = front_armor.addChild("front_armor_cube", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -6.4F, -5.0F, 14.0F, 11.0F, 10.0F, new Dilation(0.0F))
-                        .uv(49, 0).cuboid(-4.0F, -6.5F, -5.0F, 11.0F, 8.0F, 10.0F, new Dilation(0.4F)), ModelTransform.origin(0F, 0F, 0F));
+                front_armor.addChild("front_armor_cube", ModelPartBuilder.create()
+                        .uv(0, 0).cuboid(-7.0F, -6.4F, -6.0F, 14.0F, 12.0F, 12.0F, new Dilation(0.3F))
+                        .uv(52, 47).cuboid(-4.0F, -6.5F, -6.0F, 11.0F, 8.0F, 12.0F, new Dilation(0.5F)), ModelTransform.origin(0F, 0F, 0F));
 
                 ModelPartData left_chains = front_armor.getChild("left_chains");
-                ModelPartData chains_r1 = left_chains.addChild("chains_r1", ModelPartBuilder.create().uv(102, 24).cuboid(-6.5F, -2.0F, 0.0F, 13.0F, 10.0F, 0.0F, new Dilation(0.1F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0007F, -0.0076F, -0.0002F));
+                left_chains.addChild("chains_r1", ModelPartBuilder.create().uv(34, 69).cuboid(-6.5F, -2.0F, 1.5F, 13.0F, 10.0F, 0.0F, new Dilation(0.1F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
                 ModelPartData right_chains = front_armor.getChild("right_chains");
-                ModelPartData chains_r2 = right_chains.addChild("chains_r2", ModelPartBuilder.create().uv(102, 24).cuboid(-6.5F, -2.0F, 0.0F, 13.0F, 10.0F, 0.0F, new Dilation(0.1F)), ModelTransform.of(0.0F, -1.0F, 0.0F, 0.0007F, 0.0076F, 0.1744F));
+                right_chains.addChild("chains_r2", ModelPartBuilder.create().uv(34, 69).cuboid(-6.5F, -3.0F, -1.5F, 13.0F, 10.0F, 0.0F, new Dilation(0.1F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-                ModelPartData back_armor = body_armor.getChild("back_armor");
-                ModelPartData backlegplate_r1 = back_armor.addChild("backlegplate_r1", ModelPartBuilder.create().uv(42, 62).cuboid(-8.2F, -6.5F, -5.0F, 15.0F, 9.0F, 10.0F, new Dilation(0.5F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -3.1416F, 0.0F, 3.1416F));
-                ModelPartData backarmor_r1 = back_armor.addChild("backarmor_r1", ModelPartBuilder.create().uv(37, 36).cuboid(-7.8F, -6.5F, -5.0F, 14.0F, 11.0F, 10.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.1F, 0.0F, -3.1416F, 0.0F, 3.1416F));
+                ModelPartData back_armor = body_no_legs.getChild("back_armor");
+                back_armor.addChild("backlegplate_r1", ModelPartBuilder.create().uv(0, 45).cuboid(-8.2F, -6.5F, -5.0F, 15.0F, 9.0F, 11.0F, new Dilation(0.7F)), ModelTransform.of(-0.5F, 0.0F, 0.5F, 3.1416F, 0.0F, -3.1416F));
+                back_armor.addChild("backarmor_r1", ModelPartBuilder.create().uv(0, 24).cuboid(-7.8F, -6.5F, -5.0F, 14.0F, 10.0F, 11.0F, new Dilation(0.3F)), ModelTransform.of(-0.7F, -0.9F, 0.5F, 3.1416F, 0.0F, -3.1416F));
 
                 ModelPartData head_armor = head.getChild("head_armor");
-                ModelPartData Lbone_snout_r1 = head_armor.addChild("Lbone_snout_r1", ModelPartBuilder.create().uv(101, 0).cuboid(-7.2076F, -0.8956F, -2.3986F, 11.0F, 6.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(7.4218F, 1.1634F, -4.1014F, -2.7477F, -0.1032F, -3.0907F));
-                ModelPartData Lbone_snout_r2 = head_armor.addChild("Lbone_snout_r2", ModelPartBuilder.create().uv(101, 0).cuboid(-7.2076F, -0.8956F, 2.3986F, 11.0F, 6.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(7.4218F, 1.1634F, 3.1014F, 2.7477F, 0.1032F, -3.0907F));
-                ModelPartData underhelmet_r1 = head_armor.addChild("underhelmet_r1", ModelPartBuilder.create().uv(5, 57).cuboid(-3.2F, -6.6623F, -3.8552F, 11.0F, 9.0F, 8.0F, new Dilation(-0.3F)), ModelTransform.of(5.859F, 2.9485F, -0.4F, -3.1416F, 0.0F, 3.1416F));
-                ModelPartData helmet_r1 = head_armor.addChild("helmet_r1", ModelPartBuilder.create().uv(3, 23).cuboid(-3.2F, -6.2623F, -4.8552F, 11.0F, 13.0F, 10.0F, new Dilation(-0.1F)), ModelTransform.of(5.859F, 1.9485F, -0.4F, -3.1416F, 0.0F, 3.1416F));
+                head_armor.addChild("Lbone_snout_r1", ModelPartBuilder.create().uv(60, 67).cuboid(-7.2076F, -0.8956F, -2.3986F, 11.0F, 6.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(6.4218F, 0.1634F, -4.6014F, -2.7477F, -0.1032F, -3.0907F));
+                head_armor.addChild("Lbone_snout_r2", ModelPartBuilder.create().uv(60, 67).cuboid(-7.2076F, -0.8956F, 2.3986F, 11.0F, 6.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(6.4218F, 0.1634F, 3.6014F, 2.7477F, 0.1032F, -3.0907F));
+                head_armor.addChild("underhelmet_r1", ModelPartBuilder.create().uv(62, 4).cuboid(-3.2F, -6.6623F, -5.3552F, 11.0F, 9.0F, 10.0F, new Dilation(-0.3F)), ModelTransform.of(5.859F, 2.9485F, -0.9F, -3.1416F, 0.0F, 3.1416F));
+                head_armor.addChild("helmet_r1", ModelPartBuilder.create().uv(50, 23).cuboid(-3.2F, -6.2623F, -5.3552F, 11.0F, 13.0F, 11.0F, new Dilation(-0.1F)), ModelTransform.of(5.859F, 0.9485F, -0.4F, -3.1416F, 0.0F, 3.1416F));
 
                 ModelPartData snout2 = head_armor.getChild("snout2");
-                ModelPartData snout_r1 = snout2.addChild("snout_r1", ModelPartBuilder.create().uv(36, 23).cuboid(-6.2076F, 0.1044F, 2.1F, 13.0F, 5.0F, 3.0F, new Dilation(0.1F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -3.1416F, 0.0F, 3.1416F));
-                ModelPartData snout_r2 = snout2.addChild("snout_r2", ModelPartBuilder.create().uv(98, 35).cuboid(-5.2076F, 3.2829F, 2.1F, 1.0F, 1.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -4.2F, 0.0F, -3.1416F, 0.0F, 3.1416F));
+                snout2.addChild("snout_r1", ModelPartBuilder.create().uv(0, 65).cuboid(-6.2076F, 0.1044F, 1.6F, 13.0F, 5.0F, 4.0F, new Dilation(0.1F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -3.1416F, 0.0F, 3.1416F));
+                snout2.addChild("snout_r2", ModelPartBuilder.create().uv(52, 18).cuboid(-5.2076F, 3.2829F, 1.6F, 1.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -4.2F, 0.0F, -3.1416F, 0.0F, 3.1416F));
 
                 return TexturedModelData.of(modelData, 128, 128);
         }
 
         public static ModelData getArmorModelData() {
-                ModelData modelData = getModelData();
+                ModelData modelData = getEmptyModelData();
                 ModelPartData upper_body = modelData.getRoot().getChild("root").getChild(EntityModelPartNames.BODY).getChild("upper_body");
-                ModelPartData head = upper_body.getChild(EntityModelPartNames.HEAD);
-                ModelPartData body_armor = upper_body.addChild("body_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -1.0F, 2.0F));
+                ModelPartData body_no_legs = upper_body.getChild("body_no_legs");
+                ModelPartData head = body_no_legs.getChild(EntityModelPartNames.HEAD);
+                ModelPartData body_armor = body_no_legs.getChild("body_fur").addChild("body_armor", ModelPartBuilder.create(), ModelTransform.origin(-6.5F, -2.75F, 1.5F));
 
                 ModelPartData front_armor = body_armor.addChild("front_armor", ModelPartBuilder.create(), ModelTransform.origin(7.8F, 1.5F, -1.0F));
 
                 ModelPartData left_chains = front_armor.addChild("left_chains", ModelPartBuilder.create(), ModelTransform.origin(0.5F, -3.5F, 5.3F));
-                ModelPartData right_chains = front_armor.addChild("right_chains", ModelPartBuilder.create(), ModelTransform.of(0.5F, -2.5F, -5.3F, 0.0F, 0.0F, -0.1745F));
+                ModelPartData right_chains = front_armor.addChild("right_chains", ModelPartBuilder.create(), ModelTransform.origin(0.5F, -2.5F, -5.3F));
 
-                ModelPartData back_armor = body_armor.addChild("back_armor", ModelPartBuilder.create(), ModelTransform.origin(-7.2F, 1.5F, -1.0F));
+                ModelPartData back_armor = body_no_legs.addChild("back_armor", ModelPartBuilder.create(), ModelTransform.origin(-13.7F, 1.25F, 0.5F));
 
-                ModelPartData head_armor = head.addChild("head_armor", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+                ModelPartData head_armor = head.addChild("head_armor", ModelPartBuilder.create(), ModelTransform.origin(-0.1142F, 1.8638F, 0.5F));
 
-                ModelPartData snout2 = head_armor.addChild("snout2", ModelPartBuilder.create(), ModelTransform.origin(7.3218F, -2.3967F, 3.1F));
+                ModelPartData snout2 = head_armor.addChild("snout2", ModelPartBuilder.create(), ModelTransform.origin(7.3218F, -3.3967F, 3.1F));
 
                 return modelData;
         }

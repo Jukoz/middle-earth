@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 
 public class DesertPlantBlock extends CustomPlantBlock {
     public static final MapCodec<DesertPlantBlock> CODEC = DesertPlantBlock.createCodec(DesertPlantBlock::new);
@@ -16,6 +17,6 @@ public class DesertPlantBlock extends CustomPlantBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isOf(Blocks.FARMLAND);
+        return floor.isIn(BlockTags.DIRT) || floor.isIn(BlockTags.SAND) || floor.isIn(BlockTagsME.FARMLANDS);
     }
 }

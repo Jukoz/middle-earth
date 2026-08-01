@@ -1,0 +1,8 @@
+{
+  "parent": "middle-earth:block/template_layered_cake_with_candles",
+  "textures": {
+    "0": "middle-earth:block/layered_cake",
+    "candle": "minecraft:block/magenta_candle_lit",
+    "particle": "middle-earth:block/layered_cake"
+  }
+}

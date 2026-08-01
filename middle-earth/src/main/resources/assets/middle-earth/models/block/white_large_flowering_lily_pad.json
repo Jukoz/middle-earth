@@ -2,6 +2,7 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
+		"particle": "middle-earth:block/large_lily_pad",
 		"1": "middle-earth:block/white_lily_pad_flowers",
 		"2": "middle-earth:block/white_lily_pad_flat_flowers",
 		"3": "middle-earth:block/large_lily_pad"

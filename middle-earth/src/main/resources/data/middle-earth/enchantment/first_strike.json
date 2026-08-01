@@ -12,6 +12,7 @@
     "base": 1,
     "per_level_above_first": 10
   },
+  "exclusive_set": "#middle-earth:exclusive_set/knockback",
   "primary_items": "#middle-earth:daggers",
   "slots": [
     "mainhand"

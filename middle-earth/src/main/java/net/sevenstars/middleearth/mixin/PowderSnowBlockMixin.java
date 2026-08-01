@@ -12,7 +12,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityAttributes;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,7 +30,7 @@ public class PowderSnowBlockMixin {
     private static void canWalkOnPowderSnowEntity(Entity entity, final CallbackInfoReturnable<Boolean> info) {
         if(entity instanceof LivingEntity livingEntity){
             AttributeContainer container = livingEntity.getAttributes();
-            if(container.hasAttribute(ModEntityAttributes.POWDERED_SNOW_IMMUNITY) && container.getValue(ModEntityAttributes.POWDERED_SNOW_IMMUNITY) != 0.0){
+            if(container.hasAttribute(EntityAttributesME.POWDERED_SNOW_IMMUNITY) && container.getValue(EntityAttributesME.POWDERED_SNOW_IMMUNITY) != 0.0){
                 info.setReturnValue(true);
             }
         }

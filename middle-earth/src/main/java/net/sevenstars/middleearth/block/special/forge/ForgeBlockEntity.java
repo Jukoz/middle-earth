@@ -1,6 +1,9 @@
 package net.sevenstars.middleearth.block.special.forge;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.component.type.ConsumableComponents;
+import net.minecraft.component.type.FoodComponent;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
@@ -8,13 +11,13 @@ import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
-import net.sevenstars.middleearth.gui.forge.ForgeHeatingScreenHandler;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
@@ -55,7 +58,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.recipe.ModRecipes;
+import net.sevenstars.middleearth.recipe.RecipesME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -118,7 +121,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             }
         };
 
-        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(ModRecipes.FORGE);
+        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(RecipesME.FORGE);
     }
 
     public ItemStack getRenderStack(ForgeBlockEntity entity) {
@@ -145,11 +148,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        if(hasBellows(player.getWorld(), this.pos, player.getWorld().getBlockState(this.pos)) == 1) {
-            return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
-        } else {
-            return new ForgeHeatingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
-        }
+        return new ForgeAlloyingScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     public int hasBellows(World world, BlockPos pos, BlockState state){
@@ -219,7 +218,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         this.maxFuelTime = view.getInt(ID + ".max-fuel-time", 0);
         this.mode = view.getInt(ID + ".mode", 0);
         this.storage = view.getInt(ID + ".storage", 0);
-        this.currentMetal = MetalTypes.valueOf(view.getString(ID + ".current-metal", "bronze").toUpperCase());
+        this.currentMetal = MetalTypes.fromValue(view.getString(ID + ".current-metal", "bronze").toLowerCase());
     }
 
     public void update() {
@@ -326,7 +325,21 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         update();
     }
 
-    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player){
+    public static void switchMode(Vec3d coords, ServerPlayerEntity player){
+        BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
+
+        if(forgeBlockEntity.isPresent()){
+            ForgeBlockEntity entity = forgeBlockEntity.get();
+            if (entity.mode == 1){
+                entity.mode = 0;
+            } else if (entity.mode == 0) {
+                entity.mode = 1;
+            }
+        }
+    }
+
+    public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player, int mode){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
 
         Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
@@ -335,27 +348,50 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
 
+            if (entity.getStack(OUTPUT_SLOT).getMaxCount() <= entity.getStack(OUTPUT_SLOT).getCount()) return;
+
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_PATTERN);
 
             switch (amount){
                 case 16 -> {
-                    if (entity.currentMetal.getNugget() != null){
+                    if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
+                        itemstack = new ItemStack(ResourceItemsME.PTEROSAUR_NUGGET);
+                        FoodComponent foodComponent = new FoodComponent(1, 0.5f, false);
+                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
+                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                        itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
+                    } else if (entity.currentMetal.getNugget() != null){
                         itemstack = new ItemStack(entity.currentMetal.getNugget());
                         itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                     }
                 }
                 case 144 -> {
-                    itemstack = new ItemStack(entity.currentMetal.getIngot());
+                    if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
+                        itemstack = new ItemStack(ResourceItemsME.THERAPOD_NUGGET);
+                        FoodComponent foodComponent = new FoodComponent(7, 0.8f, false);
+                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
+                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                    } else {
+                        itemstack = new ItemStack(entity.currentMetal.getIngot());
+                    }
                     itemstack.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
                 }
                 case 288 -> {
                     itemstack = new ItemStack(ResourceItemsME.ROD);
-                    if (entity.currentMetal.isVanilla()){
+                    if(mode == 4) itemstack = new ItemStack(ResourceItemsME.ARMOR_PLATE);
+
+                    if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
+                        if(mode == 4) itemstack = new ItemStack(ResourceItemsME.THYREOPHORAN_NUGGET);
+                        else itemstack = new ItemStack(ResourceItemsME.CERATOPSIAN_NUGGET);
+                        FoodComponent foodComponent = new FoodComponent(10, 0.8f, false);
+                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
+                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                    }
+                    else if(entity.currentMetal.isVanilla()) {
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
-
                     } else {
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, entity.currentMetal.getName()))),
@@ -365,7 +401,12 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 }
                 case 432 -> {
                     itemstack = new ItemStack(ResourceItemsME.LARGE_ROD);
-                    if (entity.currentMetal.isVanilla()){
+                    if(entity.currentMetal.getIngot().equals(ResourceItemsME.THERAPOD_NUGGET)) {
+                        itemstack = new ItemStack(ResourceItemsME.SAUROPOD_NUGGET);
+                        FoodComponent foodComponent = new FoodComponent(14, 0.85f, false);
+                        itemstack.set(DataComponentTypes.FOOD, foodComponent);
+                        itemstack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+                    } else if (entity.currentMetal.isVanilla()){
                         itemstack.set(DataComponentTypes.TRIM, new ArmorTrim(
                                 armorTrimMaterialRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(entity.currentMetal.getName()))),
                                 armorTrimPatternRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "smithing_part")))));
@@ -432,7 +473,6 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         boolean progress = false;
 
-        entity.mode = entity.hasBellows(world, blockPos, blockState);
         entity.update();
 
         if(entity.mode == 1) { // Alloying mode
@@ -499,12 +539,14 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         if(match == null) throw new RuntimeException("Somehow... you crafted an item without recipe?!");
 
+        ExperienceOrbEntity.spawn(world, entity.getPos().toCenterPos().add(0, 1, 0), match.value().getXp());
+
         if(hasAlloyingRecipe(entity, world)) {
             for (int i = 1; i <= 4; i++) {
                 entity.removeStack(i, 1);
             }
             entity.storage = entity.storage + match.value().amount;
-            entity.currentMetal = MetalTypes.valueOf(match.value().output.toUpperCase());
+            entity.currentMetal = MetalTypes.fromValue(match.value().output.toLowerCase());
             entity.update();
         }
     }
@@ -611,7 +653,8 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     private static boolean canInsertLiquid(int storage, MetalTypes currentMetal, RecipeEntry<? extends AlloyingRecipe> match) {
-        MetalTypes metal = MetalTypes.valueOf(match.value().output.toUpperCase());
+        var value = match.value().output.toLowerCase();
+        MetalTypes metal = MetalTypes.fromValue(value);
         if((storage + match.value().amount) <= MAX_STORAGE){
             if(metal == currentMetal){
                 return true;

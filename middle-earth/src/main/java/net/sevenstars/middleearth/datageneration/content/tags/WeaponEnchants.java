@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeaponEnchants {
+    public static List<Item> weapons = new ArrayList<>() {
+
+    };
+
     public static List<Item> axes = new ArrayList<>() {
     {
         add(ToolItemsME.BRONZE_AXE.asItem());
