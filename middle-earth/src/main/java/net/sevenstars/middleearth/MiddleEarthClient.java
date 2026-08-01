@@ -128,7 +128,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntitiesME.REINFORCED_BARREL, BarrelEntityRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.EXPERIMENTAL_ENTITY, ExperimentalMountRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.EXPERIMENTAL_ENTITY, ExperimentalMountRenderer::new);
         
         EntityRendererRegistry.register(EntitiesME.SHELOBITE_LARVA, ShelobiteLarvaRenderer::new);
         EntityRendererRegistry.register(EntitiesME.SHELOBITE_SCUTTLER, ShelobiteScuttlerRenderer::new);

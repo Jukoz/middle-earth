@@ -5,13 +5,13 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntityModelLayers;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 
 public class ExperimentalMountRenderer extends MobEntityRenderer<ExperimentalMountEntity, LivingEntityRenderState, ExperimentalMountModel> {
     private static final String PATH = "textures/entities/experimental_entity/experimental_entity_texture.png";
 
     public ExperimentalMountRenderer(EntityRendererFactory.Context context) {
-        super(context, new ExperimentalMountModel(context.getPart(ModEntityModelLayers.EXPERIMENTAL_ENTITY)), 1.0f);
+        super(context, new ExperimentalMountModel(context.getPart(EntityModelLayersME.EXPERIMENTAL_ENTITY)), 1.0f);
     }
 
     @Override

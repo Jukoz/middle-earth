@@ -15,6 +15,8 @@ import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatSaddleModel;
+import net.sevenstars.middleearth.entity.beasts.experimental_mount.ExperimentalMountEntity;
+import net.sevenstars.middleearth.entity.beasts.experimental_mount.ExperimentalMountModel;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollSaddleModel;
@@ -71,6 +73,9 @@ public final class EntityModelLayersME {
 
     public static final EntityModelLayer ENWEBBED = EntityModelLayersME.registerEntityModelLayer("enwebbed", EnwebbedModel.getTexturedModelData());
 
+
+    public static final EntityModelLayer EXPERIMENTAL_ENTITY = EntityModelLayersME.registerEntityModelLayer("experimental_entity", ExperimentalMountModel.getTexturedModelData());
+
     // Blocks
     public static final EntityModelLayer BELLOWS = EntityModelLayersME.registerEntityModelLayer("bellows", BellowsBlockEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer LARCH_COFFER = EntityModelLayersME.registerEntityModelLayer("larch_coffer", LarchCofferEntityRenderer.getTexturedModelData());
@@ -85,6 +90,7 @@ public final class EntityModelLayersME {
 
     public static final EntityModelLayer REINFORCED_BARREL = EntityModelLayersME.registerEntityModelLayer("reinforced_barrel", BarrelEntityModel.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_BARREL_WATER_MASK = EntityModelLayersME.registerEntityModelLayer("reinforced_barrel_water_mask", BarrelEntityModel.getBaseTexturedModelData());
+
 
 
     /**
