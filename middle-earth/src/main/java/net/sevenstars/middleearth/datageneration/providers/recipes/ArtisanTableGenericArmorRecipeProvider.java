@@ -216,6 +216,16 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(Items.WHITE_WOOL))
                         .offerTo(exporter);
 
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BEEKEEPER_MASK.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.STRAW)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(ResourceItemsME.FABRIC),
+                                conditionsFromItem(ResourceItemsME.FABRIC))
+                        .offerTo(exporter);
+
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_HAT.getDefaultStack(), "hat", DispositionType.NEUTRAL)
                         .input(ResourceItemsME.FABRIC)
                         .input(Items.LEATHER)

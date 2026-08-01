@@ -170,6 +170,10 @@ public class EquipmentItemsME {
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.WOOL_T1, settings), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(-6265536)));
 
+    public static final Item BEEKEEPER_MASK = registerDyeableArmorPiece("beekeeper_mask",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(11246676)));
+
     public static final Item WANDERER_HAT = registerDyeableCustomModelArmorPiece("wanderer_hat",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(5394247)));
