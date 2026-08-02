@@ -917,6 +917,56 @@
           "type": "minecraft:item",
           "name": "middle-earth:dol_guldur_stalker_cape",
 		  "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dol_guldur_ancient_flanged_shield",
+          "weight": 4,
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:rusted_dol_guldur_ancient_flanged_shield",
+          "weight": 4,
+          "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.5
+              },
+              "function": "minecraft:set_damage"
+            },
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15,
+                "min": 5
+              },
+              "options": "#middle-earth:on_random_spider_loot"
+            }
+          ]
         }
       ],
       "rolls": 1

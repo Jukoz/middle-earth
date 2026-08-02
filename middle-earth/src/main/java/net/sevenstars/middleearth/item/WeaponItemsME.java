@@ -757,6 +757,13 @@ public class WeaponItemsME {
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
+    public static final Item DOL_GULDUR_ANCIENT_FLANGED_SHIELD = registerShield("dol_guldur_ancient_flanged_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+    public static final Item RUSTED_DOL_GULDUR_ANCIENT_FLANGED_SHIELD = registerShield("rusted_dol_guldur_ancient_flanged_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+
     public static final Item DOL_GULDUR_SHIELD = registerShield("dol_guldur_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
