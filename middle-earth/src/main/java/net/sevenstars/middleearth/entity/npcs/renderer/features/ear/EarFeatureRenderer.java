@@ -24,12 +24,13 @@ import net.sevenstars.middleearth.registries.AtlasesME;
 
 @Environment(EnvType.CLIENT)
 public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, NpcEntityModel> {
-    private final EntityModel<NpcEntityRenderState> earModel;
+    private final EarModel earModel;
     private final SpriteAtlasTexture characterTexturesAtlas;
 
     public EarFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.earModel = new EarModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_EAR));
+        this.earModel.setHead(context.getModel().head);
         characterTexturesAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
     }
 
