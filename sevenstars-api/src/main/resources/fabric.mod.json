@@ -26,6 +26,9 @@
       "net.sevenstars.api.SevenStarsApiClient"
     ]
   },
+  "mixins": [
+    "sevenstars-api.mixins.json"
+  ],
 
   "depends": {
     "fabricloader": ">=0.16.0",

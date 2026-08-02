@@ -5,15 +5,19 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.api.utils.IServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
 // TODO change private floats to attributes
 public class AbstractMountEntity extends PathAwareEntity {
+    protected SimpleInventory items;
     private final float cursorRotationSpeed = 0;
     private final float inputRotationSpeed = 0;
     private final float triggerAngle = 0;
@@ -26,8 +30,14 @@ public class AbstractMountEntity extends PathAwareEntity {
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(!this.getWorld().isClient()) {
-            if(player.getMainHandStack().isEmpty()) { // Ride entity by right-clicking
+        ItemStack heldItem = player.getMainHandStack();
+
+        if(!this.getWorld().isClient()) { // Server
+            if(player.isSneaking()) { // Open Inventory
+                this.openInventory(player);
+                return ActionResult.SUCCESS;
+            }
+            else if(heldItem.isEmpty()) { // Ride entity by right-clicking empty hand
                 putPlayerOnBack(player);
                 return ActionResult.SUCCESS;
             }
@@ -39,6 +49,17 @@ public class AbstractMountEntity extends PathAwareEntity {
     protected void putPlayerOnBack(PlayerEntity player) { // Method to make player ride this entity
         player.startRiding(this);
     }
+
+    //region Inventory
+    public void openInventory(PlayerEntity playerEntity) {
+        if(!this.getWorld().isClient) {
+            IServerPlayerEntity player = (IServerPlayerEntity) playerEntity;
+
+            player.openMountInventory(this, this.items);
+        }
+    }
+
+    //endregion
 
     //region Tick-based methods
     @Override
