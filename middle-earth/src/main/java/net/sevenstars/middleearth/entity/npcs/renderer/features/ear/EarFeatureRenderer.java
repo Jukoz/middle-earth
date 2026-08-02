@@ -30,7 +30,6 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
     public EarFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.earModel = new EarModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_EAR));
-        this.earModel.setHead(context.getModel().head);
         characterTexturesAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
     }
 
