@@ -160,6 +160,11 @@ public class EquipmentItemsME {
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FUR_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WHITE_FUR)));
 
+    public static final Item BAGGY_HAT = registerCustomModelArmorPiece("baggy_hat",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T1, settings), new Item.Settings());
+    public static final Item CHAPERON = registerCustomModelArmorPiece("chaperon",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings());
+
     public static final Item STRAW_HAT = registerCustomModelArmorPiece("straw_hat",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings());
 

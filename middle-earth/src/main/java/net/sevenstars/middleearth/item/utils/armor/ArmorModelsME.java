@@ -41,6 +41,8 @@ import net.minecraft.util.StringIdentifiable;
 public class ArmorModelsME {
 
     public enum ModHelmetModels{
+        BAGGY_HAT(EquipmentItemsME.BAGGY_HAT, new BaggyHatModel(BaggyHatModel.getTexturedModelData().createModel())),
+        CHAPERON(EquipmentItemsME.CHAPERON, new ChaperonModel(ChaperonModel.getTexturedModelData().createModel())),
         STRAW_HAT(EquipmentItemsME.STRAW_HAT, new HatHelmetModel(HatHelmetModel.getTexturedModelData().createModel())),
         WOVEN_HAT(EquipmentItemsME.WOVEN_HAT, new HatHelmetModel(HatHelmetModel.getTexturedModelData().createModel())),
         WANDERER_HAT(EquipmentItemsME.WANDERER_HAT, new WizardHatModel(WizardHatModel.getTexturedModelData().createModel())),
