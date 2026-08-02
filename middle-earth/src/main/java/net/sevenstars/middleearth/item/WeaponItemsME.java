@@ -753,7 +753,7 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
 
-    public static final Item DOL_GULDUR_PAVISE = registerShield("dol_guldur_pavise",
+    public static final Item DOL_GULDUR_SHIELD = registerShield("dol_guldur_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
@@ -764,7 +764,16 @@ public class WeaponItemsME {
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
-    public static final Item DOL_GULDUR_SHIELD = registerShield("dol_guldur_shield",
+    public static final Item DOL_GULDUR_ARMRUST_SHIELD = registerShield("dol_guldur_armrust_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+    public static final Item DOL_GULDUR_HEAVY_SHIELD = registerShield("dol_guldur_heavy_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+    public static final Item DOL_GULDUR_HEAVY_SKULL_SHIELD = registerShield("dol_guldur_heavy_skull_shield",
+            (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
+                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+    public static final Item DOL_GULDUR_PAVISE = registerShield("dol_guldur_pavise",
             (settings) -> new CustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
     //endregion
