@@ -31,6 +31,10 @@ public class MountArmorTopSkullAddonRecipe extends CustomRecipe {
                     if (!itemStackArmor.isEmpty()) {
                         return false;
                     }
+                    MountArmorAddonComponent data = itemStack2.get(DataComponentTypesME.MOUNT_ARMOR_DATA);
+                    if (data != null && data.topArmorAddon()) {
+                        return false;
+                    }
                     itemStackArmor = itemStack2;
                 }
                 else if (itemStack2.is(Items.STICK)) {
@@ -44,6 +48,8 @@ public class MountArmorTopSkullAddonRecipe extends CustomRecipe {
                         return false;
                     }
                     itemStackSkull = itemStack2;
+                } else {
+                    return false;
                 }
             }
         }

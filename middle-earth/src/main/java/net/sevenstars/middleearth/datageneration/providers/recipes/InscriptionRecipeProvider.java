@@ -70,7 +70,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
                                 getEnchantment(Enchantments.UNBREAKING), 3, 5)
-                        .chisel(ItemTagsME.EARLY_CHISELS)
+                        .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("resilient")
                         .addWord("blessing")
                         .unlockedBy(getHasName(Items.LAPIS_LAZULI),

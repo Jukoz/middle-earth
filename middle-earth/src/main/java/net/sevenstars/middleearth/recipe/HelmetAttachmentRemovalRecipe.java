@@ -50,7 +50,7 @@ public class HelmetAttachmentRemovalRecipe extends CustomRecipe {
     @Override
     public boolean matches(CraftingInput input, Level world) {
         ItemStack itemStackHelmet = ItemStack.EMPTY;
-        ItemStack itemStackHood = ItemStack.EMPTY;
+        ItemStack itemStackShears = ItemStack.EMPTY;
 
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getItem(i);
@@ -61,19 +61,20 @@ public class HelmetAttachmentRemovalRecipe extends CustomRecipe {
                     }
                     itemStackHelmet = itemStack2;
                 } else {
-                    if (!itemStack2.is(Items.SHEARS)) {
+                    if (!itemStack2.is(Items.SHEARS) || !itemStackShears.isEmpty()) {
                         return false;
                     }
-                    itemStackHood = itemStack2;
+                    itemStackShears = itemStack2;
                 }
             }
         }
-        return !itemStackHelmet.isEmpty() && !itemStackHood.isEmpty();
+        return !itemStackHelmet.isEmpty() && !itemStackShears.isEmpty();
     }
 
     @Override
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
+        ItemStack itemStackShears = ItemStack.EMPTY;
 
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getItem(i);
@@ -85,14 +86,15 @@ public class HelmetAttachmentRemovalRecipe extends CustomRecipe {
 
                     itemStack = itemStack2.copy();
                 } else {
-                    if (!itemStack2.is(Items.SHEARS)) {
+                    if (!itemStack2.is(Items.SHEARS) || !itemStackShears.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
+                    itemStackShears = itemStack2;
                 }
             }
         }
 
-        if (!itemStack.isEmpty()) {
+        if (!itemStack.isEmpty() && !itemStackShears.isEmpty()) {
             itemStack.remove(DataComponentTypesME.HELMET_ATTACHMENT_DATA);
             return itemStack;
         } else {

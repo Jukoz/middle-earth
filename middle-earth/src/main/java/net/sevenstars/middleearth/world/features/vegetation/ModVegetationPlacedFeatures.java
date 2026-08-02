@@ -80,6 +80,7 @@ public class ModVegetationPlacedFeatures {
     public static final ResourceKey<PlacedFeature> FIELD_DRY_HEATHER = registerKey("field_dry_heather");
     public static final ResourceKey<PlacedFeature> FIELD_LAVENDER = registerKey("field_lavender");
     public static final ResourceKey<PlacedFeature> FIELD_WILD_WHEAT = registerKey("field_wild_wheat");
+    public static final ResourceKey<PlacedFeature> FIELD_WILD_WHEAT_STRUCTURE = registerKey("field_wild_wheat_structure");
     public static final ResourceKey<PlacedFeature> FIELD_DEAD_NORMAL_HEATHER = registerKey("field_dead_normal_heather");
     public static final ResourceKey<PlacedFeature> FIELD_SPARSE_DEAD_NORMAL_HEATHER = registerKey("field_sparse_dead_normal_heather");
     public static final ResourceKey<PlacedFeature> FIELD_BLUE_FESCUE = registerKey("field_blue_fescue");
@@ -491,6 +492,7 @@ public class ModVegetationPlacedFeatures {
         PlacementUtils.register(featureRegisterable, FIELD_DRY_HEATHER, fieldDryHeather, sparse, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_LAVENDER, fieldLavender, abundant, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_WILD_WHEAT, fieldWildWeather, common, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+        PlacementUtils.register(featureRegisterable, FIELD_WILD_WHEAT_STRUCTURE, fieldWildWeather, common, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(featureRegisterable, FIELD_DEAD_NORMAL_HEATHER, fieldDeadNormalHeather, scarce, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_SPARSE_DEAD_NORMAL_HEATHER, fieldDeadNormalHeather, sparse, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(featureRegisterable, FIELD_BLUE_FESCUE, fieldBlueFescue, occasional, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());

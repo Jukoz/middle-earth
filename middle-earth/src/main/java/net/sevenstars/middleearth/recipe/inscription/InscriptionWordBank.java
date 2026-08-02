@@ -26,6 +26,7 @@ public class InscriptionWordBank {
 
         wordBank.put(null, "draw");
         wordBank.put(null, "point");
+        wordBank.put(null, "spirit");
 
         wordBank.put(ResourceItemsME.RUBY, "fierce");
         wordBank.put(ResourceItemsME.RUBY, "forceful");

@@ -37,7 +37,8 @@ public class BackAttachmentRecipe extends CustomRecipe {
                     }
                     itemStackChest = itemStack2;
                 } else {
-                    if (!(itemStack2.getItem() instanceof BackAttachmentItem)) {
+                    if (!(itemStack2.getItem() instanceof BackAttachmentItem)
+                            || !itemStackBackAttachment.isEmpty()) {
                         return false;
                     }
                     itemStackBackAttachment = itemStack2;
@@ -61,7 +62,8 @@ public class BackAttachmentRecipe extends CustomRecipe {
                     }
                     itemStack = itemStack2.copy();
                 } else {
-                    if (!(itemStack2.getItem() instanceof BackAttachmentItem)) {
+                    if (!(itemStack2.getItem() instanceof BackAttachmentItem)
+                            || !backAttachment.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
                     backAttachment = itemStack2;

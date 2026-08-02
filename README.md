@@ -24,9 +24,9 @@ The `1.0.1-1.21.1-neoforge-backport` branch is an unofficial compatibility
 backport of the upstream `1.0.1-1.21.8-beta` release at
 [`1f047d55dd1509c001596876617b4ae660eb006e`](https://github.com/Jukoz/middle-earth/commit/1f047d55dd1509c001596876617b4ae660eb006e),
 aligned through the adopted upstream fixes snapshot
-[`a76bbb197c2334feabea6858507b94c46b085c62`](https://github.com/Jukoz/middle-earth/commit/a76bbb197c2334feabea6858507b94c46b085c62).
-It also incorporates the zh-CN localization lineage through
-[`30e65328a37ab9d2481c26dee83afcb7b2773820`](https://github.com/Jukoz/middle-earth/commit/30e65328a37ab9d2481c26dee83afcb7b2773820).
+[`54c0629e410cac55e7c2591c5a178294493055cb`](https://github.com/Jukoz/middle-earth/commit/54c0629e410cac55e7c2591c5a178294493055cb).
+It also incorporates the upstream localization lineage through
+[`345b865f1d2ad5d49f88e71bc348c337856db910`](https://github.com/Jukoz/middle-earth/commit/345b865f1d2ad5d49f88e71bc348c337856db910).
 Known defects in those upstream commits are corrected as part of the 1.21.1
 semantic backport. Unmerged `new-stuff` content and the first-iteration global
 mob-cap experiment are not part of this stable baseline.

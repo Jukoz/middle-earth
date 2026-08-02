@@ -13,6 +13,8 @@ import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 public class InscriptionWordUpdatePacket extends ClientToServerPacket<InscriptionWordUpdatePacket> {
     public static final Type<InscriptionWordUpdatePacket> ID = new Type<>(MiddleEarth.of("inscription_word_update_packet"));
     public static final StreamCodec<RegistryFriendlyByteBuf, InscriptionWordUpdatePacket> CODEC = StreamCodec.composite(
+            ByteBufCodecs.INT, p -> p.containerId,
+            ByteBufCodecs.INT, p -> p.selectionRevision,
             ByteBufCodecs.BOOL, p -> p.add,
             ByteBufCodecs.stringUtf8(InscriptionTableScreenHandler.MAX_WORD_LENGTH), p -> p.word,
             InscriptionWordUpdatePacket::new
@@ -20,10 +22,14 @@ public class InscriptionWordUpdatePacket extends ClientToServerPacket<Inscriptio
     private static final ResourceLocation ADD_RATE_KEY = MiddleEarth.of("rate/inscription_word_add");
     private static final ResourceLocation REMOVE_RATE_KEY = MiddleEarth.of("rate/inscription_word_remove");
 
+    private final int containerId;
+    private final int selectionRevision;
     private final boolean add;
     private final String word;
 
-    public InscriptionWordUpdatePacket(boolean add, String word) {
+    public InscriptionWordUpdatePacket(int containerId, int selectionRevision, boolean add, String word) {
+        this.containerId = containerId;
+        this.selectionRevision = selectionRevision;
         this.add = add;
         this.word = word;
     }
@@ -44,6 +50,8 @@ public class InscriptionWordUpdatePacket extends ClientToServerPacket<Inscriptio
             var player = context.player();
             ResourceLocation rateKey = add ? ADD_RATE_KEY : REMOVE_RATE_KEY;
             if (player.containerMenu instanceof InscriptionTableScreenHandler screenHandler
+                    && screenHandler.containerId == this.containerId
+                    && screenHandler.getSelectionRevision() == this.selectionRevision
                     && screenHandler.stillValid(player)
                     && ServerPacketGuards.tryAcquire(player, rateKey, 1)
                     && screenHandler.canApplyWordUpdate(add, word)) {

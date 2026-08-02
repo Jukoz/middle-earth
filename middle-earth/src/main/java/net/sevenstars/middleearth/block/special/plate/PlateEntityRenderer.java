@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.block.special.plate;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -10,7 +9,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -75,9 +73,8 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         int currentLight = getLightLevel(entity.getLevel(), entity.getBlockPos(), direction);
 
         if (is3D) {
-            BakedModel model = Minecraft.getInstance().getModelManager()
-                    .getModel(ModelResourceLocation.standalone(modelId.withPrefix("item/")));
-            if (model != Minecraft.getInstance().getModelManager().getMissingModel()) {
+            BakedModel model = PlateModelClientEvents.getBakedModel(modelId);
+            if (model != null) {
                 this.itemRenderer.render(stack, ItemDisplayContext.FIXED, false, matrices, vertexConsumers,
                         currentLight, OverlayTexture.NO_OVERLAY, model);
             } else {

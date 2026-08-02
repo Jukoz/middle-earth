@@ -99,6 +99,58 @@ class UpstreamBaselineContractTest {
         assertTrue(tags.substring(rangedStart, rangedEnd).contains("Crossbows.crossbows"));
     }
 
+    @Test
+    void broadhoofGoatsKeepTheLatestStablePowderedSnowImmunity() throws IOException {
+        String broadhoof = source(
+                "net/sevenstars/middleearth/entity/beasts/broadhoof/BroadhoofGoatEntity.java"
+        );
+        assertTrue(broadhoof.contains(
+                ".add(EntityAttributesME.POWDERED_SNOW_IMMUNITY, 1.0f)"
+        ));
+    }
+
+    @Test
+    void modMenuTranslationKeysFollowTheLatestLocalizationOverlay() throws IOException {
+        String translations = source(
+                "net/sevenstars/middleearth/datageneration/content/TranslationEntries.java"
+        );
+        assertTrue(translations.contains(
+                "put(\"modmenu.nameTranslation.\"+ MiddleEarth.MOD_ID"
+        ));
+        assertFalse(translations.contains("modmenu.nameTranslation.me"));
+    }
+
+    @Test
+    void biomeBootstrapSerializesAndResetsSharedFeatureLists() throws IOException {
+        String biomes = source(
+                "net/sevenstars/middleearth/world/biomes/surface/ModBiomes.java"
+        );
+
+        assertTrue(biomes.contains(
+                "public static synchronized void bootstrap(BootstrapContext<Biome> context)"
+        ));
+        int bootstrap = biomes.indexOf("public static synchronized void bootstrap(");
+        int firstBiome = biomes.indexOf("createAnduinBiome(", bootstrap);
+        int initialReset = biomes.indexOf("resetFeatureLists();", bootstrap);
+        assertTrue(initialReset > bootstrap && initialReset < firstBiome);
+        assertEquals(4, count(biomes, "resetFeatureLists()"));
+
+        int delegatingRegister = biomes.indexOf("public static void registerBiome(");
+        int plainRegister = biomes.indexOf(
+                "float temperature, boolean precipitation, boolean... removeDefaultOres)",
+                delegatingRegister
+        );
+        int particleRegister = biomes.indexOf(
+                "AmbientParticleSettings particleConfig, float temperature",
+                plainRegister
+        );
+        int resetHelper = biomes.indexOf("private static void resetFeatureLists()", particleRegister);
+        assertTrue(delegatingRegister >= 0 && plainRegister > delegatingRegister);
+        assertTrue(particleRegister > plainRegister && resetHelper > particleRegister);
+        assertTrue(biomes.substring(plainRegister, particleRegister).contains("resetFeatureLists();"));
+        assertTrue(biomes.substring(particleRegister, resetHelper).contains("resetFeatureLists();"));
+    }
+
     private static String source(String relativePath) throws IOException {
         return Files.readString(MAIN_JAVA.resolve(relativePath));
     }

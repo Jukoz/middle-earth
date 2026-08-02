@@ -17,6 +17,26 @@
       "resource": "middle-earth:model/bellows/bellows_2"
     },
     {
+      "type": "single",
+      "resource": "middle-earth:gui/sprites/container/slot/adamant",
+      "sprite": "middle-earth:container/slot/adamant"
+    },
+    {
+      "type": "single",
+      "resource": "middle-earth:gui/sprites/container/slot/ruby",
+      "sprite": "middle-earth:container/slot/ruby"
+    },
+    {
+      "type": "single",
+      "resource": "middle-earth:gui/sprites/container/slot/sapphire",
+      "sprite": "middle-earth:container/slot/sapphire"
+    },
+    {
+      "type": "single",
+      "resource": "middle-earth:gui/sprites/container/slot/chisel",
+      "sprite": "middle-earth:container/slot/chisel"
+    },
+    {
       "type": "paletted_permutations",
       "textures": [
         "middle-earth:trims/items/axe_head_trim",

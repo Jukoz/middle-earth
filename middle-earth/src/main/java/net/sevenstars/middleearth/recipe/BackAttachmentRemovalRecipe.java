@@ -61,7 +61,7 @@ public class BackAttachmentRemovalRecipe extends CustomRecipe {
                     }
                     itemStackChest = itemStack2;
                 } else {
-                    if (!itemStack2.is(Items.SHEARS)) {
+                    if (!itemStack2.is(Items.SHEARS) || !itemStackShears.isEmpty()) {
                         return false;
                     }
                     itemStackShears = itemStack2;
@@ -74,6 +74,7 @@ public class BackAttachmentRemovalRecipe extends CustomRecipe {
     @Override
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
+        ItemStack itemStackShears = ItemStack.EMPTY;
 
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getItem(i);
@@ -85,14 +86,15 @@ public class BackAttachmentRemovalRecipe extends CustomRecipe {
 
                     itemStack = itemStack2.copy();
                 } else {
-                    if (!itemStack2.is(Items.SHEARS)) {
+                    if (!itemStack2.is(Items.SHEARS) || !itemStackShears.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
+                    itemStackShears = itemStack2;
                 }
             }
         }
 
-        if (!itemStack.isEmpty()) {
+        if (!itemStack.isEmpty() && !itemStackShears.isEmpty()) {
             itemStack.remove(DataComponentTypesME.BACK_ATTACHMENT_DATA);
             return itemStack;
         } else {

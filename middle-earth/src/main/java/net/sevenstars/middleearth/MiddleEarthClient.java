@@ -21,6 +21,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -36,6 +37,8 @@ import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRende
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
+import net.sevenstars.middleearth.client.ItemColorsME;
+import net.sevenstars.middleearth.client.ItemModelRenderStateClient;
 import net.sevenstars.middleearth.client.MiddleEarthDimensionEffects;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
 import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
@@ -87,7 +90,7 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
-import net.sevenstars.middleearth.item.items.ColoredBundleItem;
+import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
@@ -115,7 +118,7 @@ public final class MiddleEarthClient {
     private static final ItemPropertyFunction LONGBOW_PULL = (stack, level, entity, seed) ->
             entity == null || entity.getUseItem() != stack
                     ? 0.0F
-                    : (float) (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 30.0F;
+                    : (float) (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F;
     private static final ItemPropertyFunction CROSSBOW_PULL = (stack, level, entity, seed) ->
             entity == null || CrossbowItem.isCharged(stack)
                     ? 0.0F
@@ -181,6 +184,11 @@ public final class MiddleEarthClient {
             ItemProperties.register(item, PULL, LONGBOW_PULL);
             ItemProperties.register(item, PULLING, USING_ITEM);
         });
+        SimpleBigItemModel.items.forEach(item -> {
+            if (item instanceof CustomLongswordWeaponItem) {
+                ItemProperties.register(item, BLOCKING, USING_ITEM);
+            }
+        });
         SimpleCrossbowItemModel.items.forEach(item -> {
             ItemProperties.register(item, PULL, CROSSBOW_PULL);
             ItemProperties.register(item, PULLING, CROSSBOW_PULLING);
@@ -191,6 +199,9 @@ public final class MiddleEarthClient {
         SimpleSpearModel.items.forEach(item -> ItemProperties.register(item, HOLDING, USING_ITEM));
         SimpleArtefactModels.artefacts.forEach(artefact -> {
             ItemProperties.register(artefact.artefact(), BROKEN, ARTEFACT_BROKEN);
+            if (artefact.dualModel()) {
+                ItemProperties.register(artefact.artefact(), BLOCKING, USING_ITEM);
+            }
             if (artefact.artefact() instanceof ArtefactCustomGlowingLongswordWeaponItem
                     || artefact.artefact() instanceof ArtefactCustomGlowingDaggerWeaponItem) {
                 ItemProperties.register(artefact.artefact(), GLOWING, ARTEFACT_GLOWING);
@@ -278,12 +289,17 @@ public final class MiddleEarthClient {
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        event.register(
-                (stack, tintIndex) -> tintIndex == 0 && stack.getItem() instanceof ColoredBundleItem bundle
-                        ? bundle.color().getTextureDiffuseColor()
-                        : 0xFFFFFFFF,
-                ResourceItemsME.COLORED_BUNDLES.toArray(Item[]::new)
-        );
+        ItemColorsME.register(event);
+    }
+
+    @SubscribeEvent
+    public static void registerAdditionalItemModels(ModelEvent.RegisterAdditional event) {
+        ItemModelRenderStateClient.registerAdditionalModels(event);
+    }
+
+    @SubscribeEvent
+    public static void cacheBakedItemModels(ModelEvent.BakingCompleted event) {
+        ItemModelRenderStateClient.cacheBakedModels(event);
     }
 
     @SubscribeEvent

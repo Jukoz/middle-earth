@@ -34,8 +34,8 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private static final ResourceLocation SCROLLER_TEXTURE = ResourceLocation.withDefaultNamespace("container/villager/scroller");
     private static final ResourceLocation SCROLLER_DISABLED_TEXTURE = ResourceLocation.withDefaultNamespace("container/villager/scroller_disabled");
 
-    private static final ResourceLocation EMPTY_SLOT_EMERALD_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/emerald");
-    private static final ResourceLocation EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = ResourceLocation.withDefaultNamespace("container/slot/lapis_lazuli");
+    private static final ResourceLocation EMPTY_SLOT_EMERALD_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_emerald");
+    private static final ResourceLocation EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = ResourceLocation.withDefaultNamespace("item/empty_slot_lapis_lazuli");
     private static final ResourceLocation EMPTY_SLOT_ADAMANT_TEXTURE = MiddleEarth.ofPath( "container", "slot", "adamant");
     private static final ResourceLocation EMPTY_SLOT_RUBY_TEXTURE = MiddleEarth.ofPath( "container", "slot", "ruby");
     private static final ResourceLocation EMPTY_SLOT_SAPPHIRE_TEXTURE = MiddleEarth.ofPath( "container", "slot", "sapphire");
@@ -62,11 +62,13 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private final WidgetInscriptionButtonPage[] words = new WidgetInscriptionButtonPage[11];
     private final List<String> selectedWords = new ArrayList<>();
     private final List<Integer> selectedButtons = new ArrayList<>();
+    private int lastSelectionRevision;
 
     public InscriptionTableScreen(InscriptionTableScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
         this.imageWidth = 275;
         this.imageHeight = 183;
+        this.lastSelectionRevision = handler.getSelectionRevision();
     }
 
     @Override
@@ -79,18 +81,26 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
                 EMPTY_SLOT_RUBY_TEXTURE,
                 EMPTY_SLOT_SAPPHIRE_TEXTURE));
 
+        int selectionRevision = this.menu.getSelectionRevision();
+        if (selectionRevision != this.lastSelectionRevision || !this.menu.hasAll()) {
+            this.clearLocalSelection();
+            this.lastSelectionRevision = selectionRevision;
+        }
+
         for (WidgetInscriptionButtonPage button : this.words){
             button.setSelected(this.selectedButtons.contains(button.index + this.indexStartOffset));
             button.setSelectedIndex(this.selectedButtons.contains(button.index  + this.indexStartOffset) ? this.selectedButtons.indexOf(button.index + this.indexStartOffset) : -1);
         }
 
-        if (!this.menu.hasAll()){
-            this.selectedWords.clear();
-            this.selectedButtons.clear();
-            this.enchant = null;
-            this.level = 0;
-            this.maxLevel = 0;
-        }
+    }
+
+    private void clearLocalSelection() {
+        this.selectedWords.clear();
+        this.selectedButtons.clear();
+        this.indexStartOffset = 0;
+        this.enchant = null;
+        this.level = 0;
+        this.maxLevel = 0;
     }
 
     public void updateInfo(String enchant, int level, int maxLevel){
@@ -114,20 +124,25 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
             this.words[l] = this.addRenderableWidget(new WidgetInscriptionButtonPage(i + 5, k, l, button -> {
                 if (button instanceof WidgetInscriptionButtonPage wordButton) {
                     if (button.isHoveredOrFocused() && !wordButton.hidden){
+                        int wordIndex = wordButton.index + this.indexStartOffset;
+                        List<String> currentWords = this.menu.getWords();
+                        if (wordIndex < 0 || wordIndex >= currentWords.size()) {
+                            return;
+                        }
+                        String word = currentWords.get(wordIndex);
                         if (!((WidgetInscriptionButtonPage) button).selected){
                             if (this.selectedWords.size() == 3){
-                                this.selectedWords.remove(this.selectedWords.getLast());
-                                PacketDistributor.sendToServer(new InscriptionWordUpdatePacket(false, this.selectedWords.getLast()));
-                                this.selectedButtons.remove(this.selectedButtons.getLast());
+                                String removedWord = this.selectedWords.removeLast();
+                                this.selectedButtons.removeLast();
+                                this.sendWordUpdate(false, removedWord);
                             }
-                            this.selectedWords.add(menu.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
-                            PacketDistributor.sendToServer(new InscriptionWordUpdatePacket(true, menu.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
-                            this.selectedButtons.add(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset);
+                            this.selectedWords.add(word);
+                            this.sendWordUpdate(true, word);
+                            this.selectedButtons.add(wordIndex);
                         } else {
-                            this.selectedWords.remove(menu.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
-                            PacketDistributor.sendToServer(new InscriptionWordUpdatePacket(false, menu.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
-                            Object buttonIndex = ((WidgetInscriptionButtonPage) button).index + this.indexStartOffset;
-                            this.selectedButtons.remove(buttonIndex);
+                            this.selectedWords.remove(word);
+                            this.sendWordUpdate(false, word);
+                            this.selectedButtons.remove((Integer) wordIndex);
                         }
                     }
                     this.enchantText = Component.literal("awaiting runes").withStyle(STYLE.withObfuscated(true));
@@ -138,13 +153,25 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
 
         this.confirmationButton = new WidgetArrowButtonPage(i + 204, j + 50, button -> {
             if (button instanceof WidgetArrowButtonPage){
-                PacketDistributor.sendToServer(new InscriptionConfirmationPacket());
+                PacketDistributor.sendToServer(new InscriptionConfirmationPacket(
+                        this.menu.containerId,
+                        this.menu.getSelectionRevision()
+                ));
                 this.enchantText = Component.nullToEmpty(this.enchant);
             }
         });
         this.confirmationButton.active = false;
 
         this.addRenderableWidget(this.confirmationButton);
+    }
+
+    private void sendWordUpdate(boolean add, String word) {
+        PacketDistributor.sendToServer(new InscriptionWordUpdatePacket(
+                this.menu.containerId,
+                this.menu.getSelectionRevision(),
+                add,
+                word
+        ));
     }
 
     @Override

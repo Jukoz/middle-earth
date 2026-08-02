@@ -32,6 +32,10 @@ dependencyResolutionManagement {
             url = 'https://modmaven.dev'
         }
         maven {
+            name = 'BlameJared'
+            url = 'https://maven.blamejared.com'
+        }
+        maven {
             url = 'https://api.modrinth.com/maven'
         }
     }

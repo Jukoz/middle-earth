@@ -1442,7 +1442,6 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .componentInput(DataComponentIngredient.of(false, burzumSteelArmorPlate.getComponents(), burzumSteelArmorPlate.getItem()))
                         .componentInput(DataComponentIngredient.of(false, burzumSteelArmorPlate.getComponents(), burzumSteelArmorPlate.getItem())).input(Items.LEATHER)
                         .input(Items.LEATHER)
-                        .input(Items.LEATHER)
 
                         .unlockedBy(getHasName(burzumSteelArmorPlate.getItem()),
                                 has(burzumSteelArmorPlate.getItem()))

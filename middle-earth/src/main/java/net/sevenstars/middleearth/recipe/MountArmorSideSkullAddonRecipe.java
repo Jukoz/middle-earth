@@ -30,6 +30,10 @@ public class MountArmorSideSkullAddonRecipe extends CustomRecipe {
                     if (!itemStackArmor.isEmpty()) {
                         return false;
                     }
+                    MountArmorAddonComponent data = itemStack2.get(DataComponentTypesME.MOUNT_ARMOR_DATA);
+                    if (data != null && data.sideArmorAddon()) {
+                        return false;
+                    }
                     itemStackArmor = itemStack2;
                 }
                 else if (itemStack2.is(Items.STRING)) {
@@ -43,6 +47,8 @@ public class MountArmorSideSkullAddonRecipe extends CustomRecipe {
                         return false;
                     }
                     itemStackSkull = itemStack2;
+                } else {
+                    return false;
                 }
             }
         }

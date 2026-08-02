@@ -93,11 +93,12 @@ public final class ModClientNetworkHandler {
     }
 
     private static void handleInscriptionInfo(InscriptionEnchantInfoPacket packet, ClientPacketContext context) {
-        if (Minecraft.getInstance().screen instanceof InscriptionTableScreen screen) {
+        if (context.player().containerMenu instanceof InscriptionTableScreenHandler screenHandler
+                && screenHandler.containerId == packet.containerId()
+                && screenHandler.updateAvailableWords(packet.selectionRevision(), packet.words())
+                && Minecraft.getInstance().screen instanceof InscriptionTableScreen screen
+                && screen.getMenu().containerId == packet.containerId()) {
             screen.updateInfo(packet.enchant(), packet.level(), packet.maxLevel());
-        }
-        if (context.player().containerMenu instanceof InscriptionTableScreenHandler screenHandler) {
-            screenHandler.updateAvailableWords(packet.words());
         }
     }
 

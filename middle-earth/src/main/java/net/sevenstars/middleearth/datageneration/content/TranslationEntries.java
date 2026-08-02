@@ -820,13 +820,19 @@ public class TranslationEntries {
             put("key."+ MiddleEarth.MOD_ID +".map_teleport", "Map Teleport");
             put("key."+ MiddleEarth.MOD_ID +".map_fullscreen_toggle", "Toggle Map Fullscreen");
 
-            put("modmenu.nameTranslation.me", "Middle-earth");
-            put("modmenu.descriptionTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
-            put("modmenu.summaryTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.nameTranslation."+ MiddleEarth.MOD_ID, "Middle-earth");
+            put("modmenu.descriptionTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.summaryTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
 
             put("emi.category."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("emi.category."+ MiddleEarth.MOD_ID +".anvil_shaping", "Shaping Anvil");
             put("emi.category."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("emi.category."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
+            put("recipe."+ MiddleEarth.MOD_ID +".metal_units", "%s metal units");
+            put("recipe."+ MiddleEarth.MOD_ID +".ingot_equivalent", "%s ingot equivalent");
+            put("recipe."+ MiddleEarth.MOD_ID +".hammer_strikes", "%s hammer strikes");
+            put("recipe."+ MiddleEarth.MOD_ID +".level_cost", "%s levels");
+            put("recipe."+ MiddleEarth.MOD_ID +".applies_enchantment", "Applies %s");
 
             put("tag.item."+ MiddleEarth.MOD_ID +".anvil_items", "Anvil Items");
             put("tag.item."+ MiddleEarth.MOD_ID +".bones", "Bones");

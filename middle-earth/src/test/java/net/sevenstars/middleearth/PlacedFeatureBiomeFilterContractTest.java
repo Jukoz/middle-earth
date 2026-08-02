@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -9,14 +10,29 @@ import org.junit.jupiter.api.Test;
 
 class PlacedFeatureBiomeFilterContractTest {
     @Test
-    void wildWheatFieldRestrictsPlacementToOwningBiomes() throws IOException {
-        String registration = registrationStatement(
+    void wildWheatUsesSeparateBiomeAndJigsawPlacements() throws IOException {
+        String biomeRegistration = registrationStatement(
                 "src/main/java/net/sevenstars/middleearth/world/features/vegetation/"
                         + "ModVegetationPlacedFeatures.java",
                 "PlacementUtils.register(featureRegisterable, FIELD_WILD_WHEAT"
         );
+        String structureRegistration = registrationStatement(
+                "src/main/java/net/sevenstars/middleearth/world/features/vegetation/"
+                        + "ModVegetationPlacedFeatures.java",
+                "PlacementUtils.register(featureRegisterable, FIELD_WILD_WHEAT_STRUCTURE"
+        );
 
-        assertTrue(registration.endsWith("BiomeFilter.biome());"));
+        assertTrue(biomeRegistration.contains("BiomeFilter.biome()"));
+        assertFalse(structureRegistration.contains("BiomeFilter.biome()"));
+
+        String pool = Files.readString(Path.of(
+                "src/main/resources/data/middle-earth/worldgen/template_pool/wild_wheat.json"
+        ));
+        String alternatePool = Files.readString(Path.of(
+                "src/main/resources/data/middle-earth/worldgen/template_pool/wild_wheat_1.json"
+        ));
+        assertTrue(pool.contains("middle-earth:field_wild_wheat_structure"));
+        assertTrue(alternatePool.contains("middle-earth:field_wild_wheat_structure"));
     }
 
     @Test

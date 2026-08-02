@@ -61,7 +61,8 @@ public class ModBiomes {
         return feature.location().toString();
     }
     
-    public static void bootstrap(BootstrapContext<Biome> context) {
+    public static synchronized void bootstrap(BootstrapContext<Biome> context) {
+        resetFeatureLists();
         createAnduinBiome(context, MEBiomeKeys.ANDUIN_VALES, false);
         createAnduinBiome(context, MEBiomeKeys.ANDUIN_VALES_FOREST, true);
         createAnorienBiome(context, MEBiomeKeys.ANORIEN);
@@ -4523,9 +4524,7 @@ public class ModBiomes {
                 .build();
         context.register(biomeRegistryKey, biome);
 
-        surfaceStructures = new ArrayList<>();
-        vegetation = new ArrayList<>();
-        undergroundOres = new ArrayList<>();
+        resetFeatureLists();
     }
 
     public static void registerBiome(BootstrapContext<Biome> context, ResourceKey<Biome> biomeRegistryKey, MobSpawnSettings.Builder spawnSettings, BiomeGenerationSettings.Builder generationSettings, AmbientParticleSettings particleConfig, float temperature, boolean precipitation, boolean... removeDefaultOres) {
@@ -4583,6 +4582,10 @@ public class ModBiomes {
                 .build();
         context.register(biomeRegistryKey, biome);
 
+        resetFeatureLists();
+    }
+
+    private static void resetFeatureLists() {
         surfaceStructures = new ArrayList<>();
         vegetation = new ArrayList<>();
         undergroundOres = new ArrayList<>();

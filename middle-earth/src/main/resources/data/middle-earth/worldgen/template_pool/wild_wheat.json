@@ -4,7 +4,7 @@
     {
       "element": {
         "element_type": "minecraft:feature_pool_element",
-        "feature": "middle-earth:field_wild_wheat",
+        "feature": "middle-earth:field_wild_wheat_structure",
         "projection": "rigid"
       },
       "weight": 6

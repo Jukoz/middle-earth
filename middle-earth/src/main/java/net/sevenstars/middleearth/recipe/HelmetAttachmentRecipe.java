@@ -37,7 +37,8 @@ public class HelmetAttachmentRecipe extends CustomRecipe {
                     }
                     itemStackHelmet = itemStack2;
                 } else {
-                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)) {
+                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)
+                            || !itemStackHood.isEmpty()) {
                         return false;
                     }
                     itemStackHood = itemStack2;
@@ -62,7 +63,8 @@ public class HelmetAttachmentRecipe extends CustomRecipe {
 
                     itemStack = itemStack2.copy();
                 } else {
-                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)) {
+                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)
+                            || !hood.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
                     hood = itemStack2;

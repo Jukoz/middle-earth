@@ -3077,7 +3077,6 @@ public class ArtisanTableArmorRecipeProvider extends RecipeProvider {
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
                         .input(Items.LEATHER)
-                        .input(Items.LEATHER)
                         .unlockedBy(getHasName(EquipmentItemsME.URUK_HAI_MAIL_COAT),
                                 has(EquipmentItemsME.URUK_HAI_MAIL_COAT))
                         .save(output);

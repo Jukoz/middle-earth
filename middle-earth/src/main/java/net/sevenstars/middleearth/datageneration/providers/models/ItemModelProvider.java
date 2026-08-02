@@ -29,6 +29,7 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.PipeItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
+import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.artefacts.ArtefactCustomGlowingDaggerWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.artefacts.ArtefactCustomGlowingLongswordWeaponItem;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
@@ -85,6 +86,7 @@ public class ItemModelProvider implements DataProvider {
 
     private final PackOutput.PathProvider modelPathProvider;
     private final Path authoredModelsRoot;
+    private final Set<ResourceLocation> generatedBaseModels = new HashSet<>();
     private BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput;
 
     public ItemModelProvider(PackOutput output) {
@@ -109,7 +111,7 @@ public class ItemModelProvider implements DataProvider {
             if (!definedModels.add(id)) {
                 throw new IllegalStateException("Duplicate model definition for " + id);
             }
-            if (!hasAuthoredItemModel(id)) {
+            if (generatedBaseModels.contains(id) || !hasAuthoredItemModel(id)) {
                 models.put(id, supplier);
             }
         };
@@ -205,7 +207,16 @@ public class ItemModelProvider implements DataProvider {
                 : CustomItemModels.BIG_WEAPON;
         createFlatItem(item, "_inventory", ModelTemplates.FLAT_ITEM);
 
-        createFlatItem(item, handModel, List.of());
+        List<ModelOverride> overrides = List.of();
+        if (item instanceof CustomLongswordWeaponItem) {
+            ResourceLocation blocking = createFlatModel(
+                    ModelLocationUtils.getModelLocation(item, "_blocking"),
+                    TextureMapping.getItemTexture(item),
+                    CustomItemModels.BIG_WEAPON_BLOCKING
+            );
+            overrides = List.of(override(blocking, BLOCKING, 1.0F));
+        }
+        createFlatItem(item, handModel, overrides);
     }
 
     private void registerGenericBigModels(Item item) {
@@ -247,12 +258,34 @@ public class ItemModelProvider implements DataProvider {
             createFlatItem(item, "_inventory", ModelTemplates.FLAT_ITEM);
             createFlatItem(item, "_broken_inventory", ModelTemplates.FLAT_ITEM);
             List<ModelOverride> overrides = new ArrayList<>();
-            overrides.add(override(broken, BROKEN, 1.0F));
+            ResourceLocation blocking = createFlatModel(
+                    ModelLocationUtils.getModelLocation(item, "_blocking"),
+                    TextureMapping.getItemTexture(item),
+                    CustomItemModels.BIG_WEAPON_BLOCKING
+            );
+            ResourceLocation brokenBlocking = createFlatModel(
+                    ModelLocationUtils.getModelLocation(item, "_broken_blocking"),
+                    TextureMapping.getItemTexture(item),
+                    CustomItemModels.BIG_WEAPON_BLOCKING
+            );
+            ResourceLocation glowing = null;
+            ResourceLocation glowingBlocking = null;
             if (item instanceof ArtefactCustomGlowingLongswordWeaponItem) {
-                ResourceLocation glowing = createFlatItem(item, "_glowing", CustomItemModels.BIG_WEAPON);
+                glowing = createFlatItem(item, "_glowing", CustomItemModels.BIG_WEAPON);
                 createFlatItem(item, "_glowing_inventory", ModelTemplates.FLAT_ITEM);
+                glowingBlocking = createFlatModel(
+                        ModelLocationUtils.getModelLocation(item, "_glowing_blocking"),
+                        TextureMapping.getItemTexture(item, "_glowing"),
+                        CustomItemModels.BIG_WEAPON_BLOCKING
+                );
                 overrides.add(override(glowing, GLOWING, 1.0F));
             }
+            overrides.add(override(broken, BROKEN, 1.0F));
+            overrides.add(override(blocking, BLOCKING, 1.0F));
+            if (glowingBlocking != null) {
+                overrides.add(override(glowingBlocking, GLOWING, 1.0F, BLOCKING, 1.0F));
+            }
+            overrides.add(override(brokenBlocking, BROKEN, 1.0F, BLOCKING, 1.0F));
             createFlatItem(
                     item,
                     CustomItemModels.BIG_WEAPON,
@@ -347,6 +380,7 @@ public class ItemModelProvider implements DataProvider {
 
     private void registerPalettedItem(Item item) {
         ResourceLocation baseModel = ModelLocationUtils.getModelLocation(item);
+        generatedBaseModels.add(baseModel);
         ResourceLocation baseTexture = TextureMapping.getItemTexture(item);
         List<ModelOverride> overrides = new ArrayList<>();
 

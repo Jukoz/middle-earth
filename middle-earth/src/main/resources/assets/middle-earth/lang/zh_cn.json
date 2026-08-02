@@ -14582,8 +14582,8 @@
   "key.middle-earth.map_teleport": "在地图界面中传送",
   "key.middle-earth.map_fullscreen_toggle": "切换地图全屏显示",
 
-  "__COMMENT__": "NPC 类型 - npc_type",
-  "npc_type.middle-earth.npc": "NPC",
+  "__COMMENT__": "npc数据 - npc_data",
+  "npc_data.middle-earth.npc": "NPC",
 
   "npc_type.middle-earth.brigand.chieftain": "匪盗头目",
   "npc_type.middle-earth.brigand.mercenary": "匪盗佣兵",
@@ -14896,7 +14896,6 @@
   "sounds.middle-earth.pipe_refill": "烟斗：填充",
   "sounds.middle-earth.pipe_exhale": "烟斗：吸烟",
   "sounds.middle-earth.pipe_ignite": "烟斗：点燃",
-  "sounds.middle-earth.pipe_cough": "烟斗：咳嗽",
   "sounds.middle-earth.orc_drum": "奥克鼓：擂响",
   "sounds.middle-earth.great_horn_idle": "大角鹿：咕哝",
   "sounds.middle-earth.great_horn_hurt": "大角鹿：受伤",
@@ -15350,9 +15349,15 @@
   "emi.category.middle-earth.forge": "锻造炉",
   "emi.category.middle-earth.anvil_shaping": "铁砧加工",
   "emi.category.middle-earth.artisan_table": "工匠台",
+  "emi.category.middle-earth.inscription_table": "铭文台",
+  "recipe.middle-earth.metal_units": "%s 金属单位",
+  "recipe.middle-earth.ingot_equivalent": "相当于 %s 个锭",
+  "recipe.middle-earth.hammer_strikes": "锻打 %s 次",
+  "recipe.middle-earth.level_cost": "消耗 %s 级经验",
+  "recipe.middle-earth.applies_enchantment": "施加 %s",
 
   "__COMMENT__": "ModMenu 兼容",
-  "modmenu.nameTranslation.me": "中洲",
-  "modmenu.summaryTranslation.me": "在托尔金的传说故事集中沉浸冒险！",
-  "modmenu.descriptionTranslation.me": "在托尔金的传说故事集中沉浸冒险！"
+  "modmenu.nameTranslation.middle-earth": "中洲",
+  "modmenu.summaryTranslation.middle-earth": "在托尔金的传说故事集中沉浸冒险！",
+  "modmenu.descriptionTranslation.middle-earth": "在托尔金的传说故事集中沉浸冒险！"
 }
