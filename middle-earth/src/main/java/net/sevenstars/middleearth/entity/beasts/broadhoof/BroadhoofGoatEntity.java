@@ -43,6 +43,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.BeastRevengeGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
@@ -89,6 +90,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.ATTACK_DAMAGE, 4.0d)
                 .add(EntityAttributes.STEP_HEIGHT, 1.15d)
                 .add(EntityAttributes.SAFE_FALL_DISTANCE, 10.0d)
+                .add(EntityAttributesME.POWDERED_SNOW_IMMUNITY, 1.0f)
                 .add(EntityAttributes.JUMP_STRENGTH, 1);
     }
 
