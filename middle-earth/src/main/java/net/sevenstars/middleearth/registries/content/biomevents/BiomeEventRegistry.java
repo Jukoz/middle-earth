@@ -8,7 +8,11 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.biomevents.pools.*;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BiomeEventRegistry {
     private static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT_KEY = DynamicRegistriesME.BIOME_EVENT;
@@ -160,10 +164,6 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> SHIRE               = of(MEBiomeKeys.SHIRE);
     public final static RegistryKey<BiomeEventData> SHIRE_EDGE          = of(MEBiomeKeys.SHIRE_EDGE);
 
-    private static RegistryKey<BiomeEventData> of(RegistryKey<Biome> key){
-        return DynamicRegistriesME.of(BIOME_EVENT_KEY, key.getValue());
-    }
-
     public static void bootstrapStructureEvents(Registerable<BiomeEventData> context) {
         RegistryEntryLookup<BiomeEventData> registryEntryLookup = context.getRegistryLookup(STRUCTURE_EVENT_KEY);
 
@@ -287,15 +287,20 @@ public class BiomeEventRegistry {
 
         register(context, registryEntryLookup, SHIRE        , ShireBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, SHIRE_EDGE   , ShireBiomeEventPool.DEFAULT);
+
+
+        BiomeEventRegistryUtil.registerDefaults(context, registryEntryLookup);
     }
 
-    private static void register(Registerable<BiomeEventData> context, RegistryEntryLookup<BiomeEventData> registryEntryLookup, RegistryKey<BiomeEventData> registryKey, BiomeEventData element){
-        DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
-        // [LANG datagen]
-        // None
+    private static void register(Registerable<BiomeEventData> context, RegistryEntryLookup<BiomeEventData> registryEntryLookup, RegistryKey<BiomeEventData> registryKey, BiomeEventData element) {
+        BiomeEventRegistryUtil.register(context, registryEntryLookup, registryKey, element);
     }
 
-    private static RegistryKey<Structure> register(String name) {
-        return RegistryKey.of(RegistryKeys.STRUCTURE, Identifier.of(MiddleEarth.MOD_ID, name));
+    public static RegistryKey<BiomeEventData> of(RegistryKey<Biome> key) {
+        return BiomeEventRegistryUtil.of(key);
+    }
+
+    public static RegistryKey<Structure> register(String name) {
+        return BiomeEventRegistryUtil.register(name);
     }
 }
