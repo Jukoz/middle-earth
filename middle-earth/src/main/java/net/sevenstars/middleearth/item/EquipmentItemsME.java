@@ -210,6 +210,10 @@ public class EquipmentItemsME {
     public static final Item KETTLE_HAT = registerCustomModelArmorPiece("kettle_hat",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.IRON_T2, settings), new Item.Settings());
 
+
+    public static final Item BLACKSMITH_APRON = registerArmorPiece("blacksmith_apron",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings());
+
     public static final Item GAMBESON = registerDyeableArmorPiece("gambeson",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(15256475)));

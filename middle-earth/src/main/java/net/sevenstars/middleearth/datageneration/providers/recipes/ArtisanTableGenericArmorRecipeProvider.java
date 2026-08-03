@@ -22,7 +22,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -329,6 +328,19 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACKSMITH_APRON.getDefaultStack(), "chestplate", DispositionType.NEUTRAL)
+                        .input(Items.STRING)
+                        .input(Items.STRING)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
                         .criterion(hasItem(Items.LEATHER),
                                 conditionsFromItem(Items.LEATHER))
                         .offerTo(exporter);
