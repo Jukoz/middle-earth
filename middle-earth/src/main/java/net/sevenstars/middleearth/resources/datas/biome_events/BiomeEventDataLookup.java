@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources.datas.biome_events;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -11,6 +12,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
+import org.apache.logging.log4j.core.jmx.Server;
 
 
 public class BiomeEventDataLookup {
@@ -51,7 +53,7 @@ public class BiomeEventDataLookup {
         return null;
     }
 
-    public static boolean canEntitySpawn(World world, RegistryEntry<Biome> biome, BlockPos pos, EntityType<?> type, Random random) {
+    public static boolean canEntitySpawn(ServerWorld world, RegistryEntry<Biome> biome, BlockPos pos, EntityType<?> type, Random random) {
         RegistryEntry.Reference<BiomeEventData> dataRef = world.getRegistryManager().getOrThrow(DynamicRegistriesME.BIOME_EVENT).getEntry(MiddleEarth.fetchId(biome.getIdAsString())).orElse(null);
         if(dataRef == null)
             return true;

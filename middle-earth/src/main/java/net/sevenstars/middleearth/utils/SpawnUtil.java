@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ServerWorldAccess;
@@ -13,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLoo
 
 public class SpawnUtil {
     public static boolean canCreatureSpawn(EntityType<?> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-        if (spawnReason == SpawnReason.NATURAL && serverWorldAccess instanceof World world) {
+        if (spawnReason == SpawnReason.NATURAL && serverWorldAccess instanceof ServerWorld world) {
             RegistryEntry<Biome> biome = world.getBiome(blockPos);
             return BiomeEventDataLookup.canEntitySpawn(world, biome, blockPos, type, random);
         }
