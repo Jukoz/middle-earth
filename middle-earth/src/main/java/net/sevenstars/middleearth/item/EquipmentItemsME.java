@@ -165,6 +165,11 @@ public class EquipmentItemsME {
     public static final Item CHAPERON = registerCustomModelArmorPiece("chaperon",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings());
 
+    public static final Item GLASSES = registerCustomModelArmorPiece("glasses",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BRONZE_T1, settings), new Item.Settings());
+    public static final Item DWARVEN_MONOCLE = registerCustomModelArmorPiece("dwarven_monocle",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BRONZE_T1, settings), new Item.Settings());
+
     public static final Item STRAW_HAT = registerCustomModelArmorPiece("straw_hat",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings());
 
