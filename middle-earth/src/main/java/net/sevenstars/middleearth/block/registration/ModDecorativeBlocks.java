@@ -185,6 +185,10 @@ public class ModDecorativeBlocks {
             SkullCandleBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
             CandleHeapBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10)));
+    public static final Block SMALL_BRONZE_CHANDELIER = registerBlockWithItem("small_bronze_chandelier",
+            SmallChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
+    public static final Block BRONZE_CHANDELIER = registerBlockWithItem("bronze_chandelier",
+            ChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block SMALL_CHANDELIER = registerBlockWithItem("small_chandelier",
             SmallChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CHANDELIER = registerBlockWithItem("chandelier",
