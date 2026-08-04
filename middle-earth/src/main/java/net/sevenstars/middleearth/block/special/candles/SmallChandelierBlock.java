@@ -1,9 +1,6 @@
 package net.sevenstars.middleearth.block.special.candles;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -38,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
 
-public class ChandelierBlock extends Block {
+public class SmallChandelierBlock extends Block {
     private static final int MAX_VARIANT = 2;
     public static final IntProperty VARIANT = IntProperty.of("variant", 1, MAX_VARIANT);
     public static final BooleanProperty LIT;
@@ -46,7 +43,7 @@ public class ChandelierBlock extends Block {
     public static final ToIntFunction<BlockState> STATE_TO_LUMINANCE;
     private static final VoxelShape SHAPE;
 
-    public ChandelierBlock(Settings settings) {
+    public SmallChandelierBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(LIT, false));
     }
@@ -98,23 +95,15 @@ public class ChandelierBlock extends Block {
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(LIT)) {
             if(state.get(VARIANT) == 1) {
-                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, -0.375), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 1.375), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(0.375, 12.5 * 0.0625, 0.5), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(1.375, 12.5 * 0.0625, 0.5), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(-0.125, 12.5 * 0.0625, -0.125), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(-0.125, 12.5 * 0.0625, 1.125), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(1.125, 12.5 * 0.0625, -0.125), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(1.125, 12.5 * 0.0625, 1.125), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.0625, 12.5 * 0.0625, 0.0625), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.0625, 12.5 * 0.0625, 0.9375), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.9375, 12.5 * 0.0625, 0.0625), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.9375, 12.5 * 0.0625, 0.9375), random);
             } else if(state.get(VARIANT) == 2) {
-                spawnCandleParticles(world, pos.toCenterPos().add(-0.25, 12.5 * 0.0625, -0.25), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(-0.25, 12.5 * 0.0625, 1.25), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(1.25, 12.5 * 0.0625, -0.25), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(1.25, 12.5 * 0.0625, 1.25), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(-0.25, 12.5 * 0.0625, 0.5), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 1.25), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, -0.25), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(1.25, 12.5 * 0.0625, 0.5), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.125, 12.5 * 0.0625, 0.5), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 0.875), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 0.125), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(0.875, 12.5 * 0.0625, 0.5), random);
             }
         }
     }

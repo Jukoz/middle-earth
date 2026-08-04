@@ -63,6 +63,7 @@ public class BlockDrops {
             add(ModDecorativeBlocks.CANDLE_HOLDER);
             add(ModDecorativeBlocks.CERAMIC_LAMP);
             add(ModDecorativeBlocks.SMALL_CHANDELIER);
+            add(ModDecorativeBlocks.CHANDELIER);
 
             add(ModDecorativeBlocks.SCONCE);
             add(ModDecorativeBlocks.WALL_SCONCE);
