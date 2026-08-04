@@ -30,6 +30,8 @@ public class ModServerConfigs {
     public static int SHARPNESS_MAX_LEVEL;
     /** Amount of levels that a power enchant can have in Middle-earth**/
     public static int POWER_MAX_LEVEL;
+    /** Global Mob Cap**/
+    public static int GLOBAL_MOB_CAP;
 
     public static void registerConfigs() {
         configs = new ModConfigProvider();
@@ -51,6 +53,8 @@ public class ModServerConfigs {
         configs.addKeyValuePair(new Pair<>("enableReturnToOverworld", true), "boolean");
         configs.addDescription("Should procedural structures (such as Orthanc) generate in Middle-earth?");
         configs.addKeyValuePair(new Pair<>("enableProceduralStructures", true), "boolean");
+        configs.addDescription("Maximum amount of non-persistent entity per type in Middle-earth");
+        configs.addKeyValuePair(new Pair<>("globalMobCap", true), "int");
         configs.addLineJump();
 
         // PlayerFactionPayload configurations
@@ -91,6 +95,8 @@ public class ModServerConfigs {
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
         ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
         ENABLE_PROCEDURAL_STRUCTURES = CONFIG.getOrDefault("enableProceduralStructures", true);
+        GLOBAL_MOB_CAP = CONFIG.getOrDefault("globalMobCap", 50);
+
         // PlayerFactionPayload configurations
         ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
         ENABLE_KEEP_RACE_ON_DIMENSION_SWAP = CONFIG.getOrDefault("enableKeepRaceOnDimensionSwap", true);
