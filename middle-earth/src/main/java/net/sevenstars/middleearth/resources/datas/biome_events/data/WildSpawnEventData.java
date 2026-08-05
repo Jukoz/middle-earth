@@ -16,8 +16,10 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class WildSpawnEventData {
     private final static WildSpawnEventData EXAMPLE = new WildSpawnEventData(NpcRegistry.BRIGAND_THUG)
