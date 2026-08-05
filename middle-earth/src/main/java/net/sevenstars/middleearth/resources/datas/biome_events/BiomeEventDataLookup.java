@@ -7,6 +7,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -62,7 +63,7 @@ public class BiomeEventDataLookup {
         return null;
     }
 
-    public static boolean canEntitySpawn(World world, RegistryEntry<Biome> biome, BlockPos pos, EntityType<?> type, Random random) {
+    public static boolean canEntitySpawn(ServerWorld world, RegistryEntry<Biome> biome, BlockPos pos, EntityType<?> type, Random random) {
         RegistryEntry.Reference<BiomeEventData> dataRef = world.getRegistryManager().getOrThrow(DynamicRegistriesME.BIOME_EVENT).getEntry(MiddleEarth.fetchId(biome.getIdAsString())).orElse(null);
         if(dataRef == null)
             return true;
