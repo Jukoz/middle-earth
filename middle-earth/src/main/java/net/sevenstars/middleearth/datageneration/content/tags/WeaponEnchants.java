@@ -17,7 +17,7 @@ public class WeaponEnchants {
         add(ToolItemsME.BRONZE_AXE.asItem());
         add(ToolItemsME.CRUDE_AXE.asItem());
         add(ToolItemsME.BURZUM_STEEL_AXE.asItem());
-        add(ToolItemsME.EDHEL_STEEL_PICKAXE.asItem());
+        add(ToolItemsME.EDHEL_STEEL_AXE.asItem());
         add(ToolItemsME.KHAZAD_STEEL_AXE.asItem());
         add(ToolItemsME.STEEL_AXE.asItem());
         add(ToolItemsME.MITHRIL_AXE.asItem());

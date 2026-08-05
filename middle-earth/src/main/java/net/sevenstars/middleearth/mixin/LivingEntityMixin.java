@@ -28,6 +28,7 @@ import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -175,5 +176,13 @@ public abstract class LivingEntityMixin extends Entity {
     private boolean ScaffoldingDescendLogic(BlockState state, Block block, Operation<Boolean> original) {
         return original.call(state, block)
                 || block == Blocks.SCAFFOLDING && state.isOf(ModDecorativeBlocks.REINFORCED_SCAFFOLDING);
+    }
+
+    @Inject(method = "remove", at = @At("TAIL"))
+    private void onRemove(Entity.RemovalReason reason, CallbackInfo ci) {
+        if (!(((Entity)this) instanceof LivingEntity livingEntity)) {
+            return;
+        }
+        BiomeEventDataLookup.removeEntity(livingEntity.getType(), livingEntity.getUuid());
     }
 }

@@ -1073,7 +1073,7 @@ public class WeaponItemsME {
     }
 
     private static Item registerBowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBowItemModel.items.add(item);
         Bows.bows.add(item);
@@ -1081,7 +1081,7 @@ public class WeaponItemsME {
     }
 
     private static Item registerBigBowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.bigBows.add(item);
         Bows.bows.add(item);
@@ -1089,7 +1089,7 @@ public class WeaponItemsME {
     }
 
     private static Item registerCrossbowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleCrossbowItemModel.items.add(item);
         Crossbows.crossbows.add(item);

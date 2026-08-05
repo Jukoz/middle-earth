@@ -139,7 +139,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
         boolean isOnSolidGround = worldAccess.getBlockState(below).isSolidBlock(worldAccess, below);
         boolean isNotOnTopOfLogs = !worldAccess.getBlockState(below).isIn(BlockTags.LOGS);
 
-        if (spawnReason == SpawnReason.NATURAL && worldAccess instanceof World world) {
+        if (spawnReason == SpawnReason.NATURAL && worldAccess instanceof ServerWorld world) {
             RegistryEntry<Biome> biome = world.getBiome(pos);
             boolean canSpawn = BiomeEventDataLookup.canEntitySpawn(world, biome, pos, type, random);
             return isOnSolidGround && isNotOnTopOfLogs && canSpawn;

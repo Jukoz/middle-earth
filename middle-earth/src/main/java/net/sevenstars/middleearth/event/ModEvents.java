@@ -4,7 +4,9 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.component.type.ToolComponent;
@@ -17,6 +19,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -229,8 +232,14 @@ public class ModEvents {
         if (!blockState.isAir()) {
             if (toolComponent.isCorrectForDrops(blockState)){
                 if (blockState.getBlock().getHardness() <= hardness){
-                    world.breakBlock(blockpos, true, player);
-                    player.getStackInHand(player.getActiveHand()).damage(1, player);
+                    BlockState state = world.getBlockState(blockpos);
+                    BlockEntity blockEntity = state.hasBlockEntity()
+                            ? world.getBlockEntity(blockpos)
+                            : null;
+                    stack.postMine(world, state, blockpos, player);
+                    world.removeBlock(blockpos, false);
+                    Block.dropStacks(state, world, blockpos, blockEntity, player, stack);
+                    state.getBlock().afterBreak(world, player, blockpos, state, blockEntity, stack);
                 }
             }
         }

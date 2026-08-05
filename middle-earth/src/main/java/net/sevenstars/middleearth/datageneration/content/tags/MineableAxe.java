@@ -44,6 +44,19 @@ public class MineableAxe {
             add(ModDecorativeBlocks.RUINED_DWARVEN_DOOR);
             add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
 
+            add(ModDecorativeBlocks.THIN_BARREL);
+            add(ModDecorativeBlocks.SMALL_CRATE);
+
+            add(ModDecorativeBlocks.BEECH_COFFER);
+            add(ModDecorativeBlocks.CHESTNUT_COFFER);
+            add(ModDecorativeBlocks.FIR_COFFER);
+            add(ModDecorativeBlocks.LARCH_COFFER);
+            add(ModDecorativeBlocks.OAK_COFFER);
+            add(ModDecorativeBlocks.PINE_COFFER);
+            add(ModDecorativeBlocks.SPRUCE_COFFER);
+            add(ModDecorativeBlocks.WILLOW_COFFER);
+            add(ModDecorativeBlocks.REINFORCED_CHEST);
+
             add(ModBlocks.AGED_WOOD_TRAPDOOR);
             add(ModBlocks.BLACK_WATTLE_TRAPDOOR);
             add(ModBlocks.DARK_WATTLE_TRAPDOOR);
@@ -60,9 +73,6 @@ public class MineableAxe {
             add(ModDecorativeBlocks.TREATED_WOOD_CHAIR);
             add(ModDecorativeBlocks.TREATED_WOOD_TABLE);
             add(ModDecorativeBlocks.TREATED_WOOD_BENCH);
-
-            add(ModDecorativeBlocks.THIN_BARREL);
-            add(ModDecorativeBlocks.SMALL_CRATE);
 
             add(ModNatureBlocks.BROWN_BOLETE_BLOCK);
             add(ModNatureBlocks.CAVE_AMANITA_BLOCK);
