@@ -819,9 +819,9 @@ public class TranslationEntries {
             put("key."+ MiddleEarth.MOD_ID +".map_teleport", "Map Teleport");
             put("key."+ MiddleEarth.MOD_ID +".map_fullscreen_toggle", "Toggle Map Fullscreen");
 
-            put("modmenu.nameTranslation.me", "Middle-earth");
-            put("modmenu.descriptionTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
-            put("modmenu.summaryTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.nameTranslation."+ MiddleEarth.MOD_ID, "Middle-earth");
+            put("modmenu.descriptionTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.summaryTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
 
             put("emi.category."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("emi.category."+ MiddleEarth.MOD_ID +".anvil_shaping", "Shaping Anvil");
