@@ -1396,6 +1396,22 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_TRIM);
                  //endregion
 
+                ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.OLD_SKULL, 1)
+                        .input(Items.SKELETON_SKULL)
+                        .input(ResourceItemsME.ASH)
+                        .criterion(hasItem(Items.SKELETON_SKULL),
+                                conditionsFromItem(Items.SKELETON_SKULL))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SKELETON, 1)
+                        .pattern("BSB")
+                        .pattern(" B ")
+                        .pattern("B B")
+                        .input('B', TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("bones")))
+                        .input('S', ModDecorativeBlocks.OLD_SKULL.asItem())
+                        .criterion(hasItem(ModDecorativeBlocks.OLD_SKULL.asItem()),
+                                conditionsFromItem(ModDecorativeBlocks.OLD_SKULL.asItem()))
+                        .offerTo(exporter);
 
                 createCombinedItemRecipe(exporter, Blocks.SKELETON_SKULL, ItemTags.CANDLES, ModDecorativeBlocks.SKULL_CANDLE);
 
@@ -1408,6 +1424,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.CANDLE),
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CANDLE_HOLDER, 1)
                         .pattern("C ")
                         .pattern("SS")
@@ -1430,6 +1447,46 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("CCC")
                         .pattern("CCC")
                         .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .criterion(hasItem(Items.CANDLE),
+                                conditionsFromItem(Items.CANDLE))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SMALL_CHANDELIER, 1)
+                        .pattern(" N ")
+                        .pattern("CNC")
+                        .pattern("N N")
+                        .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .criterion(hasItem(Items.CANDLE),
+                                conditionsFromItem(Items.CANDLE))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CHANDELIER, 1)
+                        .pattern(" N ")
+                        .pattern("CHC")
+                        .pattern("N N")
+                        .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .input('H', ModDecorativeBlocks.SMALL_CHANDELIER)
+                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .criterion(hasItem(Items.CANDLE),
+                                conditionsFromItem(Items.CANDLE))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER, 1)
+                        .pattern(" N ")
+                        .pattern("CNC")
+                        .pattern("N N")
+                        .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bronze_nuggets")))
+                        .criterion(hasItem(Items.CANDLE),
+                                conditionsFromItem(Items.CANDLE))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BRONZE_CHANDELIER, 1)
+                        .pattern(" N ")
+                        .pattern("CHC")
+                        .pattern("N N")
+                        .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
+                        .input('H', ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER)
+                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bronze_nuggets")))
                         .criterion(hasItem(Items.CANDLE),
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
