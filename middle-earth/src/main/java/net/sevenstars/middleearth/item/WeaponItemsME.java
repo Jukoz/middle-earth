@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.item;
 
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
@@ -1105,7 +1106,9 @@ public class WeaponItemsME {
     }
 
     private static Item registerCrossbowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.maxCount(1).maxDamage(465)
+                .component(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT).enchantable(1)
+                .registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleCrossbowItemModel.items.add(item);
         Crossbows.crossbows.add(item);

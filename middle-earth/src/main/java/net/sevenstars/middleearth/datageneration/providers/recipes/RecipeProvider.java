@@ -128,7 +128,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                             createPillarRecipe(exporter, record.baseBlocks.base(), record.pillarBlocks.base(), 3);
                             offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.pillarBlocks.base(), record.baseBlocks.base(), 1);
                         }
-                        if(record.polishedBlocks != null && record.hasVanillaPolished) {
+                        if(record.polishedBlocks != null && !record.hasVanillaPolished) {
                             createBrickRecipe(exporter, record.baseBlocks.base().asItem(), record.polishedBlocks.base(), 4);
                             offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, record.polishedBlocks.base(), record.baseBlocks.base(), 1);
                         }
@@ -727,6 +727,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.ANDESITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(),StoneBlockSets.ANDESITE_SET.brickworkBlocks.base());
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.DIORITE_SET.brickworkBlocks.base());
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GRANITE_SET.brickworkBlocks.base());
+
+                createBrickRecipe(exporter, GenericBlockSets.PACKED_MIRE.blockSet.base().asItem(), GenericBlockSets.MIRE_BRICKS.blockSet.base(), 4);
 
                 createBrickRecipe(exporter, Blocks.BRICKS.asItem(), GenericBlockSets.CLAY_TILING.blockSet.base(), 4);
                 createCenterSurroundRecipe(exporter, GenericBlockSets.CLAY_TILING.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.BLACK_CLAY_TILING.blockSet.base().asItem(), 8);

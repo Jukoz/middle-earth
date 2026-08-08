@@ -312,6 +312,8 @@ public class TranslationEntries {
 
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
 
+            put(MiddleEarth.MOD_ID +".music.menu.swept_away", "Swept Away");
+
             put("sounds."+ MiddleEarth.MOD_ID +".bellows_push", "Bellows blowing");
             put("sounds."+ MiddleEarth.MOD_ID +".chisel_hit", "Chisel hits");
             put("sounds."+ MiddleEarth.MOD_ID +".chisel_enchant", "Chisel enchants");
