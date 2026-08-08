@@ -1,12 +1,10 @@
-package net.sevenstars.middleearth.entity.beasts.trolls.stone;
+package net.sevenstars.middleearth.entity.stone_troll;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
-import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollAnimations;
-import net.sevenstars.middleearth.entity.beasts.warg.WargAnimations;
 
 public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
     private final ModelPart r;

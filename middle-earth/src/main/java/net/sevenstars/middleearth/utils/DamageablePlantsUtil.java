@@ -5,7 +5,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
+import net.sevenstars.middleearth.entity.stone_troll.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;

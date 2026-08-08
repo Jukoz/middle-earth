@@ -57,7 +57,7 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollRenderer;
-import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollRenderer;
+import net.sevenstars.middleearth.entity.stone_troll.StoneTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.warg.WargRenderer;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;

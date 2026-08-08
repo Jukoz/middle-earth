@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.beasts.trolls.stone;
+package net.sevenstars.middleearth.entity.stone_troll;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

@@ -7,7 +7,6 @@ import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
-import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollAnimations;
 
 @Environment(value= EnvType.CLIENT)
 public class SnowTrollModel extends EntityModel<TrollEntityRenderState> {

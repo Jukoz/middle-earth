@@ -22,7 +22,7 @@ import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornArm
 import net.sevenstars.middleearth.entity.beasts.great_horn.features.GreatHornSaddleModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
-import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollModel;
+import net.sevenstars.middleearth.entity.stone_troll.StoneTrollModel;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.entity.beasts.warg.features.*;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;

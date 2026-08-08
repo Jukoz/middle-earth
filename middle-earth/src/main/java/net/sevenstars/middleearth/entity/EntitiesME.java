@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,10 +18,9 @@ import net.sevenstars.middleearth.entity.barrel.BarrelEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
+import net.sevenstars.middleearth.entity.stone_troll.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
@@ -38,7 +36,6 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
-import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
 import java.util.function.Supplier;
 public class EntitiesME {
@@ -134,6 +131,7 @@ public class EntitiesME {
 
         FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
+
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(CAVE_TROLL, CaveTrollEntity.setAttributes());
 
@@ -144,11 +142,6 @@ public class EntitiesME {
         FabricDefaultAttributeRegistry.register(SHELOBITE_LARVA, ShelobiteLarvaEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SHELOBITE_SCUTTLER, ShelobiteScuttlerEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(SPAWN_OF_SHELOB, SpawnOfShelobEntity.setAttributes());
-
-        FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
-        FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());
-
-        FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(NPC, NpcEntity.setAttributes());
         SpawnRestriction.register(NPC, SpawnLocationTypes.ON_GROUND,
