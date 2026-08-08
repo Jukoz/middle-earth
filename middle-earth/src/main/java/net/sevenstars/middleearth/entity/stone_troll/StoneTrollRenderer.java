@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, TrollEntityRenderState, StoneTrollModel> {
-    private static final String PATH = "textures/entities/trolls/stone/stone_troll1.png";
+    private static final String PATH = "textures/entities/trolls/stone/stone_troll_a.png";
 
     public StoneTrollRenderer(EntityRendererFactory.Context context) {
         super(context, new StoneTrollModel(context.getPart(EntityModelLayersME.STONE_TROLL)), 1.1f);

@@ -26,6 +26,8 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 
 import java.util.List;
 
+// TODO ADD BRAIN
+// TODO ADD ANIMATIONS
 public class StoneTrollEntity extends PathAwareEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final List<RegistryKey<Biome>> darkBiomes = List.of(
