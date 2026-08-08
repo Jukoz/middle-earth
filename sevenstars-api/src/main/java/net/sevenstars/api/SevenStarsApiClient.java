@@ -1,7 +1,6 @@
 package net.sevenstars.api;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.sevenstars.api.utils.ModLogger;
 
 public class SevenStarsApiClient implements ClientModInitializer {
 

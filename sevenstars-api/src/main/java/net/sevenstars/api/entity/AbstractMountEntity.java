@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -16,7 +17,7 @@ import net.sevenstars.api.utils.IServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
 // TODO change private floats to attributes
-public class AbstractMountEntity extends PathAwareEntity {
+public abstract class AbstractMountEntity extends PathAwareEntity {
     protected SimpleInventory items;
     private final float cursorRotationSpeed = 0;
     private final float inputRotationSpeed = 0;
@@ -57,6 +58,14 @@ public class AbstractMountEntity extends PathAwareEntity {
 
             player.openMountInventory(this, this.items);
         }
+    }
+
+    public int getInventoryColumns() {
+        return 0;
+    }
+
+    public boolean areInventoriesDifferent(Inventory inventory) {
+        return this.items != inventory;
     }
 
     //endregion
