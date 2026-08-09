@@ -7,7 +7,6 @@ import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
 public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
-    private final ModelPart root;
     private final ModelPart head;
 
     //private final Animation walkingAnimation;
@@ -15,8 +14,7 @@ public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
     public StoneTrollModel(ModelPart root) {
         super(root);
 
-        this.root = root.getChild("root");
-        this.head = this.root.getChild("body").getChild("body_no_arms").getChild("head");
+        this.head = root.getChild("root").getChild("body").getChild("body_no_arms").getChild("head");
 
         //this.walkingAnimation = StoneTrollAnimations.WALK.createAnimation(root);
     }
