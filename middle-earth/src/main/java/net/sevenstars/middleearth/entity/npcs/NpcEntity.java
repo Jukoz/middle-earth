@@ -804,6 +804,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
         ItemStack weapon = this.getMainHandStack();
         ItemStack projectileStack = this.getProjectileType(weapon);
+        if(projectileStack.isEmpty()) projectileStack = new ItemStack(Items.ARROW, 1);
 
         PersistentProjectileEntity projectile = this.createArrowProjectile(projectileStack, pullProgress, weapon);
 

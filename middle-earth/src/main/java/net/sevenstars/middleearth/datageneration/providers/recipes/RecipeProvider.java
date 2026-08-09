@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.*;
@@ -49,7 +50,7 @@ public class RecipeProvider extends FabricRecipeProvider {
             public void generate() {
                 //region STONE RECIPES
                 for (StoneBlockSetBuilder record : StoneBlockSets.stoneSetsList) {
-                    if(record.hasMossy && !record.hasVanillaCobble) {
+                    if(record.hasMossy) {
                         createStoneSetRecipes(record.mossyCobblestoneBlocks);
                         createStoneSetRecipes(record.mossyBrickBlocks);
                         createStoneSetRecipes(record.mossyPolishedBlocks);
@@ -75,7 +76,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                             createMossyRecipe(exporter, record.smoothBlocks.base(), record.mossySmoothBlocks.base());
                         }
                     }
-                    if(record.hasCracked && !record.hasVanillaCobble) {
+                    if(record.hasCracked) {
                         if(record.crackedBrickBlocks != null && record.brickBlocks != null) {
                             createStoneSetRecipes(record.crackedBrickBlocks);
                             offerSmelting(List.of(record.brickBlocks.base()), RecipeCategory.BUILDING_BLOCKS,
@@ -203,13 +204,18 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //region WOOD RECIPES
                 for (WoodBlockSetBuilder record : WoodBlockSets.woodSetsList) {
                     if(record.logBlocks != null) {
+                        offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.logBlocks.wall(), record.logBlocks.wood());
+                        createFenceRecipe(exporter, record.logBlocks.wood().asItem(), record.logBlocks.fence());
+                        offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.logBlocks.slab(), record.logBlocks.wood());
+                        createStairsRecipe(exporter, record.logBlocks.wood(), record.logBlocks.stairs());
+
+                        createSlabsFromVerticalRecipe(exporter, record.logBlocks.verticalSlab(), record.logBlocks.slab());
+                        createVerticalSlabsRecipe(exporter, record.logBlocks.slab(), record.logBlocks.verticalSlab());
+                        createSlabsFromVerticalRecipe(exporter, record.planksBlocks.verticalSlab(), record.planksBlocks.slab());
+                        createVerticalSlabsRecipe(exporter, record.planksBlocks.slab(), record.planksBlocks.verticalSlab());
+
                         if(!record.vanilla) {
                             createBrickRecipe(exporter, record.logBlocks.log().asItem(), record.logBlocks.wood(), 3);
-                            offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.logBlocks.wall(), record.logBlocks.wood());
-                            createFenceRecipe(exporter, record.logBlocks.wood().asItem(), record.logBlocks.fence());
-                            offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.logBlocks.slab(), record.logBlocks.wood());
-                            createStairsRecipe(exporter, record.logBlocks.wood(), record.logBlocks.stairs());
-
                             ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.planksBlocks.base(), 4)
                                     .input(record.logBlocks.log())
                                     .criterion(hasItem(record.logBlocks.log()),
@@ -221,9 +227,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                                     .criterion(hasItem(record.logBlocks.wood()),
                                             conditionsFromItem(record.planksBlocks.base()))
                                     .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_wood")));
-                        } else {
-                            createSlabsFromVerticalRecipe(exporter, record.logBlocks.verticalSlab(), record.logBlocks.slab());
-                            createVerticalSlabsRecipe(exporter, record.logBlocks.slab(), record.logBlocks.verticalSlab());
                         }
 
                     } else if(record.mushroomStemBlocks != null) {
@@ -246,9 +249,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                         offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, record.strippedLogBlocks.wall(), record.strippedLogBlocks.wood());
                         createFenceRecipe(exporter, record.strippedLogBlocks.wood().asItem(), record.strippedLogBlocks.fence());
                         offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, record.strippedLogBlocks.slab(), record.strippedLogBlocks.wood());
-                        if(!record.vanilla) createVerticalSlabsRecipe(exporter, record.strippedLogBlocks.slab(), record.strippedLogBlocks.verticalSlab());
-                        createSlabsFromVerticalRecipe(exporter, record.strippedLogBlocks.verticalSlab(), record.strippedLogBlocks.slab());
                         createStairsRecipe(exporter, record.strippedLogBlocks.wood(), record.strippedLogBlocks.stairs());
+
+                        createSlabsFromVerticalRecipe(exporter, record.strippedLogBlocks.verticalSlab(), record.strippedLogBlocks.slab());
+                        createVerticalSlabsRecipe(exporter, record.strippedLogBlocks.slab(), record.strippedLogBlocks.verticalSlab());
+                        // if(!record.vanilla)
+                        //createSlabsFromVerticalRecipe(exporter, record.strippedLogBlocks.verticalSlab(), record.strippedLogBlocks.slab());
+                        //createVerticalSlabsRecipe(exporter, record.strippedLogBlocks.slab(), record.strippedLogBlocks.verticalSlab());
+                        //createSlabsFromVerticalRecipe(exporter, record.strippedLogBlocks.verticalSlab(), record.strippedLogBlocks.slab());
+                        //createStairsRecipe(exporter, record.strippedLogBlocks.wood(), record.strippedLogBlocks.stairs());
 
                         ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.planksBlocks.base(), 4)
                                 .input(record.strippedLogBlocks.log())
@@ -274,10 +283,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                         createRoofingRecipe(exporter, record.planksBlocks.slab(), record.roofingBlocks.base());
                         createRegularSetRecipes(record.roofingBlocks);
                     }
-
-                    if(!record.vanilla)createVerticalSlabsRecipe(exporter, record.planksBlocks.slab(), record.planksBlocks.verticalSlab());
-                    createSlabsFromVerticalRecipe(exporter, record.planksBlocks.verticalSlab(), record.planksBlocks.slab());
-                    if(!record.vanilla && record.logBlocks != null)createVerticalSlabsRecipe(exporter, record.logBlocks.slab(), record.logBlocks.verticalSlab());
 
                     createStairsRecipe(exporter, record.planksBlocks.base(), record.planksBlocks.stairs());
 
@@ -311,11 +316,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
                 for(GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
-                    if(!set.setName.contains("wood") && !set.setName.contains("thatch") && !set.setName.contains("reed") && !set.setName.contains("canvas")) {
+                    if(!set.setName.contains("wood") && !set.setName.contains("thatch") && !set.setName.contains("reed")) {
                         createStoneSetRecipes(set.blockSet);
                     } else if (set.setName.contains("thatch") || set.setName.contains("reed")) {
                         createRegularSetRecipes(set.blockSet);
                     }
+                }
+                for(SimpleBlockSetBuilder set : GenericBlockSets.simpleSetsList) {
+                    createGenericRecipes(set);
                 }
 
                 //region BLOCK LIST SPECIFIC RECIPES
@@ -729,6 +737,10 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GRANITE_SET.brickworkBlocks.base());
 
                 createBrickRecipe(exporter, GenericBlockSets.PACKED_MIRE.blockSet.base().asItem(), GenericBlockSets.MIRE_BRICKS.blockSet.base(), 4);
+
+                createMossyRecipe(exporter, GenericBlockSets.MIXED_STONES.blockSet.base(), GenericBlockSets.MOSSY_MIXED_STONES.blockSet.base());
+                offerSmelting(List.of(GenericBlockSets.MIXED_STONES.blockSet.base()), RecipeCategory.BUILDING_BLOCKS,
+                        GenericBlockSets.CRACKED_MIXED_STONES.blockSet.base(), 0.1f, 200, "cracked_bricks");
 
                 createBrickRecipe(exporter, Blocks.BRICKS.asItem(), GenericBlockSets.CLAY_TILING.blockSet.base(), 4);
                 createCenterSurroundRecipe(exporter, GenericBlockSets.CLAY_TILING.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.BLACK_CLAY_TILING.blockSet.base().asItem(), 8);
@@ -1297,6 +1309,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(GenericBlockSets.AGED_WOOD_BEAM.blockSet.slab()),
                                 conditionsFromItem(GenericBlockSets.AGED_WOOD_BEAM.blockSet.slab()))
                         .offerTo(exporter);
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_CARVING);
 
                 createBrickRecipe(exporter, GenericBlockSets.AGED_WOOD_PANELS.blockSet.base().asItem(), GenericBlockSets.AGED_WOOD_BOARDS.blockSet.base(), 4);
 
@@ -3122,6 +3135,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createSlabsFromVerticalRecipe(exporter, set.blockSet.verticalSlab(), set.blockSet.slab());
                 createStairsRecipe(exporter, set.blockSet.base(), set.blockSet.stairs());
                 offerWallRecipe(RecipeCategory.BUILDING_BLOCKS, set.blockSet.wall(), set.blockSet.base());
+            }
+            private void createGenericRecipes(SimpleBlockSetBuilder set) {
+                offerSlabRecipe(RecipeCategory.BUILDING_BLOCKS, set.blockSet.slab().asItem(), set.blockSet.base().asItem());
+                createVerticalSlabsRecipe(exporter, set.blockSet.slab(), set.blockSet.verticalSlab());
+                createSlabsFromVerticalRecipe(exporter, set.blockSet.verticalSlab(), set.blockSet.slab());
+                createStairsRecipe(exporter, set.blockSet.base(), set.blockSet.stairs());
             }
 
             private void createRegularSetRecipes(BlockRecordTypes.RegularSet set) {
