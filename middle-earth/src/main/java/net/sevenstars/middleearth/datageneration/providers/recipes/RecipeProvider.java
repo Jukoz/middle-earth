@@ -666,6 +666,42 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base()),
                                 conditionsFromItem(StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base()))
                         .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledBricksBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSets.GREEN_TUFF_SET.chiseledBricksBlocks.base())
+                        .input('N', Items.GOLD_NUGGET)
+                        .criterion(hasItem(StoneBlockSets.GREEN_TUFF_SET.chiseledBricksBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.GREEN_TUFF_SET.chiseledBricksBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledTilesBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSets.GREEN_TUFF_SET.chiseledTilesBlocks.base())
+                        .input('N', Items.GOLD_NUGGET)
+                        .criterion(hasItem(StoneBlockSets.GREEN_TUFF_SET.chiseledTilesBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.GREEN_TUFF_SET.chiseledTilesBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledSmoothBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSets.GREEN_TUFF_SET.chiseledSmoothBlocks.base())
+                        .input('N', Items.GOLD_NUGGET)
+                        .criterion(hasItem(StoneBlockSets.GREEN_TUFF_SET.chiseledSmoothBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.GREEN_TUFF_SET.chiseledSmoothBlocks.base()))
+                        .offerTo(exporter);
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledPolishedBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSets.GREEN_TUFF_SET.chiseledPolishedBlocks.base())
+                        .input('N', Items.GOLD_NUGGET)
+                        .criterion(hasItem(StoneBlockSets.GREEN_TUFF_SET.chiseledPolishedBlocks.base()),
+                                conditionsFromItem(StoneBlockSets.GREEN_TUFF_SET.chiseledPolishedBlocks.base()))
+                        .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.BURZUM_GABBRO_SET.chiseledBlocks.base(), 5)
                         .pattern("TNT")
@@ -736,6 +772,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.DIORITE_SET.brickworkBlocks.base());
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GRANITE_SET.brickworkBlocks.base());
 
+                createBrickRecipe(exporter, StoneBlockSets.QUARTZITE_SET.brickBlocks.base().asItem(), StoneBlockSets.QUARTZITE_SET.tileBlocks.base(), 4);
                 createBrickRecipe(exporter, GenericBlockSets.PACKED_MIRE.blockSet.base().asItem(), GenericBlockSets.MIRE_BRICKS.blockSet.base(), 4);
 
                 createMossyRecipe(exporter, GenericBlockSets.MIXED_STONES.blockSet.base(), GenericBlockSets.MOSSY_MIXED_STONES.blockSet.base());
@@ -1238,6 +1275,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter);
 
                 createBrickRecipe(exporter, GenericBlockSets.TREATED_WOOD.blockSet.base().asItem(), GenericBlockSets.TREATED_WOOD_BEAM.blockSet.base(), 3);
+                createBrickRecipe(exporter, GenericBlockSets.TREATED_WOOD_BEAM.blockSet.base().asItem(), GenericBlockSets.TREATED_WOOD_TILING.blockSet.base(), 4);
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.TREATED_WOOD_PLANKS.blockSet.base(), 4)
                         .input(GenericBlockSets.TREATED_WOOD.blockSet.base())
@@ -1491,7 +1529,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("CNC")
                         .pattern("N N")
                         .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bronze_nuggets")))
+                        .input('N', ResourceItemsME.BRONZE_NUGGET)
                         .criterion(hasItem(Items.CANDLE),
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
@@ -1501,7 +1539,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("N N")
                         .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
                         .input('H', ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER)
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bronze_nuggets")))
+                        .input('N', ResourceItemsME.BRONZE_NUGGET)
                         .criterion(hasItem(Items.CANDLE),
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);

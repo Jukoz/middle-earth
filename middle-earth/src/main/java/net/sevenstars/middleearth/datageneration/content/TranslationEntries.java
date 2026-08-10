@@ -772,7 +772,8 @@ public class TranslationEntries {
 
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc", "The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +
                     "Such companions come in all shapes and sizes, each having their own unique advantages and disadvantages.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.\n\n " +
+                    "In Middle-earth, you cannot craft golden food such as golden apples to breed horses. Instead you must craft a Sack of Horsefeed, from a hay bale, a lettuce and an apple.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.broadhoof_goat", "Broadhoof Goat");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_broadhoof_goat_desc", "The Broadhoof Goat is a great mount for Dwarves that can easily climb mountains.\n" +
                     "You can find them in mountains where Dwarves live, but beware of these fluffy climbers; they can be aggressive if provoked. " +
