@@ -101,18 +101,7 @@ Current translation progress is as shown below:
 <details>
 <summary><b>Click to Fold / Unfold</b></summary>
 <a href="https://crowdin.com/project/middle-earth-mod">
-    <img src="https://badges.awesome-crowdin.com/translation-16338834-668804.png" width="25%" alt="Crowdin">
-    <br><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=Deutsch&style=flat&query=%24.progress.0.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="Deutsch"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=Espa%c3%b1ol&style=flat&query=%24.progress.1.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="Espa%c3%b1ol"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=Fran%c3%a7ais&style=flat&query=%24.progress.2.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="Fran%c3%a7ais"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=Italiano&style=flat&query=%24.progress.3.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="Italiano"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=Nederlands&style=flat&query=%24.progress.4.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="Nederlands"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=Protugu%c3%aas&style=flat&query=%24.progress.5.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="Protugu%c3%aas"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=%d0%a0%d1%83%d1%81%d1%81%d0%ba%d0%b8%d0%b9&style=flat&query=%24.progress.6.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="%d0%a0%d1%83%d1%81%d1%81%d0%ba%d0%b8%d0%b9"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=T%c3%bcrk%c3%a7e&style=flat&query=%24.progress.7.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="T%c3%bcrk%c3%a7e"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=ti%e1%ba%bfng+vi%e1%bb%87t&style=flat&query=%24.progress.8.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="ti%e1%ba%bfng+vi%e1%bb%87t"><br>
-    <img src="https://img.shields.io/badge/dynamic/json?color=2a6407&label=%e7%ae%80%e4%bd%93%e4%b8%ad%e6%96%87&style=flat&query=%24.progress.9.data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16338834-668804.json&logo=crowdin" alt="%e7%ae%80%e4%bd%93%e4%b8%ad%e6%96%87">
+    <img src="https://badges.awesome-crowdin.com/translation-16338834-668804.png" width="50%" alt="Crowdin">
 </a>
 </details>
 

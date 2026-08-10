@@ -1,13 +1,13 @@
 {
   "values": [
     "minecraft:old_growth_pine_taiga",
-    "me:fangorn",
-    "me:ithilien_wastes",
-    "me:mirkwood",
-    "me:mirkwood_edge",
-    "me:mirkwood_foothills",
-    "me:morgul_vale",
-    "me:morgul_forest",
-    "me:trollshaws"
+    "middle-earth:fangorn",
+    "middle-earth:ithilien_wastes",
+    "middle-earth:mirkwood",
+    "middle-earth:mirkwood_edge",
+    "middle-earth:mirkwood_foothills",
+    "middle-earth:morgul_vale",
+    "middle-earth:morgul_forest",
+    "middle-earth:trollshaws"
   ]
 }

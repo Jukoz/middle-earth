@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.item.items;
 
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -16,18 +16,17 @@ public class OrcishFoodItem extends Item {
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        super.onStoppedUsing(stack, world, user, remainingUseTicks);
-        if(world.isClient) return false;
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        if(world.isClient) return super.finishUsing(stack, world, user);
 
         if(user instanceof PlayerEntity playerEntity) {
             RaceType raceType = RaceUtil.getRaceType(playerEntity);
-            if(raceType != RaceType.ORC && raceType != RaceType.URUK) {
+            if(raceType != RaceType.GOBLIN && raceType != RaceType.SNAGA && raceType != RaceType.ORC && raceType != RaceType.URUK) {
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 20 * 30, 1));
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20 * 10, 0));
 
             }
         }
-        return true;
+        return super.finishUsing(stack, world, user);
     }
 }

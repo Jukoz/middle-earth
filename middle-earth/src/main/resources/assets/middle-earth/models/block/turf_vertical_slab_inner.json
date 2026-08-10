@@ -1,0 +1,7 @@
+{
+  "parent": "middle-earth:block/vertical_slab_inner_tint",
+  "textures": {
+    "all": "middle-earth:block/turf",
+    "particle": "middle-earth:block/turf"
+  }
+}

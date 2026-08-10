@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PBP",
+    "PPP"
+  ],
+  "key": {
+    "P": "minecraft:paper",
+    "B": "minecraft:book"
+  },
+  "result": {
+    "id": "middle-earth:middle_earth_map",
+    "count": 1
+  }
+}

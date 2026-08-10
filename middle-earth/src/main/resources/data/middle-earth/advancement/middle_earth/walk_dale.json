@@ -1,0 +1,47 @@
+{
+  "parent": "middle-earth:middle_earth/root",
+  "criteria": {
+    "enter_dale": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "middle-earth:dale",
+                  "middle-earth:dale_city",
+                  "middle-earth:dale_forest",
+                  "middle-earth:dale_meadow"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_dale.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:bell"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_dale.title"
+    }
+  },
+  "requirements": [
+    [
+      "enter_dale"
+    ]
+  ]
+}

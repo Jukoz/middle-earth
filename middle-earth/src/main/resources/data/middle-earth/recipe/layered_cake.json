@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "minecraft:egg",
+    "W": "minecraft:wheat",
+    "C": "minecraft:cake",
+    "M": "minecraft:milk_bucket",
+    "S": "middle-earth:maple_syrup"
+  },
+  "pattern": [
+    "MCM",
+    "ESE",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "middle-earth:layered_cake"
+  }
+}

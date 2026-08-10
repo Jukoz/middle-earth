@@ -1,0 +1,38 @@
+{
+  "parent": "middle-earth:smithing/root",
+  "criteria": {
+    "bellows": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:bellows"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.bellows.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:bellows"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.bellows.title"
+    }
+  },
+  "requirements": [
+    [
+      "bellows"
+    ]
+  ]
+}

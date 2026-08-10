@@ -24,9 +24,6 @@ public class BeastSitGoal extends Goal {
         if (!this.mob.isTame()) {
             return false;
         }
-        if (this.mob.isInsideWaterOrBubbleColumn()) {
-            return false;
-        }
         if (!this.mob.isOnGround()) {
             return false;
         }

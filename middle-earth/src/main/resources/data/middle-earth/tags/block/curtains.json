@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:black_curtain",
+    "middle-earth:blue_curtain",
+    "middle-earth:brown_curtain",
+    "middle-earth:burnt_curtain",
+    "middle-earth:dark_blue_curtain",
+    "middle-earth:dark_brown_curtain",
+    "middle-earth:dark_green_curtain",
+    "middle-earth:dark_red_curtain",
+    "middle-earth:fancy_blue_curtain",
+    "middle-earth:fancy_red_curtain",
+    "middle-earth:fancy_green_curtain",
+    "middle-earth:gray_curtain",
+    "middle-earth:green_curtain",
+    "middle-earth:purple_curtain",
+    "middle-earth:red_curtain",
+    "middle-earth:rotten_curtain",
+    "middle-earth:white_curtain",
+    "middle-earth:yellow_curtain"
+  ]
+}

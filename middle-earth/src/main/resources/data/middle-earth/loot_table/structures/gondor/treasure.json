@@ -1,0 +1,118 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondor_banner_pattern"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin_pile"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin_pile"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_dagger"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:gondorian_boots"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:heater_shield",
+		  "functions": [
+            {
+              "function": "minecraft:set_banner_pattern",
+              "patterns": [
+                {
+                  "pattern": "minecraft:base",
+                  "color": "black"
+                },
+                {
+                  "pattern": "middle-earth:tree",
+                  "color": "white"
+                }
+              ],
+              "append": true
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 2
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:copper_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:silver_coin"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:black_dye"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book"
+        }
+      ]
+    }
+  ]
+}

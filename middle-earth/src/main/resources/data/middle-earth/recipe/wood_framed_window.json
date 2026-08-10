@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "WGW",
+    "WWW"
+  ],
+  "key": {
+    "W": "#minecraft:planks",
+    "G": "minecraft:glass"
+  },
+  "result": {
+    "id": "middle-earth:wood_framed_window",
+    "count": 4
+  }
+}

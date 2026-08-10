@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:charcoal"
+  ],
+  "result": {
+    "id": "middle-earth:ash",
+    "count": 2
+  }
+}

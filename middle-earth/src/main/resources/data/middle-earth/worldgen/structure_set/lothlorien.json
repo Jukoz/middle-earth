@@ -1,0 +1,18 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:lothlorien_houses",
+      "weight": 3
+    },
+	{
+      "structure": "middle-earth:lothlorien_tree_talan",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 5,
+    "salt": 13238135
+  }
+}

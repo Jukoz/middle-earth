@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "hanging=true,facing=south": {
+      "model": "middle-earth:block/corner_cobweb_hanging"
+    },
+    "hanging=true,facing=west": {
+      "model": "middle-earth:block/corner_cobweb_hanging",
+      "y": 90
+    },
+    "hanging=true,facing=north": {
+      "model": "middle-earth:block/corner_cobweb_hanging",
+      "y": 180
+    },
+    "hanging=true,facing=east": {
+      "model": "middle-earth:block/corner_cobweb_hanging",
+      "y": 270
+    },
+    "hanging=false,facing=south": {
+      "model": "middle-earth:block/corner_cobweb"
+    },
+    "hanging=false,facing=west": {
+      "model": "middle-earth:block/corner_cobweb",
+      "y": 90
+    },
+    "hanging=false,facing=north": {
+      "model": "middle-earth:block/corner_cobweb",
+      "y": 180
+    },
+    "hanging=false,facing=east": {
+      "model": "middle-earth:block/corner_cobweb",
+      "y": 270
+    }
+  }
+}

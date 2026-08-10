@@ -1,0 +1,33 @@
+{
+  "name": "middle-earth:hamlet_decoration",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/decoration",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/decoration_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    },
+	{
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hamlet/decoration_1",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_wlr_road"
+      }
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 package net.sevenstars.middleearth.world.biomes.caves;
 
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.world.features.underground.CavesPlacedFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
 public class ModCaveBiomeFeatures {
 
@@ -27,26 +28,37 @@ public class ModCaveBiomeFeatures {
     }
 
     public static void addAxolotls(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AXOLOTLS, new SpawnSettings.SpawnEntry(EntityType.AXOLOTL, 12, 2, 5));
+        spawnSettings.spawn(SpawnGroup.AXOLOTLS,12, new SpawnSettings.SpawnEntry(EntityType.AXOLOTL, 2, 5));
     }
     public static void addBats(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(EntityType.BAT, 3, 1, 2));
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 1, new SpawnSettings.SpawnEntry(EntityType.BAT, 1, 2));
     }
     public static void addFrogs(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.FROG, 4, 1, 4));
+        spawnSettings.spawn(SpawnGroup.CREATURE, 4, new SpawnSettings.SpawnEntry(EntityType.FROG, 1, 4));
     }
     public static void addSnails(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(net.sevenstars.of_beasts_and_wild_things.entity.ModEntities.SNAIL, 5, 1, 3));
-    }
-    public static void addWildGoblins(SpawnSettings.Builder spawnSettings) {
-        //spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.WILD_GOBLIN, 5, 1, 2));
-    }
-    public static void addSpiders(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CAVE_SPIDER, 2, 1, 2));
+        spawnSettings.spawn(SpawnGroup.CREATURE, 5, new SpawnSettings.SpawnEntry(EntitiesWT.SNAIL, 1, 3));
     }
 
+    // Monsters
+    public static void addSparseNpc(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(EntitiesME.NPC, 1, 1));
+                //.spawnCost(EntitiesME.NPC, 0.7, 0.5);
+    }
+    public static void addCaveTroll(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 5, new SpawnSettings.SpawnEntry(EntitiesME.CAVE_TROLL, 1, 2));
+                //.spawnCost(EntitiesME.CAVE_TROLL, 20, 0.1);
+    }
+    public static void addSpiders(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 3, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_SCUTTLER, 1, 5));
+        spawnSettings.spawn(SpawnGroup.MONSTER, 5, new SpawnSettings.SpawnEntry(EntitiesME.SPAWN_OF_SHELOB, 1, 1));
+    }
+    public static void addSpiderLarvas(SpawnSettings.Builder spawnSettings) {
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntitiesME.SHELOBITE_LARVA, 2, 4))
+                .spawnCost(EntitiesME.SHELOBITE_LARVA, 0.7, 0.3);
+    }
     public static void addSnowTrolls(SpawnSettings.Builder spawnSettings) {
-        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.SNOW_TROLL, 4, 1, 2));
+        spawnSettings.spawn(SpawnGroup.MONSTER, 4, new SpawnSettings.SpawnEntry(EntitiesME.SNOW_TROLL, 1, 2));
     }
 
 }

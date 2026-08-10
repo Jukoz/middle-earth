@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "middle-earth:block/lorien_podzol"
+      },
+      {
+        "model": "middle-earth:block/lorien_podzol",
+        "y": 90
+      },
+      {
+        "model": "middle-earth:block/lorien_podzol",
+        "y": 180
+      },
+      {
+        "model": "middle-earth:block/lorien_podzol",
+        "y": 270
+      }
+    ]
+  }
+}

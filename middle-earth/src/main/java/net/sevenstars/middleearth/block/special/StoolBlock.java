@@ -18,8 +18,8 @@ public class StoolBlock extends SeatBlock implements Waterloggable {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return switch(state.get(FACING)) {
-            case WEST, EAST -> Block.createCuboidShape(3, 0, 0, 13, 10, 16);
-            case SOUTH, NORTH -> Block.createCuboidShape(0, 0, 3, 16, 10, 13);
+            case WEST, EAST -> Block.createCuboidShape(2, 0, 0, 14, 9, 16);
+            case SOUTH, NORTH -> Block.createCuboidShape(0, 0, 2, 16, 9, 14);
             default -> VoxelShapes.cuboid(1,1,1,1,1,1);
         };
     }

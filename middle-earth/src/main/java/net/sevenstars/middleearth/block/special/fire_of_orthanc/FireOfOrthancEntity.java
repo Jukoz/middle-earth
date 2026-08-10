@@ -1,19 +1,19 @@
 package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.entity.ModEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import org.jetbrains.annotations.Nullable;
 
 public class FireOfOrthancEntity extends Entity implements Ownable {
@@ -21,6 +21,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     private static final TrackedData<BlockState> BLOCK_STATE;
     private static final int DEFAULT_FUSE = 16;
     public static final float EXPLOSION_FORCE = 12.31f;
+    public static final BlockState DEFAULT_BLOCK_STATE = ModDecorativeBlocks.FIRE_OF_ORTHANC.getDefaultState();
     protected boolean chainReaction = false;
     @Nullable
     private LivingEntity causingEntity;
@@ -30,7 +31,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     }
 
     public FireOfOrthancEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter, boolean instant) {
-        this(ModEntities.FIRE_OF_ORTHANC, world);
+        this(EntitiesME.FIRE_OF_ORTHANC, world);
         this.setPosition(x, y, z);
         double d = world.random.nextDouble() * 6.2831854820251465;
         this.setVelocity(-Math.sin(d) * 0.02, 0.20000000298023224, -Math.cos(d) * 0.02);
@@ -41,9 +42,9 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
         }
         else this.setFuse(DEFAULT_FUSE);
 
-        this.prevX = x;
-        this.prevY = y;
-        this.prevZ = z;
+        this.lastX = x;
+        this.lastY = y;
+        this.lastZ = z;
         this.causingEntity = igniter;
     }
 
@@ -55,20 +56,34 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
 
     public void explode() {
         this.getWorld().createExplosion(this, this.getX(), this.getBodyY(0.0625), this.getZ(), EXPLOSION_FORCE, World.ExplosionSourceType.TNT);
+        tryKillOwner();
     }
 
-    @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.setFuse(nbt.getShort("fuse"));
-        if (nbt.contains("block_state", 10)) {
-            this.setBlockState(NbtHelper.toBlockState(this.getWorld().createCommandRegistryWrapper(RegistryKeys.BLOCK), nbt.getCompound("block_state")));
+    private void tryKillOwner() {
+        Entity owner = this.getOwner();
+        World world = this.getWorld();
+        if(owner instanceof LivingEntity ownerEntity && world instanceof ServerWorld serverWorld) {
+            if(ownerEntity instanceof PlayerEntity playerEntity){
+                if(!playerEntity.isCreative()){
+                    playerEntity.kill(serverWorld);
+                }
+            } else {
+                ownerEntity.kill(serverWorld);
+            }
         }
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putShort("fuse", (short)this.getFuse());
-        nbt.put("block_state", NbtHelper.fromBlockState(this.getBlockState()));
+    protected void readCustomData(ReadView view) {
+        this.setFuse(view.getShort("fuse", (short) 0));
+        this.setBlockState((BlockState)view.read("block_state", BlockState.CODEC).orElse(DEFAULT_BLOCK_STATE));
+
+    }
+
+    @Override
+    protected void writeCustomData(WriteView view) {
+        view.putShort("fuse", (short)this.getFuse());
+        view.put("block_state", BlockState.CODEC, this.getBlockState());
     }
 
     protected double getGravity() {
@@ -99,7 +114,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
             this.updateWaterState();
             if (this.getWorld().isClient && !chainReaction) {
                 for(int j = 0; j < 4; j++) {
-                    this.getWorld().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8f, this.getZ(),
+                    this.getWorld().addParticleClient(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8f, this.getZ(),
                             (Math.random() - 0.5f) * 0.3f, 0.4f, (Math.random() - 0.5f) * 0.5f);
                 }
             }

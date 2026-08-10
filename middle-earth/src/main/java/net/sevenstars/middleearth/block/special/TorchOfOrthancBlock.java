@@ -60,7 +60,7 @@ public class TorchOfOrthancBlock extends TorchBlock {
             double d = (double)pos.getX() + 0.5;
             double e = (double)pos.getY() + 1.4;
             double f = (double)pos.getZ() + 0.5;
-            world.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
+            world.addParticleClient(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
         }
     }
 

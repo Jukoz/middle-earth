@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "middle-earth:block/dwarven_treated_anvil",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "middle-earth:block/dwarven_treated_anvil"
+    },
+    "facing=south": {
+      "model": "middle-earth:block/dwarven_treated_anvil",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "middle-earth:block/dwarven_treated_anvil",
+      "y": 270
+    }
+  }
+}

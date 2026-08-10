@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-    "me:cloth",
-    "me:cloth_gradient",
-    "me:cloth_gradient_up",
-    "me:veil",
-    "me:small_circle"
+    "middle-earth:cloth",
+    "middle-earth:cloth_gradient",
+    "middle-earth:cloth_gradient_up",
+    "middle-earth:veil",
+    "middle-earth:small_circle"
   ]
 }

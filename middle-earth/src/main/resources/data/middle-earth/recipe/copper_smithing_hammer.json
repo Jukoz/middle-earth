@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MSM",
+    " S "
+  ],
+  "key": {
+    "M": "minecraft:copper_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "middle-earth:copper_smithing_hammer",
+    "count": 1
+  }
+}

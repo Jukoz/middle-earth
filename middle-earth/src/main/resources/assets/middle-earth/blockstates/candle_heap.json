@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/candle_heap"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/candle_heap_lit"
+    }
+  }
+}

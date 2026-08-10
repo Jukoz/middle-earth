@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/template_chiseled_bookshelf_slot_bottom_mid",
+    "textures": {
+        "side": "middle-earth:block/chiseled_dolomite_bookshelf",
+        "texture": "middle-earth:block/chiseled_dolomite_bookshelf",
+        "particle": "middle-earth:block/chiseled_dolomite_bookshelf_top"
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "middle-earth:block/large_lily_pad"
+      },
+      {
+        "model": "middle-earth:block/large_lily_pad",
+        "y": 90
+      },
+      {
+        "model": "middle-earth:block/large_lily_pad",
+        "y": 180
+      },
+      {
+        "model": "middle-earth:block/large_lily_pad",
+        "y": 270
+      }
+    ]
+  }
+}

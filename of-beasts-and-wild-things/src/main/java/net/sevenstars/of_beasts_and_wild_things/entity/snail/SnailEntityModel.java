@@ -1,15 +1,18 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.snail;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
 import static java.lang.Math.PI;
 
 public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
 
-    public SnailEntityModel(ModelPart root) {
+    private final Animation walkingAnimation;
+
+    protected SnailEntityModel(ModelPart root) {
         super(root);
+        this.walkingAnimation = SnailEntityAnimations.CRAWL.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -20,7 +23,7 @@ public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
 
         ModelPartData body = snail.addChild("body", ModelPartBuilder.create().uv(12, 22).cuboid(-1.0F, -2.0F, -4.0F, 2.0F, 2.0F, 8.0F, new Dilation(0.0F))
                 .uv(0, -1).cuboid(-1.0F, -4.0F, -4.0F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F))
-                .uv(0, -1).mirrored().cuboid(1.0F, -4.0F, -4.0F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 3.0F, 0.0F));
+                .uv(0, -1).mirrored().cuboid(1.0F, -4.0F, -4.0F, 0.0F, 2.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(0.0F, 3.0F, 0.0F));
         return TexturedModelData.of(modelData, 32, 32);
     }
 
@@ -28,7 +31,7 @@ public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
     public void setAngles(SnailEntityRenderState state) {
         super.setAngles(state);
 
-        animateWalking(SnailEntityAnimations.CRAWL, state.limbFrequency, state.limbAmplitudeMultiplier, 20.0f, 30.0f);
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 20.0F, 30.0F);
 
         getRootPart().getChild("snail").pitch = -(float)PI/2 * ((float)state.climbingTicks / SnailEntity.CLIMBING_TIME_TRANSITION);
     }

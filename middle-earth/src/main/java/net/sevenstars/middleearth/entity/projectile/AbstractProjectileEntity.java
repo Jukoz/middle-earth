@@ -30,7 +30,7 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
     public void handleStatus(byte status) {
         if (status == 3) {
             for(int i = 0; i < 8; ++i) {
-                this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
+                this.getWorld().addParticleClient(new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
             }
         }
     }
@@ -42,9 +42,9 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
     public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        ServerWorld serverWorld = (ServerWorld) entity.getWorld();
-        //if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
-        entity.damage(serverWorld, this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        if(entity.getWorld() instanceof ServerWorld serverWorld) {
+            entity.damage(serverWorld, this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        }
     }
 
     protected void onCollision(HitResult hitResult) {

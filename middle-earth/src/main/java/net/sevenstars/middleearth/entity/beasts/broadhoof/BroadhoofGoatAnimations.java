@@ -1,15 +1,12 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 
 public class BroadhoofGoatAnimations {
-    public static final Animation WALK = Animation.Builder.create(2f).looping()
+    public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("broadhoof_goat",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head",
@@ -33,7 +30,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 5f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -1f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 2f),
@@ -57,7 +54,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 3f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
@@ -81,7 +78,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 3f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
@@ -105,7 +102,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -1f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 2f),
@@ -128,9 +125,9 @@ public class BroadhoofGoatAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(2f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation RUN = Animation.Builder.create(0.7440476190476191f).looping()
+    public static final AnimationDefinition RUN = AnimationDefinition.Builder.create(0.7440476190476191f).looping()
             .addBoneAnimation("broadhoof_goat",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.44642857142857145f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
@@ -146,7 +143,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0.7440476190476191f, AnimationHelper.createRotationalVector(-5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.24801587301587302f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -168,7 +165,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0.7440476190476191f, AnimationHelper.createRotationalVector(-45f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.0992063492063492f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
@@ -190,7 +187,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0.7440476190476191f, AnimationHelper.createRotationalVector(52.5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.24801587301587302f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -212,7 +209,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0.7440476190476191f, AnimationHelper.createRotationalVector(-45f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.0992063492063492f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
@@ -234,7 +231,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0.7440476190476191f, AnimationHelper.createRotationalVector(52.5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.3968253968253968f, AnimationHelper.createTranslationalVector(0f, -0.5f, -0.5f),
@@ -249,9 +246,9 @@ public class BroadhoofGoatAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.7440476190476191f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation JUMP = Animation.Builder.create(0f).looping()
+    public static final AnimationDefinition JUMP = AnimationDefinition.Builder.create(0f).looping()
             .addBoneAnimation("broadhoof_goat",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation(EntityModelPartNames.BODY,
@@ -259,7 +256,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_front_leg",
@@ -267,7 +264,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-45f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_hind_leg",
@@ -275,7 +272,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(52.5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_front_leg",
@@ -283,20 +280,20 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-45f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_hind_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(52.5f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation LYING = Animation.Builder.create(0f)
+    public static final AnimationDefinition LYING = AnimationDefinition.Builder.create(0f)
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_front_leg",
@@ -304,7 +301,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-90f, -25f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-1f, -8f, 1f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("left_hind_leg",
@@ -312,7 +309,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-90f, -40f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_front_leg",
@@ -320,20 +317,20 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-90f, 25f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-1f, -8f, 1f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("right_hind_leg",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-90f, 40f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation LAY_DOWN = Animation.Builder.create(1.75f)
+    public static final AnimationDefinition LAY_DOWN = AnimationDefinition.Builder.create(1.75f)
             .addBoneAnimation("broadhoof_goat",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.75f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
@@ -351,7 +348,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -371,7 +368,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.75f, AnimationHelper.createRotationalVector(-90f, -25f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.75f, AnimationHelper.createTranslationalVector(-1f, -8f, 1f),
@@ -383,7 +380,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.75f, AnimationHelper.createRotationalVector(-90f, -40f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 2f, 0f),
@@ -401,7 +398,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.75f, AnimationHelper.createRotationalVector(-90f, 25f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.75f, AnimationHelper.createTranslationalVector(-1f, -8f, 1f),
@@ -420,15 +417,15 @@ public class BroadhoofGoatAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation STAND_UP = Animation.Builder.create(1.25f)
+    public static final AnimationDefinition STAND_UP = AnimationDefinition.Builder.create(1.25f)
             .addBoneAnimation("broadhoof_goat",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.25f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
@@ -452,7 +449,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, -3f, 0f),
@@ -468,7 +465,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-1f, -8f, 1f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.625f, AnimationHelper.createTranslationalVector(-1f, -3f, 1f),
@@ -484,7 +481,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -8f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, -3f, 0f),
@@ -500,7 +497,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-1f, -8f, 1f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.625f, AnimationHelper.createTranslationalVector(-1f, -3f, 1f),
@@ -515,9 +512,9 @@ public class BroadhoofGoatAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation RAM_ATTACK = Animation.Builder.create(1.25f)
+    public static final AnimationDefinition RAM_ATTACK = AnimationDefinition.Builder.create(1.25f)
             .addBoneAnimation("broadhoof_goat",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -539,7 +536,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -559,7 +556,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, 5f, 0f),
@@ -577,7 +574,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -597,7 +594,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_front_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, 5f, 0f),
@@ -615,7 +612,7 @@ public class BroadhoofGoatAnimations {
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_hind_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.2916767f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -634,9 +631,9 @@ public class BroadhoofGoatAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1.25f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation EAT = Animation.Builder.create(3.5f)
+    public static final AnimationDefinition EAT = AnimationDefinition.Builder.create(3.5f)
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -0.5f, -1f),
@@ -665,19 +662,19 @@ public class BroadhoofGoatAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(3.125f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation CHARGE_ATTACK = Animation.Builder.create(0f)
+    public static final AnimationDefinition CHARGE_ATTACK = AnimationDefinition.Builder.create(0f)
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(37.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation START_CHARGING = Animation.Builder.create(0.5f)
+    public static final AnimationDefinition START_CHARGING = AnimationDefinition.Builder.create(0.5f)
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(55f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation STOP_CHARGING = Animation.Builder.create(0.5f)
+    public static final AnimationDefinition STOP_CHARGING = AnimationDefinition.Builder.create(0.5f)
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(55f, 0f, 0f),

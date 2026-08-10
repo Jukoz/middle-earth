@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "middle-earth:block/layered_cake",
+		"particle": "middle-earth:block/layered_cake"
+	},
+	"elements": [
+		{
+			"from": [-1, 0, -1],
+			"to": [17, 8, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [14, 0, 0]},
+			"faces": {
+				"north": {"uv": [9, 2.25, 13.5, 4.25], "texture": "#0"},
+				"east": {"uv": [10.75, 2.25, 13.5, 4.25], "texture": "#0"},
+				"south": {"uv": [9, 0, 13.5, 2], "texture": "#0"},
+				"west": {"uv": [9, 2.25, 11.75, 4.25], "texture": "#0"},
+				"up": {"uv": [4.5, 4.5, 0, 1.75], "texture": "#0"},
+				"down": {"uv": [9, 0, 4.5, 3.75], "texture": "#0"}
+			}
+		}
+	]
+}

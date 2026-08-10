@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "STS",
+    "W W"
+  ],
+  "key": {
+    "S": "#minecraft:stone_crafting_materials",
+    "T": "middle-earth:tin_ingot",
+    "W": "#minecraft:logs"
+  },
+  "result": {
+    "id": "middle-earth:artisan_table",
+    "count": 1
+  }
+}

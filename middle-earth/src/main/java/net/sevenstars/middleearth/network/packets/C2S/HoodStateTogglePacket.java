@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
-import net.sevenstars.middleearth.item.items.armor.HoodHelmetItem;
+import net.sevenstars.middleearth.item.items.armor.HelmetAttachmentItem;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,16 +38,13 @@ public class HoodStateTogglePacket extends ClientToServerPacket<HoodStateToggleP
             Objects.requireNonNull(context.player().getServer()).execute(() -> {
                 PlayerEntity player = context.player();
 
-                player.getArmorItems().iterator().forEachRemaining(stack ->{
-                    if (stack.getItem() instanceof HoodHelmetItem){
-                        HoodHelmetItem.toggleHoodState(context.player(), stack);
-                    }
-
-                    if (stack.getItem() instanceof CustomHelmetItem){
-                        CustomHelmetItem.toggleHoodState(context.player(), stack);
-                    }
-                });
-
+                ItemStack helmet = player.getEquippedStack(EquipmentSlot.HEAD);
+                if(helmet != null){
+                    if(helmet.getItem() instanceof HelmetAttachmentItem)
+                        HelmetAttachmentItem.toggleHelmetAttachmentState(context.player(), helmet);
+                    else if(helmet.getItem() instanceof CustomHelmetItem)
+                        CustomHelmetItem.toggleHoodState(context.player(), helmet);
+                }
             });
         }catch (Exception e){
             MiddleEarth.LOGGER.logError("HoodStatePacket error: ", e);

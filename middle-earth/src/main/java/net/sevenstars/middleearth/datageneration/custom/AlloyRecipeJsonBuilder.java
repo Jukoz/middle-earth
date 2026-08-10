@@ -5,7 +5,7 @@ import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.recipe.AlloyingRecipe;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
@@ -17,7 +17,6 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,14 +32,16 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     private final int metalAmount;
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
     private String group;
+    private final int xp;
 
     private final RegistryEntryLookup<Item> registryLookup;
 
-    public AlloyRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String metalOutput, int metalAmount) {
+    public AlloyRecipeJsonBuilder(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String metalOutput, int metalAmount, int xp) {
         this.registryLookup = registryLookup;
         this.category = category;
         this.metalOutput = metalOutput;
         this.metalAmount = metalAmount;
+        this.xp = xp;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
 
     @Override
     public Item getOutputItem() {
-        return ModResourceItems.ROD;
+        return ResourceItemsME.ROD;
     }
 
     @Override
@@ -60,7 +61,8 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey)).rewards(AdvancementRewards.Builder.recipe(recipeKey)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
-        AlloyingRecipe alloyRecipeJsonBuilder = new AlloyingRecipe((String)Objects.requireNonNullElse(this.group, ""), CraftingRecipeJsonBuilder.toCraftingCategory(this.category), this.metalOutput, this.inputs, this.metalAmount);
+        AlloyingRecipe alloyRecipeJsonBuilder = new AlloyingRecipe((String)Objects.requireNonNullElse(this.group, ""),
+                CraftingRecipeJsonBuilder.toCraftingCategory(this.category), this.metalOutput, this.inputs, this.metalAmount, this.xp);
         exporter.accept(recipeKey, alloyRecipeJsonBuilder, builder.build(recipeKey.getValue().withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 
@@ -72,12 +74,12 @@ public class AlloyRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         return this.metalAmount;
     }
 
-    public static AlloyRecipeJsonBuilder createAlloyRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String output, int amount) {
-        return new AlloyRecipeJsonBuilder(registryLookup, category, output, amount);
+    public static AlloyRecipeJsonBuilder createAlloyRecipe(RegistryEntryLookup<Item> registryLookup, RecipeCategory category, String output, int amount, int xp) {
+        return new AlloyRecipeJsonBuilder(registryLookup, category, output, amount, xp);
     }
 
     public AlloyRecipeJsonBuilder input(TagKey<Item> tag) {
-        return this.input(Ingredient.fromTag(this.registryLookup.getOrThrow(tag)));
+        return this.input(Ingredient.ofTag(this.registryLookup.getOrThrow(tag)));
     }
 
     public AlloyRecipeJsonBuilder input(ItemConvertible itemProvider) {

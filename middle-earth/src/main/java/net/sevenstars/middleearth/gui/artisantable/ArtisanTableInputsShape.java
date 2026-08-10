@@ -55,6 +55,11 @@ public class ArtisanTableInputsShape {
             {InputType.NONE, InputType.HANDLE, InputType.NONE},
             {InputType.HANDLE, InputType.NONE, InputType.NONE}});
 
+    public static ArtisanTableInputsShape CHISEL = new ArtisanTableInputsShape("chisel", new InputType[][]{
+            {InputType.NONE, InputType.NONE, InputType.BLADE},
+            {InputType.NONE, InputType.ANY, InputType.NONE},
+            {InputType.HANDLE, InputType.NONE, InputType.NONE}});
+
     public static ArtisanTableInputsShape HELMET = new ArtisanTableInputsShape("helmet", new InputType[][]{
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.NONE, InputType.ANY},
@@ -80,12 +85,12 @@ public class ArtisanTableInputsShape {
             {InputType.ANY, InputType.NONE, InputType.ANY},
             {InputType.NONE, InputType.NONE, InputType.NONE}});
 
-    public static ArtisanTableInputsShape CAPE = new ArtisanTableInputsShape("cape", new InputType[][]{
+    public static ArtisanTableInputsShape BACK_ATTACHMENT = new ArtisanTableInputsShape("back_attachment", new InputType[][]{
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.ANY, InputType.ANY}});
 
-    public static ArtisanTableInputsShape HOOD = new ArtisanTableInputsShape("hood", new InputType[][]{
+    public static ArtisanTableInputsShape HELMET_ATTACHMENT = new ArtisanTableInputsShape("helmet_attachment", new InputType[][]{
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.ANY, InputType.ANY, InputType.ANY},
             {InputType.NONE, InputType.NONE, InputType.NONE}});

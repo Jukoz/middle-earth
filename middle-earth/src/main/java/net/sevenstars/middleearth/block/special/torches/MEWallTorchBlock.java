@@ -84,7 +84,7 @@ public class MEWallTorchBlock extends WallTorchBlock {
             double g = 0.22;
             double h = 0.27;
             Direction direction2 = direction.getOpposite();
-            world.addParticle(ParticleTypes.SMOKE, d + 0.27 * (double)direction2.getOffsetX(), e + 0.22, f + 0.27 * (double)direction2.getOffsetZ(), 0.0, 0.0, 0.0);
+            world.addParticleClient(ParticleTypes.SMOKE, d + 0.27 * (double)direction2.getOffsetX(), e + 0.22, f + 0.27 * (double)direction2.getOffsetZ(), 0.0, 0.0, 0.0);
         }
     }
 

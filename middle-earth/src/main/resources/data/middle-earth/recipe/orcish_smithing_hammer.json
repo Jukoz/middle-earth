@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MSM",
+    " S "
+  ],
+  "key": {
+    "M": "middle-earth:burzum_steel_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "middle-earth:orcish_smithing_hammer",
+    "count": 1
+  }
+}

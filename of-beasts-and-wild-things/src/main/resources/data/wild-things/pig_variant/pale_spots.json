@@ -1,0 +1,8 @@
+{
+  "asset_id": "wild-things:entity/pig/pale_spots",
+  "spawn_conditions": [
+    {
+      "priority": 0
+    }
+  ]
+}

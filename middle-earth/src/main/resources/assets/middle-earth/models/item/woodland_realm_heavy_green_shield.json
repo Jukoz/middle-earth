@@ -1,0 +1,10 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"parent": "middle-earth:item/woodland_realm_heavy_ornamented_shield",
+	"textures": {
+		"0": "middle-earth:item/woodland_realm_heavy_green_shield",
+		"particle": "block/dark_oak_planks"
+	}
+}

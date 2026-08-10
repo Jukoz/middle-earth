@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#middle-earth:has_structure/woodland_realm_biomes",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin",
+  "start_pool": "middle-earth:wlr/woodland_realm_hall",
+  "size": 15,
+  "start_height": {
+    "absolute": -1
+  },
+  "project_start_to_heightmap": "WORLD_SURFACE_WG",
+  "max_distance_from_center": 115,
+  "use_expansion_hack": true,
+  "liquid_settings": "ignore_waterlogging"
+}

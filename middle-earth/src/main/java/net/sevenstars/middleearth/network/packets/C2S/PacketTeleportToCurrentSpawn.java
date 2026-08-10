@@ -1,16 +1,16 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
-import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
+import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.world.dimension.ModDimensions;
 
 
 public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTeleportToCurrentSpawn> {
@@ -40,13 +40,14 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
     public void process(ServerPacketContext context) {
         try{
             context.player().getServer().execute(() -> {
-                PlayerData data = StateSaverAndLoader.getPlayerState(context.player());
-                if(data != null){
-                    if(data.hasAffilition()){
-                        Vec3d spawnCoordinates = data.getSpawnMiddleEarthCoordinate(context.player().getWorld());
-                        if(spawnCoordinates != null)
-                            ModDimensions.teleportPlayerToMe(context.player(), new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);
-                    }
+                if(PlayerDataService.playerPassedOnboarding(context.player())){
+                    SpawnData spawnData = PlayerDataService.getPlayerSpawnData(context.player(), context.player().getWorld());
+                    if(spawnData == null)
+                        return;
+                    BlockPos spawnCoordinates = spawnData.getBlockPos();
+                    if(spawnCoordinates != null)
+                        ModDimensions.teleportPlayerToMe(context.player(), spawnCoordinates.toCenterPos(), true, welcomeNeeded);
+
                 }
             });
         } catch (Exception e){

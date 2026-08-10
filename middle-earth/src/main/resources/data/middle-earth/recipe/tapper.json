@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:steel_ingots",
+    "middle-earth:wooden_bucket"
+  ],
+  "result": {
+    "id": "middle-earth:tapper"
+  }
+}

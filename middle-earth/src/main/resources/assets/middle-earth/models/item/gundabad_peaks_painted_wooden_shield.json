@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:item/gundabad_wooden_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "middle-earth:item/gundabad_peaks_painted_wooden_shield"
+	}
+}

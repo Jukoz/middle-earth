@@ -3,29 +3,37 @@ package net.sevenstars.middleearth.entity.beasts.trolls.stone;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AvoidSunlightGoal;
 import net.minecraft.entity.ai.goal.EscapeSunlightGoal;
+import net.minecraft.entity.conversion.EntityConversionContext;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.goals.BeastTargetPlayerGoal;
-import net.sevenstars.middleearth.resources.datas.Disposition;
+import net.sevenstars.middleearth.utils.SpawnUtil;
 
 import java.util.List;
 
@@ -57,7 +65,7 @@ public class StoneTrollEntity extends TrollEntity {
     @Override
     public double getMountedHeightOffset() {
         float f = Math.min(0.25F, this.limbAnimator.getSpeed());
-        float g = this.limbAnimator.getPos();
+        float g = this.limbAnimator.getAnimationProgress(); // Todo : getPos()
         float h = this.isSitting() ? -0.75f : 0;
         return (double)this.getHeight() - 1.0d + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f) + h;
     }
@@ -73,11 +81,6 @@ public class StoneTrollEntity extends TrollEntity {
 
         Vec3d vec3d = new Vec3d(0.0, 0.0, f).rotateY(-this.bodyYaw * ((float)Math.PI / 180));
         positionUpdater.accept(passenger, this.getX() + vec3d.x, this.getY() + this.getMountedHeightOffset(), this.getZ() + vec3d.z);
-    }
-
-    @Override
-    protected Disposition getDisposition() {
-        return Disposition.EVIL;
     }
 
     public void setPetrifying(int petrifying) {
@@ -142,7 +145,7 @@ public class StoneTrollEntity extends TrollEntity {
             }
         }
         if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.getWorld().isClient() && this.age % 3 == 0) {
-            this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
+            this.getWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
         }
 
         super.tickMovement();
@@ -150,20 +153,23 @@ public class StoneTrollEntity extends TrollEntity {
 
     public void turnToStone() {
         this.setAiDisabled(true);
-        // TODO : Fix this :)
-        //this.convertTo(ModEntities.PETRIFIED_TROLL, EntityConversionContext.create(new PetrifiedTrollEntity(ModEntities.PETRIFIED_TROLL, getWorld()), false, false), SpawnReason.CONVERSION, );
+        this.convertTo(
+                EntitiesME.PETRIFIED_TROLL,
+                EntityConversionContext.create(this, true, false),
+                troll -> {}
+        );
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Petrifying", this.getPetrifying());
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putInt("Petrifying", this.getPetrifying());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(PETRIFYING, nbt.getInt("Petrifying"));
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(PETRIFYING, view.getInt("Petrifying", 0));
     }
 
     @Override
@@ -171,5 +177,14 @@ public class StoneTrollEntity extends TrollEntity {
         if(!this.isPetrified()) {
             super.onDamaged(damageSource);
         }
+    }
+
+    public static boolean canSpawn(EntityType<StoneTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return true;
     }
 }

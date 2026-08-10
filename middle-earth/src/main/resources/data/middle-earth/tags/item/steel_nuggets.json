@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:steel_nugget",
+    "middle-earth:khazad_steel_nugget",
+    "middle-earth:edhel_steel_nugget",
+    "middle-earth:burzum_steel_nugget"
+  ]
+}

@@ -19,7 +19,7 @@ public class ParticleManager {
 
     public static void createParticles(World world, Position pos, SimpleParticleType particleType, int quantity, float velocity, float range) {
         for (int i = 0; i < quantity; i++) {
-            world.addParticle(particleType,
+            world.addParticleClient(particleType,
                     pos.getX() + range * (-0.5f + Math.random()),
                     pos.getY() + Math.random(),
                     pos.getZ() + range * (-0.5f + Math.random()),

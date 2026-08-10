@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    "N N",
+    " N "
+  ],
+  "key": {
+    "N": "middle-earth:steel_nugget"
+  },
+  "result": {
+    "id": "middle-earth:mail_ring",
+    "components": {
+      "minecraft:trim": {
+        "material": "middle-earth:steel",
+        "pattern": "middle-earth:smithing_part"
+      }
+    },
+    "count": 4
+  }
+}

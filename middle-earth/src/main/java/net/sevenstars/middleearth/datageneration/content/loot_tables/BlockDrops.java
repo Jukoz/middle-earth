@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -16,11 +17,25 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WALL_ELVEN_LANTERN);
             add(ModDecorativeBlocks.DWARVEN_LANTERN);
             add(ModDecorativeBlocks.WALL_DWARVEN_LANTERN);
+            add(ModDecorativeBlocks.TREATED_STEEL_LANTERN);
+            add(ModDecorativeBlocks.WALL_TREATED_STEEL_LANTERN);
+            add(ModDecorativeBlocks.CRUDE_LANTERN);
+            add(ModDecorativeBlocks.WALL_CRUDE_LANTERN);
+            add(ModDecorativeBlocks.LEAD_LANTERN);
+            add(ModDecorativeBlocks.WALL_LEAD_LANTERN);
             add(ModDecorativeBlocks.CRYSTAL_LAMP);
             add(ModDecorativeBlocks.WALL_CRYSTAL_LAMP);
             add(ModDecorativeBlocks.WOOD_PILE);
+            add(ModDecorativeBlocks.ORCISH_DRUM);
             add(ModDecorativeBlocks.FIRE_OF_ORTHANC);
             add(ModDecorativeBlocks.TORCH_OF_ORTHANC);
+
+            add(ModDecorativeBlocks.CERAMIC_PLATE);
+            add(ModDecorativeBlocks.ROTTEN_PLATE);
+            add(ModDecorativeBlocks.SILVER_PLATE);
+            add(ModBlocks.TREATED_WOOD_ROPE_FENCE);
+
+            add(ModDecorativeBlocks.TAPPER);
 
             add(ModDecorativeBlocks.BROWN_JUG);
             add(ModDecorativeBlocks.GRAY_POT);
@@ -42,6 +57,8 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GOLDEN_CHALICE);
 
             add(ModDecorativeBlocks.CANDLE_HEAP);
+            add(ModDecorativeBlocks.CANDLE_HOLDER);
+            add(ModDecorativeBlocks.CERAMIC_LAMP);
 
             add(ModDecorativeBlocks.SCONCE);
             add(ModDecorativeBlocks.WALL_SCONCE);
@@ -56,6 +73,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.BRONZE_CHAIN);
             add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);
+            add(ModDecorativeBlocks.CRUDE_CHAIN);
+            add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN);
             add(ModDecorativeBlocks.SPIKY_CHAIN);
 
             add(ModDecorativeBlocks.BLUE_CUSHION);
@@ -66,6 +85,44 @@ public class BlockDrops {
             add(ModDecorativeBlocks.DARK_RED_CUSHION);
             add(ModDecorativeBlocks.GREEN_CUSHION);
             add(ModDecorativeBlocks.RED_CUSHION);
+
+            add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_BROWN_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_BURNT_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_DARK_BLUE_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_DARK_BROWN_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_DARK_GREEN_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_DARK_RED_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_FANCY_BLUE_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_FANCY_GREEN_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_FANCY_RED_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_GRAY_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_GREEN_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_PURPLE_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_RED_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_ROTTEN_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_WHITE_CURTAIN);
+            add(ModDecorativeBlocks.SMALL_YELLOW_CURTAIN);
+
+            add(ModDecorativeBlocks.BLACK_CURTAIN);
+            add(ModDecorativeBlocks.BLUE_CURTAIN);
+            add(ModDecorativeBlocks.BROWN_CURTAIN);
+            add(ModDecorativeBlocks.BURNT_CURTAIN);
+            add(ModDecorativeBlocks.DARK_BLUE_CURTAIN);
+            add(ModDecorativeBlocks.DARK_BROWN_CURTAIN);
+            add(ModDecorativeBlocks.DARK_GREEN_CURTAIN);
+            add(ModDecorativeBlocks.DARK_RED_CURTAIN);
+            add(ModDecorativeBlocks.FANCY_BLUE_CURTAIN);
+            add(ModDecorativeBlocks.FANCY_GREEN_CURTAIN);
+            add(ModDecorativeBlocks.FANCY_RED_CURTAIN);
+            add(ModDecorativeBlocks.GRAY_CURTAIN);
+            add(ModDecorativeBlocks.GREEN_CURTAIN);
+            add(ModDecorativeBlocks.PURPLE_CURTAIN);
+            add(ModDecorativeBlocks.RED_CURTAIN);
+            add(ModDecorativeBlocks.ROTTEN_CURTAIN);
+            add(ModDecorativeBlocks.WHITE_CURTAIN);
+            add(ModDecorativeBlocks.YELLOW_CURTAIN);
 
             add(ModNatureBlocks.BROWN_BOLETE);
             add(ModNatureBlocks.CAVE_AMANITA);
@@ -85,9 +142,20 @@ public class BlockDrops {
             add(ModNatureBlocks.SILVER_MAPLE_SAPLING);
             add(ModNatureBlocks.WHITE_PALM_SAPLING);
 
-            add(ModDecorativeBlocks.FORGE);
+            add(ModDecorativeBlocks.INSCRIPTION_TABLE);
 
+            add(ModDecorativeBlocks.LARCH_COFFER);
+            add(ModDecorativeBlocks.PINE_COFFER);
+            add(ModDecorativeBlocks.SPRUCE_COFFER);
+            add(ModDecorativeBlocks.FIR_COFFER);
+            add(ModDecorativeBlocks.BEECH_COFFER);
+            add(ModDecorativeBlocks.CHESTNUT_COFFER);
+            add(ModDecorativeBlocks.OAK_COFFER);
+            add(ModDecorativeBlocks.WILLOW_COFFER);
             add(ModDecorativeBlocks.REINFORCED_CHEST);
+
+            add(ModDecorativeBlocks.STONE_LECTERN);
+            add(ModDecorativeBlocks.CHISELED_DOLOMITE_BOOKSHELF);
 
             add(ModDecorativeBlocks.BIG_BRAZIER);
             add(ModDecorativeBlocks.SMALL_BRAZIER);
@@ -100,8 +168,10 @@ public class BlockDrops {
             add(ModDecorativeBlocks.WATERING_CAN);
             add(ModDecorativeBlocks.WOODEN_BUCKET);
 
+            add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
 
+            add(ModDecorativeBlocks.STONE_ANVIL);
             add(ModDecorativeBlocks.TREATED_ANVIL);
             add(ModDecorativeBlocks.DWARVEN_TREATED_ANVIL);
             add(ModDecorativeBlocks.ELVEN_TREATED_ANVIL);
@@ -118,11 +188,11 @@ public class BlockDrops {
             add(ModDecorativeBlocks.GROUND_BOOK);
             add(ModDecorativeBlocks.DWARVEN_GROUND_BOOK);
 
-            add(ModNatureBlocks.MALLOS);
             add(ModNatureBlocks.ELANOR);
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.NIPHREDIL);
+            add(ModNatureBlocks.SIMBELMYNE);
             add(ModNatureBlocks.YELLOW_FLOWER);
-            add(ModNatureBlocks.HOROKAKA);
-            add(ModNatureBlocks.GIANT_HOROKAKA);
 
             add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
             add(ModNatureBlocks.MAGENTA_FLOWERS);
@@ -133,27 +203,21 @@ public class BlockDrops {
             add(ModNatureBlocks.WHITE_FLOWERS);
             add(ModNatureBlocks.YELLOW_FLOWERS);
 
+            add(ModNatureBlocks.BLUE_LAVENDER);
             add(ModNatureBlocks.LAVENDER);
+            add(ModNatureBlocks.WHITE_LAVENDER);
             add(ModNatureBlocks.YELLOW_TROLLIUS);
 
             add(ModNatureBlocks.SMALL_LILY_PADS);
             add(ModNatureBlocks.SMALL_FLOWERING_LILY_PADS);
             add(ModNatureBlocks.LILY_PADS);
+            add(ModNatureBlocks.FLOWERING_LILY_PADS);
+            add(ModNatureBlocks.LARGE_LILY_PAD);
+            add(ModNatureBlocks.LARGE_FLOWERING_LILY_PAD);
+
             add(ModNatureBlocks.DUCKWEED);
 
             add(ModNatureBlocks.FLOATING_ICE);
-
-            add(ModDecorativeBlocks.OAK_LADDER);
-            add(ModDecorativeBlocks.SPRUCE_LADDER);
-            add(ModDecorativeBlocks.BIRCH_LADDER);
-            add(ModDecorativeBlocks.JUNGLE_LADDER);
-            add(ModDecorativeBlocks.ACACIA_LADDER);
-            add(ModDecorativeBlocks.DARK_OAK_LADDER);
-            add(ModDecorativeBlocks.MANGROVE_LADDER);
-            add(ModDecorativeBlocks.CHERRY_LADDER);
-            add(ModDecorativeBlocks.BAMBOO_LADDER);
-            add(ModDecorativeBlocks.CRIMSON_LADDER);
-            add(ModDecorativeBlocks.WARPED_LADDER);
 
             add(ModDecorativeBlocks.ROPE_LADDER);
 
@@ -164,6 +228,8 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.ARKENSTONE);
             add(ModDecorativeBlocks.WALL_ARKENSTONE);
+
+            add(ModDecorativeBlocks.REINFORCED_SCAFFOLDING);
         }
     };
 }

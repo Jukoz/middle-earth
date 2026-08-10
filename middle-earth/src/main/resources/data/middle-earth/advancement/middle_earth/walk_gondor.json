@@ -1,0 +1,66 @@
+{
+  "parent": "middle-earth:middle_earth/root",
+  "criteria": {
+    "gondor": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "middle-earth:anorien",
+                  "middle-earth:anorien_riverside",
+                  "middle-earth:belfalas",
+                  "middle-earth:belfalas_beach",
+                  "middle-earth:belfalas_forest",
+                  "middle-earth:belfalas_hills",
+                  "middle-earth:blackroot_forest",
+                  "middle-earth:blackroot_vale",
+                  "middle-earth:gondor",
+                  "middle-earth:gondor_hill",
+                  "middle-earth:gondor_forest",
+                  "middle-earth:lossarnach",
+                  "middle-earth:lossarnach_valley",
+                  "middle-earth:lossarnach_valley_green",
+                  "middle-earth:lossarnach_valley_yellow",
+                  "middle-earth:lossarnach_valley_orange",
+                  "middle-earth:lossarnach_valley_red",
+                  "middle-earth:lossarnach_cherry_blossom",
+                  "middle-earth:lebennin",
+                  "middle-earth:lebennin_hills",
+                  "middle-earth:lamedon",
+                  "middle-earth:lamedon_hills",
+                  "middle-earth:pelennor_fields"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_gondor.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:lebethron_sapling"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_gondor.title"
+    }
+  },
+  "requirements": [
+    [
+      "gondor"
+    ]
+  ]
+}

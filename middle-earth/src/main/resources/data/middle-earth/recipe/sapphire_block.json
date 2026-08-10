@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "RRR",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "fabric:type": "fabric:difference",
+      "base": "middle-earth:sapphire",
+      "subtracted": {
+        "fabric:type": "fabric:components",
+        "base":  "middle-earth:sapphire",
+        "components": {
+          "minecraft:max_damage": 2
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "middle-earth:sapphire_block",
+    "count": 1
+  }
+}

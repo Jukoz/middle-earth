@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.sevenstars.middleearth.item.ModDataComponentTypes;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
-import net.sevenstars.middleearth.item.items.armor.CustomAnimalArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
@@ -11,6 +10,7 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
     public MountArmorSideSkullAddonRecipe(CraftingRecipeCategory category) {
@@ -26,7 +26,7 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomAnimalArmorItem) {
+                if (itemStack2.isIn(ItemTagsME.WARG_ARMORS)) {
                     if (!itemStackArmor.isEmpty()) {
                         return false;
                     }
@@ -56,7 +56,7 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack2 = input.getStackInSlot(i);
             if (!itemStack2.isEmpty()) {
-                if (itemStack2.getItem() instanceof CustomAnimalArmorItem) {
+                if (itemStack2.isIn(ItemTagsME.WARG_ARMORS)) {
                     if (!itemStack.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
@@ -66,13 +66,13 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
         }
 
         boolean topArmorAddons = false;
-        if(itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA) != null) {
-            topArmorAddons = itemStack.get(ModDataComponentTypes.MOUNT_ARMOR_DATA).topArmorAddon();
+        if(itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA) != null) {
+            topArmorAddons = itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA).topArmorAddon();
         }
 
         ItemStack output = itemStack.copyWithCount(1);
 
-        output.set(ModDataComponentTypes.MOUNT_ARMOR_DATA, new MountArmorAddonComponent(topArmorAddons, true));
+        output.set(DataComponentTypesME.MOUNT_ARMOR_DATA, new MountArmorAddonComponent(topArmorAddons, true));
 
         return output;
     }

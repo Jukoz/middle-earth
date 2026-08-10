@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "RRR",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "fabric:type": "fabric:difference",
+      "base": "minecraft:emerald",
+      "subtracted": {
+        "fabric:type": "fabric:components",
+        "base":  "minecraft:emerald",
+        "components": {
+          "minecraft:max_damage": 2
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "minecraft:emerald_block",
+    "count": 1
+  }
+}

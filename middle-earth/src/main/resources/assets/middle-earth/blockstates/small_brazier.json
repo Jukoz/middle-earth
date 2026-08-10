@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/small_brazier"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/small_brazier_lit"
+    }
+  }
+}

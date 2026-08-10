@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": "#middle-earth:shingles"
+  },
+  "result": {
+    "id": "middle-earth:weathered_shingles",
+    "count": 4
+  }
+}

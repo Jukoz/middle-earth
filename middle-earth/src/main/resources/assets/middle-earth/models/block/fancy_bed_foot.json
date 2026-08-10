@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:block/bed_foot_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "middle-earth:block/fancy_bed",
+		"particle": "middle-earth:block/fancy_bed"
+	}
+}

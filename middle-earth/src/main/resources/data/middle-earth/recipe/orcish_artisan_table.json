@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCS",
+    "WCW"
+  ],
+  "key": {
+    "S": "#minecraft:stone_crafting_materials",
+    "C": "middle-earth:crude_nugget",
+    "W": "#minecraft:logs"
+  },
+  "result": {
+    "id": "middle-earth:orcish_artisan_table",
+    "count": 1
+  }
+}

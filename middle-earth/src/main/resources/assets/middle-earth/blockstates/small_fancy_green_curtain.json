@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "facing=east,open=false": {
+      "model": "middle-earth:block/small_fancy_green_curtain",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=north,open=false": {
+      "model": "middle-earth:block/small_fancy_green_curtain",
+      "uvlock": false
+    },
+    "facing=south,open=false": {
+      "model": "middle-earth:block/small_fancy_green_curtain",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=west,open=false": {
+      "model": "middle-earth:block/small_fancy_green_curtain",
+      "uvlock": false,
+      "y": 270
+    },
+    "facing=east,open=true": {
+      "model": "middle-earth:block/small_fancy_green_curtain_open",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=north,open=true": {
+      "model": "middle-earth:block/small_fancy_green_curtain_open",
+      "uvlock": false
+    },
+    "facing=south,open=true": {
+      "model": "middle-earth:block/small_fancy_green_curtain_open",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=west,open=true": {
+      "model": "middle-earth:block/small_fancy_green_curtain_open",
+      "uvlock": false,
+      "y": 270
+    }
+  }
+}

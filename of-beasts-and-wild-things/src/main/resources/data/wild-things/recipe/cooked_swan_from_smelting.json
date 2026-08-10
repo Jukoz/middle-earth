@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": "wild-things:raw_swan",
+  "result": {
+    "id": "wild-things:cooked_swan"
+  }
+}

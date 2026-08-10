@@ -1,0 +1,144 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:straw",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#minecraft:hoes"
+                  }
+                },
+                {
+                  "block": "middle-earth:tall_bulrush",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "lower"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": 1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "middle-earth:tall_bulrush"
+                      ],
+                      "state": {
+                        "half": "upper"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:tall_bulrush",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "block": "middle-earth:tall_bulrush",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "lower"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": 1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "middle-earth:tall_bulrush"
+                      ],
+                      "state": {
+                        "half": "upper"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:straw",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#minecraft:hoes"
+                  }
+                },
+                {
+                  "block": "middle-earth:tall_bulrush",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "upper"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": -1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "middle-earth:tall_bulrush"
+                      ],
+                      "state": {
+                        "half": "lower"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:tall_bulrush",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "block": "middle-earth:tall_bulrush",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "half": "upper"
+                  }
+                },
+                {
+                  "condition": "minecraft:location_check",
+                  "offsetY": -1,
+                  "predicate": {
+                    "block": {
+                      "blocks": [
+                        "middle-earth:tall_bulrush"
+                      ],
+                      "state": {
+                        "half": "lower"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:blocks/grass"
+}

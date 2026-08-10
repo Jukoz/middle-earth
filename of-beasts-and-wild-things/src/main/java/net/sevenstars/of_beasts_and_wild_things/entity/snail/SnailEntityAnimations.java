@@ -1,12 +1,9 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.snail;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class SnailEntityAnimations {
-    public static final Animation CRAWL = Animation.Builder.create(2f).looping()
+    public static final AnimationDefinition CRAWL = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("body",
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),

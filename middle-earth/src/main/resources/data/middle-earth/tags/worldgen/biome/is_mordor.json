@@ -1,0 +1,24 @@
+{
+  "values": [
+    "middle-earth:basalt_cave",
+    "middle-earth:magma_cave",
+    "middle-earth:ephel_duath",
+    "middle-earth:ephel_duath_base",
+    "middle-earth:ephel_duath_peaks",
+    "middle-earth:ered_lithui",
+    "middle-earth:ered_lithui_base",
+    "middle-earth:ered_lithui_peaks",
+    "middle-earth:mordor",
+    "middle-earth:mordor_ashen_forest",
+    "middle-earth:mordor_hill",
+    "middle-earth:mordor_wastes",
+    "middle-earth:morgul_vale",
+    "middle-earth:morgul_forest",
+    "middle-earth:morgul_river",
+    "middle-earth:gorgoroth",
+    "middle-earth:gorgoroth_ashen_woods",
+    "middle-earth:gorgoroth_delta",
+    "middle-earth:udun",
+    "middle-earth:torogwaith"
+  ]
+}

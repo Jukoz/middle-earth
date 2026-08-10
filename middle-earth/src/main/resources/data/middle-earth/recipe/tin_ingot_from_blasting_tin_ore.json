@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": "#middle-earth:tin_ores",
+  "result": {
+    "id": "middle-earth:tin_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 100
+}

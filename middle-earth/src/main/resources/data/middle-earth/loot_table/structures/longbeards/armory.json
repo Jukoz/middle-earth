@@ -1,0 +1,362 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_mail_coif",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_gambeson",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:longbeard_segmented_helmet",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_mail_hauberk",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_mail_chausses",
+          "weight": 2
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_mail_coat",
+          "weight": 5,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.35
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_boots",
+          "weight": 4,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.35
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:longbeard_partisan_outfit",
+          "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.35
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:longbeard_reinforced_leather_hauberk",
+          "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.7,
+                "min": 0.35
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },		
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:erebor_helmet",
+          "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.6,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:erebor_long_coat",
+          "weight": 1,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.6,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:erebor_reinforced_coat",
+          "weight": 1,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.6,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_reinforced_boots",
+          "weight": 2,
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.6,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
+        }
+      ],
+      "rolls": 2
+    },
+	{		
+	  "bonus_rolls": 0.5,
+	  "entries": [
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:erebor_shield",
+          "weight": 2
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:erebor_cross_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.7
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ],
+          "weight": 2
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:erebor_plated_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.4
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ],
+          "weight": 1
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:erebor_tower_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ],
+          "weight": 1
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:ravenhill_tower_shield",
+		  "functions": [
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.8,
+                "min": 0.3
+              },
+              "function": "minecraft:set_damage"
+            }
+		  ],
+          "weight": 1
+		},
+		{
+		  "type": "minecraft:item",
+		  "name": "middle-earth:round_shield",
+          "weight": 2,
+		  "functions": [
+			{
+			  "function": "minecraft:set_banner_pattern",
+			  "patterns": [
+				{
+				  "pattern": "minecraft:base",
+				  "color": "blue"
+				},
+				{
+				  "pattern": "middle-earth:dwarf_crown",
+				  "color": "white"
+				}
+			  ],
+			  "append": true
+			}
+		  ]
+		},
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+	  ],
+	  "rolls": 1
+	},
+    {
+      "rolls": {
+        "min": 0,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:mail_ring",
+		  "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:iron",
+                  "pattern": "middle-earth:smithing_part"
+                }
+              }
+            }
+		  ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:bronze_nugget"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:lead_ingot"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:fur"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blue_dye"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arrow"
+        }
+      ]
+    }
+  ]
+}

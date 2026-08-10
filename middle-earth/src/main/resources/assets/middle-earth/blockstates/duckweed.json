@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "middle-earth:block/duckweed"
+      },
+      {
+        "model": "middle-earth:block/duckweed",
+        "y": 90
+      },
+      {
+        "model": "middle-earth:block/duckweed",
+        "y": 180
+      },
+      {
+        "model": "middle-earth:block/duckweed",
+        "y": 270
+      }
+    ]
+  }
+}

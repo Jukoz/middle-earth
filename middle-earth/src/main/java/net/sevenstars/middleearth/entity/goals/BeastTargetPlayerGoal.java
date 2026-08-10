@@ -1,22 +1,21 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.Difficulty;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class BeastTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
     AbstractBeastEntity mob;
-    Disposition beastDisposition;
+    DispositionType beastDispositionType;
 
-    public BeastTargetPlayerGoal(AbstractBeastEntity mob, Disposition beastDisposition) {
+    public BeastTargetPlayerGoal(AbstractBeastEntity mob, DispositionType beastDispositionType) {
         super(mob, PlayerEntity.class, true);
         this.mob = mob;
-        this.beastDisposition = beastDisposition;
+        this.beastDispositionType = beastDispositionType;
     }
 
     @Override
@@ -35,14 +34,8 @@ public class BeastTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
             if(player == null || mob.getWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame() || player == mob.getOwner()){
                 return false;
             }
-            if(beastDisposition != null){
-                PlayerData data = StateSaverAndLoader.getPlayerState(player);
-
-                if(data == null)
-                    return false;
-
-                Disposition playerDisposition = data.getCurrentDisposition();
-                return playerDisposition != beastDisposition;
+            if(beastDispositionType != null){
+                return PlayerDataService.getPlayerDisposition(player, player.getWorld()) != beastDispositionType;
             }
             return true;
         }

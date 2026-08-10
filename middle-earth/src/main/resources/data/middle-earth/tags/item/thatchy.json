@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:hay_block",
+    "middle-earth:reed_block",
+    "middle-earth:straw_block"
+  ]
+}

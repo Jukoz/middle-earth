@@ -1,0 +1,44 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "clovers": "middle-earth:block/clovers",
+    "stem": "middle-earth:block/clovers_stem",
+    "particle": "middle-earth:block/clovers"
+  },
+  "elements": [
+    {
+      "from": [0, 1, 8],
+      "to": [8, 1, 16],
+      "faces": {
+        "up": {"uv": [0, 8, 8, 16], "texture": "#clovers", "tintindex": 0},
+        "down": {"uv": [0, 16, 8, 8], "texture": "#clovers", "tintindex": 0}
+      }
+    },
+    {
+      "from": [0, 1, 8],
+      "to": [8, 1, 16],
+      "faces": {
+        "up": {"uv": [0, 8, 8, 16], "texture": "#clovers", "tintindex": 0},
+        "down": {"uv": [0, 16, 8, 8], "texture": "#clovers", "tintindex": 0}
+      }
+    },
+    {
+      "from": [10.15, 0, 5.25],
+      "to": [11.15, 1, 5.25],
+      "rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 1]},
+      "faces": {
+        "north": {"uv": [0, 6, 1, 7], "texture": "#stem", "tintindex": 0},
+        "south": {"uv": [0, 6, 1, 7], "texture": "#stem", "tintindex": 0}
+      }
+    },
+    {
+      "from": [10.65, 0, 4.75],
+      "to": [10.65, 1, 5.75],
+      "rotation": {"angle": -45, "axis": "y", "origin": [0, 0, 1]},
+      "faces": {
+        "east": {"uv": [0, 6, 1, 7], "texture": "#stem", "tintindex": 0},
+        "west": {"uv": [0, 6, 1, 7], "texture": "#stem", "tintindex": 0}
+      }
+    }
+  ]
+}

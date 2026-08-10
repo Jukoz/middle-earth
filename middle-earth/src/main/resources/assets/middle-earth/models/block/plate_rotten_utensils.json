@@ -1,0 +1,8 @@
+{
+	"parent": "middle-earth:block/plate_silver_utensils",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "middle-earth:block/rotten_plate",
+		"particle": "middle-earth:block/rotten_plate"
+	}
+}

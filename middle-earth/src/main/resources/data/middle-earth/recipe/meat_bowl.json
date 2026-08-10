@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:cooked_meat",
+    "#middle-earth:cooked_meat",
+    "#middle-earth:vegetable",
+    "#middle-earth:vegetable",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "middle-earth:meat_bowl"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "variants": {
+    "facing=east,half=upper,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_top",
+      "y": 90
+    },
+    "facing=north,half=upper,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_top"
+    },
+    "facing=south,half=upper,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_top",
+      "y": 180
+    },
+    "facing=west,half=upper,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_top",
+      "y": 270
+    },
+    "facing=east,half=lower,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_bottom",
+      "y": 90
+    },
+    "facing=north,half=lower,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_bottom"
+    },
+    "facing=south,half=lower,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_bottom",
+      "y": 180
+    },
+    "facing=west,half=lower,flip=false": {
+      "model": "middle-earth:block/gabbro_statue_bottom",
+      "y": 270
+    },
+
+    "facing=east,half=upper,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_top_tilted",
+      "y": 90
+    },
+    "facing=north,half=upper,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_top_tilted"
+    },
+    "facing=south,half=upper,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_top_tilted",
+      "y": 180
+    },
+    "facing=west,half=upper,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_top_tilted",
+      "y": 270
+    },
+    "facing=east,half=lower,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_bottom",
+      "y": 90
+    },
+    "facing=north,half=lower,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_bottom"
+    },
+    "facing=south,half=lower,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_bottom",
+      "y": 180
+    },
+    "facing=west,half=lower,flip=true": {
+      "model": "middle-earth:block/gabbro_statue_bottom",
+      "y": 270
+    }
+  }
+}

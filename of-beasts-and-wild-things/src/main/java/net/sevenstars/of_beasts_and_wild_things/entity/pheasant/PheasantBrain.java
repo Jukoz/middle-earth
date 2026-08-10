@@ -13,8 +13,10 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.sevenstars.api.entity.ai.brain.task.FleeFromEntityTask;
+import net.sevenstars.api.entity.ai.brain.task.MoveTowardsBlockTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.DigInDirtTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.MoveTowardsBlockTask;
 
 public class PheasantBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super PheasantEntity>>> SENSORS;
@@ -37,18 +39,19 @@ public class PheasantBrain {
 
     private static void addCoreActivities(Brain<PheasantEntity> brain) {
         brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new MoveToTargetTask()));
+        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(new StayAboveWaterTask<>(0.8F), new MoveToTargetTask()));
     }
 
     private static void addIdleActivities(Brain<PheasantEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
+                Pair.of(0, new FleeFromEntityTask<PheasantEntity>(ImmutableList.of(PlayerEntity.class), 5, 2.5f)),
+                Pair.of(1, new RandomTask<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
                         Pair.of(MoveTowardsBlockTask.create(1.0F, Blocks.ROOTED_DIRT, Blocks.COARSE_DIRT), 5),
                         Pair.of(new DigInDirtTask(), 5),
                         Pair.of(StrollTask.create(1.0F), 1),
                         Pair.of(new WaitTask(60, 100), 1)
                 ))),
-                Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
+                Pair.of(2, new RandomTask<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LONG_JUMP_COOLING_DOWN, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
                         Pair.of(StrollTask.create(1.0F), 1),
                         Pair.of(new WaitTask(60, 100), 1)
                 )))

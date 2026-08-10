@@ -1,0 +1,9 @@
+{
+  "parent": "middle-earth:block/stairs_overlay_tint",
+  "textures": {
+    "bottom": "middle-earth:block/pebbled_grass",
+    "side": "middle-earth:block/pebbled_grass",
+    "top": "middle-earth:block/pebbled_grass",
+    "overlay": "middle-earth:block/pebbled_grass_overlay"
+  }
+}

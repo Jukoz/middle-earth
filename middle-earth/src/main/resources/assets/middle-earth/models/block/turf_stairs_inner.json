@@ -1,0 +1,8 @@
+{
+  "parent": "middle-earth:block/inner_stairs_tint",
+  "textures": {
+    "bottom": "middle-earth:block/turf",
+    "side": "middle-earth:block/turf",
+    "top": "middle-earth:block/turf"
+  }
+}

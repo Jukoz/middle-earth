@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/torch_of_orthanc"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/torch_of_orthanc_lit"
+    }
+  }
+}

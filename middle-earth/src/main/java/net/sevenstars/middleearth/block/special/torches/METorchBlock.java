@@ -80,7 +80,7 @@ public class METorchBlock extends TorchBlock {
             double d = (double)pos.getX() + 0.5;
             double e = (double)pos.getY() + 0.9;
             double f = (double)pos.getZ() + 0.5;
-            world.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
+            world.addParticleClient(ParticleTypes.SMOKE, d, e, f, 0.0, 0.0, 0.0);
         }
     }
 

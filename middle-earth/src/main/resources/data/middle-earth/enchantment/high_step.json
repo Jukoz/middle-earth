@@ -1,0 +1,35 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.middle-earth.high_step"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.5,
+          "per_level_above_first": 0.5
+        },
+        "attribute": "minecraft:step_height",
+        "id": "minecraft:middle-earth.high_step",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "exclusive_set": "#middle-earth:exclusive_set/feather_falling",
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "slots": [
+    "feet"
+  ],
+  "supported_items": "#middle-earth:enchantable/medium_foot",
+  "weight": 1
+}

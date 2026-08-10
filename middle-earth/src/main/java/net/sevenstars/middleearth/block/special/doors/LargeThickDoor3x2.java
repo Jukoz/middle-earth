@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.doors;
 
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -38,7 +38,7 @@ public class LargeThickDoor3x2 extends LargeDoorBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(state.get(PART) == 4 && player.getMainHandStack().getItem() == ModResourceItems.DWARVEN_KEY){
+        if(state.get(PART) == 4 && player.getMainHandStack().getItem() == ResourceItemsME.DWARVEN_KEY){
             return super.onUse(state, world, pos, player, hit);
         } else {
             return ActionResult.PASS;

@@ -1,0 +1,7 @@
+{
+    "parent": "middle-earth:block/thick_chain_template",
+    "textures": {
+        "particle": "middle-earth:block/bronze_broad_chain",
+        "all": "middle-earth:block/bronze_broad_chain"
+    }
+}

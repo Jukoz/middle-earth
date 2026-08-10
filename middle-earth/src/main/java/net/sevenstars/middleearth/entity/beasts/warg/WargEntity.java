@@ -11,11 +11,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -23,6 +21,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -35,14 +36,15 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.deer.DeerEntity;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
 import net.sevenstars.middleearth.entity.goals.*;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -58,15 +60,18 @@ public class WargEntity extends AbstractBeastEntity {
     private static final float MIN_HEALTH_BONUS = WargEntity.getChildHealthBonus(max -> 0);
     private static final float MAX_HEALTH_BONUS = WargEntity.getChildHealthBonus(max -> max - 1);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> EYE_VARIANT = DataTracker.registerData(WargEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final double PASSENGER_SADDLE_Y_OFFSET = 0.12;
+    private static final double PASSENGER_SADDLE_BACKWARD_OFFSET = 0.18;
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
-    private static final EntityDimensions BABY_BASE_DIMENSIONS = ModEntities.WARG.getDimensions().scaled(0.5f);
+    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.WARG.getDimensions().scaled(0.5f);
 
     public WargEntity(EntityType<? extends WargEntity> entityType, World world) {
         super(entityType, world);
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.4)
                 .add(EntityAttributes.MAX_HEALTH, 24.0d)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.2d)
@@ -92,38 +97,40 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new BeastSitGoal(this));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 2, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
         this.goalSelector.add(6, new TemptGoal(this, 0.9, (stack) ->  stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food"))), false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(7, new WanderAroundFarGoal(this, 0.5));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
         this.targetSelector.add(3, new BeastRevengeGoal(this, new Class[0]).setGroupRevenge());
         this.targetSelector.add(4, new BeastTargetPlayerGoal(this, this.getDisposition()));
+        this.targetSelector.add(10, new BeastActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
+        this.targetSelector.add(10, new BeastActiveTargetGoal<>(this, GreatHornEntity.class, true));
         this.targetSelector.add(11, new BeastActiveTargetGoal<>(this, SheepEntity.class, true));
         this.targetSelector.add(12, new BeastActiveTargetGoal<>(this, GoatEntity.class, true));
-        this.targetSelector.add(13, new BeastActiveTargetGoal<>(this, DeerEntity.class, true));
-        this.targetSelector.add(14, new BeastActiveTargetGoal<>(this, PheasantEntity.class, true));
     }
 
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(VARIANT, 0);
+        builder.add(EYE_VARIANT, 0);
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putInt("Variant", this.getTypeVariant());
+        view.putInt("EyeVariant", this.getEyeTypeVariant());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+        this.dataTracker.set(EYE_VARIANT, view.getInt("EyeVariant", 0));
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -138,6 +145,10 @@ public class WargEntity extends AbstractBeastEntity {
         return ((double)0.5 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25 + randomDoubleGetter.getAsDouble() * 0.25) * 0.3;
     }
 
+    private WolfSoundVariant getSoundVariant() {
+        return SoundEvents.WOLF_SOUNDS.get(WolfSoundVariants.Type.ANGRY);
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -147,7 +158,7 @@ public class WargEntity extends AbstractBeastEntity {
                 this.chargeAnimationState.start(this.age);
             }
 
-            if(this.chargeTimeout <= maxChargeCooldown() - 10 && !this.isInAir()) {
+            if(this.chargeTimeout <= maxChargeCooldown() - 10 && this.isOnGround()) {
                 this.setCharging(false);
                 this.setHasCharged(false);
             }
@@ -161,7 +172,7 @@ public class WargEntity extends AbstractBeastEntity {
         if(!this.getWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
-            if(playerRace == RaceType.NONE || (this.getRaceType() != null && !this.getRaceType().contains(playerRace))) {
+            if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;
             }
         }
@@ -190,11 +201,14 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         WargEntity wargEntity = (WargEntity) entity;
-        WargEntity wargEntity2 = ModEntities.WARG.create(world, SpawnReason.BREEDING);
+        WargEntity wargEntity2 = EntitiesME.WARG.create(world, SpawnReason.BREEDING);
         if (wargEntity2 != null) {
             int i = this.random.nextInt(9);
             WargVariant wargVariant = i < 4 ? this.getVariant() : (i < 8 ? wargEntity.getVariant() : Util.getRandom(WargVariant.values(), this.random));
             wargEntity2.setVariant(wargVariant);
+            int j = this.random.nextInt(9);
+            WargEyeVariant eyeVariant = j < 4 ? this.getEyeVariant() : (j < 8 ? wargEntity.getEyeVariant() : Util.getRandom(WargEyeVariant.values(), this.random));
+            wargEntity2.setEyeVariant(eyeVariant);
             this.setChildAttributes(entity, wargEntity2);
         }
         return wargEntity2;
@@ -208,13 +222,18 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
-        return Disposition.EVIL;
+    public DispositionType getDisposition() {
+        return DispositionType.EVIL;
     }
 
     @Override
-    protected List<RaceType> getRaceType() {
-        return List.of(RaceType.ORC, RaceType.URUK);
+    public List<RaceType> getCompatibleRaces() {
+        return List.of(RaceType.SNAGA, RaceType.GOBLIN, RaceType.ORC, RaceType.URUK);
+    }
+
+    @Override
+    public boolean usesTameness() {
+        return false;
     }
 
     @Override
@@ -235,10 +254,19 @@ public class WargEntity extends AbstractBeastEntity {
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         if(!this.isSitting()) {
-            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.5f);
+            return controllingPlayer.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.25f);
         }
 
         return super.getSaddledSpeed(controllingPlayer);
+    }
+
+    @Override
+    protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
+        if(!this.isSitting()) {
+            return controllingNpc.isSprinting() ? ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED)) : ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) * 0.25f);
+        }
+
+        return super.getNpcSaddledSpeed(controllingNpc);
     }
 
     @Override
@@ -248,13 +276,29 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
-        float f = this.limbAnimator.getSpeed();
-        float g = this.limbAnimator.getPos() * (MathHelper.PI / 180) * 18;
-        float h = passenger.isSprinting() ? 1 : 0;
+        float animationSpeed = this.limbAnimator.getSpeed();
+        float animationProgress = this.limbAnimator.getAnimationProgress() * (MathHelper.PI / 180) * 18;
+        float f = this.limbAnimator.getAnimationProgress() / 20;
 
-        double y = (MathHelper.cos(g * 2 * 1.2f - (MathHelper.PI * (h - 1))) * (0.06 + (0.035 * h)));
+        boolean sprinting = passenger.isSprinting();
 
-        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(0, y,0);
+        // frequency is calculated by dividing the speed of the animation by the duration of the animation.
+        float frequency = sprinting ? (0.75f/1.4f) : 4;
+
+        double y = sprinting ?
+                0.025 - MathHelper.cos((f/frequency) * (MathHelper.PI*2)) * 0.06f :
+                MathHelper.cos(animationProgress * frequency) * 0.06 * animationSpeed - 0.05;
+
+        if(this.isSitting()) {
+            y = -0.5;
+        }
+
+        double side = 0;
+        double front = -PASSENGER_SADDLE_BACKWARD_OFFSET;
+        double x = MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * side - MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * front;
+        double z = MathHelper.sin((float)Math.toRadians(this.getBodyYaw())) * side + MathHelper.cos((float)Math.toRadians(this.getBodyYaw())) * front;
+
+        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor).add(x, y + PASSENGER_SADDLE_Y_OFFSET, z);
     }
 
     @Override
@@ -270,7 +314,7 @@ public class WargEntity extends AbstractBeastEntity {
                 this.setRunning(true);
             }
 
-            this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
+            //this.idleAnimationTimeout = this.random.nextInt(600) + 1700;
         }
 
         if(!this.isAttacking() && this.getAttacker() == null) {
@@ -284,17 +328,43 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     protected void setupAnimationStates() {
+        this.idleAnimationState.startIfNotRunning(this.age);
         if(this.isSitting()) {
-            this.startSittingAnimationState.startIfNotRunning(this.age);
+            if(!this.startSittingAnimationState.isRunning() && !this.sittingAnimationState.isRunning()) {
+                this.startSittingAnimationState.startIfNotRunning(this.age);
+            }
+            if(this.startSittingAnimationState.getTimeInMilliseconds(this.age) > 2000) {
+                this.sittingAnimationState.startIfNotRunning(this.age);
+                this.startSittingAnimationState.stop();
+            }
         }
-        if(!this.isSitting() && this.startSittingAnimationState.isRunning()) {
+        else if(this.startSittingAnimationState.isRunning() || this.sittingAnimationState.isRunning()) {
             this.startSittingAnimationState.stop();
-            this.stopSittingAnimationState.start(this.age);
+            this.sittingAnimationState.stop();
+            this.stopSittingAnimationState.startIfNotRunning(this.age);
+        }
+        if(this.stopSittingAnimationState.getTimeInMilliseconds(this.age) > 1500) {
+            this.stopSittingAnimationState.stop();
         }
     }
-
+    @Override
     public boolean isCommandItem(ItemStack stack) {
         return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+    }
+
+    @Override
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        boolean result = super.tryAttack(world, target);
+        if(result) {
+            this.setRunning(true);
+            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        }
+        return result;
     }
 
     @Override
@@ -320,8 +390,9 @@ public class WargEntity extends AbstractBeastEntity {
 
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
 
+        Entity owner = this.getOwner();
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
+            if((owner == null || entity.getUuid() != owner.getUuid()) && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
                 if(getWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), this.getAttackDamage());
 
@@ -345,12 +416,12 @@ public class WargEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean handleFallDamage(double fallDistance, float damagePerDistance, DamageSource damageSource) {
         int i;
         if (fallDistance > 1.0f) {
             this.playSound(SoundEvents.ENTITY_WOLF_STEP, 2.5f, 0.7f);
         }
-        if ((i = this.computeFallDamage(fallDistance, damageMultiplier)) <= 0) {
+        if ((i = this.computeFallDamage(fallDistance, damagePerDistance)) <= 0) {
             return false;
         }
         this.damage(damageSource, i);
@@ -362,8 +433,7 @@ public class WargEntity extends AbstractBeastEntity {
             }
         }
         this.playBlockFallSound();
-        return true;
-    }
+        return true;    }
 
 
     //@Override
@@ -404,6 +474,8 @@ public class WargEntity extends AbstractBeastEntity {
                                  @Nullable EntityData entityData) {
         WargVariant variant = Util.getRandom(WargVariant.values(), this.random);
         setVariant(variant);
+        WargEyeVariant eyeVariant = Util.getRandom(WargEyeVariant.values(), this.random);
+        setEyeVariant(eyeVariant);
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
@@ -411,24 +483,33 @@ public class WargEntity extends AbstractBeastEntity {
         return WargVariant.byId(this.getTypeVariant() & 255);
     }
 
+    public WargEyeVariant getEyeVariant() {
+        return WargEyeVariant.byId(this.getEyeTypeVariant() & 255);
+    }
     private int getTypeVariant() {
         return this.dataTracker.get(VARIANT);
     }
 
+    private int getEyeTypeVariant() {
+        return this.dataTracker.get(EYE_VARIANT);
+    }
     private void setVariant(WargVariant variant) {
         this.dataTracker.set(VARIANT, variant.getId() & 255);
     }
 
+    private void setEyeVariant(WargEyeVariant variant) {
+        this.dataTracker.set(EYE_VARIANT, variant.getId() & 255);
+    }
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_WOLF_DEATH;
+        return this.getSoundVariant().deathSound().value();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_WOLF_HURT;
+        return this.getSoundVariant().hurtSound().value();
     }
     @Override
     protected void playHurtSound(DamageSource damageSource) {
@@ -438,7 +519,8 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_WOLF_AMBIENT;
+        return this.getSoundVariant().ambientSound().value();
+
     }
 
     @Override
@@ -449,13 +531,13 @@ public class WargEntity extends AbstractBeastEntity {
     @Nullable
     @Override
     public SoundEvent getAmbientStandSound() {
-        return SoundEvents.ENTITY_WOLF_HOWL;
+        return this.getSoundVariant().pantSound().value();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAngrySound() {
-        return SoundEvents.ENTITY_WOLF_GROWL;
+        return this.getSoundVariant().growlSound().value();
     }
 
     @Override

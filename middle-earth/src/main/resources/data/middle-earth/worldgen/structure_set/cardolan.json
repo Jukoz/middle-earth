@@ -1,0 +1,26 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:granite_ruin",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:granite_ruin_brick_house",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:granite_ruin_tower",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:granite_ruin_arch",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 17,
+    "separation": 8,
+    "salt": 1646278459
+  }
+}

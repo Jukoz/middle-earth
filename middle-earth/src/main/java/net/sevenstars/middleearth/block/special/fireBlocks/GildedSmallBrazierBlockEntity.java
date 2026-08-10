@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 

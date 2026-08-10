@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:berries",
+    "minecraft:wheat",
+    "minecraft:sugar",
+    "minecraft:egg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "middle-earth:berry_pie"
+  }
+}

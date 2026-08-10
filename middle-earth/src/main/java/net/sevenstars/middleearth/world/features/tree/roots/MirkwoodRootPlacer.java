@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.world.features.tree.roots;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.gen.root.*;
 import net.sevenstars.middleearth.world.features.tree.ModRootPlacerType;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -12,9 +13,6 @@ import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.root.AboveRootPlacement;
-import net.minecraft.world.gen.root.RootPlacer;
-import net.minecraft.world.gen.root.RootPlacerType;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 import java.util.Iterator;
@@ -25,11 +23,13 @@ import java.util.function.BiConsumer;
 public class MirkwoodRootPlacer extends RootPlacer {
     public static final int field_38769 = 8;
     public static final int field_38770 = 15;
+
     public static final MapCodec<MirkwoodRootPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return method_43182(instance).and(MirkwoodRootPlacement.CODEC.fieldOf("mirkwood_root_placement").forGetter((rootPlacer) -> {
+        return createCodecParts(instance).and(MirkwoodRootPlacement.CODEC.fieldOf("mirkwood_root_placement").forGetter((rootPlacer) -> {
             return rootPlacer.mirkwoodRootPlacement;
         })).apply(instance, MirkwoodRootPlacer::new);
     });
+
     private final MirkwoodRootPlacement mirkwoodRootPlacement;
 
     public MirkwoodRootPlacer(IntProvider trunkOffsetY, BlockStateProvider rootProvider, Optional<AboveRootPlacement> aboveRootPlacement, MirkwoodRootPlacement mirkwoodRootPlacement) {

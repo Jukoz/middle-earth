@@ -24,6 +24,14 @@ public class ModServerConfigs {
     public static boolean ENABLE_MOUNT_BROADHOOF_GOAT;
     /** Allows to craft golden carrots and golden apples in Middle-earth**/
     public static boolean ENABLE_GOLDEN_FOOD_RECIPES;
+    /** Allows to place Golems with blocks patterns in Middle-earth**/
+    public static boolean ENABLE_GOLEMS;
+    /** Amount of levels that a sharpness enchant can have in Middle-earth**/
+    public static int SHARPNESS_MAX_LEVEL;
+    /** Amount of levels that a power enchant can have in Middle-earth**/
+    public static int POWER_MAX_LEVEL;
+    /** Global Mob Cap**/
+    public static int GLOBAL_MOB_CAP;
 
     public static void registerConfigs() {
         configs = new ModConfigProvider();
@@ -45,10 +53,12 @@ public class ModServerConfigs {
         configs.addKeyValuePair(new Pair<>("enableReturnToOverworld", true), "boolean");
         configs.addDescription("Should procedural structures (such as Orthanc) generate in Middle-earth?");
         configs.addKeyValuePair(new Pair<>("enableProceduralStructures", true), "boolean");
+        configs.addDescription("Maximum amount of non-persistent entity per type in Middle-earth");
+        configs.addKeyValuePair(new Pair<>("globalMobCap", true), "int");
         configs.addLineJump();
 
-        // Faction configurations
-        configs.addComment("Faction configurations");
+        // PlayerFactionPayload configurations
+        configs.addComment("PlayerFactionPayload configurations");
         configs.addDescription("Should players be allowed to change factions when they use the starlight phial?");
         configs.addKeyValuePair(new Pair<>("enableFactionReset", true), "boolean");
         configs.addDescription("Should players keep their race when returning to the Overworld");
@@ -66,6 +76,18 @@ public class ModServerConfigs {
         configs.addComment("Food configurations");
         configs.addDescription("Should players be allowed to craft golden apples and golden carrots in Middle-earth?");
         configs.addKeyValuePair(new Pair<>("enableGoldenFoodRecipes", false), "boolean");
+
+        // Golem configurations
+        configs.addComment("Golem configurations");
+        configs.addDescription("Should players be allowed to place golems with block patterns in Middle-earth?");
+        configs.addKeyValuePair(new Pair<>("enableGolems", false), "boolean");
+
+        // Enchants configurations
+        configs.addComment("Enchants configurations");
+        configs.addDescription("What is the maximum level a sharpness can have in an anvil output");
+        configs.addKeyValuePair(new Pair<>("sharpnessMaxLevel", 3), "int");
+        configs.addDescription("What is the maximum level a power can have in an anvil output");
+        configs.addKeyValuePair(new Pair<>("powerMaxLevel", 3), "int");
     }
 
     private static void assignServerConfigs() {
@@ -73,13 +95,20 @@ public class ModServerConfigs {
         ENABLE_SPAWN_OVERRIDE = CONFIG.getOrDefault("enableSpawnOverride", true);
         ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
         ENABLE_PROCEDURAL_STRUCTURES = CONFIG.getOrDefault("enableProceduralStructures", true);
-        // Faction configurations
+        GLOBAL_MOB_CAP = CONFIG.getOrDefault("globalMobCap", 50);
+
+        // PlayerFactionPayload configurations
         ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
         ENABLE_KEEP_RACE_ON_DIMENSION_SWAP = CONFIG.getOrDefault("enableKeepRaceOnDimensionSwap", true);
         DELAY_ON_TELEPORT_CONFIRMATION = CONFIG.getOrDefault("delayOnTeleportConfirmation", 3);
         // Mount configurations
         ENABLE_MOUNT_BROADHOOF_GOAT = CONFIG.getOrDefault("enableMountBroadhoofGoat", true);
+
         ENABLE_GOLDEN_FOOD_RECIPES = CONFIG.getOrDefault("enableGoldenFoodRecipes", false);
+        ENABLE_GOLEMS = CONFIG.getOrDefault("enableGoldenFoodRecipes", false);
+
+        SHARPNESS_MAX_LEVEL = CONFIG.getOrDefault("sharpnessMaxLevel", 3);
+        POWER_MAX_LEVEL = CONFIG.getOrDefault("powerMaxLevel", 3);
 
         MiddleEarth.LOGGER.logDebugMsg("All server configs (" + configs.getConfigsList().size() + ") have been set properly");
     }

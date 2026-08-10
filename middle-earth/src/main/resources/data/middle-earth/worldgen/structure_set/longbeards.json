@@ -1,0 +1,22 @@
+{
+  "structures": [
+	{
+      "structure": "middle-earth:longbeards_house",
+      "weight": 2
+    },
+	{
+      "structure": "middle-earth:longbeards_watch_tower",
+      "weight": 1
+    },
+	{
+      "structure": "middle-earth:longbeards_hall",
+      "weight": 3
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 21,
+    "separation": 10,
+    "salt": 127248587
+  }
+}

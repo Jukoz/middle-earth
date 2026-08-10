@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:item/mordor_oval_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"2": "middle-earth:item/mordor_painted_wooden_shield"
+	}
+}

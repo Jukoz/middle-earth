@@ -1,0 +1,180 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:archer_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arms_up_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blade_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:miner_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:prize_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:scrape_pottery_sherd"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    },
+	{
+      "bonus_rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:brown_jug"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gray_pot"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:large_jug"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:amphora"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:brown_amphora"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gray_vase"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:brown_jar"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:clay_jar"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gray_jar"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:fat_pot"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:brown_fat_pot"
+        },
+		{
+          "type": "minecraft:item",
+          "name": "middle-earth:gray_fat_pot"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ],
+      "rolls": 2
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:clay"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:clay_ball"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brick"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:black_dye"
+        }
+      ]
+    },
+	{
+      "rolls": {
+        "min": 0,
+        "max": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potion"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:straw"
+        }
+      ]
+    }
+  ]
+}

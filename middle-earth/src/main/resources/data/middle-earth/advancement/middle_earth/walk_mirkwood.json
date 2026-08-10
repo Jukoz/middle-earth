@@ -1,0 +1,62 @@
+{
+  "parent": "middle-earth:middle_earth/root",
+  "criteria": {
+    "mirkwood": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "middle-earth:dol_guldur",
+                  "middle-earth:dol_guldur_hill",
+                  "middle-earth:dark_mirkwood",
+                  "middle-earth:dark_mirkwood_edge",
+                  "middle-earth:mirkwood",
+                  "middle-earth:mirkwood_foothills",
+                  "middle-earth:mirkwood_mountains_base",
+                  "middle-earth:mirkwood_mountains",
+                  "middle-earth:mirkwood_marshes",
+                  "middle-earth:mirkwood_swamp",
+                  "middle-earth:mirkwood_edge",
+                  "middle-earth:northern_mirkwood_marshes",
+                  "middle-earth:northern_mirkwood_swamp",
+                  "middle-earth:webbed_woods",
+                  "middle-earth:webbed_dark_woods",
+                  "middle-earth:autumn_woodland",
+                  "middle-earth:woodland_realm",
+                  "middle-earth:woodland_foothills",
+                  "middle-earth:woodland_hills"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_mirkwood.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:mirkwood_log"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_mirkwood.title"
+    }
+  },
+  "requirements": [
+    [
+      "mirkwood"
+    ]
+  ]
+}

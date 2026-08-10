@@ -6,7 +6,7 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
-import net.sevenstars.of_beasts_and_wild_things.entity.model.ModEntityModelLayers;
+import net.sevenstars.of_beasts_and_wild_things.entity.model.EntityModelLayersWT;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class SnailEntityRenderer extends MobEntityRenderer<SnailEntity, SnailEnt
     private static final String PATH = "textures/entity/snail/";
 
     public SnailEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new SnailEntityModel(context.getPart(ModEntityModelLayers.SNAIL)), 0.2f);
+        super(context, new SnailEntityModel(context.getPart(EntityModelLayersWT.SNAIL)), 0.2f);
     }
 
     public static final Map<SnailEntityVariant, String> LOCATION_BY_VARIANT =
@@ -32,7 +32,7 @@ public class SnailEntityRenderer extends MobEntityRenderer<SnailEntity, SnailEnt
 
     @Override
     public Identifier getTexture(SnailEntityRenderState state) {
-        return Identifier.of(OfBeastsAndWildThings.MOD_ID, LOCATION_BY_VARIANT.get(state.variant));
+        return OfBeastsAndWildThings.of(LOCATION_BY_VARIANT.get(state.variant));
     }
 
     @Override

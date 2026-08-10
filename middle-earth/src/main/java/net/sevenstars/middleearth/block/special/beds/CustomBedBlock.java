@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.special.beds;
 
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;

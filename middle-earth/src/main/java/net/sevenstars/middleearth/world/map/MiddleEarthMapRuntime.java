@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.world.map;
 
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.joml.Vector2i;
 
 import java.awt.*;
@@ -15,9 +15,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class MiddleEarthMapRuntime {
-    private static MiddleEarthMapRuntime single_instance = null;
     HashMap<Vector2i, MiddleEarthMapRegion> regions;
     HashMap<UUID, Vector2i> regionByUuids;
+
+
+    private static MiddleEarthMapRuntime single_instance = null;
+
     private BufferedImage edgeImage;
     private MiddleEarthMapUtils middleEarthMapUtils;
 
@@ -135,7 +138,7 @@ public class MiddleEarthMapRuntime {
             });
 
             // Purging
-            //MiddleEarth.LOGGER.logDebugMsg("Purging [%s] regions (tick : %s)".formatted(toPurge.size(), serverTick));
+            //MiddleEarth.LOGGER.logDebugMsg("Purging [%s/%s] regions (tick : %s)".formatted(toPurge.size(), regions.size(), serverTick));
             for (Vector2i region : toPurge){
                 regions.remove(region);
             }

@@ -1,18 +1,15 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class PheasantEntityAnimations {
-    public static final Animation RUN = Animation.Builder.create(0.5f).looping()
+    public static final AnimationDefinition RUN = AnimationDefinition.Builder.create(0.5f).looping()
             .addBoneAnimation("pheasant",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head_and_neck",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -0.2f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.125f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -48,7 +45,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(-20f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0.5f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.125f, AnimationHelper.createTranslationalVector(0f, 0f, -0.5f),
@@ -72,7 +69,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(-45f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0.5f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.125f, AnimationHelper.createTranslationalVector(0f, 0.5f, 0f),
@@ -96,7 +93,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(25f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("tail",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -0.2f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -135,13 +132,13 @@ public class PheasantEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 17.5f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation WALK = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("pheasant",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head_and_neck",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -0.2f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -177,7 +174,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-10f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0.5f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 0f, -0.5f),
@@ -201,7 +198,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-25f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("right_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0.5f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 0.5f, 0f),
@@ -225,7 +222,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(15f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("tail",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, -0.2f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -248,18 +245,18 @@ public class PheasantEntityAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 2.5f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation IDLE = Animation.Builder.create(2f).looping()
+    public static final AnimationDefinition IDLE = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("upper_body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1f, AnimationHelper.createTranslationalVector(0f, -0.2f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(2f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-    public static final Animation DIGGING = Animation.Builder.create(5.125f)
+    public static final AnimationDefinition DIGGING = AnimationDefinition.Builder.create(5.125f)
             .addBoneAnimation("pheasant",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("head_and_neck",
@@ -285,7 +282,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(5.125f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_leg",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("left_leg",
@@ -317,7 +314,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(3.5834335f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("upper_body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.9583434f, AnimationHelper.createTranslationalVector(0f, -0.2f, 0f),
@@ -331,7 +328,7 @@ public class PheasantEntityAnimations {
                             new Keyframe(1.8343333f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC)))
             .addBoneAnimation("body",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.9583434f, AnimationHelper.createTranslationalVector(0f, 0.1f, 0f),
@@ -365,5 +362,22 @@ public class PheasantEntityAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.9583434f, AnimationHelper.createRotationalVector(10f, 0f, -5f),
+                                    Transformation.Interpolations.CUBIC))).build();
+    public static final AnimationDefinition FLAP = AnimationDefinition.Builder.create(0.5f).looping()
+            .addBoneAnimation("left_wing",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(0f, 0f, -65f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC)))
+            .addBoneAnimation("right_wing",
+                    new Transformation(Transformation.Targets.ROTATE,
+                            new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.25f, AnimationHelper.createRotationalVector(0f, 0f, 65f),
+                                    Transformation.Interpolations.CUBIC),
+                            new Keyframe(0.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
 }

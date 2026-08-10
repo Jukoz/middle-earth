@@ -5,12 +5,12 @@
       "id": "#fabric:shovels",
       "required": false
     },
-    "me:khazad_steel_shovel",
-    "me:crude_shovel",
-    "me:burzum_steel_shovel",
-    "me:edhel_steel_shovel",
-    "me:steel_shovel",
-    "me:bronze_shovel",
-    "me:mithril_shovel"
+    "middle-earth:khazad_steel_shovel",
+    "middle-earth:crude_shovel",
+    "middle-earth:burzum_steel_shovel",
+    "middle-earth:edhel_steel_shovel",
+    "middle-earth:steel_shovel",
+    "middle-earth:bronze_shovel",
+    "middle-earth:mithril_shovel"
   ]
 }

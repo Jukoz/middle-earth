@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "middle-earth:block/drooping_icicles"
+    },
+    "half=lower": {
+      "model": "middle-earth:block/drooping_icicles_end"
+    }
+  }
+}

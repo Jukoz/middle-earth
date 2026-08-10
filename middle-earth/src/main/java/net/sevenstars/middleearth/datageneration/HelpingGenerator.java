@@ -1,394 +1,138 @@
 package net.sevenstars.middleearth.datageneration;
 
-import net.sevenstars.middleearth.block.*;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.LeavesDrops;
-import net.minecraft.block.PillarBlock;
+import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
+import net.sevenstars.middleearth.block.registration.*;
+import net.sevenstars.middleearth.block.special.*;
+import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
+import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
+import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
+import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 
 import java.util.Objects;
 
 public class HelpingGenerator {
+    //TODO recipe for all
+    //TODO tags for all
 
     public static void generateFiles() {
-        StoneBlockSets.registerModBlockSets();
 
-
-        for (StoneBlockSets.SimpleBlockSetMain set : StoneBlockSets.setsMain) {
-            SimpleBlockModel.blocks.add(set.base());
-
-            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
-            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
-            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
-            SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.base(), set.pressurePlate()));
-            SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.base(), set.button()));
-            SimpleTrapDoorModel.stoneTrapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.base(), set.trapdoor()));
-            SimpleStoneStoolModel.stools.add(set.stool());
-            SimpleStoneTableModel.tables.add(set.table());
-            SimpleStoneChairModel.chairs.add(set.chair());
-            SimpleRocksModel.rocks.add(new SimpleRocksModel.Rocks(set.base(), set.rocks()));
-
-            BlockDrops.blocks.add(set.base());
-            BlockDrops.blocks.add(set.slab());
-            BlockDrops.blocks.add(set.verticalSlab());
-            BlockDrops.blocks.add(set.stairs());
-            BlockDrops.blocks.add(set.wall());
-            BlockDrops.blocks.add(set.pressurePlate());
-            BlockDrops.blocks.add(set.button());
-            BlockDrops.blocks.add(set.trapdoor());
-            BlockDrops.blocks.add(set.stool());
-            BlockDrops.blocks.add(set.table());
-            BlockDrops.blocks.add(set.chair());
-            BlockDrops.blocks.add(set.rocks());
-
-            MineablePickaxe.blocks.add(set.base());
-            MineablePickaxe.blocks.add(set.wall());
-            MineablePickaxe.blocks.add(set.slab());
-            MineablePickaxe.blocks.add(set.verticalSlab());
-            MineablePickaxe.blocks.add(set.stairs());
-            MineablePickaxe.blocks.add(set.pressurePlate());
-            MineablePickaxe.blocks.add(set.button());
-            MineablePickaxe.blocks.add(set.trapdoor());
-            MineablePickaxe.blocks.add(set.stool());
-            MineablePickaxe.blocks.add(set.table());
-            MineablePickaxe.blocks.add(set.chair());
-            MineablePickaxe.blocks.add(set.rocks());
-
-            Walls.walls.add(set.wall());
-        }
-
-        for (StoneBlockSets.SimpleBlockSet set : StoneBlockSets.sets) {
-            SimpleBlockModel.blocks.add(set.base());
-            if (set.base().toString().contains("cobble") && !set.base().toString().contains("mossy")) {
-                Stones.stones.add(set.base());
-            }
-            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
-            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
-            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
-
-            BlockDrops.blocks.add(set.base());
-            BlockDrops.blocks.add(set.slab());
-            BlockDrops.blocks.add(set.verticalSlab());
-            BlockDrops.blocks.add(set.stairs());
-            BlockDrops.blocks.add(set.wall());
-
-            MineablePickaxe.blocks.add(set.base());
-            MineablePickaxe.blocks.add(set.wall());
-            MineablePickaxe.blocks.add(set.slab());
-            MineablePickaxe.blocks.add(set.verticalSlab());
-            MineablePickaxe.blocks.add(set.stairs());
-
-            Walls.walls.add(set.wall());
-        }
-
-
-        for (StoneBlockSets.SimplePillarBlockSet set : StoneBlockSets.pillarSets) {
-            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.base()));
-            if (set.base().toString().contains("cobble") && !set.base().toString().contains("mossy")) {
-                Stones.stones.add(set.base());
-            }
-            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.base(), set.slab()));
-            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.base(), set.slab(), set.verticalSlab()));
-            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.base(), set.stairs()));
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.base(), set.wall()));
-
-            BlockDrops.blocks.add(set.base());
-            BlockDrops.blocks.add(set.slab());
-            BlockDrops.blocks.add(set.verticalSlab());
-            BlockDrops.blocks.add(set.stairs());
-            BlockDrops.blocks.add(set.wall());
-
-            MineablePickaxe.blocks.add(set.base());
-            MineablePickaxe.blocks.add(set.wall());
-            MineablePickaxe.blocks.add(set.slab());
-            MineablePickaxe.blocks.add(set.verticalSlab());
-            MineablePickaxe.blocks.add(set.stairs());
-
-            Walls.walls.add(set.wall());
-        }
-
-        for (WoodBlockSets.SimpleBlockSet set : WoodBlockSets.sets) {
-            if(set.leaves() != null) {
-                LeavesSets.blocks.add(set.leaves());
-                if(set.sapling() != null){
-                    LeavesDrops.blocks.add(new LeavesDrops.LeavesDrop(set.leaves(), set.sapling()));
+        for (StoneBlockSetBuilder set : StoneBlockSets.stoneSetsList){
+            set.existingList.forEach(stoneBlockTypes -> {
+                switch (stoneBlockTypes){
+                    case BASE_BLOCKS -> {
+                        mainStoneBlocks(set.baseBlocks);
+                        MineablePickaxe.baseStoneOverworld.add(set.baseBlocks.base());
+                    }
+                    case COBBLED_BLOCKS,COBBLESTONE_BLOCKS,PILLAR_BASE_BLOCKS -> {
+                        regularBlocks(set.cobblestoneBlocks, 1);
+                        if(set.hasMossy) regularBlocks(set.mossyCobblestoneBlocks, 1);
+                    }
+                    case BRICK_BLOCKS, POLISHED_BRICK_BLOCKS -> {
+                        regularBlocks(set.brickBlocks, 1);
+                        if(set.hasMossy) regularBlocks(set.mossyBrickBlocks, 1);
+                        if(set.hasCracked) regularBlocks(set.crackedBrickBlocks, 1);
+                    }
+                    case TILE_BLOCKS -> {
+                        regularBlocks(set.tileBlocks, 1);
+                        if(set.hasMossy) regularBlocks(set.mossyTileBlocks, 1);
+                        if(set.hasCracked) regularBlocks(set.crackedTileBlocks, 1);
+                    }
+                    case SMOOTH_BLOCKS -> {
+                        regularBlocks(set.smoothBlocks, 1);
+                        if(set.hasMossy) regularBlocks(set.mossySmoothBlocks, 1);
+                        if(set.hasCracked) regularBlocks(set.crackedSmoothBlocks, 1);
+                    }
+                    case POLISHED_BLOCKS, POLISHED_BLOCKS_PILLAR -> {
+                        regularBlocks(set.polishedBlocks, 1);
+                        if(set.hasMossy) regularBlocks(set.mossyPolishedBlocks, 1);
+                        if(set.hasCracked) regularBlocks(set.crackedPolishedBlocks, 1);
+                    }
+                    case BRICKWORK_BLOCKS -> regularBlocks(set.brickworkBlocks, 1);
+                    case OLD_BLOCKS, OLD_BLOCKS_PILLAR -> {
+                        regularBlocks(set.oldBlocks, 1);
+                        MineablePickaxe.baseStoneOverworld.add(set.oldBlocks.base());
+                    }
+                    case PILLAR_BLOCKS -> {
+                        pillarBlocks(set.pillarBlocks, set.brickBlocks.base(), 1);
+                        if(set.hasMossy) pillarBlocks(set.mossyPillarBlocks, set.pillarBlocks.base(), 1);
+                        if(set.hasCracked) pillarBlocks(set.crackedPillarBlocks, set.pillarBlocks.base(), 1);
+                    }
+                    case CHISELED_BLOCKS -> {
+                        if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) pillarBlocks(set.chiseledBlocks, set.baseBlocks.base(), 1);
+                        if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base(), 1);
+                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base(), 1);
+                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS) || set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS_PILLAR))
+                            pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.base(), 1);
+                        if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.base(), 1);
+                        if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.base(), 1);
+                    }
+                    case CHISELED_BLOCKS_NO_RESTRICTION -> {
+                        pillarBlocks(set.chiseledBlocks, null, 1);
+                        pillarBlocks(set.chiseledBricksBlocks, null, 1);
+                        pillarBlocks(set.chiseledPolishedBlocks, null, 1);
+                        pillarBlocks(set.chiseledTilesBlocks, null, 1);
+                        pillarBlocks(set.chiseledSmoothBlocks, null, 1);
+                    }
+                    case CARVED_WINDOW -> {
+                        if(set.baseBlocks == null) carvedWindowBlocks(set.carvedWindows, set.cobblestoneBlocks.base());
+                        else carvedWindowBlocks(set.carvedWindows, set.baseBlocks.base());
+                    }
                 }
-            }
-            if(set.sapling() != null){
-                BlockDrops.blocks.add(set.sapling());
-            }
-            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.log()));
-            SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.strippedLog()));
-
-            SimpleBlockModel.woodBlocks.add(set.wood());
-            SimpleBlockModel.woodBlocks.add(set.strippedWood());
-
-            SimpleBlockModel.blocks.add(set.planks());
-
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.log(), set.woodWall()));
-            SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(set.strippedWood(), set. strippedWoodWall()));
-
-            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
-            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.log(), set.woodFence()));
-            SimpleFenceModel.strippedFences.add(new SimpleFenceModel.Fence(set.strippedWood(), set.strippedWoodFence()));
-
-            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
-            SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(set.wood(), set.woodSlab()));
-            SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(set.strippedWood(), set.strippedWoodSlab()));
-
-            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab()));
-            SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.wood(), set.woodSlab(), set.woodVerticalSlab()));
-            SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.strippedWood(), set.strippedWoodSlab(), set.strippedWoodVerticalSlab()));
-
-            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
-            SimpleStairModel.woodStairs.add(new SimpleStairModel.Stair(set.wood(), set.woodStairs()));
-            SimpleStairModel.strippedStairs.add(new SimpleStairModel.Stair(set.strippedWood(), set.strippedWoodStairs()));
-
-            SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
-            SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.planks(), set.button()));
-            SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
-            SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
-            SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
-
-            SimpleWoodStoolModel.stools.add(set.stool());
-            SimpleWoodBenchModel.benchs.add(set.bench());
-            SimpleWoodTableModel.tables.add(set.table());
-            SimpleWoodChairModel.chairs.add(set.chair());
-
-            SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(set.planks(), set.ladder()));
-
-            BlockDrops.blocks.add(set.log());
-            BlockDrops.blocks.add(set.strippedLog());
-            BlockDrops.blocks.add(set.wood());
-            BlockDrops.blocks.add(set.strippedWood());
-            BlockDrops.blocks.add(set.woodWall());
-            BlockDrops.blocks.add(set.strippedWoodWall());
-            BlockDrops.blocks.add(set.woodFence());
-            BlockDrops.blocks.add(set.strippedWoodFence());
-            BlockDrops.blocks.add(set.planks());
-            BlockDrops.blocks.add(set.planksSlab());
-            BlockDrops.blocks.add(set.woodSlab());
-            BlockDrops.blocks.add(set.strippedWoodSlab());
-            BlockDrops.blocks.add(set.planksVerticalSlab());
-            BlockDrops.blocks.add(set.woodVerticalSlab());
-            BlockDrops.blocks.add(set.strippedWoodVerticalSlab());
-            BlockDrops.blocks.add(set.planksStairs());
-            BlockDrops.blocks.add(set.woodStairs());
-            BlockDrops.blocks.add(set.strippedWoodStairs());
-            BlockDrops.blocks.add(set.planksFence());
-            BlockDrops.blocks.add(set.planksGate());
-            BlockDrops.blocks.add(set.button());
-            BlockDrops.blocks.add(set.pressurePlate());
-            BlockDrops.blocks.add(set.trapdoor());
-            BlockDrops.blocks.add(set.door());
-            BlockDrops.blocks.add(set.stool());
-            BlockDrops.blocks.add(set.bench());
-            BlockDrops.blocks.add(set.table());
-            BlockDrops.blocks.add(set.chair());
-            BlockDrops.blocks.add(set.ladder());
-
-            MineableAxe.blocks.add(set.log());
-            MineableAxe.blocks.add(set.strippedLog());
-            MineableAxe.blocks.add(set.wood());
-            MineableAxe.blocks.add(set.strippedWood());
-            MineableAxe.blocks.add(set.woodWall());
-            MineableAxe.blocks.add(set.strippedWoodWall());
-            MineableAxe.blocks.add(set.woodFence());
-            MineableAxe.blocks.add(set.strippedWoodFence());
-            MineableAxe.blocks.add(set.planks());
-            MineableAxe.blocks.add(set.planksSlab());
-            MineableAxe.blocks.add(set.woodSlab());
-            MineableAxe.blocks.add(set.strippedWoodSlab());
-            MineableAxe.blocks.add(set.planksVerticalSlab());
-            MineableAxe.blocks.add(set.woodVerticalSlab());
-            MineableAxe.blocks.add(set.strippedWoodVerticalSlab());
-            MineableAxe.blocks.add(set.planksStairs());
-            MineableAxe.blocks.add(set.woodStairs());
-            MineableAxe.blocks.add(set.strippedWoodStairs());
-            MineableAxe.blocks.add(set.planksFence());
-            MineableAxe.blocks.add(set.planksGate());
-            MineableAxe.blocks.add(set.button());
-            MineableAxe.blocks.add(set.pressurePlate());
-            MineableAxe.blocks.add(set.trapdoor());
-            MineableAxe.blocks.add(set.door());
-            MineableAxe.blocks.add(set.stool());
-            MineableAxe.blocks.add(set.bench());
-            MineableAxe.blocks.add(set.table());
-            MineableAxe.blocks.add(set.chair());
-            MineableAxe.blocks.add(set.ladder());
-
-            if(set.leaves() != null) MineableHoe.blocks.add(set.leaves());
-
-            Buttons.buttons.add(set.button());
-            Fences.fences.add(set.planksFence());
-            Fences.fences.add(set.woodFence());
-            Fences.fences.add(set.strippedWoodFence());
-            FenceGates.fenceGates.add(set.planksGate());
-            Logs.logs.add(set.log());
-            Logs.logs.add(set.strippedLog());
-            Logs.logs.add(set.wood());
-            Logs.logs.add(set.strippedWood());
-            PressurePlates.pressurePlates.add(set.pressurePlate());
-            Walls.walls.add(set.woodWall());
-            Walls.walls.add(set.strippedWoodWall());
-            Planks.planks.add(set.planks());
-            Doors.doors.add(set.door());
-            Trapdoors.trapdoors.add(set.trapdoor());
-
-            WoodenSlabs.woodenSlabs.add(set.planksSlab());
-            WoodenVerticalSlabs.woodenVericalSlabs.add(set.planksVerticalSlab());
-            ModdedStrippedLogs.strippedLogs.add(set.strippedLog());
-
-            LogsThatBurn.logsThatBurn.add(set.log());
-            LogsThatBurn.logsThatBurn.add(set.wood());
-            LogsThatBurn.logsThatBurn.add(set.strippedLog());
-            LogsThatBurn.logsThatBurn.add(set.strippedWood());
+            });
         }
 
-        SimpleBlockModel.blocks.addAll(LeavesSets.blocks);
-
-        for (MushroomBlockSets.MushroomBlockSet set : MushroomBlockSets.sets) {
-            if(!Objects.equals(Registries.BLOCK.getId(set.stem()).getPath(), "mushroom_stem")) {
-                SimpleBlockModel.blocks.add(set.stem());
-
-                MineableAxe.blocks.add(set.stem());
-            }
-
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.stem(), set.stemWall()));
-            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.stem(), set.stemFence()));
-            SimpleBlockModel.blocks.add(set.planks());
-            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.planks(), set.planksSlab()));
-            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.planks(), set.planksSlab(), set.planksVerticalSlab()));
-            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.planks(), set.planksStairs()));
-            SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(set.planks(), set.planksFence()));
-            SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(set.planks(), set.planksGate()));
-            SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(set.planks(), set.button()));
-            SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(set.planks(), set.pressurePlate()));
-            SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(set.planks(), set.trapdoor()));
-            SimpleDoorModel.doors.add(new SimpleDoorModel.Door(set.planks(), set.door()));
-            SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(set.planks(), set.ladder()));
-
-            BlockDrops.blocks.add(set.stemWall());
-            BlockDrops.blocks.add(set.stemFence());
-            BlockDrops.blocks.add(set.planks());
-            BlockDrops.blocks.add(set.planksSlab());
-            BlockDrops.blocks.add(set.planksVerticalSlab());
-            BlockDrops.blocks.add(set.planksStairs());
-            BlockDrops.blocks.add(set.planksFence());
-            BlockDrops.blocks.add(set.planksGate());
-            BlockDrops.blocks.add(set.button());
-            BlockDrops.blocks.add(set.pressurePlate());
-            BlockDrops.blocks.add(set.trapdoor());
-            BlockDrops.blocks.add(set.door());
-            BlockDrops.blocks.add(set.stool());
-            BlockDrops.blocks.add(set.bench());
-            BlockDrops.blocks.add(set.table());
-            BlockDrops.blocks.add(set.chair());
-            BlockDrops.blocks.add(set.ladder());
-
-            MineableAxe.blocks.add(set.stemWall());
-            MineableAxe.blocks.add(set.stemFence());
-            MineableAxe.blocks.add(set.planks());
-            MineableAxe.blocks.add(set.planksSlab());
-            MineableAxe.blocks.add(set.planksVerticalSlab());
-            MineableAxe.blocks.add(set.planksStairs());
-            MineableAxe.blocks.add(set.planksFence());
-            MineableAxe.blocks.add(set.planksGate());
-            MineableAxe.blocks.add(set.button());
-            MineableAxe.blocks.add(set.pressurePlate());
-            MineableAxe.blocks.add(set.trapdoor());
-            MineableAxe.blocks.add(set.door());
-            MineableAxe.blocks.add(set.stool());
-            MineableAxe.blocks.add(set.bench());
-            MineableAxe.blocks.add(set.table());
-            MineableAxe.blocks.add(set.chair());
-            MineableAxe.blocks.add(set.ladder());
-
-            Buttons.buttons.add(set.button());
-            Fences.fences.add(set.planksFence());
-            Fences.fences.add(set.stemFence());
-            FenceGates.fenceGates.add(set.planksGate());
-            Walls.walls.add(set.stemWall());
-            PressurePlates.pressurePlates.add(set.pressurePlate());
-            Planks.planks.add(set.planks());
-            Doors.doors.add(set.door());
-            Trapdoors.trapdoors.add(set.trapdoor());
-            WoodenSlabs.woodenSlabs.add(set.planksSlab());
-
-            SimpleWoodStoolModel.stools.add(set.stool());
-            SimpleWoodBenchModel.benchs.add(set.bench());
-            SimpleWoodTableModel.tables.add(set.table());
-            SimpleWoodChairModel.chairs.add(set.chair());
+        for (WoodBlockSetBuilder set : WoodBlockSets.woodSetsList){
+            set.existingList.forEach(woodBlockTypes -> {
+                switch (woodBlockTypes){
+                    case LOG_BLOCKS, NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
+                    case MUSHROOM_STEM_BLOCKS -> mushroomStemBlocks(set.mushroomStemBlocks);
+                    case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> {
+                        ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
+                        woodBlocks(set.strippedLogBlocks);
+                    }
+                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks, set.vanilla);
+                    case SHINGLE_BLOCKS -> {
+                        Shingles.shingles.add(set.shinglesBlocks.base());
+                        regularBlocks(set.shinglesBlocks, 0);
+                    }
+                    case ROOFING_BLOCKS -> regularBlocks(set.roofingBlocks, 0);
+                    case FURNITURE_BLOCKS -> furnitureBlocks(set.furnitureBlocks, set.planksBlocks.base());
+                    case REDSTONE_BLOCKS -> woodRedstoneBlocks(set.redstoneBlocks, set.planksBlocks.base());
+                    case LEAVES -> {
+                        if (!Objects.equals(Registries.BLOCK.getId(set.leaves).getNamespace(), "minecraft")){
+                            if (set.setName.contains("beech")){
+                                LeavesSets.grayscaleLeaves.add(set.leaves);
+                            } else {
+                                LeavesSets.leaves.add(set.leaves);
+                            }
+                        }
+                    }
+                }
+            });
         }
 
-        for (OtherBlockSets.RoofBlockSet set : OtherBlockSets.sets) {
-            SimpleBlockModel.blocks.add(set.block());
-            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
-            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
-            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.block(), set.wall()));
-
-            BlockDrops.blocks.add(set.block());
-            BlockDrops.blocks.add(set.slab());
-            BlockDrops.blocks.add(set.verticalSlab());
-            BlockDrops.blocks.add(set.stairs());
-            BlockDrops.blocks.add(set.wall());
-
-            if(set.origin() != null && (set.origin().toString().contains("planks") || set.block().toString().contains("roofing"))){
-                MineableAxe.blocks.add(set.block());
-                MineableAxe.blocks.add(set.slab());
-                MineableAxe.blocks.add(set.verticalSlab());
-                MineableAxe.blocks.add(set.stairs());
-                MineableAxe.blocks.add(set.wall());
-            } else if (set.block().toString().contains("thatch")) {
-                MineableHoe.blocks.add(set.block());
-                MineableHoe.blocks.add(set.slab());
-                MineableHoe.blocks.add(set.verticalSlab());
-                MineableHoe.blocks.add(set.stairs());
-                MineableHoe.blocks.add(set.wall());
-            } else {
-                MineablePickaxe.blocks.add(set.block());
-                MineablePickaxe.blocks.add(set.slab());
-                MineablePickaxe.blocks.add(set.verticalSlab());
-                MineablePickaxe.blocks.add(set.stairs());
-                MineablePickaxe.blocks.add(set.wall());
+        for (GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
+            int tool = -1;
+            if(set.requiresTool) {
+                if(set.setName.contains("wood")) tool = 0;
+                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick")
+                        || set.setName.contains("tiles") || set.setName.contains("stucco")) tool = 1;
+                else if(set.setName.contains("plaster")) tool = 2;
             }
-
-            Walls.walls.add(set.wall());
-            if (set.block().toString().contains("shingles")) {
-                Shingles.shingles.add(set.block());
-            }
+            regularBlocks(set.blockSet, tool);
+        }
+        for (SimpleBlockSetBuilder set : GenericBlockSets.simpleSetsList) {
+            regularBlocks(set.blockSet, -1);
         }
 
-        for (OtherBlockSets.MiscBlockSet set : OtherBlockSets.specialWoodSets) {
-            if (set.block() instanceof PillarBlock){
-                SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(set.block()));
-            } else {
-                SimpleBlockModel.blocks.add(set.block());
-            }
-            SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(set.block(), set.slab()));
-            SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(set.block(), set.slab(), set.verticalSlab()));
-            SimpleStairModel.stairs.add(new SimpleStairModel.Stair(set.block(), set.stairs()));
-            SimpleWallModel.blocks.add(new SimpleWallModel.Wall(set.block(), set.wall()));
-
-            BlockDrops.blocks.add(set.block());
-            BlockDrops.blocks.add(set.slab());
-            BlockDrops.blocks.add(set.verticalSlab());
-            BlockDrops.blocks.add(set.stairs());
-            BlockDrops.blocks.add(set.wall());
-
-            MineableAxe.blocks.add(set.block());
-            MineableAxe.blocks.add(set.slab());
-            MineableAxe.blocks.add(set.verticalSlab());
-            MineableAxe.blocks.add(set.stairs());
-            MineableAxe.blocks.add(set.wall());
-
-            Walls.walls.add(set.wall());
-        }
+        SimpleBlockModel.blocks.addAll(LeavesSets.leaves);
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
             BlockDrops.blocks.add(set.verticalSlab());
@@ -412,21 +156,6 @@ public class HelpingGenerator {
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs){
             BlockDrops.blocks.add(chair.base());
             MineableAxe.blocks.add(chair.base());
-        }
-
-        for(SimpleStoneStoolModel.VanillaStool stool : SimpleStoneStoolModel.vanillaStools){
-            BlockDrops.blocks.add(stool.base());
-            MineablePickaxe.blocks.add(stool.base());
-        }
-
-        for(SimpleStoneTableModel.VanillaTable table : SimpleStoneTableModel.vanillaTables) {
-            BlockDrops.blocks.add(table.base());
-            MineablePickaxe.blocks.add(table.base());
-        }
-
-        for(SimpleStoneChairModel.VanillaChair chair : SimpleStoneChairModel.vanillaChairs){
-            BlockDrops.blocks.add(chair.base());
-            MineablePickaxe.blocks.add(chair.base());
         }
 
         SimpleWallModel.vanillaWalls.forEach(block -> {
@@ -487,7 +216,191 @@ public class HelpingGenerator {
                 SimpleBlockModel.blocks.add(set.mithril_ore());
                 MineablePickaxe.blocks.add(set.mithril_ore());
             }
-
+            if(set.adamant_ore() != null){
+                SimpleBlockModel.blocks.add(set.adamant_ore());
+                MineablePickaxe.blocks.add(set.adamant_ore());
+            }
+            if(set.emerald_ore() != null){
+                SimpleBlockModel.blocks.add(set.emerald_ore());
+                MineablePickaxe.blocks.add(set.emerald_ore());
+            }
+            if(set.ruby_ore() != null){
+                SimpleBlockModel.blocks.add(set.ruby_ore());
+                MineablePickaxe.blocks.add(set.ruby_ore());
+            }
+            if(set.sapphire_ore() != null){
+                SimpleBlockModel.blocks.add(set.sapphire_ore());
+                MineablePickaxe.blocks.add(set.sapphire_ore());
+            }
         }
+    }
+
+    // -1 == nothing, 0 == axe, 1 == pickaxe, 2 == shovel, 3 == hoe
+    public static void addBlocksToLists(Block block, Block base, Block origin, int tool){
+        switch(tool) {
+            case 0 -> MineableAxe.blocks.add(block);
+            case 1 -> MineablePickaxe.blocks.add(block);
+            case 2 -> MineableShovel.blocks.add(block);
+            case 3 -> MineableHoe.blocks.add(block);
+        }
+
+        BlockDrops.blocks.add(block);
+
+        String blockName = block.getName().toString();
+        String baseName = base.getName().toString();
+
+        if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
+            final boolean isPillar = blockName.contains("carved_window")
+                    || blockName.contains("chiseled")
+                    || blockName.contains("drystone")
+                    || blockName.contains("pillar");
+            final boolean woodModel = (blockName.contains("_wood") && !(blockName.contains("gilded") || blockName.contains("beam"))) || blockName.contains("hyphae");
+            switch (block){
+                case PillarBlock pillarBlock -> {
+                    if (woodModel){
+                        SimpleBlockModel.woodBlocks.add(pillarBlock);
+                    } else {
+                        SimplePillarModel.blocks.add(new SimplePillarModel.Pillar(pillarBlock));
+                    }
+                }
+                case SlabBlock slabBlock -> {
+                    if (blockName.contains("stripped")){
+                        SimpleSlabModel.strippedSlabs.add(new SimpleSlabModel.Slab(base, origin));
+                    } else if (woodModel){
+                        SimpleSlabModel.woodSlabs.add(new SimpleSlabModel.Slab(base, origin));
+                    } else{
+                        SimpleSlabModel.slabs.add(new SimpleSlabModel.Slab(base, slabBlock));
+                    }
+                }
+                case VerticalSlabBlock verticalSlabBlock -> {
+                    if (isPillar) {
+                        SimpleVerticalSlabModel.columnVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
+                    }else if (blockName.contains("stripped")){
+                        SimpleVerticalSlabModel.strippedVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
+                    } else if (woodModel){
+                        SimpleVerticalSlabModel.woodVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
+                    } else if (baseName.contains("planks")){
+                        SimpleVerticalSlabModel.plansVerticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
+                    } else{
+                        SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
+                    }
+                }
+                case StairsBlock stairsBlock -> {
+                    if (blockName.contains("stripped")){
+                        SimpleStairModel.strippedStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
+                    } else if (woodModel){
+                        SimpleStairModel.woodStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
+                    } else{
+                        SimpleStairModel.stairs.add(new SimpleStairModel.Stair(base, stairsBlock));
+                    }
+                }
+                case WallBlock wallBlock -> {
+                    Walls.walls.add(wallBlock);
+                    if (isPillar){
+                        SimpleWallModel.columnWalls.add(new SimpleWallModel.Wall(base, wallBlock));
+                    } else if (blockName.contains("stripped")){
+                        SimpleWallModel.strippedWalls.add(new SimpleWallModel.Wall(base, wallBlock));
+                    } else  {
+                        SimpleWallModel.blocks.add(new SimpleWallModel.Wall(base, wallBlock));
+                    }
+                }
+                case FenceBlock fenceBlock -> {
+                    Fences.fences.add(fenceBlock);
+                    if (blockName.contains("stripped")){
+                        SimpleFenceModel.strippedFences.add(new SimpleFenceModel.Fence(base, fenceBlock));
+                    } else {
+                        SimpleFenceModel.blocks.add(new SimpleFenceModel.Fence(base, fenceBlock));
+                    }
+                }
+                case FenceGateBlock fenceGateBlock -> {
+                    FenceGates.fenceGates.add(fenceGateBlock);
+                    SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(base, fenceGateBlock));
+                }
+                case PaneBlock paneBlock -> SimplePaneModel.panes.add(new SimplePaneModel.Pane(base, paneBlock));
+                case PressurePlateBlock pressurePlateBlock -> {
+                    PressurePlates.pressurePlates.add(pressurePlateBlock);
+                    SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
+                }
+                case ButtonBlock buttonBlock -> {
+                    if(woodModel) Buttons.woodButtons.add(buttonBlock);
+                    else Buttons.stoneButtons.add(buttonBlock);
+                    SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
+                }
+                case TrapdoorBlock trapdoorBlock -> {
+                    Trapdoors.trapdoors.add(trapdoorBlock);
+                    if (baseName.contains("planks")){
+                        SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(base, trapdoorBlock, true));
+                    } else {
+                        SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(base, trapdoorBlock, false));
+                    }
+                }
+                case StoolBlock stoolBlock -> SimpleStoneStoolModel.stools.add(new SimpleStoneStoolModel.Stool(base, stoolBlock));
+                case WoodStoolBlock stoolBlock -> SimpleWoodStoolModel.stools.add(stoolBlock);
+                case StoneTableBlock tableBlock -> SimpleStoneTableModel.tables.add(new SimpleStoneTableModel.Table(base, tableBlock));
+                case WoodTableBlock tableBlock -> SimpleWoodTableModel.tables.add(tableBlock);
+                case StoneChairBlock chairBlock -> SimpleStoneChairModel.chairs.add(new SimpleStoneChairModel.Chair(base, chairBlock));
+                case WoodChairBlock chairBlock -> SimpleWoodChairModel.chairs.add(chairBlock);
+                case WoodBenchBlock benchBlock -> SimpleWoodBenchModel.benchs.add(benchBlock);
+                case DoorBlock doorBlock -> {
+                    Doors.doors.add(doorBlock);
+                    SimpleDoorModel.doors.add(new SimpleDoorModel.Door(base, doorBlock));
+                }
+                case ThickLadderBlock ladderBlock -> SimpleLadderModel.ladders.add(new SimpleLadderModel.Ladder(base, ladderBlock));
+                case RocksBlock rocksBlock -> SimpleRocksModel.rocks.add(new SimpleRocksModel.Rocks(base, rocksBlock));
+                case Block block1 -> {
+                    if (blockName.contains("carved_window")){
+                        SimplePillarModel.carvedWindows.add(new SimplePillarModel.StonePillar(block1, origin));
+                    } else {
+                        SimpleBlockModel.blocks.add(block1);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void regularBlocks(BlockRecordTypes.RegularSet set, int tool) {
+        BlockRecordTypes.RegularSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), tool));
+    }
+
+    public static void regularBlocks(BlockRecordTypes.SimpleBlocks set, int tool) {
+        BlockRecordTypes.SimpleBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), tool));
+    }
+
+    public static void pillarBlocks(BlockRecordTypes.PillarSet set, Block origin, int tool) {
+        BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.verticalSlab(), tool));
+    }
+
+    public static void carvedWindowBlocks(BlockRecordTypes.CarvedWindow set, Block origin) {
+        BlockRecordTypes.CarvedWindow.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.block(), origin, 1));
+    }
+
+    public static void mainStoneBlocks(BlockRecordTypes.BaseStoneSet set){
+        BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 1));
+    }
+
+    public static void plankBlocks(BlockRecordTypes.PlanksSet set, boolean vanilla) {
+        BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 0));
+        WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
+        Planks.planks.add(set.base());
+        if(!vanilla) Planks.moddedPlanks.add(set.base());
+        Planks.planksSlabs.add(set.slab());
+    }
+
+    public static void woodBlocks(BlockRecordTypes.WoodSet set) {
+        BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.wood(), set.slab(), 0));
+        Logs.logs.add(set.log());
+        Logs.logs.add(set.wood());
+    }
+
+    public static void mushroomStemBlocks(BlockRecordTypes.MushroomStemSet set) {
+        BlockRecordTypes.MushroomStemSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.stem(), set.slab(), 0));
+    }
+
+    public static void furnitureBlocks(BlockRecordTypes.WoodFurnitureBlocks set, Block base) {
+        BlockRecordTypes.WoodFurnitureBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null, 0));
+    }
+
+    public static void woodRedstoneBlocks(BlockRecordTypes.WoodRedstoneBlocks set, Block base) {
+        BlockRecordTypes.WoodRedstoneBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null, 0));
     }
 }

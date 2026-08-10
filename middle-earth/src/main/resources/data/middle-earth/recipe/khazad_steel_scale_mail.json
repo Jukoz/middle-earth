@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SMS",
+    "MSM",
+    "SMS"
+  ],
+  "key": {
+    "M": {
+      "fabric:type": "fabric:components",
+      "base": "middle-earth:mail_ring",
+      "components": {
+        "minecraft:trim": {
+          "material": "middle-earth:khazad_steel",
+          "pattern": "middle-earth:smithing_part"
+        }
+      }
+    },
+    "S": {
+      "fabric:type": "fabric:components",
+      "base": "middle-earth:scale",
+      "components": {
+        "minecraft:trim": {
+          "material": "middle-earth:khazad_steel",
+          "pattern": "middle-earth:smithing_part"
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "middle-earth:scale_mail",
+    "components": {
+      "minecraft:trim": {
+        "material": "middle-earth:khazad_steel",
+        "pattern": "middle-earth:smithing_part"
+      }
+    },
+    "count": 2
+  }
+}

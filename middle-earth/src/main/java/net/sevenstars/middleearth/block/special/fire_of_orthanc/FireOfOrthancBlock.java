@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.util.ActionResult;
-import net.sevenstars.middleearth.item.ModDecorativeItems;
+import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -34,7 +34,7 @@ public class FireOfOrthancBlock extends Block {
     }
 
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!stack.isOf(ModDecorativeItems.TORCH_OF_ORTHANC)) {
+        if (!stack.isOf(DecorativeItemsME.TORCH_OF_ORTHANC)) {
             return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
         } else {
             explode(world, pos, player);

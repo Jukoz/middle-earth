@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=bottom": {
+      "model": "middle-earth:block/hanging_shelobite_larva_egg_bottom"
+    },
+    "half=top": {
+      "model": "middle-earth:block/hanging_shelobite_larva_egg_top"
+    }
+  }
+}

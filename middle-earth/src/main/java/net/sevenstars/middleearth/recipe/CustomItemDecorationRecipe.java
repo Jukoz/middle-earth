@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 
 public class CustomItemDecorationRecipe extends SpecialCraftingRecipe {
 
+    //TODO NO WORKY
+
     public CustomItemDecorationRecipe(CraftingRecipeCategory category) {
         super(category);
     }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "V",
+    "V",
+    "S"
+  ],
+  "key": {
+    "V": "#middle-earth:vegetable",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "middle-earth:vegetable_skewer",
+    "count": 1
+  }
+}

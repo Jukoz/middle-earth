@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,part=left": {
+      "model": "middle-earth:block/artisan_table",
+      "y": 270
+    },
+    "facing=south,part=left": {
+      "model": "middle-earth:block/artisan_table"
+    },
+    "facing=west,part=left": {
+      "model": "middle-earth:block/artisan_table",
+      "y": 90
+    },
+    "facing=north,part=left": {
+      "model": "middle-earth:block/artisan_table",
+      "y": 180
+    },
+    "facing=east,part=right": {
+      "model": "middle-earth:block/artisan_table_right",
+      "y": 270
+    },
+    "facing=south,part=right": {
+      "model": "middle-earth:block/artisan_table_right"
+    },
+    "facing=west,part=right": {
+      "model": "middle-earth:block/artisan_table_right",
+      "y": 90
+    },
+    "facing=north,part=right": {
+      "model": "middle-earth:block/artisan_table_right",
+      "y": 180
+    }
+  }
+}

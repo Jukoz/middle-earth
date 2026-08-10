@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "middle-earth:block/grassy_silt_slab"
+    },
+    "type=double": {
+      "model": "middle-earth:block/grassy_silt"
+    },
+    "type=top": {
+      "model": "middle-earth:block/grassy_silt_slab_top"
+    }
+  }
+}

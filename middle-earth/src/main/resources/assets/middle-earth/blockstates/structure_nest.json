@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=true": {
+      "model": "middle-earth:block/structure_nest"
+    },
+    "enabled=false": {
+      "model": "middle-earth:block/structure_nest_disabled"
+    }
+  }
+}

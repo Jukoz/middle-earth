@@ -30,6 +30,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.explosion.Explosion;
+import net.sevenstars.middleearth.MiddleEarth;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
@@ -62,6 +63,11 @@ public class LargeDoorBlock extends Block {
         doorHeight = 1;
         doorWidth = 1;
         this.setDefaultState((((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH)).with(getPart(), 0)).with(OPEN, false).with(HINGE, DoorHinge.LEFT));
+    }
+
+    //TODO improve this door to door invisibility
+    protected boolean isSideInvisible(BlockState state, BlockState stateFrom, Direction direction) {
+        return stateFrom.isOf(this) || super.isSideInvisible(state, stateFrom, direction);
     }
 
     @Override
@@ -294,7 +300,7 @@ public class LargeDoorBlock extends Block {
             this.playOpenCloseSound(player, world, pos, (Boolean)state.get(OPEN));
             world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         } else {
-            player.sendMessage(Text.translatable("alert.me.large_door.blocked"), true);
+            player.sendMessage(Text.translatable("alert.%s.large_door.blocked".formatted(MiddleEarth.MOD_ID)), true);
         }
 
         return ActionResult.SUCCESS;

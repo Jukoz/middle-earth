@@ -1,18 +1,17 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 
-import net.sevenstars.middleearth.entity.NpcEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.TargetPlayerGoal;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
 public class SnowTrollEntity extends TrollEntity {
     public SnowTrollEntity(EntityType<? extends SnowTrollEntity> entityType, World world) {
@@ -20,13 +19,14 @@ public class SnowTrollEntity extends TrollEntity {
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.35f)
                 .add(EntityAttributes.MAX_HEALTH, 180.0)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.8)
                 .add(EntityAttributes.ATTACK_SPEED, 0.65)
                 .add(EntityAttributes.FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 14.0)
+                .add(EntityAttributes.STEP_HEIGHT, 1.25)
                 .add(EntityAttributes.JUMP_STRENGTH, 0.0);
     }
 

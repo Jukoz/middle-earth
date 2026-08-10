@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,utensils=false": {
+      "model": "middle-earth:block/plate_rotten",
+      "y": 90
+    },
+    "facing=east,utensils=true": {
+      "model": "middle-earth:block/plate_rotten_utensils",
+      "y": 90
+    },
+    "facing=north,utensils=false": {
+      "model": "middle-earth:block/plate_rotten"
+    },
+    "facing=north,utensils=true": {
+      "model": "middle-earth:block/plate_rotten_utensils"
+    },
+    "facing=south,utensils=false": {
+      "model": "middle-earth:block/plate_rotten",
+      "y": 180
+    },
+    "facing=south,utensils=true": {
+      "model": "middle-earth:block/plate_rotten_utensils",
+      "y": 180
+    },
+    "facing=west,utensils=false": {
+      "model": "middle-earth:block/plate_rotten",
+      "y": 270
+    },
+    "facing=west,utensils=true": {
+      "model": "middle-earth:block/plate_rotten_utensils",
+      "y": 270
+    }
+  }
+}

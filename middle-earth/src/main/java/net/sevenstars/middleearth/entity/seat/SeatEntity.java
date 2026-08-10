@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.entity.seat;
 
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.minecraft.entity.Entity;
@@ -39,6 +41,16 @@ public class SeatEntity extends VehicleEntity {
     }
 
     @Override
+    protected void readCustomData(ReadView view) {
+
+    }
+
+    @Override
+    protected void writeCustomData(WriteView view) {
+
+    }
+
+    @Override
     protected void removePassenger(Entity passenger) {
         World world = passenger.getWorld();
         if (!world.isClient){
@@ -49,13 +61,4 @@ public class SeatEntity extends VehicleEntity {
         }
     }
 
-    @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-
-    }
-
-    @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-
-    }
 }

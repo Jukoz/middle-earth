@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "middle-earth:item/held_banner",
+    "model": {
+      "type": "middle-earth:held_banner"
+    }
+  }
+}

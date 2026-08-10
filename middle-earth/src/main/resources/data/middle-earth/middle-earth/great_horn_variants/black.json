@@ -1,0 +1,17 @@
+{
+  "assets": {
+    "id": "middle-earth:entities/great_horn/black_great_horn"
+  },
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:moon_brightness",
+        "range": {
+          "min": 0,
+          "max": 0.125
+        }
+      },
+      "priority": 0
+    }
+  ]
+}

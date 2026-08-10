@@ -1,25 +1,19 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
 import net.minecraft.item.Item;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
+import net.sevenstars.middleearth.item.utils.WeaponTypesME;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.util.Identifier;
 
 public class CustomLongswordWeaponItem extends ReachWeaponItem {
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
-
     public CustomLongswordWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.LONGSWORD, settings);
-    }
-
-    public CustomLongswordWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
-        super(toolMaterial, faction, ModWeaponTypes.LONGSWORD, settings);
-    }
-
-    public CustomLongswordWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
-        super(toolMaterial, subFaction, ModWeaponTypes.LONGSWORD, settings);
+        super(toolMaterial, WeaponTypesME.LONGSWORD, settings);
+        // Keep in case of pvp re-balancing feedbacks
+        /*.component(DataComponentTypes.BLOCKS_ATTACKS,
+                        new BlocksAttacksComponent(0.25F, 1.0F, List.of(
+                                new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                                new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+                                Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK)))
+                .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK)*/
+        this.type = WeaponTypesME.LONGSWORD;
     }
 }

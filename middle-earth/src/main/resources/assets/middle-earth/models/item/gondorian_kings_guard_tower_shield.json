@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:item/tower_shield_template",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "middle-earth:item/gondorian_kings_guard_tower_shield"
+	}
+}

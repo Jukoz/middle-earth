@@ -1,0 +1,26 @@
+{
+  "name": "middle-earth:upper_hall",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hall/stables",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:wlr/hall/trading_hall",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_wlr_walls",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    }
+  ]
+}

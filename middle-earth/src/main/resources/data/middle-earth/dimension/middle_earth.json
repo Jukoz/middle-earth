@@ -1,0 +1,10 @@
+{
+  "type": "middle-earth:middle_earth_type",
+  "generator": {
+    "type": "middle-earth:middle_earth",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:plains"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:thatchy",
+    "minecraft:clay_ball"
+  ],
+  "result": {
+    "id": "middle-earth:thatch",
+    "count": 4
+  }
+}

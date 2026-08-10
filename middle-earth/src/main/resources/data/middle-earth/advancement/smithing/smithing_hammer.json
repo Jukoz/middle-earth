@@ -1,0 +1,36 @@
+{
+  "parent": "middle-earth:smithing/root",
+  "criteria": {
+    "smithing_hammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#middle-earth:smithing_hammers"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.smithing.smithing_hammer.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:noble_smithing_hammer"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.smithing.smithing_hammer.title"
+    }
+  },
+  "requirements": [
+    [
+      "smithing_hammer"
+    ]
+  ]
+}

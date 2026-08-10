@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;

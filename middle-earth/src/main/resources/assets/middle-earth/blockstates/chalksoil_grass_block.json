@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "middle-earth:block/chalksoil_grass_block"
+      },
+      {
+        "model": "middle-earth:block/chalksoil_grass_block",
+        "y": 90
+      },
+      {
+        "model": "middle-earth:block/chalksoil_grass_block",
+        "y": 180
+      },
+      {
+        "model": "middle-earth:block/chalksoil_grass_block",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "middle-earth:block/chalksoil_grass_block_snow"
+    }
+  }
+}

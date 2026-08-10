@@ -1,0 +1,15 @@
+{
+  "name": "middle-earth:village_major_road",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:shire/village_major_road",
+        "projection": "terrain_matching",
+        "processors": "middle-earth:randomize_shire_road"
+      }
+    }
+  ]
+}

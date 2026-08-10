@@ -1,0 +1,24 @@
+{
+  "name": "middle-earth:gondor_village_lord_house_center",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_lord_house_center",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:gondor/gondor_village_lord_house_center_1",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_gondor_road"
+      }
+    }
+  ]
+}

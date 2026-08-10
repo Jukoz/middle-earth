@@ -1,0 +1,15 @@
+{
+  "name": "middle-earth:dale/village/center_well",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:dale/village/center_well_pit",
+        "projection": "rigid",
+        "processors": "middle-earth:randomize_dale_road"
+      }
+    }
+  ]
+}

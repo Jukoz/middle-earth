@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "middle-earth:block/corrupted_moss_block"
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:glowstone_dust",
-    "minecraft:glow_ink_sac",
-    "minecraft:glow_berries",
-    "me:glowworm_bottle"
-  ]
-}

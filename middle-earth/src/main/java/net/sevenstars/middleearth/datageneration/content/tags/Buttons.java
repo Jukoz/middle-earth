@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Buttons {
-    public static List<Block> buttons = new ArrayList<>() {
+    public static List<Block> stoneButtons = new ArrayList<>() {
+        {
+
+        }
+    };
+
+    public static List<Block> woodButtons = new ArrayList<>() {
         {
 
         }

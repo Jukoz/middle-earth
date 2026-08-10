@@ -1,0 +1,7 @@
+{
+    "parent": "middle-earth:block/thick_chain_template",
+    "textures": {
+        "particle": "middle-earth:block/crude_chain",
+        "all": "middle-earth:block/crude_chain"
+    }
+}

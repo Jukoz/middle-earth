@@ -11,4 +11,10 @@ public class SimpleHandheldItemModel {
 
         }
     };
+
+    public static List<Item> daggers = new ArrayList<>() {
+        {
+
+        }
+    };
 }

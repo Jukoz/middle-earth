@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/red_candles_layered_cake"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/red_candles_layered_cake_lit"
+    }
+  }
+}

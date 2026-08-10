@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": "middle-earth:reed_block"
+  },
+  "result": {
+    "id": "middle-earth:reeds",
+    "count": 4
+  }
+}

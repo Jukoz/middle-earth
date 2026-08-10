@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "middle-earth:block/brown_jar",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "middle-earth:block/brown_jar"
+    },
+    "facing=south": {
+      "model": "middle-earth:block/brown_jar",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "middle-earth:block/brown_jar",
+      "y": 270
+    }
+  }
+}

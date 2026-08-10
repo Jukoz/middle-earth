@@ -1,9 +1,13 @@
 package net.sevenstars.middleearth.block.special.bellows;
 
-import net.sevenstars.middleearth.block.ModBlockEntities;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.ModBlockEntities;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
-import net.sevenstars.middleearth.sound.ModSounds;
+import net.sevenstars.middleearth.sound.SoundsME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -51,13 +55,13 @@ public class BellowsBlockEntity extends BlockEntity {
             if (!world.isClient){
                 if(blockEntity.activate(direction)){
                     BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
-                    if(world.getBlockState(forgePos).getBlock() == ModDecorativeBlocks.FORGE) {
+                    if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("forge")))) {
                         ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
                         if(forgeBlockEntity != null) {
                             forgeBlockEntity.bellowsBoost();
                         }
                     }
-                    world.playSound((PlayerEntity)null,  pos, ModSounds.BELLOWS_PUSH, SoundCategory.BLOCKS, 2.0F, 1.0F);
+                    world.playSound((PlayerEntity)null,  pos, SoundsME.BELLOWS_PUSH, SoundCategory.BLOCKS, 2.0F, 1.0F);
                     world.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
                     return true;
                 }
@@ -72,7 +76,7 @@ public class BellowsBlockEntity extends BlockEntity {
             this.animationProgress = 0;
             if(this.world != null){
                 BlockPos blockPos = this.getPos();
-                this.world.addSyncedBlockEvent(blockPos, this.getCachedState().getBlock(), 1, direction.getId());
+                this.world.addSyncedBlockEvent(blockPos, this.getCachedState().getBlock(), 1, direction.getIndex());
             }
             return true;
         }
@@ -110,7 +114,7 @@ public class BellowsBlockEntity extends BlockEntity {
 
             int particleAmount = RANDOM.nextInt(AVERAGE_PARTICLES - PARTICLE_AMOUNT_MODIFIER, AVERAGE_PARTICLES + PARTICLE_AMOUNT_MODIFIER);
             for(int i = 0; i < particleAmount; i++){
-                world.addParticle(ParticleTypes.POOF,
+                world.addParticleClient(ParticleTypes.POOF,
                         center.getX() + directionVec.getX() * 0.4f,
                         center.getY() - 0.2f,
                         center.getZ() + directionVec.getZ() * 0.4f,

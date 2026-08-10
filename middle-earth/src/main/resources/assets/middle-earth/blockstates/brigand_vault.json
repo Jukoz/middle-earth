@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 90
+    },
+    "facing=east,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting",
+      "y": 90
+    },
+    "facing=east,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive",
+      "y": 90
+    },
+    "facing=east,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 90
+    },
+    "facing=north,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault"
+    },
+    "facing=north,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting"
+    },
+    "facing=north,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive"
+    },
+    "facing=north,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault"
+    },
+    "facing=north,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault"
+    },
+    "facing=north,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting"
+    },
+    "facing=north,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive"
+    },
+    "facing=north,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault"
+    },
+    "facing=south,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 180
+    },
+    "facing=south,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting",
+      "y": 180
+    },
+    "facing=south,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive",
+      "y": 180
+    },
+    "facing=south,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 180
+    },
+    "facing=west,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 270
+    },
+    "facing=west,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting",
+      "y": 270
+    },
+    "facing=west,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive",
+      "y": 270
+    },
+    "facing=west,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/brigand_vault_ejecting",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/brigand_vault_inactive",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/brigand_vault",
+      "y": 270
+    }
+  }
+}

@@ -3,10 +3,7 @@ package net.sevenstars.middleearth.world.gen;
 import net.sevenstars.middleearth.utils.RegistryUtils;
 import net.sevenstars.middleearth.world.features.tree.foliages.OvalFoliagePlacer;
 import net.sevenstars.middleearth.world.features.tree.foliages.PalmFoliagePlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.ArcTrunkPlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.CanopyTrunkPlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.LargeTrunkPlacer;
-import net.sevenstars.middleearth.world.features.tree.trunks.SpruceTrunkPlacer;
+import net.sevenstars.middleearth.world.features.tree.trunks.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
@@ -24,6 +21,9 @@ public class ModTreeGeneration {
     );
     public static final TrunkPlacerType<CanopyTrunkPlacer> CANOPY_TRUNK_PLACER = RegistryUtils.register(
             trunkRegistry, "canopy_trunk", new TrunkPlacerType<>(CanopyTrunkPlacer.CODEC)
+    );
+    public static final TrunkPlacerType<CanopyTrunkStructurePlacer> CANOPY_TRUNK_STRUCTURE_PLACER = RegistryUtils.register(
+            trunkRegistry, "canopy_trunk_structure", new TrunkPlacerType<>(CanopyTrunkStructurePlacer.CODEC)
     );
     public static final TrunkPlacerType<SpruceTrunkPlacer> SPRUCE_TRUNK_PLACER = RegistryUtils.register(
             trunkRegistry, "spruce_trunk", new TrunkPlacerType<>(SpruceTrunkPlacer.CODEC)

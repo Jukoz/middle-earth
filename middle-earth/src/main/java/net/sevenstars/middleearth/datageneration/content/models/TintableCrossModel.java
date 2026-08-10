@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WILD_GARLIC);
             add(ModNatureBlocks.WILD_ONION);
             add(ModNatureBlocks.WILD_FLAX);
+            add(ModNatureBlocks.WILD_TOMATO);
             add(ModNatureBlocks.WILD_WHEAT);
             add(ModNatureBlocks.WILD_BELL_PEPPER);
 
@@ -30,15 +31,14 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WHITE_MUSHROOM);
             add(ModNatureBlocks.YELLOW_AMANITA);
 
-            add(ModNatureBlocks.GLOWWORM_MAIN);
-            add(ModNatureBlocks.GLOWWORM_WEBBING);
-
-            add(ModNatureBlocks.MIRKWOOD_VINES);
-            add(ModNatureBlocks.MIRKWOOD_VINES_PLANT);
-
+            add(ModNatureBlocks.BLUE_GENTIAN);
             add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
-            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.NOBLEWHITE);
+
             add(ModNatureBlocks.ELANOR);
+            add(ModNatureBlocks.MALLOS);
+            add(ModNatureBlocks.NIPHREDIL);
+            add(ModNatureBlocks.SIMBELMYNE);
             add(ModNatureBlocks.YELLOW_FLOWER);
 
             add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
@@ -50,14 +50,19 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WHITE_FLOWERS);
             add(ModNatureBlocks.YELLOW_FLOWERS);
 
+            add(ModNatureBlocks.BLUE_LAVENDER);
             add(ModNatureBlocks.LAVENDER);
+            add(ModNatureBlocks.WHITE_LAVENDER);
             add(ModNatureBlocks.YELLOW_TROLLIUS);
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {
         {
             add(ModNatureBlocks.GRASS_TUFT);
-            add(ModNatureBlocks.WILD_GRASS);
+            add(ModNatureBlocks.MEADOWGRASS);
+            add(ModNatureBlocks.SPARSE_GRASS);
+            add(ModNatureBlocks.NETTLES);
+            add(ModNatureBlocks.THISTLE);
             add(ModNatureBlocks.WHEATGRASS);
         }
     };
@@ -65,13 +70,17 @@ public class TintableCrossModel {
     public static List<Block> grassLikeBlocks = new ArrayList<>()
     {
         {
+            add(ModNatureBlocks.ATHELAS);
+
+            add(ModNatureBlocks.SHORT_HOGWEED);
+
             add(ModNatureBlocks.BROWN_GRASS);
             add(ModNatureBlocks.GREEN_SHRUB);
             add(ModNatureBlocks.SMALL_DRY_SHRUB);
             add(ModNatureBlocks.FROZEN_SHRUB);
             add(ModNatureBlocks.TAN_SHRUB);
 
-            add(ModNatureBlocks.DRY_GRASS);
+            add(ModNatureBlocks.BLUE_FESCUE);
             add(ModNatureBlocks.DYING_GRASS);
             add(ModNatureBlocks.FROZEN_GRASS);
             add(ModNatureBlocks.GRIM_GRASS);
@@ -85,8 +94,15 @@ public class TintableCrossModel {
             add(ModNatureBlocks.WILDERGRASS);
             add(ModNatureBlocks.BEACH_GRASS);
             add(ModNatureBlocks.COASTAL_PANIC_GRASS);
+            add(ModNatureBlocks.MISTWEED);
             add(ModNatureBlocks.SEDUM);
+            add(ModNatureBlocks.ORANGE_SEDUM);
+            add(ModNatureBlocks.RED_SEDUM);
             add(ModNatureBlocks.YELLOW_SEDUM);
+            add(ModNatureBlocks.BRAMBLES_OF_MORDOR);
+            add(ModNatureBlocks.SHORT_DEAD_RUSHES);
+            add(ModNatureBlocks.SHORT_RUSHES);
+            add(ModNatureBlocks.SHORT_REEDS);
             add(ModNatureBlocks.SHORT_CATTAILS);
             add(ModNatureBlocks.SHORT_BULRUSH);
 
@@ -95,6 +111,25 @@ public class TintableCrossModel {
             add(ModNatureBlocks.SCORCHED_GRASS);
             add(ModNatureBlocks.SCORCHED_TUFT);
             add(ModNatureBlocks.SCORCHED_SHRUB);
+        }
+    };
+
+    public static List<Block> largePlants = new ArrayList<>()
+    {
+        {
+            add(ModNatureBlocks.CAMPION);
+            add(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA);
+            add(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA);
+            add(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA);
+            add(ModNatureBlocks.DEAD_HEATHER_BUSH);
+            add(ModNatureBlocks.DRY_HEATHER_BUSH);
+            add(ModNatureBlocks.DEAD_RUSHES);
+            add(ModNatureBlocks.FALSE_OATGRASS);
+            add(ModNatureBlocks.HEATHER_BUSH);
+            add(ModNatureBlocks.LARGE_BLUE_FESCUE);
+            add(ModNatureBlocks.LARGE_SHRIVELED_SHRUB);
+            add(ModNatureBlocks.RED_HEATHER_BUSH);
+            add(ModNatureBlocks.RUSHES);
         }
     };
 }

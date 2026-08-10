@@ -1,0 +1,9 @@
+{
+  "parent": "middle-earth:block/slab_top_overlay_tint",
+  "textures": {
+    "bottom": "middle-earth:block/grassy_dirt",
+    "side": "middle-earth:block/grassy_dirt",
+    "top": "middle-earth:block/grassy_dirt",
+    "overlay": "middle-earth:block/grassy_dirt_overlay"
+  }
+}

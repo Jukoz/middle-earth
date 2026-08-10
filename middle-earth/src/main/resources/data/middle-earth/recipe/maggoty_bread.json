@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#middle-earth:worm",
+    "minecraft:bread"
+  ],
+  "result": {
+    "id": "middle-earth:maggoty_bread"
+  }
+}

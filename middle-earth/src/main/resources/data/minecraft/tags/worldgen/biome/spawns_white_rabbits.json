@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "me:forodwaith",
-    "me:southern_forochel",
-    "me:northern_wastelands"
+    "middle-earth:forodwaith",
+    "middle-earth:southern_forochel",
+    "middle-earth:northern_wastelands"
   ]
 }

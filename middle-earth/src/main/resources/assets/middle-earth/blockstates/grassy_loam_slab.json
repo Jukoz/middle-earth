@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "middle-earth:block/grassy_loam_slab"
+    },
+    "type=double": {
+      "model": "middle-earth:block/grassy_loam"
+    },
+    "type=top": {
+      "model": "middle-earth:block/grassy_loam_slab_top"
+    }
+  }
+}

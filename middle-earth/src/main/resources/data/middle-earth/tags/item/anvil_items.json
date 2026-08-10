@@ -1,0 +1,10 @@
+{
+  "values": [
+    {
+      "id": "#middle-earth:ingot_shaping",
+      "required": true
+    },
+    "middle-earth:rod",
+    "middle-earth:large_rod"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "middle-earth:block/outer_stairs_overlay_tint",
+  "textures": {
+    "bottom": "middle-earth:block/grassy_loam",
+    "side": "middle-earth:block/grassy_loam",
+    "top": "middle-earth:block/grassy_loam",
+    "overlay": "middle-earth:block/grassy_loam_overlay"
+  }
+}

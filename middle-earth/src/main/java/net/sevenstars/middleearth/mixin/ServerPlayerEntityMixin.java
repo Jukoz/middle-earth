@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -15,11 +14,22 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.EntityAttributesME;
+import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.middleearth.utils.IEntityDataSaver;
+import net.sevenstars.middleearth.utils.PlayerMovementData;
+import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerPlayerEntity.class)
@@ -27,8 +37,15 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow public MinecraftServer server;
     @Shadow public ServerPlayerInteractionManager interactionManager;
 
-    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+    public ServerPlayerEntityMixin(World world, GameProfile profile) {
+        super(world, profile);
+    }
+
+
+    @Nullable
+    @Override
+    public GameMode getGameMode() {
+        return this.interactionManager.getGameMode();
     }
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
@@ -58,7 +75,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         PlayerManager manager = this.getServer().getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
         if(this.getServer() == null) return;
-        foundPlayer.setSpawnPoint(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true, true);
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true);
+        foundPlayer.setSpawnPoint(respawn, true);
 
         cir.setReturnValue(new TeleportTarget(this.server.getOverworld(), this, postDimensionTransition));
     }
@@ -72,22 +90,24 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
 
         if(foundPlayer == null) return false;
-        if(ModDimensions.isInMiddleEarth(this.getWorld())) {
-            PlayerData data = StateSaverAndLoader.getPlayerState(foundPlayer);
-            if(data != null && data.hasAffilition()){
-                Vec3d spawnCoordinates = data.getSpawnMiddleEarthCoordinate(getWorld());
-                if(spawnCoordinates != null){
-                    ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
-                    if(MEWorld != null){
-                        Vec3d coordinates = new Vec3d(spawnCoordinates.x, spawnCoordinates.y + 1, spawnCoordinates.z);
-                        foundPlayer.setSpawnPoint(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true, true);
-                        cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates, Vec3d.ZERO, 0, 0, postDimensionTransition));
-                        return true;
-                    }
+        if(ModDimensions.isInMiddleEarth(this.getWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
+            BlockPos spawnCoordinates = data.getWorldCoordinateBlockPos();
+            if(spawnCoordinates != null){
+                ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
+                if(MEWorld != null){
+                    Vec3d coordinates = new Vec3d(spawnCoordinates.getX(), spawnCoordinates.getY() + 1, spawnCoordinates.getZ());
+
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true);
+                    foundPlayer.setSpawnPoint(respawn, true);
+
+                    cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates.toCenterPos(), Vec3d.ZERO, 0, 0, postDimensionTransition));
+                    return true;
                 }
             }
         }
-        foundPlayer.setSpawnPoint(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true, true);
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true);
+        foundPlayer.setSpawnPoint(respawn, true);
+
         cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), Vec3d.ZERO, 0, 0,postDimensionTransition));
         return false;
     }
@@ -100,5 +120,48 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     @Override
     public boolean isCreative() {
         return this.interactionManager.getGameMode() == GameMode.CREATIVE;
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
+        PlayerMovementData.addAFKTime((IEntityDataSaver) this,1);
+        if(isCreative() || isSpectator()) {
+            if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
+                setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
+                setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
+                setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
+                setStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 40), this);
+            }
+            return;
+        }
+
+        long currentTick = getWorld().getTickOrder();
+        if(currentTick % 5 == 0){
+            if(getWorld() == null) return;
+            PlayerData data = StateSaverAndLoader.getPlayerState(getWorld().getPlayerByUuid(getUuid()));
+            if(data == null) return;
+
+            int currentLightLevel = getWorld().getLightLevel(getBlockPos());
+
+            double delversFearStrenght = getAttributeValue(EntityAttributesME.DELVERS_FEAR_STRENGTH);
+
+            if(delversFearStrenght > 0.0 && currentLightLevel < 3 && !getWorld().isSkyVisible(getBlockPos())) {
+                data.addToDelversFearCountInSeconds();
+
+                if(data.getDelversFearCountInSeconds() > delversFearStrenght){
+                    addStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, -1));
+                    addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, -1));
+                    addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, -1));
+                }
+            } else {
+                if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
+                    setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
+                    setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
+                    setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
+
+                }
+                data.resetDelversFearCount();
+            }
+        }
     }
 }

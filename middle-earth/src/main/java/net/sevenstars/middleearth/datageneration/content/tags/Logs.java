@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.sevenstars.middleearth.block.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -14,7 +14,7 @@ public class Logs {
         }
     };
 
-    public static List<Item> getItemPlanks() {
+    public static List<Item> getItemLogs() {
         ArrayList<Item> newList = new ArrayList<>();
         for (Block block : logs) {
             newList.add(block.asItem());

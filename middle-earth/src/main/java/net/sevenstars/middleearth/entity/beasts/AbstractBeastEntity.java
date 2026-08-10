@@ -1,18 +1,15 @@
 package net.sevenstars.middleearth.entity.beasts;
 
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.datas.RaceType;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityStatuses;
-import net.minecraft.entity.EntityType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.FoodComponent;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -20,32 +17,37 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
+import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.function.Predicate;
 
-// Beasts are mostly aggressive Entities which work much like wolves, while also allowing the player to mount them.
-public class AbstractBeastEntity extends AbstractHorseEntity {
+public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public static final TrackedData<Boolean> CHARGING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SITTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CHEST = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> RUNNING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> FIGHTING = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    // The tameness value ranges from 0-100, updating every in-game day. If it reaches 0, the beast will break free from its owner.
+    private static final TrackedData<Integer> TAMENESS = DataTracker.registerData(AbstractBeastEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -57,7 +59,6 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     protected int idleAnimationTimeout = 1000;
     protected int attackTicksLeft = 0;
     protected boolean hasCharged = false;
-    protected boolean startedSitting = false;
 
     protected int chargeTimeout; // ticking cooldown of the charge attack
 
@@ -65,7 +66,7 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     public static final float RESISTANCE = 0.15f;
     protected Vec3d targetDir = Vec3d.ZERO;
 
-    // Initializing ====================================================================================================
+    // region Initializing
     protected AbstractBeastEntity(EntityType<? extends AbstractBeastEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -76,16 +77,15 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         builder.add(SITTING, false);
         builder.add(CHEST, false);
         builder.add(RUNNING, false);
+        builder.add(FIGHTING, false);
+        builder.add(TAMENESS, 75);
     }
 
     @Override
-    protected void initAttributes(Random random) {
-
+    protected void initGoals() {
     }
 
-    protected void setupAnimationStates() {
-
-    }
+    protected abstract void setupAnimationStates();
 
     @Override
     public void onTrackedDataSet(TrackedData<?> data) {
@@ -95,93 +95,65 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         super.onTrackedDataSet(data);
     }
 
-    private StackReference createInventoryStackReference(final int slot, final Predicate<ItemStack> predicate) {
-        return new StackReference(){
-
-            @Override
-            public ItemStack get() {
-                return AbstractBeastEntity.this.items.getStack(slot);
-            }
-
-            @Override
-            public boolean set(ItemStack stack) {
-                if (!predicate.test(stack)) {
-                    return false;
-                }
-                AbstractBeastEntity.this.items.setStack(slot, stack);
-                AbstractBeastEntity.this.updateSaddledFlag();
-                return true;
-            }
-        };
-    }
-
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putBoolean("Sitting", this.isSitting());
-        nbt.putBoolean("ChestedBeast", this.hasChest());
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putBoolean("Sitting", this.isSitting());
+        view.putBoolean("ChestedBeast", this.hasChest());
+        view.putInt("Tameness", this.getTameness());
         if (this.hasChest()) {
-            /* Will be readded on Mount refactor
-            NbtList nbtList = new NbtList();
-            for(int i = 2; i < this.items.size(); ++i) {
+            WriteView.ListAppender<StackWithSlot> listAppender = view.getListAppender("Items", StackWithSlot.CODEC);
+
+            for (int i = 0; i < this.items.size(); i++) {
                 ItemStack itemStack = this.items.getStack(i);
                 if (!itemStack.isEmpty()) {
-                    NbtCompound nbtCompound = new NbtCompound();
-                    nbtCompound.putByte("Slot", (byte)i);
-                    nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
+                    listAppender.add(new StackWithSlot(i, itemStack));
                 }
             }
-            nbt.put("Items", nbtList);*/
         }
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.setSitting(nbt.getBoolean("Sitting"));
-        this.setHasChest(nbt.getBoolean("ChestedBeast"));
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.setSitting(view.getBoolean("Sitting", false));
+        this.setHasChest(view.getBoolean("ChestedBeast", false));
+        this.setTameness(view.getInt("Tameness", 75));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
-            NbtList nbtList = nbt.getList("Items", 10);
-
-            for(int i = 0; i < nbtList.size(); ++i) {
-                NbtCompound nbtCompound = nbtList.getCompound(i);
-                int j = nbtCompound.getByte("Slot") & 255;
-                if (j >= 2 && j < this.items.size()) {
-                    this.items.setStack(j, (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
+            for (StackWithSlot stackWithSlot : view.getTypedListView("Items", StackWithSlot.CODEC)) {
+                if (stackWithSlot.isValidSlot(this.items.size())) {
+                    this.items.setStack(stackWithSlot.slot(), stackWithSlot.stack());
                 }
             }
         }
-        this.updateSaddledFlag();
     }
 
-    // Getters and Setters =============================================================================================
-    protected boolean isMountable() {
+    // endregion
+
+    // region Conditions
+    public abstract DispositionType getDisposition();
+
+    public abstract List<RaceType> getCompatibleRaces();
+
+    public abstract boolean usesTameness();
+
+    public abstract boolean isCommandItem(ItemStack stack);
+    public abstract boolean isBondingItem(ItemStack itemStack);
+    public abstract boolean isFoodItem(ItemStack itemStack);
+
+    public boolean isMountable() {
         return true;
     }
-    protected boolean isTamable() {
+
+    protected boolean isTamable(PlayerEntity player) {
         return true;
-    }
-
-    protected Disposition getDisposition(){
-        return null;
-    }
-
-    protected List<RaceType> getRaceType() {
-        return null;
-    }
-
-    public boolean hasChest() {
-        return this.dataTracker.get(CHEST);
-    }
-
-    public void setHasChest(boolean hasChest) {
-        this.dataTracker.set(CHEST, hasChest);
     }
 
     public boolean canCarryChest() {
-        return true;
+        return false;
     }
+
     public final boolean cannotFollowOwner() {
         return this.isSitting() || this.hasVehicle() || this.mightBeLeashed() || this.getOwner() != null && this.getOwner().isSpectator();
     }
@@ -194,6 +166,61 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return !this.isSitting() && !this.hasPassengers();
     }
 
+    @Override
+    public boolean isPersistent() {
+        return isTame() || getTameness() <= 0;
+    }
+
+    public void resetTameness(){
+        this.setTameness(75);
+    }
+
+    protected boolean isClientWorld() {
+        return this.getWorld().isClient();
+    }
+
+    public boolean isOwner(LivingEntity entity) {
+        return this.getOwner() != null && this.getOwner() == entity;
+    }
+
+    /**
+     * Checks an entity for beast-specific targeting criteria (LivingEntity, not a passenger, not its owner, not a creative player)
+     * @param entity
+     * @return isValidTarget
+     */
+    public boolean isValidTarget(Entity entity) {
+        return entity instanceof LivingEntity livingEntity &&                           // Entity is LivingEntity
+                !this.getPassengerList().contains(livingEntity) &&                      // Is not a passenger
+                !(this.getOwner() != null && this.getOwner().equals(livingEntity)) &&   // Is not its owner
+                !(livingEntity instanceof PlayerEntity player && player.isCreative());  // Is not a creative player
+    }
+
+    @Override
+    public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
+        if (source.isOf(DamageTypes.IN_WALL) && this.hasPassengers() && getControllingPassenger() instanceof NpcEntity) {
+            return true;
+        }
+        return super.isInvulnerableTo(world, source);
+    }
+    // endregion
+
+    // region DataTracker
+
+    public int getTameness() {
+        return this.dataTracker.get(TAMENESS);
+    }
+    public void setTameness(int tameness) {
+        this.dataTracker.set(TAMENESS, tameness);
+    }
+
+    public boolean hasChest() {
+        return this.dataTracker.get(CHEST);
+    }
+
+    public void setHasChest(boolean hasChest) {
+        this.dataTracker.set(CHEST, hasChest);
+    }
+
     public boolean isRunning() {
         return this.dataTracker.get(RUNNING);
     }
@@ -202,35 +229,12 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         this.dataTracker.set(RUNNING, running);
     }
 
-    @Override
-    public int getJumpCooldown() {
-        return this.chargeTimeout;
+    public boolean isCharging() {
+        return this.dataTracker.get(CHARGING);
     }
 
-    public double getMountedHeightOffset() {
-        float f = Math.min(0.25F, this.limbAnimator.getSpeed());
-        float g = this.limbAnimator.getPos();
-        return (double)this.getHeight() - 0.19 + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
-    }
-
-    public PlayerEntity getOwner() {
-        if(this.getOwnerUuid() != null) {
-            return getPlayerByUuid(this.getOwnerUuid());
-        }
-        return null;
-    }
-
-    public boolean hasCharged() {
-        return hasCharged;
-    }
-
-    public void setHasCharged(boolean hasCharged) {
-        this.hasCharged = hasCharged;
-    }
-
-    @Override
-    public boolean isPersistent() {
-        return isTame();
+    public void setCharging(boolean charging) {
+        this.dataTracker.set(CHARGING, charging);
     }
 
     public boolean isSitting() {
@@ -241,23 +245,48 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         this.dataTracker.set(SITTING, sitting);
     }
 
-    public boolean isCommandItem(ItemStack stack) {
-        return false;
+    public boolean isFighting() {
+        return dataTracker.get(FIGHTING);
     }
 
-    public void setCharging(boolean charging) {
-        this.dataTracker.set(CHARGING, charging);
+    public void setFighting(boolean isFighting) {
+        dataTracker.set(FIGHTING, isFighting);
     }
 
-    public boolean isCharging() {
-        return this.dataTracker.get(CHARGING);
+    // endregion
+
+    // region Non-tracked Getters and Setters
+    public boolean hasCharged() {
+        return hasCharged;
+    }
+
+    public void setHasCharged(boolean hasCharged) {
+        this.hasCharged = hasCharged;
     }
 
     public int getChargeTimeout() {
         return this.chargeTimeout;
     }
+
     public void setChargeTimeout(int chargeTimeout) {
         this.chargeTimeout = chargeTimeout;
+    }
+
+    @Override
+    public int getJumpCooldown() {
+        return this.chargeTimeout;
+    }
+
+    public double getMountedHeightOffset() {
+        float f = Math.min(0.25F, this.limbAnimator.getSpeed());
+        float g = this.limbAnimator.getSpeed(); // TODO : was this.limbAnimator.getPos();
+        return (double)this.getHeight() - 0.19 + (double)(0.12F * MathHelper.cos(g * 1.5F) * 2.0F * f);
+    }
+
+    public PlayerEntity getOwner() {
+        if(super.getOwner() instanceof PlayerEntity playerEntity)
+            return playerEntity;
+        return null;
     }
 
     public int maxChargeCooldown() {
@@ -271,28 +300,47 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
     }
 
-    // Equipment =======================================================================================================
+    // endregion
+
+    // region Equipment
 
     protected void dropInventory(ServerWorld world) {
         super.dropInventory(world);
+        if (this.hasChest()) {
+            this.dropItem(world, Blocks.CHEST);
+            this.setHasChest(false);
+        }
     }
 
     @Override
     public StackReference getStackReference(int mappedIndex) {
-        int j;
-        int i = mappedIndex - 400;
-        if (i >= 0 && i < 2 && i < this.items.size()) {
-            if (i == 0) {
-                return this.createInventoryStackReference(i, stack -> stack.isEmpty() || stack.isOf(Items.SADDLE));
+        return mappedIndex == 499 ? new StackReference() {
+            @Override
+            public ItemStack get() {
+                return AbstractBeastEntity.this.hasChest() ? new ItemStack(Items.CHEST) : ItemStack.EMPTY;
             }
-            if (i == 1) {
-                return StackReference.EMPTY;
+
+            @Override
+            public boolean set(ItemStack stack) {
+                if (stack.isEmpty()) {
+                    if (AbstractBeastEntity.this.hasChest()) {
+                        AbstractBeastEntity.this.setHasChest(false);
+                        AbstractBeastEntity.this.onChestedStatusChanged();
+                    }
+
+                    return true;
+                } else if (stack.isOf(Items.CHEST)) {
+                    if (!AbstractBeastEntity.this.hasChest()) {
+                        AbstractBeastEntity.this.setHasChest(true);
+                        AbstractBeastEntity.this.onChestedStatusChanged();
+                    }
+
+                    return true;
+                } else {
+                    return false;
+                }
             }
-        }
-        if ((j = mappedIndex - 500 + 2) >= 2 && j < this.items.size()) {
-            return StackReference.of(this.items, j);
-        }
-        return super.getStackReference(mappedIndex);
+        } : super.getStackReference(mappedIndex);
     }
 
     public int getInventoryColumns() {
@@ -300,31 +348,30 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     private void addChest(PlayerEntity player, ItemStack chest) {
-        if(canCarryChest()) {
-            this.setHasChest(true);
-            this.playAddChestSound();
-            if (!player.getAbilities().creativeMode) {
-                chest.decrement(1);
-            }
-            this.onChestedStatusChanged();
-        }
+        this.setHasChest(true);
+        this.playAddChestSound();
+        chest.decrementUnlessCreative(1, player);
+        this.onChestedStatusChanged();
     }
 
     protected void playAddChestSound() {
         this.playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
     }
 
-    @Override
-    public SoundEvent getSaddleSound() {
-        return super.getSaddleSound();
+    // endregion
+
+    // region Move Set and Behavior
+
+    public void breakFree() {
+        this.setTame(false);
+        this.setOwner(null);
+        this.setSitting(false);
+
+        if(this.getBrain() != null) {
+            this.getBrain().forget(MemoryModulesME.TAME);
+        }
     }
 
-    @Override
-    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        return this.isSitting() ? 0 : super.getSaddledSpeed(controllingPlayer);
-    }
-
-    // Move Set and Behavior ===========================================================================================
     @Override
     protected void jump(float strength, Vec3d movementInput) {
         if(this.isSitting()) {
@@ -336,6 +383,10 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
+    @Override
+    public boolean isAngry() {
+        return false;
+    }
 
     @Override
     public void startJumping(int height) {
@@ -360,21 +411,24 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    protected void tameBeast(PlayerEntity player) {
+    public void tameBeast(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity) {
-            this.setOwnerUuid(player.getUuid());
+            this.setOwner(player);
             this.setTame(true);
             Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
         }
     }
 
+    public void tameBeast(LivingEntity livingEntity) {
+        this.setOwner(livingEntity);
+        this.setTame(true);
+    }
+
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        boolean bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
-
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable()) {
+        if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable(player)) {
             if(!this.getWorld().isClient()) {
                 this.tryBonding(player);
                 this.eat(player, hand, itemStack);
@@ -382,13 +436,34 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
             return ActionResult.SUCCESS;
         }
 
-        if(this.isTame() && this.isTamable()) {
+        if(this.isTame()) {
+            if(isFoodItem(itemStack) && getOwner() == player) {
+                int tamenessIncrease;
+
+                FoodComponent component = itemStack.get(DataComponentTypes.FOOD);
+                if(component != null) {
+                    tamenessIncrease = component.nutrition();
+                }
+                else {
+                    tamenessIncrease = 4;
+                }
+
+                this.setTameness(this.getTameness() + tamenessIncrease);
+                if(this.getTameness() > 100) {
+                    this.setTameness(100);
+                }
+
+                this.eat(player, hand, itemStack);
+                playSound(SoundEvents.ENTITY_HORSE_EAT);
+                return ActionResult.SUCCESS;
+            }
+
             if(isCommandItem(itemStack) && player == getOwner()) {
                 this.setSitting(!isSitting());
                 return ActionResult.SUCCESS;
             }
 
-            if (itemStack.isOf(Items.CHEST) && !this.hasChest()) {
+            if (!this.hasChest() && itemStack.isOf(Items.CHEST) && canCarryChest()) {
                 this.addChest(player, itemStack);
                 return ActionResult.SUCCESS;
             }
@@ -403,11 +478,15 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
     @Override
     public ActionResult interactHorse(PlayerEntity player, ItemStack stack) {
-        return super.interactHorse(player, stack);
+        return ActionResult.PASS;
     }
 
-    public boolean isBondingItem(ItemStack itemStack) {
-        return false;
+    @Override
+    protected void putPlayerOnBack(PlayerEntity player) {
+        ItemStack item = player.getStackInHand(Hand.MAIN_HAND);
+        if(this.canAddPassenger(player) && item.isEmpty()) {
+            super.putPlayerOnBack(player);
+        }
     }
 
     public boolean damage(DamageSource source, float amount) {
@@ -421,7 +500,30 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
     public void chargeAttack() {
     }
 
-    // Tick Management =================================================================================================
+    public void setChargeVelocity(Vec3d direction) {
+        this.setVelocity(direction
+                .getHorizontal().normalize() // Remove the y-axis and normalize the vector
+                .multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())) // Progressively get faster during charge (linear)
+                .add(0, this.getVelocity().y, 0)); // Add y-Velocity to make beast fall and climb steps
+    }
+
+    @Override
+    protected EntityNavigation createNavigation(World world) {
+        return new BeastEntityNavigation(this, world);
+    }
+
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return this.isSitting() ? 0 : super.getSaddledSpeed(controllingPlayer);
+    }
+
+    protected float getNpcSaddledSpeed(NpcEntity controllingNpc) {
+        return this.isSitting() ? 0 : (float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+    }
+
+    // endregion
+
+    // region Tick Management
     @Override
     public void tick() {
         super.tick();
@@ -449,12 +551,29 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
 
         if(this.hasControllingPassenger() && !this.shouldAttackWhenMounted()) {
             this.setAttacker(null);
-            this.setAttacking(null);
+            this.setAttacking(false);
             this.setTarget(null);
         }
 
         if (this.getWorld().isClient) {
             setupAnimationStates();
+        }
+
+        if (!this.isClientWorld() && isTame() && this.getOwner() != null) {
+            if(this.getWorld().getTimeOfDay() == 6500) { // Tameness always decreases shortly after noon
+                List<? extends PlayerEntity> players = this.getWorld().getPlayers();
+                if(this.getOwner() != null && players.contains(this.getOwner())) { // Check if owner is online
+                    // Get amount of other beasts using the Tameness mechanic in a 25 block radius. The tameness decreases exponentially faster for each of them.
+                    int affectingBeasts = this.getWorld().getEntitiesByClass(AbstractBeastEntity.class, this.getBoundingBox().expand(25), (entity) -> usesTameness() && getOwner() == this.getOwner()).size();
+
+                    // The number of entities includes itself, therefore the smallest value to decrease is at 10
+                    this.setTameness(this.getTameness() - (int)(5 * Math.pow(2, affectingBeasts)));
+
+                    if(this.getTameness() <= 0) { // Tameness is 0, break free
+                        this.breakFree();
+                    }
+                }
+            }
         }
     }
 
@@ -464,9 +583,19 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         if (this.attackTicksLeft > 0) {
             --this.attackTicksLeft;
         }
+
+        if (this.getControllingPassenger() instanceof NpcEntity npc && this.isAlive()) {
+            Vec3d movementInput = new Vec3d(this.sidewaysSpeed, this.upwardSpeed, this.forwardSpeed);
+            if (this.canMoveVoluntarily()) {
+                this.setMovementSpeed(this.getNpcSaddledSpeed(npc));
+                this.travel(movementInput);
+            } else {
+                this.setVelocity(Vec3d.ZERO);
+            }
+        }
     }
 
-    // =================================================================================================================
+    // endregion
 
     protected void setChildAttribute(PassiveEntity other, AbstractHorseEntity child, RegistryEntry<EntityAttribute> attribute, double min, double max) {
         double d = this.calculateAttributeBaseValue(this.getAttributeBaseValue(attribute), other.getAttributeBaseValue(attribute), min, max, this.random);
@@ -510,23 +639,9 @@ public class AbstractBeastEntity extends AbstractHorseEntity {
         }
     }
 
-    public PlayerEntity getPlayerByUuid(UUID uuid) {
-        for (int i = 0; i < this.getWorld().getPlayers().size(); ++i) {
-            PlayerEntity playerEntity = this.getWorld().getPlayers().get(i);
-            if (!uuid.equals(playerEntity.getUuid())) continue;
-            return playerEntity;
-        }
-        return null;
-    }
-
     @Override
     protected void updateLimbs(float posDelta) {
         float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
         this.limbAnimator.updateLimbs(f, 0.2f, 1.0f);
-    }
-
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_WARDEN_STEP, 0.15F, 2.0F);
     }
 }

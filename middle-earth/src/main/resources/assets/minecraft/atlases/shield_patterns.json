@@ -3,11 +3,11 @@
   "sources": [
     {
       "type": "single",
-      "resource": "me:entity/heater_shield_base"
+      "resource": "middle-earth:entity/heater_shield_base"
     },
     {
       "type": "single",
-      "resource": "me:entity/heater_shield_base_nopattern"
+      "resource": "middle-earth:entity/heater_shield_base_nopattern"
     },
     {
       "type": "directory",
@@ -16,11 +16,11 @@
     },
     {
       "type": "single",
-      "resource": "me:entity/kite_shield_base"
+      "resource": "middle-earth:entity/kite_shield_base"
     },
     {
       "type": "single",
-      "resource": "me:entity/kite_shield_base_nopattern"
+      "resource": "middle-earth:entity/kite_shield_base_nopattern"
     },
     {
       "type": "directory",
@@ -29,11 +29,11 @@
     },
     {
       "type": "single",
-      "resource": "me:entity/round_shield_base"
+      "resource": "middle-earth:entity/round_shield_base"
     },
     {
       "type": "single",
-      "resource": "me:entity/round_shield_base_nopattern"
+      "resource": "middle-earth:entity/round_shield_base_nopattern"
     },
     {
       "type": "directory",

@@ -9,10 +9,10 @@ import net.minecraft.util.math.Vec3d;
 import java.util.EnumSet;
 
 public class FastPonceAtTargetGoal extends Goal {
-    private final MobEntity mob;
-    private LivingEntity target;
-    private final float verticalVelocity;
-    private final float horizontalVelocity;
+    protected final MobEntity mob;
+    protected LivingEntity target;
+    protected final float verticalVelocity;
+    protected final float horizontalVelocity;
 
     public FastPonceAtTargetGoal(MobEntity mob, float verticalVelocity, float horizontalVelocity) {
         this.mob = mob;

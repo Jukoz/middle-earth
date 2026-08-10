@@ -6,9 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.sevenstars.middleearth.block.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -17,21 +16,20 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     public final String category;
     public final ItemStack output;
     public final String disposition;
     public final List<Ingredient> inputs;
+    public final int xp;
 
-    private IngredientPlacement ingredientPlacement;
-
-    public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems, String disposition) {
+    public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems, String disposition, int xp) {
         this.category = category;
         this.output = output;
         this.inputs = recipeItems;
         this.disposition = disposition;
+        this.xp = xp;
     }
 
     public ArtisanRecipe(String category, ItemStack output, List<Ingredient> recipeItems) {
@@ -39,6 +37,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         this.output = output;
         this.inputs = recipeItems;
         this.disposition = null;
+        this.xp = 0;
     }
 
     public ItemStack createIcon() {
@@ -81,6 +80,10 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         return output;
     }
 
+    public int getXp() {
+        return xp;
+    }
+
     public DefaultedList<Ingredient> getIngredients() {
         DefaultedList<Ingredient> defaultedList = DefaultedList.of();
         defaultedList.addAll(this.inputs);
@@ -93,8 +96,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
 
     @Override
     public RecipeSerializer<? extends Recipe<MultipleStackRecipeInput>> getSerializer() {
-        //return Serializer.INSTANCE;
-        return null;
+        return Serializer.INSTANCE;
     }
 
     @Override
@@ -123,7 +125,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
         return true;
     }
 
-    /*public static class Serializer implements RecipeSerializer<ArtisanRecipe> {
+    public static class Serializer implements RecipeSerializer<ArtisanRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final String ID = "artisan_table";
         private final MapCodec<ArtisanRecipe> codec;
@@ -133,8 +135,9 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Codec.STRING.fieldOf("category").forGetter(recipe -> recipe.category),
                     ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                    CustomIngredientImpl.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
-                    Codec.STRING.fieldOf("disposition").forGetter(recipe -> recipe.disposition)
+                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.inputs),
+                    Codec.STRING.fieldOf("disposition").forGetter(recipe -> recipe.disposition),
+                    Codec.INT.fieldOf("xp").forGetter(recipe -> recipe.xp)
             ).apply(instance, ArtisanRecipe::new));
 
             this.packetCodec = PacketCodec.ofStatic(Serializer::write, Serializer::read);
@@ -157,7 +160,8 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i);
             defaultedList.replaceAll(empty -> CustomIngredientImpl.PACKET_CODEC.decode(buf));
             String disposition = buf.readString();
-            return new ArtisanRecipe(category, output, defaultedList, disposition);
+            int xp = buf.readVarInt();
+            return new ArtisanRecipe(category, output, defaultedList, disposition, xp);
         }
 
         private static void write(RegistryByteBuf buf, ArtisanRecipe recipe) {
@@ -168,6 +172,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
                 CustomIngredientImpl.PACKET_CODEC.encode(buf, ingredient);
             }
             buf.writeString(recipe.disposition);
+            buf.writeVarInt(recipe.xp);
         }
-    }*/
+    }
 }

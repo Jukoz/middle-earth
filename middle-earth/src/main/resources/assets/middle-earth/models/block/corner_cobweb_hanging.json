@@ -1,0 +1,6 @@
+{
+  "parent": "middle-earth:block/cross_direction_inverted",
+  "textures": {
+    "cross": "middle-earth:block/corner_cobweb"
+  }
+}

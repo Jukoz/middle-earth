@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "middle-earth:block/gilded_big_brazier"
+    },
+    "lit=true": {
+      "model": "middle-earth:block/gilded_big_brazier_lit"
+    }
+  }
+}

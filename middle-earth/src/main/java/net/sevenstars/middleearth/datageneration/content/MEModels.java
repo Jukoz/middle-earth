@@ -15,6 +15,11 @@ public class MEModels {
     public static final Model VERTICAL_COLUMN_SLAB_INNER;
     public static final Model VERTICAL_COLUMN_SLAB_OUTER;
 
+    public static final Model COLUMN_WALL_POST;
+    public static final Model COLUMN_WALL_SIDE;
+    public static final Model COLUMN_WALL_SIDE_TALL;
+    public static final Model COLUMN_WALL_INVENTORY;
+
     public static final Model WOOD_STOOL;
     public static final Model WOOD_BENCH;
     public static final Model WOOD_TABLE;
@@ -41,6 +46,13 @@ public class MEModels {
 
     public static final Model THICK_LADDER;
 
+    public static final Model LARGE_PLANT;
+    public static final Model TINTED_LARGE_PLANT;
+
+    public static final Model CROP_VINE;
+
+    public static final Model PATH_BLOCK;
+
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
         return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
@@ -56,6 +68,11 @@ public class MEModels {
         VERTICAL_COLUMN_SLAB = block("vertical_column_slab", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PARTICLE);
         VERTICAL_COLUMN_SLAB_INNER = block("vertical_column_slab_inner", "_inner", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PARTICLE);
         VERTICAL_COLUMN_SLAB_OUTER = block("vertical_column_slab_outer", "_outer", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PARTICLE);
+
+        COLUMN_WALL_POST = block("template_column_wall_post", "_post", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
+        COLUMN_WALL_SIDE = block("template_column_wall_side", "_side", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
+        COLUMN_WALL_SIDE_TALL = block("template_column_wall_side_tall", "_side_tall", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
+        COLUMN_WALL_INVENTORY = block("template_column_wall_inventory", "_inventory", TextureKey.TOP, TextureKey.BOTTOM, TextureKey.WALL, TextureKey.PARTICLE);
 
         WOOD_STOOL = block("wood_stool_template", TextureKey.ALL, TextureKey.PARTICLE);
         WOOD_BENCH = block("wood_bench_template", TextureKey.ALL, TextureKey.PARTICLE);
@@ -82,5 +99,12 @@ public class MEModels {
         LARGE_THICK_DOOR_RIGHT_OPEN = block("thick_large_door_right_open", TextureKey.ALL, TextureKey.PARTICLE);
 
         THICK_LADDER = block("thick_ladder", TextureKey.TEXTURE, TextureKey.PARTICLE);
+
+        LARGE_PLANT = block("large_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
+        TINTED_LARGE_PLANT = block("large_tinted_plant_template", TextureKey.ALL, TextureKey.PARTICLE);
+
+        CROP_VINE = block("crop_no_shade_template", TextureKey.CROP);
+
+        PATH_BLOCK = block("path_template", TextureKey.PARTICLE, TextureKey.TOP, TextureKey.SIDE, TextureKey.BOTTOM);
     }
 }

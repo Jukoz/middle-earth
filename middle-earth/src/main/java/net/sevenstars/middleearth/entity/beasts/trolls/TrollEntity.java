@@ -1,14 +1,5 @@
 package net.sevenstars.middleearth.entity.beasts.trolls;
 
-import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.ModEntities;
-import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.goals.*;
-import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.Disposition;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -16,20 +7,30 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.goals.*;
+import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.resources.datas.common.RaceType;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class TrollEntity extends AbstractBeastEntity {
@@ -42,25 +43,19 @@ public class TrollEntity extends AbstractBeastEntity {
 
     public static final TrackedData<Boolean> THROWING = DataTracker.registerData(TrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-
-    /* Temporary disabled until next update
-    @Override
-    public boolean hasArmorSlot() {
-        return false;
-    }*/
-
     public TrollEntity(EntityType<? extends TrollEntity> entityType, World world) {
         super(entityType, world);
     }
 
     public static DefaultAttributeContainer.Builder setAttributes() {
-        return MobEntity.createMobAttributes()
+        return AnimalEntity.createAnimalAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.35f)
                 .add(EntityAttributes.MAX_HEALTH, 120.0)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.6)
                 .add(EntityAttributes.ATTACK_SPEED, 0.9)
                 .add(EntityAttributes.FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 10.0)
+                .add(EntityAttributes.STEP_HEIGHT, 1.25)
                 .add(EntityAttributes.JUMP_STRENGTH, 0.0);
     }
 
@@ -160,8 +155,23 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    protected Disposition getDisposition() {
-        return Disposition.EVIL;
+    public boolean canBeLeashed() {
+        return false;
+    }
+
+    @Override
+    public DispositionType getDisposition() {
+        return DispositionType.EVIL;
+    }
+
+    @Override
+    public List<RaceType> getCompatibleRaces() {
+        return null;
+    }
+
+    @Override
+    public boolean usesTameness() {
+        return false;
     }
 
     @Override
@@ -174,47 +184,49 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        nbt.putBoolean("ChestedTroll", this.hasChest());
+    public boolean isFoodItem(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putBoolean("ChestedTroll", this.hasChest());
         if (this.hasChest()) {
-            NbtList nbtList = new NbtList();
-            for(int i = 2; i < this.items.size(); ++i) {
+            WriteView.ListAppender<StackWithSlot> listAppender = view.getListAppender("Items", StackWithSlot.CODEC);
+
+            for(int i = 0; i < this.items.size(); ++i) {
                 ItemStack itemStack = this.items.getStack(i);
                 if (!itemStack.isEmpty()) {
-                    NbtCompound nbtCompound = new NbtCompound();
-                    nbtCompound.putByte("Slot", (byte)i);
-                    nbtList.add(itemStack.toNbt(this.getRegistryManager()));
+                    listAppender.add(new StackWithSlot(i, itemStack));
                 }
             }
-            nbt.put("Items", nbtList);
         }
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        this.setHasChest(nbt.getBoolean("ChestedTroll"));
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.setHasChest(view.getBoolean("ChestedTroll", false));
         this.onChestedStatusChanged();
         if (this.hasChest()) {
-            NbtList nbtList = nbt.getList("Items", 10);
+            Iterator list = view.getTypedListView("Items", StackWithSlot.CODEC).iterator();
 
-            for(int i = 0; i < nbtList.size(); ++i) {
-                NbtCompound nbtCompound = nbtList.getCompound(i);
-                int j = nbtCompound.getByte("Slot") & 255;
-                if (j >= 2 && j < this.items.size()) {
-                    this.items.setStack(j, ItemStack.fromNbt(getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
+            while(list.hasNext()) {
+                StackWithSlot stackWithSlot = (StackWithSlot)list.next();
+                if (stackWithSlot.isValidSlot(this.items.size())) {
+                    this.items.setStack(stackWithSlot.slot(), stackWithSlot.stack());
                 }
             }
         }
-        if (nbt.contains("SaddleItem", 10)) {
-            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem")).orElse(ItemStack.EMPTY);
+        /*if (nbt.contains("SaddleItem")) {
+            ItemStack itemStack = (ItemStack)ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("SaddleItem").get()).orElse(ItemStack.EMPTY);
             if (itemStack.isOf(Items.SADDLE)) {
                 this.items.setStack(0, itemStack);
             }
-        }
+        }*/
 
-        this.updateSaddledFlag();
+        //this.updateSaddledFlag(); // TODO
     }
 
     @Override
@@ -299,9 +311,7 @@ public class TrollEntity extends AbstractBeastEntity {
     public void throwAttack() {
         Entity target = this.getTarget();
         if(target instanceof PlayerEntity player) {
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            Disposition playerDisposition = data.getCurrentDisposition();
-            if(playerDisposition == this.getDisposition()){
+            if(PlayerDataService.getPlayerDisposition(player, getWorld()) == this.getDisposition()){
                 return;
             }
         }
@@ -310,7 +320,7 @@ public class TrollEntity extends AbstractBeastEntity {
             this.setThrowing(false);
 
             Vec3d rotationVec = this.getRotationVec(1.0f);
-            BoulderEntity boulder = new BoulderEntity(ModEntities.BOULDER, this.getWorld());
+            BoulderEntity boulder = new BoulderEntity(EntitiesME.BOULDER, this.getWorld());
             double x = target.getX() - this.getX();
             double y = target.getBodyY(0.3333333333333333) - boulder.getY();
             double z = target.getZ() - this.getZ();
@@ -342,12 +352,12 @@ public class TrollEntity extends AbstractBeastEntity {
         }
 
         for(Entity entity : entities) {
-            if(entity.getUuid() != this.getOwnerUuid() && entity != this && !this.getPassengerList().contains(entity)) {
+            if(entity != this.getOwner() && entity != this && !this.getPassengerList().contains(entity)) {
                 if(getWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 16.0f);
             }
         }
-        this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         this.chargeAnimationState.startIfNotRunning(this.age);
     }
 }

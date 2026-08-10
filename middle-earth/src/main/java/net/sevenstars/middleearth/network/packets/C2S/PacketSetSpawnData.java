@@ -1,10 +1,9 @@
 package net.sevenstars.middleearth.network.packets.C2S;
 
+import net.minecraft.world.dimension.DimensionTypes;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -12,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class PacketSetSpawnData extends ClientToServerPacket<PacketSetSpawnData>
 {
@@ -48,13 +48,12 @@ public class PacketSetSpawnData extends ClientToServerPacket<PacketSetSpawnData>
         try{
             context.player().getServer().execute(() -> {
 
-                MinecraftServer server = context.player().server;
+                MinecraftServer server = context.player().getServer();
                 ServerPlayerEntity player = server.getPlayerManager().getPlayer(context.player().getUuid());
 
-                PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
 
                 BlockPos overworldSpawnBlockpos = new BlockPos(overworldX, overworldY, overworldZ);
-                playerState.setOverworldSpawn(overworldSpawnBlockpos);
+                PlayerDataService.setOrigin(player, player.getWorld(), DimensionTypes.OVERWORLD_ID, overworldSpawnBlockpos);
             });
         } catch (Exception e){
             MiddleEarth.LOGGER.logError("SpawnDataPacket::Apply - Tried applying the spawn data packet",e);

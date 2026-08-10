@@ -1,0 +1,13 @@
+{
+  "asset_id": "middle-earth:gondorian_tapestry",
+  "height": 6,
+  "width": 3,
+  "author": {
+    "color": "gray",
+    "translate": "painting.middle-earth.author.boenndal"
+  },
+  "title": {
+  "color": "yellow",
+  "translate": "painting.middle-earth.gondorian_tapestry.title"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MSM",
+    " S "
+  ],
+  "key": {
+    "M": "middle-earth:khazad_steel_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "middle-earth:dwarven_smithing_hammer",
+    "count": 1
+  }
+}

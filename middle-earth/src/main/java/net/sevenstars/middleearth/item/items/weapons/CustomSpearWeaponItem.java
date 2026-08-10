@@ -1,9 +1,7 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
 import net.minecraft.item.Item;
-import net.sevenstars.middleearth.item.utils.ModWeaponTypes;
-import net.sevenstars.middleearth.utils.ModFactions;
-import net.sevenstars.middleearth.utils.ModSubFactions;
+import net.sevenstars.middleearth.item.utils.WeaponTypesME;
 import net.minecraft.item.ToolMaterial;
 
 public class CustomSpearWeaponItem extends ReachWeaponItem {
@@ -12,20 +10,11 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     private static final int STRENGTH_CHARGE_TIME = 20;
 
     public float pullProgress = 0;
-    public ModFactions faction;
-    public ModSubFactions subFaction;
-    public ModWeaponTypes type;
+    public WeaponTypesME type;
 
     public CustomSpearWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, ModWeaponTypes.SPEAR, settings);
-    }
-
-    public CustomSpearWeaponItem(ToolMaterial toolMaterial, ModFactions faction, Item.Settings settings) {
-        super(toolMaterial, faction, ModWeaponTypes.SPEAR, settings);
-    }
-
-    public CustomSpearWeaponItem(ToolMaterial toolMaterial, ModSubFactions subFaction, Item.Settings settings) {
-        super(toolMaterial, subFaction, ModWeaponTypes.SPEAR, settings);
+        super(toolMaterial, WeaponTypesME.SPEAR, settings);
+        this.type = WeaponTypesME.SPEAR;
     }
 
     /*public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {

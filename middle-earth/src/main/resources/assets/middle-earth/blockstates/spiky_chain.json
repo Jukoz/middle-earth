@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "middle-earth:block/spiky_chain",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "middle-earth:block/spiky_chain"
+    },
+    "axis=z": {
+      "model": "middle-earth:block/spiky_chain",
+      "x": 90
+    }
+  }
+}

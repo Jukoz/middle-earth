@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:old_cardolan",  
+	"middle-earth:old_arthedain",
+	"middle-earth:eastern_rhovanion"
+  ]
+}

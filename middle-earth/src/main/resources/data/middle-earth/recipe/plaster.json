@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:water_bucket",
+    "#minecraft:smelts_to_glass",
+    "#minecraft:smelts_to_glass",
+    "#minecraft:smelts_to_glass",
+    "#minecraft:smelts_to_glass",
+    "minecraft:clay",
+    "minecraft:clay",
+    "minecraft:clay",
+    "minecraft:clay"
+  ],
+  "result": {
+    "id": "middle-earth:plaster",
+    "count": 8
+  }
+}

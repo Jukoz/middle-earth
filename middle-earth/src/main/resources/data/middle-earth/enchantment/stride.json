@@ -1,0 +1,35 @@
+{
+  "anvil_cost": 7,
+  "description": {
+    "translate": "enchantment.middle-earth.stride"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.005,
+          "per_level_above_first": 0.005
+        },
+        "attribute": "minecraft:movement_speed",
+        "id": "minecraft:middle-earth.stride",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "exclusive_set": "#middle-earth:exclusive_set/stride",
+  "max_cost": {
+    "base": 75,
+    "per_level_above_first": 25
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 25
+  },
+  "slots": [
+    "legs"
+  ],
+  "supported_items": "#middle-earth:enchantable/light_leg",
+  "weight": 1
+}

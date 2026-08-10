@@ -1,0 +1,47 @@
+{
+  "parent": "middle-earth:middle_earth/walk_mirkwood",
+  "criteria": {
+    "woodland_realm": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": [
+                  "middle-earth:autumn_woodland",
+                  "middle-earth:woodland_realm",
+                  "middle-earth:woodland_foothills",
+                  "middle-earth:woodland_hills"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.middle_earth.enter_woodland_realm.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id":  "middle-earth:orange_maple_leaves"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.middle_earth.enter_woodland_realm.title"
+    }
+  },
+  "requirements": [
+    [
+      "woodland_realm"
+    ]
+  ]
+}
