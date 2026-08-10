@@ -4,16 +4,25 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.TintedParticleLeavesBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 
 public class ModLeavesBlock extends TintedParticleLeavesBlock {
     final protected boolean castShadow;
@@ -72,5 +81,14 @@ public class ModLeavesBlock extends TintedParticleLeavesBlock {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         BlockState blockState = (this.getDefaultState().with(PERSISTENT, true)).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
         return updateDistanceFromLogs(blockState, ctx.getWorld(), ctx.getBlockPos());
+    }
+
+    @Override
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (stack.isOf(Items.BONE_MEAL) && state.isOf(WoodBlockSets.MALLORN_SET.leaves)) {
+            world.setBlockState(pos, ModNatureBlocks.FLOWERING_MALLORN_LEAVES.getDefaultState());
+            return ActionResult.SUCCESS;
+        }
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 }
