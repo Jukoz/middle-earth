@@ -40,7 +40,6 @@ import net.sevenstars.middleearth.config.ModServerConfigs;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
