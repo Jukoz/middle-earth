@@ -10,7 +10,7 @@ public class SnailEntityModel extends EntityModel<SnailEntityRenderState> {
 
     private final Animation walkingAnimation;
 
-    protected SnailEntityModel(ModelPart root) {
+    public SnailEntityModel(ModelPart root) {
         super(root);
         this.walkingAnimation = SnailEntityAnimations.CRAWL.createAnimation(root);
     }

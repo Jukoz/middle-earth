@@ -34,6 +34,7 @@ import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
+import net.sevenstars.middleearth.entity.trader.SnailTrader;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
@@ -41,6 +42,7 @@ import java.util.function.Supplier;
 public class EntitiesME {
     // Npc
     public static final EntityType<NpcEntity> NPC = register("npc", EntityType.Builder.create(NpcEntity::new, SpawnGroup.MONSTER).dimensions(0.8f, 1.8f));
+    public static final EntityType<SnailTrader> SNAIL_TRADER = register("snail_trader", EntityType.Builder.create(SnailTrader::new, SpawnGroup.CREATURE).dimensions(0.3f, 0.3f));
 
     // Mounts
     public static final EntityType<WargEntity> WARG = register("warg", EntityType.Builder.create(WargEntity::new, SpawnGroup.CREATURE).dimensions(1.4f, 1.4f));
@@ -132,6 +134,7 @@ public class EntitiesME {
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(NPC, NpcEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(SNAIL_TRADER, SnailTrader.createSnailAttributes());
         registerSpawnRestrictions();
     }
 

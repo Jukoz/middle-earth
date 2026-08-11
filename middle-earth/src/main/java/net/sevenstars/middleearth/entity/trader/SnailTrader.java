@@ -35,13 +35,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOfferList;
 import net.minecraft.village.TradedItem;
-import net.minecraft.village.VillagerData;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.*;
-import net.sevenstars.middleearth.item.ModResourceItems;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntityVariant;
 
 import org.jetbrains.annotations.Nullable;
@@ -85,7 +84,7 @@ public class SnailTrader extends MerchantEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.SNAIL_TRADER.create(world, SpawnReason.BREEDING);
+        return EntitiesME.SNAIL_TRADER.create(world, SpawnReason.BREEDING);
     }
 
     static class SnailEatCropGoal
@@ -259,30 +258,30 @@ public class SnailTrader extends MerchantEntity {
     @Override
     protected void fillRecipes() {
         this.offers = new TradeOfferList();
-        offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 1),
+        offers.add(new TradeOffer(new TradedItem(ResourceItemsME.COPPER_COIN, 1),
                 Items.WHEAT_SEEDS.getDefaultStack().copyWithCount(2), 16, 2, 1.25f));
-        offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 2),
+        offers.add(new TradeOffer(new TradedItem(ResourceItemsME.COPPER_COIN, 2),
                 Items.WHEAT.getDefaultStack().copyWithCount(3), 16, 5, 1.15f));
 
         if(level >= 2) {
-            offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 4),
+            offers.add(new TradeOffer(new TradedItem(ResourceItemsME.COPPER_COIN, 4),
                 Items.POTATO.getDefaultStack().copyWithCount(2), 16, 10, 1.5f));
         }
         if(level >= 3) {
-            offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 9),
-                    ModResourceItems.BELL_PEPPER_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
-            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
+            offers.add(new TradeOffer(new TradedItem(ResourceItemsME.COPPER_COIN, 9),
+                    ResourceItemsME.BELL_PEPPER_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
+            offers.add(new TradeOffer(new TradedItem(ResourceItemsME.SILVER_COIN, 1),
                     Items.MELON_SEEDS.getDefaultStack().copyWithCount(2), 16, 20, 2f));
         }
         if(level >= 4) {
-            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 1),
-                    ModResourceItems.SILVER_NUGGET.getDefaultStack().copyWithCount(4), 16, 25, 3f));
+            offers.add(new TradeOffer(new TradedItem(ResourceItemsME.SILVER_COIN, 1),
+                    ResourceItemsME.SILVER_NUGGET.getDefaultStack().copyWithCount(4), 16, 25, 3f));
 
-            offers.add(new TradeOffer(new TradedItem(ModResourceItems.SILVER_COIN, 3),
+            offers.add(new TradeOffer(new TradedItem(ResourceItemsME.SILVER_COIN, 3),
                     Items.SLIME_BALL.getDefaultStack().copyWithCount(2), 16, 40, 3f));
         }
         if(level >= 5) {
-            offers.add(new TradeOffer(new TradedItem(ModResourceItems.GOLD_COIN, 1),
+            offers.add(new TradeOffer(new TradedItem(ResourceItemsME.GOLD_COIN, 1),
                     Items.BAMBOO.getDefaultStack().copyWithCount(5), 16, 50, 3f));
         }
     }
@@ -331,9 +330,9 @@ public class SnailTrader extends MerchantEntity {
 
     //public void createTrades() {
     //    this.offers = new TradeOfferList();
-    //    offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 1),
+    //    offers.add(new TradeOffer(new TradedItem(ResourceItemsME.COPPER_COIN, 1),
     //            Items.SLIME_BALL.getDefaultStack().copyWithCount(2), 16, 0, 1.25f));
-    //    offers.add(new TradeOffer(new TradedItem(ModResourceItems.COPPER_COIN, 2),
+    //    offers.add(new TradeOffer(new TradedItem(ResourceItemsME.COPPER_COIN, 2),
     //            Items.WHEAT.getDefaultStack().copyWithCount(3), 16, 0, 1.15f));
     //}
 
