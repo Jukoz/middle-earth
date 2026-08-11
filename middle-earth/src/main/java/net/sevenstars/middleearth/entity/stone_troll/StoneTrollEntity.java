@@ -1,6 +1,9 @@
 package net.sevenstars.middleearth.entity.stone_troll;
 
+import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.conversion.EntityConversionContext;
@@ -8,21 +11,29 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollBrain;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -35,6 +46,7 @@ public class StoneTrollEntity extends PathAwareEntity {
     );
     private final int PETRIFYING_DURATION = 600;
 
+    //region Init
     public StoneTrollEntity(EntityType<? extends StoneTrollEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -42,8 +54,8 @@ public class StoneTrollEntity extends PathAwareEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 100.0f)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.1f)
-                .add(EntityAttributes.FOLLOW_RANGE, 15.0f)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.15f)
+                .add(EntityAttributes.FOLLOW_RANGE, 13.0f)
                 .add(EntityAttributes.STEP_HEIGHT, 1.25f)
                 .add(EntityAttributes.ATTACK_DAMAGE, 10)
                 .add(EntityAttributes.ATTACK_SPEED, 0.65f)
@@ -55,27 +67,28 @@ public class StoneTrollEntity extends PathAwareEntity {
         super.initDataTracker(builder);
         builder.add(PETRIFYING, PETRIFYING_DURATION);
     }
-    public void setPetrifying(int petrifying) {
-        this.dataTracker.set(PETRIFYING, petrifying);
-    }
-    public int getPetrifying() {
-        return this.dataTracker.get(PETRIFYING);
-    }
-    public boolean isPetrified() {
-        return this.dataTracker.get(PETRIFYING) == -1;
+
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return StoneTrollBrain.create(this, dynamic);
     }
 
+    public Brain<StoneTrollEntity> getBrain() {
+        return (Brain<StoneTrollEntity>)super.getBrain();
+    }
+
+    //endregion
+
+    //region Tick-based methods
     @Override
-    protected boolean isAffectedByDaylight() {
-        if (this.getWorld().isDay() && !this.getWorld().isClient()) {
-            if(this.getWorld().getBiome(getBlockPos()).isIn(TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_biome_in_darkness")))){
-                return false;
-            }
-            float f = this.getWorld().getBlockState(getBlockPos()).getAmbientOcclusionLightLevel(getWorld(), getBlockPos());
-            BlockPos blockPos = BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ());
-            return f > 0.5f && this.getWorld().isSkyVisible(blockPos);
-        }
-        return false;
+    protected void mobTick(ServerWorld world) {
+        Profiler profiler = Profilers.get();
+        profiler.push("stoneTrollBrain");
+        this.getBrain().tick(world, this);
+        profiler.swap("caveTrollActivityUpdate");
+        StoneTrollBrain.updateActivities(this);
+        profiler.pop();
+
+        super.mobTick(world);
     }
 
     @Override
@@ -104,6 +117,41 @@ public class StoneTrollEntity extends PathAwareEntity {
 
         super.tickMovement();
     }
+    //endregion
+
+    //region Getters/Setters
+    public void setPetrifying(int petrifying) {
+        this.dataTracker.set(PETRIFYING, petrifying);
+    }
+    public int getPetrifying() {
+        return this.dataTracker.get(PETRIFYING);
+    }
+    public boolean isPetrified() {
+        return this.dataTracker.get(PETRIFYING) == -1;
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return getTargetInBrain();
+    }
+    //endregion
+
+
+    @Override
+    protected boolean isAffectedByDaylight() {
+        if (this.getWorld().isDay() && !this.getWorld().isClient()) {
+            if(this.getWorld().getBiome(getBlockPos()).isIn(TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_biome_in_darkness")))){
+                return false;
+            }
+            float f = this.getWorld().getBlockState(getBlockPos()).getAmbientOcclusionLightLevel(getWorld(), getBlockPos());
+            BlockPos blockPos = BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ());
+            return f > 0.5f && this.getWorld().isSkyVisible(blockPos);
+        }
+        return false;
+    }
+
+
 
     public void turnToStone() {
         this.setAiDisabled(true);

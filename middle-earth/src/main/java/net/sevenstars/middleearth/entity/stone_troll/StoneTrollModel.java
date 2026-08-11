@@ -6,17 +6,19 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
 
-public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
+public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
     private final ModelPart head;
 
-    //private final Animation walkingAnimation;
+    private final Animation walkContentAnimation;
+    private final Animation walkUpsetAnimation;
 
     public StoneTrollModel(ModelPart root) {
         super(root);
 
         this.head = root.getChild("root").getChild("body").getChild("body_no_arms").getChild("head");
 
-        //this.walkingAnimation = StoneTrollAnimations.WALK.createAnimation(root);
+        this.walkContentAnimation = StoneTrollAnimations.HAPPY_STROLL.createAnimation(root);
+        this.walkUpsetAnimation = StoneTrollAnimations.AGGRESSIVE_WALK.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -49,11 +51,11 @@ public class StoneTrollModel extends EntityModel<TrollEntityRenderState> {
         return TexturedModelData.of(modelData, 196, 196);
     }
     @Override
-    public void setAngles(TrollEntityRenderState state) {
+    public void setAngles(StoneTrollRenderState state) {
         super.setAngles(state);
         this.setHeadAngles(state.relativeHeadYaw, state.pitch);
 
-        //this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 1.0F, 2.5F);
+        this.walkContentAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.8F, 2.8F); // Walk Animation when Anger is below 50
         //this.attackingAnimation.apply(state.attackAnimationState, state.age);
     }
 

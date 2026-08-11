@@ -40,7 +40,8 @@ public class StoneTrollBrain {
 
     private static void addIdleActivities(Brain<StoneTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-
+                    Pair.of(0, StrollTask.create(1.0F, false)),
+                    Pair.of(0, LookAtMobTask.create(5))
                 ),
                 ImmutableSet.of(
 

@@ -5,5 +5,5 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 
 @Environment(EnvType.CLIENT)
-public class StoneTrollAnimationRenderState extends LivingEntityRenderState {
+public class StoneTrollRenderState extends LivingEntityRenderState {
 }
