@@ -229,17 +229,17 @@ public class ModEvents {
     private static void breakAndDamage(World world, PlayerEntity player, BlockPos blockpos, ItemStack stack, float hardness){
         ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
         BlockState blockState = world.getBlockState(blockpos);
-        if (!blockState.isAir()) {
-            if (toolComponent.isCorrectForDrops(blockState)){
-                if (blockState.getBlock().getHardness() <= hardness){
-                    BlockState state = world.getBlockState(blockpos);
-                    BlockEntity blockEntity = state.hasBlockEntity()
+
+        if (!blockState.isAir() && toolComponent != null) {
+            if (toolComponent.isCorrectForDrops(blockState)) {
+                if (blockState.getBlock().getHardness() <= hardness) {
+                    BlockEntity blockEntity = blockState.hasBlockEntity()
                             ? world.getBlockEntity(blockpos)
                             : null;
-                    stack.postMine(world, state, blockpos, player);
-                    world.removeBlock(blockpos, false);
-                    Block.dropStacks(state, world, blockpos, blockEntity, player, stack);
-                    state.getBlock().afterBreak(world, player, blockpos, state, blockEntity, stack);
+
+                    Block.dropStacks(blockState, world, blockpos, blockEntity, player, stack);
+                    world.breakBlock(blockpos, false, player);
+                    stack.postMine(world, blockState, blockpos, player);
                 }
             }
         }
