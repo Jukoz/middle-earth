@@ -4,7 +4,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.pools.MoriaNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.MoriaNpcTypePool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
@@ -26,23 +26,23 @@ public class MoriaFactionPool {
         MORIA = new Faction(FactionRegistry.MORIA, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MoriaNpcDataPool.GOBLIN
+                            MoriaNpcTypePool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MoriaNpcDataPool.MILITIA,
-                            MoriaNpcDataPool.SCOUT
+                            MoriaNpcTypePool.MILITIA,
+                            MoriaNpcTypePool.SCOUT
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MoriaNpcDataPool.WARRIOR
+                            MoriaNpcTypePool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MoriaNpcDataPool.RIDER
+                            MoriaNpcTypePool.RIDER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MoriaNpcDataPool.VETERAN
+                            MoriaNpcTypePool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MoriaNpcDataPool.CHIEF
+                            MoriaNpcTypePool.CHIEF
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

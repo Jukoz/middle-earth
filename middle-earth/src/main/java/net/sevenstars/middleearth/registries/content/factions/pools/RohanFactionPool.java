@@ -14,8 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npcs.pools.RohirricNpcDataPool;
-import net.sevenstars.api.utils.IdentifierUtil;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.RohirricNpcTypePool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -29,24 +28,24 @@ public class RohanFactionPool {
         ROHAN = new Faction(FactionRegistry.ROHAN, true, DispositionType.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        RohirricNpcDataPool.MILITIA
+                        RohirricNpcTypePool.MILITIA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                        RohirricNpcDataPool.MILITIA
+                        RohirricNpcTypePool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                        RohirricNpcDataPool.SOLDIER
+                        RohirricNpcTypePool.SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                        RohirricNpcDataPool.KNIGHT
+                        RohirricNpcTypePool.KNIGHT
                     ));
                     put(NpcRank.VETERAN, List.of(
-                        RohirricNpcDataPool.KNIGHT,
-                        RohirricNpcDataPool.ROYAL_GUARD
+                        RohirricNpcTypePool.KNIGHT,
+                        RohirricNpcTypePool.ROYAL_GUARD
                     ));
                     put(NpcRank.LEADER, List.of(
-                        RohirricNpcDataPool.HORSE_LORD,
-                        RohirricNpcDataPool.EORLING_MARSHAL
+                        RohirricNpcTypePool.HORSE_LORD,
+                        RohirricNpcTypePool.EORLING_MARSHAL
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

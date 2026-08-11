@@ -1,15 +1,19 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
@@ -29,12 +33,26 @@ public class ServerWorldMixin {
     // Reason of addition
     // MC-188578 - Sleeping in a bed in a custom dimension doesn't set time to day
     // Link : https://bugs.mojang.com/browse/MC-188578
-    @Inject(method = "wakeSleepingPlayers", at = @At(value = "RETURN"))
+    @Inject(method = "wakeSleepingPlayers", at = @At("TAIL"))
     private void wakeSleepingPlayers(CallbackInfo ci) {
+        ServerWorld world = (ServerWorld) (Object) this;
+
+        if (world.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE)) {
+            long currentTimeOfDay = world.getTimeOfDay() + 24000L;
+            world.setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
+        }
+
         // The math is like vanilla (ServerWorld lines ~[310-319])
         if (server.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE)) {
             long currentTimeOfDay = server.getWorld(World.OVERWORLD).getTimeOfDay() + 24000L;
             server.getWorld(World.OVERWORLD).setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
         }
+    }
+
+    @Inject(method = "spawnEntity", at = @At("TAIL"))
+    private void onSpawn(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        if (!cir.getReturnValue() || !(entity instanceof LivingEntity living))
+            return;
+        BiomeEventDataLookup.addEntity(living);
     }
 }

@@ -107,7 +107,7 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.CELEBDIL_PEAKS, MEBiomeDataConfigs.celebdilPeaks, MEBiomeDataConfigs.mistyMountainsLayers,
                 new BiomeColorsDTO(hillySky, defaultFog, defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         // CORSAIR COASTS
-        addBiome(new BiomeData(MEBiomeKeys.CORSAIR_COASTS, MEBiomeDataConfigs.corsairCoasts, MEBiomeDataConfigs.sandstoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.CORSAIR_COASTS, MEBiomeDataConfigs.corsairCoasts, MEBiomeDataConfigs.sandstoneTravertineLayers,
                 new BiomeColorsDTO(nearHaradSky, defaultFog, 5212644, 333363, 12107900, 10860366), CaveType.HARAD));
         // DAGORLAD
         addBiome(new BiomeData(MEBiomeKeys.DAGORLAD, MEBiomeDataConfigs.mordorGrass, MEBiomeDataConfigs.stoneLayers,
@@ -236,13 +236,13 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.GUNDABAD_WOODS, MEBiomeDataConfigs.coarseLoam, MEBiomeDataConfigs.stoneLayers,
                 new BiomeColorsDTO(11315633, 10855857, 7768221, 5597568, 8036220, 7511410)));
         // HARAD
-        addBiome(new BiomeData(MEBiomeKeys.HARAD, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.HARAD, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneTravertineLayers,
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 12301405, 13356379), CaveType.HARAD));
         addBiome(new BiomeData(MEBiomeKeys.HARAD_DESERT, MEBiomeDataConfigs.harad, MEBiomeDataConfigs.sandstoneLayers,
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 13419633, 9615182), CaveType.HARAD));
-        addBiome(new BiomeData(MEBiomeKeys.HARAD_WOODS, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.HARAD_WOODS, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneTravertineLayers,
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5407446, 1120828, 11515226, 12240727), CaveType.HARAD));
-        addBiome(new BiomeData(MEBiomeKeys.HARONDOR, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.HARONDOR, MEBiomeDataConfigs.nearHarad, MEBiomeDataConfigs.sandstoneTravertineLayers,
                 new BiomeColorsDTO(nearHaradSky, nearHaradSkyFog, 5406149, 1120828, 12305028, 10860366), CaveType.HARAD));
         // HIGH MOOR
         addBiome(new BiomeData(MEBiomeKeys.HIGH_MOOR, MEBiomeDataConfigs.chalkPlains, MEBiomeDataConfigs.chalkLayers,
@@ -575,9 +575,9 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.UDUN, MEBiomeDataConfigs.mordor, MEBiomeDataConfigs.ashenStoneLayers,
                 new BiomeColorsDTO(4273461, 2826529, 6450777, 1513734, 3549478, 2695966), CaveType.ASHEN));
         // UMBAR
-        addBiome(new BiomeData(MEBiomeKeys.UMBAR, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.UMBAR, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.sandstoneTravertineLayers,
                 new BiomeColorsDTO(7254527, 12638463, 5212644, 333363, 11059059, 9284946), CaveType.HARAD));
-        addBiome(new BiomeData(MEBiomeKeys.UMBAR_WOODS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.UMBAR_WOODS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.sandstoneTravertineLayers,
                 new BiomeColorsDTO(7317996, 12308721, 5212644, 333363, 9876841, 8955470), CaveType.HARAD));
         // WEBBED WOODS
         addBiome(new BiomeData(MEBiomeKeys.WEBBED_WOODS, MEBiomeDataConfigs.grassPlains, MEBiomeDataConfigs.stoneLayers,
@@ -593,13 +593,13 @@ public class MapBiomeData {
         addBiome(new BiomeData(MEBiomeKeys.WHITE_MOUNTAINS_PEAKS, MEBiomeDataConfigs.whitePeaks, MEBiomeDataConfigs.whiteMountainsLayers,
                 new BiomeColorsDTO(hillySky, 12638463, defaultWater, defaultWaterFog, 7185769, 6857066), CaveType.MOUNTAINS));
         // WOODLANDS
-        addBiome(new BiomeData(MEBiomeKeys.WOODLAND_REALM, MEBiomeDataConfigs.loamPlains, MEBiomeDataConfigs.limeStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.WOODLAND_REALM, MEBiomeDataConfigs.loamPlains, MEBiomeDataConfigs.limeStoneTravertineLayers,
                 new BiomeColorsDTO(8497918, 10666932, 4492967, 471355, 3960119, 3370029), CaveType.ELVEN));
-        addBiome(new BiomeData(MEBiomeKeys.WOODLAND_FOOTHILLS, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.WOODLAND_FOOTHILLS, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneTravertineLayers,
                 new BiomeColorsDTO(9614583, 12242629, 4492967, 471355, 4420926, 3567152), CaveType.ELVEN));
-        addBiome(new BiomeData(MEBiomeKeys.WOODLAND_GLADE, MEBiomeDataConfigs.loamPlains, MEBiomeDataConfigs.limeStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.WOODLAND_GLADE, MEBiomeDataConfigs.loamPlains, MEBiomeDataConfigs.limeStoneTravertineLayers,
                 new BiomeColorsDTO(8826622, 12242629, 4492967, 471355, 5408076, 4950339), CaveType.ELVEN));
-        addBiome(new BiomeData(MEBiomeKeys.AUTUMN_WOODLAND, MEBiomeDataConfigs.loamPlains, MEBiomeDataConfigs.limeStoneLayers,
+        addBiome(new BiomeData(MEBiomeKeys.AUTUMN_WOODLAND, MEBiomeDataConfigs.loamPlains, MEBiomeDataConfigs.limeStoneTravertineLayers,
                 new BiomeColorsDTO(8826622, 8293248, 4492967, 471355, 6981960, 6261059), CaveType.ELVEN));
         addBiome(new BiomeData(MEBiomeKeys.WOODLAND_HILLS, MEBiomeDataConfigs.limeStoneHills, MEBiomeDataConfigs.limeStoneLayers,
                 new BiomeColorsDTO(9614583, 12242629, 4492967, 471355, 4748611, 4093495), CaveType.ELVEN));

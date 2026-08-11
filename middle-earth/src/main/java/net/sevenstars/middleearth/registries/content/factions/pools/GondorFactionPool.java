@@ -5,7 +5,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.pools.GondorianNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.GondorianNpcTypePool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.api.utils.IdentifierUtil;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -29,25 +28,25 @@ public class GondorFactionPool {
         GONDOR = new Faction(FactionRegistry.GONDOR, true, DispositionType.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        GondorianNpcDataPool.PEASANT
+                        GondorianNpcTypePool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
-                        GondorianNpcDataPool.MILITIA
+                        GondorianNpcTypePool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                        GondorianNpcDataPool.SOLDIER
+                        GondorianNpcTypePool.SOLDIER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                        GondorianNpcDataPool.KNIGHT
+                        GondorianNpcTypePool.KNIGHT
                     ));
                     put(NpcRank.VETERAN, List.of(
-                        GondorianNpcDataPool.VETERAN,
-                        GondorianNpcDataPool.KING_GUARD,
-                        GondorianNpcDataPool.CITADEL_GUARD,
-                        GondorianNpcDataPool.FOUNTAIN_GUARD
+                        GondorianNpcTypePool.VETERAN,
+                        GondorianNpcTypePool.KING_GUARD,
+                        GondorianNpcTypePool.CITADEL_GUARD,
+                        GondorianNpcTypePool.FOUNTAIN_GUARD
                     ));
                     put(NpcRank.LEADER, List.of(
-                            GondorianNpcDataPool.LEADER
+                            GondorianNpcTypePool.LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

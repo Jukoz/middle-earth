@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -120,7 +121,17 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                     this.backward = true;
                 }
 
-                this.actor.getMoveControl().strafeTo(this.backward ? -0.5F : 0.5F, this.movingToLeft ? 0.5F : -0.5F);
+                float input = 0.5F;
+                if (this.actor.hasVehicle() && this.actor.getVehicle() instanceof LivingEntity mount) {
+                    double speed = mount.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
+                    input = (float)Math.max(0.15F, Math.min(0.3F, speed * input));
+                }
+
+                this.actor.getMoveControl().strafeTo(
+                        this.backward ? -input : input,
+                        this.movingToLeft ? input : -input
+                );
+
                 Entity var7 = this.actor.getControllingVehicle();
                 if (var7 instanceof MobEntity mobEntity) {
                     mobEntity.lookAtEntity(livingEntity, 30.0F, 30.0F);
@@ -137,7 +148,7 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                 } else if (bl) {
                     int i = this.actor.getItemUseTime();
                     ItemStack itemStack = this.actor.getMainHandStack();
-                    if (i >= 20) {
+                    if (i >= 20 && !livingEntity.isInvulnerable()) {
                         if(itemStack.getItem() instanceof CustomLongbowWeaponItem) {
                             if(i >= 30) {
                                 this.actor.shootAt(livingEntity, 2.5f);

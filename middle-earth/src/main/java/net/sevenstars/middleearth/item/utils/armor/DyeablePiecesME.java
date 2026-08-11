@@ -15,6 +15,7 @@ public class DyeablePiecesME {
 
     public static void addDyeablePieces() {
         dyeablePieces.put(EquipmentItemsME.BYCOCKET, false);
+        dyeablePieces.put(EquipmentItemsME.BEEKEEPER_MASK, true);
         dyeablePieces.put(EquipmentItemsME.WANDERER_HAT, true);
         dyeablePieces.put(EquipmentItemsME.ARMING_COAT, true);
         dyeablePieces.put(EquipmentItemsME.ARMING_SKIRT, true);

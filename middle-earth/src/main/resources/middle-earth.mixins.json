@@ -7,6 +7,7 @@
     "AbstractHorseEntityMixin",
     "AnvilScreenHandlerMixin",
     "BannerPatternRegisterMixin",
+    "BeehiveBlockMixin",
     "BlockEntityTypeMixin",
     "BlockMixin",
     "CarvedPumpkinBlockMixin",
@@ -17,6 +18,7 @@
     "CropBlockMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
+    "FilledMapItemMixin",
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
     "GrassBlockMixin",
@@ -31,6 +33,7 @@
     "ServerWorldMixin",
     "ShearItemMixin",
     "ShovelItemMixin",
+    "SpawnHelperMixin",
     "ToolItemMixin",
     "TrunkPlacerTypeInvoker"
   ],

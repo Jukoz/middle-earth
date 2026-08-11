@@ -1,15 +1,17 @@
 package net.sevenstars.middleearth.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -18,11 +20,12 @@ import net.sevenstars.middleearth.block.registration.GenericBlockSets;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
-import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npcs.NpcData;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -30,34 +33,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ItemGroupsME {
-
-    private static final Comparator<RegistryEntry<NpcData>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcData::getId));
-
-    private static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcData> registryWrapper, Predicate<RegistryEntry<NpcData>> filter, ItemGroup.StackVisibility stackVisibility) {
-        Identifier randomSpawnEggId = MiddleEarth.of("npc_random_spawn_egg");
-
-        ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
-
-        NbtCompound randomCompound = new NbtCompound();
-        randomCompound.putString("id", MiddleEarth.of("npc").toString());
-        randomCompound.putString("NpcDataId", NpcEntityInitializer.RANDOM.toString());
-        randomNpcSpawnEgg.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(randomCompound));
-        randomNpcSpawnEgg.set(DataComponentTypes.ITEM_NAME, Text.translatable(randomSpawnEggId.toTranslationKey("item")));
-        randomNpcSpawnEgg.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
-                List.of(),
-                List.of(),
-                List.of(randomSpawnEggId.getPath().replaceAll("\\.", "_")),
-                List.of()));
-
-        entries.add(randomNpcSpawnEgg);
-
-        registryWrapper.streamEntries().filter(filter).sorted(NPC_DATA_COMPARATOR).forEach(reference -> {
-            ItemStack spawnEgg = NpcSpawnEggHelper.getSpawnEgg(reference.value());
-            entries.add(spawnEgg, stackVisibility);
-        });
-    }
-
-
     public static final List<ItemStack> STONE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup STONE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable(MiddleEarth.of("stone_blocks").toTranslationKey("itemGroup")))
@@ -99,6 +74,7 @@ public class ItemGroupsME {
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
                     entries.add(item);
                 };
+                entries.addAll(ItemGroupsUtil.addFactionBanners(displayContext.lookup()));
             })
             .build();
 
@@ -163,7 +139,7 @@ public class ItemGroupsME {
             .icon(() -> new ItemStack(ResourceItemsME.MITHRIL_INGOT))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : RESOURCES_CONTENTS) {
-                    entries.add(item);
+                    entries.addAll(ItemGroupsUtil.processResourceItem(item, displayContext));
                 }
             })
             .build();
@@ -176,27 +152,28 @@ public class ItemGroupsME {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
                 };
-                displayContext.lookup().getOptional(DynamicRegistriesME.NPC)
-                        .ifPresent(registryWrapper -> addNpcEggs(
+                displayContext.lookup().getOptional(DynamicRegistriesME.NPC_TYPE)
+                        .ifPresent(registryWrapper -> ItemGroupsUtil.addNpcEggs(
                                 entries,
                                 registryWrapper,
                                 registryEntry -> true,
+                                displayContext.lookup(),
                                 ItemGroup.StackVisibility.PARENT_AND_SEARCH_TABS));
             })
             .build();
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "stone_blocks"), STONE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "wood_blocks"), WOOD_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "misc_blocks"), MISC_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "decorative"), DECORATIVES_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "nature_blocks"), NATURE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "food_items"), FOOD);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "weapon_items"), WEAPONS);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "equipment_items"), EQUIPMENT);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "tool_items"), TOOLS);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "resource_items"), RESOURCES);
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(MiddleEarth.MOD_ID, "spawn_egg_items"), SPAWN_EGGS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("stone_blocks"), STONE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("wood_blocks"), WOOD_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("misc_blocks"), MISC_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("decorative"), DECORATIVES_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("nature_blocks"), NATURE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("food_items"), FOOD);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("weapon_items"), WEAPONS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("equipment_items"), EQUIPMENT);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("tool_items"), TOOLS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("resource_items"), RESOURCES);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("spawn_egg_items"), SPAWN_EGGS);
     }
 
 }

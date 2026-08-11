@@ -39,6 +39,7 @@ public class ArmorTags {
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.EGLADIL_SENTINEL_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, true, EquipmentItemsME.EGLADIL_COMMANDER_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.GALADHRIM_HELMET));
+                add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.GALADHRIM_LORD_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.WOODLAND_REALM_SOLDIER_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.WARDEN_OF_THE_GLADE_HELMET));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_HELMET));
@@ -47,7 +48,6 @@ public class ArmorTags {
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.MORDOR_SNOUT_HELMET));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.BLACK_URUK_PLATE_HELMET));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.BLACK_URUK_FACE_PLATE_HELMET));
-                add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.BLACK_CASTELLAN_HELMET));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, true, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_HELMET));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.DOL_GULDUR_MARAUDER_HELMET));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_HELMET));
@@ -87,7 +87,6 @@ public class ArmorTags {
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, false, EquipmentItemsME.WARRIOR_OF_THE_NIGHTSHADE_BOOTS));
                 add(new RecipeItem(DispositionType.GOOD, MetalTypes.EDHEL_STEEL, true, EquipmentItemsME.WOODLAND_REALM_COMMANDER_BOOTS));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.BLACK_URUK_PLATE_BOOTS));
-                add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.BLACK_CASTELLAN_BOOTS));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, true, EquipmentItemsME.MORDOR_BLACK_NUMENOREAN_PLATE_BOOTS));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.DOL_GULDUR_MARAUDER_BOOTS));
                 add(new RecipeItem(DispositionType.EVIL, MetalTypes.BURZUM_STEEL, false, EquipmentItemsME.WEATHERED_DOL_GULDUR_MARAUDER_BOOTS));

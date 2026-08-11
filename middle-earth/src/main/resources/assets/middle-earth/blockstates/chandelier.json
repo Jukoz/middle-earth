@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "variant=1,lit=false": {
+      "model": "middle-earth:block/chandelier"
+    },
+    "variant=1,lit=true": {
+      "model": "middle-earth:block/chandelier_lit"
+    },
+    "variant=2,lit=false": {
+      "model": "middle-earth:block/chandelier_1"
+    },
+    "variant=2,lit=true": {
+      "model": "middle-earth:block/chandelier_lit_1"
+    }
+  }
+}

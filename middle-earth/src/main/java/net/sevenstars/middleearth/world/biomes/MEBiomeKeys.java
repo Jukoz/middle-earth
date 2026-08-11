@@ -7,6 +7,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
+import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistryUtil;
 
 public class MEBiomeKeys extends BiomeKeys {
     // region SURFACE
@@ -290,7 +292,10 @@ public class MEBiomeKeys extends BiomeKeys {
 
     private static RegistryKey<Biome> register(String name) {
         TranslationEntries.biomeEntries.add(name);
-        return RegistryKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, name));
+        Identifier biomeId = MiddleEarth.of(name);
+        RegistryKey<Biome> biome = RegistryKey.of(RegistryKeys.BIOME, biomeId);
+        BiomeEventRegistryUtil.addBiomeEntry(biome);
+        return biome;
     }
 
     public static void registerModBiomes() {

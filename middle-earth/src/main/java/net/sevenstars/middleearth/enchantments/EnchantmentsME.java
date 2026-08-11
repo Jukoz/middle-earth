@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.MiddleEarth;
  */
 public class EnchantmentsME {
     public static final RegistryKey<Enchantment> AILMENT_PROTECTION = of("ailment_protection");
+    public static final RegistryKey<Enchantment> AULE_BLESSING = of("aule_blessing");
     public static final RegistryKey<Enchantment> BANE_OF_GIANTS = of("bane_of_giants");
     public static final RegistryKey<Enchantment> BEHEADING = of("beheading");
     public static final RegistryKey<Enchantment> CELERITY = of("celerity");
@@ -57,6 +58,13 @@ public class EnchantmentsME {
                         Enchantment.leveledCost(10, 8), 2,
                         AttributeModifierSlot.ARMOR))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET)));
+
+        register(registry, AULE_BLESSING, Enchantment.builder(
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 3,
+                        Enchantment.leveledCost(12, 7),
+                        Enchantment.leveledCost(5, 7), 2,
+                        AttributeModifierSlot.MAINHAND))
+                .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.MINING_EXCLUSIVE_SET)));
 
         register(registry, BANE_OF_GIANTS, Enchantment.builder(
                 Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),

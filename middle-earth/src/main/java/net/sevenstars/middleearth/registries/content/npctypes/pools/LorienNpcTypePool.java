@@ -1,0 +1,256 @@
+package net.sevenstars.middleearth.registries.content.npctypes.pools;
+
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.item.*;
+import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
+import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
+import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
+import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
+import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
+import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
+
+import java.util.List;
+
+public class LorienNpcTypePool {
+    private final static RegistryKey<Faction> FACTION = FactionRegistry.LOTHLORIEN;
+
+    public final static NpcType CIVILIAN;
+    public final static NpcType SENTINEL;
+    public final static NpcType RANGER;
+    public final static NpcType WARRIOR;
+    public final static NpcType KNIGHT;
+    public final static NpcType EGLADIL_SENTINEL ;
+    public final static NpcType EGLADIL_COMMANDER;
+    public final static NpcType GUARD;
+    public final static NpcType LORD;
+
+    public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
+        return List.of(
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_CIVILIAN, CIVILIAN),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_SENTINEL, SENTINEL),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_RANGER, RANGER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_WARRIOR, WARRIOR),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_KNIGHT, KNIGHT),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL, EGLADIL_SENTINEL),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER, EGLADIL_COMMANDER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_GUARD, GUARD),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.LOTHLORIEN_LORD, LORD)
+        );
+    }
+
+    static {
+        CIVILIAN = new NpcType(NpcRegistry.LOTHLORIEN_CIVILIAN.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create())
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ELVEN_ARMING_SKIRT))
+                                .add(WeightedItemData.create().withWeight(3)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(FoodItemsME.LEMBAS))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_DAGGER))
+                                .add(WeightedItemData.create(WeaponItemsME.BRONZE_DAGGER))
+                                .add(WeightedItemData.create(DecorativeItemsME.WATERING_CAN))
+                                .add(WeightedItemData.create().withWeight(3)))
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
+
+        SENTINEL = new NpcType(NpcRegistry.LOTHLORIEN_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM).withHood(HelmetAttachmentsME.LORIEN_MARCHWARDEN_HOOD))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ELVEN_ARMING_COAT).withCape(BackAttachmentsME.LORIEN_MARCHWARDEN_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_ARMING_SKIRT)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SWORD)))
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD)))
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
+
+        RANGER = new NpcType(NpcRegistry.LOTHLORIEN_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_HOOD))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM).withHood(HelmetAttachmentsME.LORIEN_MARCHWARDEN_HOOD, false))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_ARMING_COAT).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_ARMING_COAT).withCape(BackAttachmentsME.LORIEN_MARCHWARDEN_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.LORIEN_ARMING_SKIRT)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_BOW))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_LONGBOW))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
+
+        WARRIOR = new NpcType(NpcRegistry.LOTHLORIEN_WARRIOR.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_LEATHER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_DIADEM).withHood(HelmetAttachmentsME.LORIEN_MARCHWARDEN_HOOD))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SHORT_MAIL_COIF_DIADEM))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MAIL_HAUBERK).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_MAIL_HAUBERK).withCape(BackAttachmentsME.GALADHRIM_CAPE))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_MAIL_HAUBERK).withCape(BackAttachmentsME.LORIEN_MARCHWARDEN_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.LORIEN_ARMING_SKIRT)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_GLAIVE))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_SPEAR))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_SWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+
+        KNIGHT = new NpcType(NpcRegistry.LOTHLORIEN_KNIGHT.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK).withWeight(4))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK).withCape(BackAttachmentsME.GALADHRIM_CAPE).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_MARCHWARDEN_MAIL_HAUBERK).withCape(BackAttachmentsME.GALADHRIM_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.LORIEN_SCALE_COAT)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GALADHRIM_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_GLAIVE))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_SPEAR))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_SWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+
+        GUARD = new NpcType(NpcRegistry.LOTHLORIEN_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_HELMET).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_CHESTPLATE).withWeight(4))
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_CHESTPLATE).withCape(BackAttachmentsME.GALADHRIM_CAPE).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.LORIEN_SOLDIER_SCALE_HAUBERK).withCape(BackAttachmentsME.GALADHRIM_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GALADHRIM_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_AXE).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SWORD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SPEAR).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_GLAIVE))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_SHIELD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+
+        EGLADIL_SENTINEL = new NpcType(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_CHESTPLATE)
+                                        .withCape(BackAttachmentsME.SHOULDER_CAPE_RIGHT, 0x564469))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+
+        EGLADIL_COMMANDER = new NpcType(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_COMMANDER_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_CHESTPLATE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_LEGGINGS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.EGLADIL_SENTINEL_BOOTS))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_LONGBOW))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+
+        LORD = new NpcType(NpcRegistry.LOTHLORIEN_LORD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LORD_HELMET))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LORD_CHESTPLATE).withWeight(3))
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LORD_CHESTPLATE).withCape(BackAttachmentsME.GALADHRIM_LORD_SURCOAT))
+                                .add(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LORD_CHESTPLATE).withCape(BackAttachmentsME.GALADHRIM_CAPE))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LORD_LEGGINGS)))
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GALADHRIM_LORD_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_AXE))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SWORD))
+                                .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SPEAR))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
+    }
+}

@@ -8,10 +8,7 @@ import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneWa
 import net.sevenstars.middleearth.block.special.artisantable.ArtisanTable;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
-import net.sevenstars.middleearth.block.special.candles.CandleHolderBlock;
-import net.sevenstars.middleearth.block.special.candles.CandleStickBlock;
-import net.sevenstars.middleearth.block.special.candles.CeramicLampBlock;
-import net.sevenstars.middleearth.block.special.candles.SkullCandleBlock;
+import net.sevenstars.middleearth.block.special.candles.*;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
 import net.sevenstars.middleearth.block.special.curtains.SmallCurtainsBlock;
@@ -32,6 +29,7 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.E
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlock;
 import net.sevenstars.middleearth.block.special.statues.FlipStatueBlock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
@@ -171,6 +169,12 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
 
+    public static final Block OLD_SKULL = registerBlockWithItem("old_skull",
+            OldSkullBlock::new, AbstractBlock.Settings.copy(Blocks.SKELETON_SKULL).nonOpaque().sounds(BlockSoundGroup.BONE));
+    public static final Block SKELETON = registerBlockWithItem("skeleton",
+            SkeletonBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW)
+                    .instrument(NoteBlockInstrument.XYLOPHONE).strength(0.5F).sounds(BlockSoundGroup.BONE));
+
     public static final Block CANDLESTICK = registerBlockWithItem("candlestick",
             CandleStickBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CERAMIC_LAMP = registerBlockWithItem("ceramic_lamp",
@@ -181,6 +185,14 @@ public class ModDecorativeBlocks {
             SkullCandleBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
     public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
             CandleHeapBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).nonOpaque().luminance(createLightLevelFromLitBlockState(10)));
+    public static final Block SMALL_BRONZE_CHANDELIER = registerBlockWithItem("small_bronze_chandelier",
+            SmallChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
+    public static final Block BRONZE_CHANDELIER = registerBlockWithItem("bronze_chandelier",
+            ChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
+    public static final Block SMALL_CHANDELIER = registerBlockWithItem("small_chandelier",
+            SmallChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
+    public static final Block CHANDELIER = registerBlockWithItem("chandelier",
+            ChandelierBlock::new, AbstractBlock.Settings.copy(Blocks.CANDLE).luminance(createLightLevelFromLitBlockState(15)).nonOpaque());
 
     public static final Block STONE_LECTERN = registerBlockWithItem("stone_lectern",
             StoneLecternBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());

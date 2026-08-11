@@ -3,21 +3,20 @@ package net.sevenstars.middleearth.gui.artisantable;
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.WorldEvents;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
-import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
 import net.sevenstars.middleearth.network.packets.C2S.ArtisanIndexPacket;
 import net.sevenstars.middleearth.network.packets.S2C.ArtisanRecipePacket;
-import net.sevenstars.middleearth.network.packets.S2C.ShapingAnvilRecipePacket;
-import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
@@ -30,10 +29,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.Property;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -61,6 +56,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     final CraftingResultInventory output;
     private PlayerEntity playerEntity;
     private ArtisanTableInputsShape inputsShape = null;
+    private int xp = 0;
 
     private String disposition;
     private boolean isCreative;
@@ -116,6 +112,8 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             public void onTakeItem(PlayerEntity player, ItemStack itemStack) {
                 itemStack.onCraftByPlayer(player, itemStack.getCount());
                 ArtisanTableScreenHandler.this.output.unlockLastRecipe(player, this.getInputStacks());
+                player.addExperience(getExperience(world));
+                ArtisanTableScreenHandler.this.xp = 0;
 
                 for(int y = 0; y < 3; y++) {
                     for(int x = 0; x < 3; x++) {
@@ -181,6 +179,10 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         selectedRecipe.set(index);
         ArtisanIndexPacket anvilIndexPacket = new ArtisanIndexPacket(index, this.syncId);
         ClientPlayNetworking.send(anvilIndexPacket);
+    }
+
+    private int getExperience(World world) {
+        return ArtisanTableScreenHandler.this.xp;
     }
 
     public int getAvailableRecipeCount() {
@@ -296,6 +298,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
             ItemStack itemStack = recipeEntry.value().craft(new MultipleStackRecipeInput(inputs), this.world.getRegistryManager());
             itemStack.set(DataComponentTypesME.ARTISAN_DATA, new ArtisanDataComponent(player.getUuid()));
+            this.xp = recipeEntry.value().xp;
 
             if (itemStack.get(DataComponentTypes.MAX_DAMAGE) != null){
                 int maxDamage = (int) (itemStack.getMaxDamage() + itemStack.getMaxDamage() * 0.25);
@@ -310,6 +313,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             }
         } else {
             this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
+            this.xp = 0;
         }
         this.sendContentUpdates();
     }

@@ -34,13 +34,13 @@
       "model": "middle-earth:block/lead_lantern"
     },
     "facing=up,lit=true": {
-      "model": "middle-earth:block/lead_lantern_hanging"
+      "model": "middle-earth:block/lead_lantern"
     },
     "facing=down,lit=false": {
       "model": "middle-earth:block/lead_lantern_unlit"
     },
     "facing=up,lit=false": {
-      "model": "middle-earth:block/lead_lantern_hanging_unlit"
+      "model": "middle-earth:block/lead_lantern_unlit"
     }
   }
 }

@@ -30,6 +30,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/weapon",
+  "supported_items": "#middle-earth:enchantable/celerity",
   "weight": 1
 }

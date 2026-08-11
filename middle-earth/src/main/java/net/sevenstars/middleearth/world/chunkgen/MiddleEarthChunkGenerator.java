@@ -32,6 +32,7 @@ import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseConfig;
 import net.minecraft.world.gen.structure.Structure;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.config.ModServerConfigs;
@@ -640,7 +641,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     @Override
     public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world, NoiseConfig noiseConfig) {
         float worldHeight = 1 + DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z);
-        return (int)worldHeight;
+        return Math.max(64, (int)worldHeight);
     }
 
     @Override

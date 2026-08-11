@@ -5,12 +5,16 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.block.entity.SkullBlockEntityModel;
+import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
@@ -82,6 +86,7 @@ public final class EntityModelLayersME {
     public static final EntityModelLayer OAK_COFFER = EntityModelLayersME.registerEntityModelLayer("oak_coffer", OakCofferEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer WILLOW_COFFER = EntityModelLayersME.registerEntityModelLayer("willow_coffer", WillowCofferEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_CHEST = EntityModelLayersME.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
+    public static final EntityModelLayer OLD_SKULL = EntityModelLayersME.registerEntityModelLayer("old_skull", OldSkullBlockEntityRenderer.getTexturedModelData());
 
     public static final EntityModelLayer REINFORCED_BARREL = EntityModelLayersME.registerEntityModelLayer("reinforced_barrel", BarrelEntityModel.getTexturedModelData());
     public static final EntityModelLayer REINFORCED_BARREL_WATER_MASK = EntityModelLayersME.registerEntityModelLayer("reinforced_barrel_water_mask", BarrelEntityModel.getBaseTexturedModelData());

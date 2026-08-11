@@ -48,7 +48,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.LETTUCE_SEEDS);
 
             add(ResourceItemsME.STRAW);
-            add(ResourceItemsME.REEDS.asItem());
 
             add(ResourceItemsME.PIPEWEED_BANNER_PATTERN);
             add(ResourceItemsME.GONDOR_BANNER_PATTERN);
@@ -127,10 +126,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.RAW_SILVER);
             add(ResourceItemsME.RAW_MITHRIL);
 
-            add(ResourceItemsME.TIN_NUGGET);
-            add(ResourceItemsME.LEAD_NUGGET);
-            add(ResourceItemsME.SILVER_NUGGET);
-
             add(ResourceItemsME.ADAMANT);
             add(ResourceItemsME.RUBY);
             add(ResourceItemsME.SAPPHIRE);
@@ -141,6 +136,10 @@ public class SimpleItemModel {
 
             add(ModDecorativeBlocks.CANDLESTICK.asItem());
             add(ModDecorativeBlocks.CERAMIC_LAMP.asItem());
+            add(ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER.asItem());
+            add(ModDecorativeBlocks.BRONZE_CHANDELIER.asItem());
+            add(ModDecorativeBlocks.SMALL_CHANDELIER.asItem());
+            add(ModDecorativeBlocks.CHANDELIER.asItem());
 
             add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN.asItem());

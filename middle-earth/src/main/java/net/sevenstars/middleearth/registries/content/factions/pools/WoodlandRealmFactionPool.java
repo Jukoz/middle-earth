@@ -5,7 +5,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcs.pools.WoodlandRealmNpcDataPool;
+import net.sevenstars.middleearth.registries.content.npctypes.pools.WoodlandRealmNpcTypePool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
@@ -27,22 +27,22 @@ public class WoodlandRealmFactionPool {
         WOODLAND_REALM = new Faction(FactionRegistry.WOODLAND_REALM, true, DispositionType.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            WoodlandRealmNpcDataPool.RANGER
+                            WoodlandRealmNpcTypePool.RANGER
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            WoodlandRealmNpcDataPool.RANGER
+                            WoodlandRealmNpcTypePool.RANGER
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            WoodlandRealmNpcDataPool.WARRIOR
+                            WoodlandRealmNpcTypePool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            WoodlandRealmNpcDataPool.RANGER
+                            WoodlandRealmNpcTypePool.RANGER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            WoodlandRealmNpcDataPool.RANGER
+                            WoodlandRealmNpcTypePool.RANGER
                     ));
                     put(NpcRank.LEADER, List.of(
-                            WoodlandRealmNpcDataPool.COMMANDER
+                            WoodlandRealmNpcTypePool.COMMANDER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

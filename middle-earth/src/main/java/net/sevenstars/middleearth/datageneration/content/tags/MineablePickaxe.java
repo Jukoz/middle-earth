@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MineablePickaxe {
+    public static List<Block> baseStoneOverworld = new ArrayList<>() {
+        {
+
+        }
+    };
+
     public static List<Block> blocks = new ArrayList<>() {
         {
             add(ModBlocks.POINTED_GALONN);
@@ -32,6 +38,8 @@ public class MineablePickaxe {
 
             add(ModDecorativeBlocks.CRUDE_ROD);
             add(ModDecorativeBlocks.TREATED_STEEL_ROD);
+
+            add(ModBlocks.BURZUM_SPIKES);
 
             add(ModDecorativeBlocks.BRONZE_CHAIN);
             add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN);

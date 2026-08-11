@@ -35,7 +35,7 @@ public class TranslationEntries {
     };
     public static List<String> factionEntries = new ArrayList<>() {
     };
-    public static List<String> npcDataEntries = new ArrayList<>() {
+    public static List<String> npcTypeEntries = new ArrayList<>() {
     };
     public static List<StructureManagerData> structureManagerEntries = new ArrayList<>() {
     };
@@ -145,12 +145,15 @@ public class TranslationEntries {
             put("advancements.smithing.dwarven_lantern.description", "Craft a dwarven lantern");
             put("advancements.smithing.elven_lantern.title", "Light of the Elves");
             put("advancements.smithing.elven_lantern.description", "Light your way like the Quendi");
+            put("advancements.smithing.hot_ones.title", "Hot Ones");
+            put("advancements.smithing.hot_ones.description", "Eat a spicy chicken nugget");
 
             put("effect."+ MiddleEarth.MOD_ID +".hallucination", "Hallucination");
             put("effect."+ MiddleEarth.MOD_ID +".enshrouded", "Enshrouded");
             put("effect."+ MiddleEarth.MOD_ID +".restrained", "Restrained");
 
             put("enchantment."+ MiddleEarth.MOD_ID +".ailment_protection", "Ailment Protection");
+            put("enchantment."+ MiddleEarth.MOD_ID +".aule_blessing", "Aulë Blessing");
             put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
             put("enchantment."+ MiddleEarth.MOD_ID +".beheading", "Beheading");
             put("enchantment."+ MiddleEarth.MOD_ID +".celerity", "Celerity");
@@ -308,6 +311,8 @@ public class TranslationEntries {
             put("item."+ MiddleEarth.MOD_ID +".spider_banner_pattern.desc", "Spider of Mirkwood");
 
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
+
+            put(MiddleEarth.MOD_ID +".music.menu.swept_away", "Swept Away");
 
             put("sounds."+ MiddleEarth.MOD_ID +".bellows_push", "Bellows blowing");
             put("sounds."+ MiddleEarth.MOD_ID +".chisel_hit", "Chisel hits");
@@ -767,7 +772,8 @@ public class TranslationEntries {
 
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc", "The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +
                     "Such companions come in all shapes and sizes, each having their own unique advantages and disadvantages.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.\n\n " +
+                    "In Middle-earth, you cannot craft golden food such as golden apples to breed horses. Instead you must craft a Sack of Horsefeed, from a hay bale, a lettuce and an apple.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.broadhoof_goat", "Broadhoof Goat");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_broadhoof_goat_desc", "The Broadhoof Goat is a great mount for Dwarves that can easily climb mountains.\n" +
                     "You can find them in mountains where Dwarves live, but beware of these fluffy climbers; they can be aggressive if provoked. " +
@@ -816,9 +822,9 @@ public class TranslationEntries {
             put("key."+ MiddleEarth.MOD_ID +".map_teleport", "Map Teleport");
             put("key."+ MiddleEarth.MOD_ID +".map_fullscreen_toggle", "Toggle Map Fullscreen");
 
-            put("modmenu.nameTranslation.me", "Middle-earth");
-            put("modmenu.descriptionTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
-            put("modmenu.summaryTranslation.me", "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.nameTranslation."+ MiddleEarth.MOD_ID, "Middle-earth");
+            put("modmenu.descriptionTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.summaryTranslation."+ MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
 
             put("emi.category."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("emi.category."+ MiddleEarth.MOD_ID +".anvil_shaping", "Shaping Anvil");
