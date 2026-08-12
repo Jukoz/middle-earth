@@ -15,6 +15,7 @@ import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornVariant;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 import net.sevenstars.middleearth.registries.content.greathornvariants.GreatHornVariantRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.TradeRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
@@ -24,6 +25,7 @@ import net.sevenstars.middleearth.registries.content.structuremanagerdatas.Struc
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_types.Trade;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
@@ -38,6 +40,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.of("structure_manager_data"));
     public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("biome_event"));
     public static final RegistryKey<Registry<BiomeEventData>> STRUCTURE_EVENT = RegistryKey.ofRegistry(MiddleEarth.of("structure_event"));
+    public static final RegistryKey<Registry<Trade>> TRADE = RegistryKey.ofRegistry(MiddleEarth.of("trade"));
 
     public static final RegistryKey<Registry<TexturePresetDataPool>> TEXTURE_PRESETS = RegistryKey.ofRegistry(MiddleEarth.of( "texture_presets"));
 
@@ -61,6 +64,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         DynamicRegistries.registerSynced(STRUCTURE_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
         DynamicRegistries.registerSynced(TEXTURE_PRESETS, TexturePresetDataPool.CODEC);
+        DynamicRegistries.registerSynced(TRADE, Trade.CODEC);
 
         DynamicRegistries.registerSynced(SKIN_PATTERN, CharacterTexturePattern.CODEC);
         DynamicRegistries.registerSynced(EYE_PATTERN, CharacterTexturePattern.CODEC);
@@ -82,6 +86,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         registryBuilder.addRegistry(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
         registryBuilder.addRegistry(TEXTURE_PRESETS, TexturePresetsRegistry::bootstrap);
+        registryBuilder.addRegistry(TRADE, TradeRegistry::bootstrap);
 
         registryBuilder.addRegistry(SPIDER_VARIANTS, SpiderVariantRegistry::bootstrap);
         registryBuilder.addRegistry(GREAT_HORN_VARIANTS, GreatHornVariantRegistry::bootstrap);
@@ -95,6 +100,7 @@ public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRe
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
         pack.addProvider(BiomeEventProvider::new);
+        pack.addProvider(TradeProvider::new);
         pack.addProvider(StructureEventProvider::new);
         pack.addProvider(GreatHornVariantsProvider::new);
     }
