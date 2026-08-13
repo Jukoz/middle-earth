@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.recipe.inscription;
 import com.google.common.collect.ArrayListMultimap;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
 public class InscriptionWordBank {
@@ -42,5 +43,7 @@ public class InscriptionWordBank {
         wordBank.put(Items.EMERALD, "gifted");
 
         wordBank.put(ResourceItemsME.ADAMANT, "swift");
+
+        TranslationEntries.inscriptionEntries.addAll(wordBank.values());
     }
 }

@@ -183,7 +183,8 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             int l = this.handler.getPlayerLevels();
 
             int color;
-            Text text = Text.of(k + " Levels");
+            String levelKey = (k == 1) ? ".level" : ".levels";
+            Text text = Text.translatable("inscription." + MiddleEarth.MOD_ID + levelKey, k);
 
             if (this.client.player.isInCreativeMode() || (l >= k && k != 0)){
                 color = -8323296;
@@ -216,12 +217,11 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         int m = 0;
         for(String word : this.selectedWords){
             if (m != 0){
-                stringBuilder.append("-");
+                stringBuilder.append(Text.translatable("inscription." + MiddleEarth.MOD_ID + ".linking_dash").getString());
             }
-            stringBuilder.append(StringUtils.capitalize(word));
+            stringBuilder.append(Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word).getString());
             m++;
         }
-
         StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(Text.literal(stringBuilder.toString()), 159, Style.EMPTY);
         context.drawCenteredTextWithShadow(this.textRenderer, stringVisitable.getString(), i + 186, j + 11, Colors.WHITE);
     }
@@ -255,13 +255,14 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                 if(index - indexStartOffset >= 0 && index - indexStartOffset < this.words.length) {
                     WidgetInscriptionButtonPage widgetButtonPage = this.words[index - indexStartOffset];
                     if(widgetButtonPage.hidden) {
-                        Text text = Text.literal(StringUtils.capitalize(word)).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
+//                        Text text = Text.literal(StringUtils.capitalize(word)).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
+                        Text text = Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
                         context.drawText(this.textRenderer, text, i + 11, n, Colors.LIGHT_GRAY, false);
                     } else {
-                        context.drawText(this.textRenderer, StringUtils.capitalize(word), i + 11, n, Colors.WHITE, false);
+                        context.drawText(this.textRenderer, Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word), i + 11, n, Colors.WHITE, false);
                     }
                 } else {
-                    context.drawText(this.textRenderer, StringUtils.capitalize(word), i + 11, n, Colors.WHITE, false);
+                    context.drawText(this.textRenderer, Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word), i + 11, n, Colors.WHITE, false);
                 }
                 n += 14;
             }
