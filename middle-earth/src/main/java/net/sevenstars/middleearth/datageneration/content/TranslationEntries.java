@@ -42,6 +42,10 @@ public class TranslationEntries {
     public static List<String> spawnEntries = new ArrayList<>() {
     };
 
+    public static List<String> inscriptionEntries = new ArrayList<>() {
+
+    };
+
     public static Map<String, String> manualEntries = new HashMap<>() {
         {
             put("itemGroup." + MiddleEarth.MOD_ID + ".stone_blocks", "Middle-earth Stone Blocks");
@@ -879,6 +883,10 @@ public class TranslationEntries {
             put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
 
             put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
+
+            put("inscription." + MiddleEarth.MOD_ID + ".linking_dash", "-");
+            put("inscription." + MiddleEarth.MOD_ID + ".level", "%d Level");
+            put("inscription." + MiddleEarth.MOD_ID + ".levels", "%d Levels");
         }
     };
 }

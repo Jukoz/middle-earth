@@ -13169,6 +13169,46 @@
   "faction.middle-earth.isengard": "艾森加德",
   "faction.middle-earth.mordor": "魔多",
 
+  "__COMMENT__": "铭文 - inscription",
+
+  "inscription.middle-earth.linking_dash": "",
+  "inscription.middle-earth.level": "%d 级",
+  "inscription.middle-earth.levels": "%d 级",
+
+  "inscription.middle-earth.resilient": "坚韧",
+  "inscription.middle-earth.blessing": "恩宠",
+
+  "inscription.middle-earth.warded": "守护",
+  "inscription.middle-earth.tidal": "潮汐",
+  "inscription.middle-earth.traveller": "行者",
+
+  "inscription.middle-earth.edge": "锋刃",
+  "inscription.middle-earth.cutter": "劈砍",
+  "inscription.middle-earth.piercer": "突破",
+  "inscription.middle-earth.core": "核心",
+
+  "inscription.middle-earth.giant": "巨大",
+  "inscription.middle-earth.collector": "采集",
+
+  "inscription.middle-earth.draw": "牵拉",
+  "inscription.middle-earth.point": "尖点",
+
+  "inscription.middle-earth.fierce": "凶猛",
+  "inscription.middle-earth.forceful": "强力",
+  "inscription.middle-earth.noiseless": "无声",
+  "inscription.middle-earth.bane": "克星",
+
+  "inscription.middle-earth.pierce": "穿刺",
+  "inscription.middle-earth.flame": "火焰",
+  "inscription.middle-earth.sturdy": "结实",
+
+  "inscription.middle-earth.broad": "范围",
+  "inscription.middle-earth.careful": "细心",
+  "inscription.middle-earth.long": "远距",
+  "inscription.middle-earth.gifted": "天赋",
+
+  "inscription.middle-earth.swift": "迅捷",
+
   "__COMMENT__": "物品 - item",
   "__TODO__": "整理",
 

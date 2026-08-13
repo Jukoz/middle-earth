@@ -118,6 +118,10 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "spawn", faction);
         });
 
+        TranslationEntries.inscriptionEntries.forEach(inscription -> {
+            createTranslation(translationBuilder, "inscription", inscription);
+        });
+
         TranslationEntries.manualEntries.forEach(translationBuilder::add);
 
         createBannerTranslation(translationBuilder, "item", "round_shield");
