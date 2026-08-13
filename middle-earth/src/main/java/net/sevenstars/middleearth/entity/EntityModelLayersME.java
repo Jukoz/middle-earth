@@ -35,6 +35,7 @@ import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobModel;
+import net.sevenstars.middleearth.entity.wight.BarrowWightModel;
 
 @Environment(value= EnvType.CLIENT)
 public final class EntityModelLayersME {
@@ -47,6 +48,7 @@ public final class EntityModelLayersME {
     public static final EntityModelLayer NPC_ENTITY_FEET = registerEntityModelLayer("npc_entity_feet",  FeetModel.getTexturedModelData());
 
     // endregion
+    public static final EntityModelLayer BARROW_WIGHT = EntityModelLayersME.registerEntityModelLayer("barrow_wight", BarrowWightModel.getTexturedModelData());
     public static final EntityModelLayer BROADHOOF_GOAT = EntityModelLayersME.registerEntityModelLayer("broadhoof_goat", BroadhoofGoatModel.getTexturedModelData());
     public static final EntityModelLayer BROADHOOF_GOAT_ARMOR = EntityModelLayersME.registerEntityModelLayer("broadhoof_goat_armor", BroadhoofGoatArmorModel.getTexturedModelData());
     public static final EntityModelLayer BROADHOOF_GOAT_SADDLE = EntityModelLayersME.registerEntityModelLayer("broadhoof_goat_saddle", BroadhoofGoatSaddleModel.getTexturedModelData());
