@@ -29,11 +29,15 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 
 public class BarrowWightEntity extends HostileEntity {
-    private static final TrackedData<Boolean> ATTACK_FLAG;
+    private static final TrackedData<Integer> ATTACK_FLAG;
 
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
     public final AnimationState attackAnimation = new AnimationState();
+    public final AnimationState screamAnimation = new AnimationState();
+    public final AnimationState incantationAnimation = new AnimationState();
+
+    private int attackAnimationCooldown = 0;
 
     public BarrowWightEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -59,25 +63,35 @@ public class BarrowWightEntity extends HostileEntity {
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        builder.add(ATTACK_FLAG, false);
+        builder.add(ATTACK_FLAG, 0);
     }
 
     protected void setupAnimationStates() {
         if (!this.idleAnimation.isRunning()) {
             this.idleAnimation.start(this.age);
         }
-        boolean attackState = this.dataTracker.get(ATTACK_FLAG);
-        if(attackState) {
-            this.attackAnimation.stop();
-            this.attackAnimation.start(this.age);
-            this.dataTracker.set(ATTACK_FLAG, false);
+        if (!this.walkingAnimation.isRunning()) {
+            this.walkingAnimation.start(this.age);
         }
+
+        setTrackerState(ATTACK_FLAG, attackAnimation);
+    }
+
+    protected void setTrackerState(TrackedData<Integer> trackedData, AnimationState animationState) {
+        int state = this.dataTracker.get(trackedData);
+        if(state == 1) {
+            animationState.start(this.age);
+        } else if (state == -1) {
+            animationState.stop();
+        }
+        this.dataTracker.set(trackedData, 0);
     }
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
         boolean result = super.tryAttack(world, target);
-        this.dataTracker.set(ATTACK_FLAG, result);
+        this.dataTracker.set(ATTACK_FLAG, 1);
+        if(attackAnimationCooldown == 0) attackAnimationCooldown = 20;
         return result;
     }
 
@@ -85,12 +99,17 @@ public class BarrowWightEntity extends HostileEntity {
         super.tick();
         if (this.getWorld().isClient) {
             setupAnimationStates();
+        } else {
+            if (attackAnimationCooldown <= 1) {
+                this.dataTracker.set(ATTACK_FLAG, -1);
+            }
+            attackAnimationCooldown = Math.max(attackAnimationCooldown - 1, 0);
         }
     }
 
     @Override
     protected int getExperienceToDrop(ServerWorld world) {
-        return 1;
+        return 10 + this.random.nextInt(5);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -120,7 +139,7 @@ public class BarrowWightEntity extends HostileEntity {
     }
 
     static {
-        ATTACK_FLAG = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        ATTACK_FLAG = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
 
     public static boolean canSpawn(EntityType<BarrowWightEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {

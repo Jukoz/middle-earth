@@ -382,7 +382,8 @@ public class ModBiomes {
         ModBiomeFeatures.addVeryRareDryGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.PALE_MOSS_PATCH);
 
-        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, new BiomeParticleConfig(ModParticleTypes.BIOME_FOG_PARTICLE, 0.003f), 0.5f, true);
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings,
+                new BiomeParticleConfig(ModParticleTypes.BIOME_FOG_PARTICLE, 0.0002f), 0.5f, true);
     }
 
     public static void createBeleriandIslandBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
