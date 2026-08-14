@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.entity.wight;
 
+import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -12,20 +13,17 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.profiler.Profiler;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 
 public class BarrowWightEntity extends HostileEntity {
@@ -51,20 +49,31 @@ public class BarrowWightEntity extends HostileEntity {
     }
 
     protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 1 , false));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
+        //this.goalSelector.add(1, new SwimGoal(this));
+        //this.goalSelector.add(3, new MeleeAttackGoal(this, 1 , false));
+        //this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8));
+        //this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        //this.goalSelector.add(6, new LookAroundGoal(this));
+        //this.targetSelector.add(1, new RevengeGoal(this));
+        //this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        //this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(ATTACK_FLAG, 0);
     }
+
+    @Override
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return BarrowWightBrain.create(this, dynamic);
+    }
+
+    @Override
+    public Brain<BarrowWightEntity> getBrain() {
+        return (Brain<BarrowWightEntity>)super.getBrain();
+    }
+
 
     protected void setupAnimationStates() {
         if (!this.idleAnimation.isRunning()) {
@@ -108,6 +117,17 @@ public class BarrowWightEntity extends HostileEntity {
     }
 
     @Override
+    protected void mobTick(ServerWorld world) {
+        Profiler profiler = Profilers.get();
+        profiler.push("barrowWightBrain");
+        this.getBrain().tick(world, this);
+        profiler.swap("barrowWightActivityUpdate");
+        BarrowWightBrain.updateActivities(this);
+        profiler.pop();
+        super.mobTick(world);
+    }
+
+    @Override
     protected int getExperienceToDrop(ServerWorld world) {
         return 10 + this.random.nextInt(5);
     }
@@ -131,6 +151,11 @@ public class BarrowWightEntity extends HostileEntity {
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return !effect.equals(StatusEffects.WITHER) && !effect.equals(StatusEffects.POISON) && super.canHaveStatusEffect(effect);
+    }
+
+    @Override
+    public boolean canTarget(EntityType<?> type) {
+        return type == EntityType.PLAYER || type == EntitiesME.NPC;
     }
 
     @Override

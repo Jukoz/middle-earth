@@ -6,6 +6,7 @@ import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
 public class BarrowWightAnimations {
+	// region IDLE
 	public static final AnimationDefinition IDLE = AnimationDefinition.Builder.create(2.0F).looping()
 			.addBoneAnimation("root", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
@@ -210,7 +211,9 @@ public class BarrowWightAnimations {
 					new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.build();
+	// endregion
 
+	// region SCREAM
 	public static final AnimationDefinition SCREAM = AnimationDefinition.Builder.create(4.0F).looping()
 			.addBoneAnimation("Jaw", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -750,6 +753,7 @@ public class BarrowWightAnimations {
 			.build();
 	// endregion
 
+	// region ATTACK
 	public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.create(2.0F)
 			.addBoneAnimation("Head", new Transformation(Transformation.Targets.MOVE_ORIGIN,
 					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -813,7 +817,9 @@ public class BarrowWightAnimations {
 					new Keyframe(1.7083F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.build();
+	// endregion
 
+	// region INCANTATION
 	public static final AnimationDefinition INCANTATION = AnimationDefinition.Builder.create(4.0F).looping()
 			.addBoneAnimation("Head", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -923,5 +929,5 @@ public class BarrowWightAnimations {
 					new Keyframe(5.2917F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 			))
 			.build();
-
+	// endregion
 }
