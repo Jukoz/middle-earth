@@ -375,6 +375,13 @@ public class WeaponItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     //endregion
 
+    // region ARNOR
+    public static final Item CARDOLAN_SWORD = registerItemWithModel("cardolan_sword",
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings(), true);
+    public static final Item CARDOLAN_LONGSWORD = registerItemWithModel("cardolan_longsword",
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings(), true);
+    // endregion
+
     //endregion
 
     //region LOTHLORIEN

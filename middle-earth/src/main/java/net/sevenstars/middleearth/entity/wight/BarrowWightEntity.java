@@ -13,6 +13,8 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -21,10 +23,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
+import org.jetbrains.annotations.Nullable;
 
 public class BarrowWightEntity extends HostileEntity {
     private static final TrackedData<Integer> ATTACK_FLAG;
@@ -57,6 +62,18 @@ public class BarrowWightEntity extends HostileEntity {
         //this.targetSelector.add(1, new RevengeGoal(this));
         //this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         //this.targetSelector.add(3, new ActiveTargetGoal<>(this, NpcEntity.class, true));
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        this.initEquipment(world.getRandom(), difficulty);
+        return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    @Override
+    protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponItemsME.CARDOLAN_LONGSWORD));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {

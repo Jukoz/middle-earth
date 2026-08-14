@@ -1,14 +1,21 @@
 package net.sevenstars.middleearth.entity.wight;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemDisplayContext;
+import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 
+@Environment(EnvType.CLIENT)
 public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, BarrowWightRenderState, BarrowWightModel> {
     private static final String PATH = "textures/entities/barrow_wights/noble.png";
 
@@ -23,6 +30,7 @@ public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, Ba
 
     protected BarrowWightRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
         super(ctx, new BarrowWightModel(ctx.getPart(layer)), shadowRadius);
+        this.addFeature(new HeldItemFeatureRenderer<>(this));
     }
 
     @Override
@@ -30,13 +38,29 @@ public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, Ba
         return MiddleEarth.of(PATH);
     }
 
-    public void updateRenderState(BarrowWightEntity barrowWightEntity, BarrowWightRenderState barrowWightRenderState, float f) {
-        super.updateRenderState(barrowWightEntity, barrowWightRenderState, f);
-        barrowWightRenderState.idleAnimationState.copyFrom(barrowWightEntity.idleAnimation);
-        barrowWightRenderState.walkAnimationState.copyFrom(barrowWightEntity.walkingAnimation);
-        barrowWightRenderState.attackAnimationState.copyFrom(barrowWightEntity.attackAnimation);
-        barrowWightRenderState.screamAnimationState.copyFrom(barrowWightEntity.screamAnimation);
-        barrowWightRenderState.incantationAnimationState.copyFrom(barrowWightEntity.incantationAnimation);
+    public void updateRenderState(BarrowWightEntity barrowWightEntity, BarrowWightRenderState state, float f) {
+        super.updateRenderState(barrowWightEntity, state, f);
+        state.idleAnimationState.copyFrom(barrowWightEntity.idleAnimation);
+        state.walkAnimationState.copyFrom(barrowWightEntity.walkingAnimation);
+        state.attackAnimationState.copyFrom(barrowWightEntity.attackAnimation);
+        state.screamAnimationState.copyFrom(barrowWightEntity.screamAnimation);
+        state.incantationAnimationState.copyFrom(barrowWightEntity.incantationAnimation);
+
+        // Resolve & update the main hand item state
+        this.itemModelResolver.updateForLivingEntity(
+                state.rightHandItemState,
+                barrowWightEntity.getStackInArm(Arm.RIGHT),
+                ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
+                barrowWightEntity
+        );
+
+        // Resolve & update the off-hand item state
+        this.itemModelResolver.updateForLivingEntity(
+                state.leftHandItemState,
+                barrowWightEntity.getStackInArm(Arm.LEFT),
+                ItemDisplayContext.THIRD_PERSON_LEFT_HAND,
+                barrowWightEntity
+        );
     }
 
     @Override

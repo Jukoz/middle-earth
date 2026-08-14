@@ -2,12 +2,13 @@ package net.sevenstars.middleearth.entity.wight;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.state.ArmedEntityRenderState;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.AnimationState;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 
 @Environment(EnvType.CLIENT)
-public class BarrowWightRenderState extends LivingEntityRenderState {
+public class BarrowWightRenderState extends ArmedEntityRenderState {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState walkAnimationState = new AnimationState();

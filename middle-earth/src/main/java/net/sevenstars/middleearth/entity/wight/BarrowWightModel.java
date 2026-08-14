@@ -3,9 +3,16 @@ package net.sevenstars.middleearth.entity.wight;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.ModelWithArms;
+import net.minecraft.client.render.entity.model.ModelWithHead;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Arm;
 
-public class BarrowWightModel extends EntityModel<BarrowWightRenderState> {
+public class BarrowWightModel extends EntityModel<BarrowWightRenderState> implements ModelWithArms, ModelWithHead {
     private final ModelPart root;
+    private final ModelPart head;
+    private final ModelPart leftArm;
+    private final ModelPart rightArm;
 
     private final Animation idleAnimation;
     private final Animation walkingAnimation;
@@ -16,6 +23,10 @@ public class BarrowWightModel extends EntityModel<BarrowWightRenderState> {
     public BarrowWightModel(ModelPart root) {
         super(root);
         this.root = root.getChild("root");
+        ModelPart torso = this.root.getChild("torso");
+        this.head = torso.getChild("Head");
+        this.leftArm = torso.getChild("ArmLeft");
+        this.rightArm = torso.getChild("ArmRight");
 
         this.idleAnimation = BarrowWightAnimations.IDLE.createAnimation(root);
         this.walkingAnimation = BarrowWightAnimations.WALKING_2.createAnimation(root);
@@ -138,10 +149,25 @@ public class BarrowWightModel extends EntityModel<BarrowWightRenderState> {
             this.attackAnimation.apply(state.attackAnimationState, state.age, 2.0f);
         }
 
-        if(!isAttacking && state.limbSwingAmplitude <= 0.2) {
+        if(!isAttacking && state.limbSwingAmplitude <= 0.1) {
             this.idleAnimation.apply(state.idleAnimationState, state.age, 0.75f);
         } else {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.25F, 2.5F);
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 3.75F, 3.25F);
         }
+    }
+
+    @Override
+    public void setArmAngle(Arm arm, MatrixStack matrices) {
+        this.root.applyTransform(matrices);
+        this.getArm(arm).applyTransform(matrices);
+    }
+
+    protected ModelPart getArm(Arm arm) {
+        return arm == Arm.LEFT ? this.leftArm : this.rightArm;
+    }
+
+    @Override
+    public ModelPart getHead() {
+        return null;
     }
 }
