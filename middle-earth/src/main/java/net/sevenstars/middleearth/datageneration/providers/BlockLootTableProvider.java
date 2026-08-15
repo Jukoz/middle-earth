@@ -32,6 +32,8 @@ import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.LayersBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
+import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
+import net.sevenstars.middleearth.block.special.forge.ForgePart;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
@@ -93,7 +95,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
                 cobbleDrops(block, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base());
             } else if (BuiltInRegistries.BLOCK.getKey(block).getPath().equals("medgon")) {
                 cobbleDrops(block, StoneBlockSets.MEDGON_SET.cobblestoneBlocks.base());
-            } else if (BuiltInRegistries.BLOCK.getKey(block).getPath().equals("gonluin")) {
+            } else if (BuiltInRegistries.BLOCK.getKey(block).getPath().equals("khagalaban")) {
                 cobbleDrops(block, StoneBlockSets.KHAGALABAN_SET.cobblestoneBlocks.base());
             } else if (BuiltInRegistries.BLOCK.getKey(block).getPath().equals("limestone")) {
                 cobbleDrops(block, StoneBlockSets.LIMESTONE_SET.cobblestoneBlocks.base());
@@ -284,6 +286,17 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     }
 
     private void generatePortCompletionLootTables() {
+        add(ModDecorativeBlocks.FORGE, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(LootItemBlockStatePropertyCondition
+                                .hasBlockStateProperties(ModDecorativeBlocks.FORGE)
+                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(ForgeBlock.PART, ForgePart.TOP)))
+                        .add((LootPoolSingletonContainer.Builder<?>) applyExplosionCondition(
+                                ModDecorativeBlocks.FORGE,
+                                LootItem.lootTableItem(ModDecorativeBlocks.FORGE)))));
+
         add(ModBlocks.SKELETAL_PILE_LAYER, createLayerDrops(ModBlocks.SKELETAL_PILE_LAYER));
         add(ModBlocks.WASTE_PILE_LAYER, createLayerDrops(ModBlocks.WASTE_PILE_LAYER));
 

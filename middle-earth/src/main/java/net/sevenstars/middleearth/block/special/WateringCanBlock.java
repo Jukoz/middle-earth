@@ -63,7 +63,7 @@ public class WateringCanBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
-        if (player.getItemInHand(player.getUsedItemHand()).isEmpty() && !player.hasInfiniteMaterials()){
+        if (player.getMainHandItem().isEmpty() && !player.hasInfiniteMaterials()){
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             player.setItemSlot(EquipmentSlot.MAINHAND,  new ItemStack(ModDecorativeBlocks.WATERING_CAN.asItem()));
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f - 1.0f);

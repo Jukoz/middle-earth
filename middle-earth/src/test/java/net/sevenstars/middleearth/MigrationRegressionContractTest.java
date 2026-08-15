@@ -185,6 +185,27 @@ class MigrationRegressionContractTest {
                 "PlayerDataService.setMiddleEarthReturnPos(player, session.origin())"
         ));
         assertTrue(handler.contains("ModDimensions.teleportPlayerToMeReturnPoint"));
+        assertTrue(handler.contains("Util.getNanos()"));
+        assertTrue(handler.contains("OnboardingSessionClock.remainingMillis"));
+        assertTrue(handler.contains("session.purpose().allowsReturn()"));
+        assertTrue(handler.contains("session.purpose().allowsEntry()"));
+        assertFalse(handler.contains("player.level().getGameTime() < session.readyAt()"));
+        assertTrue(
+                handler.indexOf("PlayerDataService.setMiddleEarthReturnPos(player, session.origin())")
+                        > handler.indexOf("ModDimensions.teleportPlayerToOverworld(player)")
+        );
+
+        String returnPacket = source(
+                "net/sevenstars/middleearth/network/packets/C2S/PacketTeleportToCurrentOverworldSpawn.java"
+        );
+        assertTrue(returnPacket.contains("new PacketReturnToOverworldResult(result)"));
+
+        String returnScreen = source(
+                "net/sevenstars/middleearth/gui/return_confirmation/ReturnConfirmationScreen.java"
+        );
+        assertTrue(returnScreen.contains("requestPending"));
+        assertTrue(returnScreen.contains("handleResult"));
+        assertFalse(returnScreen.contains("responseTimeoutTicks"));
 
         String dimensions = source(
                 "net/sevenstars/middleearth/world/dimension/ModDimensions.java"

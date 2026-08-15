@@ -124,6 +124,10 @@ public class LanguageProvider extends net.neoforged.neoforge.common.data.Languag
             createTranslation("spawn", faction);
         });
 
+        TranslationEntries.inscriptionEntries.forEach(inscription -> {
+            createTranslation("inscription", inscription);
+        });
+
         createBannerTranslation("item", "round_shield");
         createBannerTranslation("item", "heater_shield");
         createBannerTranslation("item", "kite_shield");

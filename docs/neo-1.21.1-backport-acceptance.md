@@ -5,9 +5,11 @@ This document records the upstream modules represented by the player Jar-in-Jar 
 ## Adopted upstream baseline
 
 - Release: `origin/main` at `1f047d55dd1509c001596876617b4ae660eb006e`.
-- Stable fixes: `origin/fixes` through `54c0629e410cac55e7c2591c5a178294493055cb`.
-- Localization overlay: `origin/dev` through `345b865f1d2ad5d49f88e71bc348c337856db910`.
-- Experimental `mounts-experimental`, `new-stuff`, and `mob-spawning-fixes-v2` branches are excluded.
+- Stable fixes ancestry: `origin/fixes` through `db056482e3fe10ecf15a09510d6dbc8a5cfce840`.
+- Selective later fixes: `eba6b5bea287dbe8c1cbcf255e1f2dbdab898f4b`, `65450642e67cab0fb9feecb74bfa5e4dc1d63b8a`, `e83dffe9ef167edc9802b57ab2c2caf8ec564fd5`, `baf4a74c98bb49d47aee549190ca8bd5903ddc8f`, `3cf26ead8210bab2260d814cf9542bdffba856bf`, and `52519872d3ba10a0391b129ea74898cc6396249e`.
+- Audit watermark: `origin/fixes` at `52519872d3ba10a0391b129ea74898cc6396249e`; this is not a fully adopted baseline.
+- Localization changes: compatible keys through `ee79dc1977da654ca0276a91d93901f1b8521552`.
+- `mounts-experimental`, merged `new-stuff`, wild-spawn caching, and global mob-cap lineages are excluded.
 
 ## Source modules
 

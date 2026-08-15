@@ -41,6 +41,8 @@ public class TranslationEntries {
     };
     public static List<String> spawnEntries = new ArrayList<>() {
     };
+    public static List<String> inscriptionEntries = new ArrayList<>() {
+    };
 
     public static Map<String, String> manualEntries = new HashMap<>() {
         {
@@ -664,6 +666,13 @@ public class TranslationEntries {
             put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.title", "Onboarding Screen");
             put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.continue_character.title", "Return Button");
             put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.continue_character.content", "Go to Overworld");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.not_ready", "The passage is not ready yet.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.retry_later", "Please wait before trying again.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.invalid_session", "The starlight phial passage expired. Use the phial again.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.disabled", "Returning to the Overworld is disabled on this server.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.teleport_failed", "No safe Overworld destination is available. Try again shortly.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.persistence_failed", "Returned to the Overworld, but the Middle-earth return point could not be saved.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.internal_error", "The starlight phial passage failed unexpectedly.");
 
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.button.fullscreen_toggle", "Toggle Fullscreen Button");
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.button.map_overlay_toggle", "Map Overlay Toggle Button");
@@ -771,7 +780,8 @@ public class TranslationEntries {
 
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc", "The roads of middle earth are long and winding so consider a mount to assist with your travels.\n\n " +
                     "Such companions come in all shapes and sizes, each having their own unique advantages and disadvantages.");
-            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.");
+            put("screen."+ MiddleEarth.MOD_ID +".playerbook.mounts_desc_right", "Many of those beasts can only be tamed by certain races.\n\n " +
+                    "In Middle-earth, you cannot craft golden food such as golden apples to breed horses. Instead you must craft a Sack of Horsefeed, from a hay bale, a lettuce and an apple.");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.broadhoof_goat", "Broadhoof Goat");
             put("screen."+ MiddleEarth.MOD_ID +".playerbook.mount_broadhoof_goat_desc", "The Broadhoof Goat is a great mount for Dwarves that can easily climb mountains.\n" +
                     "You can find them in mountains where Dwarves live, but beware of these fluffy climbers; they can be aggressive if provoked. " +
@@ -886,6 +896,10 @@ public class TranslationEntries {
             put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
 
             put("npc_data."+ MiddleEarth.MOD_ID +".npc", "NPC");
+
+            put("inscription." + MiddleEarth.MOD_ID + ".linking_dash", "-");
+            put("inscription." + MiddleEarth.MOD_ID + ".level", "%d Level");
+            put("inscription." + MiddleEarth.MOD_ID + ".levels", "%d Levels");
         }
     };
 }

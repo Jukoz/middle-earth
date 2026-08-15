@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.entity.npcs.renderer.features.ear;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -25,7 +24,7 @@ import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
 public class EarFeatureRenderer extends RenderLayer<NpcEntity, NpcEntityModel> {
-    private final EntityModel<NpcEntity> earModel;
+    private final EarModel earModel;
     private final TextureAtlas atlas;
 
     public EarFeatureRenderer(RenderLayerParent<NpcEntity, NpcEntityModel> parent, EntityModelSet modelSet) {

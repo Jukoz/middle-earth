@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "middle-earth:blue_lavender"
+    }
+  ],
+  "result": {
+    "id": "minecraft:blue_dye"
+  }
+}

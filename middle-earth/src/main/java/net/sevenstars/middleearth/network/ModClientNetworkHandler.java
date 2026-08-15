@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.network;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +38,8 @@ public final class ModClientNetworkHandler {
         ClientPacketContext context = new ClientPacketContext(player, connection);
         if (packet instanceof PacketOnboardingResult onboardingResult) {
             handleOnboardingResult(onboardingResult, context);
+        } else if (packet instanceof PacketReturnToOverworldResult returnResult) {
+            handleReturnToOverworldResult(returnResult, context);
         } else if (packet instanceof PacketForceOnboardingScreen forceOnboarding) {
             handleForceOnboarding(forceOnboarding, context);
         } else if (packet instanceof PacketLivingEntityData livingEntityData) {
@@ -51,6 +54,28 @@ public final class ModClientNetworkHandler {
             new MapScreenController(player.level(), player).open(openMap.canTeleport());
         } else {
             MiddleEarth.LOGGER.logError("Unhandled client payload type: " + packet.type().id());
+        }
+    }
+
+    private static void handleReturnToOverworldResult(
+            PacketReturnToOverworldResult packet,
+            ClientPacketContext context
+    ) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.screen instanceof ReturnConfirmationScreen screen) {
+            screen.handleResult(packet.status(), packet.retryAfterMillis());
+            return;
+        }
+        if (packet.status() != net.sevenstars.middleearth.network.handlers.OnboardingReturnResult.Status.SUCCESS) {
+            context.player().displayClientMessage(
+                    Component.translatable(
+                            "ui.%s.return_confirmation.error.%s".formatted(
+                                    MiddleEarth.MOD_ID,
+                                    packet.status().translationSuffix()
+                            )
+                    ),
+                    false
+            );
         }
     }
 

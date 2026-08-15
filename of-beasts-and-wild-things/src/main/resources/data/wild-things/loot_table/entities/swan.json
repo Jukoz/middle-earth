@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:feather",
+          "name": "wild-things:swan_feather",
           "conditions": []
         }
       ],

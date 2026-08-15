@@ -21,7 +21,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.packets.C2S.InscriptionConfirmationPacket;
 import net.sevenstars.middleearth.network.packets.C2S.InscriptionWordUpdatePacket;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -213,7 +212,8 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
             int l = this.menu.getPlayerLevels();
 
             int color;
-            Component text = Component.nullToEmpty(k + " Levels");
+            String levelKey = k == 1 ? ".level" : ".levels";
+            Component text = Component.translatable("inscription." + MiddleEarth.MOD_ID + levelKey, k);
 
             if (this.minecraft.player.hasInfiniteMaterials() || (l >= k && k != 0)){
                 color = -8323296;
@@ -246,9 +246,11 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         int m = 0;
         for(String word : this.selectedWords){
             if (m != 0){
-                stringBuilder.append("-");
+                stringBuilder.append(Component.translatable(
+                        "inscription." + MiddleEarth.MOD_ID + ".linking_dash").getString());
             }
-            stringBuilder.append(StringUtils.capitalize(word));
+            stringBuilder.append(Component.translatable(
+                    "inscription." + MiddleEarth.MOD_ID + "." + word).getString());
             m++;
         }
 
@@ -284,13 +286,17 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
                 if(index - indexStartOffset >= 0 && index - indexStartOffset < this.words.length) {
                     WidgetInscriptionButtonPage widgetButtonPage = this.words[index - indexStartOffset];
                     if(widgetButtonPage.hidden) {
-                        Component text = Component.literal(StringUtils.capitalize(word)).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
+                        Component text = Component.translatable(
+                                "inscription." + MiddleEarth.MOD_ID + "." + word)
+                                .setStyle(Style.EMPTY.withStrikethrough(true));
                         context.drawString(this.font, text, i + 11, n, CommonColors.LIGHT_GRAY, false);
                     } else {
-                        context.drawString(this.font, StringUtils.capitalize(word), i + 11, n, CommonColors.WHITE, false);
+                        context.drawString(this.font, Component.translatable(
+                                "inscription." + MiddleEarth.MOD_ID + "." + word), i + 11, n, CommonColors.WHITE, false);
                     }
                 } else {
-                    context.drawString(this.font, StringUtils.capitalize(word), i + 11, n, CommonColors.WHITE, false);
+                    context.drawString(this.font, Component.translatable(
+                            "inscription." + MiddleEarth.MOD_ID + "." + word), i + 11, n, CommonColors.WHITE, false);
                 }
                 n += 14;
             }

@@ -141,8 +141,6 @@ public class BlockDrops {
             add(ModNatureBlocks.SILVER_MAPLE_SAPLING);
             add(ModNatureBlocks.WHITE_PALM_SAPLING);
 
-            add(ModDecorativeBlocks.FORGE);
-
             add(ModDecorativeBlocks.INSCRIPTION_TABLE);
 
             add(ModDecorativeBlocks.LARCH_COFFER);

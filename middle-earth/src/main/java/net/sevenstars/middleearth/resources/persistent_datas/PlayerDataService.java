@@ -220,13 +220,7 @@ public class PlayerDataService {
     }
 
     public static boolean setMiddleEarthReturnPos(ServerPlayer player, BlockPos returnPos) {
-        if (player == null
-                || returnPos == null
-                || !Level.isInSpawnableBounds(returnPos)
-                || !MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(
-                        returnPos.getX(),
-                        returnPos.getZ()
-                )) {
+        if (player == null || !isValidMiddleEarthReturnPos(returnPos)) {
             return false;
         }
         PlayerData data = getPlayerData(player);
@@ -235,6 +229,15 @@ public class PlayerDataService {
         }
         data.assignMiddleEarthReturnPos(returnPos.immutable());
         return true;
+    }
+
+    public static boolean isValidMiddleEarthReturnPos(BlockPos returnPos) {
+        return returnPos != null
+                && Level.isInSpawnableBounds(returnPos)
+                && MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(
+                        returnPos.getX(),
+                        returnPos.getZ()
+                );
     }
 
     private static OriginAggregate getDefaultOriginAggregate(Level world){

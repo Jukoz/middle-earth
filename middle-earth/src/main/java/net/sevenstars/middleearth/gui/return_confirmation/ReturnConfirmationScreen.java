@@ -12,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
 import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentOverworldSpawn;
+import net.sevenstars.middleearth.network.handlers.OnboardingReturnResult;
 
 import java.awt.event.KeyEvent;
 
@@ -22,6 +23,7 @@ public class ReturnConfirmationScreen extends Screen {
     public Button closeButton;
     float currentDelay;
     private final InteractionHand interactionHand;
+    private boolean requestPending;
 
     public ReturnConfirmationScreen(float delay, InteractionHand interactionHand) {
         super(RETURN_CONFIRMATION_TITLE);
@@ -41,7 +43,39 @@ public class ReturnConfirmationScreen extends Screen {
     }
 
     private void returnToOverworld() {
+        if (requestPending) {
+            return;
+        }
+        requestPending = true;
+        returnToOverworldButton.active = false;
         PacketDistributor.sendToServer(new PacketTeleportToCurrentOverworldSpawn(interactionHand == InteractionHand.OFF_HAND));
+    }
+
+    public void handleResult(OnboardingReturnResult.Status status, int retryAfterMillis) {
+        requestPending = false;
+        if (status == OnboardingReturnResult.Status.SUCCESS) {
+            onClose();
+            return;
+        }
+
+        showFailure(status.translationSuffix());
+        if (status.retryable()) {
+            currentDelay = Math.max(0.05F, retryAfterMillis / 1000.0F);
+            returnToOverworldButton.active = currentDelay <= 0.0F;
+        } else {
+            onClose();
+        }
+    }
+
+    private void showFailure(String suffix) {
+        if (minecraft != null && minecraft.player != null) {
+            minecraft.player.displayClientMessage(
+                    Component.translatable(
+                            "ui.%s.return_confirmation.error.%s".formatted(MiddleEarth.MOD_ID, suffix)
+                    ),
+                    false
+            );
+        }
     }
 
     @Override
@@ -55,7 +89,7 @@ public class ReturnConfirmationScreen extends Screen {
     public void tick() {
         if(currentDelay > 0){
             currentDelay = Math.max(0, currentDelay - (1f / 20));
-            if(currentDelay == 0) {
+            if(currentDelay == 0 && !requestPending) {
                 returnToOverworldButton.active = true;
             }
         }

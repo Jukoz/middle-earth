@@ -6,13 +6,11 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.item.items.StarlightPhialItem;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
+import net.sevenstars.middleearth.network.handlers.OnboardingReturnResult;
 import net.sevenstars.middleearth.network.handlers.OnboardingServerHandler;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.network.packets.S2C.PacketReturnToOverworldResult;
 
 
 public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<PacketTeleportToCurrentOverworldSpawn> {
@@ -45,14 +43,21 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
 
     @Override
     public void process(ServerPacketContext context) {
+        var result = OnboardingReturnResult.failure(
+                OnboardingReturnResult.Status.INTERNAL_ERROR
+        );
         try{
-            OnboardingServerHandler.returnToOverworld(
+            result = OnboardingServerHandler.returnToOverworld(
                     context.player(),
                     offHand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND
             );
         } catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketTeleportToCurrentOverworldSpawn::Apply - Tried applying the return to overworld packet",e);
         }
+        context.connection().sendPacketToClient(
+                new PacketReturnToOverworldResult(result),
+                context.player()
+        );
     }
 
     public boolean offHand() {

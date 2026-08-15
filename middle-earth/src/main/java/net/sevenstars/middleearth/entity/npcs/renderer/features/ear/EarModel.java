@@ -20,26 +20,26 @@ public class EarModel extends HierarchicalModel<NpcEntity> {
     public EarModel(ModelPart modelPart) {
         this.root = modelPart;
         this.ears = modelPart.getChild("ears");
-        this.planeFlatLeft = this.ears.getChild("leftFlatEarPlane");
-        this.planeFlatRight = this.ears.getChild("rightFlatEarPlane");
+        this.planeFlatLeft = this.ears.getChild("ear_left");
+        this.planeFlatRight = this.ears.getChild("ear_right");
     }
 
     public static LayerDefinition getTexturedModelData() {
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
 
-        PartDefinition planeFlatSides = modelPartData.addOrReplaceChild("ears", CubeListBuilder.create(), PartPose.offset(0.0F, -3f, -1.0f));
-        planeFlatSides.addOrReplaceChild("leftFlatEarPlane",
-                CubeListBuilder.create()
-                        .texOffs(0, 6)
-                        .addBox(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, CubeDeformation.NONE),
-                PartPose.offsetAndRotation(4F, -5F, 0.0F, 0.0F, -0.35F, 0.0F));
-        planeFlatSides.addOrReplaceChild("rightFlatEarPlane",
-                CubeListBuilder.create()
-                        .texOffs(0, 6)
-                        .addBox(0, 0, 0.0F, 6.0F, 7.0F, 0.0F, CubeDeformation.NONE)
-                        .mirror(),
-                PartPose.offsetAndRotation(-4F, -5F, 0.0F, 0.0F, 0.35F, 0.0F));
+        PartDefinition ears = modelPartData.addOrReplaceChild(
+                "ears", CubeListBuilder.create(), PartPose.ZERO);
+        ears.addOrReplaceChild(
+                "ear_right",
+                CubeListBuilder.create().texOffs(0, 6)
+                        .addBox(3.5F, -8.0F, 2.0F, 7.0F, 6.0F, 0.0F, CubeDeformation.NONE),
+                PartPose.ZERO);
+        ears.addOrReplaceChild(
+                "ear_left",
+                CubeListBuilder.create().texOffs(0, 6)
+                        .addBox(3.5F, -8.0F, -2.0F, 7.0F, 6.0F, 0.0F, CubeDeformation.NONE),
+                PartPose.ZERO);
 
         return LayerDefinition.create(modelData, 16, 16);
     }

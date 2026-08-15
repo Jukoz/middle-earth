@@ -28,6 +28,7 @@ public final class ModServerNetworkHandler {
         PayloadRegistrar registrar = event.registrar(NETWORK_VERSION).executesOn(HandlerThread.MAIN);
 
         registerToClient(registrar, PacketOnboardingResult.ID, PacketOnboardingResult.CODEC);
+        registerToClient(registrar, PacketReturnToOverworldResult.ID, PacketReturnToOverworldResult.CODEC);
         registerToClient(registrar, PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
         registerToClient(registrar, PacketLivingEntityData.ID, PacketLivingEntityData.CODEC);
         registerToClient(registrar, InscriptionEnchantInfoPacket.ID, InscriptionEnchantInfoPacket.CODEC);

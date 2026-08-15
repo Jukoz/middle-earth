@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.*;
@@ -404,6 +405,9 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                     } else if (set.setName.contains("thatch") || set.setName.contains("reed")) {
                         createRegularSetRecipes(set.blockSet);
                     }
+                }
+                for (SimpleBlockSetBuilder set : GenericBlockSets.simpleSetsList) {
+                    createGenericRecipes(set);
                 }
 
                 //region ROOF RECIPES
@@ -786,6 +790,19 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                                 has(StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base()))
                         .save(recipeOutput);
 
+                createGildedStoneRecipe(
+                        StoneBlockSets.GREEN_TUFF_SET.chiseledBricksBlocks.base(),
+                        StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledBricksBlocks.base());
+                createGildedStoneRecipe(
+                        StoneBlockSets.GREEN_TUFF_SET.chiseledTilesBlocks.base(),
+                        StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledTilesBlocks.base());
+                createGildedStoneRecipe(
+                        StoneBlockSets.GREEN_TUFF_SET.chiseledSmoothBlocks.base(),
+                        StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledSmoothBlocks.base());
+                createGildedStoneRecipe(
+                        StoneBlockSets.GREEN_TUFF_SET.chiseledPolishedBlocks.base(),
+                        StoneBlockSets.GILDED_GREEN_TUFF_SET.chiseledPolishedBlocks.base());
+
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.BURZUM_GABBRO_SET.chiseledBlocks.base(), 5)
                         .pattern("TNT")
                         .pattern("NTN")
@@ -849,6 +866,17 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.ANDESITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(),StoneBlockSets.ANDESITE_SET.brickworkBlocks.base());
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.DIORITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.DIORITE_SET.brickworkBlocks.base());
                 //createBrickworkBlockRecipe(exporter, StoneBlockSets.GRANITE_SET.tileBlocks.base(), GenericBlockSets.STUCCO.blockSet.base(), StoneBlockSets.GRANITE_SET.brickworkBlocks.base());
+
+                createBrickRecipe(recipeOutput, StoneBlockSets.QUARTZITE_SET.brickBlocks.base().asItem(),
+                        StoneBlockSets.QUARTZITE_SET.tileBlocks.base(), 4);
+                createBrickRecipe(recipeOutput, GenericBlockSets.PACKED_MIRE.blockSet.base().asItem(),
+                        GenericBlockSets.MIRE_BRICKS.blockSet.base(), 4);
+                createMossyRecipe(recipeOutput, GenericBlockSets.MIXED_STONES.blockSet.base(),
+                        GenericBlockSets.MOSSY_MIXED_STONES.blockSet.base());
+                oreSmelting(List.of(GenericBlockSets.MIXED_STONES.blockSet.base()),
+                        RecipeCategory.BUILDING_BLOCKS,
+                        GenericBlockSets.CRACKED_MIXED_STONES.blockSet.base(),
+                        0.1F, 200, "cracked_bricks");
 
                 createBrickRecipe(recipeOutput, Blocks.BRICKS.asItem(), GenericBlockSets.CLAY_TILING.blockSet.base(), 4);
                 createCenterSurroundRecipe(recipeOutput, GenericBlockSets.CLAY_TILING.blockSet.base().asItem(), Items.BLACK_DYE, GenericBlockSets.BLACK_CLAY_TILING.blockSet.base().asItem(), 8);
@@ -1346,6 +1374,8 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                         .save(recipeOutput);
 
                 createBrickRecipe(recipeOutput, GenericBlockSets.TREATED_WOOD.blockSet.base().asItem(), GenericBlockSets.TREATED_WOOD_BEAM.blockSet.base(), 3);
+                createBrickRecipe(recipeOutput, GenericBlockSets.TREATED_WOOD_BEAM.blockSet.base().asItem(),
+                        GenericBlockSets.TREATED_WOOD_TILING.blockSet.base(), 4);
 
                 ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, GenericBlockSets.TREATED_WOOD_PLANKS.blockSet.base(), 4)
                         .requires(GenericBlockSets.TREATED_WOOD.blockSet.base())
@@ -1396,6 +1426,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_BEAM);
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_PANELS);
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_BOARDS);
+                createGenericRecipes(GenericBlockSets.AGED_WOOD_CARVING);
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_FISH_CARVING);
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_CARVED_BEAM);
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_KNOTTED_BEAM);
@@ -3220,6 +3251,24 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 createSlabsFromVerticalRecipe(recipeOutput, set.blockSet.verticalSlab(), set.blockSet.slab());
                 createStairsRecipe(recipeOutput, set.blockSet.base(), set.blockSet.stairs());
                 wall(RecipeCategory.BUILDING_BLOCKS, set.blockSet.wall(), set.blockSet.base());
+            }
+
+            private void createGenericRecipes(SimpleBlockSetBuilder set) {
+                slab(RecipeCategory.BUILDING_BLOCKS, set.blockSet.slab().asItem(), set.blockSet.base().asItem());
+                createVerticalSlabsRecipe(recipeOutput, set.blockSet.slab(), set.blockSet.verticalSlab());
+                createSlabsFromVerticalRecipe(recipeOutput, set.blockSet.verticalSlab(), set.blockSet.slab());
+                createStairsRecipe(recipeOutput, set.blockSet.base(), set.blockSet.stairs());
+            }
+
+            private void createGildedStoneRecipe(Block input, Block output) {
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .define('T', input)
+                        .define('N', Items.GOLD_NUGGET)
+                        .unlockedBy(getHasName(input), has(input))
+                        .save(recipeOutput);
             }
 
             private void createRegularSetRecipes(BlockRecordTypes.RegularSet set) {

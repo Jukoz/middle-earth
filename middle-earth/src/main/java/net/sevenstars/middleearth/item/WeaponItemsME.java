@@ -5,6 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.component.ChargedProjectiles;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.api.registries.RegistrationBridge;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
@@ -1089,7 +1090,9 @@ public class WeaponItemsME {
     }
 
     private static Item registerCrossbowItem(String name, Function<Item.Properties, Item> factory, Item.Properties settings) {
-        Item item = factory.apply(settings);
+        Item item = factory.apply(settings
+                .stacksTo(1)
+                .component(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultInstance());
         SimpleCrossbowItemModel.items.add(item);
         Crossbows.crossbows.add(item);

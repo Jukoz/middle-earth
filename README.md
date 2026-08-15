@@ -24,12 +24,15 @@ The `1.0.1-1.21.1-neoforge-backport` branch is an unofficial compatibility
 backport of the upstream `1.0.1-1.21.8-beta` release at
 [`1f047d55dd1509c001596876617b4ae660eb006e`](https://github.com/Jukoz/middle-earth/commit/1f047d55dd1509c001596876617b4ae660eb006e),
 aligned through the adopted upstream fixes snapshot
-[`54c0629e410cac55e7c2591c5a178294493055cb`](https://github.com/Jukoz/middle-earth/commit/54c0629e410cac55e7c2591c5a178294493055cb).
-It also incorporates the upstream localization lineage through
-[`345b865f1d2ad5d49f88e71bc348c337856db910`](https://github.com/Jukoz/middle-earth/commit/345b865f1d2ad5d49f88e71bc348c337856db910).
+[`db056482e3fe10ecf15a09510d6dbc8a5cfce840`](https://github.com/Jukoz/middle-earth/commit/db056482e3fe10ecf15a09510d6dbc8a5cfce840).
+Safe later fixes are selectively backported from `eba6b5be`, `65450642`,
+`e83dffe9`, `baf4a74c`, `3cf26ead`, and `52519872`; the last commit is the
+audited upstream watermark, not a fully adopted baseline. Compatible
+localization changes are incorporated through
+[`ee79dc1977da654ca0276a91d93901f1b8521552`](https://github.com/Jukoz/middle-earth/commit/ee79dc1977da654ca0276a91d93901f1b8521552).
 Known defects in those upstream commits are corrected as part of the 1.21.1
-semantic backport. Unmerged `new-stuff` content and the first-iteration global
-mob-cap experiment are not part of this stable baseline.
+semantic backport. The merged `new-stuff`, wild-spawn caching, and global
+mob-cap lineages are not part of this stable baseline.
 It is not an official release from the original Middle-earth mod team.
 
 All original copyright notices, credits, trademarks and the ARR license remain
