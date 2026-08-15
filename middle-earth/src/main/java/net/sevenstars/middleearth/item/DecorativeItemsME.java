@@ -98,6 +98,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(ModDecorativeBlocks.SPIDER_TRIAL_SPAWNER, settings), new Item.Settings());
     public static final Item SPIDER_VAULT = registerItem("spider_vault",
             (settings) -> new BlockItem(ModDecorativeBlocks.SPIDER_VAULT, settings), new Item.Settings());
+    public static final Item BARROW_SARCOPHAGUS_SPAWNER = registerItem("barrow_sarcophagus_spawner",
+            (settings) -> new BlockItem(ModDecorativeBlocks.BARROW_SARCOPHAGUS_SPAWNER, settings), new Item.Settings());
 
     public static final Item SMALL_CRATE = registerItem("small_crate",
             (settings) -> new BlockItem(ModDecorativeBlocks.SMALL_CRATE, settings), new Item.Settings());

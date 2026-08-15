@@ -40,6 +40,7 @@ import net.sevenstars.middleearth.block.special.toggeable_lights.*;
 import net.sevenstars.middleearth.block.special.torches.METorchBlock;
 import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
 import net.sevenstars.middleearth.block.special.torches.OrcSconceBlock;
+import net.sevenstars.middleearth.block.special.trial.BarrowTrialSpawner;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
@@ -133,6 +134,8 @@ public class ModDecorativeBlocks {
             TrialSpawnerBlock::new, AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER));
     public static final Block SPIDER_VAULT = registerBlock("spider_vault",
             VaultBlock::new, AbstractBlock.Settings.copy(Blocks.VAULT).nonOpaque());
+    public static final Block BARROW_SARCOPHAGUS_SPAWNER = registerBlock("barrow_sarcophagus_spawner",
+            BarrowTrialSpawner::new, AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER));
 
     public static final Block SMALL_CRATE = registerBlock("small_crate",
             CrateBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());

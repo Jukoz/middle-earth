@@ -46,21 +46,9 @@ public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, Ba
         state.screamAnimationState.copyFrom(barrowWightEntity.screamAnimation);
         state.incantationAnimationState.copyFrom(barrowWightEntity.incantationAnimation);
 
-        // Resolve & update the main hand item state
-        this.itemModelResolver.updateForLivingEntity(
-                state.rightHandItemState,
-                barrowWightEntity.getStackInArm(Arm.RIGHT),
-                ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
-                barrowWightEntity
-        );
-
-        // Resolve & update the off-hand item state
-        this.itemModelResolver.updateForLivingEntity(
-                state.leftHandItemState,
-                barrowWightEntity.getStackInArm(Arm.LEFT),
-                ItemDisplayContext.THIRD_PERSON_LEFT_HAND,
-                barrowWightEntity
-        );
+        // Resolve left & right hand item state (super call is buggy idk why)
+        this.itemModelResolver.updateForLivingEntity(state.rightHandItemState, barrowWightEntity.getStackInArm(Arm.RIGHT), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, barrowWightEntity);
+        this.itemModelResolver.updateForLivingEntity(state.leftHandItemState, barrowWightEntity.getStackInArm(Arm.LEFT), ItemDisplayContext.THIRD_PERSON_LEFT_HAND, barrowWightEntity);
     }
 
     @Override

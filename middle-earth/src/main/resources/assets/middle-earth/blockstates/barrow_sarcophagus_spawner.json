@@ -1,0 +1,102 @@
+{
+  "variants": {
+    "facing=east,part=head,ominous=false,trial_spawner_state=active": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=false,trial_spawner_state=cooldown": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=false,trial_spawner_state=inactive": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=true,trial_spawner_state=active": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=true,trial_spawner_state=cooldown": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=true,trial_spawner_state=inactive": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active",
+      "y": 270
+    },
+    "facing=east,part=head,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active",
+      "y": 270
+    },
+
+
+    "facing=east,part=foot,ominous=false,trial_spawner_state=active": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=false,trial_spawner_state=cooldown": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=false,trial_spawner_state=inactive": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=true,trial_spawner_state=active": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=true,trial_spawner_state=cooldown": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=true,trial_spawner_state=inactive": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active_end",
+      "y": 270
+    },
+    "facing=east,part=foot,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "middle-earth:block/barrow_sarcophagus_spawner_active_end",
+      "y": 270
+    }
+  }
+}
