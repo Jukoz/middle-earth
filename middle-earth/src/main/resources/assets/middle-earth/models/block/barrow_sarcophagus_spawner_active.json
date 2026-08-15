@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "middle-earth:block/barrow_sarcophagus_spawner",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "middle-earth:block/barrow_sarcophagus_spawner_active",
+		"particle": "middle-earth:block/gabbro_pillar"
+	}
+}
