@@ -6,8 +6,10 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.BlockPos;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -55,6 +57,7 @@ public class WildSpawnEventData {
         public static final String REQUIRE_NIGHT = "require_night";
 
         public static final String DISCARD_CHANCE = "discard_chance";
+        public static final String BROADCAST = "broadcast";
     }
 
     public static final Codec<WildSpawnEventData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -78,7 +81,8 @@ public class WildSpawnEventData {
             Codec.BOOL.optionalFieldOf(Fields.REQUIRE_UNDERGROUND).forGetter(WildSpawnEventData::getUndergroundRequirement),
             Codec.BOOL.optionalFieldOf(Fields.REQUIRE_NIGHT).forGetter(WildSpawnEventData::getNightRequirement),
 
-            Codec.DOUBLE.optionalFieldOf(Fields.DISCARD_CHANCE).forGetter(WildSpawnEventData::getDiscardChances)
+            Codec.DOUBLE.optionalFieldOf(Fields.DISCARD_CHANCE).forGetter(WildSpawnEventData::getDiscardChances),
+            BroadcastData.CODEC.optionalFieldOf(Fields.BROADCAST).forGetter(WildSpawnEventData::getBroadcast)
 
     ).apply(instance, WildSpawnEventData::new));
 
@@ -97,6 +101,7 @@ public class WildSpawnEventData {
     private Boolean requireUnderground = null;
     private Boolean requireNight = null;
     private Double discardChance = null;
+    private BroadcastData broadcastData = null;
 
     private WildSpawnEventData(
             ResourceLocation entityType,
@@ -113,7 +118,8 @@ public class WildSpawnEventData {
             Optional<Boolean> requireSky,
             Optional<Boolean> requireUnderground,
             Optional<Boolean> requireNight,
-            Optional<Double> discardChance) {
+            Optional<Double> discardChance,
+            Optional<BroadcastData> broadcastData) {
         this.entityType = entityType;
         this.npcType = npcType.orElse(null);
         this.weight = weight.orElse(null);
@@ -129,6 +135,7 @@ public class WildSpawnEventData {
         this.requireUnderground = requireUnderground.orElse(null);
         this.requireNight = requireNight.orElse(null);
         this.discardChance = discardChance.orElse(null);
+        this.broadcastData = broadcastData.orElse(null);
     }
 
     public WildSpawnEventData(EntityType<?> entityType){
@@ -406,5 +413,20 @@ public class WildSpawnEventData {
             return false;
         double obtained = random.nextDouble();
         return obtained <= discardChance;
+    }
+
+    private Optional<BroadcastData> getBroadcast() {
+        return Optional.ofNullable(broadcastData);
+    }
+
+    public WildSpawnEventData withBroadcast(BroadcastData broadcast) {
+        this.broadcastData = broadcast;
+        return this;
+    }
+
+    public void broadcastMessage(ServerLevel world, BlockPos pos) {
+        if (broadcastData != null) {
+            broadcastData.broadcastMessage(world, pos);
+        }
     }
 }

@@ -179,6 +179,40 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                 //region GENERIC
 
                 //T1
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BAGGY_HAT.getDefaultInstance(), "hat", DispositionType.NEUTRAL)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .unlockedBy(getHasName(Items.LEATHER), has(Items.LEATHER))
+                        .save(output);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CHAPERON.getDefaultInstance(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .unlockedBy(getHasName(ResourceItemsME.FABRIC), has(ResourceItemsME.FABRIC))
+                        .save(output);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GLASSES.getDefaultInstance(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(ResourceItemsME.BRONZE_INGOT)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(Items.GLASS)
+                        .input(Items.GLASS)
+                        .unlockedBy(getHasName(ResourceItemsME.BRONZE_INGOT), has(ResourceItemsME.BRONZE_INGOT))
+                        .save(output);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MONOCLE.getDefaultInstance(), "hat", DispositionType.GOOD)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(ResourceItemsME.BRONZE_INGOT)
+                        .input(Items.LEATHER)
+                        .input(Items.GLASS)
+                        .input(Items.LEATHER)
+                        .unlockedBy(getHasName(ResourceItemsME.BRONZE_INGOT), has(ResourceItemsME.BRONZE_INGOT))
+                        .save(output);
+
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.STRAW_HAT.getDefaultInstance(), "hat", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(ResourceItemsME.STRAW)
@@ -207,6 +241,15 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(Items.STRING)
                         .unlockedBy(getHasName(Items.WHITE_WOOL),
                                 has(Items.WHITE_WOOL))
+                        .save(output);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BEEKEEPER_MASK.getDefaultInstance(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.STRAW)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .unlockedBy(getHasName(ResourceItemsME.FABRIC), has(ResourceItemsME.FABRIC))
                         .save(output);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_HAT.getDefaultInstance(), "hat", DispositionType.NEUTRAL)
@@ -314,6 +357,18 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FABRIC)
                         .unlockedBy(getHasName(Items.LEATHER),
                                 has(Items.LEATHER))
+                        .save(output);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACKSMITH_APRON.getDefaultInstance(), "chestplate", DispositionType.NEUTRAL)
+                        .input(Items.STRING)
+                        .input(Items.STRING)
+                        .input(ResourceItemsME.TIN_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.TIN_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .unlockedBy(getHasName(Items.LEATHER), has(Items.LEATHER))
                         .save(output);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.LEATHER_VEST.getDefaultInstance(), "chestplate", DispositionType.NEUTRAL)

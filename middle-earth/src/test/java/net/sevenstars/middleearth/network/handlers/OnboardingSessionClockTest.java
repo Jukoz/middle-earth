@@ -2,6 +2,9 @@ package net.sevenstars.middleearth.network.handlers;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.EnumSet;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,21 +47,24 @@ class OnboardingSessionClockTest {
     }
 
     @Test
-    void sessionPurposesIsolateReturnAndEntryOperations() {
-        assertTrue(OnboardingSessionPurpose.PHIAL_RETURN.allowsReturn());
-        assertFalse(OnboardingSessionPurpose.PHIAL_RETURN.allowsEntry());
-        assertTrue(OnboardingSessionPurpose.PHIAL_RETURN.requiresPhial());
+    void sessionPurposesHaveIndependentOperationsAndLifetimes() {
+        EnumSet<OnboardingSessionPurpose> normalReturningPlayer = EnumSet.of(
+                OnboardingSessionPurpose.SELECTION,
+                OnboardingSessionPurpose.CURRENT_SPAWN
+        );
+        EnumSet<OnboardingSessionPurpose> forcedSelection = EnumSet.of(
+                OnboardingSessionPurpose.SELECTION
+        );
 
-        assertFalse(OnboardingSessionPurpose.PHIAL_ENTRY.allowsReturn());
-        assertTrue(OnboardingSessionPurpose.PHIAL_ENTRY.allowsEntry());
-        assertTrue(OnboardingSessionPurpose.PHIAL_ENTRY.requiresPhial());
-
-        assertFalse(OnboardingSessionPurpose.FORCED_ENTRY.allowsReturn());
-        assertTrue(OnboardingSessionPurpose.FORCED_ENTRY.allowsEntry());
-        assertFalse(OnboardingSessionPurpose.FORCED_ENTRY.requiresPhial());
-        assertTrue(
-                OnboardingSessionPurpose.PHIAL_ENTRY.lifetimeNanos()
-                        > OnboardingSessionPurpose.PHIAL_RETURN.lifetimeNanos()
+        assertFalse(forcedSelection.contains(OnboardingSessionPurpose.CURRENT_SPAWN));
+        assertFalse(forcedSelection.contains(OnboardingSessionPurpose.PHIAL_RETURN));
+        assertEquals(
+                TimeUnit.MINUTES.toNanos(2L),
+                OnboardingSessionPurpose.PHIAL_RETURN.lifetimeNanos()
+        );
+        assertEquals(
+                TimeUnit.MINUTES.toNanos(30L),
+                OnboardingSessionPurpose.longestLifetime(normalReturningPlayer)
         );
     }
 }

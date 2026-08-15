@@ -14,7 +14,7 @@ import net.neoforged.fml.loading.FMLEnvironment;
 @Mod(SevenStarsApi.MOD_ID)
 public final class SevenStarsApi {
 	public static final String MOD_ID = "sevenstars_api";
-	public static final String MOD_VERSION = "1.0.1-1.21.1-beta";
+	public static final String MOD_VERSION = "1.0.2-1.21.1-beta-backport.1";
 	public static final boolean IS_DEBUG = false;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 

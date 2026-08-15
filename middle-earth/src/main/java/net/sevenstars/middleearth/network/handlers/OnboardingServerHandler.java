@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -23,6 +24,7 @@ import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -44,14 +46,37 @@ public final class OnboardingServerHandler {
     }
 
     public static boolean begin(ServerPlayer player, InteractionHand hand) {
-        OnboardingSessionPurpose purpose = player != null && ModDimensions.isInMiddleEarth(player.level())
-                ? OnboardingSessionPurpose.PHIAL_RETURN
-                : OnboardingSessionPurpose.PHIAL_ENTRY;
-        return begin(player, hand, purpose);
+        if (player == null) {
+            return false;
+        }
+        if (ModDimensions.isInMiddleEarth(player.level())) {
+            return begin(
+                    player,
+                    hand,
+                    true,
+                    EnumSet.of(OnboardingSessionPurpose.PHIAL_RETURN)
+            );
+        }
+
+        EnumSet<OnboardingSessionPurpose> purposes = EnumSet.noneOf(OnboardingSessionPurpose.class);
+        if (PlayerDataService.playerPassedOnboarding(player)) {
+            purposes.add(OnboardingSessionPurpose.CURRENT_SPAWN);
+            if (ModServerConfigs.ENABLE_FACTION_RESET) {
+                purposes.add(OnboardingSessionPurpose.SELECTION);
+            }
+        } else {
+            purposes.add(OnboardingSessionPurpose.SELECTION);
+        }
+        return begin(player, hand, true, purposes);
     }
 
     public static boolean beginForced(ServerPlayer player) {
-        return begin(player, InteractionHand.MAIN_HAND, OnboardingSessionPurpose.FORCED_ENTRY);
+        return begin(
+                player,
+                InteractionHand.MAIN_HAND,
+                false,
+                EnumSet.of(OnboardingSessionPurpose.SELECTION)
+        );
     }
 
     public static void clearSession(ServerPlayer player) {
@@ -63,18 +88,21 @@ public final class OnboardingServerHandler {
     private static boolean begin(
             ServerPlayer player,
             InteractionHand hand,
-            OnboardingSessionPurpose purpose
+            boolean requiresPhial,
+            EnumSet<OnboardingSessionPurpose> purposes
     ) {
         if (player == null || hand == null
-                || purpose == null
-                || (purpose.allowsReturn() && !ModDimensions.isInMiddleEarth(player.level()))
-                || (purpose.allowsEntry() && !ModDimensions.isInOverworld(player.level()))) {
+                || purposes == null || purposes.isEmpty()
+                || (purposes.contains(OnboardingSessionPurpose.PHIAL_RETURN)
+                        && !ModDimensions.isInMiddleEarth(player.level()))
+                || (!purposes.contains(OnboardingSessionPurpose.PHIAL_RETURN)
+                        && !ModDimensions.isInOverworld(player.level()))) {
             return false;
         }
-        if (purpose.requiresPhial() && !isHoldingPhial(player, hand)) {
+        if (requiresPhial && !isHoldingPhial(player, hand)) {
             return false;
         }
-        if (purpose.allowsReturn()
+        if (purposes.contains(OnboardingSessionPurpose.PHIAL_RETURN)
                 && !ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD) {
             return false;
         }
@@ -85,18 +113,20 @@ public final class OnboardingServerHandler {
         int delayTicks = player.hasInfiniteMaterials()
                 ? 0
                 : Math.max(0, (int) Math.ceil(ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION * 20.0F));
-        if (purpose.requiresPhial() && delayTicks > 0) {
+        if (requiresPhial && delayTicks > 0) {
             player.getCooldowns().addCooldown(player.getItemInHand(hand).getItem(), delayTicks);
         }
         long nowNanos = Util.getNanos();
         long readyAtNanos = OnboardingSessionClock.afterSeconds(nowNanos, delaySeconds);
+        long lifetimeNanos = OnboardingSessionPurpose.longestLifetime(purposes);
         SESSIONS.put(player.getUUID(), new Session(
                 player.level().dimension(),
                 player.blockPosition(),
                 hand,
                 readyAtNanos,
-                OnboardingSessionClock.addSaturated(readyAtNanos, purpose.lifetimeNanos()),
-                purpose
+                OnboardingSessionClock.addSaturated(readyAtNanos, lifetimeNanos),
+                purposes,
+                requiresPhial
         ));
         return true;
     }
@@ -109,9 +139,21 @@ public final class OnboardingServerHandler {
             BlockPos origin,
             InteractionHand hand
     ) {
-        Session session = validateSession(player, hand, origin, ModDimensions.OW_WORLD_KEY);
-        if (session == null || !session.purpose().allowsEntry()
-                || factionId == null || raceId == null || spawnId == null) {
+        Session session = validateSession(
+                player,
+                hand,
+                origin,
+                ModDimensions.OW_WORLD_KEY,
+                OnboardingSessionPurpose.SELECTION
+        );
+        if (session == null) {
+            reportInvalidSession(player);
+            return false;
+        }
+        if (!session.purpose().allowsEntry()) {
+            return false;
+        }
+        if (factionId == null || raceId == null || spawnId == null) {
             return false;
         }
         if (PlayerDataService.playerPassedOnboarding(player) && !ModServerConfigs.ENABLE_FACTION_RESET) {
@@ -173,9 +215,21 @@ public final class OnboardingServerHandler {
     }
 
     public static boolean teleportCurrentSpawn(ServerPlayer player, InteractionHand hand, boolean welcomeNeeded) {
-        Session session = validateSession(player, hand, null, ModDimensions.OW_WORLD_KEY);
-        if (session == null || !session.purpose().allowsEntry()
-                || !PlayerDataService.playerPassedOnboarding(player)) {
+        Session session = validateSession(
+                player,
+                hand,
+                null,
+                ModDimensions.OW_WORLD_KEY,
+                OnboardingSessionPurpose.CURRENT_SPAWN
+        );
+        if (session == null) {
+            reportInvalidSession(player);
+            return false;
+        }
+        if (!session.purpose().allowsEntry()) {
+            return false;
+        }
+        if (!PlayerDataService.playerPassedOnboarding(player)) {
             return false;
         }
         if (!PlayerDataService.setOrigin(
@@ -223,6 +277,7 @@ public final class OnboardingServerHandler {
                 hand,
                 null,
                 ModDimensions.ME_WORLD_KEY,
+                OnboardingSessionPurpose.PHIAL_RETURN,
                 session
         )) {
             return OnboardingReturnResult.failure(INVALID_SESSION);
@@ -275,13 +330,21 @@ public final class OnboardingServerHandler {
             ServerPlayer player,
             InteractionHand hand,
             BlockPos clientOrigin,
-            ResourceKey<Level> expectedSource
+            ResourceKey<Level> expectedSource,
+            OnboardingSessionPurpose expectedPurpose
     ) {
         if (player == null || hand == null) {
             return null;
         }
         Session session = SESSIONS.get(player.getUUID());
-        if (session == null || !isSessionContextValid(player, hand, clientOrigin, expectedSource, session)) {
+        if (session == null || !isSessionContextValid(
+                player,
+                hand,
+                clientOrigin,
+                expectedSource,
+                expectedPurpose,
+                session
+        )) {
             return null;
         }
         long nowNanos = Util.getNanos();
@@ -300,15 +363,28 @@ public final class OnboardingServerHandler {
             InteractionHand hand,
             BlockPos clientOrigin,
             ResourceKey<Level> expectedSource,
+            OnboardingSessionPurpose expectedPurpose,
             Session session
     ) {
         return session.sourceDimension().equals(expectedSource)
                 && player.level().dimension().equals(session.sourceDimension())
+                && session.supports(expectedPurpose)
                 && session.hand() == hand
                 && Level.isInSpawnableBounds(session.origin())
                 && player.blockPosition().closerThan(session.origin(), 5.0D)
                 && (clientOrigin == null || clientOrigin.closerThan(session.origin(), 5.0D))
-                && (!session.purpose().requiresPhial() || isHoldingPhial(player, hand));
+                && (!session.requiresPhial() || isHoldingPhial(player, hand));
+    }
+
+    private static void reportInvalidSession(ServerPlayer player) {
+        if (player != null) {
+            player.displayClientMessage(
+                    Component.translatable(
+                            "ui.%s.return_confirmation.error.invalid_session".formatted(MiddleEarth.MOD_ID)
+                    ),
+                    false
+            );
+        }
     }
 
     private static boolean isHoldingPhial(ServerPlayer player, InteractionHand hand) {
@@ -316,7 +392,7 @@ public final class OnboardingServerHandler {
     }
 
     private static void consumePhial(ServerPlayer player, Session session) {
-        if (!session.purpose().requiresPhial() || player.hasInfiniteMaterials()) {
+        if (!session.requiresPhial() || player.hasInfiniteMaterials()) {
             return;
         }
         ItemStack stack = player.getItemInHand(session.hand());
@@ -337,7 +413,8 @@ public final class OnboardingServerHandler {
         private final InteractionHand hand;
         private final long readyAtNanos;
         private final long expiresAtNanos;
-        private final OnboardingSessionPurpose purpose;
+        private final SessionPurposes purpose;
+        private final boolean requiresPhial;
         private long nextAttemptAtNanos;
 
         private Session(
@@ -346,14 +423,16 @@ public final class OnboardingServerHandler {
                 InteractionHand hand,
                 long readyAtNanos,
                 long expiresAtNanos,
-                OnboardingSessionPurpose purpose
+                EnumSet<OnboardingSessionPurpose> purposes,
+                boolean requiresPhial
         ) {
             this.sourceDimension = sourceDimension;
             this.origin = origin.immutable();
             this.hand = hand;
             this.readyAtNanos = readyAtNanos;
             this.expiresAtNanos = expiresAtNanos;
-            this.purpose = purpose;
+            this.purpose = new SessionPurposes(purposes);
+            this.requiresPhial = requiresPhial;
         }
 
         private ResourceKey<Level> sourceDimension() {
@@ -376,8 +455,16 @@ public final class OnboardingServerHandler {
             return expiresAtNanos;
         }
 
-        private OnboardingSessionPurpose purpose() {
+        private boolean supports(OnboardingSessionPurpose purpose) {
+            return this.purpose.supports(purpose);
+        }
+
+        private SessionPurposes purpose() {
             return purpose;
+        }
+
+        private boolean requiresPhial() {
+            return requiresPhial;
         }
 
         private long nextAttemptAtNanos() {
@@ -386,6 +473,27 @@ public final class OnboardingServerHandler {
 
         private void deferNextAttempt(long nowNanos, long delayNanos) {
             nextAttemptAtNanos = OnboardingSessionClock.addSaturated(nowNanos, delayNanos);
+        }
+    }
+
+    private static final class SessionPurposes {
+        private final EnumSet<OnboardingSessionPurpose> values;
+
+        private SessionPurposes(EnumSet<OnboardingSessionPurpose> values) {
+            this.values = EnumSet.copyOf(values);
+        }
+
+        private boolean supports(OnboardingSessionPurpose purpose) {
+            return values.contains(purpose);
+        }
+
+        private boolean allowsReturn() {
+            return supports(OnboardingSessionPurpose.PHIAL_RETURN);
+        }
+
+        private boolean allowsEntry() {
+            return supports(OnboardingSessionPurpose.SELECTION)
+                    || supports(OnboardingSessionPurpose.CURRENT_SPAWN);
         }
     }
 }

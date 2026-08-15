@@ -179,7 +179,7 @@ class ItemRenderingContractTest {
             }
         }
 
-        assertEquals(610, checkedStates, "Unexpected standalone state model coverage");
+        assertEquals(615, checkedStates, "Unexpected standalone state model coverage");
         assertEquals(260, checkedInventory, "Unexpected standalone inventory model coverage");
     }
 

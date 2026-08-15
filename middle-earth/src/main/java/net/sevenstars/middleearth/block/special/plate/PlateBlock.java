@@ -153,10 +153,13 @@ public class PlateBlock extends BaseEntityBlock {
         float previousSaturation = player.getFoodData().getSaturationLevel();
         ItemStack consumedResult = food.copyWithCount(1).finishUsingItem(world, player);
 
-        // Keep the authored half-serving nutrition while still invoking item-specific consume effects.
+        // Keep the authored half-serving nutrition and saturation while invoking item-specific effects.
         player.getFoodData().setFoodLevel(previousFoodLevel);
         player.getFoodData().setSaturation(previousSaturation);
-        player.getFoodData().eat((foodComponent.nutrition() + 1) / 2, foodComponent.saturation());
+        player.getFoodData().eat(
+                (foodComponent.nutrition() + 1) / 2,
+                foodComponent.saturation() / 2.0F
+        );
 
         ItemStack remainder = ItemStack.EMPTY;
         if (!player.hasInfiniteMaterials() && !consumedResult.isEmpty()) {

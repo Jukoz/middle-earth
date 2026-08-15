@@ -12,7 +12,9 @@ import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.block.special.candles.CandleHolderBlock;
 import net.sevenstars.middleearth.block.special.candles.CandleStickBlock;
+import net.sevenstars.middleearth.block.special.candles.ChandelierBlock;
 import net.sevenstars.middleearth.block.special.candles.CeramicLampBlock;
+import net.sevenstars.middleearth.block.special.candles.SmallChandelierBlock;
 import net.sevenstars.middleearth.block.special.candles.SkullCandleBlock;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
@@ -34,6 +36,7 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil.E
 import net.sevenstars.middleearth.block.special.shapingAnvil.orcishTreatedAnvil.OrcishTreatedAnvilblock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.treatedAnvil.TreatedAnvilblock;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlock;
 import net.sevenstars.middleearth.block.special.statues.FlipStatueBlock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
@@ -194,6 +197,13 @@ public class ModDecorativeBlocks {
     public static final Block WOOD_PILE = registerBlock("wood_pile",
             WoodPileBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(1.0f).noOcclusion());
 
+    public static final Block OLD_SKULL = registerBlockWithItem("old_skull",
+            OldSkullBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SKELETON_SKULL)
+                    .noOcclusion().sound(SoundType.BONE_BLOCK));
+    public static final Block SKELETON = registerBlockWithItem("skeleton",
+            SkeletonBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
+                    .instrument(NoteBlockInstrument.XYLOPHONE).strength(0.5F).sound(SoundType.BONE_BLOCK).noOcclusion());
+
     public static final Block CANDLESTICK = registerBlockWithItem("candlestick",
             CandleStickBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CANDLE).lightLevel(createLightLevelFromLitBlockState(15)).noOcclusion());
     public static final Block CERAMIC_LAMP = registerBlockWithItem("ceramic_lamp",
@@ -204,6 +214,18 @@ public class ModDecorativeBlocks {
             SkullCandleBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CANDLE).lightLevel(createLightLevelFromLitBlockState(15)).noOcclusion());
     public static final Block CANDLE_HEAP = registerBlockWithItem("candle_heap",
             CandleHeapBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CANDLE).noOcclusion().lightLevel(createLightLevelFromLitBlockState(10)));
+    public static final Block SMALL_BRONZE_CHANDELIER = registerBlockWithItem("small_bronze_chandelier",
+            SmallChandelierBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CANDLE)
+                    .lightLevel(createLightLevelFromLitBlockState(15)).noOcclusion());
+    public static final Block BRONZE_CHANDELIER = registerBlockWithItem("bronze_chandelier",
+            ChandelierBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CANDLE)
+                    .lightLevel(createLightLevelFromLitBlockState(15)).noOcclusion());
+    public static final Block SMALL_CHANDELIER = registerBlockWithItem("small_chandelier",
+            SmallChandelierBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CANDLE)
+                    .lightLevel(createLightLevelFromLitBlockState(15)).noOcclusion());
+    public static final Block CHANDELIER = registerBlockWithItem("chandelier",
+            ChandelierBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CANDLE)
+                    .lightLevel(createLightLevelFromLitBlockState(15)).noOcclusion());
 
     public static final Block STONE_LECTERN = registerBlockWithItem("stone_lectern",
             StoneLecternBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().requiresCorrectToolForDrops());

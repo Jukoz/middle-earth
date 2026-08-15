@@ -4,12 +4,11 @@ This document records the upstream modules represented by the player Jar-in-Jar 
 
 ## Adopted upstream baseline
 
-- Release: `origin/main` at `1f047d55dd1509c001596876617b4ae660eb006e`.
-- Stable fixes ancestry: `origin/fixes` through `db056482e3fe10ecf15a09510d6dbc8a5cfce840`.
-- Selective later fixes: `eba6b5bea287dbe8c1cbcf255e1f2dbdab898f4b`, `65450642e67cab0fb9feecb74bfa5e4dc1d63b8a`, `e83dffe9ef167edc9802b57ab2c2caf8ec564fd5`, `baf4a74c98bb49d47aee549190ca8bd5903ddc8f`, `3cf26ead8210bab2260d814cf9542bdffba856bf`, and `52519872d3ba10a0391b129ea74898cc6396249e`.
-- Audit watermark: `origin/fixes` at `52519872d3ba10a0391b129ea74898cc6396249e`; this is not a fully adopted baseline.
-- Localization changes: compatible keys through `ee79dc1977da654ca0276a91d93901f1b8521552`.
-- `mounts-experimental`, merged `new-stuff`, wild-spawn caching, and global mob-cap lineages are excluded.
+- Released ancestor: `origin/main` at `1f047d55dd1509c001596876617b4ae660eb006e`.
+- Complete 1.0.2 content merge: `d576f1817b563996339d40b0170b636b4646451c`.
+- Selected fixes are fully represented through `52519872d3ba10a0391b129ea74898cc6396249e`, including resource, data, recipe, loot, balance, and gameplay changes.
+- Localization changes are represented through `ee79dc1977da654ca0276a91d93901f1b8521552`.
+- Wild-spawn chunk caching and the global mob-cap lineage are documented incompatibilities rather than silent omissions. Unmerged experimental feature branches remain outside this selected baseline.
 
 ## Source modules
 
@@ -31,6 +30,11 @@ Required functional checks:
 - Catalyst and chisel durability ends on the configured final use; the mithril chisel remains infinite.
 - Longbow pulling, longsword blocking, artefact broken state, pipe smoking, and watering-can sprinkling switch only under their intended use conditions.
 - Structure generation, structure NPC placement, natural spawning, dimension travel, respawn persistence, plate interaction, and the previously repaired animal/NPC render paths remain regression-free.
+- Old skull rendering and persistence, all nine skeleton poses, and all four chandelier variants survive place/use/save/reload cycles.
+- New wearable models and dye layers render on players and NPCs; the beekeeper mask preserves the upstream hive-protection behavior.
+- Existing and new Dol Guldur shields retain the corrected medium/heavy types and blocking models.
+- Hewing and Tree Feller secondary drops honor the real tool, Silk Touch, Fortune, break-event cancellation, and block-entity loot.
+- Holly and Mallorn leaf bone-meal interactions preserve required block-state properties.
 
 ### Seven Stars API
 
@@ -63,25 +67,23 @@ Required checks:
 
 ## Accepted 1.21.1 build
 
-- Player jar: `Middle-earth-1.0.1-1.21.1-beta.jar`.
-- SHA-256: `C61B7756379AFA3FC4CE393328C8CDAE7B0587ACF71CF514F919701CD04F4FDF`.
-- Packaging: 67,495 entries, 356 Middle-earth structure NBT files, and exactly two nested logical-mod jars.
+- Player jar: `Middle-earth-1.0.2-1.21.1-beta-backport.1.jar`.
+- SHA-256: `622BB18CF626EBF9C49B9A050B7D0D768AD3198AAEE9DAF560460EEE4D6A5250`.
+- Packaging: 68,027 entries, 356 Middle-earth structure NBT files, and exactly two nested logical-mod jars.
 - Loader audit: NeoForge metadata and both Middle-earth mixin configs are present; `fabric.mod.json`, `net/fabricmc/**`, and bundled JEI/EMI API classes are absent.
 - Generated forged-component audit: 18/18 base models contain exactly 23 overrides each (22 material variants plus hot state).
-- Independent item-state audit: 610 effective custom state models, including 260 inventory models; 176 runtime item descriptors register 418 additional baked models. Every referenced parent, texture, and override target resolves.
-- Data recipes in the player jar include 63 forge, 11 shaping-anvil, and 102 inscription definitions. Runtime viewer registration resolves 854 artisan, 63 forge, 11 shaping-anvil, 102 inscription, and 8 dynamic crafting displays.
+- Independent item-state audit: 615 effective custom state models, including 260 inventory models. The descriptor contract still registers 176 descriptors and 418 additional baked models; every referenced parent, texture, and override target resolves.
+- Data recipes in the player jar include 63 forge, 11 shaping-anvil, and 102 inscription definitions. Runtime viewer registration resolves 863 artisan, 63 forge, 11 shaping-anvil, 102 inscription, and 8 dynamic crafting displays.
 - JEI and EMI are optional compile-time integrations and are not embedded. With EMI alone, the 8 dynamic displays are registered natively; with JEI and EMI together, JEMI imports the JEI extensions and native EMI registration is suppressed to avoid duplicate recipe IDs.
 
 ## Acceptance evidence
 
-- Clean `build` completed 31 tasks; 87 tests in 18 suites passed with no failures or errors.
-- Forged-component colors and representative component matrices: `client-20260803-024950`.
-- All 176 runtime inventory descriptors, split into five visual batches: `client-20260803-024200`.
-- JEI-only recipe viewer: `client-20260803-031037`.
-- No-viewer optional-dependency startup: `client-20260803-032954`.
-- EMI-only exploded-source check: `client-20260803-033757`.
-- JEI and EMI exploded-source check: `client-20260803-034031`.
-- Final packaged-jar JEI and EMI check: `client-20260803-040815`; 59/59 actions and 6/6 nonblank captures passed, both viewer registrations reported `854/102/11/63/8`, and Middle-earth dynamic duplicate IDs were zero.
-- Final packaged-jar EMI-only check: `client-20260803-041017`; 59/59 actions and 6/6 nonblank captures passed, EMI reported `854/102/11/63/8`, and no JEI plugin was loaded.
-- Each packaged-jar run used a hidden Win32 desktop, preserved the `Default` input desktop, restored options byte-for-byte, and used the null OpenAL backend with no output device.
-- Fresh packaged-jar logs contain no fatal error and no Middle-earth missing texture or missing model report.
+- Final `clean build` completed 31 actionable tasks. Across the three modules, 107 tests in 23 suites passed with no failure, error, or skip.
+- The final Jar-in-Jar audit found 68,027 entries, exactly two nested logical mods, zero duplicate ZIP paths, 10,303 recipe JSON files, 8,080 item-model JSON files, and 270 biome-event definitions.
+- Current 1.0.2 JEI+EMI client check: `client-20260815-151821`; 135/135 actions and 17/17 nonblank captures passed. It covered the six new decorative blocks, all nine skeleton poses, six wearables, five new shields, representative blocking models, both leaf bone-meal transformations, and the starlight-phial return flow.
+- The starlight-phial check opened the return screen while the integrated server was paused, observed the 3-second countdown and enabled button, returned from `middle-earth:middle_earth` to the configured Overworld point, and consumed the survival-mode phial. All positive markers were present and no failure marker appeared.
+- In the JEI+EMI run, both integrations reported `863/102/11/63/8`; JEMI skipped the four categories already owned by native EMI. The generic JEMI tag-ingredient duplicate notices did not involve Middle-earth recipe IDs.
+- Current 1.0.2 EMI-only client check: `client-20260815-152552`; 59/59 actions and 6/6 nonblank captures passed. Artisan (863 pages), forge (63), shaping anvil (11), and inscription (102) categories opened and rendered correctly, and the `@middle-earth` item search populated.
+- Both current runs used isolated Win32 desktops, preserved the `Default` input desktop for all 230 samples, restored options byte-for-byte, set master volume to zero, and confirmed OpenAL's null backend with no output device.
+- Fresh logs contain no fatal, Mixin-apply failure, Middle-earth missing texture/model, invalid resource path, uncaught exception, or crash report.
+- The 2026-08-03 evidence remains the exhaustive 1.0.1 renderer baseline; the two 2026-08-15 runs above are the publication gates for this 1.0.2 artifact.

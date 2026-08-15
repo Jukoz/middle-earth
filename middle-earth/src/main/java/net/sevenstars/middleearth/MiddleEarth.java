@@ -48,7 +48,7 @@ public class MiddleEarth {
 	public static final String NEOFORGE_MOD_ID = "middle_earth";
 	public static final String MOD_ID = "middle-earth";
 	public static final String OLD_MOD_ID = "me";
-	public static final String MOD_VERSION = "1.0.1-1.21.1-beta";
+	public static final String MOD_VERSION = "1.0.2-1.21.1-beta-backport.1";
 	public static final boolean IS_DEBUG = false;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);

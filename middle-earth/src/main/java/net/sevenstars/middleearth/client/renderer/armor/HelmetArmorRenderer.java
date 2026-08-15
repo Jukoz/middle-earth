@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.client.model.equipment.CustomHelmetModel;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 import net.sevenstars.middleearth.client.renderer.RenderResourceCache;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
@@ -53,8 +54,13 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 contextModel.copyPropertiesTo(this.helmetAddonModel);
                 this.helmetAddonModel.setAllVisible(false);
                 this.helmetAddonModel.head.visible = true;
-                ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetAddonModel,
-                        armorTextures.helmetAddition(), dyeable);
+                if (stack.is(EquipmentItemsME.GLASSES) || stack.is(EquipmentItemsME.DWARVEN_MONOCLE)) {
+                    ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack,
+                            this.helmetAddonModel, armorTextures.helmetAddition().base());
+                } else {
+                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetAddonModel,
+                            armorTextures.helmetAddition(), dyeable);
+                }
             }
 
             HelmetAttachmentDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA);

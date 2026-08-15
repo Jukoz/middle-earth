@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.palemoss.PaleOakLeavesBlock;
+import net.sevenstars.middleearth.block.special.plants.BerryHollyLeavesBlock;
 import net.sevenstars.middleearth.block.special.plants.ModLeavesBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.utils.BlockDataMapCollector;
@@ -477,6 +478,10 @@ public class WoodBlockSets {
                     if(set.setName.equals("mallorn")){
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
                                 (settings) -> new ModLeavesBlock(0.01F, settings, false), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+                                        .strength(LEAVES_STRENGTH).mapColor(MapColor.COLOR_YELLOW).sound(SoundType.GRASS).ignitedByLava(), itemGroup);
+                    } else if (set.setName.equals("holly")) {
+                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
+                                (settings) -> new BerryHollyLeavesBlock(0.01F, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
                                         .strength(LEAVES_STRENGTH).mapColor(MapColor.COLOR_YELLOW).sound(SoundType.GRASS).ignitedByLava(), itemGroup);
                     } else if (set.setName.equals("pale_oak")) {
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),

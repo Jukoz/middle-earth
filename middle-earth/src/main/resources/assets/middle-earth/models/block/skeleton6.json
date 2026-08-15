@@ -1,0 +1,72 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "middle-earth:block/skeleton3",
+		"particle": "minecraft:block/bone_block_side"
+	},
+	"elements": [
+		{
+			"from": [4, 0.1, 2],
+			"to": [12, 0.1, 14],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7, 3.1, 2]},
+			"faces": {
+				"north": {"uv": [8.75, 11.5, 10.75, 11.5], "texture": "#0"},
+				"east": {"uv": [5.75, 11.5, 8.75, 11.5], "texture": "#0"},
+				"south": {"uv": [13.75, 11.5, 15.75, 11.5], "texture": "#0"},
+				"west": {"uv": [10.75, 11.5, 13.75, 11.5], "texture": "#0"},
+				"up": {"uv": [10.75, 11.5, 8.75, 8.5], "texture": "#0"},
+				"down": {"uv": [12.75, 8.5, 10.75, 11.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 4.1, 2],
+			"to": [12, 4.1, 14],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7, 3.1, 2]},
+			"faces": {
+				"north": {"uv": [8.75, 8, 10.75, 8], "texture": "#0"},
+				"east": {"uv": [5.75, 8, 8.75, 8], "texture": "#0"},
+				"south": {"uv": [13.75, 8, 15.75, 8], "texture": "#0"},
+				"west": {"uv": [10.75, 8, 13.75, 8], "texture": "#0"},
+				"up": {"uv": [10.75, 8, 8.75, 5], "texture": "#0"},
+				"down": {"uv": [12.75, 5, 10.75, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 0.1, 2],
+			"to": [4, 4.1, 14],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7, 3.1, 2]},
+			"faces": {
+				"north": {"uv": [13, 0, 13, 1], "texture": "#0"},
+				"east": {"uv": [10, 0, 13, 1], "texture": "#0"},
+				"south": {"uv": [16, 0, 16, 1], "texture": "#0"},
+				"west": {"uv": [13, 0, 16, 1], "texture": "#0"},
+				"up": {"uv": [13, 0, 13, -3], "texture": "#0"},
+				"down": {"uv": [13, -3, 13, 0], "texture": "#0"}
+			}
+		},
+		{
+			"from": [12, 0.1, 2],
+			"to": [12, 4.1, 14],
+			"rotation": {"angle": 0, "axis": "x", "origin": [7, 3.1, 2]},
+			"faces": {
+				"north": {"uv": [13, 1.5, 13, 2.5], "texture": "#0"},
+				"east": {"uv": [10, 1.5, 13, 2.5], "texture": "#0"},
+				"south": {"uv": [16, 1.5, 16, 2.5], "texture": "#0"},
+				"west": {"uv": [13, 1.5, 16, 2.5], "texture": "#0"},
+				"up": {"uv": [13, 1.5, 13, -1.5], "texture": "#0"},
+				"down": {"uv": [13, -1.5, 13, 1.5], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [7, 0, 13],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

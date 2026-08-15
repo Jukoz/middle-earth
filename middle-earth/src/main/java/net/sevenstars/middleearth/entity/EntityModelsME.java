@@ -7,6 +7,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
@@ -38,6 +39,7 @@ public class EntityModelsME {
         builder.put(EntityModelLayersME.ENWEBBED, EnwebbedModel.getTexturedModelData());
 
         builder.put(EntityModelLayersME.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
+        builder.put(EntityModelLayersME.OLD_SKULL, OldSkullBlockEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.LARCH_COFFER, LarchCofferEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.PINE_COFFER, PineCofferEntityRenderer.getTexturedModelData());

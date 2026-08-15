@@ -18,6 +18,10 @@
     },
     {
       "type": "single",
+      "resource": "middle-earth:model/old_skull"
+    },
+    {
+      "type": "single",
       "resource": "middle-earth:gui/sprites/container/slot/adamant",
       "sprite": "middle-earth:container/slot/adamant"
     },

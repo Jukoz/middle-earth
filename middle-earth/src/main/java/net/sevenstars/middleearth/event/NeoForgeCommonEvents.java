@@ -68,9 +68,10 @@ public final class NeoForgeCommonEvents {
         private GameBus() {
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void checkNaturalSpawn(MobSpawnEvent.SpawnPlacementCheck event) {
             if (event.getSpawnType() != MobSpawnType.NATURAL
+                    || !event.getPlacementCheckResult()
                     || !(event.getLevel() instanceof Level level)
                     || !ModDimensions.isInMiddleEarth(level)
                     || event.getEntityType() == EntitiesME.NPC) {

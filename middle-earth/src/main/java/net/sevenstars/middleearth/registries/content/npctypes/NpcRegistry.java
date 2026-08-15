@@ -30,7 +30,7 @@ public class NpcRegistry {
         ));
     }};
 
-    public static ArrayList<ResourceKey<NpcType>> allNpcTypes;
+    public static volatile List<ResourceKey<NpcType>> allNpcTypes = List.of();
 
     // [BRIGANDS]
     public final static ResourceKey<NpcType> BRIGAND_THUG = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.BRIGAND, "thug"));
@@ -166,29 +166,33 @@ public class NpcRegistry {
 
     public static void bootstrap(BootstrapContext<NpcType> context) {
         HolderGetter<NpcType> registryEntryLookup = context.lookup(NPC_TYPE_KEY);
+        List<ResourceKey<NpcType>> registeredNpcTypes = new ArrayList<>();
 
-        allNpcTypes = new ArrayList<>();
-
-        registerAll(context, registryEntryLookup, BrigandNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, WildGoblinNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, DalishNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, GondorianNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, RohirricNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, ShireNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, EreborNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, LorienNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, WoodlandRealmNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, MordorNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, GoblinTownNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, MoriaNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, GundabadNpcTypePool.fetchAll());
-        registerAll(context, registryEntryLookup, IsengardNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, BrigandNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, WildGoblinNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, DalishNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, GondorianNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, RohirricNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, ShireNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, EreborNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, LorienNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, WoodlandRealmNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, MordorNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, GoblinTownNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, MoriaNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, GundabadNpcTypePool.fetchAll());
+        registerAll(context, registryEntryLookup, registeredNpcTypes, IsengardNpcTypePool.fetchAll());
+        allNpcTypes = List.copyOf(registeredNpcTypes);
     }
 
-    private static void registerAll(BootstrapContext<NpcType> context, HolderGetter<NpcType> registryEntryLookup, List<RegisterableNpcData> npcDatas) {
+    private static void registerAll(
+            BootstrapContext<NpcType> context,
+            HolderGetter<NpcType> registryEntryLookup,
+            List<ResourceKey<NpcType>> registeredNpcTypes,
+            List<RegisterableNpcData> npcDatas) {
         for(RegisterableNpcData registerable : npcDatas){
             register(context, registryEntryLookup, registerable.npcDataRegistryKey, registerable.content);
-            allNpcTypes.add(registerable.npcDataRegistryKey);
+            registeredNpcTypes.add(registerable.npcDataRegistryKey);
         }
     }
 

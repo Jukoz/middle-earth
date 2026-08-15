@@ -74,6 +74,7 @@ class MigrationRegressionContractTest {
                 "net/sevenstars/middleearth/block/special/plate/PlateBlock.java"
         );
         assertTrue(plate.contains("copyWithCount(1).finishUsingItem(world, player)"));
+        assertTrue(plate.contains("foodComponent.saturation() / 2.0F"));
         assertTrue(plate.contains("private static InteractionResult takeFood"));
         assertTrue(plate.contains("if (!world.isClientSide)"));
         assertTrue(plate.contains("player.addItem(removed)"));

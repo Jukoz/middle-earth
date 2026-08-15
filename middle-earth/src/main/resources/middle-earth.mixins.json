@@ -8,6 +8,7 @@
     "AnvilScreenHandlerMixin",
     "AxeItemMixin",
     "BannerPatternRegisterMixin",
+    "BeehiveBlockMixin",
     "BlockMixin",
     "BlockStatePathTypeMixin",
     "CarvedPumpkinBlockMixin",

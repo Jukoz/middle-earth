@@ -36,6 +36,7 @@ import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
 import net.sevenstars.middleearth.client.ItemColorsME;
 import net.sevenstars.middleearth.client.ItemModelRenderStateClient;
@@ -261,6 +262,7 @@ public final class MiddleEarthClient {
         event.registerBlockEntityRenderer(ModBlockEntities.OAK_COFFER, OakCofferEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.WILLOW_COFFER, WillowCofferEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.OLD_SKULL, OldSkullBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PLATE, PlateEntityRenderer::new);
         event.registerBlockEntityRenderer(BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
@@ -759,11 +761,17 @@ public final class MiddleEarthClient {
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.BROWN_FAT_POT, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.FAT_POT, RenderType.cutout());
 
+        ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.SKELETON, RenderType.cutout());
+
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.CANDLESTICK, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.CERAMIC_LAMP, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.CANDLE_HOLDER, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.SKULL_CANDLE, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.CANDLE_HEAP, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.BRONZE_CHANDELIER, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.SMALL_CHANDELIER, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.CHANDELIER, RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.BIG_BRAZIER, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModDecorativeBlocks.SMALL_BRAZIER, RenderType.cutout());

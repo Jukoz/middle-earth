@@ -41,6 +41,10 @@ import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttac
 public class ArmorModelsME {
 
     public enum ModHelmetModels{
+        BAGGY_HAT(EquipmentItemsME.BAGGY_HAT, new BaggyHatModel(BaggyHatModel.getTexturedModelData().bakeRoot())),
+        CHAPERON(EquipmentItemsME.CHAPERON, new ChaperonModel(ChaperonModel.getTexturedModelData().bakeRoot())),
+        GLASSES(EquipmentItemsME.GLASSES, new GlassesWearableModel(GlassesWearableModel.getTexturedModelData().bakeRoot())),
+        MONOCLE(EquipmentItemsME.DWARVEN_MONOCLE, new MonocleModel(MonocleModel.getTexturedModelData().bakeRoot())),
         STRAW_HAT(EquipmentItemsME.STRAW_HAT, new HatHelmetModel(HatHelmetModel.getTexturedModelData().bakeRoot())),
         WOVEN_HAT(EquipmentItemsME.WOVEN_HAT, new HatHelmetModel(HatHelmetModel.getTexturedModelData().bakeRoot())),
         WANDERER_HAT(EquipmentItemsME.WANDERER_HAT, new WizardHatModel(WizardHatModel.getTexturedModelData().bakeRoot())),

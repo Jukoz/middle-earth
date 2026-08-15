@@ -400,7 +400,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 //endregion
 
                 for(GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
-                    if(!set.setName.contains("wood") && !set.setName.contains("thatch") && !set.setName.contains("reed") && !set.setName.contains("canvas")) {
+                    if(!set.setName.contains("wood") && !set.setName.contains("thatch") && !set.setName.contains("reed")) {
                         createStoneSetRecipes(set.blockSet);
                     } else if (set.setName.contains("thatch") || set.setName.contains("reed")) {
                         createRegularSetRecipes(set.blockSet);
@@ -1549,6 +1549,20 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 createGenericRecipes(GenericBlockSets.AGED_WOOD_GILDED_TRIM);
                  //endregion
 
+                ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.OLD_SKULL)
+                        .requires(Items.SKELETON_SKULL)
+                        .requires(ResourceItemsME.ASH)
+                        .unlockedBy(getHasName(Items.SKELETON_SKULL), has(Items.SKELETON_SKULL))
+                        .save(recipeOutput);
+
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SKELETON)
+                        .pattern("BSB")
+                        .pattern(" B ")
+                        .pattern("B B")
+                        .define('B', TagKey.create(Registries.ITEM, MiddleEarth.of("bones")))
+                        .define('S', ModDecorativeBlocks.OLD_SKULL)
+                        .unlockedBy(getHasName(ModDecorativeBlocks.OLD_SKULL), has(ModDecorativeBlocks.OLD_SKULL))
+                        .save(recipeOutput);
 
                 createCombinedItemRecipe(recipeOutput, Blocks.SKELETON_SKULL, ItemTags.CANDLES, ModDecorativeBlocks.SKULL_CANDLE);
 
@@ -1585,6 +1599,44 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                         .define('C', TagKey.create(Registries.ITEM, ResourceLocation.parse("candles")))
                         .unlockedBy(getHasName(Items.CANDLE),
                                 has(Items.CANDLE))
+                        .save(recipeOutput);
+
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SMALL_CHANDELIER)
+                        .pattern(" N ")
+                        .pattern("CNC")
+                        .pattern("N N")
+                        .define('C', ItemTags.CANDLES)
+                        .define('N', TagKey.create(Registries.ITEM,
+                                ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .unlockedBy(getHasName(Items.CANDLE), has(Items.CANDLE))
+                        .save(recipeOutput);
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.CHANDELIER)
+                        .pattern(" N ")
+                        .pattern("CHC")
+                        .pattern("N N")
+                        .define('C', ItemTags.CANDLES)
+                        .define('H', ModDecorativeBlocks.SMALL_CHANDELIER)
+                        .define('N', TagKey.create(Registries.ITEM,
+                                ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .unlockedBy(getHasName(Items.CANDLE), has(Items.CANDLE))
+                        .save(recipeOutput);
+
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER)
+                        .pattern(" N ")
+                        .pattern("CNC")
+                        .pattern("N N")
+                        .define('C', ItemTags.CANDLES)
+                        .define('N', ResourceItemsME.BRONZE_NUGGET)
+                        .unlockedBy(getHasName(Items.CANDLE), has(Items.CANDLE))
+                        .save(recipeOutput);
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.BRONZE_CHANDELIER)
+                        .pattern(" N ")
+                        .pattern("CHC")
+                        .pattern("N N")
+                        .define('C', ItemTags.CANDLES)
+                        .define('H', ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER)
+                        .define('N', ResourceItemsME.BRONZE_NUGGET)
+                        .unlockedBy(getHasName(Items.CANDLE), has(Items.CANDLE))
                         .save(recipeOutput);
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModDecorativeBlocks.STONE_LECTERN.asItem(), 1)

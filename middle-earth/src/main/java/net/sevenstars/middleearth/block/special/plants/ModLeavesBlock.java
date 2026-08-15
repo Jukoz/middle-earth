@@ -10,15 +10,20 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.particles.LeafParticleColorResolver;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 
-public class ModLeavesBlock extends LeavesBlock {
+public class ModLeavesBlock extends LeavesBlock implements BonemealableBlock {
     private final float leafParticleChance;
     final protected boolean castShadow;
 
@@ -99,5 +104,31 @@ public class ModLeavesBlock extends LeavesBlock {
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
         BlockState blockState = (this.defaultBlockState().setValue(PERSISTENT, true)).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         return updateDistance(blockState, ctx.getLevel(), ctx.getClickedPos());
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+        return state.is(WoodBlockSets.MALLORN_SET.leaves);
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        level.setBlock(pos, copySharedProperties(state, ModNatureBlocks.FLOWERING_MALLORN_LEAVES.defaultBlockState()), Block.UPDATE_ALL);
+    }
+
+    static BlockState copySharedProperties(BlockState source, BlockState target) {
+        for (Property<?> property : source.getProperties()) {
+            target = copyProperty(source, target, property);
+        }
+        return target;
+    }
+
+    private static <T extends Comparable<T>> BlockState copyProperty(BlockState source, BlockState target, Property<T> property) {
+        return target.hasProperty(property) ? target.setValue(property, source.getValue(property)) : target;
     }
 }

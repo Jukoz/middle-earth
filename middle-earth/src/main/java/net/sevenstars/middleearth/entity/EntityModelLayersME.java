@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatArmorModel;
@@ -82,6 +83,7 @@ public final class EntityModelLayersME {
     public static final ModelLayerLocation OAK_COFFER = EntityModelLayersME.registerEntityModelLayer("oak_coffer", OakCofferEntityRenderer.getTexturedModelData());
     public static final ModelLayerLocation WILLOW_COFFER = EntityModelLayersME.registerEntityModelLayer("willow_coffer", WillowCofferEntityRenderer.getTexturedModelData());
     public static final ModelLayerLocation REINFORCED_CHEST = EntityModelLayersME.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
+    public static final ModelLayerLocation OLD_SKULL = EntityModelLayersME.registerEntityModelLayer("old_skull", OldSkullBlockEntityRenderer.getTexturedModelData());
 
     public static final ModelLayerLocation REINFORCED_BARREL = EntityModelLayersME.registerEntityModelLayer("reinforced_barrel", BarrelEntityModel.getTexturedModelData());
     public static final ModelLayerLocation REINFORCED_BARREL_WATER_MASK = EntityModelLayersME.registerEntityModelLayer("reinforced_barrel_water_mask", BarrelEntityModel.getBaseTexturedModelData());

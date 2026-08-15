@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -55,6 +56,11 @@ public class BiomeEventDataLookup {
     }
 
     public static boolean canEntitySpawn(Level world, Holder<Biome> biome, BlockPos pos, EntityType<?> type, RandomSource random) {
+        return !(world instanceof ServerLevel serverLevel)
+                || canEntitySpawn(serverLevel, biome, pos, type, random);
+    }
+
+    public static boolean canEntitySpawn(ServerLevel world, Holder<Biome> biome, BlockPos pos, EntityType<?> type, RandomSource random) {
         BiomeEventData data = world.registryAccess().registryOrThrow(DynamicRegistriesME.BIOME_EVENT)
                 .get(MiddleEarth.fetchId(biome.getRegisteredName()));
         if(data == null)

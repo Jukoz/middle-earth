@@ -165,7 +165,7 @@ public class BiomeEventRegistry {
     public final static ResourceKey<BiomeEventData> SHIRE_EDGE          = of(MEBiomeKeys.SHIRE_EDGE);
 
     private static ResourceKey<BiomeEventData> of(ResourceKey<Biome> key){
-        return DynamicRegistriesME.of(BIOME_EVENT_KEY, key.location());
+        return BiomeEventRegistryUtil.of(key);
     }
 
     public static void bootstrapStructureEvents(BootstrapContext<BiomeEventData> context) {
@@ -177,6 +177,7 @@ public class BiomeEventRegistry {
 
     public static void bootstrap(BootstrapContext<BiomeEventData> context) {
         HolderGetter<BiomeEventData> registryEntryLookup = context.lookup(BIOME_EVENT_KEY);
+        BiomeEventRegistryUtil.beginRegistration();
 
         register(context, registryEntryLookup, DEFAULT, GenericHostilesBiomeEventPool.EMPTY);
 
@@ -291,15 +292,16 @@ public class BiomeEventRegistry {
 
         register(context, registryEntryLookup, SHIRE        , ShireBiomeEventPool.DEFAULT);
         register(context, registryEntryLookup, SHIRE_EDGE   , ShireBiomeEventPool.DEFAULT);
+        BiomeEventRegistryUtil.registerDefaults(context, registryEntryLookup);
     }
 
     private static void register(BootstrapContext<BiomeEventData> context, HolderGetter<BiomeEventData> registryEntryLookup, ResourceKey<BiomeEventData> registryKey, BiomeEventData element){
-        DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
+        BiomeEventRegistryUtil.register(context, registryEntryLookup, registryKey, element);
         // [LANG datagen]
         // None
     }
 
     private static ResourceKey<Structure> register(String name) {
-        return ResourceKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, name));
+        return BiomeEventRegistryUtil.structureKey(name);
     }
 }

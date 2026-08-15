@@ -1,0 +1,1070 @@
+{
+  "format_version": "1.21.11",
+  "credit": "Made with Blockbench",
+  "texture_size": [
+    64,
+    64
+  ],
+  "textures": {
+    "1": "middle-earth:item/dol_guldur_armrust_shield",
+    "particle": "middle-earth:item/dol_guldur_armrust_shield"
+  },
+  "elements": [
+    {
+      "name": "Handle",
+      "from": [
+        5,
+        11,
+        9
+      ],
+      "to": [
+        11,
+        13,
+        15
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          12.5,
+          12
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            8.5,
+            0,
+            9,
+            1.5
+          ],
+          "rotation": 90,
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            7,
+            1.5,
+            5.5,
+            2
+          ],
+          "rotation": 180,
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            9.5,
+            1.5
+          ],
+          "rotation": 270,
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            8.5,
+            2,
+            7,
+            1.5
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            5.5,
+            0,
+            7,
+            1.5
+          ],
+          "rotation": 270,
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            7,
+            0,
+            8.5,
+            1.5
+          ],
+          "rotation": 270,
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_10",
+      "from": [
+        8,
+        -2,
+        8
+      ],
+      "to": [
+        9,
+        0,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            1.75,
+            5.25,
+            1.5,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            1.5,
+            5.25,
+            1.75,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            4.25,
+            5.25,
+            4.5,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            1.5,
+            5.25,
+            1.75,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            1.5,
+            5.25,
+            1.75,
+            5.5
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            1.5,
+            5.5,
+            1.75,
+            5.75
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_9",
+      "from": [
+        6,
+        -2,
+        8
+      ],
+      "to": [
+        7,
+        0,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            1.25,
+            5.25,
+            1,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            1,
+            5.25,
+            1.25,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            3.75,
+            5.25,
+            4,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            1,
+            5.25,
+            1.25,
+            5.75
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            1,
+            5.25,
+            1.25,
+            5.5
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            1,
+            5.5,
+            1.25,
+            5.75
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_8",
+      "from": [
+        7,
+        4,
+        8
+      ],
+      "to": [
+        8,
+        17,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            1.5,
+            1,
+            1.25,
+            4.25
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            1.25,
+            1,
+            1.5,
+            4.25
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            4,
+            1,
+            4.25,
+            4.25
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            1.25,
+            1,
+            1.5,
+            4.25
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            1.25,
+            1,
+            1.5,
+            1.25
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            1.25,
+            4,
+            1.5,
+            4.25
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_7",
+      "from": [
+        8,
+        0,
+        8
+      ],
+      "to": [
+        10,
+        18,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            0.75,
+            1.5,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            1.75,
+            0.75,
+            2,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            4.25,
+            0.75,
+            4.75,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            1.5,
+            0.75,
+            1.75,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            1.5,
+            0.75,
+            2,
+            1
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            1.5,
+            5,
+            2,
+            5.25
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_6",
+      "from": [
+        5,
+        0,
+        8
+      ],
+      "to": [
+        7,
+        18,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            1.25,
+            0.75,
+            0.75,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            1,
+            0.75,
+            1.25,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            3.5,
+            0.75,
+            4,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            0.75,
+            0.75,
+            1,
+            5.25
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            0.75,
+            0.75,
+            1.25,
+            1
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            0.75,
+            5,
+            1.25,
+            5.25
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_5",
+      "from": [
+        10,
+        2,
+        8
+      ],
+      "to": [
+        11,
+        19,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            2.25,
+            0.5,
+            2,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            2,
+            0.5,
+            2.25,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            4.75,
+            0.5,
+            5,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            2,
+            0.5,
+            2.25,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            2,
+            0.5,
+            2.25,
+            0.75
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            2,
+            4.5,
+            2.25,
+            4.75
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_4",
+      "from": [
+        4,
+        2,
+        8
+      ],
+      "to": [
+        5,
+        19,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0.75,
+            0.5,
+            0.5,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            0.5,
+            0.5,
+            0.75,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            3.25,
+            0.5,
+            3.5,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            0.5,
+            0.5,
+            0.75,
+            4.75
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            0.5,
+            0.5,
+            0.75,
+            0.75
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            0.5,
+            4.5,
+            0.75,
+            4.75
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_3",
+      "from": [
+        12,
+        10,
+        8
+      ],
+      "to": [
+        13,
+        20,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            2.75,
+            0.25,
+            2.5,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            2.5,
+            0.25,
+            2.75,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            5.25,
+            0.25,
+            5.5,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            2.5,
+            0.25,
+            2.75,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            2.5,
+            0.25,
+            2.75,
+            0.5
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            2.5,
+            2.5,
+            2.75,
+            2.75
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_2",
+      "from": [
+        2,
+        10,
+        8
+      ],
+      "to": [
+        3,
+        20,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0.25,
+            0.25,
+            0,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            0,
+            0.25,
+            0.25,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            2.75,
+            0.25,
+            3,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            0,
+            0.25,
+            0.25,
+            2.75
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            0,
+            0.25,
+            0.25,
+            0.5
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            0,
+            2.5,
+            0.25,
+            2.75
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_1",
+      "from": [
+        11,
+        7,
+        8
+      ],
+      "to": [
+        12,
+        21,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            2.5,
+            0,
+            2.25,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            2.25,
+            0,
+            2.5,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            5.25,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            2.25,
+            0,
+            2.5,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            2.25,
+            0,
+            2.5,
+            0.25
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            2.25,
+            3.25,
+            2.5,
+            3.5
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "dg_armrust_shieldfront_0",
+      "from": [
+        3,
+        7,
+        8
+      ],
+      "to": [
+        4,
+        21,
+        9
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -8,
+          -5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0.5,
+            0,
+            0.25,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            0.25,
+            0,
+            0.5,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            3,
+            0,
+            3.25,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            0.25,
+            0,
+            0.5,
+            3.5
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            0.25,
+            0,
+            0.5,
+            0.25
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            0.25,
+            3.25,
+            0.5,
+            3.5
+          ],
+          "texture": "#1"
+        }
+      }
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        -180,
+        -90,
+        90
+      ],
+      "translation": [
+        4,
+        -2,
+        -0.25
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        -180,
+        -90,
+        90
+      ],
+      "translation": [
+        4,
+        -2,
+        0
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        -3
+      ],
+      "translation": [
+        0,
+        -6,
+        0
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        0,
+        -3
+      ],
+      "translation": [
+        0,
+        -6,
+        0
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "gui": {
+      "rotation": [
+        -166.28,
+        34.83,
+        -175.66
+      ],
+      "scale": [
+        0.47109,
+        0.47109,
+        0.47109
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        0,
+        -1.75
+      ],
+      "scale": [
+        1.75,
+        1.75,
+        1.75
+      ]
+    }
+  },
+  "groups": [
+    {
+      "name": "root",
+      "origin": [
+        8,
+        0,
+        8
+      ],
+      "scope": 0,
+      "color": 0,
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  ],
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "middle-earth:item/dol_guldur_armrust_shield_blocking"
+    }
+  ]
+}

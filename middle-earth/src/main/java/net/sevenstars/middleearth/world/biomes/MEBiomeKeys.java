@@ -2,11 +2,11 @@ package net.sevenstars.middleearth.world.biomes;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
+import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistryUtil;
 
 public class MEBiomeKeys extends Biomes {
     // region SURFACE
@@ -290,7 +290,9 @@ public class MEBiomeKeys extends Biomes {
 
     private static ResourceKey<Biome> register(String name) {
         TranslationEntries.biomeEntries.add(name);
-        return ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, name));
+        ResourceKey<Biome> biome = ResourceKey.create(Registries.BIOME, MiddleEarth.of(name));
+        BiomeEventRegistryUtil.addBiomeEntry(biome);
+        return biome;
     }
 
     public static void registerModBiomes() {

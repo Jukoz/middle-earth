@@ -29,7 +29,7 @@ import net.sevenstars.of_beasts_and_wild_things.world.gen.WorldGenerationWT;
 public class OfBeastsAndWildThings {
 	public static final String NEOFORGE_MOD_ID = "wild_things";
 	public static final String MOD_ID = "wild-things";
-	public static final String MOD_VERSION = "1.0.1-1.21.1-beta";
+	public static final String MOD_VERSION = "1.0.2-1.21.1-beta-backport.1";
 	public static final boolean IS_DEBUG = false;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 

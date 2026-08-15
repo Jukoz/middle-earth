@@ -41,7 +41,7 @@ class RecipeViewerCompatibilityContractTest {
         String emi = source("compat/emi/MiddleEarthEmiPlugin.java").replace("\r\n", "\n");
 
         Map<String, Integer> expected = Map.of(
-                "middle-earth:artisan_table", 854,
+                "middle-earth:artisan_table", 863,
                 "middle-earth:inscription_table", 102,
                 "middle-earth:anvil_shaping", 11,
                 "middle-earth:alloying", 63
@@ -302,7 +302,7 @@ class RecipeViewerCompatibilityContractTest {
                 }
             }
         }
-        assertEquals(854, checked);
+        assertEquals(863, checked);
     }
 
     @Test

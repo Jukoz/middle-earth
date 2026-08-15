@@ -52,6 +52,7 @@ public class DalishNpcTypePool {
         PEASANT = new NpcType(NpcRegistry.DALE_PEASANT.location(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.BAGGY_HAT).withWeight(2))
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(1))
                                 .add(WeightedItemData.create(EquipmentItemsME.LEATHER_SKULLCAP).withWeight(1))
                                 .add(WeightedItemData.create().withWeight(10))

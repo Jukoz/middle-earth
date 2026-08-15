@@ -27,6 +27,7 @@ import net.minecraft.world.item.armortrim.TrimPattern;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -1285,6 +1286,42 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .unlockedBy(getHasName(ResourceItemsME.SHIELD_PLATE),
                                 has(ResourceItemsME.SHIELD_PLATE))
                         .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.DOL_GULDUR_PAVISE).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_ARMRUST_SHIELD.getDefaultInstance(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
+                        .componentInput(DataComponentIngredient.of(false, burzumSteelShieldPlate.getComponents(), burzumSteelShieldPlate.getItem()))
+                        .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .unlockedBy(getHasName(ResourceItemsME.SHIELD_PLATE), has(ResourceItemsME.SHIELD_PLATE))
+                        .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.DOL_GULDUR_ARMRUST_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_HEAVY_SHIELD.getDefaultInstance(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
+                        .componentInput(DataComponentIngredient.of(false, burzumSteelShieldPlate.getComponents(), burzumSteelShieldPlate.getItem()))
+                        .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .unlockedBy(getHasName(ResourceItemsME.SHIELD_PLATE), has(ResourceItemsME.SHIELD_PLATE))
+                        .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.DOL_GULDUR_HEAVY_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_HEAVY_SKULL_SHIELD.getDefaultInstance(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ModDecorativeBlocks.OLD_SKULL)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
+                        .componentInput(DataComponentIngredient.of(false, burzumSteelShieldPlate.getComponents(), burzumSteelShieldPlate.getItem()))
+                        .input(TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .unlockedBy(getHasName(ResourceItemsME.SHIELD_PLATE), has(ResourceItemsME.SHIELD_PLATE))
+                        .save(output, BuiltInRegistries.ITEM.getKey(WeaponItemsME.DOL_GULDUR_HEAVY_SKULL_SHIELD).getPath() + "_artisan");
 
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_CONVERTED_SHIELD.getDefaultInstance(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)

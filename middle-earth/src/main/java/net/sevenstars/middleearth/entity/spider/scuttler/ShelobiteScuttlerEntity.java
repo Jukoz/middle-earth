@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -46,7 +45,6 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -136,14 +134,6 @@ public class ShelobiteScuttlerEntity extends Monster implements Pouncer {
     @Override
     public boolean isPersistenceRequired() {
         return false;
-    }
-
-    public static boolean canSpawn(EntityType<NpcEntity> type, LevelAccessor worldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        BlockPos below = pos.below();
-        boolean isOnSolidGround = worldAccess.getBlockState(below).isRedstoneConductor(worldAccess, below);
-        boolean isNotOnTopOfLogs = !worldAccess.getBlockState(below).is(BlockTags.LOGS);
-
-        return isOnSolidGround && isNotOnTopOfLogs;
     }
 
     @Override

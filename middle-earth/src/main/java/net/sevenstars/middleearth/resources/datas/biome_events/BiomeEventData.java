@@ -7,6 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -97,7 +98,7 @@ public class BiomeEventData {
         return new ContextualizedBiomeData(foundNpcType);
     }
 
-    public boolean canSpawn(EntityType<?> type, Level world, BlockPos pos, RandomSource random) {
+    public boolean canSpawn(EntityType<?> type, ServerLevel world, BlockPos pos, RandomSource random) {
         boolean containEntityType = false;
         ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(type);
         WildSpawnEventData spawningData = null;
@@ -121,7 +122,11 @@ public class BiomeEventData {
         if(spawningData == null)
             return false;
 
-        return !spawningData.isDiscarded(random);
+        if (spawningData.isDiscarded(random)) {
+            return false;
+        }
+        spawningData.broadcastMessage(world, pos);
+        return true;
     }
 
     private static long nextLong(RandomSource random, long bound) {
