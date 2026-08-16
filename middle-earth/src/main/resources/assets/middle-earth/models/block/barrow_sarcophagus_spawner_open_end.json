@@ -3,7 +3,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [128, 128],
 	"textures": {
-		"0": "middle-earth:block/barrow_sarcophagus_spawner_open",
+		"0": "middle-earth:block/barrow_sarcophagus_spawner",
 		"particle": "middle-earth:block/gabbro_pillar"
 	},
 	"elements": [
@@ -36,7 +36,7 @@
 		{
 			"from": [0, 10, 0],
 			"to": [16, 12, 16],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 8]},
+			"rotation": {"angle": -25, "axis": "y", "origin": [14, 12, 22]},
 			"faces": {
 				"north": {"uv": [4, 8.25, 6, 8.5], "texture": "#0"},
 				"east": {"uv": [2, 8.25, 4, 8.5], "texture": "#0"},
@@ -45,6 +45,43 @@
 				"up": {"uv": [6, 8.25, 4, 6.25], "texture": "#0"},
 				"down": {"uv": [8, 6.25, 6, 8.25], "texture": "#0"}
 			}
+		},
+		{
+			"from": [4, 12, 3],
+			"to": [12, 14, 16],
+			"rotation": {"angle": -25, "axis": "y", "origin": [14, 11, 22]},
+			"faces": {
+				"north": {"uv": [11.125, 11, 12.125, 11.25], "texture": "#0"},
+				"east": {"uv": [9.5, 11, 11.125, 11.25], "texture": "#0"},
+				"south": {"uv": [13.75, 11, 14.75, 11.25], "texture": "#0"},
+				"west": {"uv": [12.125, 11, 13.75, 11.25], "texture": "#0"},
+				"up": {"uv": [12.125, 11, 11.125, 9.375], "texture": "#0"},
+				"down": {"uv": [13.125, 9.375, 12.125, 11], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4.5, 14.75, 3],
+			"to": [11.5, 14.75, 16],
+			"rotation": {"angle": -25, "axis": "y", "origin": [14, 14.75, 22]},
+			"faces": {
+				"north": {"uv": [11, 13.75, 11.875, 13.75], "texture": "#0"},
+				"east": {"uv": [9.375, 13.75, 11, 13.75], "texture": "#0"},
+				"south": {"uv": [13.5, 13.75, 14.375, 13.75], "texture": "#0"},
+				"west": {"uv": [11.875, 13.75, 13.5, 13.75], "texture": "#0"},
+				"up": {"uv": [11.875, 13.75, 11, 12.125], "texture": "#0"},
+				"down": {"uv": [12.75, 12.125, 11.875, 13.75], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		1,
+		{
+			"name": "effigy",
+			"origin": [14, 11, 22],
+			"scope": 0,
+			"color": 0,
+			"children": [2, 3, 4]
 		}
 	]
 }

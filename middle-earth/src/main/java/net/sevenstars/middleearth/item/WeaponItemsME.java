@@ -380,6 +380,10 @@ public class WeaponItemsME {
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings(), true);
     public static final Item CARDOLAN_LONGSWORD = registerItemWithModel("cardolan_longsword",
             (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings(), true);
+    public static final Item CARDOLAN_DAGGER = registerItemWithModel("cardolan_dagger",
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL,  settings), new Item.Settings(), false);
+    public static final Item CARDOLAN_AXE = registerItemWithModel("cardolan_axe",
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL,  settings), new Item.Settings(), true);
     // endregion
 
     //endregion
