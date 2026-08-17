@@ -11,8 +11,7 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 
 @EventBusSubscriber(
         modid = MiddleEarth.NEOFORGE_MOD_ID,
-        value = Dist.CLIENT,
-        bus = EventBusSubscriber.Bus.MOD
+        value = Dist.CLIENT
 )
 public final class NpcRenderCompatibility {
     private static final String ACCELERATED_RENDERING_MOD_ID = "acceleratedrendering";

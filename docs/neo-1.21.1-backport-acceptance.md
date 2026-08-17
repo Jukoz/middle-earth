@@ -68,7 +68,7 @@ Required checks:
 ## Accepted 1.21.1 build
 
 - Player jar: `Middle-earth-1.0.2-1.21.1-beta-backport.1.jar`.
-- SHA-256: `40D64C0063FDAB2593E34C620C2AD8F96B47437223C638832E7445EF3EF2A14E`.
+- SHA-256: `204E436F64EBBF4022DF134931F5A234F6DDF417C0412C77E824A84CC1C987B2`.
 - Packaging: 68,124 entries, 356 Middle-earth structure NBT files, and exactly two nested logical-mod jars.
 - Loader audit: NeoForge metadata and both Middle-earth mixin configs are present; `fabric.mod.json`, `net/fabricmc/**`, and bundled JEI/EMI API classes are absent.
 - Generated forged-component audit: 18/18 base models contain exactly 23 overrides each (22 material variants plus hot state).
