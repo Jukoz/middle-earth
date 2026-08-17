@@ -18,6 +18,7 @@ public class MemoryModulesME<U> {
     public static final MemoryModuleType<Integer> SMASH_COOLDOWN = register("smash_cooldown", Codec.INT);
     public static final MemoryModuleType<Integer> ACTION_TIMEOUT = register("action_timeout", Codec.INT);
     public static final MemoryModuleType<Integer> FOOD_EATEN_COUNT = register("food_eaten_count", Codec.INT);
+    public static final MemoryModuleType<Integer> CAST_COOLDOWN = register("cast_cooldown", Codec.INT);
     public static final MemoryModuleType<Boolean> TAME = register("tame", Codec.BOOL);
     public static final MemoryModuleType<Boolean> SITTING = register("sitting", Codec.BOOL);
     public static final MemoryModuleType<BlockPos> ASSIGNED_BED_POS = register("assigned_bed_pos", BlockPos.CODEC);

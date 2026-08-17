@@ -34,6 +34,7 @@ import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
+import net.sevenstars.middleearth.entity.wight.BarrowWightEnchanterEntity;
 import net.sevenstars.middleearth.entity.wight.BarrowWightEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
@@ -41,7 +42,9 @@ import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import java.util.function.Supplier;
 public class EntitiesME {
 
-    public static final EntityType<BarrowWightEntity> BARROW_WIGHT = register("barrow_wight", EntityType.Builder.create(BarrowWightEntity::new, SpawnGroup.MONSTER).dimensions(0.7f, 1.8f));
+    public static final EntityType<BarrowWightEntity> BARROW_WIGHT = register("barrow_wight", EntityType.Builder.create(BarrowWightEntity::new, SpawnGroup.MONSTER).dimensions(0.7f, 1.95f));
+    public static final EntityType<BarrowWightEnchanterEntity> BARROW_WIGHT_ENCHANTER = register("barrow_wight_enchanter",
+            EntityType.Builder.create(BarrowWightEnchanterEntity::new, SpawnGroup.MONSTER).dimensions(0.7f, 1.95f));
     // Npc
     public static final EntityType<NpcEntity> NPC = register("npc", EntityType.Builder.create(NpcEntity::new, SpawnGroup.MONSTER).dimensions(0.8f, 1.8f));
 
@@ -135,6 +138,7 @@ public class EntitiesME {
         FabricDefaultAttributeRegistry.register(SNOW_TROLL, SnowTrollEntity.setAttributes());
 
         FabricDefaultAttributeRegistry.register(BARROW_WIGHT, BarrowWightEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(BARROW_WIGHT_ENCHANTER, BarrowWightEnchanterEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(NPC, NpcEntity.setAttributes());
         registerSpawnRestrictions();
     }

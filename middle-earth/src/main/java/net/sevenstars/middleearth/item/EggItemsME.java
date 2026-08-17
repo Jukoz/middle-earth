@@ -53,6 +53,8 @@ public class EggItemsME {
 
     public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
             (settings) -> new SpawnEggItem(EntitiesME.BARROW_WIGHT, settings), new Item.Settings());
+    public static final Item BARROW_WIGHT_ENCHANTER_SPAWN_EGG = registerItem("barrow_wight_enchanter_spawn_egg",
+            (settings) -> new SpawnEggItem(EntitiesME.BARROW_WIGHT_ENCHANTER, settings), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));

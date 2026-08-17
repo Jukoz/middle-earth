@@ -82,9 +82,9 @@ public class BarrowWightModel extends EntityModel<BarrowWightRenderState> implem
                         new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         ModelPartData right_arm = torso.addChild("right_arm", ModelPartBuilder.create().uv(24, 23)
-                .cuboid(-4.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F))
-                .uv(24, 39).cuboid(-4.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F,
-                        new Dilation(0.5F)), ModelTransform.origin(-4.0714F, -10.35F, 0.0357F));
+                .cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F))
+                .uv(24, 39).cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F,
+                        new Dilation(0.5F)), ModelTransform.origin(-6F, -10.35F, 0.0357F));
 
         ModelPartData Cape = torso.addChild("Cape", ModelPartBuilder.create(), ModelTransform.origin(-0.0714F, -9.65F, 0.0357F));
 
@@ -101,8 +101,9 @@ public class BarrowWightModel extends EntityModel<BarrowWightRenderState> implem
                 .cuboid(-2.0F, 0.0F, 0.0F, 4.0F, 28.0F, 0.0F, new Dilation(0.0F)), ModelTransform.origin(-3.0F, 0.0F, 0.0F));
 
         ModelPartData left_arm = torso.addChild("left_arm", ModelPartBuilder.create().uv(40, 23)
-                .cuboid(0.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F))
-                .uv(40, 39).cuboid(0.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, new Dilation(0.5F)), ModelTransform.origin(3.9286F, -10.35F, 0.0357F));
+                .cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F))
+                .uv(40, 39).cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F,
+                        new Dilation(0.5F)), ModelTransform.origin(6F, -10.35F, 0.0357F));
 
         ModelPartData SkirtBack = torso.addChild("SkirtBack", ModelPartBuilder.create().uv(16, 74)
                 .cuboid(-4.0F, 0.0F, 0.0F, 8.0F, 15.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-0.0714F, -0.35F, 2.0357F, 0.0436F, 0.0F, 0.0F));

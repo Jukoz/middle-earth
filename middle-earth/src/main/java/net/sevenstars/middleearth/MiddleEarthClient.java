@@ -143,6 +143,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntitiesME.WEB, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(EntitiesME.BARROW_WIGHT, BarrowWightRenderer::new);
+        EntityRendererRegistry.register(EntitiesME.BARROW_WIGHT_ENCHANTER, BarrowWightRenderer::new);
         EntityRendererRegistry.register(EntitiesME.NPC, NpcEntityRenderer::new);
 
 

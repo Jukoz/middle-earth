@@ -15,23 +15,24 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 
 import java.util.Optional;
 
-public class BarrowWightBrain {
+public class BarrowWightEnchanterBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super BarrowWightEntity>>> SENSORS;
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
 
-    public BarrowWightBrain() {
+    public BarrowWightEnchanterBrain() {
     }
 
-    protected static Brain<?> create(BarrowWightEntity barrowWightEntity, Dynamic<?> dynamic) {
-        Brain.Profile<BarrowWightEntity> profile = Brain.createProfile(MEMORY_MODULES, SENSORS);
-        Brain<BarrowWightEntity> brain = profile.deserialize(dynamic);
+    protected static Brain<?> create(BarrowWightEnchanterEntity barrowWightEntity, Dynamic<?> dynamic) {
+        Brain.Profile<BarrowWightEnchanterEntity> profile = Brain.createProfile(MEMORY_MODULES, SENSORS);
+        Brain<BarrowWightEnchanterEntity> brain = profile.deserialize(dynamic);
 
         addCoreActivities(brain);
         addIdleActivities(brain);
-        addMeleeFightActivities(barrowWightEntity, brain);
+        addEnchanterFightActivities(barrowWightEntity, brain);
 
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
@@ -39,53 +40,42 @@ public class BarrowWightBrain {
         return brain;
     }
 
-
-    public static void updateActivities(BarrowWightEntity npc) {
-        Optional<LivingEntity> optionalTarget = npc.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
-        if(optionalTarget != null && optionalTarget.isPresent()) {
-            npc.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
-        }
-        else {
-            npc.getBrain().resetPossibleActivities(ImmutableList.of());
-        }
-        npc.getBrain().refreshActivities(npc.getWorld().getTimeOfDay(), npc.getWorld().getTime());
-    }
-
-
-    protected static void addCoreActivities(Brain<BarrowWightEntity> brain) {
+    protected static void addCoreActivities(Brain<BarrowWightEnchanterEntity> brain) {
         brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
+                new TickCooldownTask(MemoryModulesME.CAST_COOLDOWN),
                 //UpdateAttackTargetTask.create((world, npc) -> npc.getHurtBy()),
                 UpdateAttackTargetTask.create(BarrowWightBrain::getAttackTarget))
         );
     }
 
-    protected static void addIdleActivities(Brain<BarrowWightEntity> brain) {
+    protected static void addIdleActivities(Brain<BarrowWightEnchanterEntity> brain) {
         brain.setTaskList(
                 Activity.IDLE,
                 10,
                 ImmutableList.of(
-                        UpdateAttackTargetTask.<BarrowWightEntity>create(BarrowWightBrain::getTarget),
+                        UpdateAttackTargetTask.<BarrowWightEnchanterEntity>create(BarrowWightBrain::getTarget),
                         makeRandomWanderTask(),
                         FindInteractionTargetTask.create(EntityType.PLAYER, 4)
                 )
         );
     }
 
-    protected static void addMeleeFightActivities(BarrowWightEntity barrowWightEntity, Brain<BarrowWightEntity> brain) {
+    private static void addEnchanterFightActivities(BarrowWightEnchanterEntity barrowWightEntity, Brain<BarrowWightEnchanterEntity> brain) {
         brain.setTaskList(
                 Activity.FIGHT,
                 10,
                 ImmutableList.of(
-                        UpdateAttackTargetTask.create(BarrowWightBrain::getAttackTarget),
-                        ForgetAttackTargetTask.create((world, target) -> !isTarget(world, barrowWightEntity, target)),
-                        RangedApproachTask.create(1.0F),
-                        MeleeAttackTask.create(20)
+                        UpdateAttackTargetTask.create(BarrowWightEnchanterBrain::getAttackTarget),
+                        new BarrowWightIllusionTask(),
+                        ForgetAttackTargetTask.create((world, target) -> !isTarget(world, barrowWightEntity, target))
                 ),
-                MemoryModuleType.ATTACK_TARGET
+                ImmutableSet.of(
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)
+                )
         );
     }
 
@@ -118,6 +108,7 @@ public class BarrowWightBrain {
         }
     }
 
+
     static {
         SENSORS = ImmutableList.of(
                 SensorType.HURT_BY,
@@ -140,7 +131,8 @@ public class BarrowWightBrain {
                 MemoryModuleType.ANGRY_AT,
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,
-                MemoryModuleType.NEAREST_ATTACKABLE
+                MemoryModuleType.NEAREST_ATTACKABLE,
+                MemoryModulesME.CAST_COOLDOWN
         );
     }
 }
