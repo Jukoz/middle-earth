@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.wight;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -14,11 +15,11 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
@@ -26,6 +27,7 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
@@ -33,6 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BarrowWightEntity extends HostileEntity {
     private static final TrackedData<Integer> ATTACK_FLAG;
+    private static final TrackedData<Boolean> IS_ENCHANTER;
 
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
@@ -49,7 +52,8 @@ public class BarrowWightEntity extends HostileEntity {
     public static DefaultAttributeContainer.Builder setAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 30.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.23)
+                .add(EntityAttributes.ARMOR, 12.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.24)
                 .add(EntityAttributes.FOLLOW_RANGE, 36.0);
     }
 
@@ -73,12 +77,26 @@ public class BarrowWightEntity extends HostileEntity {
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponItemsME.CARDOLAN_LONGSWORD));
+        if(isEnchanter()) {
+            if(random.nextBoolean()) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModDecorativeBlocks.GROUND_BOOK));
+            }
+        } else {
+            float value = random.nextFloat();
+            if(value < 0.34f) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponItemsME.CARDOLAN_LONGSWORD));
+            } else if(value < 0.67f) {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponItemsME.CARDOLAN_SWORD));
+            } else {
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponItemsME.CARDOLAN_AXE));
+            }
+        }
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(ATTACK_FLAG, 0);
+        builder.add(IS_ENCHANTER, false);
     }
 
     @Override
@@ -91,6 +109,24 @@ public class BarrowWightEntity extends HostileEntity {
         return (Brain<BarrowWightEntity>)super.getBrain();
     }
 
+    public boolean isEnchanter() {
+        return this.dataTracker.get(IS_ENCHANTER);
+    }
+
+    @Override
+    public void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.put("Enchanter", Codec.BOOL, this.isEnchanter());
+    }
+
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+
+        boolean isEnchanter = view.read("Enchanter", Codec.BOOL).orElse(false);
+        this.dataTracker.set(IS_ENCHANTER, isEnchanter);
+    }
 
     protected void setupAnimationStates() {
         if (!this.idleAnimation.isRunning()) {
@@ -167,7 +203,7 @@ public class BarrowWightEntity extends HostileEntity {
 
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
-        return !effect.equals(StatusEffects.WITHER) && !effect.equals(StatusEffects.POISON) && super.canHaveStatusEffect(effect);
+        return !effect.equals(StatusEffects.WITHER) && super.canHaveStatusEffect(effect);
     }
 
     @Override
@@ -175,13 +211,9 @@ public class BarrowWightEntity extends HostileEntity {
         return type == EntityType.PLAYER || type == EntitiesME.NPC;
     }
 
-    @Override
-    protected void readCustomData(ReadView view) {
-        super.readCustomData(view);
-    }
-
     static {
         ATTACK_FLAG = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        IS_ENCHANTER = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 
     public static boolean canSpawn(EntityType<BarrowWightEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {

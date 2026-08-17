@@ -8,17 +8,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.mob.PiglinBruteBrain;
-import net.minecraft.entity.mob.PiglinBruteEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
-import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
-import net.sevenstars.middleearth.entity.npcs.NpcBrain;
 
 import java.util.Optional;
 
@@ -35,7 +31,12 @@ public class BarrowWightBrain {
 
         addCoreActivities(brain);
         addIdleActivities(brain);
-        addFightActivities(barrowWightEntity, brain);
+
+        if(barrowWightEntity.isEnchanter()) {
+            addEnchanterFightActivities(barrowWightEntity, brain);
+        } else {
+            addMeleeFightActivities(barrowWightEntity, brain);
+        }
 
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
@@ -79,7 +80,7 @@ public class BarrowWightBrain {
         );
     }
 
-    private static void addFightActivities(BarrowWightEntity barrowWightEntity, Brain<BarrowWightEntity> brain) {
+    private static void addMeleeFightActivities(BarrowWightEntity barrowWightEntity, Brain<BarrowWightEntity> brain) {
         brain.setTaskList(
                 Activity.FIGHT,
                 10,
@@ -90,6 +91,20 @@ public class BarrowWightBrain {
                         MeleeAttackTask.create(20)
                 ),
                 MemoryModuleType.ATTACK_TARGET
+        );
+    }
+
+    private static void addEnchanterFightActivities(BarrowWightEntity barrowWightEntity, Brain<BarrowWightEntity> brain) {
+        brain.setTaskList(
+                Activity.FIGHT,
+                10,
+                ImmutableList.of(
+                        UpdateAttackTargetTask.create(BarrowWightBrain::getAttackTarget),
+                        ForgetAttackTargetTask.create((world, target) -> !isTarget(world, barrowWightEntity, target))
+                ),
+                ImmutableSet.of(
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)
+                )
         );
     }
 

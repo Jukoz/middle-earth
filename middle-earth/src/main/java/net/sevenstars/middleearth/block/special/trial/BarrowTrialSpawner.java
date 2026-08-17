@@ -63,9 +63,15 @@ public class BarrowTrialSpawner extends TrialSpawnerBlock {
                     world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL | Block.SKIP_DROPS);
                     world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, blockPos, Block.getRawIdFromState(blockState));
                 }
+            } else if (bedPart == BedPart.HEAD) {
+                BlockPos blockPos = pos.offset(getDirectionTowardsOtherPart(bedPart, state.get(FACING)));
+                BlockState blockState = world.getBlockState(blockPos);
+                if (blockState.isOf(this) && blockState.get(PART) == BedPart.FOOT) {
+                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL | Block.SKIP_DROPS);
+                    world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, blockPos, Block.getRawIdFromState(blockState));
+                }
             }
         }
-
         return super.onBreak(world, pos, state, player);
     }
 

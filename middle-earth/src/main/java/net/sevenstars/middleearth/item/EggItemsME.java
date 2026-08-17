@@ -51,6 +51,9 @@ public class EggItemsME {
     public static final Item NPC_SPAWN_EGG = registerSpecialEgg("npc_spawn_egg",
             (settings) -> new SpawnEggItem(EntitiesME.NPC, settings), new Item.Settings());
 
+    public static final Item BARROW_WIGHT_SPAWN_EGG = registerItem("barrow_wight_spawn_egg",
+            (settings) -> new SpawnEggItem(EntitiesME.BARROW_WIGHT, settings), new Item.Settings());
+
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ItemGroupsME.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
