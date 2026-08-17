@@ -19,7 +19,7 @@ class NpcRenderCompatibilityContractTest {
 
         assertTrue(compatibility.contains("InterModEnqueueEvent"));
         assertTrue(compatibility.contains("value = Dist.CLIENT"));
-        assertTrue(compatibility.contains("bus = EventBusSubscriber.Bus.MOD"));
+        assertFalse(compatibility.contains("bus = EventBusSubscriber.Bus."));
         assertTrue(compatibility.contains("ModList.get().isLoaded"));
         assertTrue(compatibility.contains("\"acceleratedrendering\""));
         assertTrue(compatibility.contains("\"entity_type_blacklist\""));
