@@ -1,10 +1,9 @@
 package net.sevenstars.middleearth.entity.stone_troll;
 
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.conversion.EntityConversionContext;
@@ -24,28 +23,34 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
+import net.sevenstars.api.entity.SleepingEntity;
+import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
 
-// TODO ADD BRAIN
-// TODO ADD ANIMATIONS
-public class StoneTrollEntity extends PathAwareEntity {
+public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private final int PETRIFYING_DURATION = 600;
+    public final AnimationState sleepingAnimationState = new AnimationState();
     public static final List<RegistryKey<Biome>> darkBiomes = List.of(
 
     );
-    private final int PETRIFYING_DURATION = 600;
 
     //region Init
     public StoneTrollEntity(EntityType<? extends StoneTrollEntity> entityType, World world) {
@@ -67,6 +72,19 @@ public class StoneTrollEntity extends PathAwareEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(PETRIFYING, PETRIFYING_DURATION);
+        builder.add(SLEEPING, false);
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        if(!this.getWorld().isSkyVisible(this.getBlockPos())) {
+            GlobalPos globalPos = GlobalPos.create(this.getWorld().getRegistryKey(), this.getBlockPos());
+            this.getBrain().remember(MemoryModuleType.HOME, globalPos);
+        }
+        this.getBrain().setSchedule(SchedulesAPI.NOCTURNAL);
+
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -77,6 +95,15 @@ public class StoneTrollEntity extends PathAwareEntity {
         return (Brain<StoneTrollEntity>)super.getBrain();
     }
 
+    public static boolean canSpawn(EntityType<StoneTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return true;
+    }
+
     //endregion
 
     //region Tick-based methods
@@ -85,7 +112,7 @@ public class StoneTrollEntity extends PathAwareEntity {
         Profiler profiler = Profilers.get();
         profiler.push("stoneTrollBrain");
         this.getBrain().tick(world, this);
-        profiler.swap("caveTrollActivityUpdate");
+        profiler.swap("stoneTrollActivityUpdate");
         StoneTrollBrain.updateActivities(this);
         profiler.pop();
 
@@ -94,50 +121,81 @@ public class StoneTrollEntity extends PathAwareEntity {
 
     @Override
     public void tickMovement() {
-        if (this.isAlive() && !this.getWorld().isClient() && this.getPetrifying() != -1 && this.getWorld().getBiome(this.getBlockPos()).getKey().isPresent()) {
-            RegistryKey<Biome> biomeKey = this.getWorld().getBiome(this.getBlockPos()).getKey().get();
+        if(!this.getWorld().isClient()) { // Server side
+            if (this.isAlive() && this.getPetrifying() != -1 && this.getWorld().getBiome(this.getBlockPos()).getKey().isPresent()) {
+                RegistryKey<Biome> biomeKey = this.getWorld().getBiome(this.getBlockPos()).getKey().get();
 
-            boolean inDaylight = this.isAffectedByDaylight() && !darkBiomes.contains(biomeKey);
+                boolean inDaylight = this.isAffectedByDaylight() && !darkBiomes.contains(biomeKey);
 
-            if (inDaylight) {
-                this.setPetrifying(this.getPetrifying() - 1);
-                if(this.getPetrifying() <= 0) {
-                    this.turnToStone();
+                if (inDaylight) {
+                    this.setPetrifying(this.getPetrifying() - 1);
+                    if(this.getPetrifying() <= 0) {
+                        this.turnToStone();
+                    }
+                    if(this.age % 10 == 0) {
+                        this.playSound(SoundEvents.BLOCK_FIRE_AMBIENT, 1.0f, 1.0f);
+                    }
                 }
-                if(this.age % 10 == 0) {
-                    this.playSound(SoundEvents.BLOCK_FIRE_AMBIENT, 1.0f, 1.0f);
+                else {
+                    this.setPetrifying(PETRIFYING_DURATION);
                 }
-            }
-            else {
-                this.setPetrifying(PETRIFYING_DURATION);
             }
         }
-        if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.getWorld().isClient() && this.age % 3 == 0) {
-            this.getWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
+
+        if(this.getWorld().isClient()) { // Client side
+            setupAnimationStates();
+
+            if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.age % 3 == 0) {
+                this.getWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
+            }
         }
 
         super.tickMovement();
     }
     //endregion
 
-    //region Getters/Setters
-    public void setPetrifying(int petrifying) {
-        this.dataTracker.set(PETRIFYING, petrifying);
+    //region Sleeping
+    @Override
+    public boolean isSleeping() {
+        return dataTracker.get(SLEEPING);
     }
-    public int getPetrifying() {
-        return this.dataTracker.get(PETRIFYING);
-    }
-    public boolean isPetrified() {
-        return this.dataTracker.get(PETRIFYING) == -1;
+    @Override
+    public void setSleeping(boolean isSleeping) {
+        dataTracker.set(SLEEPING, isSleeping);
     }
 
-    @Nullable
     @Override
-    public LivingEntity getTarget() {
-        return getTargetInBrain();
+    public void startSleeping() {
+        if (this.hasVehicle()) {
+            this.stopRiding();
+        }
+
+        this.setSleeping(true);
+        this.setVelocity(Vec3d.ZERO);
+        this.velocityDirty = true;
+
+        this.brain.forget(MemoryModuleType.WALK_TARGET);
+        this.brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    }
+
+    @Override
+    public void stopSleeping() {
+        this.setSleeping(false);
     }
     //endregion
 
+    //region Petrifying
+    public void setPetrifying(int petrifying) {
+        this.dataTracker.set(PETRIFYING, petrifying);
+    }
+
+    public int getPetrifying() {
+        return this.dataTracker.get(PETRIFYING);
+    }
+
+    public boolean isPetrified() {
+        return this.dataTracker.get(PETRIFYING) == -1;
+    }
 
     @Override
     protected boolean isAffectedByDaylight() {
@@ -152,8 +210,6 @@ public class StoneTrollEntity extends PathAwareEntity {
         return false;
     }
 
-
-
     public void turnToStone() {
         this.setAiDisabled(true);
         this.convertTo(
@@ -161,6 +217,31 @@ public class StoneTrollEntity extends PathAwareEntity {
                 EntityConversionContext.create(this, true, false),
                 troll -> {}
         );
+    }
+
+    @Override
+    public void onDamaged(DamageSource damageSource) {
+        if(!this.isPetrified()) {
+            super.onDamaged(damageSource);
+        }
+    }
+    //endregion
+
+    //region Rendering
+    private void setupAnimationStates() {
+        if (isSleeping()) {
+            this.sleepingAnimationState.startIfNotRunning(this.age);
+        } else {
+            this.sleepingAnimationState.stop();
+        }
+    }
+
+    //endregion
+
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return getTargetInBrain();
     }
 
     @Override
@@ -173,21 +254,5 @@ public class StoneTrollEntity extends PathAwareEntity {
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(PETRIFYING, view.getInt("Petrifying", 0));
-    }
-
-    @Override
-    public void onDamaged(DamageSource damageSource) {
-        if(!this.isPetrified()) {
-            super.onDamaged(damageSource);
-        }
-    }
-
-    public static boolean canSpawn(EntityType<StoneTrollEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-        return SpawnUtil.canSpawn(blockPos, serverWorldAccess, spawnReason);
-    }
-
-    @Override
-    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
-        return true;
     }
 }

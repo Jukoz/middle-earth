@@ -5,12 +5,14 @@ import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityAnimations;
 
 public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
     private final ModelPart head;
 
     private final Animation walkContentAnimation;
     private final Animation walkUpsetAnimation;
+    private final Animation sleepingAnimation;
 
     public StoneTrollModel(ModelPart root) {
         super(root);
@@ -19,6 +21,7 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
 
         this.walkContentAnimation = StoneTrollAnimations.HAPPY_STROLL.createAnimation(root);
         this.walkUpsetAnimation = StoneTrollAnimations.AGGRESSIVE_WALK.createAnimation(root);
+        this.sleepingAnimation = StoneTrollAnimations.SIT.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -56,7 +59,7 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
         this.setHeadAngles(state.relativeHeadYaw, state.pitch);
 
         this.walkContentAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.8F, 2.8F); // Walk Animation when Anger is below 50
-        //this.attackingAnimation.apply(state.attackAnimationState, state.age);
+        this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

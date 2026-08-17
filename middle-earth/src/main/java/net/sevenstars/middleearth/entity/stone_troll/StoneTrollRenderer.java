@@ -6,6 +6,8 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityRenderState;
 
 public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, StoneTrollRenderState, StoneTrollModel> {
     private static final String PATH = "textures/entities/trolls/stone/stone_troll_a.png";
@@ -21,5 +23,11 @@ public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, Ston
     @Override
     public Identifier getTexture(StoneTrollRenderState state) {
         return Identifier.of(MiddleEarth.MOD_ID, PATH);
+    }
+
+    @Override
+    public void updateRenderState(StoneTrollEntity troll, StoneTrollRenderState stoneTrollRenderState, float f) {
+        super.updateRenderState(troll, stoneTrollRenderState, f);
+        stoneTrollRenderState.sleepingAnimationState = troll.sleepingAnimationState;
     }
 }

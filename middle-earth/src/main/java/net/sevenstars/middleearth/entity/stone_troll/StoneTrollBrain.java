@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -11,7 +12,18 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SleepOnGroundTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
+import java.util.Optional;
+
+// TODO WALK TO CAMPFIRE AT NIGHT
+// TODO SIT AROUND CAMPFIRE AT NIGHT
+// TODO BUILD CAMPFIRE IF NONE AROUND
+// TODO FIND SHADE DURING DAY
+// TODO SLEEP DURING DAY
 public class StoneTrollBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super StoneTrollEntity>>> SENSORS;
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
@@ -22,16 +34,19 @@ public class StoneTrollBrain {
 
         addCoreActivities(brain);
         addIdleActivities(brain);
+        addRestActivities(brain);
         addFightActivities(brain, troll);
+
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
-        brain.resetPossibleActivities();
+        brain.setSchedule(SchedulesAPI.NOCTURNAL);
+
+        brain.refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
         return brain;
     }
 
     private static void addCoreActivities(Brain<StoneTrollEntity> brain) {
-        brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90)
@@ -41,11 +56,17 @@ public class StoneTrollBrain {
     private static void addIdleActivities(Brain<StoneTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                     Pair.of(0, StrollTask.create(1.0F, false)),
-                    Pair.of(0, LookAtMobTask.create(5))
-                ),
-                ImmutableSet.of(
+                    Pair.of(0, LookAtMobTask.create(5)),
+                    Pair.of(99, ScheduleActivityTask.create())
+        ));
+    }
 
-                ));
+    private static void addRestActivities(Brain<StoneTrollEntity> brain) {
+        brain.setTaskList(Activity.REST, ImmutableList.of(
+                // Look for dark place
+                Pair.of(2, new SleepOnGroundTask()),
+                Pair.of(99, ScheduleActivityTask.create())
+        ));
     }
 
     private static void addFightActivities(Brain<StoneTrollEntity> brain, StoneTrollEntity troll) {
@@ -63,7 +84,15 @@ public class StoneTrollBrain {
     }
 
     public static void updateActivities(StoneTrollEntity troll) {
-        troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
+        Optional<LivingEntity> optional = troll.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET);
+
+        if(optional != null && optional.isPresent()) {
+            troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT));
+        }
+        else {
+            troll.getBrain().resetPossibleActivities(ImmutableList.of());
+        }
+
         troll.getBrain().refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
     }
 
@@ -77,6 +106,7 @@ public class StoneTrollBrain {
                 MemoryModuleType.WALK_TARGET,
                 MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
                 MemoryModuleType.PATH,
+                MemoryModuleType.IS_IN_WATER,
                 MemoryModuleType.HURT_BY,
                 MemoryModuleType.HURT_BY_ENTITY,
                 MemoryModuleType.VISIBLE_MOBS,
@@ -84,7 +114,8 @@ public class StoneTrollBrain {
                 MemoryModuleType.ATTACK_COOLING_DOWN,
                 MemoryModuleType.LOOK_TARGET,
                 MemoryModuleType.NEAREST_ATTACKABLE,
-                MemoryModuleType.NEAREST_PLAYERS
+                MemoryModuleType.NEAREST_PLAYERS,
+                MemoryModuleType.HOME
         );
     }
 }

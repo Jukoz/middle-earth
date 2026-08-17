@@ -44,6 +44,7 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.sevenstars.api.entity.SleepingEntity;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
@@ -56,9 +57,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-// TODO Add sounds
 
-public class SwanEntity extends AnimalEntity {
+public class SwanEntity extends AnimalEntity implements SleepingEntity {
     private static final int EGG_COOLDOWN = 12000; // = 10 minutes
     public int idleAnimationTimeout = this.random.nextInt(400) + 800; // 40 - 60 Seconds
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(SwanEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -127,6 +127,7 @@ public class SwanEntity extends AnimalEntity {
         return new AmphibiousSwimNavigation(this, world);
     }
 
+    @Override
     public void startSleeping() {
         if (this.hasVehicle()) {
             this.stopRiding();
@@ -158,6 +159,7 @@ public class SwanEntity extends AnimalEntity {
         this.brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     }
 
+    @Override
     public void stopSleeping() {
         this.setSleeping(false);
     }
@@ -314,10 +316,12 @@ public class SwanEntity extends AnimalEntity {
         dataTracker.set(FIGHTING, isFighting);
     }
 
+    @Override
     public boolean isSleeping() {
         return dataTracker.get(SLEEPING);
     }
 
+    @Override
     public void setSleeping(boolean isSleeping) {
         dataTracker.set(SLEEPING, isSleeping);
     }

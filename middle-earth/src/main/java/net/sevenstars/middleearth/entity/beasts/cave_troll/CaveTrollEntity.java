@@ -51,6 +51,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.sevenstars.api.entity.SleepingEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
@@ -65,8 +66,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO Add sounds
-public class CaveTrollEntity extends AbstractBeastEntity {
+public class CaveTrollEntity extends AbstractBeastEntity implements SleepingEntity {
     public LootTable scavengeLootTable;
     public LootWorldContext lootWorldContext;
     private float smashingStrength; // Used in server-side only
@@ -598,6 +598,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
     }
 
+    @Override
     public void startSleeping() {
         if (this.hasVehicle()) {
             this.stopRiding();
@@ -611,14 +612,17 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         this.brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     }
 
+    @Override
     public void stopSleeping() {
         this.setSleeping(false);
     }
 
+    @Override
     public boolean isSleeping() {
         return this.dataTracker.get(SLEEPING);
     }
 
+    @Override
     public void setSleeping(boolean isSleeping) {
         this.dataTracker.set(SLEEPING, isSleeping);
     }

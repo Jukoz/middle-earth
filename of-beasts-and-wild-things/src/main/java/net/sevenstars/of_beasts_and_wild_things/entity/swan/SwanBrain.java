@@ -51,6 +51,7 @@ public class SwanBrain {
         addBabyIdleActivities(brain);
         addBabyRestActivities(brain);
         addFightActivities(swanEntity, brain);
+
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
@@ -96,7 +97,7 @@ public class SwanBrain {
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
                 Pair.of(1, MoveTowardsPosMemoryTask.create(MemoryModuleType.HOME, 1.0f, 2, 20, 300)),
-                Pair.of(2, new SleepOnGroundTask()),
+                Pair.of(2, new SleepOnGroundTask(4.0)),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }
@@ -135,7 +136,7 @@ public class SwanBrain {
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
                 Pair.of(1, MoveTowardsPosMemoryTask.create(MemoryModuleType.HOME, 1.0f, 2, 20, 300)),
-                Pair.of(2, new SleepOnGroundTask()),
+                Pair.of(2, new SleepOnGroundTask(4.0)),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }

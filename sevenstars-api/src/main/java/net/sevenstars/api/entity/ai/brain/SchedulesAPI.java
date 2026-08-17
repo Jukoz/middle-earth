@@ -13,6 +13,11 @@ public class SchedulesAPI {
             .withActivity(12000, Activity.REST)
             .build();
 
+    public static final Schedule NOCTURNAL = register("nocturnal")
+            .withActivity(10, Activity.REST)
+            .withActivity(12000, Activity.IDLE)
+            .build();
+
     public static final Schedule DEFAULT_BABY = register("default_baby")
             .withActivity(10, ActivitiesAPI.BABY_IDLE)
             .withActivity(12000, ActivitiesAPI.BABY_REST)
