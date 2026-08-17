@@ -23,6 +23,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -1291,6 +1292,45 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DOL_GULDUR_PAVISE).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_ARMRUST_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DOL_GULDUR_ARMRUST_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_HEAVY_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DOL_GULDUR_HEAVY_SHIELD).getPath() + "_artisan");
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.DOL_GULDUR_HEAVY_SKULL_SHIELD.getDefaultStack(), "heavy_shield", DispositionType.EVIL, XP_HEAVY_SHIELD)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(ModDecorativeBlocks.OLD_SKULL.asItem())
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .componentInput(new ComponentsIngredient(Ingredient.ofItems(burzumSteelShieldPlate.getItem()), burzumSteelShieldPlate.getComponentChanges()))
+                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.BURZUM_STEEL_NUGGET)
+                        .criterion(hasItem(ResourceItemsME.SHIELD_PLATE),
+                                conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
+                        .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.DOL_GULDUR_HEAVY_SKULL_SHIELD).getPath() + "_artisan");
 
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.GONDORIAN_CONVERTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
@@ -1485,7 +1525,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ResourceItemsME.SHIELD_PLATE))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD).getPath() + "_artisan");
 
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1496,7 +1536,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1507,7 +1547,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_CROSS_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
@@ -1518,7 +1558,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
                         .criterion(hasItem(ResourceItemsME.SHIELD_BORDER),
                                 conditionsFromItem(ResourceItemsME.SHIELD_BORDER))
                         .offerTo(exporter, Registries.ITEM.getId(WeaponItemsME.RUINED_DWARVEN_ORNAMENTED_SHIELD).getPath() + "_artisan");
-                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.GOOD, XP_MEDIUM_SHIELD)
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD.getDefaultStack(), "medium_shield", DispositionType.EVIL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .input(ResourceItemsME.CRUDE_NUGGET)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))

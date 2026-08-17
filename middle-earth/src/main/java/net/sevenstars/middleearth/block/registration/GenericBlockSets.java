@@ -425,7 +425,8 @@ public class GenericBlockSets {
             ItemGroupsME.MISC_BLOCKS_CONTENTS));
     
     private static GenericBlockSetBuilder registerBlockSet(GenericBlockSetBuilder set){
-        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.requiresTool);
+        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor,
+                set.instrument, set.soundGroup, false, set.group, set.requiresTool);
 
         genericSetsList.add(set);
 
@@ -440,14 +441,16 @@ public class GenericBlockSets {
         return set;
     }
     private static SimpleBlockSetBuilder registerSimpleBlockSet(SimpleBlockSetBuilder set){
-        set.blockSet = BlockSetRegistration.createSimpleSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, set.group, set.requiresTool);
+        set.blockSet = BlockSetRegistration.createSimpleSet(set.setName , set.hardness, set.blastResistance, set.mapColor,
+                set.instrument, set.soundGroup, false, set.group, set.requiresTool);
         simpleSetsList.add(set);
 
         return set;
     }
 
     private static GenericBlockSetBuilder registerPillarBlockSet(GenericBlockSetBuilder set){
-        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, true, set.group, set.requiresTool);
+        set.blockSet = BlockSetRegistration.createRegularSet(set.setName , set.hardness, set.blastResistance, set.mapColor,
+                set.instrument, set.soundGroup, true, set.group, set.requiresTool);
 
         genericSetsList.add(set);
 

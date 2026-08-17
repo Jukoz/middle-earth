@@ -22,7 +22,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -186,6 +185,44 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                 //region GENERIC
 
                 //T1
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BAGGY_HAT.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CHAPERON.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(ResourceItemsME.FABRIC),
+                                conditionsFromItem(ResourceItemsME.FABRIC))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GLASSES.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(ResourceItemsME.BRONZE_INGOT)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(Items.GLASS)
+                        .input(Items.GLASS)
+                        .criterion(hasItem(ResourceItemsME.BRONZE_INGOT),
+                                conditionsFromItem(ResourceItemsME.BRONZE_INGOT))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MONOCLE.getDefaultStack(), "hat", DispositionType.GOOD)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(ResourceItemsME.BRONZE_INGOT)
+                        .input(Items.LEATHER)
+                        .input(Items.GLASS)
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(ResourceItemsME.BRONZE_INGOT),
+                                conditionsFromItem(ResourceItemsME.BRONZE_INGOT))
+                        .offerTo(exporter);
+
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.STRAW_HAT.getDefaultStack(), "hat", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(ResourceItemsME.STRAW)
@@ -214,6 +251,16 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(Items.STRING)
                         .criterion(hasItem(Items.WHITE_WOOL),
                                 conditionsFromItem(Items.WHITE_WOOL))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BEEKEEPER_MASK.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.STRAW)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(ResourceItemsME.FABRIC),
+                                conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_HAT.getDefaultStack(), "hat", DispositionType.NEUTRAL)
@@ -319,6 +366,19 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACKSMITH_APRON.getDefaultStack(), "chestplate", DispositionType.NEUTRAL)
+                        .input(Items.STRING)
+                        .input(Items.STRING)
+                        .input(ResourceItemsME.TIN_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.TIN_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
                         .criterion(hasItem(Items.LEATHER),
                                 conditionsFromItem(Items.LEATHER))
                         .offerTo(exporter);

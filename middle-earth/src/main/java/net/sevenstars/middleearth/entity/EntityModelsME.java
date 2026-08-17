@@ -3,9 +3,11 @@ package net.sevenstars.middleearth.entity;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
@@ -51,6 +53,7 @@ public class EntityModelsME {
         builder.put(EntityModelLayersME.CHESTNUT_COFFER, ChestnutCofferEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.OAK_COFFER, OakCofferEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.WILLOW_COFFER, WillowCofferEntityRenderer.getTexturedModelData());
+        builder.put(EntityModelLayersME.OLD_SKULL, OldSkullBlockEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.REINFORCED_BARREL, BarrelEntityModel.getTexturedModelData());
         builder.put(EntityModelLayersME.REINFORCED_BARREL_WATER_MASK, BarrelEntityModel.getBaseTexturedModelData());
 

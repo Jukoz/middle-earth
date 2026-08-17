@@ -97,7 +97,7 @@ public class HelpingGenerator {
                         ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
                         woodBlocks(set.strippedLogBlocks);
                     }
-                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks);
+                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks, set.vanilla);
                     case SHINGLE_BLOCKS -> {
                         Shingles.shingles.add(set.shinglesBlocks.base());
                         regularBlocks(set.shinglesBlocks, 0);
@@ -122,7 +122,9 @@ public class HelpingGenerator {
             int tool = -1;
             if(set.requiresTool) {
                 if(set.setName.contains("wood")) tool = 0;
-                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick") || set.setName.contains("tiles")) tool = 1;
+                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick")
+                        || set.setName.contains("tiles") || set.setName.contains("stucco")) tool = 1;
+                else if(set.setName.contains("plaster")) tool = 2;
             }
             regularBlocks(set.blockSet, tool);
         }
@@ -238,6 +240,7 @@ public class HelpingGenerator {
         switch(tool) {
             case 0 -> MineableAxe.blocks.add(block);
             case 1 -> MineablePickaxe.blocks.add(block);
+            case 2 -> MineableShovel.blocks.add(block);
             case 3 -> MineableHoe.blocks.add(block);
         }
 
@@ -319,7 +322,8 @@ public class HelpingGenerator {
                     SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
                 }
                 case ButtonBlock buttonBlock -> {
-                    Buttons.buttons.add(buttonBlock);
+                    if(woodModel) Buttons.woodButtons.add(buttonBlock);
+                    else Buttons.stoneButtons.add(buttonBlock);
                     SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 }
                 case TrapdoorBlock trapdoorBlock -> {
@@ -374,10 +378,11 @@ public class HelpingGenerator {
         BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 1));
     }
 
-    public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
+    public static void plankBlocks(BlockRecordTypes.PlanksSet set, boolean vanilla) {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 0));
         WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
+        if(!vanilla) Planks.moddedPlanks.add(set.base());
         Planks.planksSlabs.add(set.slab());
     }
 

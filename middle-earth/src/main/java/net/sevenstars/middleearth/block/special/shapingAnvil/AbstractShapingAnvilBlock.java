@@ -98,7 +98,7 @@ public abstract class AbstractShapingAnvilBlock extends BlockWithEntity implemen
                 player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
                 if (blockEntity instanceof ShapingAnvilBlockEntity shapingAnvilBlockEntity) {
                     ServerWorld serverWorld = (ServerWorld) world;
-                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld);
+                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld, stack);
                 }
             }
         }
