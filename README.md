@@ -33,6 +33,8 @@ while translating them to the 1.21.1 APIs. The upstream wild-spawn chunk cache
 and global mob-cap implementations are not copied because their global state
 and coarse rejection semantics are incompatible with this NeoForge port; the
 existing bounded, dimension-aware spawning implementation is retained.
+This is not the final 1.0.2b baseline: additional feature-branch content will
+be evaluated after it is merged into the upstream development branch.
 It is not an official release from the original Middle-earth mod team.
 
 All original copyright notices, credits, trademarks and the ARR license remain

@@ -6,9 +6,12 @@ import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,9 +20,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RecipeViewerCompatibilityContractTest {
@@ -30,10 +36,7 @@ class RecipeViewerCompatibilityContractTest {
             Path.of("src/main/generated/data/minecraft/recipe");
     private static final Path RESOURCE_RECIPES =
             Path.of("src/main/resources/data/middle-earth/recipe");
-    private static final Path PROCESSED_RECIPES =
-            Path.of("build/resources/main/data/middle-earth/recipe");
-    private static final Path PROCESSED_VANILLA_RECIPES =
-            Path.of("build/resources/main/data/minecraft/recipe");
+    private static final Path BUILD_LIBS = Path.of("build/libs");
 
     @Test
     void jeiAndEmiExposeEveryActiveCustomRecipeType() throws IOException {
@@ -125,22 +128,75 @@ class RecipeViewerCompatibilityContractTest {
     }
 
     @Test
-    void processedResourcesPreserveVanillaRecipeReplacementsIndependentlyOfViewers() throws IOException {
-        assertEquals(activeRecipeCounts(), activeRecipeCounts(PROCESSED_RECIPES, PROCESSED_VANILLA_RECIPES));
+    void packagedResourcesPreserveVanillaRecipeReplacementsIndependentlyOfViewers() throws IOException {
+        try (ZipFile playerJar = new ZipFile(playerJar().toFile())) {
+            assertEquals(activeRecipeCounts(), activeRecipeCounts(playerJar));
 
-        Set<String> expectedOverrides = Set.of(
-                "bow", "crossbow", "golden_axe", "golden_hoe", "golden_shovel", "golden_sword",
-                "iron_axe", "iron_hoe", "iron_shovel", "iron_sword"
-        );
-        Set<String> processedOverrides = new HashSet<>();
-        for (String name : expectedOverrides) {
-            Path recipe = PROCESSED_VANILLA_RECIPES.resolve(name + ".json");
-            assertTrue(Files.isRegularFile(recipe), recipe.toString());
-            JsonObject json = JsonParser.parseString(Files.readString(recipe)).getAsJsonObject();
-            assertEquals("middle-earth:artisan_table", json.get("type").getAsString(), recipe.toString());
-            processedOverrides.add(name);
+            Set<String> expectedOverrides = Set.of(
+                    "bow", "crossbow", "golden_axe", "golden_hoe", "golden_shovel", "golden_sword",
+                    "iron_axe", "iron_hoe", "iron_shovel", "iron_sword"
+            );
+            Set<String> packagedOverrides = new HashSet<>();
+            for (String name : expectedOverrides) {
+                String path = "data/minecraft/recipe/" + name + ".json";
+                ZipEntry recipe = playerJar.getEntry(path);
+                assertNotNull(recipe, path);
+                JsonObject json = readJson(playerJar, recipe);
+                assertEquals("middle-earth:artisan_table", json.get("type").getAsString(), path);
+                packagedOverrides.add(name);
+            }
+            assertEquals(expectedOverrides, packagedOverrides);
         }
-        assertEquals(expectedOverrides, processedOverrides);
+    }
+
+    @Test
+    void everyPackagedInscriptionRecipeHasItsOwnUnlockAdvancement() throws IOException {
+        try (ZipFile playerJar = new ZipFile(playerJar().toFile())) {
+            Set<String> recipeIds = new HashSet<>();
+            Set<String> advancementIds = new HashSet<>();
+            Enumeration<? extends ZipEntry> entries = playerJar.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = entries.nextElement();
+                String path = entry.getName();
+                if (entry.isDirectory() || !path.endsWith(".json")) {
+                    continue;
+                }
+                if (path.startsWith("data/middle-earth/recipe/")) {
+                    JsonObject recipe = readJson(playerJar, entry);
+                    if (recipe.has("type")
+                            && recipe.get("type").getAsString().equals("middle-earth:inscription_table")) {
+                        recipeIds.add(fileStem(path));
+                    }
+                } else if (path.startsWith("data/middle-earth/advancement/recipes/misc/inscription_")) {
+                    advancementIds.add(fileStem(path));
+                }
+            }
+
+            assertFalse(recipeIds.isEmpty(), "Expected packaged inscription recipes");
+            assertEquals(recipeIds, advancementIds, "Inscription recipes and unlock advancements must be one-to-one");
+            for (String recipeId : recipeIds) {
+                String path = "data/middle-earth/advancement/recipes/misc/" + recipeId + ".json";
+                JsonObject advancement = readJson(playerJar, playerJar.getEntry(path));
+                String expectedId = "middle-earth:" + recipeId;
+                assertEquals(
+                        expectedId,
+                        advancement.getAsJsonObject("criteria")
+                                .getAsJsonObject("has_the_recipe")
+                                .getAsJsonObject("conditions")
+                                .get("recipe")
+                                .getAsString(),
+                        path
+                );
+                assertEquals(
+                        expectedId,
+                        advancement.getAsJsonObject("rewards")
+                                .getAsJsonArray("recipes")
+                                .get(0)
+                                .getAsString(),
+                        path
+                );
+            }
+        }
     }
 
     @Test
@@ -394,6 +450,58 @@ class RecipeViewerCompatibilityContractTest {
             }
         }
         return counts;
+    }
+
+    private static Map<String, Integer> activeRecipeCounts(ZipFile playerJar) throws IOException {
+        Map<String, Integer> counts = new HashMap<>();
+        Enumeration<? extends ZipEntry> entries = playerJar.entries();
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
+            String path = entry.getName();
+            if (entry.isDirectory() || !path.endsWith(".json")
+                    || !path.startsWith("data/middle-earth/recipe/")
+                    && !path.startsWith("data/minecraft/recipe/")) {
+                continue;
+            }
+            JsonObject recipe = readJson(playerJar, entry);
+            if (!recipe.has("type")) {
+                continue;
+            }
+            String type = recipe.get("type").getAsString();
+            if (type.equals("middle-earth:artisan_table")
+                    || type.equals("middle-earth:inscription_table")
+                    || type.equals("middle-earth:anvil_shaping")
+                    || type.equals("middle-earth:alloying")) {
+                counts.merge(type, 1, Integer::sum);
+            }
+        }
+        return counts;
+    }
+
+    private static JsonObject readJson(ZipFile playerJar, ZipEntry entry) throws IOException {
+        assertNotNull(entry, "Missing packaged JSON entry");
+        try (InputStreamReader reader = new InputStreamReader(
+                playerJar.getInputStream(entry), StandardCharsets.UTF_8
+        )) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        }
+    }
+
+    private static String fileStem(String path) {
+        return path.substring(path.lastIndexOf('/') + 1, path.length() - ".json".length());
+    }
+
+    private static Path playerJar() throws IOException {
+        try (Stream<Path> files = Files.list(BUILD_LIBS)) {
+            List<Path> playerJars = files
+                    .filter(Files::isRegularFile)
+                    .filter(path -> path.getFileName().toString().startsWith("Middle-earth-"))
+                    .filter(path -> path.getFileName().toString().endsWith(".jar"))
+                    .filter(path -> !path.getFileName().toString().endsWith("-sources.jar"))
+                    .toList();
+            assertEquals(1, playerJars.size(), "Expected one packaged Middle-earth player JAR");
+            return playerJars.getFirst();
+        }
     }
 
     private static String dependencyStanza(String metadata, String modId) {

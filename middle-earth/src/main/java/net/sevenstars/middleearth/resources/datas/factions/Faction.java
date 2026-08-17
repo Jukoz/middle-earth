@@ -282,7 +282,10 @@ public class Faction {
             return Optional.empty();
         CompoundTag nbtCompound = new CompoundTag();
         ListTag ranks = new ListTag();
-        for(NpcRank rank : this.npcDatasByRank.keySet()){
+        for(NpcRank rank : NpcRank.values()){
+            if (!this.npcDatasByRank.containsKey(rank)) {
+                continue;
+            }
             CompoundTag rankNbt = new CompoundTag();
             rankNbt.putString("rank", rank.toString().toUpperCase());
             ListTag identifiers = new ListTag();

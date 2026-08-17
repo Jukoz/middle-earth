@@ -5,10 +5,10 @@ This document records the upstream modules represented by the player Jar-in-Jar 
 ## Adopted upstream baseline
 
 - Released ancestor: `origin/main` at `1f047d55dd1509c001596876617b4ae660eb006e`.
-- Complete 1.0.2 content merge: `d576f1817b563996339d40b0170b636b4646451c`.
+- Complete content from the upstream `d576f1817b563996339d40b0170b636b4646451c` merge.
 - Selected fixes are fully represented through `52519872d3ba10a0391b129ea74898cc6396249e`, including resource, data, recipe, loot, balance, and gameplay changes.
 - Localization changes are represented through `ee79dc1977da654ca0276a91d93901f1b8521552`.
-- Wild-spawn chunk caching and the global mob-cap lineage are documented incompatibilities rather than silent omissions. Unmerged experimental feature branches remain outside this selected baseline.
+- Wild-spawn chunk caching and the global mob-cap lineage are documented incompatibilities rather than silent omissions. Additional 1.0.2b feature-branch content remains outside this snapshot until upstream merges it into the development branch.
 
 ## Source modules
 
@@ -68,18 +68,21 @@ Required checks:
 ## Accepted 1.21.1 build
 
 - Player jar: `Middle-earth-1.0.2-1.21.1-beta-backport.1.jar`.
-- SHA-256: `622BB18CF626EBF9C49B9A050B7D0D768AD3198AAEE9DAF560460EEE4D6A5250`.
-- Packaging: 68,027 entries, 356 Middle-earth structure NBT files, and exactly two nested logical-mod jars.
+- SHA-256: `40D64C0063FDAB2593E34C620C2AD8F96B47437223C638832E7445EF3EF2A14E`.
+- Packaging: 68,124 entries, 356 Middle-earth structure NBT files, and exactly two nested logical-mod jars.
 - Loader audit: NeoForge metadata and both Middle-earth mixin configs are present; `fabric.mod.json`, `net/fabricmc/**`, and bundled JEI/EMI API classes are absent.
 - Generated forged-component audit: 18/18 base models contain exactly 23 overrides each (22 material variants plus hot state).
 - Independent item-state audit: 615 effective custom state models, including 260 inventory models. The descriptor contract still registers 176 descriptors and 418 additional baked models; every referenced parent, texture, and override target resolves.
 - Data recipes in the player jar include 63 forge, 11 shaping-anvil, and 102 inscription definitions. Runtime viewer registration resolves 863 artisan, 63 forge, 11 shaping-anvil, 102 inscription, and 8 dynamic crafting displays.
+- Every inscription recipe has a unique matching recipe-book advancement; the former five shared advancement paths can no longer overwrite each other during data generation.
+- All 71 pale-oak block models use explicit Minecraft 1.21.1 birch or dark-oak texture fallbacks, and faction NPC ranks serialize in deterministic enum order.
 - JEI and EMI are optional compile-time integrations and are not embedded. With EMI alone, the 8 dynamic displays are registered natively; with JEI and EMI together, JEMI imports the JEI extensions and native EMI registration is suppressed to avoid duplicate recipe IDs.
 
 ## Acceptance evidence
 
-- Final `clean build` completed 31 actionable tasks. Across the three modules, 107 tests in 23 suites passed with no failure, error, or skip.
-- The final Jar-in-Jar audit found 68,027 entries, exactly two nested logical mods, zero duplicate ZIP paths, 10,303 recipe JSON files, 8,080 item-model JSON files, and 270 biome-event definitions.
+- Final `clean build` completed 37 actionable tasks. Across the three modules, 112 tests in 26 suites passed with no failure, error, or skip.
+- The final Jar-in-Jar audit found 68,124 entries, exactly two nested logical mods, zero duplicate ZIP paths, 10,303 recipe JSON files, 8,092 item-model JSON files, and 270 biome-event definitions.
+- A second consecutive `:middle-earth:runData` wrote zero files, confirming deterministic generated resources after canonical faction-rank ordering.
 - Current 1.0.2 JEI+EMI client check: `client-20260815-151821`; 135/135 actions and 17/17 nonblank captures passed. It covered the six new decorative blocks, all nine skeleton poses, six wearables, five new shields, representative blocking models, both leaf bone-meal transformations, and the starlight-phial return flow.
 - The starlight-phial check opened the return screen while the integrated server was paused, observed the 3-second countdown and enabled button, returned from `middle-earth:middle_earth` to the configured Overworld point, and consumed the survival-mode phial. All positive markers were present and no failure marker appeared.
 - In the JEI+EMI run, both integrations reported `863/102/11/63/8`; JEMI skipped the four categories already owned by native EMI. The generic JEMI tag-ingredient duplicate notices did not involve Middle-earth recipe IDs.

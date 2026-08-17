@@ -115,21 +115,36 @@ subprojects {
         runtimeOnly 'org.lwjgl:lwjgl-tinyfd:3.3.3:natives-windows'
     }
 
+    def replaceProperties = [
+            minecraft_version      : rootProject.minecraft_version,
+            minecraft_version_range: rootProject.minecraft_version_range,
+            neo_version            : rootProject.neo_version,
+            neo_version_range      : rootProject.neo_version_range,
+            loader_version_range   : rootProject.loader_version_range,
+            mod_id                 : project.mod_id,
+            mod_name               : project.mod_name,
+            mod_license            : project.mod_license,
+            mod_version            : project.mod_version,
+            mod_authors            : project.mod_authors,
+            mod_description        : project.mod_description
+    ]
+
     tasks.named('processResources', ProcessResources).configure {
-        def replaceProperties = [
-                minecraft_version      : rootProject.minecraft_version,
-                minecraft_version_range: rootProject.minecraft_version_range,
-                neo_version            : rootProject.neo_version,
-                neo_version_range      : rootProject.neo_version_range,
-                loader_version_range   : rootProject.loader_version_range,
-                mod_id                 : project.mod_id,
-                mod_name               : project.mod_name,
-                mod_license            : project.mod_license,
-                mod_version            : project.mod_version,
-                mod_authors            : project.mod_authors,
-                mod_description        : project.mod_description
-        ]
         inputs.properties replaceProperties
+
+        filesMatching('META-INF/neoforge.mods.toml') {
+            expand replaceProperties
+        }
+    }
+
+    tasks.register('refreshProcessedResources', Sync) {
+        dependsOn tasks.named('runData')
+        inputs.properties replaceProperties
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        exclude '.cache/**'
+        from('src/main/generated')
+        from('src/main/resources')
+        into(layout.buildDirectory.dir('resources/main'))
 
         filesMatching('META-INF/neoforge.mods.toml') {
             expand replaceProperties

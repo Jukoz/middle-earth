@@ -27,11 +27,17 @@ sourceSets.main.resources.setSrcDirs(['src/main/generated', 'src/main/resources'
 
 tasks.named('test') {
     dependsOn tasks.named('runData')
+    dependsOn tasks.named('jar')
     useJUnitPlatform()
+}
+
+tasks.named('compileTestJava') {
+    dependsOn tasks.named('refreshProcessedResources')
 }
 
 tasks.named('jar') {
     dependsOn tasks.named('runData')
+    dependsOn tasks.named('refreshProcessedResources')
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from('src/main/generated')
 }

@@ -60,6 +60,17 @@ import java.util.function.Supplier;
 import static net.minecraft.data.models.blockstates.Condition.condition;
 
 public class BlockModelProvider implements DataProvider {
+    private static final Map<String, String> PALE_OAK_TEXTURE_FALLBACKS = Map.ofEntries(
+            Map.entry("middle-earth:block/pale_oak_door_bottom", "minecraft:block/birch_door_bottom"),
+            Map.entry("middle-earth:block/pale_oak_door_top", "minecraft:block/birch_door_top"),
+            Map.entry("middle-earth:block/pale_oak_leaves", "minecraft:block/dark_oak_leaves"),
+            Map.entry("middle-earth:block/pale_oak_log", "minecraft:block/birch_log"),
+            Map.entry("middle-earth:block/pale_oak_log_top", "minecraft:block/birch_log_top"),
+            Map.entry("middle-earth:block/pale_oak_planks", "minecraft:block/birch_planks"),
+            Map.entry("middle-earth:block/pale_oak_trapdoor", "minecraft:block/birch_trapdoor"),
+            Map.entry("middle-earth:block/stripped_pale_oak_log", "minecraft:block/stripped_birch_log"),
+            Map.entry("middle-earth:block/stripped_pale_oak_log_top", "minecraft:block/stripped_birch_log_top")
+    );
     private final PackOutput.PathProvider blockStatePathProvider;
     private final PackOutput.PathProvider modelPathProvider;
     private final Path authoredModelsRoot;
@@ -1641,6 +1652,7 @@ public class BlockModelProvider implements DataProvider {
         };
 
       generateBlockStateModels(new GenerationContext(blockStateOutput, modelOutput, skippedAutoModels::add));
+      replacePaleOakBlockTextures(models);
       replacePaleOakDoorItemTexture(models);
       addAutomaticBlockItemModels(blockStates.keySet(), models, skippedAutoModels);
 
@@ -1648,6 +1660,37 @@ public class BlockModelProvider implements DataProvider {
                 saveCollection(cachedOutput, blockStates,
                         block -> blockStatePathProvider.json(block.builtInRegistryHolder().key().location())),
                 saveCollection(cachedOutput, models, modelPathProvider::json));
+  }
+
+  private static void replacePaleOakBlockTextures(
+          Map<ResourceLocation, Supplier<JsonElement>> models
+  ) {
+      models.replaceAll((id, modelSupplier) -> {
+          if (!id.getPath().contains("pale_oak")) {
+              return modelSupplier;
+          }
+          return () -> {
+              JsonElement model = modelSupplier.get().deepCopy();
+              if (!model.isJsonObject()) {
+                  return model;
+              }
+              JsonObject textures = model.getAsJsonObject().getAsJsonObject("textures");
+              if (textures == null) {
+                  return model;
+              }
+              Map<String, String> replacements = new HashMap<>();
+              textures.entrySet().forEach(texture -> {
+                  if (texture.getValue().isJsonPrimitive()) {
+                      String fallback = PALE_OAK_TEXTURE_FALLBACKS.get(texture.getValue().getAsString());
+                      if (fallback != null) {
+                          replacements.put(texture.getKey(), fallback);
+                      }
+                  }
+              });
+              replacements.forEach(textures::addProperty);
+              return model;
+          };
+      });
   }
 
   private static void replacePaleOakDoorItemTexture(

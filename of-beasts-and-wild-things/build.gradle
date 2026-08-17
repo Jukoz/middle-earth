@@ -9,8 +9,13 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+tasks.named('compileTestJava') {
+    dependsOn tasks.named('refreshProcessedResources')
+}
+
 tasks.named('jar') {
     dependsOn tasks.named('runData')
+    dependsOn tasks.named('refreshProcessedResources')
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from('src/main/generated')
 }
