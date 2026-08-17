@@ -5,5 +5,12 @@ dependencies {
 }
 
 tasks.named('test') {
+    dependsOn tasks.named('runData')
     useJUnitPlatform()
+}
+
+tasks.named('jar') {
+    dependsOn tasks.named('runData')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from('src/main/generated')
 }
