@@ -136,6 +136,10 @@ public class SimpleItemModel {
 
             add(ModDecorativeBlocks.CANDLESTICK.asItem());
             add(ModDecorativeBlocks.CERAMIC_LAMP.asItem());
+            add(ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER.asItem());
+            add(ModDecorativeBlocks.BRONZE_CHANDELIER.asItem());
+            add(ModDecorativeBlocks.SMALL_CHANDELIER.asItem());
+            add(ModDecorativeBlocks.CHANDELIER.asItem());
 
             add(ModDecorativeBlocks.SMALL_BLACK_CURTAIN.asItem());
             add(ModDecorativeBlocks.SMALL_BLUE_CURTAIN.asItem());

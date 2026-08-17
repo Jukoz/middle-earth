@@ -56,9 +56,16 @@ public class BlockDrops {
 
             add(ModDecorativeBlocks.GOLDEN_CHALICE);
 
+            add(ModDecorativeBlocks.OLD_SKULL);
+            add(ModDecorativeBlocks.SKELETON);
+
             add(ModDecorativeBlocks.CANDLE_HEAP);
             add(ModDecorativeBlocks.CANDLE_HOLDER);
             add(ModDecorativeBlocks.CERAMIC_LAMP);
+            add(ModDecorativeBlocks.SMALL_BRONZE_CHANDELIER);
+            add(ModDecorativeBlocks.BRONZE_CHANDELIER);
+            add(ModDecorativeBlocks.SMALL_CHANDELIER);
+            add(ModDecorativeBlocks.CHANDELIER);
 
             add(ModDecorativeBlocks.SCONCE);
             add(ModDecorativeBlocks.WALL_SCONCE);

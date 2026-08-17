@@ -58,6 +58,8 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 //this.helmetModel.setAngles(bipedEntityRenderState);
                 if(texture.contains("_helmet.png")){
                     ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_helmet.png", "_addition.png")), dyeable);
+                } else if(texture.contains("glass") || texture.contains("monocle")){
+                    ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, this.helmetAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")));
                 } else {
                     ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
