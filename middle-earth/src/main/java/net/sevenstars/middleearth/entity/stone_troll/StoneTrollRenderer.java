@@ -29,5 +29,9 @@ public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, Ston
     public void updateRenderState(StoneTrollEntity troll, StoneTrollRenderState stoneTrollRenderState, float f) {
         super.updateRenderState(troll, stoneTrollRenderState, f);
         stoneTrollRenderState.sleepingAnimationState = troll.sleepingAnimationState;
+        stoneTrollRenderState.lieDownAnimationState = troll.lieDownAnimationState;
+        stoneTrollRenderState.sitUpAnimationState = troll.sitUpAnimationState;
+        stoneTrollRenderState.sitDownAnimationState = troll.sitDownAnimationState;
+        stoneTrollRenderState.standUpAnimationState = troll.standUpAnimationState;
     }
 }

@@ -28,7 +28,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -249,7 +248,7 @@ public class CaveTrollEntity extends AbstractBeastEntity implements SleepingEnti
 
     @Override
     protected boolean isTamable(PlayerEntity player) {
-        return this.isSleeping() || player.isCreative();
+        return this.isAsleep() || player.isCreative();
     }
 
     @Override
@@ -447,7 +446,7 @@ public class CaveTrollEntity extends AbstractBeastEntity implements SleepingEnti
             this.stopSittingAnimationState.stop();
         }
 
-        if(this.isSleeping()) { // Sleeping
+        if(this.isAsleep()) { // Sleeping
             if(!this.startSleepingAnimationState.isRunning() && !this.sleepingAnimationState.isRunning()) {
                 this.startSleepingAnimationState.startIfNotRunning(this.age);
             }
@@ -618,7 +617,7 @@ public class CaveTrollEntity extends AbstractBeastEntity implements SleepingEnti
     }
 
     @Override
-    public boolean isSleeping() {
+    public boolean isAsleep() {
         return this.dataTracker.get(SLEEPING);
     }
 

@@ -197,7 +197,7 @@ public class SwanEntity extends AnimalEntity implements SleepingEntity {
     }
 
     private void setupAnimationStates() {
-        if(isSleeping()) {
+        if(isAsleep()) {
             this.sleepingAnimationState.startIfNotRunning(this.age);
         }
         else {
@@ -317,7 +317,7 @@ public class SwanEntity extends AnimalEntity implements SleepingEntity {
     }
 
     @Override
-    public boolean isSleeping() {
+    public boolean isAsleep() {
         return dataTracker.get(SLEEPING);
     }
 

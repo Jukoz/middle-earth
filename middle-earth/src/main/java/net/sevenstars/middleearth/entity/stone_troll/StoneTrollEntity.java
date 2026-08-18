@@ -37,7 +37,6 @@ import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -47,9 +46,13 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final int PETRIFYING_DURATION = 600;
+    private int sleepingAnimationSequenceState = 0;
     public final AnimationState sleepingAnimationState = new AnimationState();
+    public final AnimationState lieDownAnimationState = new AnimationState();
+    public final AnimationState sitUpAnimationState = new AnimationState();
+    public final AnimationState sitDownAnimationState = new AnimationState();
+    public final AnimationState standUpAnimationState = new AnimationState();
     public static final List<RegistryKey<Biome>> darkBiomes = List.of(
-
     );
 
     //region Init
@@ -156,7 +159,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
 
     //region Sleeping
     @Override
-    public boolean isSleeping() {
+    public boolean isAsleep() {
         return dataTracker.get(SLEEPING);
     }
     @Override
@@ -229,13 +232,55 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
 
     //region Rendering
     private void setupAnimationStates() {
-        if (isSleeping()) {
-            this.sleepingAnimationState.startIfNotRunning(this.age);
-        } else {
-            this.sleepingAnimationState.stop();
-        }
-    }
+        if (isAsleep() && sleepingAnimationSequenceState < 3) { // Initiate sleeping animation sequence
+            switch(sleepingAnimationSequenceState) {
+                case 0: // Troll is standing
+                    this.sitDownAnimationState.startIfNotRunning(this.age);
+                    if(this.sitDownAnimationState.getTimeInMilliseconds(this.age) > 2050) { // Sit-down animation completed
+                        sleepingAnimationSequenceState++;
+                    }
+                    break;
 
+                case 1: // Troll is sitting
+                    this.lieDownAnimationState.startIfNotRunning(this.age);
+                    this.sitDownAnimationState.stop();
+                    if(this.lieDownAnimationState.getTimeInMilliseconds(this.age) > 2000) { // Lie-down animation completed
+                        sleepingAnimationSequenceState++;
+                    }
+                    break;
+
+                case 2: // Troll is lying down
+                    this.sleepingAnimationState.startIfNotRunning(this.age);
+                    this.lieDownAnimationState.stop();
+                    sleepingAnimationSequenceState++;
+                    break;
+            }
+        }
+        else if(!this.isAsleep() && sleepingAnimationSequenceState > 0) { // Initiate waking up animation sequence
+            switch(sleepingAnimationSequenceState) {
+                case 3:
+                    sleepingAnimationSequenceState--;
+
+                case 2: // Troll is sleeping
+                    this.sitUpAnimationState.startIfNotRunning(this.age);
+                    this.sleepingAnimationState.stop();
+                    if(this.sitUpAnimationState.getTimeInMilliseconds(this.age) > 1050) { // Sit-up animation complete
+                        sleepingAnimationSequenceState--;
+                    }
+                    break;
+
+                case 1: // Troll is sitting
+                    this.standUpAnimationState.startIfNotRunning(this.age);
+                    this.sitUpAnimationState.stop();
+                    if(this.standUpAnimationState.getTimeInMilliseconds(this.age) > 2050) { // Stand-up animation complete
+                        sleepingAnimationSequenceState--;
+                    }
+                    break;
+            }
+        }
+
+
+    }
     //endregion
 
     @Nullable
@@ -248,11 +293,13 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
         view.putInt("Petrifying", this.getPetrifying());
+        view.putBoolean("Sleeping", this.isAsleep());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         this.dataTracker.set(PETRIFYING, view.getInt("Petrifying", 0));
+        this.dataTracker.set(SLEEPING, view.getBoolean("Sleeping", false));
     }
 }

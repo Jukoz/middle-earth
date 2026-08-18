@@ -4,8 +4,6 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntityRenderState;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityAnimations;
 
 public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
     private final ModelPart head;
@@ -13,6 +11,10 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
     private final Animation walkContentAnimation;
     private final Animation walkUpsetAnimation;
     private final Animation sleepingAnimation;
+    private final Animation lieDownAnimation;
+    private final Animation sitUpAnimation;
+    private final Animation sitDownAnimation;
+    private final Animation standUpAnimation;
 
     public StoneTrollModel(ModelPart root) {
         super(root);
@@ -21,7 +23,11 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
 
         this.walkContentAnimation = StoneTrollAnimations.HAPPY_STROLL.createAnimation(root);
         this.walkUpsetAnimation = StoneTrollAnimations.AGGRESSIVE_WALK.createAnimation(root);
-        this.sleepingAnimation = StoneTrollAnimations.SIT.createAnimation(root);
+        this.sleepingAnimation = StoneTrollAnimations.SLEEPING.createAnimation(root);
+        this.lieDownAnimation = StoneTrollAnimations.SIT_TO_SLEEP.createAnimation(root);
+        this.sitUpAnimation = StoneTrollAnimations.SLEEP_TO_SIT.createAnimation(root);
+        this.sitDownAnimation = StoneTrollAnimations.SIT_DOWN.createAnimation(root);
+        this.standUpAnimation = StoneTrollAnimations.STAND_UP.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -60,6 +66,10 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
 
         this.walkContentAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.8F, 2.8F); // Walk Animation when Anger is below 50
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
+        this.lieDownAnimation.apply(state.lieDownAnimationState, state.age);
+        this.sitUpAnimation.apply(state.sitUpAnimationState, state.age);
+        this.sitDownAnimation.apply(state.sitDownAnimationState, state.age);
+        this.standUpAnimation.apply(state.standUpAnimationState, state.age);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
