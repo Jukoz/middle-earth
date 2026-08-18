@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 class Upstream102DataGenerationContractTest {
     private static final Path MAIN_JAVA = Path.of("src/main/java");
+    private static final Path MAIN_RESOURCES = Path.of("src/main/resources");
+    private static final Path GENERATED_RESOURCES = Path.of("src/main/generated");
 
     @Test
     void newDecorativeBlocksHaveModelsLootAndRecipes() throws IOException {
@@ -115,6 +120,82 @@ class Upstream102DataGenerationContractTest {
     }
 
     @Test
+    void officialTagInscriptionLocalizationIsComplete() throws IOException {
+        String translations = source("datageneration/content/TranslationEntries.java");
+        String languageProvider = source("datageneration/providers/LanguageProvider.java");
+        String screen = source("gui/inscriptiontable/InscriptionTableScreen.java");
+        String wordBank = source("recipe/inscription/InscriptionWordBank.java");
+
+        assertTrue(translations.contains("inscriptionEntries = new ArrayList"));
+        assertTrue(translations.contains(".linking_dash\", \"-\""));
+        assertTrue(translations.contains(".level\", \"%d Level\""));
+        assertTrue(translations.contains(".levels\", \"%d Levels\""));
+        assertTrue(languageProvider.contains("TranslationEntries.inscriptionEntries.forEach"));
+        assertTrue(wordBank.contains("TranslationEntries.inscriptionEntries.addAll(wordBank.values())"));
+        assertTrue(screen.contains("String levelKey = k == 1 ? \".level\" : \".levels\""));
+        assertTrue(screen.contains(".linking_dash\").getString()"));
+
+        JsonObject chinese = JsonParser.parseString(Files.readString(MAIN_RESOURCES.resolve(
+                "assets/middle-earth/lang/zh_cn.json"
+        ))).getAsJsonObject();
+        assertEquals("", chinese.get("inscription.middle-earth.linking_dash").getAsString());
+        assertEquals("%d 级", chinese.get("inscription.middle-earth.level").getAsString());
+        assertEquals("%d 级", chinese.get("inscription.middle-earth.levels").getAsString());
+    }
+
+    @Test
+    void upstreamForgeAndLayerLootSemanticsAreGenerated() throws IOException {
+        JsonObject forge = generatedJson("data/middle-earth/loot_table/blocks/forge.json");
+        JsonArray forgePools = forge.getAsJsonArray("pools");
+        assertEquals(1, forgePools.size());
+        JsonObject forgePool = forgePools.get(0).getAsJsonObject();
+        assertEquals("top", forgePool.getAsJsonArray("conditions").get(0).getAsJsonObject()
+                .getAsJsonObject("properties").get("part").getAsString());
+        JsonObject forgeEntry = forgePool.getAsJsonArray("entries").get(0).getAsJsonObject();
+        assertEquals("middle-earth:forge", forgeEntry.get("name").getAsString());
+        assertEquals("minecraft:survives_explosion", forgeEntry.getAsJsonArray("conditions")
+                .get(0).getAsJsonObject().get("condition").getAsString());
+
+        for (String block : List.of("skeletal_pile_layer", "waste_pile_layer")) {
+            JsonArray pools = generatedJson(
+                    "data/middle-earth/loot_table/blocks/" + block + ".json"
+            ).getAsJsonArray("pools");
+            assertEquals(8, pools.size(), block);
+            for (int layers = 1; layers <= 8; layers++) {
+                JsonObject pool = pools.get(layers - 1).getAsJsonObject();
+                assertEquals(Integer.toString(layers), pool.getAsJsonArray("conditions")
+                        .get(0).getAsJsonObject().getAsJsonObject("properties")
+                        .get("layers").getAsString(), block);
+                JsonObject entry = pool.getAsJsonArray("entries").get(0).getAsJsonObject();
+                assertEquals("middle-earth:" + block, entry.get("name").getAsString(), block);
+                JsonArray functions = entry.getAsJsonArray("functions");
+                assertEquals(layers, functions.get(0).getAsJsonObject().get("count").getAsInt(), block);
+                assertEquals("minecraft:explosion_decay", functions.get(1).getAsJsonObject()
+                        .get("function").getAsString(), block);
+            }
+        }
+    }
+
+    @Test
+    void saddleCraftabilityIsPreservedForMinecraft1211() throws IOException {
+        String recipes = source("datageneration/providers/recipes/RecipeProvider.java");
+        assertTrue(recipes.contains("ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.SADDLE)"));
+        assertTrue(recipes.contains("MiddleEarth.MOD_ID, \"saddle\""));
+
+        JsonObject saddle = generatedJson("data/middle-earth/recipe/saddle.json");
+        assertEquals("minecraft:crafting_shaped", saddle.get("type").getAsString());
+        JsonArray pattern = saddle.getAsJsonArray("pattern");
+        assertEquals("LLL", pattern.get(0).getAsString());
+        assertEquals("I I", pattern.get(1).getAsString());
+        JsonObject key = saddle.getAsJsonObject("key");
+        assertEquals("minecraft:leather", key.getAsJsonObject("L").get("item").getAsString());
+        assertEquals("minecraft:iron_ingot", key.getAsJsonObject("I").get("item").getAsString());
+        JsonObject result = saddle.getAsJsonObject("result");
+        assertEquals("minecraft:saddle", result.get("id").getAsString());
+        assertEquals(1, result.get("count").getAsInt());
+    }
+
+    @Test
     void secondaryBreaksUseTheRealToolAndVanillaDestroySemantics() throws IOException {
         String events = source("event/ModEvents.java");
 
@@ -129,6 +210,11 @@ class Upstream102DataGenerationContractTest {
 
     private static String source(String relativePath) throws IOException {
         return Files.readString(MAIN_JAVA.resolve("net/sevenstars/middleearth").resolve(relativePath));
+    }
+
+    private static JsonObject generatedJson(String relativePath) throws IOException {
+        return JsonParser.parseString(Files.readString(GENERATED_RESOURCES.resolve(relativePath)))
+                .getAsJsonObject();
     }
 
     private static int count(String value, String needle) {

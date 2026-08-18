@@ -21,20 +21,19 @@
 ## Unofficial NeoForge 1.21.1 backport
 
 The `1.0.2-1.21.1-neoforge-backport` branch is an unofficial semantic
-backport of the upstream 1.0.2 development snapshot. It includes the complete
-[`d576f181`](https://github.com/Jukoz/middle-earth/commit/d576f1817b563996339d40b0170b636b4646451c)
-`new-stuff` merge, every compatible change from the selected fixes through
-[`52519872`](https://github.com/Jukoz/middle-earth/commit/52519872d3ba10a0391b129ea74898cc6396249e),
-and localization changes through
-[`ee79dc1977da654ca0276a91d93901f1b8521552`](https://github.com/Jukoz/middle-earth/commit/ee79dc1977da654ca0276a91d93901f1b8521552).
-Selected source, resource, data, recipe, loot, translation, model, balance,
-and gameplay changes are all in scope. Known upstream defects are corrected
-while translating them to the 1.21.1 APIs. The upstream wild-spawn chunk cache
-and global mob-cap implementations are not copied because their global state
-and coarse rejection semantics are incompatible with this NeoForge port; the
-existing bounded, dimension-aware spawning implementation is retained.
-This is not the final 1.0.2b baseline: additional feature-branch content will
-be evaluated after it is merged into the upstream development branch.
+backport of the official upstream
+[`1.0.2-1.21.8-beta`](https://github.com/Jukoz/middle-earth/releases/tag/1.0.2-1.21.8-beta)
+tag at
+[`fe655f713`](https://github.com/Jukoz/middle-earth/commit/fe655f71374db31629c228e1435e64636698b56c).
+That tagged tree is identical to the fully merged upstream `dev` tree at
+[`b92dbab45`](https://github.com/Jukoz/middle-earth/commit/b92dbab458da78a36378e18b7afa216288631f14).
+All compatible source, resource, data, recipe, loot, translation, model,
+balance, and gameplay changes in that release are represented either directly
+or by a 1.21.1/NeoForge semantic adaptation. Known upstream defects are
+corrected while translating them to the older APIs. The upstream wild-spawn
+chunk cache and global mob-cap implementations are not copied because their
+global state and coarse rejection semantics are incompatible with this port;
+the existing bounded, dimension-aware spawning implementation is retained.
 It is not an official release from the original Middle-earth mod team.
 
 All original copyright notices, credits, trademarks and the ARR license remain

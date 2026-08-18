@@ -105,6 +105,27 @@ class Upstream102MigrationContractTest {
     }
 
     @Test
+    void serverWorldHooksUseNeoForgeEventsWithoutRestoringGlobalMobTracking() throws IOException {
+        String events = source("event/NeoForgeCommonEvents.java");
+        String lookup = source("resources/datas/biome_events/BiomeEventDataLookup.java");
+        String mixins = Files.readString(RESOURCES.resolve("middle-earth.mixins.json"));
+
+        assertTrue(events.contains("advanceOverworldAfterSleep(SleepFinishedTimeEvent event)"));
+        assertTrue(events.contains("ServerLevel overworld = sleepingLevel.getServer().overworld()"));
+        assertTrue(events.contains("sleepingLevel != overworld"));
+        assertTrue(events.contains("overworld.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT)"));
+        assertTrue(events.contains(
+                "overworld.setDayTime(currentTimeOfDay - currentTimeOfDay % 24000L)"
+        ));
+
+        assertFalse(mixins.contains("ServerWorldMixin"));
+        assertFalse(Files.exists(JAVA.resolve("mixin/ServerWorldMixin.java")));
+        assertFalse(events.contains("BiomeEventDataLookup.addEntity("));
+        assertFalse(lookup.contains("addEntity("));
+        assertFalse(lookup.contains("removeEntity("));
+    }
+
+    @Test
     void npcModelInventoryIsPublishedFromABootstrapLocalSnapshot() throws IOException {
         String registry = source("registries/content/npctypes/NpcRegistry.java");
         assertTrue(registry.contains("volatile List<ResourceKey<NpcType>> allNpcTypes = List.of()"));

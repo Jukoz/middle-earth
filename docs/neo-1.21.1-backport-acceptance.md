@@ -5,10 +5,13 @@ This document records the upstream modules represented by the player Jar-in-Jar 
 ## Adopted upstream baseline
 
 - Released ancestor: `origin/main` at `1f047d55dd1509c001596876617b4ae660eb006e`.
-- Complete content from the upstream `d576f1817b563996339d40b0170b636b4646451c` merge.
-- Selected fixes are fully represented through `52519872d3ba10a0391b129ea74898cc6396249e`, including resource, data, recipe, loot, balance, and gameplay changes.
-- Localization changes are represented through `ee79dc1977da654ca0276a91d93901f1b8521552`.
-- Wild-spawn chunk caching and the global mob-cap lineage are documented incompatibilities rather than silent omissions. Additional 1.0.2b feature-branch content remains outside this snapshot until upstream merges it into the development branch.
+- Official release baseline: tag `1.0.2-1.21.8-beta` at `fe655f71374db31629c228e1435e64636698b56c`.
+- The fully merged upstream `dev` commit `b92dbab458da78a36378e18b7afa216288631f14` and the official tag share tree `531effb8d0d4e2b63b7fb0e7b2631c13b0028a0b`; there is no main/dev content split in this baseline.
+- Every compatible change from the released ancestor through that tag is represented directly or by an explicit Minecraft 1.21.1/NeoForge adaptation. This includes the complete `d576f1817b563996339d40b0170b636b4646451c` content merge, fixes through `52519872d3ba10a0391b129ea74898cc6396249e`, and inscription/localization changes through `ee79dc1977da654ca0276a91d93901f1b8521552`.
+- Fabric metadata is replaced by NeoForge metadata, and 1.21.8 item-definition resources are expressed through the 1.21.1 `models/item` contract.
+- Upstream static forge and layered-pile loot JSONs are emitted by the NeoForge data provider and verified at the generated-resource boundary. The Fabric `ServerWorldMixin` sleep hook maps to NeoForge's native sleeping-level advance plus a guarded Overworld advance; its entity UUID tracker is deliberately absent with the global mob-cap implementation it served.
+- Upstream removes its saddle recipe after Minecraft 1.21.8 adds an equivalent vanilla recipe. Minecraft 1.21.1 has no vanilla replacement, so this backport deliberately continues to generate `middle-earth:saddle` with the original leather-and-iron pattern.
+- Wild-spawn chunk caching and the global mob-cap lineage are documented incompatibilities rather than silent omissions. Their process-global mutable state and coarse rejection semantics are replaced by the existing bounded, dimension-aware NeoForge spawn implementation.
 
 ## Source modules
 
@@ -35,6 +38,9 @@ Required functional checks:
 - Existing and new Dol Guldur shields retain the corrected medium/heavy types and blocking models.
 - Hewing and Tree Feller secondary drops honor the real tool, Silk Touch, Fortune, break-event cancellation, and block-entity loot.
 - Holly and Mallorn leaf bone-meal interactions preserve required block-state properties.
+- Sleeping in the Middle-earth dimension advances both that level and the Overworld without double-advancing an Overworld sleep.
+- The forge drops only from its top part, while skeletal-pile and waste-pile drops preserve their placed layer counts from one through eight.
+- Saddle craftability remains available on Minecraft 1.21.1 with the upstream pre-1.21.8 recipe semantics.
 
 ### Seven Stars API
 
@@ -68,20 +74,21 @@ Required checks:
 ## Accepted 1.21.1 build
 
 - Player jar: `Middle-earth-1.0.2-1.21.1-beta-backport.1.jar`.
-- SHA-256: `204E436F64EBBF4022DF134931F5A234F6DDF417C0412C77E824A84CC1C987B2`.
-- Packaging: 68,124 entries, 356 Middle-earth structure NBT files, and exactly two nested logical-mod jars.
+- SHA-256: `0B4EB219764F315CACF3FBDB5C82639C17B58A73C770FE308C3DF0EEE8EDA70D`.
+- Packaging: 68,126 entries, 356 Middle-earth structure NBT files, and exactly two nested logical-mod jars.
 - Loader audit: NeoForge metadata and both Middle-earth mixin configs are present; `fabric.mod.json`, `net/fabricmc/**`, and bundled JEI/EMI API classes are absent.
 - Generated forged-component audit: 18/18 base models contain exactly 23 overrides each (22 material variants plus hot state).
 - Independent item-state audit: 615 effective custom state models, including 260 inventory models. The descriptor contract still registers 176 descriptors and 418 additional baked models; every referenced parent, texture, and override target resolves.
 - Data recipes in the player jar include 63 forge, 11 shaping-anvil, and 102 inscription definitions. Runtime viewer registration resolves 863 artisan, 63 forge, 11 shaping-anvil, 102 inscription, and 8 dynamic crafting displays.
+- The player jar also contains the version-specific `middle-earth:saddle` crafting recipe and its unlock advancement; the generated recipe uses the 1.21.1 ingredient-object schema.
 - Every inscription recipe has a unique matching recipe-book advancement; the former five shared advancement paths can no longer overwrite each other during data generation.
 - All 71 pale-oak block models use explicit Minecraft 1.21.1 birch or dark-oak texture fallbacks, and faction NPC ranks serialize in deterministic enum order.
 - JEI and EMI are optional compile-time integrations and are not embedded. With EMI alone, the 8 dynamic displays are registered natively; with JEI and EMI together, JEMI imports the JEI extensions and native EMI registration is suppressed to avoid duplicate recipe IDs.
 
 ## Acceptance evidence
 
-- Final `clean build` completed 37 actionable tasks. Across the three modules, 112 tests in 26 suites passed with no failure, error, or skip.
-- The final Jar-in-Jar audit found 68,124 entries, exactly two nested logical mods, zero duplicate ZIP paths, 10,303 recipe JSON files, 8,092 item-model JSON files, and 270 biome-event definitions.
+- Final `clean build` completed 37 actionable tasks. Across the three modules, 116 tests in 26 suites passed with no failure, error, or skip.
+- The final Jar-in-Jar audit found 68,126 entries, exactly two nested logical mods, zero duplicate ZIP paths, 10,304 recipe JSON files, 8,092 item-model JSON files, and 270 biome-event definitions.
 - A second consecutive `:middle-earth:runData` wrote zero files, confirming deterministic generated resources after canonical faction-rank ordering.
 - Current 1.0.2 JEI+EMI client check: `client-20260815-151821`; 135/135 actions and 17/17 nonblank captures passed. It covered the six new decorative blocks, all nine skeleton poses, six wearables, five new shields, representative blocking models, both leaf bone-meal transformations, and the starlight-phial return flow.
 - The starlight-phial check opened the return screen while the integrated server was paused, observed the 3-second countdown and enabled button, returned from `middle-earth:middle_earth` to the configured Overworld point, and consumed the survival-mode phial. All positive markers were present and no failure marker appeared.

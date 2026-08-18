@@ -596,6 +596,16 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 createLayerRecipe(recipeOutput, ModBlocks.SKELETAL_PILE.asItem(), ModBlocks.SKELETAL_PILE_LAYER);
                 createLayerRecipe(recipeOutput, ModBlocks.WASTE_PILE.asItem(), ModBlocks.WASTE_PILE_LAYER);
 
+                // Minecraft 1.21.8 provides this recipe in vanilla; 1.21.1 still needs the mod recipe.
+                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.SADDLE)
+                        .pattern("LLL")
+                        .pattern("I I")
+                        .define('L', Items.LEATHER)
+                        .define('I', Items.IRON_INGOT)
+                        .unlockedBy(getHasName(Items.LEATHER), has(Items.LEATHER))
+                        .save(recipeOutput, String.valueOf(ResourceLocation.fromNamespaceAndPath(
+                                MiddleEarth.MOD_ID, "saddle")));
+
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, StoneBlockSets.TRAVERTINE_SET.baseBlocks.base(), 4)
                         .pattern("CS")
