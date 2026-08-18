@@ -48,6 +48,11 @@ jobs:
           ! grep -Fxq 'fabric.mod.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Fxq 'data/middle-earth/recipe/corrupted_moss_carpet.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Fxq 'data/middle-earth/recipe/forest_moss_carpet.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'data/middle-earth/recipe/saddle.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'data/middle-earth/advancement/recipes/misc/saddle.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'data/middle-earth/loot_table/blocks/forge.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'data/middle-earth/loot_table/blocks/skeletal_pile_layer.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          grep -Fxq 'data/middle-earth/loot_table/blocks/waste_pile_layer.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Fxq 'assets/middle-earth/models/item/gondorian_sword.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           wild_things_entry=$(grep -E '^META-INF/jarjar/.+Of-Beasts-and-Wild-Things.+\.jar$' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt")
           unzip -p "${player_jars[0]}" "$wild_things_entry" > "$RUNNER_TEMP/wild-things.jar"
