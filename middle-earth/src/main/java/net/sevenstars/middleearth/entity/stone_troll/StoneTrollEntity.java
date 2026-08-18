@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.stone_troll;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
@@ -34,6 +35,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.api.entity.SleepingEntity;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.api.utils.EntityAnimationUtil;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
@@ -46,12 +48,22 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final int PETRIFYING_DURATION = 600;
-    private int sleepingAnimationSequenceState = 0;
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState lieDownAnimationState = new AnimationState();
     public final AnimationState sitUpAnimationState = new AnimationState();
     public final AnimationState sitDownAnimationState = new AnimationState();
     public final AnimationState standUpAnimationState = new AnimationState();
+    private int startSleepingAnimationSequenceStateIdx = 0;
+    private int wakeUpAnimationSequenceStateIdx = 0;
+    private List<Pair<AnimationState, Integer>> startSleepingSequence = List.of(
+            Pair.of(sitDownAnimationState, 2050),
+            Pair.of(lieDownAnimationState, 2000),
+            Pair.of(sleepingAnimationState, -1)
+    );
+    private List<Pair<AnimationState, Integer>> wakeUpSequence = List.of(
+            Pair.of(sitUpAnimationState, 1050),
+            Pair.of(standUpAnimationState, 2050)
+    );
     public static final List<RegistryKey<Biome>> darkBiomes = List.of(
     );
 
@@ -232,54 +244,16 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
 
     //region Rendering
     private void setupAnimationStates() {
-        if (isAsleep() && sleepingAnimationSequenceState < 3) { // Initiate sleeping animation sequence
-            switch(sleepingAnimationSequenceState) {
-                case 0: // Troll is standing
-                    this.sitDownAnimationState.startIfNotRunning(this.age);
-                    if(this.sitDownAnimationState.getTimeInMilliseconds(this.age) > 2050) { // Sit-down animation completed
-                        sleepingAnimationSequenceState++;
-                    }
-                    break;
-
-                case 1: // Troll is sitting
-                    this.lieDownAnimationState.startIfNotRunning(this.age);
-                    this.sitDownAnimationState.stop();
-                    if(this.lieDownAnimationState.getTimeInMilliseconds(this.age) > 2000) { // Lie-down animation completed
-                        sleepingAnimationSequenceState++;
-                    }
-                    break;
-
-                case 2: // Troll is lying down
-                    this.sleepingAnimationState.startIfNotRunning(this.age);
-                    this.lieDownAnimationState.stop();
-                    sleepingAnimationSequenceState++;
-                    break;
-            }
+        if(this.isAsleep()) {
+            this.wakeUpAnimationSequenceStateIdx = 0;
+            this.startSleepingAnimationSequenceStateIdx = EntityAnimationUtil.playAnimationSequence(startSleepingSequence, startSleepingAnimationSequenceStateIdx, this.age);
+            EntityAnimationUtil.stopSequence(wakeUpSequence);
         }
-        else if(!this.isAsleep() && sleepingAnimationSequenceState > 0) { // Initiate waking up animation sequence
-            switch(sleepingAnimationSequenceState) {
-                case 3:
-                    sleepingAnimationSequenceState--;
-
-                case 2: // Troll is sleeping
-                    this.sitUpAnimationState.startIfNotRunning(this.age);
-                    this.sleepingAnimationState.stop();
-                    if(this.sitUpAnimationState.getTimeInMilliseconds(this.age) > 1050) { // Sit-up animation complete
-                        sleepingAnimationSequenceState--;
-                    }
-                    break;
-
-                case 1: // Troll is sitting
-                    this.standUpAnimationState.startIfNotRunning(this.age);
-                    this.sitUpAnimationState.stop();
-                    if(this.standUpAnimationState.getTimeInMilliseconds(this.age) > 2050) { // Stand-up animation complete
-                        sleepingAnimationSequenceState--;
-                    }
-                    break;
-            }
+        else if(!this.isAsleep()) {
+            this.startSleepingAnimationSequenceStateIdx = 0;
+            this.wakeUpAnimationSequenceStateIdx = EntityAnimationUtil.playAnimationSequence(wakeUpSequence, wakeUpAnimationSequenceStateIdx, this.age);
+            EntityAnimationUtil.stopSequence(startSleepingSequence);
         }
-
-
     }
     //endregion
 
