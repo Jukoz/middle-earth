@@ -1,8 +1,19 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/tower_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"1": "middle-earth:item/last_alliance_heirloom_tower_shield"
-	}
+    "credit":  "Made with Blockbench",
+    "parent":  "middle-earth:item/tower_shield_template",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "textures":  {
+                     "1":  "middle-earth:item/last_alliance_heirloom_tower_shield"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/last_alliance_heirloom_tower_shield_blocking"
+                      }
+                  ]
 }

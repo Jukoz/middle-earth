@@ -1,106 +1,181 @@
 plugins {
-	id 'fabric-loom' version "${loom_version}" apply false
-	id 'maven-publish'
-	id 'java'
-	id 'base'
+    id 'base'
+    id 'net.neoforged.moddev' apply false
 }
 
-version = project.mod_version
-group = project.maven_group
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    apply plugin: 'net.neoforged.moddev'
 
-java {
-	sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
-	tasks.withType(JavaCompile).configureEach {
-		it.options.release = 21
-	}
+    version = project.mod_version
+    group = project.maven_group
+
+    base {
+        archivesName = project.archives_base_name
+    }
+
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(21)
+        withSourcesJar()
+    }
+
+    neoForge {
+        version = rootProject.neo_version
+
+        def accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+        if (accessTransformer.exists()) {
+            accessTransformers = files(accessTransformer)
+        }
+
+        runs {
+            client {
+                client()
+                systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+                def quickPlayWorld = providers.gradleProperty('quickPlayWorld')
+                if (quickPlayWorld.isPresent()) {
+                    programArguments.addAll '--quickPlaySingleplayer', quickPlayWorld.get()
+                }
+            }
+
+            server {
+                server()
+                systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+                programArgument '--nogui'
+            }
+
+            data {
+                data()
+                systemProperty 'middleearth.datagen.existing', file('src/main/resources').absolutePath
+                programArguments.addAll '--mod', project.mod_id, '--all',
+                        '--output', file('src/main/generated').absolutePath,
+                        '--existing', file('src/main/resources').absolutePath
+            }
+        }
+
+        mods {
+            "${project.mod_id}" {
+                sourceSet(sourceSets.main)
+            }
+        }
+    }
+
+    sourceSets.main.resources.srcDir 'src/main/generated'
+
+    dependencies {
+        implementation 'com.mojang:brigadier:1.3.10'
+        implementation 'com.mojang:authlib:6.0.54'
+        implementation 'com.mojang:datafixerupper:8.0.16'
+        implementation 'com.google.code.gson:gson:2.10.1'
+        implementation 'com.google.guava:guava:32.1.2-jre'
+        implementation 'com.google.guava:failureaccess:1.0.1'
+        implementation 'com.ibm.icu:icu4j:73.2'
+        implementation 'com.mojang:blocklist:1.0.10'
+        implementation 'com.mojang:logging:1.2.7'
+        implementation 'com.mojang:text2speech:1.17.9'
+        implementation 'commons-codec:commons-codec:1.16.0'
+        implementation 'com.github.oshi:oshi-core:6.4.10'
+        implementation 'commons-io:commons-io:2.15.1'
+        implementation 'commons-logging:commons-logging:1.2'
+        implementation 'it.unimi.dsi:fastutil:8.5.12'
+        implementation 'net.java.dev.jna:jna:5.14.0'
+        implementation 'net.java.dev.jna:jna-platform:5.14.0'
+        implementation 'org.joml:joml:1.10.5'
+        implementation 'io.netty:netty-buffer:4.1.97.Final'
+        implementation 'io.netty:netty-common:4.1.97.Final'
+        implementation 'io.netty:netty-transport:4.1.97.Final'
+        implementation 'io.netty:netty-transport-classes-epoll:4.1.97.Final'
+        implementation 'io.netty:netty-codec:4.1.97.Final'
+        implementation 'io.netty:netty-handler:4.1.97.Final'
+        implementation 'io.netty:netty-resolver:4.1.97.Final'
+        implementation 'org.apache.commons:commons-lang3:3.14.0'
+        implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+        implementation 'org.apache.httpcomponents:httpcore:4.4.16'
+        implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+        implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+        implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.22.1'
+        implementation 'org.lwjgl:lwjgl:3.3.3'
+        implementation 'org.lwjgl:lwjgl-freetype:3.3.3'
+        implementation 'org.lwjgl:lwjgl-glfw:3.3.3'
+        implementation 'org.lwjgl:lwjgl-jemalloc:3.3.3'
+        implementation 'org.lwjgl:lwjgl-openal:3.3.3'
+        implementation 'org.lwjgl:lwjgl-opengl:3.3.3'
+        implementation 'org.lwjgl:lwjgl-stb:3.3.3'
+        implementation 'org.lwjgl:lwjgl-tinyfd:3.3.3'
+        implementation 'org.lz4:lz4-java:1.8.0'
+        implementation 'org.slf4j:slf4j-api:2.0.9'
+
+        runtimeOnly 'org.lwjgl:lwjgl:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-freetype:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-glfw:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-jemalloc:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-openal:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-opengl:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-stb:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-tinyfd:3.3.3:natives-windows'
+    }
+
+    def replaceProperties = [
+            minecraft_version      : rootProject.minecraft_version,
+            minecraft_version_range: rootProject.minecraft_version_range,
+            neo_version            : rootProject.neo_version,
+            neo_version_range      : rootProject.neo_version_range,
+            loader_version_range   : rootProject.loader_version_range,
+            mod_id                 : project.mod_id,
+            mod_name               : project.mod_name,
+            mod_license            : project.mod_license,
+            mod_version            : project.mod_version,
+            mod_authors            : project.mod_authors,
+            mod_description        : project.mod_description
+    ]
+
+    tasks.named('processResources', ProcessResources).configure {
+        inputs.properties replaceProperties
+
+        filesMatching('META-INF/neoforge.mods.toml') {
+            expand replaceProperties
+        }
+    }
+
+    tasks.register('refreshProcessedResources', Sync) {
+        dependsOn tasks.named('runData')
+        inputs.properties replaceProperties
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        exclude '.cache/**'
+        from('src/main/generated')
+        from('src/main/resources')
+        into(layout.buildDirectory.dir('resources/main'))
+
+        filesMatching('META-INF/neoforge.mods.toml') {
+            expand replaceProperties
+        }
+    }
+
+    tasks.withType(Jar).configureEach {
+        zip64 = true
+        exclude '.cache/**'
+    }
+
+    tasks.named('jar', Jar).configure {
+        from(rootProject.file('LICENSE')) {
+            rename { "${it}_${project.base.archivesName.get()}" }
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 21
+    }
+
+    publishing {
+        publications {
+            register('mavenJava', MavenPublication) {
+                from components.java
+            }
+        }
+    }
 }
 
-/* configurations for each projects */
-project(":sevenstars-api") {
-	java {
-		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
-	}
-	tasks.withType(JavaCompile).configureEach {
-		it.options.release = 21
-	}
-}
-
-project(":middle-earth") {
-	java {
-		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
-	}
-	tasks.withType(JavaCompile).configureEach {
-		it.options.release = 21
-	}
-}
-
-project(":of-beasts-and-wild-things") {
-	java {
-		sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
-	}
-	tasks.withType(JavaCompile).configureEach {
-		it.options.release = 21
-	}
-}
-
-subprojects() {
-	apply plugin: 'fabric-loom'
-
-	version = project.mod_version
-	group = project.maven_group
-
-	base {
-		archivesName = project.archives_base_name
-	}
-
-	dependencies {
-		minecraft "com.mojang:minecraft:${project.minecraft_version}"
-		mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-		modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-		modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	}
-
-	processResources {
-		inputs.property "version", project.version
-
-		filesMatching("fabric.mod.json") {
-			expand "version": project.version
-		}
-	}
-
-	sourceSets.main.resources.srcDirs += 'src/main/generated'
-
-	jar {
-		from("LICENSE") {
-			rename { "${it}_${project.archives_base_name}"}
-		}
-	}
-}
-
-// root project will not build anything
-jar.enabled = false
-
-jar {
-	zip64 = true
-}
-tasks.withType(Jar).configureEach {
-	zip64 = true
-}
-
-tasks.register("copyFiles", Copy) {
-	rootProject.subprojects.each {project ->
-		from project.name + '/build/libs/' + project.archives_base_name + '-' + project.version + '.jar'
-	}
-	into "build/libs"
-}
-
-// make sure the copy task runs after each subproject is built
-copyFiles.dependsOn {
-	subprojects.collect {
-		it.tasks.named("build")
-	}
-}
-
-build {
-	finalizedBy copyFiles
+tasks.named('build').configure {
+    dependsOn subprojects.collect { it.tasks.named('build') }
 }

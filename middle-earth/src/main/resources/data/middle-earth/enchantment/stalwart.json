@@ -11,7 +11,7 @@
           "base": 1,
           "per_level_above_first": 1
         },
-        "attribute": "minecraft:armor",
+        "attribute": "minecraft:generic.armor",
         "id": "middle-earth:enchantment.stalwart",
         "operation": "add_value"
       }

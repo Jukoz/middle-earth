@@ -1,4 +1,5 @@
 .gradle
+.gradle-local-maven/
 **/build/
 !src/**/build/
 
@@ -27,3 +28,12 @@ bin/main/*
 middle-earth/src/main/java/net/sevenstars/middleearth/block/ModBlocks.java
 /.idea
 /.run2
+
+# Local crash/test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+hs_err_pid*.log
+replay_pid*.log
+*.hprof
+.codex-*.init.gradle

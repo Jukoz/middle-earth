@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.world.biomes;
 
-import net.minecraft.block.Block;
-
 import java.util.ArrayList;
+import net.minecraft.world.level.block.Block;
 
 public class SlopeMap {
     public ArrayList<SlopeData> slopeDatas;

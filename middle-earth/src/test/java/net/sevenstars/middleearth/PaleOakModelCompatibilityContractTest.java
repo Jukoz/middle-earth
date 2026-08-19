@@ -1,0 +1,93 @@
+package net.sevenstars.middleearth;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class PaleOakModelCompatibilityContractTest {
+    private static final Path BUILD_LIBS = Path.of("build/libs");
+
+    @Test
+    void everyPaleOakModelUsesTexturesAvailableInMinecraft1211() throws IOException {
+        Set<String> textures = new HashSet<>();
+        int checkedModels = 0;
+        try (ZipFile playerJar = new ZipFile(playerJar().toFile())) {
+            Enumeration<? extends ZipEntry> entries = playerJar.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = entries.nextElement();
+                String path = entry.getName();
+                if (entry.isDirectory()
+                        || !path.startsWith("assets/middle-earth/models/block/")
+                        || !path.contains("pale_oak")
+                        || !path.endsWith(".json")) {
+                    continue;
+                }
+                checkedModels++;
+                JsonObject model = readJson(playerJar, entry);
+                if (!model.has("textures")) {
+                    continue;
+                }
+                for (JsonElement texture : model.getAsJsonObject("textures").asMap().values()) {
+                    String textureId = texture.getAsString();
+                    assertFalse(
+                            textureId.startsWith("middle-earth:block/pale_oak")
+                                    || textureId.startsWith("middle-earth:block/stripped_pale_oak"),
+                            path + " references unavailable texture " + textureId
+                    );
+                    textures.add(textureId);
+                }
+            }
+        }
+        assertEquals(71, checkedModels, "Unexpected packaged pale-oak block model coverage");
+
+        assertTrue(textures.contains("minecraft:block/birch_planks"));
+        assertTrue(textures.contains("minecraft:block/birch_log"));
+        assertTrue(textures.contains("minecraft:block/birch_log_top"));
+        assertTrue(textures.contains("minecraft:block/stripped_birch_log"));
+        assertTrue(textures.contains("minecraft:block/stripped_birch_log_top"));
+        assertTrue(textures.contains("minecraft:block/birch_door_bottom"));
+        assertTrue(textures.contains("minecraft:block/birch_door_top"));
+        assertTrue(textures.contains("minecraft:block/birch_trapdoor"));
+        assertTrue(textures.contains("minecraft:block/dark_oak_leaves"));
+        assertTrue(textures.contains("minecraft:block/dark_oak_sapling"));
+    }
+
+    private static JsonObject readJson(ZipFile playerJar, ZipEntry entry) throws IOException {
+        try (InputStreamReader reader = new InputStreamReader(
+                playerJar.getInputStream(entry), StandardCharsets.UTF_8
+        )) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        }
+    }
+
+    private static Path playerJar() throws IOException {
+        try (Stream<Path> files = Files.list(BUILD_LIBS)) {
+            List<Path> playerJars = files
+                    .filter(Files::isRegularFile)
+                    .filter(path -> path.getFileName().toString().startsWith("Middle-earth-"))
+                    .filter(path -> path.getFileName().toString().endsWith(".jar"))
+                    .filter(path -> !path.getFileName().toString().endsWith("-sources.jar"))
+                    .toList();
+            assertEquals(1, playerJars.size(), "Expected one packaged Middle-earth player JAR");
+            return playerJars.getFirst();
+        }
+    }
+}

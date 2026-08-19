@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -51,7 +51,7 @@ public class LothlorienFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.STAR_AND_LEAF, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(FactionRegistry.LOTHLORIEN.getValue().getPath(),  "cerin_amroth"), new Vector2d(1614, 1215))
+                        new SpawnData(MiddleEarth.of(FactionRegistry.LOTHLORIEN.location().getPath(),  "cerin_amroth"), new Vector2d(1614, 1215))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.ALLY),

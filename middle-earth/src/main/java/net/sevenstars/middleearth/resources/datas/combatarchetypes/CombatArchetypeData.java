@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.LivingEntity;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 
 public abstract class CombatArchetypeData {
@@ -21,32 +22,40 @@ public abstract class CombatArchetypeData {
         this.optimalBlockRangeMaximum = optimalBlockRangeMaximum;
     }
 
-    public CombatArchetypeData(NbtCompound data) {
+    public CombatArchetypeData(CompoundTag data) {
         setArchetype(getCombatArchetype());
 
-        this.fleeMovementSpeedModifier = data.getFloat("flee_movement_speed_modifier", 1f);
-        this.seekTargetMovementSpeedModifier = data.getFloat("seek_target_movement_speed_modifier", 1f);
-        this.optimalBlockRangeMinimum = data.getInt("optimal_block_range_minimum", 1);
-        this.optimalBlockRangeMaximum = data.getInt("optimal_block_range_maximum", 3);
+        this.fleeMovementSpeedModifier = data.contains("flee_movement_speed_modifier", Tag.TAG_ANY_NUMERIC)
+                ? data.getFloat("flee_movement_speed_modifier")
+                : 1f;
+        this.seekTargetMovementSpeedModifier = data.contains("seek_target_movement_speed_modifier", Tag.TAG_ANY_NUMERIC)
+                ? data.getFloat("seek_target_movement_speed_modifier")
+                : 1f;
+        this.optimalBlockRangeMinimum = data.contains("optimal_block_range_minimum", Tag.TAG_ANY_NUMERIC)
+                ? data.getInt("optimal_block_range_minimum")
+                : 1;
+        this.optimalBlockRangeMaximum = data.contains("optimal_block_range_maximum", Tag.TAG_ANY_NUMERIC)
+                ? data.getInt("optimal_block_range_maximum")
+                : 3;
     }
 
-    public NbtCompound getNbt(){
-        NbtCompound nbt = new NbtCompound();
+    public CompoundTag getNbt(){
+        CompoundTag nbt = new CompoundTag();
         if(this.combatArchetype == null)
             this.combatArchetype = CombatArchetype.MELEE;
 
         nbt.putString("type", combatArchetype.name());
 
 
-        NbtCompound dataNbt =  getDataNbt();
+        CompoundTag dataNbt =  getDataNbt();
 
         nbt.put("data", dataNbt);
 
         return nbt;
     }
 
-    protected NbtCompound getDataNbt() {
-        NbtCompound nbtCompound = new NbtCompound();
+    protected CompoundTag getDataNbt() {
+        CompoundTag nbtCompound = new CompoundTag();
 
         nbtCompound.putFloat("flee_movement_speed_modifier", fleeMovementSpeedModifier);
         nbtCompound.putFloat("seek_target_movement_speed_modifier", seekTargetMovementSpeedModifier);
@@ -76,7 +85,7 @@ public abstract class CombatArchetypeData {
     }
 
     public boolean isInOptimalRange(LivingEntity source, BlockPos target) {
-        double distance = source.getBlockPos().toCenterPos().distanceTo(target.toCenterPos());
+        double distance = source.blockPosition().getCenter().distanceTo(target.getCenter());
         return distance > optimalBlockRangeMinimum && distance < optimalBlockRangeMaximum;
     }
 

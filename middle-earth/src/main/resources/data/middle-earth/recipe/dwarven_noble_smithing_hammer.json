@@ -7,8 +7,8 @@
   ],
   "key": {
     "G": {
-      "fabric:type": "fabric:components",
-      "base": "middle-earth:rod",
+      "type": "neoforge:components",
+      "items": "middle-earth:rod",
       "components": {
         "minecraft:trim": {
           "material": "gold",
@@ -16,8 +16,12 @@
         }
       }
     },
-    "M": "middle-earth:khazad_steel_ingot",
-    "S": "minecraft:stick"
+    "M": {
+      "item": "middle-earth:khazad_steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "middle-earth:dwarven_noble_smithing_hammer",

@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.minecraft.block.Block;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +35,7 @@ public class PotDrops {
             add(ModDecorativeBlocks.POTTED_YELLOW_FLOWER);
             add(ModDecorativeBlocks.POTTED_YELLOW_TROLLIUS);
             add(ModDecorativeBlocks.POTTED_TAN_SHRUB);
+            add(ModDecorativeBlocks.POTTED_BLUE_GENTIAN);
             add(ModDecorativeBlocks.POTTED_GREEN_JEWEL_CORNFLOWER);
             add(ModDecorativeBlocks.POTTED_NOBLEWHITE);
             add(ModDecorativeBlocks.POTTED_SCORCHED_SHRUB);

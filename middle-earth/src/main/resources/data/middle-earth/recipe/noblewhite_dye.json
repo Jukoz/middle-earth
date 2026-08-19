@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:noblewhite"
+    {
+      "item": "middle-earth:noblewhite"
+    }
   ],
   "result": {
     "id": "minecraft:white_dye"

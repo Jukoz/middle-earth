@@ -1,36 +1,38 @@
 package net.sevenstars.middleearth.entity.projectile;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
-public abstract class AbstractProjectileEntity extends ThrownItemEntity {
+public abstract class AbstractProjectileEntity extends ThrowableItemProjectile {
     private float damage;
 
-    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
+    public AbstractProjectileEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level world) {
         super(entityType, world);
     }
 
-    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, double d, double e, double f, World world, ItemStack stack) {
-        super(entityType, d, e, f, world, stack);
+    public AbstractProjectileEntity(EntityType<? extends ThrowableItemProjectile> entityType, double d, double e, double f, Level world, ItemStack stack) {
+        super(entityType, d, e, f, world);
+        this.setItem(stack);
     }
 
-    public AbstractProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, LivingEntity livingEntity, World world, ItemStack stack) {
-        super(entityType, livingEntity, world, stack);
+    public AbstractProjectileEntity(EntityType<? extends ThrowableItemProjectile> entityType, LivingEntity livingEntity, Level world, ItemStack stack) {
+        super(entityType, livingEntity, world);
+        this.setItem(stack);
     }
 
-    public void handleStatus(byte status) {
+    public void handleEntityEvent(byte status) {
         if (status == 3) {
             for(int i = 0; i < 8; ++i) {
-                this.getWorld().addParticleClient(new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
+                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItem()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08, ((double)this.random.nextFloat() - 0.5) * 0.08);
             }
         }
     }
@@ -39,18 +41,18 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
         this.damage = damage;
     }
 
-    public void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
+    public void onHitEntity(EntityHitResult entityHitResult) {
+        super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(entity.getWorld() instanceof ServerWorld serverWorld) {
-            entity.damage(serverWorld, this.getDamageSources().thrown(this, this.getOwner()), this.damage);
+        if(!entity.level().isClientSide()) {
+            entity.hurt(this.damageSources().thrown(this, this.getOwner()), this.damage);
         }
     }
 
-    protected void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
-        if (!getWorld().isClient) {
-            getWorld().sendEntityStatus(this, (byte)3);
+    protected void onHit(HitResult hitResult) {
+        super.onHit(hitResult);
+        if (!level().isClientSide) {
+            level().broadcastEntityEvent(this, (byte)3);
             this.discard();
         }
     }

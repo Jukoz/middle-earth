@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:blue_gentian"
+    {
+      "item": "middle-earth:blue_gentian"
+    }
   ],
   "result": {
     "id": "minecraft:blue_dye"

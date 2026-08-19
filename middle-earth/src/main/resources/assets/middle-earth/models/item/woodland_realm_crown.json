@@ -1,0 +1,32 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/woodland_realm_crown"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  1
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_crown_spring"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_crown_summer"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_crown_autumn"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_crown_winter"
+                      }
+                  ]
+}

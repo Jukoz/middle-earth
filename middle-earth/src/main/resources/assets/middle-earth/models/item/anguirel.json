@@ -1,0 +1,14 @@
+{
+    "parent":  "middle-earth:item/big_weapon",
+    "textures":  {
+                     "layer0":  "middle-earth:item/anguirel"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "broken":  1
+                                        },
+                          "model":  "middle-earth:item/anguirel_broken"
+                      }
+                  ]
+}

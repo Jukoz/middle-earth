@@ -1,8 +1,19 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/erebor_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"4": "middle-earth:item/erebor_ornamented_shield"
-	}
+    "credit":  "Made with Blockbench",
+    "parent":  "middle-earth:item/erebor_shield_template",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "textures":  {
+                     "4":  "middle-earth:item/erebor_ornamented_shield"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/erebor_ornamented_shield_blocking"
+                      }
+                  ]
 }

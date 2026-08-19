@@ -2,11 +2,21 @@
   "type": "middle-earth:crockpot",
   "ingredients_amount": 5,
   "ingredients": [
-    "minecraft:baked_potato",
-    "minecraft:cooked_rabbit",
-    "minecraft:carrot",
-    "#middle-earth:mushroom_stew_ingredient",
-    "minecraft:water_bucket"
+    {
+      "item": "minecraft:baked_potato"
+    },
+    {
+      "item": "minecraft:cooked_rabbit"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "tag": "middle-earth:mushroom_stew_ingredient"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
   ],
   "output": {
     "count": 3,

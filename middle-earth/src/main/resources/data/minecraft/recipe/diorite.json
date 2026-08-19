@@ -5,8 +5,12 @@
     "QC"
   ],
   "key": {
-    "Q": "#middle-earth:quartz",
-    "C": "minecraft:cobblestone"
+    "Q": {
+      "tag": "middle-earth:quartz"
+    },
+    "C": {
+      "item": "minecraft:cobblestone"
+    }
   },
   "result": {
     "id": "minecraft:diorite",

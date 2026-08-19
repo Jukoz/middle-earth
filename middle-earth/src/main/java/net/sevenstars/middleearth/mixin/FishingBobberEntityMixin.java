@@ -1,28 +1,34 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.loot.LootTable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(FishingBobberEntity.class)
-public abstract class FishingBobberEntityMixin extends ProjectileEntity {
+@Mixin(FishingHook.class)
+public abstract class FishingBobberEntityMixin extends Projectile {
 
-    public FishingBobberEntityMixin(EntityType<? extends ProjectileEntity> entityType, World world) {
+    public FishingBobberEntityMixin(EntityType<? extends Projectile> entityType, Level world) {
         super(entityType, world);
     }
 
-    @ModifyArg(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/registry/ReloadableRegistries$Lookup;getLootTable(Lnet/minecraft/registry/RegistryKey;)Lnet/minecraft/loot/LootTable;"))
-    public RegistryKey<LootTable> onUseFishingRod(RegistryKey<LootTable> key) {
-        if(!getWorld().isClient) {
-            if(ModDimensions.isInMiddleEarth(getWorld())) {
+    @ModifyArg(
+            method = "retrieve(Lnet/minecraft/world/item/ItemStack;)I",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/ReloadableServerRegistries$Holder;getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;"
+            )
+    )
+    public ResourceKey<LootTable> onUseFishingRod(ResourceKey<LootTable> key) {
+        if(!level().isClientSide) {
+            if(ModDimensions.isInMiddleEarth(level())) {
                 return LootModifiers.FISHING_LOOT_TABLE;
             }
         }

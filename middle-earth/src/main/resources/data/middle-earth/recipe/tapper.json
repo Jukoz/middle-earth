@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "#middle-earth:steel_ingots",
-    "middle-earth:wooden_bucket"
+    {
+      "tag": "middle-earth:steel_ingots"
+    },
+    {
+      "item": "middle-earth:wooden_bucket"
+    }
   ],
   "result": {
     "id": "middle-earth:tapper"

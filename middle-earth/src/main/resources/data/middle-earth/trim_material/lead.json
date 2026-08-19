@@ -3,5 +3,7 @@
   "description": {
     "color": "#616C79",
     "translate": "trim_material.middle-earth.lead"
-  }
+  },
+  "ingredient": "middle-earth:lead_ingot",
+  "item_model_index": 0.003
 }

@@ -6,8 +6,12 @@
     "PPP"
   ],
   "key": {
-    "P": "minecraft:paper",
-    "B": "minecraft:book"
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "B": {
+      "item": "minecraft:book"
+    }
   },
   "result": {
     "id": "middle-earth:middle_earth_map",

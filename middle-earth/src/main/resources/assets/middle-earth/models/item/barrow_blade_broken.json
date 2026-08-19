@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/handheld",
+    "textures":  {
+                     "layer0":  "middle-earth:item/barrow_blade_broken"
+                 }
+}

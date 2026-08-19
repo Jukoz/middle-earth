@@ -1,32 +1,32 @@
 package net.sevenstars.middleearth.recipe;
 
-import net.minecraft.component.DataComponentTypes;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.items.armor.CustomHelmetItem;
 import net.sevenstars.middleearth.item.items.armor.HelmetAttachmentItem;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsStatesME;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
 
 
-public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
-    public HelmetAttachmentRecipe(CraftingRecipeCategory category) {
+public class HelmetAttachmentRecipe extends CustomRecipe {
+    public HelmetAttachmentRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
-    public boolean matches(CraftingRecipeInput input, World world) {
+    public boolean matches(CraftingInput input, Level world) {
         ItemStack itemStackHelmet = ItemStack.EMPTY;
         ItemStack itemStackHood = ItemStack.EMPTY;
 
         for(int i = 0; i < input.size(); ++i) {
-            ItemStack itemStack2 = input.getStackInSlot(i);
+            ItemStack itemStack2 = input.getItem(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem) {
                     if (!itemStackHelmet.isEmpty()) {
@@ -37,7 +37,8 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
                     }
                     itemStackHelmet = itemStack2;
                 } else {
-                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)) {
+                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)
+                            || !itemStackHood.isEmpty()) {
                         return false;
                     }
                     itemStackHood = itemStack2;
@@ -48,12 +49,12 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider lookup) {
         ItemStack itemStack = ItemStack.EMPTY;
         ItemStack hood = ItemStack.EMPTY;
 
         for(int i = 0; i < input.size(); ++i) {
-            ItemStack itemStack2 = input.getStackInSlot(i);
+            ItemStack itemStack2 = input.getItem(i);
             if (!itemStack2.isEmpty()) {
                 if (itemStack2.getItem() instanceof CustomHelmetItem) {
                     if (!itemStack.isEmpty()) {
@@ -62,7 +63,8 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
 
                     itemStack = itemStack2.copy();
                 } else {
-                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)) {
+                    if (!(itemStack2.getItem() instanceof HelmetAttachmentItem)
+                            || !hood.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
                     hood = itemStack2;
@@ -72,8 +74,8 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
 
         if (!itemStack.isEmpty()) {
             int color;
-            if (hood.get(DataComponentTypes.DYED_COLOR) != null){
-                color = hood.get(DataComponentTypes.DYED_COLOR).rgb();
+            if (hood.get(DataComponents.DYED_COLOR) != null){
+                color = hood.get(DataComponents.DYED_COLOR).rgb();
             } else {
                 color = 0;
             }
@@ -87,11 +89,13 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    public boolean fits(int width, int height) {
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 2;
     }
 
-    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
+    @Override
+    public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializer.CUSTOM_ARMOR_HELMET_ATTACHMENT;
     }
 }

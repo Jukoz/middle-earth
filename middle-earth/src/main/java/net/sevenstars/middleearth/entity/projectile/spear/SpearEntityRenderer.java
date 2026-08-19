@@ -1,75 +1,67 @@
 package net.sevenstars.middleearth.entity.projectile.spear;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 
-@Environment(EnvType.CLIENT)
-public class SpearEntityRenderer extends EntityRenderer<SpearEntity, SpearEntityRenderState> {
+public class SpearEntityRenderer extends EntityRenderer<SpearEntity> {
     private static final float MIN_DISTANCE = 12.25F;
     private static final float SCALE = 1.0F;
-    private final EquipmentRenderer itemRenderer;
+    private final ItemRenderer itemRenderer;
     private final float scale;
     private final boolean lit;
 
-    public SpearEntityRenderer(EntityRendererFactory.Context ctx, float scale, boolean lit) {
+    public SpearEntityRenderer(EntityRendererProvider.Context ctx, float scale, boolean lit) {
         super(ctx);
-        this.itemRenderer = ctx.getEquipmentRenderer();
+        this.itemRenderer = ctx.getItemRenderer();
         this.scale = SCALE * scale;
         this.lit = lit;
     }
 
-    public SpearEntityRenderer(EntityRendererFactory.Context context) {
+    public SpearEntityRenderer(EntityRendererProvider.Context context) {
         this(context, 1.0F, false);
     }
 
     @Override
-    public SpearEntityRenderState createRenderState() {
-        return new SpearEntityRenderState();
-    }
-
-    @Override
-    protected int getBlockLight(SpearEntity entity, BlockPos pos) {
-        return this.lit ? 15 : super.getBlockLight(entity, pos);
+    protected int getBlockLightLevel(SpearEntity entity, BlockPos pos) {
+        return this.lit ? 15 : super.getBlockLightLevel(entity, pos);
 
     }
 
-    //TODO fix all this
     @Override
-    public void render(SpearEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        /*
-        matrices.push();
-        float cosYaw = (float) Math.cos(Math.toRadians(state.getYaw()));
-        float sinYaw = (float) Math.sin(Math.toRadians(state.getYaw()));
-        matrices.translate(sinYaw * -1.3D, 1.55D * (state.getPitch() / -90), cosYaw * -1.3D);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, state.prevYaw, state.getYaw()) - 90.0f));
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-90));
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, state.prevPitch, state.getPitch())));
-
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0f));
-
-
+    public void render(SpearEntity entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
+        matrices.pushPose();
+        float cosYaw = (float)Math.cos(Math.toRadians(entity.getYRot()));
+        float sinYaw = (float)Math.sin(Math.toRadians(entity.getYRot()));
+        matrices.translate(sinYaw * -1.3D, 1.55D * (entity.getXRot() / -90), cosYaw * -1.3D);
+        matrices.mulPose(Axis.YP.rotationDegrees(Mth.lerp(tickDelta, entity.yRotO, entity.getYRot()) - 90.0F));
+        matrices.mulPose(Axis.ZP.rotationDegrees(-90.0F));
+        matrices.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(tickDelta, entity.xRotO, entity.getXRot())));
+        matrices.mulPose(Axis.YP.rotationDegrees(90.0F));
         matrices.scale(scale, scale, scale);
 
-        ItemStack itemStack = state.getTrackedItemStackData();
-        if(itemStack == null) state.getDefaultItemStack();
-        this.itemRenderer.renderItem(itemStack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), entity.getId());
-        matrices.pop();
+        ItemStack itemStack = entity.getTrackedItemStackData();
+        if (itemStack == null) {
+            itemStack = entity.getDefaultPickupItem();
+        }
+        this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, light,
+                OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, entity.level(), entity.getId());
+        matrices.popPose();
+        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
+    }
 
-        */
-        super.render(state, matrices, vertexConsumers, light);
+    @Override
+    public ResourceLocation getTextureLocation(SpearEntity entity) {
+        return TextureAtlas.LOCATION_BLOCKS;
     }
 }

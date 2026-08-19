@@ -1,104 +1,115 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil;
 
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.EnumProperty;
 import net.sevenstars.middleearth.item.items.SmithingHammerItem;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractShapingAnvilBlock extends BlockWithEntity implements BlockEntityProvider {
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+public abstract class AbstractShapingAnvilBlock extends BaseEntityBlock implements EntityBlock {
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public AbstractShapingAnvilBlock(Settings settings) {
+    public AbstractShapingAnvilBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(((this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)));
+        this.registerDefaultState(((this.stateDefinition.any()).setValue(FACING, Direction.NORTH)));
     }
 
     @Override
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, world, pos);
+    protected void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+        Containers.dropContentsOnDestroy(state, newState, world, pos);
+        super.onRemove(state, world, pos, newState, moved);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
 
-        return super.onBreak(world, pos, state, player);
+        return super.playerWillDestroy(world, pos, state, player);
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        Container blockEntity = (Container) world.getBlockEntity(pos);
 
-        if (!world.isClient) {
-            if (player.getMainHandStack().isEmpty() && !blockEntity.getStack(0).isEmpty()) {
-                player.equipStack(EquipmentSlot.MAINHAND, blockEntity.getStack(0));
-                blockEntity.removeStack(0);
+        if (!world.isClientSide) {
+            if (player.getMainHandItem().isEmpty() && !blockEntity.getItem(0).isEmpty()) {
+                player.setItemSlot(EquipmentSlot.MAINHAND, blockEntity.getItem(0));
+                blockEntity.removeItemNoUpdate(0);
             } else {
-                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                MenuProvider screenHandlerFactory = state.getMenuProvider(world, pos);
                 if (screenHandlerFactory != null) {
-                    player.openHandledScreen(screenHandlerFactory);
+                    if (screenHandlerFactory instanceof net.sevenstars.middleearth.block.utils.ExtendedMenuProviderME extendedProvider) {
+                        net.sevenstars.middleearth.block.utils.ExtendedMenuProviderME.open(player, extendedProvider);
+                    } else {
+                        player.openMenu(screenHandlerFactory);
+                    }
                 }
             }
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-        ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
+    protected void attack(BlockState state, Level world, BlockPos pos, Player player) {
+        ItemStack stack = player.getItemBySlot(EquipmentSlot.MAINHAND);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (!world.isClient) {
-            if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackCooldownProgress(0.5f) > 0.9f) {
-                player.incrementStat(Stats.USED.getOrCreateStat(hammer));
-                stack.use(world, player, player.getActiveHand());
-                player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
+        if (!world.isClientSide) {
+            if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackStrengthScale(0.5f) > 0.9f) {
+                player.awardStat(Stats.ITEM_USED.get(hammer));
+                stack.use(world, player, player.getUsedItemHand());
+                ItemStack usedTool = stack.copy();
+                player.getItemInHand(player.getUsedItemHand()).hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 if (blockEntity instanceof ShapingAnvilBlockEntity shapingAnvilBlockEntity) {
-                    ServerWorld serverWorld = (ServerWorld) world;
-                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld, stack);
+                    ServerLevel serverWorld = (ServerLevel) world;
+                    shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld, usedTool);
                 }
             }
         }

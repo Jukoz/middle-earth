@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.datageneration;
 
-import net.minecraft.block.*;
-import net.minecraft.registry.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.*;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
@@ -11,7 +12,7 @@ import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder
 import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
+import net.sevenstars.middleearth.datageneration.content.loot_tables.DynamicBlockDrops;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 
@@ -97,7 +98,7 @@ public class HelpingGenerator {
                         ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
                         woodBlocks(set.strippedLogBlocks);
                     }
-                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks, set.vanilla);
+                    case PLANK_BLOCKS -> plankBlocks(set.planksBlocks);
                     case SHINGLE_BLOCKS -> {
                         Shingles.shingles.add(set.shinglesBlocks.base());
                         regularBlocks(set.shinglesBlocks, 0);
@@ -106,7 +107,7 @@ public class HelpingGenerator {
                     case FURNITURE_BLOCKS -> furnitureBlocks(set.furnitureBlocks, set.planksBlocks.base());
                     case REDSTONE_BLOCKS -> woodRedstoneBlocks(set.redstoneBlocks, set.planksBlocks.base());
                     case LEAVES -> {
-                        if (!Objects.equals(Registries.BLOCK.getId(set.leaves).getNamespace(), "minecraft")){
+                        if (!Objects.equals(BuiltInRegistries.BLOCK.getKey(set.leaves).getNamespace(), "minecraft")){
                             if (set.setName.contains("beech")){
                                 LeavesSets.grayscaleLeaves.add(set.leaves);
                             } else {
@@ -135,26 +136,26 @@ public class HelpingGenerator {
         SimpleBlockModel.blocks.addAll(LeavesSets.leaves);
 
         for (SimpleVerticalSlabModel.VerticalSlab set : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
-            BlockDrops.blocks.add(set.verticalSlab());
+            DynamicBlockDrops.add(set.verticalSlab());
         }
 
         for(SimpleWoodStoolModel.VanillaStool stool : SimpleWoodStoolModel.vanillaStools){
-            BlockDrops.blocks.add(stool.base());
+            DynamicBlockDrops.add(stool.base());
             MineableAxe.blocks.add(stool.base());
         }
 
         for(SimpleWoodBenchModel.VanillaBench bench : SimpleWoodBenchModel.vanillaBenchs){
-            BlockDrops.blocks.add(bench.base());
+            DynamicBlockDrops.add(bench.base());
             MineableAxe.blocks.add(bench.base());
         }
 
         for(SimpleWoodTableModel.VanillaTable table : SimpleWoodTableModel.vanillaTables) {
-            BlockDrops.blocks.add(table.base());
+            DynamicBlockDrops.add(table.base());
             MineableAxe.blocks.add(table.base());
         }
 
         for(SimpleWoodChairModel.VanillaChair chair : SimpleWoodChairModel.vanillaChairs){
-            BlockDrops.blocks.add(chair.base());
+            DynamicBlockDrops.add(chair.base());
             MineableAxe.blocks.add(chair.base());
         }
 
@@ -244,19 +245,19 @@ public class HelpingGenerator {
             case 3 -> MineableHoe.blocks.add(block);
         }
 
-        BlockDrops.blocks.add(block);
+        DynamicBlockDrops.add(block);
 
         String blockName = block.getName().toString();
         String baseName = base.getName().toString();
 
-        if (!(Objects.equals(Registries.BLOCK.getId(block).getNamespace(), "minecraft"))){
+        if (!(Objects.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace(), "minecraft"))){
             final boolean isPillar = blockName.contains("carved_window")
                     || blockName.contains("chiseled")
                     || blockName.contains("drystone")
                     || blockName.contains("pillar");
             final boolean woodModel = (blockName.contains("_wood") && !(blockName.contains("gilded") || blockName.contains("beam"))) || blockName.contains("hyphae");
             switch (block){
-                case PillarBlock pillarBlock -> {
+                case RotatedPillarBlock pillarBlock -> {
                     if (woodModel){
                         SimpleBlockModel.woodBlocks.add(pillarBlock);
                     } else {
@@ -285,7 +286,7 @@ public class HelpingGenerator {
                         SimpleVerticalSlabModel.verticalSlabs.add(new SimpleVerticalSlabModel.VerticalSlab(base, origin, verticalSlabBlock));
                     }
                 }
-                case StairsBlock stairsBlock -> {
+                case StairBlock stairsBlock -> {
                     if (blockName.contains("stripped")){
                         SimpleStairModel.strippedStairs.add(new SimpleStairModel.Stair(base, stairsBlock));
                     } else if (woodModel){
@@ -316,17 +317,17 @@ public class HelpingGenerator {
                     FenceGates.fenceGates.add(fenceGateBlock);
                     SimpleFenceGateModel.blocks.add(new SimpleFenceGateModel.FenceGate(base, fenceGateBlock));
                 }
-                case PaneBlock paneBlock -> SimplePaneModel.panes.add(new SimplePaneModel.Pane(base, paneBlock));
+                case IronBarsBlock paneBlock -> SimplePaneModel.panes.add(new SimplePaneModel.Pane(base, paneBlock));
                 case PressurePlateBlock pressurePlateBlock -> {
                     PressurePlates.pressurePlates.add(pressurePlateBlock);
                     SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
                 }
                 case ButtonBlock buttonBlock -> {
-                    if(woodModel) Buttons.woodButtons.add(buttonBlock);
+                    if(woodModel || baseName.contains("planks")) Buttons.woodButtons.add(buttonBlock);
                     else Buttons.stoneButtons.add(buttonBlock);
                     SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 }
-                case TrapdoorBlock trapdoorBlock -> {
+                case TrapDoorBlock trapdoorBlock -> {
                     Trapdoors.trapdoors.add(trapdoorBlock);
                     if (baseName.contains("planks")){
                         SimpleTrapDoorModel.trapdoors.add(new SimpleTrapDoorModel.Trapdoor(base, trapdoorBlock, true));
@@ -378,11 +379,13 @@ public class HelpingGenerator {
         BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 1));
     }
 
-    public static void plankBlocks(BlockRecordTypes.PlanksSet set, boolean vanilla) {
+    public static void plankBlocks(BlockRecordTypes.PlanksSet set) {
         BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 0));
         WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
-        if(!vanilla) Planks.moddedPlanks.add(set.base());
+        if(!BuiltInRegistries.BLOCK.getKey(set.base()).getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
+            Planks.moddedPlanks.add(set.base());
+        }
         Planks.planksSlabs.add(set.slab());
     }
 

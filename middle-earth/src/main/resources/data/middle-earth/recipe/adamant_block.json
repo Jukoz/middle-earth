@@ -8,11 +8,13 @@
   ],
   "key": {
     "R": {
-      "fabric:type": "fabric:difference",
-      "base": "middle-earth:adamant",
+      "type": "neoforge:difference",
+      "base": {
+        "item": "middle-earth:adamant"
+      },
       "subtracted": {
-        "fabric:type": "fabric:components",
-        "base":  "middle-earth:adamant",
+        "type": "neoforge:components",
+        "items": "middle-earth:adamant",
         "components": {
           "minecraft:max_damage": 2
         }

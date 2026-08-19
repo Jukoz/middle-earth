@@ -1,80 +1,86 @@
 package net.sevenstars.middleearth.block.special;
 
-import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.block.WireOrientation;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 
-public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements Fertilizable, Waterloggable {
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+public class CustomWaterloggableTallPlantBlock extends DoublePlantBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private final boolean randomBoneMeal;
-    public CustomWaterloggableTallPlantBlock(Settings settings, boolean random) {
+    public CustomWaterloggableTallPlantBlock(Properties settings, boolean random) {
         super(settings);
         this.randomBoneMeal = random;
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
 
-    public void placeAt(WorldAccess world, BlockPos pos, boolean waterlogged, int flags) {
-        world.setBlockState(pos, this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, waterlogged), flags);
-        world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, false), flags);
+    public void placeAt(LevelAccessor world, BlockPos pos, boolean waterlogged, int flags) {
+        world.setBlock(pos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, waterlogged), flags);
+        world.setBlock(pos.above(), this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER).setValue(WATERLOGGED, false), flags);
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if (state.get(HALF) == DoubleBlockHalf.LOWER && state.get(WATERLOGGED)) {
-            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(HALF) == DoubleBlockHalf.LOWER && state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
-        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
-            return Blocks.AIR.getDefaultState();
+        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.getValue(HALF);
+        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.is(this) || neighborState.getValue(HALF) == doubleBlockHalf)) {
+            return Blocks.AIR.defaultBlockState();
         } else {
-            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
         }
     }
 
     @Override
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, WireOrientation orientation, boolean notify) {
-        if (!world.isClient && state.get(HALF) == DoubleBlockHalf.UPPER && (
-                world.getBlockState(pos.up()).getFluidState().isOf(Fluids.WATER)
-                        || world.getBlockState(pos.north()).getFluidState().isOf(Fluids.WATER)
-                        || world.getBlockState(pos.south()).getFluidState().isOf(Fluids.WATER)
-                        || world.getBlockState(pos.east()).getFluidState().isOf(Fluids.WATER)
-                        || world.getBlockState(pos.west()).getFluidState().isOf(Fluids.WATER))) {
-            this.breakUpperFromWater(world, pos, Blocks.AIR.getDefaultState());
+    protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        if (!world.isClientSide && state.getValue(HALF) == DoubleBlockHalf.UPPER && (
+                world.getBlockState(pos.above()).getFluidState().is(Fluids.WATER)
+                        || world.getBlockState(pos.north()).getFluidState().is(Fluids.WATER)
+                        || world.getBlockState(pos.south()).getFluidState().is(Fluids.WATER)
+                        || world.getBlockState(pos.east()).getFluidState().is(Fluids.WATER)
+                        || world.getBlockState(pos.west()).getFluidState().is(Fluids.WATER))) {
+            this.breakUpperFromWater(world, pos, Blocks.AIR.defaultBlockState());
             return;
         }
-        super.neighborUpdate(state, world, pos, sourceBlock, orientation, notify);
+        super.neighborChanged(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockPos blockPos = ctx.getBlockPos();
-        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos());
-        World world = ctx.getWorld();
-        if(blockPos.getY() < world.getTopYInclusive() - 1 && world.getBlockState(blockPos.up()).canReplace(ctx)){
-            if(blockState.isOf(Blocks.WATER)){
-                return this.getDefaultState().with(WATERLOGGED, true);
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockPos blockPos = ctx.getClickedPos();
+        BlockState blockState = ctx.getLevel().getBlockState(ctx.getClickedPos());
+        Level world = ctx.getLevel();
+        if(blockPos.getY() < world.getMaxBuildHeight() - 1 && world.getBlockState(blockPos.above()).canBeReplaced(ctx)){
+            if(blockState.is(Blocks.WATER)){
+                return this.defaultBlockState().setValue(WATERLOGGED, true);
             } else{
-                return this.getDefaultState();
+                return this.defaultBlockState();
             }
         } else {
             return null;
@@ -82,87 +88,87 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HALF, WATERLOGGED);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(HALF) == DoubleBlockHalf.LOWER && state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(HALF) == DoubleBlockHalf.LOWER && state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected boolean canBucketPlace(BlockState state, Fluid fluid) {
-        return state.get(HALF) == DoubleBlockHalf.LOWER && super.canBucketPlace(state, fluid);
+    protected boolean canBeReplaced(BlockState state, Fluid fluid) {
+        return state.getValue(HALF) == DoubleBlockHalf.LOWER && super.canBeReplaced(state, fluid);
     }
 
     @Override
-    public boolean canFillWithFluid(LivingEntity filler, BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
+    public boolean canPlaceLiquid(Player filler, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
         if (fluid != Fluids.WATER) {
             return false;
         }
 
-        if (state.get(HALF) == DoubleBlockHalf.UPPER) {
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
             return true;
         }
-        return Waterloggable.super.canFillWithFluid(filler, world, pos, state, fluid);
+        return SimpleWaterloggedBlock.super.canPlaceLiquid(filler, world, pos, state, fluid);
     }
 
     @Override
-    public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
-        if (!fluidState.isOf(Fluids.WATER)) {
+    public boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluidState) {
+        if (!fluidState.is(Fluids.WATER)) {
             return false;
         }
 
-        if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-            this.breakUpperFromWater(world, pos, Blocks.WATER.getDefaultState());
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            this.breakUpperFromWater(world, pos, Blocks.WATER.defaultBlockState());
             return true;
         }
-        return Waterloggable.super.tryFillWithFluid(world, pos, state, fluidState);
+        return SimpleWaterloggedBlock.super.placeLiquid(world, pos, state, fluidState);
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, false), 3);
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        world.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER).setValue(WATERLOGGED, false), 3);
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
         return true;
     }
 
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         if(this.randomBoneMeal) {
             float val = random.nextFloat();
             if(val > 0.90f){
-                dropStack(world, pos, new ItemStack(this));
+                popResource(world, pos, new ItemStack(this));
             }
         } else {
-            dropStack(world, pos, new ItemStack(this));
+            popResource(world, pos, new ItemStack(this));
         }
     }
 
-    private void breakUpperFromWater(WorldAccess world, BlockPos upperPos, BlockState upperReplacementState) {
+    private void breakUpperFromWater(LevelAccessor world, BlockPos upperPos, BlockState upperReplacementState) {
         BlockState upperState = world.getBlockState(upperPos);
-        if (!upperState.isOf(this) || upperState.get(HALF) != DoubleBlockHalf.UPPER) {
+        if (!upperState.is(this) || upperState.getValue(HALF) != DoubleBlockHalf.UPPER) {
             return;
         }
 
-        if (world instanceof World actualWorld && !actualWorld.isClient) {
-            dropStacks(upperState, actualWorld, upperPos);
+        if (world instanceof Level actualWorld && !actualWorld.isClientSide) {
+            dropResources(upperState, actualWorld, upperPos);
         }
 
-        BlockPos lowerPos = upperPos.down();
+        BlockPos lowerPos = upperPos.below();
         BlockState lowerState = world.getBlockState(lowerPos);
-        if (lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER) {
-            BlockState lowerReplacementState = lowerState.get(WATERLOGGED) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
-            world.setBlockState(lowerPos, lowerReplacementState, 3);
+        if (lowerState.is(this) && lowerState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            BlockState lowerReplacementState = lowerState.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+            world.setBlock(lowerPos, lowerReplacementState, 3);
         }
 
-        world.setBlockState(upperPos, upperReplacementState, 3);
+        world.setBlock(upperPos, upperReplacementState, 3);
     }
 }

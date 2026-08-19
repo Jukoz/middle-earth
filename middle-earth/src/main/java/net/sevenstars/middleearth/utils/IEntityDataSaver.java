@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.utils;
 
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 
 public interface IEntityDataSaver {
-    NbtCompound getPersistentData();
+    CompoundTag getPersistentData();
 }

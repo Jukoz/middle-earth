@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -39,74 +40,29 @@ public class MiddleEarthMapGeneration {
         MiddleEarth.LOGGER.logInfoMsg("");
         MiddleEarth.LOGGER.logInfoMsg("================ MiddleEarthMapGeneration ================");
 
-        try{
-            initialMap = getInitialImage();
-            if(initialMap == null){
-                throw new Exception(this + " : The image of the map in resource has created an error and operation cannot continue.");
+        if (MiddleEarth.ENABLE_INSTANT_BOOTING) {
+            MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Enabled");
+            if (installBundledMapData()) {
+                return;
             }
-        } catch (Exception e){
-            MiddleEarth.LOGGER.logError("MiddleEarthMapGeneration::generate() - Fetch Initial Map", e);
-        }
-
-        if(!MiddleEarth.ENABLE_INSTANT_BOOTING){
+            MiddleEarth.LOGGER.logError(
+                    "Instant Booting - Failure; falling back to generated map data."
+            );
+        } else {
             MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Disabled");
         }
-        else {
-            MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Enabled");
-            boolean pasteSuccess = true;
 
-            // check if copy&paste is necessary
-            File rootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_ROOT);
-            File modRootFolder = new File(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
-            File destFolder = new File(MiddleEarthMapConfigs.MOD_DATA);
-            rootFolder.mkdirs();
-            modRootFolder.mkdirs();
-            destFolder.mkdirs();
-
-            if(destFolder.list().length == 0) { // Instant Booting triggered
-                try {
-                    String resourceFolderPath = "/%s".formatted(MiddleEarthMapConfigs.INITIAL_MAP_FOLDER);
-                    String runtimeFolderPath = "%s".formatted(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
-
-                    InputStream inputStream = getClass().getResourceAsStream(resourceFolderPath + ".zip");
-                    ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-                    ZipEntry entry;
-
-                    File runtimeDataVersionDirectory = new File(runtimeFolderPath);
-                    runtimeDataVersionDirectory.mkdirs();
-                    byte[] buffer = new byte[1024];
-
-                    while ((entry = zipInputStream.getNextEntry()) != null) {
-                        File entryDestination = new File(runtimeFolderPath, entry.getName());
-                        if (entry.isDirectory()) {
-                            entryDestination.mkdirs();
-                        } else {
-                            entryDestination.getParentFile().mkdirs();
-                            FileOutputStream fos = new FileOutputStream(entryDestination);
-                            int len;
-                            while ((len = zipInputStream.read(buffer)) > 0) {
-                                fos.write(buffer, 0, len);
-                            }
-                            fos.close();
-                        }
-                    }
-                    inputStream.close();
-                    zipInputStream.close();
-                } catch (IOException e) {
-                    MiddleEarth.LOGGER.logError("MiddleEarthMapGeneration::Couldn't copy paste folders", e);
-                    pasteSuccess = false;
-                }
-                if(pasteSuccess) {
-                    MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Completed");
-                    return;
-                } else {
-                    MiddleEarth.LOGGER.logError("Instant Booting - Failure");
-                }
+        try {
+            initialMap = getInitialImage();
+            if (initialMap == null) {
+                MiddleEarth.LOGGER.logError(
+                        "The bundled map image could not be read; map generation will use runtime fallbacks."
+                );
+                return;
             }
-            else {
-                MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Skipped, Files already present");
-                MiddleEarth.LOGGER.logInfoMsg("Validating data content...");
-            }
+        } catch (Exception e) {
+            MiddleEarth.LOGGER.logError("MiddleEarthMapGeneration::generate() - Fetch Initial Map", e);
+            return;
         }
 
         MiddleEarth.LOGGER.logInfoMsg("Validating initial map BIOME colors;");
@@ -137,6 +93,115 @@ public class MiddleEarthMapGeneration {
         }
     }
 
+    private boolean installBundledMapData() {
+        File runtimeDataRoot = new File(MiddleEarthMapConfigs.MOD_DATA_MOD_ROOT);
+        File destination = new File(MiddleEarthMapConfigs.MOD_DATA);
+        File completionMarker = new File(destination, ".complete");
+        if (completionMarker.isFile()) {
+            try {
+                String installedVersion = Files.readString(completionMarker.toPath()).strip();
+                if (MiddleEarthMapConfigs.MAP_DATA_VERSION.equals(installedVersion)
+                        && hasRequiredBundledMapData()) {
+                    MiddleEarth.LOGGER.logInfoMsg(
+                            "Instant Booting - Skipped, verified files already present"
+                    );
+                    return true;
+                }
+                MiddleEarth.LOGGER.logWarn(
+                        "Bundled map marker is stale or its files are incomplete; reinstalling map data."
+                );
+            } catch (IOException exception) {
+                MiddleEarth.LOGGER.logWarn(
+                        "Bundled map marker could not be read; reinstalling map data."
+                );
+            }
+        }
+
+        try {
+            Files.createDirectories(runtimeDataRoot.toPath());
+            String resourcePath = "/" + MiddleEarthMapConfigs.INITIAL_MAP_FOLDER + ".zip";
+            String runtimeRoot = runtimeDataRoot.getCanonicalPath() + File.separator;
+            InputStream resourceStream = getClass().getResourceAsStream(resourcePath);
+            if (resourceStream == null) {
+                throw new IOException("Missing bundled map archive " + resourcePath);
+            }
+
+            try (InputStream inputStream = resourceStream;
+                 ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
+                ZipEntry entry;
+                byte[] buffer = new byte[8192];
+                while ((entry = zipInputStream.getNextEntry()) != null) {
+                    File entryDestination = new File(runtimeDataRoot, entry.getName());
+                    String destinationPath = entryDestination.getCanonicalPath();
+                    if (!destinationPath.startsWith(runtimeRoot)) {
+                        throw new IOException(
+                                "Invalid path in bundled map archive: " + entry.getName()
+                        );
+                    }
+                    if (entry.isDirectory()) {
+                        Files.createDirectories(entryDestination.toPath());
+                    } else {
+                        File parent = entryDestination.getParentFile();
+                        if (parent != null) {
+                            Files.createDirectories(parent.toPath());
+                        }
+                        try (FileOutputStream outputStream = new FileOutputStream(entryDestination)) {
+                            int length;
+                            while ((length = zipInputStream.read(buffer)) > 0) {
+                                outputStream.write(buffer, 0, length);
+                            }
+                        }
+                    }
+                    zipInputStream.closeEntry();
+                }
+            }
+
+            if (!hasRequiredBundledMapData()) {
+                throw new IOException("Bundled map archive is incomplete after extraction");
+            }
+            Files.writeString(completionMarker.toPath(), MiddleEarthMapConfigs.MAP_DATA_VERSION);
+            MiddleEarth.LOGGER.logInfoMsg("Instant Booting - Completed");
+            return true;
+        } catch (IOException exception) {
+            MiddleEarth.LOGGER.logError(
+                    "MiddleEarthMapGeneration::Couldn't install bundled map data",
+                    exception
+            );
+            return false;
+        }
+    }
+
+    private boolean hasRequiredBundledMapData() {
+        File baseHeight = new File(
+                MiddleEarthMapConfigs.BASE_HEIGHT_PATH
+                        + MiddleEarthMapConfigs.BASE_HEIGHT_IMAGE_NAME
+        );
+        File baseEdge = new File(
+                MiddleEarthMapConfigs.BASE_HEIGHT_PATH
+                        + MiddleEarthMapConfigs.BASE_EDGE_IMAGE_NAME
+        );
+        if (!baseHeight.isFile() || !baseEdge.isFile()) {
+            return false;
+        }
+
+        int regionCount = 1 << MiddleEarthMapConfigs.MAP_ITERATION;
+        for (int x = 0; x < regionCount; x++) {
+            for (int y = 0; y < regionCount; y++) {
+                String imageName = MiddleEarthMapConfigs.IMAGE_NAME.formatted(x, y);
+                File biome = new File(
+                        MiddleEarthMapConfigs.BIOME_PATH.formatted(
+                                MiddleEarthMapConfigs.MAP_ITERATION
+                        ) + imageName
+                );
+                File height = new File(MiddleEarthMapConfigs.HEIGHT_PATH + imageName);
+                if (!biome.isFile() || !height.isFile()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static BufferedImage getEdgeHeightImage() {
         return edgeHeightImage;
     }
@@ -145,7 +210,7 @@ public class MiddleEarthMapGeneration {
         if(initialMap == null)
             return false;
         for(int x = 0; x < initialMap.getWidth(); x++){
-            for(int y = 0; y < initialMap.getWidth(); y++){
+            for(int y = 0; y < initialMap.getHeight(); y++){
                 try{
                     MapBasedBiomePool.getBiomeByColor(initialMap.getRGB(x,y));
                 } catch (Exception e) {
@@ -246,7 +311,8 @@ public class MiddleEarthMapGeneration {
     }
 
     private void generateInitialBiomes(BufferedImage initialImage){
-        if(initialImage.getWidth() != MiddleEarthMapConfigs.REGION_SIZE || initialImage.getWidth() !=  MiddleEarthMapConfigs.REGION_SIZE){
+        if(initialImage.getWidth() != MiddleEarthMapConfigs.REGION_SIZE
+                || initialImage.getHeight() != MiddleEarthMapConfigs.REGION_SIZE){
             MiddleEarth.LOGGER.logError("Need to regenerate height files: Need splitting for the initial image!");
             for(int i = 0; i < initialImage.getWidth() / MiddleEarthMapConfigs.REGION_SIZE; i++){
                 for(int j = 0; j < initialImage.getHeight() / MiddleEarthMapConfigs.REGION_SIZE; j++){

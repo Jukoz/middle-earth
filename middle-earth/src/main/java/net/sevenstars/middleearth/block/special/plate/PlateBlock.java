@@ -1,58 +1,70 @@
 package net.sevenstars.middleearth.block.special.plate;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.*;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.item.component.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.tick.ScheduledTickView;
-import net.minecraft.world.tick.TickPriority;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SeededContainerLoot;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.ticks.TickPriority;
 import org.jetbrains.annotations.Nullable;
 
-public class PlateBlock extends BlockWithEntity {
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
-    public static final BooleanProperty UTENSILS = BooleanProperty.of("utensils");
+public class PlateBlock extends BaseEntityBlock {
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty UTENSILS = BooleanProperty.create("utensils");
 
-    public PlateBlock(Settings settings) {
+    public PlateBlock(Properties settings) {
         super(settings);
 
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(UTENSILS, false));
+        registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH).setValue(UTENSILS, false));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return PlateBlock.createCodec(PlateBlock::new);
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return PlateBlock.simpleCodec(PlateBlock::new);
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
-        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
-        if(plateBlockEntity != null && world instanceof ServerWorld serverWorld) {
-            ContainerLootComponent containerLootComponent = itemStack.get(DataComponentTypes.CONTAINER_LOOT);
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.setPlacedBy(world, pos, state, placer, itemStack);
+        if (world instanceof ServerLevel
+                && world.getBlockEntity(pos) instanceof PlateBlockEntity plateBlockEntity) {
+            SeededContainerLoot containerLootComponent = itemStack.get(DataComponents.CONTAINER_LOOT);
             if(containerLootComponent != null) {
                 plateBlockEntity.setLootTable(containerLootComponent.lootTable(), containerLootComponent.seed());
             }
@@ -60,163 +72,184 @@ public class PlateBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        super.onBlockAdded(state, world, pos, oldState, notify);
-        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
-        if(plateBlockEntity != null && world instanceof ServerWorld serverWorld) {
-            serverWorld.scheduleBlockTick(pos, this, 1, TickPriority.NORMAL);
+    protected void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify) {
+        super.onPlace(state, world, pos, oldState, notify);
+        if (world instanceof ServerLevel serverWorld
+                && world.getBlockEntity(pos) instanceof PlateBlockEntity) {
+            serverWorld.scheduleTick(pos, this, 1, TickPriority.NORMAL);
         }
     }
 
     @Override
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        super.scheduledTick(state, world, pos, random);
-        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
-        if(plateBlockEntity != null && plateBlockEntity.isBlockPlaced()) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        super.tick(state, world, pos, random);
+        if (world.getBlockEntity(pos) instanceof PlateBlockEntity plateBlockEntity
+                && plateBlockEntity.hasPendingLoot()) {
+            plateBlockEntity.setBlockPlaced();
             plateBlockEntity.generateItem(world);
         }
-        plateBlockEntity.setBlockPlaced();
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
-        if(plateBlockEntity != null && plateBlockEntity.isBlockPlaced()) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (world.getBlockEntity(pos) instanceof PlateBlockEntity plateBlockEntity
+                && plateBlockEntity.isBlockPlaced()) {
             plateBlockEntity.generateItem(world);
         }
         super.randomTick(state, world, pos, random);
     }
 
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (!world.isClient) {
-            return PlateBlock.validateTicker(world, type, ModBlockEntities.PLATE);
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return Block.canSupportCenter(world, pos.below(), Direction.UP);
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return !state.canSurvive(world, pos) ?
+                Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (player.isShiftKeyDown()) {
+            return takeFood(world, pos, player);
         }
-        return super.getTicker(world, state, type);
-    }
 
-    private static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> type, BlockEntityType<PlateBlockEntity> plate) {
-        return PlateBlock.validateTicker(type, plate, PlateBlockEntity::tick);
-    }
-
-    @Override
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
-    }
-
-    @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        return !state.canPlaceAt(world, pos) ?
-                Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
-    }
-
-    @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        ActionResult result = onEat(world, pos, player);
-        if(result == ActionResult.PASS || result == ActionResult.FAIL) {
-            if(world instanceof ServerWorld serverWorld) {
-                boolean hasUtensils = state.get(UTENSILS);
-                serverWorld.setBlockState(pos, state.with(UTENSILS, !hasUtensils), 2);
+        InteractionResult result = onEat(world, pos, player);
+        if(result == InteractionResult.PASS || result == InteractionResult.FAIL) {
+            if(world instanceof ServerLevel serverWorld) {
+                boolean hasUtensils = state.getValue(UTENSILS);
+                serverWorld.setBlock(pos, state.setValue(UTENSILS, !hasUtensils), 2);
             }
         }
 
         return result;
     }
 
-    protected static ActionResult onEat(World world, BlockPos pos, PlayerEntity player) {
-        if (world.isClient) {
-            if (tryEat(world, pos, player).isAccepted()) {
-                return ActionResult.SUCCESS;
-            }
-            if (player.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
-                return ActionResult.CONSUME;
-            }
-        }
+    protected static InteractionResult onEat(Level world, BlockPos pos, Player player) {
         return tryEat(world, pos, player);
     }
 
-    protected static ActionResult tryEat(World world, BlockPos pos, PlayerEntity player) {
-        if (!player.canConsume(false)) {
-            return ActionResult.PASS;
+    protected static InteractionResult tryEat(Level world, BlockPos pos, Player player) {
+        if (!(world.getBlockEntity(pos) instanceof PlateBlockEntity plateBlockEntity)) {
+            return InteractionResult.FAIL;
         }
 
-        PlateBlockEntity plateBlockEntity = (PlateBlockEntity) world.getBlockEntity(pos);
-        if(plateBlockEntity == null) return ActionResult.FAIL;
-
-        ItemStack food = plateBlockEntity.getStack();
-        if(food == null || food.isEmpty()) {
-            return ActionResult.PASS;
+        ItemStack food = plateBlockEntity.getTheItem();
+        if(food.isEmpty()) {
+            return InteractionResult.PASS;
         }
 
-        FoodComponent foodComponent = food.get(DataComponentTypes.FOOD);
-        ConsumableComponent consumableComponent = food.get(DataComponentTypes.CONSUMABLE);
-        if(foodComponent != null && consumableComponent != null) {
-            if(!world.isClient) {
-                player.getHungerManager().add((foodComponent.nutrition() / 2), foodComponent.saturation() / 2);
+        FoodProperties foodComponent = food.getFoodProperties(player);
+        if (foodComponent == null || !player.canEat(foodComponent.canAlwaysEat())) {
+            return InteractionResult.PASS;
+        }
+        if (world.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+
+        int previousFoodLevel = player.getFoodData().getFoodLevel();
+        float previousSaturation = player.getFoodData().getSaturationLevel();
+        ItemStack consumedResult = food.copyWithCount(1).finishUsingItem(world, player);
+
+        // Keep the authored half-serving nutrition and saturation while invoking item-specific effects.
+        player.getFoodData().setFoodLevel(previousFoodLevel);
+        player.getFoodData().setSaturation(previousSaturation);
+        player.getFoodData().eat(
+                (foodComponent.nutrition() + 1) / 2,
+                foodComponent.saturation() / 2.0F
+        );
+
+        ItemStack remainder = ItemStack.EMPTY;
+        if (!player.hasInfiniteMaterials() && !consumedResult.isEmpty()) {
+            remainder = consumedResult.copy();
+        } else if (foodComponent.usingConvertsTo().isPresent()) {
+            remainder = foodComponent.usingConvertsTo().orElseThrow().copy();
+        } else if (food.hasCraftingRemainingItem()) {
+            remainder = food.getCraftingRemainingItem();
+        }
+        plateBlockEntity.setTheItem(remainder);
+        return InteractionResult.CONSUME;
+    }
+
+    private static InteractionResult takeFood(Level world, BlockPos pos, Player player) {
+        if (!(world.getBlockEntity(pos) instanceof PlateBlockEntity plateBlockEntity)) {
+            return InteractionResult.FAIL;
+        }
+        ItemStack food = plateBlockEntity.getTheItem();
+        if (food.isEmpty()) {
+            return InteractionResult.PASS;
+        }
+        if (!world.isClientSide) {
+            ItemStack removed = food.copy();
+            plateBlockEntity.setTheItem(ItemStack.EMPTY);
+            if (!player.addItem(removed)) {
+                player.drop(removed, false);
             }
-            foodComponent.onConsume(player.getWorld(), player, food, consumableComponent);
-            world.emitGameEvent(player, GameEvent.EAT, pos);
-
-            ItemStack remainderItem = ItemStack.EMPTY;
-            UseRemainderComponent useRemainderComponent = food.get(DataComponentTypes.USE_REMAINDER);
-            if(useRemainderComponent != null) remainderItem = useRemainderComponent.convertInto();
-            plateBlockEntity.setStack(remainderItem);
         }
-
-        return ActionResult.SUCCESS;
+        return InteractionResult.sidedSuccess(world.isClientSide);
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if(stack.getItem() instanceof BlockItem blockItem) {
             if(blockItem.getBlock() instanceof PlateBlock) {
-                return ActionResult.PASS;
+                return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
             }
         }
 
-        if(stack.contains(DataComponentTypes.FOOD)) {
-            BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+        if(stack.has(DataComponents.FOOD)) {
+            BlockEntity blockEntity = player.level().getBlockEntity(pos);
             if(blockEntity instanceof PlateBlockEntity plateBlockEntity) {
-                ItemStack plateStack = plateBlockEntity.getStack();
-                if(plateStack == null || plateStack.isEmpty()) {
-                    ItemStack insertedStack = stack.copy();
-                    insertedStack.setCount(1);
-                    plateBlockEntity.setStack(insertedStack);
-                    stack.decrementUnlessCreative(1, player);
-                    return ActionResult.SUCCESS;
-                } else if (world.isClient) {
-                    return onEat(world, pos, player);
+                ItemStack plateStack = plateBlockEntity.getTheItem();
+                if(plateStack.isEmpty()) {
+                    if (!world.isClientSide) {
+                        plateBlockEntity.setTheItem(stack.copyWithCount(1));
+                        stack.consume(1, player);
+                    }
+                    return ItemInteractionResult.sidedSuccess(world.isClientSide);
+                } else {
+                    InteractionResult result = onEat(world, pos, player);
+                    if (result == InteractionResult.FAIL) {
+                        return ItemInteractionResult.FAIL;
+                    }
+                    if (result == InteractionResult.CONSUME || result == InteractionResult.CONSUME_PARTIAL) {
+                        return ItemInteractionResult.CONSUME;
+                    }
+                    return result.consumesAction()
+                            ? ItemInteractionResult.sidedSuccess(world.isClientSide)
+                            : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
                 }
             } else {
-                return ActionResult.FAIL;
+                return ItemInteractionResult.FAIL;
             }
         }
 
-        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+        return super.useItemOn(stack, state, world, pos, player, hand, hit);
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 1.0, 13.0);
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Block.box(3.0, 0.0, 3.0, 13.0, 1.0, 13.0);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, UTENSILS);
-        super.appendProperties(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        Direction[] var3 = ctx.getPlacementDirections();
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        Direction[] var3 = ctx.getNearestLookingDirections();
         int var4 = var3.length;
 
         for(int var5 = 0; var5 < var4; ++var5) {
             Direction direction = var3[var5];
             if (direction.getAxis() == Direction.Axis.Y) {
-                BlockState blockState = this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(UTENSILS, false);
-                if (blockState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) {
+                BlockState blockState = this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, ctx.getHorizontalDirection().getOpposite()).setValue(UTENSILS, false);
+                if (blockState.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
                     return blockState;
                 }
             }
@@ -226,17 +259,17 @@ public class PlateBlock extends BlockWithEntity {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new PlateBlockEntity(pos, state);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 }

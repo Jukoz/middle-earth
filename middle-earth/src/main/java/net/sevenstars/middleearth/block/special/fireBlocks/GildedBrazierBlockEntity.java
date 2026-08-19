@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
 
 public class GildedBrazierBlockEntity extends ToggleableFireBlockEntity {
 

@@ -1,0 +1,614 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/npc_spawn_egg"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  0
+                                        },
+                          "model":  "middle-earth:item/npc_random_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  47384
+                                        },
+                          "model":  "middle-earth:item/wild_goblins_brute_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  180982
+                                        },
+                          "model":  "middle-earth:item/rohan_horse_lord_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  186612
+                                        },
+                          "model":  "middle-earth:item/mordor_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  218396
+                                        },
+                          "model":  "middle-earth:item/isengard_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  223923
+                                        },
+                          "model":  "middle-earth:item/gondor_knight_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  345824
+                                        },
+                          "model":  "middle-earth:item/lothlorien_egladil_sentinel_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  415268
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_leader_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  419441
+                                        },
+                          "model":  "middle-earth:item/mordor_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  451225
+                                        },
+                          "model":  "middle-earth:item/isengard_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  459160
+                                        },
+                          "model":  "middle-earth:item/moria_chief_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  621635
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_sentinel_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  635237
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  743793
+                                        },
+                          "model":  "middle-earth:item/hobgoblin_tribes_gundabad_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  795846
+                                        },
+                          "model":  "middle-earth:item/moria_goblin_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  857915
+                                        },
+                          "model":  "middle-earth:item/gondor_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  976622
+                                        },
+                          "model":  "middle-earth:item/hobgoblin_tribes_gundabad_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  1071674
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_elite_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  1083140
+                                        },
+                          "model":  "middle-earth:item/dale_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  1753445
+                                        },
+                          "model":  "middle-earth:item/rohan_soldier_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  1805306
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  1839030
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_lancer_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2233372
+                                        },
+                          "model":  "middle-earth:item/gondor_peasant_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2281200
+                                        },
+                          "model":  "middle-earth:item/mordor_scout_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2409442
+                                        },
+                          "model":  "middle-earth:item/lothlorien_lord_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2594994
+                                        },
+                          "model":  "middle-earth:item/mordor_snaga_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2704826
+                                        },
+                          "model":  "middle-earth:item/gondor_citadel_guard_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2717671
+                                        },
+                          "model":  "middle-earth:item/goblin_town_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2914982
+                                        },
+                          "model":  "middle-earth:item/moria_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  2950500
+                                        },
+                          "model":  "middle-earth:item/goblin_town_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3046238
+                                        },
+                          "model":  "middle-earth:item/dale_knight_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3081759
+                                        },
+                          "model":  "middle-earth:item/goblin_town_rider_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3129146
+                                        },
+                          "model":  "middle-earth:item/lothlorien_guard_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3182259
+                                        },
+                          "model":  "middle-earth:item/dale_soldier_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3256092
+                                        },
+                          "model":  "middle-earth:item/hobgoblin_tribes_gundabad_leader_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3263856
+                                        },
+                          "model":  "middle-earth:item/mordor_dol_guldur_scout_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3266309
+                                        },
+                          "model":  "middle-earth:item/shire_shirriff_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3522863
+                                        },
+                          "model":  "middle-earth:item/gondor_leader_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3600874
+                                        },
+                          "model":  "middle-earth:item/hobgoblin_tribes_gundabad_goblin_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3811948
+                                        },
+                          "model":  "middle-earth:item/rohan_knight_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3837603
+                                        },
+                          "model":  "middle-earth:item/goblin_town_scout_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3904425
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_soldier_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  3956858
+                                        },
+                          "model":  "middle-earth:item/lothlorien_knight_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4084131
+                                        },
+                          "model":  "middle-earth:item/gondor_king_guard_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4205748
+                                        },
+                          "model":  "middle-earth:item/goblin_town_goblin_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4410243
+                                        },
+                          "model":  "middle-earth:item/rohan_peasant_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4463600
+                                        },
+                          "model":  "middle-earth:item/dale_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4512640
+                                        },
+                          "model":  "middle-earth:item/dale_elite_archer_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4592145
+                                        },
+                          "model":  "middle-earth:item/isengard_leader_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4725554
+                                        },
+                          "model":  "middle-earth:item/shire_peasant_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4747450
+                                        },
+                          "model":  "middle-earth:item/dale_sergeant_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  4994932
+                                        },
+                          "model":  "middle-earth:item/mordor_dol_guldur_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5185766
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5227049
+                                        },
+                          "model":  "middle-earth:item/hobgoblin_tribes_gundabad_rider_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5427589
+                                        },
+                          "model":  "middle-earth:item/mordor_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5438047
+                                        },
+                          "model":  "middle-earth:item/isengard_orthanc_guard_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5483604
+                                        },
+                          "model":  "middle-earth:item/dale_archer_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5643856
+                                        },
+                          "model":  "middle-earth:item/rohan_royal_guard_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5721873
+                                        },
+                          "model":  "middle-earth:item/lothlorien_sentinel_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5766580
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_nightshade_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5833899
+                                        },
+                          "model":  "middle-earth:item/brigand_chieftain_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5839057
+                                        },
+                          "model":  "middle-earth:item/dale_peasant_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5845620
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_ranger_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5866063
+                                        },
+                          "model":  "middle-earth:item/gondor_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5948365
+                                        },
+                          "model":  "middle-earth:item/moria_rider_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5978077
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_artisan_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5982893
+                                        },
+                          "model":  "middle-earth:item/hobgoblin_tribes_gundabad_scout_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  5984770
+                                        },
+                          "model":  "middle-earth:item/hobgoblin_tribes_gundabad_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6062613
+                                        },
+                          "model":  "middle-earth:item/moria_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6150204
+                                        },
+                          "model":  "middle-earth:item/wild_goblins_rider_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6207892
+                                        },
+                          "model":  "middle-earth:item/brigand_thug_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6258142
+                                        },
+                          "model":  "middle-earth:item/lothlorien_egladil_commander_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6295442
+                                        },
+                          "model":  "middle-earth:item/moria_veteran_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6419675
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_commander_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6429504
+                                        },
+                          "model":  "middle-earth:item/rohan_eorling_marshal_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6472479
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_hunter_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6476424
+                                        },
+                          "model":  "middle-earth:item/wild_goblins_gatherer_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6561223
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_peasant_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6567192
+                                        },
+                          "model":  "middle-earth:item/isengard_scout_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6704209
+                                        },
+                          "model":  "middle-earth:item/moria_scout_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6806753
+                                        },
+                          "model":  "middle-earth:item/isengard_berserker_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6880986
+                                        },
+                          "model":  "middle-earth:item/isengard_snaga_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6906048
+                                        },
+                          "model":  "middle-earth:item/wild_goblins_scout_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6967536
+                                        },
+                          "model":  "middle-earth:item/mordor_black_numenorean_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  6978160
+                                        },
+                          "model":  "middle-earth:item/lothlorien_civilian_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7000790
+                                        },
+                          "model":  "middle-earth:item/mordor_captain_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7004900
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_warden_of_the_glade_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7091908
+                                        },
+                          "model":  "middle-earth:item/wild_goblins_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7294167
+                                        },
+                          "model":  "middle-earth:item/lothlorien_warrior_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7417035
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_gatewarden_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7522782
+                                        },
+                          "model":  "middle-earth:item/woodland_realm_elven_kings_guard_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7558492
+                                        },
+                          "model":  "middle-earth:item/isengard_soldier_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7717440
+                                        },
+                          "model":  "middle-earth:item/gondor_fountain_guard_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7883754
+                                        },
+                          "model":  "middle-earth:item/brigand_thief_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7942302
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_archer_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7954626
+                                        },
+                          "model":  "middle-earth:item/lothlorien_ranger_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  7965182
+                                        },
+                          "model":  "middle-earth:item/gondor_soldier_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  8042934
+                                        },
+                          "model":  "middle-earth:item/rohan_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  8349578
+                                        },
+                          "model":  "middle-earth:item/brigand_mercenary_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  8358245
+                                        },
+                          "model":  "middle-earth:item/shire_militia_spawn_egg"
+                      },
+                      {
+                          "predicate":  {
+                                            "custom_model_data":  8374822
+                                        },
+                          "model":  "middle-earth:item/longbeards_erebor_miner_spawn_egg"
+                      }
+                  ]
+}

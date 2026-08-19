@@ -1,18 +1,16 @@
 package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.DyedColorComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
@@ -24,6 +22,7 @@ import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttac
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GearItemData {
     private final static String NO_HOOD_KEY = "no_hood";
@@ -47,7 +46,7 @@ public class GearItemData {
     public GearItemData(Item item) {
         this.item = item;
     }
-    public GearItemData(Identifier itemIdentifier) {
+    public GearItemData(ResourceLocation itemIdentifier) {
         this.item = getItemFromId(itemIdentifier);
     }
 
@@ -57,7 +56,7 @@ public class GearItemData {
     public static GearItemData create(Item item) {
         return new GearItemData(item);
     }
-    public static GearItemData create(Identifier itemIdentifier) {
+    public static GearItemData create(ResourceLocation itemIdentifier) {
         return new GearItemData(itemIdentifier);
     }
 
@@ -107,6 +106,9 @@ public class GearItemData {
     public GearItemData withHood(HelmetAttachmentsME hood) {
         if(hood == null){
             this.noHood = true;
+            this.hood = null;
+            this.isDown = null;
+            return this;
         }
         this.hood = hood;
         if(this.hood.getConstantState() != null)
@@ -122,23 +124,22 @@ public class GearItemData {
             this.isDown = isDown;
         }
         if(this.isDown != isDown){
-            MiddleEarth.LOGGER.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
+            MiddleEarth.LOGGER.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getDescription(), hood.getName(), isDown, this.isDown));
         }
         return this;
     }
 
-    private static Item getItemFromId(Identifier itemId){
-        return Registries.ITEM.get(itemId);
+    private static Item getItemFromId(ResourceLocation itemId){
+        return BuiltInRegistries.ITEM.get(itemId);
     }
 
-    private static Identifier getIdentifierFromItem(Item item){
-        return Registries.ITEM.getId(item);
+    private static ResourceLocation getIdentifierFromItem(Item item){
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 
     private int getRandomColor(List<Integer> listToFetch) {
-        if(listToFetch != null){
-            int max = listToFetch.size() - 1;
-            return listToFetch.get(Random.create().nextBetween(0, max));
+        if(listToFetch != null && !listToFetch.isEmpty()){
+            return listToFetch.get(ThreadLocalRandom.current().nextInt(listToFetch.size()));
         }
         return Color.PINK.getRGB();
     }
@@ -146,7 +147,7 @@ public class GearItemData {
     public Integer getColor(){
         return this.color;
     }
-    public Identifier getItemIdentifier() {
+    public ResourceLocation getItemIdentifier() {
         return getIdentifierFromItem(this.item);
     }
 
@@ -154,19 +155,13 @@ public class GearItemData {
         ItemStack itemStack = new ItemStack(this.item);
 
         if(this.color != null){
-            List<TagKey<Item>> tags = itemStack.streamTags().toList();
-            if(tags.contains(ItemTags.DYEABLE))
-                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color));
-            else if(itemStack.isIn(ItemTags.DYEABLE))
-                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(this.color));
+            if(itemStack.is(ItemTags.DYEABLE))
+                itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(this.color, true));
         } else if(this.colors != null){
-            List<TagKey<Item>> tags = itemStack.streamTags().toList();
-            if(tags.contains(ItemTags.DYEABLE))
-                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors)));
-            else if(itemStack.isIn(ItemTags.DYEABLE))
-                itemStack.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(getRandomColor(colors)));
+            if(itemStack.is(ItemTags.DYEABLE))
+                itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(getRandomColor(colors), true));
         }
-        if(this.noCape != null && this.noCape && itemStack.getComponents().contains(DataComponentTypesME.BACK_ATTACHMENT_DATA)){
+        if(this.noCape != null && this.noCape && itemStack.getComponents().has(DataComponentTypesME.BACK_ATTACHMENT_DATA)){
             itemStack.remove(DataComponentTypesME.BACK_ATTACHMENT_DATA);
         } else if (cape != null)
             if(capeColor != null)
@@ -176,16 +171,14 @@ public class GearItemData {
             else
                 itemStack.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(cape));
 
-        if(this.noHood != null && this.noHood && itemStack.getComponents().contains(DataComponentTypesME.HELMET_ATTACHMENT_DATA)){
+        if(this.noHood != null && this.noHood && itemStack.getComponents().has(DataComponentTypesME.HELMET_ATTACHMENT_DATA)){
             itemStack.remove(DataComponentTypesME.HELMET_ATTACHMENT_DATA);
         } else if(hood != null){
             boolean hoodState = false;
             if(this.hood.getConstantState() != null){
-                this.isDown = this.hood.getConstantState() == HelmetAttachmentsStatesME.DOWN;
-                hoodState = this.isDown;
-                MiddleEarth.LOGGER.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
+                hoodState = this.hood.getConstantState() == HelmetAttachmentsStatesME.DOWN;
             } else if(isDown == null){
-                hoodState = Math.random() >= 0.5;
+                hoodState = ThreadLocalRandom.current().nextBoolean();
             } else {
                 hoodState = this.isDown;
             }
@@ -195,19 +188,19 @@ public class GearItemData {
             else if(hoodColors != null)
                 itemStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(hoodState, hood, getRandomColor(hoodColors)));
             else
-                itemStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(hoodState, hood, DyedColorComponent.DEFAULT_COLOR));
+                itemStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(hoodState, hood, DyedItemColor.LEATHER_COLOR));
         }
         return itemStack;
     }
 
-    public GearItemData(NbtCompound nbt){
-        this(Identifier.of(nbt.getString("id").get()));
+    public GearItemData(CompoundTag nbt){
+        this(ResourceLocation.parse(nbt.getString("id")));
 
         if(nbt.get("color") != null){
-            color = nbt.getInt("color").get();
+            color = nbt.getInt("color");
         }
-        if(nbt.get("colors") != null && nbt.getIntArray("colors").isPresent()){
-            int[] list = nbt.getIntArray("colors").get();
+        if(nbt.contains("colors", Tag.TAG_INT_ARRAY)){
+            int[] list = nbt.getIntArray("colors");
             List<Integer> newColors = new ArrayList<>();
             for (int j : list) {
                 newColors.add(j);
@@ -215,47 +208,47 @@ public class GearItemData {
             colors = newColors;
         }
         if(nbt.get("no_cape") != null){
-            noCape = nbt.getBoolean("no_cape").get();
+            noCape = nbt.getBoolean("no_cape");
         }
         if(nbt.get("cape") != null){
-            cape = BackAttachmentsME.valueOf(nbt.getString("cape").get().toUpperCase());
+            cape = BackAttachmentsME.valueOf(nbt.getString("cape").toUpperCase());
 
-            if(nbt.getInt("cape_color").isPresent()){
-                capeColor = nbt.getInt("cape_color").get();
+            if(nbt.contains("cape_color", Tag.TAG_ANY_NUMERIC)){
+                capeColor = nbt.getInt("cape_color");
             }
-            else if(nbt.get("cape_colors") != null && nbt.get("cape_colors").asNbtList().isPresent()){
-                var capeElements = nbt.get("cape_colors").asNbtList().get();
+            else if(nbt.contains("cape_colors", Tag.TAG_INT_ARRAY)){
+                int[] capeElements = nbt.getIntArray("cape_colors");
                 List<Integer> newList = new ArrayList<>();
-                for (var element : capeElements){
-                    newList.add(element.asInt().get());
+                for (int element : capeElements){
+                    newList.add(element);
                 }
                 capeColors = newList;
             }
         }
 
         if(nbt.get("no_hood") != null){
-            noHood = nbt.getBoolean("no_hood").get();
+            noHood = nbt.getBoolean("no_hood");
         }
         if(nbt.get("hood") != null){
-            hood = HelmetAttachmentsME.valueOf(nbt.getString("hood").get().toUpperCase());
+            hood = HelmetAttachmentsME.valueOf(nbt.getString("hood").toUpperCase());
             if(nbt.get("hood_is_down") != null)
-                isDown = nbt.getBoolean("hood_is_down").get();
+                isDown = nbt.getBoolean("hood_is_down");
 
             if(nbt.get("hood_color") != null){
-                hoodColor = nbt.getInt("hood_color").get();
+                hoodColor = nbt.getInt("hood_color");
             }
-            else if(nbt.get("hood_colors") != null && nbt.get("hood_colors").asNbtList().isPresent()){
-                var hoodElements = nbt.get("hood_colors").asNbtList().get();
+            else if(nbt.contains("hood_colors", Tag.TAG_INT_ARRAY)){
+                int[] hoodElements = nbt.getIntArray("hood_colors");
                 List<Integer> newList = new ArrayList<>();
-                for (var element : hoodElements){
-                    newList.add(element.asInt().get());
+                for (int element : hoodElements){
+                    newList.add(element);
                 }
                 hoodColors = newList;
             }
         }
     }
 
-    public NbtElement getNbt(NbtCompound nbt) {
+    public Tag getNbt(CompoundTag nbt) {
         nbt.putString("id", getItemIdentifier().toString());
 
         if(color != null)
@@ -300,8 +293,8 @@ public class GearItemData {
             if(hoodColors != null)
                 nbt.putIntArray("hood_colors", hoodColors);
         }
-        if(nbt.getKeys().size() == 1 && nbt.getString("id").isPresent()){
-            return NbtString.of(nbt.getString("id").get());
+        if(nbt.getAllKeys().size() == 1 && nbt.contains("id", Tag.TAG_STRING)){
+            return StringTag.valueOf(nbt.getString("id"));
         }
         return nbt;
     }

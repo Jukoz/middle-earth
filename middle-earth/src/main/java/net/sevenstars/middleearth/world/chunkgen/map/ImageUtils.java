@@ -7,18 +7,22 @@ import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
 import org.joml.sampling.Convolution;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ImageUtils {
-    private static HashMap<Integer, float[]> gaussianBlurKernel = new HashMap<>();
+    private static final Map<Integer, float[]> GAUSSIAN_BLUR_KERNELS = new ConcurrentHashMap<>();
     private static float[] edgeKernel =
                     {-1f, -2f, -1f,
                      -2f,  12f, -2f,
@@ -214,16 +218,13 @@ public class ImageUtils {
             g2d.drawImage(image, 0, newHeight - brushSize, brushSize, newHeight, 0, height - 1, 1, height, null);
             g2d.drawImage(image, newWidth - brushSize, newHeight - brushSize, newWidth, newHeight, width - 1, height - 1, width, height, null);
         }
+        g2d.dispose();
 
-        float[] blurKernel = new float[brushSize*brushSize];
-
-        if(gaussianBlurKernel.containsKey(brushSize)) {
-            blurKernel = gaussianBlurKernel.get(brushSize);
-        }
-        else {
-            Convolution.gaussianKernel(brushSize, brushSize, GAUSSIAN_SIGMA, blurKernel);
-            gaussianBlurKernel.put(brushSize, blurKernel);
-        }
+        float[] blurKernel = GAUSSIAN_BLUR_KERNELS.computeIfAbsent(brushSize, size -> {
+            float[] kernelData = new float[size * size];
+            Convolution.gaussianKernel(size, size, GAUSSIAN_SIGMA, kernelData);
+            return kernelData;
+        });
         Kernel kernel = new Kernel(brushSize, brushSize, blurKernel);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
 

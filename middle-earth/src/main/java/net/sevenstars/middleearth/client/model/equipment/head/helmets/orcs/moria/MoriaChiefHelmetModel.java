@@ -1,7 +1,14 @@
 package net.sevenstars.middleearth.client.model.equipment.head.helmets.orcs.moria;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartNames;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
 
 public class MoriaChiefHelmetModel extends HelmetAddonModel {
@@ -10,52 +17,52 @@ public class MoriaChiefHelmetModel extends HelmetAddonModel {
         super(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild(EntityModelPartNames.HEAD, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        head.addChild(EntityModelPartNames.HAT, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition head = modelPartData.addOrReplaceChild(PartNames.HEAD, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.HAT, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        head.addChild("horizontal_crest", ModelPartBuilder.create()
-                .uv(31, 15).cuboid(-8.0F, -16.25F, 0.0F, 16.0F, 8.0F, 0.0F, new Dilation(0.0F)),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("horizontal_crest", CubeListBuilder.create()
+                .texOffs(31, 15).addBox(-8.0F, -16.25F, 0.0F, 16.0F, 8.0F, 0.0F, new CubeDeformation(0.0F)),
+                PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        head.addChild("bottom_jaw", ModelPartBuilder.create()
-                .uv(0, 28).cuboid(-8.4497F, -9.75F, 2.0F, 6.0F, 10.0F, 6.0F, new Dilation(0.3F)),
-                ModelTransform.of(0.3498F, 4.5F, -8.9142F, 0.6603F, 0.6603F, 0.4439F));
+        head.addOrReplaceChild("bottom_jaw", CubeListBuilder.create()
+                .texOffs(0, 28).addBox(-8.4497F, -9.75F, 2.0F, 6.0F, 10.0F, 6.0F, new CubeDeformation(0.3F)),
+                PartPose.offsetAndRotation(0.3498F, 4.5F, -8.9142F, 0.6603F, 0.6603F, 0.4439F));
 
-        head.addChild("horns_right", ModelPartBuilder.create()
-                .uv(44, 32).cuboid(-7.0F, -10.25F, -4.0F, 3.0F, 5.0F, 7.0F, new Dilation(0.0F))
-                .uv(47, 50).cuboid(-7.0F, -5.25F, 0.0F, 3.0F, 1.0F, 3.0F, new Dilation(0.0F))
-                .uv(44, 55).mirrored().cuboid(-7.0F, -4.25F, -3.0F, 3.0F, 2.0F, 6.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(49, 45).mirrored().cuboid(-9.0F, -4.25F, -3.0F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)).mirrored(false),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("horns_right", CubeListBuilder.create()
+                .texOffs(44, 32).addBox(-7.0F, -10.25F, -4.0F, 3.0F, 5.0F, 7.0F, new CubeDeformation(0.0F))
+                .texOffs(47, 50).addBox(-7.0F, -5.25F, 0.0F, 3.0F, 1.0F, 3.0F, new CubeDeformation(0.0F))
+                .texOffs(44, 55).mirror().addBox(-7.0F, -4.25F, -3.0F, 3.0F, 2.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(49, 45).mirror().addBox(-9.0F, -4.25F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false),
+                PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        head.addChild("horns_left", ModelPartBuilder.create()
-                .uv(44, 32).mirrored().cuboid(4.0F, -10.25F, -4.0F, 3.0F, 5.0F, 7.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(47, 50).mirrored().cuboid(4.0F, -5.25F, 0.0F, 3.0F, 1.0F, 3.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(44, 55).cuboid(4.0F, -4.25F, -3.0F, 3.0F, 2.0F, 6.0F, new Dilation(0.0F))
-                .uv(49, 45).cuboid(7.0F, -4.25F, -3.0F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("horns_left", CubeListBuilder.create()
+                .texOffs(44, 32).mirror().addBox(4.0F, -10.25F, -4.0F, 3.0F, 5.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(47, 50).mirror().addBox(4.0F, -5.25F, 0.0F, 3.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(44, 55).addBox(4.0F, -4.25F, -3.0F, 3.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
+                .texOffs(49, 45).addBox(7.0F, -4.25F, -3.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)),
+                PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        head.addChild("top_spike", ModelPartBuilder.create()
-                .uv(0, 59).cuboid(-2.5F, -2.75F, 0.0F, 5.0F, 5.0F, 0.0F, new Dilation(0.0F))
-                .uv(0, 54).cuboid(0.0F, -2.75F, -2.5F, 0.0F, 5.0F, 5.0F, new Dilation(0.0F)),
-                ModelTransform.of(0.0F, -11.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
+        head.addOrReplaceChild("top_spike", CubeListBuilder.create()
+                .texOffs(0, 59).addBox(-2.5F, -2.75F, 0.0F, 5.0F, 5.0F, 0.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 54).addBox(0.0F, -2.75F, -2.5F, 0.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)),
+                PartPose.offsetAndRotation(0.0F, -11.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
 
-        head.addChild("eye_cover", ModelPartBuilder.create()
-                .uv(10, 60).cuboid(-4.5F, -4.55F, -4.5F, 9.0F, 2.0F, 2.0F, new Dilation(0.0F)),
-                ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        head.addOrReplaceChild("eye_cover", CubeListBuilder.create()
+                .texOffs(10, 60).addBox(-4.5F, -4.55F, -4.5F, 9.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)),
+                PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.BODY, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.RIGHT_ARM, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.LEFT_ARM, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.RIGHT_LEG, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        modelPartData.addOrReplaceChild(PartNames.LEFT_LEG, CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 64, 64);
+        return LayerDefinition.create(modelData, 64, 64);
     }
 }

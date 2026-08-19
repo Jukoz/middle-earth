@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "tip=false": {
+      "model": "middle-earth:block/pale_hanging_moss"
+    },
+    "tip=true": {
+      "model": "middle-earth:block/pale_hanging_moss_tip"
+    }
+  }
+}

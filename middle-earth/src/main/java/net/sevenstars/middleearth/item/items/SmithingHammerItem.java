@@ -1,29 +1,36 @@
 package net.sevenstars.middleearth.item.items;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class SmithingHammerItem extends Item {
+    private final int enchantmentValue;
 
-    public SmithingHammerItem(Settings settings, ToolMaterial material, float speed) {
-        super(settings.maxCount(1).attributeModifiers(createAttributeModifiers(speed)).maxDamage(material.durability()));
+    public SmithingHammerItem(Properties settings, Tier material, float speed, int enchantmentValue) {
+        super(settings.stacksTo(1).attributes(createAttributeModifiers(speed)).durability(material.getUses()));
+        this.enchantmentValue = enchantmentValue;
     }
 
-    public static AttributeModifiersComponent createAttributeModifiers(float attackSpeed) {
-        return AttributeModifiersComponent.builder().add(EntityAttributes.ATTACK_SPEED, new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE), AttributeModifierSlot.MAINHAND).build();
+    public static ItemAttributeModifiers createAttributeModifiers(float attackSpeed) {
+        return ItemAttributeModifiers.builder().add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build();
     }
 
     @Override
-    public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity user) {
-        return !user.isInCreativeMode();
+    public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, net.minecraft.world.entity.player.Player user) {
+        return !user.isCreative();
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return enchantmentValue;
     }
 }

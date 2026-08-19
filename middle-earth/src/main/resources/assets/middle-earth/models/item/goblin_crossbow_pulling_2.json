@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/crossbow",
+    "textures":  {
+                     "layer0":  "middle-earth:item/goblin_crossbow_pulling_2"
+                 }
+}

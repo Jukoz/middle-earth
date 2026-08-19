@@ -52,7 +52,7 @@
       "entries": [
 	    {
           "type": "minecraft:item",
-          "name": "minecraft:blue_bundle"
+          "name": "middle-earth:blue_bundle"
         },
         {
           "type": "minecraft:item",

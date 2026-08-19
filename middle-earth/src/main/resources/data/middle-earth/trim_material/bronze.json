@@ -3,5 +3,7 @@
   "description": {
     "color": "#A37D4E",
     "translate": "trim_material.middle-earth.bronze"
-  }
+  },
+  "ingredient": "middle-earth:bronze_ingot",
+  "item_model_index": 0.005
 }

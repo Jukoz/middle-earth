@@ -1,63 +1,62 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.deer;
 
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.profiler.Profilers;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.sound.SoundsWT;
 import org.jetbrains.annotations.Nullable;
 
-public class DeerEntity extends AnimalEntity {
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(DeerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+public class DeerEntity extends Animal {
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DeerEntity.class, EntityDataSerializers.INT);
 
-    public DeerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+    public DeerEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
-        this.getNavigation().setCanSwim(true);
+        this.getNavigation().setCanFloat(true);
     }
 
-    public static DefaultAttributeContainer.Builder createDeerAttributes() {
-        return AnimalEntity.createAnimalAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 10.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.3);
+    public static AttributeSupplier.Builder createDeerAttributes() {
+        return net.minecraft.world.entity.Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 10.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.3);
     }
 
-    protected void mobTick(ServerWorld world) {
-        Profiler profiler = Profilers.get();
+    protected void customServerAiStep() {
+        ServerLevel world = (ServerLevel) this.level();
+        ProfilerFiller profiler = this.level().getProfiler();
         profiler.push("deerBrain");
         this.getBrain().tick(world, this);
         profiler.pop();
         profiler.push("deerActivityUpdate");
         DeerBrain.updateActivities(this);
         profiler.pop();
-        super.mobTick(world);
+        super.customServerAiStep();
     }
 
-    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
         return DeerBrain.create(this, dynamic);
     }
 
@@ -66,26 +65,26 @@ public class DeerEntity extends AnimalEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(ServerWorld world, DamageSource source) {
-        return super.isInvulnerableTo(world, source) || source.isOf(DamageTypes.SWEET_BERRY_BUSH);
+    public boolean isInvulnerableTo(DamageSource source) {
+        return super.isInvulnerableTo(source) || source.is(DamageTypes.SWEET_BERRY_BUSH);
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return false;
     }
 
     @Nullable
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return EntitiesWT.DEER.create(world, SpawnReason.BREEDING);
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
+        return EntitiesWT.DEER.create(world);
     }
 
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
-                                 @Nullable EntityData entityData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason,
+                                 @Nullable SpawnGroupData entityData) {
         DeerEntityVariant variant = Util.getRandom(DeerEntityVariant.values(), this.random);
         setVariant(variant);
-        return super.initialize(world, difficulty, spawnReason, entityData);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Nullable
@@ -117,25 +116,25 @@ public class DeerEntity extends AnimalEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 1.0f, 1.0f);
+        this.playSound(SoundEvents.WOLF_STEP, 1.0f, 1.0f);
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(VARIANT, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
     }
 
     @Override
-    public void writeCustomData(WriteView view) {
-        super.writeCustomData(view);
+    public void addAdditionalSaveData(CompoundTag view) {
+        super.addAdditionalSaveData(view);
         view.putInt("Variant", this.getTypeVariant());
     }
 
     @Override
-    public void readCustomData(ReadView view) {
-        super.readCustomData(view);
-        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
+    public void readAdditionalSaveData(CompoundTag view) {
+        super.readAdditionalSaveData(view);
+        this.entityData.set(VARIANT, view.getInt("Variant"));
     }
 
     public DeerEntityVariant getVariant() {
@@ -143,10 +142,10 @@ public class DeerEntity extends AnimalEntity {
     }
 
     private int getTypeVariant() {
-        return this.dataTracker.get(VARIANT);
+        return this.entityData.get(VARIANT);
     }
 
     private void setVariant(DeerEntityVariant variant) {
-        this.dataTracker.set(VARIANT, variant.getId() & 255);
+        this.entityData.set(VARIANT, variant.getId() & 255);
     }
 }

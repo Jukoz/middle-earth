@@ -1,11 +1,10 @@
 package net.sevenstars.middleearth.world.biomes.caves;
 
 
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.world.biome.Biome;
-
 import java.util.ArrayList;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.phys.Vec2;
 
 public class CaveBiomesMap {
     ArrayList<CaveBiomeDTO> caves;
@@ -18,11 +17,11 @@ public class CaveBiomesMap {
         caves.add(caveBiomeDTO);
     }
 
-    public RegistryKey<Biome> getClosestBiome(Vec2f coordinates) {
-        RegistryKey<Biome> biome = null;
+    public ResourceKey<Biome> getClosestBiome(Vec2 coordinates) {
+        ResourceKey<Biome> biome = null;
         float currentDistance = 10.0f;
         for (CaveBiomeDTO biomeDTO: caves) {
-            float distance = biomeDTO.coordinates.distanceSquared(coordinates);
+            float distance = biomeDTO.coordinates.distanceToSqr(coordinates);
             if(distance < currentDistance) {
                 currentDistance = distance;
                 biome = biomeDTO.biome;

@@ -3,7 +3,9 @@
   "category": "blocks",
   "cookingtime": 100,
   "experience": 0.1,
-  "ingredient": "middle-earth:pine_leaves",
+  "ingredient": {
+    "item": "middle-earth:pine_leaves"
+  },
   "result": {
     "id": "middle-earth:dry_pine_leaves"
   }

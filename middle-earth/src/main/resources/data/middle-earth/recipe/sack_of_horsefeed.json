@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:lettuce",
-    "minecraft:hay_block",
-    "minecraft:apple"
+    {
+      "item": "middle-earth:lettuce"
+    },
+    {
+      "item": "minecraft:hay_block"
+    },
+    {
+      "item": "minecraft:apple"
+    }
   ],
   "result": {
     "id": "middle-earth:sack_of_horsefeed"

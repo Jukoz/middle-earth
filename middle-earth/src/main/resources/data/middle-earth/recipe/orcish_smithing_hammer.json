@@ -6,8 +6,12 @@
     " S "
   ],
   "key": {
-    "M": "middle-earth:burzum_steel_ingot",
-    "S": "minecraft:stick"
+    "M": {
+      "item": "middle-earth:burzum_steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "middle-earth:orcish_smithing_hammer",

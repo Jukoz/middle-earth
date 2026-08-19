@@ -7,8 +7,12 @@
     "###"
   ],
   "key": {
-    "#": "#minecraft:logs",
-    "M": "minecraft:moss_block"
+    "#": {
+      "tag": "minecraft:logs"
+    },
+    "M": {
+      "item": "minecraft:moss_block"
+    }
   },
   "result": {
     "id": "middle-earth:deadwood_log",

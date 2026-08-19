@@ -2,9 +2,8 @@ package net.sevenstars.middleearth.resources.datas.npc_types.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.server.world.ServerWorld;
-
 import java.util.Optional;
+import net.minecraft.server.level.ServerLevel;
 
 public class LootData {
     public static class Fields {
@@ -40,7 +39,7 @@ public class LootData {
         return Optional.ofNullable(randomAddition);
     }
 
-    public int getExperience(ServerWorld world) {
+    public int getExperience(ServerLevel world) {
         int random = getRandomAddition().orElse(0);
         if(random == 0) {
             return baseExperience;

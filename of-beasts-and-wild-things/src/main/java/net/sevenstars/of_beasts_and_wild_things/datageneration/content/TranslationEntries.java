@@ -1,8 +1,8 @@
 package net.sevenstars.of_beasts_and_wild_things.datageneration.content;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
 import java.util.ArrayList;

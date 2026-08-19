@@ -1,0 +1,26 @@
+{
+    "parent":  "minecraft:item/handheld",
+    "textures":  {
+                     "layer0":  "middle-earth:item/sting"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "broken":  1
+                                        },
+                          "model":  "middle-earth:item/sting_broken"
+                      },
+                      {
+                          "predicate":  {
+                                            "glowing":  1
+                                        },
+                          "model":  "middle-earth:item/sting_glowing"
+                      },
+                      {
+                          "predicate":  {
+                                            "middle-earth:sneak_attack":  1
+                                        },
+                          "model":  "middle-earth:item/sting_strike"
+                      }
+                  ]
+}

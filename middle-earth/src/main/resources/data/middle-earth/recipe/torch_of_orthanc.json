@@ -6,12 +6,18 @@
     " R "
   ],
   "key": {
-    "N": "middle-earth:burzum_steel_nugget",
-    "G": "minecraft:glowstone_dust",
-    "I": "middle-earth:burzum_steel_ingot",
+    "N": {
+      "item": "middle-earth:burzum_steel_nugget"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "item": "middle-earth:burzum_steel_ingot"
+    },
     "R": {
-      "fabric:type": "fabric:components",
-      "base": "middle-earth:rod",
+      "type": "neoforge:components",
+      "items": "middle-earth:rod",
       "components": {
         "minecraft:trim": {
           "material": "middle-earth:burzum_steel",

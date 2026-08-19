@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:orange_flowers"
+    {
+      "item": "middle-earth:orange_flowers"
+    }
   ],
   "result": {
     "id": "minecraft:orange_dye"

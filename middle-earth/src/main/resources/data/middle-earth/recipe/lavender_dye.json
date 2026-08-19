@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:lavender"
+    {
+      "item": "middle-earth:lavender"
+    }
   ],
   "result": {
     "id": "minecraft:purple_dye"

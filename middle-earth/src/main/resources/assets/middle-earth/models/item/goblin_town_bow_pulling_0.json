@@ -1,0 +1,6 @@
+{
+    "parent":  "middle-earth:item/longbow",
+    "textures":  {
+                     "layer0":  "middle-earth:item/goblin_town_bow_pulling_0"
+                 }
+}

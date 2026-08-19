@@ -1,0 +1,6 @@
+{
+    "parent":  "middle-earth:item/dagger_strike",
+    "textures":  {
+                     "layer0":  "middle-earth:item/wooden_dagger"
+                 }
+}

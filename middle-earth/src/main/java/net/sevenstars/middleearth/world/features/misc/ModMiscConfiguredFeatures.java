@@ -1,38 +1,38 @@
 package net.sevenstars.middleearth.world.features.misc;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
 import net.sevenstars.middleearth.world.features.columns.ColumnsFeatureConfig;
 import net.sevenstars.middleearth.world.gen.ModFeatures;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.LakeFeature;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 public class ModMiscConfiguredFeatures {
-    public static final RegistryKey<ConfiguredFeature<?, ?>> LAVA_MAGMA_POOL = registerKey("lava_magma_pool");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> SMALL_PUMICE_COLUMNS = registerKey("small_pumice_columns");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> LARGE_PUMICE_COLUMNS = registerKey("large_pumice_columns");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_MAGMA_POOL = registerKey("lava_magma_pool");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_PUMICE_COLUMNS = registerKey("small_pumice_columns");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_PUMICE_COLUMNS = registerKey("large_pumice_columns");
 
-    public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
-        ConfiguredFeatures.register(featureRegisterable, LAVA_MAGMA_POOL, Feature.LAKE,
-                new LakeFeature.Config(BlockStateProvider.of(Blocks.LAVA.getDefaultState()), BlockStateProvider.of(Blocks.MAGMA_BLOCK.getDefaultState())));
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> featureRegisterable) {
+        FeatureUtils.register(featureRegisterable, LAVA_MAGMA_POOL, Feature.LAKE,
+                new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.LAVA.defaultBlockState()), BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState())));
 
-        ConfiguredFeatures.register(featureRegisterable, SMALL_PUMICE_COLUMNS, ModFeatures.COLUMNS,
-                new ColumnsFeatureConfig(ConstantIntProvider.create(1), UniformIntProvider.create(1, 4), StoneBlockSets.PUMICE_SET.baseBlocks.base().getDefaultState()));
-        ConfiguredFeatures.register(featureRegisterable, LARGE_PUMICE_COLUMNS, ModFeatures.COLUMNS,
-                new ColumnsFeatureConfig(UniformIntProvider.create(2, 3), UniformIntProvider.create(4, 7), StoneBlockSets.PUMICE_SET.baseBlocks.base().getDefaultState()));
+        FeatureUtils.register(featureRegisterable, SMALL_PUMICE_COLUMNS, ModFeatures.COLUMNS,
+                new ColumnsFeatureConfig(ConstantInt.of(1), UniformInt.of(1, 4), StoneBlockSets.PUMICE_SET.baseBlocks.base().defaultBlockState()));
+        FeatureUtils.register(featureRegisterable, LARGE_PUMICE_COLUMNS, ModFeatures.COLUMNS,
+                new ColumnsFeatureConfig(UniformInt.of(2, 3), UniformInt.of(4, 7), StoneBlockSets.PUMICE_SET.baseBlocks.base().defaultBlockState()));
     }
 
-    public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(MiddleEarth.MOD_ID, name));
+    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, name));
     }
 }

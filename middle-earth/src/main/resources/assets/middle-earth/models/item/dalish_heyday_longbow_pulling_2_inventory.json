@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/dalish_heyday_longbow_pulling_2_inventory"
+                 }
+}

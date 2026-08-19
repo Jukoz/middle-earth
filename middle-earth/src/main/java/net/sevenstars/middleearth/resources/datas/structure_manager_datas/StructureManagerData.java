@@ -2,10 +2,13 @@ package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /// StructureManagerData is used by StructureManagers. It's a data entity that stores the different properties necessary for
 /// Spawn Nests.
@@ -15,24 +18,28 @@ public class StructureManagerData {
             Codec.list(SpawnNestNodeData.CODEC).fieldOf("spawn_nest").forGetter(StructureManagerData::getNpcSpawnNest)
     ).apply(instance, StructureManagerData::new));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<SpawnNestNodeData> spawnNestNodeData;
+    private final Map<ResourceLocation, SpawnNestNodeData> spawnNestNodesById;
 
     public StructureManagerData(String id, List<SpawnNestNodeData> nests) {
-        this.id = MiddleEarth.fetchId(id);
-        this.spawnNestNodeData = nests;
+        this(MiddleEarth.fetchId(id), nests);
     }
 
-    public StructureManagerData(Identifier id, List<SpawnNestNodeData> nests) {
+    public StructureManagerData(ResourceLocation id, List<SpawnNestNodeData> nests) {
         this.id = id;
-        this.spawnNestNodeData = nests;
+        this.spawnNestNodeData = List.copyOf(nests);
+        this.spawnNestNodesById = new LinkedHashMap<>();
+        for (SpawnNestNodeData nest : this.spawnNestNodeData) {
+            this.spawnNestNodesById.putIfAbsent(nest.getId(), nest);
+        }
     }
 
     private String getIdString() {
         return this.id.toString();
     }
 
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return this.id;
     }
 
@@ -42,12 +49,8 @@ public class StructureManagerData {
         return spawnNestNodeData;
     }
 
-    public SpawnNestNodeData getNpcSpawnNest(Identifier idToCompare) {
-        for (var nest : spawnNestNodeData){
-            if(nest.getId().equals(idToCompare))
-                return nest;
-        }
-        MiddleEarth.LOGGER.logDebugMsg("StructureManagerData :: Couldn't find nest id : %s".formatted(idToCompare));
-        return spawnNestNodeData.getFirst();
+    @Nullable
+    public SpawnNestNodeData getNpcSpawnNest(ResourceLocation idToCompare) {
+        return spawnNestNodesById.get(idToCompare);
     }
 }

@@ -1,25 +1,25 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.entity.CrossbowUser;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.TimeHelper;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.CrossbowAttackMob;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ChargedProjectiles;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
 import java.util.EnumSet;
 
-public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & CrossbowUser> extends Goal {
-    public static final UniformIntProvider COOLDOWN_RANGE = TimeHelper.betweenSeconds(1, 2);
+public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & CrossbowAttackMob> extends Goal {
+    public static final UniformInt COOLDOWN_RANGE = TimeUtil.rangeOfSeconds(1, 2);
     private static int USING_ITEM_FLAG = 1;
     private final T actor;
     private Stage stage = Stage.UNCHARGED;
@@ -34,22 +34,22 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
         this.actor = actor;
         this.speed = speed;
         this.squaredRange = range * range;
-        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         return this.hasAliveTarget() && this.isEntityHoldingCrossbow();
     }
 
     private boolean isEntityHoldingCrossbow() {
-        ItemStack itemStack = actor.getMainHandStack();
-        return (itemStack.isOf(Items.CROSSBOW) || itemStack.isIn(ItemTagsME.CROSSBOW));
+        ItemStack itemStack = actor.getMainHandItem();
+        return (itemStack.is(Items.CROSSBOW) || itemStack.is(ItemTagsME.CROSSBOW));
     }
 
     @Override
-    public boolean shouldContinue() {
-        return this.hasAliveTarget() && (this.canStart() || !this.actor.getNavigation().isIdle()) && this.isEntityHoldingCrossbow();
+    public boolean canContinueToUse() {
+        return this.hasAliveTarget() && (this.canUse() || !this.actor.getNavigation().isDone()) && this.isEntityHoldingCrossbow();
     }
 
     private boolean hasAliveTarget() {
@@ -65,18 +65,18 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
     @Override
     public void stop() {
         super.stop();
-        this.actor.setAttacking(false);
+        this.actor.setAggressive(false);
         this.actor.setTarget(null);
         this.seeingTargetTicker = 0;
         if (this.actor.isUsingItem()) {
-            this.actor.clearActiveItem();
-            this.actor.setCharging(false);
-            this.actor.getActiveItem().set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+            this.actor.stopUsingItem();
+            this.actor.setChargingCrossbow(false);
+            this.actor.getUseItem().set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
         }
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    public boolean requiresUpdateEveryTick() {
         return true;
     }
 
@@ -84,7 +84,7 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
     public void tick() {
         LivingEntity livingEntity = this.actor.getTarget();
         if (livingEntity != null) {
-            boolean canSee = this.actor.getVisibilityCache().canSee(livingEntity);
+            boolean canSee = this.actor.getSensing().hasLineOfSight(livingEntity);
 
             boolean canSeeTargetTicker = this.seeingTargetTicker > 0;
             if (canSee != canSeeTargetTicker) {
@@ -97,45 +97,45 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
                 this.seeingTargetTicker--;
             }
 
-            double distance = this.actor.squaredDistanceTo(livingEntity);
+            double distance = this.actor.distanceToSqr(livingEntity);
             boolean inRange = (distance > this.squaredRange || this.seeingTargetTicker < 5) && this.chargedTicksLeft == 0;
             if (inRange) {
                 this.cooldown--;
                 if (this.cooldown <= 0) {
-                    this.actor.getNavigation().startMovingTo(livingEntity, this.isUncharged() ? this.speed : this.speed * 0.5);
-                    this.cooldown = COOLDOWN_RANGE.get(this.actor.getRandom());
+                    this.actor.getNavigation().moveTo(livingEntity, this.isUncharged() ? this.speed : this.speed * 0.5);
+                    this.cooldown = COOLDOWN_RANGE.sample(this.actor.getRandom());
                 }
             } else {
                 this.cooldown = 0;
                 this.actor.getNavigation().stop();
             }
 
-            this.actor.getLookControl().lookAt(livingEntity, 30.0F, 30.0F);
+            this.actor.getLookControl().setLookAt(livingEntity, 30.0F, 30.0F);
             if (this.stage == Stage.UNCHARGED) {
                 if (!inRange) {
-                    this.actor.setCurrentHand(ProjectileUtil.getHandPossiblyHolding(this.actor, Items.CROSSBOW));
+                    this.actor.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.actor, Items.CROSSBOW));
                     this.stage = Stage.CHARGING;
-                    this.actor.setCharging(true);
+                    this.actor.setChargingCrossbow(true);
                 }
             } else if (this.stage == Stage.CHARGING) {
                 useTicks++;
-                this.actor.setCharging(true);
-                ItemStack itemStack = this.actor.getActiveItem();
+                this.actor.setChargingCrossbow(true);
+                ItemStack itemStack = this.actor.getUseItem();
                 this.actor.setNpcFlag(USING_ITEM_FLAG, true);
-                if (useTicks >= CrossbowItem.getPullTime(itemStack, this.actor)) {
-                    this.actor.stopUsingItem();
+                if (useTicks >= CrossbowItem.getChargeDuration(itemStack, this.actor)) {
+                    this.actor.releaseUsingItem();
                     this.stage = Stage.CHARGED;
                     this.chargedTicksLeft = 30 + this.actor.getRandom().nextInt(15);
-                    this.actor.setCharging(false);
+                    this.actor.setChargingCrossbow(false);
                 }
             } else if (this.stage == Stage.CHARGED) {
                 this.chargedTicksLeft--;
-                this.actor.setCharging(false);
+                this.actor.setChargingCrossbow(false);
                 this.actor.setNpcFlag(USING_ITEM_FLAG, true);
                 if(this.chargedTicksLeft <= 1) {
-                    this.actor.getMainHandStack().set(
-                            DataComponentTypes.CHARGED_PROJECTILES,
-                            ChargedProjectilesComponent.of(new ItemStack(Items.ARROW))
+                    this.actor.getMainHandItem().set(
+                            DataComponents.CHARGED_PROJECTILES,
+                            ChargedProjectiles.of(new ItemStack(Items.ARROW))
                     );
                 }
                 if (this.chargedTicksLeft == 0) {
@@ -143,12 +143,12 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
                 }
             } else if (this.stage == Stage.READY_TO_ATTACK && canSee) {
                 this.actor.shootCrossbowAt(livingEntity);
-                ItemStack crossbow =  this.actor.getMainHandStack();
-                crossbow.remove(DataComponentTypes.CHARGED_PROJECTILES);
-                this.actor.equipStack(EquipmentSlot.MAINHAND, crossbow);
+                ItemStack crossbow =  this.actor.getMainHandItem();
+                crossbow.remove(DataComponents.CHARGED_PROJECTILES);
+                this.actor.setItemSlot(EquipmentSlot.MAINHAND, crossbow);
                 this.stage = Stage.UNCHARGED;
                 this.actor.setNpcFlag(USING_ITEM_FLAG, false);
-                this.actor.stopUsingItem();
+                this.actor.releaseUsingItem();
             }
         }
     }

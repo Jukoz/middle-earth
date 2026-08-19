@@ -1,12 +1,9 @@
 package net.sevenstars.middleearth.client.model.equipment.chest.backAttachments;
 
-import net.minecraft.client.render.entity.state.BipedEntityRenderState;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
-import net.minecraft.client.model.ModelPart;
-import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
-import net.sevenstars.middleearth.client.renderer.BipedEntityRenderStateAccess;
 import net.sevenstars.middleearth.utils.ToRad;
 
 public class CloakCapeModel extends ChestplateAddonModel {
@@ -20,30 +17,22 @@ public class CloakCapeModel extends ChestplateAddonModel {
     }
 
     @Override
-    public void setAngles(BipedEntityRenderState bipedEntityRenderState) {
-        BipedEntityRenderStateAccess renderStateAccess = ((BipedEntityRenderStateAccess)bipedEntityRenderState);
-        if(renderStateAccess != null) {
-            this.cape.traverse().forEach(ModelPart::resetTransform);
-            Vec3d currentVelocity = renderStateAccess.getVelocity();
-            if(currentVelocity == null) currentVelocity = new Vec3d(0, 0, 0);
+    public void setupAnim(LivingEntity entity, float limbAngle, float limbDistance,
+                          float animationProgress, float headYaw, float headPitch) {
+        this.cape.getAllParts().forEach(ModelPart::resetPose);
+        Vec3 velocity = entity.getDeltaMovement();
+        double speed = (velocity.length() * 0.65F) + Math.sqrt(Math.abs(limbDistance)) * 0.35F;
+        double degree;
 
-            double sqrVel = currentVelocity.length();
-            double speed = (sqrVel * 0.65f) + Math.sqrt(Math.abs(bipedEntityRenderState.limbSwingAmplitude)) * 0.35f;
-            double degree;
+        if (entity.isCrouching()) {
+            degree = 5.0F + (speed * (MAX_ANGLE_CLOAK / 2.0F));
+        } else {
+            degree = MAX_ANGLE_CLOAK * speed;
+        }
 
-            if (bipedEntityRenderState.isInSneakingPose) {
-                degree = 5f + (speed * (MAX_ANGLE_CLOAK / 2));
-            } else {
-                degree = (MAX_ANGLE_CLOAK * speed);
-            }
-            degree = Math.max(0.0F, degree);
-            degree = Math.min(MAX_ANGLE_CLOAK, degree);
-
-            double result = renderStateAccess.getVelocity().dotProduct(currentVelocity);
-
-            if(result > 0) {
-                this.cape.pitch = ToRad.ex(degree);
-            }
+        degree = Math.max(0.0F, Math.min(MAX_ANGLE_CLOAK, degree));
+        if (entity.getLookAngle().dot(velocity) > 0.0D) {
+            this.cape.xRot = ToRad.ex(degree);
         }
     }
 }

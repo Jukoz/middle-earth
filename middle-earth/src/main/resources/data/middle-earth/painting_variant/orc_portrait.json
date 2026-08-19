@@ -1,13 +1,5 @@
 {
   "asset_id": "middle-earth:orc_portrait",
   "height": 1,
-  "width": 1,
-  "author": {
-    "color": "gray",
-    "translate": "painting.middle-earth.author.boenndal"
-  },
-  "title": {
-    "color": "yellow",
-    "translate": "painting.middle-earth.orc_portrait.title"
-  }
+  "width": 1
 }

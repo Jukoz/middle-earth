@@ -1,31 +1,26 @@
 package net.sevenstars.middleearth.block.special.plants;
 
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCollisionHandler;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.sevenstars.middleearth.utils.DamageablePlantsUtil;
 
 public class PricklyPlantBlock extends CustomPlantBlock {
-    public PricklyPlantBlock(Settings settings) {
+    public PricklyPlantBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-        if (entity instanceof LivingEntity livingEntity && world instanceof ServerWorld serverWorld) {
-            Vec3d vec3d = entity.isControlledByPlayer() ? entity.getMovement() : entity.getLastRenderPos().subtract(entity.getPos());
-            if (vec3d.horizontalLengthSquared() > 0.0) {
-                double d = Math.abs(vec3d.getX());
-                double e = Math.abs(vec3d.getZ());
-                if (d >= 0.003 || e >= 0.003) {
-                    DamageablePlantsUtil.tryDamageEntity(livingEntity, serverWorld, serverWorld.getDamageSources().cactus());
-                }
+    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
+        if (entity instanceof LivingEntity livingEntity && world instanceof ServerLevel serverWorld) {
+            double xMovement = Math.abs(entity.getX() - entity.xOld);
+            double zMovement = Math.abs(entity.getZ() - entity.zOld);
+            if (xMovement >= 0.003 || zMovement >= 0.003) {
+                DamageablePlantsUtil.tryDamageEntity(livingEntity, serverWorld, serverWorld.damageSources().cactus());
             }
         }
     }

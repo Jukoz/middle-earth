@@ -1,26 +1,25 @@
 package net.sevenstars.middleearth.datageneration.content;
 
-import net.minecraft.client.data.Model;
-import net.minecraft.client.data.TextureKey;
+import net.minecraft.data.models.model.ModelTemplate;
+import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.minecraft.util.Identifier;
-
 import java.util.Optional;
 
 public class CustomItemModels {
-    public static final Model BIG_WEAPON = new Model(Optional.of(
-            MiddleEarth.of("item/big_weapon")), Optional.empty(), TextureKey.LAYER0);
-    public static final Model BIG_WEAPON_STAFF = new Model(Optional.of(
-            MiddleEarth.of("item/big_weapon_staff")), Optional.empty(), TextureKey.LAYER0);
-    public static final Model BIG_WEAPON_BLOCKING = new Model(Optional.of(
-            MiddleEarth.of("item/big_weapon_blocking")), Optional.of("_blocking"), TextureKey.LAYER0);
-    public static final Model BOW = new Model(Optional.of(
-            MiddleEarth.of("item/bow")), Optional.empty(), TextureKey.LAYER0);
-    public static final Model LONGBOW = new Model(Optional.of(
-            MiddleEarth.of("item/longbow")), Optional.empty(), TextureKey.LAYER0);
-    public static final Model DAGGER_STRIKE = new Model(Optional.of(
-            MiddleEarth.of("item/dagger_strike")), Optional.empty(), TextureKey.LAYER0);
+    public static final ModelTemplate BIG_WEAPON = new ModelTemplate(Optional.of(
+            MiddleEarth.of("item/big_weapon")), Optional.empty(), TextureSlot.LAYER0);
+    public static final ModelTemplate BIG_WEAPON_STAFF = new ModelTemplate(Optional.of(
+            MiddleEarth.of("item/big_weapon_staff")), Optional.empty(), TextureSlot.LAYER0);
+    public static final ModelTemplate BIG_WEAPON_BLOCKING = new ModelTemplate(Optional.of(
+            MiddleEarth.of("item/big_weapon_blocking")), Optional.of("_blocking"), TextureSlot.LAYER0);
+    public static final ModelTemplate BOW = new ModelTemplate(Optional.of(
+            MiddleEarth.of("item/bow")), Optional.empty(), TextureSlot.LAYER0);
+    public static final ModelTemplate LONGBOW = new ModelTemplate(Optional.of(
+            MiddleEarth.of("item/longbow")), Optional.empty(), TextureSlot.LAYER0);
+    public static final ModelTemplate DAGGER_STRIKE = new ModelTemplate(Optional.of(
+            MiddleEarth.of("item/dagger_strike")), Optional.empty(), TextureSlot.LAYER0);
 
-    public static final Model CROSSBOW = new Model(Optional.of(
-            Identifier.of("item/crossbow")), Optional.empty(), TextureKey.LAYER0);
+    public static final ModelTemplate CROSSBOW = new ModelTemplate(Optional.of(
+            ResourceLocation.parse("item/crossbow")), Optional.empty(), TextureSlot.LAYER0);
 }

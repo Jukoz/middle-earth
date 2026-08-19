@@ -1,0 +1,14 @@
+{
+    "parent":  "middle-earth:item/big_weapon",
+    "textures":  {
+                     "layer0":  "middle-earth:item/hammer_of_helm_hammerhand"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "broken":  1
+                                        },
+                          "model":  "middle-earth:item/hammer_of_helm_hammerhand_broken"
+                      }
+                  ]
+}

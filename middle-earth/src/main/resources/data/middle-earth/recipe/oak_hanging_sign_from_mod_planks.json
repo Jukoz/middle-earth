@@ -3,8 +3,12 @@
   "category": "misc",
   "group": "hanging_sign",
   "key": {
-    "#": "#middle-earth:mod_stripped_logs",
-    "X": "minecraft:chain"
+    "#": {
+      "tag": "middle-earth:mod_stripped_logs"
+    },
+    "X": {
+      "item": "minecraft:chain"
+    }
   },
   "pattern": [
     "X X",

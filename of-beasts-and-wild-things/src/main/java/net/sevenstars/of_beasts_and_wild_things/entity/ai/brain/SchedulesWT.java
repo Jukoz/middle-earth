@@ -1,15 +1,15 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain;
 
-import net.minecraft.entity.ai.brain.Schedule;
-import net.minecraft.entity.ai.brain.ScheduleBuilder;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.schedule.Schedule;
+import net.minecraft.world.entity.schedule.ScheduleBuilder;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
+import net.sevenstars.api.registries.RegistrationBridge;
 
 public class SchedulesWT {
 
     protected static ScheduleBuilder register(String id) {
-        Schedule schedule = Registry.register(Registries.SCHEDULE, id, new Schedule());
+        Schedule schedule = RegistrationBridge.register(BuiltInRegistries.SCHEDULE, OfBeastsAndWildThings.of(id), new Schedule());
         return new ScheduleBuilder(schedule);
     }
 

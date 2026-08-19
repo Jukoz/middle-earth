@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.world.biomes;
 
+import net.minecraft.world.level.block.Blocks;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.StoneBlockSets;
-import net.minecraft.block.Blocks;
 
 public class MEBiomeDataConfigs {
     // region Slopes

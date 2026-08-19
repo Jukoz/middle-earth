@@ -1,93 +1,93 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class DroopingIciclesBlock extends Block {
-    public static final MapCodec<DroopingIciclesBlock> CODEC = createCodec(DroopingIciclesBlock::new);
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0, 10.0, 2.0, 14.0, 16.0, 14.0);
-    public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
+    public static final MapCodec<DroopingIciclesBlock> CODEC = simpleCodec(DroopingIciclesBlock::new);
+    protected static final VoxelShape SHAPE = Block.box(2.0, 10.0, 2.0, 14.0, 16.0, 14.0);
+    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
 
-    public DroopingIciclesBlock(Settings settings) {
+    public DroopingIciclesBlock(Properties settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(HALF, DoubleBlockHalf.UPPER));
+        registerDefaultState(defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER));
     }
 
-    public MapCodec<DroopingIciclesBlock> getCodec() {
+    public MapCodec<DroopingIciclesBlock> codec() {
         return CODEC;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HALF);
     }
 
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.up();
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(blockPos);
-        return blockState.isSideSolidFullSquare(world, blockPos, Direction.DOWN) || blockState.isOf(this);
+        return blockState.isFaceSturdy(world, blockPos, Direction.DOWN) || blockState.is(this);
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
-        BlockState upState = world.getBlockState(pos.up());
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
+        BlockState upState = world.getBlockState(pos.above());
 
-        if(!upState.isOf(this) && !upState.isSideSolidFullSquare(world, pos, Direction.DOWN)){
-            return Blocks.AIR.getDefaultState();
-        } else if (doubleBlockHalf == DoubleBlockHalf.UPPER && world.getBlockState(pos.down()).isAir()){
-            return state.with(HALF, DoubleBlockHalf.LOWER);
+        if(!upState.is(this) && !upState.isFaceSturdy(world, pos, Direction.DOWN)){
+            return Blocks.AIR.defaultBlockState();
+        } else if (doubleBlockHalf == DoubleBlockHalf.UPPER && world.getBlockState(pos.below()).isAir()){
+            return state.setValue(HALF, DoubleBlockHalf.LOWER);
         } else {
-            return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+            return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
         }
     }
 
-    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        BlockState upState = world.getBlockState(pos.up());
-        if (upState.isOf(this)){
-            world.setBlockState(pos.up(), upState.with(HALF, DoubleBlockHalf.UPPER));
-            world.setBlockState(pos, (BlockState)state.with(HALF, DoubleBlockHalf.LOWER), 3);
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        BlockState upState = world.getBlockState(pos.above());
+        if (upState.is(this)){
+            world.setBlockAndUpdate(pos.above(), upState.setValue(HALF, DoubleBlockHalf.UPPER));
+            world.setBlock(pos, (BlockState)state.setValue(HALF, DoubleBlockHalf.LOWER), 3);
         } else {
-            world.setBlockState(pos, (BlockState)state.with(HALF, DoubleBlockHalf.LOWER), 3);
+            world.setBlock(pos, (BlockState)state.setValue(HALF, DoubleBlockHalf.LOWER), 3);
         }
     }
 
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(HALF) == DoubleBlockHalf.UPPER){
-            return super.getOutlineShape(state, world, pos, context);
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER){
+            return super.getShape(state, world, pos, context);
         } else  {
             return SHAPE;
         }
     }
 
-    protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (!world.isClient) {
+    protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
+        if (!world.isClientSide) {
             BlockPos blockPos = hit.getBlockPos();
-            if (world instanceof ServerWorld) {
-                ServerWorld serverWorld = (ServerWorld)world;
-                if (projectile.canModifyAt(serverWorld, blockPos) && projectile.canBreakBlocks(serverWorld) && projectile instanceof TridentEntity && projectile.getVelocity().length() > 0.6) {
-                    world.breakBlock(blockPos, true);
+            if (world instanceof ServerLevel) {
+                ServerLevel serverWorld = (ServerLevel)world;
+                if (projectile.mayInteract(serverWorld, blockPos) && projectile.mayBreak(serverWorld) && projectile instanceof ThrownTrident && projectile.getDeltaMovement().length() > 0.6) {
+                    world.destroyBlock(blockPos, true);
                 }
             }
 

@@ -1,0 +1,28 @@
+{
+    "parent":  "middle-earth:item/longbow",
+    "textures":  {
+                     "layer0":  "middle-earth:item/erebor_bow"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "pulling":  1
+                                        },
+                          "model":  "middle-earth:item/erebor_bow_pulling_0"
+                      },
+                      {
+                          "predicate":  {
+                                            "pulling":  1,
+                                            "pull":  0.65
+                                        },
+                          "model":  "middle-earth:item/erebor_bow_pulling_1"
+                      },
+                      {
+                          "predicate":  {
+                                            "pulling":  1,
+                                            "pull":  0.9
+                                        },
+                          "model":  "middle-earth:item/erebor_bow_pulling_2"
+                      }
+                  ]
+}

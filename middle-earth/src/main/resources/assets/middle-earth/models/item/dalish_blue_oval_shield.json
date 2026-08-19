@@ -1,8 +1,19 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/dalish_oval_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"1": "middle-earth:item/dalish_blue_oval_shield"
-	}
+    "credit":  "Made with Blockbench",
+    "parent":  "middle-earth:item/dalish_oval_shield_template",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "textures":  {
+                     "1":  "middle-earth:item/dalish_blue_oval_shield"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/dalish_blue_oval_shield_blocking"
+                      }
+                  ]
 }

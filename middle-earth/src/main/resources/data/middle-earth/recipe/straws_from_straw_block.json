@@ -4,7 +4,9 @@
     "#"
   ],
   "key": {
-    "#": "middle-earth:straw_block"
+    "#": {
+      "item": "middle-earth:straw_block"
+    }
   },
   "result": {
     "id": "middle-earth:straw",

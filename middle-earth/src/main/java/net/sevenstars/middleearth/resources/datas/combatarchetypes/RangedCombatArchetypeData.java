@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
 
 public class RangedCombatArchetypeData extends CombatArchetypeData {
@@ -21,13 +20,23 @@ public class RangedCombatArchetypeData extends CombatArchetypeData {
         this.replenishmentDelayAfterShooting = replenishmentDelayAfterShooting;
     }
 
-    public RangedCombatArchetypeData(NbtCompound data) {
+    public RangedCombatArchetypeData(CompoundTag data) {
         super(data);
-        this.precisionModifier = data.getFloat("precision_modifier", 1.0f);
-        this.ammoCountMax = data.getInt("ammo_count_max", 5);
-        this.replenishmentRateInTicks = data.getInt("replenishment_rate", 10);
-        this.replenishmentDelayAfterHurt = data.getInt("replenishment_delay_after_hurt", 100);
-        this.replenishmentDelayAfterShooting = data.getInt("replenishment_delay_after_shooting", 40);
+        this.precisionModifier = data.contains("precision_modifier", Tag.TAG_ANY_NUMERIC)
+                ? data.getFloat("precision_modifier")
+                : 1.0f;
+        this.ammoCountMax = data.contains("ammo_count_max", Tag.TAG_ANY_NUMERIC)
+                ? data.getInt("ammo_count_max")
+                : 5;
+        this.replenishmentRateInTicks = data.contains("replenishment_rate", Tag.TAG_ANY_NUMERIC)
+                ? data.getInt("replenishment_rate")
+                : 10;
+        this.replenishmentDelayAfterHurt = data.contains("replenishment_delay_after_hurt", Tag.TAG_ANY_NUMERIC)
+                ? data.getInt("replenishment_delay_after_hurt")
+                : 100;
+        this.replenishmentDelayAfterShooting = data.contains("replenishment_delay_after_shooting", Tag.TAG_ANY_NUMERIC)
+                ? data.getInt("replenishment_delay_after_shooting")
+                : 40;
     }
 
     @Override
@@ -36,8 +45,8 @@ public class RangedCombatArchetypeData extends CombatArchetypeData {
     };
 
     @Override
-    protected NbtCompound getDataNbt() {
-        NbtCompound nbt = super.getDataNbt();
+    protected CompoundTag getDataNbt() {
+        CompoundTag nbt = super.getDataNbt();
         nbt.putFloat("precision_modifier", this.precisionModifier);
         nbt.putInt("ammo_count_max", this.ammoCountMax);
         nbt.putInt("replenishment_rate", this.replenishmentRateInTicks);

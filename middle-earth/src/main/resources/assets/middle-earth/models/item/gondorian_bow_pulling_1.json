@@ -1,0 +1,6 @@
+{
+    "parent":  "middle-earth:item/bow",
+    "textures":  {
+                     "layer0":  "middle-earth:item/gondorian_bow_pulling_1"
+                 }
+}

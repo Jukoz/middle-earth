@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 600,
   "experience": 0.1,
-  "ingredient": "middle-earth:larch_leaves",
+  "ingredient": {
+    "item": "middle-earth:larch_leaves"
+  },
   "result": {
     "id": "middle-earth:dry_larch_leaves"
   }

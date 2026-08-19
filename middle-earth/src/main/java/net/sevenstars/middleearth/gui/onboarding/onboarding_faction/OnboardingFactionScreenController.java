@@ -1,20 +1,23 @@
 package net.sevenstars.middleearth.gui.onboarding.onboarding_faction;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.neoforged.neoforge.network.PacketDistributor;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -40,14 +43,15 @@ import java.util.*;
 
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
-    private static final Text TITLE = Text.translatable("screen." + MiddleEarth.MOD_ID + ".onboarding_faction_screen");
+    private static final Component TITLE = Component.translatable("screen." + MiddleEarth.MOD_ID + ".onboarding_faction_screen");
     private static final float DEFAULT_DELAY = 3;
 
-    World world;
+    Level world;
     OnboardingFactionScreen screen;
     OnboardingFactionScreenService service;
     private float currentDelay;
     private boolean shouldBeDetailed;
+    private final InteractionHand interactionHand;
 
     private HashMap<DispositionType, List<Faction>> factions;
 
@@ -60,10 +64,20 @@ public class OnboardingFactionScreenController {
     private List<SearchBarResult> searchBarResults;
     private List<AttributePoolElement> playerAttributes;
 
-    public OnboardingFactionScreenController(World world, float delay, List<AttributePoolElement> playerAttributes) {
+    public OnboardingFactionScreenController(Level world, float delay, List<AttributePoolElement> playerAttributes) {
+        this(world, delay, playerAttributes, InteractionHand.MAIN_HAND);
+    }
+
+    public OnboardingFactionScreenController(
+            Level world,
+            float delay,
+            List<AttributePoolElement> playerAttributes,
+            InteractionHand interactionHand
+    ) {
         screen = new OnboardingFactionScreen(this);
         this.world = world;
         this.currentDelay = delay;
+        this.interactionHand = interactionHand;
         this.service = new OnboardingFactionScreenService(world);
         INSTANCE = this;
         this.playerAttributes = playerAttributes;
@@ -74,9 +88,9 @@ public class OnboardingFactionScreenController {
     }
 
     public void open(){
-        MinecraftClient mc = MinecraftClient.getInstance();
-        if(mc.currentScreen != null)
-            mc.currentScreen.close();
+        Minecraft mc = Minecraft.getInstance();
+        if(mc.screen != null)
+            mc.screen.onClose();
         mc.setScreen(screen);
         if(selectedFaction == null){
             screen.elements.mapWidget.zoom(10);
@@ -89,7 +103,7 @@ public class OnboardingFactionScreenController {
     }
 
     public void close(){
-        this.screen.close();
+        this.screen.onClose();
         INSTANCE = null;
     }
 
@@ -122,7 +136,7 @@ public class OnboardingFactionScreenController {
             screen.elements.npcRandomizerButton.active = true;
         }
 
-        this.screen.elements.factionName = (selectedFaction.tryGetShortName()).formatted(Formatting.BOLD).formatted(Formatting.DARK_GRAY);
+        this.screen.elements.factionName = (selectedFaction.tryGetShortName()).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_GRAY);
         if(this.selectedSubfaction != null)
             this.screen.elements.subfactionName = (selectedSubfaction.tryGetShortName());
         else
@@ -187,7 +201,7 @@ public class OnboardingFactionScreenController {
     }
 
     //region [Helpers]
-    private Text getRaceText() {
+    private Component getRaceText() {
         Faction factionToUse = getCurrentFaction();
         if(factionToUse == null) return null;
         StringBuilder raceListStringBuilder = new StringBuilder();
@@ -198,7 +212,7 @@ public class OnboardingFactionScreenController {
              raceListStringBuilder.append(race.getFullName().getString());
         }
 
-        return Text.of(raceListStringBuilder.toString());
+        return Component.nullToEmpty(raceListStringBuilder.toString());
     }
 
     private Faction getCurrentFaction() {
@@ -346,8 +360,13 @@ public class OnboardingFactionScreenController {
         }
 
         selectedRace = currentFaction.getRaces(world).get(index);
+        ResourceLocation npcId = currentFaction.getRandomNpcDataIdentifier();
+        if (npcId == null) {
+            currentNpcEntity = null;
+            return;
+        }
         currentNpcEntity = new NpcEntity(EntitiesME.NPC, world);
-        currentNpcEntity.prepareNpcIdentifier(currentFaction.getRandomNpcDataIdentifier());
+        currentNpcEntity.prepareNpcIdentifier(npcId);
         currentNpcEntity.prepare();
 
         updateNpcPreview();
@@ -361,7 +380,11 @@ public class OnboardingFactionScreenController {
         Faction currentFaction = getCurrentFaction();
 
         if(!forced){
-            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionIdentifier() == currentFaction.getId() && currentNpcEntity.getNpcType().getRace() == selectedRace.getId())
+            if(currentNpcEntity != null
+                    && currentFaction != null
+                    && selectedRace != null
+                    && Objects.equals(currentNpcEntity.getFactionIdentifier(), currentFaction.getId())
+                    && Objects.equals(currentNpcEntity.getNpcType().getRace(), selectedRace.getId()))
                 return;
         }
 
@@ -371,14 +394,14 @@ public class OnboardingFactionScreenController {
         var idList = currentFaction.getAllNpcDatas().values().stream().flatMap(List::stream).toList();
 
         // filter list by race
-        var optionalNpcRegistry = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC_TYPE);
+        var optionalNpcRegistry = world.registryAccess().lookup(DynamicRegistriesME.NPC_TYPE);
         if(optionalNpcRegistry.isEmpty())
             return;
 
         var npcRegistry = optionalNpcRegistry.get();
 
-        var filteredList = new ArrayList<Identifier>();
-        for(Identifier idToFilter : idList){
+        var filteredList = new ArrayList<ResourceLocation>();
+        for(ResourceLocation idToFilter : idList){
             if(filterNpc(npcRegistry, idToFilter))
                 filteredList.add(idToFilter);
         }
@@ -386,13 +409,15 @@ public class OnboardingFactionScreenController {
         if(filteredList.isEmpty())
             return;
 
-        Identifier id = filteredList.get((new Random()).nextInt(filteredList.size()));
-        if(world instanceof ClientWorld clientWorld)
+        ResourceLocation id = filteredList.get((new Random()).nextInt(filteredList.size()));
+        if(world instanceof ClientLevel clientWorld)
             this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, clientWorld, false);
     }
 
-    private boolean filterNpc(Registry<NpcType> registry, Identifier elementToFilter){
-        NpcType foundData = registry.get(elementToFilter);
+    private boolean filterNpc(HolderLookup.RegistryLookup<NpcType> registry, ResourceLocation elementToFilter){
+        NpcType foundData = registry.get(ResourceKey.create(DynamicRegistriesME.NPC_TYPE, elementToFilter))
+                .map(reference -> reference.value())
+                .orElse(null);
         if(foundData == null) return false;
 
         if(selectedRace == null)
@@ -470,16 +495,28 @@ public class OnboardingFactionScreenController {
     }
 
     private void randomize(){
+        if (factions == null || factions.isEmpty()) {
+            return;
+        }
         Random random = new Random();
-        setDisposition(factions.keySet().stream().toList().get(random.nextInt(factions.keySet().size())));
-        setFaction(random.nextInt(factions.get(selectedDispositionType).size()));
+        List<DispositionType> dispositions = factions.keySet().stream().toList();
+        setDisposition(dispositions.get(random.nextInt(dispositions.size())));
+        List<Faction> availableFactions = factions.get(selectedDispositionType);
+        if (availableFactions == null || availableFactions.isEmpty()) {
+            return;
+        }
+        setFaction(random.nextInt(availableFactions.size()));
         if(selectedFaction.getSubFactions() != null && !selectedFaction.getSubFactions().isEmpty())
             setSubfaction(random.nextInt(selectedFaction.getSubFactions().size()));
         else
             selectedSubfaction = null;
 
         Faction factionToUse = getCurrentFaction();
-        setSpawnPoint(random.nextInt(factionToUse.getSpawnAmount()));
+        if (factionToUse == null) {
+            return;
+        }
+        int spawnAmount = factionToUse.getSpawnAmount();
+        setSpawnPoint(spawnAmount > 0 ? random.nextInt(spawnAmount) : null);
 
         List<Race> races = factionToUse.getRaces(world);
         setRace((races == null || races.isEmpty()) ? 0 : random.nextInt(races.size()));
@@ -487,23 +524,19 @@ public class OnboardingFactionScreenController {
 
     public void confirmSelection(){
         Faction faction = getCurrentFaction();
-        if(faction == null) return;
+        if(faction == null || selectedRace == null || selectedSpawn == null) return;
 
-        Vec3d coordinate = selectedSpawn.getCoordinates();
-        if(selectedSpawn.isDynamic()){
-            ClientPlayNetworking.send(new PacketTeleportToDynamicCoordinate(coordinate.getX(), coordinate.getZ(), true));
-        } else {
-            ClientPlayNetworking.send(new PacketTeleportToCustomCoordinate(coordinate.getX(), coordinate.getY(), coordinate.getZ(), true));
-        }
-
-        ClientPlayNetworking.send(new PacketSetRace(selectedRace.getId().toString()));
-        ClientPlayNetworking.send(new PacketSetAffiliation(selectedDispositionType.name(), faction.getId().toString(), selectedSpawn.getIdentifier().toString()));
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        LocalPlayer player = Minecraft.getInstance().player;
         if(player != null){
-            BlockPos overworldBlockPos = player.getBlockPos();
-            ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
+            PacketDistributor.sendToServer(new PacketCompleteOnboarding(
+                    faction.getId(),
+                    selectedRace.getId(),
+                    selectedSpawn.getIdentifier(),
+                    player.blockPosition(),
+                    interactionHand == InteractionHand.OFF_HAND
+            ));
         }
-        screen.close();
+        screen.onClose();
     }
 
     public int getMaxSpawnAmount() {
@@ -536,7 +569,7 @@ public class OnboardingFactionScreenController {
                 if(faction.isJoinable()){
                     newList.add(getSearchBarResult(faction));
                     if(faction.getSubFactions() != null){
-                        for(Identifier subfacId : faction.getSubFactions()){
+                        for(ResourceLocation subfacId : faction.getSubFactions()){
                             try{
                                 Faction subfac = FactionLookup.getFactionById(world, subfacId);
                                 newList.add(getSearchBarResult(faction, subfac));
@@ -551,16 +584,16 @@ public class OnboardingFactionScreenController {
     }
 
     private SearchBarResult getSearchBarResult(Faction faction) {
-        MutableText text = faction.tryGetShortName();
-        Identifier factionId = faction.getId();
+        MutableComponent text = faction.tryGetShortName();
+        ResourceLocation factionId = faction.getId();
         SearchBarResultType type = SearchBarResultType.NORMAL;
         return new SearchBarResult(text, factionId, type, button -> selectFactionByIdentifier(factionId, null));
     }
 
     private SearchBarResult getSearchBarResult(Faction faction, Faction subfaction) {
-        MutableText text = subfaction.tryGetShortName();
-        Identifier factionId = faction.getId();
-        Identifier subfactionId = subfaction.getId();
+        MutableComponent text = subfaction.tryGetShortName();
+        ResourceLocation factionId = faction.getId();
+        ResourceLocation subfactionId = subfaction.getId();
         SearchBarResultType type = SearchBarResultType.SUB;
         return new SearchBarResult(text, subfactionId, type, button -> selectFactionByIdentifier(factionId, subfactionId));
     }
@@ -569,7 +602,7 @@ public class OnboardingFactionScreenController {
         return searchBarResults;
     }
 
-    public void selectFactionByIdentifier(Identifier factionId, Identifier subfactionId){
+    public void selectFactionByIdentifier(ResourceLocation factionId, ResourceLocation subfactionId){
         try{
             Faction faction = FactionLookup.getFactionById(world, factionId);
             setDisposition(faction.getDisposition());
@@ -593,11 +626,11 @@ public class OnboardingFactionScreenController {
         return (Math.round(this.currentDelay * 10f) /10f);
     }
 
-    public Text getCurrentFactionFullName() {
+    public Component getCurrentFactionFullName() {
         return selectedFaction.getFullName();
     }
 
-    public void drawRaceTooltip(AbstractClientPlayerEntity player, DrawContext context, TextRenderer textRenderer, int x, int y) {
+    public void drawRaceTooltip(AbstractClientPlayer player, GuiGraphics context, Font textRenderer, int x, int y) {
         if(selectedRace == null)
             return;
         RaceStatTooltip.draw(selectedRace, player, context, textRenderer, x, y, playerAttributes, shouldBeDetailed);

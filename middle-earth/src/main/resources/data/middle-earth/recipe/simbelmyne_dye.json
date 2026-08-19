@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:simbelmyne"
+    {
+      "item": "middle-earth:simbelmyne"
+    }
   ],
   "result": {
     "id": "minecraft:white_dye"

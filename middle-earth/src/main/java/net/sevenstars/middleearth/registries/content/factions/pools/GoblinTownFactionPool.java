@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;

@@ -1,10 +1,9 @@
 package net.sevenstars.middleearth.item.utils.armor;
 
+import net.minecraft.world.item.Item;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.minecraft.item.Item;
-
 import java.util.HashMap;
 
 public class DyeablePiecesME {

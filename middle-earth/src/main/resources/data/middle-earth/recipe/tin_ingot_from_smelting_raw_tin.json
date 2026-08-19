@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "middle-earth:raw_tin",
+  "ingredient": {
+    "item": "middle-earth:raw_tin"
+  },
   "result": {
     "id": "middle-earth:tin_ingot"
   },

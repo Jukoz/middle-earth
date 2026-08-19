@@ -1,14 +1,34 @@
 package net.sevenstars.middleearth.block.utils;
 
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
-import net.minecraft.block.*;
-import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TransparentBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.WeatheringCopperFullBlock;
+import net.minecraft.world.level.block.WeatheringCopperSlabBlock;
+import net.minecraft.world.level.block.WeatheringCopperStairBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.sevenstars.middleearth.block.registration.ModBlocks;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.TransparentVerticalSlab;
@@ -21,20 +41,20 @@ import java.util.function.Function;
 
 public class BlockSetRegistration {
 
-    public static BlockRecordTypes.RegularSet createRegularSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool) {
+    public static BlockRecordTypes.RegularSet createRegularSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool) {
         Block base;
 
-        AbstractBlock.Settings baseSettings;
+        BlockBehaviour.Properties baseSettings;
         if (requiresTool){
-            baseSettings = AbstractBlock.Settings.create()
-                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool();
+            baseSettings = BlockBehaviour.Properties.of()
+                    .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance).requiresCorrectToolForDrops();
         } else {
-            baseSettings = AbstractBlock.Settings.create()
-                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance);
+            baseSettings = BlockBehaviour.Properties.of()
+                    .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance);
         }
 
         if(pillar){
-            base = getVanillaOrCreateNew(name, PillarBlock::new,
+            base = getVanillaOrCreateNew(name, RotatedPillarBlock::new,
                     baseSettings, group);
         }else{
             base = getVanillaOrCreateNew(name, Block::new,
@@ -51,8 +71,8 @@ public class BlockSetRegistration {
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", VerticalSlabBlock::new,
                 baseSettings, group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairsBlock(
-                base.getDefaultState(), settings), baseSettings, group);
+        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairBlock(
+                base.defaultBlockState(), settings), baseSettings, group);
 
         Block wall = getVanillaOrCreateNew(name + "_wall", WallBlock::new,
                 baseSettings, group);
@@ -60,16 +80,16 @@ public class BlockSetRegistration {
         return new BlockRecordTypes.RegularSet(base, slab, verticalSlab, stairs, wall);
     }
 
-    public static BlockRecordTypes.SimpleBlocks createSimpleSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool) {
+    public static BlockRecordTypes.SimpleBlocks createSimpleSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool) {
         Block base;
 
-        AbstractBlock.Settings baseSettings;
+        BlockBehaviour.Properties baseSettings;
         if (requiresTool){
-            baseSettings = AbstractBlock.Settings.create()
-                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool();
+            baseSettings = BlockBehaviour.Properties.of()
+                    .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance).requiresCorrectToolForDrops();
         } else {
-            baseSettings = AbstractBlock.Settings.create()
-                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance);
+            baseSettings = BlockBehaviour.Properties.of()
+                    .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance);
         }
 
         base = getVanillaOrCreateNew(name, Block::new, baseSettings, group);
@@ -80,43 +100,43 @@ public class BlockSetRegistration {
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", VerticalSlabBlock::new,
                 baseSettings, group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairsBlock(
-                base.getDefaultState(), settings), baseSettings, group);
+        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairBlock(
+                base.defaultBlockState(), settings), baseSettings, group);
 
         return new BlockRecordTypes.SimpleBlocks(base, slab, verticalSlab, stairs);
     }
 
-    public static BlockRecordTypes.RegularSet createOxidizableSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool, Oxidizable.OxidationLevel level) {
+    public static BlockRecordTypes.RegularSet createOxidizableSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, boolean pillar, List<ItemStack> group, boolean requiresTool, WeatheringCopper.WeatherState level) {
         Block base;
 
-        AbstractBlock.Settings baseSettings;
+        BlockBehaviour.Properties baseSettings;
         if (requiresTool){
-            baseSettings = AbstractBlock.Settings.create()
-                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool();
+            baseSettings = BlockBehaviour.Properties.of()
+                    .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance).requiresCorrectToolForDrops();
         } else {
-            baseSettings = AbstractBlock.Settings.create()
-                    .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance);
+            baseSettings = BlockBehaviour.Properties.of()
+                    .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance);
         }
 
         if(pillar){
-            base = getVanillaOrCreateNew(name, PillarBlock::new,
+            base = getVanillaOrCreateNew(name, RotatedPillarBlock::new,
                     baseSettings, group);
         }else{
-            base = getVanillaOrCreateNew(name, (settings) -> new OxidizableBlock(level, settings),
+            base = getVanillaOrCreateNew(name, (settings) -> new WeatheringCopperFullBlock(level, settings),
                     baseSettings, group);
         }
 
         name = name.replaceAll("_bricks", "_brick");
         name = name.replaceAll("_tiles", "_tile");
 
-        Block slab = getVanillaOrCreateNew(name + "_slab",(settings) -> new OxidizableSlabBlock(level, settings),
+        Block slab = getVanillaOrCreateNew(name + "_slab",(settings) -> new WeatheringCopperSlabBlock(level, settings),
                 baseSettings, group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab",(settings) -> new OxidizableVerticalSlabBlock(level, settings),
                 baseSettings, group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new OxidizableStairsBlock(
-                level, base.getDefaultState(), settings), baseSettings, group);
+        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new WeatheringCopperStairBlock(
+                level, base.defaultBlockState(), settings), baseSettings, group);
 
         Block wall = getVanillaOrCreateNew(name + "_wall",(settings) -> new OxidizableWallBlock(level, settings),
                 baseSettings, group);
@@ -124,299 +144,291 @@ public class BlockSetRegistration {
         return new BlockRecordTypes.RegularSet(base, slab, verticalSlab, stairs, wall);
     }
 
-    public static BlockRecordTypes.WoodSet createWoodSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.WoodSet createWoodSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
 
-        Block log = getVanillaOrCreateNew(name + "_log", PillarBlock::new,
-                AbstractBlock.Settings.create()
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance), group);
+        Block log = getVanillaOrCreateNew(name + "_log", RotatedPillarBlock::new,
+                BlockBehaviour.Properties.of()
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance), group);
 
-        Block wood = getVanillaOrCreateNew(name + "_wood", PillarBlock::new,
-                AbstractBlock.Settings.create()
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance), group);
+        Block wood = getVanillaOrCreateNew(name + "_wood", RotatedPillarBlock::new,
+                BlockBehaviour.Properties.of()
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance), group);
 
         Block slab = getVanillaOrCreateNew(name + "_wood_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_wood_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_wood_stairs", (settings) -> new StairsBlock(
-                wood.getDefaultState(), settings), AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+        Block stairs = getVanillaOrCreateNew(name + "_wood_stairs", (settings) -> new StairBlock(
+                wood.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block wall = getVanillaOrCreateNew(name + "_wood_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block fence = getVanillaOrCreateNew(name + "_wood_fence", FenceBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
-        FlammableBlockRegistry.getDefaultInstance().add(log, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(wood, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(wall, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(fence, 5, 5);
+        BlockDataMapCollector.registerFlammable(log, 5, 5);
+        BlockDataMapCollector.registerFlammable(wood, 5, 5);
+        BlockDataMapCollector.registerFlammable(slab, 5, 5);
+        BlockDataMapCollector.registerFlammable(verticalSlab, 5, 5);
+        BlockDataMapCollector.registerFlammable(stairs, 5, 5);
+        BlockDataMapCollector.registerFlammable(wall, 5, 5);
+        BlockDataMapCollector.registerFlammable(fence, 5, 5);
 
-        FuelRegistryEvents.BUILD.register(((builder, context) -> {
-            builder.add(slab, 150);
-            builder.add(stairs, 300);
-            builder.add(verticalSlab, 150);
-            builder.add(wall, 300);
-            builder.add(fence, 300);
-        }));
+        BlockDataMapCollector.registerFuel(slab, 150);
+        BlockDataMapCollector.registerFuel(stairs, 300);
+        BlockDataMapCollector.registerFuel(verticalSlab, 150);
+        BlockDataMapCollector.registerFuel(wall, 300);
+        BlockDataMapCollector.registerFuel(fence, 300);
 
         return new BlockRecordTypes.WoodSet(log, wood, slab, verticalSlab, stairs, wall, fence);
     }
 
-    public static BlockRecordTypes.WoodSet createStemSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.WoodSet createStemSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
 
-        Block log = getVanillaOrCreateNew(name + "_stem", PillarBlock::new,
-                AbstractBlock.Settings.create()
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance), group);
+        Block log = getVanillaOrCreateNew(name + "_stem", RotatedPillarBlock::new,
+                BlockBehaviour.Properties.of()
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance), group);
 
-        Block wood = getVanillaOrCreateNew(name + "_hyphae", PillarBlock::new,
-                AbstractBlock.Settings.create()
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance), group);
+        Block wood = getVanillaOrCreateNew(name + "_hyphae", RotatedPillarBlock::new,
+                BlockBehaviour.Properties.of()
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance), group);
 
         Block slab = getVanillaOrCreateNew(name + "_hyphae_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_hyphae_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_hyphae_stairs", (settings) -> new StairsBlock(
-                wood.getDefaultState(), settings), AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+        Block stairs = getVanillaOrCreateNew(name + "_hyphae_stairs", (settings) -> new StairBlock(
+                wood.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block wall = getVanillaOrCreateNew(name + "_hyphae_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block fence = getVanillaOrCreateNew(name + "_hyphae_fence", FenceBlock::new,
-                AbstractBlock.Settings.copy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(wood).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         return new BlockRecordTypes.WoodSet(log, wood, slab, verticalSlab, stairs, wall, fence);
     }
 
-    public static BlockRecordTypes.MushroomStemSet createMushroomStemSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.MushroomStemSet createMushroomStemSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
 
-        Block stem = getVanillaOrCreateNew(name + "_stem", MushroomBlock::new,
-                AbstractBlock.Settings.create()
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance), group);
+        Block stem = getVanillaOrCreateNew(name + "_stem", HugeMushroomBlock::new,
+                BlockBehaviour.Properties.of()
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance), group);
 
         Block slab = getVanillaOrCreateNew(name + "_stem_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_stem_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_stem_stairs", (settings) -> new StairsBlock(
-                stem.getDefaultState(), settings), AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+        Block stairs = getVanillaOrCreateNew(name + "_stem_stairs", (settings) -> new StairBlock(
+                stem.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block wall = getVanillaOrCreateNew(name + "_stem_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         Block fence = getVanillaOrCreateNew(name + "_stem_fence", FenceBlock::new,
-                AbstractBlock.Settings.copy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(stem).mapColor(mapColor).strength(hardness, blastResistance), group);
 
         return new BlockRecordTypes.MushroomStemSet(stem, slab, verticalSlab, stairs, wall, fence);
     }
 
-    public static BlockRecordTypes.PlanksSet createPlanksSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.PlanksSet createPlanksSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
 
         Block base = getVanillaOrCreateNew(name, Block::new,
-                    AbstractBlock.Settings.create()
-                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance), group);
+                    BlockBehaviour.Properties.of()
+                            .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance), group);
 
         name = name.replaceAll("_planks", "");
 
         Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance), group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance), group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairsBlock(
-                base.getDefaultState(), settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance), group);
+        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) -> new StairBlock(
+                base.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance), group);
 
         Block fence = getVanillaOrCreateNew(name + "_fence", FenceBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance), group);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance), group);
 
         Block gate = getVanillaOrCreateNew(name + "_fence_gate", (settings) -> new FenceGateBlock(
-                WoodType.OAK, settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance), group);
+                WoodType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance), group);
 
-        FlammableBlockRegistry.getDefaultInstance().add(base, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(slab, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(verticalSlab, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(stairs, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(fence, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(gate, 5, 20);
+        BlockDataMapCollector.registerFlammable(base, 5, 20);
+        BlockDataMapCollector.registerFlammable(slab, 5, 20);
+        BlockDataMapCollector.registerFlammable(verticalSlab, 5, 20);
+        BlockDataMapCollector.registerFlammable(stairs, 5, 20);
+        BlockDataMapCollector.registerFlammable(fence, 5, 20);
+        BlockDataMapCollector.registerFlammable(gate, 5, 20);
 
-        FuelRegistryEvents.BUILD.register(((builder, context) -> {
-            builder.add(slab, 150);
-            builder.add(verticalSlab, 150);
-            builder.add(stairs, 300);
-            builder.add(fence, 300);
-            builder.add(gate, 300);
-        }));
+        BlockDataMapCollector.registerFuel(slab, 150);
+        BlockDataMapCollector.registerFuel(verticalSlab, 150);
+        BlockDataMapCollector.registerFuel(stairs, 300);
+        BlockDataMapCollector.registerFuel(fence, 300);
+        BlockDataMapCollector.registerFuel(gate, 300);
 
         return new BlockRecordTypes.PlanksSet(base, slab, verticalSlab, stairs, fence, gate);
     }
 
-    public static BlockRecordTypes.WoodRedstoneBlocks createWoodRedstoneSet(String name, float hardness, float blastResistance, MapColor mapColor, BlockSoundGroup soundGroup, Block base, List<ItemStack> group) {
+    public static BlockRecordTypes.WoodRedstoneBlocks createWoodRedstoneSet(String name, float hardness, float blastResistance, MapColor mapColor, SoundType soundGroup, Block base, List<ItemStack> group) {
 
         Block door = getVanillaOrCreateNew(name + "_door", (settings) -> new DoorBlock(
-                BlockSetType.OAK, settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(), group);
+                BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).mapColor(mapColor).sound(soundGroup).noOcclusion(), group);
 
-        Block trapdoor = getVanillaOrCreateNew(name + "_trapdoor", (settings) -> new TrapdoorBlock(
-                BlockSetType.OAK, settings), AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(), group);
+        Block trapdoor = getVanillaOrCreateNew(name + "_trapdoor", (settings) -> new TrapDoorBlock(
+                BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).mapColor(mapColor).sound(soundGroup).noOcclusion(), group);
 
         Block pressurePlate = getVanillaOrCreateNew(name + "_pressure_plate", (settings) -> new PressurePlateBlock(
-                BlockSetType.OAK, settings), AbstractBlock.Settings.copy(base).strength(0.5f, blastResistance).mapColor(mapColor).sounds(soundGroup).noCollision(), group);
+                BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(base).strength(0.5f, blastResistance).mapColor(mapColor).sound(soundGroup).noCollission(), group);
 
         Block button = getVanillaOrCreateNew(name + "_button", (settings) -> new ButtonBlock(
-                BlockSetType.OAK, 30, settings), AbstractBlock.Settings.copy(base).strength(0.5f, blastResistance).mapColor(mapColor).sounds(soundGroup).noCollision().pistonBehavior(PistonBehavior.DESTROY), group);
+                BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(base).strength(0.5f, blastResistance).mapColor(mapColor).sound(soundGroup).noCollission().pushReaction(PushReaction.DESTROY), group);
 
-        FuelRegistryEvents.BUILD.register(((builder, context) -> {
-            builder.add(button, 100);
-            builder.add(pressurePlate, 300);
-            builder.add(door, 200);
-            builder.add(trapdoor, 200);
-        }));
+        BlockDataMapCollector.registerFuel(button, 100);
+        BlockDataMapCollector.registerFuel(pressurePlate, 300);
+        BlockDataMapCollector.registerFuel(door, 200);
+        BlockDataMapCollector.registerFuel(trapdoor, 200);
 
         return new BlockRecordTypes.WoodRedstoneBlocks(door, trapdoor, pressurePlate, button);
     }
 
-    public static BlockRecordTypes.WoodFurnitureBlocks createWoodFurnitureSet(String name, float hardness, float blastResistance, MapColor mapColor, BlockSoundGroup soundGroup, Block base, List<ItemStack> group) {
+    public static BlockRecordTypes.WoodFurnitureBlocks createWoodFurnitureSet(String name, float hardness, float blastResistance, MapColor mapColor, SoundType soundGroup, Block base, List<ItemStack> group) {
 
         Block table = ModBlocks.registerWoodBlock(name + "_table", WoodTableBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).mapColor(mapColor).sound(soundGroup).noOcclusion(),false);
 
         Block chair = ModBlocks.registerWoodBlock(name + "_chair", WoodChairBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).mapColor(mapColor).sound(soundGroup).noOcclusion(),false);
 
         Block stool = ModBlocks.registerWoodBlock(name + "_stool", WoodStoolBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).mapColor(mapColor).sound(soundGroup).noOcclusion(),false);
 
         Block bench = ModBlocks.registerWoodBlock(name + "_bench", WoodBenchBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).mapColor(mapColor).sound(soundGroup).noOcclusion(),false);
 
         Block ladder = ModBlocks.registerWoodBlock(name + "_ladder", ThickLadderBlock::new,
-                AbstractBlock.Settings.copy(base).sounds(BlockSoundGroup.LADDER).nonOpaque(),false);
+                BlockBehaviour.Properties.ofFullCopy(base).sound(SoundType.LADDER).noOcclusion(),false);
 
-        FlammableBlockRegistry.getDefaultInstance().add(stool, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(bench, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(table, 5, 20);
-        FlammableBlockRegistry.getDefaultInstance().add(chair, 5, 20);
+        BlockDataMapCollector.registerFlammable(stool, 5, 20);
+        BlockDataMapCollector.registerFlammable(bench, 5, 20);
+        BlockDataMapCollector.registerFlammable(table, 5, 20);
+        BlockDataMapCollector.registerFlammable(chair, 5, 20);
 
-        FuelRegistryEvents.BUILD.register(((builder, context) -> {
-            builder.add(table, 300);
-            builder.add(chair, 300);
-            builder.add(bench, 300);
-            builder.add(stool, 300);
-        }));
+        BlockDataMapCollector.registerFuel(table, 300);
+        BlockDataMapCollector.registerFuel(chair, 300);
+        BlockDataMapCollector.registerFuel(bench, 300);
+        BlockDataMapCollector.registerFuel(stool, 300);
 
         return new BlockRecordTypes.WoodFurnitureBlocks(table, chair, stool, bench, ladder);
     }
 
-    public static BlockRecordTypes.BaseStoneSet createMainStoneSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.BaseStoneSet createMainStoneSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
         if (Objects.equals(name, "dripstone"))
         {
             name = "dripstone_block";
         }
 
         Block base = getVanillaOrCreateNew(name, Block::new,
-                AbstractBlock.Settings.create().strength(hardness, blastResistance)
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).requiresTool(), group);
+                BlockBehaviour.Properties.of().strength(hardness, blastResistance)
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).requiresCorrectToolForDrops(), group);
 
         name = name.replaceAll("dripstone_block", "dripstone");
 
         Block slab = getVanillaOrCreateNew(name + "_slab", SlabBlock::new,
-                AbstractBlock.Settings.copy(base), group);
+                BlockBehaviour.Properties.ofFullCopy(base), group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(base), group);
+                BlockBehaviour.Properties.ofFullCopy(base), group);
 
-        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) ->  new StairsBlock(
-                base.getDefaultState(), settings), AbstractBlock.Settings.copy(base), group);
+        Block stairs = getVanillaOrCreateNew(name + "_stairs", (settings) ->  new StairBlock(
+                base.defaultBlockState(), settings), BlockBehaviour.Properties.ofFullCopy(base), group);
 
         Block wall = getVanillaOrCreateNew(name + "_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(base), group);
+                BlockBehaviour.Properties.ofFullCopy(base), group);
 
         Block pressurePlate = getVanillaOrCreateNew(name + "_pressure_plate", (settings) -> new PressurePlateBlock(
-                BlockSetType.STONE, settings), AbstractBlock.Settings.copy(base).noCollision(), group);
+                BlockSetType.STONE, settings), BlockBehaviour.Properties.ofFullCopy(base).noCollission(), group);
 
         Block button = getVanillaOrCreateNew(name + "_button", (settings) -> new ButtonBlock(
-                BlockSetType.STONE, 20, settings), AbstractBlock.Settings.copy(base).noCollision(), group);
+                BlockSetType.STONE, 20, settings), BlockBehaviour.Properties.ofFullCopy(base).noCollission(), group);
 
-        Block trapdoor = getVanillaOrCreateNew(name + "_trapdoor", (settings) -> new TrapdoorBlock(
-                BlockSetType.STONE, settings), AbstractBlock.Settings.copy(base).nonOpaque(), group);
+        Block trapdoor = getVanillaOrCreateNew(name + "_trapdoor", (settings) -> new TrapDoorBlock(
+                BlockSetType.STONE, settings), BlockBehaviour.Properties.ofFullCopy(base).noOcclusion(), group);
 
         Block rocks = getVanillaOrCreateNew(name + "_rocks", RocksBlock::new,
-                AbstractBlock.Settings.copy(base).nonOpaque(), group);
+                BlockBehaviour.Properties.ofFullCopy(base).noOcclusion(), group);
 
         Block stool = getVanillaOrCreateNew(name + "_stool", StoolBlock::new,
-                AbstractBlock.Settings.copy(base).nonOpaque(), group);
+                BlockBehaviour.Properties.ofFullCopy(base).noOcclusion(), group);
 
         Block table = getVanillaOrCreateNew(name + "_table", StoneTableBlock::new,
-                AbstractBlock.Settings.copy(base).nonOpaque(), group);
+                BlockBehaviour.Properties.ofFullCopy(base).noOcclusion(), group);
 
         Block chair = getVanillaOrCreateNew(name + "_chair", StoneChairBlock::new,
-                AbstractBlock.Settings.copy(base).nonOpaque(), group);
+                BlockBehaviour.Properties.ofFullCopy(base).noOcclusion(), group);
 
-        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultStack());
-        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultStack());
-        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultStack());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(stool.asItem().getDefaultInstance());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(table.asItem().getDefaultInstance());
+        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(chair.asItem().getDefaultInstance());
 
         return new BlockRecordTypes.BaseStoneSet(base, slab, verticalSlab, stairs, wall, pressurePlate, button, trapdoor, stool, table, chair, rocks);
     }
 
-    public static BlockRecordTypes.PillarSet createStonePillarSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.PillarSet createStonePillarSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
 
-        Block base = getVanillaOrCreateNew(name, PillarBlock::new,
-                    AbstractBlock.Settings.create()
-                            .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+        Block base = getVanillaOrCreateNew(name, RotatedPillarBlock::new,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance).requiresCorrectToolForDrops(), group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).requiresCorrectToolForDrops(), group);
 
         Block wall = getVanillaOrCreateNew(name + "_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).requiresTool(), group);
+                BlockBehaviour.Properties.ofFullCopy(base).strength(hardness, blastResistance).requiresCorrectToolForDrops(), group);
 
         return new BlockRecordTypes.PillarSet(base, verticalSlab, wall);
     }
 
-    public static BlockRecordTypes.PillarSet createStoneChiseledSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.PillarSet createStoneChiseledSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
 
-        Block block = getVanillaOrCreateNew("chiseled_" + name, PillarBlock::new,
-                AbstractBlock.Settings.create()
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool(), group);
+        Block block = getVanillaOrCreateNew("chiseled_" + name, RotatedPillarBlock::new,
+                BlockBehaviour.Properties.of()
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance).requiresCorrectToolForDrops(), group);
 
         Block verticalSlab = getVanillaOrCreateNew("chiseled_" + name + "_vertical_slab", VerticalSlabBlock::new,
-                AbstractBlock.Settings.copy(block).strength(hardness, blastResistance).requiresTool(), group);
+                BlockBehaviour.Properties.ofFullCopy(block).strength(hardness, blastResistance).requiresCorrectToolForDrops(), group);
 
         Block wall = getVanillaOrCreateNew("chiseled_" + name + "_wall", WallBlock::new,
-                AbstractBlock.Settings.copy(block).strength(hardness, blastResistance).requiresTool(), group);
+                BlockBehaviour.Properties.ofFullCopy(block).strength(hardness, blastResistance).requiresCorrectToolForDrops(), group);
 
         return new BlockRecordTypes.PillarSet(block, verticalSlab, wall);
     }
 
-    public static BlockRecordTypes.CarvedWindow createCarvedWindowSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, BlockSoundGroup soundGroup, List<ItemStack> group) {
+    public static BlockRecordTypes.CarvedWindow createCarvedWindowSet(String name, float hardness, float blastResistance, MapColor mapColor, NoteBlockInstrument instrument, SoundType soundGroup, List<ItemStack> group) {
         Block block = getVanillaOrCreateNew(name, TransparentBlock::new,
-                AbstractBlock.Settings.create()
-                        .mapColor(mapColor).instrument(instrument).sounds(soundGroup).strength(hardness, blastResistance).requiresTool()
-                        .nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never), group);
+                BlockBehaviour.Properties.of()
+                        .mapColor(mapColor).instrument(instrument).sound(soundGroup).strength(hardness, blastResistance).requiresCorrectToolForDrops()
+                        .noOcclusion().isValidSpawn(ModBlocks::never).isRedstoneConductor(ModBlocks::never).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never), group);
 
         Block verticalSlab = getVanillaOrCreateNew(name + "_vertical_slab", TransparentVerticalSlab::new,
-                AbstractBlock.Settings.copy(block).strength(hardness, blastResistance).requiresTool()
-                        .nonOpaque().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never), group);
+                BlockBehaviour.Properties.ofFullCopy(block).strength(hardness, blastResistance).requiresCorrectToolForDrops()
+                        .noOcclusion().isValidSpawn(ModBlocks::never).isRedstoneConductor(ModBlocks::never).isSuffocating(ModBlocks::never).isViewBlocking(ModBlocks::never), group);
 
         return new BlockRecordTypes.CarvedWindow(block, verticalSlab);
     }
 
-    public static Block getVanillaOrCreateNew(String path, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, List<ItemStack> group){
-        if (Registries.BLOCK.get(Identifier.ofVanilla(path)) == Blocks.AIR){
+    public static Block getVanillaOrCreateNew(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings, List<ItemStack> group){
+        if (BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(path)) == Blocks.AIR){
             return ModBlocks.registerBlock(path, factory, settings, false, group);
         } else {
-            return Registries.BLOCK.get(Identifier.ofVanilla(path));
+            return BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(path));
         }
     }
 }

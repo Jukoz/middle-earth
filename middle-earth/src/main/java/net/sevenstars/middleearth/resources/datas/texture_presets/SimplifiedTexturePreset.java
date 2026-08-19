@@ -1,71 +1,79 @@
 package net.sevenstars.middleearth.resources.datas.texture_presets;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.util.Identifier;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class SimplifiedTexturePreset {
-    public Identifier base;
-    public Identifier hair;
-    public Identifier feet;
-    public Identifier nose;
-    public Identifier ear;
+    public ResourceLocation base;
+    public ResourceLocation hair;
+    public ResourceLocation feet;
+    public ResourceLocation nose;
+    public ResourceLocation ear;
 
     public SimplifiedTexturePreset() {
     }
 
-    public SimplifiedTexturePreset(NbtCompound source) {
-        source.getString("base").ifPresent(value -> this.base = MiddleEarth.fetchId(value));
-        source.getString("hair").ifPresent(value -> this.hair = MiddleEarth.fetchId(value));
-        source.getString("feet").ifPresent(value -> this.feet = MiddleEarth.fetchId(value));
-        source.getString("nose").ifPresent(value -> this.nose = MiddleEarth.fetchId(value));
-        source.getString("ear").ifPresent(value -> this.ear = MiddleEarth.fetchId(value));
+    public SimplifiedTexturePreset(CompoundTag source) {
+        if (source.contains("base", Tag.TAG_STRING))
+            this.base = MiddleEarth.fetchId(source.getString("base"));
+        if (source.contains("hair", Tag.TAG_STRING))
+            this.hair = MiddleEarth.fetchId(source.getString("hair"));
+        if (source.contains("feet", Tag.TAG_STRING))
+            this.feet = MiddleEarth.fetchId(source.getString("feet"));
+        if (source.contains("nose", Tag.TAG_STRING))
+            this.nose = MiddleEarth.fetchId(source.getString("nose"));
+        if (source.contains("ear", Tag.TAG_STRING))
+            this.ear = MiddleEarth.fetchId(source.getString("ear"));
     }
 
 
-    public static SimplifiedTexturePreset create(Identifier base) {
+    public static SimplifiedTexturePreset create(ResourceLocation base) {
         SimplifiedTexturePreset texturePreset = new SimplifiedTexturePreset();
         texturePreset.base = base;
         return texturePreset;
     }
 
-    public SimplifiedTexturePreset withHair(Identifier hair){
+    public SimplifiedTexturePreset withHair(ResourceLocation hair){
         this.hair = hair;
         return this;
     }
 
-    public SimplifiedTexturePreset withFeet(Identifier feet){
+    public SimplifiedTexturePreset withFeet(ResourceLocation feet){
         this.feet = feet;
         return this;
     }
 
-    public SimplifiedTexturePreset withNose(Identifier nose){
+    public SimplifiedTexturePreset withNose(ResourceLocation nose){
         this.nose = nose;
         return this;
     }
 
-    public SimplifiedTexturePreset withEar(Identifier ear){
+    public SimplifiedTexturePreset withEar(ResourceLocation ear){
         this.ear = ear;
         return this;
     }
 
 
-    public NbtElement getNbt(NbtElement newNbt) {
+    public Tag getNbt(Tag newNbt) {
+        if (!(newNbt instanceof CompoundTag compound)) {
+            return newNbt;
+        }
         if(base != null){
-            newNbt.asCompound().get().putString("base", this.base.toString());
+            compound.putString("base", this.base.toString());
         }
         if(hair != null){
-            newNbt.asCompound().get().putString("hair", this.hair.toString());
+            compound.putString("hair", this.hair.toString());
         }
         if(feet != null){
-            newNbt.asCompound().get().putString("feet", this.feet.toString());
+            compound.putString("feet", this.feet.toString());
         }
         if(nose != null){
-            newNbt.asCompound().get().putString("nose", this.nose.toString());
+            compound.putString("nose", this.nose.toString());
         }
         if(ear != null){
-            newNbt.asCompound().get().putString("ear", this.ear.toString());
+            compound.putString("ear", this.ear.toString());
         }
         return newNbt;
     }

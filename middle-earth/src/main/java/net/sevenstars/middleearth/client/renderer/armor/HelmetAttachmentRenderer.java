@@ -1,70 +1,76 @@
 package net.sevenstars.middleearth.client.renderer.armor;
 
-import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
-import net.minecraft.client.render.entity.state.BipedEntityRenderState;
-import net.minecraft.component.type.DyedColorComponent;
-import net.sevenstars.middleearth.MiddleEarth;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.sevenstars.middleearth.client.model.equipment.head.helmets.HelmetAddonModel;
+import net.sevenstars.middleearth.client.renderer.RenderResourceCache;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.HelmetAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 
 public class HelmetAttachmentRenderer implements ArmorRenderer {
 
     public HelmetAttachmentRenderer() {
     }
 
-    static void renderDyeableHelmetAttachment(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Model model, Identifier texture, boolean helmet) {
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), stack.hasGlint());
+    static void renderDyeableHelmetAttachment(PoseStack matrices, MultiBufferSource vertexConsumers, int light, ItemStack stack, Model model, ResourceLocation texture, boolean helmet) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(texture), stack.hasFoil());
         int color;
         if (helmet){
-            color =  ColorHelper.fullAlpha(stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachmentColor());
+            color =  (0xFF000000 | (stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachmentColor() & 0xFFFFFF));
         } else {
-            color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
+            color = DyedItemColor.getOrDefault(stack, DyedItemColor.LEATHER_COLOR);
         }
-        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
+        model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, color);
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+    public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
 
         if (slot == EquipmentSlot.HEAD) {
             HelmetAttachmentDataComponent helmetAttachmentDataComponent = stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA);
 
             if(helmetAttachmentDataComponent != null) {
-                Identifier texture;
+                var attachment = helmetAttachmentDataComponent.helmetAttachment();
+                var attachmentTextures =
+                        RenderResourceCache.helmetAttachment(attachment, helmetAttachmentDataComponent.down());
                 HelmetAddonModel helmetAttachmentModel;
                 if (helmetAttachmentDataComponent.down()){
-                    texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + helmetAttachmentDataComponent.helmetAttachment().getName().toLowerCase() + "_down.png");
-                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredDownModel();
+                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels
+                            .valueOf(attachment.name()).getModel().getUnarmoredDownModel();
                 } else {
-                    texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + helmetAttachmentDataComponent.helmetAttachment().getName().toLowerCase() + ".png");
-                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
+                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels
+                            .valueOf(attachment.name()).getModel().getUnarmoredModel();
                 }
-                contextModel.copyTransforms(helmetAttachmentModel);
-                helmetAttachmentModel.setVisible(false);
+                contextModel.copyPropertiesTo(helmetAttachmentModel);
+                helmetAttachmentModel.setAllVisible(false);
                 helmetAttachmentModel.head.visible = true;
                 helmetAttachmentModel.hat.visible = true;
                 if (DyeablePiecesME.dyeableHelmetAttachments.containsKey(helmetAttachmentDataComponent.getHelmetAttachment())) {
-                    renderDyeableHelmetAttachment(matrices, vertexConsumers, light, stack, helmetAttachmentModel, texture, false);
-                    if (DyeablePiecesME.dyeableHelmetAttachments.get(helmetAttachmentDataComponent.helmetAttachment())){
-                        ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
+                    renderDyeableHelmetAttachment(
+                            matrices, vertexConsumers, light, stack, helmetAttachmentModel,
+                            attachmentTextures.base(), false);
+                    if (DyeablePiecesME.dyeableHelmetAttachments.get(attachment)){
+                        ModArmorRenderer.renderTranslucentPiece(
+                                matrices, vertexConsumers, light, stack, helmetAttachmentModel,
+                                attachmentTextures.overlay());
                     }
                 } else {
-                    ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, texture);
+                    ModArmorRenderer.renderTranslucentPiece(
+                            matrices, vertexConsumers, light, stack, helmetAttachmentModel,
+                            attachmentTextures.base());
                 }
             }
         }

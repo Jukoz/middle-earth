@@ -1,14 +1,14 @@
 package net.sevenstars.middleearth.world.biomes.caves;
 
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.math.Vec2f;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.phys.Vec2;
 
 public class CaveBiomeDTO {
-    RegistryKey<Biome> biome;
-    Vec2f coordinates;
+    ResourceKey<Biome> biome;
+    Vec2 coordinates;
 
-    public CaveBiomeDTO(RegistryKey<Biome> biome, Vec2f coordinates) {
+    public CaveBiomeDTO(ResourceKey<Biome> biome, Vec2 coordinates) {
         this.biome = biome;
         this.coordinates = coordinates;
     }

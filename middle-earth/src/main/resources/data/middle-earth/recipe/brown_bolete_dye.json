@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:brown_bolete"
+    {
+      "item": "middle-earth:brown_bolete"
+    }
   ],
   "result": {
     "id": "minecraft:brown_dye"

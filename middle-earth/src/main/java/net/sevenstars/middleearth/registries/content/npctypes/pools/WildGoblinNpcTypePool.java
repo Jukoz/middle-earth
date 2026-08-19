@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Items;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.EntitiesME;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class WildGoblinNpcTypePool {
-    private final static RegistryKey<Faction> FACTION = FactionRegistry.WILD_GOBLINS;
+    private final static ResourceKey<Faction> FACTION = FactionRegistry.WILD_GOBLINS;
     
     private static final int DARK_BROWN_GOBLIN = 0x4a3c34;
 
@@ -51,13 +51,13 @@ public class WildGoblinNpcTypePool {
 
     public static final HashMap<EntityCategories, AttributePool> TANKY_ATTRIBUTES = new HashMap<>(){{
         put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
-            AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.35, 0.45),
-            AttributePoolElement.create(EntityAttributes.ARMOR, 5, 10)
+            AttributePoolElement.create(Attributes.MOVEMENT_SPEED, 0.35, 0.45),
+            AttributePoolElement.create(Attributes.ARMOR, 5, 10)
         )));
     }};
 
     static {
-        GATHERER = new NpcType(NpcRegistry.WILD_GOBLIN_GATHERER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
+        GATHERER = new NpcType(NpcRegistry.WILD_GOBLIN_GATHERER.location(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
             WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -91,7 +91,7 @@ public class WildGoblinNpcTypePool {
                 )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
-        SCOUT = new NpcType(NpcRegistry.WILD_GOBLIN_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
+        SCOUT = new NpcType(NpcRegistry.WILD_GOBLIN_SCOUT.location(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
             WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -124,7 +124,7 @@ public class WildGoblinNpcTypePool {
                 )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
 
-        RIDER = new NpcType(NpcRegistry.WILD_GOBLIN_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
+        RIDER = new NpcType(NpcRegistry.WILD_GOBLIN_RIDER.location(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.DOL_GULDUR_JAILER_COLLAR))
@@ -155,16 +155,16 @@ public class WildGoblinNpcTypePool {
                         )
         ), new HashMap<>(){{
             put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
-                    AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
-                    AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22),
-                    AttributePoolElement.create(EntityAttributes.ARMOR, 5, 10)
+                    AttributePoolElement.create(Attributes.MOVEMENT_SPEED, 0.25, 0.30),
+                    AttributePoolElement.create(Attributes.MAX_HEALTH, 22),
+                    AttributePoolElement.create(Attributes.ARMOR, 5, 10)
             )));
         }}, CombatArchetypePool.DEFAULT, new MountData(EntitiesME.CAVE_TROLL).withPassengerSlots(
                 new MountPassengerSlotData(new MountPassengerData(NpcRegistry.WILD_GOBLIN_SCOUT).withDiscardChance(0.25)),
                 new MountPassengerSlotData(new MountPassengerData(NpcRegistry.WILD_GOBLIN_SCOUT).withDiscardChance(0.25))
         ), NpcLoot.FROM_10_TO_16);
 
-        WARRIOR = new NpcType(NpcRegistry.WILD_GOBLIN_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
+        WARRIOR = new NpcType(NpcRegistry.WILD_GOBLIN_WARRIOR.location(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WARRIOR, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -209,7 +209,7 @@ public class WildGoblinNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
-        BRUTE = new NpcType(NpcRegistry.WILD_GOBLIN_BRUTE.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.WILD_GOBLIN_BRUTE, List.of(
+        BRUTE = new NpcType(NpcRegistry.WILD_GOBLIN_BRUTE.location(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.WILD_GOBLIN_BRUTE, List.of(
             WeightedGearData.create()
                 .add(EquipmentSlot.HEAD, GearSlotPool.create()
                     .add(WeightedItemData.create(Items.AIR).withWeight(3))
@@ -231,11 +231,11 @@ public class WildGoblinNpcTypePool {
                 )
         ), new HashMap<>(){{
             put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
-                    AttributePoolElement.create(EntityAttributes.SCALE, 0.85, 0.91),
-                    AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
-                    AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 28),
+                    AttributePoolElement.create(Attributes.SCALE, 0.85, 0.91),
+                    AttributePoolElement.create(Attributes.MOVEMENT_SPEED, 0.25, 0.30),
+                    AttributePoolElement.create(Attributes.MAX_HEALTH, 28),
                     AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1.0, 1.05),
-                    AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
+                    AttributePoolElement.create(Attributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
                 )
             ));
         }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);

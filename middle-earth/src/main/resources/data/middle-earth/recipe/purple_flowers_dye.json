@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:purple_flowers"
+    {
+      "item": "middle-earth:purple_flowers"
+    }
   ],
   "result": {
     "id": "minecraft:purple_dye"

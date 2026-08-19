@@ -4,7 +4,9 @@
     "#"
   ],
   "key": {
-    "#": "middle-earth:reed_block"
+    "#": {
+      "item": "middle-earth:reed_block"
+    }
   },
   "result": {
     "id": "middle-earth:reeds",

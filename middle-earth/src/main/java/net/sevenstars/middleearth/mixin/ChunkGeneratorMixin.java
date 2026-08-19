@@ -1,19 +1,26 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import org.spongepowered.asm.mixin.Debug;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.sevenstars.middleearth.world.chunkgen.MiddleEarthChunkGenerator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(ChunkGenerator.class)
-public class ChunkGeneratorMixin {
+public abstract class ChunkGeneratorMixin {
+    private static final int MIDDLE_EARTH_BIOME_FEATURE_RADIUS = 4;
 
-    @Debug(export = true)
-    @ModifyArgs(method = "generateFeatures", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/util/math/ChunkPos;stream(Lnet/minecraft/util/math/ChunkPos;I)Ljava/util/stream/Stream;"))
-    private void generateFeatures(Args args) {
-        args.set(1, 4);
+    @ModifyArg(
+            method = "applyBiomeDecoration",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/ChunkPos;rangeClosed(Lnet/minecraft/world/level/ChunkPos;I)Ljava/util/stream/Stream;"
+            ),
+            index = 1
+    )
+    private int middleEarth$restoreAuthoredBiomeFeatureRadius(int radius) {
+        return (Object) this instanceof MiddleEarthChunkGenerator
+                ? MIDDLE_EARTH_BIOME_FEATURE_RADIUS
+                : radius;
     }
 }

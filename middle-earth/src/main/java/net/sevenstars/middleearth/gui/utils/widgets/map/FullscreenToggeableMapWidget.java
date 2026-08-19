@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.GuiGraphics;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 
@@ -9,8 +9,8 @@ public class FullscreenToggeableMapWidget extends MapWidget {
     public FullscreenToggeableMapWidget(int mapWidth, int mapHeight) {
         super(mapWidth, mapHeight);
     }
-    public void drawFullscreen(DrawContext context, int sideMargins) {
-        Vector2i newFullscreenSize = new Vector2i((context.getScaledWindowWidth() - (sideMargins * 2)), (context.getScaledWindowHeight()  - (sideMargins * 2)));
+    public void drawFullscreen(GuiGraphics context, int sideMargins) {
+        Vector2i newFullscreenSize = new Vector2i((context.guiWidth() - (sideMargins * 2)), (context.guiHeight()  - (sideMargins * 2)));
         if(fullscreenSize == null){
             setNewFullscreenState(newFullscreenSize);
         } else {
@@ -18,7 +18,7 @@ public class FullscreenToggeableMapWidget extends MapWidget {
         }
         super.draw(context, sideMargins, sideMargins);
     }
-    public void drawCentered(DrawContext context, int centerX, int startY) {
+    public void drawCentered(GuiGraphics context, int centerX, int startY) {
         if(fullscreenSize != null){
             setNewFullscreenState(null);
         }

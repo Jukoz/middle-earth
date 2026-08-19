@@ -1,58 +1,54 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
 public class SwanBabyModel extends SwanEntityModel{
-    private final Animation walkingAnimation;
-    private final Animation swimmingAnimation;
-    private final Animation sleepingAnimation;
-    private final Animation flapAnimation;
     protected SwanBabyModel(ModelPart root) {
         super(root);
-
-        this.walkingAnimation = SwanEntityAnimations.BABY_WALK.createAnimation(root);
-        this.swimmingAnimation = SwanEntityAnimations.BABY_SWIM.createAnimation(root);
-        this.sleepingAnimation = SwanEntityAnimations.BABY_SLEEP.createAnimation(root);
-        this.flapAnimation = SwanEntityAnimations.BABY_FLAP.createAnimation(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(-0.5F, 21.0F, 0.0F));
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition root = modelPartData.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(-0.5F, 21.0F, 0.0F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create().uv(1, 1).cuboid(-3.0F, -2.0F, -1.0F, 3.0F, 2.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(1.5F, 2.0F, 0.0F));
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(1, 1).addBox(-3.0F, -2.0F, -1.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(1.5F, 2.0F, 0.0F));
 
-        ModelPartData backfeathers_r1 = body.addChild("backfeathers_r1", ModelPartBuilder.create().uv(0, 14).cuboid(-1.5F, -1.2F, -0.8F, 3.0F, 2.0F, 2.0F, new Dilation(-0.1F)), ModelTransform.of(-1.5F, -1.0F, 3.5F, 0.2618F, 0.0F, 0.0F));
+        PartDefinition backfeathers_r1 = body.addOrReplaceChild("backfeathers_r1", CubeListBuilder.create().texOffs(0, 14).addBox(-1.5F, -1.2F, -0.8F, 3.0F, 2.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offsetAndRotation(-1.5F, -1.0F, 3.5F, 0.2618F, 0.0F, 0.0F));
 
-        ModelPartData left_wing = body.addChild("left_wing", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -2.0F, 0.0F));
+        PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create(), PartPose.offset(0.0F, -2.0F, 0.0F));
 
-        ModelPartData cube_r1 = left_wing.addChild("cube_r1", ModelPartBuilder.create().uv(0, 16).cuboid(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3054F));
+        PartDefinition cube_r1 = left_wing.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 16).addBox(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3054F));
 
-        ModelPartData right_wing = body.addChild("right_wing", ModelPartBuilder.create(), ModelTransform.origin(-3.0F, -2.0F, 0.0F));
+        PartDefinition right_wing = body.addOrReplaceChild("right_wing", CubeListBuilder.create(), PartPose.offset(-3.0F, -2.0F, 0.0F));
 
-        ModelPartData cube_r2 = right_wing.addChild("cube_r2", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3054F));
+        PartDefinition cube_r2 = right_wing.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3054F));
 
-        ModelPartData left_leg = body.addChild("left_leg", ModelPartBuilder.create().uv(10, 8).cuboid(-1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F))
-                .uv(1, 1).cuboid(-1.0F, 1.0F, -1.0F, 1.0F, 0.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 1.5F));
+        PartDefinition left_leg = body.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(10, 8).addBox(-1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, new CubeDeformation(0.0F))
+                .texOffs(1, 1).addBox(-1.0F, 1.0F, -1.0F, 1.0F, 0.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 1.5F));
 
-        ModelPartData head = body.addChild("head", ModelPartBuilder.create().uv(0, 7).cuboid(-3.0F, -5.0F, -2.0F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F))
-                .uv(0, 2).cuboid(-2.0F, -3.0F, -3.0F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 7).addBox(-3.0F, -5.0F, -2.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 2).addBox(-2.0F, -3.0F, -3.0F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData right_leg = body.addChild("right_leg", ModelPartBuilder.create().uv(10, 8).mirrored().cuboid(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(1, 1).mirrored().cuboid(0.0F, 1.0F, -1.0F, 1.0F, 0.0F, 1.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(-3.0F, 0.0F, 1.5F));
+        PartDefinition right_leg = body.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(10, 8).mirror().addBox(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(1, 1).mirror().addBox(0.0F, 1.0F, -1.0F, 1.0F, 0.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.0F, 0.0F, 1.5F));
 
-        return TexturedModelData.of(modelData, 32, 32);
+        return LayerDefinition.create(modelData, 32, 32);
     }
 
     @Override
-    public void setAngles(SwanEntityRenderState state) {
-        super.setAngles(state);
-
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.0f, 1.0f);
-        this.swimmingAnimation.apply(state.swimmingAnimationState, state.age);
-        this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
-        this.flapAnimation.apply(state.flapAnimationState, state.age, 3f);
+    public void setupAnim(SwanEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks,
+                          float netHeadYaw, float headPitch) {
+        this.root.getAllParts().forEach(ModelPart::resetPose);
+        this.animateWalk(SwanEntityAnimations.BABY_WALK, limbSwing, limbSwingAmount, 2.0F, 1.0F);
+        this.animate(entity.swimmingAnimationState, SwanEntityAnimations.BABY_SWIM, ageInTicks);
+        this.animate(entity.sleepingAnimationState, SwanEntityAnimations.BABY_SLEEP, ageInTicks);
+        this.animate(entity.flapAnimationState, SwanEntityAnimations.BABY_FLAP, ageInTicks, 3.0F);
     }
 }

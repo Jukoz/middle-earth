@@ -1,67 +1,70 @@
 package net.sevenstars.of_beasts_and_wild_things.entity.pheasant;
 
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
-public class PheasantEntityModel extends EntityModel<PheasantEntityRenderState> {
-    private final Animation walkingAnimation;
-    private final Animation idlingAnimation;
-    private final Animation diggingAnimation;
-    private final Animation flapAnimation;
+public class PheasantEntityModel extends HierarchicalModel<PheasantEntity> {
+    private final ModelPart root;
 
     public PheasantEntityModel(ModelPart root) {
-        super(root);
-        this.walkingAnimation = PheasantEntityAnimations.WALK.createAnimation(root);
-        this.idlingAnimation = PheasantEntityAnimations.IDLE.createAnimation(root);
-        this.diggingAnimation = PheasantEntityAnimations.DIGGING.createAnimation(root);
-        this.flapAnimation = PheasantEntityAnimations.FLAP.createAnimation(root);
+        this.root = root;
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData pheasant = modelPartData.addChild("pheasant", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 25.0F, 0.0F));
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition pheasant = modelPartData.addOrReplaceChild("pheasant", CubeListBuilder.create(), PartPose.offset(0.0F, 25.0F, 0.0F));
 
-        ModelPartData upper_body = pheasant.addChild("upper_body", ModelPartBuilder.create(), ModelTransform.origin(-0.5F, -6.5F, 0.0F));
+        PartDefinition upper_body = pheasant.addOrReplaceChild("upper_body", CubeListBuilder.create(), PartPose.offset(-0.5F, -6.5F, 0.0F));
 
-        ModelPartData body = upper_body.addChild("body", ModelPartBuilder.create().uv(0, 14).cuboid(-2.5F, -2.5F, -3.5F, 5.0F, 5.0F, 7.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.0F, -1.5F));
+        PartDefinition body = upper_body.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 14).addBox(-2.5F, -2.5F, -3.5F, 5.0F, 5.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, -1.5F));
 
-        ModelPartData left_wing = body.addChild("left_wing", ModelPartBuilder.create(), ModelTransform.origin(2.5F, -2.5F, -3.0F));
+        PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create(), PartPose.offset(2.5F, -2.5F, -3.0F));
 
-        ModelPartData cube_r1 = left_wing.addChild("cube_r1", ModelPartBuilder.create().uv(29, 7).cuboid(0.0F, -1.5F, -1.5F, 0.0F, 5.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.513F, 1.4095F, 1.0F, 0.0F, 0.0F, -0.3491F));
+        PartDefinition cube_r1 = left_wing.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(29, 7).addBox(0.0F, -1.5F, -1.5F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.513F, 1.4095F, 1.0F, 0.0F, 0.0F, -0.3491F));
 
-        ModelPartData right_wing = body.addChild("right_wing", ModelPartBuilder.create(), ModelTransform.origin(-2.5F, -2.5F, -3.0F));
+        PartDefinition right_wing = body.addOrReplaceChild("right_wing", CubeListBuilder.create(), PartPose.offset(-2.5F, -2.5F, -3.0F));
 
-        ModelPartData cube_r2 = right_wing.addChild("cube_r2", ModelPartBuilder.create().uv(29, 7).mirrored().cuboid(0.0F, -1.5F, -1.5F, 0.0F, 5.0F, 7.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-0.513F, 1.4095F, 1.0F, 0.0F, 0.0F, 0.3491F));
+        PartDefinition cube_r2 = right_wing.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(29, 7).mirror().addBox(0.0F, -1.5F, -1.5F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.513F, 1.4095F, 1.0F, 0.0F, 0.0F, 0.3491F));
 
-        ModelPartData tail = body.addChild("tail", ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -1.5F, -0.1F, 5.0F, 3.0F, 11.0F, new Dilation(0.1F)), ModelTransform.origin(0.0F, -1.0F, 3.5F));
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -1.5F, -0.1F, 5.0F, 3.0F, 11.0F, new CubeDeformation(0.1F)), PartPose.offset(0.0F, -1.0F, 3.5F));
 
-        ModelPartData head_and_neck = upper_body.addChild("head_and_neck", ModelPartBuilder.create(), ModelTransform.origin(0.5F, -1.5F, -5.0F));
+        PartDefinition head_and_neck = upper_body.addOrReplaceChild("head_and_neck", CubeListBuilder.create(), PartPose.offset(0.5F, -1.5F, -5.0F));
 
-        ModelPartData neck = head_and_neck.addChild("neck", ModelPartBuilder.create().uv(21, 0).cuboid(-1.5F, -1.75F, -5.0F, 3.0F, 6.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-0.5F, -2.25F, 4.0F));
+        PartDefinition neck = head_and_neck.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(21, 0).addBox(-1.5F, -1.75F, -5.0F, 3.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -2.25F, 4.0F));
 
-        ModelPartData head = head_and_neck.addChild("head", ModelPartBuilder.create().uv(4, 6).cuboid(-1.0F, -1.0F, -4.5F, 2.0F, 1.0F, 1.0F, new Dilation(0.0F))
-                .uv(17, 14).cuboid(-1.5F, -2.0F, -3.5F, 3.0F, 2.0F, 5.0F, new Dilation(0.0F))
-                .uv(4, 27).cuboid(1.5F, -4.0F, -3.5F, 0.0F, 5.0F, 5.0F, new Dilation(0.0F))
-                .uv(4, 27).cuboid(-1.499F, -4.0F, -3.5F, 0.0F, 5.0F, 5.0F, new Dilation(0.0F))
-                .uv(20, 22).cuboid(-1.5F, -3.0F, -3.5F, 3.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(-0.5F, -4.0F, 0.5F));
+        PartDefinition head = head_and_neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(4, 6).addBox(-1.0F, -1.0F, -4.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(17, 14).addBox(-1.5F, -2.0F, -3.5F, 3.0F, 2.0F, 5.0F, new CubeDeformation(0.0F))
+                .texOffs(4, 27).addBox(1.5F, -4.0F, -3.5F, 0.0F, 5.0F, 5.0F, new CubeDeformation(0.0F))
+                .texOffs(4, 27).addBox(-1.499F, -4.0F, -3.5F, 0.0F, 5.0F, 5.0F, new CubeDeformation(0.0F))
+                .texOffs(20, 22).addBox(-1.5F, -3.0F, -3.5F, 3.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -4.0F, 0.5F));
 
-        ModelPartData left_leg = pheasant.addChild("left_leg", ModelPartBuilder.create().uv(0, 14).cuboid(-0.1F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, new Dilation(0.0F))
-                .uv(0, 3).cuboid(-1.1F, 4.0F, -2.0F, 3.0F, 0.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(1.0F, -5.0F, -1.0F));
+        PartDefinition left_leg = pheasant.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 14).addBox(-0.1F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 3).addBox(-1.1F, 4.0F, -2.0F, 3.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, -5.0F, -1.0F));
 
-        ModelPartData right_leg = pheasant.addChild("right_leg", ModelPartBuilder.create().uv(0, 26).cuboid(-0.9F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, new Dilation(0.0F))
-                .uv(0, 0).cuboid(-1.9F, 4.0F, -2.0F, 3.0F, 0.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-2.0F, -5.0F, -1.0F));
-        return TexturedModelData.of(modelData, 64, 64);
+        PartDefinition right_leg = pheasant.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 26).addBox(-0.9F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 0).addBox(-1.9F, 4.0F, -2.0F, 3.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -5.0F, -1.0F));
+        return LayerDefinition.create(modelData, 64, 64);
     }
 
     @Override
-    public void setAngles(PheasantEntityRenderState state) {
-        super.setAngles(state);
+    public ModelPart root() {
+        return this.root;
+    }
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 5.0F, 5.0F);
-        this.idlingAnimation.apply(state.idleAnimationState, state.age);
-        this.diggingAnimation.apply(state.diggingAnimationState, state.age, 1.2F);
-        this.flapAnimation.apply(state.flapAnimationState, state.age, 2.0F);
+    @Override
+    public void setupAnim(PheasantEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks,
+                          float netHeadYaw, float headPitch) {
+        this.root.getAllParts().forEach(ModelPart::resetPose);
+        this.animateWalk(PheasantEntityAnimations.WALK, limbSwing, limbSwingAmount, 5.0F, 5.0F);
+        this.animate(entity.idleAnimationState, PheasantEntityAnimations.IDLE, ageInTicks);
+        this.animate(entity.diggingAnimationState, PheasantEntityAnimations.DIGGING, ageInTicks, 1.2F);
+        this.animate(entity.flapAnimationState, PheasantEntityAnimations.FLAP, ageInTicks, 2.0F);
     }
 }

@@ -6,8 +6,12 @@
     " R "
   ],
   "key": {
-    "R": "middle-earth:red_agate_shard",
-    "H": "#middle-earth:thatchy"
+    "R": {
+      "item": "middle-earth:red_agate_shard"
+    },
+    "H": {
+      "tag": "middle-earth:thatchy"
+    }
   },
   "result": {
     "id": "minecraft:target",

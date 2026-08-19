@@ -7,8 +7,12 @@
     "###"
   ],
   "key": {
-    "#": "#minecraft:logs",
-    "M": "#middle-earth:mushrooms"
+    "#": {
+      "tag": "minecraft:logs"
+    },
+    "M": {
+      "tag": "middle-earth:mushrooms"
+    }
   },
   "result": {
     "id": "middle-earth:rotten_log",

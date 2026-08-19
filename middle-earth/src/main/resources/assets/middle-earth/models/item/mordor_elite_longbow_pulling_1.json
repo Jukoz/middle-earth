@@ -1,0 +1,6 @@
+{
+    "parent":  "middle-earth:item/longbow",
+    "textures":  {
+                     "layer0":  "middle-earth:item/mordor_elite_longbow_pulling_1"
+                 }
+}

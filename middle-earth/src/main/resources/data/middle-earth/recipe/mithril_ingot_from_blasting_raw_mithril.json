@@ -1,6 +1,8 @@
 {
   "type": "minecraft:blasting",
-  "ingredient": "middle-earth:raw_mithril",
+  "ingredient": {
+    "item": "middle-earth:raw_mithril"
+  },
   "result": {
     "id": "middle-earth:mithril_ingot"
   },

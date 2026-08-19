@@ -6,8 +6,12 @@
     "S"
   ],
   "key": {
-    "V": "#middle-earth:vegetable",
-    "S": "minecraft:stick"
+    "V": {
+      "tag": "middle-earth:vegetable"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "middle-earth:vegetable_skewer",

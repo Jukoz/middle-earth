@@ -1,0 +1,12 @@
+{
+  "name": "middle-earth:gondor_village_decoration",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 1
+    }
+  ]
+}

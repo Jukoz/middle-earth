@@ -11,8 +11,8 @@
           "base": 0.5,
           "per_level_above_first": 0.5
         },
-        "attribute": "minecraft:entity_interaction_range",
-        "id": "minecraft:middle-earth.vantage",
+        "attribute": "minecraft:player.entity_interaction_range",
+        "id": "middle-earth:enchantment.vantage",
         "operation": "add_value"
       }
     ]

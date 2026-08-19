@@ -6,8 +6,12 @@
     " S "
   ],
   "key": {
-    "M": "middle-earth:crude_ingot",
-    "S": "minecraft:stick"
+    "M": {
+      "item": "middle-earth:crude_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "middle-earth:crude_smithing_hammer",

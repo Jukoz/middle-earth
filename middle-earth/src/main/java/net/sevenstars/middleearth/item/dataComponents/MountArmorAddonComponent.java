@@ -3,8 +3,8 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 
 public record MountArmorAddonComponent(boolean topArmorAddon, boolean sideArmorAddon) {
 
@@ -17,7 +17,7 @@ public record MountArmorAddonComponent(boolean topArmorAddon, boolean sideArmorA
     public static final Codec<MountArmorAddonComponent> CODEC = Codec.withAlternative(BASE_CODEC, Codec.BOOL, (enabled) -> {
         return new MountArmorAddonComponent(false, false);
     });
-    public static final PacketCodec<ByteBuf, MountArmorAddonComponent> PACKET_CODEC  = PacketCodec.tuple(PacketCodecs.BOOLEAN, MountArmorAddonComponent::topArmorAddon, PacketCodecs.BOOLEAN, MountArmorAddonComponent::sideArmorAddon, MountArmorAddonComponent::new);
+    public static final StreamCodec<ByteBuf, MountArmorAddonComponent> PACKET_CODEC  = StreamCodec.composite(ByteBufCodecs.BOOL, MountArmorAddonComponent::topArmorAddon, ByteBufCodecs.BOOL, MountArmorAddonComponent::sideArmorAddon, MountArmorAddonComponent::new);
     ;
 
     public MountArmorAddonComponent(boolean topArmorAddon, boolean sideArmorAddon) {

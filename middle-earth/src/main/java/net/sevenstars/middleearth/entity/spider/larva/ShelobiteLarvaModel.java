@@ -1,78 +1,82 @@
 package net.sevenstars.middleearth.entity.spider.larva;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderState;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
-public class ShelobiteLarvaModel extends EntityModel<ShelobiteScuttlerRenderState> {
+public class ShelobiteLarvaModel extends HierarchicalModel<ShelobiteLarvaEntity> {
     private final ModelPart root;
 
-    private final Animation walkingAnimation;
-    private final Animation biteAnimation;
-
     public ShelobiteLarvaModel(ModelPart root) {
-        super(root);
         this.root = root.getChild("root");
-
-        this.walkingAnimation = ShelobiteLarvaAnimations.SHELOBITE_LARVA_WALK.createAnimation(root);
-        this.biteAnimation = ShelobiteLarvaAnimations.SHELOBITE_LARVA_BITE.createAnimation(root);
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 23.5F, 5.0F));
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition root = modelPartData.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 23.5F, 5.0F));
 
-        ModelPartData abdomen = root.addChild("abdomen", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -1.5F, -3.0F));
+        PartDefinition abdomen = root.addOrReplaceChild("abdomen", CubeListBuilder.create(), PartPose.offset(0.0F, -1.5F, -3.0F));
 
-        ModelPartData cube_r1 = abdomen.addChild("cube_r1", ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -2.0F, -1.5F, 5.0F, 3.0F, 5.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -0.2F, 0.5F, 0.1745F, 0.0F, 0.0F));
+        PartDefinition cube_r1 = abdomen.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.0F, -1.5F, 5.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -0.2F, 0.5F, 0.1745F, 0.0F, 0.0F));
 
-        ModelPartData core = root.addChild("core", ModelPartBuilder.create().uv(0, 11).cuboid(-1.5F, -0.95F, -1.2F, 3.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.05F, -5.8F));
+        PartDefinition core = root.addOrReplaceChild("core", CubeListBuilder.create().texOffs(0, 11).addBox(-1.5F, -0.95F, -1.2F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.05F, -5.8F));
 
-        ModelPartData leg_left = core.addChild("leg_left", ModelPartBuilder.create(), ModelTransform.origin(1.5F, -0.45F, 0.3F));
+        PartDefinition leg_left = core.addOrReplaceChild("leg_left", CubeListBuilder.create(), PartPose.offset(1.5F, -0.45F, 0.3F));
 
-        ModelPartData leg_left_front = leg_left.addChild("leg_left_front", ModelPartBuilder.create(), ModelTransform.of(-0.2617F, 0.65F, 0.0804F, -1.5708F, 1.0472F, 0.0F));
+        PartDefinition leg_left_front = leg_left.addOrReplaceChild("leg_left_front", CubeListBuilder.create(), PartPose.offsetAndRotation(-0.2617F, 0.65F, 0.0804F, -1.5708F, 1.0472F, 0.0F));
 
-        ModelPartData cube_r2 = leg_left_front.addChild("cube_r2", ModelPartBuilder.create().uv(0, 17).cuboid(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.2182F, 0.0F));
+        PartDefinition cube_r2 = leg_left_front.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 17).addBox(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.2182F, 0.0F));
 
-        ModelPartData leg_left_center_front = leg_left.addChild("leg_left_center_front", ModelPartBuilder.create(), ModelTransform.of(-0.2617F, 0.65F, 0.0804F, -1.6411F, 0.6474F, -0.2534F));
+        PartDefinition leg_left_center_front = leg_left.addOrReplaceChild("leg_left_center_front", CubeListBuilder.create(), PartPose.offsetAndRotation(-0.2617F, 0.65F, 0.0804F, -1.6411F, 0.6474F, -0.2534F));
 
-        ModelPartData cube_r3 = leg_left_center_front.addChild("cube_r3", ModelPartBuilder.create().uv(0, 17).cuboid(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
+        PartDefinition cube_r3 = leg_left_center_front.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(0, 17).addBox(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
 
-        ModelPartData leg_left_center_back = leg_left.addChild("leg_left_center_back", ModelPartBuilder.create(), ModelTransform.of(-0.2617F, 0.65F, 0.0804F, -1.5327F, -0.1704F, -0.2214F));
+        PartDefinition leg_left_center_back = leg_left.addOrReplaceChild("leg_left_center_back", CubeListBuilder.create(), PartPose.offsetAndRotation(-0.2617F, 0.65F, 0.0804F, -1.5327F, -0.1704F, -0.2214F));
 
-        ModelPartData cube_r4 = leg_left_center_back.addChild("cube_r4", ModelPartBuilder.create().uv(0, 17).cuboid(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
+        PartDefinition cube_r4 = leg_left_center_back.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(0, 17).addBox(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
 
-        ModelPartData leg_left_back = leg_left.addChild("leg_left_back", ModelPartBuilder.create(), ModelTransform.of(-0.2617F, 0.65F, 0.0804F, -1.4338F, -0.5522F, -0.257F));
+        PartDefinition leg_left_back = leg_left.addOrReplaceChild("leg_left_back", CubeListBuilder.create(), PartPose.offsetAndRotation(-0.2617F, 0.65F, 0.0804F, -1.4338F, -0.5522F, -0.257F));
 
-        ModelPartData cube_r5 = leg_left_back.addChild("cube_r5", ModelPartBuilder.create().uv(0, 17).cuboid(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
+        PartDefinition cube_r5 = leg_left_back.addOrReplaceChild("cube_r5", CubeListBuilder.create().texOffs(0, 17).addBox(-0.1608F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
 
-        ModelPartData leg_right = core.addChild("leg_right", ModelPartBuilder.create(), ModelTransform.origin(-1.5F, -0.45F, 0.3F));
+        PartDefinition leg_right = core.addOrReplaceChild("leg_right", CubeListBuilder.create(), PartPose.offset(-1.5F, -0.45F, 0.3F));
 
-        ModelPartData leg_right_front = leg_right.addChild("leg_right_front", ModelPartBuilder.create(), ModelTransform.of(0.2617F, 0.65F, 0.0804F, -1.5708F, -1.0472F, 0.0F));
+        PartDefinition leg_right_front = leg_right.addOrReplaceChild("leg_right_front", CubeListBuilder.create(), PartPose.offsetAndRotation(0.2617F, 0.65F, 0.0804F, -1.5708F, -1.0472F, 0.0F));
 
-        ModelPartData cube_r6 = leg_right_front.addChild("cube_r6", ModelPartBuilder.create().uv(0, 17).mirrored().cuboid(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-0.1608F, 0.0804F, 0.5F, -1.5708F, -0.2182F, 0.0F));
+        PartDefinition cube_r6 = leg_right_front.addOrReplaceChild("cube_r6", CubeListBuilder.create().texOffs(0, 17).mirror().addBox(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.1608F, 0.0804F, 0.5F, -1.5708F, -0.2182F, 0.0F));
 
-        ModelPartData leg_right_center_front = leg_right.addChild("leg_right_center_front", ModelPartBuilder.create(), ModelTransform.of(0.2617F, 0.65F, 0.0804F, -1.6411F, -0.6474F, 0.2534F));
+        PartDefinition leg_right_center_front = leg_right.addOrReplaceChild("leg_right_center_front", CubeListBuilder.create(), PartPose.offsetAndRotation(0.2617F, 0.65F, 0.0804F, -1.6411F, -0.6474F, 0.2534F));
 
-        ModelPartData cube_r7 = leg_right_center_front.addChild("cube_r7", ModelPartBuilder.create().uv(0, 17).mirrored().cuboid(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
+        PartDefinition cube_r7 = leg_right_center_front.addOrReplaceChild("cube_r7", CubeListBuilder.create().texOffs(0, 17).mirror().addBox(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
 
-        ModelPartData leg_right_center_back = leg_right.addChild("leg_right_center_back", ModelPartBuilder.create(), ModelTransform.of(0.2617F, 0.65F, 0.0804F, -1.5327F, 0.1704F, 0.2214F));
+        PartDefinition leg_right_center_back = leg_right.addOrReplaceChild("leg_right_center_back", CubeListBuilder.create(), PartPose.offsetAndRotation(0.2617F, 0.65F, 0.0804F, -1.5327F, 0.1704F, 0.2214F));
 
-        ModelPartData cube_r8 = leg_right_center_back.addChild("cube_r8", ModelPartBuilder.create().uv(0, 17).mirrored().cuboid(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
+        PartDefinition cube_r8 = leg_right_center_back.addOrReplaceChild("cube_r8", CubeListBuilder.create().texOffs(0, 17).mirror().addBox(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
 
-        ModelPartData leg_right_back = leg_right.addChild("leg_right_back", ModelPartBuilder.create(), ModelTransform.of(0.2617F, 0.65F, 0.0804F, -1.4338F, 0.5522F, 0.257F));
+        PartDefinition leg_right_back = leg_right.addOrReplaceChild("leg_right_back", CubeListBuilder.create(), PartPose.offsetAndRotation(0.2617F, 0.65F, 0.0804F, -1.4338F, 0.5522F, 0.257F));
 
-        ModelPartData cube_r9 = leg_right_back.addChild("cube_r9", ModelPartBuilder.create().uv(0, 17).mirrored().cuboid(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(-0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
-        return TexturedModelData.of(modelData, 32, 32);
+        PartDefinition cube_r9 = leg_right_back.addOrReplaceChild("cube_r9", CubeListBuilder.create().texOffs(0, 17).mirror().addBox(-3.8392F, -1.5F, -0.0804F, 4.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.1608F, 0.0804F, 0.5F, -1.5708F, 0.0F, 0.0F));
+        return LayerDefinition.create(modelData, 32, 32);
     }
 
     @Override
-    public void setAngles(ShelobiteScuttlerRenderState state) {
-        super.setAngles(state);
+    public ModelPart root() {
+        return this.root;
+    }
 
-        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 3F, 2.5F);
-        this.biteAnimation.apply(state.biteAnimationState, state.age, 1.25f);
+    @Override
+    public void setupAnim(ShelobiteLarvaEntity entity, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root.getAllParts().forEach(ModelPart::resetPose);
+        this.animateWalk(ShelobiteLarvaAnimations.SHELOBITE_LARVA_WALK,
+                limbSwing, limbSwingAmount, 3.0F, 2.5F);
+        this.animate(entity.biteAnimation, ShelobiteLarvaAnimations.SHELOBITE_LARVA_BITE,
+                ageInTicks, 1.25F);
     }
 }

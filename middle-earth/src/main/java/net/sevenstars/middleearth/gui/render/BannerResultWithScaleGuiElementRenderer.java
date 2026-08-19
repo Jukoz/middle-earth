@@ -1,43 +1,53 @@
 package net.sevenstars.middleearth.gui.render;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.render.SpecialGuiElementRenderer;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
-import net.minecraft.client.render.model.ModelBaker;
-import net.minecraft.client.util.math.MatrixStack;
-import net.sevenstars.middleearth.gui.render.states.BannerResultWithScaleGuiElementRenderState;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.blockentity.BannerRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
-@Environment(EnvType.CLIENT)
-public class BannerResultWithScaleGuiElementRenderer extends InstancedGuiElementRenderer<BannerResultWithScaleGuiElementRenderState> {
-    public BannerResultWithScaleGuiElementRenderer(VertexConsumerProvider.Immediate immediate) {
-        super(immediate);
+@OnlyIn(Dist.CLIENT)
+public final class BannerResultWithScaleGuiElementRenderer {
+    private BannerResultWithScaleGuiElementRenderer() {
     }
 
-    public Class<BannerResultWithScaleGuiElementRenderState> getElementClass() {
-        return BannerResultWithScaleGuiElementRenderState.class;
-    }
-
-    protected void render(BannerResultWithScaleGuiElementRenderState bannerResultWithStateGuiElementRenderState, MatrixStack matrixStack) {
-        MinecraftClient.getInstance().gameRenderer.getDiffuseLighting().setShaderLights(DiffuseLighting.Type.ITEMS_FLAT);
-        matrixStack.translate(0.0F, 0.25F, 0.0F);
-        BannerBlockEntityRenderer.renderCanvas(
-                matrixStack,
-                this.vertexConsumers,
+    public static void render(
+            GuiGraphics graphics,
+            ModelPart flag,
+            DyeColor baseColor,
+            BannerPatternLayers patterns,
+            int x,
+            int y,
+            float scale
+    ) {
+        Lighting.setupForFlatItems();
+        PoseStack pose = graphics.pose();
+        pose.pushPose();
+        pose.translate(x, y, 0.0F);
+        pose.scale(scale, scale, 1.0F);
+        pose.translate(0.5F, -0.5F, 0.5F);
+        pose.scale(0.6666667F, 0.6666667F, -0.6666667F);
+        flag.xRot = 0.0F;
+        flag.y = -32.0F;
+        BannerRenderer.renderPatterns(
+                pose,
+                graphics.bufferSource(),
                 15728880,
-                OverlayTexture.DEFAULT_UV,
-                bannerResultWithStateGuiElementRenderState.flag(),
-                ModelBaker.BANNER_BASE,
+                OverlayTexture.NO_OVERLAY,
+                flag,
+                ModelBakery.BANNER_BASE,
                 true,
-                bannerResultWithStateGuiElementRenderState.baseColor(),
-                bannerResultWithStateGuiElementRenderState.resultBannerPatterns());
-    }
-
-    protected String getName() {
-        return "banner result";
+                baseColor,
+                patterns
+        );
+        pose.popPose();
+        graphics.flush();
+        Lighting.setupFor3DItems();
     }
 }

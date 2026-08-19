@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.Vec3i;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;

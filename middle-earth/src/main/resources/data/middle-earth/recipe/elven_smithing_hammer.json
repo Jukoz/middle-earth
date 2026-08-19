@@ -6,8 +6,12 @@
     " S "
   ],
   "key": {
-    "M": "middle-earth:edhel_steel_ingot",
-    "S": "minecraft:stick"
+    "M": {
+      "item": "middle-earth:edhel_steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "middle-earth:elven_smithing_hammer",

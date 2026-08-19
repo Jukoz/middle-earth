@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:cobblestone"
+    {
+      "item": "minecraft:cobblestone"
+    }
   ],
   "result": {
     "id": "middle-earth:pebble",

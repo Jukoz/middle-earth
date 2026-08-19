@@ -6,8 +6,12 @@
     "WWW"
   ],
   "key": {
-    "S": "#minecraft:stone_crafting_materials",
-    "W": "#minecraft:logs"
+    "S": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "W": {
+      "tag": "minecraft:logs"
+    }
   },
   "result": {
     "id": "middle-earth:stone_anvil",

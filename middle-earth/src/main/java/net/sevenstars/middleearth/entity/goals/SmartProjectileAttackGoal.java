@@ -1,17 +1,17 @@
 package net.sevenstars.middleearth.entity.goals;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.sevenstars.middleearth.entity.goals.interfaces.CooldownRangedAttackMob;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
 public class SmartProjectileAttackGoal extends Goal {
-	private final MobEntity mob;
+	private final Mob mob;
 	private final CooldownRangedAttackMob owner;
 	@Nullable
 	private LivingEntity target;
@@ -29,19 +29,19 @@ public class SmartProjectileAttackGoal extends Goal {
 			throw new IllegalArgumentException("ProjectileAttackGoal requires Mob implements RangedAttackMob");
 		} else {
 			this.owner = mob;
-			this.mob = (MobEntity)mob;
+			this.mob = (Mob)mob;
 			this.mobSpeed = mobSpeed;
 			this.minIntervalTicks = minIntervalTicks;
 			this.maxIntervalTicks = maxIntervalTicks;
 			this.minShootRange = minShootRange;
 			this.maxShootRange = maxShootRange;
 			this.squaredMaxShootRange = maxShootRange * maxShootRange;
-			this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+			this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
 		}
 	}
 
 	@Override
-	public boolean canStart() {
+	public boolean canUse() {
 		LivingEntity livingEntity = this.mob.getTarget();
 		if (livingEntity != null && livingEntity.isAlive()) {
 			this.target = livingEntity;
@@ -57,10 +57,10 @@ public class SmartProjectileAttackGoal extends Goal {
 	}
 
 	@Override
-	public boolean shouldContinue() {
+	public boolean canContinueToUse() {
 		boolean shouldContinue = this.target.isAlive();
 		shouldContinue &= isInbound();
-		if(this.target instanceof PlayerEntity playerEntity) {
+		if(this.target instanceof Player playerEntity) {
 			shouldContinue &= !(playerEntity.isSpectator() || playerEntity.isCreative());
 		}
 		return shouldContinue;
@@ -69,7 +69,7 @@ public class SmartProjectileAttackGoal extends Goal {
 	@Override
 	public void start() {
 		super.start();
-		int cooldown = mob.getRandom().nextBetween(minIntervalTicks, maxIntervalTicks);
+		int cooldown = mob.getRandom().nextIntBetweenInclusive(minIntervalTicks, maxIntervalTicks);
 		owner.setRangeAttackCooldown(cooldown);
 	}
 
@@ -81,14 +81,14 @@ public class SmartProjectileAttackGoal extends Goal {
 	}
 
 	@Override
-	public boolean shouldRunEveryTick() {
+	public boolean requiresUpdateEveryTick() {
 		return true;
 	}
 
 	@Override
 	public void tick() {
-		double d = this.mob.squaredDistanceTo(this.target.getX(), this.target.getY(), this.target.getZ());
-		boolean bl = this.mob.getVisibilityCache().canSee(this.target);
+		double d = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
+		boolean bl = this.mob.getSensing().hasLineOfSight(this.target);
 		if (bl) {
 			this.seenTargetTicks++;
 		} else {
@@ -98,22 +98,22 @@ public class SmartProjectileAttackGoal extends Goal {
 		if (!(d > this.squaredMaxShootRange) && this.seenTargetTicks >= 5) {
 			this.mob.getNavigation().stop();
 		} else {
-			this.mob.getNavigation().startMovingTo(this.target, this.mobSpeed);
+			this.mob.getNavigation().moveTo(this.target, this.mobSpeed);
 		}
 
-		this.mob.getLookControl().lookAt(this.target, 30.0F, 30.0F);
+		this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
 		if (--this.updateCountdownTicks == 0) {
 			if (!bl) {
 				return;
 			}
 
 			float f = (float)Math.sqrt(d) / this.maxShootRange;
-			float g = MathHelper.clamp(f, 0.1F, 1.0F);
-			this.owner.shootAt(this.target, g);
-			this.updateCountdownTicks = MathHelper.floor(f * (this.maxIntervalTicks - this.minIntervalTicks) + this.minIntervalTicks);
+			float g = Mth.clamp(f, 0.1F, 1.0F);
+			this.owner.performRangedAttack(this.target, g);
+			this.updateCountdownTicks = Mth.floor(f * (this.maxIntervalTicks - this.minIntervalTicks) + this.minIntervalTicks);
 		} else if (this.updateCountdownTicks < 0) {
-			this.updateCountdownTicks = MathHelper.floor(
-				MathHelper.lerp(Math.sqrt(d) / this.maxShootRange, (double)this.minIntervalTicks, (double)this.maxIntervalTicks)
+			this.updateCountdownTicks = Mth.floor(
+				Mth.lerp(Math.sqrt(d) / this.maxShootRange, (double)this.minIntervalTicks, (double)this.maxIntervalTicks)
 			);
 		}
 	}

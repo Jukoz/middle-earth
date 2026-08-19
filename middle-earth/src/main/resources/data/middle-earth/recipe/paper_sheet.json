@@ -4,7 +4,9 @@
     "PP"
   ],
   "key": {
-    "P": "minecraft:paper"
+    "P": {
+      "item": "minecraft:paper"
+    }
   },
   "result": {
     "id": "middle-earth:paper_sheet",

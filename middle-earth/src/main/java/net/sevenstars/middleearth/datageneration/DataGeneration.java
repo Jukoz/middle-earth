@@ -1,22 +1,14 @@
 package net.sevenstars.middleearth.datageneration;
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
-import net.sevenstars.middleearth.datageneration.providers.BlockLootTableProvider;
-import net.sevenstars.middleearth.datageneration.providers.DataWorldGenerator;
-import net.sevenstars.middleearth.datageneration.providers.EnchantmentProvider;
-import net.sevenstars.middleearth.datageneration.providers.LanguageProvider;
-import net.sevenstars.middleearth.datageneration.providers.models.BlockModelProvider;
-import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvider;
-import net.sevenstars.middleearth.datageneration.providers.recipes.*;
-import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
-import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
 import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
-import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.CharacterMaterialsRegistryME;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -29,7 +21,6 @@ import net.sevenstars.middleearth.world.features.misc.ModMiscConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.misc.ModMiscPlacedFeatures;
 import net.sevenstars.middleearth.world.features.ores.OreConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.ores.OrePlacedFeatures;
-import net.sevenstars.middleearth.world.features.platedfood.PlatedFoodConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.ModTreeConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.ModTreePlacedFeatures;
 import net.sevenstars.middleearth.world.features.tree.MushroomTreeConfiguredFeatures;
@@ -38,71 +29,66 @@ import net.sevenstars.middleearth.world.features.underground.CavesPlacedFeatures
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.vegetation.ModVegetationPlacedFeatures;
 
-public class DataGeneration implements DataGeneratorEntrypoint {
+public final class DataGeneration {
     public static boolean isDataGen = false;
 
-    @Override
-    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        isDataGen = true;
-
-        HelpingGenerator.generateFiles();
-
-        var pack = fabricDataGenerator.createPack();
-        // Atlases
-        AtlasesME.addProviders(pack);
-        // Custom Dynamic Registries
-        DynamicRegistriesME.addProviders(pack);
-        // Others
-        pack.addProvider(InscriptionRecipeProvider::new);
-        pack.addProvider(BlockTagProvider::new);
-        pack.addProvider(BlockLootTableProvider::new);
-        pack.addProvider(ItemTagProvider::new);
-        pack.addProvider(BlockModelProvider::new);
-        pack.addProvider(ItemModelProvider::new);
-        pack.addProvider(RecipeProvider::new);
-        pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
-        pack.addProvider(ArtisanTableArmorRecipeProvider::new);
-        pack.addProvider(ArtisanTableGenericArmorRecipeProvider::new);
-        pack.addProvider(DataWorldGenerator::new);
-        pack.addProvider(LanguageProvider::new);
-        pack.addProvider(EnchantmentProvider::new);
+    private DataGeneration() {
     }
 
-    @Override
-    public void buildRegistry(RegistryBuilder registryBuilder) {
-        DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
-        registryBuilder.addRegistry(RegistryKeys.BIOME, ModBiomes::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.BIOME, ModCaveBiomes::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModTreeConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModVegetationConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, BoulderConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, OreConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, CavesConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModMiscConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, MushroomTreeConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ChainConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModTreePlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModVegetationPlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, BoulderPlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, OrePlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModMiscPlacedFeatures::bootstrap);
+    public static RegistrySetBuilder createRegistrySetBuilder() {
+        return buildRegistryEntries(new RegistrySetBuilder());
+    }
 
-        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsRegistryME::bootstrapSkins);
-        registryBuilder.addRegistry(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsRegistryME::bootstrapSkins);
+    public static RegistrySetBuilder createCompleteLookupRegistrySetBuilder() {
+        RegistrySetBuilder registryBuilder = createRegistrySetBuilder();
+        registryBuilder.add(Registries.ENCHANTMENT, EnchantmentsME::bootstrap);
+        registryBuilder.add(Registries.TRIM_MATERIAL, SmithingTrimMaterialsME::bootstrap);
+        registryBuilder.add(Registries.TRIM_PATTERN, SmithingTrimPatternsME::bootstrap);
+        return registryBuilder;
+    }
 
-        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_MATERIAL, CharacterMaterialsRegistryME::bootstrapHairs);
-        registryBuilder.addRegistry(DynamicRegistriesME.HAIR_PATTERN, CharacterPatternsRegistryME::bootstrapHairs);
+    public static RegistrySetBuilder buildRegistryEntries(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.BIOME, DataGeneration::bootstrapBiomes);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, DataGeneration::bootstrapConfiguredFeatures);
+        registryBuilder.add(Registries.PLACED_FEATURE, DataGeneration::bootstrapPlacedFeatures);
 
-        registryBuilder.addRegistry(DynamicRegistriesME.EYE_MATERIAL, CharacterMaterialsRegistryME::bootstrapEyes);
-        registryBuilder.addRegistry(DynamicRegistriesME.EYE_PATTERN, CharacterPatternsRegistryME::bootstrapEyes);
+        registryBuilder.add(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsRegistryME::bootstrapSkins);
+        registryBuilder.add(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsRegistryME::bootstrapSkins);
+
+        registryBuilder.add(DynamicRegistriesME.HAIR_MATERIAL, CharacterMaterialsRegistryME::bootstrapHairs);
+        registryBuilder.add(DynamicRegistriesME.HAIR_PATTERN, CharacterPatternsRegistryME::bootstrapHairs);
+
+        registryBuilder.add(DynamicRegistriesME.EYE_MATERIAL, CharacterMaterialsRegistryME::bootstrapEyes);
+        registryBuilder.add(DynamicRegistriesME.EYE_PATTERN, CharacterPatternsRegistryME::bootstrapEyes);
 
         // Mod Dynamic
         DynamicRegistriesME.prepareBoostrap(registryBuilder);
 
-        // Vanilla registries
-        registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, SmithingTrimMaterialsME::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.TRIM_PATTERN, SmithingTrimPatternsME::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.ENCHANTMENT, EnchantmentsME::bootstrap);
+        return registryBuilder;
+    }
+
+    private static void bootstrapBiomes(BootstrapContext<Biome> context) {
+        ModBiomes.bootstrap(context);
+        ModCaveBiomes.bootstrap(context);
+    }
+
+    private static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+        ModTreeConfiguredFeatures.bootstrap(context);
+        ModVegetationConfiguredFeatures.bootstrap(context);
+        BoulderConfiguredFeatures.bootstrap(context);
+        OreConfiguredFeatures.bootstrap(context);
+        CavesConfiguredFeatures.bootstrap(context);
+        ModMiscConfiguredFeatures.bootstrap(context);
+        MushroomTreeConfiguredFeatures.bootstrap(context);
+        ChainConfiguredFeatures.bootstrap(context);
+    }
+
+    private static void bootstrapPlacedFeatures(BootstrapContext<PlacedFeature> context) {
+        ModTreePlacedFeatures.bootstrap(context);
+        ModVegetationPlacedFeatures.bootstrap(context);
+        BoulderPlacedFeatures.bootstrap(context);
+        OrePlacedFeatures.bootstrap(context);
+        CavesPlacedFeatures.bootstrap(context);
+        ModMiscPlacedFeatures.bootstrap(context);
     }
 }

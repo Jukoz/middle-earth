@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -51,7 +51,7 @@ public class WoodlandRealmFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.ELK, DyeColor.BROWN)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(FactionRegistry.WOODLAND_REALM.getValue().getPath(),  "elvenkings_halls"), new Vector2d(1957, 766))
+                        new SpawnData(MiddleEarth.of(FactionRegistry.WOODLAND_REALM.location().getPath(),  "elvenkings_halls"), new Vector2d(1957, 766))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),

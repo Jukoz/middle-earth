@@ -1,17 +1,16 @@
 package net.sevenstars.middleearth.resources.datas.races;
 
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributeModifierElement;
@@ -31,15 +30,15 @@ public class RaceStatTooltip {
     private static final String listStart = "●";
     private static final String modifierSpacing = "   ";
 
-    private static List<Text> tooltipText;
+    private static List<Component> tooltipText;
 
-    public static void draw(Race race, LivingEntity entity, DrawContext context, TextRenderer renderer, int x, int y, List<AttributePoolElement> playerAttributes, boolean detailed){
+    public static void draw(Race race, LivingEntity entity, GuiGraphics context, Font renderer, int x, int y, List<AttributePoolElement> playerAttributes, boolean detailed){
         tooltipText = new ArrayList<>();
         addRaceName(race);
         addAttributeListHeader();
 
         boolean hasAttribute = false;
-        var registry = entity.getWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
+        var registry = entity.level().registryAccess().registryOrThrow(Registries.ATTRIBUTE);
         List<AttributePoolElement> nextBoundAttributes = race.getBaseAttributePool().getPool();
         for (AttributePoolElement currentEntityAttribute : playerAttributes){
             hasAttribute = addAttributeLine(entity, registry, currentEntityAttribute, nextBoundAttributes, detailed) || hasAttribute;
@@ -48,24 +47,26 @@ public class RaceStatTooltip {
             addNoAttributeChanges();
         }
 
-        context.drawTooltip(renderer, tooltipText, x, y);
+        context.renderComponentTooltip(renderer, tooltipText, x, y);
     }
 
     private static void addRaceName(Race race) {
-        tooltipText.add(race.getFullName().formatted(Formatting.BOLD).formatted(Formatting.WHITE));
+        tooltipText.add(race.getFullName().withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.WHITE));
     }
 
     private static void addAttributeListHeader() {
-        tooltipText.add(Text.translatable(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip")).formatted(Formatting.GRAY));
+        tooltipText.add(Component.translatable(MiddleEarth.of("attribute_header").toLanguageKey("race_tooltip")).withStyle(ChatFormatting.GRAY));
     }
 
     private static void addNoAttributeChanges() {
-        tooltipText.add(Text.translatable(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip")).formatted(Formatting.DARK_GRAY));
+        tooltipText.add(Component.translatable(MiddleEarth.of("no_attribute_change").toLanguageKey("race_tooltip")).withStyle(ChatFormatting.DARK_GRAY));
     }
 
-    private static boolean addAttributeLine(LivingEntity entity, Registry<EntityAttribute> registry, AttributePoolElement currentEntityAttribute, List<AttributePoolElement> nextBoundAttributes, boolean detailed) {
-        Identifier attributeId = currentEntityAttribute.getIdentifier();
-        boolean buffIsReversed = registry.getEntry(attributeId).get().isIn(TagKey.of(RegistryKeys.ATTRIBUTE, MiddleEarth.of("is_buff_reversed")));
+    private static boolean addAttributeLine(LivingEntity entity, Registry<Attribute> registry, AttributePoolElement currentEntityAttribute, List<AttributePoolElement> nextBoundAttributes, boolean detailed) {
+        ResourceLocation attributeId = currentEntityAttribute.getIdentifier();
+        boolean buffIsReversed = registry.getHolder(attributeId)
+                .map(attribute -> attribute.is(TagKey.create(Registries.ATTRIBUTE, MiddleEarth.of("is_buff_reversed"))))
+                .orElse(false);
 
         AttributePoolElement nextAttribute = nextBoundAttributes.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier())).findFirst().orElse(null);
 
@@ -75,7 +76,7 @@ public class RaceStatTooltip {
         double expectedNextValue = nextAttribute == null ? defaultValue : nextAttribute.getValue();
 
         // Compare modifiers
-        List<Text> modifierTexts = new ArrayList<>();
+        List<Component> modifierTexts = new ArrayList<>();
 
         List<AttributeModifierElement> currentModifiers = filterAttributeModifiers(currentEntityAttribute);
         List<AttributeModifierElement> nextBoundModifiers = filterAttributeModifiers(nextAttribute);
@@ -134,52 +135,52 @@ public class RaceStatTooltip {
 
             for (var modifiedModifier : modifiedModifierList){
                 String sign = betterSign;
-                Formatting formatting = Formatting.GREEN;
+                ChatFormatting formatting = ChatFormatting.GREEN;
 
                 AttributeModifierElement nextModifier = nextBoundModifiers.stream().filter(x -> x.getIdentifier().equals(modifiedModifier.getIdentifier())).findAny().orElse(null);
                 if(modifiedModifier.getValue() > nextModifier.getValue()){
                     sign = worstSign;
-                    formatting = Formatting.RED;
+                    formatting = ChatFormatting.RED;
                 }
 
-                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
-                modifierLine.append(Text.literal(" " + sign + " ").formatted(formatting));
-                modifierLine.append(Text.translatable("attribute.modifiers." + modifiedModifier.getIdentifier().getPath()).formatted(Formatting.GRAY));
-                modifierLine.append(Text.literal(" ["+ modifiedModifier.getValue() + " " + continuationSign + " " + nextModifier.getValue() + "] ").formatted(Formatting.WHITE));
+                MutableComponent modifierLine = Component.literal(modifierSpacing + listStart).withStyle(ChatFormatting.GOLD);
+                modifierLine.append(Component.literal(" " + sign + " ").withStyle(formatting));
+                modifierLine.append(Component.translatable("attribute.modifiers." + modifiedModifier.getIdentifier().getPath()).withStyle(ChatFormatting.GRAY));
+                modifierLine.append(Component.literal(" ["+ modifiedModifier.getValue() + " " + continuationSign + " " + nextModifier.getValue() + "] ").withStyle(ChatFormatting.WHITE));
                 double difference = nextModifier.getValue() - modifiedModifier.getValue();
                 String differencePrefix = (difference > 0) ? "+" : "";
-                modifierLine.append(Text.literal("(" + differencePrefix + round(difference) + ")").formatted(Formatting.GRAY));
+                modifierLine.append(Component.literal("(" + differencePrefix + round(difference) + ")").withStyle(ChatFormatting.GRAY));
                 modifierTexts.add(modifierLine);
             }
 
             for (var addedModifier : addedModifiersList){
-                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
-                modifierLine.append(Text.literal(" " + additionSign + " ").formatted(Formatting.GREEN));
-                modifierLine.append(Text.translatable("attribute.modifiers." + addedModifier.getIdentifier().getPath()).formatted(Formatting.GRAY));
-                modifierLine.append(Text.literal(" ["+ addedModifier.getValue() + "] ").formatted(Formatting.WHITE));
+                MutableComponent modifierLine = Component.literal(modifierSpacing + listStart).withStyle(ChatFormatting.GOLD);
+                modifierLine.append(Component.literal(" " + additionSign + " ").withStyle(ChatFormatting.GREEN));
+                modifierLine.append(Component.translatable("attribute.modifiers." + addedModifier.getIdentifier().getPath()).withStyle(ChatFormatting.GRAY));
+                modifierLine.append(Component.literal(" ["+ addedModifier.getValue() + "] ").withStyle(ChatFormatting.WHITE));
                 modifierTexts.add(modifierLine);
             }
 
             for (var unchangedModifier : unchangedModifierList){
-                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
-                modifierLine.append(Text.literal(" " + equalSign + " ").formatted(Formatting.GRAY));
-                modifierLine.append(Text.translatable("attribute.modifiers." + unchangedModifier.getIdentifier().getPath()).formatted(Formatting.GRAY));
-                modifierLine.append(Text.literal(" ["+ unchangedModifier.getValue() + " " + continuationSign + " " + unchangedModifier.getValue() + "] ").formatted(Formatting.WHITE));
+                MutableComponent modifierLine = Component.literal(modifierSpacing + listStart).withStyle(ChatFormatting.GOLD);
+                modifierLine.append(Component.literal(" " + equalSign + " ").withStyle(ChatFormatting.GRAY));
+                modifierLine.append(Component.translatable("attribute.modifiers." + unchangedModifier.getIdentifier().getPath()).withStyle(ChatFormatting.GRAY));
+                modifierLine.append(Component.literal(" ["+ unchangedModifier.getValue() + " " + continuationSign + " " + unchangedModifier.getValue() + "] ").withStyle(ChatFormatting.WHITE));
                 modifierTexts.add(modifierLine);
             }
 
             for (var removedModifier : removedModifiersList){
-                MutableText modifierLine = Text.literal(modifierSpacing + listStart).formatted(Formatting.GOLD);
-                modifierLine.append(Text.literal(" " + removedSign + " ").formatted(Formatting.DARK_GRAY));
-                modifierLine.append(Text.translatable("attribute.modifiers." + removedModifier.getIdentifier().getPath()).formatted(Formatting.DARK_GRAY));
-                modifierLine.append(Text.literal(" ["+ removedModifier.getValue() + "] ").formatted(Formatting.WHITE));
+                MutableComponent modifierLine = Component.literal(modifierSpacing + listStart).withStyle(ChatFormatting.GOLD);
+                modifierLine.append(Component.literal(" " + removedSign + " ").withStyle(ChatFormatting.DARK_GRAY));
+                modifierLine.append(Component.translatable("attribute.modifiers." + removedModifier.getIdentifier().getPath()).withStyle(ChatFormatting.DARK_GRAY));
+                modifierLine.append(Component.literal(" ["+ removedModifier.getValue() + "] ").withStyle(ChatFormatting.WHITE));
                 modifierTexts.add(modifierLine);
             }
         }
 
         // The new race does not include that attribute
-        Formatting signFormatting = Formatting.GRAY;
-        Formatting textFormatting = Formatting.GRAY;
+        ChatFormatting signFormatting = ChatFormatting.GRAY;
+        ChatFormatting textFormatting = ChatFormatting.GRAY;
         String sign = equalSign;
         if(nextAttribute == null) {
             if(defaultValue == currentValue){
@@ -188,82 +189,82 @@ public class RaceStatTooltip {
             else if(defaultValue == 0){
                 if(buffIsReversed){
                     sign = additionSign;
-                    signFormatting = Formatting.YELLOW;
-                    textFormatting = Formatting.YELLOW;
+                    signFormatting = ChatFormatting.YELLOW;
+                    textFormatting = ChatFormatting.YELLOW;
                 } else {
                     sign = removedSign;
-                    signFormatting = Formatting.DARK_GRAY;
-                    textFormatting = Formatting.DARK_GRAY;
+                    signFormatting = ChatFormatting.DARK_GRAY;
+                    textFormatting = ChatFormatting.DARK_GRAY;
                 }
             } else if(defaultValue > currentValue){
                 if(buffIsReversed){
                     sign = worstSign;
-                    signFormatting = Formatting.RED;
-                    textFormatting = Formatting.RED;
+                    signFormatting = ChatFormatting.RED;
+                    textFormatting = ChatFormatting.RED;
                 } else {
                     sign = betterSign;
-                    signFormatting = Formatting.GREEN;
-                    textFormatting = Formatting.GREEN;
+                    signFormatting = ChatFormatting.GREEN;
+                    textFormatting = ChatFormatting.GREEN;
                 }
             } else if(defaultValue < currentValue){
                 if(buffIsReversed){
                     sign = betterSign;
-                    signFormatting = Formatting.GREEN;
-                    textFormatting = Formatting.GREEN;
+                    signFormatting = ChatFormatting.GREEN;
+                    textFormatting = ChatFormatting.GREEN;
                 } else {
                     sign = worstSign;
-                    signFormatting = Formatting.RED;
-                    textFormatting = Formatting.RED;
+                    signFormatting = ChatFormatting.RED;
+                    textFormatting = ChatFormatting.RED;
                 }
             }
         } else {
             if(expectedNextValue < currentValue){
                 if(buffIsReversed){
                     sign = betterSign;
-                    signFormatting = Formatting.GREEN;
-                    textFormatting = Formatting.GREEN;
+                    signFormatting = ChatFormatting.GREEN;
+                    textFormatting = ChatFormatting.GREEN;
                 } else {
                     sign = worstSign;
-                    signFormatting = Formatting.RED;
-                    textFormatting = Formatting.RED;
+                    signFormatting = ChatFormatting.RED;
+                    textFormatting = ChatFormatting.RED;
                 }
             } else if(expectedNextValue > currentValue){
                 if(buffIsReversed){
                     sign = worstSign;
-                    signFormatting = Formatting.RED;
-                    textFormatting = Formatting.RED;
+                    signFormatting = ChatFormatting.RED;
+                    textFormatting = ChatFormatting.RED;
                 } else {
                     sign = betterSign;
-                    signFormatting = Formatting.GREEN;
-                    textFormatting = Formatting.GREEN;
+                    signFormatting = ChatFormatting.GREEN;
+                    textFormatting = ChatFormatting.GREEN;
                 }
             }
         }
 
-        MutableText newCustomLine = Text.literal(sign).formatted(signFormatting);
-        newCustomLine.append(Text.literal(" "));
-        newCustomLine.append(Text.translatable("attribute.name." + attributeId.getPath()).formatted(textFormatting));
+        MutableComponent newCustomLine = Component.literal(sign).withStyle(signFormatting);
+        newCustomLine.append(Component.literal(" "));
+        newCustomLine.append(Component.translatable("attribute.name." + attributeId.getPath()).withStyle(textFormatting));
         if(!modifierTexts.isEmpty()){
-            newCustomLine.append(Text.literal("*").formatted(Formatting.GOLD));
+            newCustomLine.append(Component.literal("*").withStyle(ChatFormatting.GOLD));
         }
         if(!detailed){
             tooltipText.add(newCustomLine);
         } else {
             double difference;
             if(nextAttribute == null){
-                newCustomLine.append(Text.literal(" "));
-                newCustomLine.append(Text.literal("["+ currentValue +" " + continuationSign + " "+ defaultValue +"]").formatted(Formatting.WHITE));
+                newCustomLine.append(Component.literal(" "));
+                newCustomLine.append(Component.literal("["+ currentValue +" " + continuationSign + " "+ defaultValue +"]").withStyle(ChatFormatting.WHITE));
                 difference = defaultValue - currentValue;
             } else {
-                newCustomLine.append(Text.literal(" "));
+                newCustomLine.append(Component.literal(" "));
                 double newValue = round(expectedNextValue);
-                newCustomLine.append(Text.literal("[" + currentValue +" " + continuationSign + " "+ newValue +"]").formatted(Formatting.WHITE));
+                newCustomLine.append(Component.literal("[" + currentValue +" " + continuationSign + " "+ newValue +"]").withStyle(ChatFormatting.WHITE));
                 difference = newValue - currentValue;
             }
-            newCustomLine.append(Text.literal(" "));
+            newCustomLine.append(Component.literal(" "));
             String differencePrefix = (difference > 0) ? "+" : "";
 
-            newCustomLine.append(Text.literal("(" + differencePrefix + round(difference) + ")").formatted(Formatting.GRAY));
+            newCustomLine.append(Component.literal("(" + differencePrefix + round(difference) + ")").withStyle(ChatFormatting.GRAY));
 
             tooltipText.add(newCustomLine);
             tooltipText.addAll(modifierTexts);

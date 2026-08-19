@@ -1,9 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
@@ -20,7 +17,7 @@ public class RangedCombatArchetypeRuntimeData extends CombatArchetypeRuntimeData
     }
 
     @Override
-    public void tick(NpcEntity npcEntity, World world){
+    public void tick(NpcEntity npcEntity, Level world){
         super.tick(npcEntity, world);
         if(this.lastShootTick < 1000)
             this.lastShootTick ++;
@@ -34,7 +31,7 @@ public class RangedCombatArchetypeRuntimeData extends CombatArchetypeRuntimeData
     }
 
     public boolean canShoot(NpcEntity entity){
-        if(entity.getLastAttackTime() > 5)
+        if(entity.getLastHurtMobTimestamp() > 5)
             return this.currentAmmoCount > 0;
         return false;
     }

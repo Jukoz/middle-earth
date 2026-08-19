@@ -1,84 +1,80 @@
 package net.sevenstars.middleearth.network;
 
-import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.HandlerThread;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.network.connections.IConnectionToClient;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.C2S.*;
 import net.sevenstars.middleearth.network.packets.ClientToServerPacket;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.sevenstars.middleearth.network.packets.S2C.*;
+import net.sevenstars.middleearth.network.packets.ServerToClientPacket;
 
-import java.util.function.BiConsumer;
+public final class ModServerNetworkHandler {
+    private static final String NETWORK_VERSION = "1";
+    private static final IConnectionToClient CLIENT_CONNECTION = new ConnectionToClient();
 
-public class ModServerNetworkHandler {
-    public static void register(IConnectionToClient connection) {
-        // REGISTRY : Server to client
-        PayloadTypeRegistry.playS2C().register(PacketOnboardingResult.ID, PacketOnboardingResult.CODEC);
-        PayloadTypeRegistry.playS2C().register(PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
-        PayloadTypeRegistry.playS2C().register(PacketLivingEntityData.ID, PacketLivingEntityData.CODEC);
-        PayloadTypeRegistry.playS2C().register(InscriptionEnchantInfoPacket.ID, InscriptionEnchantInfoPacket.CODEC);
-        PayloadTypeRegistry.playS2C().register(ShapingAnvilRecipePacket.ID, ShapingAnvilRecipePacket.CODEC);
-        PayloadTypeRegistry.playS2C().register(ArtisanRecipePacket.ID, ArtisanRecipePacket.CODEC);
-        PayloadTypeRegistry.playS2C().register(PacketOpenMapScreen.ID, PacketOpenMapScreen.CODEC);
-
-        // REGISTRY : Client to server
-        PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketStructureManagerShowAllEntities.ID, PacketStructureManagerShowAllEntities.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketStructureNestUpdateBlockEntityRequest.ID, PacketStructureNestUpdateBlockEntityRequest.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketStructureManagerUpdateBlockEntityRequest.ID, PacketStructureManagerUpdateBlockEntityRequest.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketSetRace.ID, PacketSetRace.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketTeleportToDynamicWorldCoordinate.ID, PacketTeleportToDynamicWorldCoordinate.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketTeleportToCustomCoordinate.ID, PacketTeleportToCustomCoordinate.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketTeleportToDynamicCoordinate.ID, PacketTeleportToDynamicCoordinate.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketTeleportToCurrentSpawn.ID, PacketTeleportToCurrentSpawn.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketTeleportToCurrentOverworldSpawn.ID, PacketCodecs.codec(Codec.unit(new PacketTeleportToCurrentOverworldSpawn())));
-        PayloadTypeRegistry.playC2S().register(PacketSetSpawnData.ID, PacketSetSpawnData.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketOnboardingRequest.ID, PacketCodecs.codec(Codec.unit(new PacketOnboardingRequest())));
-        PayloadTypeRegistry.playC2S().register(ForgeOutputPacket.ID, ForgeOutputPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(ForgeModeSwitchPacket.ID, ForgeModeSwitchPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(InscriptionWordUpdatePacket.ID, InscriptionWordUpdatePacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(InscriptionConfirmationPacket.ID, PacketCodecs.codec(Codec.unit(new InscriptionConfirmationPacket())));
-        PayloadTypeRegistry.playC2S().register(AnvilIndexPacket.ID, AnvilIndexPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(ArtisanIndexPacket.ID, ArtisanIndexPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(ArtisanTableTabPacket.ID, ArtisanTableTabPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(Codec.unit(new HoodStateTogglePacket())));
-
-        // Application [SERVER SIDE]
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerRespawnEntities.ID, wrapServerHandler(connection, PacketStructureManagerRespawnEntities::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerShowAllEntities.ID, wrapServerHandler(connection, PacketStructureManagerShowAllEntities::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureNestUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureNestUpdateBlockEntityRequest::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureManagerUpdateBlockEntityRequest::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketSetAffiliation.ID, wrapServerHandler(connection, PacketSetAffiliation::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketSetRace.ID, wrapServerHandler(connection, PacketSetRace::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToCurrentOverworldSpawn.ID, wrapServerHandler(connection, PacketTeleportToCurrentOverworldSpawn::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToDynamicWorldCoordinate.ID, wrapServerHandler(connection, PacketTeleportToDynamicWorldCoordinate::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToCustomCoordinate.ID, wrapServerHandler(connection, PacketTeleportToCustomCoordinate::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToDynamicCoordinate.ID, wrapServerHandler(connection, PacketTeleportToDynamicCoordinate::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToCurrentSpawn.ID, wrapServerHandler(connection, PacketTeleportToCurrentSpawn::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketSetSpawnData.ID, wrapServerHandler(connection, PacketSetSpawnData::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketOnboardingRequest.ID, wrapServerHandler(connection, PacketOnboardingRequest::process));
-        ServerPlayNetworking.registerGlobalReceiver(ForgeOutputPacket.ID, wrapServerHandler(connection, ForgeOutputPacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(ForgeModeSwitchPacket.ID, wrapServerHandler(connection, ForgeModeSwitchPacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(InscriptionWordUpdatePacket.ID, wrapServerHandler(connection, InscriptionWordUpdatePacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(InscriptionConfirmationPacket.ID, wrapServerHandler(connection, InscriptionConfirmationPacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(AnvilIndexPacket.ID, wrapServerHandler(connection, AnvilIndexPacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(ArtisanIndexPacket.ID, wrapServerHandler(connection, ArtisanIndexPacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(ArtisanTableTabPacket.ID, wrapServerHandler(connection, ArtisanTableTabPacket::process));
-        ServerPlayNetworking.registerGlobalReceiver(HoodStateTogglePacket.ID, wrapServerHandler(connection, HoodStateTogglePacket::process));
+    private ModServerNetworkHandler() {
     }
 
-    private static <T extends ClientToServerPacket<T>> ServerPlayNetworking.PlayPayloadHandler<T> wrapServerHandler(
-            IConnectionToClient connection,
-            BiConsumer<T, ServerPacketContext> consumer
+    public static void register(RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar(NETWORK_VERSION).executesOn(HandlerThread.MAIN);
+
+        registerToClient(registrar, PacketOnboardingResult.ID, PacketOnboardingResult.CODEC);
+        registerToClient(registrar, PacketReturnToOverworldResult.ID, PacketReturnToOverworldResult.CODEC);
+        registerToClient(registrar, PacketForceOnboardingScreen.ID, PacketForceOnboardingScreen.CODEC);
+        registerToClient(registrar, PacketLivingEntityData.ID, PacketLivingEntityData.CODEC);
+        registerToClient(registrar, InscriptionEnchantInfoPacket.ID, InscriptionEnchantInfoPacket.CODEC);
+        registerToClient(registrar, ShapingAnvilRecipePacket.ID, ShapingAnvilRecipePacket.CODEC);
+        registerToClient(registrar, ArtisanRecipePacket.ID, ArtisanRecipePacket.CODEC);
+        registerToClient(registrar, PacketOpenMapScreen.ID, PacketOpenMapScreen.CODEC);
+
+        registerToServer(registrar, PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
+        registerToServer(registrar, PacketStructureManagerShowAllEntities.ID, PacketStructureManagerShowAllEntities.CODEC);
+        registerToServer(registrar, PacketStructureNestUpdateBlockEntityRequest.ID, PacketStructureNestUpdateBlockEntityRequest.CODEC);
+        registerToServer(registrar, PacketStructureManagerUpdateBlockEntityRequest.ID, PacketStructureManagerUpdateBlockEntityRequest.CODEC);
+        registerToServer(registrar, PacketTeleportToDynamicWorldCoordinate.ID, PacketTeleportToDynamicWorldCoordinate.CODEC);
+        registerToServer(registrar, PacketTeleportToCurrentSpawn.ID, PacketTeleportToCurrentSpawn.CODEC);
+        registerToServer(registrar, PacketTeleportToCurrentOverworldSpawn.ID, PacketTeleportToCurrentOverworldSpawn.CODEC);
+        registerToServer(registrar, PacketOnboardingRequest.ID, PacketOnboardingRequest.CODEC);
+        registerToServer(registrar, PacketCompleteOnboarding.ID, PacketCompleteOnboarding.CODEC);
+        registerToServer(registrar, ForgeOutputPacket.ID, ForgeOutputPacket.CODEC);
+        registerToServer(registrar, ForgeModeSwitchPacket.ID, ForgeModeSwitchPacket.CODEC);
+        registerToServer(registrar, InscriptionWordUpdatePacket.ID, InscriptionWordUpdatePacket.CODEC);
+        registerToServer(registrar, InscriptionConfirmationPacket.ID, InscriptionConfirmationPacket.CODEC);
+        registerToServer(registrar, AnvilIndexPacket.ID, AnvilIndexPacket.CODEC);
+        registerToServer(registrar, ArtisanIndexPacket.ID, ArtisanIndexPacket.CODEC);
+        registerToServer(registrar, ArtisanTableTabPacket.ID, ArtisanTableTabPacket.CODEC);
+        registerToServer(registrar, HoodStateTogglePacket.ID, HoodStateTogglePacket.CODEC);
+    }
+
+    private static <T extends ServerToClientPacket<T>> void registerToClient(
+            PayloadRegistrar registrar,
+            CustomPacketPayload.Type<T> type,
+            StreamCodec<? super RegistryFriendlyByteBuf, T> codec
     ) {
-        return (t, payloadContext) -> {
-            ServerPlayerEntity player = payloadContext.player();
-            var serverPacketContext = new ServerPacketContext(player, connection);
-            consumer.accept(t, serverPacketContext);
-        };
+        registrar.playToClient(type, codec, (packet, context) -> {
+            if (FMLEnvironment.dist == Dist.CLIENT) {
+                ModClientNetworkHandler.handle(packet, context.player());
+            }
+        });
+    }
+
+    private static <T extends ClientToServerPacket<T>> void registerToServer(
+            PayloadRegistrar registrar,
+            CustomPacketPayload.Type<T> type,
+            StreamCodec<? super RegistryFriendlyByteBuf, T> codec
+    ) {
+        registrar.playToServer(type, codec, (packet, context) -> {
+            ServerPlayer player = (ServerPlayer) context.player();
+            packet.process(new ServerPacketContext(player, CLIENT_CONNECTION));
+        });
     }
 }

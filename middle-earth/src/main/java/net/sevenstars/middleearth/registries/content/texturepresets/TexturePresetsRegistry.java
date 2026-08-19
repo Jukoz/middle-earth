@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.registries.content.texturepresets;
 
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -32,82 +32,82 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TexturePresetsRegistry {
-    private static final RegistryKey<Registry<TexturePresetDataPool>> NPC_TEXTURE_DATA_KEY = DynamicRegistriesME.TEXTURE_PRESETS;
+    private static final ResourceKey<Registry<TexturePresetDataPool>> NPC_TEXTURE_DATA_KEY = DynamicRegistriesME.TEXTURE_PRESETS;
 
     /* [GENERIC] */
-    public final static RegistryKey<TexturePresetDataPool> GENERIC_HUMAN       = of("generic_human");
+    public final static ResourceKey<TexturePresetDataPool> GENERIC_HUMAN       = of("generic_human");
 
     /* [BRIGAND] */
-    public final static RegistryKey<TexturePresetDataPool> BRIGAND_THUG        = of(FactionRegistry.BRIGAND, "thug");
-    public final static RegistryKey<TexturePresetDataPool> BRIGAND_MERCENARY   = of(FactionRegistry.BRIGAND, "mercenary");
-    public final static RegistryKey<TexturePresetDataPool> BRIGAND_CHIEF       = of(FactionRegistry.BRIGAND, "chief");
+    public final static ResourceKey<TexturePresetDataPool> BRIGAND_THUG        = of(FactionRegistry.BRIGAND, "thug");
+    public final static ResourceKey<TexturePresetDataPool> BRIGAND_MERCENARY   = of(FactionRegistry.BRIGAND, "mercenary");
+    public final static ResourceKey<TexturePresetDataPool> BRIGAND_CHIEF       = of(FactionRegistry.BRIGAND, "chief");
 
     /* [WILD GOBLINS] */
-    public final static RegistryKey<TexturePresetDataPool> WILD_GOBLIN_WEAK    = of(FactionRegistry.WILD_GOBLINS, "weak");
-    public final static RegistryKey<TexturePresetDataPool> WILD_GOBLIN_WARRIOR = of(FactionRegistry.WILD_GOBLINS, "warrior");
-    public final static RegistryKey<TexturePresetDataPool> WILD_GOBLIN_BRUTE   = of(FactionRegistry.WILD_GOBLINS, "brute");
+    public final static ResourceKey<TexturePresetDataPool> WILD_GOBLIN_WEAK    = of(FactionRegistry.WILD_GOBLINS, "weak");
+    public final static ResourceKey<TexturePresetDataPool> WILD_GOBLIN_WARRIOR = of(FactionRegistry.WILD_GOBLINS, "warrior");
+    public final static ResourceKey<TexturePresetDataPool> WILD_GOBLIN_BRUTE   = of(FactionRegistry.WILD_GOBLINS, "brute");
 
     /* [DALE] */
-    public final static RegistryKey<TexturePresetDataPool> DALE_PEASANT        = of(FactionRegistry.DALE, "peasant");
-    public final static RegistryKey<TexturePresetDataPool> DALE_SOLDIER        = of(FactionRegistry.DALE, "soldier");
-    public final static RegistryKey<TexturePresetDataPool> DALE_LORD           = of(FactionRegistry.DALE, "lord");
+    public final static ResourceKey<TexturePresetDataPool> DALE_PEASANT        = of(FactionRegistry.DALE, "peasant");
+    public final static ResourceKey<TexturePresetDataPool> DALE_SOLDIER        = of(FactionRegistry.DALE, "soldier");
+    public final static ResourceKey<TexturePresetDataPool> DALE_LORD           = of(FactionRegistry.DALE, "lord");
 
 
     /* [GONDOR] */
-    public final static RegistryKey<TexturePresetDataPool> GONDOR_PEASANT        = of(FactionRegistry.GONDOR, "peasant");
-    public final static RegistryKey<TexturePresetDataPool> GONDOR_SOLDIER        = of(FactionRegistry.GONDOR, "soldier");
-    public final static RegistryKey<TexturePresetDataPool> GONDOR_LORD           = of(FactionRegistry.GONDOR, "lord");
+    public final static ResourceKey<TexturePresetDataPool> GONDOR_PEASANT        = of(FactionRegistry.GONDOR, "peasant");
+    public final static ResourceKey<TexturePresetDataPool> GONDOR_SOLDIER        = of(FactionRegistry.GONDOR, "soldier");
+    public final static ResourceKey<TexturePresetDataPool> GONDOR_LORD           = of(FactionRegistry.GONDOR, "lord");
 
     /* [ROHAN] */
-    public final static RegistryKey<TexturePresetDataPool> ROHAN_PEASANT        = of(FactionRegistry.ROHAN, "peasant");
-    public final static RegistryKey<TexturePresetDataPool> ROHAN_SOLDIER        = of(FactionRegistry.ROHAN, "soldier");
-    public final static RegistryKey<TexturePresetDataPool> ROHAN_LORD           = of(FactionRegistry.ROHAN, "lord");
+    public final static ResourceKey<TexturePresetDataPool> ROHAN_PEASANT        = of(FactionRegistry.ROHAN, "peasant");
+    public final static ResourceKey<TexturePresetDataPool> ROHAN_SOLDIER        = of(FactionRegistry.ROHAN, "soldier");
+    public final static ResourceKey<TexturePresetDataPool> ROHAN_LORD           = of(FactionRegistry.ROHAN, "lord");
 
     /* [SHIRE] */
-    public final static RegistryKey<TexturePresetDataPool> SHIRE_PEASANT        = of(FactionRegistry.SHIRE, "peasant");
-    public final static RegistryKey<TexturePresetDataPool> SHIRE_MILITIA        = of(FactionRegistry.SHIRE, "militia");
-    public final static RegistryKey<TexturePresetDataPool> SHIRE_SHIRRIFF       = of(FactionRegistry.SHIRE, "shirriff");
+    public final static ResourceKey<TexturePresetDataPool> SHIRE_PEASANT        = of(FactionRegistry.SHIRE, "peasant");
+    public final static ResourceKey<TexturePresetDataPool> SHIRE_MILITIA        = of(FactionRegistry.SHIRE, "militia");
+    public final static ResourceKey<TexturePresetDataPool> SHIRE_SHIRRIFF       = of(FactionRegistry.SHIRE, "shirriff");
 
     /* [LONGBEARDS.EREBOR] */
-    public final static RegistryKey<TexturePresetDataPool> LONGBEARDS_EREBOR_DWARF         = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf");
-    public final static RegistryKey<TexturePresetDataPool> LONGBEARDS_EREBOR_DWARF_SOLDIER = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf_soldier");
-    public final static RegistryKey<TexturePresetDataPool> LONGBEARDS_EREBOR_MIGHTY_DWARF  = of(FactionRegistry.LONGBEARDS_EREBOR, "mighty_dwarf");
+    public final static ResourceKey<TexturePresetDataPool> LONGBEARDS_EREBOR_DWARF         = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf");
+    public final static ResourceKey<TexturePresetDataPool> LONGBEARDS_EREBOR_DWARF_SOLDIER = of(FactionRegistry.LONGBEARDS_EREBOR, "dwarf_soldier");
+    public final static ResourceKey<TexturePresetDataPool> LONGBEARDS_EREBOR_MIGHTY_DWARF  = of(FactionRegistry.LONGBEARDS_EREBOR, "mighty_dwarf");
 
     /* [LOTHLORIEN] */
-    public final static RegistryKey<TexturePresetDataPool> LOTHLORIEN_ELF      = of(FactionRegistry.LOTHLORIEN, "elf");
-    public final static RegistryKey<TexturePresetDataPool> LOTHLORIEN_LORD     = of(FactionRegistry.LOTHLORIEN, "lord");
+    public final static ResourceKey<TexturePresetDataPool> LOTHLORIEN_ELF      = of(FactionRegistry.LOTHLORIEN, "elf");
+    public final static ResourceKey<TexturePresetDataPool> LOTHLORIEN_LORD     = of(FactionRegistry.LOTHLORIEN, "lord");
 
     /* [WOODLAND_REALMS] */
-    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_ELF = of(FactionRegistry.WOODLAND_REALM, "elf");
-    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_SENTINEL = of(FactionRegistry.WOODLAND_REALM, "sentinel");
-    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_NIGHTSHADE = of(FactionRegistry.WOODLAND_REALM, "nightshade");
-    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_COMMANDER = of(FactionRegistry.WOODLAND_REALM, "commander");
-    public final static RegistryKey<TexturePresetDataPool> WOODLAND_REALM_WARDEN_OF_THE_GLADE = of(FactionRegistry.WOODLAND_REALM, "warden_of_the_glade");
+    public final static ResourceKey<TexturePresetDataPool> WOODLAND_REALM_ELF = of(FactionRegistry.WOODLAND_REALM, "elf");
+    public final static ResourceKey<TexturePresetDataPool> WOODLAND_REALM_SENTINEL = of(FactionRegistry.WOODLAND_REALM, "sentinel");
+    public final static ResourceKey<TexturePresetDataPool> WOODLAND_REALM_NIGHTSHADE = of(FactionRegistry.WOODLAND_REALM, "nightshade");
+    public final static ResourceKey<TexturePresetDataPool> WOODLAND_REALM_COMMANDER = of(FactionRegistry.WOODLAND_REALM, "commander");
+    public final static ResourceKey<TexturePresetDataPool> WOODLAND_REALM_WARDEN_OF_THE_GLADE = of(FactionRegistry.WOODLAND_REALM, "warden_of_the_glade");
 
 
     /* [MORDOR] */
-    public final static RegistryKey<TexturePresetDataPool> MORDOR_BLACK_NUMENOREAN     = of(FactionRegistry.MORDOR, "black_numenorean");
-    public final static RegistryKey<TexturePresetDataPool> MORDOR_ORC                  = of(FactionRegistry.MORDOR, "orc");
-    public final static RegistryKey<TexturePresetDataPool> MORDOR_BLACK_URUK           = of(FactionRegistry.MORDOR, "black_uruk");
+    public final static ResourceKey<TexturePresetDataPool> MORDOR_BLACK_NUMENOREAN     = of(FactionRegistry.MORDOR, "black_numenorean");
+    public final static ResourceKey<TexturePresetDataPool> MORDOR_ORC                  = of(FactionRegistry.MORDOR, "orc");
+    public final static ResourceKey<TexturePresetDataPool> MORDOR_BLACK_URUK           = of(FactionRegistry.MORDOR, "black_uruk");
 
     /* [HOBGOBLIN TRIBES.GUNDABAD] */
-    public final static RegistryKey<TexturePresetDataPool> GUNDABAD_GOBLIN         = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "goblin");
-    public final static RegistryKey<TexturePresetDataPool> GUNDABAD_HOBGOBLIN      = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "hobgoblin");
+    public final static ResourceKey<TexturePresetDataPool> GUNDABAD_GOBLIN         = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "goblin");
+    public final static ResourceKey<TexturePresetDataPool> GUNDABAD_HOBGOBLIN      = of(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, "hobgoblin");
 
-    public final static RegistryKey<TexturePresetDataPool> MORIA_GOBLIN         = of(FactionRegistry.MORIA, "goblin");
+    public final static ResourceKey<TexturePresetDataPool> MORIA_GOBLIN         = of(FactionRegistry.MORIA, "goblin");
 
-    public final static RegistryKey<TexturePresetDataPool> GOBLIN_TOWN_GOBLIN         = of(FactionRegistry.GOBLIN_TOWN, "goblin");
-    public final static RegistryKey<TexturePresetDataPool> GOBLIN_TOWN_WARRIOR         = of(FactionRegistry.GOBLIN_TOWN, "warrior");
-    public final static RegistryKey<TexturePresetDataPool> GOBLIN_TOWN_BRUTE         = of(FactionRegistry.GOBLIN_TOWN, "brute");
+    public final static ResourceKey<TexturePresetDataPool> GOBLIN_TOWN_GOBLIN         = of(FactionRegistry.GOBLIN_TOWN, "goblin");
+    public final static ResourceKey<TexturePresetDataPool> GOBLIN_TOWN_WARRIOR         = of(FactionRegistry.GOBLIN_TOWN, "warrior");
+    public final static ResourceKey<TexturePresetDataPool> GOBLIN_TOWN_BRUTE         = of(FactionRegistry.GOBLIN_TOWN, "brute");
 
     /* [ISENGARD] */
-    public final static RegistryKey<TexturePresetDataPool> ISENGARD_ORC = of(FactionRegistry.ISENGARD, "orc");
-    public final static RegistryKey<TexturePresetDataPool> ISENGARD_URUK_HAI = of(FactionRegistry.ISENGARD, "uruk_hai");
-    public final static RegistryKey<TexturePresetDataPool> ISENGARD_HUMAN = of(FactionRegistry.ISENGARD, "human");
+    public final static ResourceKey<TexturePresetDataPool> ISENGARD_ORC = of(FactionRegistry.ISENGARD, "orc");
+    public final static ResourceKey<TexturePresetDataPool> ISENGARD_URUK_HAI = of(FactionRegistry.ISENGARD, "uruk_hai");
+    public final static ResourceKey<TexturePresetDataPool> ISENGARD_HUMAN = of(FactionRegistry.ISENGARD, "human");
 
 
-    public static void bootstrap(Registerable<TexturePresetDataPool> context) {
-        RegistryEntryLookup<TexturePresetDataPool> registryEntryLookup = context.getRegistryLookup(NPC_TEXTURE_DATA_KEY);
+    public static void bootstrap(BootstrapContext<TexturePresetDataPool> context) {
+        HolderGetter<TexturePresetDataPool> registryEntryLookup = context.lookup(NPC_TEXTURE_DATA_KEY);
 
         /* [ADD ALL POOLS BELOW] */
         registerAll(context, registryEntryLookup, GenericTexturePresetsPool.fetchAll());
@@ -130,31 +130,31 @@ public class TexturePresetsRegistry {
         registerAll(context, registryEntryLookup, IsengardTexturePresetsPool.fetchAll());
     }
 
-    private static void registerAll(Registerable<TexturePresetDataPool> context, RegistryEntryLookup<TexturePresetDataPool> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {
+    private static void registerAll(BootstrapContext<TexturePresetDataPool> context, HolderGetter<TexturePresetDataPool> registryEntryLookup, List<RegisterableNpcTextureData> npcTextureDatas) {
         for(RegisterableNpcTextureData registerable : npcTextureDatas){
             register(context, registryEntryLookup, registerable.npcTextureDataRegistryKey, registerable.content);
         }
     }
 
-    private static void register(Registerable<TexturePresetDataPool> context, RegistryEntryLookup<TexturePresetDataPool> registryEntryLookup, RegistryKey<TexturePresetDataPool> registryKey, TexturePresetDataPool element){
+    private static void register(BootstrapContext<TexturePresetDataPool> context, HolderGetter<TexturePresetDataPool> registryEntryLookup, ResourceKey<TexturePresetDataPool> registryKey, TexturePresetDataPool element){
         DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
         // [LANG datagen]
         // N/A
     }
 
-    private static RegistryKey<TexturePresetDataPool> of(String... names) {
-        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(names));
+    private static ResourceKey<TexturePresetDataPool> of(String... names) {
+        return ResourceKey.create(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(names));
     }
 
-    private static RegistryKey<TexturePresetDataPool> of(RegistryKey<Faction> base, String... names) {
+    private static ResourceKey<TexturePresetDataPool> of(ResourceKey<Faction> base, String... names) {
 
         ArrayList<String> aggregateNames = new ArrayList<String>();
-        aggregateNames.add(base.getValue().getPath());
+        aggregateNames.add(base.location().getPath());
         aggregateNames.addAll(Arrays.stream(names).toList());
 
         String[] stringArray = aggregateNames.toArray(new String[0]);
-        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(stringArray));
+        return ResourceKey.create(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(stringArray));
     }
 
-    public record RegisterableNpcTextureData (RegistryKey<TexturePresetDataPool> npcTextureDataRegistryKey, TexturePresetDataPool content){ }
+    public record RegisterableNpcTextureData (ResourceKey<TexturePresetDataPool> npcTextureDataRegistryKey, TexturePresetDataPool content){ }
 }

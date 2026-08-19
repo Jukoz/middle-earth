@@ -8,11 +8,13 @@
   ],
   "key": {
     "R": {
-      "fabric:type": "fabric:difference",
-      "base": "minecraft:emerald",
+      "type": "neoforge:difference",
+      "base": {
+        "item": "minecraft:emerald"
+      },
       "subtracted": {
-        "fabric:type": "fabric:components",
-        "base":  "minecraft:emerald",
+        "type": "neoforge:components",
+        "items": "minecraft:emerald",
         "components": {
           "minecraft:max_damage": 2
         }

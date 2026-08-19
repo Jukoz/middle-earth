@@ -1,45 +1,46 @@
 package net.sevenstars.middleearth.entity.beasts.warg.features;
 
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.LoadedEntityModels;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
-import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 
-public class WargArmorSpineFeatureRenderer extends FeatureRenderer<WargEntityRenderState, WargModel> {
+public class WargArmorSpineFeatureRenderer extends RenderLayer<WargEntity, WargModel> {
     private final WargArmorBaseAddonsModel model;
 
-    public WargArmorSpineFeatureRenderer(FeatureRendererContext<WargEntityRenderState, WargModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
+    public WargArmorSpineFeatureRenderer(RenderLayerParent<WargEntity, WargModel> context, EntityModelSet loader) {
         super(context);
-        this.model = new WargArmorBaseAddonsModel(loader.getModelPart(EntityModelLayersME.WARG_ARMOR_ADDONS_SPINE));
+        this.model = new WargArmorBaseAddonsModel(loader.bakeLayer(EntityModelLayersME.WARG_ARMOR_ADDONS_SPINE));
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntityRenderState state, float limbAngle, float limbDistance) {
-        ItemStack itemStack = state.armor;
-        if(itemStack.isOf(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR)) {
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_bone_spine_addon.png")), itemStack.hasGlint());
+    public void render(PoseStack matrices, MultiBufferSource vertexConsumers, int light, WargEntity entity,
+                       float limbAngle, float limbDistance, float tickDelta, float animationProgress,
+                       float headYaw, float headPitch) {
+        ItemStack itemStack = entity.getBodyArmorItem();
+        if(itemStack.is(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR)) {
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_bone_spine_addon.png")), itemStack.hasFoil());
 
-            model.setAngles(state);
-            model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+            model.setupAnim(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+            model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY);
         }
-        else if(itemStack.isOf(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR) || itemStack.isOf(EquipmentItemsME.WARG_MORDOR_MAIL_ARMOR)) {
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_mordor_spine_addon.png")), itemStack.hasGlint());
+        else if(itemStack.is(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR) || itemStack.is(EquipmentItemsME.WARG_MORDOR_MAIL_ARMOR)) {
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_mordor_spine_addon.png")), itemStack.hasFoil());
 
-            model.setAngles(state);
-            model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+            model.setupAnim(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+            model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY);
         }
     }
 }

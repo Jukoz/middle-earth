@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.block.special.verticalSlabs;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum VerticalSlabShape implements StringIdentifiable {
+public enum VerticalSlabShape implements StringRepresentable {
     STRAIGHT("straight"),
     INNER_LEFT("inner_left"),
     INNER_RIGHT("inner_right"),
@@ -20,7 +20,7 @@ public enum VerticalSlabShape implements StringIdentifiable {
         return this.name;
     }
 
-    public String asString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

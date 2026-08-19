@@ -1,97 +1,168 @@
 package net.sevenstars.middleearth.resources.persistent_datas;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+
+import java.util.Objects;
 
 public class PlayerData {
-    private Identifier faction;
-    private Identifier spawn;
-    private Identifier race;
+    private ResourceLocation faction;
+    private ResourceLocation spawn;
+    private ResourceLocation race;
     private BlockPos posOrigin;
-    private Identifier dimensionOrigin;
+    private BlockPos middleEarthReturnPos;
+    private ResourceLocation dimensionOrigin;
+    private int delversFearCountInSeconds;
+    private transient Runnable dirtyMarker = () -> {};
 
-    private int delversFearCountInSeconds = 0;
-
-    public NbtCompound createNbt() {
-        NbtCompound nbtCompound = new NbtCompound();
-        if(faction != null)
-            nbtCompound.putString("faction", faction.toString());
-        if(spawn != null)
-            nbtCompound.putString("spawn", spawn.toString());
-        if(race != null)
-            nbtCompound.putString("race", race.toString());
-        if(posOrigin != null)
-            nbtCompound.putIntArray("origin_pos", new int[]{posOrigin.getX(), posOrigin.getY(), posOrigin.getZ()});
-        if(dimensionOrigin != null)
-            nbtCompound.putString("dimensionOrigin", dimensionOrigin.toString());
-
-        nbtCompound.putInt("delversFearCountInSeconds", delversFearCountInSeconds);
-
-        return nbtCompound;
+    public PlayerData() {
     }
-    public PlayerData() {}
 
-    public PlayerData(NbtCompound nbtCompound) {
-        if(nbtCompound.getString("faction").isPresent())
-            faction = Identifier.of(nbtCompound.getString("faction").get());
-        if(nbtCompound.getString("spawn").isPresent())
-            spawn = Identifier.of(nbtCompound.getString("spawn").get());
-        if(nbtCompound.getString("race").isPresent())
-            race = Identifier.of(nbtCompound.getString("race").get());
-        if(nbtCompound.getIntArray("posOrigin").isPresent()){
-            var intArray = nbtCompound.getIntArray("posOrigin").get();
-            posOrigin = new BlockPos(intArray[0], intArray[1], intArray[2]);
+    public PlayerData(CompoundTag nbt) {
+        faction = readResourceLocation(nbt, "faction");
+        spawn = readResourceLocation(nbt, "spawn");
+        race = readResourceLocation(nbt, "race");
+        dimensionOrigin = readResourceLocation(nbt, "dimensionOrigin");
+
+        int[] origin = nbt.contains("origin_pos", Tag.TAG_INT_ARRAY)
+                ? nbt.getIntArray("origin_pos")
+                : nbt.getIntArray("posOrigin");
+        if (origin.length == 3) {
+            posOrigin = new BlockPos(origin[0], origin[1], origin[2]);
         }
-        if(nbtCompound.getString("dimensionOrigin").isPresent())
-            dimensionOrigin = Identifier.of(nbtCompound.getString("dimensionOrigin").get());
+        int[] middleEarthReturn = nbt.getIntArray("middle_earth_return_pos");
+        if (middleEarthReturn.length == 3) {
+            middleEarthReturnPos = new BlockPos(
+                    middleEarthReturn[0],
+                    middleEarthReturn[1],
+                    middleEarthReturn[2]
+            );
+        }
 
-        if(nbtCompound.getInt("delversFearCountInSeconds").isPresent())
-            nbtCompound.putInt("delversFearCountInSeconds", delversFearCountInSeconds);
-        else
-            delversFearCountInSeconds = 0;
+        delversFearCountInSeconds = nbt.getInt("delversFearCountInSeconds");
     }
-    public boolean assignNewFactionInformation(Identifier factionId, Identifier spawnId){
-        this.faction = factionId;
-        this.spawn = spawnId;
+
+    public void setDirtyMarker(Runnable dirtyMarker) {
+        this.dirtyMarker = dirtyMarker == null ? () -> {} : dirtyMarker;
+    }
+
+    private void markDirty() {
+        dirtyMarker.run();
+    }
+
+    public CompoundTag createNbt() {
+        CompoundTag nbt = new CompoundTag();
+        if (faction != null) {
+            nbt.putString("faction", faction.toString());
+        }
+        if (spawn != null) {
+            nbt.putString("spawn", spawn.toString());
+        }
+        if (race != null) {
+            nbt.putString("race", race.toString());
+        }
+        if (posOrigin != null) {
+            nbt.putIntArray("origin_pos", new int[]{posOrigin.getX(), posOrigin.getY(), posOrigin.getZ()});
+        }
+        if (dimensionOrigin != null) {
+            nbt.putString("dimensionOrigin", dimensionOrigin.toString());
+        }
+        if (middleEarthReturnPos != null) {
+            nbt.putIntArray(
+                    "middle_earth_return_pos",
+                    new int[]{
+                            middleEarthReturnPos.getX(),
+                            middleEarthReturnPos.getY(),
+                            middleEarthReturnPos.getZ()
+                    }
+            );
+        }
+        nbt.putInt("delversFearCountInSeconds", delversFearCountInSeconds);
+        return nbt;
+    }
+
+    public boolean assignNewFactionInformation(ResourceLocation factionId, ResourceLocation spawnId) {
+        if (Objects.equals(faction, factionId) && Objects.equals(spawn, spawnId)) {
+            return true;
+        }
+        faction = factionId;
+        spawn = spawnId;
+        markDirty();
         return true;
     }
 
-    public boolean assignNewRace(Identifier raceId){
-        this.race = raceId;
+    public boolean assignNewRace(ResourceLocation raceId) {
+        if (Objects.equals(race, raceId)) {
+            return true;
+        }
+        race = raceId;
+        markDirty();
         return true;
     }
 
-    public boolean assignNewOrigin(Identifier dimensionOrigin, BlockPos newBlockPos){
+    public boolean assignNewOrigin(ResourceLocation dimensionOrigin, BlockPos newBlockPos) {
+        if (Objects.equals(this.dimensionOrigin, dimensionOrigin) && Objects.equals(posOrigin, newBlockPos)) {
+            return true;
+        }
         this.dimensionOrigin = dimensionOrigin;
-        this.posOrigin = newBlockPos;
+        posOrigin = newBlockPos;
+        markDirty();
         return true;
     }
-    public Identifier getFaction(){
-        return this.faction;
-    }
-    public Identifier getRace(){
-        return this.race;
-    }
-    public Identifier getSpawn(){
-        return this.spawn;
+
+    public boolean assignMiddleEarthReturnPos(BlockPos newBlockPos) {
+        if (Objects.equals(this.middleEarthReturnPos, newBlockPos)) {
+            return true;
+        }
+        this.middleEarthReturnPos = newBlockPos;
+        markDirty();
+        return true;
     }
 
-    public Identifier getDimensionOrigin(){
-        return this.dimensionOrigin;
-    }
-    public BlockPos getOriginPos(){
-        return this.posOrigin;
+    public ResourceLocation getFaction() {
+        return faction;
     }
 
+    public ResourceLocation getRace() {
+        return race;
+    }
 
-    public int getDelversFearCountInSeconds(){
-        return this.delversFearCountInSeconds;
+    public ResourceLocation getSpawn() {
+        return spawn;
     }
-    public void addToDelversFearCountInSeconds(){
-         this.delversFearCountInSeconds += 1;
+
+    public ResourceLocation getDimensionOrigin() {
+        return dimensionOrigin;
     }
+
+    public BlockPos getOriginPos() {
+        return posOrigin;
+    }
+
+    public BlockPos getMiddleEarthReturnPos() {
+        return middleEarthReturnPos;
+    }
+
+    public int getDelversFearCountInSeconds() {
+        return delversFearCountInSeconds;
+    }
+
+    public void addToDelversFearCountInSeconds() {
+        delversFearCountInSeconds++;
+        markDirty();
+    }
+
     public void resetDelversFearCount() {
-        this.delversFearCountInSeconds = 0;
+        if (delversFearCountInSeconds != 0) {
+            delversFearCountInSeconds = 0;
+            markDirty();
+        }
+    }
+
+    private static ResourceLocation readResourceLocation(CompoundTag nbt, String key) {
+        String value = nbt.getString(key);
+        return value.isEmpty() ? null : ResourceLocation.tryParse(value);
     }
 }

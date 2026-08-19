@@ -1,42 +1,24 @@
 package net.sevenstars.middleearth.entity.spider.spawn;
 
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
+import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 
-public class SpawnOfShelobRenderer extends MobEntityRenderer<SpawnOfShelobEntity, SpawnOfShelobRenderState, SpawnOfShelobModel> {
-    private static final String PATH = "textures/entities/spiders/";
+public class SpawnOfShelobRenderer extends MobRenderer<SpawnOfShelobEntity, SpawnOfShelobModel> {
 
-    public SpawnOfShelobRenderer(EntityRendererFactory.Context context) {
+    public SpawnOfShelobRenderer(EntityRendererProvider.Context context) {
         this(context, 0.75F, EntityModelLayersME.SPAWN_OF_SHELOB);
     }
 
-    @Override
-    public SpawnOfShelobRenderState createRenderState() {
-        return new SpawnOfShelobRenderState();
-    }
-
-    protected SpawnOfShelobRenderer(EntityRendererFactory.Context ctx, float shadowRadius, EntityModelLayer layer) {
-        super(ctx, new SpawnOfShelobModel(ctx.getPart(layer)), shadowRadius);
+    protected SpawnOfShelobRenderer(EntityRendererProvider.Context ctx, float shadowRadius, ModelLayerLocation layer) {
+        super(ctx, new SpawnOfShelobModel(ctx.bakeLayer(layer)), shadowRadius);
     }
 
     @Override
-    public Identifier getTexture(SpawnOfShelobRenderState state) {
-        return state.spiderVariant.assetInfo().spawnOfShelob().texturePath();
-    }
-
-    public void updateRenderState(SpawnOfShelobEntity spawnofShelobEntity, SpawnOfShelobRenderState shelobiteScuttlerEntityRenderState, float f) {
-        super.updateRenderState(spawnofShelobEntity, shelobiteScuttlerEntityRenderState, f);
-        shelobiteScuttlerEntityRenderState.idleAnimationState.copyFrom(spawnofShelobEntity.idleAnimation);
-        shelobiteScuttlerEntityRenderState.walkAnimationState.copyFrom(spawnofShelobEntity.walkingAnimation);
-        shelobiteScuttlerEntityRenderState.biteAnimationState.copyFrom(spawnofShelobEntity.biteAnimation);
-        shelobiteScuttlerEntityRenderState.blockAnimationState.copyFrom(spawnofShelobEntity.blockAnimation);
-        shelobiteScuttlerEntityRenderState.pounceAnimationState.copyFrom(spawnofShelobEntity.pounceAnimation);
-        shelobiteScuttlerEntityRenderState.timelineTicks = spawnofShelobEntity.getTimelineTicks();
-        shelobiteScuttlerEntityRenderState.climbingTicks = spawnofShelobEntity.getClimbingTicks();
-        shelobiteScuttlerEntityRenderState.leapingTicks = spawnofShelobEntity.getLeapingTicks();
-        shelobiteScuttlerEntityRenderState.spiderVariant = spawnofShelobEntity.getVariant();
+    public ResourceLocation getTextureLocation(SpawnOfShelobEntity entity) {
+        return SpiderVariant.texture(entity.getVariant().assetInfo().spawnOfShelob());
     }
 }

@@ -1,32 +1,26 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof.features;
 
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.HorseEntityModel;
-import net.minecraft.client.render.entity.state.HorseEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.HorseMarking;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntity;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatPattern;
 
 import java.util.Map;
 
-@Environment(EnvType.CLIENT)
-public class BroadhoofGoatPatternFeatureRenderer extends FeatureRenderer<BroadhoofGoatEntityRenderState, BroadhoofGoatModel> {
+public class BroadhoofGoatPatternFeatureRenderer extends RenderLayer<BroadhoofGoatEntity, BroadhoofGoatModel> {
     private static final String PATH = "textures/entities/broadhoof_goat/patterns/";
-    private static final Identifier INVISIBLE_ID = Identifier.ofVanilla("invisible");
+    private static final ResourceLocation INVISIBLE_ID = ResourceLocation.withDefaultNamespace("invisible");
 
-    private static final Map<BroadhoofGoatPattern, Identifier> TEXTURES = Maps.newEnumMap(
+    private static final Map<BroadhoofGoatPattern, ResourceLocation> TEXTURES = Maps.newEnumMap(
             Map.ofEntries(
                     Map.entry(BroadhoofGoatPattern.NONE, INVISIBLE_ID),
 
@@ -70,17 +64,18 @@ public class BroadhoofGoatPatternFeatureRenderer extends FeatureRenderer<Broadho
             )
     );
 
-    public BroadhoofGoatPatternFeatureRenderer(FeatureRendererContext<BroadhoofGoatEntityRenderState, BroadhoofGoatModel> featureRendererContext) {
+    public BroadhoofGoatPatternFeatureRenderer(RenderLayerParent<BroadhoofGoatEntity, BroadhoofGoatModel> featureRendererContext) {
         super(featureRendererContext);
     }
 
     public void render(
-            MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BroadhoofGoatEntityRenderState state, float f, float g
+            PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int light, BroadhoofGoatEntity entity,
+            float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch
     ) {
-        Identifier identifier = (Identifier)TEXTURES.get(state.pattern);
-        if (identifier != INVISIBLE_ID && !state.invisible) {
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(identifier));
-            this.getContextModel().render(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlay(state, 0.0F));
+        ResourceLocation identifier = TEXTURES.get(entity.getPattern());
+        if (identifier != INVISIBLE_ID && !entity.isInvisible()) {
+            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderType.entityTranslucent(identifier));
+            this.getParentModel().renderToBuffer(matrixStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0.0F));
         }
     }
 }

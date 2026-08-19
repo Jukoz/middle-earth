@@ -2,83 +2,88 @@ package net.sevenstars.middleearth.entity.npcs.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.Identifier;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.resources.datas.texture_presets.SimplifiedTexturePreset;
 
 public class NpcTextureData {
-    private Identifier simplifiedSkin;
-    private Identifier simplifiedEar;
-    private Identifier simplifiedFeet;
-    private Identifier simplifiedHair;
-    private Identifier simplifiedNose;
+    private ResourceLocation simplifiedSkin;
+    private ResourceLocation simplifiedEar;
+    private ResourceLocation simplifiedFeet;
+    private ResourceLocation simplifiedHair;
+    private ResourceLocation simplifiedNose;
 
-    private Identifier bodyTexture;
-    private Identifier feetTexture;
-    private Identifier headTexture;
-    private Identifier earTexture;
-    private Identifier noseTexture;
-    private Identifier eyeTexture;
-    private Identifier eyeEmissiveTexture;
-    private Identifier eyebrowTexture;
-    private Identifier scarTexture;
-    private Identifier beardTexture;
-    private Identifier beardAddonTexture;
-    private Identifier hairTexture;
-    private Identifier hairAddonTexture;
-    private Identifier clothingBaseTexture;
-    private Identifier clothingOverTexture;
-    private Identifier clothingExtraTexture;
+    private ResourceLocation bodyTexture;
+    private ResourceLocation feetTexture;
+    private ResourceLocation headTexture;
+    private ResourceLocation earTexture;
+    private ResourceLocation noseTexture;
+    private ResourceLocation eyeTexture;
+    private ResourceLocation eyeEmissiveTexture;
+    private ResourceLocation eyebrowTexture;
+    private ResourceLocation scarTexture;
+    private ResourceLocation beardTexture;
+    private ResourceLocation beardAddonTexture;
+    private ResourceLocation hairTexture;
+    private ResourceLocation hairAddonTexture;
+    private ResourceLocation clothingBaseTexture;
+    private ResourceLocation clothingOverTexture;
+    private ResourceLocation clothingExtraTexture;
 
     private Boolean eyeIsEmissive;
 
     public static final Codec<NpcTextureData> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-        NbtCompound.CODEC.fieldOf("dynamic").forGetter(NpcTextureData::writeDynamic),
-        NbtCompound.CODEC.fieldOf("simplified").forGetter(NpcTextureData::writeSimplified)
+        CompoundTag.CODEC.fieldOf("dynamic").forGetter(NpcTextureData::writeDynamic),
+        CompoundTag.CODEC.fieldOf("simplified").forGetter(NpcTextureData::writeSimplified)
     ).apply(instance, NpcTextureData::new));
 
-    public static final PacketCodec<RegistryByteBuf, NpcTextureData> PACKET_CODEC;
+    public static final StreamCodec<RegistryFriendlyByteBuf, NpcTextureData> PACKET_CODEC;
 
-    public NpcTextureData(NbtCompound dynamic, NbtCompound simplified)
+    public NpcTextureData(CompoundTag dynamic, CompoundTag simplified)
     {
-        this.simplifiedSkin = MiddleEarth.fetchId(simplified.getString("skin", null));
-        this.simplifiedEar = MiddleEarth.fetchId(simplified.getString("ear", null));
-        this.simplifiedFeet = MiddleEarth.fetchId(simplified.getString("feet", null));
-        this.simplifiedHair = MiddleEarth.fetchId(simplified.getString("hair", null));
-        this.simplifiedNose = MiddleEarth.fetchId(simplified.getString("nose", null));
+        this.simplifiedSkin = MiddleEarth.fetchId(getString(simplified, "skin"));
+        this.simplifiedEar = MiddleEarth.fetchId(getString(simplified, "ear"));
+        this.simplifiedFeet = MiddleEarth.fetchId(getString(simplified, "feet"));
+        this.simplifiedHair = MiddleEarth.fetchId(getString(simplified, "hair"));
+        this.simplifiedNose = MiddleEarth.fetchId(getString(simplified, "nose"));
 
-        this.bodyTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.BODY.getField(), null));
-        this.headTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.HEAD.getField(), null));
-        this.feetTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.FEET.getField(), null));
+        this.bodyTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.BODY.getField()));
+        this.headTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.HEAD.getField()));
+        this.feetTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.FEET.getField()));
 
-        this.earTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.EAR.getField(), null));
-        this.noseTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.NOSE.getField(), null));
+        this.earTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.EAR.getField()));
+        this.noseTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.NOSE.getField()));
 
-        this.scarTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.SCAR.getField(), null));
-        this.eyeTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.EYE.getField(), null));
-        this.eyeEmissiveTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.EYE_EMISSIVE.getField(), null));
-        this.eyeIsEmissive = dynamic.getBoolean(NpcRenderedPart.EYE_EMISSIVE_TOGGLE.getField(), false);
+        this.scarTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.SCAR.getField()));
+        this.eyeTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.EYE.getField()));
+        this.eyeEmissiveTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.EYE_EMISSIVE.getField()));
+        this.eyeIsEmissive = dynamic.getBoolean(NpcRenderedPart.EYE_EMISSIVE_TOGGLE.getField());
 
-        this.hairTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.HAIR.getField(), null));
-        this.hairAddonTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.HAIR_ADDON.getField(), null));
+        this.hairTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.HAIR.getField()));
+        this.hairAddonTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.HAIR_ADDON.getField()));
 
-        this.eyebrowTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.EYEBROW.getField(), null));
+        this.eyebrowTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.EYEBROW.getField()));
 
-        this.beardTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.BEARD.getField(), null));
-        this.beardAddonTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.BEARD_ADDON.getField(), null));
+        this.beardTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.BEARD.getField()));
+        this.beardAddonTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.BEARD_ADDON.getField()));
 
-        this.clothingBaseTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.CLOTHING_BASE.getField(), null));
-        this.clothingOverTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.CLOTHING_OVER.getField(), null));
-        this.clothingExtraTexture = MiddleEarth.fetchId(dynamic.getString(NpcRenderedPart.CLOTHING_EXTRA.getField(), null));
+        this.clothingBaseTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.CLOTHING_BASE.getField()));
+        this.clothingOverTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.CLOTHING_OVER.getField()));
+        this.clothingExtraTexture = MiddleEarth.fetchId(getString(dynamic, NpcRenderedPart.CLOTHING_EXTRA.getField()));
     }
 
-    private NbtCompound writeSimplified() {
-        NbtCompound nbt = new NbtCompound();
+    private static String getString(CompoundTag tag, String key) {
+        return tag.contains(key, Tag.TAG_STRING) ? tag.getString(key) : null;
+    }
+
+    private CompoundTag writeSimplified() {
+        CompoundTag nbt = new CompoundTag();
         if(simplifiedSkin != null)
             nbt.putString("skin", simplifiedSkin.toString());
         if(simplifiedEar != null)
@@ -92,8 +97,8 @@ public class NpcTextureData {
         return nbt;
     }
 
-    private NbtCompound writeDynamic() {
-        NbtCompound nbt = new NbtCompound();
+    private CompoundTag writeDynamic() {
+        CompoundTag nbt = new CompoundTag();
         if(bodyTexture != null)
             nbt.putString(NpcRenderedPart.BODY.getField(), bodyTexture.toString());
         if(headTexture != null)
@@ -154,70 +159,70 @@ public class NpcTextureData {
         this.simplifiedNose = preset.nose;
     }
 
-    public NpcTextureData withSkinTexture(Identifier texture){
+    public NpcTextureData withSkinTexture(ResourceLocation texture){
         this.bodyTexture = texture;
         return this;
     }
-    public NpcTextureData withHeadTexture(Identifier texture){
+    public NpcTextureData withHeadTexture(ResourceLocation texture){
         this.headTexture = texture;
         return this;
     }
-    public NpcTextureData withFeetTexture(Identifier texture){
+    public NpcTextureData withFeetTexture(ResourceLocation texture){
         this.feetTexture = texture;
         return this;
     }
-    public NpcTextureData withScarTexture(Identifier texture){
+    public NpcTextureData withScarTexture(ResourceLocation texture){
         this.scarTexture = texture;
         return this;
     }
-    public NpcTextureData withEarTexture(Identifier texture){
+    public NpcTextureData withEarTexture(ResourceLocation texture){
         this.earTexture = texture;
         return this;
     }
-    public NpcTextureData withNoseTexture(Identifier texture){
+    public NpcTextureData withNoseTexture(ResourceLocation texture){
         this.noseTexture = texture;
         return this;
     }
 
-    public NpcTextureData withEyeTexture(Identifier eyeTexture, Identifier eyeEmissiveTexture, Boolean isEmissive){
+    public NpcTextureData withEyeTexture(ResourceLocation eyeTexture, ResourceLocation eyeEmissiveTexture, Boolean isEmissive){
         this.eyeTexture = eyeTexture;
         this.eyeEmissiveTexture = eyeEmissiveTexture;
         this.eyeIsEmissive = isEmissive;
         return this;
     }
 
-    public NpcTextureData withHairTexture(Identifier texture){
+    public NpcTextureData withHairTexture(ResourceLocation texture){
         this.hairTexture = texture;
         return this;
     }
 
-    public NpcTextureData withHairAddonTexture(Identifier texture){
+    public NpcTextureData withHairAddonTexture(ResourceLocation texture){
         this.hairAddonTexture = texture;
         return this;
     }
 
-    public NpcTextureData withEyebrowTexture(Identifier texture){
+    public NpcTextureData withEyebrowTexture(ResourceLocation texture){
         this.eyebrowTexture = texture;
         return this;
     }
 
-    public NpcTextureData withBeardTexture(Identifier texture){
+    public NpcTextureData withBeardTexture(ResourceLocation texture){
         this.beardTexture = texture;
         return this;
     }
 
-    public NpcTextureData withBeardAddonTexture(Identifier texture){
+    public NpcTextureData withBeardAddonTexture(ResourceLocation texture){
         this.beardAddonTexture = texture;
         return this;
     }
-    public NpcTextureData withClothingTexture(Identifier textureBase, Identifier textureOver, Identifier textureExtra){
+    public NpcTextureData withClothingTexture(ResourceLocation textureBase, ResourceLocation textureOver, ResourceLocation textureExtra){
         this.clothingBaseTexture = textureBase;
         this.clothingOverTexture = textureOver;
         this.clothingExtraTexture = textureExtra;
         return this;
     }
 
-    public Identifier get(NpcRenderedPart part){
+    public ResourceLocation get(NpcRenderedPart part){
         return switch (part){
             case BODY -> bodyTexture;
             case HEAD -> headTexture;
@@ -243,9 +248,9 @@ public class NpcTextureData {
         return this.eyeIsEmissive;
     }
     static {
-        PACKET_CODEC = PacketCodec.tuple(
-                PacketCodecs.NBT_COMPOUND, NpcTextureData::writeDynamic,
-                PacketCodecs.NBT_COMPOUND, NpcTextureData::writeSimplified,
+        PACKET_CODEC = StreamCodec.composite(
+                ByteBufCodecs.COMPOUND_TAG, NpcTextureData::writeDynamic,
+                ByteBufCodecs.COMPOUND_TAG, NpcTextureData::writeSimplified,
                 NpcTextureData::new);
     }
 
@@ -253,23 +258,23 @@ public class NpcTextureData {
         return get(NpcRenderedPart.BODY) == null;
     }
 
-    public Identifier getSimplifiedSkin() {
+    public ResourceLocation getSimplifiedSkin() {
         return this.simplifiedSkin;
     }
 
-    public Identifier getSimplifiedEar() {
+    public ResourceLocation getSimplifiedEar() {
         return this.simplifiedEar;
     }
 
-    public Identifier getSimplifiedFeet() {
+    public ResourceLocation getSimplifiedFeet() {
         return this.simplifiedFeet;
     }
 
-    public Identifier getSimplifiedHair() {
+    public ResourceLocation getSimplifiedHair() {
         return this.simplifiedHair;
     }
 
-    public Identifier getSimplifiedNose() {
+    public ResourceLocation getSimplifiedNose() {
         return this.simplifiedNose;
     }
 }

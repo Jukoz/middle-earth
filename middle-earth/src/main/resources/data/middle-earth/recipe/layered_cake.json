@@ -2,11 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "E": "minecraft:egg",
-    "W": "minecraft:wheat",
-    "C": "minecraft:cake",
-    "M": "minecraft:milk_bucket",
-    "S": "middle-earth:maple_syrup"
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    },
+    "C": {
+      "item": "minecraft:cake"
+    },
+    "M": {
+      "item": "minecraft:milk_bucket"
+    },
+    "S": {
+      "item": "middle-earth:maple_syrup"
+    }
   },
   "pattern": [
     "MCM",

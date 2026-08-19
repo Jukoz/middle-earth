@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.spawners;
 
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 
 public class EntitySpawningSettings {
     private EntityType entity;

@@ -1,27 +1,28 @@
 package net.sevenstars.of_beasts_and_wild_things.datageneration.providers;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.entity.EntityType;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
+public class EntityTagProvider extends EntityTypeTagsProvider {
 
-    public EntityTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
+    public EntityTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture,
+                             ExistingFileHelper existingFileHelper) {
+        super(output, registriesFuture, OfBeastsAndWildThings.MOD_ID, existingFileHelper);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        var swan_food = valueLookupBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.of("swan_food")));
-
-        swan_food.add(EntitiesWT.SNAIL);
-        swan_food.add(EntityType.TADPOLE);
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
+        tag(TagKey.create(Registries.ENTITY_TYPE, OfBeastsAndWildThings.of("swan_food")))
+                .add(EntitiesWT.SNAIL)
+                .add(EntityType.TADPOLE);
     }
 }

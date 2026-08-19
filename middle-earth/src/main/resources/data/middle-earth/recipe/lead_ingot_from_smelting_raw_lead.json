@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "middle-earth:raw_lead",
+  "ingredient": {
+    "item": "middle-earth:raw_lead"
+  },
   "result": {
     "id": "middle-earth:lead_ingot"
   },

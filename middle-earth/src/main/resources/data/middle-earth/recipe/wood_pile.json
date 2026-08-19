@@ -4,8 +4,12 @@
     "SLS"
   ],
   "key": {
-    "S": "minecraft:stick",
-    "L": "#minecraft:logs"
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "L": {
+      "tag": "minecraft:logs"
+    }
   },
   "result": {
     "id": "middle-earth:wood_pile",

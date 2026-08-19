@@ -1,27 +1,24 @@
 package net.sevenstars.middleearth.gui.shapinganvil;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.ServerRecipeManager;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.Property;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.neoforged.neoforge.network.PacketDistributor;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
@@ -35,45 +32,45 @@ import net.sevenstars.middleearth.recipe.RecipesME;
 
 import java.util.List;
 
-public class ShapingAnvilScreenHandler extends ScreenHandler {
-    private final Inventory inventory;
-    private final PropertyDelegate propertyDelegate;
+public class ShapingAnvilScreenHandler extends AbstractContainerMenu {
+    private final Container inventory;
+    private final ContainerData propertyDelegate;
     protected BlockPos pos;
-    private final World world;
-    private List<RecipeEntry<AnvilShapingRecipe>> availableRecipes;
+    private final Level world;
+    private List<RecipeHolder<AnvilShapingRecipe>> availableRecipes;
     private ItemStack outputStack;
-    private PlayerEntity player;
-    private Property selectedIndex;
-    private Property recipesSize;
+    private Player player;
+    private DataSlot selectedIndex;
+    private DataSlot recipesSize;
 
-    public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory, new SimpleInventory(1), new ArrayPropertyDelegate(2));
+    public ShapingAnvilScreenHandler(int syncId, Inventory playerInventory, BlockPos blockPos) {
+        this(syncId, playerInventory, new SimpleContainer(1), new SimpleContainerData(2));
         this.pos = blockPos;
     }
 
-    public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
+    public ShapingAnvilScreenHandler(int syncId, Inventory playerInventory, Container inventory, ContainerData delegate) {
         super(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, syncId);
-        checkSize(inventory, 1);
+        checkContainerSize(inventory, 1);
         this.inventory = inventory;
-        inventory.onOpen(playerInventory.player);
+        inventory.startOpen(playerInventory.player);
         this.propertyDelegate = delegate;
-        this.pos = BlockPos.ORIGIN;
-        this.world = playerInventory.player.getWorld();
+        this.pos = inventory instanceof ShapingAnvilBlockEntity anvil ? anvil.getBlockPos() : BlockPos.ZERO;
+        this.world = playerInventory.player.level();
         this.outputStack = ItemStack.EMPTY;
         this.player = playerInventory.player;
 
-        this.selectedIndex = Property.create();
-        this.recipesSize = Property.create();
+        this.selectedIndex = DataSlot.standalone();
+        this.recipesSize = DataSlot.standalone();
 
-        this.addProperty(selectedIndex).set(-1);
-        this.addProperty(recipesSize).set(0);
+        this.addDataSlot(selectedIndex).set(-1);
+        this.addDataSlot(recipesSize).set(0);
 
         this.addSlot(new ShapingAnvilSlot(inventory, 0, 136, 33){
             @Override
-            public void markDirty() {
-                super.markDirty();
-                if(player.getWorld().isClient) {
-                    ShapingAnvilScreen screen = (ShapingAnvilScreen)MinecraftClient.getInstance().currentScreen;
+            public void setChanged() {
+                super.setChanged();
+                if(player.level().isClientSide) {
+                    ShapingAnvilScreen screen = (ShapingAnvilScreen)Minecraft.getInstance().screen;
                     if(screen != null) screen.clearOutputs();
                 }
                 ShapingAnvilScreenHandler.this.updateStack(ShapingAnvilScreenHandler.this.inventory);
@@ -83,30 +80,30 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addProperties(delegate);
+        addDataSlots(delegate);
 
 
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int invSlot) {
+    public ItemStack quickMoveStack(Player player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasStack()) {
-            ItemStack originalStack = slot.getStack();
+        if (slot != null && slot.hasItem()) {
+            ItemStack originalStack = slot.getItem();
             newStack = originalStack.copy();
-            if (invSlot < this.inventory.size()) {
-                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+            if (invSlot < this.inventory.getContainerSize()) {
+                if (!this.moveItemStackTo(originalStack, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
+            } else if (!this.moveItemStackTo(originalStack, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setByPlayer(ItemStack.EMPTY);
             } else {
-                slot.markDirty();
+                slot.setChanged();
             }
         }
 
@@ -121,32 +118,40 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         this.updateStack(this.inventory);
     }
 
-    public void updateStack(Inventory inventory) {
-        ItemStack input = inventory.getStack(0);
-        if (!this.world.isClient){
-            ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-            this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ANVIL_SHAPING, new SingleStackRecipeInput(input), this.world).toList();
+    public void updateStack(Container inventory) {
+        ItemStack input = inventory.getItem(0);
+        if (!this.world.isClientSide){
+            RecipeManager serverRecipeManager = this.world.getRecipeManager();
+            this.availableRecipes = serverRecipeManager.getRecipesFor(
+                    RecipesME.ANVIL_SHAPING,
+                    new SingleRecipeInput(input),
+                    this.world
+            );
             recipesSize.set(this.availableRecipes.size());
             int index = 0;
-            for(RecipeEntry<AnvilShapingRecipe> recipe : availableRecipes) {
+            for(RecipeHolder<AnvilShapingRecipe> recipe : availableRecipes) {
                 ShapingAnvilRecipePacket newPacket = new ShapingAnvilRecipePacket(index++, recipe.value().getOutput());
-                ServerPlayNetworking.send((ServerPlayerEntity) player, newPacket);
+                PacketDistributor.sendToPlayer((ServerPlayer) player, newPacket);
             }
         }
     }
 
     public int getAvailableRecipeCount() {
         int count = 0;
-        ItemStack input = inventory.getStack(0);
-        if (!this.world.isClient){
-            ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-            this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ANVIL_SHAPING, new SingleStackRecipeInput(input), this.world).toList();
+        ItemStack input = inventory.getItem(0);
+        if (!this.world.isClientSide){
+            RecipeManager serverRecipeManager = this.world.getRecipeManager();
+            this.availableRecipes = serverRecipeManager.getRecipesFor(
+                    RecipesME.ANVIL_SHAPING,
+                    new SingleRecipeInput(input),
+                    this.world
+            );
             count = this.availableRecipes.size();
         }
         return count;
     }
 
-    public List<RecipeEntry<AnvilShapingRecipe>> getAvailableRecipes() {
+    public List<RecipeHolder<AnvilShapingRecipe>> getAvailableRecipes() {
         return availableRecipes;
     }
 
@@ -156,10 +161,10 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     public void setSelectedRecipe(int index) {
         selectedIndex.set(index);
         AnvilIndexPacket anvilIndexPacket = new AnvilIndexPacket(index, getPos().getX(), getPos().getY(), getPos().getZ());
-        ClientPlayNetworking.send(anvilIndexPacket);
+        PacketDistributor.sendToServer(anvilIndexPacket);
     }
 
-    public boolean onButtonClick(PlayerEntity player, int id) {
+    public boolean clickMenuButton(Player player, int id) {
         this.player = player;
         return this.isInBounds(id);
     }
@@ -172,11 +177,11 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         return outputStack;
     }
 
-    public boolean canUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
+    public boolean stillValid(Player player) {
+        return this.inventory.stillValid(player);
     }
 
-    private void addPlayerInventory(PlayerInventory playerInventory) {
+    private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -184,7 +189,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

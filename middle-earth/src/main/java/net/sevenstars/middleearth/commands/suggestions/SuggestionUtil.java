@@ -2,17 +2,16 @@ package net.sevenstars.middleearth.commands.suggestions;
 
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.minecraft.util.Identifier;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
+import net.minecraft.resources.ResourceLocation;
 
 public class SuggestionUtil {
-    public static CompletableFuture<Suggestions> getCorrespondingIdentifiers(List<Identifier> candidates, SuggestionsBuilder builder){
+    public static CompletableFuture<Suggestions> getCorrespondingIdentifiers(List<ResourceLocation> candidates, SuggestionsBuilder builder){
         String string = builder.getRemaining().toLowerCase(Locale.ROOT);
 
-        for (Identifier id : candidates){
+        for (ResourceLocation id : candidates){
             if(id.toString().contains(string)){
                 builder.suggest(id.toString());
             }

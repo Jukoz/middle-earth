@@ -2,12 +2,11 @@ package net.sevenstars.middleearth.world.features.boulder;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.gen.feature.FeatureConfig;
-
 import java.util.List;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class BigBoulderFeatureConfig implements FeatureConfig {
+public class BigBoulderFeatureConfig implements FeatureConfiguration {
     public static final Codec<BigBoulderFeatureConfig> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     Codec.FLOAT.fieldOf("width").forGetter(config ->config.width),

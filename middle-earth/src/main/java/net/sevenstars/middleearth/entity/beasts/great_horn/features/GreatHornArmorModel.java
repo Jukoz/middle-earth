@@ -1,8 +1,14 @@
 package net.sevenstars.middleearth.entity.beasts.great_horn.features;
 
 import net.minecraft.client.model.*;
-import net.minecraft.item.ItemStack;
-import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntityRenderState;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornEntity;
 import net.sevenstars.middleearth.entity.beasts.great_horn.GreatHornModel;
 
 public class GreatHornArmorModel extends GreatHornModel {
@@ -29,110 +35,111 @@ public class GreatHornArmorModel extends GreatHornModel {
         this.reins = this.topHead.getChild("reins");
     }
 
-    public static TexturedModelData getTexturedModelData() {
-        ModelData modelData = new ModelData();
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 8.0F, -10.0F));
+    public static LayerDefinition getTexturedModelData() {
+        MeshDefinition modelData = new MeshDefinition();
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition root = modelPartData.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 8.0F, -10.0F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -8.5F, 12.0F));
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -8.5F, 12.0F));
 
-        ModelPartData front_half = body.addChild("front_half", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, -13.0F));
+        PartDefinition front_half = body.addOrReplaceChild("front_half", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -13.0F));
 
-        ModelPartData front_body = front_half.addChild("front_body", ModelPartBuilder.create().uv(0, 15)
-                .cuboid(-6.5F, -8.0F, -6.5F, 13.0F, 16.0F, 13.0F, new Dilation(0.2F))
-                .uv(37, 133).cuboid(-6.5F, 8.4F, -6.5F, 13.0F, 4.0F, 13.0F,
-                        new Dilation(0.2F)), ModelTransform.origin(0.0F, 0.5F, 2.5F));
+        PartDefinition front_body = front_half.addOrReplaceChild("front_body", CubeListBuilder.create().texOffs(0, 15)
+                .addBox(-6.5F, -8.0F, -6.5F, 13.0F, 16.0F, 13.0F, new CubeDeformation(0.2F))
+                .texOffs(37, 133).addBox(-6.5F, 8.4F, -6.5F, 13.0F, 4.0F, 13.0F,
+                        new CubeDeformation(0.2F)), PartPose.offset(0.0F, 0.5F, 2.5F));
 
-        ModelPartData front_left_leg = front_half.addChild("front_left_leg", ModelPartBuilder.create().uv(0, 108)
-                .cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 16.0F, 4.0F, new Dilation(0.2F)), ModelTransform.origin(4.5F, 8.5F, -1.0F));
+        PartDefinition front_left_leg = front_half.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(0, 108)
+                .addBox(-2.0F, 0.0F, -2.0F, 4.0F, 16.0F, 4.0F, new CubeDeformation(0.2F)), PartPose.offset(4.5F, 8.5F, -1.0F));
 
-        ModelPartData front_right_leg = front_half.addChild("front_right_leg", ModelPartBuilder.create().uv(16, 108)
-                .cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 16.0F, 4.0F, new Dilation(0.2F)), ModelTransform.origin(-4.5F, 8.5F, -1.0F));
+        PartDefinition front_right_leg = front_half.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(16, 108)
+                .addBox(-2.0F, 0.0F, -2.0F, 4.0F, 16.0F, 4.0F, new CubeDeformation(0.2F)), PartPose.offset(-4.5F, 8.5F, -1.0F));
 
-        ModelPartData head_neck = front_half.addChild("head_neck", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -6.0F, -3.0F));
+        PartDefinition head_neck = front_half.addOrReplaceChild("head_neck", CubeListBuilder.create(), PartPose.offset(0.0F, -6.0F, -3.0F));
 
-        ModelPartData neck = head_neck.addChild("neck", ModelPartBuilder.create().uv(40, 0)
-                .cuboid(-3.5F, -6.0F, -2.0F, 7.0F, 18.0F, 7.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.5F, -2.0F));
+        PartDefinition neck = head_neck.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(40, 0)
+                .addBox(-3.5F, -6.0F, -2.0F, 7.0F, 18.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.5F, -2.0F));
 
-        ModelPartData top_head = head_neck.addChild("top_head", ModelPartBuilder.create().uv(96, 0)
-                .cuboid(-3.5F, -7.0F, -6.0F, 7.0F, 7.0F, 9.0F, new Dilation(0.2F))
-                .uv(69, 0).cuboid(-2.5F, -4.0F, -11.0F, 5.0F, 4.0F, 5.0F,
-                        new Dilation(0.2F)), ModelTransform.origin(0.0F, -7.5F, 0.0F));
+        PartDefinition top_head = head_neck.addOrReplaceChild("top_head", CubeListBuilder.create().texOffs(96, 0)
+                .addBox(-3.5F, -7.0F, -6.0F, 7.0F, 7.0F, 9.0F, new CubeDeformation(0.2F))
+                .texOffs(69, 0).addBox(-2.5F, -4.0F, -11.0F, 5.0F, 4.0F, 5.0F,
+                        new CubeDeformation(0.2F)), PartPose.offset(0.0F, -7.5F, 0.0F));
 
-        ModelPartData ear_left = top_head.addChild("ear_left", ModelPartBuilder.create().uv(0, 0)
-                .cuboid(0.0F, -4.0F, -1.0F, 1.0F, 5.0F, 3.0F, new Dilation(0.2F)),
-                ModelTransform.of(2.5F, -6.0F, 1.0F, -0.7854F, 0.4363F, 0.0F));
+        PartDefinition ear_left = top_head.addOrReplaceChild("ear_left", CubeListBuilder.create().texOffs(0, 0)
+                .addBox(0.0F, -4.0F, -1.0F, 1.0F, 5.0F, 3.0F, new CubeDeformation(0.2F)),
+                PartPose.offsetAndRotation(2.5F, -6.0F, 1.0F, -0.7854F, 0.4363F, 0.0F));
 
-        ModelPartData ear_right = top_head.addChild("ear_right", ModelPartBuilder.create().uv(9, 0)
-                .cuboid(-0.5F, -4.0F, -1.0F, 1.0F, 5.0F, 3.0F, new Dilation(0.2F)),
-                ModelTransform.of(-3.0F, -6.0F, 1.0F, -0.7854F, -0.4363F, 0.0F));
+        PartDefinition ear_right = top_head.addOrReplaceChild("ear_right", CubeListBuilder.create().texOffs(9, 0)
+                .addBox(-0.5F, -4.0F, -1.0F, 1.0F, 5.0F, 3.0F, new CubeDeformation(0.2F)),
+                PartPose.offsetAndRotation(-3.0F, -6.0F, 1.0F, -0.7854F, -0.4363F, 0.0F));
 
-        ModelPartData right_antler = top_head.addChild("right_antler", ModelPartBuilder.create().uv(34, 120)
-                .mirrored().cuboid(-8.0F, 0.0F, -2.0F, 8.0F, 2.0F, 2.0F, new Dilation(0.2F))
-                .mirrored(false), ModelTransform.of(-3.0F, -7.0F, 0.0F, 0.1812F, -0.3808F, 0.4252F));
+        PartDefinition right_antler = top_head.addOrReplaceChild("right_antler", CubeListBuilder.create().texOffs(34, 120)
+                .mirror().addBox(-8.0F, 0.0F, -2.0F, 8.0F, 2.0F, 2.0F, new CubeDeformation(0.2F))
+                .mirror(false), PartPose.offsetAndRotation(-3.0F, -7.0F, 0.0F, 0.1812F, -0.3808F, 0.4252F));
 
-        ModelPartData tip_r_armor_r1 = right_antler.addChild("tip_r_armor_r1", ModelPartBuilder.create().uv(34, 124)
-                .mirrored().cuboid(-8.0F, -1.0F, -1.0F, 8.0F, 2.0F, 2.0F, new Dilation(0.2F)).mirrored(false),
-                ModelTransform.of(-7.0F, 1.0F, 0.425F, 0.0F, 1.5708F, 0.0F));
+        PartDefinition tip_r_armor_r1 = right_antler.addOrReplaceChild("tip_r_armor_r1", CubeListBuilder.create().texOffs(34, 124)
+                .mirror().addBox(-8.0F, -1.0F, -1.0F, 8.0F, 2.0F, 2.0F, new CubeDeformation(0.2F)).mirror(false),
+                PartPose.offsetAndRotation(-7.0F, 1.0F, 0.425F, 0.0F, 1.5708F, 0.0F));
 
-        ModelPartData left_antler = top_head.addChild("left_antler", ModelPartBuilder.create().uv(54, 120)
-                .cuboid(0.0F, 0.0F, -2.0F, 8.0F, 2.0F, 2.0F, new Dilation(0.2F)),
-                ModelTransform.of(3.0F, -7.0F, 0.0F, 0.1812F, 0.3808F, -0.4252F));
+        PartDefinition left_antler = top_head.addOrReplaceChild("left_antler", CubeListBuilder.create().texOffs(54, 120)
+                .addBox(0.0F, 0.0F, -2.0F, 8.0F, 2.0F, 2.0F, new CubeDeformation(0.2F)),
+                PartPose.offsetAndRotation(3.0F, -7.0F, 0.0F, 0.1812F, 0.3808F, -0.4252F));
 
-        ModelPartData tip_l_armor_r1 = left_antler.addChild("tip_l_armor_r1", ModelPartBuilder.create().uv(54, 124)
-                .cuboid(0.0F, -1.0F, -1.0F, 8.0F, 2.0F, 2.0F, new Dilation(0.2F)),
-                ModelTransform.of(7.0F, 1.0F, 0.375F, 0.0F, -1.5708F, 0.0F));
+        PartDefinition tip_l_armor_r1 = left_antler.addOrReplaceChild("tip_l_armor_r1", CubeListBuilder.create().texOffs(54, 124)
+                .addBox(0.0F, -1.0F, -1.0F, 8.0F, 2.0F, 2.0F, new CubeDeformation(0.2F)),
+                PartPose.offsetAndRotation(7.0F, 1.0F, 0.375F, 0.0F, -1.5708F, 0.0F));
 
-        ModelPartData reins_head = top_head.addChild("reins_head", ModelPartBuilder.create().uv(51, 35)
-                .cuboid(-3.5F, -7.0F, -6.0F, 7.0F, 7.0F, 9.0F, new Dilation(0.3F))
-                .uv(52, 26).cuboid(-2.5F, -4.0F, -11.0F, 5.0F, 4.0F, 5.0F,
-                        new Dilation(0.3F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        PartDefinition reins_head = top_head.addOrReplaceChild("reins_head", CubeListBuilder.create().texOffs(51, 35)
+                .addBox(-3.5F, -7.0F, -6.0F, 7.0F, 7.0F, 9.0F, new CubeDeformation(0.3F))
+                .texOffs(52, 26).addBox(-2.5F, -4.0F, -11.0F, 5.0F, 4.0F, 5.0F,
+                        new CubeDeformation(0.3F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        ModelPartData reins = top_head.addChild("reins", ModelPartBuilder.create().uv(86, 99)
-                .cuboid(3.9F, 0.0F, 0.0F, 0.0F, 7.0F, 21.0F, new Dilation(0.0F))
-                .uv(86, 91).cuboid(-3.9F, 0.0F, 0.0F, 0.0F, 7.0F, 21.0F,
-                        new Dilation(0.0F)), ModelTransform.origin(0.0F, -2.0F, -7.0F));
+        PartDefinition reins = top_head.addOrReplaceChild("reins", CubeListBuilder.create().texOffs(86, 99)
+                .addBox(3.9F, 0.0F, 0.0F, 0.0F, 7.0F, 21.0F, new CubeDeformation(0.0F))
+                .texOffs(86, 91).addBox(-3.9F, 0.0F, 0.0F, 0.0F, 7.0F, 21.0F,
+                        new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, -7.0F));
 
-        ModelPartData back_body = front_half.addChild("back_body", ModelPartBuilder.create().uv(0, 44)
-                .cuboid(-5.5F, -4.55F, -3.6F, 11.0F, 13.0F, 14.0F, new Dilation(0.2F))
-                .uv(0, 128).cuboid(-5.5F, 8.825F, -3.6F, 11.0F, 4.0F, 14.0F,
-                        new Dilation(0.2F)), ModelTransform.origin(0.0F, 0.0F, 13.0F));
+        PartDefinition back_body = front_half.addOrReplaceChild("back_body", CubeListBuilder.create().texOffs(0, 44)
+                .addBox(-5.5F, -4.55F, -3.6F, 11.0F, 13.0F, 14.0F, new CubeDeformation(0.2F))
+                .texOffs(0, 128).addBox(-5.5F, 8.825F, -3.6F, 11.0F, 4.0F, 14.0F,
+                        new CubeDeformation(0.2F)), PartPose.offset(0.0F, 0.0F, 13.0F));
 
-        ModelPartData tail = back_body.addChild("tail", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -4.5F, 10.0F));
+        PartDefinition tail = back_body.addOrReplaceChild("tail", CubeListBuilder.create(), PartPose.offset(0.0F, -4.5F, 10.0F));
 
-        ModelPartData tail_armor_r1 = tail.addChild("tail_armor_r1", ModelPartBuilder.create().uv(39, 47)
-                .cuboid(-1.5F, -2.0F, 0.0F, 3.0F, 2.0F, 4.0F, new Dilation(0.2F)),
-                ModelTransform.of(0.0F, 2.0F, 0.0F, 0.5236F, 0.0F, 0.0F));
+        PartDefinition tail_armor_r1 = tail.addOrReplaceChild("tail_armor_r1", CubeListBuilder.create().texOffs(39, 47)
+                .addBox(-1.5F, -2.0F, 0.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.2F)),
+                PartPose.offsetAndRotation(0.0F, 2.0F, 0.0F, 0.5236F, 0.0F, 0.0F));
 
-        ModelPartData back_left_leg = root.addChild("back_left_leg", ModelPartBuilder.create().uv(0, 72)
-                .cuboid(-2.25F, -4.25F, -3.75F, 5.0F, 10.0F, 7.0F, new Dilation(0.2F))
-                .uv(4, 89).cuboid(-2.25F, 5.75F, 0.25F, 4.0F, 15.0F, 4.0F,
-                        new Dilation(0.2F)), ModelTransform.origin(4.75F, -4.75F, 19.75F));
+        PartDefinition back_left_leg = root.addOrReplaceChild("back_left_leg", CubeListBuilder.create().texOffs(0, 72)
+                .addBox(-2.25F, -4.25F, -3.75F, 5.0F, 10.0F, 7.0F, new CubeDeformation(0.2F))
+                .texOffs(4, 89).addBox(-2.25F, 5.75F, 0.25F, 4.0F, 15.0F, 4.0F,
+                        new CubeDeformation(0.2F)), PartPose.offset(4.75F, -4.75F, 19.75F));
 
-        ModelPartData back_right_leg = root.addChild("back_right_leg", ModelPartBuilder.create().uv(24, 72)
-                .cuboid(-2.75F, -4.25F, -3.75F, 5.0F, 10.0F, 7.0F, new Dilation(0.2F))
-                .uv(28, 89).cuboid(-1.75F, 5.75F, 0.25F, 4.0F, 15.0F, 4.0F,
-                        new Dilation(0.2F)), ModelTransform.origin(-4.75F, -4.75F, 19.75F));
+        PartDefinition back_right_leg = root.addOrReplaceChild("back_right_leg", CubeListBuilder.create().texOffs(24, 72)
+                .addBox(-2.75F, -4.25F, -3.75F, 5.0F, 10.0F, 7.0F, new CubeDeformation(0.2F))
+                .texOffs(28, 89).addBox(-1.75F, 5.75F, 0.25F, 4.0F, 15.0F, 4.0F,
+                        new CubeDeformation(0.2F)), PartPose.offset(-4.75F, -4.75F, 19.75F));
 
-        top_head.addChild("beard", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
-        front_body.addChild("saddle", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        top_head.addOrReplaceChild("beard", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        front_body.addOrReplaceChild("saddle", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(modelData, 128, 160);
+        return LayerDefinition.create(modelData, 128, 160);
     }
 
     @Override
-    public void setAngles(GreatHornEntityRenderState state) {
-        super.setAngles(state);
+    public void setupAnim(GreatHornEntity entity, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
-        boolean showSaddle = state.saddle != ItemStack.EMPTY;
-        saddle.hidden = !showSaddle;
-        reinsHead.hidden = !showSaddle;
-        reins.hidden = !showSaddle;
+        boolean showSaddle = !entity.getBodyArmorItem().isEmpty();
+        saddle.skipDraw = !showSaddle;
+        reinsHead.skipDraw = !showSaddle;
+        reins.skipDraw = !showSaddle;
 
-        if(!state.hasRider) {
-            reins.pitch = -12.5f * 0.017453292F;
+        if(!entity.hasExactlyOnePlayerPassenger()) {
+            reins.xRot = -12.5f * 0.017453292F;
         } else {
-            reins.pitch = 0f;
+            reins.xRot = 0f;
         }
     }
 }

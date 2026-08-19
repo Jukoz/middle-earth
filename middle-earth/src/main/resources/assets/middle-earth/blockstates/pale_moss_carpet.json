@@ -1,0 +1,82 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "bottom": "true"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet"
+      }
+    },
+    {
+      "when": {
+        "north": "low"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side"
+      }
+    },
+    {
+      "when": {
+        "north": "tall"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side_tall"
+      }
+    },
+    {
+      "when": {
+        "east": "low"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "east": "tall"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side_tall",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": "low"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "south": "tall"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side_tall",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "low"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "west": "tall"
+      },
+      "apply": {
+        "model": "middle-earth:block/pale_moss_carpet_side_tall",
+        "y": 270
+      }
+    }
+  ]
+}

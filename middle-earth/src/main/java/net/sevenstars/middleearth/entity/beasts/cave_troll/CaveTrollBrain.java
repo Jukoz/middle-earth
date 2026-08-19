@@ -5,15 +5,23 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
-import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
+import net.minecraft.world.entity.ai.behavior.GateBehavior;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MeleeAttack;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.behavior.RandomStroll;
+import net.minecraft.world.entity.ai.behavior.RunOne;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
+import net.minecraft.world.entity.ai.behavior.StartAttacking;
+import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.schedule.Activity;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
@@ -26,8 +34,8 @@ public class CaveTrollBrain {
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
 
     protected static Brain<?> create(CaveTrollEntity troll, Dynamic<?> dynamic) {
-        Brain.Profile<CaveTrollEntity> profile = Brain.createProfile(MEMORY_MODULES, SENSORS);
-        Brain<CaveTrollEntity> brain = profile.deserialize(dynamic);
+        Brain.Provider<CaveTrollEntity> profile = Brain.provider(MEMORY_MODULES, SENSORS);
+        Brain<CaveTrollEntity> brain = profile.makeBrain(dynamic);
 
         addCoreActivities(brain);
         addIdleActivities(brain);
@@ -36,31 +44,31 @@ public class CaveTrollBrain {
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
-        brain.resetPossibleActivities();
+        brain.useDefaultActivity();
         return brain;
     }
 
     private static void addCoreActivities(Brain<CaveTrollEntity> brain) {
-        brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
-                new MoveToTargetTask(),
-                new UpdateLookControlTask(45, 90),
-                new TickCooldownTask(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN),
-                new TickCooldownTask(MemoryModulesME.ROAR_COOLDOWN),
-                new TickCooldownTask(MemoryModulesME.SMASH_COOLDOWN),
-                new TickCooldownTask(MemoryModulesME.ACTION_TIMEOUT)
+        brain.eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+        brain.addActivity(Activity.CORE, 0, ImmutableList.of(
+                new MoveToTargetSink(),
+                new LookAtTargetSink(45, 90),
+                new CountDownCooldownTicks(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN),
+                new CountDownCooldownTicks(MemoryModulesME.ROAR_COOLDOWN),
+                new CountDownCooldownTicks(MemoryModulesME.SMASH_COOLDOWN),
+                new CountDownCooldownTicks(MemoryModulesME.ACTION_TIMEOUT)
         ));
     }
 
     private static void addIdleActivities(Brain<CaveTrollEntity> brain) {
-        brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getAttackTarget)),
-                Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getHurtBy)),
-                Pair.of(1, new RandomTask<>(ImmutableList.of(
-                        Pair.of(StrollTask.create(1.0F), 5),
-                        Pair.of(new CompositeTask<>(ImmutableMap.of(MemoryModulesME.ACTION_TIMEOUT, MemoryModuleState.VALUE_ABSENT), ImmutableSet.of(),
-                                CompositeTask.Order.ORDERED,
-                                CompositeTask.RunMode.TRY_ALL,
+        brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(
+                Pair.of(0, StartAttacking.create(CaveTrollBrain::getAttackTarget)),
+                Pair.of(0, StartAttacking.create(CaveTrollBrain::getHurtBy)),
+                Pair.of(1, new RunOne<>(ImmutableList.of(
+                        Pair.of(RandomStroll.stroll(1.0F), 5),
+                        Pair.of(new GateBehavior<>(ImmutableMap.of(MemoryModulesME.ACTION_TIMEOUT, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(),
+                                GateBehavior.OrderPolicy.ORDERED,
+                                GateBehavior.RunningPolicy.TRY_ALL,
                                 ImmutableList.of(
                                         Pair.of(new CaveTrollDigForFoodTask(), 1),
                                         Pair.of(new CaveTrollEatFoodTask(), 1),
@@ -69,54 +77,54 @@ public class CaveTrollBrain {
                 )))
         ),
                 ImmutableSet.of(
-                        Pair.of(MemoryModulesME.TAME, MemoryModuleState.VALUE_ABSENT)
+                        Pair.of(MemoryModulesME.TAME, MemoryStatus.VALUE_ABSENT)
                 ));
     }
 
     private static void addTamedActivities(Brain<CaveTrollEntity> brain) {
-        brain.setTaskList(ActivitiesME.TAMED, ImmutableList.of(
-                Pair.of(0, UpdateAttackTargetTask.create(CaveTrollBrain::getAttackTarget)),
-                Pair.of(1, new CompositeTask<>(ImmutableMap.of(MemoryModulesME.SITTING, MemoryModuleState.VALUE_ABSENT), ImmutableSet.of(),
-                        CompositeTask.Order.SHUFFLED,
-                        CompositeTask.RunMode.RUN_ONE,
+        brain.addActivityWithConditions(ActivitiesME.TAMED, ImmutableList.of(
+                Pair.of(0, StartAttacking.create(CaveTrollBrain::getAttackTarget)),
+                Pair.of(1, new GateBehavior<>(ImmutableMap.of(MemoryModulesME.SITTING, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(),
+                        GateBehavior.OrderPolicy.SHUFFLED,
+                        GateBehavior.RunningPolicy.RUN_ONE,
                         ImmutableList.of(
-                                Pair.of(StrollTask.create(1.0f), 1)
+                                Pair.of(RandomStroll.stroll(1.0f), 1)
                         )))
         ),
                 ImmutableSet.of(
-                        Pair.of(MemoryModulesME.TAME, MemoryModuleState.VALUE_PRESENT)
+                        Pair.of(MemoryModulesME.TAME, MemoryStatus.VALUE_PRESENT)
                 )
         );
     }
 
     private static void addFightActivities(Brain<CaveTrollEntity> brain, CaveTrollEntity troll) {
-        brain.setTaskList(Activity.FIGHT, ImmutableList.of(
-                        Pair.of(0, ForgetAttackTargetTask.create()),
-                        Pair.of(2, new RandomTask<>(ImmutableList.of(
-                                Pair.of(MeleeAttackTask.create(30), 4),
-                                Pair.of(RangedApproachTask.create(2.5F), 3),
+        brain.addActivityWithConditions(Activity.FIGHT, ImmutableList.of(
+                        Pair.of(0, StopAttackingIfTargetInvalid.create()),
+                        Pair.of(2, new RunOne<>(ImmutableList.of(
+                                Pair.of(MeleeAttack.create(30), 4),
+                                Pair.of(SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(2.5F), 3),
                                 Pair.of(new BeastChargeTask(troll.chargeDuration(), troll.maxChargeCooldown()), 1),
                                 Pair.of(new CaveTrollRoarTask(), 2),
                                 Pair.of(new CaveTrollSmashTask(), 2)
                         )))
                 ),
                 ImmutableSet.of(
-                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT)
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
                 )
         );
     }
 
-    private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, CaveTrollEntity troll) {
-        return (troll.isSleeping() || troll.isSitting()) ? troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HURT_BY_ENTITY) : troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+    private static Optional<? extends LivingEntity> getAttackTarget(CaveTrollEntity troll) {
+        return (troll.isSleeping() || troll.isSitting()) ? troll.getBrain().getMemory(MemoryModuleType.HURT_BY_ENTITY) : troll.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
     }
 
-    private static Optional<? extends LivingEntity> getHurtBy (ServerWorld world, CaveTrollEntity troll) {
-        return troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HURT_BY_ENTITY);
+    private static Optional<? extends LivingEntity> getHurtBy(CaveTrollEntity troll) {
+        return troll.getBrain().getMemory(MemoryModuleType.HURT_BY_ENTITY);
     }
 
     public static void updateActivities(CaveTrollEntity troll) {
-        troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, ActivitiesME.TAMED, Activity.IDLE));
-        troll.getBrain().refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
+        troll.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, ActivitiesME.TAMED, Activity.IDLE));
+        troll.getBrain().updateActivityFromSchedule(troll.level().getDayTime(), troll.level().getGameTime());
     }
 
     static {
@@ -135,7 +143,7 @@ public class CaveTrollBrain {
                 MemoryModuleType.LAST_WOKEN,
                 MemoryModuleType.HURT_BY,
                 MemoryModuleType.HURT_BY_ENTITY,
-                MemoryModuleType.VISIBLE_MOBS,
+                MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,
                 MemoryModuleType.LOOK_TARGET,

@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "middle-earth:quartz_shard"
+    "#": {
+      "item": "middle-earth:quartz_shard"
+    }
   },
   "pattern": [
     "###",

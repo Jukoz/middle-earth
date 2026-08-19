@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
 import net.sevenstars.middleearth.resources.datas.combatarchetypes.data.CombatArchetype;
@@ -14,7 +14,7 @@ public abstract class CombatArchetypeRuntimeData {
         this.combatArchetypeData = combatArchetypeData;
     }
 
-    public void tick(NpcEntity npcEntity, World world) {
+    public void tick(NpcEntity npcEntity, Level world) {
 
     }
 
@@ -30,8 +30,8 @@ public abstract class CombatArchetypeRuntimeData {
         return combatArchetypeData;
     }
 
-    public NbtCompound getNbt() {
-        NbtCompound nbt = new NbtCompound();
+    public CompoundTag getNbt() {
+        CompoundTag nbt = new CompoundTag();
 
         nbt.put("data", combatArchetypeData.getNbt());
 

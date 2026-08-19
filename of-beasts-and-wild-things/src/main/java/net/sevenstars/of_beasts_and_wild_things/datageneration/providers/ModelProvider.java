@@ -1,28 +1,21 @@
 package net.sevenstars.of_beasts_and_wild_things.datageneration.providers;
 
-import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.BlockStateModelGenerator;
-import net.minecraft.client.data.ItemModelGenerator;
-import net.minecraft.client.data.Models;
-import net.minecraft.item.Item;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.datageneration.models.SimpleItemModels;
 
-public class ModelProvider extends FabricModelProvider {
-    public ModelProvider(FabricDataOutput output) {
-        super(output);
+public class ModelProvider extends ItemModelProvider {
+    public ModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, OfBeastsAndWildThings.MOD_ID, existingFileHelper);
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-
-    }
-
-    @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-
+    protected void registerModels() {
         for (Item item : SimpleItemModels.items) {
-            itemModelGenerator.register(item, Models.GENERATED);
+            basicItem(item);
         }
     }
 }

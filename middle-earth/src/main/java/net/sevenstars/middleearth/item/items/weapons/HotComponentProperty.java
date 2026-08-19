@@ -1,25 +1,17 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
-import com.mojang.serialization.MapCodec;
-import net.minecraft.client.render.item.property.bool.BooleanProperty;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import org.jetbrains.annotations.Nullable;
 
-public class HotComponentProperty implements BooleanProperty {
-    public static final MapCodec<HotComponentProperty> CODEC = MapCodec.unit(new HotComponentProperty());
-
-    public MapCodec<HotComponentProperty> getCodec() {
-        return CODEC;
-    }
-
+public class HotComponentProperty implements ItemPropertyFunction {
     @Override
-    public boolean test(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+    public float call(ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
         TemperatureDataComponent temperatureDataComponent = stack.get(DataComponentTypesME.TEMPERATURE_DATA);
-        return temperatureDataComponent != null && temperatureDataComponent.temperature() > 0;
+        return temperatureDataComponent != null && temperatureDataComponent.temperature() > 0 ? 1.0F : 0.0F;
     }
 }

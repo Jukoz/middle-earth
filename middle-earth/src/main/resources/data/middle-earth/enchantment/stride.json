@@ -11,8 +11,8 @@
           "base": 0.005,
           "per_level_above_first": 0.005
         },
-        "attribute": "minecraft:movement_speed",
-        "id": "minecraft:middle-earth.stride",
+        "attribute": "minecraft:generic.movement_speed",
+        "id": "middle-earth:enchantment.stride",
         "operation": "add_value"
       }
     ]

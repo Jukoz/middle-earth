@@ -5,15 +5,15 @@ import net.sevenstars.middleearth.client.model.equipment.chest.backAttachments.a
 import net.sevenstars.middleearth.client.model.equipment.chest.backAttachments.unarmored.*;
 
 public enum BackAttachmentModelsME {
-    SLIM_MODELS(new CapeSlimModel(CapeSlimModel.getTexturedModelData().createModel()), new UnarmoredCapeSlimModel(UnarmoredCapeSlimModel.getTexturedModelData().createModel())),
-    MEDIUM_MODELS(new CapeMediumModel(CapeMediumModel.getTexturedModelData().createModel()), new UnarmoredCapeMediumModel(UnarmoredCapeMediumModel.getTexturedModelData().createModel())),
-    WIDE_MODELS(new CapeWideModel(CapeWideModel.getTexturedModelData().createModel()), new UnarmoredCapeWideModel(UnarmoredCapeWideModel.getTexturedModelData().createModel())),
-    WIDE_PAULDRON_MODELS(new CapeWidePauldronModel(CapeWidePauldronModel.getTexturedModelData().createModel()), new UnarmoredCapeWidePauldronModel(UnarmoredCapeWidePauldronModel.getTexturedModelData().createModel())),
-    FUR_MODELS(new FurCapeModel(FurCapeModel.getTexturedModelData().createModel()), new UnarmoredFurCapeModel(UnarmoredFurCapeModel.getTexturedModelData().createModel())),
-    SURCOAT_MODELS(new CapeSurcoatModel(CapeSurcoatModel.getTexturedModelData().createModel()), new UnarmoredCapeSurcoatModel(UnarmoredCapeSurcoatModel.getTexturedModelData().createModel())),
-    SURCOAT_FUR_MODELS(new FurSurcoatModel(FurSurcoatModel.getTexturedModelData().createModel()), new UnarmoredFurSurcoatModel(UnarmoredFurSurcoatModel.getTexturedModelData().createModel())),
-    NAZGUL_ROBES_MODEL(new NazgulRobesModel(NazgulRobesModel.getTexturedModelData().createModel()), new NazgulRobesModel(NazgulRobesModel.getTexturedModelData().createModel())),
-    SKULL_SPIKES(new SkullSpikesModel(SkullSpikesModel.getTexturedModelData().createModel()), new SkullSpikesModel(SkullSpikesModel.getTexturedModelData().createModel())),
+    SLIM_MODELS(new CapeSlimModel(CapeSlimModel.getTexturedModelData().bakeRoot()), new UnarmoredCapeSlimModel(UnarmoredCapeSlimModel.getTexturedModelData().bakeRoot())),
+    MEDIUM_MODELS(new CapeMediumModel(CapeMediumModel.getTexturedModelData().bakeRoot()), new UnarmoredCapeMediumModel(UnarmoredCapeMediumModel.getTexturedModelData().bakeRoot())),
+    WIDE_MODELS(new CapeWideModel(CapeWideModel.getTexturedModelData().bakeRoot()), new UnarmoredCapeWideModel(UnarmoredCapeWideModel.getTexturedModelData().bakeRoot())),
+    WIDE_PAULDRON_MODELS(new CapeWidePauldronModel(CapeWidePauldronModel.getTexturedModelData().bakeRoot()), new UnarmoredCapeWidePauldronModel(UnarmoredCapeWidePauldronModel.getTexturedModelData().bakeRoot())),
+    FUR_MODELS(new FurCapeModel(FurCapeModel.getTexturedModelData().bakeRoot()), new UnarmoredFurCapeModel(UnarmoredFurCapeModel.getTexturedModelData().bakeRoot())),
+    SURCOAT_MODELS(new CapeSurcoatModel(CapeSurcoatModel.getTexturedModelData().bakeRoot()), new UnarmoredCapeSurcoatModel(UnarmoredCapeSurcoatModel.getTexturedModelData().bakeRoot())),
+    SURCOAT_FUR_MODELS(new FurSurcoatModel(FurSurcoatModel.getTexturedModelData().bakeRoot()), new UnarmoredFurSurcoatModel(UnarmoredFurSurcoatModel.getTexturedModelData().bakeRoot())),
+    NAZGUL_ROBES_MODEL(new NazgulRobesModel(NazgulRobesModel.getTexturedModelData().bakeRoot()), new NazgulRobesModel(NazgulRobesModel.getTexturedModelData().bakeRoot())),
+    SKULL_SPIKES(new SkullSpikesModel(SkullSpikesModel.getTexturedModelData().bakeRoot()), new SkullSpikesModel(SkullSpikesModel.getTexturedModelData().bakeRoot())),
     ;
 
     private final ChestplateAddonModel armoredModel;

@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.sevenstars.of_beasts_and_wild_things.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "farm.ChickenFarmAnimalVariantMixin",
+    "farm.CowFarmAnimalVariantMixin",
+    "farm.MobFarmAnimalVariantMixin",
+    "farm.PigFarmAnimalVariantMixin"
+  ],
+  "client": [
+    "client.MobRendererBaseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,22 +1,21 @@
 package net.sevenstars.api.registries;
 
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-
 import java.util.Optional;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 
 public class DynamicRegistries {
 
-    public static <T> T register(Registerable<T> context, RegistryEntryLookup<T> registryEntryLookup, RegistryKey<T> registryKey, T element) {
-        Optional<RegistryEntry.Reference<T>> optionalRegistryEntry = registryEntryLookup.getOptional(registryKey);
+    public static <T> T register(BootstrapContext<T> context, HolderGetter<T> registryEntryLookup, ResourceKey<T> registryKey, T element) {
+        Optional<Holder.Reference<T>> optionalRegistryEntry = registryEntryLookup.get(registryKey);
         optionalRegistryEntry.ifPresent(reference -> context.register(registryKey, element));
         return element;
     }
-    public static <T> RegistryKey<T> of(RegistryKey<Registry<T>> key, Identifier id) {
-        return RegistryKey.of(key, id);
+    public static <T> ResourceKey<T> of(ResourceKey<Registry<T>> key, ResourceLocation id) {
+        return ResourceKey.create(key, id);
     }
 }

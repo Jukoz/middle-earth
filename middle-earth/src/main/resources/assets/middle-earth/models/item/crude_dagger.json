@@ -1,0 +1,14 @@
+{
+    "parent":  "minecraft:item/handheld",
+    "textures":  {
+                     "layer0":  "middle-earth:item/crude_dagger"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "middle-earth:sneak_attack":  1
+                                        },
+                          "model":  "middle-earth:item/crude_dagger_strike"
+                      }
+                  ]
+}

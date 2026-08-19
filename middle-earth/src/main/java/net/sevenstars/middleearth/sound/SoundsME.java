@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.sound;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.sevenstars.api.registries.RegistrationBridge;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 
 public class SoundsME {
     public static SoundEvent BELLOWS_PUSH = registerSoundEvent("bellows_push");
@@ -36,8 +36,8 @@ public class SoundsME {
     public static SoundEvent CAVE_TROLL_STEP = registerSoundEvent("cave_troll_step");
 
     private static SoundEvent registerSoundEvent(String name) {
-        Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);
-        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
+        ResourceLocation id = MiddleEarth.of(name);
+        return RegistrationBridge.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
     }
 
     public static void registerModSounds() {

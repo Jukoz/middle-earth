@@ -1,13 +1,12 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.TrackTargetGoal;
-
 import java.util.EnumSet;
 
-public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
+public class BeastTrackOwnerAttackerGoal extends TargetGoal {
     private final AbstractBeastEntity mob;
     private LivingEntity attacker;
     private int lastAttackedTime;
@@ -15,12 +14,12 @@ public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
     public BeastTrackOwnerAttackerGoal(AbstractBeastEntity mob) {
         super(mob, false);
         this.mob = mob;
-        this.setControls(EnumSet.of(Control.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
 
     @Override
-    public boolean canStart() {
-        if (!this.mob.isTame() || this.mob.isSitting()) {
+    public boolean canUse() {
+        if (!this.mob.isTamed() || this.mob.isSitting()) {
             return false;
         }
         if(!this.mob.shouldAttackWhenMounted() && this.mob.hasControllingPassenger()) {
@@ -30,9 +29,9 @@ public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
         if (livingEntity == null) {
             return false;
         }
-        this.attacker = livingEntity.getAttacker();
-        int i = livingEntity.getLastAttackedTime();
-        return i != this.lastAttackedTime && this.canTrack(this.attacker, TargetPredicate.DEFAULT);
+        this.attacker = livingEntity.getLastHurtByMob();
+        int i = livingEntity.getLastHurtByMobTimestamp();
+        return i != this.lastAttackedTime && this.canAttack(this.attacker, TargetingConditions.DEFAULT);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class BeastTrackOwnerAttackerGoal extends TrackTargetGoal {
         this.mob.setTarget(this.attacker);
         LivingEntity livingEntity = this.mob.getOwner();
         if (livingEntity != null) {
-            this.lastAttackedTime = livingEntity.getLastAttackedTime();
+            this.lastAttackedTime = livingEntity.getLastHurtByMobTimestamp();
         }
         super.start();
     }

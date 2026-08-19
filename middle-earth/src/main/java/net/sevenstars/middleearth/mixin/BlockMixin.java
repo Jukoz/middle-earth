@@ -1,18 +1,17 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -31,34 +30,44 @@ public abstract class BlockMixin {
     @Shadow protected abstract Block asBlock();
 
 
-    @Inject(at = @At("HEAD"), method = "onDestroyedByExplosion")
-    private void onDestroyedByExplosion(ServerWorld world, BlockPos pos, Explosion explosion, CallbackInfo ci) {
-        //TODO fix this
-        //if(!explosion.shouldDestroy()) return;
+    @Inject(at = @At("HEAD"), method = "wasExploded(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Explosion;)V")
+    private void onDestroyedByExplosion(Level world, BlockPos pos, Explosion explosion, CallbackInfo ci) {
+        if (!explosion.interactsWithBlocks()) {
+            return;
+        }
         Block block = this.asBlock();
 
-        if(explosion.getEntity() == null || explosion.getEntity().getType() == EntitiesME.FIRE_OF_ORTHANC) {
+        if(explosion.getDirectSourceEntity() == null || explosion.getDirectSourceEntity().getType() == EntitiesME.FIRE_OF_ORTHANC) {
             if(block != Blocks.TNT && block != ModDecorativeBlocks.FIRE_OF_ORTHANC) {
-                if(Math.random() < RANDOM_FLYING_BLOCK) {
-                    float distance = (float) pos.getSquaredDistance(explosion.getPosition());
-                    if(distance < explosion.getPower() / DISCARD_DISTANCE) return;
+                if(world.getRandom().nextDouble() < RANDOM_FLYING_BLOCK) {
+                    float distance = (float) pos.distToCenterSqr(explosion.center());
+                    if(distance < explosion.radius() / DISCARD_DISTANCE) return;
 
-                    FallingBlockEntity fallingBlockEntity = FallingBlockEntity.spawnFromBlock(world, pos, block.getDefaultState());
+                    FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(world, pos, block.defaultBlockState());
                     fallingBlockEntity.dropItem = false;
-                    fallingBlockEntity.setDestroyedOnLanding();
-                    Vec3d velocity = pos.toCenterPos().subtract(explosion.getPosition()).normalize();
+                    fallingBlockEntity.disableDrop();
                     float factor = FORCE / distance;
-                    velocity.multiply(factor);
-                    velocity.add(0, VERTICAL_MULTIPLIER * factor, 0);
-                    fallingBlockEntity.setVelocity(velocity);
+                    Vec3 velocity = pos.getCenter()
+                            .subtract(explosion.center())
+                            .normalize()
+                            .scale(factor)
+                            .add(0, VERTICAL_MULTIPLIER * factor, 0);
+                    fallingBlockEntity.setDeltaMovement(velocity);
                 }
             }
         }
     }
 
-    @Inject(method = "sideCoversSmallSquare", at = @At("RETURN"), cancellable = true)
-    private static void sideCoversSmallSquare(WorldView world, BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
-        BlockState blockState = world.getBlockState(pos);
-        if(blockState.getBlock() == ModDecorativeBlocks.ROPE) cir.setReturnValue(true);
+    @Inject(method = "canSupportCenter(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z", at = @At("RETURN"), cancellable = true)
+    private static void canSupportCenter(
+            LevelReader level,
+            BlockPos pos,
+            Direction direction,
+            CallbackInfoReturnable<Boolean> cir
+    ) {
+        BlockState state = level.getBlockState(pos);
+        if (state.is(ModDecorativeBlocks.ROPE)) {
+            cir.setReturnValue(true);
+        }
     }
 }

@@ -3,13 +3,8 @@ package net.sevenstars.middleearth.item.dataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.component.ComponentsAccess;
-import net.minecraft.item.Item;
-import net.minecraft.item.tooltip.TooltipAppender;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.text.Text;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.ModColors;
 
@@ -20,7 +15,7 @@ public record CooldownDataComponent(int cooldown){
             -> instance.group(Codec.INT.fieldOf("cooldown").forGetter(CooldownDataComponent::cooldown)).apply(instance, CooldownDataComponent::new));
 
     public static final Codec<CooldownDataComponent> CODEC = Codec.withAlternative(BASE_CODEC, Codec.INT, cooldown -> new CooldownDataComponent(cooldown));
-    public static final PacketCodec<ByteBuf, CooldownDataComponent> PACKET_CODEC = PacketCodec.tuple(PacketCodecs.INTEGER,
+    public static final StreamCodec<ByteBuf, CooldownDataComponent> PACKET_CODEC = StreamCodec.composite(ByteBufCodecs.INT,
             CooldownDataComponent::cooldown, CooldownDataComponent::new);
 
     @Override

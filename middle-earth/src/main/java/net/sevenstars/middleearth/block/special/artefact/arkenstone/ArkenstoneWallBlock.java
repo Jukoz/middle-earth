@@ -1,45 +1,50 @@
 package net.sevenstars.middleearth.block.special.artefact.arkenstone;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ArkenstoneWallBlock extends HorizontalFacingBlock {
+public class ArkenstoneWallBlock extends HorizontalDirectionalBlock {
 
-    public ArkenstoneWallBlock(Settings settings) {
+    public ArkenstoneWallBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
-        return ArkenstoneWallBlock.createCodec(ArkenstoneWallBlock::new);
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return ArkenstoneWallBlock.simpleCodec(ArkenstoneWallBlock::new);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState)((BlockState)this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing()));
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection()));
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
-    protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(FACING)){
-            default -> Block.createCuboidShape(6, 6, 0, 10, 10, 4);
-            case SOUTH -> Block.createCuboidShape(6, 6, 12, 10, 10, 16);
-            case EAST -> Block.createCuboidShape(12, 6, 6, 16, 10, 10);
-            case WEST -> Block.createCuboidShape(0, 6, 6, 4, 10, 10);
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return switch (state.getValue(FACING)){
+            default -> Block.box(6, 6, 0, 10, 10, 4);
+            case SOUTH -> Block.box(6, 6, 12, 10, 10, 16);
+            case EAST -> Block.box(12, 6, 6, 16, 10, 10);
+            case WEST -> Block.box(0, 6, 6, 4, 10, 10);
         };
     }
 

@@ -3,8 +3,12 @@
   "category": "misc",
   "group": "wooden_sign",
   "key": {
-    "#": "#middle-earth:mod_planks",
-    "X": "minecraft:stick"
+    "#": {
+      "tag": "middle-earth:mod_planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
   },
   "pattern": [
     "###",

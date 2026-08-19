@@ -1,28 +1,27 @@
 package net.sevenstars.middleearth.gui.artisantable;
 
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.advancement.AdvancementWidget;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.MathHelper;
-
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.advancements.AdvancementWidget;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import java.util.Map;
 
-@Environment(value= EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ArtisanTableTab {
-    private final MinecraftClient client;
+    private final Minecraft client;
     private final ArtisanTableScreen screen;
     private final ArtisanTableTabType type;
     private final int index;
     private final ItemStack icon;
-    private final Text title;
+    private final Component title;
     private final ArtisanTableInputsShape inputShape;
-    private final Map<AdvancementEntry, AdvancementWidget> widgets = Maps.newLinkedHashMap();
+    private final Map<AdvancementHolder, AdvancementWidget> widgets = Maps.newLinkedHashMap();
     private double originX;
     private double originY;
     private int minPanX = Integer.MAX_VALUE;
@@ -31,8 +30,8 @@ public class ArtisanTableTab {
     private int maxPanY = Integer.MIN_VALUE;
     private boolean initialized;
 
-    public ArtisanTableTab(MinecraftClient client, ArtisanTableScreen screen, ArtisanTableTabType type, int index,
-                           Text title, ItemStack icon, ArtisanTableInputsShape inputShape) {
+    public ArtisanTableTab(Minecraft client, ArtisanTableScreen screen, ArtisanTableTabType type, int index,
+                           Component title, ItemStack icon, ArtisanTableInputsShape inputShape) {
         this.client = client;
         this.screen = screen;
         this.type = type;
@@ -42,8 +41,8 @@ public class ArtisanTableTab {
         this.inputShape = inputShape;
     }
 
-    public ArtisanTableTab(MinecraftClient client, ArtisanTableScreen screen, ArtisanTableTabType type, int index,
-                           Text title, ItemStack icon) {
+    public ArtisanTableTab(Minecraft client, ArtisanTableScreen screen, ArtisanTableTabType type, int index,
+                           Component title, ItemStack icon) {
         this(client, screen, type, index, title, icon, ArtisanTableInputsShape.ANY);
     }
 
@@ -56,7 +55,7 @@ public class ArtisanTableTab {
     }
 
 
-    public Text getTitle() {
+    public Component getTitle() {
         return this.title;
     }
 
@@ -64,15 +63,15 @@ public class ArtisanTableTab {
         return this.inputShape;
     }
 
-    public void drawBackground(DrawContext context, int x, int y, boolean selected) {
+    public void drawBackground(GuiGraphics context, int x, int y, boolean selected) {
         this.type.drawBackground(context, x, y, selected, this.index);
     }
 
-    public void drawIcon(DrawContext context, int x, int y) {
+    public void drawIcon(GuiGraphics context, int x, int y) {
         this.type.drawIcon(context, x, y, this.index, this.icon);
     }
 
-    public void render(DrawContext context, int x, int y) {
+    public void render(GuiGraphics context, int x, int y) {
         if (!this.initialized) {
             this.originX = 117 - (double) (this.maxPanX + this.minPanX) / 2;
             this.originY = 56 - (double) (this.maxPanY + this.minPanY) / 2;
@@ -86,10 +85,10 @@ public class ArtisanTableTab {
 
     public void move(double offsetX, double offsetY) {
         if (this.maxPanX - this.minPanX > 234) {
-            this.originX = MathHelper.clamp(this.originX + offsetX, (double)(-(this.maxPanX - 234)), 0.0);
+            this.originX = Mth.clamp(this.originX + offsetX, (double)(-(this.maxPanX - 234)), 0.0);
         }
         if (this.maxPanY - this.minPanY > 113) {
-            this.originY = MathHelper.clamp(this.originY + offsetY, (double)(-(this.maxPanY - 113)), 0.0);
+            this.originY = Mth.clamp(this.originY + offsetY, (double)(-(this.maxPanY - 113)), 0.0);
         }
     }
 

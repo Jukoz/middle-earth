@@ -1,15 +1,15 @@
 package net.sevenstars.middleearth.network.packets;
 
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.sevenstars.middleearth.network.contexts.ServerPacketContext;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
 
-public abstract class ClientToServerPacket<T extends ClientToServerPacket<T>> implements CustomPayload {
+public abstract class ClientToServerPacket<T extends ClientToServerPacket<T>> implements CustomPacketPayload {
     @Override
-    public abstract Id<T> getId();
+    public abstract Type<T> type();
 
 
-    public abstract PacketCodec<RegistryByteBuf, T> streamCodec();
+    public abstract StreamCodec<RegistryFriendlyByteBuf, T> streamCodec();
     public abstract void process(ServerPacketContext context);
 }

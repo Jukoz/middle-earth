@@ -1,30 +1,29 @@
 package net.sevenstars.middleearth.block.special.saplings;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SaplingGenerator;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class VariantSaplingBlock extends SaplingBlock {
-    private final List<SaplingGenerator> trees;
+    private final List<TreeGrower> trees;
 
-    public VariantSaplingBlock(Settings settings, List<SaplingGenerator> trees) {
+    public VariantSaplingBlock(Properties settings, List<TreeGrower> trees) {
         super(trees.getFirst(), settings);
         this.trees = trees;
     }
 
     @Override
-    public void generate(ServerWorld world, BlockPos pos, BlockState state, Random random) {
-        if (state.get(STAGE) == 0) {
-            world.setBlockState(pos, (BlockState)state.cycle(STAGE), Block.NO_REDRAW);
+    public void advanceTree(ServerLevel world, BlockPos pos, BlockState state, RandomSource random) {
+        if (state.getValue(STAGE) == 0) {
+            world.setBlock(pos, (BlockState)state.cycle(STAGE), Block.UPDATE_INVISIBLE);
         } else {
-            SaplingGenerator saplingGenerator = trees.get(random.nextInt(trees.size()));
-            saplingGenerator.generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random);
+            TreeGrower saplingGenerator = trees.get(random.nextInt(trees.size()));
+            saplingGenerator.growTree(world, world.getChunkSource().getGenerator(), pos, state, random);
         }
     }
 }

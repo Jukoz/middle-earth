@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "#middle-earth:quartz",
-    "minecraft:diorite"
+    {
+      "tag": "middle-earth:quartz"
+    },
+    {
+      "item": "minecraft:diorite"
+    }
   ],
   "result": {
     "count": 1,

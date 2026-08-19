@@ -1,6 +1,5 @@
 package net.sevenstars.api.utils;
 
-import net.sevenstars.api.SevenStarsApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +17,7 @@ public class ModLogger {
 
 
     public void logDebugMsg(String msg) {
-        if(SevenStarsApi.IS_DEBUG){
+        if (isDebug) {
             LOGGER.info(buildMessage(msg));
         }
     }

@@ -1,25 +1,26 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ScaffoldingBlock;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ScaffoldingBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Fluids;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -28,91 +29,96 @@ import java.util.Map;
 public class ReinforcedScaffoldingBlock extends ScaffoldingBlock {
     public static final int MAX_SUPPORT_DISTANCE = 14;
     private static final int MAX_STORED_DISTANCE = 7;
-    public static final IntProperty SUPPORT_DISTANCE = IntProperty.of("support_distance", 0, MAX_SUPPORT_DISTANCE);
-    public static final MapCodec<ScaffoldingBlock> CODEC = createCodec(ReinforcedScaffoldingBlock::new);
+    public static final IntegerProperty SUPPORT_DISTANCE = IntegerProperty.create("support_distance", 0, MAX_SUPPORT_DISTANCE);
+    public static final MapCodec<ScaffoldingBlock> CODEC = simpleCodec(ReinforcedScaffoldingBlock::new);
 
-    public ReinforcedScaffoldingBlock(AbstractBlock.Settings settings) {
+    public ReinforcedScaffoldingBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(SUPPORT_DISTANCE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(SUPPORT_DISTANCE, 0));
     }
 
     @Override
-    public MapCodec<ScaffoldingBlock> getCodec() {
+    public MapCodec<ScaffoldingBlock> codec() {
         return CODEC;
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockPos pos = ctx.getBlockPos();
-        World world = ctx.getWorld();
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockPos pos = ctx.getClickedPos();
+        Level world = ctx.getLevel();
         int distance = calculateDistance(world, pos, this);
-        return this.getDefaultState()
-                .with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER)
-                .with(DISTANCE, toStoredDistance(distance))
-                .with(SUPPORT_DISTANCE, distance)
-                .with(BOTTOM, shouldBeBottom(world, pos, distance, this));
+        return this.defaultBlockState()
+                .setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER)
+                .setValue(DISTANCE, toStoredDistance(distance))
+                .setValue(SUPPORT_DISTANCE, distance)
+                .setValue(BOTTOM, shouldBeBottom(world, pos, distance, this));
     }
 
     @Override
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-        return DecorativeItemsME.REINFORCED_SCAFFOLDING.getDefaultStack();
+    public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
+        return DecorativeItemsME.REINFORCED_SCAFFOLDING.getDefaultInstance();
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if (state.get(WATERLOGGED)) {
-            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
-        if (!world.isClient()) {
-            tickView.scheduleBlockTick(pos, this, 1);
+        if (!world.isClientSide()) {
+            world.scheduleTick(pos, this, 1);
         }
 
         return state;
     }
 
     @Override
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         int distance = calculateDistance(world, pos, this);
-        BlockState updatedState = state.with(DISTANCE, toStoredDistance(distance))
-                .with(SUPPORT_DISTANCE, distance)
-                .with(BOTTOM, shouldBeBottom(world, pos, distance, this));
+        BlockState updatedState = state.setValue(DISTANCE, toStoredDistance(distance))
+                .setValue(SUPPORT_DISTANCE, distance)
+                .setValue(BOTTOM, shouldBeBottom(world, pos, distance, this));
         if (distance == MAX_SUPPORT_DISTANCE) {
-            if (state.get(SUPPORT_DISTANCE) == MAX_SUPPORT_DISTANCE) {
-                FallingBlockEntity.spawnFromBlock(world, pos, updatedState);
+            if (state.getValue(SUPPORT_DISTANCE) == MAX_SUPPORT_DISTANCE) {
+                FallingBlockEntity.fall(world, pos, updatedState);
             } else {
-                world.breakBlock(pos, true);
+                world.destroyBlock(pos, true);
             }
         } else if (state != updatedState) {
-            world.setBlockState(pos, updatedState, 3);
+            world.setBlock(pos, updatedState, 3);
         }
     }
 
     @Override
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         return calculateDistance(world, pos, this) < MAX_SUPPORT_DISTANCE;
     }
 
     @Override
-    protected boolean canReplace(BlockState state, ItemPlacementContext context) {
-        return context.getStack().getItem() instanceof BlockItem blockItem
+    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+        return context.getItemInHand().getItem() instanceof BlockItem blockItem
                 && blockItem.getBlock() == this;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    public boolean isScaffolding(BlockState state, LevelReader world, BlockPos pos, LivingEntity entity) {
+        return true;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(SUPPORT_DISTANCE);
     }
 
-    public static boolean shouldBeBottom(BlockView world, BlockPos pos, int distance, Block scaffoldingBlock) {
-        return distance > 0 && !world.getBlockState(pos.down()).isOf(scaffoldingBlock);
+    public static boolean shouldBeBottom(BlockGetter world, BlockPos pos, int distance, Block scaffoldingBlock) {
+        return distance > 0 && !world.getBlockState(pos.below()).is(scaffoldingBlock);
     }
 
-    public static int calculateDistance(BlockView world, BlockPos pos, Block scaffoldingBlock) {
+    public static int calculateDistance(BlockGetter world, BlockPos pos, Block scaffoldingBlock) {
         Map<BlockPos, Integer> supportDistances = new HashMap<>();
         ArrayDeque<BlockPos> positionsToCheck = new ArrayDeque<>();
-        BlockPos startPos = pos.toImmutable();
+        BlockPos startPos = pos.immutable();
 
         supportDistances.put(startPos, 0);
         positionsToCheck.add(startPos);
@@ -120,12 +126,12 @@ public class ReinforcedScaffoldingBlock extends ScaffoldingBlock {
         while (!positionsToCheck.isEmpty()) {
             BlockPos currentPos = positionsToCheck.removeFirst();
             int currentDistance = supportDistances.get(currentPos);
-            BlockPos belowPos = currentPos.down();
+            BlockPos belowPos = currentPos.below();
             BlockState belowState = world.getBlockState(belowPos);
 
-            if (belowState.isOf(scaffoldingBlock)) {
+            if (belowState.is(scaffoldingBlock)) {
                 addSupportPosition(positionsToCheck, supportDistances, belowPos, currentDistance, true);
-            } else if (belowState.isSideSolidFullSquare(world, belowPos, Direction.UP)) {
+            } else if (belowState.isFaceSturdy(world, belowPos, Direction.UP)) {
                 return Math.min(currentDistance, MAX_SUPPORT_DISTANCE);
             }
 
@@ -133,9 +139,9 @@ public class ReinforcedScaffoldingBlock extends ScaffoldingBlock {
                 continue;
             }
 
-            for (Direction direction : Direction.Type.HORIZONTAL) {
-                BlockPos horizontalPos = currentPos.offset(direction);
-                if (world.getBlockState(horizontalPos).isOf(scaffoldingBlock)) {
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                BlockPos horizontalPos = currentPos.relative(direction);
+                if (world.getBlockState(horizontalPos).is(scaffoldingBlock)) {
                     addSupportPosition(positionsToCheck, supportDistances, horizontalPos, currentDistance + 1, false);
                 }
             }

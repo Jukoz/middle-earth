@@ -2,14 +2,13 @@ package net.sevenstars.middleearth.item.utils.armor.backAttachments;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.function.ValueLists;
-
 import java.util.function.IntFunction;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 
-public enum BackAttachmentsME implements StringIdentifiable {
+public enum BackAttachmentsME implements StringRepresentable {
     CAPE(0,"cape"),
     SHOULDER_CAPE_LEFT(1,"shoulder_cape_left"),
     SHOULDER_CAPE_RIGHT(2,"shoulder_cape_right"),
@@ -88,12 +87,12 @@ public enum BackAttachmentsME implements StringIdentifiable {
     MANTLE_OF_YAVANNA(61,"mantle_of_yavanna")
     ;
 
-    private static final IntFunction<BackAttachmentsME> BY_ID = ValueLists.createIndexToValueFunction(BackAttachmentsME::getId, BackAttachmentsME.values(), ValueLists.OutOfBoundsHandling.ZERO);;
+    private static final IntFunction<BackAttachmentsME> BY_ID = ByIdMap.continuous(BackAttachmentsME::getId, BackAttachmentsME.values(), ByIdMap.OutOfBoundsStrategy.ZERO);;
     private final String name;
     private final int id;
 
-    public static final Codec<BackAttachmentsME> CODEC = StringIdentifiable.createBasicCodec(BackAttachmentsME::values);
-    public static final PacketCodec<ByteBuf, BackAttachmentsME> PACKET_CODEC = PacketCodecs.indexed(BY_ID, BackAttachmentsME::getId);
+    public static final Codec<BackAttachmentsME> CODEC = StringRepresentable.fromValues(BackAttachmentsME::values);
+    public static final StreamCodec<ByteBuf, BackAttachmentsME> PACKET_CODEC = ByteBufCodecs.idMapper(BY_ID, BackAttachmentsME::getId);
 
     BackAttachmentsME(int id, String name){
         this.name = name;
@@ -110,7 +109,7 @@ public enum BackAttachmentsME implements StringIdentifiable {
 
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

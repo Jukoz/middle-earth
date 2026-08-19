@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.datageneration.content;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.content.races.RacePools;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -20,7 +20,7 @@ public class TranslationEntries {
     public static List<Item> itemEntries = new ArrayList<>() {
     };
 
-    public static List<Identifier> spawnEggEntries = new ArrayList<>() {
+    public static List<ResourceLocation> spawnEggEntries = new ArrayList<>() {
     };
 
     public static List<EntityType<?>> entityEntries = new ArrayList<>() {
@@ -41,9 +41,7 @@ public class TranslationEntries {
     };
     public static List<String> spawnEntries = new ArrayList<>() {
     };
-
     public static List<String> inscriptionEntries = new ArrayList<>() {
-
     };
 
     public static Map<String, String> manualEntries = new HashMap<>() {
@@ -157,7 +155,7 @@ public class TranslationEntries {
             put("effect."+ MiddleEarth.MOD_ID +".restrained", "Restrained");
 
             put("enchantment."+ MiddleEarth.MOD_ID +".ailment_protection", "Ailment Protection");
-            put("enchantment."+ MiddleEarth.MOD_ID +".aule_blessing", "Aulë Blessing");
+            put("enchantment."+ MiddleEarth.MOD_ID +".aule_blessing", "Aule's Blessing");
             put("enchantment."+ MiddleEarth.MOD_ID +".bane_of_giants", "Bane of Giants");
             put("enchantment."+ MiddleEarth.MOD_ID +".beheading", "Beheading");
             put("enchantment."+ MiddleEarth.MOD_ID +".celerity", "Celerity");
@@ -316,7 +314,7 @@ public class TranslationEntries {
 
             put("block."+ MiddleEarth.MOD_ID +".faction_banner", "%s Banner");
 
-            put(MiddleEarth.MOD_ID +".music.menu.swept_away", "Swept Away");
+            put(MiddleEarth.MOD_ID + ".music.menu.swept_away", "Swept Away");
 
             put("sounds."+ MiddleEarth.MOD_ID +".bellows_push", "Bellows blowing");
             put("sounds."+ MiddleEarth.MOD_ID +".chisel_hit", "Chisel hits");
@@ -326,6 +324,7 @@ public class TranslationEntries {
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_refill", "Pipe refills");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_exhale", "Pipe exhales");
             put("sounds."+ MiddleEarth.MOD_ID +".pipe_ignite", "Pipe ignites");
+            put("sounds."+ MiddleEarth.MOD_ID +".pipe_cough", "Pipe coughs");
             put("sounds."+ MiddleEarth.MOD_ID +".orc_drum", "Orc drums");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_idle", "Great Horn grunts");
             put("sounds."+ MiddleEarth.MOD_ID +".great_horn_hurt", "Great Horn hurts");
@@ -485,8 +484,8 @@ public class TranslationEntries {
 
             put("spawn."+ MiddleEarth.MOD_ID +".none", "None");
 
-            put(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip"), "Attributes : ");
-            put(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip"), "Nothing changes!");
+            put(MiddleEarth.of("attribute_header").toLanguageKey("race_tooltip"), "Attributes : ");
+            put(MiddleEarth.of("no_attribute_change").toLanguageKey("race_tooltip"), "Nothing changes!");
 
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_0", "The fairest of gems found beneath");
             put("tooltip."+ MiddleEarth.MOD_ID +".arkenstone_lore_1", "the lonely mountain.");
@@ -669,6 +668,13 @@ public class TranslationEntries {
             put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.title", "Onboarding Screen");
             put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.continue_character.title", "Return Button");
             put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.continue_character.content", "Go to Overworld");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.not_ready", "The passage is not ready yet.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.retry_later", "Please wait before trying again.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.invalid_session", "The starlight phial passage expired. Use the phial again.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.disabled", "Returning to the Overworld is disabled on this server.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.teleport_failed", "No safe Overworld destination is available. Try again shortly.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.persistence_failed", "Returned to the Overworld, but the Middle-earth return point could not be saved.");
+            put("ui."+ MiddleEarth.MOD_ID +".return_confirmation.error.internal_error", "The starlight phial passage failed unexpectedly.");
 
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.button.fullscreen_toggle", "Toggle Fullscreen Button");
             put("ui."+ MiddleEarth.MOD_ID +".map_screen.button.map_overlay_toggle", "Map Overlay Toggle Button");
@@ -833,6 +839,12 @@ public class TranslationEntries {
             put("emi.category."+ MiddleEarth.MOD_ID +".forge", "Forge");
             put("emi.category."+ MiddleEarth.MOD_ID +".anvil_shaping", "Shaping Anvil");
             put("emi.category."+ MiddleEarth.MOD_ID +".artisan_table", "Artisan Table");
+            put("emi.category."+ MiddleEarth.MOD_ID +".inscription_table", "Inscription Table");
+            put("recipe."+ MiddleEarth.MOD_ID +".metal_units", "%s metal units");
+            put("recipe."+ MiddleEarth.MOD_ID +".ingot_equivalent", "%s ingot equivalent");
+            put("recipe."+ MiddleEarth.MOD_ID +".hammer_strikes", "%s hammer strikes");
+            put("recipe."+ MiddleEarth.MOD_ID +".level_cost", "%s levels");
+            put("recipe."+ MiddleEarth.MOD_ID +".applies_enchantment", "Applies %s");
 
             put("tag.item."+ MiddleEarth.MOD_ID +".anvil_items", "Anvil Items");
             put("tag.item."+ MiddleEarth.MOD_ID +".bones", "Bones");

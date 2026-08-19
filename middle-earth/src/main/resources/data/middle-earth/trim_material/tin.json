@@ -3,5 +3,7 @@
   "description": {
     "color": "#C6C4BC",
     "translate": "trim_material.middle-earth.tin"
-  }
+  },
+  "ingredient": "middle-earth:tin_ingot",
+  "item_model_index": 0.002
 }

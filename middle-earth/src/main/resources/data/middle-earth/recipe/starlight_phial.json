@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "equipment",
   "ingredients": [
-    "#middle-earth:glowy",
-    "middle-earth:water_phial"
+    {
+      "tag": "middle-earth:glowy"
+    },
+    {
+      "item": "middle-earth:water_phial"
+    }
   ],
   "result": {
     "id": "middle-earth:starlight_phial"

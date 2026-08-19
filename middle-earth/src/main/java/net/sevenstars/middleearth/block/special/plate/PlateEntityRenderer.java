@@ -1,53 +1,48 @@
 package net.sevenstars.middleearth.block.special.plate;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.*;
-import net.minecraft.world.LightType;
-import net.minecraft.world.World;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
 
-@Environment(value= EnvType.CLIENT)
 public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity> {
 
     private final ItemRenderer itemRenderer;
 
-    public PlateEntityRenderer(BlockEntityRendererFactory.Context context) {
+    public PlateEntityRenderer(BlockEntityRendererProvider.Context context) {
         this.itemRenderer = context.getItemRenderer();
     }
 
     @Override
-    public void render(PlateBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
-        ItemStack stack = entity.getStack();
+    public void render(PlateBlockEntity entity, float tickProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        ItemStack stack = entity.getTheItem();
 
         if(stack.isEmpty()) return;
 
-        Identifier oldId = stack.get(DataComponentTypes.ITEM_MODEL);
-        Identifier modelId = PlateFoodModels.getPlateIdentifier(oldId);
-        ItemStack copyStack = stack.copy();
-        copyStack.set(DataComponentTypes.ITEM_MODEL, modelId);
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        ResourceLocation modelId = PlateFoodModels.getPlateIdentifier(itemId);
+        boolean is3D = !itemId.equals(modelId);
 
-        boolean is3D = oldId != modelId;
+        matrices.pushPose();
+        Direction direction = entity.getBlockState().getValue(ForgeBlock.FACING);
 
-        matrices.push();
-        Direction direction = entity.getCachedState().get(ForgeBlock.FACING);
-
-        long seed = MathHelper.hashCode(entity.getPos().getX(), 0, entity.getPos().getZ());
+        long seed = Mth.getSeed(entity.getBlockPos().getX(), 0, entity.getBlockPos().getZ());
         double xOffset = ((seed & 15L) / 15.0 - 0.5) * 0.15;
         double zOffset = (((seed >> 4 & 15L) / 15.0) - 0.5) * 0.15;
         double rotOffset = (((seed >> 5 & 15L) / 15.0) - 0.5) * 35;
@@ -55,37 +50,48 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         if(!is3D) {
             matrices.translate(0.5f + xOffset, 0.085f, 0.5f + zOffset);
             matrices.scale(0.65f, 0.65f, 0.65f);
-            matrices.multiply(RotationAxis.POSITIVE_X.rotation((float) Math.toRadians(90)));
+            matrices.mulPose(Axis.XP.rotation((float) Math.toRadians(90)));
             switch (direction) {
-                case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(0)));
-                case EAST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(90)));
-                case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(180)));
-                case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(270)));
+                case NORTH -> matrices.mulPose(Axis.ZP.rotation((float) Math.toRadians(0)));
+                case EAST -> matrices.mulPose(Axis.ZP.rotation((float) Math.toRadians(90)));
+                case SOUTH -> matrices.mulPose(Axis.ZP.rotation((float) Math.toRadians(180)));
+                case WEST -> matrices.mulPose(Axis.ZP.rotation((float) Math.toRadians(270)));
             }
-            matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(rotOffset)));
+            matrices.mulPose(Axis.ZP.rotation((float) Math.toRadians(rotOffset)));
         } else {
             matrices.translate(0.5f + xOffset, 0.56f, 0.5f + zOffset);
             matrices.scale(1f, 1f, 1f);
             switch (direction) {
-                case NORTH -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(0)));
-                case EAST -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(90)));
-                case SOUTH -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(180)));
-                case WEST -> matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(270)));
+                case NORTH -> matrices.mulPose(Axis.YP.rotation((float) Math.toRadians(0)));
+                case EAST -> matrices.mulPose(Axis.YP.rotation((float) Math.toRadians(90)));
+                case SOUTH -> matrices.mulPose(Axis.YP.rotation((float) Math.toRadians(180)));
+                case WEST -> matrices.mulPose(Axis.YP.rotation((float) Math.toRadians(270)));
             }
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(rotOffset)));
+            matrices.mulPose(Axis.YP.rotation((float) Math.toRadians(rotOffset)));
         }
 
-        int currentLight = getLightLevel(entity.getWorld(), entity.getPos(), direction);
+        int currentLight = getLightLevel(entity.getLevel(), entity.getBlockPos(), direction);
 
-        this.itemRenderer.renderItem(copyStack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
-                matrices, vertexConsumers, entity.getWorld(), 1);
+        if (is3D) {
+            BakedModel model = PlateModelClientEvents.getBakedModel(modelId);
+            if (model != null) {
+                this.itemRenderer.render(stack, ItemDisplayContext.FIXED, false, matrices, vertexConsumers,
+                        currentLight, OverlayTexture.NO_OVERLAY, model);
+            } else {
+                this.itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, currentLight,
+                        OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, entity.getLevel(), 1);
+            }
+        } else {
+            this.itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, currentLight,
+                    OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, entity.getLevel(), 1);
+        }
 
-        matrices.pop();
+        matrices.popPose();
     }
 
-    private int getLightLevel(World world, BlockPos pos, Direction direction) {
-        int bLight = world.getLightLevel(LightType.BLOCK, pos.offset(direction).up());
-        int sLight = world.getLightLevel(LightType.SKY, pos.offset(direction).up());
-        return LightmapTextureManager.pack(bLight, sLight);
+    private int getLightLevel(Level world, BlockPos pos, Direction direction) {
+        int bLight = world.getBrightness(LightLayer.BLOCK, pos.relative(direction).above());
+        int sLight = world.getBrightness(LightLayer.SKY, pos.relative(direction).above());
+        return LightTexture.pack(bLight, sLight);
     }
 }

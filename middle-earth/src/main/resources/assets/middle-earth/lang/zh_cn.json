@@ -1,4 +1,28 @@
 {
+  "block.middle-earth.chandelier": "吊灯",
+  "item.middle-earth.chandelier": "吊灯",
+  "block.middle-earth.small_chandelier": "小型吊灯",
+  "item.middle-earth.small_chandelier": "小型吊灯",
+  "block.middle-earth.bronze_chandelier": "青铜吊灯",
+  "item.middle-earth.bronze_chandelier": "青铜吊灯",
+  "block.middle-earth.small_bronze_chandelier": "小型青铜吊灯",
+  "item.middle-earth.small_bronze_chandelier": "小型青铜吊灯",
+  "block.middle-earth.old_skull": "古旧头颅",
+  "item.middle-earth.old_skull": "古旧头颅",
+  "block.middle-earth.skeleton": "骷髅",
+  "item.middle-earth.skeleton": "骷髅",
+  "item.middle-earth.dol_guldur_ancient_flanged_shield": "多古尔都古老凸缘盾牌",
+  "item.middle-earth.dol_guldur_armrust_shield": "多古尔都护臂盾牌",
+  "item.middle-earth.dol_guldur_heavy_shield": "多古尔都重型盾牌",
+  "item.middle-earth.dol_guldur_heavy_skull_shield": "多古尔都重型颅纹盾牌",
+  "item.middle-earth.rusted_dol_guldur_ancient_flanged_shield": "锈蚀的多古尔都古老凸缘盾牌",
+  "item.middle-earth.baggy_hat": "袋状帽",
+  "item.middle-earth.beekeeper_mask": "蜂农面罩",
+  "item.middle-earth.blacksmith_apron": "铁匠围裙",
+  "item.middle-earth.chaperon": "风帽",
+  "item.middle-earth.dwarven_monocle": "矮人单片眼镜",
+  "item.middle-earth.glasses": "眼镜",
+  "middle-earth.music.menu.swept_away": "Swept Away",
   "__COMMENT__": "魔戒原著内容的中文翻译以邓嘉宛的译本为准",
 
   "__COMMENT__": "成就 - advancements",
@@ -12119,20 +12143,6 @@
   "block.middle-earth.wooden_bucket": "木桶",
   "item.middle-earth.wooden_bucket": "木桶",
 
-  "block.middle-earth.chandelier": "吊灯",
-  "item.middle-earth.chandelier": "吊灯",
-  "block.middle-earth.small_chandelier": "小型吊灯",
-  "item.middle-earth.small_chandelier": "小型吊灯",
-  "block.middle-earth.bronze_chandelier": "青铜吊灯",
-  "item.middle-earth.bronze_chandelier": "青铜吊灯",
-  "block.middle-earth.small_bronze_chandelier": "小型青铜吊灯",
-  "item.middle-earth.small_bronze_chandelier": "小型青铜吊灯",
-
-  "block.middle-earth.old_skull": "古旧头颅",
-  "item.middle-earth.old_skull": "古旧头颅",
-  "block.middle-earth.skeleton": "骷髅",
-  "item.middle-earth.skeleton": "骷髅",
-
   "__COMMENT__": "旗帜类方块",
   "block.middle-earth.banner.antlers.black": "黑色鹿角",
   "block.middle-earth.banner.antlers.blue": "蓝色鹿角",
@@ -13177,36 +13187,28 @@
 
   "inscription.middle-earth.resilient": "坚韧",
   "inscription.middle-earth.blessing": "恩宠",
-
   "inscription.middle-earth.warded": "守护",
   "inscription.middle-earth.tidal": "潮汐",
   "inscription.middle-earth.traveller": "行者",
-
   "inscription.middle-earth.edge": "锋刃",
   "inscription.middle-earth.cutter": "劈砍",
   "inscription.middle-earth.piercer": "突破",
   "inscription.middle-earth.core": "核心",
-
   "inscription.middle-earth.giant": "巨大",
   "inscription.middle-earth.collector": "采集",
-
   "inscription.middle-earth.draw": "牵拉",
   "inscription.middle-earth.point": "尖点",
-
   "inscription.middle-earth.fierce": "凶猛",
   "inscription.middle-earth.forceful": "强力",
   "inscription.middle-earth.noiseless": "无声",
   "inscription.middle-earth.bane": "克星",
-
   "inscription.middle-earth.pierce": "穿刺",
   "inscription.middle-earth.flame": "火焰",
   "inscription.middle-earth.sturdy": "结实",
-
   "inscription.middle-earth.broad": "范围",
   "inscription.middle-earth.careful": "细心",
   "inscription.middle-earth.long": "远距",
   "inscription.middle-earth.gifted": "天赋",
-
   "inscription.middle-earth.swift": "迅捷",
 
   "__COMMENT__": "物品 - item",
@@ -14234,11 +14236,6 @@
   "item.middle-earth.weathered_dol_guldur_stalker_chestplate": "锈蚀的多古尔都追踪者胸甲",
   "item.middle-earth.weathered_dol_guldur_stalker_helmet": "锈蚀的多古尔都追踪者头盔",
   "item.middle-earth.weathered_dol_guldur_stalker_leggings": "锈蚀的多古尔都追踪者护腿",
-  "item.middle-earth.dol_guldur_ancient_flanged_shield": "多古尔都古老凸缘盾牌",
-  "item.middle-earth.dol_guldur_armrust_shield": "多古尔都护臂盾牌",
-  "item.middle-earth.dol_guldur_heavy_shield": "多古尔都重型盾牌",
-  "item.middle-earth.dol_guldur_heavy_skull_shield": "多古尔都重型颅纹盾牌",
-  "item.middle-earth.rusted_dol_guldur_ancient_flanged_shield": "锈蚀的多古尔都古老凸缘盾牌",
 
   "item.middle-earth.uruk_hai_axe": "乌鲁克斧",
   "item.middle-earth.uruk_hai_berserker_helmet": "乌鲁克狂战士头盔",
@@ -14394,13 +14391,6 @@
   "item.middle-earth.ringwraith_boots": "戒灵靴子",
   "item.middle-earth.ringwraith_leggings": "戒灵护腿",
   "item.middle-earth.ringwraith_mail_hauberk": "戒灵锁链甲衫",
-
-  "item.middle-earth.baggy_hat": "袋状帽",
-  "item.middle-earth.beekeeper_mask": "蜂农面罩",
-  "item.middle-earth.blacksmith_apron": "铁匠围裙",
-  "item.middle-earth.chaperon": "风帽",
-  "item.middle-earth.dwarven_monocle": "矮人单片眼镜",
-  "item.middle-earth.glasses": "眼镜",
 
   "__COMMENT__": "刷怪蛋物品",
   "item.middle-earth.stone_troll_spawn_egg": "岩石食人妖刷怪蛋",
@@ -14621,9 +14611,6 @@
   "key.middle-earth.hood_state_toggle": "切换兜帽状态",
   "key.middle-earth.map_teleport": "在地图界面中传送",
   "key.middle-earth.map_fullscreen_toggle": "切换地图全屏显示",
-
-  "__COMMENT__": "音乐 - music",
-  "middle-earth.music.menu.swept_away": "Swept Away",
 
   "__COMMENT__": "npc数据 - npc_data",
   "npc_data.middle-earth.npc": "NPC",
@@ -15392,6 +15379,12 @@
   "emi.category.middle-earth.forge": "锻造炉",
   "emi.category.middle-earth.anvil_shaping": "铁砧加工",
   "emi.category.middle-earth.artisan_table": "工匠台",
+  "emi.category.middle-earth.inscription_table": "铭文台",
+  "recipe.middle-earth.metal_units": "%s 金属单位",
+  "recipe.middle-earth.ingot_equivalent": "相当于 %s 个锭",
+  "recipe.middle-earth.hammer_strikes": "锻打 %s 次",
+  "recipe.middle-earth.level_cost": "消耗 %s 级经验",
+  "recipe.middle-earth.applies_enchantment": "施加 %s",
 
   "__COMMENT__": "ModMenu 兼容",
   "modmenu.nameTranslation.middle-earth": "中洲",

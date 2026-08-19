@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tier;
 import net.sevenstars.middleearth.item.utils.WeaponTypesME;
-import net.minecraft.item.ToolMaterial;
 
 public class CustomSpearWeaponItem extends ReachWeaponItem {
     private static final float BASE_STRENGTH = 0.75f;
@@ -12,7 +12,7 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     public float pullProgress = 0;
     public WeaponTypesME type;
 
-    public CustomSpearWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
+    public CustomSpearWeaponItem(Tier toolMaterial, Item.Properties settings) {
         super(toolMaterial, WeaponTypesME.SPEAR, settings);
         this.type = WeaponTypesME.SPEAR;
     }

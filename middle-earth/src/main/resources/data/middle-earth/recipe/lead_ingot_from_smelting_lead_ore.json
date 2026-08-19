@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#middle-earth:lead_ores",
+  "ingredient": {
+    "tag": "middle-earth:lead_ores"
+  },
   "result": {
     "id": "middle-earth:lead_ingot"
   },

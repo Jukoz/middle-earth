@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.registries.content.factions;
 
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -13,27 +13,27 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 
 public class FactionRegistry {
-    private static final RegistryKey<Registry<Faction>> FACTION_KEY = DynamicRegistriesME.FACTION;
+    private static final ResourceKey<Registry<Faction>> FACTION_KEY = DynamicRegistriesME.FACTION;
 
-    public final static RegistryKey<Faction> GONDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("gondor"));
-    public final static RegistryKey<Faction> ROHAN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("rohan"));
-    public final static RegistryKey<Faction> DALE = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("dale"));
-    public final static RegistryKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("longbeards"));
-    public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(LONGBEARDS.getValue().getPath(), "erebor"));
-    public final static RegistryKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("lothlorien"));
-    public final static RegistryKey<Faction> WOODLAND_REALM = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("woodland_realm"));
-    public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("mordor"));
-    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("hobgoblin_tribes"));
-    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES_GUNDABAD =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(HOBGOBLIN_TRIBES.getValue().getPath(), "gundabad"));
-    public final static RegistryKey<Faction> GOBLIN_TOWN =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("goblin_town"));
-    public final static RegistryKey<Faction> MORIA =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("moria"));
-    public final static RegistryKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("isengard"));
-    public final static RegistryKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("shire"));
-    public final static RegistryKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("brigand"));
-    public final static RegistryKey<Faction> WILD_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("wild_goblins"));
+    public final static ResourceKey<Faction> GONDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("gondor"));
+    public final static ResourceKey<Faction> ROHAN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("rohan"));
+    public final static ResourceKey<Faction> DALE = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("dale"));
+    public final static ResourceKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("longbeards"));
+    public final static ResourceKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(LONGBEARDS.location().getPath(), "erebor"));
+    public final static ResourceKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("lothlorien"));
+    public final static ResourceKey<Faction> WOODLAND_REALM = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("woodland_realm"));
+    public final static ResourceKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("mordor"));
+    public final static ResourceKey<Faction> HOBGOBLIN_TRIBES =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("hobgoblin_tribes"));
+    public final static ResourceKey<Faction> HOBGOBLIN_TRIBES_GUNDABAD =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(HOBGOBLIN_TRIBES.location().getPath(), "gundabad"));
+    public final static ResourceKey<Faction> GOBLIN_TOWN =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("goblin_town"));
+    public final static ResourceKey<Faction> MORIA =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("moria"));
+    public final static ResourceKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("isengard"));
+    public final static ResourceKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("shire"));
+    public final static ResourceKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("brigand"));
+    public final static ResourceKey<Faction> WILD_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("wild_goblins"));
 
-    public static void bootstrap(Registerable<Faction> context) {
-        RegistryEntryLookup<Faction> registryEntryLookup = context.getRegistryLookup(FACTION_KEY);
+    public static void bootstrap(BootstrapContext<Faction> context) {
+        HolderGetter<Faction> registryEntryLookup = context.lookup(FACTION_KEY);
 
         register(context, registryEntryLookup, GONDOR, GondorFactionPool.GONDOR);
         register(context, registryEntryLookup, ROHAN, RohanFactionPool.ROHAN);
@@ -53,13 +53,13 @@ public class FactionRegistry {
         register(context, registryEntryLookup, WILD_GOBLINS, WildGoblinsFactionPool.WILD_GOBLIN);
     }
 
-    private static void register(Registerable<Faction> context, RegistryEntryLookup<Faction> registryEntryLookup, RegistryKey<Faction> registryKey, Faction element){
+    private static void register(BootstrapContext<Faction> context, HolderGetter<Faction> registryEntryLookup, ResourceKey<Faction> registryKey, Faction element){
         DynamicRegistriesME.register(context, registryEntryLookup, registryKey, element);
         // [LANG datagen]
-        TranslationEntries.factionEntries.add(registryKey.getValue().getPath());
+        TranslationEntries.factionEntries.add(registryKey.location().getPath());
         SpawnDataHandler spawnDataHandler = element.getSpawnData();
         if(spawnDataHandler != null && spawnDataHandler.getAllSpawnIdentifiers() != null)
-            for(Identifier spawnId : spawnDataHandler.getAllSpawnIdentifiers())
+            for(ResourceLocation spawnId : spawnDataHandler.getAllSpawnIdentifiers())
                 TranslationEntries.spawnEntries.add(spawnId.getPath());
     }
 }

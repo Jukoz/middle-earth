@@ -1,11 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"textures": {
-		"particle": "middle-earth:block/epmosto",
-		"top": "middle-earth:block/epmosto",
-		"bottom": "middle-earth:block/epmosto",
-		"side": "middle-earth:block/epmosto"
-	},
 	"elements": [
 		{
 			"from": [8, 0, 8],

@@ -1,14 +1,11 @@
 package net.sevenstars.middleearth.utils;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.World;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
@@ -24,39 +21,24 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class PlayerUtil {
-    public static boolean isAgainstWall(PlayerEntity entity) {
-        Box boundingBox = entity.getBoundingBox();
-        World world = entity.getWorld();
-        double testMovementAmount = 0.0001;
+    private static final TagKey<Block> CLIMBING_ATTRIBUTE_UNALLOWED_BLOCKS =
+            TagKey.create(Registries.BLOCK, MiddleEarth.of("climbing_attribute_unallowed_blocks"));
 
-        Vec3d testMovement = new Vec3d(testMovementAmount, 0.0, testMovementAmount);
-        List<VoxelShape> collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
-        Vec3d result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
-        if (!result.equals(testMovement)) {
-            return checkIfBlockIsAllowed(world, entity);
-        }
-
-        testMovement = new Vec3d(-testMovementAmount, 0.0, -testMovementAmount);
-        collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
-        result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
-        if (!result.equals(testMovement)) {
-            return checkIfBlockIsAllowed(world, entity);
-        }
-
-        return false;
+    public static boolean isAgainstWall(Player entity) {
+        return entity.horizontalCollision && checkIfBlockIsAllowed(entity.level(), entity);
     }
 
-    private static boolean checkIfBlockIsAllowed(World world, PlayerEntity player) {
-        BlockState blockstate = world.getBlockState(player.getBlockPos().offset(player.getHorizontalFacing()));
-        boolean isSolid = blockstate.isSolidBlock(world, player.getBlockPos());
-        boolean isAllowed = !blockstate.isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("climbing_attribute_unallowed_blocks")));
+    private static boolean checkIfBlockIsAllowed(Level world, Player player) {
+        BlockState blockstate = world.getBlockState(player.blockPosition().relative(player.getDirection()));
+        boolean isSolid = blockstate.isRedstoneConductor(world, player.blockPosition());
+        boolean isAllowed = !blockstate.is(CLIMBING_ATTRIBUTE_UNALLOWED_BLOCKS);
         return isSolid && isAllowed;
     }
 
-    public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull RaceType type){
-        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+    public static boolean isOfRace(@NotNull Player entity, @NotNull RaceType type){
+        PlayerData data = StateSaverAndLoader.getPlayerStateReadOnly(entity);
         if(data != null && data.getRace() != null){
-            Race race = RaceLookup.getRace(entity.getWorld(), data.getRace());
+            Race race = RaceLookup.getRace(entity.level(), data.getRace());
             if(race != null){
                 RaceType raceType = race.getRaceType();
                 return raceType == type;
@@ -65,10 +47,10 @@ public class PlayerUtil {
         return false;
     }
 
-    public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull List<RaceType> types){
-        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+    public static boolean isOfRace(@NotNull Player entity, @NotNull List<RaceType> types){
+        PlayerData data = StateSaverAndLoader.getPlayerStateReadOnly(entity);
         if(data != null && data.getRace() != null){
-            Race race = RaceLookup.getRace(entity.getWorld(), data.getRace());
+            Race race = RaceLookup.getRace(entity.level(), data.getRace());
             if(race != null){
                 RaceType raceType = race.getRaceType();
                 return types.contains(raceType);
@@ -77,22 +59,22 @@ public class PlayerUtil {
         return false;
     }
 
-    public static Faction fetchFaction(@NotNull PlayerEntity entity){
-        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+    public static Faction fetchFaction(@NotNull Player entity){
+        PlayerData data = StateSaverAndLoader.getPlayerStateReadOnly(entity);
         if(data != null && data.getFaction() != null){
             try {
-                return FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
+                return FactionLookup.getFactionById(entity.level(), data.getFaction());
             } catch (FactionIdentifierException e) {
                 return null;
             }
         }
         return null;
     }
-    public static SpawnData fetchSpawn(@NotNull PlayerEntity entity){
-        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
+    public static SpawnData fetchSpawn(@NotNull Player entity){
+        PlayerData data = StateSaverAndLoader.getPlayerStateReadOnly(entity);
         if(data != null && data.getFaction() != null && data.getSpawn() != null){
             try {
-                Faction faction = FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
+                Faction faction = FactionLookup.getFactionById(entity.level(), data.getFaction());
                 return faction.getSpawnData().findSpawn(data.getSpawn());
             } catch (FactionIdentifierException e) {
                 return null;

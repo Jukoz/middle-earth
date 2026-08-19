@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "middle-earth:raw_silver",
+  "ingredient": {
+    "item": "middle-earth:raw_silver"
+  },
   "result": {
     "id": "middle-earth:silver_ingot"
   },

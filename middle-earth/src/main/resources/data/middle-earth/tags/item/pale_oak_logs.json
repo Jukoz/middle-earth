@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:pale_oak_log",
+    "middle-earth:pale_oak_wood",
+    "middle-earth:stripped_pale_oak_log",
+    "middle-earth:stripped_pale_oak_wood"
+  ]
+}

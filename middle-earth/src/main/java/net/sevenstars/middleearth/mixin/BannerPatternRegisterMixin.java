@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.level.block.entity.BannerPattern;
+import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.registry.Registerable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BannerPatternRegisterMixin {
 
     @Inject(
-            method = "bootstrap",
+            method = "bootstrap(Lnet/minecraft/data/worldgen/BootstrapContext;)V",
             at = @At(
                     value = "TAIL",
                     shift = At.Shift.BEFORE
             )
     )
 
-    private static void registerModBannerPatterns(Registerable<BannerPattern> registry, CallbackInfo ci) {
+    private static void registerModBannerPatterns(BootstrapContext<BannerPattern> registry, CallbackInfo ci) {
         BannerPatternsME.register(registry); // TODO fixme
     }
 }

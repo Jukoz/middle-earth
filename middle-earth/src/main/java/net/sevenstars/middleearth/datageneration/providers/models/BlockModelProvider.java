@@ -1,26 +1,35 @@
 package net.sevenstars.middleearth.datageneration.providers.models;
 
-import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.HangingMossBlock;
-import net.minecraft.block.enums.BlockFace;
-import net.minecraft.block.enums.DoorHinge;
-import net.minecraft.block.enums.Thickness;
-import net.minecraft.client.data.*;
-import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.item.tint.GrassTintSource;
-import net.minecraft.client.render.model.json.ModelVariant;
-import net.minecraft.client.render.model.json.ModelVariantOperator;
-import net.minecraft.client.render.model.json.WeightedVariant;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.AxisRotation;
-import net.minecraft.util.math.Direction;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.BlockModelGenerators;
+import net.minecraft.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.data.models.blockstates.MultiPartGenerator;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.PropertyDispatch;
+import net.minecraft.data.models.blockstates.Variant;
+import net.minecraft.data.models.blockstates.VariantProperties;
+import net.minecraft.data.models.model.DelegatedModel;
+import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplate;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
@@ -33,23 +42,47 @@ import net.sevenstars.middleearth.datageneration.content.MEModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-import static net.minecraft.client.data.BlockStateModelGenerator.*;
+import static net.minecraft.data.models.blockstates.Condition.condition;
 
-public class BlockModelProvider extends FabricModelProvider {
+public class BlockModelProvider implements DataProvider {
+    private static final Map<String, String> PALE_OAK_TEXTURE_FALLBACKS = Map.ofEntries(
+            Map.entry("middle-earth:block/pale_oak_door_bottom", "minecraft:block/birch_door_bottom"),
+            Map.entry("middle-earth:block/pale_oak_door_top", "minecraft:block/birch_door_top"),
+            Map.entry("middle-earth:block/pale_oak_leaves", "minecraft:block/dark_oak_leaves"),
+            Map.entry("middle-earth:block/pale_oak_log", "minecraft:block/birch_log"),
+            Map.entry("middle-earth:block/pale_oak_log_top", "minecraft:block/birch_log_top"),
+            Map.entry("middle-earth:block/pale_oak_planks", "minecraft:block/birch_planks"),
+            Map.entry("middle-earth:block/pale_oak_trapdoor", "minecraft:block/birch_trapdoor"),
+            Map.entry("middle-earth:block/stripped_pale_oak_log", "minecraft:block/stripped_birch_log"),
+            Map.entry("middle-earth:block/stripped_pale_oak_log_top", "minecraft:block/stripped_birch_log_top")
+    );
+    private final PackOutput.PathProvider blockStatePathProvider;
+    private final PackOutput.PathProvider modelPathProvider;
+    private final Path authoredModelsRoot;
 
-    public static final ModelVariantOperator UV_LOCK = ModelVariantOperator.UV_LOCK.withValue(true);
-    public static final ModelVariantOperator ROTATE_X_90 = ModelVariantOperator.ROTATION_X.withValue(AxisRotation.R90);
-    ;
-    public static final ModelVariantOperator ROTATE_X_180 = ModelVariantOperator.ROTATION_X.withValue(AxisRotation.R180);
-    public static final ModelVariantOperator ROTATE_X_270 = ModelVariantOperator.ROTATION_X.withValue(AxisRotation.R270);
-    public static final ModelVariantOperator ROTATE_Y_90 = ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.R90);
-    public static final ModelVariantOperator ROTATE_Y_180 = ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.R180);
-    public static final ModelVariantOperator ROTATE_Y_270 = ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.R270);
-
-    public BlockModelProvider(FabricDataOutput output) {
-        super(output);
+    public BlockModelProvider(PackOutput output) {
+        this.blockStatePathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
+        this.modelPathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
+        this.authoredModelsRoot = output.getOutputFolder()
+                .resolveSibling("resources")
+                .resolve("assets")
+                .resolve(MiddleEarth.MOD_ID)
+                .resolve("models");
     }
 
     @Override
@@ -57,435 +90,434 @@ public class BlockModelProvider extends FabricModelProvider {
         return "BlockModelProvider";
     }
 
-    @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateBlockStateModels(GenerationContext blockStateModelGenerator) {
 
         for (Block block : SimpleBlockModel.blocks) {
-            blockStateModelGenerator.registerSimpleCubeAll(block);
+            blockStateModelGenerator.createTrivialCube(block);
         }
 
         for (Block block : LeavesSets.grayscaleLeaves) {
-            blockStateModelGenerator.registerTintedBlockAndItem(block, TexturedModel.LEAVES, -12012264);
+            blockStateModelGenerator.createTintedLeaves(block, TexturedModel.LEAVES, -12012264);
         }
 
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledMainBlockTopBottom) {
-            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.createRotatedPillarWithHorizontalVariant(block.base(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
         }
 
         for (SimpleBlockModel.ChiseledBlock block : SimpleBlockModel.chiseledBlocksTopBottom) {
-            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.createRotatedPillarWithHorizontalVariant(block.base(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
         }
 
         for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocksTopBottom) {
-            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.createRotatedPillarWithHorizontalVariant(block.base(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
         }
 
         for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledTilesBlocksTopBottom) {
-            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.createRotatedPillarWithHorizontalVariant(block.base(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
         }
 
         for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledSmoothBlocksTopBottom) {
-            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.createRotatedPillarWithHorizontalVariant(block.base(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
         }
 
         for (Block wood : SimpleBlockModel.woodBlocks) {
-            TextureMap textureMap = new TextureMap().put(TextureKey.ALL,
-                    Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(wood).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
-            WeightedVariant identifier = createWeightedVariant(Models.CUBE_COLUMN.upload(wood, textureMap, blockStateModelGenerator.modelCollector));
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(wood, identifier));
+            TextureMapping textureMap = new TextureMapping().put(TextureSlot.ALL,
+                    ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(wood).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            Variant identifier = plainVariant(ModelTemplates.CUBE_COLUMN.create(wood, textureMap, blockStateModelGenerator.modelOutput));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createAxisAlignedPillarBlock(wood, identifier));
         }
 
         for (SimpleBlockModel.ChiseledPolishedBlock block : SimpleBlockModel.chiseledPolishedBlocks) {
-            blockStateModelGenerator.registerSimpleCubeAll(block.base());
+            blockStateModelGenerator.createTrivialCube(block.base());
         }
 
         for (SimplePillarModel.Pillar block : SimplePillarModel.blocks) {
-            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.createRotatedPillarWithHorizontalVariant(block.base(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
         }
 
         for (SimplePillarModel.StonePillar block : SimplePillarModel.stonePillars) {
-            blockStateModelGenerator.registerAxisRotated(block.base(), TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+            blockStateModelGenerator.createRotatedPillarWithHorizontalVariant(block.base(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
         }
 
         for (SimplePillarModel.StonePillar block : SimplePillarModel.carvedWindows) {
-            TextureMap textureMap;
+            TextureMapping textureMap;
             if (block.origin() == Blocks.BASALT || block.origin() == Blocks.DEEPSLATE){
-                textureMap = TextureMap.sideEnd(TextureMap.getId(block.base()), TextureMap.getSubId(block.origin(), "_top"));
+                textureMap = TextureMapping.column(TextureMapping.getBlockTexture(block.base()), TextureMapping.getBlockTexture(block.origin(), "_top"));
             } else {
-                textureMap = TextureMap.sideEnd(TextureMap.getId(block.base()), TextureMap.getId(block.origin()));
+                textureMap = TextureMapping.column(TextureMapping.getBlockTexture(block.base()), TextureMapping.getBlockTexture(block.origin()));
             }
-            WeightedVariant weightedVariant = createWeightedVariant(Models.CUBE_COLUMN.upload(block.base(), textureMap, blockStateModelGenerator.modelCollector));
-            blockStateModelGenerator.blockStateCollector.accept(createSingletonBlockState(block.base(), weightedVariant));
+            Variant weightedVariant = plainVariant(ModelTemplates.CUBE_COLUMN.create(block.base(), textureMap, blockStateModelGenerator.modelOutput));
+            blockStateModelGenerator.blockStateOutput.accept(createSimpleBlock(block.base(), weightedVariant));
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.slabs) {
-            WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
+            Variant id = plainVariant(ModelLocationUtils.getModelLocation(block.origin()));
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.origin());
+            TexturedModel texturedModel = TexturedModel.CUBE.get(block.origin());
             if (block.origin() == Blocks.BASALT || block.origin() == Blocks.POLISHED_BASALT) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath() + "_side"));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath() + "_side"));
             }
-            WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant bottom = plainVariant(ModelTemplates.SLAB_BOTTOM.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant top = plainVariant(ModelTemplates.SLAB_TOP.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createSlabBlockState(slab, bottom, top, id));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createSlab(slab, bottom, top, id));
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.woodSlabs) {
-            WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
+            Variant id = plainVariant(ModelLocationUtils.getModelLocation(block.origin()));
             Block slab = block.slab();
 
-            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+            String modid = BuiltInRegistries.BLOCK.getKey(block.origin()).getNamespace();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
-            WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            Variant bottom = plainVariant(ModelTemplates.SLAB_BOTTOM.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant top = plainVariant(ModelTemplates.SLAB_TOP.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createSlabBlockState(slab, bottom, top, id));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createSlab(slab, bottom, top, id));
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.strippedSlabs) {
-            WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
+            Variant id = plainVariant(ModelLocationUtils.getModelLocation(block.origin()));
             Block slab = block.slab();
 
-            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+            String modid = BuiltInRegistries.BLOCK.getKey(block.origin()).getNamespace();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
-            WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            Variant bottom = plainVariant(ModelTemplates.SLAB_BOTTOM.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant top = plainVariant(ModelTemplates.SLAB_TOP.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createSlabBlockState(slab, bottom, top, id));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createSlab(slab, bottom, top, id));
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.vanillaSlabs) {
-            WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
+            Variant id = plainVariant(ModelLocationUtils.getModelLocation(block.origin()));
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
-            WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            Variant bottom = plainVariant(ModelTemplates.SLAB_BOTTOM.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant top = plainVariant(ModelTemplates.SLAB_TOP.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createSlabBlockState(slab, bottom, top, id));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createSlab(slab, bottom, top, id));
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.vanillaWoodSlabs) {
-            WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
+            Variant id = plainVariant(ModelLocationUtils.getModelLocation(block.origin()));
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
-            WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            Variant bottom = plainVariant(ModelTemplates.SLAB_BOTTOM.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant top = plainVariant(ModelTemplates.SLAB_TOP.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createSlabBlockState(slab, bottom, top, id));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createSlab(slab, bottom, top, id));
         }
 
         for (SimpleSlabModel.Slab block : SimpleSlabModel.vanillaStrippedSlab) {
-            WeightedVariant id = createWeightedVariant(ModelIds.getBlockModelId(block.origin()));
+            Variant id = plainVariant(ModelLocationUtils.getModelLocation(block.origin()));
             Block slab = block.slab();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
-            WeightedVariant bottom = createWeightedVariant(Models.SLAB.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant top = createWeightedVariant(Models.SLAB_TOP.upload(slab, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            Variant bottom = plainVariant(ModelTemplates.SLAB_BOTTOM.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant top = plainVariant(ModelTemplates.SLAB_TOP.create(slab, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createSlabBlockState(slab, bottom, top, id));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createSlab(slab, bottom, top, id));
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.stairs) {
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.origin());
+            TexturedModel texturedModel = TexturedModel.CUBE.get(block.origin());
             if (block.origin() == Blocks.BASALT || block.origin() == Blocks.POLISHED_BASALT) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath() + "_side"));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath() + "_side"));
             }
 
             Block stairs = block.stairs();
-            TextureMap textureMap = texturedModel.getTextures();
+            TextureMapping textureMap = texturedModel.getMapping();
             if(block.origin() == StoneBlockSets.DRYSTONE_SET.cobblestoneBlocks.base()) {
-                textureMap = TextureMap.top(block.origin());
-                textureMap.put(TextureKey.SIDE, Registries.BLOCK.getId(block.origin()).withPath((path) -> "block/" + path));
-                textureMap.put(TextureKey.BOTTOM, Registries.BLOCK.getId(block.origin()).withPath((path) -> "block/" + path));
+                textureMap = TextureMapping.top(block.origin());
+                textureMap.put(TextureSlot.SIDE, BuiltInRegistries.BLOCK.getKey(block.origin()).withPath((path) -> "block/" + path));
+                textureMap.put(TextureSlot.BOTTOM, BuiltInRegistries.BLOCK.getKey(block.origin()).withPath((path) -> "block/" + path));
             }
 
-            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
-            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
-            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, textureMap, blockStateModelGenerator.modelCollector));
+            Variant inner = plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, textureMap, blockStateModelGenerator.modelOutput));
+            Variant regular = plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(stairs, textureMap, blockStateModelGenerator.modelOutput));
+            Variant outer = plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, textureMap, blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createStairsBlockState(stairs, inner, regular, outer));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createStairs(stairs, inner, regular, outer));
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.woodStairs) {
-            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+            String modid = BuiltInRegistries.BLOCK.getKey(block.origin()).getNamespace();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block stairs = block.stairs();
 
-            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant inner = plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant regular = plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant outer = plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createStairsBlockState(stairs, inner, regular, outer));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createStairs(stairs, inner, regular, outer));
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.strippedStairs) {
-            String modid = Registries.BLOCK.getId(block.origin()).getNamespace();
+            String modid = BuiltInRegistries.BLOCK.getKey(block.origin()).getNamespace();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block stairs = block.stairs();
 
-            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant inner = plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant regular = plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant outer = plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createStairsBlockState(stairs, inner, regular, outer));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createStairs(stairs, inner, regular, outer));
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.vanillaWoodStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block stairs = block.stairs();
 
-            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant inner = plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant regular = plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant outer = plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createStairsBlockState(stairs, inner, regular, outer));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createStairs(stairs, inner, regular, outer));
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.vanillaStrippedStairs) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.origin()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block stairs = block.stairs();
 
-            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant inner = plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant regular = plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant outer = plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createStairsBlockState(stairs, inner, regular, outer));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createStairs(stairs, inner, regular, outer));
         }
 
         for (SimpleStairModel.Stair block : SimpleStairModel.vanillaStairs) {
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.origin());
+            TexturedModel texturedModel = TexturedModel.CUBE.get(block.origin());
             Block stairs = block.stairs();
 
-            WeightedVariant inner = createWeightedVariant(Models.INNER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant regular = createWeightedVariant(Models.STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant outer = createWeightedVariant(Models.OUTER_STAIRS.upload(stairs, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant inner = plainVariant(ModelTemplates.STAIRS_INNER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant regular = plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant outer = plainVariant(ModelTemplates.STAIRS_OUTER.create(stairs, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createStairsBlockState(stairs, inner, regular, outer));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createStairs(stairs, inner, regular, outer));
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.blocks) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(
-                    Registries.BLOCK.getId(block.block()).getNamespace(), "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood","_log").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(
+                    BuiltInRegistries.BLOCK.getKey(block.block()).getNamespace(), "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood","_log").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath() + "_side"));
             }
 
             if (block.block() == Blocks.CRIMSON_HYPHAE || block.block() == Blocks.WARPED_HYPHAE) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_hyphae", "_stem")));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_hyphae", "_stem")));
             }
 
             Block wall = block.wall();
 
-            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            ResourceLocation inventory = ModelTemplates.WALL_INVENTORY.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.registerParentedItemModel(wall,inventory);
+            blockStateModelGenerator.registerSimpleItemModel(wall,inventory);
 
-            WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant post = plainVariant(ModelTemplates.WALL_POST.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant low = plainVariant(ModelTemplates.WALL_LOW_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant tall = plainVariant(ModelTemplates.WALL_TALL_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createWallBlockState(wall, post, low, tall));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createWall(wall, post, low, tall));
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.vanillaWalls) {
             TexturedModel texturedModel;
-            if (Registries.BLOCK.getId(block.block()).getPath().contains("waxed_") && Registries.BLOCK.getId(block.block()).getPath().contains("cut_copper")) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("waxed_", "")));
+            if (BuiltInRegistries.BLOCK.getKey(block.block()).getPath().contains("waxed_") && BuiltInRegistries.BLOCK.getKey(block.block()).getPath().contains("cut_copper")) {
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("waxed_", "")));
             } else {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath()));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath()));
 
             }
             Block wall = block.wall();
 
-            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            ResourceLocation inventory = ModelTemplates.WALL_INVENTORY.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.registerParentedItemModel(wall,inventory);
+            blockStateModelGenerator.registerSimpleItemModel(wall,inventory);
 
-            WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant post = plainVariant(ModelTemplates.WALL_POST.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant low = plainVariant(ModelTemplates.WALL_LOW_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant tall = plainVariant(ModelTemplates.WALL_TALL_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createWallBlockState(wall, post, low, tall));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createWall(wall, post, low, tall));
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.strippedWalls) {
-            String modid = Registries.BLOCK.getId(block.block()).getNamespace();
+            String modid = BuiltInRegistries.BLOCK.getKey(block.block()).getNamespace();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block wall = block.wall();
 
-            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            ResourceLocation inventory = ModelTemplates.WALL_INVENTORY.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.registerParentedItemModel(wall, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(wall, inventory);
 
-            WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant post = plainVariant(ModelTemplates.WALL_POST.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant low = plainVariant(ModelTemplates.WALL_LOW_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant tall = plainVariant(ModelTemplates.WALL_TALL_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createWallBlockState(wall, post, low, tall));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createWall(wall, post, low, tall));
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.vanillaStrippedWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block wall = block.wall();
 
-            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            ResourceLocation inventory = ModelTemplates.WALL_INVENTORY.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.registerParentedItemModel(wall, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(wall, inventory);
 
-            WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant post = plainVariant(ModelTemplates.WALL_POST.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant low = plainVariant(ModelTemplates.WALL_LOW_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant tall = plainVariant(ModelTemplates.WALL_TALL_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createWallBlockState(wall, post, low, tall));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createWall(wall, post, low, tall));
         }
 
         for (SimpleWallModel.Wall block : SimpleWallModel.vanillaWoodWalls) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block wall = block.wall();
 
-            Identifier inventory = Models.WALL_INVENTORY.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            ResourceLocation inventory = ModelTemplates.WALL_INVENTORY.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.registerParentedItemModel(wall, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(wall, inventory);
 
-            WeightedVariant post = createWeightedVariant(Models.TEMPLATE_WALL_POST.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant low = createWeightedVariant(Models.TEMPLATE_WALL_SIDE.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant tall = createWeightedVariant(Models.TEMPLATE_WALL_SIDE_TALL.upload(wall, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant post = plainVariant(ModelTemplates.WALL_POST.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant low = plainVariant(ModelTemplates.WALL_LOW_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant tall = plainVariant(ModelTemplates.WALL_TALL_SIDE.create(wall, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createWallBlockState(wall, post, low, tall));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createWall(wall, post, low, tall));
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.blocks) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(
-                    Registries.BLOCK.getId(block.block()).getNamespace(), "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood","_log")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(
+                    BuiltInRegistries.BLOCK.getKey(block.block()).getNamespace(), "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood","_log")));
             if (block.block() == Blocks.CRIMSON_HYPHAE || block.block() == Blocks.WARPED_HYPHAE) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_hyphae", "_stem")));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_hyphae", "_stem")));
             }
             Block fence = block.fence();
 
-            WeightedVariant post = createWeightedVariant(Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant side = createWeightedVariant(Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            Identifier inventory = Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Variant post = plainVariant(ModelTemplates.FENCE_POST.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant side = plainVariant(ModelTemplates.FENCE_SIDE.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            ResourceLocation inventory = ModelTemplates.FENCE_INVENTORY.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createFenceBlockState(fence, post, side));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createFence(fence, post, side));
 
-            blockStateModelGenerator.registerParentedItemModel(fence, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(fence, inventory);
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.strippedFences) {
-            String modid = Registries.BLOCK.getId(block.block()).getNamespace();
+            String modid = BuiltInRegistries.BLOCK.getKey(block.block()).getNamespace();
 
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block fence = block.fence();
 
-            WeightedVariant post = createWeightedVariant(Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant side = createWeightedVariant(Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            Identifier inventory = Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Variant post = plainVariant(ModelTemplates.FENCE_POST.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant side = plainVariant(ModelTemplates.FENCE_SIDE.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            ResourceLocation inventory = ModelTemplates.FENCE_INVENTORY.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createFenceBlockState(fence, post, side));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createFence(fence, post, side));
 
-            blockStateModelGenerator.registerParentedItemModel(fence, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(fence, inventory);
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.vanillaStrippedFences) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block fence = block.fence();
 
-            WeightedVariant post = createWeightedVariant(Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant side = createWeightedVariant(Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            Identifier inventory = Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Variant post = plainVariant(ModelTemplates.FENCE_POST.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant side = plainVariant(ModelTemplates.FENCE_SIDE.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            ResourceLocation inventory = ModelTemplates.FENCE_INVENTORY.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createFenceBlockState(fence, post, side));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createFence(fence, post, side));
 
-            blockStateModelGenerator.registerParentedItemModel(fence, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(fence, inventory);
         }
 
         for (SimpleFenceModel.Fence block : SimpleFenceModel.vanillaWoodFences) {
-            TexturedModel texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+            TexturedModel texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             Block fence = block.fence();
 
-            WeightedVariant post = createWeightedVariant(Models.FENCE_POST.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant side = createWeightedVariant(Models.FENCE_SIDE.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            Identifier inventory = Models.FENCE_INVENTORY.upload(fence, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            Variant post = plainVariant(ModelTemplates.FENCE_POST.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant side = plainVariant(ModelTemplates.FENCE_SIDE.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            ResourceLocation inventory = ModelTemplates.FENCE_INVENTORY.create(fence, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createFenceBlockState(fence, post, side));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createFence(fence, post, side));
 
-            blockStateModelGenerator.registerParentedItemModel(fence, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(fence, inventory);
         }
 
         for (SimpleFenceGateModel.FenceGate block : SimpleFenceGateModel.blocks) {
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            TexturedModel texturedModel = TexturedModel.CUBE.get(block.block());
             Block fenceGate = block.fenceGate();
 
-            WeightedVariant open = createWeightedVariant(Models.TEMPLATE_FENCE_GATE_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant closed = createWeightedVariant(Models.TEMPLATE_FENCE_GATE.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant openWall = createWeightedVariant(Models.TEMPLATE_FENCE_GATE_WALL_OPEN.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant closedWall = createWeightedVariant(Models.TEMPLATE_FENCE_GATE_WALL.upload(fenceGate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant open = plainVariant(ModelTemplates.FENCE_GATE_OPEN.create(fenceGate, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant closed = plainVariant(ModelTemplates.FENCE_GATE_CLOSED.create(fenceGate, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant openWall = plainVariant(ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGate, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant closedWall = plainVariant(ModelTemplates.FENCE_GATE_WALL_CLOSED.create(fenceGate, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createFenceGateBlockState(fenceGate, open, closed, openWall, closedWall, true));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createFenceGate(fenceGate, open, closed, openWall, closedWall, true));
         }
 
         for (SimpleButtonModel.Button block : SimpleButtonModel.buttons) {
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            TexturedModel texturedModel = TexturedModel.CUBE.get(block.block());
             if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath() + "_side"));
             }
             Block button = block.button();
 
-            WeightedVariant unpressed = createWeightedVariant(Models.BUTTON.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant pressed = createWeightedVariant(Models.BUTTON_PRESSED.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant unpressed = plainVariant(ModelTemplates.BUTTON.create(button, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant pressed = plainVariant(ModelTemplates.BUTTON_PRESSED.create(button, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            Identifier inventory = Models.BUTTON_INVENTORY.upload(button, texturedModel.getTextures(), blockStateModelGenerator.modelCollector);
+            ResourceLocation inventory = ModelTemplates.BUTTON_INVENTORY.create(button, texturedModel.getMapping(), blockStateModelGenerator.modelOutput);
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createButtonBlockState(button, unpressed, pressed));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createButton(button, unpressed, pressed));
 
-            blockStateModelGenerator.registerParentedItemModel(button, inventory);
+            blockStateModelGenerator.registerSimpleItemModel(button, inventory);
         }
 
         for (SimplePressurePlateModel.PressurePlate block : SimplePressurePlateModel.pressurePlates) {
-            TexturedModel texturedModel = TexturedModel.CUBE_ALL.get(block.block());
+            TexturedModel texturedModel = TexturedModel.CUBE.get(block.block());
             if (block.block() == Blocks.BASALT || block.block() == Blocks.POLISHED_BASALT) {
-                texturedModel = TexturedModel.getCubeAll(Identifier.of("minecraft", "block/" + Registries.BLOCK.getId(block.block()).getPath() + "_side"));
+                texturedModel = TexturedModel.createAllSame(ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + BuiltInRegistries.BLOCK.getKey(block.block()).getPath() + "_side"));
             }
             Block pressurePlate = block.pressurePlate();
 
-            WeightedVariant up = createWeightedVariant(Models.PRESSURE_PLATE_UP.upload(pressurePlate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
-            WeightedVariant down = createWeightedVariant(Models.PRESSURE_PLATE_DOWN.upload(pressurePlate, texturedModel.getTextures(), blockStateModelGenerator.modelCollector));
+            Variant up = plainVariant(ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlate, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
+            Variant down = plainVariant(ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlate, texturedModel.getMapping(), blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                    .createPressurePlateBlockState(pressurePlate, up, down));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                    .createPressurePlate(pressurePlate, up, down));
         }
 
         for (SimpleTrapDoorModel.Trapdoor trapdoor : SimpleTrapDoorModel.trapdoors) {
@@ -501,28 +533,54 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleDoorModel.Door door : SimpleDoorModel.doors) {
-            blockStateModelGenerator.registerDoor(door.door());
+            blockStateModelGenerator.createDoor(door.door());
         }
 
         //TODO find out why some blocks are null here
-        for (Block block : TintableCrossModel.notTintedBlocks) {
-            if (block != null)
-                blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        for (Block block : TintableCrossModel.notTintedBlocks()) {
+            if (block != null
+                    && block != ModNatureBlocks.PALE_OAK_SAPLING
+                    && block != ModNatureBlocks.BUSH
+                    && block != ModNatureBlocks.FIREFLY_BUSH
+                    && block != ModNatureBlocks.SHORT_DRY_GRASS
+                    && block != ModNatureBlocks.TALL_DRY_GRASS)
+                blockStateModelGenerator.createCrossBlockWithDefaultItem(block, GenerationContext.PlantType.NOT_TINTED);
+        }
+        registerCrossBlockWithTexture(
+                blockStateModelGenerator,
+                ModNatureBlocks.BUSH,
+                TextureMapping.getBlockTexture(ModNatureBlocks.LARGE_BUSH),
+                GenerationContext.PlantType.TINTED);
+        registerCrossBlockWithTexture(
+                blockStateModelGenerator,
+                ModNatureBlocks.FIREFLY_BUSH,
+                TextureMapping.getBlockTexture(ModNatureBlocks.TOUGH_BERRY_BUSH, "_stage3"));
+        registerCrossBlockWithTexture(
+                blockStateModelGenerator,
+                ModNatureBlocks.SHORT_DRY_GRASS,
+                TextureMapping.getBlockTexture(ModNatureBlocks.DEAD_HEATHER));
+        registerCrossBlockWithTexture(
+                blockStateModelGenerator,
+                ModNatureBlocks.TALL_DRY_GRASS,
+                TextureMapping.getBlockTexture(ModNatureBlocks.DEAD_HEATHER_BUSH));
+        registerCrossBlockWithTexture(
+                blockStateModelGenerator,
+                ModNatureBlocks.PALE_OAK_SAPLING,
+                TextureMapping.getBlockTexture(Blocks.DARK_OAK_SAPLING));
+
+        blockStateModelGenerator.createGrowingPlant(ModNatureBlocks.GLOWWORM_WEBBING, ModNatureBlocks.GLOWWORM_MAIN, GenerationContext.PlantType.NOT_TINTED);
+        blockStateModelGenerator.registerSimpleFlatItemModel(ModNatureBlocks.GLOWWORM_WEBBING);
+
+        for (Block block : TintableCrossModel.tintedBlocks()) {
+            blockStateModelGenerator.createCrossBlock(block, GenerationContext.PlantType.TINTED);
+            blockStateModelGenerator.registerSimpleTintedItemModel(block, blockStateModelGenerator.createFlatItemModelWithBlockTexture(block.asItem(), block), null);
         }
 
-        blockStateModelGenerator.registerPlantPart(ModNatureBlocks.GLOWWORM_WEBBING, ModNatureBlocks.GLOWWORM_MAIN, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerItemModel(ModNatureBlocks.GLOWWORM_WEBBING);
-
-        for (Block block : TintableCrossModel.tintedBlocks) {
-            blockStateModelGenerator.registerTintableCrossBlockState(block, BlockStateModelGenerator.CrossType.TINTED);
-            blockStateModelGenerator.registerTintedItemModel(block, blockStateModelGenerator.uploadBlockItemModel(block.asItem(), block), new GrassTintSource());
+        for (Block block : TintableCrossModel.grassLikeBlocks()) {
+            blockStateModelGenerator.createCrossBlockWithDefaultItem(block, GenerationContext.PlantType.NOT_TINTED);
         }
 
-        for (Block block : TintableCrossModel.grassLikeBlocks) {
-            blockStateModelGenerator.registerTintableCross(block, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        }
-
-        for (Block block : TintableCrossModel.largePlants) {
+        for (Block block : TintableCrossModel.largePlants()) {
             registerLargePlant(blockStateModelGenerator, block);
         }
 
@@ -530,27 +588,27 @@ public class BlockModelProvider extends FabricModelProvider {
         registerTintableLargePlant(blockStateModelGenerator, ModNatureBlocks.WILD_GRASS);
 
         for (Block block : SimpleFlowerBedModel.flowerBeds) {
-            blockStateModelGenerator.registerFlowerbed(block);
+            blockStateModelGenerator.createFlowerBed(block);
         }
 
         for (SimpleFlowerPotModel.FlowerPot flowerPot : SimpleFlowerPotModel.pots) {
-            registerFlowerPotPlant(blockStateModelGenerator, flowerPot.plant(), flowerPot.pottedPlant(), BlockStateModelGenerator.CrossType.NOT_TINTED);
+            registerFlowerPotPlant(blockStateModelGenerator, flowerPot.plant(), flowerPot.pottedPlant(), GenerationContext.PlantType.NOT_TINTED);
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocks) {
-            registerDoubleBlock(blockStateModelGenerator, block, BlockStateModelGenerator.CrossType.NOT_TINTED);
+            registerDoubleBlock(blockStateModelGenerator, block, GenerationContext.PlantType.NOT_TINTED);
         }
 
         for (Block block : SimpleDoubleBlockModel.doubleBlocksItems) {
-            registerDoubleBlock(blockStateModelGenerator, block, BlockStateModelGenerator.CrossType.NOT_TINTED);
+            registerDoubleBlock(blockStateModelGenerator, block, GenerationContext.PlantType.NOT_TINTED);
         }
 
         for (Block block : SimpleMushroomBlockModel.mushroomBlocks) {
-            blockStateModelGenerator.registerMushroomBlock(block);
+            blockStateModelGenerator.createMushroomBlock(block);
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.verticalSlabs) {
-            String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
+            String id = BuiltInRegistries.BLOCK.getKey(verticalSlab.block()).getPath();
             if (verticalSlab.block() == Blocks.BASALT || verticalSlab.block() == Blocks.POLISHED_BASALT) {
                 id = id + "_side";
             }
@@ -559,16 +617,16 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.woodVerticalSlabs) {
             registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(),
-                    Registries.BLOCK.getId(verticalSlab.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood"));
+                    BuiltInRegistries.BLOCK.getKey(verticalSlab.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood"));
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.strippedVerticalSlabs) {
             registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(),
-                    Registries.BLOCK.getId(verticalSlab.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood"));
+                    BuiltInRegistries.BLOCK.getKey(verticalSlab.block()).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood"));
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.plansVerticalSlabs) {
-            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), Registries.BLOCK.getId(verticalSlab.block()).getPath());
+            registerVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), BuiltInRegistries.BLOCK.getKey(verticalSlab.block()).getPath());
         }
 
         for (SimpleLayersModel.Layers block : SimpleLayersModel.layers) {
@@ -592,22 +650,22 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for(SimpleStoneStoolModel.Stool stool : SimpleStoneStoolModel.stools){
-            String id = "block/" + Registries.BLOCK.getId(stool.base()).getPath();
+            String id = "block/" + BuiltInRegistries.BLOCK.getKey(stool.base()).getPath();
             if (stool.base() == Blocks.BASALT) id += "_side";
             registerStoneStoolModelBlockStates(blockStateModelGenerator, stool.stool(),
-                    Identifier.of(Registries.BLOCK.getId(stool.base()).getNamespace(), id));
+                    ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(stool.base()).getNamespace(), id));
         }
 
         for(SimpleStoneTableModel.Table table : SimpleStoneTableModel.tables) {
-            String id = "block/" + Registries.BLOCK.getId(table.base()).getPath();
+            String id = "block/" + BuiltInRegistries.BLOCK.getKey(table.base()).getPath();
             if(table.base() == Blocks.BASALT) id += "_side";
-            registerStoneTableModelBlockStates(blockStateModelGenerator, table.table(), Identifier.of(Registries.BLOCK.getId(table.base()).getNamespace(), id));
+            registerStoneTableModelBlockStates(blockStateModelGenerator, table.table(), ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(table.base()).getNamespace(), id));
         }
 
         for(SimpleStoneChairModel.Chair chair : SimpleStoneChairModel.chairs){
-            String id = "block/" + Registries.BLOCK.getId(chair.base()).getPath();
+            String id = "block/" + BuiltInRegistries.BLOCK.getKey(chair.base()).getPath();
             if(chair.base() == Blocks.BASALT) id += "_side";
-            registerStoneChairModelBlockStates(blockStateModelGenerator, chair.chair(), Identifier.of(Registries.BLOCK.getId(chair.base()).getNamespace(), id));
+            registerStoneChairModelBlockStates(blockStateModelGenerator, chair.chair(), ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(chair.base()).getNamespace(), id));
         }
 
         for(Block block : SimpleWoodTableModel.tables){
@@ -648,7 +706,7 @@ public class BlockModelProvider extends FabricModelProvider {
 
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
-            String id = String.valueOf(Registries.BLOCK.getId(verticalSlab.block()));
+            String id = String.valueOf(BuiltInRegistries.BLOCK.getKey(verticalSlab.block()));
             id = id.substring(id.lastIndexOf(":") + 1);
 
             if (verticalSlab.block() == Blocks.SANDSTONE || verticalSlab.block() == Blocks.RED_SANDSTONE || verticalSlab.block() == Blocks.CUT_SANDSTONE || verticalSlab.block() == Blocks.CUT_RED_SANDSTONE) {
@@ -679,10 +737,10 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.columnVerticalSlabs) {
-            Identifier identifier = Registries.BLOCK.getId(verticalSlab.verticalSlab());
+            ResourceLocation identifier = BuiltInRegistries.BLOCK.getKey(verticalSlab.verticalSlab());
             String sidePath = identifier.getPath().replaceAll("_vertical_slab", "");
 
-            Identifier identifier2 = Registries.BLOCK.getId(verticalSlab.verticalSlab()).withSuffixedPath("_top");
+            ResourceLocation identifier2 = BuiltInRegistries.BLOCK.getKey(verticalSlab.verticalSlab()).withSuffix("_top");
             String topBottomPath = identifier2.getPath().replaceAll("_vertical_slab", "");
             topBottomPath = topBottomPath.replaceAll("_carved_window_top", "");
 
@@ -691,10 +749,10 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleWallModel.Wall wall : SimpleWallModel.columnWalls) {
-            Identifier identifier = Registries.BLOCK.getId(wall.wall());
+            ResourceLocation identifier = BuiltInRegistries.BLOCK.getKey(wall.wall());
             String sidePath = identifier.getPath().replaceAll("_wall", "");
 
-            Identifier identifier2 = Registries.BLOCK.getId(wall.wall()).withSuffixedPath("_top");
+            ResourceLocation identifier2 = BuiltInRegistries.BLOCK.getKey(wall.wall()).withSuffix("_top");
             String topBottomPath = identifier2.getPath().replaceAll("_wall", "");
 
             registerColumnWallModelBlockStates(blockStateModelGenerator, wall.wall(), wall.block(),
@@ -702,13 +760,13 @@ public class BlockModelProvider extends FabricModelProvider {
         }
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaWoodVerticalSlabs) {
-            String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
+            String id = BuiltInRegistries.BLOCK.getKey(verticalSlab.block()).getPath();
             String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_log";
             baseTextureId = baseTextureId.replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood");
             registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), baseTextureId);
         }
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaStrippedVerticalSlabs) {
-            String id = Registries.BLOCK.getId(verticalSlab.block()).getPath();
+            String id = BuiltInRegistries.BLOCK.getKey(verticalSlab.block()).getPath();
             String baseTextureId = id.substring(0, id.lastIndexOf("_")) + "_log";
             baseTextureId = baseTextureId.replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood");
             registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), baseTextureId);
@@ -719,31 +777,31 @@ public class BlockModelProvider extends FabricModelProvider {
         });
 
         // Crops
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.FLAX_CROP, FlaxCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.GARLIC_CROP, GarlicCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.LEEK_CROP, LeekCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(ModNatureBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.createCropBlock(ModNatureBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
+        blockStateModelGenerator.createCropBlock(ModNatureBlocks.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.createCropBlock(ModNatureBlocks.FLAX_CROP, FlaxCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.createCropBlock(ModNatureBlocks.GARLIC_CROP, GarlicCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.createCropBlock(ModNatureBlocks.LEEK_CROP, LeekCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.createCropBlock(ModNatureBlocks.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.createCropBlock(ModNatureBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
 
         //CLUSTERS
-        blockStateModelGenerator.registerAmethyst(ModBlocks.GLOWSTONE_CLUSTER);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_GLOWSTONE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_GLOWSTONE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_GLOWSTONE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.RED_AGATE_CLUSTER);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_RED_AGATE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_RED_AGATE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_RED_AGATE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.CITRINE_CLUSTER);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_CITRINE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_CITRINE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_CITRINE_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.QUARTZ_CLUSTER);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.SMALL_QUARTZ_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.MEDIUM_QUARTZ_BUD);
-        blockStateModelGenerator.registerAmethyst(ModBlocks.LARGE_QUARTZ_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.GLOWSTONE_CLUSTER);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.SMALL_GLOWSTONE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.MEDIUM_GLOWSTONE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.LARGE_GLOWSTONE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.RED_AGATE_CLUSTER);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.SMALL_RED_AGATE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.MEDIUM_RED_AGATE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.LARGE_RED_AGATE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.CITRINE_CLUSTER);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.SMALL_CITRINE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.MEDIUM_CITRINE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.LARGE_CITRINE_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.QUARTZ_CLUSTER);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.SMALL_QUARTZ_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.MEDIUM_QUARTZ_BUD);
+        blockStateModelGenerator.createAmethystCluster(ModBlocks.LARGE_QUARTZ_BUD);
 
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.BLUE_HOBBIT_DOOR, LargeDoor2x2.PART);
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) ModDecorativeBlocks.GREEN_HOBBIT_DOOR, LargeDoor2x2.PART);
@@ -800,28 +858,28 @@ public class BlockModelProvider extends FabricModelProvider {
 
         registerOrientableThickLadder(blockStateModelGenerator, ModDecorativeBlocks.ROPE_LADDER);
 
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.DRY_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.FROZEN_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.GREEN_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.IVY_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.LILAC_FLOWER_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.PINK_FLOWER_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.RED_FLOWER_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.THORNY_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WHITE_FLOWER_GROWTH);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.DRY_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.FROZEN_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.GREEN_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.IVY_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.LILAC_FLOWER_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.PINK_FLOWER_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.RED_FLOWER_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.THORNY_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.WHITE_FLOWER_GROWTH);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
 
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.WEBBING);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.WEBBING);
 
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MOSS);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.MOSS);
         registerMultifaceBlock(blockStateModelGenerator, ModNatureBlocks.FOREST_MOSS);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.CORRUPTED_MOSS);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.CORRUPTED_MOSS);
 
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.MORGUL_IVY);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.MORGUL_IVY);
 
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.STICKY_SNOW);
-        blockStateModelGenerator.registerMultifaceBlock(ModNatureBlocks.STICKY_ICE);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.STICKY_SNOW);
+        blockStateModelGenerator.createMultiface(ModNatureBlocks.STICKY_ICE);
 
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_DOLOMITE);
         registerPointedBlock(blockStateModelGenerator, ModBlocks.POINTED_GALONN);
@@ -830,8 +888,8 @@ public class BlockModelProvider extends FabricModelProvider {
 
         registerHangingMoss(blockStateModelGenerator, ModNatureBlocks.WILLOW_VINES);
 
-        blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.MIRKWOOD_VINES);
-        blockStateModelGenerator.registerHangingMoss(ModNatureBlocks.HANGING_WEBS);
+        registerHangingMoss(blockStateModelGenerator, ModNatureBlocks.MIRKWOOD_VINES);
+        registerHangingMoss(blockStateModelGenerator, ModNatureBlocks.HANGING_WEBS);
 
         registerFarmland(blockStateModelGenerator, ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_FARMLAND);
         registerFarmland(blockStateModelGenerator, ModBlocks.LOAM, ModBlocks.LOAM_FARMLAND);
@@ -844,65 +902,62 @@ public class BlockModelProvider extends FabricModelProvider {
         registerDirtPath(blockStateModelGenerator, ModBlocks.SILT, ModBlocks.SILT_PATH);
     }
 
-    @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {}
-
-    public final void registerFanModel(BlockStateModelGenerator blockStateCollector, Block coralFanBlock) {
+    public final void registerFanModel(GenerationContext blockStateCollector, Block coralFanBlock) {
         TexturedModel texturedModel = TexturedModel.CORAL_FAN.get(coralFanBlock);
-        Identifier identifier = texturedModel.upload(coralFanBlock, blockStateCollector.modelCollector);
-        WeightedVariant weightedVariant = createWeightedVariant(identifier);
-        blockStateCollector.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(coralFanBlock, weightedVariant));
-        blockStateCollector.registerItemModel(coralFanBlock);
+        ResourceLocation identifier = texturedModel.create(coralFanBlock, blockStateCollector.modelOutput);
+        Variant weightedVariant = plainVariant(identifier);
+        blockStateCollector.blockStateOutput.accept(BlockModelProvider.createSimpleBlock(coralFanBlock, weightedVariant));
+        blockStateCollector.registerSimpleFlatItemModel(coralFanBlock);
     }
 
-    public final void registerTintableLargePlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock) {
-        Identifier identifier = MEModels.TINTED_LARGE_PLANT.upload(plantBlock, TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(plantBlock).getNamespace(), "block/" + Registries.BLOCK.getId(plantBlock).getPath())), blockStateModelGenerator.modelCollector);
-        WeightedVariant weightedVariant = createWeightedVariant(identifier);
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(plantBlock, weightedVariant));
-        blockStateModelGenerator.registerTintedItemModel(plantBlock, Models.GENERATED.upload(ModelIds.getItemModelId(plantBlock.asItem()), TextureMap.layer0(plantBlock.asItem()), blockStateModelGenerator.modelCollector), new GrassTintSource());
+    public final void registerTintableLargePlant(GenerationContext blockStateModelGenerator, Block plantBlock) {
+        ResourceLocation identifier = MEModels.TINTED_LARGE_PLANT.create(plantBlock, TextureMapping.singleSlot(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(plantBlock).getNamespace(), "block/" + BuiltInRegistries.BLOCK.getKey(plantBlock).getPath())), blockStateModelGenerator.modelOutput);
+        Variant weightedVariant = plainVariant(identifier);
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createSimpleBlock(plantBlock, weightedVariant));
+        blockStateModelGenerator.registerSimpleTintedItemModel(plantBlock, ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(plantBlock.asItem()), TextureMapping.layer0(plantBlock.asItem()), blockStateModelGenerator.modelOutput), null);
     }
 
-    public final void registerLargePlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock) {
-        Identifier identifier = MEModels.LARGE_PLANT.upload(plantBlock, TextureMap.of(TextureKey.ALL,Identifier.of(Registries.BLOCK.getId(plantBlock).getNamespace(), "block/" + Registries.BLOCK.getId(plantBlock).getPath())), blockStateModelGenerator.modelCollector);
-        WeightedVariant weightedVariant = createWeightedVariant(identifier);
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(plantBlock, weightedVariant));
-        blockStateModelGenerator.registerItemModel(plantBlock.asItem());
+    public final void registerLargePlant(GenerationContext blockStateModelGenerator, Block plantBlock) {
+        ResourceLocation identifier = MEModels.LARGE_PLANT.create(plantBlock, TextureMapping.singleSlot(TextureSlot.ALL,ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(plantBlock).getNamespace(), "block/" + BuiltInRegistries.BLOCK.getKey(plantBlock).getPath())), blockStateModelGenerator.modelOutput);
+        Variant weightedVariant = plainVariant(identifier);
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createSimpleBlock(plantBlock, weightedVariant));
+        blockStateModelGenerator.registerSimpleFlatItemModel(plantBlock.asItem());
     }
 
-    public final void registerFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.CrossType tintType) {
-        TextureMap textureMap = TextureMap.plant(plantBlock);
-        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, textureMap, blockStateModelGenerator.modelCollector);
-        WeightedVariant weightedVariant = createWeightedVariant(identifier);
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, weightedVariant));
+    public final void registerFlowerPotPlant(GenerationContext blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, GenerationContext.PlantType tintType) {
+        TextureMapping textureMap = TextureMapping.plant(plantBlock);
+        ResourceLocation identifier = tintType.getCrossPot().create(flowerPotBlock, textureMap, blockStateModelGenerator.modelOutput);
+        Variant weightedVariant = plainVariant(identifier);
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createSimpleBlock(flowerPotBlock, weightedVariant));
     }
 
-    public void registerVanillaVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin, String slabPath) {
-        Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+    public void registerVanillaVerticalSlabModelBlockStates(GenerationContext blockStateModelGenerator, Block block, Block origin, String slabPath) {
+        ResourceLocation fullBlockId = ModelLocationUtils.getModelLocation(origin);
 
-        WeightedVariant variantId = createWeightedVariant(MEModels.VERTICAL_SLAB.upload(block,
-                TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)),
-                blockStateModelGenerator.modelCollector));
+        Variant variantId = plainVariant(MEModels.VERTICAL_SLAB.create(block,
+                TextureMapping.singleSlot(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + slabPath)),
+                blockStateModelGenerator.modelOutput));
 
-        WeightedVariant inner = createWeightedVariant(MEModels.VERTICAL_SLAB_INNER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelCollector));
-        WeightedVariant outer = createWeightedVariant(MEModels.VERTICAL_SLAB_OUTER.upload(block, TextureMap.of(TextureKey.ALL, Identifier.of("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelCollector));
+        Variant inner = plainVariant(MEModels.VERTICAL_SLAB_INNER.create(block, TextureMapping.singleSlot(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelOutput));
+        Variant outer = plainVariant(MEModels.VERTICAL_SLAB_OUTER.create(block, TextureMapping.singleSlot(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + slabPath)), blockStateModelGenerator.modelOutput));
 
         registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
-    public void registerVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block verticalSlab, Block block, String slabPath) {
-        Identifier fullBlockId = ModelIds.getBlockModelId(block);
+    public void registerVerticalSlabModelBlockStates(GenerationContext blockStateModelGenerator, Block verticalSlab, Block block, String slabPath) {
+        ResourceLocation fullBlockId = ModelLocationUtils.getModelLocation(block);
 
-        WeightedVariant variantId = createWeightedVariant(MEModels.VERTICAL_SLAB.upload(verticalSlab,
-                TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(block).getNamespace(), "block/" + slabPath)),
-                blockStateModelGenerator.modelCollector));
+        Variant variantId = plainVariant(MEModels.VERTICAL_SLAB.create(verticalSlab,
+                TextureMapping.singleSlot(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(block).getNamespace(), "block/" + slabPath)),
+                blockStateModelGenerator.modelOutput));
 
-        WeightedVariant inner = createWeightedVariant(MEModels.VERTICAL_SLAB_INNER.upload(verticalSlab, TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(block).getNamespace(), "block/" + slabPath)), blockStateModelGenerator.modelCollector));
-        WeightedVariant outer = createWeightedVariant(MEModels.VERTICAL_SLAB_OUTER.upload(verticalSlab, TextureMap.of(TextureKey.ALL, Identifier.of(Registries.BLOCK.getId(block).getNamespace(), "block/" + slabPath)), blockStateModelGenerator.modelCollector));
+        Variant inner = plainVariant(MEModels.VERTICAL_SLAB_INNER.create(verticalSlab, TextureMapping.singleSlot(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(block).getNamespace(), "block/" + slabPath)), blockStateModelGenerator.modelOutput));
+        Variant outer = plainVariant(MEModels.VERTICAL_SLAB_OUTER.create(verticalSlab, TextureMapping.singleSlot(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(block).getNamespace(), "block/" + slabPath)), blockStateModelGenerator.modelOutput));
 
         registerVerticalSlab(blockStateModelGenerator, verticalSlab, fullBlockId, variantId, inner, outer);
     }
 
-    public void registerColumnWallModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
+    public void registerColumnWallModelBlockStates(GenerationContext blockStateModelGenerator, Block block, Block origin,
                                                            String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath) {
         String modIdTopBottom = modId;
         if (sideTexturePath.contains("deepslate_carved_window")){
@@ -937,44 +992,44 @@ public class BlockModelProvider extends FabricModelProvider {
             bottomTexturePath = sideTexturePath;
         }
 
-        Identifier sideTexture = Identifier.of(modId, "block/" + sideTexturePath);
+        ResourceLocation sideTexture = ResourceLocation.fromNamespaceAndPath(modId, "block/" + sideTexturePath);
 
-        WeightedVariant post = createWeightedVariant(MEModels.COLUMN_WALL_POST.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
-                        .put(TextureKey.WALL, sideTexture)
-                        .put(TextureKey.PARTICLE, sideTexture),
-                blockStateModelGenerator.modelCollector));
+        Variant post = plainVariant(MEModels.COLUMN_WALL_POST.create(block, (new TextureMapping())
+                        .put(TextureSlot.TOP, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureSlot.BOTTOM, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureSlot.WALL, sideTexture)
+                        .put(TextureSlot.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelOutput));
 
-        WeightedVariant low = createWeightedVariant(MEModels.COLUMN_WALL_SIDE.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
-                        .put(TextureKey.WALL, sideTexture)
-                        .put(TextureKey.PARTICLE, sideTexture),
-                blockStateModelGenerator.modelCollector));
+        Variant low = plainVariant(MEModels.COLUMN_WALL_SIDE.create(block, (new TextureMapping())
+                        .put(TextureSlot.TOP, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureSlot.BOTTOM, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureSlot.WALL, sideTexture)
+                        .put(TextureSlot.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelOutput));
 
-        WeightedVariant tall = createWeightedVariant(MEModels.COLUMN_WALL_SIDE_TALL.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
-                        .put(TextureKey.WALL, sideTexture)
-                        .put(TextureKey.PARTICLE, sideTexture),
-                blockStateModelGenerator.modelCollector));
+        Variant tall = plainVariant(MEModels.COLUMN_WALL_SIDE_TALL.create(block, (new TextureMapping())
+                        .put(TextureSlot.TOP, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureSlot.BOTTOM, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureSlot.WALL, sideTexture)
+                        .put(TextureSlot.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelOutput));
 
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator
-                .createWallBlockState(block, post, low, tall));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider
+                .createWall(block, post, low, tall));
 
-        Identifier inventory = MEModels.COLUMN_WALL_INVENTORY.upload(block, (new TextureMap())
-                .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
-                .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
-                .put(TextureKey.WALL, sideTexture)
-                .put(TextureKey.PARTICLE, sideTexture), blockStateModelGenerator.modelCollector);
+        ResourceLocation inventory = MEModels.COLUMN_WALL_INVENTORY.create(block, (new TextureMapping())
+                .put(TextureSlot.TOP, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + topTexturePath))
+                .put(TextureSlot.BOTTOM, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + bottomTexturePath))
+                .put(TextureSlot.WALL, sideTexture)
+                .put(TextureSlot.PARTICLE, sideTexture), blockStateModelGenerator.modelOutput);
 
-        blockStateModelGenerator.registerParentedItemModel(block, inventory);
+        blockStateModelGenerator.registerSimpleItemModel(block, inventory);
     }
 
-    public void registerColumnVerticalSlabModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Block origin,
+    public void registerColumnVerticalSlabModelBlockStates(GenerationContext blockStateModelGenerator, Block block, Block origin,
                                                            String modId, String topTexturePath, String bottomTexturePath, String sideTexturePath) {
-        Identifier fullBlockId = ModelIds.getBlockModelId(origin);
+        ResourceLocation fullBlockId = ModelLocationUtils.getModelLocation(origin);
         String modIdTopBottom = modId;
         if (sideTexturePath.contains("deepslate_carved_window") || sideTexturePath.contains("calcite_carved_window")){
             modIdTopBottom = "minecraft";
@@ -1008,226 +1063,226 @@ public class BlockModelProvider extends FabricModelProvider {
             bottomTexturePath = sideTexturePath;
         }
 
-        Identifier sideTexture = Identifier.of(modId, "block/" + sideTexturePath);
+        ResourceLocation sideTexture = ResourceLocation.fromNamespaceAndPath(modId, "block/" + sideTexturePath);
 
-        WeightedVariant variantId = createWeightedVariant(MEModels.VERTICAL_COLUMN_SLAB.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
-                        .put(TextureKey.SIDE, sideTexture)
-                        .put(TextureKey.PARTICLE, sideTexture),
-                blockStateModelGenerator.modelCollector));
+        Variant variantId = plainVariant(MEModels.VERTICAL_COLUMN_SLAB.create(block, (new TextureMapping())
+                        .put(TextureSlot.TOP, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureSlot.BOTTOM, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureSlot.SIDE, sideTexture)
+                        .put(TextureSlot.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelOutput));
 
-        WeightedVariant inner = createWeightedVariant(MEModels.VERTICAL_COLUMN_SLAB_INNER.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
-                        .put(TextureKey.SIDE, sideTexture)
-                        .put(TextureKey.PARTICLE, sideTexture),
-                blockStateModelGenerator.modelCollector));
+        Variant inner = plainVariant(MEModels.VERTICAL_COLUMN_SLAB_INNER.create(block, (new TextureMapping())
+                        .put(TextureSlot.TOP, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureSlot.BOTTOM, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureSlot.SIDE, sideTexture)
+                        .put(TextureSlot.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelOutput));
 
-        WeightedVariant outer = createWeightedVariant(MEModels.VERTICAL_COLUMN_SLAB_OUTER.upload(block, (new TextureMap())
-                        .put(TextureKey.TOP, Identifier.of(modIdTopBottom, "block/" + topTexturePath))
-                        .put(TextureKey.BOTTOM, Identifier.of(modIdTopBottom, "block/" + bottomTexturePath))
-                        .put(TextureKey.SIDE, sideTexture)
-                        .put(TextureKey.PARTICLE, sideTexture),
-                blockStateModelGenerator.modelCollector));
+        Variant outer = plainVariant(MEModels.VERTICAL_COLUMN_SLAB_OUTER.create(block, (new TextureMapping())
+                        .put(TextureSlot.TOP, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + topTexturePath))
+                        .put(TextureSlot.BOTTOM, ResourceLocation.fromNamespaceAndPath(modIdTopBottom, "block/" + bottomTexturePath))
+                        .put(TextureSlot.SIDE, sideTexture)
+                        .put(TextureSlot.PARTICLE, sideTexture),
+                blockStateModelGenerator.modelOutput));
         registerVerticalSlab(blockStateModelGenerator, block, fullBlockId, variantId, inner, outer);
     }
 
-    private void registerVerticalSlab(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier fullBlock, WeightedVariant regular, WeightedVariant inner, WeightedVariant outer) {
-        WeightedVariant fullBlockVariant;
-        if (Registries.BLOCK.getId(block).getPath().contains("waxed_") && Registries.BLOCK.getId(block).getPath().contains("copper")) {
-            fullBlockVariant = createWeightedVariant(Identifier.ofVanilla(fullBlock.getPath().replaceAll("waxed_", "")));
+    private void registerVerticalSlab(GenerationContext blockStateModelGenerator, Block block, ResourceLocation fullBlock, Variant regular, Variant inner, Variant outer) {
+        Variant fullBlockVariant;
+        if (BuiltInRegistries.BLOCK.getKey(block).getPath().contains("waxed_") && BuiltInRegistries.BLOCK.getKey(block).getPath().contains("copper")) {
+            fullBlockVariant = plainVariant(ResourceLocation.withDefaultNamespace(fullBlock.getPath().replaceAll("waxed_", "")));
         }  else if (fullBlock.getNamespace().contains("minecraft")) {
-            fullBlockVariant = createWeightedVariant(Identifier.ofVanilla(fullBlock.getPath()));
+            fullBlockVariant = plainVariant(ResourceLocation.withDefaultNamespace(fullBlock.getPath()));
         }else {
-            fullBlockVariant = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, fullBlock.getPath()));
+            fullBlockVariant = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, fullBlock.getPath()));
         }
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
-                BlockStateVariantMap.models(Properties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE, VerticalSlabBlock.SHAPE)
-                        .register(Direction.EAST, false, VerticalSlabShape.STRAIGHT, regular.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.WEST, false, VerticalSlabShape.STRAIGHT, regular.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.SOUTH, false, VerticalSlabShape.STRAIGHT, regular.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.NORTH, false, VerticalSlabShape.STRAIGHT, regular.apply(UV_LOCK))
-                        .register(Direction.EAST, false, VerticalSlabShape.OUTER_RIGHT, outer.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.WEST, false, VerticalSlabShape.OUTER_RIGHT, outer.apply(UV_LOCK))
-                        .register(Direction.SOUTH, false, VerticalSlabShape.OUTER_RIGHT, outer.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.NORTH, false, VerticalSlabShape.OUTER_RIGHT, outer.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.EAST, false, VerticalSlabShape.OUTER_LEFT, outer.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.WEST, false, VerticalSlabShape.OUTER_LEFT, outer.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.SOUTH, false, VerticalSlabShape.OUTER_LEFT, outer.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.NORTH, false, VerticalSlabShape.OUTER_LEFT, outer.apply(UV_LOCK))
-                        .register(Direction.EAST, false, VerticalSlabShape.INNER_RIGHT, inner.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.WEST, false, VerticalSlabShape.INNER_RIGHT, inner.apply(UV_LOCK))
-                        .register(Direction.SOUTH, false, VerticalSlabShape.INNER_RIGHT, inner.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.NORTH, false, VerticalSlabShape.INNER_RIGHT, inner.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.EAST, false, VerticalSlabShape.INNER_LEFT, inner.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.WEST, false, VerticalSlabShape.INNER_LEFT, inner.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.SOUTH, false, VerticalSlabShape.INNER_LEFT, inner.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.NORTH, false, VerticalSlabShape.INNER_LEFT, inner.apply(UV_LOCK))
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(block).with(
+                PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, VerticalSlabBlock.DOUBLE, VerticalSlabBlock.SHAPE)
+                        .select(Direction.EAST, false, VerticalSlabShape.STRAIGHT, copyVariant(regular).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, false, VerticalSlabShape.STRAIGHT, copyVariant(regular).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, false, VerticalSlabShape.STRAIGHT, copyVariant(regular).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, false, VerticalSlabShape.STRAIGHT, copyVariant(regular).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, false, VerticalSlabShape.OUTER_RIGHT, copyVariant(outer).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, false, VerticalSlabShape.OUTER_RIGHT, copyVariant(outer).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, false, VerticalSlabShape.OUTER_RIGHT, copyVariant(outer).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, false, VerticalSlabShape.OUTER_RIGHT, copyVariant(outer).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, false, VerticalSlabShape.OUTER_LEFT, copyVariant(outer).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, false, VerticalSlabShape.OUTER_LEFT, copyVariant(outer).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, false, VerticalSlabShape.OUTER_LEFT, copyVariant(outer).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, false, VerticalSlabShape.OUTER_LEFT, copyVariant(outer).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, false, VerticalSlabShape.INNER_RIGHT, copyVariant(inner).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, false, VerticalSlabShape.INNER_RIGHT, copyVariant(inner).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, false, VerticalSlabShape.INNER_RIGHT, copyVariant(inner).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, false, VerticalSlabShape.INNER_RIGHT, copyVariant(inner).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, false, VerticalSlabShape.INNER_LEFT, copyVariant(inner).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, false, VerticalSlabShape.INNER_LEFT, copyVariant(inner).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, false, VerticalSlabShape.INNER_LEFT, copyVariant(inner).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, false, VerticalSlabShape.INNER_LEFT, copyVariant(inner).with(VariantProperties.UV_LOCK, true))
 
-                        .register(Direction.EAST, true, VerticalSlabShape.STRAIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.WEST, true, VerticalSlabShape.STRAIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.SOUTH, true, VerticalSlabShape.STRAIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.NORTH, true, VerticalSlabShape.STRAIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.EAST, true, VerticalSlabShape.OUTER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.WEST, true, VerticalSlabShape.OUTER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.SOUTH, true, VerticalSlabShape.OUTER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.NORTH, true, VerticalSlabShape.OUTER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.EAST, true, VerticalSlabShape.OUTER_LEFT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.WEST, true, VerticalSlabShape.OUTER_LEFT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.SOUTH, true, VerticalSlabShape.OUTER_LEFT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.NORTH, true, VerticalSlabShape.OUTER_LEFT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.EAST, true, VerticalSlabShape.INNER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.WEST, true, VerticalSlabShape.INNER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.SOUTH, true, VerticalSlabShape.INNER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.NORTH, true, VerticalSlabShape.INNER_RIGHT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.EAST, true, VerticalSlabShape.INNER_LEFT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.WEST, true, VerticalSlabShape.INNER_LEFT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.SOUTH, true, VerticalSlabShape.INNER_LEFT, fullBlockVariant.apply(UV_LOCK))
-                        .register(Direction.NORTH, true, VerticalSlabShape.INNER_LEFT, fullBlockVariant.apply(UV_LOCK)));
+                        .select(Direction.EAST, true, VerticalSlabShape.STRAIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, true, VerticalSlabShape.STRAIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, true, VerticalSlabShape.STRAIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, true, VerticalSlabShape.STRAIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, true, VerticalSlabShape.OUTER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, true, VerticalSlabShape.OUTER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, true, VerticalSlabShape.OUTER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, true, VerticalSlabShape.OUTER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, true, VerticalSlabShape.OUTER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, true, VerticalSlabShape.OUTER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, true, VerticalSlabShape.OUTER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, true, VerticalSlabShape.OUTER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, true, VerticalSlabShape.INNER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, true, VerticalSlabShape.INNER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, true, VerticalSlabShape.INNER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, true, VerticalSlabShape.INNER_RIGHT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.EAST, true, VerticalSlabShape.INNER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, true, VerticalSlabShape.INNER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, true, VerticalSlabShape.INNER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, true, VerticalSlabShape.INNER_LEFT, copyVariant(fullBlockVariant).with(VariantProperties.UV_LOCK, true)));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    public void registerWoodStoolModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("stool", "chair"));
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(MEModels.WOOD_STOOL.upload(block,
-                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+    public void registerWoodStoolModelBlockStates(GenerationContext blockStateModelGenerator, Block block){
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(block).getPath().replaceAll("stool", "chair"));
+        Variant weightedVariant = plainVariant(MEModels.WOOD_STOOL.create(block,
+                new TextureMapping().put(TextureSlot.ALL, texture).put(TextureSlot.PARTICLE, texture), blockStateModelGenerator.modelOutput));
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
-                BlockStateVariantMap.models(Properties.HORIZONTAL_FACING)
-                                .register(Direction.NORTH, weightedVariant)
-                                .register(Direction.EAST, weightedVariant.apply(ROTATE_Y_90))
-                                .register(Direction.SOUTH, weightedVariant.apply(ROTATE_Y_180))
-                                .register(Direction.WEST, weightedVariant.apply(ROTATE_Y_270)));
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(block).with(
+                PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING)
+                                .select(Direction.NORTH, weightedVariant)
+                                .select(Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                                .select(Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                                .select(Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    public void registerWoodBenchModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath());
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(MEModels.WOOD_BENCH.upload(block,
-                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+    public void registerWoodBenchModelBlockStates(GenerationContext blockStateModelGenerator, Block block){
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(block).getPath());
+        Variant weightedVariant = plainVariant(MEModels.WOOD_BENCH.create(block,
+                new TextureMapping().put(TextureSlot.ALL, texture).put(TextureSlot.PARTICLE, texture), blockStateModelGenerator.modelOutput));
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
-                BlockStateVariantMap.models(Properties.HORIZONTAL_FACING)
-                        .register(Direction.NORTH, weightedVariant)
-                        .register(Direction.EAST, weightedVariant.apply(ROTATE_Y_90))
-                        .register(Direction.SOUTH, weightedVariant.apply(ROTATE_Y_180))
-                        .register(Direction.WEST, weightedVariant.apply(ROTATE_Y_270)));
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(block).with(
+                PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING)
+                        .select(Direction.NORTH, weightedVariant)
+                        .select(Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    public void registerWoodTableModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath());
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(MEModels.WOOD_TABLE.upload(block,
-                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+    public void registerWoodTableModelBlockStates(GenerationContext blockStateModelGenerator, Block block){
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(block).getPath());
+        Variant weightedVariant = plainVariant(MEModels.WOOD_TABLE.create(block,
+                new TextureMapping().put(TextureSlot.ALL, texture).put(TextureSlot.PARTICLE, texture), blockStateModelGenerator.modelOutput));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, weightedVariant));
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createSimpleBlock(block, weightedVariant));
     }
 
-    public void registerWoodChairModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath());
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(MEModels.WOOD_CHAIR.upload(block,
-                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+    public void registerWoodChairModelBlockStates(GenerationContext blockStateModelGenerator, Block block){
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(block).getPath());
+        Variant weightedVariant = plainVariant(MEModels.WOOD_CHAIR.create(block,
+                new TextureMapping().put(TextureSlot.ALL, texture).put(TextureSlot.PARTICLE, texture), blockStateModelGenerator.modelOutput));
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
-                BlockStateVariantMap.models(Properties.HORIZONTAL_FACING)
-                        .register(Direction.NORTH, weightedVariant)
-                        .register(Direction.EAST, weightedVariant.apply(ROTATE_Y_90))
-                        .register(Direction.SOUTH, weightedVariant.apply(ROTATE_Y_180))
-                        .register(Direction.WEST, weightedVariant.apply(ROTATE_Y_270)));
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(block).with(
+                PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING)
+                        .select(Direction.NORTH, weightedVariant)
+                        .select(Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    public void registerStoneStoolModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier texture) {
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(MEModels.STONE_STOOL.upload(block,
-                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+    public void registerStoneStoolModelBlockStates(GenerationContext blockStateModelGenerator, Block block, ResourceLocation texture) {
+        Variant weightedVariant = plainVariant(MEModels.STONE_STOOL.create(block,
+                new TextureMapping().put(TextureSlot.ALL, texture).put(TextureSlot.PARTICLE, texture), blockStateModelGenerator.modelOutput));
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
-                BlockStateVariantMap.models(Properties.HORIZONTAL_FACING)
-                        .register(Direction.NORTH, weightedVariant)
-                        .register(Direction.EAST, weightedVariant.apply(ROTATE_Y_90))
-                        .register(Direction.SOUTH, weightedVariant.apply(ROTATE_Y_180))
-                        .register(Direction.WEST, weightedVariant.apply(ROTATE_Y_270)));
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(block).with(
+                PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING)
+                        .select(Direction.NORTH, weightedVariant)
+                        .select(Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    public void registerStoneTableModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier texture) {
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(MEModels.STONE_TABLE.upload(block,
-                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+    public void registerStoneTableModelBlockStates(GenerationContext blockStateModelGenerator, Block block, ResourceLocation texture) {
+        Variant weightedVariant = plainVariant(MEModels.STONE_TABLE.create(block,
+                new TextureMapping().put(TextureSlot.ALL, texture).put(TextureSlot.PARTICLE, texture), blockStateModelGenerator.modelOutput));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, weightedVariant));
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createSimpleBlock(block, weightedVariant));
     }
 
-    public void registerStoneChairModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block, Identifier texture) {
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(MEModels.STONE_CHAIR.upload(block,
-                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+    public void registerStoneChairModelBlockStates(GenerationContext blockStateModelGenerator, Block block, ResourceLocation texture) {
+        Variant weightedVariant = plainVariant(MEModels.STONE_CHAIR.create(block,
+                new TextureMapping().put(TextureSlot.ALL, texture).put(TextureSlot.PARTICLE, texture), blockStateModelGenerator.modelOutput));
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
-                BlockStateVariantMap.models(Properties.HORIZONTAL_FACING)
-                        .register(Direction.NORTH, weightedVariant)
-                        .register(Direction.EAST, weightedVariant.apply(ROTATE_Y_90))
-                        .register(Direction.SOUTH, weightedVariant.apply(ROTATE_Y_180))
-                        .register(Direction.WEST, weightedVariant.apply(ROTATE_Y_270)));
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(block).with(
+                PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING)
+                        .select(Direction.NORTH, weightedVariant)
+                        .select(Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                        .select(Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
 
-        blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(block, ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    public final void registerDoubleBlock(BlockStateModelGenerator blockStateModelGenerator, Block doubleBlock, BlockStateModelGenerator.CrossType tintType) {
-        blockStateModelGenerator.registerItemModel(doubleBlock, "_top");
-        WeightedVariant identifier = createWeightedVariant(blockStateModelGenerator.createSubModel(doubleBlock, "_top", tintType.getCrossModel(), TextureMap::cross));
-        WeightedVariant identifier2 = createWeightedVariant(blockStateModelGenerator.createSubModel(doubleBlock, "_bottom", tintType.getCrossModel(), TextureMap::cross));
-        blockStateModelGenerator.registerDoubleBlock(doubleBlock, identifier, identifier2);
+    public final void registerDoubleBlock(GenerationContext blockStateModelGenerator, Block doubleBlock, GenerationContext.PlantType tintType) {
+        blockStateModelGenerator.registerSimpleFlatItemModel(doubleBlock, "_top");
+        Variant identifier = plainVariant(blockStateModelGenerator.createSuffixedVariant(doubleBlock, "_top", tintType.getCross(), TextureMapping::cross));
+        Variant identifier2 = plainVariant(blockStateModelGenerator.createSuffixedVariant(doubleBlock, "_bottom", tintType.getCross(), TextureMapping::cross));
+        blockStateModelGenerator.createDoubleBlock(doubleBlock, identifier, identifier2);
     }
 
-    public final void registerPointedBlock(BlockStateModelGenerator blockStateModelGenerator, Block pointedBlock) {
-        Identifier inventory = Models.GENERATED.upload(pointedBlock.asItem(), TextureMap.layer0(TextureMap.getId(pointedBlock.asItem())), blockStateModelGenerator.modelCollector);
-        blockStateModelGenerator.registerItemModel(pointedBlock.asItem(), inventory);
+    public final void registerPointedBlock(GenerationContext blockStateModelGenerator, Block pointedBlock) {
+        ResourceLocation inventory = ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(pointedBlock.asItem()), TextureMapping.layer0(TextureMapping.getItemTexture(pointedBlock.asItem())), blockStateModelGenerator.modelOutput);
+        blockStateModelGenerator.registerSimpleItemModel(pointedBlock.asItem(), inventory);
 
-        BlockStateVariantMap.DoubleProperty<WeightedVariant, Direction, Thickness> doubleProperty = BlockStateVariantMap.models(Properties.VERTICAL_DIRECTION, Properties.THICKNESS);
-        Thickness[] var2 = Thickness.values();
+        PropertyDispatch.C2<Direction, DripstoneThickness> doubleProperty = PropertyDispatch.properties(BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS);
+        DripstoneThickness[] var2 = DripstoneThickness.values();
         int var3 = var2.length;
 
         int var4;
-        Thickness thickness;
+        DripstoneThickness thickness;
         for(var4 = 0; var4 < var3; ++var4) {
             thickness = var2[var4];
-            doubleProperty.register(Direction.UP, thickness, getPointedVariant(blockStateModelGenerator, Direction.UP, thickness, pointedBlock));
+            doubleProperty.select(Direction.UP, thickness, getPointedVariant(blockStateModelGenerator, Direction.UP, thickness, pointedBlock));
         }
 
-        var2 = Thickness.values();
+        var2 = DripstoneThickness.values();
         var3 = var2.length;
 
         for(var4 = 0; var4 < var3; ++var4) {
             thickness = var2[var4];
-            doubleProperty.register(Direction.DOWN, thickness, getPointedVariant(blockStateModelGenerator, Direction.DOWN, thickness, pointedBlock));
+            doubleProperty.select(Direction.DOWN, thickness, getPointedVariant(blockStateModelGenerator, Direction.DOWN, thickness, pointedBlock));
         }
 
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(pointedBlock).with(doubleProperty));
+        blockStateModelGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(pointedBlock).with(doubleProperty));
     }
 
-    public final WeightedVariant getPointedVariant(BlockStateModelGenerator blockStateModelGenerator, Direction direction, Thickness thickness, Block pointedBlock) {
-        String var10000 = direction.asString();
-        String string = "_" + var10000 + "_" + thickness.asString();
-        TextureMap textureMap = TextureMap.cross(TextureMap.getSubId(pointedBlock, string));
-        return createWeightedVariant(Models.POINTED_DRIPSTONE.upload(pointedBlock, string, textureMap, blockStateModelGenerator.modelCollector));
+    public final Variant getPointedVariant(GenerationContext blockStateModelGenerator, Direction direction, DripstoneThickness thickness, Block pointedBlock) {
+        String var10000 = direction.getSerializedName();
+        String string = "_" + var10000 + "_" + thickness.getSerializedName();
+        TextureMapping textureMap = TextureMapping.cross(TextureMapping.getBlockTexture(pointedBlock, string));
+        return plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(pointedBlock, string, textureMap, blockStateModelGenerator.modelOutput));
     }
 
-    public final void registerLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part) {
-        var statesMap = BlockStateVariantMap.models(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
+    public final void registerLargeDoor(GenerationContext blockStateModelGenerator, LargeDoorBlock largeDoor, IntegerProperty part) {
+        var statesMap = PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.OPEN, BlockStateProperties.DOOR_HINGE, part);
         int rot = 0;
         for (int i = 0; i < largeDoor.getDoorWidth() * largeDoor.getDoorHeight(); i++) {
             for (int k = 2; k < 6; k++) {
@@ -1239,53 +1294,53 @@ public class BlockModelProvider extends FabricModelProvider {
                     default -> rot;
                 };
 
-                WeightedVariant weightedVariantLeft = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
-                WeightedVariant weightedVariantLeftOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
-                WeightedVariant weightedVarianRight = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
-                WeightedVariant weightedVarianRightOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
+                Variant weightedVariantLeft = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_left_" + i));
+                Variant weightedVariantLeftOpen = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_left_open_" + i));
+                Variant weightedVarianRight = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_right_" + i));
+                Variant weightedVarianRightOpen = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_right_open_" + i));
 
-                statesMap.register(Direction.byIndex(k), false, DoorHinge.LEFT, i,
-                        weightedVariantLeft.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), false, DoorHingeSide.LEFT, i,
+                        copyVariant(weightedVariantLeft).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
-                statesMap.register(Direction.byIndex(k), true, DoorHinge.LEFT, i,
-                        weightedVariantLeftOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), true, DoorHingeSide.LEFT, i,
+                        copyVariant(weightedVariantLeftOpen).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
-                statesMap.register(Direction.byIndex(k), false, DoorHinge.RIGHT, i,
-                        weightedVarianRight.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), false, DoorHingeSide.RIGHT, i,
+                        copyVariant(weightedVarianRight).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
-                statesMap.register(Direction.byIndex(k), true, DoorHinge.RIGHT, i,
-                        weightedVarianRightOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), true, DoorHingeSide.RIGHT, i,
+                        copyVariant(weightedVarianRightOpen).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
                 if (k == 2) {
-                    MEModels.LARGE_DOOR_LEFT.upload(largeDoor, "_left_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_DOOR_LEFT.createWithSuffix(largeDoor, "_left_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
 
-                    MEModels.LARGE_DOOR_LEFT_OPEN.upload(largeDoor, "_left_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_DOOR_LEFT_OPEN.createWithSuffix(largeDoor, "_left_open_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
 
-                    MEModels.LARGE_DOOR_RIGHT.upload(largeDoor, "_right_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_DOOR_RIGHT.createWithSuffix(largeDoor, "_right_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
 
-                    MEModels.LARGE_DOOR_RIGHT_OPEN.upload(largeDoor, "_right_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_DOOR_RIGHT_OPEN.createWithSuffix(largeDoor, "_right_open_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
                 }
             }
         }
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(largeDoor).with(statesMap);
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
-        blockStateModelGenerator.registerItemModel(largeDoor.asItem());
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(largeDoor).with(statesMap);
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
+        blockStateModelGenerator.registerSimpleFlatItemModel(largeDoor.asItem());
     }
 
-    public final void registerThickLargeDoor(BlockStateModelGenerator blockStateModelGenerator, LargeDoorBlock largeDoor, IntProperty part) {
-        var statesMap = BlockStateVariantMap.models(Properties.HORIZONTAL_FACING, Properties.OPEN, Properties.DOOR_HINGE, part);
+    public final void registerThickLargeDoor(GenerationContext blockStateModelGenerator, LargeDoorBlock largeDoor, IntegerProperty part) {
+        var statesMap = PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.OPEN, BlockStateProperties.DOOR_HINGE, part);
         int rot = 0;
         for (int i = 0; i < largeDoor.getDoorWidth() * largeDoor.getDoorHeight(); i++) {
             for (int k = 2; k < 6; k++) {
@@ -1297,58 +1352,58 @@ public class BlockModelProvider extends FabricModelProvider {
                     default -> rot;
                 };
 
-                WeightedVariant weightedVariantLeft = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
-                WeightedVariant weightedVariantLeftOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
-                WeightedVariant weightedVarianRight = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
-                WeightedVariant weightedVarianRightOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
+                Variant weightedVariantLeft = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_left_" + i));
+                Variant weightedVariantLeftOpen = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_left_open_" + i));
+                Variant weightedVarianRight = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_right_" + i));
+                Variant weightedVarianRightOpen = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_right_open_" + i));
 
-                statesMap.register(Direction.byIndex(k), false, DoorHinge.LEFT, i,
-                        weightedVariantLeft.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), false, DoorHingeSide.LEFT, i,
+                        copyVariant(weightedVariantLeft).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
-                statesMap.register(Direction.byIndex(k), true, DoorHinge.LEFT, i,
-                        weightedVariantLeftOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), true, DoorHingeSide.LEFT, i,
+                        copyVariant(weightedVariantLeftOpen).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
-                statesMap.register(Direction.byIndex(k), false, DoorHinge.RIGHT, i,
-                        weightedVarianRight.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), false, DoorHingeSide.RIGHT, i,
+                        copyVariant(weightedVarianRight).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
-                statesMap.register(Direction.byIndex(k), true, DoorHinge.RIGHT, i,
-                        weightedVarianRightOpen.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
+                statesMap.select(Direction.from3DDataValue(k), true, DoorHingeSide.RIGHT, i,
+                        copyVariant(weightedVarianRightOpen).with(VariantProperties.Y_ROT, VariantProperties.Rotation.valueOf("R" + rot)));
 
                 if (k == 2) {
-                    MEModels.LARGE_THICK_DOOR_LEFT.upload(largeDoor, "_left_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_THICK_DOOR_LEFT.createWithSuffix(largeDoor, "_left_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
 
-                    MEModels.LARGE_THICK_DOOR_LEFT_OPEN.upload(largeDoor, "_left_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_THICK_DOOR_LEFT_OPEN.createWithSuffix(largeDoor, "_left_open_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
 
-                    MEModels.LARGE_THICK_DOOR_RIGHT.upload(largeDoor, "_right_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_THICK_DOOR_RIGHT.createWithSuffix(largeDoor, "_right_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
 
-                    MEModels.LARGE_THICK_DOOR_RIGHT_OPEN.upload(largeDoor, "_right_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
-                            blockStateModelGenerator.modelCollector);
+                    MEModels.LARGE_THICK_DOOR_RIGHT_OPEN.createWithSuffix(largeDoor, "_right_open_" + i,
+                            (new TextureMapping()).put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i))
+                                    .put(TextureSlot.PARTICLE, ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(largeDoor).getPath() + "_" + i)),
+                            blockStateModelGenerator.modelOutput);
                 }
             }
         }
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(largeDoor).with(statesMap);
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
-        blockStateModelGenerator.registerItemModel(largeDoor.asItem());
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(largeDoor).with(statesMap);
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
+        blockStateModelGenerator.registerSimpleFlatItemModel(largeDoor.asItem());
     }
 
 
-    public final void registerGlassAndPane(BlockStateModelGenerator blockStateModelGenerator, Block glass, Block glassPane) {
-        TextureMap textureMap;
-        String blockId = Registries.BLOCK.getId(glassPane).getPath();
+    public final void registerGlassAndPane(GenerationContext blockStateModelGenerator, Block glass, Block glassPane) {
+        TextureMapping textureMap;
+        String blockId = BuiltInRegistries.BLOCK.getKey(glassPane).getPath();
         if (blockId.contains("lead_glass")){
-            textureMap = TextureMap.paneAndTopForEdge(glass, ModDecorativeBlocks.LEAD_GLASS_PANE);
+            textureMap = TextureMapping.pane(glass, ModDecorativeBlocks.LEAD_GLASS_PANE);
         } else if (blockId.contains("plaster")){
             textureMap = paneAndTopForEdgeCustom(glass, GenericBlockSets.PLASTER.blockSet.base());
         } else if (blockId.contains("white_daub")){
@@ -1362,44 +1417,46 @@ public class BlockModelProvider extends FabricModelProvider {
         } else if (blockId.contains("wattle") && !blockId.contains("black") && !blockId.contains("dark") && !blockId.contains("brick")){
             textureMap = paneAndTopForEdgeCustom(glass, glass);
         } else {
-            textureMap = TextureMap.paneAndTopForEdge(glass, glassPane);
+            textureMap = TextureMapping.pane(glass, glassPane);
         }
-        WeightedVariant weightedVariant = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_POST.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant2 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_SIDE.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant3 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_SIDE_ALT.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant4 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant5 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE_ALT.upload(glassPane, textureMap, blockStateModelGenerator.modelCollector));
+        Variant weightedVariant = plainVariant(ModelTemplates.STAINED_GLASS_PANE_POST.create(glassPane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant2 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_SIDE.create(glassPane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant3 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_SIDE_ALT.create(glassPane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant4 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_NOSIDE.create(glassPane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant5 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_NOSIDE_ALT.create(glassPane, textureMap, blockStateModelGenerator.modelOutput));
         Item item = glassPane.asItem();
 
-        blockStateModelGenerator.registerItemModel(item, blockStateModelGenerator.uploadBlockItemModel(item, glass));
-        blockStateModelGenerator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(glassPane).with(weightedVariant).with(createMultipartConditionBuilder().put(Properties.NORTH, true), weightedVariant2).with(createMultipartConditionBuilder().put(Properties.EAST, true), weightedVariant2.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.SOUTH, true), weightedVariant3).with(createMultipartConditionBuilder().put(Properties.WEST, true), weightedVariant3.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.NORTH, false), weightedVariant4).with(createMultipartConditionBuilder().put(Properties.EAST, false), weightedVariant5).with(createMultipartConditionBuilder().put(Properties.SOUTH, false), weightedVariant5.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.WEST, false), weightedVariant4.apply(ROTATE_Y_270)));
+        blockStateModelGenerator.registerSimpleItemModel(item, blockStateModelGenerator.createFlatItemModelWithBlockTexture(item, glass));
+        blockStateModelGenerator.blockStateOutput.accept(MultiPartGenerator.multiPart(glassPane).with(weightedVariant).with(condition().term(BlockStateProperties.NORTH, true), weightedVariant2).with(condition().term(BlockStateProperties.EAST, true), copyVariant(weightedVariant2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).with(condition().term(BlockStateProperties.SOUTH, true), weightedVariant3).with(condition().term(BlockStateProperties.WEST, true), copyVariant(weightedVariant3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).with(condition().term(BlockStateProperties.NORTH, false), weightedVariant4).with(condition().term(BlockStateProperties.EAST, false), weightedVariant5).with(condition().term(BlockStateProperties.SOUTH, false), copyVariant(weightedVariant5).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).with(condition().term(BlockStateProperties.WEST, false), copyVariant(weightedVariant4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
     }
 
-    public final void registerPaneModel(BlockStateModelGenerator blockStateModelGenerator, Block pane) {
-        TextureMap textureMap = TextureMap.paneAndTopForEdge(pane, pane);
-        WeightedVariant weightedVariant = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_POST.upload(pane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant2 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_SIDE.upload(pane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant3 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_SIDE_ALT.upload(pane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant4 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE.upload(pane, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant5 = createWeightedVariant(Models.TEMPLATE_GLASS_PANE_NOSIDE_ALT.upload(pane, textureMap, blockStateModelGenerator.modelCollector));
+    public final void registerPaneModel(GenerationContext blockStateModelGenerator, Block pane) {
+        TextureMapping textureMap = TextureMapping.pane(pane, pane);
+        Variant weightedVariant = plainVariant(ModelTemplates.STAINED_GLASS_PANE_POST.create(pane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant2 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_SIDE.create(pane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant3 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_SIDE_ALT.create(pane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant4 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_NOSIDE.create(pane, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant5 = plainVariant(ModelTemplates.STAINED_GLASS_PANE_NOSIDE_ALT.create(pane, textureMap, blockStateModelGenerator.modelOutput));
         Item item = pane.asItem();
-        blockStateModelGenerator.registerItemModel(item, blockStateModelGenerator.uploadBlockItemModel(item, pane));
-        blockStateModelGenerator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(pane).with(weightedVariant).with(createMultipartConditionBuilder().put(Properties.NORTH, true), weightedVariant2).with(createMultipartConditionBuilder().put(Properties.EAST, true), weightedVariant2.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.SOUTH, true), weightedVariant3).with(createMultipartConditionBuilder().put(Properties.WEST, true), weightedVariant3.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.NORTH, false), weightedVariant4).with(createMultipartConditionBuilder().put(Properties.EAST, false), weightedVariant5).with(createMultipartConditionBuilder().put(Properties.SOUTH, false), weightedVariant5.apply(ROTATE_Y_90)).with(createMultipartConditionBuilder().put(Properties.WEST, false), weightedVariant4.apply(ROTATE_Y_270)));
+        blockStateModelGenerator.registerSimpleItemModel(item, blockStateModelGenerator.createFlatItemModelWithBlockTexture(item, pane));
+        blockStateModelGenerator.blockStateOutput.accept(MultiPartGenerator.multiPart(pane).with(weightedVariant).with(condition().term(BlockStateProperties.NORTH, true), weightedVariant2).with(condition().term(BlockStateProperties.EAST, true), copyVariant(weightedVariant2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).with(condition().term(BlockStateProperties.SOUTH, true), weightedVariant3).with(condition().term(BlockStateProperties.WEST, true), copyVariant(weightedVariant3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).with(condition().term(BlockStateProperties.NORTH, false), weightedVariant4).with(condition().term(BlockStateProperties.EAST, false), weightedVariant5).with(condition().term(BlockStateProperties.SOUTH, false), copyVariant(weightedVariant5).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).with(condition().term(BlockStateProperties.WEST, false), copyVariant(weightedVariant4).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
     }
 
-    private void registerLayers(BlockStateModelGenerator blockStateModelGenerator, Block layers, Block origin, Boolean isVanilla) {
-        TextureMap textureMap = TextureMap.all(origin);
-        WeightedVariant weightedVariant;
+    private void registerLayers(GenerationContext blockStateModelGenerator, Block layers, Block origin, Boolean isVanilla) {
+        TextureMapping textureMap = TextureMapping.cube(origin);
+        Variant weightedVariant;
         if (!isVanilla){
-            weightedVariant = createWeightedVariant(Models.CUBE_ALL.upload(origin, textureMap, blockStateModelGenerator.modelCollector));
+            weightedVariant = plainVariant(ModelTemplates.CUBE_ALL.create(origin, textureMap, blockStateModelGenerator.modelOutput));
         } else {
-            weightedVariant = createWeightedVariant(Identifier.ofVanilla(Registries.BLOCK.getId(origin).getPath()));
+            weightedVariant = plainVariant(ResourceLocation.withDefaultNamespace(
+                    "block/" + BuiltInRegistries.BLOCK.getKey(origin).getPath()
+            ));
         }
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(layers).with(BlockStateVariantMap.models(Properties.LAYERS).generate((integer) -> {
-            WeightedVariant var2;
+        blockStateModelGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(layers).with(PropertyDispatch.property(BlockStateProperties.LAYERS).generate((integer) -> {
+            Variant var2;
             if (integer < 8) {
                 int var10001 = integer;
-                var2 = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath() +  "_layer_height" + var10001 * 2));
+                var2 = plainVariant(ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(origin).getPath() +  "_layer_height" + var10001 * 2));
             } else {
                 var2 = weightedVariant;
             }
@@ -1407,152 +1464,645 @@ public class BlockModelProvider extends FabricModelProvider {
             return var2;
         })));
         if (!isVanilla){
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(origin, weightedVariant));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createSimpleBlock(origin, weightedVariant));
         }
-        blockStateModelGenerator.registerParentedItemModel(layers, ModelIds.getBlockSubModelId(layers, "_height2"));
+        blockStateModelGenerator.registerSimpleItemModel(layers, ModelLocationUtils.getModelLocation(layers, "_height2"));
     }
 
-    private void registerTopWaterblock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
-        blockStateModelGenerator.registerItemModel(block);
-        ModelVariant modelVariant = createModelVariant(ModelIds.getBlockModelId(block));
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, modelWithYRotation(modelVariant)));
+    private void registerTopWaterblock(GenerationContext blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerSimpleFlatItemModel(block);
+        Variant modelVariant = plainModel(ModelLocationUtils.getModelLocation(block));
+        blockStateModelGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, createRotatedVariants(modelVariant)));
     }
 
-    public void registerRocksBlock(BlockStateModelGenerator blockStateModelGenerator, Block rocksBlock, Block origin) {
-        Identifier id = Identifier.of(Registries.BLOCK.getId(origin).getNamespace(), "block/" + Registries.BLOCK.getId(origin).getPath());
+    public void registerRocksBlock(GenerationContext blockStateModelGenerator, Block rocksBlock, Block origin) {
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(origin).getNamespace(), "block/" + BuiltInRegistries.BLOCK.getKey(origin).getPath());
         if (origin == Blocks.BASALT || origin == Blocks.POLISHED_BASALT) {
-            id = id.withSuffixedPath("_side");
+            id = id.withSuffix("_side");
         }
-        WeightedVariant stage0 = createWeightedVariant(MEModels.ROCKS_STAGE_0.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, id),
-                blockStateModelGenerator.modelCollector));
-        WeightedVariant stage1 = createWeightedVariant(MEModels.ROCKS_STAGE_1.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, id),
-                blockStateModelGenerator.modelCollector));
-        WeightedVariant stage2 = createWeightedVariant(MEModels.ROCKS_STAGE_2.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, id),
-                blockStateModelGenerator.modelCollector));
-        WeightedVariant stage3 = createWeightedVariant(MEModels.ROCKS_STAGE_3.upload(rocksBlock,
-                TextureMap.of(TextureKey.ALL, id),
-                blockStateModelGenerator.modelCollector));
+        Variant stage0 = plainVariant(MEModels.ROCKS_STAGE_0.create(rocksBlock,
+                TextureMapping.singleSlot(TextureSlot.ALL, id),
+                blockStateModelGenerator.modelOutput));
+        Variant stage1 = plainVariant(MEModels.ROCKS_STAGE_1.create(rocksBlock,
+                TextureMapping.singleSlot(TextureSlot.ALL, id),
+                blockStateModelGenerator.modelOutput));
+        Variant stage2 = plainVariant(MEModels.ROCKS_STAGE_2.create(rocksBlock,
+                TextureMapping.singleSlot(TextureSlot.ALL, id),
+                blockStateModelGenerator.modelOutput));
+        Variant stage3 = plainVariant(MEModels.ROCKS_STAGE_3.create(rocksBlock,
+                TextureMapping.singleSlot(TextureSlot.ALL, id),
+                blockStateModelGenerator.modelOutput));
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(rocksBlock)
-                .with(BlockStateVariantMap.models(Properties.HORIZONTAL_FACING, RocksBlock.STAGE)
-                        .register(Direction.EAST, 0, stage0.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.WEST, 0, stage0.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.SOUTH, 0, stage0.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.NORTH, 0, stage0.apply(UV_LOCK))
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(rocksBlock)
+                .with(PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, RocksBlock.STAGE)
+                        .select(Direction.EAST, 0, copyVariant(stage0).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, 0, copyVariant(stage0).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, 0, copyVariant(stage0).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, 0, copyVariant(stage0).with(VariantProperties.UV_LOCK, true))
 
-                        .register(Direction.EAST, 1, stage1.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.WEST, 1, stage1.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.SOUTH, 1, stage1.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.NORTH, 1, stage1.apply(UV_LOCK))
+                        .select(Direction.EAST, 1, copyVariant(stage1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, 1, copyVariant(stage1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, 1, copyVariant(stage1).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, 1, copyVariant(stage1).with(VariantProperties.UV_LOCK, true))
 
-                        .register(Direction.EAST, 2, stage2.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.WEST, 2, stage2.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.SOUTH, 2, stage2.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.NORTH, 2, stage2.apply(UV_LOCK))
+                        .select(Direction.EAST, 2, copyVariant(stage2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, 2, copyVariant(stage2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, 2, copyVariant(stage2).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, 2, copyVariant(stage2).with(VariantProperties.UV_LOCK, true))
 
-                        .register(Direction.EAST, 3, stage3.apply(ROTATE_Y_90).apply(UV_LOCK))
-                        .register(Direction.WEST, 3, stage3.apply(ROTATE_Y_270).apply(UV_LOCK))
-                        .register(Direction.SOUTH, 3, stage3.apply(ROTATE_Y_180).apply(UV_LOCK))
-                        .register(Direction.NORTH, 3, stage3.apply(UV_LOCK)));
+                        .select(Direction.EAST, 3, copyVariant(stage3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.WEST, 3, copyVariant(stage3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.SOUTH, 3, copyVariant(stage3).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.UV_LOCK, true))
+                        .select(Direction.NORTH, 3, copyVariant(stage3).with(VariantProperties.UV_LOCK, true)));
 
-        blockStateModelGenerator.registerParentedItemModel(rocksBlock, ModelIds.getBlockModelId(rocksBlock));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(rocksBlock, ModelLocationUtils.getModelLocation(rocksBlock));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    public void registerTrapdoor(BlockStateModelGenerator blockStateModelGenerator, Block trapdoorBlock, Block block, boolean orientable) {
-        TextureMap textureMap;
+    public void registerTrapdoor(GenerationContext blockStateModelGenerator, Block trapdoorBlock, Block block, boolean orientable) {
+        TextureMapping textureMap;
 
-        String modid = Registries.BLOCK.getId(block).getNamespace();
+        String modid = BuiltInRegistries.BLOCK.getKey(block).getNamespace();
 
-        WeightedVariant identifier;
-        Identifier identifier2;
-        WeightedVariant identifier3;
+        Variant identifier;
+        ResourceLocation identifier2;
+        Variant identifier3;
 
         if (orientable){
-            textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(trapdoorBlock).getPath()));
-            identifier = createWeightedVariant(Models.TEMPLATE_ORIENTABLE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
-            identifier2 = Models.TEMPLATE_ORIENTABLE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
-            identifier3 = createWeightedVariant(Models.TEMPLATE_ORIENTABLE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
+            textureMap = TextureMapping.defaultTexture(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(trapdoorBlock).getPath()));
+            identifier = plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoorBlock, textureMap, blockStateModelGenerator.modelOutput));
+            identifier2 = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.create(trapdoorBlock, textureMap, blockStateModelGenerator.modelOutput);
+            identifier3 = plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.create(trapdoorBlock, textureMap, blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createOrientableTrapdoorBlockState(trapdoorBlock, identifier, createWeightedVariant(identifier2), identifier3));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createOrientableTrapdoor(trapdoorBlock, identifier, plainVariant(identifier2), identifier3));
         } else {
             if (block == Blocks.BASALT) {
-                textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block).getPath() + "_side"));
+                textureMap = TextureMapping.defaultTexture(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block).getPath() + "_side"));
             } else {
-                textureMap = TextureMap.texture(Identifier.of(modid, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("_trapdoor", "")));
+                textureMap = TextureMapping.defaultTexture(ResourceLocation.fromNamespaceAndPath(modid, "block/" + BuiltInRegistries.BLOCK.getKey(block).getPath().replaceAll("_trapdoor", "")));
             }
-            identifier = createWeightedVariant(Models.TEMPLATE_TRAPDOOR_TOP.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
-            identifier2 = Models.TEMPLATE_TRAPDOOR_BOTTOM.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector);
-            identifier3 = createWeightedVariant(Models.TEMPLATE_TRAPDOOR_OPEN.upload(trapdoorBlock, textureMap, blockStateModelGenerator.modelCollector));
+            identifier = plainVariant(ModelTemplates.TRAPDOOR_TOP.create(trapdoorBlock, textureMap, blockStateModelGenerator.modelOutput));
+            identifier2 = ModelTemplates.TRAPDOOR_BOTTOM.create(trapdoorBlock, textureMap, blockStateModelGenerator.modelOutput);
+            identifier3 = plainVariant(ModelTemplates.TRAPDOOR_OPEN.create(trapdoorBlock, textureMap, blockStateModelGenerator.modelOutput));
 
-            blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createTrapdoorBlockState(trapdoorBlock, identifier, createWeightedVariant(identifier2), identifier3));
+            blockStateModelGenerator.blockStateOutput.accept(BlockModelProvider.createTrapdoor(trapdoorBlock, identifier, plainVariant(identifier2), identifier3));
 
         }
-        blockStateModelGenerator.registerParentedItemModel(trapdoorBlock, identifier2);
+        blockStateModelGenerator.registerSimpleItemModel(trapdoorBlock, identifier2);
     }
 
-    public void registerOrientableThickLadder(BlockStateModelGenerator blockStateModelGenerator, Block ladderBlock) {
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(ladderBlock).getPath());
+    public void registerOrientableThickLadder(GenerationContext blockStateModelGenerator, Block ladderBlock) {
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "block/" + BuiltInRegistries.BLOCK.getKey(ladderBlock).getPath());
 
-        WeightedVariant weightedVariant = createWeightedVariant(MEModels.THICK_LADDER.upload(ladderBlock, TextureMap.of(TextureKey.ALL, texture), blockStateModelGenerator.modelCollector));
+        Variant weightedVariant = plainVariant(MEModels.THICK_LADDER.create(ladderBlock, TextureMapping.singleSlot(TextureSlot.ALL, texture), blockStateModelGenerator.modelOutput));
 
-        VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(ladderBlock)
-                .with(BlockStateVariantMap.models(Properties.BLOCK_FACE, Properties.HORIZONTAL_FACING)
-                .register(BlockFace.FLOOR, Direction.NORTH, weightedVariant)
-                .register(BlockFace.FLOOR, Direction.EAST, weightedVariant.apply(ROTATE_Y_90))
-                .register(BlockFace.FLOOR, Direction.SOUTH, weightedVariant.apply(ROTATE_Y_180))
-                .register(BlockFace.FLOOR, Direction.WEST, weightedVariant.apply(ROTATE_Y_270))
+        MultiVariantGenerator blockstate = MultiVariantGenerator.multiVariant(ladderBlock)
+                .with(PropertyDispatch.properties(BlockStateProperties.ATTACH_FACE, BlockStateProperties.HORIZONTAL_FACING)
+                .select(AttachFace.FLOOR, Direction.NORTH, weightedVariant)
+                .select(AttachFace.FLOOR, Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                .select(AttachFace.FLOOR, Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .select(AttachFace.FLOOR, Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
 
-                .register(BlockFace.WALL, Direction.NORTH, weightedVariant.apply(ROTATE_X_90))
-                .register(BlockFace.WALL, Direction.EAST, weightedVariant.apply(ROTATE_X_90).apply(ROTATE_Y_90))
-                .register(BlockFace.WALL, Direction.SOUTH, weightedVariant.apply(ROTATE_X_90).apply(ROTATE_Y_180))
-                .register(BlockFace.WALL, Direction.WEST, weightedVariant.apply(ROTATE_X_90).apply(ROTATE_Y_270))
+                .select(AttachFace.WALL, Direction.NORTH, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                .select(AttachFace.WALL, Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                .select(AttachFace.WALL, Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .select(AttachFace.WALL, Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
 
-                .register(BlockFace.CEILING, Direction.SOUTH, weightedVariant.apply(ROTATE_X_180))
-                .register(BlockFace.CEILING, Direction.WEST, weightedVariant.apply(ROTATE_X_180).apply(ROTATE_Y_90))
-                .register(BlockFace.CEILING, Direction.NORTH, weightedVariant.apply(ROTATE_X_180).apply(ROTATE_Y_180))
-                .register(BlockFace.CEILING, Direction.EAST, weightedVariant.apply(ROTATE_X_180).apply(ROTATE_Y_270)));
+                .select(AttachFace.CEILING, Direction.SOUTH, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                .select(AttachFace.CEILING, Direction.WEST, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                .select(AttachFace.CEILING, Direction.NORTH, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .select(AttachFace.CEILING, Direction.EAST, copyVariant(weightedVariant).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)));
 
-        blockStateModelGenerator.registerParentedItemModel(ladderBlock, ModelIds.getBlockModelId(ladderBlock));
-        blockStateModelGenerator.blockStateCollector.accept(blockstate);
+        blockStateModelGenerator.registerSimpleItemModel(ladderBlock, ModelLocationUtils.getModelLocation(ladderBlock));
+        blockStateModelGenerator.blockStateOutput.accept(blockstate);
     }
 
-    private void registerFarmland(BlockStateModelGenerator blockStateModelGenerator, Block dirtBlock, Block farmland) {
-        TextureMap textureMap = (new TextureMap()).put(TextureKey.DIRT, TextureMap.getId(dirtBlock)).put(TextureKey.TOP, TextureMap.getId(farmland));
-        TextureMap textureMap2 = (new TextureMap()).put(TextureKey.DIRT, TextureMap.getId(dirtBlock)).put(TextureKey.TOP, TextureMap.getSubId(farmland, "_moist"));
-        WeightedVariant weightedVariant = createWeightedVariant(Models.TEMPLATE_FARMLAND.upload(farmland, textureMap, blockStateModelGenerator.modelCollector));
-        WeightedVariant weightedVariant2 = createWeightedVariant(Models.TEMPLATE_FARMLAND.upload(TextureMap.getSubId(farmland, "_moist"), textureMap2, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(farmland).with(createValueFencedModelMap(Properties.MOISTURE, 7, weightedVariant2, weightedVariant)));
+    private void registerFarmland(GenerationContext blockStateModelGenerator, Block dirtBlock, Block farmland) {
+        TextureMapping textureMap = (new TextureMapping()).put(TextureSlot.DIRT, TextureMapping.getBlockTexture(dirtBlock)).put(TextureSlot.TOP, TextureMapping.getBlockTexture(farmland));
+        TextureMapping textureMap2 = (new TextureMapping()).put(TextureSlot.DIRT, TextureMapping.getBlockTexture(dirtBlock)).put(TextureSlot.TOP, TextureMapping.getBlockTexture(farmland, "_moist"));
+        Variant weightedVariant = plainVariant(ModelTemplates.FARMLAND.create(farmland, textureMap, blockStateModelGenerator.modelOutput));
+        Variant weightedVariant2 = plainVariant(ModelTemplates.FARMLAND.create(TextureMapping.getBlockTexture(farmland, "_moist"), textureMap2, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(farmland).with(createEmptyOrFullDispatch(BlockStateProperties.MOISTURE, 7, weightedVariant2, weightedVariant)));
     }
 
-    private void registerDirtPath(BlockStateModelGenerator blockStateModelGenerator, Block dirtBlock, Block pathBlock) {
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.PARTICLE, TextureMap.getId(dirtBlock))
-                .put(TextureKey.TOP, TextureMap.getId(pathBlock).withSuffixedPath("_top"))
-                .put(TextureKey.SIDE, TextureMap.getId(pathBlock).withSuffixedPath("_side"))
-                .put(TextureKey.BOTTOM, TextureMap.getId(dirtBlock));
-        WeightedVariant weightedVariant = createWeightedVariant(MEModels.PATH_BLOCK.upload(pathBlock, textureMap, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(pathBlock, weightedVariant));
+    private void registerDirtPath(GenerationContext blockStateModelGenerator, Block dirtBlock, Block pathBlock) {
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(dirtBlock))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(pathBlock).withSuffix("_top"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(pathBlock).withSuffix("_side"))
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(dirtBlock));
+        Variant weightedVariant = plainVariant(MEModels.PATH_BLOCK.create(pathBlock, textureMap, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(pathBlock, weightedVariant));
     }
 
-    public final void registerMultifaceBlock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
-        blockStateModelGenerator.registerTintedItemModel(block, blockStateModelGenerator.uploadBlockItemModel(block.asItem(), block), new GrassTintSource());
-        blockStateModelGenerator.registerMultifaceBlockModel(block);
+    public final void registerMultifaceBlock(GenerationContext blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.createMultifaceBlockStates(block);
     }
 
-    public final void registerHangingMoss(BlockStateModelGenerator blockStateModelGenerator, Block block) {
-        blockStateModelGenerator.registerItemModel(block);
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).with(BlockStateVariantMap.models(HangingMossBlock.TIP).generate((tip) -> {
+    private void registerCrossBlockWithTexture(GenerationContext context, Block block, ResourceLocation texture) {
+        registerCrossBlockWithTexture(context, block, texture, GenerationContext.PlantType.NOT_TINTED);
+    }
+
+    private void registerCrossBlockWithTexture(
+            GenerationContext context,
+            Block block,
+            ResourceLocation texture,
+            GenerationContext.PlantType plantType
+    ) {
+        ResourceLocation model = plantType.getCross().create(
+                block,
+                TextureMapping.cross(texture),
+                context.modelOutput);
+        context.blockStateOutput.accept(createSimpleBlock(block, plainVariant(model)));
+        ModelTemplates.FLAT_ITEM.create(
+                ModelLocationUtils.getModelLocation(block.asItem()),
+                TextureMapping.layer0(texture),
+                context.modelOutput);
+    }
+
+    public final void registerHangingMoss(GenerationContext blockStateModelGenerator, Block block) {
+        blockStateModelGenerator.registerSimpleFlatItemModel(block);
+        blockStateModelGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(PropertyDispatch.property(booleanProperty(block, "tip")).generate((tip) -> {
             String string = tip ? "_tip" : "";
-            TextureMap textureMap = TextureMap.crop(TextureMap.getSubId(block, string));
-            return createWeightedVariant(MEModels.CROP_VINE.upload(block, string, textureMap, blockStateModelGenerator.modelCollector));
+            TextureMapping textureMap = TextureMapping.crop(TextureMapping.getBlockTexture(block, string));
+            return plainVariant(MEModels.CROP_VINE.createWithSuffix(block, string, textureMap, blockStateModelGenerator.modelOutput));
         })));
     }
 
-    public static TextureMap paneAndTopForEdgeCustom(Block block, Block top) {
-        return (new TextureMap()).put(TextureKey.PANE, TextureMap.getId(block)).put(TextureKey.EDGE, TextureMap.getId(top));
+    @Override
+    public CompletableFuture<?> run(CachedOutput cachedOutput) {
+        Map<Block, BlockStateGenerator> blockStates = new HashMap<>();
+        Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
+        Set<ResourceLocation> definedModels = new HashSet<>();
+        Set<Item> skippedAutoModels = new HashSet<>();
+
+        Consumer<BlockStateGenerator> blockStateOutput = generator -> {
+            BlockStateGenerator previous = blockStates.put(generator.getBlock(), generator);
+            if (previous != null) {
+                throw new IllegalStateException("Duplicate blockstate definition for " + generator.getBlock());
+            }
+        };
+        BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput = (id, supplier) -> {
+            if (!definedModels.add(id)) {
+                throw new IllegalStateException("Duplicate model definition for " + id);
+            }
+            if (!hasAuthoredItemModel(id)) {
+                models.put(id, supplier);
+            }
+        };
+
+      generateBlockStateModels(new GenerationContext(blockStateOutput, modelOutput, skippedAutoModels::add));
+      replacePaleOakBlockTextures(models);
+      replacePaleOakDoorItemTexture(models);
+      addAutomaticBlockItemModels(blockStates.keySet(), models, skippedAutoModels);
+
+        return CompletableFuture.allOf(
+                saveCollection(cachedOutput, blockStates,
+                        block -> blockStatePathProvider.json(block.builtInRegistryHolder().key().location())),
+                saveCollection(cachedOutput, models, modelPathProvider::json));
+  }
+
+  private static void replacePaleOakBlockTextures(
+          Map<ResourceLocation, Supplier<JsonElement>> models
+  ) {
+      models.replaceAll((id, modelSupplier) -> {
+          if (!id.getPath().contains("pale_oak")) {
+              return modelSupplier;
+          }
+          return () -> {
+              JsonElement model = modelSupplier.get().deepCopy();
+              if (!model.isJsonObject()) {
+                  return model;
+              }
+              JsonObject textures = model.getAsJsonObject().getAsJsonObject("textures");
+              if (textures == null) {
+                  return model;
+              }
+              Map<String, String> replacements = new HashMap<>();
+              textures.entrySet().forEach(texture -> {
+                  if (texture.getValue().isJsonPrimitive()) {
+                      String fallback = PALE_OAK_TEXTURE_FALLBACKS.get(texture.getValue().getAsString());
+                      if (fallback != null) {
+                          replacements.put(texture.getKey(), fallback);
+                      }
+                  }
+              });
+              replacements.forEach(textures::addProperty);
+              return model;
+          };
+      });
+  }
+
+  private static void replacePaleOakDoorItemTexture(
+          Map<ResourceLocation, Supplier<JsonElement>> models
+  ) {
+      ResourceLocation modelId =
+              ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "item/pale_oak_door");
+      if (!models.containsKey(modelId)) {
+          return;
+      }
+
+      models.put(modelId, () -> {
+          JsonObject model = new JsonObject();
+          model.addProperty("parent", "minecraft:item/generated");
+          JsonObject textures = new JsonObject();
+          textures.addProperty("layer0", "minecraft:item/birch_door");
+          model.add("textures", textures);
+          return model;
+      });
+  }
+
+  private void addAutomaticBlockItemModels(
+            Set<Block> blocks,
+            Map<ResourceLocation, Supplier<JsonElement>> models,
+            Set<Item> skippedAutoModels
+    ) {
+        for (Block block : blocks) {
+            Item item = Item.BY_BLOCK.get(block);
+            ResourceLocation itemModel = item == null ? null : ModelLocationUtils.getModelLocation(item);
+            if (item != null && !skippedAutoModels.contains(item) && !hasAuthoredItemModel(itemModel)) {
+                models.putIfAbsent(
+                        itemModel,
+                        new DelegatedModel(ModelLocationUtils.getModelLocation(block))
+                );
+            }
+        }
+    }
+
+    private boolean hasAuthoredItemModel(ResourceLocation id) {
+        return id != null
+                && id.getNamespace().equals(MiddleEarth.MOD_ID)
+                && id.getPath().startsWith("item/")
+                && Files.isRegularFile(authoredModelsRoot.resolve(id.getPath() + ".json"));
+    }
+
+    private static <T> CompletableFuture<?> saveCollection(
+            CachedOutput cachedOutput,
+            Map<T, ? extends Supplier<JsonElement>> values,
+            Function<T, Path> pathFactory
+    ) {
+        CompletableFuture<?>[] futures = values.entrySet().stream()
+                .map(entry -> DataProvider.saveStable(cachedOutput, entry.getValue().get(), pathFactory.apply(entry.getKey())))
+                .toArray(CompletableFuture[]::new);
+        return CompletableFuture.allOf(futures);
+    }
+
+    private static Variant plainVariant(ResourceLocation model) {
+        return Variant.variant().with(VariantProperties.MODEL, model);
+    }
+
+    private static Variant plainVariant(Variant variant) {
+        return variant;
+    }
+
+    private static Variant plainModel(ResourceLocation model) {
+        return plainVariant(model);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static net.minecraft.world.level.block.state.properties.Property<Boolean> booleanProperty(
+            Block block,
+            String name
+    ) {
+        return (net.minecraft.world.level.block.state.properties.Property<Boolean>) block.getStateDefinition()
+                .getProperty(name);
+    }
+
+    private static ResourceLocation modelLocation(Variant variant) {
+        return ResourceLocation.parse(variant.get().getAsJsonObject().get("model").getAsString());
+    }
+
+    private static BlockStateGenerator createSimpleBlock(Block block, Variant model) {
+        return MultiVariantGenerator.multiVariant(block, model);
+    }
+
+    private static BlockStateGenerator createAxisAlignedPillarBlock(Block block, Variant model) {
+        return invokeGeneratorStatic("createAxisAlignedPillarBlock", block, modelLocation(model));
+    }
+
+    private static BlockStateGenerator createSlab(Block block, Variant bottom, Variant top, Variant doubleSlab) {
+        return invokeGeneratorStatic(
+                "createSlab",
+                block,
+                modelLocation(bottom),
+                modelLocation(top),
+                modelLocation(doubleSlab)
+        );
+    }
+
+    private static BlockStateGenerator createStairs(Block block, Variant inner, Variant straight, Variant outer) {
+        return invokeGeneratorStatic(
+                "createStairs",
+                block,
+                modelLocation(inner),
+                modelLocation(straight),
+                modelLocation(outer)
+        );
+    }
+
+    private static BlockStateGenerator createWall(Block block, Variant post, Variant low, Variant tall) {
+        return invokeGeneratorStatic(
+                "createWall",
+                block,
+                modelLocation(post),
+                modelLocation(low),
+                modelLocation(tall)
+        );
+    }
+
+    private static BlockStateGenerator createFence(Block block, Variant post, Variant side) {
+        return invokeGeneratorStatic("createFence", block, modelLocation(post), modelLocation(side));
+    }
+
+    private static BlockStateGenerator createFenceGate(
+            Block block,
+            Variant open,
+            Variant closed,
+            Variant openWall,
+            Variant closedWall,
+            boolean uvLock
+    ) {
+        return invokeGeneratorStatic(
+                "createFenceGate",
+                block,
+                modelLocation(open),
+                modelLocation(closed),
+                modelLocation(openWall),
+                modelLocation(closedWall),
+                uvLock
+        );
+    }
+
+    private static BlockStateGenerator createButton(Block block, Variant unpressed, Variant pressed) {
+        return invokeGeneratorStatic("createButton", block, modelLocation(unpressed), modelLocation(pressed));
+    }
+
+    private static BlockStateGenerator createPressurePlate(Block block, Variant up, Variant down) {
+        return invokeGeneratorStatic("createPressurePlate", block, modelLocation(up), modelLocation(down));
+    }
+
+    private static BlockStateGenerator createOrientableTrapdoor(
+            Block block,
+            Variant bottom,
+            Variant top,
+            Variant open
+    ) {
+        return invokeGeneratorStatic(
+                "createOrientableTrapdoor",
+                block,
+                modelLocation(bottom),
+                modelLocation(top),
+                modelLocation(open)
+        );
+    }
+
+    private static BlockStateGenerator createTrapdoor(Block block, Variant bottom, Variant top, Variant open) {
+        return invokeGeneratorStatic(
+                "createTrapdoor",
+                block,
+                modelLocation(bottom),
+                modelLocation(top),
+                modelLocation(open)
+        );
+    }
+
+    private static Variant[] createRotatedVariants(Variant model) {
+        return invokeGeneratorStatic("createRotatedVariants", modelLocation(model));
+    }
+
+    private static <T extends Comparable<T>> PropertyDispatch createEmptyOrFullDispatch(
+            net.minecraft.world.level.block.state.properties.Property<T> property,
+            T fullValue,
+            Variant fullModel,
+            Variant emptyModel
+    ) {
+        return invokeGeneratorStatic(
+                "createEmptyOrFullDispatch",
+                property,
+                fullValue,
+                modelLocation(fullModel),
+                modelLocation(emptyModel)
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T invokeGeneratorStatic(String name, Object... arguments) {
+        return (T) invokeGenerator(null, name, arguments);
+    }
+
+    private static Object invokeGenerator(BlockModelGenerators target, String name, Object... arguments) {
+        for (Method method : BlockModelGenerators.class.getDeclaredMethods()) {
+            if (!method.getName().equals(name)
+                    || method.getParameterCount() != arguments.length
+                    || (target == null) != Modifier.isStatic(method.getModifiers())
+                    || !parametersMatch(method.getParameterTypes(), arguments)) {
+                continue;
+            }
+
+            try {
+                method.setAccessible(true);
+                return method.invoke(target, arguments);
+            } catch (ReflectiveOperationException exception) {
+                throw new IllegalStateException("Failed to invoke BlockModelGenerators." + name, exception);
+            }
+        }
+        throw new IllegalStateException("No matching BlockModelGenerators." + name + " overload");
+    }
+
+    private static boolean parametersMatch(Class<?>[] parameterTypes, Object[] arguments) {
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (arguments[i] == null) {
+                continue;
+            }
+            Class<?> parameterType = parameterTypes[i].isPrimitive()
+                    ? primitiveWrapper(parameterTypes[i])
+                    : parameterTypes[i];
+            if (!parameterType.isInstance(arguments[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static Class<?> primitiveWrapper(Class<?> type) {
+        if (type == boolean.class) return Boolean.class;
+        if (type == int.class) return Integer.class;
+        if (type == long.class) return Long.class;
+        if (type == float.class) return Float.class;
+        if (type == double.class) return Double.class;
+        if (type == byte.class) return Byte.class;
+        if (type == short.class) return Short.class;
+        if (type == char.class) return Character.class;
+        return type;
+    }
+
+    public static final class GenerationContext extends BlockModelGenerators {
+        public final Consumer<BlockStateGenerator> blockStateOutput;
+        public final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput;
+
+        private GenerationContext(
+                Consumer<BlockStateGenerator> blockStateOutput,
+                BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput,
+                Consumer<Item> skippedAutoModelsOutput
+        ) {
+            super(blockStateOutput, modelOutput, skippedAutoModelsOutput);
+            this.blockStateOutput = blockStateOutput;
+            this.modelOutput = modelOutput;
+        }
+
+        public void createTintedLeaves(Block block, TexturedModel.Provider model, int ignoredTint) {
+            createTrivialBlock(block, model);
+        }
+
+        public void createRotatedPillarWithHorizontalVariant(
+                Block block,
+                TexturedModel.Provider vertical,
+                TexturedModel.Provider horizontal
+        ) {
+            invokeGenerator(this, "createRotatedPillarWithHorizontalVariant", block, vertical, horizontal);
+        }
+
+        public void createDoor(Block block) {
+            invokeGenerator(this, "createDoor", block);
+        }
+
+        public void createCrossBlockWithDefaultItem(Block block, PlantType tint) {
+            invokeGenerator(this, "createCrossBlockWithDefaultItem", block, tint.vanillaValue());
+        }
+
+        public void createGrowingPlant(Block body, Block head, PlantType tint) {
+            invokeGenerator(this, "createGrowingPlant", body, head, tint.vanillaValue());
+        }
+
+        public void createCrossBlock(Block block, PlantType tint) {
+            invokeGenerator(this, "createCrossBlock", block, tint.vanillaValue());
+        }
+
+        public void createFlowerBed(Block block) {
+            invokeGenerator(this, "createFlowerBed", block);
+        }
+
+        public void createMushroomBlock(Block block) {
+            invokeGenerator(this, "createMushroomBlock", block);
+        }
+
+        public void createCropBlock(Block block, IntegerProperty ageProperty, int... ages) {
+            invokeGenerator(this, "createCropBlock", block, ageProperty, ages);
+        }
+
+        public void createAmethystCluster(Block block) {
+            invokeGenerator(this, "createAmethystCluster", block);
+        }
+
+        public void createMultiface(Block block) {
+            invokeGenerator(this, "createMultiface", block);
+        }
+
+        public void createMultifaceBlockStates(Block block) {
+            createMultiface(block);
+        }
+
+        public ResourceLocation createSuffixedVariant(
+                Block block,
+                String suffix,
+                ModelTemplate model,
+                Function<ResourceLocation, TextureMapping> textureFactory
+        ) {
+            return model.createWithSuffix(
+                    block,
+                    suffix,
+                    textureFactory.apply(TextureMapping.getBlockTexture(block, suffix)),
+                    modelOutput
+            );
+        }
+
+        public void createDoubleBlock(Block block, Variant top, Variant bottom) {
+            invokeGenerator(this, "createDoubleBlock", block, modelLocation(top), modelLocation(bottom));
+        }
+
+        public ResourceLocation createFlatItemModelWithBlockTexture(Item item, Block block) {
+            return ModelTemplates.FLAT_ITEM.create(
+                    ModelLocationUtils.getModelLocation(item),
+                    TextureMapping.layer0(TextureMapping.getBlockTexture(block)),
+                    modelOutput
+            );
+        }
+
+        public void registerSimpleItemModel(Object itemOrBlock, ResourceLocation model) {
+            Item item = itemOrBlock instanceof Block block ? block.asItem() : (Item) itemOrBlock;
+            if (ModelLocationUtils.getModelLocation(item).equals(model)) {
+                return;
+            }
+            modelOutput.accept(ModelLocationUtils.getModelLocation(item), new DelegatedModel(model));
+        }
+
+        public void registerSimpleTintedItemModel(
+                Object itemOrBlock,
+                ResourceLocation model,
+                Object ignoredTint
+        ) {
+            Item item = itemOrBlock instanceof Block block ? block.asItem() : (Item) itemOrBlock;
+            if (ModelLocationUtils.getModelLocation(item).equals(model)) {
+                return;
+            }
+            registerSimpleItemModel(itemOrBlock, model);
+        }
+
+        public void registerSimpleFlatItemModel(Object itemOrBlock) {
+            registerSimpleFlatItemModel(itemOrBlock, "");
+        }
+
+        public void registerSimpleFlatItemModel(Object itemOrBlock, String textureSuffix) {
+            Item item = itemOrBlock instanceof Block block ? block.asItem() : (Item) itemOrBlock;
+            ResourceLocation texture = itemOrBlock instanceof Block block
+                    ? TextureMapping.getBlockTexture(block, textureSuffix)
+                    : TextureMapping.getItemTexture(item, textureSuffix);
+            ModelTemplates.FLAT_ITEM.create(
+                    ModelLocationUtils.getModelLocation(item),
+                    TextureMapping.layer0(texture),
+                    modelOutput
+            );
+        }
+
+        public enum PlantType {
+            TINTED(ModelTemplates.TINTED_CROSS, ModelTemplates.TINTED_FLOWER_POT_CROSS),
+            NOT_TINTED(ModelTemplates.CROSS, ModelTemplates.FLOWER_POT_CROSS);
+
+            private final ModelTemplate cross;
+            private final ModelTemplate crossPot;
+
+            PlantType(ModelTemplate cross, ModelTemplate crossPot) {
+                this.cross = cross;
+                this.crossPot = crossPot;
+            }
+
+            public ModelTemplate getCross() {
+                return cross;
+            }
+
+            public ModelTemplate getCrossPot() {
+                return crossPot;
+            }
+
+            @SuppressWarnings({"rawtypes", "unchecked"})
+            private Object vanillaValue() {
+                try {
+                    Class<? extends Enum> type = (Class<? extends Enum>) Class.forName(
+                            "net.minecraft.data.models.BlockModelGenerators$TintState"
+                    );
+                    return Enum.valueOf(type, name());
+                } catch (ClassNotFoundException exception) {
+                    throw new IllegalStateException("Missing BlockModelGenerators.TintState", exception);
+                }
+            }
+        }
+    }
+
+    private static Variant copyVariant(Variant variant) {
+        return Variant.merge(variant, Variant.variant());
+    }
+
+    public static TextureMapping paneAndTopForEdgeCustom(Block block, Block top) {
+        return (new TextureMapping()).put(TextureSlot.PANE, TextureMapping.getBlockTexture(block)).put(TextureSlot.EDGE, TextureMapping.getBlockTexture(top));
     }
 }

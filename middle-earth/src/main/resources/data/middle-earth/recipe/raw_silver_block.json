@@ -6,7 +6,9 @@
     "###"
   ],
   "key": {
-    "#": "middle-earth:raw_silver"
+    "#": {
+      "item": "middle-earth:raw_silver"
+    }
   },
   "result": {
     "id": "middle-earth:raw_silver_block"

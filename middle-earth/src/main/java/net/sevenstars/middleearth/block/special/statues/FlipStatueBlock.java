@@ -1,60 +1,45 @@
 package net.sevenstars.middleearth.block.special.statues;
 
-import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class FlipStatueBlock extends StatueBlock {
-    public static final BooleanProperty FLIP = BooleanProperty.of("flip");
+    public static final BooleanProperty FLIP = BooleanProperty.create("flip");
 
-    public FlipStatueBlock(Settings settings) {
+    public FlipStatueBlock(Properties settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(HORIZONTAL_FACING, Direction.NORTH).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false).with(FLIP, false));
+        registerDefaultState(defaultBlockState().setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false).setValue(FLIP, false));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FLIP);
-        super.appendProperties(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            world.setBlockState(pos, state.cycle(FLIP));
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!world.isClientSide && player.getAbilities().mayBuild) {
+            world.setBlockAndUpdate(pos, state.cycle(FLIP));
             BlockState updatedState = world.getBlockState(pos);
-            if(state.get(HALF) == DoubleBlockHalf.LOWER) {
-                BlockState otherState = world.getBlockState(pos.up());
-                world.setBlockState(pos.up(), otherState.with(FLIP, updatedState.get(FLIP)));
+            if(state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                BlockState otherState = world.getBlockState(pos.above());
+                world.setBlockAndUpdate(pos.above(), otherState.setValue(FLIP, updatedState.getValue(FLIP)));
             } else {
-                BlockState otherState = world.getBlockState(pos.down());
-                world.setBlockState(pos.down(), otherState.with(FLIP, updatedState.get(FLIP)));
+                BlockState otherState = world.getBlockState(pos.below());
+                world.setBlockAndUpdate(pos.below(), otherState.setValue(FLIP, updatedState.getValue(FLIP)));
             }
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

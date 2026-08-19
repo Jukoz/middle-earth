@@ -1,49 +1,49 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.function.BooleanBiFunction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ChimneyBlock extends AbstractToggleableFireBlock {
 
-    public static final MapCodec<ChimneyBlock> CODEC = ChimneyBlock.createCodec(ChimneyBlock::new);
+    public static final MapCodec<ChimneyBlock> CODEC = ChimneyBlock.simpleCodec(ChimneyBlock::new);
 
-    protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(Block.createCuboidShape(0, 0, 0, 16, 4, 16), Block.createCuboidShape(3, 4, 3, 13, 16, 13), BooleanBiFunction.OR);
-    public static final BooleanProperty LIT = Properties.LIT;
+    protected static final VoxelShape SHAPE = Shapes.join(Block.box(0, 0, 0, 16, 4, 16), Block.box(3, 4, 3, 13, 16, 13), BooleanOp.OR);
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-    public ChimneyBlock(Settings settings) {
+    public ChimneyBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends AbstractToggleableFireBlock> getCodec() {
+    protected MapCodec<? extends AbstractToggleableFireBlock> codec() {
         return CODEC;
     }
 
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (world.isClient) {
-            if (state.get(LIT)) {
-                return AbstractToggleableFireBlock.validateTicker(type, ModBlockEntities.CHIMNEY, ChimneyBlockEntity::clientTick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        if (world.isClientSide) {
+            if (state.getValue(LIT)) {
+                return AbstractToggleableFireBlock.createTickerHelper(type, ModBlockEntities.CHIMNEY, ChimneyBlockEntity::clientTick);
             }
         }
         return null;
@@ -51,7 +51,7 @@ public class ChimneyBlock extends AbstractToggleableFireBlock {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new ChimneyBlockEntity(pos, state);
     }
 }

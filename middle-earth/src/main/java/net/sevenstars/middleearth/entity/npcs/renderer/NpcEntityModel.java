@@ -1,16 +1,20 @@
 package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Arm;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.random.Random;
-
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.entity.HumanoidArm;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.List;
 
-public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
+public class NpcEntityModel extends HumanoidModel<NpcEntity> {
     private static final String LEFT_SLEEVE = "left_sleeve";
     private static final String RIGHT_SLEEVE = "right_sleeve";
     private static final String LEFT_PANTS = "left_pants";
@@ -23,7 +27,7 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
     public final ModelPart jacket;
 
     public NpcEntityModel(ModelPart modelPart) {
-        super(modelPart, RenderLayer::getEntityTranslucent);
+        super(modelPart, RenderType::entityTranslucent);
         this.leftSleeve = this.leftArm.getChild("left_sleeve");
         this.rightSleeve = this.rightArm.getChild("right_sleeve");
         this.leftPants = this.leftLeg.getChild("left_pants");
@@ -32,32 +36,37 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
         this.parts = List.of(this.head, this.body, this.leftArm, this.rightArm, this.leftLeg, this.rightLeg);
     }
 
-    public static TexturedModelData getTexturedModelData(Dilation dilation) {
-        ModelData modelData = BipedEntityModel.getModelData(dilation, 0.0F);
-        ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData modelPartData2;
-        ModelPartData modelPartData3;
+    public static LayerDefinition getTexturedModelData(CubeDeformation dilation) {
+        MeshDefinition modelData = HumanoidModel.createMesh(dilation, 0.0F);
+        PartDefinition modelPartData = modelData.getRoot();
+        PartDefinition modelPartData2;
+        PartDefinition modelPartData3;
 
-        modelPartData2 = modelPartData.addChild("left_arm", ModelPartBuilder.create().uv(32, 48).cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), ModelTransform.origin(5.0F, 2.0F, 0.0F));
+        modelPartData2 = modelPartData.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 48).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), PartPose.offset(5.0F, 2.0F, 0.0F));
         modelPartData3 = modelPartData.getChild("right_arm");
-        modelPartData2.addChild(LEFT_SLEEVE, ModelPartBuilder.create().uv(48, 48).cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
-        modelPartData3.addChild(RIGHT_SLEEVE, ModelPartBuilder.create().uv(40, 32).cuboid(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
+        modelPartData2.addOrReplaceChild(LEFT_SLEEVE, CubeListBuilder.create().texOffs(48, 48).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+        modelPartData3.addOrReplaceChild(RIGHT_SLEEVE, CubeListBuilder.create().texOffs(40, 32).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
 
-        modelPartData2 = modelPartData.addChild("left_leg", ModelPartBuilder.create().uv(16, 48).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), ModelTransform.origin(1.9F, 12.0F, 0.0F));
+        modelPartData2 = modelPartData.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(16, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation), PartPose.offset(1.9F, 12.0F, 0.0F));
         modelPartData3 = modelPartData.getChild("right_leg");
-        modelPartData2.addChild(LEFT_PANTS, ModelPartBuilder.create().uv(0, 48).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
-        modelPartData3.addChild(RIGHT_PANTS, ModelPartBuilder.create().uv(0, 32).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
-        ModelPartData modelPartData4 = modelPartData.getChild("body");
-        modelPartData4.addChild("jacket", ModelPartBuilder.create().uv(16, 32).cuboid(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, dilation.add(0.25F)), ModelTransform.NONE);
-        return TexturedModelData.of(modelData, 64, 64);
+        modelPartData2.addOrReplaceChild(LEFT_PANTS, CubeListBuilder.create().texOffs(0, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+        modelPartData3.addOrReplaceChild(RIGHT_PANTS, CubeListBuilder.create().texOffs(0, 32).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+        PartDefinition modelPartData4 = modelPartData.getChild("body");
+        modelPartData4.addOrReplaceChild("jacket", CubeListBuilder.create().texOffs(16, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, dilation.extend(0.25F)), PartPose.ZERO);
+        return LayerDefinition.create(modelData, 64, 64);
     }
 
-    public void setAngles(NpcEntityRenderState renderState) {
-        super.setAngles(renderState);
+    public void setupAnim(NpcEntity entity, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
+        this.leftArmPose = NpcEntityRenderer.getArmPose(
+                entity, entity.getOffhandItem(), net.minecraft.world.InteractionHand.OFF_HAND);
+        this.rightArmPose = NpcEntityRenderer.getArmPose(
+                entity, entity.getMainHandItem(), net.minecraft.world.InteractionHand.MAIN_HAND);
+        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     }
 
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
+    public void setAllVisible(boolean visible) {
+        super.setAllVisible(visible);
         this.leftSleeve.visible = visible;
         this.rightSleeve.visible = visible;
         this.leftPants.visible = visible;
@@ -65,7 +74,7 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
         this.jacket.visible = visible;
     }
 
-    public void setArmAngle(Arm arm, MatrixStack matrices) {
-        super.setArmAngle(arm, matrices);
+    public void translateToHand(HumanoidArm arm, PoseStack matrices) {
+        super.translateToHand(arm, matrices);
     }
 }

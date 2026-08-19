@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.minecraft.world.level.block.Block;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.block.registration.WoodBlockSets;
-import net.minecraft.block.Block;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ public class LeavesDrops {
             add(new LeavesDrop(WoodBlockSets.BLACK_PINE_SET.leaves, ModNatureBlocks.BLACK_PINE_SAPLING));
             add(new LeavesDrop(WoodBlockSets.WHITE_SPRUCE_SET.leaves, ModNatureBlocks.WHITE_SPRUCE_SAPLING));
             add(new LeavesDrop(WoodBlockSets.WILLOW_SET.leaves, ModNatureBlocks.WILLOW_SAPLING));
+            add(new LeavesDrop(WoodBlockSets.PALE_OAK_SET.leaves, WoodBlockSets.PALE_OAK_SET.sapling));
             add(new LeavesDrop(ModNatureBlocks.LEBETHRON_LEAVES, ModNatureBlocks.LEBETHRON_SAPLING));
             add(new LeavesDrop(ModNatureBlocks.BERRY_HOLLY_LEAVES, ModNatureBlocks.HOLLY_SAPLING));
             add(new LeavesDrop(ModNatureBlocks.DRY_LARCH_LEAVES, ModNatureBlocks.LARCH_SAPLING));

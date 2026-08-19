@@ -1,24 +1,24 @@
 package net.sevenstars.middleearth.entity.projectile;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.core.Holder;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
@@ -31,19 +31,19 @@ public class WebbedEntity extends AbstractProjectileEntity {
     private static ConfiguredFeature feature;
     private float damage;
 
-    public WebbedEntity(EntityType<? extends WebbedEntity> entityType, World world) {
+    public WebbedEntity(EntityType<? extends WebbedEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public WebbedEntity(World world, LivingEntity owner, float dmg) {
+    public WebbedEntity(Level world, LivingEntity owner, float dmg) {
         super(EntitiesME.WEB, owner, world, new ItemStack(Items.COBWEB));
         this.damage = dmg;
         if(feature == null) {
-            if(!this.getWorld().isClient) {
-                if(this.getWorld() instanceof ServerWorld serverWorld) {
-                    Optional<? extends RegistryEntry<ConfiguredFeature<?, ?>>> optional = serverWorld.getRegistryManager()
-                            .getOrThrow(RegistryKeys.CONFIGURED_FEATURE)
-                            .getOptional(ModVegetationConfiguredFeatures.PATCH_WEBBING);
+            if(!this.level().isClientSide) {
+                if(this.level() instanceof ServerLevel serverWorld) {
+                    Optional<? extends Holder<ConfiguredFeature<?, ?>>> optional = serverWorld.registryAccess()
+                            .lookupOrThrow(Registries.CONFIGURED_FEATURE)
+                            .get(ModVegetationConfiguredFeatures.PATCH_WEBBING);
                     optional.ifPresent(configuredFeatureRegistryEntry -> feature = configuredFeatureRegistryEntry.value());
                 }
             }
@@ -57,21 +57,21 @@ public class WebbedEntity extends AbstractProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.getWorld().isClient) {
+        if (this.level().isClientSide) {
             this.spawnParticles(2);
         }
     }
 
     @Override
-    public void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
+    public void onHitEntity(EntityHitResult entityHitResult) {
+        super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getWorld() instanceof ServerWorld serverWorld) {
-            entity.damage(serverWorld, this.getDamageSources().thrown( this, this.getOwner()), this.damage);
+        if(this.level() instanceof ServerLevel serverWorld) {
+            entity.hurt(this.damageSources().thrown(this, this.getOwner()), this.damage);
             if(entity instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAVING, 200));
-                livingEntity.addStatusEffect(new StatusEffectInstance(ModStatusEffects.RESTRAINED, 200));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAVING, 200));
+                livingEntity.addEffect(new MobEffectInstance(ModStatusEffects.RESTRAINED, 200));
                 //if(entity instanceof ServerPlayerEntity playerEntity) {
                 //    ServerPlayNetworking.send(playerEntity, new PacketLivingEntityData(1));
                 //}
@@ -80,46 +80,46 @@ public class WebbedEntity extends AbstractProjectileEntity {
     }
 
     @Override
-    protected void onCollision(HitResult hitResult) {
+    protected void onHit(HitResult hitResult) {
         HitResult.Type type = hitResult.getType();
         if (type == HitResult.Type.ENTITY) {
             EntityHitResult entityHitResult = (EntityHitResult) hitResult;
             Entity entity = entityHitResult.getEntity();
-            if(entity.getType().isIn(EntityTypeTagsME.UNGOLIENI)) {
+            if(entity.getType().is(EntityTypeTagsME.UNGOLIENI)) {
                 return;
             }
         }
-        super.onCollision(hitResult);
+        super.onHit(hitResult);
         spawnWebbing();
     }
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        super.onHitBlock(blockHitResult);
         spawnWebbing();
     }
 
     @Override
-    protected void onBlockCollision(BlockState state) {
-        super.onBlockCollision(state);
+    protected void onInsideBlock(BlockState state) {
+        super.onInsideBlock(state);
         spawnWebbing();
     }
 
     private void spawnParticles(int amount) {
         if (amount > 0) {
             for (int j = 0; j < amount; j++) {
-                this.getWorld()
-                        .addParticleClient(
-                                new BlockStateParticleEffect(ParticleTypes.BLOCK, ModNatureBlocks.WEBBING.getDefaultState()),
-                                this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 0.0, 0.0, 0.0
+                this.level()
+                        .addParticle(
+                                new BlockParticleOption(ParticleTypes.BLOCK, ModNatureBlocks.WEBBING.defaultBlockState()),
+                                this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0.0, 0.0, 0.0
                         );
             }
         }
     }
 
     private void spawnWebbing() {
-        if(this.getWorld() instanceof ServerWorld serverWorld && feature != null) {
-            feature.generate(serverWorld, serverWorld.getChunkManager().getChunkGenerator(), random, this.getBlockPos());
+        if(this.level() instanceof ServerLevel serverWorld && feature != null) {
+            feature.place(serverWorld, serverWorld.getChunkSource().getGenerator(), random, this.blockPosition());
         }
     }
 }

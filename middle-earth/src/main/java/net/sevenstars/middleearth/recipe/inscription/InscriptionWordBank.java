@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.recipe.inscription;
 
 import com.google.common.collect.ArrayListMultimap;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
@@ -27,6 +27,7 @@ public class InscriptionWordBank {
 
         wordBank.put(null, "draw");
         wordBank.put(null, "point");
+        wordBank.put(null, "spirit");
 
         wordBank.put(ResourceItemsME.RUBY, "fierce");
         wordBank.put(ResourceItemsME.RUBY, "forceful");

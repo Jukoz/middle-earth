@@ -6,9 +6,15 @@
     "INI"
   ],
   "key": {
-    "I": "#middle-earth:steel_ingots",
-    "N": "#middle-earth:steel_nuggets",
-    "C": "minecraft:chest"
+    "I": {
+      "tag": "middle-earth:steel_ingots"
+    },
+    "N": {
+      "tag": "middle-earth:steel_nuggets"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    }
   },
   "result": {
     "id": "middle-earth:reinforced_chest",

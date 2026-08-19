@@ -1,39 +1,39 @@
 package net.sevenstars.middleearth.block.special;
 
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.sevenstars.middleearth.MiddleEarth;
 import org.jetbrains.annotations.Nullable;
 
 public class ThinBarrelBlock extends BarrelBlock {
-    public ThinBarrelBlock(Settings settings) {
+    public ThinBarrelBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(FACING)){
-            case UP,DOWN -> Block.createCuboidShape(1, 0, 1, 15, 16, 15);
-            case NORTH,SOUTH -> Block.createCuboidShape(1, 0, 0, 15, 14, 16);
-            case EAST,WEST -> Block.createCuboidShape(0, 0, 1, 16, 14, 15);
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return switch (state.getValue(FACING)){
+            case UP,DOWN -> Block.box(1, 0, 1, 15, 16, 15);
+            case NORTH,SOUTH -> Block.box(1, 0, 0, 15, 14, 16);
+            case EAST,WEST -> Block.box(0, 0, 1, 16, 14, 15);
         };
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BarrelBlockEntity(pos, state){
             @Override
-            protected Text getContainerName() {
-                return Text.translatable("container.%s.thin_barrel".formatted(MiddleEarth.MOD_ID));
+            protected Component getDefaultName() {
+                return Component.translatable("container.%s.thin_barrel".formatted(MiddleEarth.MOD_ID));
             }
         };
     }

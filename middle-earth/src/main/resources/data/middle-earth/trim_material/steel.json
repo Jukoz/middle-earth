@@ -3,5 +3,7 @@
   "description": {
     "color": "#BCBDC0",
     "translate": "trim_material.middle-earth.steel"
-  }
+  },
+  "ingredient": "middle-earth:steel_ingot",
+  "item_model_index": 0.006
 }

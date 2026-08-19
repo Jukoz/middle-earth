@@ -1,0 +1,11 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "net.sevenstars.middleearth.mixin.compat.sable",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "net.sevenstars.middleearth.mixin.compat.sable.OptionalSableMixinPlugin",
+  "mixins": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

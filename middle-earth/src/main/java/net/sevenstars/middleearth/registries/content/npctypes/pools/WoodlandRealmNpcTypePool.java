@@ -1,11 +1,11 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Items;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
@@ -34,9 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class WoodlandRealmNpcTypePool {
-    private final static RegistryKey<Faction> FACTION = FactionRegistry.WOODLAND_REALM;
+    private final static ResourceKey<Faction> FACTION = FactionRegistry.WOODLAND_REALM;
 
-    public static final Identifier TOTAL_DAMAGE_MODIFIER = MiddleEarth.of("total_damage");
+    public static final ResourceLocation TOTAL_DAMAGE_MODIFIER = MiddleEarth.of("total_damage");
 
     public final static NpcType ARTISAN; // Citizen / Artisans
     public final static NpcType HUNTER; // Very lightly armored, focusing entities (spiders and deer (cooldown) rather than orcs)
@@ -65,7 +65,7 @@ public class WoodlandRealmNpcTypePool {
     }
 
     static {
-        ARTISAN = new NpcType(NpcRegistry.WOODLAND_REALM_ARTISAN.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
+        ARTISAN = new NpcType(NpcRegistry.WOODLAND_REALM_ARTISAN.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create())
@@ -85,7 +85,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
-        HUNTER = new NpcType(NpcRegistry.WOODLAND_REALM_HUNTER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
+        HUNTER = new NpcType(NpcRegistry.WOODLAND_REALM_HUNTER.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.CHEST, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_LEATHER_ARMING_COAT)
@@ -104,7 +104,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER, NpcLoot.FROM_3_TO_7);
 
-        SENTINEL = new NpcType(NpcRegistry.WOODLAND_REALM_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_SENTINEL, List.of(
+        SENTINEL = new NpcType(NpcRegistry.WOODLAND_REALM_SENTINEL.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_SENTINEL, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                             .add(WeightedItemData.create(EquipmentItemsME.HOOD).withColor(0x20351a))
@@ -153,7 +153,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER, NpcLoot.FROM_3_TO_7);
 
-        RANGER = new NpcType(NpcRegistry.WOODLAND_REALM_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
+        RANGER = new NpcType(NpcRegistry.WOODLAND_REALM_RANGER.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create().withWeight(3)
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
@@ -212,7 +212,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER, NpcLoot.FROM_3_TO_7);
 
-        WARRIOR = new NpcType(NpcRegistry.WOODLAND_REALM_WARRIOR.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
+        WARRIOR = new NpcType(NpcRegistry.WOODLAND_REALM_WARRIOR.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
@@ -239,7 +239,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
-        LANCER = new NpcType(NpcRegistry.WOODLAND_REALM_LANCER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
+        LANCER = new NpcType(NpcRegistry.WOODLAND_REALM_LANCER.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
@@ -264,9 +264,9 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.GREAT_HORN).withArmor(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR.getDefaultStack()), NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.GREAT_HORN).withArmor(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR.getDefaultInstance()), NpcLoot.FROM_6_TO_10);
 
-        NIGHTSHADE = new NpcType(NpcRegistry.WOODLAND_REALM_NIGHTSHADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_NIGHTSHADE, List.of(
+        NIGHTSHADE = new NpcType(NpcRegistry.WOODLAND_REALM_NIGHTSHADE.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_NIGHTSHADE, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
@@ -305,7 +305,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
-        ELVEN_KINGS_GUARD = new NpcType(NpcRegistry.WOODLAND_REALM_ELVEN_KINGS_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
+        ELVEN_KINGS_GUARD = new NpcType(NpcRegistry.WOODLAND_REALM_ELVEN_KINGS_GUARD.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create(EquipmentItemsME.WOODLAND_REALM_ROYAL_GUARD_HELMET))
@@ -323,7 +323,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
-        COMMANDER = new NpcType(NpcRegistry.WOODLAND_REALM_COMMANDER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_COMMANDER, List.of(
+        COMMANDER = new NpcType(NpcRegistry.WOODLAND_REALM_COMMANDER.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_COMMANDER, List.of(
                 WeightedGearData.create().withWeight(2)
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create())
@@ -382,7 +382,7 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
 
-        WARDEN_OF_THE_GLADE = new NpcType(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE, List.of(
+        WARDEN_OF_THE_GLADE = new NpcType(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE.location(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
                                 .add(WeightedItemData.create())
@@ -405,11 +405,11 @@ public class WoodlandRealmNpcTypePool {
                         )
         ), new HashMap<>(){{
             put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
-                    AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
-                    AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 28),
-                    AttributePoolElement.create(EntityAttributes.ARMOR, 10, 20),
-                    AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1, 2)
-                            .withModifier(TOTAL_DAMAGE_MODIFIER, 1.5, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) // Does 1.5x damage, with 1 -> 2 base damage (strong)
+                    AttributePoolElement.create(Attributes.MOVEMENT_SPEED, 0.25, 0.30),
+                    AttributePoolElement.create(Attributes.MAX_HEALTH, 28),
+                    AttributePoolElement.create(Attributes.ARMOR, 10, 20),
+                    AttributePoolElement.create(Attributes.ATTACK_DAMAGE, 1, 2)
+                            .withModifier(TOTAL_DAMAGE_MODIFIER, 1.5, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) // Does 1.5x damage, with 1 -> 2 base damage (strong)
             )));
         }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
     }

@@ -2,28 +2,27 @@ package net.sevenstars.middleearth.resources.datas.factions.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2d;
 import org.joml.Vector3i;
 
 public class SpawnData {
     public static final Codec<SpawnData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(SpawnData::getIdentifierValue),
-            Vec3d.CODEC.fieldOf("coordinates").forGetter(SpawnData::getCoordinates),
+            Vec3.CODEC.fieldOf("coordinates").forGetter(SpawnData::getCoordinates),
             Codec.BOOL.fieldOf("dynamic").forGetter(SpawnData::isDynamic))
             .apply(instance, SpawnData::new));
 
-    private Identifier identifier;
-    private Vec3d coordinates;
+    private ResourceLocation identifier;
+    private Vec3 coordinates;
     private boolean isDynamic = false;
 
     /**
@@ -32,41 +31,41 @@ public class SpawnData {
      * @param coordinates
      * @param isDynamic
      */
-    public SpawnData(String identifier, Vec3d coordinates, Boolean isDynamic) {
+    public SpawnData(String identifier, Vec3 coordinates, Boolean isDynamic) {
         this.identifier = MiddleEarth.fetchId(identifier);
         this.isDynamic = isDynamic;
 
         if(isDynamic)
-            this.coordinates = new Vec3d(coordinates.x, 0, coordinates.z);
+            this.coordinates = new Vec3(coordinates.x, 0, coordinates.z);
         else
             this.coordinates = coordinates;
     }
 
-    public SpawnData(Identifier identifier, Vector2d coordinate){
-        this(identifier, new Vec3d(coordinate.x, 0, coordinate.y));
+    public SpawnData(ResourceLocation identifier, Vector2d coordinate){
+        this(identifier, new Vec3(coordinate.x, 0, coordinate.y));
         isDynamic = true;
     }
 
-    public SpawnData(Identifier identifier, Vec3d coordinate){
+    public SpawnData(ResourceLocation identifier, Vec3 coordinate){
         this.identifier = identifier;
         this.coordinates = coordinate;
     }
 
-    public static SpawnData deserialize(NbtCompound compound) {
-        NbtCompound coordinateCompound = compound.getCompound("coordinates").get();
-        double x = coordinateCompound.getDouble("x").get();
-        double y = coordinateCompound.getDouble("y").get();
-        double z = coordinateCompound.getDouble("z").get();
-        Vec3d coordinate = new Vec3d(x, y, z);
-        boolean isDynamic = compound.getBoolean("dynamic").get();
+    public static SpawnData deserialize(CompoundTag compound) {
+        CompoundTag coordinateCompound = compound.getCompound("coordinates");
+        double x = coordinateCompound.getDouble("x");
+        double y = coordinateCompound.getDouble("y");
+        double z = coordinateCompound.getDouble("z");
+        Vec3 coordinate = new Vec3(x, y, z);
+        boolean isDynamic = compound.getBoolean("dynamic");
 
-        return new SpawnData(compound.getString("id").get(), coordinate, isDynamic);
+        return new SpawnData(compound.getString("id"), coordinate, isDynamic);
     }
 
-    public static NbtCompound serialize(SpawnData spawnData) {
-        NbtCompound serializedCompound = new NbtCompound();
+    public static CompoundTag serialize(SpawnData spawnData) {
+        CompoundTag serializedCompound = new CompoundTag();
 
-        NbtCompound coordinateCompound = new NbtCompound();
+        CompoundTag coordinateCompound = new CompoundTag();
         coordinateCompound.putDouble("x", spawnData.coordinates.x);
         coordinateCompound.putDouble("y", spawnData.coordinates.y);
         coordinateCompound.putDouble("z", spawnData.coordinates.z);
@@ -77,12 +76,12 @@ public class SpawnData {
         return serializedCompound;
     }
 
-    public Identifier getIdentifier(){
+    public ResourceLocation getIdentifier(){
         return identifier;
     }
 
-    public MutableText getFullName(){
-        return Text.translatable("spawn." + identifier.toTranslationKey());
+    public MutableComponent getFullName(){
+        return Component.translatable("spawn." + identifier.toLanguageKey());
     }
 
 
@@ -91,7 +90,7 @@ public class SpawnData {
         return this.identifier.toString();
     }
 
-    public Vec3d getCoordinates() {
+    public Vec3 getCoordinates() {
         return coordinates;
     }
 
@@ -121,8 +120,7 @@ public class SpawnData {
         BlockPos blockPos = new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z);
         if(isDynamic){
             Vector2d coords = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(coordinates.x, coordinates.z);
-            Vector3i spawnCoordinates =  ModDimensions.getDimensionHeight((int) coords.x, (int) coords.y);
-            blockPos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z);
+            blockPos = new BlockPos((int) coords.x, 0, (int) coords.y);
         }
         return blockPos;
     }

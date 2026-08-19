@@ -6,7 +6,9 @@
     " N "
   ],
   "key": {
-    "N": "middle-earth:burzum_steel_nugget"
+    "N": {
+      "item": "middle-earth:burzum_steel_nugget"
+    }
   },
   "result": {
     "id": "middle-earth:mail_ring",

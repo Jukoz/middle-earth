@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:charcoal"
+    {
+      "item": "minecraft:charcoal"
+    }
   ],
   "result": {
     "id": "middle-earth:ash",

@@ -1,19 +1,19 @@
 package net.sevenstars.middleearth.entity.ai.brain.task;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.MultiTickTask;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.behavior.Behavior;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 
-public class BeastChargeTask extends MultiTickTask<AbstractBeastEntity> {
+public class BeastChargeTask extends Behavior<AbstractBeastEntity> {
     private final int MAX_COOLDOWN;
     public BeastChargeTask(int runtime, int maxCooldown) {
         super(
                 ImmutableMap.of(
                         MemoryModuleType.ATTACK_TARGET,
-                        MemoryModuleState.VALUE_PRESENT
+                        MemoryStatus.VALUE_PRESENT
                 ),
                 runtime
         );
@@ -22,27 +22,27 @@ public class BeastChargeTask extends MultiTickTask<AbstractBeastEntity> {
     }
 
     @Override
-    protected boolean shouldRun(ServerWorld world, AbstractBeastEntity entity) {
+    protected boolean checkExtraStartConditions(ServerLevel world, AbstractBeastEntity entity) {
         return entity.getTarget() != null &&
                 entity.getChargeTimeout() == 0  &&
-                entity.canSee(entity.getTarget()) &&
+                entity.hasLineOfSight(entity.getTarget()) &&
                 entity.canCharge() &&
-                entity.squaredDistanceTo(entity.getTarget()) > 20;
+                entity.distanceToSqr(entity.getTarget()) > 20;
     }
 
     @Override
-    protected boolean shouldKeepRunning(ServerWorld world, AbstractBeastEntity entity, long time) {
+    protected boolean canStillUse(ServerLevel world, AbstractBeastEntity entity, long time) {
         return entity.isCharging();
     }
 
     @Override
-    protected void run(ServerWorld world, AbstractBeastEntity entity, long time) {
+    protected void start(ServerLevel world, AbstractBeastEntity entity, long time) {
         entity.setCharging(true);
         entity.setChargeTimeout(MAX_COOLDOWN);
     }
 
     @Override
-    protected void finishRunning(ServerWorld world, AbstractBeastEntity entity, long time) {
+    protected void stop(ServerLevel world, AbstractBeastEntity entity, long time) {
         entity.setCharging(false);
     }
 }

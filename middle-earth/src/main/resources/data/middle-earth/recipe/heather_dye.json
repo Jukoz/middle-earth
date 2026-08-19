@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:heather"
+    {
+      "item": "middle-earth:heather"
+    }
   ],
   "result": {
     "id": "minecraft:purple_dye"

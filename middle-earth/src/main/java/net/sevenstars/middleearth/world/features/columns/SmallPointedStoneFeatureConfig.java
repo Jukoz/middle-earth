@@ -2,10 +2,10 @@ package net.sevenstars.middleearth.world.features.columns;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class SmallPointedStoneFeatureConfig implements FeatureConfig {
+public class SmallPointedStoneFeatureConfig implements FeatureConfiguration {
     public static final Codec<SmallPointedStoneFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chance_of_taller_dripstone").orElse(0.2F).forGetter((config) -> {
             return config.chanceOfTallerDripstone;

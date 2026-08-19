@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "middle-earth:white_lavender"
+    {
+      "item": "middle-earth:white_lavender"
+    }
   ],
   "result": {
     "id": "minecraft:white_dye"

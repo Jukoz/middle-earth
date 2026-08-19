@@ -1,9 +1,9 @@
 package net.sevenstars.middleearth.resources.datas.texture_presets;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.util.Identifier;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.api.dtos.WeightedIdentifier;
 import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TexturePreset {
-    public final static WeightedIdentifier EMPTY_VALUE_KEY = new WeightedIdentifier(Identifier.of("empty"));
+    public final static WeightedIdentifier EMPTY_VALUE_KEY = new WeightedIdentifier(ResourceLocation.parse("empty"));
 
     public final static String PATTERNS = "patterns";
     public final static String MATERIALS = "materials";
@@ -62,7 +62,7 @@ public class TexturePreset {
         simplifiedTextures = new WeightedPool<>();
     }
 
-    public TexturePreset(NbtCompound compound){
+    public TexturePreset(CompoundTag compound){
         this();
 
         characterClothePresets = new WeightedPool<>();
@@ -89,45 +89,45 @@ public class TexturePreset {
     }
 
 
-    public NbtCompound getNbt(NbtCompound nbt) {
+    public CompoundTag getNbt(CompoundTag nbt) {
 
         if(skinMaterials.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(MATERIALS, createTextureElementList(skinMaterials));
             nbt.put(CharacterMaterialTypes.SKIN.name(), compound);
         }
         if(bodyPatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(bodyPatterns));
             nbt.put(CharacterPatternTypes.BODY.name(), compound);
         }
         if(feetPatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(feetPatterns));
             nbt.put(CharacterPatternTypes.FEET.name(), compound);
         }
         if(headPatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(headPatterns));
             nbt.put(CharacterPatternTypes.HEAD.name(), compound);
         }
         if(scarPatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(scarPatterns));
             nbt.put(CharacterPatternTypes.SCAR.name(), compound);
         }
         if(earPatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(earPatterns));
             nbt.put(CharacterPatternTypes.EAR.name(), compound);
         }
         if(nosePatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(nosePatterns));
             nbt.put(CharacterPatternTypes.NOSE.name(), compound);
         }
         if(eyePatterns.isFilled() || eyeMaterials.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
 
             compound.put(PATTERNS, createTextureElementList(eyePatterns));
             compound.put(MATERIALS, createTextureElementList(eyeMaterials));
@@ -138,7 +138,7 @@ public class TexturePreset {
             nbt.put(CharacterPatternTypes.EYE.name(), compound);
         }
         if(hairPatterns.isFilled() || hairMaterials.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
 
             compound.put(PATTERNS, createTextureElementList(hairPatterns));
             compound.put(MATERIALS, createTextureElementList(hairMaterials));
@@ -146,12 +146,12 @@ public class TexturePreset {
             nbt.put(CharacterMaterialTypes.HAIR.name(), compound);
         }
         if(eyebrowPatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(eyebrowPatterns));
             nbt.put(CharacterPatternTypes.EYEBROW.name(), compound);
         }
         if(beardPatterns.isFilled()){
-            NbtCompound compound = new NbtCompound();
+            CompoundTag compound = new CompoundTag();
             compound.put(PATTERNS, createTextureElementList(beardPatterns));
             nbt.put(CharacterPatternTypes.BEARD.name(), compound);
         }
@@ -165,20 +165,18 @@ public class TexturePreset {
     }
 
 
-    private NbtList createTextureElementList(WeightedPool<WeightedIdentifier> values){
+    private ListTag createTextureElementList(WeightedPool<WeightedIdentifier> values){
         return values.getNbt();
     }
 
-    private void fetchMaterials(NbtCompound compound, CharacterMaterialTypes type){
+    private void fetchMaterials(CompoundTag compound, CharacterMaterialTypes type){
         if(compound.contains(type.name())){
-            NbtCompound value = compound.getCompound(type.name()).get();
+            CompoundTag value = compound.getCompound(type.name());
 
             if(value.contains(MATERIALS)){
                 var materials = value.get(MATERIALS);
-                if(materials != null){
-                    NbtList nbtList = materials.asNbtList().get();
-
-                    List<NbtElement> fetchedValues = nbtList.stream().toList();
+                if(materials instanceof ListTag nbtList){
+                    List<Tag> fetchedValues = nbtList.stream().toList();
                     List<WeightedIdentifier> weightedList = new ArrayList<>();
 
                     for(var fetchedValue : fetchedValues){
@@ -196,15 +194,13 @@ public class TexturePreset {
     }
 
 
-    private void fetchPatterns(NbtCompound compound, CharacterPatternTypes type){
+    private void fetchPatterns(CompoundTag compound, CharacterPatternTypes type){
         if(compound.contains(type.name())){
-            NbtCompound value = compound.getCompound(type.name()).get();
+            CompoundTag value = compound.getCompound(type.name());
             if(value.contains(PATTERNS)){
                 var patterns = value.get(PATTERNS);
-                if(patterns != null){
-                    NbtList nbtList = patterns.asNbtList().get();
-
-                    List<NbtElement> fetchedValues = nbtList.stream().toList();
+                if(patterns instanceof ListTag nbtList){
+                    List<Tag> fetchedValues = nbtList.stream().toList();
                     List<WeightedIdentifier> weightedIdentifiers = new ArrayList<>();
 
                     for(var fetchedValue : fetchedValues){
@@ -227,19 +223,17 @@ public class TexturePreset {
             }
 
             if(type == CharacterPatternTypes.EYE && value.contains(IS_EMISSIVE)){
-                this.haveEmissiveEyes = value.getBoolean(IS_EMISSIVE).get();
+                this.haveEmissiveEyes = value.getBoolean(IS_EMISSIVE);
             }
         }
     }
 
-    private void fetchClothes(NbtCompound compound){
+    private void fetchClothes(CompoundTag compound){
         if(compound.contains(CLOTHES)){
-            if(compound.getList(CLOTHES).isPresent()){
-                NbtList listClothePresets = compound.getList(CLOTHES).get();
-
+            if(compound.get(CLOTHES) instanceof ListTag listClothePresets){
                 listClothePresets.forEach(x -> {
-                    if(x.asCompound().isPresent()){
-                        this.characterClothePresets.add(new WeightedClothingPresetHolder(x.asCompound().get()));
+                    if(x instanceof CompoundTag clothingPreset){
+                        this.characterClothePresets.add(new WeightedClothingPresetHolder(clothingPreset));
                     }
                 });
             }
@@ -247,14 +241,15 @@ public class TexturePreset {
     }
 
 
-    private void fetchSimplifiedTextures(NbtCompound compound) {
+    private void fetchSimplifiedTextures(CompoundTag compound) {
         if(compound.contains(SIMPLIFIED)){
-            var simplifiedList = compound.getList(SIMPLIFIED);
-            simplifiedList.ifPresent(listSimplifiedTextures -> listSimplifiedTextures.forEach(x -> {
-                if (x.asCompound().isPresent()) {
-                    this.simplifiedTextures.add(new WeightedSimplifiedTexturePresetHolder(x.asCompound().get()));
-                }
-            }));
+            if (compound.get(SIMPLIFIED) instanceof ListTag listSimplifiedTextures) {
+                listSimplifiedTextures.forEach(x -> {
+                    if (x instanceof CompoundTag simplifiedTexture) {
+                        this.simplifiedTextures.add(new WeightedSimplifiedTexturePresetHolder(simplifiedTexture));
+                    }
+                });
+            }
         }
     }
 

@@ -3,19 +3,19 @@ package net.sevenstars.middleearth.world.features.tree.roots;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.registry.RegistryCodecs;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public record MirkwoodRootPlacement(RegistryEntryList<Block> canGrowThrough, RegistryEntryList<Block> muddyRootsIn, BlockStateProvider muddyRootsProvider, int maxRootWidth, int maxRootLength, float randomSkewChance) {
+public record MirkwoodRootPlacement(HolderSet<Block> canGrowThrough, HolderSet<Block> muddyRootsIn, BlockStateProvider muddyRootsProvider, int maxRootWidth, int maxRootLength, float randomSkewChance) {
     public static final Codec<MirkwoodRootPlacement> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(RegistryCodecs.entryList(RegistryKeys.BLOCK).fieldOf("can_grow_through").forGetter((rootPlacement) -> {
+        return instance.group(RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_grow_through").forGetter((rootPlacement) -> {
             return rootPlacement.canGrowThrough;
-        }), RegistryCodecs.entryList(RegistryKeys.BLOCK).fieldOf("muddy_roots_in").forGetter((rootPlacement) -> {
+        }), RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("muddy_roots_in").forGetter((rootPlacement) -> {
             return rootPlacement.muddyRootsIn;
-        }), BlockStateProvider.TYPE_CODEC.fieldOf("muddy_roots_provider").forGetter((rootPlacement) -> {
+        }), BlockStateProvider.CODEC.fieldOf("muddy_roots_provider").forGetter((rootPlacement) -> {
             return rootPlacement.muddyRootsProvider;
         }), Codec.intRange(1, 12).fieldOf("max_root_width").forGetter((rootPlacement) -> {
             return rootPlacement.maxRootWidth;
@@ -26,7 +26,7 @@ public record MirkwoodRootPlacement(RegistryEntryList<Block> canGrowThrough, Reg
         })).apply(instance, MirkwoodRootPlacement::new);
     });
 
-    public MirkwoodRootPlacement(RegistryEntryList<Block> canGrowThrough, RegistryEntryList<Block> muddyRootsIn, BlockStateProvider muddyRootsProvider,
+    public MirkwoodRootPlacement(HolderSet<Block> canGrowThrough, HolderSet<Block> muddyRootsIn, BlockStateProvider muddyRootsProvider,
                                  int maxRootWidth, int maxRootLength, float randomSkewChance) {
         this.canGrowThrough = canGrowThrough;
         this.muddyRootsIn = muddyRootsIn;
@@ -36,11 +36,11 @@ public record MirkwoodRootPlacement(RegistryEntryList<Block> canGrowThrough, Reg
         this.randomSkewChance = randomSkewChance;
     }
 
-    public RegistryEntryList<Block> canGrowThrough() {
+    public HolderSet<Block> canGrowThrough() {
         return this.canGrowThrough;
     }
 
-    public RegistryEntryList<Block> muddyRootsIn() {
+    public HolderSet<Block> muddyRootsIn() {
         return this.muddyRootsIn;
     }
 

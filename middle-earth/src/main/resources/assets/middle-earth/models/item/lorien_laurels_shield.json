@@ -1,8 +1,19 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "middle-earth:item/lorien_small_shield_template",
-	"texture_size": [64, 64],
-	"textures": {
-		"2": "middle-earth:item/lorien_laurels_shield"
-	}
+    "credit":  "Made with Blockbench",
+    "parent":  "middle-earth:item/lorien_small_shield_template",
+    "texture_size":  [
+                         64,
+                         64
+                     ],
+    "textures":  {
+                     "2":  "middle-earth:item/lorien_laurels_shield"
+                 },
+    "overrides":  [
+                      {
+                          "predicate":  {
+                                            "blocking":  1
+                                        },
+                          "model":  "middle-earth:item/lorien_laurels_shield_blocking"
+                      }
+                  ]
 }

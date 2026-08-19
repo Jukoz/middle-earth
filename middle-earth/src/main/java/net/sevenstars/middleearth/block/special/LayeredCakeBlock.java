@@ -1,137 +1,147 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class LayeredCakeBlock extends Block {
-    public static final MapCodec<net.minecraft.block.CakeBlock> CODEC = createCodec(net.minecraft.block.CakeBlock::new);
+    public static final MapCodec<LayeredCakeBlock> CODEC = simpleCodec(LayeredCakeBlock::new);
     public static final int MAX_BITES = 8;
-    public static final IntProperty BITES;
+    public static final IntegerProperty BITES;
     public static final int DEFAULT_COMPARATOR_OUTPUT;
     private static final VoxelShape[] SHAPES_BY_BITES;
 
-    public MapCodec<net.minecraft.block.CakeBlock> getCodec() {
+    public MapCodec<LayeredCakeBlock> codec() {
         return CODEC;
     }
 
-    public LayeredCakeBlock(AbstractBlock.Settings settings) {
+    public LayeredCakeBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        this.setDefaultState((this.stateManager.getDefaultState()));
+        this.registerDefaultState((this.stateDefinition.any()));
     }
 
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPES_BY_BITES[state.get(BITES)];
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return SHAPES_BY_BITES[state.getValue(BITES)];
     }
 
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         Item item = stack.getItem();
-        if (stack.isIn(ItemTags.CANDLES) && (Integer)state.get(BITES) == 0) {
-            Block var10 = Block.getBlockFromItem(item);
+        if (stack.is(ItemTags.CANDLES) && (Integer)state.getValue(BITES) == 0) {
+            Block var10 = Block.byItem(item);
             if (var10 instanceof CandleBlock) {
                 CandleBlock candleBlock = (CandleBlock)var10;
-                stack.decrementUnlessCreative(1, player);
-                world.playSound(null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                world.setBlockState(pos, CandleLayeredCakeBlock.getCandleCakeFromCandle(candleBlock));
-                world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                player.incrementStat(Stats.USED.getOrCreateStat(item));
-                return ActionResult.SUCCESS;
+                stack.consume(1, player);
+                world.playSound(null, pos, SoundEvents.CAKE_ADD_CANDLE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                world.setBlockAndUpdate(pos, CandleLayeredCakeBlock.getCandleCakeFromCandle(candleBlock));
+                world.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                player.awardStat(Stats.ITEM_USED.get(item));
+                return ItemInteractionResult.SUCCESS;
             }
         }
 
-        return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
-            if (tryEat(world, pos, state, player).isAccepted()) {
-                return ActionResult.SUCCESS;
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (world.isClientSide) {
+            if (tryEat(world, pos, state, player).consumesAction()) {
+                return InteractionResult.SUCCESS;
             }
 
-            if (player.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
-                return ActionResult.CONSUME;
+            if (player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
+                return InteractionResult.CONSUME;
             }
         }
 
         return tryEat(world, pos, state, player);
     }
 
-    protected static ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!player.canConsume(false)) {
-            return ActionResult.PASS;
+    protected static InteractionResult tryEat(LevelAccessor world, BlockPos pos, BlockState state, Player player) {
+        if (!player.canEat(false)) {
+            return InteractionResult.PASS;
         } else {
-            player.incrementStat(Stats.EAT_CAKE_SLICE);
-            player.getHungerManager().add(3, 0.15F);
-            int i = state.get(BITES);
-            world.emitGameEvent(player, GameEvent.EAT, pos);
+            player.awardStat(Stats.EAT_CAKE_SLICE);
+            player.getFoodData().eat(3, 0.15F);
+            int i = state.getValue(BITES);
+            world.gameEvent(player, GameEvent.EAT, pos);
             if (i < MAX_BITES) {
-                world.setBlockState(pos, state.with(BITES, i + 1), 3);
+                world.setBlock(pos, state.setValue(BITES, i + 1), 3);
             } else {
                 world.removeBlock(pos, false);
-                world.emitGameEvent(player, GameEvent.BLOCK_DESTROY, pos);
+                world.gameEvent(player, GameEvent.BLOCK_DESTROY, pos);
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
     }
 
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        return direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return direction == Direction.DOWN && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isSolid();
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return world.getBlockState(pos.below()).isSolid();
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BITES);
     }
 
-    protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return getComparatorOutput(state.get(BITES));
+    protected int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+        return getComparatorOutput(state.getValue(BITES));
     }
 
     public static int getComparatorOutput(int bites) {
         return (MAX_BITES - bites) * 2;
     }
 
-    protected boolean hasComparatorOutput(BlockState state) {
+    protected boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
-    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 
     static {
-        BITES = IntProperty.of("bites", 0, MAX_BITES);;
+        BITES = IntegerProperty.create("bites", 0, MAX_BITES);;
         DEFAULT_COMPARATOR_OUTPUT = getComparatorOutput(0);
-        SHAPES_BY_BITES = Block.createShapeArray(MAX_BITES, (bites) -> {
-            return VoxelShapes.union(Block.createCuboidShape(0, 0.0, 0, 16.0, 8.0, 16.0 - (Math.clamp(bites - 4, 0, 4) * 4) + Math.clamp(bites - 4, 0, 1) * 2),
-                    Block.createCuboidShape(2, 8, 2, 14, 16, 14 - (Math.clamp(bites, 0, 4) * 3)));
-        });
+        SHAPES_BY_BITES = new VoxelShape[MAX_BITES + 1];
+        for (int bites = 0; bites <= MAX_BITES; bites++) {
+            SHAPES_BY_BITES[bites] = Shapes.or(
+                    Block.box(0, 0.0, 0, 16.0, 8.0, 16.0 - (Math.clamp(bites - 4, 0, 4) * 4) + Math.clamp(bites - 4, 0, 1) * 2),
+                    Block.box(2, 8, 2, 14, 16, 14 - (Math.clamp(bites, 0, 4) * 3))
+            );
+        }
     }
 }

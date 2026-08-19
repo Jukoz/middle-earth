@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 600,
   "experience": 0.35,
-  "ingredient": "wild-things:raw_swan",
+  "ingredient": {
+    "item": "wild-things:raw_swan"
+  },
   "result": {
     "id": "wild-things:cooked_swan"
   }

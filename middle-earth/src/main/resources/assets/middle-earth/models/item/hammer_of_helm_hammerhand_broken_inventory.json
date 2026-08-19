@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/hammer_of_helm_hammerhand_broken_inventory"
+                 }
+}

@@ -11,8 +11,8 @@
           "base": 0.2,
           "per_level_above_first": 0.2
         },
-        "attribute": "minecraft:attack_speed",
-        "id": "minecraft:middle-earth.celerity",
+        "attribute": "minecraft:generic.attack_speed",
+        "id": "middle-earth:enchantment.celerity",
         "operation": "add_value"
       }
     ]

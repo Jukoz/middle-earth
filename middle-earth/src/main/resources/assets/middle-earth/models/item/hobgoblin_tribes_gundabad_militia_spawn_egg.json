@@ -1,0 +1,6 @@
+{
+    "parent":  "minecraft:item/generated",
+    "textures":  {
+                     "layer0":  "middle-earth:item/hobgoblin_tribes_gundabad_militia_spawn_egg"
+                 }
+}

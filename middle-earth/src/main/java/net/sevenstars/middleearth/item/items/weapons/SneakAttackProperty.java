@@ -1,25 +1,17 @@
 package net.sevenstars.middleearth.item.items.weapons;
 
-import com.mojang.serialization.MapCodec;
-import net.minecraft.client.render.item.property.bool.BooleanProperty;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public class SneakAttackProperty implements BooleanProperty {
-    public static final MapCodec<SneakAttackProperty> CODEC = MapCodec.unit(new SneakAttackProperty());
-
-    public MapCodec<SneakAttackProperty> getCodec() {
-        return CODEC;
-    }
-
+public class SneakAttackProperty implements ItemPropertyFunction {
     @Override
-    public boolean test(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+    public float call(ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
         if(stack.getItem() instanceof CustomDaggerWeaponItem) {
-            return CustomDaggerWeaponItem.canSneakAttack(stack);
+            return CustomDaggerWeaponItem.canSneakAttack(stack) ? 1.0F : 0.0F;
         }
-        return false;
+        return 0.0F;
     }
 }

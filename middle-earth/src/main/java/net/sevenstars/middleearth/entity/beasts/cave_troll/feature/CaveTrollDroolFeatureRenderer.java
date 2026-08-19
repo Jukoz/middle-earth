@@ -1,29 +1,30 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll.feature;
 
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.EyesFeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 
-public class CaveTrollDroolFeatureRenderer extends FeatureRenderer<CaveTrollEntityRenderState, CaveTrollEntityModel> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/trolls/cave/cave_troll_green_drooling.png");
-    public CaveTrollDroolFeatureRenderer(FeatureRendererContext<CaveTrollEntityRenderState, CaveTrollEntityModel> featureRendererContext) {
+public class CaveTrollDroolFeatureRenderer extends RenderLayer<CaveTrollEntity, CaveTrollEntityModel> {
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(MiddleEarth.MOD_ID, "textures/entities/trolls/cave/cave_troll_green_drooling.png");
+    public CaveTrollDroolFeatureRenderer(RenderLayerParent<CaveTrollEntity, CaveTrollEntityModel> featureRendererContext) {
         super(featureRendererContext);
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CaveTrollEntityRenderState state, float limbAngle, float limbDistance) {
-        if(state.tameness < 50 && state.isTame) {
-            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE));
-            this.getContextModel().render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+    public void render(PoseStack matrices, MultiBufferSource vertexConsumers, int light, CaveTrollEntity entity,
+                       float limbAngle, float limbDistance, float tickDelta, float animationProgress,
+                       float headYaw, float headPitch) {
+        if(entity.getTameness() < 50 && entity.isTamed()) {
+            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
+            this.getParentModel().renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY);
         }
     }
 }
