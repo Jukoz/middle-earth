@@ -33,6 +33,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
+import net.sevenstars.api.entity.SittingEntity;
 import net.sevenstars.api.entity.SleepingEntity;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.api.utils.EntityAnimationUtil;
@@ -44,9 +45,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity {
+public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity, SittingEntity {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> SITTING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final int PETRIFYING_DURATION = 600;
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState lieDownAnimationState = new AnimationState();
@@ -199,6 +201,37 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
     }
     //endregion
 
+    //region Sitting
+    @Override
+    public boolean isSitting() {
+        return this.dataTracker.get(SITTING);
+    }
+
+    @Override
+    public void setSitting(boolean isSitting) {
+        this.dataTracker.set(SITTING, isSitting);
+    }
+
+    @Override
+    public void startSitting() {
+        if (this.hasVehicle()) {
+            this.stopRiding();
+        }
+
+        this.setSitting(true);
+        this.setVelocity(Vec3d.ZERO);
+        this.velocityDirty = true;
+
+        this.brain.forget(MemoryModuleType.WALK_TARGET);
+        this.brain.forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    }
+
+    @Override
+    public void stopSitting() {
+        this.setSleeping(false);
+    }
+    //endregion
+
     //region Petrifying
     public void setPetrifying(int petrifying) {
         this.dataTracker.set(PETRIFYING, petrifying);
@@ -249,10 +282,19 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
             this.startSleepingAnimationSequenceStateIdx = EntityAnimationUtil.playAnimationSequence(startSleepingSequence, startSleepingAnimationSequenceStateIdx, this.age);
             EntityAnimationUtil.stopSequence(wakeUpSequence);
         }
-        else if(!this.isAsleep()) {
+        else if(!this.isAsleep() && this.startSleepingAnimationSequenceStateIdx == 3) {
             this.startSleepingAnimationSequenceStateIdx = 0;
             this.wakeUpAnimationSequenceStateIdx = EntityAnimationUtil.playAnimationSequence(wakeUpSequence, wakeUpAnimationSequenceStateIdx, this.age);
             EntityAnimationUtil.stopSequence(startSleepingSequence);
+        }
+
+        if(this.isSitting() && !sitDownAnimationState.isRunning()) {
+            this.standUpAnimationState.stop();
+            sitDownAnimationState.startIfNotRunning(this.age);
+        }
+        else if(!this.isSitting() && !standUpAnimationState.isRunning()) {
+            standUpAnimationState.startIfNotRunning(this.age);
+            sitDownAnimationState.stop();
         }
     }
     //endregion
@@ -268,6 +310,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
         super.writeCustomData(view);
         view.putInt("Petrifying", this.getPetrifying());
         view.putBoolean("Sleeping", this.isAsleep());
+        view.putBoolean("Sitting", this.isSitting());
     }
 
     @Override
@@ -275,5 +318,6 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity 
         super.readCustomData(view);
         this.dataTracker.set(PETRIFYING, view.getInt("Petrifying", 0));
         this.dataTracker.set(SLEEPING, view.getBoolean("Sleeping", false));
+        this.dataTracker.set(SITTING, view.getBoolean("Sitting", false));
     }
 }

@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class SearchForHomeTask {
+public class RememberBlockLocationTask {
     private static final int DEFAULT_HORIZONTAL_RADIUS = 12;
     private static final int DEFAULT_VERTICAL_RADIUS = 7;
 
@@ -25,9 +25,21 @@ public class SearchForHomeTask {
         return create(block, null, LivingEntity::isOnGround);
     }
 
+    public static SingleTickTask<LivingEntity> create(TagKey<Block> blockTag, MemoryModuleType<GlobalPos> memoryModuleType) {
+        return create(null, blockTag, LivingEntity::isOnGround, memoryModuleType);
+    }
+
+    public static SingleTickTask<LivingEntity> create(Block block, MemoryModuleType<GlobalPos> memoryModuleType) {
+        return create(block, null, LivingEntity::isOnGround, memoryModuleType);
+    }
+
     private static SingleTickTask<LivingEntity> create(Block block, TagKey<Block> blockTag, Predicate<LivingEntity> shouldRun) {
+        return create(block, blockTag, shouldRun, MemoryModuleType.HOME);
+    }
+
+    public static SingleTickTask<LivingEntity> create(Block block, TagKey<Block> blockTag, Predicate<LivingEntity> shouldRun, MemoryModuleType<GlobalPos> memoryModuleType) {
         return TaskTriggerer.task((context) -> {
-            return context.group(context.queryMemoryAbsent(MemoryModuleType.HOME)).apply(context, (home) -> {
+            return context.group(context.queryMemoryAbsent(memoryModuleType)).apply(context, (home) -> {
                 return (world, entity, time) -> {
                     if (!shouldRun.test(entity)) {
                         return false;

@@ -1,9 +1,11 @@
 package net.sevenstars.middleearth.entity.stone_troll;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -14,8 +16,12 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollSleepTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.RememberBlockLocationTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SleepOnGroundTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 import java.util.Optional;
 
@@ -23,7 +29,8 @@ import java.util.Optional;
 // TODO SIT AROUND CAMPFIRE AT NIGHT
 // TODO BUILD CAMPFIRE IF NONE AROUND
 // TODO FIND SHADE DURING DAY
-// TODO SLEEP DURING DAY
+// TODO IDEA: Split schedule during the night into hunting and idling.
+// TODO IDEA: Troll will want food during the hunting phase and treasures during the idling phase
 public class StoneTrollBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super StoneTrollEntity>>> SENSORS;
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
@@ -53,22 +60,29 @@ public class StoneTrollBrain {
         ));
     }
 
+    // Plays at night
     private static void addIdleActivities(Brain<StoneTrollEntity> brain) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
-                    Pair.of(0, StrollTask.create(1.0F, false)),
                     Pair.of(0, LookAtMobTask.create(5)),
+                    Pair.of(1, RememberBlockLocationTask.create(Blocks.CAMPFIRE, MemoryModuleType.MEETING_POINT)),
+                    Pair.of(2, MoveTowardsPosMemoryTask.create(MemoryModuleType.MEETING_POINT, 1.0f, 5, 30, 300)),
+                    // Sit down
                     Pair.of(99, ScheduleActivityTask.create())
         ));
     }
 
+    // Plays during the day
     private static void addRestActivities(Brain<StoneTrollEntity> brain) {
         brain.setTaskList(Activity.REST, ImmutableList.of(
-                // Look for dark place
+                // If in daylight, start panicking
+                // Go home, delete home if it's not dark
+                // If no home present, find new home
                 Pair.of(2, new SleepOnGroundTask()),
                 Pair.of(99, ScheduleActivityTask.create())
         ));
     }
 
+    // Do not fight in daylight
     private static void addFightActivities(Brain<StoneTrollEntity> brain, StoneTrollEntity troll) {
         brain.setTaskList(Activity.FIGHT, ImmutableList.of(
                         Pair.of(0, ForgetAttackTargetTask.create()),
@@ -115,7 +129,8 @@ public class StoneTrollBrain {
                 MemoryModuleType.LOOK_TARGET,
                 MemoryModuleType.NEAREST_ATTACKABLE,
                 MemoryModuleType.NEAREST_PLAYERS,
-                MemoryModuleType.HOME
+                MemoryModuleType.HOME,
+                MemoryModuleType.MEETING_POINT
         );
     }
 }

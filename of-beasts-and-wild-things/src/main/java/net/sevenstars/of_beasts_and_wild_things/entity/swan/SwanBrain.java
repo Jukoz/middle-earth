@@ -76,7 +76,7 @@ public class SwanBrain {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new BreedTask(EntitiesWT.SWAN)),
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
-                        Pair.of(SearchForHomeTask.create(BlocksWT.BIRD_NEST), 2),
+                        Pair.of(RememberBlockLocationTask.create(BlocksWT.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
                 Pair.of(2, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_PRESENT), ImmutableList.of(
@@ -93,7 +93,7 @@ public class SwanBrain {
     private static void addRestActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(Activity.REST, ImmutableList.of(
                 Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
-                        Pair.of(SearchForHomeTask.create(BlocksWT.BIRD_NEST), 2),
+                        Pair.of(RememberBlockLocationTask.create(BlocksWT.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
                 Pair.of(1, MoveTowardsPosMemoryTask.create(MemoryModuleType.HOME, 1.0f, 2, 20, 300)),
@@ -117,7 +117,7 @@ public class SwanBrain {
     private static void addBabyIdleActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(ActivitiesAPI.BABY_IDLE, ImmutableList.of(
                 Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
-                        Pair.of(SearchForHomeTask.create(BlocksWT.BIRD_NEST), 2),
+                        Pair.of(RememberBlockLocationTask.create(BlocksWT.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
                 Pair.of(1, new RandomTask(ImmutableMap.of(MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
@@ -132,7 +132,7 @@ public class SwanBrain {
     private static void addBabyRestActivities(Brain<SwanEntity> brain) {
         brain.setTaskList(ActivitiesAPI.BABY_REST, ImmutableList.of(
                 Pair.of(0, new RandomTask(ImmutableMap.of(MemoryModuleType.HOME, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(
-                        Pair.of(SearchForHomeTask.create(BlocksWT.BIRD_NEST), 2),
+                        Pair.of(RememberBlockLocationTask.create(BlocksWT.BIRD_NEST), 2),
                         Pair.of(StrollTask.create(1.0F), 1)
                 ))),
                 Pair.of(1, MoveTowardsPosMemoryTask.create(MemoryModuleType.HOME, 1.0f, 2, 20, 300)),
