@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.stone_troll;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -40,9 +41,11 @@ import net.sevenstars.api.utils.EntityAnimationUtil;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
+import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity, SittingEntity {
@@ -90,6 +93,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
         super.initDataTracker(builder);
         builder.add(PETRIFYING, PETRIFYING_DURATION);
         builder.add(SLEEPING, false);
+        builder.add(SITTING, false);
     }
 
     @Nullable

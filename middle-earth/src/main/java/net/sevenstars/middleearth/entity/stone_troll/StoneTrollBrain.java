@@ -14,7 +14,10 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.GlobalPos;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.api.entity.ai.brain.task.ForgetMemorizedPosTask;
 import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
@@ -22,6 +25,7 @@ import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollSleepTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.RememberBlockLocationTask;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SleepOnGroundTask;
+import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 import java.util.Optional;
 
@@ -40,8 +44,8 @@ public class StoneTrollBrain {
         Brain<StoneTrollEntity> brain = profile.deserialize(dynamic);
 
         addCoreActivities(brain);
-        addIdleActivities(brain);
-        addRestActivities(brain);
+        addIdleActivities(brain, troll);
+        addRestActivities(brain, troll);
         addFightActivities(brain, troll);
 
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -61,21 +65,24 @@ public class StoneTrollBrain {
     }
 
     // Plays at night
-    private static void addIdleActivities(Brain<StoneTrollEntity> brain) {
+    private static void addIdleActivities(Brain<StoneTrollEntity> brain, StoneTrollEntity troll) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                     Pair.of(0, LookAtMobTask.create(5)),
                     Pair.of(1, RememberBlockLocationTask.create(Blocks.CAMPFIRE, MemoryModuleType.MEETING_POINT)),
-                    Pair.of(2, MoveTowardsPosMemoryTask.create(MemoryModuleType.MEETING_POINT, 1.0f, 5, 30, 300)),
+                    Pair.of(2, ForgetMemorizedPosTask.create(() -> shouldForgetMeetingPoint(troll), MemoryModuleType.MEETING_POINT)),
+                    // Build campfire if none available (try in order)
+                    Pair.of(3, MoveTowardsPosMemoryTask.create(MemoryModuleType.MEETING_POINT, 1.0f, 5, 30, 300)),
                     // Sit down
                     Pair.of(99, ScheduleActivityTask.create())
         ));
     }
 
     // Plays during the day
-    private static void addRestActivities(Brain<StoneTrollEntity> brain) {
+    private static void addRestActivities(Brain<StoneTrollEntity> brain, StoneTrollEntity troll) {
         brain.setTaskList(Activity.REST, ImmutableList.of(
                 // If in daylight, start panicking
-                // Go home, delete home if it's not dark
+                // Go home
+                Pair.of(1, ForgetMemorizedPosTask.create(() -> shouldForgetHome(troll), MemoryModuleType.HOME)),
                 // If no home present, find new home
                 Pair.of(2, new SleepOnGroundTask()),
                 Pair.of(99, ScheduleActivityTask.create())
@@ -108,6 +115,26 @@ public class StoneTrollBrain {
         }
 
         troll.getBrain().refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
+    }
+
+    public static boolean shouldForgetHome(StoneTrollEntity troll) {
+        Optional<GlobalPos> optional = troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
+
+        if(optional != null && optional.isPresent()) {
+            return troll.getWorld().isSkyVisible(optional.get().pos());
+        }
+
+        return false;
+    }
+
+    public static boolean shouldForgetMeetingPoint(StoneTrollEntity troll) {
+        Optional<GlobalPos> optional = troll.getBrain().getOptionalRegisteredMemory(MemoryModuleType.MEETING_POINT);
+
+        if(optional != null && optional.isPresent()) {
+            return !troll.getWorld().getBlockState(optional.get().pos()).isOf(Blocks.CAMPFIRE);
+        }
+
+        return false;
     }
 
     static {
