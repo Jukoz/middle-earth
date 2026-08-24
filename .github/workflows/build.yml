@@ -54,6 +54,10 @@ jobs:
           grep -Fxq 'data/middle-earth/loot_table/blocks/skeletal_pile_layer.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Fxq 'data/middle-earth/loot_table/blocks/waste_pile_layer.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Fxq 'assets/middle-earth/models/item/gondorian_sword.json' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          for armor in gondorian_horse_armor rohirric_horse_armor dalish_horse_armor lorien_horse_armor; do
+            grep -Fxq "assets/middle-earth/textures/entity/horse/armor/horse_armor_${armor}.png" "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+            ! grep -Fxq "assets/middle-earth/textures/entity/equipment/horse_body/${armor}.png" "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          done
           wild_things_entry=$(grep -E '^META-INF/jarjar/.+Of-Beasts-and-Wild-Things.+\.jar$' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt")
           unzip -p "${player_jars[0]}" "$wild_things_entry" > "$RUNNER_TEMP/wild-things.jar"
           jar tf "$RUNNER_TEMP/wild-things.jar" > "$RUNNER_TEMP/wild-things-entries.txt"
