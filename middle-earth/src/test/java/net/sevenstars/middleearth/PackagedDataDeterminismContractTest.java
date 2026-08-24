@@ -16,6 +16,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PackagedDataDeterminismContractTest {
@@ -55,6 +57,25 @@ class PackagedDataDeterminismContractTest {
             }
         }
         assertTrue(checkedFactions > 0, "Expected packaged faction NPC pools");
+    }
+
+    @Test
+    void packagedHorseArmorTexturesUseTheMinecraft1211Paths() throws IOException {
+        try (ZipFile playerJar = new ZipFile(playerJar().toFile())) {
+            for (String armor : List.of(
+                    "gondorian_horse_armor",
+                    "rohirric_horse_armor",
+                    "dalish_horse_armor",
+                    "lorien_horse_armor"
+            )) {
+                String expected = "assets/middle-earth/textures/entity/horse/armor/horse_armor_"
+                        + armor + ".png";
+                String incompatible = "assets/middle-earth/textures/entity/equipment/horse_body/"
+                        + armor + ".png";
+                assertNotNull(playerJar.getEntry(expected), "Missing " + expected);
+                assertNull(playerJar.getEntry(incompatible), "Found incompatible " + incompatible);
+            }
+        }
     }
 
     private static JsonObject readJson(ZipFile playerJar, ZipEntry entry) throws IOException {

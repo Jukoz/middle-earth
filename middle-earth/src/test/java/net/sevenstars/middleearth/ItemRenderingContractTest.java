@@ -207,6 +207,38 @@ class ItemRenderingContractTest {
     }
 
     @Test
+    void horseArmorTexturesUseTheMinecraft1211PathContract() throws IOException {
+        String equipment = source("net/sevenstars/middleearth/item/EquipmentItemsME.java");
+        String materials = source(
+                "net/sevenstars/middleearth/item/utils/armor/ArmorMaterialsME.java"
+        );
+
+        for (String armor : new String[]{
+                "gondorian_horse_armor",
+                "rohirric_horse_armor",
+                "dalish_horse_armor",
+                "lorien_horse_armor"
+        }) {
+            assertTrue(materials.contains("registerArmor(\"" + armor + "\""), armor);
+            assertTrue(equipment.contains("registerGeneratedItem(\"" + armor + "\""), armor);
+            assertTrue(
+                    Files.isRegularFile(MAIN_RESOURCE_TEXTURES.resolve(
+                            "entity/horse/armor/horse_armor_" + armor + ".png"
+                    )),
+                    "Missing Minecraft 1.21.1 horse armor texture for " + armor
+            );
+            assertFalse(
+                    Files.exists(MAIN_RESOURCE_TEXTURES.resolve(
+                            "entity/equipment/horse_body/" + armor + ".png"
+                    )),
+                    "Minecraft 1.21.8 horse armor path leaked into the 1.21.1 port for " + armor
+            );
+        }
+
+        assertTrue(equipment.contains("AnimalArmorItem.BodyType.EQUESTRIAN"));
+    }
+
+    @Test
     void forgedComponentsKeepEveryMaterialModelAndHotState() throws IOException {
         String provider = source(
                 "net/sevenstars/middleearth/datageneration/providers/models/ItemModelProvider.java"
