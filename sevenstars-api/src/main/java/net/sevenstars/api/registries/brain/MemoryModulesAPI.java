@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class MemoryModulesAPI<U> {
     public static final MemoryModuleType<Boolean> DEFENDING_HOME = register("defending_home", Codec.BOOL);
+    public static final MemoryModuleType<Integer> ACTION_TIMEOUT = register("action_timeout", Codec.INT);
 
     private final Optional<Codec<Memory<U>>> codec;
 
