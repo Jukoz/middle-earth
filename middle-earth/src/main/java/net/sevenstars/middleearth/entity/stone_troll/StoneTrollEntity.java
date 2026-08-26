@@ -281,7 +281,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
 
     //region Rendering
     private void setupAnimationStates() {
-        if(this.isAsleep()) {
+        if(this.isAsleep() && !this.isSitting()) {
             this.wakeUpAnimationSequenceStateIdx = 0;
             this.startSleepingAnimationSequenceStateIdx = EntityAnimationUtil.playAnimationSequence(startSleepingSequence, startSleepingAnimationSequenceStateIdx, this.age);
             EntityAnimationUtil.stopSequence(wakeUpSequence);
@@ -296,7 +296,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
             this.standUpAnimationState.stop();
             sitDownAnimationState.startIfNotRunning(this.age);
         }
-        else if(!this.isSitting() && !standUpAnimationState.isRunning()) {
+        else if(!this.isSitting() && !standUpAnimationState.isRunning() && !this.isAsleep()) {
             standUpAnimationState.startIfNotRunning(this.age);
             sitDownAnimationState.stop();
         }
