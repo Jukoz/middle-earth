@@ -10,7 +10,7 @@ import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
-import net.sevenstars.api.entity.ai.brain.ActivitiesAPI;
+import net.sevenstars.api.registries.brain.ActivitiesAPI;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 import java.util.Optional;

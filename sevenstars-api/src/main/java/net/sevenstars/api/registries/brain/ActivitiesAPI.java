@@ -1,4 +1,4 @@
-package net.sevenstars.api.entity.ai.brain;
+package net.sevenstars.api.registries.brain;
 
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.registry.Registries;
@@ -13,7 +13,7 @@ public class ActivitiesAPI {
         return Registry.register(Registries.ACTIVITY, id, new Activity(id));
     }
 
-    public static void registerModActivities() {
-        SevenStarsApi.LOGGER.logDebugMsg("Registering ModActivities for " + SevenStarsApi.MOD_ID);
+    public static void register() {
+        SevenStarsApi.logRegistryMsg("Activities");
     }
 }

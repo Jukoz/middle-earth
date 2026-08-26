@@ -1,4 +1,4 @@
-package net.sevenstars.api.entity.ai.brain;
+package net.sevenstars.api.registries.brain;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
@@ -25,15 +25,15 @@ public class MemoryModulesAPI<U> {
         return this.codec;
     }
 
-    private static <U> MemoryModuleType<U> register(String id, Codec<U> codec) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(SevenStarsApi.MOD_ID, id), new MemoryModuleType<>(Optional.of(codec)));
+    private static <U> MemoryModuleType<U> register(String idPath, Codec<U> codec) {
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, SevenStarsApi.id(idPath), new MemoryModuleType<>(Optional.of(codec)));
     }
 
-    private static <U> MemoryModuleType<U> register(String id) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(SevenStarsApi.MOD_ID, id), new MemoryModuleType<>(Optional.empty()));
+    private static <U> MemoryModuleType<U> register(String idPath) {
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, SevenStarsApi.id(idPath), new MemoryModuleType<>(Optional.empty()));
     }
 
-    public static void registerModMemoryModules() {
-        SevenStarsApi.LOGGER.logDebugMsg("Registering Mod Sensors for " + SevenStarsApi.MOD_ID);
+    public static void register() {
+        SevenStarsApi.logRegistryMsg("Sensors");
     }
 }

@@ -1,4 +1,4 @@
-package net.sevenstars.api.entity.ai.brain;
+package net.sevenstars.api.registries.brain;
 
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Schedule;
@@ -23,7 +23,7 @@ public class SchedulesAPI {
         return new ScheduleBuilder(schedule);
     }
 
-    public static void registerModSchedules() {
-        SevenStarsApi.LOGGER.logDebugMsg("Registering Mod Schedules for " + SevenStarsApi.MOD_ID);
+    public static void register() {
+        SevenStarsApi.logRegistryMsg("Schedules");
     }
 }

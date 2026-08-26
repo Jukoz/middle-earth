@@ -19,7 +19,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
