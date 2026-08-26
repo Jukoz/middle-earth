@@ -4,13 +4,8 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.world.features.chain.ChainFeatureConfig;
-import net.sevenstars.middleearth.world.gen.ModFeatures;
 
 public class PlatedFoodConfiguredFeatures {
     // NOTE keep it here just in case

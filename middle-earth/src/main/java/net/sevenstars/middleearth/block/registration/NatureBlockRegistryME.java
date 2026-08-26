@@ -35,9 +35,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static net.sevenstars.middleearth.block.registration.WoodBlockSets.LEAVES_STRENGTH;
+import static net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME.LEAVES_STRENGTH;
 
-public class ModNatureBlocks {
+public class NatureBlockRegistryME {
 
     public static final Block MORGUL_IVY = registerBlock("morgul_ivy",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
@@ -608,8 +608,8 @@ public class ModNatureBlocks {
 
     public static Block registerSimpleSapling(String name, RegistryKey<ConfiguredFeature<?, ?>> treeFeature) {
         SaplingBlock saplingBlock = new SaplingBlock(new SaplingGenerator(name, Optional.empty(), Optional.ofNullable(treeFeature), Optional.empty()),
-                AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)));
-        Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+                AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(BlockRegistryME.keyOfBlock(name)));
+        Block resultBlock = Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), saplingBlock);
         registerBlockItem(name, resultBlock);
         TintableCrossModel.notTintedBlocks.add(resultBlock);
         Saplings.saplings.add(resultBlock);
@@ -626,8 +626,8 @@ public class ModNatureBlocks {
             saplingGenerators.add(new SaplingGenerator(name, Optional.empty(), Optional.ofNullable(treeFeature),
                             Optional.empty()));
         }
-        SaplingBlock saplingBlock = new VariantSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)), saplingGenerators);
-        Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+        SaplingBlock saplingBlock = new VariantSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(BlockRegistryME.keyOfBlock(name)), saplingGenerators);
+        Block resultBlock = Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), saplingBlock);
 
         TranslationEntries.blockEntries.add(resultBlock);
 
@@ -640,9 +640,9 @@ public class ModNatureBlocks {
     }
 
     public static Block registerWeightedSapling(String name, List<WeightedSaplingBlock.WeightedTree> weightedTrees) {
-        SaplingBlock saplingBlock = new WeightedSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(ModBlocks.keyOfBlock(name)), weightedTrees);
+        SaplingBlock saplingBlock = new WeightedSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(BlockRegistryME.keyOfBlock(name)), weightedTrees);
 
-        Block resultBlock = Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), saplingBlock);
+        Block resultBlock = Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), saplingBlock);
 
         TranslationEntries.blockEntries.add(resultBlock);
 
@@ -655,20 +655,20 @@ public class ModNatureBlocks {
     }
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean present) {
-        Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
+        Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
         if(present){
-            ModNatureBlocks.registerBlockItem(name, block);
+            NatureBlockRegistryME.registerBlockItem(name, block);
             TranslationEntries.blockEntries.add(block);
         }
 
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
-        return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
+        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
     }
 
     static void registerBlockItem(String name, Block block) {
         var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
-               new BlockItem(block, new Item.Settings().registryKey(ModBlocks.keyOfItem(name))));
+               new BlockItem(block, new Item.Settings().registryKey(BlockRegistryME.keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
 
         ItemGroupsME.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());

@@ -6,9 +6,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;
 import net.sevenstars.middleearth.network.packets.client2server.ArtisanIndexPacket;
@@ -66,7 +66,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public ArtisanTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
-        super(ModScreenHandlers.ARTISAN_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, syncId);
         this.selectedRecipe = Property.create();
         this.recipesSize = Property.create();
         this.availableRecipes = Lists.newArrayList();
@@ -191,7 +191,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
 
     public boolean canUse(PlayerEntity player) {
         this.playerEntity = player;
-        return canUse(this.context, player, ModDecorativeBlocks.ARTISAN_TABLE);
+        return canUse(this.context, player, DecorativeBlockRegistryME.ARTISAN_TABLE);
     }
 
     public boolean onButtonClick(PlayerEntity player, int id) {
@@ -315,7 +315,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public ScreenHandlerType<?> getType() {
-        return ModScreenHandlers.ARTISAN_SCREEN_HANDLER;
+        return ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER;
     }
 
     public void setContentsChangedListener(Runnable contentsChangedListener) {

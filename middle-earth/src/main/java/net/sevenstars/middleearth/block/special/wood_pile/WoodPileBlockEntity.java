@@ -3,8 +3,8 @@ package net.sevenstars.middleearth.block.special.wood_pile;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 import net.sevenstars.middleearth.utils.ImplementedInventory;
 import net.minecraft.block.BlockState;
@@ -14,11 +14,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.property.Properties;
@@ -35,7 +33,7 @@ public class WoodPileBlockEntity extends LootableContainerBlockEntity implements
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
     public WoodPileBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.WOOD_PILE, pos, state);
+        super(BlockEntityRegistryME.WOOD_PILE, pos, state);
     }
 
     @Override
@@ -103,19 +101,19 @@ public class WoodPileBlockEntity extends LootableContainerBlockEntity implements
             stack.setCount(getMaxCountPerStack());
         }
         if(this.hasAmount(9)){
-            this.getWorld().setBlockState(this.getPos(), ModDecorativeBlocks.WOOD_PILE.getDefaultState()
+            this.getWorld().setBlockState(this.getPos(), DecorativeBlockRegistryME.WOOD_PILE.getDefaultState()
                     .with(STAGE, 3)
                     .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
         } else if (this.hasAmount(5)){
-            this.getWorld().setBlockState(this.getPos(), ModDecorativeBlocks.WOOD_PILE.getDefaultState()
+            this.getWorld().setBlockState(this.getPos(), DecorativeBlockRegistryME.WOOD_PILE.getDefaultState()
                     .with(STAGE, 2)
                     .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
         } else if (this.isEmpty()){
-            this.getWorld().setBlockState(this.getPos(), ModDecorativeBlocks.WOOD_PILE.getDefaultState()
+            this.getWorld().setBlockState(this.getPos(), DecorativeBlockRegistryME.WOOD_PILE.getDefaultState()
                     .with(STAGE, 0)
                     .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
         } else if (!this.hasAmount(5) && !isEmpty()){
-            this.getWorld().setBlockState(this.getPos(), ModDecorativeBlocks.WOOD_PILE.getDefaultState()
+            this.getWorld().setBlockState(this.getPos(), DecorativeBlockRegistryME.WOOD_PILE.getDefaultState()
                     .with(STAGE, 1)
                     .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
         }

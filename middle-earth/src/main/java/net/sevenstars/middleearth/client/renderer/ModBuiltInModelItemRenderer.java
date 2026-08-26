@@ -5,8 +5,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.item.ItemDisplayContext;
 import net.sevenstars.middleearth.MiddleEarthClient;
-import net.sevenstars.middleearth.client.MEModelLoader;
-import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.client.ModelLoaderME;
+import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
@@ -56,7 +56,7 @@ public class ModBuiltInModelItemRenderer {
             matrices.scale(1.0F, -1.0F, -1.0F);
 
             if (stack.isOf(WeaponItemsME.HEATER_SHIELD)){
-                SpriteIdentifier spriteIdentifier = bl ? MEModelLoader.HEATER_SHIELD_BASE : MEModelLoader.HEATER_SHIELD_BASE_NO_PATTERN;
+                SpriteIdentifier spriteIdentifier = bl ? ModelLoaderME.HEATER_SHIELD_BASE : ModelLoaderME.HEATER_SHIELD_BASE_NO_PATTERN;
                 VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.heaterShieldEntityModel.getLayer(spriteIdentifier.getAtlasId()), true, stack.hasGlint()));
                 this.heaterShieldEntityModel.getHandle().render(matrices, vertexConsumer, light, overlay);
                 if (bl) {
@@ -67,7 +67,7 @@ public class ModBuiltInModelItemRenderer {
 
                 matrices.pop();
             } else if (stack.isOf(WeaponItemsME.KITE_SHIELD)){
-                SpriteIdentifier spriteIdentifier = bl ? MEModelLoader.KITE_SHIELD_BASE : MEModelLoader.KITE_SHIELD_BASE_NO_PATTERN;
+                SpriteIdentifier spriteIdentifier = bl ? ModelLoaderME.KITE_SHIELD_BASE : ModelLoaderME.KITE_SHIELD_BASE_NO_PATTERN;
                 VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.kiteShieldEntityModel.getLayer(spriteIdentifier.getAtlasId()), true, stack.hasGlint()));
                 this.kiteShieldEntityModel.getHandle().render(matrices, vertexConsumer, light, overlay);
                 if (bl) {
@@ -78,7 +78,7 @@ public class ModBuiltInModelItemRenderer {
 
                 matrices.pop();
             } else if (stack.isOf(WeaponItemsME.ROUND_SHIELD)){
-                SpriteIdentifier spriteIdentifier = bl ? MEModelLoader.ROUND_SHIELD_BASE : MEModelLoader.ROUND_SHIELD_BASE_NO_PATTERN;
+                SpriteIdentifier spriteIdentifier = bl ? ModelLoaderME.ROUND_SHIELD_BASE : ModelLoaderME.ROUND_SHIELD_BASE_NO_PATTERN;
                 VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.roundShieldEntityModel.getLayer(spriteIdentifier.getAtlasId()), true, stack.hasGlint()));
                 this.roundShieldEntityModel.getHandle().render(matrices, vertexConsumer, light, overlay);
                 if (bl) {
@@ -116,23 +116,23 @@ public class ModBuiltInModelItemRenderer {
     public static void renderCanvas(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, ModelPart canvas, SpriteIdentifier baseSprite, boolean isBanner, DyeColor color, BannerPatternsComponent patterns, boolean glint, ItemStack stack, boolean solid) {
         canvas.render(matrices, baseSprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, solid, glint), light, overlay);
         if (stack.isOf(WeaponItemsME.HEATER_SHIELD)){
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : ModTexturedRenderLayers.HEATER_SHIELD_BASE, color);
+            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.HEATER_SHIELD_BASE, color);
         } else if (stack.isOf(WeaponItemsME.KITE_SHIELD)){
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : ModTexturedRenderLayers.KITE_SHIELD_BASE, color);
+            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.KITE_SHIELD_BASE, color);
         }else if (stack.isOf(WeaponItemsME.ROUND_SHIELD)){
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : ModTexturedRenderLayers.ROUND_SHIELD_BASE, color);
+            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.ROUND_SHIELD_BASE, color);
         }else if (stack.isOf(WeaponItemsME.HELD_BANNER)){
             renderLayer(matrices, vertexConsumers, light, overlay, canvas, TexturedRenderLayers.BANNER_BASE, color);
         }
         for(int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
             BannerPatternsComponent.Layer layer = (BannerPatternsComponent.Layer)patterns.layers().get(i);
-            SpriteIdentifier spriteIdentifier = isBanner ? TexturedRenderLayers.getBannerPatternTextureId(layer.pattern()) : ModTexturedRenderLayers.getRoundShieldPatternTextureId(layer.pattern());
+            SpriteIdentifier spriteIdentifier = isBanner ? TexturedRenderLayers.getBannerPatternTextureId(layer.pattern()) : TexturedRenderLayersME.getRoundShieldPatternTextureId(layer.pattern());
             if (stack.isOf(WeaponItemsME.HEATER_SHIELD)){
-                spriteIdentifier = ModTexturedRenderLayers.getHeaterShieldPatternTextureId(layer.pattern());
+                spriteIdentifier = TexturedRenderLayersME.getHeaterShieldPatternTextureId(layer.pattern());
             } else if (stack.isOf(WeaponItemsME.KITE_SHIELD)){
-                spriteIdentifier = ModTexturedRenderLayers.getKiteShieldPatternTextureId(layer.pattern());
+                spriteIdentifier = TexturedRenderLayersME.getKiteShieldPatternTextureId(layer.pattern());
             }else if (stack.isOf(WeaponItemsME.ROUND_SHIELD)){
-                spriteIdentifier = ModTexturedRenderLayers.getRoundShieldPatternTextureId(layer.pattern());
+                spriteIdentifier = TexturedRenderLayersME.getRoundShieldPatternTextureId(layer.pattern());
             } else if (stack.isOf(WeaponItemsME.HELD_BANNER)){
                 spriteIdentifier = TexturedRenderLayers.getBannerPatternTextureId(layer.pattern());
             }

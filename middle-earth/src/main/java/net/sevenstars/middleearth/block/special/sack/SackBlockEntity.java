@@ -4,8 +4,6 @@ import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.block.entity.ViewerCountManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,9 +17,6 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.ShulkerBoxScreenHandler;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
@@ -30,7 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.gui.sack.SackScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,7 +37,7 @@ public class SackBlockEntity extends LootableContainerBlockEntity implements Sid
     private final ViewerCountManager stateManager;
 
     public SackBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SACK, pos, state);
+        super(BlockEntityRegistryME.SACK, pos, state);
         this.inventory = DefaultedList.ofSize(size(), ItemStack.EMPTY);
         this.setHeldStacks(DefaultedList.ofSize(this.size(), ItemStack.EMPTY));
         this.stateManager = new ViewerCountManager() {

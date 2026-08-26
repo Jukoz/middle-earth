@@ -15,7 +15,7 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
@@ -110,7 +110,7 @@ public class ModDimensions {
                     // idk
                 }));
                 
-                if(!ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
+                if(!ServerConfigME.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
                     AttributePool.reverse(player);
                 }
                 return true;

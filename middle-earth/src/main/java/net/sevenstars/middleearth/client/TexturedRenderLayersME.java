@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.registries.AtlasesME;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModTexturedRenderLayers extends TexturedRenderLayers {
+public class TexturedRenderLayersME extends TexturedRenderLayers {
     public static final SpriteIdentifier HEATER_SHIELD_BASE;
     public static final SpriteIdentifier KITE_SHIELD_BASE;
     public static final SpriteIdentifier ROUND_SHIELD_BASE;

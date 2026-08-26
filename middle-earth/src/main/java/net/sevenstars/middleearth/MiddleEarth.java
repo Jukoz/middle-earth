@@ -4,9 +4,9 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.commands.ModCommands;
-import net.sevenstars.middleearth.config.ModClientConfigs;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.commands.CommandRegistryME;
+import net.sevenstars.middleearth.config.ClientConfigME;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
@@ -14,14 +14,14 @@ import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
-import net.sevenstars.middleearth.event.ModEvents;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.event.EventRegistryME;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.network.ServerNetworkHandlerME;
 import net.sevenstars.api.network.connections.ConnectionToClient;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
+import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
@@ -57,18 +57,18 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
 		ServerNetworkHandlerME.register(new ConnectionToClient());
-		ModEvents.register();
-		ModServerConfigs.registerConfigs();
-		ModClientConfigs.registerConfigs();
+		EventRegistryME.register();
+		ServerConfigME.registerConfigs();
+		ClientConfigME.registerConfigs();
 
 		AtlasesME.registerAtlas();
 		RecipesME.registerRecipes();
 		DataComponentTypesME.registerModComponentTypes();
 
-		ModCommands.register();
+		CommandRegistryME.register();
 		ModStatusEffects.registerStatusEffects();
 
-		OreRockSets.registerModBlockSets();
+		OreStoneSetRegistryME.registerModBlockSets();
 		WeaponItemsME.registerModItems();
 		EquipmentItemsME.registerModItems();
 		DyeablePiecesME.addDyeablePieces();
@@ -79,14 +79,14 @@ public class MiddleEarth implements ModInitializer {
 		ItemGroupsME.register();
 		EntityAttributesME.register();
 
-		WoodBlockSets.registerModBlockSets();
-		StoneBlockSets.registerModBlockSets();
+		WoodBlockSetRegistryME.registerModBlockSets();
+		StoneBlockSetRegistryME.registerModBlockSets();
 		DecorativeItemsME.registerModItems();
 		NatureBlockItemsME.registerModItems();
-		ModBlocks.registerModBlocks();
-		ModDecorativeBlocks.registerModBlocks();
-		ModNatureBlocks.registerModBlocks();
-		GenericBlockSets.registerModBlockSets();
+		BlockRegistryME.registerModBlocks();
+		DecorativeBlockRegistryME.registerModBlocks();
+		NatureBlockRegistryME.registerModBlocks();
+		GenericBlockSetRegistryME.registerModBlockSets();
 
 		EnchantmentsME.registerModEnchantmentEffects();
 
@@ -99,9 +99,9 @@ public class MiddleEarth implements ModInitializer {
 		RegistriesME.registerCauldronBehaviour();
 		RegistriesME.registerLandPathNodeTypesBlocks();
 
-		ModBlockEntities.registerBlockEntities();
+		BlockEntityRegistryME.registerBlockEntities();
 
-		ModScreenHandlers.registerAllScreenHandlers();
+		ScreenHandlerRegistryME.registerAllScreenHandlers();
 		ModRecipeSerializer.registerRecipeSerializers();
 
 		TrackedDataHandlerRegistryME.register();
@@ -117,7 +117,7 @@ public class MiddleEarth implements ModInitializer {
 		MemoryModulesME.registerModMemoryModules();
 
 		SoundsME.registerModSounds();
-		ModParticleTypes.registerParticleTypes();
+		ParticleTypeRegistryME.registerParticleTypes();
 		ModStatusEffects.registerStatusEffects();
 
 		ModDimensions.register();

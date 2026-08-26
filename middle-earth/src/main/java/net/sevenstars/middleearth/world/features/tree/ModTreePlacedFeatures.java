@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.features.tree;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -217,19 +217,19 @@ public class ModTreePlacedFeatures {
 
         register(context, ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
-                        ModNatureBlocks.ASPEN_SAPLING));
+                        NatureBlockRegistryME.ASPEN_SAPLING));
         register(context, SPARSE_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.ASPEN_SAPLING));
+                        NatureBlockRegistryME.ASPEN_SAPLING));
         register(context, RARE_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
-                        ModNatureBlocks.ASPEN_SAPLING));
+                        NatureBlockRegistryME.ASPEN_SAPLING));
         register(context, VERY_RARE_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaRareTree,
-                        ModNatureBlocks.ASPEN_SAPLING));
+                        NatureBlockRegistryME.ASPEN_SAPLING));
         register(context, COMMON_ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ASPEN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.ASPEN_SAPLING));
+                        NatureBlockRegistryME.ASPEN_SAPLING));
 
         register(context, RARE_CHERRY_BLOSSOM_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.CHERRY_BEES_005),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
@@ -237,7 +237,7 @@ public class ModTreePlacedFeatures {
 
         register(context, CHESTNUT_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.CHESTNUT_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.CHESTNUT_SAPLING));
+                        NatureBlockRegistryME.CHESTNUT_SAPLING));
 
         register(context, COMMON_BEECH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BEECH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
@@ -270,183 +270,183 @@ public class ModTreePlacedFeatures {
 
         register(context, DEADWOOD_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEADWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.FIR_SAPLING));
+                        NatureBlockRegistryME.FIR_SAPLING));
 
         register(context, COMMON_FIR_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FIR_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.FIR_SAPLING));
+                        NatureBlockRegistryME.FIR_SAPLING));
         register(context, ABUNDANT_FIR_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FIR_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(abundantTree,
-                        ModNatureBlocks.FIR_SAPLING));
+                        NatureBlockRegistryME.FIR_SAPLING));
         register(context, FIR_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FIR_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
-                        ModNatureBlocks.FIR_SAPLING));
+                        NatureBlockRegistryME.FIR_SAPLING));
         register(context, RARE_FIR_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FIR_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.FIR_SAPLING));
+                        NatureBlockRegistryME.FIR_SAPLING));
         register(context, VERY_RARE_FIR_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.FIR_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
-                        ModNatureBlocks.FIR_SAPLING));
+                        NatureBlockRegistryME.FIR_SAPLING));
 
         register(context, HOLLY_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.HOLLY_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
-                        ModNatureBlocks.HOLLY_SAPLING));
+                        NatureBlockRegistryME.HOLLY_SAPLING));
         register(context, COMMON_HOLLY_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.HOLLY_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
-                        ModNatureBlocks.HOLLY_SAPLING));
+                        NatureBlockRegistryME.HOLLY_SAPLING));
 
         register(context, COMMON_LARCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.LARCH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.LARCH_SAPLING));
+                        NatureBlockRegistryME.LARCH_SAPLING));
         register(context, LARCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.LARCH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.LARCH_SAPLING));
+                        NatureBlockRegistryME.LARCH_SAPLING));
         register(context, SPARSE_LARCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.LARCH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
-                        ModNatureBlocks.LARCH_SAPLING));
+                        NatureBlockRegistryME.LARCH_SAPLING));
         register(context, RARE_LARCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.LARCH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaRareTree,
-                        ModNatureBlocks.LARCH_SAPLING));
+                        NatureBlockRegistryME.LARCH_SAPLING));
 
         register(context, BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.LEBETHRON_SAPLING));
+                        NatureBlockRegistryME.LEBETHRON_SAPLING));
         register(context, WHITE_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(specialTree,
-                        ModNatureBlocks.LEBETHRON_SAPLING));
+                        NatureBlockRegistryME.LEBETHRON_SAPLING));
         register(context, COMMON_BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(abundantTree,
-                        ModNatureBlocks.LEBETHRON_SAPLING));
+                        NatureBlockRegistryME.LEBETHRON_SAPLING));
         register(context, COMMON_WHITE_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaRareTree,
-                        ModNatureBlocks.LEBETHRON_SAPLING));
+                        NatureBlockRegistryME.LEBETHRON_SAPLING));
         register(context, RARE_BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.LEBETHRON_SAPLING));
+                        NatureBlockRegistryME.LEBETHRON_SAPLING));
         register(context, RARE_WHITE_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(0, 0.005f, 1),
-                        ModNatureBlocks.LEBETHRON_SAPLING));
+                        NatureBlockRegistryME.LEBETHRON_SAPLING));
         register(context, VERY_RARE_BLACK_LEBETHRON_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_LEBETHRON_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
-                        ModNatureBlocks.LEBETHRON_SAPLING));
+                        NatureBlockRegistryME.LEBETHRON_SAPLING));
 
         register(context, MALLORN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MALLORN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(13, 0.2f, 2),
-                        ModNatureBlocks.MALLORN_SAPLING));
+                        NatureBlockRegistryME.MALLORN_SAPLING));
         register(context, SMALL_MALLORN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SMALL_MALLORN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(4, 0.25f, 1),
-                        ModNatureBlocks.MALLORN_SAPLING));
+                        NatureBlockRegistryME.MALLORN_SAPLING));
         register(context, MEGA_MALLORN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_MALLORN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(7, 0.2f, 1),
-                        ModNatureBlocks.MALLORN_SAPLING));
+                        NatureBlockRegistryME.MALLORN_SAPLING));
         register(context, MEGA_MALLORN_STRUCTURE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_MALLORN_STRUCTURE_TREE_KEY),
                 List.of());
         register(context, MALLORN_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MALLORN_BUSH_KEY),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree, ModNatureBlocks.MALLORN_SAPLING));
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree, NatureBlockRegistryME.MALLORN_SAPLING));
         register(context, MALLORN_FLOWERING_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MALLORN_FLOWERING_BUSH_KEY),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree, ModNatureBlocks.MALLORN_SAPLING));
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree, NatureBlockRegistryME.MALLORN_SAPLING));
 
         register(context, SMALL_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SMALL_MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(15, 0.25f, 2),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, SPARSE_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(1, 0.1f, 1),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, DEAD_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEAD_MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(1, 0.5f, 1),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, UNCOMMON_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(2, 0.5f, 1),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(21, 0.2f, 4),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, MEGA_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(18, 0.2f, 1),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, RARE_MEGA_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(2, 0.5f, 1),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, VERY_RARE_MEGA_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MEGA_MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(0, 0.05f, 1),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
         register(context, DEAD_MEGA_MIRKWOOD_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEAD_MEGA_MIRKWOOD_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(0, 0.125f, 1),
-                        ModNatureBlocks.MIRKWOOD_SAPLING));
+                        NatureBlockRegistryME.MIRKWOOD_SAPLING));
 
         register(context, MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, YELLOW_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.YELLOW_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, ORANGE_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ORANGE_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, RED_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.RED_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, SILVER_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, SILVER_YELLOW_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_YELLOW_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, SILVER_ORANGE_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_ORANGE_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, SILVER_RED_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_RED_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, SCARCE_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, SCARCE_YELLOW_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.YELLOW_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, SCARCE_ORANGE_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ORANGE_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, SCARCE_RED_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.RED_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, SCARCE_SILVER_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, SCARCE_SILVER_YELLOW_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_YELLOW_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, SCARCE_SILVER_ORANGE_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_ORANGE_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, SCARCE_SILVER_RED_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_RED_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(superRareTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
 
         register(context, COMMON_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, COMMON_YELLOW_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.YELLOW_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, COMMON_ORANGE_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ORANGE_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, COMMON_RED_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.RED_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.MAPLE_SAPLING));
+                        NatureBlockRegistryME.MAPLE_SAPLING));
         register(context, COMMON_SILVER_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, COMMON_SILVER_YELLOW_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_YELLOW_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, COMMON_SILVER_ORANGE_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_ORANGE_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
         register(context, COMMON_SILVER_RED_MAPLE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SILVER_RED_MAPLE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.SILVER_MAPLE_SAPLING));
+                        NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
 
         register(context, OAK_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.OAK_BUSH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
@@ -502,58 +502,58 @@ public class ModTreePlacedFeatures {
 
         register(context, ABUNDANT_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(foothillsTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, COMMON_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, DEAD_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEAD_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, DRY_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DRY_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, SPARSE_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, DRY_PINE_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DRY_PINE_BUSH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
 
         register(context, COMMON_BLACK_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, BLACK_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, SCARCE_BLACK_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.BLACK_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, DEAD_BLACK_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEAD_BLACK_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, COMMON_DEAD_BLACK_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEAD_BLACK_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, ABUNDANT_DEAD_BLACK_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.DEAD_BLACK_PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(abundantTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
 
         register(context, ROTTEN_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.ROTTEN_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
 
         register(context, SCORCHED_TREE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SCORCHED_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, COMMON_SCORCHED_TREE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SCORCHED_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
         register(context, ABUNDANT_SCORCHED_TREE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SCORCHED_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(abundantTree,
-                        ModNatureBlocks.PINE_SAPLING));
+                        NatureBlockRegistryME.PINE_SAPLING));
 
         register(context, FOOTHILLS_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(foothillsTree,
@@ -582,28 +582,28 @@ public class ModTreePlacedFeatures {
 
         register(context, FOOTHILLS_WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(foothillsTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, FREQUENT_WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, COMMON_WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, SCARCE_WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(scarceTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, RARE_WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, VERY_RARE_WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(veryRareTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, EXTREMELY_RARE_WHITE_SPRUCE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(specialTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
 
         register(context, COMMON_SPRUCE_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.SPRUCE_BUSH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
@@ -614,17 +614,17 @@ public class ModTreePlacedFeatures {
 
         register(context, COMMON_WHITE_SPRUCE_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_BUSH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
         register(context, WHITE_SPRUCE_BUSH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WHITE_SPRUCE_BUSH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.WHITE_SPRUCE_SAPLING));
+                        NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
 
         register(context, WILLOW_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WILLOW_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(uncommonTree,
-                        ModNatureBlocks.WILLOW_SAPLING));
+                        NatureBlockRegistryME.WILLOW_SAPLING));
         register(context, COMMON_WILLOW_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModTreeConfiguredFeatures.WILLOW_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(commonTree,
-                        ModNatureBlocks.WILLOW_SAPLING));
+                        NatureBlockRegistryME.WILLOW_SAPLING));
 
         register(context, PALE_OAK_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.PALE_OAK),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(megaRareTree,

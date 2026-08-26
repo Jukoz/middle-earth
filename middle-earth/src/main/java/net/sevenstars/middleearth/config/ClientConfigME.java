@@ -1,9 +1,11 @@
 package net.sevenstars.middleearth.config;
 
 import com.mojang.datafixers.util.Pair;
+import net.sevenstars.api.config.ConfigProvider;
+import net.sevenstars.api.config.SimpleConfig;
 import net.sevenstars.middleearth.MiddleEarth;
 
-public class ModClientConfigs {
+public class ClientConfigME {
     public static SimpleConfig CONFIG;
     private final static String PATH = MiddleEarth.MOD_ID + "/config-client";
 
@@ -18,10 +20,10 @@ public class ModClientConfigs {
     /**Should glint be disabled in Middle-earth**/
     public static boolean DISABLE_GLINT;
 
-    private static ModConfigProvider configs;
+    private static ConfigProvider configs;
 
     public static void registerConfigs() {
-        configs = new ModConfigProvider();
+        configs = new ConfigProvider();
         createClientConfigs();
         CONFIG = SimpleConfig.of(PATH).provider(configs).request();
         assignClientConfigs();

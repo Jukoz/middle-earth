@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.world.features.underground;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.OreRockSets;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.OreStoneSetRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.block.special.DroopingIciclesBlock;
 import net.sevenstars.middleearth.world.features.columns.ClusterFeatureConfig;
 import net.sevenstars.middleearth.world.features.columns.SmallPointedStoneFeatureConfig;
@@ -152,88 +152,88 @@ public class CavesConfiguredFeatures {
     // region TESTS
     static TagMatchRuleTest baseStone = new TagMatchRuleTest(BlockTags.BASE_STONE_OVERWORLD);
     static TagMatchRuleTest stoneTest = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
-    static BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSets.ASHENSTONE_SET.baseBlocks.base());
-    static BlockMatchRuleTest blueTuffTest = new BlockMatchRuleTest(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base());
-    static BlockMatchRuleTest dolomiteTest = new BlockMatchRuleTest(StoneBlockSets.DOLOMITE_SET.baseBlocks.base());
-    static BlockMatchRuleTest hematiteTest = new BlockMatchRuleTest(StoneBlockSets.HEMATITE_SET.baseBlocks.base());
-    static BlockMatchRuleTest greenTuffTest = new BlockMatchRuleTest(StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base());
-    static BlockMatchRuleTest galonnTest = new BlockMatchRuleTest(StoneBlockSets.GALONN_SET.baseBlocks.base());
-    static BlockMatchRuleTest izherAbanTest = new BlockMatchRuleTest(StoneBlockSets.IZHERABAN_SET.baseBlocks.base());
+    static BlockMatchRuleTest ashenStoneTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.ASHENSTONE_SET.baseBlocks.base());
+    static BlockMatchRuleTest blueTuffTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.KHAGALABAN_SET.baseBlocks.base());
+    static BlockMatchRuleTest dolomiteTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base());
+    static BlockMatchRuleTest hematiteTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.HEMATITE_SET.baseBlocks.base());
+    static BlockMatchRuleTest greenTuffTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base());
+    static BlockMatchRuleTest galonnTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base());
+    static BlockMatchRuleTest izherAbanTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base());
     static BlockMatchRuleTest calciteTest = new BlockMatchRuleTest(Blocks.CALCITE);
     static BlockMatchRuleTest dioriteTest = new BlockMatchRuleTest(Blocks.DIORITE);
-    static BlockMatchRuleTest ironStoneTest = new BlockMatchRuleTest(StoneBlockSets.IRONSTONE_SET.baseBlocks.base());
-    static BlockMatchRuleTest gonluinTest = new BlockMatchRuleTest(StoneBlockSets.KHAGALABAN_SET.baseBlocks.base());
-    static BlockMatchRuleTest limestoneTest = new BlockMatchRuleTest(StoneBlockSets.LIMESTONE_SET.baseBlocks.base());
-    static BlockMatchRuleTest slateTest = new BlockMatchRuleTest(StoneBlockSets.SLATE_SET.baseBlocks.base());
+    static BlockMatchRuleTest ironStoneTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.IRONSTONE_SET.baseBlocks.base());
+    static BlockMatchRuleTest gonluinTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.KHAGALABAN_SET.baseBlocks.base());
+    static BlockMatchRuleTest limestoneTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base());
+    static BlockMatchRuleTest slateTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.SLATE_SET.baseBlocks.base());
     static TagMatchRuleTest deepslateTest = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-    static BlockMatchRuleTest nurgonTest = new BlockMatchRuleTest(StoneBlockSets.NURGON_SET.baseBlocks.base());
-    static BlockMatchRuleTest medgonTest = new BlockMatchRuleTest(StoneBlockSets.MEDGON_SET.baseBlocks.base());
+    static BlockMatchRuleTest nurgonTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base());
+    static BlockMatchRuleTest medgonTest = new BlockMatchRuleTest(StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base());
     // endregion
 
     // region LISTS
     static List<OreFeatureConfig.Target> dolomiteReplaceTest = List.of(
-            OreFeatureConfig.createTarget(baseStone, StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(baseStone, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> oldDolomiteReplaceTest = List.of(
-            OreFeatureConfig.createTarget(baseStone, StoneBlockSets.DOLOMITE_SET.oldBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.DOLOMITE_SET.oldBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(baseStone, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> mudList = List.of(
             OreFeatureConfig.createTarget(gonluinTest, Blocks.MUD.getDefaultState()),
             OreFeatureConfig.createTarget(baseStone, Blocks.MUD.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.MUD.getDefaultState()));
     static List<OreFeatureConfig.Target> ashList = List.of(
-            OreFeatureConfig.createTarget(ashenStoneTest, ModBlocks.ASH_BLOCK.getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, ModBlocks.ASH_BLOCK.getDefaultState()),
-            OreFeatureConfig.createTarget(nurgonTest, ModBlocks.ASH_BLOCK.getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, ModBlocks.ASH_BLOCK.getDefaultState()));
+            OreFeatureConfig.createTarget(ashenStoneTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, BlockRegistryME.ASH_BLOCK.getDefaultState()));
     static List<OreFeatureConfig.Target> ashenDirtList = List.of(
-            OreFeatureConfig.createTarget(ashenStoneTest, ModBlocks.ASHEN_DIRT.getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, ModBlocks.ASHEN_DIRT.getDefaultState()),
-            OreFeatureConfig.createTarget(nurgonTest, ModBlocks.ASHEN_DIRT.getDefaultState()));
+            OreFeatureConfig.createTarget(ashenStoneTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()));
     static List<OreFeatureConfig.Target> dryDirtList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, ModBlocks.DRY_DIRT.getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, ModBlocks.DRY_DIRT.getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, BlockRegistryME.DRY_DIRT.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.DRY_DIRT.getDefaultState()));
     static List<OreFeatureConfig.Target> gabbroList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GABBRO_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GABBRO_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GABBRO_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GABBRO_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> galonnList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> oldGalonnList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GALONN_SET.oldBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSets.GALONN_SET.oldBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GALONN_SET.oldBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> gneissList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GNEISS_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GNEISS_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> greenTuffList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> gildedGreenTuffList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
     static List<ModOreFeatureConfig.Target> goldenGreenTuffList = List.of(
-            ModOreFeatureConfig.createTarget(stoneTest, StoneBlockSets.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
-            ModOreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
+            ModOreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
+            ModOreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> izherAbanList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.IZHERABAN_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.IZHERABAN_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> zigilAbanList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.ZIGILABAN_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.ZIGILABAN_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> oldIzherAbanList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.IZHERABAN_SET.oldBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.IZHERABAN_SET.oldBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.IZHERABAN_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.IZHERABAN_SET.oldBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> limestoneList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> oldLimestoneList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.LIMESTONE_SET.oldBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.LIMESTONE_SET.oldBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.LIMESTONE_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.LIMESTONE_SET.oldBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> schistList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.SCHIST_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.SCHIST_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.SCHIST_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.SCHIST_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> sandList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.SAND.getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.SAND.getDefaultState()));
@@ -263,88 +263,88 @@ public class CavesConfiguredFeatures {
             OreFeatureConfig.createTarget(medgonTest, Blocks.MAGMA_BLOCK.getDefaultState()));
     static List<OreFeatureConfig.Target> coalList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.COAL_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.KHAGALABAN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, Blocks.COAL_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(hematiteTest, OreRockSets.IRONSTONE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(greenTuffTest, Blocks.COAL_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(calciteTest, OreRockSets.CALCITE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(dioriteTest, OreRockSets.CALCITE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.KHAGALABAN.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.coal_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(slateTest, OreRockSets.SLATE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.coal_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COAL_ORE.getDefaultState()));
     static List<OreFeatureConfig.Target> copperList = List.of(
             OreFeatureConfig.createTarget(stoneTest, Blocks.COPPER_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.KHAGALABAN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(dolomiteTest, Blocks.COPPER_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(hematiteTest, OreRockSets.IRONSTONE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(greenTuffTest, Blocks.COPPER_ORE.getDefaultState()),
-            OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(calciteTest, OreRockSets.CALCITE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(dioriteTest, OreRockSets.CALCITE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.KHAGALABAN.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.copper_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(slateTest, OreRockSets.SLATE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.copper_ore().getDefaultState()),
             OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COPPER_ORE.getDefaultState()));
     static List<OreFeatureConfig.Target> tinList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, OreRockSets.STONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(blueTuffTest, OreRockSets.KHAGALABAN.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(dolomiteTest, OreRockSets.STONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(hematiteTest, OreRockSets.IRONSTONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(galonnTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(greenTuffTest, OreRockSets.STONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(izherAbanTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(ashenStoneTest, OreRockSets.ASHEN.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(calciteTest, OreRockSets.CALCITE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(dioriteTest, OreRockSets.CALCITE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(ironStoneTest, OreRockSets.IRONSTONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(gonluinTest, OreRockSets.KHAGALABAN.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(limestoneTest, OreRockSets.LIMESTONE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, OreRockSets.DEEPSLATE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(slateTest, OreRockSets.SLATE.tin_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.tin_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dolomiteTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(greenTuffTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, OreStoneSetRegistryME.DEEPSLATE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.tin_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> lapisList = List.of(OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_LAPIS_ORE.getDefaultState()));
     static List<OreFeatureConfig.Target> leadList = List.of(
-            OreFeatureConfig.createTarget(deepslateTest, OreRockSets.DEEPSLATE.lead_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.lead_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.lead_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(deepslateTest, OreStoneSetRegistryME.DEEPSLATE.lead_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.lead_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.lead_ore().getDefaultState()));
 
     static List<OreFeatureConfig.Target> quartziteList = List.of(
-            OreFeatureConfig.createTarget(stoneTest, StoneBlockSets.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(ashenStoneTest, StoneBlockSets.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(gonluinTest, StoneBlockSets.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSets.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSets.QUARTZITE_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> ironList = List.of(
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.iron_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.iron_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.iron_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.iron_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> silverList = List.of(
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.silver_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.silver_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.silver_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.silver_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> jadeList = List.of(
-            OreFeatureConfig.createTarget(nurgonTest, StoneBlockSets.JADEITE_SET.baseBlocks.base().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, StoneBlockSets.JADEITE_SET.baseBlocks.base().getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, StoneBlockSetRegistryME.JADEITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, StoneBlockSetRegistryME.JADEITE_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfig.Target> goldList = List.of(
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.gold_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.gold_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.gold_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.gold_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> emeraldList = List.of(
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.emerald_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.emerald_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.emerald_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.emerald_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> rubyList = List.of(
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.ruby_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.ruby_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.ruby_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.ruby_ore().getDefaultState()));
     static List<OreFeatureConfig.Target> sapphireList = List.of(
-            OreFeatureConfig.createTarget(nurgonTest, OreRockSets.NURGON.sapphire_ore().getDefaultState()),
-            OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.sapphire_ore().getDefaultState()));
-    static List<OreFeatureConfig.Target> adamentList = List.of(OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.adamant_ore().getDefaultState()));
-    static List<OreFeatureConfig.Target> mithrilList = List.of(OreFeatureConfig.createTarget(medgonTest, OreRockSets.MEDGON.mithril_ore().getDefaultState()));
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.sapphire_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.sapphire_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> adamentList = List.of(OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.adamant_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> mithrilList = List.of(OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.mithril_ore().getDefaultState()));
     // endregion
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
@@ -352,14 +352,14 @@ public class CavesConfiguredFeatures {
 
         registerGeode(AMETHYST_GEODE, featureRegisterable, Blocks.AMETHYST_BLOCK, Blocks.BUDDING_AMETHYST, Blocks.SMALL_AMETHYST_BUD,
                 Blocks.MEDIUM_AMETHYST_BUD, Blocks.LARGE_AMETHYST_BUD, Blocks.AMETHYST_CLUSTER, Blocks.CALCITE);
-        registerGeode(CITRINE_GEODE, featureRegisterable, ModBlocks.CITRINE_BLOCK, ModBlocks.BUDDING_CITRINE, ModBlocks.SMALL_CITRINE_BUD,
-                ModBlocks.MEDIUM_CITRINE_BUD, ModBlocks.LARGE_CITRINE_BUD, ModBlocks.CITRINE_CLUSTER, Blocks.CALCITE);
-        registerGeode(GLOWSTONE_GEODE, featureRegisterable, ModBlocks.GLOWSTONE_BLOCK, ModBlocks.BUDDING_GLOWSTONE, ModBlocks.SMALL_GLOWSTONE_BUD,
-                ModBlocks.MEDIUM_GLOWSTONE_BUD, ModBlocks.LARGE_GLOWSTONE_BUD, ModBlocks.GLOWSTONE_CLUSTER, Blocks.CALCITE);
-        registerGeode(QUARTZ_GEODE, featureRegisterable, ModBlocks.QUARTZ_BLOCK, ModBlocks.BUDDING_QUARTZ, ModBlocks.SMALL_QUARTZ_BUD,
-                ModBlocks.MEDIUM_QUARTZ_BUD, ModBlocks.LARGE_QUARTZ_BUD, ModBlocks.QUARTZ_CLUSTER, StoneBlockSets.QUARTZITE_SET.baseBlocks.base());
-        registerGeode(RED_AGATE_GEODE, featureRegisterable, ModBlocks.RED_AGATE_BLOCK, ModBlocks.BUDDING_RED_AGATE, ModBlocks.SMALL_RED_AGATE_BUD,
-                ModBlocks.MEDIUM_RED_AGATE_BUD, ModBlocks.LARGE_RED_AGATE_BUD, ModBlocks.RED_AGATE_CLUSTER, Blocks.CALCITE);
+        registerGeode(CITRINE_GEODE, featureRegisterable, BlockRegistryME.CITRINE_BLOCK, BlockRegistryME.BUDDING_CITRINE, BlockRegistryME.SMALL_CITRINE_BUD,
+                BlockRegistryME.MEDIUM_CITRINE_BUD, BlockRegistryME.LARGE_CITRINE_BUD, BlockRegistryME.CITRINE_CLUSTER, Blocks.CALCITE);
+        registerGeode(GLOWSTONE_GEODE, featureRegisterable, BlockRegistryME.GLOWSTONE_BLOCK, BlockRegistryME.BUDDING_GLOWSTONE, BlockRegistryME.SMALL_GLOWSTONE_BUD,
+                BlockRegistryME.MEDIUM_GLOWSTONE_BUD, BlockRegistryME.LARGE_GLOWSTONE_BUD, BlockRegistryME.GLOWSTONE_CLUSTER, Blocks.CALCITE);
+        registerGeode(QUARTZ_GEODE, featureRegisterable, BlockRegistryME.QUARTZ_BLOCK, BlockRegistryME.BUDDING_QUARTZ, BlockRegistryME.SMALL_QUARTZ_BUD,
+                BlockRegistryME.MEDIUM_QUARTZ_BUD, BlockRegistryME.LARGE_QUARTZ_BUD, BlockRegistryME.QUARTZ_CLUSTER, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base());
+        registerGeode(RED_AGATE_GEODE, featureRegisterable, BlockRegistryME.RED_AGATE_BLOCK, BlockRegistryME.BUDDING_RED_AGATE, BlockRegistryME.SMALL_RED_AGATE_BUD,
+                BlockRegistryME.MEDIUM_RED_AGATE_BUD, BlockRegistryME.LARGE_RED_AGATE_BUD, BlockRegistryME.RED_AGATE_CLUSTER, Blocks.CALCITE);
 
         ConfiguredFeatures.register(featureRegisterable, ORE_DOLOMITE, Feature.ORE, new OreFeatureConfig(dolomiteReplaceTest, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_OLD_DOLOMITE, Feature.ORE, new OreFeatureConfig(oldDolomiteReplaceTest, 42));
@@ -369,7 +369,7 @@ public class CavesConfiguredFeatures {
                 ConstantIntProvider.create(3), 0.8f, 5, 0.1f, UniformIntProvider.create(4, 7), 0.7f));
         ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, Feature.ORE, new OreFeatureConfig(magmaList, 31, 0.4f));
         ConfiguredFeatures.register(featureRegisterable, ORE_OBSIDIAN, Feature.ORE, new OreFeatureConfig(medgonTest, Blocks.OBSIDIAN.getDefaultState(), 27));
-        ConfiguredFeatures.register(featureRegisterable, DISK_MYCELIUM, ModFeatures.SURFACE_ORE, new SurfaceOreFeatureConfig(baseStone, ModBlocks.STONE_MYCELIUM.getDefaultState(), 56));
+        ConfiguredFeatures.register(featureRegisterable, DISK_MYCELIUM, ModFeatures.SURFACE_ORE, new SurfaceOreFeatureConfig(baseStone, BlockRegistryME.STONE_MYCELIUM.getDefaultState(), 56));
         ConfiguredFeatures.register(featureRegisterable, POOL_MAGMA, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchFeatureConfig(BlockTags.BASE_STONE_OVERWORLD,
                 BlockStateProvider.of(Blocks.MAGMA_BLOCK), PlacedFeatures.createEntry(registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.DRIPLEAF), new PlacementModifier[0]), VerticalSurfaceType.FLOOR,
                 ConstantIntProvider.create(3), 0.8f, 5, 0.1f, UniformIntProvider.create(4, 7), 0.7f));
@@ -400,70 +400,70 @@ public class CavesConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, ORE_BLACKSTONE, Feature.ORE, new OreFeatureConfig(blackstoneList, 42));
 
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, ModFeatures.CLUSTER, new ClusterFeatureConfig(12,
-                StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_DOLOMITE.getDefaultState(), UniformIntProvider.create(3, 6),
+                StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_DOLOMITE.getDefaultState(), UniformIntProvider.create(3, 6),
                 UniformIntProvider.create(2, 8), 1, 3, UniformIntProvider.create(2, 4), UniformFloatProvider.create(0.3F, 0.7F),
                 ClampedNormalFloatProvider.create(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
         ConfiguredFeatures.register(featureRegisterable, LARGE_DOLOMITE, ModFeatures.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
-                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState()));
+                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, POINTED_DOLOMITE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfig(RegistryEntryList.of(
                 PlacedFeatures.createEntry(ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_DOLOMITE.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_DOLOMITE.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1))), PlacedFeatures.createEntry(
                                 ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_DOLOMITE.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_DOLOMITE.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1))))));
 
         ConfiguredFeatures.register(featureRegisterable, GALONN_CLUSTER, ModFeatures.CLUSTER, new ClusterFeatureConfig(12,
-                StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_GALONN.getDefaultState(), UniformIntProvider.create(3, 6),
+                StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_GALONN.getDefaultState(), UniformIntProvider.create(3, 6),
                 UniformIntProvider.create(2, 8), 1, 3, UniformIntProvider.create(2, 4), UniformFloatProvider.create(0.3F, 0.7F),
                 ClampedNormalFloatProvider.create(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
         ConfiguredFeatures.register(featureRegisterable, LARGE_GALONN, ModFeatures.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
-                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState()));
+                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, POINTED_GALONN, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfig(RegistryEntryList.of(
                 PlacedFeatures.createEntry(ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_GALONN.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_GALONN.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1))), PlacedFeatures.createEntry(
                                 ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_GALONN.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_GALONN.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1))))));
 
         ConfiguredFeatures.register(featureRegisterable, IZHER_ABAN_CLUSTER, ModFeatures.CLUSTER, new ClusterFeatureConfig(12,
-                StoneBlockSets.IZHERABAN_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_IZHERABAN.getDefaultState(), UniformIntProvider.create(3, 6),
+                StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_IZHERABAN.getDefaultState(), UniformIntProvider.create(3, 6),
                 UniformIntProvider.create(2, 8), 1, 3, UniformIntProvider.create(2, 4), UniformFloatProvider.create(0.3F, 0.7F),
                 ClampedNormalFloatProvider.create(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
         ConfiguredFeatures.register(featureRegisterable, LARGE_IZHER_ABAN, ModFeatures.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
-                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSets.IZHERABAN_SET.baseBlocks.base().getDefaultState()));
+                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, POINTED_IZHER_ABAN, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfig(RegistryEntryList.of(
                 PlacedFeatures.createEntry(ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.IZHERABAN_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_IZHERABAN.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_IZHERABAN.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1))), PlacedFeatures.createEntry(
                         ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.IZHERABAN_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_IZHERABAN.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_IZHERABAN.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1))))));
 
         ConfiguredFeatures.register(featureRegisterable, LIMESTONE_CLUSTER, ModFeatures.CLUSTER, new ClusterFeatureConfig(12,
-                StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_LIMESTONE.getDefaultState(), UniformIntProvider.create(3, 6),
+                StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_LIMESTONE.getDefaultState(), UniformIntProvider.create(3, 6),
                 UniformIntProvider.create(2, 8), 1, 3, UniformIntProvider.create(2, 4), UniformFloatProvider.create(0.3F, 0.7F),
                 ClampedNormalFloatProvider.create(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
         ConfiguredFeatures.register(featureRegisterable, LARGE_LIMESTONE, ModFeatures.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
-                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
+                UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, POINTED_LIMESTONE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfig(RegistryEntryList.of(
                 PlacedFeatures.createEntry(ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1))), PlacedFeatures.createEntry(
                                 ModFeatures.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState(), ModBlocks.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
                         EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
                         RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1))))));
 
@@ -499,80 +499,80 @@ public class CavesConfiguredFeatures {
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_CAVE_AMANITA, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.CAVE_AMANITA))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.CAVE_AMANITA))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_CAVE_AMANITA_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
-                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(ModNatureBlocks.CAVE_AMANITA_TILLER))))));
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(NatureBlockRegistryME.CAVE_AMANITA_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_DEEP_FIRECAP, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.DEEP_FIRECAP))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.DEEP_FIRECAP))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_DEEP_FIRECAP_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
-                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(ModNatureBlocks.DEEP_FIRECAP_TILLER))))));
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(NatureBlockRegistryME.DEEP_FIRECAP_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_GHOSTSHROOM, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.GHOSTSHROOM))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.GHOSTSHROOM))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_GHOSTSHROOM_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
-                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(ModNatureBlocks.GHOSTSHROOM_TILLER))))));
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(NatureBlockRegistryME.GHOSTSHROOM_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_SKY_FIRECAP, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.SKY_FIRECAP))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.SKY_FIRECAP))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_SKY_FIRECAP_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
-                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(ModNatureBlocks.SKY_FIRECAP_TILLER))))));
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(NatureBlockRegistryME.SKY_FIRECAP_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_TUBESHROOMS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TUBESHRROM))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.TUBESHRROM))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_TALL_TUBESHROOMS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TALL_TUBESHROOM))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.TALL_TUBESHROOM))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_TRUMPET_SHROOM, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TRUMPET_SHROOM))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.TRUMPET_SHROOM))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_TALL_TRUMPET_SHROOM, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.TALL_TRUMPET_SHROOM))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.TALL_TRUMPET_SHROOM))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_VIOLET_CAPS, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.VIOLET_CAPS))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.VIOLET_CAPS))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_VIOLET_CAPS_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
-                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(ModNatureBlocks.VIOLET_CAPS_TILLER))))));
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(NatureBlockRegistryME.VIOLET_CAPS_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_YELLOW_AMANITA, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(BlockStateProvider.of(ModNatureBlocks.YELLOW_AMANITA))));
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.YELLOW_AMANITA))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_YELLOW_AMANITA_TILLER, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
-                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(ModNatureBlocks.YELLOW_AMANITA_TILLER))))));
+                PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(get4StagesBlockBuilder(NatureBlockRegistryME.YELLOW_AMANITA_TILLER))))));
 
         ConfiguredFeatures.register(featureRegisterable, GLOWWORM_WEBBING, Feature.BLOCK_COLUMN,
                 new BlockColumnFeatureConfig(List.of(
-                        BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(2, 8), BlockStateProvider.of(ModNatureBlocks.GLOWWORM_MAIN)),
-                        BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(ModNatureBlocks.GLOWWORM_WEBBING))),
+                        BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(2, 8), BlockStateProvider.of(NatureBlockRegistryME.GLOWWORM_MAIN)),
+                        BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(NatureBlockRegistryME.GLOWWORM_WEBBING))),
                         Direction.DOWN, BlockPredicate.IS_AIR, true));
 
         ConfiguredFeatures.register(featureRegisterable, DROOPING_ICICLES, Feature.BLOCK_COLUMN,
                 new BlockColumnFeatureConfig(List.of(
-                        BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(1, 5), BlockStateProvider.of(ModNatureBlocks.DROOPING_ICICLES.getDefaultState().with(DroopingIciclesBlock.HALF, DoubleBlockHalf.UPPER))),
-                        BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(ModNatureBlocks.DROOPING_ICICLES.getDefaultState().with(DroopingIciclesBlock.HALF, DoubleBlockHalf.LOWER)))),
+                        BlockColumnFeatureConfig.createLayer(UniformIntProvider.create(1, 5), BlockStateProvider.of(NatureBlockRegistryME.DROOPING_ICICLES.getDefaultState().with(DroopingIciclesBlock.HALF, DoubleBlockHalf.UPPER))),
+                        BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(NatureBlockRegistryME.DROOPING_ICICLES.getDefaultState().with(DroopingIciclesBlock.HALF, DoubleBlockHalf.LOWER)))),
                         Direction.DOWN, BlockPredicate.IS_AIR, true));
         ConfiguredFeatures.register(featureRegisterable, SHORT_ICICLES, Feature.BLOCK_COLUMN,
                 new BlockColumnFeatureConfig(List.of(
-                        BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(ModNatureBlocks.SHORT_ICICLES))),
+                        BlockColumnFeatureConfig.createLayer(ConstantIntProvider.create(1), BlockStateProvider.of(NatureBlockRegistryME.SHORT_ICICLES))),
                         Direction.DOWN, BlockPredicate.IS_AIR, true));
 
         RegistryEntryList<Block> stickyBlocks = RegistryEntryList.of(Block::getRegistryEntry, Blocks.STONE, Blocks.SNOW, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE,
                 Blocks.TUFF, Blocks.DEEPSLATE, Blocks.ICE, Blocks.BLUE_ICE);
         ConfiguredFeatures.register(featureRegisterable, STICKY_ICE, Feature.MULTIFACE_GROWTH,
-                new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.STICKY_ICE, 20, false, true, true, 0.5F, stickyBlocks));
+                new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock) NatureBlockRegistryME.STICKY_ICE, 20, false, true, true, 0.5F, stickyBlocks));
         ConfiguredFeatures.register(featureRegisterable, STICKY_SNOW, Feature.MULTIFACE_GROWTH,
-                new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock)ModNatureBlocks.STICKY_SNOW, 20, false, true, true, 0.5F, stickyBlocks));
+                new MultifaceGrowthFeatureConfig((MultifaceGrowthBlock) NatureBlockRegistryME.STICKY_SNOW, 20, false, true, true, 0.5F, stickyBlocks));
 
 
         ConfiguredFeatures.register(featureRegisterable, SPRING_LAVA, Feature.SPRING_FEATURE, new SpringFeatureConfig(Fluids.LAVA.getDefaultState(),
-                true, 4, 1, RegistryEntryList.of(Block::getRegistryEntry, StoneBlockSets.NURGON_SET.baseBlocks.base(), StoneBlockSets.MEDGON_SET.baseBlocks.base())));
+                true, 4, 1, RegistryEntryList.of(Block::getRegistryEntry, StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base(), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base())));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

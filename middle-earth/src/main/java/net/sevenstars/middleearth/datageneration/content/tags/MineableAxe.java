@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -11,86 +11,86 @@ import java.util.List;
 public class MineableAxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
-            add(ModDecorativeBlocks.BLUE_CUSHION);
-            add(ModDecorativeBlocks.BROWN_CUSHION);
-            add(ModDecorativeBlocks.DARK_BLUE_CUSHION);
-            add(ModDecorativeBlocks.DARK_BROWN_CUSHION);
-            add(ModDecorativeBlocks.DARK_GREEN_CUSHION);
-            add(ModDecorativeBlocks.DARK_RED_CUSHION);
-            add(ModDecorativeBlocks.GREEN_CUSHION);
-            add(ModDecorativeBlocks.RED_CUSHION);
+            add(DecorativeBlockRegistryME.BLUE_CUSHION);
+            add(DecorativeBlockRegistryME.BROWN_CUSHION);
+            add(DecorativeBlockRegistryME.DARK_BLUE_CUSHION);
+            add(DecorativeBlockRegistryME.DARK_BROWN_CUSHION);
+            add(DecorativeBlockRegistryME.DARK_GREEN_CUSHION);
+            add(DecorativeBlockRegistryME.DARK_RED_CUSHION);
+            add(DecorativeBlockRegistryME.GREEN_CUSHION);
+            add(DecorativeBlockRegistryME.RED_CUSHION);
 
-            add(ModNatureBlocks.PINE_BRANCHES);
+            add(NatureBlockRegistryME.PINE_BRANCHES);
 
-            add(ModBlocks.AGED_WOOD_DOOR);
-            add(ModDecorativeBlocks.BLUE_HOBBIT_DOOR);
-            add(ModDecorativeBlocks.GREEN_HOBBIT_DOOR);
-            add(ModDecorativeBlocks.LIGHT_BLUE_HOBBIT_DOOR);
-            add(ModDecorativeBlocks.RED_HOBBIT_DOOR);
-            add(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
-            add(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
-            add(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
-            add(ModDecorativeBlocks.TALL_BLACK_PINE_DOOR);
-            add(ModDecorativeBlocks.TALL_FIR_DOOR);
-            add(ModDecorativeBlocks.OAK_STABLE_DOOR);
-            add(ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR);
-            add(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
-            add(ModDecorativeBlocks.SIMPLE_LARCH_GATE);
-            add(ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR);
-            add(ModDecorativeBlocks.SPRUCE_STABLE_DOOR);
-            add(ModDecorativeBlocks.LARGE_STURDY_DOOR);
-            add(ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE);
-            add(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
-            add(ModDecorativeBlocks.RUINED_DWARVEN_DOOR);
-            add(ModDecorativeBlocks.GREAT_ELVEN_GATE);
+            add(BlockRegistryME.AGED_WOOD_DOOR);
+            add(DecorativeBlockRegistryME.BLUE_HOBBIT_DOOR);
+            add(DecorativeBlockRegistryME.GREEN_HOBBIT_DOOR);
+            add(DecorativeBlockRegistryME.LIGHT_BLUE_HOBBIT_DOOR);
+            add(DecorativeBlockRegistryME.RED_HOBBIT_DOOR);
+            add(DecorativeBlockRegistryME.YELLOW_HOBBIT_DOOR);
+            add(DecorativeBlockRegistryME.LARCH_HOBBIT_DOOR);
+            add(DecorativeBlockRegistryME.SPRUCE_HOBBIT_DOOR);
+            add(DecorativeBlockRegistryME.TALL_BLACK_PINE_DOOR);
+            add(DecorativeBlockRegistryME.TALL_FIR_DOOR);
+            add(DecorativeBlockRegistryME.OAK_STABLE_DOOR);
+            add(DecorativeBlockRegistryME.REINFORCED_BLACK_PINE_DOOR);
+            add(DecorativeBlockRegistryME.REINFORCED_SPRUCE_DOOR);
+            add(DecorativeBlockRegistryME.SIMPLE_LARCH_GATE);
+            add(DecorativeBlockRegistryME.RICKETY_SIMPLE_LARCH_DOOR);
+            add(DecorativeBlockRegistryME.SPRUCE_STABLE_DOOR);
+            add(DecorativeBlockRegistryME.LARGE_STURDY_DOOR);
+            add(DecorativeBlockRegistryME.LARGE_BEECH_FENCE_GATE);
+            add(DecorativeBlockRegistryME.VARNISHED_DWARVEN_DOOR);
+            add(DecorativeBlockRegistryME.RUINED_DWARVEN_DOOR);
+            add(DecorativeBlockRegistryME.GREAT_ELVEN_GATE);
 
-            add(ModDecorativeBlocks.THIN_BARREL);
-            add(ModDecorativeBlocks.SMALL_CRATE);
+            add(DecorativeBlockRegistryME.THIN_BARREL);
+            add(DecorativeBlockRegistryME.SMALL_CRATE);
 
-            add(ModDecorativeBlocks.BEECH_COFFER);
-            add(ModDecorativeBlocks.CHESTNUT_COFFER);
-            add(ModDecorativeBlocks.FIR_COFFER);
-            add(ModDecorativeBlocks.LARCH_COFFER);
-            add(ModDecorativeBlocks.OAK_COFFER);
-            add(ModDecorativeBlocks.PINE_COFFER);
-            add(ModDecorativeBlocks.SPRUCE_COFFER);
-            add(ModDecorativeBlocks.WILLOW_COFFER);
-            add(ModDecorativeBlocks.REINFORCED_CHEST);
+            add(DecorativeBlockRegistryME.BEECH_COFFER);
+            add(DecorativeBlockRegistryME.CHESTNUT_COFFER);
+            add(DecorativeBlockRegistryME.FIR_COFFER);
+            add(DecorativeBlockRegistryME.LARCH_COFFER);
+            add(DecorativeBlockRegistryME.OAK_COFFER);
+            add(DecorativeBlockRegistryME.PINE_COFFER);
+            add(DecorativeBlockRegistryME.SPRUCE_COFFER);
+            add(DecorativeBlockRegistryME.WILLOW_COFFER);
+            add(DecorativeBlockRegistryME.REINFORCED_CHEST);
 
-            add(ModBlocks.AGED_WOOD_TRAPDOOR);
-            add(ModBlocks.BLACK_WATTLE_TRAPDOOR);
-            add(ModBlocks.DARK_WATTLE_TRAPDOOR);
-            add(ModBlocks.GREEN_WATTLE_TRAPDOOR);
-            add(ModBlocks.RED_WATTLE_TRAPDOOR);
-            add(ModBlocks.WATTLE_TRAPDOOR);
+            add(BlockRegistryME.AGED_WOOD_TRAPDOOR);
+            add(BlockRegistryME.BLACK_WATTLE_TRAPDOOR);
+            add(BlockRegistryME.DARK_WATTLE_TRAPDOOR);
+            add(BlockRegistryME.GREEN_WATTLE_TRAPDOOR);
+            add(BlockRegistryME.RED_WATTLE_TRAPDOOR);
+            add(BlockRegistryME.WATTLE_TRAPDOOR);
 
-            add(ModBlocks.TREATED_WOOD_ROPE_FENCE);
+            add(BlockRegistryME.TREATED_WOOD_ROPE_FENCE);
 
-            add(ModDecorativeBlocks.BELLOWS);
+            add(DecorativeBlockRegistryME.BELLOWS);
 
-            add(ModDecorativeBlocks.TREATED_WOOD_LADDER);
-            add(ModDecorativeBlocks.TREATED_WOOD_STOOL);
-            add(ModDecorativeBlocks.TREATED_WOOD_CHAIR);
-            add(ModDecorativeBlocks.TREATED_WOOD_TABLE);
-            add(ModDecorativeBlocks.TREATED_WOOD_BENCH);
+            add(DecorativeBlockRegistryME.TREATED_WOOD_LADDER);
+            add(DecorativeBlockRegistryME.TREATED_WOOD_STOOL);
+            add(DecorativeBlockRegistryME.TREATED_WOOD_CHAIR);
+            add(DecorativeBlockRegistryME.TREATED_WOOD_TABLE);
+            add(DecorativeBlockRegistryME.TREATED_WOOD_BENCH);
 
-            add(ModNatureBlocks.BROWN_BOLETE_BLOCK);
-            add(ModNatureBlocks.CAVE_AMANITA_BLOCK);
-            add(ModNatureBlocks.DEEP_FIRECAP_BLOCK);
-            add(ModNatureBlocks.SKY_FIRECAP_BLOCK);
-            add(ModNatureBlocks.YELLOW_AMANITA_BLOCK);
+            add(NatureBlockRegistryME.BROWN_BOLETE_BLOCK);
+            add(NatureBlockRegistryME.CAVE_AMANITA_BLOCK);
+            add(NatureBlockRegistryME.DEEP_FIRECAP_BLOCK);
+            add(NatureBlockRegistryME.SKY_FIRECAP_BLOCK);
+            add(NatureBlockRegistryME.YELLOW_AMANITA_BLOCK);
 
-            add(ModNatureBlocks.AZALEA_FLOWER_GROWTH);
-            add(ModNatureBlocks.DRY_GROWTH);
-            add(ModNatureBlocks.FROZEN_GROWTH);
-            add(ModNatureBlocks.GREEN_GROWTH);
-            add(ModNatureBlocks.IVY_GROWTH);
-            add(ModNatureBlocks.LILAC_FLOWER_GROWTH);
-            add(ModNatureBlocks.PINK_FLOWER_GROWTH);
-            add(ModNatureBlocks.RED_FLOWER_GROWTH);
-            add(ModNatureBlocks.THORNY_GROWTH);
-            add(ModNatureBlocks.WHITE_FLOWER_GROWTH);
-            add(ModNatureBlocks.YELLOW_FLOWER_GROWTH);
+            add(NatureBlockRegistryME.AZALEA_FLOWER_GROWTH);
+            add(NatureBlockRegistryME.DRY_GROWTH);
+            add(NatureBlockRegistryME.FROZEN_GROWTH);
+            add(NatureBlockRegistryME.GREEN_GROWTH);
+            add(NatureBlockRegistryME.IVY_GROWTH);
+            add(NatureBlockRegistryME.LILAC_FLOWER_GROWTH);
+            add(NatureBlockRegistryME.PINK_FLOWER_GROWTH);
+            add(NatureBlockRegistryME.RED_FLOWER_GROWTH);
+            add(NatureBlockRegistryME.THORNY_GROWTH);
+            add(NatureBlockRegistryME.WHITE_FLOWER_GROWTH);
+            add(NatureBlockRegistryME.YELLOW_FLOWER_GROWTH);
         }
     };
 }

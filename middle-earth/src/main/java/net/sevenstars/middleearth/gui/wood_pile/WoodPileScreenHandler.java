@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.gui.wood_pile;
 
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -17,7 +17,7 @@ public class WoodPileScreenHandler extends ScreenHandler {
         this(syncId, playerInventory, new SimpleInventory(9));
     }
     public WoodPileScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        super(ModScreenHandlers.WOOD_PILE_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, syncId);
         checkSize(inventory, 9);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);

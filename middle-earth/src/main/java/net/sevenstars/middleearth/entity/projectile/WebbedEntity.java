@@ -19,7 +19,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
@@ -51,7 +51,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
     }
 
     protected Item getDefaultItem() {
-        return ModNatureBlocks.WEBBING.asItem();
+        return NatureBlockRegistryME.WEBBING.asItem();
     }
 
     @Override
@@ -110,7 +110,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
             for (int j = 0; j < amount; j++) {
                 this.getWorld()
                         .addParticleClient(
-                                new BlockStateParticleEffect(ParticleTypes.BLOCK, ModNatureBlocks.WEBBING.getDefaultState()),
+                                new BlockStateParticleEffect(ParticleTypes.BLOCK, NatureBlockRegistryME.WEBBING.getDefaultState()),
                                 this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 0.0, 0.0, 0.0
                         );
             }

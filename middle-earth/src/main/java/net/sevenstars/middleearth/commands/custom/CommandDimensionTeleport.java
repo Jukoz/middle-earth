@@ -11,7 +11,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.commands.ModCommands;
+import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 
 public class CommandDimensionTeleport {
@@ -19,7 +19,7 @@ public class CommandDimensionTeleport {
     private static final String PLAYER = "player";
     private static final String LOCATION = "location";
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
-        dispatcher.register((CommandManager.literal(ModCommands.BASE_COMMAND)
+        dispatcher.register((CommandManager.literal(CommandRegistryME.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)))
                 .then((CommandManager.literal(TP))
                 .then(CommandManager.argument(PLAYER, EntityArgumentType.player())

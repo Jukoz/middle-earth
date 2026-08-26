@@ -14,6 +14,6 @@ public class ActivitiesME {
     }
 
     public static void registerModActivities() {
-        SevenStarsApi.LOGGER.logDebugMsg("Registering ModActivities for " + MiddleEarth.MOD_ID);
+        MiddleEarth.LOGGER.logDebugMsg("Registering ModActivities for " + MiddleEarth.MOD_ID);
     }
 }

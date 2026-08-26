@@ -13,7 +13,7 @@ import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoneBlockSets {
+public class StoneBlockSetRegistryME {
     public static final float STONE_HARDNESS = Blocks.STONE.getHardness(); //1.5f
     public static final float STONE_BLAST_RESISTANCE = Blocks.STONE.getBlastResistance(); //6.0f
 

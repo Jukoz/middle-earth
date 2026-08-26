@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.network.handlers;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.gui.onboarding.OnboardingSelectionScreen;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.api.network.contexts.ClientPacketContext;
@@ -25,7 +25,7 @@ public class OnboardingScreenHandler {
                     var controller = new OnboardingFactionScreenController(world, delay, playerAttributes);
                     controller.open();
                 } else {
-                    client.setScreen(new OnboardingSelectionScreen(delay, ModServerConfigs.ENABLE_FACTION_RESET, playerAttributes));
+                    client.setScreen(new OnboardingSelectionScreen(delay, ServerConfigME.ENABLE_FACTION_RESET, playerAttributes));
                 }
             }
         } catch (Exception e){

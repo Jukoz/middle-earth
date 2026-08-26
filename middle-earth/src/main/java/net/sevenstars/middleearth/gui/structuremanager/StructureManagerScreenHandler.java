@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.network.packets.client2server.PacketStructureManagerRespawnEntities;
 import net.sevenstars.middleearth.network.packets.client2server.PacketStructureManagerShowAllEntities;
 import net.sevenstars.middleearth.network.packets.client2server.PacketStructureManagerUpdateBlockEntityRequest;
@@ -22,7 +22,7 @@ public class StructureManagerScreenHandler extends ScreenHandler {
 
     // Client side Constructor
     public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory, StructureManagerScreenData structureManagerScreenData) {
-        super(ModScreenHandlers.STRUCTURE_MANAGER_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, syncId);
         this.world = playerInventory.player.getWorld();
         this.data = structureManagerScreenData;
         this.blockEntity = (StructureManagerBlockEntity) this.world.getBlockEntity(data.getPos());

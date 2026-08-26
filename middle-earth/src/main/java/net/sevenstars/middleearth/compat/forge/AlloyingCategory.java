@@ -11,11 +11,10 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.compat.REICommonPluginME;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
 
@@ -38,7 +37,7 @@ public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModDecorativeBlocks.FORGE.asItem().getDefaultStack());
+        return EntryStacks.of(DecorativeBlockRegistryME.FORGE.asItem().getDefaultStack());
     }
 
     @Override

@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.Optional;
 
-public class MEModels {
+public class ModelsME {
     public static final Model VERTICAL_SLAB;
     public static final Model VERTICAL_SLAB_INNER;
     public static final Model VERTICAL_SLAB_OUTER;

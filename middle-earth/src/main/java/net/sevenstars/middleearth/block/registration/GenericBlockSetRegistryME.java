@@ -10,62 +10,61 @@ import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.OxidizableBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
-import net.sevenstars.middleearth.datageneration.content.tags.WoodenSlabs;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenericBlockSets {
+public class GenericBlockSetRegistryME {
 
     public static List<GenericBlockSetBuilder> genericSetsList = new ArrayList<>();
     public static List<SimpleBlockSetBuilder> simpleSetsList = new ArrayList<>();
 
     public static GenericBlockSetBuilder WHITE_DAUB = registerBlockSet(new GenericBlockSetBuilder(
-            "white_daub", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "white_daub", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder DARK_DAUB = registerBlockSet(new GenericBlockSetBuilder(
-            "dark_daub", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "dark_daub", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder YELLOW_DAUB = registerBlockSet(new GenericBlockSetBuilder(
-            "yellow_daub", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "yellow_daub", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_YELLOW, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder PLASTER = registerBlockSet(new GenericBlockSetBuilder(
-            "plaster", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "plaster", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder STUCCO = registerBlockSet(new GenericBlockSetBuilder(
-            "stucco", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "stucco", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.OFF_WHITE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder PACKED_MIRE = registerBlockSet(new GenericBlockSetBuilder(
-            "packed_mire", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.PACKED_MUD, true,
+            "packed_mire", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.PACKED_MUD, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder MIRE_BRICKS = registerBlockSet(new GenericBlockSetBuilder(
-            "mire_bricks", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.PACKED_MUD, true,
+            "mire_bricks", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.TERRACOTTA_BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.PACKED_MUD, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder FRAMED_DRYSTONE = registerPillarBlockSet(new GenericBlockSetBuilder(
-            "framed_drystone", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "framed_drystone", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.DEEPSLATE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder OLD_BRICKS = registerBlockSet(new GenericBlockSetBuilder(
-            "old_bricks", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.DULL_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "old_bricks", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.DULL_RED, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder MIXED_STONES = registerBlockSet(new GenericBlockSetBuilder(
-            "mixed_stones", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "mixed_stones", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder MOSSY_MIXED_STONES = registerBlockSet(new GenericBlockSetBuilder(
-            "mossy_mixed_stones", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "mossy_mixed_stones", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
     public static GenericBlockSetBuilder CRACKED_MIXED_STONES = registerBlockSet(new GenericBlockSetBuilder(
-            "cracked_mixed_stones", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "cracked_mixed_stones", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder MIXED_STONES_BRICKWORK = registerBlockSet(new GenericBlockSetBuilder(
-            "mixed_stones_brickwork", StoneBlockSets.STONE_HARDNESS + 0.5f, StoneBlockSets.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
+            "mixed_stones_brickwork", StoneBlockSetRegistryME.STONE_HARDNESS + 0.5f, StoneBlockSetRegistryME.STONE_BLAST_RESISTANCE, MapColor.STONE_GRAY, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true,
             ItemGroupsME.STONE_BLOCKS_CONTENTS));
 
     public static GenericBlockSetBuilder CLAY_TILING = registerBlockSet(new GenericBlockSetBuilder(

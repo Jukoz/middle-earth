@@ -9,7 +9,6 @@ import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.model.BakedSimpleModel;
 import net.minecraft.client.render.model.BlockStateModel;
 import net.minecraft.client.render.model.ModelBaker;
-import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -17,7 +16,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
-public class MEModelLoader extends ModelBaker {
+public class ModelLoaderME extends ModelBaker {
     public static final SpriteIdentifier KITE_SHIELD_BASE;
     public static final SpriteIdentifier KITE_SHIELD_BASE_NO_PATTERN;
 
@@ -27,7 +26,7 @@ public class MEModelLoader extends ModelBaker {
     public static final SpriteIdentifier ROUND_SHIELD_BASE;
     public static final SpriteIdentifier ROUND_SHIELD_BASE_NO_PATTERN;
 
-    public MEModelLoader(LoadedEntityModels entityModels, Map<BlockState, BlockStateModel.UnbakedGrouped> blockModels, Map<Identifier, ItemAsset> itemModels, Map<Identifier, BakedSimpleModel> simpleModels, BakedSimpleModel missingModel) {
+    public ModelLoaderME(LoadedEntityModels entityModels, Map<BlockState, BlockStateModel.UnbakedGrouped> blockModels, Map<Identifier, ItemAsset> itemModels, Map<Identifier, BakedSimpleModel> simpleModels, BakedSimpleModel missingModel) {
         super(entityModels, blockModels, itemModels, simpleModels, missingModel);
     }
 

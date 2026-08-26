@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.block.special.bellows;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.state.property.EnumProperty;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -47,7 +47,7 @@ public class BellowsBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return BellowsBlock.validateTicker(world, type, ModBlockEntities.BELLOWS);
+        return BellowsBlock.validateTicker(world, type, BlockEntityRegistryME.BELLOWS);
     }
 
     @Nullable

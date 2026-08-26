@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.Block;
@@ -19,12 +18,11 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
@@ -35,7 +33,7 @@ import net.sevenstars.middleearth.world.dimension.ModDimensions;
 
 import java.util.Objects;
 
-public class ModEvents {
+public class EventRegistryME {
     private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
 
     public static void register(){
@@ -51,7 +49,7 @@ public class ModEvents {
                 boolean isInMiddleEarth = ModDimensions.isInMiddleEarth(player.getWorld());
                 if(isInMiddleEarth){
                     RaceUtil.initializeRace(player);
-                } else if(ModServerConfigs.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
+                } else if(ServerConfigME.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
                     RaceUtil.initializeRace(player);
                 }
             }

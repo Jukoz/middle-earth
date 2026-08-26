@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.commands;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.sevenstars.middleearth.commands.custom.*;
 
-public class ModCommands {
+public class CommandRegistryME {
     public static String BASE_COMMAND = "middle_earth";
     public static void register() {
         // PlayerFactionPayload Commands

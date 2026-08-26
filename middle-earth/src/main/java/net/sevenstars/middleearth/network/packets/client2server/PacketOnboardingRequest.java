@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.network.packets.client2server;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.network.packets.server2client.PacketOnboardingResult;
@@ -37,9 +37,9 @@ public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardi
 
                 PacketOnboardingResult newPacket = new PacketOnboardingResult(
                         PlayerDataService.playerPassedOnboarding(context.player()),
-                        ModServerConfigs.ENABLE_FACTION_RESET,
-                        ModServerConfigs.ENABLE_RETURN_TO_OVERWORLD,
-                        ModServerConfigs.DELAY_ON_TELEPORT_CONFIRMATION,
+                        ServerConfigME.ENABLE_FACTION_RESET,
+                        ServerConfigME.ENABLE_RETURN_TO_OVERWORLD,
+                        ServerConfigME.DELAY_ON_TELEPORT_CONFIRMATION,
                         AttributePoolElement.createAttributeNbtListFromPlayer(player)
                 );
                 ServerPlayNetworking.send(player, newPacket);

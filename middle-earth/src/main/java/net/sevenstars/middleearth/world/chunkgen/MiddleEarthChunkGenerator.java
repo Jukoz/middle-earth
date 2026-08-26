@@ -27,15 +27,13 @@ import net.minecraft.world.gen.StructureTerrainAdaptation;
 import net.minecraft.world.gen.StructureWeightSampler;
 import net.minecraft.world.gen.chunk.Blender;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseConfig;
 import net.minecraft.world.gen.structure.Structure;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.utils.noises.BlendedNoise;
 import net.sevenstars.middleearth.utils.noises.SimplexNoise;
 import net.sevenstars.middleearth.world.biomes.BlocksLayeringData;
@@ -49,7 +47,6 @@ import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
@@ -465,13 +462,13 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 for(int y = bottomY + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.MEDGON_SET.baseBlocks.base().getDefaultState());
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
                 }
                 if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z),
                         Blocks.BEDROCK.getDefaultState(), 0);
 
                 for(int y = MEDGON_LEVEL + (int) caveBlendNoise; y < NURGON_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSets.NURGON_SET.baseBlocks.base().getDefaultState());
+                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base().getDefaultState());
                 }
                 for(int y = NURGON_LEVEL + (int) caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), Blocks.DEEPSLATE.getDefaultState());
@@ -493,30 +490,30 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState()) {
                     surfaceBlock = Blocks.DIRT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
-                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
-                    surfaceBlock = ModBlocks.CHALKSOIL.getDefaultState();
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == BlockRegistryME.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = BlockRegistryME.CHALKSOIL.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
-                }else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
-                    surfaceBlock = ModBlocks.LOAM.getDefaultState();
+                }else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == BlockRegistryME.LOAM_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = BlockRegistryME.LOAM.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
-                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
-                    surfaceBlock = ModBlocks.PEAT.getDefaultState();
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == BlockRegistryME.PEAT_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = BlockRegistryME.PEAT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
-                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == ModBlocks.SILT_GRASS_BLOCK.getDefaultState()) {
-                    surfaceBlock = ModBlocks.SILT.getDefaultState();
+                } else if(DIRT_HEIGHT + height < waterHeight && surfaceBlock == BlockRegistryME.SILT_GRASS_BLOCK.getDefaultState()) {
+                    surfaceBlock = BlockRegistryME.SILT.getDefaultState();
                     underSurfaceBlock = surfaceBlock;
                 } else {
                     surfaceBlock = customHeightBiomeHeightData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle).getDefaultState();
-                    if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == ModBlocks.SNOWY_GRASS_BLOCK.getDefaultState()) {
+                    if(surfaceBlock == Blocks.GRASS_BLOCK.getDefaultState() || surfaceBlock == BlockRegistryME.SNOWY_GRASS_BLOCK.getDefaultState()) {
                         underSurfaceBlock = Blocks.DIRT.getDefaultState();
-                    } else if(surfaceBlock == ModBlocks.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
-                        underSurfaceBlock = ModBlocks.CHALKSOIL.getDefaultState();
-                    }else if(surfaceBlock == ModBlocks.LOAM_GRASS_BLOCK.getDefaultState()) {
-                        underSurfaceBlock = ModBlocks.LOAM.getDefaultState();
-                    } else if(surfaceBlock == ModBlocks.PEAT_GRASS_BLOCK.getDefaultState()) {
-                        underSurfaceBlock = ModBlocks.PEAT.getDefaultState();
-                    } else if(surfaceBlock == ModBlocks.SILT_GRASS_BLOCK.getDefaultState()) {
-                        underSurfaceBlock = ModBlocks.SILT.getDefaultState();
+                    } else if(surfaceBlock == BlockRegistryME.CHALKSOIL_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = BlockRegistryME.CHALKSOIL.getDefaultState();
+                    }else if(surfaceBlock == BlockRegistryME.LOAM_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = BlockRegistryME.LOAM.getDefaultState();
+                    } else if(surfaceBlock == BlockRegistryME.PEAT_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = BlockRegistryME.PEAT.getDefaultState();
+                    } else if(surfaceBlock == BlockRegistryME.SILT_GRASS_BLOCK.getDefaultState()) {
+                        underSurfaceBlock = BlockRegistryME.SILT.getDefaultState();
                     }
                     else underSurfaceBlock = surfaceBlock;
                 }
@@ -540,7 +537,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     }
                 }
 
-                if(ModServerConfigs.ENABLE_PROCEDURAL_STRUCTURES) {
+                if(ServerConfigME.ENABLE_PROCEDURAL_STRUCTURES) {
                     ProceduralStructures.generateStructures(customHeightBiomeHeightData, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
                 }
             }

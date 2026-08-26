@@ -6,10 +6,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.*;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.GenericBlockSets;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
-import net.sevenstars.middleearth.block.registration.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
@@ -20,7 +20,7 @@ public class ItemGroupsME {
     public static final List<ItemStack> STONE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup STONE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable(MiddleEarth.of("stone_blocks").toTranslationKey("itemGroup")))
-            .icon(() -> new ItemStack(StoneBlockSets.CALCITE_SET.brickBlocks.base().asItem()))
+            .icon(() -> new ItemStack(StoneBlockSetRegistryME.CALCITE_SET.brickBlocks.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : STONE_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -31,7 +31,7 @@ public class ItemGroupsME {
     public static final List<ItemStack> WOOD_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WOOD_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable(MiddleEarth.of("wood_blocks").toTranslationKey("itemGroup")))
-            .icon(() -> new ItemStack(WoodBlockSets.WILLOW_SET.logBlocks.log().asItem()))
+            .icon(() -> new ItemStack(WoodBlockSetRegistryME.WILLOW_SET.logBlocks.log().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WOOD_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -42,7 +42,7 @@ public class ItemGroupsME {
     public static final List<ItemStack> MISC_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup MISC_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".misc_blocks"))
-            .icon(() -> new ItemStack(GenericBlockSets.STRAW.blockSet.base().asItem()))
+            .icon(() -> new ItemStack(GenericBlockSetRegistryME.STRAW.blockSet.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : MISC_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -65,7 +65,7 @@ public class ItemGroupsME {
     public static final List<ItemStack> NATURE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup NATURE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".nature_blocks"))
-            .icon(() -> new ItemStack(ModNatureBlocks.HEATHER.asItem()))
+            .icon(() -> new ItemStack(NatureBlockRegistryME.HEATHER.asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : NATURE_BLOCKS_CONTENTS) {
                     entries.add(item);

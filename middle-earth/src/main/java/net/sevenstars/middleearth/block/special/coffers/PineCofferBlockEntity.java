@@ -7,11 +7,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 
 public class PineCofferBlockEntity extends ChestBlockEntity {
     public PineCofferBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.PINE_COFFER, pos, state);
+        super(BlockEntityRegistryME.PINE_COFFER, pos, state);
 
         this.setHeldStacks(DefaultedList.ofSize(this.size(), ItemStack.EMPTY));
     }

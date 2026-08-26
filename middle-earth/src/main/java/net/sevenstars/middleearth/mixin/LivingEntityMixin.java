@@ -21,7 +21,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
@@ -175,7 +175,7 @@ public abstract class LivingEntityMixin extends Entity {
     @WrapOperation(method = "applyClimbingSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z", ordinal = 0))
     private boolean ScaffoldingDescendLogic(BlockState state, Block block, Operation<Boolean> original) {
         return original.call(state, block)
-                || block == Blocks.SCAFFOLDING && state.isOf(ModDecorativeBlocks.REINFORCED_SCAFFOLDING);
+                || block == Blocks.SCAFFOLDING && state.isOf(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING);
     }
 
     @Inject(method = "remove", at = @At("TAIL"))

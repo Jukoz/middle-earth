@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.utils;
 
-public enum ModColors {
+public enum ColorsME {
     ALERT(0xED553B),
     WARNING(0xF6D55C),
     SUCCESS(0x00C851),
@@ -12,7 +12,7 @@ public enum ModColors {
     TEMP_5(0xb32400);
 
     public final int color;
-    ModColors(int color){
+    ColorsME(int color){
         this.color = color;
     }
 }

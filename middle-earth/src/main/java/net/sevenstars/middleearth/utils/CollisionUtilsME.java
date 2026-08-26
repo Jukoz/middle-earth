@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ModCollisionUtils {
+public class CollisionUtilsME {
     // Default ray length used for collision detection
     public static final double DEFAULT_RAY_LENGTH = 0.2;
 

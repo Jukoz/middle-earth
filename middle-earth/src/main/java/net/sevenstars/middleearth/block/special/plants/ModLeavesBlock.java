@@ -21,8 +21,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
 
 public class ModLeavesBlock extends TintedParticleLeavesBlock {
     final protected boolean castShadow;
@@ -85,8 +85,8 @@ public class ModLeavesBlock extends TintedParticleLeavesBlock {
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (stack.isOf(Items.BONE_MEAL) && state.isOf(WoodBlockSets.MALLORN_SET.leaves)) {
-            world.setBlockState(pos, ModNatureBlocks.FLOWERING_MALLORN_LEAVES.getDefaultState());
+        if (stack.isOf(Items.BONE_MEAL) && state.isOf(WoodBlockSetRegistryME.MALLORN_SET.leaves)) {
+            world.setBlockState(pos, NatureBlockRegistryME.FLOWERING_MALLORN_LEAVES.getDefaultState());
             return ActionResult.SUCCESS;
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);

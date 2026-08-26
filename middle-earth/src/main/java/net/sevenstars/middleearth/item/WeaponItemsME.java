@@ -8,7 +8,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
@@ -1063,7 +1063,7 @@ public class WeaponItemsME {
             HeldBannerItem::new);
 
     private static Item registerItemWithModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         if(isDualModel) {
             SimpleBigItemModel.items.add(item);
@@ -1076,13 +1076,13 @@ public class WeaponItemsME {
     }
 
     private static Item registerItemNoModel(String name, Function<Item.Settings, Item> factory) {
-        Item item = (Item)factory.apply(new Item.Settings().registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(new Item.Settings().registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         return registerItem(item, name);
     }
 
     private static Item registerItemWithSpearModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         spears.add(item);
         SimpleSpearModel.items.add(item);
@@ -1090,7 +1090,7 @@ public class WeaponItemsME {
     }
 
     private static Item registerBowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBowItemModel.items.add(item);
         Bows.bows.add(item);
@@ -1098,7 +1098,7 @@ public class WeaponItemsME {
     }
 
     private static Item registerBigBowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.enchantable(2).registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.bigBows.add(item);
         Bows.bows.add(item);
@@ -1108,7 +1108,7 @@ public class WeaponItemsME {
     private static Item registerCrossbowItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.maxCount(1).maxDamage(465)
                 .component(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT).enchantable(1)
-                .registryKey(ModBlocks.keyOfItem(name)));
+                .registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleCrossbowItemModel.items.add(item);
         Crossbows.crossbows.add(item);
@@ -1116,20 +1116,20 @@ public class WeaponItemsME {
     }
 
     private static Item registerArtefact(String name, Function<Item.Settings, Item> factory, Item.Settings settings, boolean isDualModel) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         SimpleArtefactModels.artefacts.add(new SimpleArtefactModels.Artefact(item, isDualModel));
         return registerItem(item, name);
     }
 
     private static Item registerBannerShield(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         return registerItem(item, name);
     }
 
     private static Item registerShield(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.WEAPONS_CONTENTS.add(item.getDefaultStack());
         shields.add(item);
         return registerItem(item, name);
@@ -1148,7 +1148,7 @@ public class WeaponItemsME {
             WeaponEnchants.sharpWeapons.add(item);
         }
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return Registry.register(Registries.ITEM, BlockRegistryME.keyOfItem(name), item);
     }
 
     public static void registerModItems() {

@@ -54,7 +54,7 @@ import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 
-public class ModDecorativeBlocks {
+public class DecorativeBlockRegistryME {
 
     public static final Block SILVER_LANTERN = registerBlock("silver_lantern",
             SilverLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
@@ -502,89 +502,89 @@ public class ModDecorativeBlocks {
     public static final Block WATERING_CAN = registerBlock("watering_can",
             WateringCanBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().requiresTool());
     public static final Block POTTED_ASPEN_SAPLING = registerBlock("potted_aspen_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.ASPEN_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.ASPEN_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_BEECH_SAPLING = registerBlock("potted_beech_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.BEECH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.BEECH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_CHESTNUT_SAPLING = registerBlock("potted_chestnut_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.CHESTNUT_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.CHESTNUT_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_HOLLY_SAPLING = registerBlock("potted_holly_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.HOLLY_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.HOLLY_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_FIR_SAPLING = registerBlock("potted_fir_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.FIR_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.FIR_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_LARCH_SAPLING = registerBlock("potted_larch_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.LARCH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.LARCH_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_LEBETHRON_SAPLING = registerBlock("potted_lebethron_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.LEBETHRON_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.LEBETHRON_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_WHITE_LEBETHRON_SAPLING = registerBlock("potted_white_lebethron_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.WHITE_LEBETHRON_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.WHITE_LEBETHRON_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_MALLORN_SAPLING = registerBlock("potted_mallorn_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.MALLORN_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.MALLORN_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_MAPLE_SAPLING = registerBlock("potted_maple_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.MAPLE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.MAPLE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_SILVER_MAPLE_SAPLING = registerBlock("potted_silver_maple_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.SILVER_MAPLE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.SILVER_MAPLE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_MIRKWOOD_SAPLING = registerBlock("potted_mirkwood_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.MIRKWOOD_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.MIRKWOOD_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_PALM_SAPLING = registerBlock("potted_palm_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.PALM_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.PALM_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_WHITE_PALM_SAPLING = registerBlock("potted_white_palm_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.WHITE_PALM_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.WHITE_PALM_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_PINE_SAPLING = registerBlock("potted_pine_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.PINE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.PINE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_BLACK_PINE_SAPLING = registerBlock("potted_black_pine_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.BLACK_PINE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.BLACK_PINE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_WHITE_SPRUCE_SAPLING = registerBlock("potted_white_spruce_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.WHITE_SPRUCE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.WHITE_SPRUCE_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_WILLOW_SAPLING = registerBlock("potted_willow_sapling",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.WILLOW_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.WILLOW_SAPLING, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block POTTED_GREEN_SHRUB = registerBlock("potted_green_shrub",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.GREEN_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.GREEN_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_ELANOR = registerBlock("potted_elanor",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.ELANOR, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.ELANOR, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_MALLOS = registerBlock("potted_mallos",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.MALLOS, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.MALLOS, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_NIPHREDIL = registerBlock("potted_niphredil",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.NIPHREDIL, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.NIPHREDIL, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_SIMBELMYNE = registerBlock("potted_simbelmyne",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.SIMBELMYNE, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.SIMBELMYNE, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_YELLOW_FLOWER = registerBlock("potted_yellow_flower",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.YELLOW_FLOWER, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.YELLOW_FLOWER, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_YELLOW_TROLLIUS = registerBlock("potted_yellow_trollius",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.YELLOW_TROLLIUS, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.YELLOW_TROLLIUS, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_TAN_SHRUB = registerBlock("potted_tan_shrub",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.TAN_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.TAN_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_BLUE_GENTIAN = registerBlock("potted_blue_gentian",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.BLUE_GENTIAN, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.BLUE_GENTIAN, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_GREEN_JEWEL_CORNFLOWER = registerBlock("potted_green_jewel_cornflower",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.GREEN_JEWEL_CORNFLOWER, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_NOBLEWHITE = registerBlock("potted_noblewhite",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.NOBLEWHITE, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.NOBLEWHITE, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_SCORCHED_SHRUB = registerBlock("potted_scorched_shrub",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.SCORCHED_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.SCORCHED_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_FROZEN_SHRUB = registerBlock("potted_frozen_shrub",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.FROZEN_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.FROZEN_SHRUB, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     
     public static final Block POTTED_CAVE_AMANITA = registerBlock("potted_cave_amanita",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.CAVE_AMANITA, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.CAVE_AMANITA, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_DEEP_FIRECAP = registerBlock("potted_deep_firecap",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.DEEP_FIRECAP, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.DEEP_FIRECAP, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_GHOSTSHROOM = registerBlock("potted_ghostshroom",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.GHOSTSHROOM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.GHOSTSHROOM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_MORSEL = registerBlock("potted_morsel",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.MORSEL, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.MORSEL, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_SKYFIRECAP = registerBlock("potted_sky_firecap",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.SKY_FIRECAP, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.SKY_FIRECAP, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_TRUMPET_SHROOM = registerBlock("potted_trumpet_shroom",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.TRUMPET_SHROOM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.TRUMPET_SHROOM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_TUBESHROOM = registerBlock("potted_tubeshroom",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.TUBESHRROM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.TUBESHRROM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_VIOLET_CAPS = registerBlock("potted_violet_caps",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.VIOLET_CAPS, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.VIOLET_CAPS, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_WHITE_MUSHROOM = registerBlock("potted_white_mushroom",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.WHITE_MUSHROOM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.WHITE_MUSHROOM, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
     public static final Block POTTED_YELLOW_AMANITA = registerBlock("potted_yellow_amanita",
-            (settings) -> new FlowerPotBlock(ModNatureBlocks.YELLOW_AMANITA, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
+            (settings) -> new FlowerPotBlock(NatureBlockRegistryME.YELLOW_AMANITA, settings),  AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY));
 
     public static final Block BROWN_JUG = registerBlockWithItem("brown_jug",
             JugBlock::new, AbstractBlock.Settings.copy(Blocks.DECORATED_POT).nonOpaque());
@@ -772,18 +772,18 @@ public class ModDecorativeBlocks {
                     .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
+        Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
-        return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
+        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
     }
 
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        Block block = (Block)factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
-        ModBlocks.registerBlockItem(name, block);
+        Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
+        BlockRegistryME.registerBlockItem(name, block);
         ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
-        return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
+        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {

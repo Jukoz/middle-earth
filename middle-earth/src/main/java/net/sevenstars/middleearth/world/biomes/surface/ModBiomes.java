@@ -6,7 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
+import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
 import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
 import net.sevenstars.middleearth.world.features.boulder.BoulderPlacedFeatures;
@@ -382,7 +382,7 @@ public class ModBiomes {
         ModBiomeFeatures.addVeryRareDryGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.PALE_MOSS_PATCH);
 
-        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, new BiomeParticleConfig(ModParticleTypes.BIOME_FOG_PARTICLE, 0.003f), 0.5f, true);
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, new BiomeParticleConfig(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, 0.003f), 0.5f, true);
     }
 
     public static void createBeleriandIslandBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {

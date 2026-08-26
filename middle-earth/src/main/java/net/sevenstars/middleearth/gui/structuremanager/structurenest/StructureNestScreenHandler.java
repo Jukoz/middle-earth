@@ -9,7 +9,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.network.packets.client2server.PacketStructureNestUpdateBlockEntityRequest;
 
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class StructureNestScreenHandler  extends ScreenHandler {
     StructureNestBlockEntity blockEntity;
 
     public StructureNestScreenHandler(int syncId, PlayerInventory playerInventory, StructureNestScreenData structureNestScreenData) {
-        super(ModScreenHandlers.STRUCTURE_NEST_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, syncId);
         this.world = playerInventory.player.getWorld();
         this.data = structureNestScreenData;
         this.blockEntity = (StructureNestBlockEntity) this.world.getBlockEntity(data.getPos());

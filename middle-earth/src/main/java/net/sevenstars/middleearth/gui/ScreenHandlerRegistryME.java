@@ -20,7 +20,7 @@ import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenDat
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 
-public class ModScreenHandlers {
+public class ScreenHandlerRegistryME {
     public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER
             = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
     

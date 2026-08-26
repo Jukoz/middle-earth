@@ -1,11 +1,11 @@
-package net.sevenstars.middleearth.config;
+package net.sevenstars.api.config;
 
 import com.mojang.datafixers.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModConfigProvider implements SimpleConfig.DefaultConfig {
+public class ConfigProvider implements net.sevenstars.api.config.SimpleConfig.DefaultConfig {
     public static final String COMMENT_PREFIX = "# ";
     public static final String SECTION_PREFIX = "# ";
     public static final String VALUE_PREFIX = "    ";

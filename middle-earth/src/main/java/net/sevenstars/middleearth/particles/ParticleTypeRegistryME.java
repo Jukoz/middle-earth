@@ -7,7 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class ModParticleTypes {
+public class ParticleTypeRegistryME {
 
     public static final SimpleParticleType ANVIL_SPARK_PARTICLE = FabricParticleTypes.simple();
     public static final SimpleParticleType BIOME_FOG_PARTICLE = FabricParticleTypes.simple(true);

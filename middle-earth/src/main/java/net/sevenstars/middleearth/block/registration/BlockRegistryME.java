@@ -31,7 +31,7 @@ import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import java.util.List;
 import java.util.function.Function;
 
-public class ModBlocks {
+public class BlockRegistryME {
     public static final float DIRT_STRENGTH = 0.6f;
     public static final float SLAB_RESISTANCE = 6.0f; // From explosions
 
@@ -413,11 +413,11 @@ public class ModBlocks {
     public static final Block QUARTZ_CLUSTER = registerMiscBlock("quartz_cluster",
             (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
     public static final Block LARGE_QUARTZ_BUD = registerMiscBlock("large_quartz_bud",
-            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(ModBlocks.QUARTZ_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.QUARTZ_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
     public static final Block MEDIUM_QUARTZ_BUD = registerMiscBlock("medium_quartz_bud",
-            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(ModBlocks.QUARTZ_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.QUARTZ_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD), false);
     public static final Block SMALL_QUARTZ_BUD = registerMiscBlock("small_quartz_bud",
-            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(ModBlocks.QUARTZ_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(BlockRegistryME.QUARTZ_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD), false);
     public static final Block BUDDING_QUARTZ = registerMiscBlock("budding_quartz",
             (settings) -> new CustomBuddingGemBlock(settings, List.of(SMALL_QUARTZ_BUD,MEDIUM_QUARTZ_BUD,LARGE_QUARTZ_BUD, QUARTZ_CLUSTER)), AbstractBlock.Settings.copy(Blocks.BUDDING_AMETHYST), false);
 
@@ -426,11 +426,11 @@ public class ModBlocks {
     public static final Block RED_AGATE_CLUSTER = registerMiscBlock("red_agate_cluster",
             (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
     public static final Block LARGE_RED_AGATE_BUD = registerMiscBlock("large_red_agate_bud",
-            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(ModBlocks.RED_AGATE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.RED_AGATE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
     public static final Block MEDIUM_RED_AGATE_BUD = registerMiscBlock("medium_red_agate_bud",
-            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(ModBlocks.RED_AGATE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.RED_AGATE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD), false);
     public static final Block SMALL_RED_AGATE_BUD = registerMiscBlock("small_red_agate_bud",
-            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(ModBlocks.RED_AGATE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(BlockRegistryME.RED_AGATE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD), false);
     public static final Block BUDDING_RED_AGATE = registerMiscBlock("budding_red_agate",
             (settings) -> new CustomBuddingGemBlock(settings, List.of(SMALL_RED_AGATE_BUD,MEDIUM_RED_AGATE_BUD,LARGE_RED_AGATE_BUD, RED_AGATE_CLUSTER)),AbstractBlock.Settings.copy(Blocks.BUDDING_AMETHYST),  false);
 
@@ -439,11 +439,11 @@ public class ModBlocks {
     public static final Block CITRINE_CLUSTER = registerMiscBlock("citrine_cluster",
             (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
     public static final Block LARGE_CITRINE_BUD = registerMiscBlock("large_citrine_bud",
-            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(ModBlocks.CITRINE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.CITRINE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
     public static final Block MEDIUM_CITRINE_BUD = registerMiscBlock("medium_citrine_bud",
-            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(ModBlocks.CITRINE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.CITRINE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD), false);
     public static final Block SMALL_CITRINE_BUD = registerMiscBlock("small_citrine_bud",
-            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(ModBlocks.CITRINE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD), false);
+            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(BlockRegistryME.CITRINE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD), false);
     public static final Block BUDDING_CITRINE = registerMiscBlock("budding_citrine",
             (settings) -> new CustomBuddingGemBlock(settings, List.of(SMALL_CITRINE_BUD,MEDIUM_CITRINE_BUD,LARGE_CITRINE_BUD, CITRINE_CLUSTER)), AbstractBlock.Settings.copy(Blocks.BUDDING_AMETHYST),false);
 
@@ -452,11 +452,11 @@ public class ModBlocks {
     public static final Block GLOWSTONE_CLUSTER = registerMiscBlock("glowstone_cluster",
             (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER).luminance(state -> 10), false);
     public static final Block LARGE_GLOWSTONE_BUD = registerMiscBlock("large_glowstone_bud",
-            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD).luminance(state -> 9), false);
+            (settings) -> new AmethystClusterBlock(5,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD).luminance(state -> 9), false);
     public static final Block MEDIUM_GLOWSTONE_BUD = registerMiscBlock("medium_glowstone_bud",
-            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD).luminance(state -> 7), false);
+            (settings) -> new AmethystClusterBlock(4,3, settings), AbstractBlock.Settings.copy(BlockRegistryME.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.MEDIUM_AMETHYST_BUD).luminance(state -> 7), false);
     public static final Block SMALL_GLOWSTONE_BUD = registerMiscBlock("small_glowstone_bud",
-            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(ModBlocks.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD).luminance(state -> 5), false);
+            (settings) -> new AmethystClusterBlock(3,4, settings), AbstractBlock.Settings.copy(BlockRegistryME.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.SMALL_AMETHYST_BUD).luminance(state -> 5), false);
     public static final Block BUDDING_GLOWSTONE = registerMiscBlock("budding_glowstone",
             (settings) -> new CustomBuddingGemBlock(settings, List.of(SMALL_GLOWSTONE_BUD,MEDIUM_GLOWSTONE_BUD,LARGE_GLOWSTONE_BUD, GLOWSTONE_CLUSTER)), AbstractBlock.Settings.copy(Blocks.BUDDING_AMETHYST),false);
 
@@ -795,13 +795,13 @@ public class ModBlocks {
     }
 
     public static Block registerTablessBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
-        Block block = factory.apply(settings.registryKey(ModBlocks.keyOfBlock(name)));
+        Block block = factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
         if(drop){
             BlockDrops.blocks.add(block);
         }
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
-        return Registry.register(Registries.BLOCK, ModBlocks.keyOfBlock(name), block);
+        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
     }
 
     public static Block registerStoneBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {

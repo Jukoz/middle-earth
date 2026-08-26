@@ -25,8 +25,8 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.network.packets.server2client.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.recipe.RecipesME;
@@ -60,7 +60,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     public InscriptionTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
-        super(ModScreenHandlers.INSCRIPTION_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, syncId);
 
         this.outputRecipes = new ArrayList<>();
         this.selectedWords = new ArrayList<>();
@@ -146,7 +146,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, ModDecorativeBlocks.INSCRIPTION_TABLE);
+        return canUse(this.context, player, DecorativeBlockRegistryME.INSCRIPTION_TABLE);
     }
 
     public List<String> getWords(){
@@ -340,7 +340,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     public ScreenHandlerType<?> getType() {
-        return ModScreenHandlers.INSCRIPTION_SCREEN_HANDLER;
+        return ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER;
     }
 
     public ItemStack quickMove(PlayerEntity player, int slot) {

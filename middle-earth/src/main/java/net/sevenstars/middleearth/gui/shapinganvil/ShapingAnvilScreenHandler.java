@@ -19,7 +19,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.network.packets.client2server.AnvilIndexPacket;
 import net.sevenstars.middleearth.network.packets.server2client.ShapingAnvilRecipePacket;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
@@ -44,7 +44,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     }
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
-        super(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.TREATED_ANVIL_SCREEN_HANDLER, syncId);
         checkSize(inventory, 1);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);

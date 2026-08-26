@@ -2,9 +2,9 @@ package net.sevenstars.middleearth.world.features.boulder;
 
 import net.minecraft.util.collection.Pool;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.world.gen.ModFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -129,82 +129,82 @@ public class BoulderConfiguredFeatures {
     private static final List<BlockState> andesite = Arrays.asList(
             Blocks.ANDESITE.getDefaultState(),
             Blocks.ANDESITE.getDefaultState(),
-            StoneBlockSets.ANDESITE_SET.cobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.ANDESITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.ANDESITE_SET.cobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.ANDESITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> ashenStone = Arrays.asList(
-            StoneBlockSets.ASHENSTONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.ASHENSTONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.ASHENSTONE_SET.cobblestoneBlocks.base().getDefaultState(),
-            ModBlocks.ASHEN_GRAVEL.getDefaultState(),
-            ModBlocks.ASH_BLOCK.getDefaultState());
+            StoneBlockSetRegistryME.ASHENSTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.ASHENSTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.ASHENSTONE_SET.cobblestoneBlocks.base().getDefaultState(),
+            BlockRegistryME.ASHEN_GRAVEL.getDefaultState(),
+            BlockRegistryME.ASH_BLOCK.getDefaultState());
 
     private static final List<BlockState> basalt = Arrays.asList(
             Blocks.BASALT.getDefaultState(),
             Blocks.SMOOTH_BASALT.getDefaultState());
 
     private static final List<BlockState> blueTuff = Arrays.asList(
-            StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.BLUE_TUFF_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.BLUE_TUFF_SET.cobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.BLUE_TUFF_SET.mossyCobblestoneBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.BLUE_TUFF_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.BLUE_TUFF_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.BLUE_TUFF_SET.cobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.BLUE_TUFF_SET.mossyCobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> calcite = Arrays.asList(
             Blocks.CALCITE.getDefaultState(),
             Blocks.CALCITE.getDefaultState(),
-            StoneBlockSets.CALCITE_SET.cobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.CALCITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.CALCITE_SET.cobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.CALCITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> diorite = Arrays.asList(
             Blocks.DIORITE.getDefaultState(),
             Blocks.DIORITE.getDefaultState(),
-            StoneBlockSets.DIORITE_SET.smoothBlocks.base().getDefaultState(),
-            StoneBlockSets.DIORITE_SET.mossySmoothBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.DIORITE_SET.smoothBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.DIORITE_SET.mossySmoothBlocks.base().getDefaultState());
 
     private static final List<BlockState> dolomite = Arrays.asList(
-            StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.DOLOMITE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.DOLOMITE_SET.cobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.DOLOMITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.DOLOMITE_SET.cobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.DOLOMITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> smoothDolomite = Arrays.asList(
-            StoneBlockSets.DOLOMITE_SET.smoothBlocks.base().getDefaultState(),
-            StoneBlockSets.DOLOMITE_SET.smoothBlocks.base().getDefaultState(),
-            StoneBlockSets.DOLOMITE_SET.crackedSmoothBlocks.base().getDefaultState(),
-            StoneBlockSets.DOLOMITE_SET.mossySmoothBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.DOLOMITE_SET.smoothBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.DOLOMITE_SET.smoothBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.DOLOMITE_SET.crackedSmoothBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.DOLOMITE_SET.mossySmoothBlocks.base().getDefaultState());
 
     private static final List<BlockState> galonn = Arrays.asList(
-            StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.GALONN_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.GALONN_SET.crackedSmoothBlocks.base().getDefaultState(),
-            StoneBlockSets.GALONN_SET.mossySmoothBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GALONN_SET.crackedSmoothBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GALONN_SET.mossySmoothBlocks.base().getDefaultState());
 
     private static final List<BlockState> gneiss = Arrays.asList(
-            StoneBlockSets.GNEISS_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.GNEISS_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.GNEISS_SET.smoothBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GNEISS_SET.smoothBlocks.base().getDefaultState());
 
     private static final List<BlockState> granite = Arrays.asList(
             Blocks.GRANITE.getDefaultState(),
             Blocks.GRANITE.getDefaultState(),
-            StoneBlockSets.GRANITE_SET.cobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.GRANITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.GRANITE_SET.cobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GRANITE_SET.mossyCobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> hematite = Arrays.asList(
-            StoneBlockSets.HEMATITE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.HEMATITE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.HEMATITE_SET.cobblestoneBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.HEMATITE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.HEMATITE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.HEMATITE_SET.cobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> ironStone = Arrays.asList(
-            StoneBlockSets.IRONSTONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.IRONSTONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.IRONSTONE_SET.cobblestoneBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.IRONSTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.IRONSTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.IRONSTONE_SET.cobblestoneBlocks.base().getDefaultState());
 
     private static final List<BlockState> limeStone = Arrays.asList(
-            StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.LIMESTONE_SET.crackedSmoothBlocks.base().getDefaultState(),
-            StoneBlockSets.LIMESTONE_SET.mossySmoothBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.LIMESTONE_SET.crackedSmoothBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.LIMESTONE_SET.mossySmoothBlocks.base().getDefaultState());
 
     private static final List<BlockState> mossyStone = Arrays.asList(
             Blocks.STONE.getDefaultState(),
@@ -223,15 +223,15 @@ public class BoulderConfiguredFeatures {
             Blocks.MOSSY_COBBLESTONE.getDefaultState());
 
     private static final List<BlockState> slate = Arrays.asList(
-            StoneBlockSets.SLATE_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.SLATE_SET.cobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.SLATE_SET.oldBlocks.base().getDefaultState(),
-            StoneBlockSets.SLATE_SET.mossySmoothBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.SLATE_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.SLATE_SET.cobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.SLATE_SET.oldBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.SLATE_SET.mossySmoothBlocks.base().getDefaultState());
 
     private static final List<BlockState> gabbro = Arrays.asList(
-            StoneBlockSets.GABBRO_SET.baseBlocks.base().getDefaultState(),
-            StoneBlockSets.GABBRO_SET.mossyCobblestoneBlocks.base().getDefaultState(),
-            StoneBlockSets.GABBRO_SET.mossySmoothBlocks.base().getDefaultState());
+            StoneBlockSetRegistryME.GABBRO_SET.baseBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GABBRO_SET.mossyCobblestoneBlocks.base().getDefaultState(),
+            StoneBlockSetRegistryME.GABBRO_SET.mossySmoothBlocks.base().getDefaultState());
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
         ConfiguredFeatures.register(featureRegisterable, ANDESITE_BOULDER, Feature.FOREST_ROCK,
@@ -243,13 +243,13 @@ public class BoulderConfiguredFeatures {
         ConfiguredFeatures.register(featureRegisterable, GRANITE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.GRANITE.getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, LIMESTONE_BOULDER, Feature.FOREST_ROCK,
-                new SingleStateFeatureConfig(StoneBlockSets.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
+                new SingleStateFeatureConfig(StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, SANDSTONE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.SANDSTONE.getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, STONE_BOULDER, Feature.FOREST_ROCK,
                 new SingleStateFeatureConfig(Blocks.STONE.getDefaultState()));
         ConfiguredFeatures.register(featureRegisterable, MIRKWOOD_ROOTS_BOULDER, Feature.FOREST_ROCK,
-                new SingleStateFeatureConfig(ModNatureBlocks.MIRKWOOD_ROOTS.getDefaultState()));
+                new SingleStateFeatureConfig(NatureBlockRegistryME.MIRKWOOD_ROOTS.getDefaultState()));
 
         ConfiguredFeatures.register(featureRegisterable, MOSSY_BOULDER, Feature.BLOCK_PILE,
                 new BlockPileFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()

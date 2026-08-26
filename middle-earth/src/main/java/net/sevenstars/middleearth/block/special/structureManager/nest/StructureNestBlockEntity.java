@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
@@ -25,7 +25,6 @@ import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNe
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class StructureNestBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     private static final String ID = "structure_nest";
@@ -52,7 +51,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     boolean initialized = false;
 
     public StructureNestBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STRUCTURE_NEST, pos, state);
+        super(BlockEntityRegistryME.STRUCTURE_NEST, pos, state);
     }
 
     @Override

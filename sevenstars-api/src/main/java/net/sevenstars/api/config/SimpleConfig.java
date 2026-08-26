@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.config;
+package net.sevenstars.api.config;
 
 /*
  * Copyright (c) 2021 magistermaks
@@ -24,8 +24,7 @@ package net.sevenstars.middleearth.config;
  * THE SOFTWARE.
  */
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.sevenstars.middleearth.MiddleEarth;
+import net.fabricmc.loader.api.FabricLoader;import net.sevenstars.api.SevenStarsApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,11 +123,11 @@ public class SimpleConfig {
     }
 
     private void parseConfigEntry( String entry, int line ) {
-        if( !entry.isEmpty() && !entry.contains(ModConfigProvider.COMMENT_PREFIX)) {
+        if( !entry.isEmpty() && !entry.contains(ConfigProvider.COMMENT_PREFIX)) {
             String[] parts = entry.split("=", 2);
             if( parts.length == 2 ) {
                 // Recognizes comments after a value
-                String temp = (parts[1].split(ModConfigProvider.COMMENT_PREFIX))[0];
+                String temp = (parts[1].split(ConfigProvider.COMMENT_PREFIX))[0];
                 config.put( parts[0].replace(" ", ""), temp );
             }else{
                 throw new RuntimeException("Syntax error in config file on line " + line + "!");
@@ -141,12 +140,12 @@ public class SimpleConfig {
         String identifier = "Config '" + request.filename + "'";
 
         if( !request.file.exists() ) {
-            MiddleEarth.LOGGER.logInfoMsg( identifier + " is missing, generating default one..." );
+            SevenStarsApi.LOGGER.logInfoMsg( identifier + " is missing, generating default one..." );
 
             try {
                 createConfig();
             } catch (IOException e) {
-                MiddleEarth.LOGGER.logError( identifier + " failed to generate!", e);
+                SevenStarsApi.LOGGER.logError( identifier + " failed to generate!", e);
                 broken = true;
             }
         }
@@ -155,7 +154,7 @@ public class SimpleConfig {
             try {
                 loadConfig();
             } catch (Exception e) {
-                MiddleEarth.LOGGER.logError( identifier + " failed to load!", e);
+                SevenStarsApi.LOGGER.logError( identifier + " failed to load!", e);
                 broken = true;
             }
         }
@@ -245,7 +244,7 @@ public class SimpleConfig {
      * @return true if the operation was successful
      */
     public boolean delete() {
-        MiddleEarth.LOGGER.logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
+        SevenStarsApi.LOGGER.logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
         return request.file.delete();
     }
 

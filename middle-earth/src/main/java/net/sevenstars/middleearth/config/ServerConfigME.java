@@ -1,12 +1,14 @@
 package net.sevenstars.middleearth.config;
 
 import com.mojang.datafixers.util.Pair;
+import net.sevenstars.api.config.ConfigProvider;
+import net.sevenstars.api.config.SimpleConfig;
 import net.sevenstars.middleearth.MiddleEarth;
 
-public class ModServerConfigs {
+public class ServerConfigME {
     public static SimpleConfig CONFIG;
     private final static String PATH = MiddleEarth.MOD_ID + "/config-common";
-    private static ModConfigProvider configs;
+    private static ConfigProvider configs;
 
     /**Should players be allowed to change factions when they use the starlight phial?**/
     public static boolean ENABLE_FACTION_RESET;
@@ -34,7 +36,7 @@ public class ModServerConfigs {
     public static int GLOBAL_MOB_CAP;
 
     public static void registerConfigs() {
-        configs = new ModConfigProvider();
+        configs = new ConfigProvider();
         createServerConfigs();
         CONFIG = SimpleConfig.of(PATH).provider(configs).request();
         assignServerConfigs();

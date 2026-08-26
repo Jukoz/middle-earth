@@ -8,7 +8,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.registries.AtlasRegistryiesAPI;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.datageneration.providers.dynamic.CharacterAtlasTexturesProvider;
 
 /**
@@ -39,7 +39,7 @@ public class AtlasesME {
     }
 
     public static void registerAtlas(){
-        AtlasRegistryiesAPI.injectAtlas(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES, CHARACTER_TEXTURES);
+        AtlasRegistryiesAPI.injectAtlas(TexturedRenderLayersME.CHARACTER_ATLAS_TEXTURES, CHARACTER_TEXTURES);
         AtlasRegistryiesAPI.injectAtlas(MiddleEarth.of("sprites"), MiddleEarth.of("sprites"));
     }
 }

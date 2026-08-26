@@ -13,7 +13,6 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +22,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 public class StructureNestBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {
@@ -95,7 +94,7 @@ public class StructureNestBlock extends BlockWithEntity implements BlockEntityPr
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(world, type, ModBlockEntities.STRUCTURE_NEST);
+        return validateTicker(world, type, BlockEntityRegistryME.STRUCTURE_NEST);
     }
 
     @Nullable
