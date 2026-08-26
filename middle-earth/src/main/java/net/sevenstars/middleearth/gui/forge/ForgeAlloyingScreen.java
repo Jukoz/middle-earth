@@ -14,8 +14,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.network.packets.C2S.ForgeModeSwitchPacket;
-import net.sevenstars.middleearth.network.packets.C2S.ForgeOutputPacket;
+import net.sevenstars.middleearth.network.packets.client2server.ForgeModeSwitchPacket;
+import net.sevenstars.middleearth.network.packets.client2server.ForgeOutputPacket;
 
 import java.util.List;
 

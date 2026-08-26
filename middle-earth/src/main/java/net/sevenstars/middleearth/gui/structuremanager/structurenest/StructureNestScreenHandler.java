@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
-import net.sevenstars.middleearth.network.packets.C2S.PacketStructureNestUpdateBlockEntityRequest;
+import net.sevenstars.middleearth.network.packets.client2server.PacketStructureNestUpdateBlockEntityRequest;
 
 import java.util.Optional;
 

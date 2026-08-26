@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.commands.ModCommands;
 import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.network.packets.S2C.PacketForceOnboardingScreen;
+import net.sevenstars.middleearth.network.packets.server2client.PacketForceOnboardingScreen;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ModColors;
 

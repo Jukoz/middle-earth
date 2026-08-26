@@ -82,8 +82,8 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
-import net.sevenstars.middleearth.network.ModClientNetworkHandler;
-import net.sevenstars.middleearth.network.connections.ConnectionToServer;
+import net.sevenstars.middleearth.network.ClientNetworkHandlerME;
+import net.sevenstars.api.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
@@ -106,7 +106,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ModClientNetworkHandler.register(new ConnectionToServer());
+        ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();
 

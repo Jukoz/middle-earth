@@ -10,9 +10,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
-import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerRespawnEntities;
-import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerShowAllEntities;
-import net.sevenstars.middleearth.network.packets.C2S.PacketStructureManagerUpdateBlockEntityRequest;
+import net.sevenstars.middleearth.network.packets.client2server.PacketStructureManagerRespawnEntities;
+import net.sevenstars.middleearth.network.packets.client2server.PacketStructureManagerShowAllEntities;
+import net.sevenstars.middleearth.network.packets.client2server.PacketStructureManagerUpdateBlockEntityRequest;
 
 public class StructureManagerScreenHandler extends ScreenHandler {
 

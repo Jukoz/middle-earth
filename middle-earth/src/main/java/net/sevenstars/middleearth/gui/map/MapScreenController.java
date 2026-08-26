@@ -6,7 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
-import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToDynamicWorldCoordinate;
+import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToDynamicWorldCoordinate;
 import net.sevenstars.middleearth.world.dimension.ModDimensions;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import org.joml.Vector2d;

@@ -10,7 +10,7 @@ import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
-import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentOverworldSpawn;
+import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToCurrentOverworldSpawn;
 
 import java.awt.event.KeyEvent;
 

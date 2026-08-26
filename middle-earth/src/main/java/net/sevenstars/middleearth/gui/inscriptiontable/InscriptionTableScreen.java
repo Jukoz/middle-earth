@@ -20,9 +20,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.network.packets.C2S.InscriptionConfirmationPacket;
-import net.sevenstars.middleearth.network.packets.C2S.InscriptionWordUpdatePacket;
-import org.apache.commons.lang3.StringUtils;
+import net.sevenstars.middleearth.network.packets.client2server.InscriptionConfirmationPacket;
+import net.sevenstars.middleearth.network.packets.client2server.InscriptionWordUpdatePacket;
 
 import java.util.ArrayList;
 import java.util.Iterator;

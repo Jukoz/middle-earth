@@ -28,7 +28,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.ToolItemsME;
-import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
+import net.sevenstars.middleearth.network.packets.server2client.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;

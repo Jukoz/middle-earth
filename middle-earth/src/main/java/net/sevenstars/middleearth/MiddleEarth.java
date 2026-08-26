@@ -19,8 +19,8 @@ import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
-import net.sevenstars.middleearth.network.ModServerNetworkHandler;
-import net.sevenstars.middleearth.network.connections.ConnectionToClient;
+import net.sevenstars.middleearth.network.ServerNetworkHandlerME;
+import net.sevenstars.api.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.RecipesME;
@@ -55,7 +55,7 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
-		ModServerNetworkHandler.register(new ConnectionToClient());
+		ServerNetworkHandlerME.register(new ConnectionToClient());
 		ModEvents.register();
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();

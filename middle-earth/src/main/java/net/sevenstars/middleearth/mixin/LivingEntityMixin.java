@@ -27,7 +27,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
-import net.sevenstars.middleearth.network.packets.S2C.PacketLivingEntityData;
+import net.sevenstars.middleearth.network.packets.server2client.PacketLivingEntityData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
