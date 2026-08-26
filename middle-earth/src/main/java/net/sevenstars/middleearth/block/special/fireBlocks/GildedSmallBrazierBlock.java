@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -41,7 +41,7 @@ public class GildedSmallBrazierBlock extends AbstractToggleableFireBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         if (world.isClient) {
             if (state.get(LIT)) {
-                return AbstractToggleableFireBlock.validateTicker(type, ModBlockEntities.GILDED_SMALL_BRAZIER, GildedSmallBrazierBlockEntity::clientTick);
+                return AbstractToggleableFireBlock.validateTicker(type, BlockEntityRegistryME.GILDED_SMALL_BRAZIER, GildedSmallBrazierBlockEntity::clientTick);
             }
         }
         return null;

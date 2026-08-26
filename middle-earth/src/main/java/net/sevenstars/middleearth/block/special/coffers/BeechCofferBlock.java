@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 
 public class BeechCofferBlock extends ChestBlock {
 
     public BeechCofferBlock(Settings settings) {
-        super(() -> ModBlockEntities.BEECH_COFFER, settings);
+        super(() -> BlockEntityRegistryME.BEECH_COFFER, settings);
     }
 
     @Override

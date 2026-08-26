@@ -35,7 +35,7 @@ public class BootsArmorRenderer implements ArmorRenderer {
             }
 
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customBootsModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
+            CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customBootsModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
         }
     }
 }

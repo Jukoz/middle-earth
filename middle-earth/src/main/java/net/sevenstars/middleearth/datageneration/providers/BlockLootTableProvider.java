@@ -54,37 +54,37 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         for (Block block : BlockDrops.blocks) {
             if (Registries.BLOCK.getId(block).getPath().equals("nurgon")) {
-                cobbleDrops(block, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.NURGON_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("medgon")) {
-                cobbleDrops(block, StoneBlockSets.MEDGON_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.MEDGON_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("khagalaban")) {
-                cobbleDrops(block, StoneBlockSets.KHAGALABAN_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.KHAGALABAN_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("limestone")) {
-                cobbleDrops(block, StoneBlockSets.LIMESTONE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.LIMESTONE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("dolomite")) {
-                cobbleDrops(block, StoneBlockSets.DOLOMITE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.DOLOMITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("quartzite")) {
-                cobbleDrops(block, StoneBlockSets.QUARTZITE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.QUARTZITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("jadeite")) {
-                cobbleDrops(block, StoneBlockSets.JADEITE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.JADEITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("ashen_stone")) {
-                cobbleDrops(block, StoneBlockSets.ASHENSTONE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.ASHENSTONE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("ironstone")) {
-                cobbleDrops(block, StoneBlockSets.IRONSTONE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.IRONSTONE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("hematite")) {
-                cobbleDrops(block, StoneBlockSets.HEMATITE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.HEMATITE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("gneiss")) {
-                cobbleDrops(block, StoneBlockSets.GNEISS_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.GNEISS_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("izheraban")) {
-                cobbleDrops(block, StoneBlockSets.IZHERABAN_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.IZHERABAN_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("schist")) {
-                cobbleDrops(block, StoneBlockSets.SCHIST_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.SCHIST_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("galonn")) {
-                cobbleDrops(block, StoneBlockSets.GALONN_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.GALONN_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("slate")) {
-                cobbleDrops(block, StoneBlockSets.SLATE_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.SLATE_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().equals("blue_tuff")) {
-                cobbleDrops(block, StoneBlockSets.BLUE_TUFF_SET.cobblestoneBlocks.base());
+                cobbleDrops(block, StoneBlockSetRegistryME.BLUE_TUFF_SET.cobblestoneBlocks.base());
             } else if (Registries.BLOCK.getId(block).getPath().contains("_door")) {
                 addDrop(block, doorDrops(block));
             } else if (Registries.BLOCK.getId(block).getPath().contains("vertical_slab")) {
@@ -131,23 +131,23 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             addPottedPlantDrops(pot);
         }
 
-        addDrop(ModNatureBlocks.CAMPION, shortPlantDrops(ModNatureBlocks.CAMPION));
-        addDrop(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA, shortPlantDrops(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA));
-        addDrop(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA, shortPlantDrops(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA));
-        addDrop(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA, shortPlantDrops(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA));
-        addDrop(ModNatureBlocks.DEAD_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.DEAD_HEATHER_BUSH));
-        addDrop(ModNatureBlocks.DRY_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.DRY_HEATHER_BUSH));
-        addDrop(ModNatureBlocks.DEAD_RUSHES, shortPlantDrops(ModNatureBlocks.DEAD_RUSHES));
-        addDrop(ModNatureBlocks.FALSE_OATGRASS, shortPlantDrops(ModNatureBlocks.FALSE_OATGRASS));
-        addDrop(ModNatureBlocks.HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.HEATHER_BUSH));
-        addDrop(ModNatureBlocks.LARGE_BLUE_FESCUE, shortPlantDrops(ModNatureBlocks.LARGE_BLUE_FESCUE));
-        addDrop(ModNatureBlocks.LARGE_BUSH, shortPlantDrops(ModNatureBlocks.LARGE_BUSH));
-        addDrop(ModNatureBlocks.LARGE_SHRIVELED_SHRUB, shortPlantDrops(ModNatureBlocks.LARGE_SHRIVELED_SHRUB));
-        addDrop(ModNatureBlocks.RED_HEATHER_BUSH, shortPlantDrops(ModNatureBlocks.RED_HEATHER_BUSH));
-        addDrop(ModNatureBlocks.RUSHES, shortPlantDrops(ModNatureBlocks.RUSHES));
+        addDrop(NatureBlockRegistryME.CAMPION, shortPlantDrops(NatureBlockRegistryME.CAMPION));
+        addDrop(NatureBlockRegistryME.BLUE_BIGLEAF_HYDRANGEA, shortPlantDrops(NatureBlockRegistryME.BLUE_BIGLEAF_HYDRANGEA));
+        addDrop(NatureBlockRegistryME.PINK_BIGLEAF_HYDRANGEA, shortPlantDrops(NatureBlockRegistryME.PINK_BIGLEAF_HYDRANGEA));
+        addDrop(NatureBlockRegistryME.WHITE_BIGLEAF_HYDRANGEA, shortPlantDrops(NatureBlockRegistryME.WHITE_BIGLEAF_HYDRANGEA));
+        addDrop(NatureBlockRegistryME.DEAD_HEATHER_BUSH, shortPlantDrops(NatureBlockRegistryME.DEAD_HEATHER_BUSH));
+        addDrop(NatureBlockRegistryME.DRY_HEATHER_BUSH, shortPlantDrops(NatureBlockRegistryME.DRY_HEATHER_BUSH));
+        addDrop(NatureBlockRegistryME.DEAD_RUSHES, shortPlantDrops(NatureBlockRegistryME.DEAD_RUSHES));
+        addDrop(NatureBlockRegistryME.FALSE_OATGRASS, shortPlantDrops(NatureBlockRegistryME.FALSE_OATGRASS));
+        addDrop(NatureBlockRegistryME.HEATHER_BUSH, shortPlantDrops(NatureBlockRegistryME.HEATHER_BUSH));
+        addDrop(NatureBlockRegistryME.LARGE_BLUE_FESCUE, shortPlantDrops(NatureBlockRegistryME.LARGE_BLUE_FESCUE));
+        addDrop(NatureBlockRegistryME.LARGE_BUSH, shortPlantDrops(NatureBlockRegistryME.LARGE_BUSH));
+        addDrop(NatureBlockRegistryME.LARGE_SHRIVELED_SHRUB, shortPlantDrops(NatureBlockRegistryME.LARGE_SHRIVELED_SHRUB));
+        addDrop(NatureBlockRegistryME.RED_HEATHER_BUSH, shortPlantDrops(NatureBlockRegistryME.RED_HEATHER_BUSH));
+        addDrop(NatureBlockRegistryME.RUSHES, shortPlantDrops(NatureBlockRegistryME.RUSHES));
 
-        addDrop(ModNatureBlocks.BRACKEN, shortPlantDrops(ModNatureBlocks.BRACKEN));
-        addDrop(ModNatureBlocks.GIANT_BUTTERBUR, shortPlantDrops(ModNatureBlocks.GIANT_BUTTERBUR));
+        addDrop(NatureBlockRegistryME.BRACKEN, shortPlantDrops(NatureBlockRegistryME.BRACKEN));
+        addDrop(NatureBlockRegistryME.GIANT_BUTTERBUR, shortPlantDrops(NatureBlockRegistryME.GIANT_BUTTERBUR));
 
         for (Block block : TintableCrossModel.grassLikeBlocks) {
             addDrop(block, shortPlantDrops(block));
@@ -156,7 +156,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             addDropWithSilkTouch(block);
         }
 
-        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+        for (OreStoneSetRegistryME.OreRockSet set : OreStoneSetRegistryME.sets) {
             if (set.coal_ore() != null) {
                 addDrop(set.coal_ore(), oreDrops(set.coal_ore(), Items.COAL));
             }
@@ -200,37 +200,37 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             addDropWithSilkTouch(pane.glass());
         }
 
-        cobbleDrops(ModBlocks.STONE_MYCELIUM, Blocks.COBBLESTONE);
+        cobbleDrops(BlockRegistryME.STONE_MYCELIUM, Blocks.COBBLESTONE);
 
-        largeDoorDrop(ModDecorativeBlocks.LARCH_HOBBIT_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.SPRUCE_HOBBIT_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.BLUE_HOBBIT_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.GREEN_HOBBIT_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.LIGHT_BLUE_HOBBIT_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.RED_HOBBIT_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.YELLOW_HOBBIT_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.TALL_BLACK_PINE_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.TALL_FIR_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.OAK_STABLE_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.REINFORCED_SPRUCE_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.REINFORCED_BLACK_PINE_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.SIMPLE_LARCH_GATE);
-        largeDoorDrop(ModDecorativeBlocks.RICKETY_SIMPLE_LARCH_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.SPRUCE_STABLE_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.LARGE_STURDY_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.LARGE_BEECH_FENCE_GATE);
-        largeDoorDrop(ModDecorativeBlocks.GREAT_GONDORIAN_GATE);
-        largeDoorDrop(ModDecorativeBlocks.GREAT_DWARVEN_GATE);
-        largeDoorDrop(ModDecorativeBlocks.VARNISHED_DWARVEN_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.RUINED_DWARVEN_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.HIDDEN_DWARVEN_DOOR);
-        largeDoorDrop(ModDecorativeBlocks.GREAT_ELVEN_GATE);
-        largeDoorDrop(ModDecorativeBlocks.GREAT_ORCISH_GATE);
+        largeDoorDrop(DecorativeBlockRegistryME.LARCH_HOBBIT_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.SPRUCE_HOBBIT_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.BLUE_HOBBIT_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.GREEN_HOBBIT_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.LIGHT_BLUE_HOBBIT_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.RED_HOBBIT_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.YELLOW_HOBBIT_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.TALL_BLACK_PINE_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.TALL_FIR_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.OAK_STABLE_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.REINFORCED_SPRUCE_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.REINFORCED_BLACK_PINE_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.SIMPLE_LARCH_GATE);
+        largeDoorDrop(DecorativeBlockRegistryME.RICKETY_SIMPLE_LARCH_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.SPRUCE_STABLE_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.LARGE_STURDY_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.LARGE_BEECH_FENCE_GATE);
+        largeDoorDrop(DecorativeBlockRegistryME.GREAT_GONDORIAN_GATE);
+        largeDoorDrop(DecorativeBlockRegistryME.GREAT_DWARVEN_GATE);
+        largeDoorDrop(DecorativeBlockRegistryME.VARNISHED_DWARVEN_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.RUINED_DWARVEN_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.HIDDEN_DWARVEN_DOOR);
+        largeDoorDrop(DecorativeBlockRegistryME.GREAT_ELVEN_GATE);
+        largeDoorDrop(DecorativeBlockRegistryME.GREAT_ORCISH_GATE);
 
-        cobbleDrops(ModBlocks.SNOWY_GRASS_BLOCK, ModBlocks.DRY_DIRT);
+        cobbleDrops(BlockRegistryME.SNOWY_GRASS_BLOCK, BlockRegistryME.DRY_DIRT);
 
-        cobbleDrops(ModNatureBlocks.OLD_PODZOL, Blocks.DIRT);
-        cobbleDrops(ModNatureBlocks.LORIEN_PODZOL, Blocks.DIRT);
+        cobbleDrops(NatureBlockRegistryME.OLD_PODZOL, Blocks.DIRT);
+        cobbleDrops(NatureBlockRegistryME.LORIEN_PODZOL, Blocks.DIRT);
 
         for (SimpleRocksModel.Rocks rock : SimpleRocksModel.rocks) {
             rocksDrop(rock.rocks());

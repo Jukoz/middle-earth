@@ -31,8 +31,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import org.jetbrains.annotations.Nullable;
 
@@ -110,7 +109,7 @@ public class CrockpotBlock extends BlockWithEntity {
         BlockPos blockPos = ctx.getBlockPos();
         BlockPos bottomBlockPos = blockPos.down();
         BlockState blockState = blockView.getBlockState(bottomBlockPos);
-        if(blockState.isIn(BlockTags.CAMPFIRES) || blockState.isOf(ModDecorativeBlocks.BONFIRE)) {
+        if(blockState.isIn(BlockTags.CAMPFIRES) || blockState.isOf(DecorativeBlockRegistryME.BONFIRE)) {
             return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HANGING, true);
         }
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());

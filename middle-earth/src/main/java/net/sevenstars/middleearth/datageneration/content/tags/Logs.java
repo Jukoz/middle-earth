@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class Logs {
     public static List<Block> logs = new ArrayList<>() {
         {
-            add(ModNatureBlocks.PINE_BRANCHES);
+            add(NatureBlockRegistryME.PINE_BRANCHES);
         }
     };
 

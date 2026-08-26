@@ -10,7 +10,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.*;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;

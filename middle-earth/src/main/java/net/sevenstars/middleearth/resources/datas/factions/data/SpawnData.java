@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
 import net.minecraft.nbt.NbtCompound;
@@ -121,7 +121,7 @@ public class SpawnData {
         BlockPos blockPos = new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z);
         if(isDynamic){
             Vector2d coords = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(coordinates.x, coordinates.z);
-            Vector3i spawnCoordinates =  ModDimensions.getDimensionHeight((int) coords.x, (int) coords.y);
+            Vector3i spawnCoordinates =  DimensionRegistryME.getDimensionHeight((int) coords.x, (int) coords.y);
             blockPos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z);
         }
         return blockPos;

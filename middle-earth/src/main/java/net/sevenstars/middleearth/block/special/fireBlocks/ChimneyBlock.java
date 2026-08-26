@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -43,7 +43,7 @@ public class ChimneyBlock extends AbstractToggleableFireBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         if (world.isClient) {
             if (state.get(LIT)) {
-                return AbstractToggleableFireBlock.validateTicker(type, ModBlockEntities.CHIMNEY, ChimneyBlockEntity::clientTick);
+                return AbstractToggleableFireBlock.validateTicker(type, BlockEntityRegistryME.CHIMNEY, ChimneyBlockEntity::clientTick);
             }
         }
         return null;

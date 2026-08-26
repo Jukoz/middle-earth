@@ -40,7 +40,6 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
-    "client.BakedModelManagerMixin",
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
     "client.BipedEntityRenderStateMixin",

@@ -19,10 +19,10 @@ import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,7 +50,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
     public void getRespawnTargetWithBrokenBed(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
-        if(ModDimensions.isInMiddleEarth(this.getWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(this.getWorld())){
             if (tryToOverrideSpawn(postDimensionTransition, cir)) return;
             resetSpawn(postDimensionTransition, cir);
             return;
@@ -60,7 +60,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 2), cancellable = true)
     public void getRespawnTargetNatural(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
-        if(ModDimensions.isInMiddleEarth(this.getWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(this.getWorld())){
             if (tryToOverrideSpawn(postDimensionTransition, cir)) return;
             resetSpawn(postDimensionTransition, cir);
             return;
@@ -90,14 +90,14 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
 
         if(foundPlayer == null) return false;
-        if(ModDimensions.isInMiddleEarth(this.getWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
+        if(DimensionRegistryME.isInMiddleEarth(this.getWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
             BlockPos spawnCoordinates = data.getWorldCoordinateBlockPos();
             if(spawnCoordinates != null){
-                ServerWorld MEWorld = this.server.getWorld(ModDimensions.ME_WORLD_KEY);
+                ServerWorld MEWorld = this.server.getWorld(DimensionRegistryME.ME_WORLD_KEY);
                 if(MEWorld != null){
                     Vec3d coordinates = new Vec3d(spawnCoordinates.getX(), spawnCoordinates.getY() + 1, spawnCoordinates.getZ());
 
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true);
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true);
                     foundPlayer.setSpawnPoint(respawn, true);
 
                     cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates.toCenterPos(), Vec3d.ZERO, 0, 0, postDimensionTransition));
@@ -126,8 +126,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
     public void tick(CallbackInfo ci) {
         PlayerMovementData.addAFKTime((IEntityDataSaver) this,1);
         if(isCreative() || isSpectator()) {
-            if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
-                setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
+            if(hasStatusEffect(StatusEffectRegistryME.ENSHROUDED) && getStatusEffect(StatusEffectRegistryME.ENSHROUDED).isInfinite()){
+                setStatusEffect(new StatusEffectInstance(StatusEffectRegistryME.ENSHROUDED, 40), this);
                 setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
                 setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
                 setStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 40), this);
@@ -149,13 +149,13 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                 data.addToDelversFearCountInSeconds();
 
                 if(data.getDelversFearCountInSeconds() > delversFearStrenght){
-                    addStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, -1));
+                    addStatusEffect(new StatusEffectInstance(StatusEffectRegistryME.ENSHROUDED, -1));
                     addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, -1));
                     addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, -1));
                 }
             } else {
-                if(hasStatusEffect(ModStatusEffects.ENSHROUDED) && getStatusEffect(ModStatusEffects.ENSHROUDED).isInfinite()){
-                    setStatusEffect(new StatusEffectInstance(ModStatusEffects.ENSHROUDED, 40), this);
+                if(hasStatusEffect(StatusEffectRegistryME.ENSHROUDED) && getStatusEffect(StatusEffectRegistryME.ENSHROUDED).isInfinite()){
+                    setStatusEffect(new StatusEffectInstance(StatusEffectRegistryME.ENSHROUDED, 40), this);
                     setStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40), this);
                     setStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 40), this);
 

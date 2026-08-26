@@ -10,7 +10,7 @@ public class IdentifierUtil {
         if(id.contains(":") && id.split(":").length == 2){
             return Identifier.of(id.split(":")[0], id.split(":")[1]);
         }
-        return Identifier.of(SevenStarsApi.MOD_ID, id + "_error");
+        return SevenStarsApi.id(id + "_error");
     }
 
     public static Identifier build(String key, String name) {

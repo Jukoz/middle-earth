@@ -12,7 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +21,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     private static final TrackedData<BlockState> BLOCK_STATE;
     private static final int DEFAULT_FUSE = 16;
     public static final float EXPLOSION_FORCE = 12.31f;
-    public static final BlockState DEFAULT_BLOCK_STATE = ModDecorativeBlocks.FIRE_OF_ORTHANC.getDefaultState();
+    public static final BlockState DEFAULT_BLOCK_STATE = DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState();
     protected boolean chainReaction = false;
     @Nullable
     private LivingEntity causingEntity;
@@ -51,7 +51,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         builder.add(FUSE, DEFAULT_FUSE);
-        builder.add(BLOCK_STATE, ModDecorativeBlocks.FIRE_OF_ORTHANC.getDefaultState());
+        builder.add(BLOCK_STATE, DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState());
     }
 
     public void explode() {

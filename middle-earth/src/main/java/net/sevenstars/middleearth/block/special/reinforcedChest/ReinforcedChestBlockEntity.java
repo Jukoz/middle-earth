@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.ChestBlockEntity;
@@ -54,7 +54,7 @@ public class ReinforcedChestBlockEntity extends ChestBlockEntity {
     };
 
     public ReinforcedChestBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.REINFORCED_CHEST, pos, state);
+        super(BlockEntityRegistryME.REINFORCED_CHEST, pos, state);
 
         this.setHeldStacks(DefaultedList.ofSize(this.size(), ItemStack.EMPTY));
     }

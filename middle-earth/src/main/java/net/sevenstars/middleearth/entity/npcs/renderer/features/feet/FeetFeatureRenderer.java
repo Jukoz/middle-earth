@@ -15,8 +15,8 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
-import net.sevenstars.middleearth.config.ModClientConfigs;
+import net.sevenstars.middleearth.client.TexturedRenderLayersME;
+import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
@@ -30,12 +30,12 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     public FeetFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.feetModel = new FeetModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_FEET));
-        characterTexturesAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
+        characterTexturesAtlas = AtlasesME.getAtlasFromPath(TexturedRenderLayersME.CHARACTER_ATLAS_TEXTURES);
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
-        boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
+        boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
         Identifier feetId =  (isSimplified) ? state.simplifiedFeetId : MiddleEarth.ofPrefix(state.feetId, AtlasesME.SKIN_PREFIX);
 
         feetModel.setAngles(state);
@@ -43,7 +43,7 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         if(!state.canShowFeet)
             return;
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 

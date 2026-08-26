@@ -7,7 +7,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.texture.Sprite;
@@ -15,8 +14,8 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
-import net.sevenstars.middleearth.config.ModClientConfigs;
+import net.sevenstars.middleearth.client.TexturedRenderLayersME;
+import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
@@ -30,12 +29,12 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
     public EarFeatureRenderer(FeatureRendererContext<NpcEntityRenderState, NpcEntityModel> context, LoadedEntityModels loader) {
         super(context);
         this.earModel = new EarModel(loader.getModelPart(EntityModelLayersME.NPC_ENTITY_EAR));
-        characterTexturesAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
+        characterTexturesAtlas = AtlasesME.getAtlasFromPath(TexturedRenderLayersME.CHARACTER_ATLAS_TEXTURES);
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
-        boolean isSimplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
+        boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
         Identifier earId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.ofPrefix(state.earId, AtlasesME.SKIN_PREFIX);
 
         earModel.setAngles(state);
@@ -43,7 +42,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         if(!state.canShowEars)
             return;
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
         if(earId != null){

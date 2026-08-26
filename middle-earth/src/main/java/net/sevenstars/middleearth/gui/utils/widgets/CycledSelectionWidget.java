@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CycledSelectionWidget extends ModWidget{
+public class CycledSelectionWidget extends CustomWidget {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/cycled_selection_widget.png");
     boolean leftCanBeActive = true;
     boolean rightCanBeActive = true;

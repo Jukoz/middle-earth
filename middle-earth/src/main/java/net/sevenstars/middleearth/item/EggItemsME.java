@@ -6,7 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.entity.EntitiesME;
@@ -52,7 +52,7 @@ public class EggItemsME {
             (settings) -> new SpawnEggItem(EntitiesME.NPC, settings), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         TranslationEntries.itemEntries.add(item);
@@ -60,7 +60,7 @@ public class EggItemsME {
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
     private static Item registerSpecialEgg(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));

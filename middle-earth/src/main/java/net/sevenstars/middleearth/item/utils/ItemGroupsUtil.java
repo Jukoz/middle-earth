@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.item.utils;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.NbtComponent;

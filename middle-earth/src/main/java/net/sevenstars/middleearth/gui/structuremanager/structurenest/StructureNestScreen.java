@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 import net.sevenstars.middleearth.gui.utils.widgets.CycledSelectionWidget;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
@@ -136,7 +136,7 @@ public class StructureNestScreen extends HandledScreen<StructureNestScreenHandle
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
-        ModWidget.updateMouse(mouseX, mouseY);
+        CustomWidget.updateMouse(mouseX, mouseY);
 
         int centerX = (int) (client.currentScreen.width / 2f);
         int startY = 70;

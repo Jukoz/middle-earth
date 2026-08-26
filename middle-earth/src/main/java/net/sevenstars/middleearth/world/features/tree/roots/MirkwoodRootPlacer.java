@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.gen.root.*;
-import net.sevenstars.middleearth.world.features.tree.ModRootPlacerType;
+import net.sevenstars.middleearth.world.features.tree.RootPlacerTypeRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -132,6 +132,6 @@ public class MirkwoodRootPlacer extends RootPlacer {
     }
 
     protected RootPlacerType<?> getType() {
-        return ModRootPlacerType.MIRKWOOD_ROOT_PLACER;
+        return RootPlacerTypeRegistryME.MIRKWOOD_ROOT_PLACER;
     }
 }

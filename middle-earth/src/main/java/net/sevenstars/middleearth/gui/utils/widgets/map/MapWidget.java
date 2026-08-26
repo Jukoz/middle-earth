@@ -1,9 +1,8 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
 import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.RenderLayer;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.UiDirections;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
@@ -18,7 +17,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class MapWidget extends ModWidget {
+public class MapWidget extends CustomWidget {
     protected final static double MAP_TO_WORLD_RATIO = (double) MiddleEarthMapConfigs.REGION_SIZE / MiddleEarthMapConfigs.FULL_MAP_SIZE;
     protected final int uiWidth, uiHeight;
     protected int startX, startY = 0;

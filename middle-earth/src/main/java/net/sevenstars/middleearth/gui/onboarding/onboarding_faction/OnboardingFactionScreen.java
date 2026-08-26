@@ -23,7 +23,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.render.states.BannerResultWithScaleGuiElementRenderState;
 import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 import net.sevenstars.middleearth.gui.utils.widgets.CycledSelectionWidget;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.PlayableNpcPreviewWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.map.FactionSelectionMapWidget;
@@ -213,7 +213,7 @@ public class OnboardingFactionScreen extends Screen {
     //region [GUI Render]
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        ModWidget.updateMouse(mouseX, mouseY);
+        CustomWidget.updateMouse(mouseX, mouseY);
 
         this.renderDisplays(context, mouseX, mouseY, delta);
     }
@@ -249,7 +249,7 @@ public class OnboardingFactionScreen extends Screen {
 
         context.drawText(textRenderer, elements.factionName, factionStartX, startY, TEXT_COLOR, false);
         if(isMouseOver(factionStartX, textRenderer.getWidth(elements.factionName), startY, textRenderer.fontHeight)){
-            context.drawTooltip(textRenderer, List.of(controller.getCurrentFactionFullName()), ModWidget.getMouseX(), ModWidget.getMouseY());
+            context.drawTooltip(textRenderer, List.of(controller.getCurrentFactionFullName()), CustomWidget.getMouseX(), CustomWidget.getMouseY());
         }
 
         // Subfaction
@@ -487,7 +487,7 @@ public class OnboardingFactionScreen extends Screen {
         super.tick();
     }
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
-        return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
+        return CustomWidget.isMouseOver(sizeX, sizeY, startX, startY);
     }
     //endregion
 }

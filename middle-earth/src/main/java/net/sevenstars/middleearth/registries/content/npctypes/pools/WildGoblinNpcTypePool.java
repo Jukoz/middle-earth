@@ -5,7 +5,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
@@ -145,7 +145,7 @@ public class WildGoblinNpcTypePool {
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_TAN_FUR_BOOTS))
                         )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(ModDecorativeBlocks.CRUDE_CHAIN.asItem()).withWeight(4))
+                                .add(WeightedItemData.create(DecorativeBlockRegistryME.CRUDE_CHAIN.asItem()).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR.asItem()))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()

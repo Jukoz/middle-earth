@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -10,18 +9,18 @@ import java.util.List;
 public class MineableHoe {
     public static List<Block> blocks = new ArrayList<>() {
     {
-        add(ModNatureBlocks.LEBETHRON_LEAVES);
+        add(NatureBlockRegistryME.LEBETHRON_LEAVES);
 
-        add(ModNatureBlocks.BERRY_HOLLY_LEAVES);
+        add(NatureBlockRegistryME.BERRY_HOLLY_LEAVES);
 
-        add(ModNatureBlocks.DRY_LARCH_LEAVES);
+        add(NatureBlockRegistryME.DRY_LARCH_LEAVES);
 
-        add(ModNatureBlocks.FLOWERING_MALLORN_LEAVES);
+        add(NatureBlockRegistryME.FLOWERING_MALLORN_LEAVES);
 
-        add(ModNatureBlocks.ORANGE_MAPLE_LEAVES);
-        add(ModNatureBlocks.RED_MAPLE_LEAVES);
-        add(ModNatureBlocks.YELLOW_MAPLE_LEAVES);
+        add(NatureBlockRegistryME.ORANGE_MAPLE_LEAVES);
+        add(NatureBlockRegistryME.RED_MAPLE_LEAVES);
+        add(NatureBlockRegistryME.YELLOW_MAPLE_LEAVES);
 
-        add(ModNatureBlocks.DRY_PINE_LEAVES);
+        add(NatureBlockRegistryME.DRY_PINE_LEAVES);
     }};
 }

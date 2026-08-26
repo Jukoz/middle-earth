@@ -1,11 +1,9 @@
 package net.sevenstars.middleearth.resources.datas.biome_events;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -14,11 +12,11 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 import java.util.*;
 
@@ -82,11 +80,11 @@ public class BiomeEventDataLookup {
     }
 
     public static boolean canSpawn(EntityType<?> type) {
-        return entities.getOrDefault(type, Collections.emptySet()).size() < ModServerConfigs.GLOBAL_MOB_CAP;
+        return entities.getOrDefault(type, Collections.emptySet()).size() < ServerConfigME.GLOBAL_MOB_CAP;
     }
 
     public static void addEntity(LivingEntity entity){
-        if (!entity.getWorld().getRegistryKey().equals(ModDimensions.ME_WORLD_KEY)) {
+        if (!entity.getWorld().getRegistryKey().equals(DimensionRegistryME.ME_WORLD_KEY)) {
             return;
         }
 

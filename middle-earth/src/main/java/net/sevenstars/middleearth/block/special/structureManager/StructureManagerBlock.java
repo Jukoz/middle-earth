@@ -22,7 +22,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 public class StructureManagerBlock extends BlockWithEntity implements BlockEntityProvider {
@@ -104,7 +104,7 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(world, type, ModBlockEntities.STRUCTURE_MANAGER);
+        return validateTicker(world, type, BlockEntityRegistryME.STRUCTURE_MANAGER);
     }
 
     @Nullable

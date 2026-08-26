@@ -10,9 +10,9 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.OreRockSets;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.OreStoneSetRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
@@ -207,11 +207,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
 
         chains.add(Items.CHAIN);
-        chains.add(ModDecorativeBlocks.BRONZE_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.CRUDE_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.SPIKY_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.BRONZE_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.BRONZE_BROAD_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.CRUDE_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.CRUDE_BROAD_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.SPIKY_CHAIN.asItem());
 
         troll_weapons.add(WeaponItemsME.TROLL_MACE);
         troll_weapons.add(WeaponItemsME.MACE_OF_SAURON);
@@ -272,7 +272,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         characterHideBeard.add(EquipmentItemsME.CLOSED_MAIL_COIF);
         characterHideBeard.add(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF);
 
-        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+        for (OreStoneSetRegistryME.OreRockSet set : OreStoneSetRegistryME.sets) {
             if(set.coal_ore() != null) {
                 valueLookupBuilder(coal_ores)
                         .add(set.coal_ore().asItem());
@@ -349,7 +349,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             valueLookupBuilder(nugget_shaping).add(nugget);
         });
 
-        StoneBlockSets.stoneSetsList.forEach(stone -> {
+        StoneBlockSetRegistryME.stoneSetsList.forEach(stone -> {
             if(stone.cobblestoneBlocks != null) {
                 valueLookupBuilder(stone_crafting_materials).add(stone.cobblestoneBlocks.base().asItem());
                 valueLookupBuilder(stone_tool_materials).add(stone.cobblestoneBlocks.base().asItem());

@@ -23,7 +23,7 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayableNpcPreviewWidget extends ModWidget{
+public class PlayableNpcPreviewWidget extends CustomWidget {
     private static final Identifier NPC_PREVIEW = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/npc_preview_widget.png");
 
     private static final int TICK_DELAY = 10;

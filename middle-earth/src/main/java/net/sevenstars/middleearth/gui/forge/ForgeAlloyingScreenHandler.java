@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.gui.forge;
 
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -26,7 +26,7 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
     }
 
     public ForgeAlloyingScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
-        super(ModScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.FORGE_ALLOYING_SCREEN_HANDLER, syncId);
         this.inventory = inventory;
         this.propertyDelegate = delegate;
         this.world = playerInventory.player.getWorld();
