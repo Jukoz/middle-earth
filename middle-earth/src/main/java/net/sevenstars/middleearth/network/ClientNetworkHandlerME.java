@@ -3,11 +3,7 @@ package net.sevenstars.middleearth.network;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.sevenstars.api.network.ClientNetworkHandlerAPI;
 import net.sevenstars.api.network.connections.IConnectionToServer;
-import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.packets.server2client.*;
-import net.sevenstars.api.network.packets.ServerToClientPacket;
-
-import java.util.function.BiConsumer;
 
 public class ClientNetworkHandlerME extends ClientNetworkHandlerAPI {
     public static void register(IConnectionToServer connection) {

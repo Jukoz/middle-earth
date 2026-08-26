@@ -1,6 +1,6 @@
 package net.sevenstars.api.network.packets;
 
-import net.sevenstars.middleearth.network.contexts.ClientPacketContext;
+import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;

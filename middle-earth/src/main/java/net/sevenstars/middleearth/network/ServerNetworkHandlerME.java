@@ -3,17 +3,11 @@ package net.sevenstars.middleearth.network;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.sevenstars.api.network.ClientNetworkHandlerAPI;
+import net.minecraft.network.codec.PacketCodecs;
 import net.sevenstars.api.network.ServerNetworkHandlerAPI;
 import net.sevenstars.api.network.connections.IConnectionToClient;
-import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.middleearth.network.packets.client2server.*;
-import net.sevenstars.api.network.packets.ClientToServerPacket;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.sevenstars.middleearth.network.packets.server2client.*;
-
-import java.util.function.BiConsumer;
 
 public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
     public static void register(IConnectionToClient connection) {

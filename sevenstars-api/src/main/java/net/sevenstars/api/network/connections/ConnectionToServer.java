@@ -1,18 +1,20 @@
 package net.sevenstars.api.network.connections;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToDynamicCoordinate;
+import net.minecraft.client.MinecraftClient;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 
 public class ConnectionToServer implements IConnectionToServer{
+
     @Override
     public boolean isOnServer() {
-        return ClientPlayNetworking.canSend(PacketTeleportToDynamicCoordinate.ID);
+        MinecraftClient client = MinecraftClient.getInstance();
+        return client != null && (client.getServer() != null || client.getCurrentServerEntry() != null);
     }
 
     @Override
     public <T extends ClientToServerPacket<T>> void sendPacketToServer(T packet) {
-        if (isOnServer()) {
+        if(isOnServer()){
             ClientPlayNetworking.send(packet);
         }
     }
