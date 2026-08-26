@@ -25,6 +25,7 @@ import net.sevenstars.middleearth.particles.ModParticleTypes;
 import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
+import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -60,6 +61,7 @@ public class MiddleEarth implements ModInitializer {
 		ModServerConfigs.registerConfigs();
 		ModClientConfigs.registerConfigs();
 
+		AtlasesME.registerAtlas();
 		RecipesME.registerRecipes();
 		DataComponentTypesME.registerModComponentTypes();
 

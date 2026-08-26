@@ -8,6 +8,7 @@ import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryFixedCodec;
+import net.sevenstars.api.registries.DynamicRegistriesAPI;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.providers.dynamic.GreatHornVariantsProvider;
 import net.sevenstars.middleearth.datageneration.providers.dynamic.*;
@@ -30,7 +31,7 @@ import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextu
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
-public class DynamicRegistriesME extends net.sevenstars.api.registries.DynamicRegistries {
+public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.of("race"));
     public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(MiddleEarth.of("faction"));
     public static final RegistryKey<Registry<NpcType>> NPC_TYPE = RegistryKey.ofRegistry(MiddleEarth.of("npc_type"));

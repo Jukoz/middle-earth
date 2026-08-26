@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.Optional;
 
-public class DynamicRegistries {
+public class DynamicRegistriesAPI {
 
     public static <T> T register(Registerable<T> context, RegistryEntryLookup<T> registryEntryLookup, RegistryKey<T> registryKey, T element) {
         Optional<RegistryEntry.Reference<T>> optionalRegistryEntry = registryEntryLookup.getOptional(registryKey);

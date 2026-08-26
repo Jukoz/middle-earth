@@ -29,7 +29,6 @@ import net.sevenstars.middleearth.world.features.misc.ModMiscConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.misc.ModMiscPlacedFeatures;
 import net.sevenstars.middleearth.world.features.ores.OreConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.ores.OrePlacedFeatures;
-import net.sevenstars.middleearth.world.features.platedfood.PlatedFoodConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.ModTreeConfiguredFeatures;
 import net.sevenstars.middleearth.world.features.tree.ModTreePlacedFeatures;
 import net.sevenstars.middleearth.world.features.tree.MushroomTreeConfiguredFeatures;

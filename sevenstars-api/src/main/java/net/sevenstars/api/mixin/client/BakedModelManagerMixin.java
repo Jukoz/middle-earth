@@ -1,12 +1,10 @@
-package net.sevenstars.middleearth.mixin.client;
+package net.sevenstars.api.mixin.client;
 
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
-import net.sevenstars.middleearth.registries.AtlasesME;
+import net.sevenstars.api.registries.AtlasRegistryiesAPI;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -20,8 +18,7 @@ import java.util.Map;
 
 
 @Mixin(BakedModelManager.class)
-public class BakedModelManagerMixin{
-
+public class BakedModelManagerMixin {
     @Mutable
     @Shadow @Final
     private static Map<Identifier, Identifier> LAYERS_TO_LOADERS;
@@ -30,13 +27,7 @@ public class BakedModelManagerMixin{
     private static void addNewAtlas(TextureManager textureManager, BlockColors colorMap, int mipmap, CallbackInfo ci)
     {
         HashMap<Identifier, Identifier> map = new HashMap<>(LAYERS_TO_LOADERS);
-        map.put(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES, AtlasesME.CHARACTER_TEXTURES);
-
-        /*
-         * Load custom sprites' atlas. Used for direct render animations.
-         */
-        map.put(MiddleEarth.of("sprites"), MiddleEarth.of("sprites"));
-
+        map.putAll(AtlasRegistryiesAPI.getAtlases());
         LAYERS_TO_LOADERS = map;
     }
 }
