@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.chunkgen;
 
 import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
-import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
+import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import net.minecraft.block.BlockState;
@@ -13,7 +13,7 @@ public class ProceduralStructures {
     public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
 
     public static void generateStructures(MapBasedCustomBiome biome, Chunk chunk, int x, int y, int z) {
-        if(biome.getBiomeKey() == MEBiomeKeys.NAN_CURUNIR || biome.getBiomeKey() == MEBiomeKeys.ISENGARD  || biome.getBiomeKey() == MEBiomeKeys.ISENGARD_HILL) {
+        if(biome.getBiomeKey() == BiomeKeyRegistryME.NAN_CURUNIR || biome.getBiomeKey() == BiomeKeyRegistryME.ISENGARD  || biome.getBiomeKey() == BiomeKeyRegistryME.ISENGARD_HILL) {
             generateIsengard(chunk, x, y, z);
         }
     }

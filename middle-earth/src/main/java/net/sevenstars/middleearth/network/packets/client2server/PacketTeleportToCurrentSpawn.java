@@ -10,7 +10,7 @@ import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 
 public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTeleportToCurrentSpawn> {
@@ -46,7 +46,7 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
                         return;
                     BlockPos spawnCoordinates = spawnData.getBlockPos();
                     if(spawnCoordinates != null)
-                        ModDimensions.teleportPlayerToMe(context.player(), spawnCoordinates.toCenterPos(), true, welcomeNeeded);
+                        DimensionRegistryME.teleportPlayerToMe(context.player(), spawnCoordinates.toCenterPos(), true, welcomeNeeded);
 
                 }
             });

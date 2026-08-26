@@ -10,7 +10,7 @@ import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.handlers.OnboardingScreenHandler;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -66,13 +66,13 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
         float delay = delayOnTeleportationConfirm;
         if(context.player().isInCreativeMode())
             delay = 0;
-        if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(context.player().getWorld())){
             if(!canReturnToOverworld){
                 return;
             }
             MinecraftClient client = MinecraftClient.getInstance();
             client.setScreen(new ReturnConfirmationScreen(delay));
-        } else if(ModDimensions.isInOverworld(context.player().getWorld())){
+        } else if(DimensionRegistryME.isInOverworld(context.player().getWorld())){
             OnboardingScreenHandler.handle(context, havePlayerData, delay, AttributePoolElement.obtainAttributeList(attributeList));
         }
     }

@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.gui.onboarding.OnboardingSelectionScreen;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class OnboardingScreenHandler {
     public static void handle(ClientPacketContext context, boolean havePlayerData, float delay, List<AttributePoolElement> playerAttributes){
         try{
             World world = context.player().getWorld();
-            if(ModDimensions.isInOverworld(world)){
+            if(DimensionRegistryME.isInOverworld(world)){
                 MinecraftClient client = MinecraftClient.getInstance();
                 if(!havePlayerData){
                     var controller = new OnboardingFactionScreenController(world, delay, playerAttributes);

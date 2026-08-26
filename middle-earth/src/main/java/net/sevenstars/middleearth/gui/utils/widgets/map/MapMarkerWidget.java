@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.gui.utils.widgets.map;
 
 import net.minecraft.client.gl.RenderPipelines;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.UiDirections;
 import net.sevenstars.middleearth.gui.utils.widgets.map.types.MapArrowType;
 import net.sevenstars.middleearth.gui.utils.widgets.map.types.MapMarkerType;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MapMarkerWidget extends ModWidget {
+public class MapMarkerWidget extends CustomWidget {
     private static final Identifier MAP_MARKERS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/map_markers.png");
     private static final Identifier MAP_ARROWS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/map_arrows.png");
 

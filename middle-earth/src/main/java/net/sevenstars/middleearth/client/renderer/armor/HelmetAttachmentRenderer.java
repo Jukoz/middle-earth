@@ -49,10 +49,10 @@ public class HelmetAttachmentRenderer implements ArmorRenderer {
                 HelmetAddonModel helmetAttachmentModel;
                 if (helmetAttachmentDataComponent.down()){
                     texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + helmetAttachmentDataComponent.helmetAttachment().getName().toLowerCase() + "_down.png");
-                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredDownModel();
+                    helmetAttachmentModel = ArmorModelsME.CustomHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredDownModel();
                 } else {
                     texture = Identifier.of(MiddleEarth.MOD_ID, "textures/models/helmet_attachment/" + helmetAttachmentDataComponent.helmetAttachment().getName().toLowerCase() + ".png");
-                    helmetAttachmentModel = ArmorModelsME.ModHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
+                    helmetAttachmentModel = ArmorModelsME.CustomHelmetAttachmentPairedModels.valueOf(helmetAttachmentDataComponent.helmetAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
                 }
                 contextModel.copyTransforms(helmetAttachmentModel);
                 helmetAttachmentModel.setVisible(false);
@@ -61,10 +61,10 @@ public class HelmetAttachmentRenderer implements ArmorRenderer {
                 if (DyeablePiecesME.dyeableHelmetAttachments.containsKey(helmetAttachmentDataComponent.getHelmetAttachment())) {
                     renderDyeableHelmetAttachment(matrices, vertexConsumers, light, stack, helmetAttachmentModel, texture, false);
                     if (DyeablePiecesME.dyeableHelmetAttachments.get(helmetAttachmentDataComponent.helmetAttachment())){
-                        ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
+                        CustomArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
                     }
                 } else {
-                    ModArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, texture);
+                    CustomArmorRenderer.renderTranslucentPiece(matrices, vertexConsumers, light, stack, helmetAttachmentModel, texture);
                 }
             }
         }

@@ -13,7 +13,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.SearchBarWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
@@ -97,7 +97,7 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
 
-        ModWidget.updateMouse(mouseX, mouseY);
+        CustomWidget.updateMouse(mouseX, mouseY);
 
         int centerX = (int) (client.currentScreen.width / 2f);
         int startY = 70;
@@ -221,7 +221,7 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
-        return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
+        return CustomWidget.isMouseOver(sizeX, sizeY, startX, startY);
     }
 
     private void selectIdentifier(Identifier identifier) {

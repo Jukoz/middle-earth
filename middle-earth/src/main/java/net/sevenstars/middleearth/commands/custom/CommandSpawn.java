@@ -29,7 +29,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ColorsME;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import org.joml.Vector3i;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -245,8 +245,8 @@ public class CommandSpawn {
             SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getWorld());
             BlockPos pos =  spawnData.getBlockPos();
             if(pos != null) {
-                if(ModDimensions.isInMiddleEarth(playerSource.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerSource.getWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
                     playerSource.setSpawnPoint(respawn, true);
                 }
                 MutableText sourceText = Text.translatable("command.%s.set.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), Text.translatable("spawn."+spawnIdInput.toTranslationKey()), pos.getX(), pos.getY(), pos.getZ());
@@ -274,8 +274,8 @@ public class CommandSpawn {
             SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getWorld());
             BlockPos pos =  spawnData.getBlockPos();
             if(pos != null) {
-                if(ModDimensions.isInMiddleEarth(playerTarget.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerTarget.getWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
                     playerTarget.setSpawnPoint(respawn, true);
                 }
 
@@ -301,7 +301,7 @@ public class CommandSpawn {
         ServerPlayerEntity playerSource = context.getSource().getPlayer();
 
         if(PlayerDataService.setOrigin(playerSource, playerSource.getWorld(), DimensionTypes.OVERWORLD.getRegistry(), posInput)) {
-            if(ModDimensions.isInOverworld(playerSource.getWorld())){
+            if(DimensionRegistryME.isInOverworld(playerSource.getWorld())){
                 ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, posInput, 0, true);
                 playerSource.setSpawnPoint(respawn, true);
                 return 0;
@@ -414,17 +414,17 @@ public class CommandSpawn {
                 return 0;
 
             PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(playerSource, playerSource.getWorld());
-            if(ModDimensions.isInOverworld(playerSource.getWorld()) && origin != null){
+            if(DimensionRegistryME.isInOverworld(playerSource.getWorld()) && origin != null){
                 PlayerDataService.setOrigin(playerSource, playerSource.getWorld(), DimensionTypes.OVERWORLD_ID, playerSource.getBlockPos());
             }
             Vector3i spawnCoordinates = spawnData.getWorldCoordinates();
             if(spawnCoordinates != null) {
                 BlockPos pos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y,spawnCoordinates.z);
-                if(ModDimensions.isInMiddleEarth(playerSource.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerSource.getWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
                     playerSource.setSpawnPoint(respawn, true);
                 }
-                ModDimensions.teleportPlayerToMe(playerSource, new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);
+                DimensionRegistryME.teleportPlayerToMe(playerSource, new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);
                 MutableText sourceText = Text.translatable("command.%s.teleport.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID),
                         Text.translatable("spawn."+ spawnData.getIdentifier().toTranslationKey()));
                 context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
@@ -447,17 +447,17 @@ public class CommandSpawn {
                 return 0;
 
             PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(playerTarget, playerTarget.getWorld());
-            if(ModDimensions.isInOverworld(playerTarget.getWorld()) && origin != null){
+            if(DimensionRegistryME.isInOverworld(playerTarget.getWorld()) && origin != null){
                 PlayerDataService.setOrigin(playerTarget, playerTarget.getWorld(), DimensionTypes.OVERWORLD_ID, playerTarget.getBlockPos());
             }
             Vector3i spawnCoordinates = spawnData.getWorldCoordinates();
             if(spawnCoordinates != null) {
                 BlockPos pos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y,spawnCoordinates.z);
-                if(ModDimensions.isInMiddleEarth(playerTarget.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerTarget.getWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
                     playerTarget.setSpawnPoint(respawn, true);
                 }
-                ModDimensions.teleportPlayerToMe(playerTarget, new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);
+                DimensionRegistryME.teleportPlayerToMe(playerTarget, new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);
                 MutableText sourceText = Text.translatable("command.%s.teleport.player.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName(), Text.translatable("spawn."+spawnData.getIdentifier().toTranslationKey()), pos.getX(), pos.getY(), pos.getZ());
                 context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
                 MutableText targetText = Text.translatable("command.%s.teleport.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), Text.translatable("spawn."+spawnData.getIdentifier().toTranslationKey()));
@@ -477,7 +477,7 @@ public class CommandSpawn {
             return 0;
 
         ServerPlayerEntity player = context.getSource().getPlayer();
-        if(ModDimensions.teleportPlayerToOverworld(player)){
+        if(DimensionRegistryME.teleportPlayerToOverworld(player)){
             MutableText sourceText = Text.translatable("command.%s.teleport.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID));
             context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             return 0;
@@ -490,7 +490,7 @@ public class CommandSpawn {
     private static int teleportPlayerToSpawnOverworld(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = EntityArgumentType.getPlayer(context, PLAYER);
 
-        if(ModDimensions.teleportPlayerToOverworld(player)){
+        if(DimensionRegistryME.teleportPlayerToOverworld(player)){
             MutableText sourceText = Text.translatable("command.%s.teleport.player.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), player.getName(), player.getX(), player.getY(), player.getZ());
             context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             return 0;

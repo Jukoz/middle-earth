@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.plants.BerryHollyLeavesBlock;
-import net.sevenstars.middleearth.block.special.plants.ModLeavesBlock;
+import net.sevenstars.middleearth.block.special.plants.CustomLeavesBlock;
 import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
 import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
@@ -460,7 +460,7 @@ public class WoodBlockSetRegistryME {
                 case LEAVES -> {
                     if(set.setName.equals("mallorn")){
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new ModLeavesBlock(0.01F, settings, false), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
+                                (settings) -> new CustomLeavesBlock(0.01F, settings, false), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
                                         .strength(LEAVES_STRENGTH).mapColor(MapColor.YELLOW).sounds(BlockSoundGroup.GRASS).burnable(), itemGroup);
                     } else if(set.setName.equals("holly")){
                         set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),

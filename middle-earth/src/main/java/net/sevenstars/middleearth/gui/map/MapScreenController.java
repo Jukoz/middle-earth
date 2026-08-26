@@ -5,9 +5,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.event.KeyInputHandler;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToDynamicWorldCoordinate;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import org.joml.Vector2d;
 
@@ -32,7 +32,7 @@ public class MapScreenController {
         if(world.isClient) {
             if (mc.currentScreen == null) {
                 screen = new MapScreen();
-                isInDimension = ModDimensions.isInMiddleEarth(world);
+                isInDimension = DimensionRegistryME.isInMiddleEarth(world);
 
                 hasTeleportPermission = canTeleport;
                 screen.playerIsInDimension = isInDimension;
@@ -80,8 +80,8 @@ public class MapScreenController {
         if(KeyInputHandler.mapFullscreenToggle.matchesKey(keyCode, modifiers)){
             screen.isFullscreen = !screen.isFullscreen;
         }
-        if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){
-            ModWidget.enableFocus(true);
+        if(keyCode == KeyEvent.VK_CODE_INPUT && !CustomWidget.getFocusEnabled()){
+            CustomWidget.enableFocus(true);
             return true;
         }
         return true;

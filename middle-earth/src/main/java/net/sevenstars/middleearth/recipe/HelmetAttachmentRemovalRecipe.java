@@ -105,6 +105,6 @@ public class HelmetAttachmentRemovalRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_ARMOR_HELMET_ATTACHMENT_REMOVAL;
+        return RecipeSerializerRegistryME.CUSTOM_ARMOR_HELMET_ATTACHMENT_REMOVAL;
     }
 }

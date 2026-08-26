@@ -20,7 +20,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ColorsME;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -168,7 +168,7 @@ public class FactionUtil {
         spawnBlockPos = getSpawnBlockPos(target.getWorld(), spawnId);
         if(spawnBlockPos == null)
             return false;
-        ModDimensions.teleportPlayerToMe(target, new Vec3d(spawnBlockPos.getX(), spawnBlockPos.getY(), spawnBlockPos.getZ()), false, false);
+        DimensionRegistryME.teleportPlayerToMe(target, new Vec3d(spawnBlockPos.getX(), spawnBlockPos.getY(), spawnBlockPos.getZ()), false, false);
         return true;
     }
 

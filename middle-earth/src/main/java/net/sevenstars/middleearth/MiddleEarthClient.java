@@ -194,7 +194,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "kite_shield"), KiteShieldModelRenderer.Unbaked.CODEC);
         SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), RoundShieldModelRenderer.Unbaked.CODEC);
 
-        for(ArmorModelsME.ModHelmetModels model : ArmorModelsME.ModHelmetModels.values()){
+        for(ArmorModelsME.CustomHelmetModels model : ArmorModelsME.CustomHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());
         }
         ArmorRenderer.register(new HelmetVariantsRenderer(new SilvanLordHelmetModel(SilvanLordHelmetModel.getTexturedModelData().createModel())), EquipmentItemsME.SILVAN_LORD_HELMET);
@@ -202,7 +202,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ArmorRenderer.register(new HelmetVariantsRenderer(new ErynGalenWatchwardenHelmetModel(ErynGalenWatchwardenHelmetModel.getTexturedModelData().createModel())), EquipmentItemsME.OXIDISED_ERYN_GALEN_WATCHWARDEN_HELMET);
         ArmorRenderer.register(new WoodlandCrownRenderer(new WoodlandRealmCrownModel(WoodlandRealmCrownModel.getTexturedModelData().createModel())), EquipmentItemsME.WOODLAND_REALM_CROWN);
 
-        for(ArmorModelsME.ModChestplateModels model : ArmorModelsME.ModChestplateModels.values()){
+        for(ArmorModelsME.CustomChestplateModels model : ArmorModelsME.CustomChestplateModels.values()){
             ArmorRenderer.register(new ChestplateArmorRenderer(model.getModel()), model.getItem());
         }
 

@@ -29,7 +29,7 @@ import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 import java.util.Objects;
 
@@ -46,7 +46,7 @@ public class EventRegistryME {
                 return;
             if(data != null && data.getRace() != null){
                 RaceUtil.reset(player);
-                boolean isInMiddleEarth = ModDimensions.isInMiddleEarth(player.getWorld());
+                boolean isInMiddleEarth = DimensionRegistryME.isInMiddleEarth(player.getWorld());
                 if(isInMiddleEarth){
                     RaceUtil.initializeRace(player);
                 } else if(ServerConfigME.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){

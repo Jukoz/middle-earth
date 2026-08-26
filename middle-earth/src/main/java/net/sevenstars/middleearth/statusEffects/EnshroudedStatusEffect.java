@@ -25,7 +25,7 @@ public class EnshroudedStatusEffect extends StatusEffect {
     public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
         if(entity instanceof PlayerEntity){
             Map<RegistryEntry<StatusEffect>, StatusEffectInstance> map = entity.getActiveStatusEffects();
-            int ticksLeft = map.get(ModStatusEffects.ENSHROUDED).getDuration();
+            int ticksLeft = map.get(StatusEffectRegistryME.ENSHROUDED).getDuration();
             if(ticksLeft != -1 && ticksLeft < EnshroudedData.STOPPING_TICK)
                 EnshroudedData.addEffect((IEntityDataSaver) entity, -2);
             else{

@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.network.packets.client2server;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapUtils;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -45,8 +45,8 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
         context.player().getServer().execute(() -> {
             Vector2d worldCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(xCoordinate, zCoordinate);
             MinecraftServer server = context.player().getServer();
-            Vec3d coordinates = new Vec3d(worldCoordinate.x, ModDimensions.getDimensionHeight((int)worldCoordinate.x, (int)worldCoordinate.y).y, worldCoordinate.y);
-            ModDimensions.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
+            Vec3d coordinates = new Vec3d(worldCoordinate.x, DimensionRegistryME.getDimensionHeight((int)worldCoordinate.x, (int)worldCoordinate.y).y, worldCoordinate.y);
+            DimensionRegistryME.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });
     }
 }

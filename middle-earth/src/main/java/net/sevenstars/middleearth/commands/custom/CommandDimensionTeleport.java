@@ -12,7 +12,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 public class CommandDimensionTeleport {
     private static final String TP = "tp";
@@ -34,7 +34,7 @@ public class CommandDimensionTeleport {
 
             ServerPlayerEntity targettedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
 
-            ModDimensions.teleportPlayerToMe(targettedPlayer, coordinates.toCenterPos(), true, true);
+            DimensionRegistryME.teleportPlayerToMe(targettedPlayer, coordinates.toCenterPos(), true, true);
             return 1;
         } catch (Exception e){
             return 0;

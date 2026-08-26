@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.item.items.StarlightPhialItem;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.util.Hand;
@@ -36,8 +36,8 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
             context.player().getServer().execute(() -> {
                 RaceUtil.reset(context.player());
 
-                if(ModDimensions.isInMiddleEarth(context.player().getWorld())){
-                    ModDimensions.teleportPlayerToOverworld(context.player());
+                if(DimensionRegistryME.isInMiddleEarth(context.player().getWorld())){
+                    DimensionRegistryME.teleportPlayerToOverworld(context.player());
                     RaceUtil.reset(context.player());
                     if(ServerConfigME.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
                         RaceUtil.initializeRace(context.player());

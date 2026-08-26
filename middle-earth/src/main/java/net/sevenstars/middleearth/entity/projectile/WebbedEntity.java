@@ -22,8 +22,8 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
-import net.sevenstars.middleearth.world.features.vegetation.ModVegetationConfiguredFeatures;
+import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
+import net.sevenstars.middleearth.world.features.vegetation.VegetationConfiguredFeatureRegistryME;
 
 import java.util.Optional;
 
@@ -43,7 +43,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
                 if(this.getWorld() instanceof ServerWorld serverWorld) {
                     Optional<? extends RegistryEntry<ConfiguredFeature<?, ?>>> optional = serverWorld.getRegistryManager()
                             .getOrThrow(RegistryKeys.CONFIGURED_FEATURE)
-                            .getOptional(ModVegetationConfiguredFeatures.PATCH_WEBBING);
+                            .getOptional(VegetationConfiguredFeatureRegistryME.PATCH_WEBBING);
                     optional.ifPresent(configuredFeatureRegistryEntry -> feature = configuredFeatureRegistryEntry.value());
                 }
             }
@@ -71,7 +71,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
             if(entity instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAVING, 200));
-                livingEntity.addStatusEffect(new StatusEffectInstance(ModStatusEffects.RESTRAINED, 200));
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffectRegistryME.RESTRAINED, 200));
                 //if(entity instanceof ServerPlayerEntity playerEntity) {
                 //    ServerPlayNetworking.send(playerEntity, new PacketLivingEntityData(1));
                 //}

@@ -22,24 +22,24 @@ import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.sevenstars.middleearth.network.ServerNetworkHandlerME;
 import net.sevenstars.api.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
-import net.sevenstars.middleearth.recipe.ModRecipeSerializer;
+import net.sevenstars.middleearth.recipe.RecipeSerializerRegistryME;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
 import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.SoundsME;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
-import net.sevenstars.middleearth.world.biomes.MEBiomeKeys;
+import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBiomeData;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
-import net.sevenstars.middleearth.world.gen.ModWorldGeneration;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.world.gen.CustomWorldGeneration;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
-import net.sevenstars.middleearth.world.spawners.ModEntitySpawning;
+import net.sevenstars.middleearth.world.spawners.EntitySpawningME;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "middle-earth";
@@ -66,7 +66,7 @@ public class MiddleEarth implements ModInitializer {
 		DataComponentTypesME.registerModComponentTypes();
 
 		CommandRegistryME.register();
-		ModStatusEffects.registerStatusEffects();
+		StatusEffectRegistryME.registerStatusEffects();
 
 		OreStoneSetRegistryME.registerModBlockSets();
 		WeaponItemsME.registerModItems();
@@ -102,14 +102,14 @@ public class MiddleEarth implements ModInitializer {
 		BlockEntityRegistryME.registerBlockEntities();
 
 		ScreenHandlerRegistryME.registerAllScreenHandlers();
-		ModRecipeSerializer.registerRecipeSerializers();
+		RecipeSerializerRegistryME.registerRecipeSerializers();
 
 		TrackedDataHandlerRegistryME.register();
 
 
 
 		EntitiesME.registerModEntities();
-		ModEntitySpawning.addSpawns();
+		EntitySpawningME.addSpawns();
 
 		// Entity AI
 		SensorsME.registerModSensors();
@@ -118,14 +118,14 @@ public class MiddleEarth implements ModInitializer {
 
 		SoundsME.registerModSounds();
 		ParticleTypeRegistryME.registerParticleTypes();
-		ModStatusEffects.registerStatusEffects();
+		StatusEffectRegistryME.registerStatusEffects();
 
-		ModDimensions.register();
+		DimensionRegistryME.register();
 		MapBiomeData.loadBiomes();
-		MEBiomeKeys.registerModBiomes();
+		BiomeKeyRegistryME.registerModBiomes();
 		MapBasedBiomePool.loadBiomes();
 
-		ModWorldGeneration.generateModWorldGen();
+		CustomWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 		InscriptionWordBank.addWordsToBank();
 

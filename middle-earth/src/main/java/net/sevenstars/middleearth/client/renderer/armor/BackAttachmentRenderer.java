@@ -44,7 +44,7 @@ public class BackAttachmentRenderer implements ArmorRenderer {
             BackAttachmentDataComponent backAttachmentDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
 
             if (backAttachmentDataComponent != null) {
-                ChestplateAddonModel backAttachmentModel = ArmorModelsME.ModBackAttachmentPairedModels.valueOf(backAttachmentDataComponent.backAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
+                ChestplateAddonModel backAttachmentModel = ArmorModelsME.CustomBackAttachmentPairedModels.valueOf(backAttachmentDataComponent.backAttachment().getName().toUpperCase()).getModel().getUnarmoredModel();
                 contextModel.copyTransforms(backAttachmentModel);
                 backAttachmentModel.setVisible(false);
                 backAttachmentModel.body.visible = true;

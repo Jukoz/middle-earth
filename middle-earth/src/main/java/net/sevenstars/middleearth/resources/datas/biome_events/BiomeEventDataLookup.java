@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 import java.util.*;
 
@@ -84,7 +84,7 @@ public class BiomeEventDataLookup {
     }
 
     public static void addEntity(LivingEntity entity){
-        if (!entity.getWorld().getRegistryKey().equals(ModDimensions.ME_WORLD_KEY)) {
+        if (!entity.getWorld().getRegistryKey().equals(DimensionRegistryME.ME_WORLD_KEY)) {
             return;
         }
 
