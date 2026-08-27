@@ -18,6 +18,7 @@ import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.loot.provider.number.LootNumberProvider;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.collection.Pool;
+import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.item.WeaponItemsME;
@@ -49,7 +50,7 @@ public class CaveTrollDigForFoodTask extends MultiTickTask<CaveTrollEntity> {
     protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
         entity.setScavenging(false);
         entity.getBrain().remember(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN, 2400 + entity.getRandom().nextInt(1200));
-        entity.getBrain().remember(MemoryModulesME.ACTION_TIMEOUT, 200);
+        entity.getBrain().remember(MemoryModulesAPI.ACTION_TIMEOUT, 200);
 
         List<ItemStack> items = entity.scavengeLootTable.generateLoot(entity.lootWorldContext);
 
