@@ -14,19 +14,13 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.GlobalPos;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
 import net.sevenstars.api.entity.ai.brain.task.ForgetMemorizedPosTask;
 import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
 import net.sevenstars.api.entity.ai.brain.task.PlaceBlockNearbyTask;
-import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
-import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
-import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
-import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollSleepTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.RememberBlockLocationTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.SleepOnGroundTask;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
+import net.sevenstars.api.entity.ai.brain.task.RememberBlockLocationTask;
+import net.sevenstars.api.entity.ai.brain.task.SleepOnGroundTask;
 
 import java.util.Optional;
 

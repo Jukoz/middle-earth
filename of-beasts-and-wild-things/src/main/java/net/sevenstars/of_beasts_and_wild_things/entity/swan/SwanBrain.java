@@ -23,16 +23,12 @@ import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.sevenstars.api.entity.ai.brain.ActivitiesAPI;
 import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
-import net.sevenstars.api.entity.ai.brain.task.DefendHomeTask;
-import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
-import net.sevenstars.api.entity.ai.brain.task.StrollAroundHomeTask;
-import net.sevenstars.api.entity.ai.brain.task.StrollInWaterTask;
+import net.sevenstars.api.entity.ai.brain.task.*;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.SensorsWT;
-import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task.*;
 
 import java.util.Optional;
 import java.util.function.Predicate;

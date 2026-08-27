@@ -1,4 +1,4 @@
-package net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.task;
+package net.sevenstars.api.entity.ai.brain.task;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.LivingEntity;
@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.sevenstars.api.entity.SleepingEntity;
 import net.sevenstars.api.entity.ai.brain.ActivitiesAPI;
-import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntity;
 
 import java.util.Optional;
 
