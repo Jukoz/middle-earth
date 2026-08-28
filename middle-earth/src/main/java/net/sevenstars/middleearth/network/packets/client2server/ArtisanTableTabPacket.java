@@ -11,7 +11,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class ArtisanTableTabPacket extends ClientToServerPacket<ArtisanTableTabPacket> {
-    public static final Id<ArtisanTableTabPacket> ID = new Id<>(MiddleEarth.of("artisan_table_tab_packet"));
+    public static final Id<ArtisanTableTabPacket> ID = new Id<>(MiddleEarth.id("artisan_table_tab_packet"));
     public static final PacketCodec<RegistryByteBuf, ArtisanTableTabPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.shapeId,
             PacketCodecs.INTEGER, p -> p.syncId,

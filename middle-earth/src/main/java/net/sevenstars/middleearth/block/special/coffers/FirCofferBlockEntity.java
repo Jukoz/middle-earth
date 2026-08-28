@@ -18,6 +18,6 @@ public class FirCofferBlockEntity extends ChestBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable(MiddleEarth.of("fir_coffer").toTranslationKey("screen"));
+        return Text.translatable(MiddleEarth.id("fir_coffer").toTranslationKey("screen"));
     }
 }

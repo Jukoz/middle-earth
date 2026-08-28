@@ -235,7 +235,7 @@ public class WildGoblinNpcTypePool {
                     AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.30),
                     AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 28),
                     AttributePoolElement.create(EntityAttributesME.WIDTH_SCALE, 1.0, 1.05),
-                    AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.of("brute_attack_damage_buff"), 1.35)
+                    AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 2).withModifier(MiddleEarth.id("brute_attack_damage_buff"), 1.35)
                 )
             ));
         }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);

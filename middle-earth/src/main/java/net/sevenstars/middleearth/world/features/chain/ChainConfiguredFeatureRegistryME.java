@@ -13,7 +13,7 @@ public class ChainConfiguredFeatureRegistryME {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ROPE_LADDER_DOWN = registerKey("rope_ladder_down");
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, MiddleEarth.of(name));
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, MiddleEarth.id(name));
     }
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {

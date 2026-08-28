@@ -20,26 +20,26 @@ import net.sevenstars.middleearth.network.packets.client2server.ForgeOutputPacke
 import java.util.List;
 
 public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.ofPath( "textures", "gui", "forge.png");
+    private static final Identifier TEXTURE = MiddleEarth.idFilePath( "textures", "gui", "forge.png");
 
-    private static final Identifier EXTRACT_BUTTON = MiddleEarth.of("extract");
-    private static final Identifier EXTRACT_BUTTON_DISABLED = MiddleEarth.of("extract_disabled");
-    private static final Identifier EXTRACT_BUTTON_FOCUSED = MiddleEarth.of("extract_focused");
+    private static final Identifier EXTRACT_BUTTON = MiddleEarth.id("extract");
+    private static final Identifier EXTRACT_BUTTON_DISABLED = MiddleEarth.id("extract_disabled");
+    private static final Identifier EXTRACT_BUTTON_FOCUSED = MiddleEarth.id("extract_focused");
     private static final ButtonTextures EXTRACT_BUTTON_TEXTURES = new ButtonTextures(EXTRACT_BUTTON, EXTRACT_BUTTON_DISABLED, EXTRACT_BUTTON_FOCUSED);
 
-    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON = MiddleEarth.of("left_cycle_arrow");
-    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON_FOCUSED = MiddleEarth.of("left_cycle_arrow_focused");
+    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON = MiddleEarth.id("left_cycle_arrow");
+    private static final Identifier LEFT_CYCLE_EXTRACT_BUTTON_FOCUSED = MiddleEarth.id("left_cycle_arrow_focused");
     private static final ButtonTextures LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES = new ButtonTextures(LEFT_CYCLE_EXTRACT_BUTTON, LEFT_CYCLE_EXTRACT_BUTTON_FOCUSED);
 
-    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON = MiddleEarth.of("right_cycle_arrow");
-    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED = MiddleEarth.of("right_cycle_arrow_focused");
+    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON = MiddleEarth.id("right_cycle_arrow");
+    private static final Identifier RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED = MiddleEarth.id("right_cycle_arrow_focused");
     private static final ButtonTextures RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES = new ButtonTextures(RIGHT_CYCLE_EXTRACT_BUTTON, RIGHT_CYCLE_EXTRACT_BUTTON_FOCUSED);
 
-    private static final Identifier ALLOYING_SWITCH_BUTTON = MiddleEarth.of("alloying_mode");
-    private static final Identifier ALLOYING_SWITCH_BUTTON_FOCUSED = MiddleEarth.of("alloying_mode_highlighted");
+    private static final Identifier ALLOYING_SWITCH_BUTTON = MiddleEarth.id("alloying_mode");
+    private static final Identifier ALLOYING_SWITCH_BUTTON_FOCUSED = MiddleEarth.id("alloying_mode_highlighted");
     private static final ButtonTextures ALLOYING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(ALLOYING_SWITCH_BUTTON, ALLOYING_SWITCH_BUTTON_FOCUSED);
-    private static final Identifier HEATING_SWITCH_BUTTON = MiddleEarth.of("heating_mode");
-    private static final Identifier HEATING_SWITCH_BUTTON_FOCUSED = MiddleEarth.of("heating_mode_highlighted");
+    private static final Identifier HEATING_SWITCH_BUTTON = MiddleEarth.id("heating_mode");
+    private static final Identifier HEATING_SWITCH_BUTTON_FOCUSED = MiddleEarth.id("heating_mode_highlighted");
     private static final ButtonTextures HEATING_SWITCH_BUTTON_TEXTURES = new ButtonTextures(HEATING_SWITCH_BUTTON, HEATING_SWITCH_BUTTON_FOCUSED);
 
     private static final int PROGRESS_ARROW_SIZE = 27;

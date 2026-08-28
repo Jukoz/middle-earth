@@ -75,12 +75,12 @@ public class SackBlockEntity extends LootableContainerBlockEntity implements Sid
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable(MiddleEarth.of("sack").toTranslationKey("screen"));
+        return Text.translatable(MiddleEarth.id("sack").toTranslationKey("screen"));
     }
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable(MiddleEarth.of("sack").toTranslationKey("screen"));
+        return Text.translatable(MiddleEarth.id("sack").toTranslationKey("screen"));
     }
 
     protected void readData(ReadView view) {

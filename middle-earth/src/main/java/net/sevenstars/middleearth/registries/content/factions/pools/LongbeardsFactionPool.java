@@ -59,9 +59,9 @@ public class LongbeardsFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.DWARF_CROWN, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(LONGBEARDS.getName(), "erebor", "ravenhill"), new Vector2d(2017, 722)),
-                        new SpawnData(MiddleEarth.of(LONGBEARDS.getName(), "erebor", "iron_hills"), new Vector2d(2355, 725)),
-                        new SpawnData(MiddleEarth.of(LONGBEARDS.getName(), "erebor", "iron_hills_spring"), new Vector2d(2262, 782))
+                        new SpawnData(MiddleEarth.idAggregate(LONGBEARDS.getName(), "erebor", "ravenhill"), new Vector2d(2017, 722)),
+                        new SpawnData(MiddleEarth.idAggregate(LONGBEARDS.getName(), "erebor", "iron_hills"), new Vector2d(2355, 725)),
+                        new SpawnData(MiddleEarth.idAggregate(LONGBEARDS.getName(), "erebor", "iron_hills_spring"), new Vector2d(2262, 782))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),

@@ -62,7 +62,7 @@ public class BiomeEventDataLookup {
     }
 
     public static boolean canEntitySpawn(ServerWorld world, RegistryEntry<Biome> biome, BlockPos pos, EntityType<?> type, Random random) {
-        RegistryEntry.Reference<BiomeEventData> dataRef = world.getRegistryManager().getOrThrow(DynamicRegistriesME.BIOME_EVENT).getEntry(MiddleEarth.fetchId(biome.getIdAsString())).orElse(null);
+        RegistryEntry.Reference<BiomeEventData> dataRef = world.getRegistryManager().getOrThrow(DynamicRegistriesME.BIOME_EVENT).getEntry(MiddleEarth.ofId(biome.getIdAsString())).orElse(null);
         if(dataRef == null)
             return true;
         BiomeEventData data = dataRef.value();

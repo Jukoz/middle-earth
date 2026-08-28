@@ -13,7 +13,7 @@ public class BiomeEventRegistry {
     private static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT_KEY = DynamicRegistriesME.BIOME_EVENT;
     private static final RegistryKey<Registry<BiomeEventData>> STRUCTURE_EVENT_KEY = DynamicRegistriesME.STRUCTURE_EVENT;
 
-    public final static RegistryKey<BiomeEventData> DEFAULT = DynamicRegistriesME.of(BIOME_EVENT_KEY, MiddleEarth.of("default"));
+    public final static RegistryKey<BiomeEventData> DEFAULT = DynamicRegistriesME.of(BIOME_EVENT_KEY, MiddleEarth.id("default"));
 
     // region CAVES
     public final static RegistryKey<BiomeEventData> BASIC_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.BASIC_CAVE.getValue());

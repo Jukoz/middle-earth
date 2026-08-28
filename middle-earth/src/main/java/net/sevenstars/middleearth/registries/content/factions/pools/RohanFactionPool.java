@@ -54,12 +54,12 @@ public class RohanFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.HORSE_HEAD, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of("rohan",  "edoras"), new Vector2d(1525, 1600)),
-                        new SpawnData(MiddleEarth.of("rohan",  "helms_deep"), new Vector2d(1470, 1555)), // Westfold
-                        new SpawnData(MiddleEarth.of("rohan",  "westemnet"), new Vector2d(1525, 1525)),
-                        new SpawnData(MiddleEarth.of("rohan",  "aldburg"), new Vector2d(1600, 1660)), // Eastfold
-                        new SpawnData(MiddleEarth.of("rohan",  "eastemnet"), new Vector2d(1715, 1575)),
-                        new SpawnData(MiddleEarth.of("rohan",  "the_wold"), new Vector2d(1675, 1475))
+                        new SpawnData(MiddleEarth.idAggregate("rohan",  "edoras"), new Vector2d(1525, 1600)),
+                        new SpawnData(MiddleEarth.idAggregate("rohan",  "helms_deep"), new Vector2d(1470, 1555)), // Westfold
+                        new SpawnData(MiddleEarth.idAggregate("rohan",  "westemnet"), new Vector2d(1525, 1525)),
+                        new SpawnData(MiddleEarth.idAggregate("rohan",  "aldburg"), new Vector2d(1600, 1660)), // Eastfold
+                        new SpawnData(MiddleEarth.idAggregate("rohan",  "eastemnet"), new Vector2d(1715, 1575)),
+                        new SpawnData(MiddleEarth.idAggregate("rohan",  "the_wold"), new Vector2d(1675, 1475))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),

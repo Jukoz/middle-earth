@@ -53,7 +53,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     public List<String> selectedWords;
     private final Property levelCost;
 
-    private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = MiddleEarth.of("container/slot/chisel");
+    private static final Identifier EMPTY_SLOT_CHISEL_TEXTURE = MiddleEarth.id("container/slot/chisel");
 
     public InscriptionTableScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);

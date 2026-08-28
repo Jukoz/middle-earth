@@ -18,6 +18,6 @@ public class ChestnutCofferBlockEntity extends ChestBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable(MiddleEarth.of("chestnut_coffer").toTranslationKey("screen"));
+        return Text.translatable(MiddleEarth.id("chestnut_coffer").toTranslationKey("screen"));
     }
 }

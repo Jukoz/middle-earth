@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -110,7 +111,7 @@ public class BiomeEventData {
         boolean containEntityType = false;
         for(WildSpawnEventData data : getWildSpawnEventDatas()){
             Identifier entityId = Registries.ENTITY_TYPE.getId(type);
-            if(!containEntityType && MiddleEarth.compareId(data.getEntityType(), entityId))
+            if(!containEntityType && IdentifierUtil.compareId(data.getEntityType(), entityId))
                 containEntityType = true;
             if(SpawnEventDataUtil.isConsideredForSpawning(data, entityId, world, pos))
             {

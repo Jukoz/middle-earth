@@ -18,6 +18,6 @@ public class LarchCofferBlockEntity extends ChestBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable(MiddleEarth.of("larch_coffer").toTranslationKey("screen"));
+        return Text.translatable(MiddleEarth.id("larch_coffer").toTranslationKey("screen"));
     }
 }

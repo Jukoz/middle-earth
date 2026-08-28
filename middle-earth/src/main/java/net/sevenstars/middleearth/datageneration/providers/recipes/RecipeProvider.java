@@ -1460,7 +1460,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("BSB")
                         .pattern(" B ")
                         .pattern("B B")
-                        .input('B', TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("bones")))
+                        .input('B', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input('S', DecorativeBlockRegistryME.OLD_SKULL.asItem())
                         .criterion(hasItem(DecorativeBlockRegistryME.OLD_SKULL.asItem()),
                                 conditionsFromItem(DecorativeBlockRegistryME.OLD_SKULL.asItem()))

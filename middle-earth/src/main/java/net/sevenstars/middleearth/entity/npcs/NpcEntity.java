@@ -286,7 +286,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
         String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
         if(npcDataId != null){
-            foundNpcInitializationData = foundNpcInitializationData.withType(MiddleEarth.fetchId(npcDataId));
+            foundNpcInitializationData = foundNpcInitializationData.withType(MiddleEarth.ofId(npcDataId));
             foundNpcData = new NpcData();
             foundNpcTextureData = new  NpcTextureData();
             isFighting = false;

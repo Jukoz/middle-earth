@@ -291,7 +291,7 @@ public class BiomeKeyRegistryME extends BiomeKeys {
 
     private static RegistryKey<Biome> register(String name) {
         TranslationEntries.biomeEntries.add(name);
-        Identifier biomeId = MiddleEarth.of(name);
+        Identifier biomeId = MiddleEarth.id(name);
         RegistryKey<Biome> biome = RegistryKey.of(RegistryKeys.BIOME, biomeId);
         BiomeEventRegistryUtil.addBiomeEntry(biome);
         return biome;

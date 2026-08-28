@@ -244,7 +244,7 @@ public class CharacterMaterialsRegistryME {
     }
 
     private static RegistryKey<CharacterTextureMaterial> of(String idPath, CharacterMaterialTypes type) {
-        return RegistryKey.of(getKey(type), MiddleEarth.of(idPath));
+        return RegistryKey.of(getKey(type), MiddleEarth.id(idPath));
     }
 
     public static RegistryKey<Registry<CharacterTextureMaterial>> getKey(CharacterMaterialTypes type){

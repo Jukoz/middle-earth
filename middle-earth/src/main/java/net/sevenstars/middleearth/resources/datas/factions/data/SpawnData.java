@@ -33,7 +33,7 @@ public class SpawnData {
      * @param isDynamic
      */
     public SpawnData(String identifier, Vec3d coordinates, Boolean isDynamic) {
-        this.identifier = MiddleEarth.fetchId(identifier);
+        this.identifier = MiddleEarth.ofId(identifier);
         this.isDynamic = isDynamic;
 
         if(isDynamic)

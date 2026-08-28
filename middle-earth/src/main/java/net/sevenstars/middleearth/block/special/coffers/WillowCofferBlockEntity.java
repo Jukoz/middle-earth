@@ -18,6 +18,6 @@ public class WillowCofferBlockEntity extends ChestBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable(MiddleEarth.of("willow_coffer").toTranslationKey("screen"));
+        return Text.translatable(MiddleEarth.id("willow_coffer").toTranslationKey("screen"));
     }
 }

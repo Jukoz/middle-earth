@@ -27,17 +27,17 @@ public class EggItemsWT {
             (settings) -> new SpawnEggItem(EntitiesWT.SNAIL, settings), new Item.Settings());
 
     public static RegistryKey<Item> keyOfItem(String idPath) {
-        return RegistryKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.of(idPath));
+        return RegistryKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.id(idPath));
     }
     private static Item registerItem(String idPath, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(keyOfItem(idPath)));
         ItemGroupsWT.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
         SimpleItemModels.items.add(item);
         TranslationEntries.itemEntries.add(item);
-        return Registry.register(Registries.ITEM, OfBeastsAndWildThings.of(idPath), item);
+        return Registry.register(Registries.ITEM, OfBeastsAndWildThings.id(idPath), item);
     }
 
-    public static void registerModItems() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Egg Items for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Egg Items");
     }
 }

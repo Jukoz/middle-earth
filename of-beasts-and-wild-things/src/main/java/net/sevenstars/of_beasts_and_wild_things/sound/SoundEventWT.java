@@ -6,8 +6,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
-public class SoundsWT {
-
+public class SoundEventWT {
     // DEER
     public static SoundEvent DEER_DEATH = registerSoundEvent("deer_death");
     public static SoundEvent DEER_GRUNT = registerSoundEvent("deer_grunt");
@@ -24,7 +23,7 @@ public class SoundsWT {
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
 
-    public static void registerModSounds() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod SoundEvents for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Sound Events");
     }
 }

@@ -8,7 +8,7 @@ import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 
 public class InscriptionConfirmationPacket extends ClientToServerPacket<InscriptionConfirmationPacket> {
-    public static final Id<InscriptionConfirmationPacket> ID = new Id<>(MiddleEarth.of("inscription_confirmation_packet"));
+    public static final Id<InscriptionConfirmationPacket> ID = new Id<>(MiddleEarth.id("inscription_confirmation_packet"));
     public static final InscriptionConfirmationPacket INSTANCE = new InscriptionConfirmationPacket();
     public static final PacketCodec<RegistryByteBuf, InscriptionConfirmationPacket> CODEC = PacketCodec.unit(INSTANCE);
 

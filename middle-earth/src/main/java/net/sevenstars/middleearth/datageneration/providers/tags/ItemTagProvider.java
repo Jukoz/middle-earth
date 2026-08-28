@@ -71,9 +71,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril_ores"));
         TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "shingles"));
 
-        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_stripped_logs"));
+        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mod_stripped_logs"));
         TagKey<Item> stripped_logs = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "stripped_logs"));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_planks"))).add(Planks.getItemPlanksWithoutVanilla().toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mod_planks"))).add(Planks.getItemPlanksWithoutVanilla().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"))).add(Planks.getItemPlanksSlabs().toArray(new Item[0]));
@@ -82,9 +82,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves"))).add(LeavesSets.getItemLeaves().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("axes"))).add(WeaponEnchants.axes.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sword"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
 
@@ -124,13 +124,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM,Identifier.of( "minecraft", "enchantable/leg_armor"))).add(ArmorTags.legArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM,Identifier.of( "minecraft", "enchantable/foot_armor"))).add(ArmorTags.footArmors.toArray(new Item[0]));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "basic_armor"))).add(ArmorTags.basicArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "medium_armor"))).add(ArmorTags.mediumArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "sturdy_armor"))).add(ArmorTags.sturdyArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "basic_armor"))).add(ArmorTags.basicArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "medium_armor"))).add(ArmorTags.mediumArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "sturdy_armor"))).add(ArmorTags.sturdyArmors.toArray(new Item[0]));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "heavy_armor"))).add(ArmorTags.heavyArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "incomplete_armors"))).add(ArmorTags.incompleteArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "heavy_armor"))).add(ArmorTags.heavyArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "incomplete_armors"))).add(ArmorTags.incompleteArmors.toArray(new Item[0]));
 
         ArrayList<Item> upToArmor = (ArrayList<Item>) ArmorTags.basicArmors;
         upToArmor.addAll(ArmorTags.lightArmors);
@@ -147,8 +147,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 lightLegging.add(legItem);
             }
         }
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "light_chest"))).add(lightChest);
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "light_leg"))).add(lightLegging);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "light_chest"))).add(lightChest);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "light_leg"))).add(lightLegging);
 
         upToArmor.addAll(ArmorTags.mediumArmors);
 
@@ -158,7 +158,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 mediumBoots.add(bootItem);
             }
         }
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "medium_foot"))).add(mediumBoots);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "medium_foot"))).add(mediumBoots);
 
         warg_food.add(Items.RABBIT);
         warg_food.add(Items.CHICKEN);

@@ -36,7 +36,7 @@ public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
-        Identifier noseId =  (isSimplified) ? state.simplifiedNoseId : MiddleEarth.ofPrefix(state.noseId, AtlasesME.SKIN_PREFIX);
+        Identifier noseId =  (isSimplified) ? state.simplifiedNoseId : MiddleEarth.appendPrefix(state.noseId, AtlasesME.SKIN_PREFIX);
 
         noseModel.setAngles(state);
 

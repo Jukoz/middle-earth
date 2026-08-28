@@ -143,7 +143,7 @@ public class TexturePresetsRegistry {
     }
 
     private static RegistryKey<TexturePresetDataPool> of(String... names) {
-        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(names));
+        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.idAggregate(names));
     }
 
     private static RegistryKey<TexturePresetDataPool> of(RegistryKey<Faction> base, String... names) {
@@ -153,7 +153,7 @@ public class TexturePresetsRegistry {
         aggregateNames.addAll(Arrays.stream(names).toList());
 
         String[] stringArray = aggregateNames.toArray(new String[0]);
-        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.of(stringArray));
+        return RegistryKey.of(DynamicRegistriesME.TEXTURE_PRESETS, MiddleEarth.idAggregate(stringArray));
     }
 
     public record RegisterableNpcTextureData (RegistryKey<TexturePresetDataPool> npcTextureDataRegistryKey, TexturePresetDataPool content){ }

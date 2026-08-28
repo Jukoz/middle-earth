@@ -12,7 +12,7 @@ import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 
 public class PacketOpenMapScreen extends ServerToClientPacket<PacketOpenMapScreen> {
-    public static final Id<PacketOpenMapScreen> ID = new Id<>(MiddleEarth.of("packet_open_map_screen"));
+    public static final Id<PacketOpenMapScreen> ID = new Id<>(MiddleEarth.id("packet_open_map_screen"));
     public static final PacketCodec<RegistryByteBuf, PacketOpenMapScreen> CODEC = PacketCodec.tuple(
             PacketCodecs.BOOLEAN, p -> p.canTeleport,
             PacketOpenMapScreen::new
