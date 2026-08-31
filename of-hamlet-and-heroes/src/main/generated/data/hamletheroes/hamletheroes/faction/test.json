@@ -1,0 +1,10 @@
+{
+  "banner": "hamletheroes:none",
+  "command_join": [],
+  "command_leave": [],
+  "disposition": "hamletheroes:none",
+  "joinable": true,
+  "spawn": [
+    "hamletheroes:test"
+  ]
+}

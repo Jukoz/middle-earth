@@ -1,0 +1,9 @@
+{
+  "base": "black",
+  "patterns_with_colors": [
+    {
+      "dye_color": "red",
+      "pattern": "minecraft:cross"
+    }
+  ]
+}
