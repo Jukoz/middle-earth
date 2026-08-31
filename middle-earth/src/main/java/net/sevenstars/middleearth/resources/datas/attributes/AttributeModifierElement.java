@@ -10,7 +10,7 @@ public class AttributeModifierElement {
 
     public AttributeModifierElement(NbtCompound modifierNbt) {
         this.modifier = new EntityAttributeModifier(
-                MiddleEarth.fetchId(modifierNbt.getString("id").get()),
+                MiddleEarth.ofId(modifierNbt.getString("id").get()),
                 modifierNbt.getDouble("value").get(),
                 EntityAttributeModifier.Operation.valueOf(modifierNbt.getString("operation").get())
         );

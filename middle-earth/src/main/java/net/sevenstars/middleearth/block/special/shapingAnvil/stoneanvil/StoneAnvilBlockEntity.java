@@ -34,9 +34,9 @@ public class StoneAnvilBlockEntity extends ShapingAnvilBlockEntity {
             Optional<RegistryKey<ArmorTrimMaterial>> armorTrimMaterialRegistryKey = trim.material().getKey();
             if(armorTrimMaterialRegistryKey.isPresent()) {
                 RegistryKey<ArmorTrimMaterial> armorTrimMaterial = armorTrimMaterialRegistryKey.get();
-                if (!armorTrimMaterial.getValue().equals(MiddleEarth.of("bronze")) &&
-                        !armorTrimMaterial.getValue().equals(MiddleEarth.of("crude")) &&
-                        !armorTrimMaterial.getValue().equals(MiddleEarth.of("iron"))) {
+                if (!armorTrimMaterial.getValue().equals(MiddleEarth.id("bronze")) &&
+                        !armorTrimMaterial.getValue().equals(MiddleEarth.id("crude")) &&
+                        !armorTrimMaterial.getValue().equals(MiddleEarth.id("iron"))) {
                     return;
                 }
             }

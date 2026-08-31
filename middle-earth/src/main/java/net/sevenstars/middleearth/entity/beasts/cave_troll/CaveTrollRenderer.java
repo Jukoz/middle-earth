@@ -30,12 +30,12 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         boolean isCalm = (state.tameness > 25 || !state.isTame) && !state.isEnraged;
         if(state.customName != null && state.customName.getString().equals("Angmarzku")) {
             return isCalm ?
-                    MiddleEarth.of(TEXTURE_ANG) :
-                    MiddleEarth.of(TEXTURE_ANGRY_ANG);
+                    MiddleEarth.id(TEXTURE_ANG) :
+                    MiddleEarth.id(TEXTURE_ANGRY_ANG);
         }
         return isCalm ?
-                MiddleEarth.of(PATH + LOCATION_BY_VARIANT.get(state.variant) + ".png") :
-                MiddleEarth.of(PATH +  LOCATION_BY_VARIANT.get(state.variant) + "_angry.png");
+                MiddleEarth.id(PATH + LOCATION_BY_VARIANT.get(state.variant) + ".png") :
+                MiddleEarth.id(PATH +  LOCATION_BY_VARIANT.get(state.variant) + "_angry.png");
     }
 
     public static final Map<CaveTrollVariant, String> LOCATION_BY_VARIANT =

@@ -29,16 +29,16 @@ import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
 public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.ofPath( "textures", "gui", "inscription_table.png");
+    private static final Identifier TEXTURE = MiddleEarth.idFilePath( "textures", "gui", "inscription_table.png");
 
     private static final Identifier SCROLLER_TEXTURE = Identifier.ofVanilla("container/villager/scroller");
     private static final Identifier SCROLLER_DISABLED_TEXTURE = Identifier.ofVanilla("container/villager/scroller_disabled");
 
     private static final Identifier EMPTY_SLOT_EMERALD_TEXTURE = Identifier.ofVanilla("container/slot/emerald");
     private static final Identifier EMPTY_SLOT_LAPIS_LAZULI_TEXTURE = Identifier.ofVanilla("container/slot/lapis_lazuli");
-    private static final Identifier EMPTY_SLOT_ADAMANT_TEXTURE = MiddleEarth.ofPath( "container", "slot", "adamant");
-    private static final Identifier EMPTY_SLOT_RUBY_TEXTURE = MiddleEarth.ofPath( "container", "slot", "ruby");
-    private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = MiddleEarth.ofPath( "container", "slot", "sapphire");
+    private static final Identifier EMPTY_SLOT_ADAMANT_TEXTURE = MiddleEarth.idFilePath( "container", "slot", "adamant");
+    private static final Identifier EMPTY_SLOT_RUBY_TEXTURE = MiddleEarth.idFilePath( "container", "slot", "ruby");
+    private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = MiddleEarth.idFilePath( "container", "slot", "sapphire");
 
     private static final Identifier FONT_ID = Identifier.ofVanilla("alt");
     private static final Style STYLE = Style.EMPTY.withFont(FONT_ID);
@@ -335,11 +335,11 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         int selectedIndex = -1;
         boolean hidden;
 
-        private static final Identifier BUTTON_TEXTURE = MiddleEarth.of("word_button");
-        private static final Identifier DISABLED_BUTTON_TEXTURE = MiddleEarth.of("word_button_disabled");
-        private static final Identifier SELECTED_BUTTON_TEXTURE = MiddleEarth.of("word_button_selected");
-        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = MiddleEarth.of("word_button_highlighted");
-        private static final Identifier BUTTON_MARKERS = MiddleEarth.of("inscription_table_markers");
+        private static final Identifier BUTTON_TEXTURE = MiddleEarth.id("word_button");
+        private static final Identifier DISABLED_BUTTON_TEXTURE = MiddleEarth.id("word_button_disabled");
+        private static final Identifier SELECTED_BUTTON_TEXTURE = MiddleEarth.id("word_button_selected");
+        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = MiddleEarth.id("word_button_highlighted");
+        private static final Identifier BUTTON_MARKERS = MiddleEarth.id("inscription_table_markers");
 
         public WidgetInscriptionButtonPage(final int x, final int y, final int index, final ButtonWidget.PressAction onPress) {
             super(x, y, 86, 14, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);
@@ -397,9 +397,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
     static class WidgetArrowButtonPage extends ButtonWidget {
 
-        private static final Identifier BUTTON_TEXTURE = MiddleEarth.of("arrow_button");
-        private static final Identifier BUTTON_UNAVAILABLE = MiddleEarth.of("arrow_button_unavailable");
-        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = MiddleEarth.of("arrow_button_highlighted");
+        private static final Identifier BUTTON_TEXTURE = MiddleEarth.id("arrow_button");
+        private static final Identifier BUTTON_UNAVAILABLE = MiddleEarth.id("arrow_button_unavailable");
+        private static final Identifier HIGHLIGHTED_BUTTON_TEXTURE = MiddleEarth.id("arrow_button_highlighted");
 
         public WidgetArrowButtonPage(final int x, final int y, final ButtonWidget.PressAction onPress) {
             super(x, y, 16, 11, ScreenTexts.EMPTY, onPress, DEFAULT_NARRATION_SUPPLIER);

@@ -27,7 +27,7 @@ public class PheasantEntityRenderer extends MobEntityRenderer<PheasantEntity, Ph
 
     @Override
     public Identifier getTexture(PheasantEntityRenderState state) {
-        return OfBeastsAndWildThings.of(LOCATION_BY_VARIANT.get(state.variant));
+        return OfBeastsAndWildThings.id(LOCATION_BY_VARIANT.get(state.variant));
     }
 
     @Override

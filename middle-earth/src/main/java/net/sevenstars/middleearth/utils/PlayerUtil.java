@@ -49,7 +49,7 @@ public class PlayerUtil {
     private static boolean checkIfBlockIsAllowed(World world, PlayerEntity player) {
         BlockState blockstate = world.getBlockState(player.getBlockPos().offset(player.getHorizontalFacing()));
         boolean isSolid = blockstate.isSolidBlock(world, player.getBlockPos());
-        boolean isAllowed = !blockstate.isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("climbing_attribute_unallowed_blocks")));
+        boolean isAllowed = !blockstate.isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("climbing_attribute_unallowed_blocks")));
         return isSolid && isAllowed;
     }
 

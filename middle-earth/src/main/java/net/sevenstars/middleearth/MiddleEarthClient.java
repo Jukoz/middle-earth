@@ -111,8 +111,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         KeyInputHandler.register();
 
         EntityModelsME.getModels();
-        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("sneak_attack"), SneakAttackProperty.CODEC);
-        BooleanProperties.ID_MAPPER.put(MiddleEarth.of("hot_component"), HotComponentProperty.CODEC);
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);
+        BooleanProperties.ID_MAPPER.put(MiddleEarth.id("hot_component"), HotComponentProperty.CODEC);
 
         // Entities
 
@@ -227,7 +227,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         });
 
         ModelLoadingPlugin.register(pluginContext -> {
-            pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(MiddleEarth.ofPath("item", "plate_apple")));
+            pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(MiddleEarth.idFilePath("item", "plate_apple")));
         });
 
         ParticleFactoryRegistry.getInstance().register(ParticleTypeRegistryME.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);

@@ -29,7 +29,7 @@ import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
 public class StructureNestScreen extends HandledScreen<StructureNestScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.ofPath("textures", "gui", "structure_manager.png");
+    private static final Identifier TEXTURE = MiddleEarth.idFilePath("textures", "gui", "structure_manager.png");
     private static final int TEXT_COLOR = Color.WHITE.getRGB();
 
 

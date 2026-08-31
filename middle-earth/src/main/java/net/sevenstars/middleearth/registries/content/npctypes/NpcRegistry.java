@@ -200,7 +200,7 @@ public class NpcRegistry {
     }
 
     private static Identifier createID(RegistryKey<Faction> faction, String name){
-        return MiddleEarth.of(faction.getValue().getPath(), name);
+        return MiddleEarth.idAggregate(faction.getValue().getPath(), name);
     }
 
     public record RegisterableNpcData (RegistryKey<NpcType> npcDataRegistryKey, NpcType content){ }

@@ -24,14 +24,14 @@ public class MemoryModulesWT<U> {
     }
 
     private static <U> MemoryModuleType<U> register(String id, Codec<U> codec) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, OfBeastsAndWildThings.of(id), new MemoryModuleType<>(Optional.of(codec)));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, OfBeastsAndWildThings.id(id), new MemoryModuleType<>(Optional.of(codec)));
     }
 
     private static <U> MemoryModuleType<U> register(String id) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, OfBeastsAndWildThings.of(id), new MemoryModuleType<>(Optional.empty()));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, OfBeastsAndWildThings.id(id), new MemoryModuleType<>(Optional.empty()));
     }
 
-    public static void registerModMemoryModules() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Sensors for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Memory Modules");
     }
 }

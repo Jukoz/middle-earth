@@ -13,7 +13,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatBeads;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
-import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatPattern;
 
 import java.util.Map;
 
@@ -26,15 +25,15 @@ public class BroadhoofGoatBeadsFeatureRenderer extends FeatureRenderer<Broadhoof
                     BroadhoofGoatBeads.NONE,
                     INVISIBLE_ID,
                     BroadhoofGoatBeads.LEATHER,
-                    MiddleEarth.of(PATH + "broadhoof_goat_leather_beads.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_leather_beads.png"),
                     BroadhoofGoatBeads.COAL,
-                    MiddleEarth.of(PATH + "broadhoof_goat_coal_beads.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_coal_beads.png"),
                     BroadhoofGoatBeads.COPPER,
-                    MiddleEarth.of(PATH + "broadhoof_goat_copper_beads.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_copper_beads.png"),
                     BroadhoofGoatBeads.GOLD,
-                    MiddleEarth.of(PATH + "broadhoof_goat_gold_beads.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_gold_beads.png"),
                     BroadhoofGoatBeads.ALMANDINE,
-                    MiddleEarth.of(PATH + "broadhoof_goat_almandine_beads.png")
+                    MiddleEarth.id(PATH + "broadhoof_goat_almandine_beads.png")
             )
     );
 

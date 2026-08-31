@@ -2,10 +2,12 @@ package net.sevenstars.api;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.registries.brain.ActivitiesAPI;
 import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 import net.sevenstars.api.registries.brain.SchedulesAPI;
 import net.sevenstars.api.registries.brain.SensorsAPI;
+import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.ModLogger;
 
 public class SevenStarsApi implements ModInitializer {
@@ -21,11 +23,28 @@ public class SevenStarsApi implements ModInitializer {
 		MemoryModulesAPI.register();
 	}
 
-	public static Identifier id(String path){
-		return Identifier.of(MOD_ID, path);
-	}
-
+	// Logger
 	public static void logRegistryMsg(String registry) {
 		LOGGER.logDebugMsg("Registering Mod " +  registry + " for " + MOD_ID);
+	}
+	// Identifiers
+	public static Identifier id(String path){
+		return IdentifierUtil.build(MOD_ID, path);
+	}
+	public static Identifier idAggregate(String... names){
+		return IdentifierUtil.buildAggregate(MOD_ID, names);
+	}
+	public static String idAggregate(char delimiter, String... names){
+		return IdentifierUtil.createAggregateValue(delimiter, names);
+	}
+	public static Identifier ofId(String stringId){
+		return IdentifierUtil.getIdentifierFromString(stringId);
+	}
+	// Translation Keys
+	public static String translationKey(LangCategory category, String value){
+		return id(value).toTranslationKey(category.Prefix);
+	}
+	public static String translationKey(LangCategory category, Identifier value){
+		return value.toTranslationKey(category.Prefix);
 	}
 }

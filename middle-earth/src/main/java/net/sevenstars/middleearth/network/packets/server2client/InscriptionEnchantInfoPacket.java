@@ -13,7 +13,7 @@ import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 
 public class InscriptionEnchantInfoPacket extends ServerToClientPacket<InscriptionEnchantInfoPacket> {
-    public static final Id<InscriptionEnchantInfoPacket> ID = new Id<>(MiddleEarth.of("inscription_enchant_info_packet"));
+    public static final Id<InscriptionEnchantInfoPacket> ID = new Id<>(MiddleEarth.id("inscription_enchant_info_packet"));
     public static final PacketCodec<RegistryByteBuf, InscriptionEnchantInfoPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.enchant,
             PacketCodecs.INTEGER, p -> p.level,

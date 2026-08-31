@@ -21,7 +21,7 @@ public class EntityModelLayersWT {
     public static final EntityModelLayer DEER = EntityModelLayersWT.registerEntityModelLayer("deer", DeerEntityModel.getTexturedModelData());
 
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(OfBeastsAndWildThings.of(registryName), "main");
+        EntityModelLayer entityModelLayer = new EntityModelLayer(OfBeastsAndWildThings.id(registryName), "main");
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
         return entityModelLayer;
     }

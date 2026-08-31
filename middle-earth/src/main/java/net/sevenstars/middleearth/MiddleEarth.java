@@ -2,6 +2,7 @@ package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
@@ -140,45 +141,51 @@ public class MiddleEarth implements ModInitializer {
 		}
 	}
 
-    public static Identifier fetchId(String stringId){
-        return IdentifierUtil.getIdentifierFromString(stringId);
-    }
-
-    public static Identifier ofPrefix(Identifier base, Identifier prefixId) {
+	// Logger
+	public static void logRegistryMsg(String registry) {
+		LOGGER.logDebugMsg("Registering Mod " +  registry + " for " + MOD_ID);
+	}
+	// Identifiers
+	public static Identifier id(String path){
+		return IdentifierUtil.build(MOD_ID, path);
+	}
+	public static Identifier idFilePath(String... names){
+		return IdentifierUtil.build(MOD_ID, stringAggregate('/', names));
+	}
+	public static Identifier idVanilla(String... names){
+		return IdentifierUtil.ofVanilla(stringAggregate('/', names));
+	}
+	public static Identifier idAggregate(String... names){
+		return IdentifierUtil.buildAggregate(MOD_ID, names);
+	}
+	public static String stringAggregate(char delimiter, String... names){
+		return IdentifierUtil.createAggregateValue(delimiter, names);
+	}
+	public static Identifier idAggregate(char delimiter, String... names){
+		return IdentifierUtil.build(MOD_ID, IdentifierUtil.createAggregateValue(delimiter, names));
+	}
+	public static Identifier ofId(String stringId){
+		return IdentifierUtil.getIdentifierFromString(stringId);
+	}
+	public static Identifier appendSuffix(Identifier base, String suffix) {
+		String id = base.toString();
+		return Identifier.of(id + suffix);
+	}
+	public static Identifier appendPrefix(Identifier base, Identifier prefixId) {
 		if(base == null)
 			return null;
-        return base.withPrefixedPath(String.format("%s/", prefixId.getPath()));
-    }
-
-    public static Identifier of(String path){
-        return IdentifierUtil.build(MOD_ID, path);
-    }
-
-
-
-    public static Identifier of(String... names){
-        return IdentifierUtil.buildAggregate(MOD_ID, names);
-    }
-
-	public static Identifier of(char splitter, String... names){
-		return IdentifierUtil.build(MOD_ID, createAggregate(splitter, names));
+		return base.withPrefixedPath(String.format("%s/", prefixId.getPath()));
 	}
-    public static Identifier ofPath(String... names){
-        return IdentifierUtil.build(MOD_ID, createAggregate('/', names));
-    }
-	public static Identifier ofVanillaPath(String... names){
-		return IdentifierUtil.ofVanilla(createAggregate('/', names));
+
+	// Translation Keys
+	public static String rawTranslationKey(LangCategory category, String value){
+		return category.Prefix + "." + value;
 	}
-    public static Identifier append(Identifier base, String suffix) {
-        String id = base.toString();
-        return Identifier.of(id + suffix);
-    }
 
-    public static String createAggregate(char splitter, String... names){
-        return IdentifierUtil.createAggregateValue(splitter, names);
-    }
-
-	public static boolean compareId(Identifier id1, Identifier id2) {
-		return id1.compareTo(id2) == 0;
+	public static String rawTranslationKey(LangCategory category, Identifier value){
+		return value.toTranslationKey(category.Prefix);
+	}
+	public static String rawTranslationKey(String prefix, String value){
+		return prefix + "." + value;
 	}
 }

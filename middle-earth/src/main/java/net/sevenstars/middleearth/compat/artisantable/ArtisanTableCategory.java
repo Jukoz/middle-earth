@@ -22,7 +22,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay> {
-    public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "artisan_table_rei.png");
+    public static final Identifier TEXTURE = MiddleEarth.idAggregate('/', "textures", "gui", "artisan_table_rei.png");
 
     @Override
     public CategoryIdentifier<? extends ArtisanTableDisplay> getCategoryIdentifier() {

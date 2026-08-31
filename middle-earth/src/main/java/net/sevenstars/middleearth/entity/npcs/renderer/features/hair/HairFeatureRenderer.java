@@ -39,8 +39,8 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         EntityModel<NpcEntityRenderState> entityModel = hairModel;
 
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
-        Identifier hairAddonTextureId = (isSimplified) ? state.simplifiedHairAddonId : MiddleEarth.ofPrefix(state.hairAddonId, AtlasesME.HAIR_PREFIX);
-        Identifier beardAddonTextureId =  (isSimplified) ? null : MiddleEarth.ofPrefix(state.beardAddonId, AtlasesME.HAIR_PREFIX);
+        Identifier hairAddonTextureId = (isSimplified) ? state.simplifiedHairAddonId : MiddleEarth.appendPrefix(state.hairAddonId, AtlasesME.HAIR_PREFIX);
+        Identifier beardAddonTextureId =  (isSimplified) ? null : MiddleEarth.appendPrefix(state.beardAddonId, AtlasesME.HAIR_PREFIX);
 
 
         // TODO : Disable the beard based on the helmet

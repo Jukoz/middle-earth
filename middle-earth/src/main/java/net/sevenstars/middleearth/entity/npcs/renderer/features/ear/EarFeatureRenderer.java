@@ -35,7 +35,7 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
-        Identifier earId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.ofPrefix(state.earId, AtlasesME.SKIN_PREFIX);
+        Identifier earId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.appendPrefix(state.earId, AtlasesME.SKIN_PREFIX);
 
         earModel.setAngles(state);
 

@@ -71,14 +71,14 @@ public class GearSlotPool {
             GearSlotPool gearSlotPool = GearSlotPool.create();
             for(int i = 0; i < list.size(); i++){
                 if(list.getString(i).isPresent()){
-                    gearSlotPool.add(new WeightedItemData(MiddleEarth.fetchId(list.getString(i).get())));
+                    gearSlotPool.add(new WeightedItemData(MiddleEarth.ofId(list.getString(i).get())));
                 } else if(list.getCompound(i).isPresent()){
                     gearSlotPool.add(new WeightedItemData(list.getCompound(i).get()));
                 }
             }
             return gearSlotPool;
         } else if(nbt.asString().isPresent()){
-            return new GearSlotPool(new WeightedItemData(MiddleEarth.fetchId(nbt.asString().get())));
+            return new GearSlotPool(new WeightedItemData(MiddleEarth.ofId(nbt.asString().get())));
         }
 
         return null;

@@ -19,7 +19,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        TagKey<Item> swan_food = TagKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.of("swan_food"));
+        TagKey<Item> swan_food = TagKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.id("swan_food"));
 
         valueLookupBuilder(swan_food).add(Items.TADPOLE_BUCKET);
     }

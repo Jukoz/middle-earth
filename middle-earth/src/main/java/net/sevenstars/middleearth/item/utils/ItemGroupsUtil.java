@@ -37,12 +37,12 @@ public class ItemGroupsUtil {
     private static final Comparator<RegistryEntry<NpcType>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcType::getId));
 
     public static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcType> registryWrapper, Predicate<RegistryEntry<NpcType>> filter, RegistryWrapper.WrapperLookup lookup, ItemGroup.StackVisibility stackVisibility) {
-        Identifier randomSpawnEggId = MiddleEarth.of("npc_random_spawn_egg");
+        Identifier randomSpawnEggId = MiddleEarth.id("npc_random_spawn_egg");
 
         ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
         NbtCompound compoundData = new NbtCompound();
-        compoundData.putString("id", MiddleEarth.of("npc").toString());
+        compoundData.putString("id", MiddleEarth.id("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(null, true);
 
@@ -75,7 +75,7 @@ public class ItemGroupsUtil {
     private static ItemStack addTrim(Item partItem, RegistryWrapper.WrapperLookup wrapper, RegistryKey<ArmorTrimMaterial> reference) {
         ItemStack item = partItem.getDefaultStack();
         RegistryEntry.Reference<ArmorTrimMaterial> material = wrapper.getOptional(RegistryKeys.TRIM_MATERIAL).orElseThrow().getOrThrow(reference);
-        RegistryEntry.Reference<ArmorTrimPattern> pattern = wrapper.getOptional(RegistryKeys.TRIM_PATTERN).orElseThrow().getOptional(RegistryKey.of(RegistryKeys.TRIM_PATTERN, MiddleEarth.of( "smithing_part"))).orElse(null);
+        RegistryEntry.Reference<ArmorTrimPattern> pattern = wrapper.getOptional(RegistryKeys.TRIM_PATTERN).orElseThrow().getOptional(RegistryKey.of(RegistryKeys.TRIM_PATTERN, MiddleEarth.id( "smithing_part"))).orElse(null);
         item.set(DataComponentTypes.TRIM, new ArmorTrim(material , pattern));
         return item;
     }

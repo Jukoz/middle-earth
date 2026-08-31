@@ -41,11 +41,11 @@ public class NpcSpawnEggHelper {
         if(npcType == null)
             return ItemStack.EMPTY;
 
-        Identifier itemId = MiddleEarth.append(npcType.getId(), "_spawn_egg");
+        Identifier itemId = MiddleEarth.appendSuffix(npcType.getId(), "_spawn_egg");
         ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
         NbtCompound compoundData = new NbtCompound();
-        compoundData.putString("id", MiddleEarth.of("npc").toString());
+        compoundData.putString("id", MiddleEarth.id("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(npcType.getId(), false);
 

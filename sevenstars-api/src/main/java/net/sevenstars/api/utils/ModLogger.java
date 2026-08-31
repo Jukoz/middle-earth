@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 public class ModLogger {
     protected Logger LOGGER;
-    protected ModLogger singleInstance = null;
     protected boolean isDebug;
     protected String messagePrefix;
 
@@ -15,7 +14,6 @@ public class ModLogger {
         LOGGER = LoggerFactory.getLogger(prefix);
         isDebug = debug;
     }
-
 
     public void logDebugMsg(String msg) {
         if(SevenStarsApi.IS_DEBUG){

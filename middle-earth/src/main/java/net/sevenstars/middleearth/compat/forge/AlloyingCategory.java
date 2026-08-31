@@ -23,7 +23,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
-    public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "forge_rei.png");
+    public static final Identifier TEXTURE = MiddleEarth.idAggregate('/', "textures", "gui", "forge_rei.png");
 
     @Override
     public CategoryIdentifier<? extends AlloyingDisplay> getCategoryIdentifier() {

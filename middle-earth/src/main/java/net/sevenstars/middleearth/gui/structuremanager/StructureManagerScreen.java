@@ -26,7 +26,7 @@ import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
 public class StructureManagerScreen extends HandledScreen<StructureManagerScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.ofPath("textures", "gui", "structure_manager.png");
+    private static final Identifier TEXTURE = MiddleEarth.idFilePath("textures", "gui", "structure_manager.png");
 
     public SearchBarWidget searchBarWidget;
     public Text runtimeDataText;

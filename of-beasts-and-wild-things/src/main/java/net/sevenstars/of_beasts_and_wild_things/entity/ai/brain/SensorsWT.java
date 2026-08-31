@@ -17,10 +17,12 @@ public class SensorsWT {
     public static final SensorType<TemptationsSensor> SWAN_TEMPTATIONS = register("swan_temptations", () -> new TemptationsSensor(SwanBrain.getTemptItemPredicate()));
 
     private static <U extends Sensor<?>> SensorType<U> register(String id, Supplier<U> factory) {
-        return Registry.register(Registries.SENSOR_TYPE, OfBeastsAndWildThings.of(id), new SensorType<>(factory));
+        return Registry.register(Registries.SENSOR_TYPE, OfBeastsAndWildThings.id(id), new SensorType<>(factory));
     }
 
-    public static void registerModSensors() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Sensors for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Sensors");
     }
+
+
 }

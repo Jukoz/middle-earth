@@ -54,8 +54,8 @@ public class DaleFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.BELL, DyeColor.YELLOW)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(FACTION_PATH, "capital"), new Vector2d(2021, 727)),
-                        new SpawnData(MiddleEarth.of(FACTION_PATH, "esgaroth"), new Vector2d(2007, 757))
+                        new SpawnData(MiddleEarth.idAggregate(FACTION_PATH, "capital"), new Vector2d(2021, 727)),
+                        new SpawnData(MiddleEarth.idAggregate(FACTION_PATH, "esgaroth"), new Vector2d(2007, 757))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.FRIENDLY),

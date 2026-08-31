@@ -33,7 +33,7 @@ public class StructureManagerDataPools {
     public final static StructureManagerData WOODLAND_REALM_HALL_NESTS;
 
     private static Identifier createIdentifier(String path) {
-        return MiddleEarth.of('.', path);
+        return MiddleEarth.idAggregate('.', path);
     }
     
     static {

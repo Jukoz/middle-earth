@@ -490,9 +490,9 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WINGED_HELMET.getDefaultStack(), "helmet", DispositionType.NEUTRAL, XP_T3)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("feathers")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("feathers")))
                         .input(EquipmentItemsME.OPEN_FACE_HELMET)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("feathers")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("feathers")))
                         .criterion(hasItem(EquipmentItemsME.OPEN_FACE_HELMET),
                                 conditionsFromItem(EquipmentItemsME.OPEN_FACE_HELMET))
                         .offerTo(exporter);
@@ -752,15 +752,15 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log()))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.AUTUMN_LEAF_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
                         .input(Items.STRING)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
                         .criterion(hasItem(Items.STRING),
                                 conditionsFromItem(Items.STRING))
                         .offerTo(exporter);

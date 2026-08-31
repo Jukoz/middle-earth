@@ -24,7 +24,9 @@ public class IdentifierUtil {
     public static Identifier buildAggregate(String key, String... names) {
         return build(key, createAggregateValue('.', names));
     }
-
+    public static boolean compareId(Identifier id1, Identifier id2) {
+        return id1.compareTo(id2) == 0;
+    }
     public static String createAggregateValue(char character, String... names){
         if(names.length == 0)
             return "not_enough_parameters";

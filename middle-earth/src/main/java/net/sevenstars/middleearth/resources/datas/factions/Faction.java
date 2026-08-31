@@ -87,7 +87,7 @@ public class Faction {
     public Faction(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType,
                    Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs,
                    Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt) {
-        this.id = MiddleEarth.fetchId(id);
+        this.id = MiddleEarth.ofId(id);
 
         this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
 
@@ -116,7 +116,7 @@ public class Faction {
                     NbtList npcDataList = rankCompound.getList("pool").get();
                     List<Identifier> dataList = new ArrayList<>();
                     for(int j = 0; j < npcDataList.size(); j++){
-                        dataList.add(MiddleEarth.fetchId(npcDataList.getString(j).get()));
+                        dataList.add(MiddleEarth.ofId(npcDataList.getString(j).get()));
                     }
                     this.npcDatasByRank.put(rank, dataList);
                 } catch (Exception ignored){
@@ -438,7 +438,7 @@ public class Faction {
         descriptions = new ArrayList<>();
         boolean hasDescription = true;
 
-        String base = MiddleEarth.createAggregate('.', "description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
+        String base = MiddleEarth.stringAggregate('.', "description", MiddleEarth.MOD_ID, id.getPath(), "description_%s");
 
         while(hasDescription){
             String langPath = base.formatted(descriptions.size());

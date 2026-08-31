@@ -10,7 +10,7 @@ import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 
 public class ForgeModeSwitchPacket extends ClientToServerPacket<ForgeModeSwitchPacket> {
-    public static final Id<ForgeModeSwitchPacket> ID = new Id<>(MiddleEarth.of("forge_mode_switch_packet"));
+    public static final Id<ForgeModeSwitchPacket> ID = new Id<>(MiddleEarth.id("forge_mode_switch_packet"));
     public static final PacketCodec<RegistryByteBuf, ForgeModeSwitchPacket> CODEC = PacketCodec.tuple(
             PacketCodecs.DOUBLE, p -> p.x,
             PacketCodecs.DOUBLE, p -> p.y,
