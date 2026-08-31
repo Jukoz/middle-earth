@@ -16,7 +16,7 @@ import java.util.Map;
 public class FactionRegistryHH extends DynamicRegistriesAPI<Faction> {
     private static final RegistryKey<Registry<Faction>> FACTION_KEY = DynamicRegistriesHH.FACTION;
 
-    public static final RegistryKey<Faction> TEST = DynamicRegistriesHH.of(FACTION_KEY, OfHamletAndHeroes.id("test"));
+    public static final RegistryKey<Faction> TEST = of(FACTION_KEY, OfHamletAndHeroes.id("test"));
 
     public static void bootstrap(Registerable<Faction> context) {
         RegistryEntryLookup<Faction> registryEntryLookup = context.getRegistryLookup(FACTION_KEY);

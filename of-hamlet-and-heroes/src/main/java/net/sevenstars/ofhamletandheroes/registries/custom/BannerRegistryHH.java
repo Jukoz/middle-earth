@@ -16,7 +16,7 @@ import java.util.Map;
 public class BannerRegistryHH extends DynamicRegistriesAPI<Banner> {
     private static final RegistryKey<Registry<Banner>> BANNER_KEY = DynamicRegistriesHH.BANNER;
 
-    public static final RegistryKey<Banner> NONE = DynamicRegistriesHH.of(BANNER_KEY, OfHamletAndHeroes.id("none"));
+    public static final RegistryKey<Banner> NONE = of(BANNER_KEY, OfHamletAndHeroes.id("none"));
 
     public static void bootstrap(Registerable<Banner> context) {
         RegistryEntryLookup<Banner> registryEntryLookup = context.getRegistryLookup(BANNER_KEY);

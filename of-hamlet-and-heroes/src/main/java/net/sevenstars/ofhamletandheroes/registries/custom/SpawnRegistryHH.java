@@ -16,7 +16,7 @@ import java.util.Map;
 public class SpawnRegistryHH extends DynamicRegistriesAPI<Spawn> {
     private static final RegistryKey<Registry<Spawn>> SPAWN_KEY = DynamicRegistriesHH.SPAWN;
 
-    public static final RegistryKey<Spawn> TEST = DynamicRegistriesHH.of(SPAWN_KEY, OfHamletAndHeroes.id("test"));
+    public static final RegistryKey<Spawn> TEST = of(SPAWN_KEY, OfHamletAndHeroes.id("test"));
 
     public static void bootstrap(Registerable<Spawn> context) {
         RegistryEntryLookup<Spawn> registryEntryLookup = context.getRegistryLookup(SPAWN_KEY);

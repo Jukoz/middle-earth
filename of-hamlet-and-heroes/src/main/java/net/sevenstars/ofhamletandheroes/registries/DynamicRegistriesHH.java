@@ -20,7 +20,7 @@ import net.sevenstars.ofhamletandheroes.registries.custom.DispositionRegistryHH;
 import net.sevenstars.ofhamletandheroes.registries.custom.FactionRegistryHH;
 import net.sevenstars.ofhamletandheroes.registries.custom.SpawnRegistryHH;
 
-public class DynamicRegistriesHH extends DynamicRegistriesAPI {
+public class DynamicRegistriesHH {
     public static final RegistryKey<Registry<Disposition>> DISPOSITION = of("disposition");
     public static final RegistryKey<Registry<Faction>> FACTION = of("faction");
     public static final RegistryKey<Registry<Banner>> BANNER = of("banner");

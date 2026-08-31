@@ -16,7 +16,7 @@ import java.util.Map;
 public class DispositionRegistryHH extends DynamicRegistriesAPI<Disposition> {
     private static final RegistryKey<Registry<Disposition>> DISPOSITION_KEY = DynamicRegistriesHH.DISPOSITION;
 
-    public static final RegistryKey<Disposition> NONE = DynamicRegistriesHH.of(DISPOSITION_KEY, OfHamletAndHeroes.id("none"));
+    public static final RegistryKey<Disposition> NONE = of(DISPOSITION_KEY, OfHamletAndHeroes.id("none"));
 
     public static void bootstrap(Registerable<Disposition> context) {
         RegistryEntryLookup<Disposition> registryEntryLookup = context.getRegistryLookup(DISPOSITION_KEY);

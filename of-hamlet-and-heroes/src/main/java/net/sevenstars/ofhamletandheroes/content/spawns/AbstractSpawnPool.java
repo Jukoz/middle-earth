@@ -1,13 +1,15 @@
 package net.sevenstars.ofhamletandheroes.content.spawns;
 
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.dimension.DimensionType;
 import net.sevenstars.ofhamletandheroes.dtos.spawn.Spawn;
 
 public class AbstractSpawnPool {
-    public static Spawn create(Vec3d pos) {
-        return new Spawn(pos);
+    public static Spawn create(Vec3d pos, RegistryKey<DimensionType> dimensionType) {
+        return new Spawn(pos, dimensionType);
     }
-    public static Spawn createDynamic(Vec3d pos) {
-        return new Spawn(pos, true);
+    public static Spawn createDynamic(Vec3d pos, RegistryKey<DimensionType> dimensionType) {
+        return new Spawn(pos, true, dimensionType);
     }
 }
