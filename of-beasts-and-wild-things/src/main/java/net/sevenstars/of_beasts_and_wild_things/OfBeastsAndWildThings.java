@@ -47,8 +47,8 @@ public class OfBeastsAndWildThings implements ModInitializer {
 	public static Identifier idAggregate(String... names){
 		return IdentifierUtil.buildAggregate(MOD_ID, names);
 	}
-	public static String idAggregate(char splitter, String... names){
-		return IdentifierUtil.createAggregateValue(splitter, names);
+	public static String idAggregate(char delimiter, String... names){
+		return IdentifierUtil.createAggregateValue(delimiter, names);
 	}
 	public static Identifier ofId(String stringId){
 		return IdentifierUtil.getIdentifierFromString(stringId);
