@@ -35,7 +35,7 @@
     "fabric-api": "*",
     "minecraft": "~1.21.8",
     "java": ">=21",
-    "sevenstars-api": "SNAPSHOT-26.08.29"
+    "sevenstars-api": "SNAPSHOT-26.09.02"
   },
   "recommends": {
     "modmenu": "*"
