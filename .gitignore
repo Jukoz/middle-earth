@@ -24,7 +24,7 @@ src/main/generated/
 bin/main/*
 /middle-earth/src/main/generated/
 /of-beasts-and-wild-things/src/main/generated
-/ofheraldsandhamlets/src/main/generated
+/ofhallsandheralds/src/main/generated
 /.idea
 /.run2
 

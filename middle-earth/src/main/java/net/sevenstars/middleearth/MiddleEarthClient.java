@@ -87,6 +87,7 @@ import net.sevenstars.api.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -109,6 +110,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();
+
+        AtlasesME.registerAtlas();
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);

@@ -1,0 +1,19 @@
+package net.sevenstars.ofhallsandheralds.content.factions;
+
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.registries.custom.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class FactionDefault extends AbstractFactionPool {
+    public static final Faction TEST = create(DispositionRegistryHH.NONE, BannerRegistryHH.NONE, List.of(SpawnRegistryHH.TEST));
+
+    public static Map<RegistryKey<Faction>, Faction> fetch() {
+        Map<RegistryKey<Faction>, Faction> map = new HashMap<>();
+        map.put(FactionRegistryHH.TEST, TEST);
+        return map;
+    }
+}
