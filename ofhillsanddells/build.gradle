@@ -1,6 +1,5 @@
 dependencies {
 	implementation project(path: ':sevenstars-api', configuration: 'dev')
-	implementation project(path: ':ofhillsanddells', configuration: 'dev')
 }
 
 // I really don't know why it tells me errors when I use genSources

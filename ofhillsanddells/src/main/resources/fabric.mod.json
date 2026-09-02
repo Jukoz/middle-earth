@@ -1,9 +1,9 @@
 {
 	"schemaVersion": 1,
-	"id": "ofhallsandheralds",
+	"id": "ofhillsanddells",
 	"version": "${version}",
 
-	"name": "Of Halls and Heralds",
+	"name": "Of Hills and Dells",
 	"description": "TODO",
 	"authors": [
 		"ObliviousCrab",
@@ -16,18 +16,18 @@
 	},
 
 	"license": "ARR",
-	"icon": "assets/ofhallsandheralds/icon.png",
+	"icon": "assets/ofhillsanddells/icon.png",
 
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.sevenstars.ofhallsandheralds.OfHallsAndHeralds"
+			"net.sevenstars.ofhillsanddells.OfHillsAndDells"
 		],
 		"client": [
-			"net.sevenstars.ofhallsandheralds.OfHallsAndHeraldsClient"
+			"net.sevenstars.ofhillsanddells.OfHillsAndDellsClient"
 		],
 		"fabric-datagen": [
-			"net.sevenstars.ofhallsandheralds.datageneration.DataGeneration"
+			"net.sevenstars.ofhillsanddells.datageneration.DataGeneration"
 		]
 	},
 	"depends": {
@@ -35,8 +35,7 @@
 		"fabric-api": "*",
 		"minecraft": "~1.21.8",
 		"java": ">=21",
-		"sevenstars-api": "SNAPSHOT-26.08.29",
-		"ofhillsanddells": "SNAPSHOT-26.08.29"
+		"sevenstars-api": "SNAPSHOT-26.08.29"
 	},
 	"custom": {
 		"modmenu": {
