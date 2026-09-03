@@ -261,7 +261,7 @@ public class TranslationEntries {
             put(of(LangCategory.BLOCK, "fire_of_orthanc"), "Fire of Orthanc");
             put(of(LangCategory.BLOCK, "torch_of_orthanc"), "Torch of Orthanc");
 
-            put(of(LangCategory.BLOCK, ".wood_pile"), "Wood Pile");
+            put(of(LangCategory.BLOCK, "wood_pile"), "Wood Pile");
 
             put(of(LangCategory.BLOCK, "tall_black_pine_door"), "Tall Black Pine Door");
 
@@ -713,7 +713,7 @@ public class TranslationEntries {
             put(of(LangCategory.SCREEN, "playerbook.chapter_mounts"), "Mounts");
             put(of(LangCategory.SCREEN, "playerbook.chapter_dungeons"), "Dungeons");
 
-            put(of(LangCategory.SCREEN, ".playerbook.getting_started_desc"), "To enter Middle-earth and thus begin your adventure, you shall first craft a starlight phial.\n " +
+            put(of(LangCategory.SCREEN, "playerbook.getting_started_desc"), "To enter Middle-earth and thus begin your adventure, you shall first craft a starlight phial.\n " +
                     "Once the phial is crafted, fill it with water and then combine with a glowing item such as glow berries, glowstone or glow ink to finally craft the starlight phial.");
             put(of(LangCategory.SCREEN, "playerbook.getting_started_desc_right"), "Use it and you'll be brought to the onboarding process to Middle-earth.");
 
@@ -827,37 +827,37 @@ public class TranslationEntries {
             put(of(LangCategory.KEY, "map_teleport"), "Map Teleport");
             put(of(LangCategory.KEY, "map_fullscreen_toggle"), "Toggle Map Fullscreen");
 
-            put("modmenu.nameTranslation" + MiddleEarth.MOD_ID, "Middle-earth");
-            put("modmenu.descriptionTranslation" + MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
-            put("modmenu.summaryTranslation" + MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.nameTranslation." + MiddleEarth.MOD_ID, "Middle-earth");
+            put("modmenu.descriptionTranslation." + MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put("modmenu.summaryTranslation." + MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
 
             put(of(LangCategory.EMI, "forge"), "Forge");
             put(of(LangCategory.EMI, "anvil_shaping"), "Shaping Anvil");
             put(of(LangCategory.EMI, "artisan_table"), "Artisan Table");
 
-            put(of(LangCategory.TAG, "item", "anvil_items"), "Anvil Items");
-            put(of(LangCategory.TAG, "item", "bones"), "Bones");
-            put(of(LangCategory.TAG, "item", "cloaks"), "Cloaks");
-            put(of(LangCategory.TAG, "item", "cooked_poultry"), "Cooked Poultry");
-            put(of(LangCategory.TAG, "item", "dyeable"), "Dyeable");
-            put(of(LangCategory.TAG, "item", "feathers"), "Feathers");
-            put(of(LangCategory.TAG, "item", "glowy"), "Glowing Items");
-            put(of(LangCategory.TAG, "item", "ingot_shaping"), "Ingot Shaping");
-            put(of(LangCategory.TAG, "item", "lead_ores"), "Lead Ores");
-            put(of(LangCategory.TAG, "item", "mithril_ores"), "Mithril Ores");
-            put(of(LangCategory.TAG, "item", "mod_planks"), "Middle-earth Planks");
-            put(of(LangCategory.TAG, "item", "mod_stripped_logs"), "Middle-earth Stripped Logs");
-            put(of(LangCategory.TAG, "item", "mushroom_stew_ingredient"), "Mushroom Stew Ingredient");
-            put(of(LangCategory.TAG, "item", "nugget_shaping"), "Nugget Shaping");
-            put(of(LangCategory.TAG, "item", "raw_poultry"), "Raw Poultry");
-            put(of(LangCategory.TAG, "item", "shard"), "Shard");
-            put(of(LangCategory.TAG, "item", "shingles"), "Shingles");
-            put(of(LangCategory.TAG, "item", "silver_ores"), "Silver Ores");
-            put(of(LangCategory.TAG, "item", "thatchy"), "Thatch");
-            put(of(LangCategory.TAG, "item", "tin"), "Tin");
-            put(of(LangCategory.TAG, "item", "tin_ores"), "Tin Ores");
-            put(of(LangCategory.TAG, "item", "warg_food"), "Warg Food");
-            put(of(LangCategory.TAG, "item", "worm"), "Worm");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "anvil_items"), "Anvil Items");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "bones"), "Bones");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "cloaks"), "Cloaks");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "cooked_poultry"), "Cooked Poultry");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "dyeable"), "Dyeable");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "feathers"), "Feathers");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "glowy"), "Glowing Items");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "ingot_shaping"), "Ingot Shaping");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "lead_ores"), "Lead Ores");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mithril_ores"), "Mithril Ores");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mod_planks"), "Middle-earth Planks");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mod_stripped_logs"), "Middle-earth Stripped Logs");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mushroom_stew_ingredient"), "Mushroom Stew Ingredient");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "nugget_shaping"), "Nugget Shaping");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "raw_poultry"), "Raw Poultry");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "shard"), "Shard");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "shingles"), "Shingles");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "silver_ores"), "Silver Ores");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "thatchy"), "Thatch");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "tin"), "Tin");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "tin_ores"), "Tin Ores");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "warg_food"), "Warg Food");
+            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "worm"), "Worm");
 
             put(of(LangCategory.PAINTING, "author.boenndal"), "Boenndal");
             put(of(LangCategory.PAINTING, "author.scosher"), "Scosher");
@@ -898,7 +898,7 @@ public class TranslationEntries {
         return MiddleEarth.rawTranslationKey(langCategory.Prefix + "." + otherPrefix, value);
     }
     public static String of(LangCategory langCategory, String value) {
-        return MiddleEarth.rawTranslationKey(langCategory, value);
+        return of(langCategory, MiddleEarth.MOD_ID, value);
     }
     public static String ofRaw(LangCategory langCategory, String value) {
         return MiddleEarth.rawTranslationKey(langCategory, value);
