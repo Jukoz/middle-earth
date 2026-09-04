@@ -1,11 +1,18 @@
 package net.sevenstars.middleearth.resources.persistent_datas;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 public class PlayerData {
-    private Identifier faction;
+    /*
+    private RegistryEntry<Faction> faction;
     private Identifier spawn;
     private Identifier race;
     private BlockPos posOrigin;
@@ -16,7 +23,7 @@ public class PlayerData {
     public NbtCompound createNbt() {
         NbtCompound nbtCompound = new NbtCompound();
         if(faction != null)
-            nbtCompound.putString("faction", faction.toString());
+            nbtCompound.putString("faction", faction.getIdAsString());
         if(spawn != null)
             nbtCompound.putString("spawn", spawn.toString());
         if(race != null)
@@ -33,8 +40,10 @@ public class PlayerData {
     public PlayerData() {}
 
     public PlayerData(NbtCompound nbtCompound) {
-        if(nbtCompound.getString("faction").isPresent())
-            faction = Identifier.of(nbtCompound.getString("faction").get());
+        if (nbtCompound.getString("faction").isPresent()) {
+            Identifier id = MiddleEarth.ofId(nbtCompound.getString("faction").get());
+            faction = RegistryKey.of(DynamicRegistriesHH.FACTION, id);
+        }
         if(nbtCompound.getString("spawn").isPresent())
             spawn = Identifier.of(nbtCompound.getString("spawn").get());
         if(nbtCompound.getString("race").isPresent())
@@ -51,8 +60,8 @@ public class PlayerData {
         else
             delversFearCountInSeconds = 0;
     }
-    public boolean assignNewFactionInformation(Identifier factionId, Identifier spawnId){
-        this.faction = factionId;
+    public boolean assignNewFactionInformation(RegistryKey<Faction> faction, Identifier spawnId){
+        this.faction = faction;
         this.spawn = spawnId;
         return true;
     }
@@ -67,7 +76,7 @@ public class PlayerData {
         this.posOrigin = newBlockPos;
         return true;
     }
-    public Identifier getFaction(){
+    public RegistryKey<Faction> getFaction(){
         return this.faction;
     }
     public Identifier getRace(){
@@ -94,4 +103,6 @@ public class PlayerData {
     public void resetDelversFearCount() {
         this.delversFearCountInSeconds = 0;
     }
+
+     */
 }

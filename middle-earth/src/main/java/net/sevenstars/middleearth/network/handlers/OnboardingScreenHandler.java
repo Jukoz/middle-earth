@@ -22,8 +22,8 @@ public class OnboardingScreenHandler {
             if(DimensionRegistryME.isInOverworld(world)){
                 MinecraftClient client = MinecraftClient.getInstance();
                 if(!havePlayerData){
-                    var controller = new OnboardingFactionScreenController(world, delay, playerAttributes);
-                    controller.open();
+                    //var controller = new OnboardingFactionScreenController(world, delay, playerAttributes);
+                    //controller.open();
                 } else {
                     client.setScreen(new OnboardingSelectionScreen(delay, ServerConfigME.ENABLE_FACTION_RESET, playerAttributes));
                 }

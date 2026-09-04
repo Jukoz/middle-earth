@@ -3,8 +3,7 @@ package net.sevenstars.middleearth.resources.persistent_datas;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.minecraft.util.Identifier;
@@ -28,9 +27,11 @@ public class AffiliationData {
         return dispositionType;
     }
 
+        /*
+
     public Vec3d getSpawnMiddleEarthCoordinate(World world){
         try{
-            Faction foundFaction = FactionLookup.getFactionById(world,faction);
+            FactionOld foundFaction = FactionLookup.getFactionById(world,faction);
             SpawnData spawnData = foundFaction.getSpawnData().findSpawn(spawnId);
             BlockPos blockpos = spawnData.getBlockPos();
             if(!spawnData.isDynamic()){ // Return custom spawn coords
@@ -44,7 +45,7 @@ public class AffiliationData {
             return null;
         }
     }
-
+*/
     @Override
     public String toString() {
         return "Disposition=" + getDisposition().toString() + ";\nPlayerFactionPayload=" + faction + ";\nSpawn=" + spawnId + ";";

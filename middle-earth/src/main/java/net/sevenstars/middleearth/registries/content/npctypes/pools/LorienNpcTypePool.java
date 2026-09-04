@@ -1,27 +1,8 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.item.*;
-import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
-import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
-import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
-import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedItemData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.GearSlotPool;
-
-import java.util.List;
-
 public class LorienNpcTypePool {
-    private final static RegistryKey<Faction> FACTION = FactionRegistry.LOTHLORIEN;
+   /*
+    private final static RegistryKey<FactionOld> FACTION = FactionRegistryHH.LOTHLORIEN;
 
     public final static NpcType CIVILIAN;
     public final static NpcType SENTINEL;
@@ -253,4 +234,5 @@ public class LorienNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
     }
+    */
 }

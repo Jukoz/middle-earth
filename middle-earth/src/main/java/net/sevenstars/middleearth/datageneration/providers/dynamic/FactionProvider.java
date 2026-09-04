@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -14,11 +15,11 @@ public class FactionProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getOrThrow(DynamicRegistriesME.FACTION));
+        entries.addAll(registries.getOrThrow(DynamicRegistriesHH.FACTION));
     }
 
     @Override
     public String getName() {
-        return DynamicRegistriesME.FACTION.getValue().getPath();
+        return DynamicRegistriesHH.FACTION.getValue().getPath();
     }
 }

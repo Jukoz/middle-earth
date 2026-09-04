@@ -36,6 +36,7 @@ public class CommandRace {
     private static final String RACE_ID = "race_id";
     private static final int RACE_COLOR = ColorsME.WARNING.color;
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
+        /*
         // [GET]
         CommandUtils.simpleCommand(dispatcher, RACE_BASE_COMMAND, literal(GET)
             .executes(CommandRace::getRace), PLAYER, literal(GET)
@@ -64,8 +65,10 @@ public class CommandRace {
                     .executes(CommandRace::resetTargetRace)))
                 .then(literal(RESET) // Without Target
                 .executes(CommandRace::resetRace))));
+         */
     }
 
+    /*
     private static int getRace(CommandContext<ServerCommandSource> context) {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity playerSource = context.getSource().getPlayer();
@@ -206,4 +209,6 @@ public class CommandRace {
 
         return 0;
     }
+
+     */
 }

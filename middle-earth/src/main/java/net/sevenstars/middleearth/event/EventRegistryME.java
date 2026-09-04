@@ -41,9 +41,10 @@ public class EventRegistryME {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
             MiddleEarthHeightMap.setSeed(player.getWorld().getSeed());
 
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            if(data == null)
-                return;
+            //PlayerData data = StateSaverAndLoader.getPlayerState(player);
+            //if(data == null)
+               // return;
+            /*
             if(data != null && data.getRace() != null){
                 RaceUtil.reset(player);
                 boolean isInMiddleEarth = DimensionRegistryME.isInMiddleEarth(player.getWorld());
@@ -53,7 +54,7 @@ public class EventRegistryME {
                     RaceUtil.initializeRace(player);
                 }
             }
-
+             */
             if(!player.getCommandTags().contains(GOT_STARTER_ITEM)) {
                 ItemStack starterItem = new ItemStack(ResourceItemsME.PLAYER_BOOK);
                 player.getInventory().offerOrDrop(starterItem);

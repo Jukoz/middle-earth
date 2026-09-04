@@ -311,9 +311,12 @@ public class TrollEntity extends AbstractBeastEntity {
     public void throwAttack() {
         Entity target = this.getTarget();
         if(target instanceof PlayerEntity player) {
+            // [TODO]
+            /*
             if(PlayerDataService.getPlayerDisposition(player, getWorld()) == this.getDisposition()){
                 return;
             }
+             */
         }
 
         if(target != null && !this.getWorld().isClient) {

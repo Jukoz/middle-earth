@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class WildSpawnEventData {
+/*
     private final static WildSpawnEventData EXAMPLE = new WildSpawnEventData(NpcRegistry.BRIGAND_THUG)
             .withWeight(2)
             // Can have at most 10 other npcs around 32 blocks
@@ -41,6 +42,7 @@ public class WildSpawnEventData {
             // Discard chance 0.0 - 1.0
             .withDiscardChance(0.25);
 
+ */
     public static class Fields {
         public static final String ENTITY_TYPE = "entity_type";
         public static final String NPC_TYPE = "npc_type";

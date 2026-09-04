@@ -31,7 +31,8 @@ public class StructureManagerDataRegistry {
 
     public static void bootstrap(Registerable<StructureManagerData> context) {
         RegistryEntryLookup<StructureManagerData> registryEntryLookup = context.getRegistryLookup(STRUCTURE_MANAGER_DATA_KEY);
-        
+      /*
+
         register(context, registryEntryLookup, BRIGAND_DUNGEON_POOL     , StructureManagerDataPools.BRIGAND_DUNGEON_NESTS);
         register(context, registryEntryLookup, DALE_VILLAGE_POOL        , StructureManagerDataPools.DALE_VILLAGE_NESTS);
         register(context, registryEntryLookup, DALE_KEEP_POOL           , StructureManagerDataPools.DALE_KEEP_NESTS);
@@ -48,6 +49,7 @@ public class StructureManagerDataRegistry {
         register(context, registryEntryLookup, SHIRE_VILLAGE_POOL       , StructureManagerDataPools.SHIRE_VILLAGE_NESTS);
         register(context, registryEntryLookup, WOODLAND_REALM_HAMLET_POOL,StructureManagerDataPools.WOODLAND_REALM_HAMLET_NESTS);
         register(context, registryEntryLookup, WOODLAND_REALM_HALL_POOL , StructureManagerDataPools.WOODLAND_REALM_HALL_NESTS);
+       */
     }
 
     private static void register(Registerable<StructureManagerData> context, RegistryEntryLookup<StructureManagerData> registryEntryLookup, RegistryKey<StructureManagerData> registryKey, StructureManagerData element){

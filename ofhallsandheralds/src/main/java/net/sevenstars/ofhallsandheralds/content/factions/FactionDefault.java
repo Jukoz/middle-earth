@@ -9,10 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public class FactionDefault extends AbstractFactionPool {
-    public static final Faction TEST = create(DispositionRegistryHH.NONE, BannerRegistryHH.NONE, List.of(SpawnRegistryHH.TEST));
+    protected static Map<RegistryKey<Faction>, Faction> map = new HashMap<>();
+
+    public static final Faction TEST = createNonJoinable(DispositionRegistryHH.NONE, BannerRegistryHH.NONE, List.of(SpawnRegistryHH.TEST));
 
     public static Map<RegistryKey<Faction>, Faction> fetch() {
-        Map<RegistryKey<Faction>, Faction> map = new HashMap<>();
         map.put(FactionRegistryHH.TEST, TEST);
         return map;
     }

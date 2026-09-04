@@ -34,6 +34,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
+// [TODO] : Redo screen
 @Environment(EnvType.CLIENT)
 public class OnboardingFactionScreen extends Screen {
     private static final Identifier MAP_UI_IDENTIFIER = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/faction_selection_map.png");
@@ -116,6 +117,7 @@ public class OnboardingFactionScreen extends Screen {
         return false;
     }
 
+    /*
     @Override
     protected void init() {
         super.init();
@@ -490,4 +492,5 @@ public class OnboardingFactionScreen extends Screen {
         return CustomWidget.isMouseOver(sizeX, sizeY, startX, startY);
     }
     //endregion
+     */
 }

@@ -73,12 +73,12 @@ public class DimensionRegistryME {
                     ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true);
                     ((ServerPlayerEntity) player).setSpawnPoint(respawn, true);
                 }
-                if(welcomeNeeded)
-                    FactionUtil.sendOnFactionJoinMessage(player);
-                Race race =  PlayerDataService.getPlayerRace(player, player.getWorld());
-                if(race != null){
-                    RaceUtil.updateRace(player, race, false);
-                }
+                //if(welcomeNeeded)
+                //FactionUtil.sendOnFactionJoinMessage(player);
+                //Race race =  PlayerDataService.getPlayerRace(player, player.getWorld());
+                //if(race != null){
+                // RaceUtil.updateRace(player, race, false);
+                //}
 
             }
         }
@@ -93,6 +93,7 @@ public class DimensionRegistryME {
     }
 
     public static boolean teleportPlayerToOverworld(PlayerEntity player) {
+        /*
         if(!player.getWorld().isClient()) {
             RegistryKey<World> registryKey = OW_WORLD_KEY;
             ServerWorld serverWorld = (ServerWorld) player.getWorld();
@@ -103,6 +104,7 @@ public class DimensionRegistryME {
             } else {
                 coordinate = origin.origin();
             }
+
 
             if (serverWorld != null) {
                 Vec3d coordinates = new Vec3d(coordinate.getX(), coordinate.getY(), coordinate.getZ());
@@ -116,6 +118,8 @@ public class DimensionRegistryME {
                 return true;
             }
         }
+
+             */
         return false;
     }
 

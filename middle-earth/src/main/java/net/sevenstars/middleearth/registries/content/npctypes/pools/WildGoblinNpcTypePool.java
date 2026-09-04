@@ -1,36 +1,9 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.EntityAttributesME;
-import net.sevenstars.middleearth.item.EquipmentItemsME;
-import net.sevenstars.middleearth.item.ToolItemsME;
-import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
-import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
-import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
-import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
-import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
-import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.*;
-
-import java.util.HashMap;
-import java.util.List;
-
 public class WildGoblinNpcTypePool {
-    private final static RegistryKey<Faction> FACTION = FactionRegistry.WILD_GOBLINS;
-    
+  /*
+    private final static RegistryKey<FactionOld> FACTION = FactionRegistryHH.WILD_GOBLINS;
+
     private static final int DARK_BROWN_GOBLIN = 0x4a3c34;
 
     public final static NpcType GATHERER;
@@ -240,4 +213,5 @@ public class WildGoblinNpcTypePool {
             ));
         }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
     }
+   */
 }

@@ -34,9 +34,13 @@ public class BeastTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
             if(player == null || mob.getWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame() || player == mob.getOwner()){
                 return false;
             }
+
+            // [TODO]
+            /*
             if(beastDispositionType != null){
                 return PlayerDataService.getPlayerDisposition(player, player.getWorld()) != beastDispositionType;
             }
+             */
             return true;
         }
         return false;

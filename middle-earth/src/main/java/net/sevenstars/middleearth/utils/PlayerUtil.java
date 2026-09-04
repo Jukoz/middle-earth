@@ -13,8 +13,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
@@ -53,6 +52,7 @@ public class PlayerUtil {
         return isSolid && isAllowed;
     }
 
+    /*
     public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull RaceType type){
         PlayerData data = StateSaverAndLoader.getPlayerState(entity);
         if(data != null && data.getRace() != null){
@@ -77,27 +77,6 @@ public class PlayerUtil {
         return false;
     }
 
-    public static Faction fetchFaction(@NotNull PlayerEntity entity){
-        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
-        if(data != null && data.getFaction() != null){
-            try {
-                return FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
-            } catch (FactionIdentifierException e) {
-                return null;
-            }
-        }
-        return null;
-    }
-    public static SpawnData fetchSpawn(@NotNull PlayerEntity entity){
-        PlayerData data = StateSaverAndLoader.getPlayerState(entity);
-        if(data != null && data.getFaction() != null && data.getSpawn() != null){
-            try {
-                Faction faction = FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
-                return faction.getSpawnData().findSpawn(data.getSpawn());
-            } catch (FactionIdentifierException e) {
-                return null;
-            }
-        }
-        return null;
-    }
+     */
 }
+

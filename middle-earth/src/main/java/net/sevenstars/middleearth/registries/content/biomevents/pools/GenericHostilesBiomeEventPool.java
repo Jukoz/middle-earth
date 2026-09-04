@@ -18,15 +18,18 @@ public class GenericHostilesBiomeEventPool {
 
     static {
         WILD_BRIGANDS_EASY = List.of(
+              /*
                 new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 512),
                 new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(3).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 256),
                 new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(3, 256),
                 new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(5, 256)
+               */
         );
 
         BRIGANDS = new BiomeEventData(false, WILD_BRIGANDS_EASY);
 
         ANDUIN = new BiomeEventData( false, List.of(
+              /*
                 //Npcs
                 new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).withSameNpcType(0, 512).lightShouldBeAtMost(7),
                 new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(4).withSameNpcType(1, 512).lightShouldBeAtMost(7),
@@ -38,9 +41,11 @@ public class GenericHostilesBiomeEventPool {
                 new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_WARRIOR).withWeight(3).lightShouldBeBetween(0, 7).withSameNpcType(1, 256).requireNight(),
                 new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_RIDER).withWeight(2).lightShouldBeBetween(0, 7).withSameNpcType(0, 256),
                 new WildSpawnEventData(NpcRegistry.GOBLIN_TOWN_VETERAN).withWeight(2).lightShouldBeBetween(0, 7).withSameNpcType(0, 256).requireNight()
+               */
         ));
 
         CAVE = new BiomeEventData(false, List.of(
+          /*
             // Higher Levels
                 //Creatures
                 new WildSpawnEventData(EntitiesME.SHELOBITE_SCUTTLER)
@@ -144,6 +149,7 @@ public class GenericHostilesBiomeEventPool {
                     .lightShouldBeBetween(0, 7)
                     .requireUnderground()
                     .withoutEntitySurfaceOnly()
+           */
                 ));
 
         EMPTY = new BiomeEventData(false, List.of());

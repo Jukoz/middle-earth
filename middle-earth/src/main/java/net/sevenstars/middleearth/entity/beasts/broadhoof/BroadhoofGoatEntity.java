@@ -182,7 +182,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
         else { // Server
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
-                if(PlayerUtil.isOfRace(player, race) || player.isCreative()) {
+                if(/*TODO PlayerUtil.isOfRace(player, race) || */ player.isCreative()) {
                     if(this.isTame()) {
                         if (this.isBreedingItem(itemStack)) { // Feed
                             if(this.getHealth() < this.getMaxHealth()) { // Food provides health

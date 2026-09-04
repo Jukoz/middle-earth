@@ -5,9 +5,7 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
 
@@ -28,10 +26,13 @@ public class AllSpawnSuggestionProvider implements SuggestionProvider<ServerComm
     }
 
     private static List<Identifier> getAllSpawns(CommandContext<ServerCommandSource> context) throws FactionIdentifierException {
-        List<Faction> factions = FactionLookup.getAllFactions(context.getSource().getWorld());
+
+        // [TODO]
+        /*
+        List<FactionOld> factions = .getAllFactions(context.getSource().getWorld());
         List<Identifier> candidates = new ArrayList<>();
 
-        for(Faction faction: factions){
+        for(FactionOld faction: factions){
             SpawnDataHandler spawnDataHandler = faction.getSpawnData();
             if(spawnDataHandler != null){
                 List<Identifier> spawnIds = spawnDataHandler.getAllSpawnIdentifiers();
@@ -40,7 +41,7 @@ public class AllSpawnSuggestionProvider implements SuggestionProvider<ServerComm
             }
             if(faction.getSubFactions() != null){
                 for(Identifier subfactionId : faction.getSubFactions()){
-                    Faction subFaction = FactionLookup.getFactionById(context.getSource().getWorld(), subfactionId);
+                    FactionOld subFaction = FactionLookup.getFactionById(context.getSource().getWorld(), subfactionId);
                     SpawnDataHandler subFacspawnDataHandler = subFaction.getSpawnData();
 
                     List<Identifier> spawnIds = subFacspawnDataHandler.getAllSpawnIdentifiers();
@@ -49,7 +50,8 @@ public class AllSpawnSuggestionProvider implements SuggestionProvider<ServerComm
                 }
             }
         }
+         */
 
-        return candidates;
+        return List.of();
     }
 }

@@ -1,20 +1,9 @@
 package net.sevenstars.middleearth.registries.content.structuremanagerdatas;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
-
-import java.util.List;
-
 public class StructureManagerDataPools {
+  /*
     private final static int RESPAWN_TICKS = 24000 * 3;
-    
+
     public final static StructureManagerData BRIGAND_DUNGEON_NESTS;
     public final static StructureManagerData DALE_VILLAGE_NESTS;
     public final static StructureManagerData DALE_KEEP_NESTS;
@@ -35,7 +24,7 @@ public class StructureManagerDataPools {
     private static Identifier createIdentifier(String path) {
         return MiddleEarth.idAggregate('.', path);
     }
-    
+
     static {
         BRIGAND_DUNGEON_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "brigand_dungeon_pool"), List.of(
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.cook"), RESPAWN_TICKS, List.of(
@@ -162,7 +151,7 @@ public class StructureManagerDataPools {
                 new StructureSpawnNestPool(EntityType.PIG, 3).SetRangeAmount(2,3)
             ))
         ));
-        
+
         GONDOR_LORD_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gondor_lord_pool"), List.of(
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.lord"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_LEADER).SetFixAmount(1)
@@ -402,4 +391,5 @@ public class StructureManagerDataPools {
                 ))
         ));
     }
+   */
 }

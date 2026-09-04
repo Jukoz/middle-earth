@@ -21,6 +21,7 @@ import java.util.UUID;
  * <a href="https://github.com/TerraformersMC/Biolith/blob/main/common/src/main/java/com/terraformersmc/biolith/impl/config/BiolithState.java">Other Source</a>
  */
 public class StateSaverAndLoader extends PersistentState {
+    /*
     private static final PersistentStateType<StateSaverAndLoader> TYPE;
 
     private HashMap<UUID, PlayerData> players;
@@ -87,6 +88,8 @@ public class StateSaverAndLoader extends PersistentState {
     static {
         TYPE = new PersistentStateType<>("middle_earth_player_datas", StateSaverAndLoader::createNew, CODEC, (DataFixTypes) null);
     }
+
+     */
 }
 
 

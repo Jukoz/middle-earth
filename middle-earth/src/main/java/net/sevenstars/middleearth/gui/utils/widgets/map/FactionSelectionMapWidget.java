@@ -44,8 +44,8 @@ public class FactionSelectionMapWidget extends MapWidget {
 
     public void selectSpawn(int index){
         addCooldown();
-        if(OnboardingFactionScreenController.getInstance() != null)
-            OnboardingFactionScreenController.getInstance().assignNewSpawnIndex(index);
+        //if(OnboardingFactionScreenController.getInstance() != null)
+            //OnboardingFactionScreenController.getInstance().assignNewSpawnIndex(index);
         updateSelectedSpawn(index);
     }
 

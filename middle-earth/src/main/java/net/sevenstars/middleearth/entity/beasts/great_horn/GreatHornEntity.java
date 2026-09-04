@@ -189,7 +189,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(!this.getWorld().isClient() && !player.isCreative()) {
-            RaceType playerRace = RaceUtil.getRaceType(player);
+            RaceType playerRace = RaceType.HUMAN;// [TODO] RaceUtil.getRaceType(player);
 
             if(playerRace == null || playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;
@@ -466,7 +466,8 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     }
 
     public boolean canTrust(PlayerEntity playerEntity) {
-        RaceType playerRace = RaceUtil.getRaceType(playerEntity);
+        RaceType playerRace = RaceType.HUMAN;// [TODO] RaceUtil.getRaceType(player);
+
         return (playerRace != null && playerRace != RaceType.NONE) && (this.getCompatibleRaces() != null && this.getCompatibleRaces().contains(playerRace));
     }
 

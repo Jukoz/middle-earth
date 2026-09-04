@@ -8,7 +8,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 
 public class InitialDiplomacy {
 
@@ -25,7 +25,7 @@ public class InitialDiplomacy {
         this.affinity = AffinityLevel.valueOf(affinity);
     }
 
-    public InitialDiplomacy(RegistryKey<Faction> factionRegistryKey, AffinityLevel affinity) {
+    public InitialDiplomacy(RegistryKey<FactionOld> factionRegistryKey, AffinityLevel affinity) {
         this.factionId = factionRegistryKey.getValue();
         this.affinity = affinity;
     }

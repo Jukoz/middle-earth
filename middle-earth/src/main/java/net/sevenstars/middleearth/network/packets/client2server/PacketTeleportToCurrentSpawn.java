@@ -40,6 +40,7 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
     public void process(ServerPacketContext context) {
         try{
             context.player().getServer().execute(() -> {
+                /*
                 if(PlayerDataService.playerPassedOnboarding(context.player())){
                     SpawnData spawnData = PlayerDataService.getPlayerSpawnData(context.player(), context.player().getWorld());
                     if(spawnData == null)
@@ -49,6 +50,7 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
                         DimensionRegistryME.teleportPlayerToMe(context.player(), spawnCoordinates.toCenterPos(), true, welcomeNeeded);
 
                 }
+*/
             });
         } catch (Exception e){
             MiddleEarth.LOGGER.logError("TeleportToMeSpawnRequestPacket::Apply - Tried applying the teleport to me request packet",e);

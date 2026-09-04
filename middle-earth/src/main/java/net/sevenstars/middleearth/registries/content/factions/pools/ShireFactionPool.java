@@ -1,30 +1,11 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.BannerPatternsME;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
-import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.common.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.ShireNpcTypePool;
-import org.joml.Vector2d;
-
-import java.util.HashMap;
-import java.util.List;
-
 public class ShireFactionPool {
-    public final static Faction SHIRE;
+ /*
+    public final static FactionOld SHIRE;
 
     static {
-        SHIRE = new Faction(FactionRegistry.SHIRE, true, DispositionType.GOOD, FactionType.FACTION, null,null,
+        SHIRE = new FactionOld(FactionRegistry.SHIRE, true, DispositionType.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                         ShireNpcTypePool.PEASANT
@@ -74,5 +55,6 @@ public class ShireFactionPool {
                 )
         );
     }
+  */
 
 }

@@ -1,30 +1,11 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.BannerPatternsME;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
-import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.common.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.MordorNpcTypePool;
-import org.joml.Vector2d;
-
-import java.util.HashMap;
-import java.util.List;
-
 public class MordorFactionPool {
-    public final static Faction MORDOR;
+    /*
+    public final static FactionOld MORDOR;
 
     static {
-        MORDOR = new Faction(FactionRegistry.MORDOR, true, DispositionType.EVIL, FactionType.FACTION, null,null,
+        MORDOR = new FactionOld(FactionRegistry.MORDOR, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             MordorNpcTypePool.SNAGA
@@ -81,4 +62,5 @@ public class MordorFactionPool {
                 )
         );
     }
+     */
 }

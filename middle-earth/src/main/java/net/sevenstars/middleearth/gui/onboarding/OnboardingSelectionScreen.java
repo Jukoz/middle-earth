@@ -20,6 +20,7 @@ import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElemen
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+// [TODO] redo
 @Environment(EnvType.CLIENT)
 public class OnboardingSelectionScreen extends Screen {
 private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.onboarding_selection.title".formatted(MiddleEarth.MOD_ID));
@@ -56,8 +57,8 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
 
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
-                var controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay, playerAttributes);
-                controller.open();
+                //var controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay, playerAttributes);
+                //controller.open();
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();
             addDrawableChild(resetCharacterButton);

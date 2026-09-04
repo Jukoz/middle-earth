@@ -50,6 +50,7 @@ public class CommandSpawn {
     private static final String PLAYER = "player";
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
+        /*
         // [GET OVERWORLD SPAWN]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
@@ -167,8 +168,9 @@ public class CommandSpawn {
                 .then(argument(SPAWN_ID, IdentifierArgumentType.identifier())
                 .suggests(new AllSpawnSuggestionProvider())
                 .executes(CommandSpawn::forceTeleportToSpawnMiddleEarth)))));
+         */
     }
-
+/*
     // region Getters
     private static int getSpawnOverworld(CommandContext<ServerCommandSource> context) {
         if(!context.getSource().isExecutedByPlayer() || context.getSource().getPlayer() == null)
@@ -534,4 +536,6 @@ public class CommandSpawn {
         return 0;
     }
     // endregion
+
+ */
 }

@@ -1,25 +1,11 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.WildGoblinNpcTypePool;
-import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
-import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.common.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
-
-import java.util.HashMap;
-import java.util.List;
-
 public class WildGoblinsFactionPool {
-        public final static Faction WILD_GOBLIN;
+     /*
+        public final static FactionOld WILD_GOBLIN;
 
         static {
-            WILD_GOBLIN = new Faction(FactionRegistry.WILD_GOBLINS, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
+            WILD_GOBLIN = new FactionOld(FactionRegistry.WILD_GOBLINS, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                         WildGoblinNpcTypePool.GATHERER
@@ -70,4 +56,5 @@ public class WildGoblinsFactionPool {
             );
         }
 
+      */
 }

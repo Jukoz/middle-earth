@@ -12,6 +12,7 @@ public class IsengardBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
+           /*
             new WildSpawnEventData(NpcRegistry.ISENGARD_ORC_SNAGA).withWeight(6).withSameNpcType(6, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_ORC_WARRIOR).withWeight(5).withSameNpcType(4, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT).withWeight(8).withSameNpcType(5, 256),
@@ -19,11 +20,14 @@ public class IsengardBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_VETERAN).withWeight(4).withSameNpcType(1, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_BERSERKER).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_LEADER).withSameNpcType(0, 256)
+            */
         ));
 
         SCOUTS = new BiomeEventData(false, List.of(
+         /*
             new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT).withWeight(3).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.ISENGARD_ORC_WARRIOR).withWeight(2).withSameNpcType(1, 256)
+          */
         ));
     }
 }

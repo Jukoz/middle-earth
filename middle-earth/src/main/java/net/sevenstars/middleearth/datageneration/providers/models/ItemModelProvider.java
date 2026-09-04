@@ -176,6 +176,8 @@ public class ItemModelProvider extends FabricModelProvider {
 
         List<SelectItemModel.SwitchCase> models = new ArrayList<>(List.of());
 
+        // [TODO]
+        /*
         NpcRegistry.allNpcTypes.forEach(npcDataRegistryKey -> {
             String id = npcDataRegistryKey.getValue().getPath().replaceAll("npc_data.middle-earth.", "").replaceAll("\\.", "_") + "_spawn_egg";
 
@@ -188,6 +190,7 @@ public class ItemModelProvider extends FabricModelProvider {
             if(!models.contains(item))
                 models.add(item);
         });
+         */
         ItemModel.Unbaked fallbackModel = ItemModels.basic(itemModelGenerator.upload(EggItemsME.NPC_SPAWN_EGG, Models.GENERATED));
 
         String randomNpcEggId = "npc_random_spawn_egg";

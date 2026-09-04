@@ -43,6 +43,7 @@ import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
 import net.sevenstars.middleearth.world.spawners.EntitySpawningME;
 
 public class MiddleEarth implements ModInitializer {
+	// [TODO] : Make the MOD_ID and OLD_MOD_ID Private, using dependencies and config files would be best.
 	public static final String MOD_ID = "middle-earth";
 	public static final String OLD_MOD_ID = "me";
 	public static final String MOD_VERSION = "1.0.0-1.21.8-beta";

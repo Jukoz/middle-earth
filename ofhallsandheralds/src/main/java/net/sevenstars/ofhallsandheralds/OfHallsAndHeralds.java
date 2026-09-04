@@ -10,10 +10,9 @@ import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 import net.sevenstars.ofhallsandheralds.registries.RegistriesHH;
 
 public class OfHallsAndHeralds implements ModInitializer {
-	public static final String MOD_ID = "ofhallsandheralds";
+	private static final String MOD_ID = "ofhallsandheralds";
 	public static final boolean IS_DEBUG = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
-
 
 	@Override
 	public void onInitialize() {

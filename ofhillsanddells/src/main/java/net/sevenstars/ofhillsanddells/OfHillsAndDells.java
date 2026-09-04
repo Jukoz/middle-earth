@@ -7,7 +7,7 @@ import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.ModLogger;
 
 public class OfHillsAndDells implements ModInitializer {
-	public static final String MOD_ID = "ofhillsanddells";
+	private static final String MOD_ID = "ofhillsanddells";
 	public static final boolean IS_DEBUG = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 

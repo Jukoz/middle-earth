@@ -14,7 +14,7 @@ import java.util.Optional;
 public class Faction {
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         // Core
-        Codec.BOOL.fieldOf("joinable").forGetter(Faction::isJoinable),
+        Codec.BOOL.fieldOf("joinable").forGetter(Faction::makeJoinable),
         RegistryKey.createCodec(DynamicRegistriesHH.DISPOSITION).fieldOf("disposition").forGetter(Faction::getDispositionKey),
         // Relation
         Codec.BOOL.optionalFieldOf("isParent").forGetter(Faction::getOptionalIsParent),
@@ -69,13 +69,13 @@ public class Faction {
         return this;
     }
 
-    public Faction parentFaction(RegistryKey<Faction> parentFaction){
+    public Faction withParentFaction(RegistryKey<Faction> parentFaction){
         this.parentFaction = parentFaction;
         this.isParent = false;
         return this;
     }
 
-    public boolean isJoinable() {
+    public boolean makeJoinable() {
         return isJoinable;
     }
     public RegistryKey<Disposition> getDispositionKey() {

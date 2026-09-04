@@ -1,25 +1,11 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
-import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.common.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.BrigandNpcTypePool;
-import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
-
-import java.util.HashMap;
-import java.util.List;
-
 public class BrigandFactionPool {
-    public final static Faction BRIGAND;
+   /*
+    public final static FactionOld BRIGAND;
 
     static {
-        BRIGAND = new Faction(FactionRegistry.BRIGAND, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
+        BRIGAND = new FactionOld(FactionRegistry.BRIGAND, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             BrigandNpcTypePool.THUG
@@ -67,4 +53,5 @@ public class BrigandFactionPool {
                 )
         );
     }
+    */
 }

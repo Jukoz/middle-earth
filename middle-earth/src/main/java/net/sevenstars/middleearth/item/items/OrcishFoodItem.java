@@ -20,7 +20,7 @@ public class OrcishFoodItem extends Item {
         if(world.isClient) return super.finishUsing(stack, world, user);
 
         if(user instanceof PlayerEntity playerEntity) {
-            RaceType raceType = RaceUtil.getRaceType(playerEntity);
+            RaceType raceType = RaceType.HUMAN;// [TODO] RaceUtil.getRaceType(player);
             if(raceType != RaceType.GOBLIN && raceType != RaceType.SNAGA && raceType != RaceType.ORC && raceType != RaceType.URUK) {
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 20 * 30, 1));
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20 * 10, 0));

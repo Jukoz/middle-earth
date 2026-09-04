@@ -6,27 +6,24 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.IdentifierArgumentType;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.commands.suggestions.AllAvailableSpawnSuggestionProvider;
 import net.sevenstars.middleearth.commands.suggestions.FactionSuggestionProvider;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
-import net.sevenstars.middleearth.exceptions.NoFactionException;
-import net.sevenstars.middleearth.exceptions.SpawnIdentifierException;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ColorsME;
+import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 import static net.minecraft.server.command.CommandManager.*;
 
@@ -38,7 +35,6 @@ public class CommandFaction {
     private static final String FACTION_ID = "faction_id";
     private static final String SPAWN_ID = "spawn_id";
     private static final String PLAYER = "player";
-    private static final String BANNER = "banner";
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, RegistrationEnvironment registrationEnvironment) {
         // [GET]
@@ -89,51 +85,19 @@ public class CommandFaction {
                     .then(argument(SPAWN_ID, IdentifierArgumentType.identifier())
                     .suggests(new AllAvailableSpawnSuggestionProvider())
                     .executes(CommandFaction::joinFaction))))));
-
-        // [GET BANNER]
-        dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
-                .then(literal(FACTION_BASE_COMMAND)
-                    .then(literal(BANNER)
-                    .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
-                    .suggests(new FactionSuggestionProvider())
-                    .executes(CommandFaction::getBanner)))));
-    }
-
-    private static int getBanner(CommandContext<ServerCommandSource> context) {
-        if(context.getSource().isExecutedByPlayer()) {
-            ServerPlayerEntity source = context.getSource().getPlayer();
-            Identifier factionIdentifier = IdentifierArgumentType.getIdentifier(context, FACTION_ID);;
-
-            try{
-                Faction faction = FactionLookup.getFactionById(source.getWorld(), factionIdentifier);
-                source.giveItemStack(faction.getBannerItem(source.getWorld().getRegistryManager()));
-                MutableText sourceText = Text.translatable("command.%s.faction.banner.success".formatted(MiddleEarth.MOD_ID), faction.getFullName().formatted(Formatting.GOLD));
-                source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
-            } catch (FactionIdentifierException e){
-                MutableText sourceText = Text.translatable("command.%s.faction.banner.fail_id".formatted(MiddleEarth.MOD_ID), Text.of(factionIdentifier.toString()));
-                source.sendMessage(sourceText.withColor(ColorsME.ALERT.color));
-                return 0;
-            } catch (Exception e){
-                MutableText sourceText = Text.translatable("command.%s.faction.banner.fail_error".formatted(MiddleEarth.MOD_ID), Text.of(factionIdentifier.toString()));
-                source.sendMessage(sourceText.withColor(ColorsME.ALERT.color));
-                return 0;
-            }
-        }
-        return 1;
     }
 
     private static int getFaction(CommandContext<ServerCommandSource> context) {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getWorld());
-                if(currentFaction == null){
+                Optional<RegistryEntry<Faction>> currentFaction = FactionService.getPlayerFaction(source);
+                if(currentFaction.isEmpty()){
                     MutableText sourceText = Text.translatable("command.%s.get.faction.no_faction".formatted(MiddleEarth.MOD_ID));
                     source.sendMessage(sourceText.withColor(ColorsME.WARNING.color));
                     return 0;
                 }
-                MutableText sourceText = Text.translatable("command.%s.get.faction.success".formatted(MiddleEarth.MOD_ID), currentFaction.getFullName());
+                MutableText sourceText = Text.translatable("command.%s.get.faction.success".formatted(MiddleEarth.MOD_ID), MiddleEarth.rawTranslationKey(LangCategory.FACTION, currentFaction.get().getIdAsString()));
                 source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             }
         }
@@ -145,13 +109,13 @@ public class CommandFaction {
         if(targetedPlayer != null && context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getWorld());
-                if(currentFaction == null){
+                Optional<RegistryEntry<Faction>> currentFaction = FactionService.getPlayerFaction(source);
+                if(currentFaction.isEmpty()){
                     MutableText sourceText = Text.translatable("command.%s.get.player.faction.no_faction".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName());
                     source.sendMessage(sourceText.withColor(ColorsME.WARNING.color));
                     return 0;
                 }
-                MutableText sourceText = Text.translatable("command.%s.get.player.faction.success".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName(), currentFaction.getFullName());
+                MutableText sourceText = Text.translatable("command.%s.get.player.faction.success".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName(), MiddleEarth.rawTranslationKey(LangCategory.FACTION, currentFaction.get().getIdAsString()));
                 source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             }
         }
@@ -162,19 +126,10 @@ public class CommandFaction {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null) {
-                try {
-                    if (FactionUtil.clearFaction(source)) {
-                        MutableText sourceText = Text.translatable("command.%s.clear.faction.success".formatted(MiddleEarth.MOD_ID));
-                        source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
-                    }
-                    return 1;
-                } catch (NoFactionException e) {
-                    MutableText sourceText = Text.translatable(NoFactionException.KEY_SOURCE);
-                    source.sendMessage(sourceText.withColor(ColorsME.ALERT.color));
-                } catch (FactionIdentifierException e) {
-                    MutableText sourceText = Text.translatable(FactionIdentifierException.KEY);
-                    source.sendMessage(sourceText.withColor(ColorsME.ALERT.color));
-                }
+                FactionService.setFactionToPlayer(source,null);
+                MutableText sourceText = Text.translatable("command.%s.clear.faction.success".formatted(MiddleEarth.MOD_ID));
+                source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
+                return 1;
             }
         }
         return 0;
@@ -189,19 +144,10 @@ public class CommandFaction {
             if(isPlayerSource)
                 playerSource = context.getSource().getPlayer();
             if(context.getSource() != null) {
-                try {
-                    if (FactionUtil.clearFaction(playerSource)) {
-                        MutableText sourceText = Text.translatable("command.%s.clear.player.faction.success".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName());
-                        context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
-                    }
-                    return 1;
-                } catch (NoFactionException e) {
-                    MutableText sourceText = Text.translatable(NoFactionException.KEY_TARGET, targetedPlayer.getName());
-                    context.getSource().sendMessage(sourceText.withColor(ColorsME.ALERT.color));
-                } catch (FactionIdentifierException e) {
-                    MutableText sourceText = Text.translatable(FactionIdentifierException.KEY);
-                    context.getSource().sendMessage(sourceText.withColor(ColorsME.ALERT.color));
-                }
+                FactionService.setFactionToPlayer(playerSource,null);
+                MutableText sourceText = Text.translatable("command.%s.clear.player.faction.success".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName());
+                context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
+                return 1;
             }
         }
 
@@ -236,17 +182,12 @@ public class CommandFaction {
 
         boolean success = updateFactionFromCommand(targetedPlayer, context.getSource(), factionIdentifier, spawnIdentifier);
         if(success){
-            try{
-                Faction faction = FactionLookup.getFactionById(context.getSource().getWorld(), factionIdentifier);
-                if(context.getSource().isExecutedByPlayer()){
-                    ServerPlayerEntity source = context.getSource().getPlayer();
-                    MutableText sourceText = Text.translatable("command.%s.join.faction.join.success".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName(), faction.getFullName());
-                    source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
-                }
-            } catch (FactionIdentifierException e) {
-                MiddleEarth.LOGGER.logDebugMsg("PlayerFactionPayload Id does not exist");
+            Faction faction = FactionService.fetchFaction(context.getSource().getWorld(), factionIdentifier);
+            if(faction != null && context.getSource().isExecutedByPlayer()){
+                ServerPlayerEntity source = context.getSource().getPlayer();
+                MutableText sourceText = Text.translatable("command.%s.join.faction.join.success".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName(),  MiddleEarth.rawTranslationKey(LangCategory.FACTION, factionIdentifier));
+                source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             }
-
             return 1;
         }
         return 0;
@@ -254,44 +195,9 @@ public class CommandFaction {
 
     public static boolean updateFactionFromCommand(ServerPlayerEntity target, ServerCommandSource source, Identifier factionIdentifier, @Nullable Identifier spawnId) {
         Faction foundFaction = null;
-        boolean commandOnSelf = source.isExecutedByPlayer() && source.getPlayer() == target;
-        try {
-            foundFaction = FactionLookup.getFactionById(source.getWorld(), factionIdentifier);
-            FactionUtil.updateFaction(target, foundFaction, spawnId);
-            return true;
-        } catch (FactionIdentifierException e){
-            MutableText errorMessage = Text.translatable(FactionIdentifierException.KEY, factionIdentifier.toString());
-            source.sendMessage(errorMessage.withColor(ColorsME.ALERT.color));
-            return false;
-        } catch (IdenticalFactionException e){
-            if(commandOnSelf){ // Player on himself
-                MutableText errorMessage = Text.translatable(IdenticalFactionException.KEY_SOURCE, (foundFaction == null) ? factionIdentifier.toString() : foundFaction.getFullName());
-                source.sendMessage(errorMessage.withColor(ColorsME.ALERT.color));
-                return false;
-            }  else { // Player on another target or Command block
-                MutableText errorMessage = Text.translatable(IdenticalFactionException.KEY_TARGET, target.getName(), (foundFaction == null) ? factionIdentifier.toString() : foundFaction.getFullName());
-                source.sendMessage(errorMessage.withColor(ColorsME.ALERT.color));
-                return false;
-            }
-        } catch (SpawnIdentifierException e){
-                MutableText errorMessage;
-                if(spawnId != null){
-                    errorMessage = Text.translatable(SpawnIdentifierException.KEY, spawnId.toString());
-                } else {
-                    errorMessage = Text.translatable("command.%s.fail".formatted(MiddleEarth.MOD_ID));
-                }
-                source.sendMessage(errorMessage.withColor(ColorsME.ALERT.color));
-                return false;
-        } catch (NoFactionException e){
-            if(commandOnSelf){ // Player on himself
-                MutableText errorMessage = Text.translatable(NoFactionException.KEY_SOURCE);
-                source.sendMessage(errorMessage.withColor(ColorsME.ALERT.color));
-                return false;
-            }  else { // Player on another target or Command block
-                MutableText errorMessage = Text.translatable(NoFactionException.KEY_TARGET, target);
-                source.sendMessage(errorMessage.withColor(ColorsME.ALERT.color));
-                return false;
-            }
-        }
+        foundFaction = FactionService.fetchFaction(source.getWorld(), factionIdentifier);
+        FactionService.setFactionToPlayer(target, FactionService.fetchFactionEntry(source.getWorld(), foundFaction));
+        // set default spawnId
+        return true;
     }
 }

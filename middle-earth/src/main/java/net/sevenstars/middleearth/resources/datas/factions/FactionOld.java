@@ -42,28 +42,29 @@ import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import java.util.*;
 
 
-public class Faction {
+public class FactionOld {
+    /*
     private static HashMap<DispositionType, List<Integer>> FactionSelectionOrderIndexPerDisposition;
 
-    public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.STRING.fieldOf("id").forGetter(Faction::getIdValue),
-            Codec.INT.fieldOf("faction_selection_order_index").forGetter(Faction::getFactionSelectionOrderIndex),
-            Codec.BOOL.fieldOf("joinable").forGetter(Faction::getJoinable),
-            Codec.STRING.fieldOf("disposition").forGetter(Faction::getDispositionString),
-            Codec.STRING.fieldOf("faction_type").forGetter(Faction::getFactionTypeString),
-            Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(Faction::getParentFactionIdentifier),
-            Codec.list(Identifier.CODEC).optionalFieldOf("subfaction").forGetter(Faction::getSubfactionIds),
-            NbtCompound.CODEC.optionalFieldOf("npcs").forGetter(Faction::getNpcValues),
-            NbtCompound.CODEC.optionalFieldOf("banner").forGetter(Faction::getBannerNbt),
-            NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
-            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
-            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands),
-            Codec.list(InitialDiplomacy.CODEC).fieldOf("initial_diplomacy").forGetter(Faction::getInitialDiplomaciesNbtList)
-    ).apply(instance, Faction::new));
+    public static final Codec<FactionOld> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.STRING.fieldOf("id").forGetter(FactionOld::getIdValue),
+            Codec.INT.fieldOf("faction_selection_order_index").forGetter(FactionOld::getFactionSelectionOrderIndex),
+            Codec.BOOL.fieldOf("joinable").forGetter(FactionOld::getJoinable),
+            Codec.STRING.fieldOf("disposition").forGetter(FactionOld::getDispositionString),
+            Codec.STRING.fieldOf("faction_type").forGetter(FactionOld::getFactionTypeString),
+            Identifier.CODEC.optionalFieldOf("parent_faction").forGetter(FactionOld::getParentFactionIdentifier),
+            Codec.list(Identifier.CODEC).optionalFieldOf("subfaction").forGetter(FactionOld::getSubfactionIds),
+            NbtCompound.CODEC.optionalFieldOf("npcs").forGetter(FactionOld::getNpcValues),
+            NbtCompound.CODEC.optionalFieldOf("banner").forGetter(FactionOld::getBannerNbt),
+            NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(FactionOld::getSpawnDataNbt),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(FactionOld::getJoinCommands),
+            Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(FactionOld::getLeaveCommands),
+            Codec.list(InitialDiplomacy.CODEC).fieldOf("initial_diplomacy").forGetter(FactionOld::getInitialDiplomaciesNbtList)
+    ).apply(instance, FactionOld::new));
 
-    public static final PacketCodec<ByteBuf, Faction> PACKET_CODEC = PacketCodecs.codec(CODEC);
-    public static final Codec<RegistryEntry<Faction>> ENTRY_CODEC = RegistryElementCodec.of(DynamicRegistriesME.FACTION, CODEC);
-    public static final PacketCodec<RegistryByteBuf, RegistryEntry<Faction>> ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.FACTION, PACKET_CODEC);
+    public static final PacketCodec<ByteBuf, FactionOld> PACKET_CODEC = PacketCodecs.codec(CODEC);
+    public static final Codec<RegistryEntry<FactionOld>> ENTRY_CODEC = RegistryElementCodec.of(DynamicRegistriesME.FACTION, CODEC);
+    public static final PacketCodec<RegistryByteBuf, RegistryEntry<FactionOld>> ENTRY_PACKET_CODEC = PacketCodecs.registryEntry(DynamicRegistriesME.FACTION, PACKET_CODEC);
 
     private final Identifier id;
     private final Integer factionSelectionOrderIndex;
@@ -84,9 +85,9 @@ public class Faction {
     private List<Text> descriptions = null;
     private Text raceList = null;
 
-    public Faction(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType,
-                   Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs,
-                   Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt) {
+    public FactionOld(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType,
+                      Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs,
+                      Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt) {
         this.id = MiddleEarth.ofId(id);
 
         this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
@@ -139,10 +140,10 @@ public class Faction {
         verifyData();
     }
 
-    public Faction(RegistryKey<Faction> faction, Boolean joinable, DispositionType dispositionType, FactionType factionType, Identifier parentFactionId,
-                   List<Identifier> subFactions, HashMap<NpcRank, List<NpcType>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
-                   List<String> joinCommand, List<String> leaveCommand,
-                   List<InitialDiplomacy> initialDiplomacies)
+    public FactionOld(RegistryKey<FactionOld> faction, Boolean joinable, DispositionType dispositionType, FactionType factionType, Identifier parentFactionId,
+                      List<Identifier> subFactions, HashMap<NpcRank, List<NpcType>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
+                      List<String> joinCommand, List<String> leaveCommand,
+                      List<InitialDiplomacy> initialDiplomacies)
     {
         this.id = faction.getValue();
 
@@ -234,7 +235,7 @@ public class Faction {
         return Optional.of(this.parentFactionId);
     }
 
-    public Faction getParentFaction(World world){
+    public FactionOld getParentFaction(World world){
         if(world == null || factionType != FactionType.SUBFACTION || parentFactionId == null)
             return null;
         try{
@@ -244,11 +245,11 @@ public class Faction {
         }
     }
 
-    public Faction getParentFaction(RegistryWrapper.WrapperLookup lookup){
+    public FactionOld getParentFaction(RegistryWrapper.WrapperLookup lookup){
         if(factionType != FactionType.SUBFACTION || parentFactionId == null)
             return null;
         try{
-            Faction test = lookup.getOrThrow(DynamicRegistriesME.FACTION).getOrThrow(RegistryKey.of(DynamicRegistriesME.FACTION, this.parentFactionId)).value();
+            FactionOld test = lookup.getOrThrow(DynamicRegistriesME.FACTION).getOrThrow(RegistryKey.of(DynamicRegistriesME.FACTION, this.parentFactionId)).value();
             return test;
         } catch (Exception e){
             return null;
@@ -368,7 +369,7 @@ public class Faction {
         return npcDatasByRank;
     }
 
-    public Faction getSubfaction(World world, int index){
+    public FactionOld getSubfaction(World world, int index){
         if(world == null || this.subFactions == null || index >= this.subFactions.size())
             return null;
         return getSubfactionById(world, subFactions.get(index));
@@ -409,7 +410,7 @@ public class Faction {
         return MutableText.of(new TranslatableTextContent(target, fallback, TranslatableTextContent.EMPTY_ARGUMENTS));
     }
 
-    public Faction getSubfactionById(World world, Identifier id) {
+    public FactionOld getSubfactionById(World world, Identifier id) {
         if(subFactions == null)
             return null;
         return world.getRegistryManager().getOrThrow(DynamicRegistriesME.FACTION).get(id);
@@ -499,4 +500,5 @@ public class Faction {
         }
         return false;
     }
+     */
 }

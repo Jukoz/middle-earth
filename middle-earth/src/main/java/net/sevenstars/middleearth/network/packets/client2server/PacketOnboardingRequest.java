@@ -35,6 +35,7 @@ public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardi
             context.player().getServer().execute(() -> {
                 ServerPlayerEntity player = context.player();
 
+                /*
                 PacketOnboardingResult newPacket = new PacketOnboardingResult(
                         PlayerDataService.playerPassedOnboarding(context.player()),
                         ServerConfigME.ENABLE_FACTION_RESET,
@@ -43,6 +44,7 @@ public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardi
                         AttributePoolElement.createAttributeNbtListFromPlayer(player)
                 );
                 ServerPlayNetworking.send(player, newPacket);
+                 */
             });
         } catch(Exception e){
             MiddleEarth.LOGGER.logError("OnboardingDetailFetchingPacket::Apply - Tried sending packet with data", e);

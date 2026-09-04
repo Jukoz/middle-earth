@@ -17,23 +17,24 @@ import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 import net.sevenstars.middleearth.registries.content.greathornvariants.GreatHornVariantRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
+import net.sevenstars.middleearth.registries.custom.DispositionRegistryME;
+import net.sevenstars.middleearth.registries.custom.FactionRegistryME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
+import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.id("race"));
-    public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(MiddleEarth.id("faction"));
     public static final RegistryKey<Registry<NpcType>> NPC_TYPE = RegistryKey.ofRegistry(MiddleEarth.id("npc_type"));
     public static final Codec<RegistryEntry<NpcType>> NPC_TYPE_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.NPC_TYPE);
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.id("structure_manager_data"));
@@ -54,10 +55,9 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("great_horn_variants"));
 
     public static void register() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Dynamic Registries");
         DynamicRegistries.registerSynced(RACE, Race.CODEC);
         DynamicRegistries.registerSynced(NPC_TYPE, NpcType.CODEC);
-        DynamicRegistries.registerSynced(FACTION, Faction.CODEC);
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
@@ -76,9 +76,11 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     }
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {
+        registryBuilder.addRegistry(DynamicRegistriesHH.FACTION, FactionRegistryME::bootstrap);
+        registryBuilder.addRegistry(DynamicRegistriesHH.DISPOSITION, DispositionRegistryME::bootstrap);
+
         registryBuilder.addRegistry(RACE, RaceRegistry::bootstrap);
-        registryBuilder.addRegistry(NPC_TYPE, NpcRegistry::bootstrap);
-        registryBuilder.addRegistry(FACTION, FactionRegistry::bootstrap);
+        //registryBuilder.addRegistry(NPC_TYPE, NpcRegistry::bootstrap);
         registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
         registryBuilder.addRegistry(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
@@ -89,11 +91,13 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     }
 
     public static void addProviders(FabricDataGenerator.Pack pack) {
+        pack.addProvider(DispositionProvider::new);
+        pack.addProvider(FactionProvider::new);
+
         pack.addProvider(SpiderVariantsProvider::new);
         pack.addProvider(RaceProvider::new);
         pack.addProvider(TexturePresetsProvider::new);
         pack.addProvider(NpcProvider::new);
-        pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
         pack.addProvider(BiomeEventProvider::new);
         pack.addProvider(StructureEventProvider::new);

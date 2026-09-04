@@ -23,9 +23,9 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -135,11 +135,16 @@ public class ItemGroupsUtil {
 
     public static Collection<ItemStack> addFactionBanners(RegistryWrapper.WrapperLookup lookup) {
         List<ItemStack> bannerList = new ArrayList<>();
-        List<RegistryEntry.Reference<Faction>> factions = lookup.getOrThrow(DynamicRegistriesME.FACTION).streamEntries().toList();
-        for(RegistryEntry.Reference<Faction> factionReference : factions){
-            ItemStack bannerItem = factionReference.value().getBannerItem(lookup);
+        List<RegistryEntry.Reference<Faction>> factionKeys = FactionService.getAllFactionEntries(lookup);
+        for(RegistryEntry.Reference<Faction> key : factionKeys){
+
+            // [TODO]
+            // add banners
+            /*
+            ItemStack bannerItem = key.value().getBanner(lookup);
             if(!bannerItem.isEmpty())
                 bannerList.add(bannerItem);
+             */
         }
         return bannerList;
     }

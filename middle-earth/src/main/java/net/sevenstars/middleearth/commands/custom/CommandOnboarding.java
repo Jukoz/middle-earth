@@ -28,6 +28,7 @@ public class CommandOnboarding {
     private static final String TRY = "try";
     private static final String PLAYER = "player";
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
+        /*
         // [TRY OPEN]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
@@ -45,8 +46,10 @@ public class CommandOnboarding {
         CommandUtils.simpleCommand(dispatcher, ONBOARDING_BASE_COMMAND,
                 literal(OPEN).executes(CommandOnboarding::open),
                 PLAYER, literal(OPEN).executes(CommandOnboarding::openForTarget));
-    }
 
+         */
+    }
+/*
     private static int open(CommandContext<ServerCommandSource> context) {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
@@ -98,4 +101,6 @@ public class CommandOnboarding {
 
         return 0;
     }
+
+ */
 }

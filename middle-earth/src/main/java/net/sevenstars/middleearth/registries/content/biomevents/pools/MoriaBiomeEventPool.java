@@ -12,6 +12,7 @@ public class MoriaBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
+      /*
             new WildSpawnEventData(NpcRegistry.MORIA_GOBLIN).withWeight(7).withSameNpcType(4, 256).requireUnderground(),
             new WildSpawnEventData(NpcRegistry.MORIA_WARRIOR).withWeight(6).withSameNpcType(2, 256).requireUnderground(),
             new WildSpawnEventData(NpcRegistry.MORIA_MILITIA).withWeight(5).withSameNpcType(2, 256),
@@ -19,13 +20,16 @@ public class MoriaBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.MORIA_RIDER).withWeight(4).withSameNpcType(0, 256).withoutSkyRequirement(),
             new WildSpawnEventData(NpcRegistry.MORIA_VETERAN).withWeight(3).withSameNpcType(0, 256).requireNight(),
             new WildSpawnEventData(NpcRegistry.MORIA_CHIEF).withSameNpcType(0, 512).requireNight()
+       */
         ));
 
         EREGION = new BiomeEventData(false, List.of(
+/*
             new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withSameNpcType(3, 256).withWeight(2),
             new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withSameNpcType(2, 256).withWeight(1),
             new WildSpawnEventData(NpcRegistry.MORIA_SCOUT).withSameNpcType(3, 256).withWeight(3),
             new WildSpawnEventData(NpcRegistry.MORIA_RIDER).withSameNpcType(0, 512)
+ */
         )).withMoreWildSpawns(GenericHostilesBiomeEventPool.WILD_BRIGANDS_EASY);
     }
 }

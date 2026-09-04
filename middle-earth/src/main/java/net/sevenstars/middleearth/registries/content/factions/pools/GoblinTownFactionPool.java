@@ -1,29 +1,11 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.util.DyeColor;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.BannerPatternsME;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.GoblinTownNpcTypePool;
-import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
-import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.common.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import org.joml.Vector2d;
-
-import java.util.HashMap;
-import java.util.List;
-
 public class GoblinTownFactionPool {
-    public final static Faction GOBLIN_TOWN;
+   /*
+    public final static FactionOld GOBLIN_TOWN;
 
     static {
-        GOBLIN_TOWN = new Faction(FactionRegistry.GOBLIN_TOWN, true, DispositionType.EVIL, FactionType.FACTION, null,null,
+        GOBLIN_TOWN = new FactionOld(FactionRegistry.GOBLIN_TOWN, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             GoblinTownNpcTypePool.GOBLIN
@@ -73,4 +55,5 @@ public class GoblinTownFactionPool {
         );
 
     }
+    */
 }

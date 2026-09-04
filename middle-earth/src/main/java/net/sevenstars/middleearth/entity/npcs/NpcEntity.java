@@ -62,18 +62,18 @@ import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
-import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
+import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -351,10 +351,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     public Identifier getNpcTypeIdentifier(){
         return retrieveNpcData().getNpcTypeId();
     }
-    public Identifier getFactionIdentifier(){
-        Faction faction = getFaction();
-        if(faction == null) return null;
-        return faction.getId();
+    public Identifier getFactionKey(){
+        Optional<RegistryEntry<Faction>> faction = getFaction();
+        return faction.orElseThrow().getKey().orElseThrow().getValue();
     }
     public BlockPos getStructureManagerHostPos() {
         return this.retrieveNpcData().getStructureManagerPos();
@@ -539,20 +538,21 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             return canDropLoot;
 
         if(damageSource.getAttacker() instanceof PlayerEntity player){
+            /*
             PlayerData data = StateSaverAndLoader.getPlayerState(player);
             if(data == null)
                 canDropLoot = true;
             else if(data.getFaction() == null)
                 canDropLoot = true;
             else{
-                try{
-                    Faction faction = FactionLookup.getFactionById(getWorld(), data.getFaction());
-                    if(faction.isHostileToward(this.getFactionIdentifier()))
-                        canDropLoot = true;
-                } catch (FactionIdentifierException e){
-                    canDropLoot = true;
-                }
+                Faction faction = FactionService.fetchFaction(getWorld(), data.getFaction());
+                // TODO : check hostility toward entity
+
+                if(faction.isHostileToward(this.getFactionIdentifier()))
+                canDropLoot = true;
+
             }
+             */
         }
 
         return canDropLoot;
@@ -607,18 +607,14 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         super.setCustomName(name);
     }
 
-    protected Faction getFaction(){
+    protected Optional<RegistryEntry<Faction>> getFaction(){
         NpcData data = retrieveNpcData();
         if(data == null)
-            return null;
+            return  Optional.empty();
         Identifier factionId = data.getFaction();
         if(factionId == null)
-            return null;
-        try {
-            return FactionLookup.getFactionById(getWorld(), factionId);
-        } catch (FactionIdentifierException e) {
-            return null;
-        }
+            return  Optional.empty();
+        return Optional.empty();// FactionService.fetchFaction(getWorld(), factionId);
     }
 
     @Override
@@ -880,14 +876,17 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private boolean isHostileTowardPlayer(PlayerEntity player) {
         if(player.getWorld().isClient || !player.canTakeDamage())
             return false;
-        PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
-        if(playerData == null || playerData.getFaction() == null)
+        //PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
+       // if(playerData == null || playerData.getFaction() == null)
+       //     return true;
+        Optional<RegistryEntry<Faction>> ownFaction = getFaction();
+        if(ownFaction.isEmpty())
             return true;
-        Faction ownFaction = getFaction();
-        if(ownFaction == null)
-            return true;
+        // TODO : get faction hosility level
+        /*
         if(ownFaction.isHostileToward(playerData.getFaction()))
             return true;
+         */
         return false;
     }
 
@@ -905,14 +904,16 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private boolean isHostileToward(NpcEntity npc) {
-        Faction ownFaction = getFaction();
-        if(ownFaction == null)
+        Optional<RegistryEntry<Faction>> ownFaction = getFaction();
+        if(ownFaction.isEmpty())
             return true;
-        Identifier otherNpcFaction = npc.getFactionIdentifier();
+        Identifier otherNpcFaction = npc.getFactionKey();
         if(otherNpcFaction == null)
             return true;
-        if(ownFaction.isHostileToward(otherNpcFaction))
+        /*
+                if(ownFaction.isHostileToward(otherNpcFaction))
             return true;
+         */
         return false;
     }
 

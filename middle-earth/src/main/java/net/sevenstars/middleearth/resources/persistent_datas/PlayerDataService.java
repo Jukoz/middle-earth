@@ -12,8 +12,7 @@ import net.minecraft.world.dimension.DimensionTypes;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.races.Race;
@@ -21,6 +20,7 @@ import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 public class PlayerDataService {
+    /*
     private static PlayerData getPlayerData(PlayerEntity player){
         return StateSaverAndLoader.getPlayerState(player);
     }
@@ -37,7 +37,7 @@ public class PlayerDataService {
         if(playerData == null) return false;
         return !(playerData.getFaction() == null || playerData.getSpawn() == null);
     }
-    public static Faction getPlayerFaction(PlayerEntity player, World world){
+    public static FactionOld getPlayerFaction(PlayerEntity player, World world){
         PlayerData playerData = getPlayerData(player);
         if(playerData == null) return null;
         Identifier factionId = playerData.getFaction();
@@ -51,7 +51,7 @@ public class PlayerDataService {
     public static boolean setNewFactionInformation(PlayerEntity player, World world, Identifier factionId){
         PlayerData playerData = getPlayerData(player);
         try{
-            Faction faction = FactionLookup.getFactionById(world, factionId);
+            FactionOld faction = FactionLookup.getFactionById(world, factionId);
             setNewFactionInformation(player, world, factionId, faction.getSpawnData().getDefaultSpawn());
             return true;
         } catch (FactionIdentifierException exception){
@@ -64,7 +64,7 @@ public class PlayerDataService {
         return true;
     }
     public static DispositionType getPlayerDisposition(PlayerEntity player, World world){
-        Faction faction = getPlayerFaction(player, world);
+        FactionOld faction = getPlayerFaction(player, world);
         if(faction == null) return DispositionType.NEUTRAL;
         return faction.getDisposition();
     }
@@ -88,7 +88,7 @@ public class PlayerDataService {
         return true;
     }
     public static SpawnData getPlayerSpawnData(PlayerEntity player, World world){
-        Faction faction = getPlayerFaction(player, world);
+        FactionOld faction = getPlayerFaction(player, world);
         if(faction == null) return null;
         PlayerData playerData = getPlayerData(player);
         if(playerData == null) return null;
@@ -97,7 +97,7 @@ public class PlayerDataService {
         return faction.getSpawnData().findSpawn(spawnId);
     }
     public static boolean setSpawn(ServerPlayerEntity player, World world, Identifier spawnId) {
-        Faction faction = getPlayerFaction(player, world);
+        FactionOld faction = getPlayerFaction(player, world);
         if(faction == null) return false;
         if(faction.getSpawnData().findSpawn(spawnId) != null){
             PlayerData data = getPlayerData(player);
@@ -114,7 +114,7 @@ public class PlayerDataService {
         return false;
     }
     public static boolean resetSpawn(ServerPlayerEntity player, World world) {
-        Faction faction = getPlayerFaction(player, world);
+        FactionOld faction = getPlayerFaction(player, world);
         if(faction == null) return false;
         SpawnDataHandler spawnDataHandler= faction.getSpawnData();
         if(spawnDataHandler == null) return false;
@@ -173,4 +173,6 @@ public class PlayerDataService {
     public record OriginAggregate(Identifier dimensionId, BlockPos origin){
 
     }
+
+     */
 }

@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class RaceUtil {
 
+    /*
     public static void updateRace(PlayerEntity player, Race race, boolean shouldHeal){
         Race previousRace = PlayerDataService.getPlayerRace(player, player.getWorld());
         boolean havePreviousRace =  previousRace != null;
@@ -47,4 +48,6 @@ public class RaceUtil {
     public static void reset(PlayerEntity player) {
         AttributePool.reverse(player);
     }
+
+     */
 }

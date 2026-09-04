@@ -55,10 +55,14 @@ public class ArtisanTable extends HorizontalFacingBlock {
             player.openHandledScreen(new ExtendedScreenHandlerFactory<>() {
                 @Override
                 public Object getScreenOpeningData(ServerPlayerEntity player) {
+                    // [TODO]
+                    /*
                     DispositionType dispositionType = PlayerDataService.getPlayerDisposition(player, world);
                     if (dispositionType == null){
                         dispositionType = DispositionType.NEUTRAL;
                     }
+                     */
+                    DispositionType dispositionType = DispositionType.NEUTRAL;
 
                     return dispositionType + "/" + player.isCreative();
                 }
@@ -71,10 +75,11 @@ public class ArtisanTable extends HorizontalFacingBlock {
                 @Nullable
                 @Override
                 public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-                    DispositionType dispositionType = PlayerDataService.getPlayerDisposition(player, world);
-                    if (dispositionType == null){
-                        dispositionType = DispositionType.NEUTRAL;
-                    }
+                    //DispositionType dispositionType = PlayerDataService.getPlayerDisposition(player, world);
+                    //if (dispositionType == null){
+                    //}
+                    DispositionType dispositionType = DispositionType.NEUTRAL;
+
                     return new ArtisanTableScreenHandler(syncId, playerInventory, dispositionType + "/" + player.isCreative());
                 }
             });

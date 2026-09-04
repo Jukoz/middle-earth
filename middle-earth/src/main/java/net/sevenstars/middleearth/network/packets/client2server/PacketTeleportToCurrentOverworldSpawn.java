@@ -34,6 +34,7 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
     public void process(ServerPacketContext context) {
         try{
             context.player().getServer().execute(() -> {
+                /*
                 RaceUtil.reset(context.player());
 
                 if(DimensionRegistryME.isInMiddleEarth(context.player().getWorld())){
@@ -48,6 +49,8 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
                     if(!context.player().isCreative() && context.player().getMainHandStack().getItem() instanceof StarlightPhialItem)
                         context.player().getStackInHand(Hand.MAIN_HAND).decrement(1);
                 }
+
+                 */
             });
         } catch (Exception e){
             MiddleEarth.LOGGER.logError("PacketTeleportToCurrentOverworldSpawn::Apply - Tried applying the return to overworld packet",e);

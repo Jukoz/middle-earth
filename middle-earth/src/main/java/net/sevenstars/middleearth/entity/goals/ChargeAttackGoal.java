@@ -23,9 +23,11 @@ public class ChargeAttackGoal extends Goal {
 
     @Override
     public boolean canStart() {
+        /* [TODO]
         if(this.mob.getTarget() != null && this.mob.getTarget() instanceof PlayerEntity player) {
             return PlayerDataService.getPlayerDisposition(player, player.getWorld()) == beastDispositionType;
         }
+         */
 
         return this.mob.getChargeTimeout() == 0 &&
                 (mob.getTarget() != null) &&

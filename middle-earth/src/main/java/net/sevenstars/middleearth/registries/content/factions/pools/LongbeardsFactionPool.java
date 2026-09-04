@@ -1,35 +1,16 @@
 package net.sevenstars.middleearth.registries.content.factions.pools;
 
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.util.DyeColor;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.item.utils.BannerPatternsME;
-import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
-import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.common.FactionType;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
-import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.EreborNpcTypePool;
-import org.joml.Vector2d;
-
-import java.util.HashMap;
-import java.util.List;
-
 public class LongbeardsFactionPool {
-    public final static Faction LONGBEARDS;
-    public final static Faction EREBOR;
+  /*
+    public final static FactionOld LONGBEARDS;
+    public final static FactionOld EREBOR;
 
     static {
-        LONGBEARDS = new Faction(FactionRegistry.LONGBEARDS, true, DispositionType.GOOD, FactionType.FACTION, null,
+        LONGBEARDS = new FactionOld(FactionRegistry.LONGBEARDS, true, DispositionType.GOOD, FactionType.FACTION, null,
                 List.of(FactionRegistry.LONGBEARDS_EREBOR.getValue()),
                 null, null, null, List.of(), List.of(), List.of());
 
-        EREBOR = new Faction(FactionRegistry.LONGBEARDS_EREBOR, true, DispositionType.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
+        EREBOR = new FactionOld(FactionRegistry.LONGBEARDS_EREBOR, true, DispositionType.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
                             EreborNpcTypePool.PEASANT,
@@ -83,4 +64,5 @@ public class LongbeardsFactionPool {
         );
 
     }
+   */
 }

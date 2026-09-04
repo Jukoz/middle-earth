@@ -90,6 +90,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
 
         if(foundPlayer == null) return false;
+        /* [TODO]
         if(DimensionRegistryME.isInMiddleEarth(this.getWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
             BlockPos spawnCoordinates = data.getWorldCoordinateBlockPos();
             if(spawnCoordinates != null){
@@ -105,6 +106,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                 }
             }
         }
+
+         */
         ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true);
         foundPlayer.setSpawnPoint(respawn, true);
 
@@ -138,13 +141,14 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         long currentTick = getWorld().getTickOrder();
         if(currentTick % 5 == 0){
             if(getWorld() == null) return;
-            PlayerData data = StateSaverAndLoader.getPlayerState(getWorld().getPlayerByUuid(getUuid()));
-            if(data == null) return;
+           // PlayerData data = StateSaverAndLoader.getPlayerState(getWorld().getPlayerByUuid(getUuid()));
+            //if(data == null) return;
 
             int currentLightLevel = getWorld().getLightLevel(getBlockPos());
 
             double delversFearStrenght = getAttributeValue(EntityAttributesME.DELVERS_FEAR_STRENGTH);
 
+            /*
             if(delversFearStrenght > 0.0 && currentLightLevel < 3 && !getWorld().isSkyVisible(getBlockPos())) {
                 data.addToDelversFearCountInSeconds();
 
@@ -162,6 +166,8 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                 }
                 data.resetDelversFearCount();
             }
+
+             */
         }
     }
 }

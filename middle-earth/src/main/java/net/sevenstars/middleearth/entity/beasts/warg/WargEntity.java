@@ -170,7 +170,7 @@ public class WargEntity extends AbstractBeastEntity {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(!this.getWorld().isClient() && !player.isCreative()) {
-            RaceType playerRace = RaceUtil.getRaceType(player);
+            RaceType playerRace = RaceType.HUMAN;// [TODO] RaceUtil.getRaceType(player);
 
             if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
                 return ActionResult.FAIL;

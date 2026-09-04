@@ -4,8 +4,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.items.StarlightPhialItem;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.factions.FactionUtil;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -52,9 +51,9 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
         server.execute(() -> {
             try{
                 Identifier factionId = Identifier.of(factionName);
-                Faction faction = FactionLookup.getFactionById(context.player().getWorld(), factionId);
+                //FactionOld faction = FactionLookup.getFactionById(context.player().getWorld(), factionId);
                 Identifier spawnId = Identifier.of(spawnName);
-                FactionUtil.updateFaction(context.player(), faction, spawnId);
+                //FactionUtil.updateFaction(context.player(), faction, spawnId);
                 if(!context.player().isCreative() && context.player().getMainHandStack().getItem() instanceof StarlightPhialItem)
                     context.player().getStackInHand(Hand.MAIN_HAND).decrement(1);
             } catch (Exception e){

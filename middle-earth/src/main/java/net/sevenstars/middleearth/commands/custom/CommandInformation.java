@@ -6,18 +6,25 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -27,6 +34,7 @@ public class CommandInformation {
     private static final String PLAYER = "player";
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
+        /*
         // [INFO]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
@@ -34,7 +42,10 @@ public class CommandInformation {
                 .then(argument(PLAYER, EntityArgumentType.player()) // With Player Target
                     .executes(CommandInformation::getTargetInfo))
                 .executes(CommandInformation::getInfo)));
+
+         */
     }
+    /*
 
     private static int getInfo(CommandContext<ServerCommandSource> context) {
         if(!context.getSource().isExecutedByPlayer() || context.getSource().getPlayer() == null)
@@ -48,9 +59,9 @@ public class CommandInformation {
         if(race != null)
             source.sendMessage(Text.literal("Race : ").append(Text.translatable(race.getTranslatableKey())));
 
-        Faction faction =  PlayerDataService.getPlayerFaction(source, source.getWorld());
-        if(faction != null)
-            source.sendMessage(Text.literal("Faction : ").append(faction.getFullName()));
+        Optional<RegistryEntry<Faction>> faction = FactionService.getPlayerFaction(source);
+        if(faction.isPresent())
+            source.sendMessage(Text.literal("Faction : ").append(Text.translatable(MiddleEarth.rawTranslationKey(LangCategory.FACTION, faction.get().getIdAsString()))));
 
         SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(source, source.getWorld());
         if(spawnData != null){
@@ -74,9 +85,9 @@ public class CommandInformation {
             context.getSource().sendMessage(Text.literal("Race : ").append(Text.translatable(race.getTranslatableKey())));
 
 
-        Faction faction =  PlayerDataService.getPlayerFaction(targettedPlayer, targettedPlayer.getWorld());
-        if(faction != null)
-            context.getSource().sendMessage(Text.literal("Faction : ").append(Text.translatable(faction.getId().toTranslationKey())));
+        Optional<RegistryEntry<Faction>> faction =  FactionService.getPlayerFaction(targettedPlayer);
+        if(faction.isPresent())
+            context.getSource().sendMessage(Text.literal("Faction : ").append(Text.translatable(MiddleEarth.rawTranslationKey(LangCategory.FACTION, faction.get().getIdAsString()))));
         return 0;
     }
 
@@ -94,6 +105,8 @@ public class CommandInformation {
         }
     }
 
+     */
     public static void register(CommandDispatcher<FabricClientCommandSource> fabricClientCommandSourceCommandDispatcher, CommandRegistryAccess commandRegistryAccess) {
     }
+
 }
