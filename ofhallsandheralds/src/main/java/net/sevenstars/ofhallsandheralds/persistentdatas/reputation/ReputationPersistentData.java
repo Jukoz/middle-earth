@@ -1,4 +1,4 @@
-package net.sevenstars.ofhallsandheralds.persistentdatas;
+package net.sevenstars.ofhallsandheralds.persistentdatas.reputation;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -12,25 +12,25 @@ import net.sevenstars.ofhallsandheralds.dtos.reputation.Reputation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerPersistentData {
+public class ReputationPersistentData {
     private List<Reputation> reputations;
 
-    public static final Codec<PlayerPersistentData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    Reputation.CODEC.listOf().fieldOf("reputations").forGetter(PlayerPersistentData::getReputations)
-    ).apply(instance, PlayerPersistentData::new));
-    public static final PacketCodec<RegistryByteBuf, PlayerPersistentData> PACKET_CODEC = PacketCodec.tuple(
-        Reputation.PACKET_CODEC.collect(PacketCodecs.toList()), PlayerPersistentData::getReputations,
-        PlayerPersistentData::new);
+    public static final Codec<ReputationPersistentData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                    Reputation.CODEC.listOf().fieldOf("reputations").forGetter(ReputationPersistentData::getReputations)
+    ).apply(instance, ReputationPersistentData::new));
+    public static final PacketCodec<RegistryByteBuf, ReputationPersistentData> PACKET_CODEC = PacketCodec.tuple(
+        Reputation.PACKET_CODEC.collect(PacketCodecs.toList()), ReputationPersistentData::getReputations,
+        ReputationPersistentData::new);
 
     private List<Reputation> getReputations() {
         return reputations;
     }
 
-    public PlayerPersistentData() {
+    public ReputationPersistentData() {
         this.reputations = new ArrayList<>();
     }
 
-    public PlayerPersistentData(List<Reputation> reputations) {
+    public ReputationPersistentData(List<Reputation> reputations) {
         this.reputations = reputations;
     }
 

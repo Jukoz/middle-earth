@@ -18,12 +18,12 @@ import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.commands.suggestions.AllAvailableSpawnSuggestionProvider;
 import net.sevenstars.middleearth.commands.suggestions.FactionSuggestionProvider;
-import net.sevenstars.middleearth.registries.custom.FactionRegistryME;
 import net.sevenstars.middleearth.utils.ColorsME;
 import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
-import net.sevenstars.ofhallsandheralds.persistentdatas.PlayerDataManager;
-import net.sevenstars.ofhallsandheralds.persistentdatas.PlayerPersistentData;
-import net.sevenstars.ofhallsandheralds.persistentdatas.StateSaverAndLoader;
+import net.sevenstars.ofhallsandheralds.persistentdatas.PlayerPersistentDataManagerHH;
+import net.sevenstars.ofhallsandheralds.persistentdatas.origin.OriginPersistentData;
+import net.sevenstars.ofhallsandheralds.persistentdatas.reputation.ReputationPersistentData;
+import net.sevenstars.ofhallsandheralds.registries.custom.SpawnRegistryHH;
 import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 import org.jetbrains.annotations.Nullable;
 
@@ -166,9 +166,13 @@ public class CommandFaction {
                 spawnIdentifier = IdentifierArgumentType.getIdentifier(context, SPAWN_ID);
             } catch (Exception ignored){
             }
-            PlayerPersistentData data = PlayerDataManager.get().get(targetedPlayer.getUuid());
-            data.DiscoverFaction(FactionService.createKey(factionIdentifier));
-            data.IncreaseReputationFor(FactionService.createKey(factionIdentifier), 50);
+            ReputationPersistentData reputation = PlayerPersistentDataManagerHH.getReputation().get(targetedPlayer.getUuid());
+            reputation.DiscoverFaction(FactionService.createKey(factionIdentifier));
+            reputation.IncreaseReputationFor(FactionService.createKey(factionIdentifier), 50);
+
+            OriginPersistentData origin = PlayerPersistentDataManagerHH.getOrigin().get(targetedPlayer.getUuid());
+            origin.SetOriginSpawn(SpawnRegistryHH.TEST);
+            origin.SetInitialLocation(targetedPlayer.getBlockPos(), targetedPlayer.getWorld().getDimensionEntry().getKey().orElseThrow());
             //boolean success =  updateFactionFromCommand(targetedPlayer, context.getSource(), factionIdentifier, spawnIdentifier);
             return 1;
         }

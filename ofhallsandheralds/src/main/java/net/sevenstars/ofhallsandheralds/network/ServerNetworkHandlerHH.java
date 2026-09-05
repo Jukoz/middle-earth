@@ -1,20 +1,16 @@
 package net.sevenstars.ofhallsandheralds.network;
 
-import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.codec.PacketCodecs;
 import net.sevenstars.api.network.ServerNetworkHandlerAPI;
 import net.sevenstars.api.network.connections.ConnectionToClient;
-import net.sevenstars.ofhallsandheralds.network.payload.PlayerPersistentDataPacket;
+import net.sevenstars.ofhallsandheralds.network.packet.PlayerPersistentReputationDataPacket;
 
 public abstract class ServerNetworkHandlerHH extends ServerNetworkHandlerAPI {
     public static void register(ConnectionToClient connection) {
         // REGISTRY : Server to client
-        PayloadTypeRegistry.playS2C().register(PlayerPersistentDataPacket.ID, PlayerPersistentDataPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playS2C().register(PlayerPersistentReputationDataPacket.ID, PlayerPersistentReputationDataPacket.PACKET_CODEC);
 
         // REGISTRY : Client to server
-        PayloadTypeRegistry.playC2S().register(PlayerPersistentDataPacket.ID, PlayerPersistentDataPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playC2S().register(PlayerPersistentReputationDataPacket.ID, PlayerPersistentReputationDataPacket.PACKET_CODEC);
     }
 }

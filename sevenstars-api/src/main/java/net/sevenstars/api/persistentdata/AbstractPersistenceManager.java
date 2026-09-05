@@ -1,5 +1,6 @@
-package net.sevenstars.ofhallsandheralds.persistentdatas;
+package net.sevenstars.api.persistentdata;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
@@ -12,16 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class PlayerPersistentDataManager {
+public abstract class AbstractPersistenceManager<T> {
+    public Path directory;
+    public Map<UUID, T> data = new HashMap<>();
 
-    private final Path directory;
-    private final Map<UUID, PlayerPersistentData> data = new HashMap<>();
-
-    public PlayerPersistentDataManager(Path directory) {
+    public AbstractPersistenceManager(Path directory) {
         this.directory = directory;
     }
 
-    public PlayerPersistentData get(UUID uuid) {
+    public T get(UUID uuid) {
         return data.computeIfAbsent(uuid, this::load);
     }
 
@@ -30,20 +30,20 @@ public class PlayerPersistentDataManager {
     }
 
     public void save(UUID uuid) {
-        PlayerPersistentData playerData = data.get(uuid);
+        T foundData = data.get(uuid);
 
-        if (playerData != null)
-            save(uuid, playerData);
+        if (foundData != null)
+            save(uuid, foundData);
     }
 
-    public void save(UUID uuid, PlayerPersistentData data) {
+    public void save(UUID uuid, T dataToSave) {
         Path path = getPlayerPath(uuid);
 
         try {
             Files.createDirectories(directory);
 
-            NbtCompound nbt = PlayerPersistentData.CODEC
-                    .encodeStart(NbtOps.INSTANCE, data)
+            NbtCompound nbt = ObtenirCodec()
+                    .encodeStart(NbtOps.INSTANCE, dataToSave)
                     .getOrThrow()
                     .asCompound()
                     .orElseThrow();
@@ -54,25 +54,29 @@ public class PlayerPersistentDataManager {
         }
     }
 
+
     public void unload(UUID uuid) {
         save(uuid);
         data.remove(uuid);
     }
 
-    public PlayerPersistentData load(UUID uuid) {
+    public T load(UUID uuid) {
         Path path = getPlayerPath(uuid);
 
         if (!Files.exists(path))
-            return new PlayerPersistentData();
+            return createDefault();
 
         try {
             NbtCompound nbt = NbtIo.readCompressed(path, NbtSizeTracker.ofUnlimitedBytes());
 
-            return PlayerPersistentData.CODEC
-                    .parse(NbtOps.INSTANCE, nbt)
-                    .getOrThrow();
+            return ObtenirCodec()
+                   .parse(NbtOps.INSTANCE, nbt)
+                   .getOrThrow();
         } catch (IOException e) {
             throw new RuntimeException("Failed to load player data for " + uuid, e);
         }
     }
+
+    protected abstract Codec<T> ObtenirCodec();
+    protected abstract T createDefault();
 }
