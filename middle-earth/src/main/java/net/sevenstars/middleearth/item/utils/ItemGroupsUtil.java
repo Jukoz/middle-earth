@@ -24,7 +24,7 @@ import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 
 import java.util.ArrayList;

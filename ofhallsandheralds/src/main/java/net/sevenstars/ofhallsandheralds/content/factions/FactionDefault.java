@@ -1,7 +1,7 @@
 package net.sevenstars.ofhallsandheralds.content.factions;
 
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.custom.*;
 
 import java.util.HashMap;

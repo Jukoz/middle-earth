@@ -7,7 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.sevenstars.api.registries.DynamicRegistriesAPI;
 import net.sevenstars.ofhallsandheralds.OfHallsAndHeralds;
 import net.sevenstars.ofhallsandheralds.content.banners.BannerDefault;
-import net.sevenstars.ofhallsandheralds.dtos.banner.Banner;
+import net.sevenstars.ofhallsandheralds.dtos.Banner;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 import java.util.HashMap;
 import java.util.Map;

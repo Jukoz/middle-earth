@@ -3,8 +3,8 @@ package net.sevenstars.ofhallsandheralds.content.banners;
 import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.DyeColor;
-import net.sevenstars.ofhallsandheralds.dtos.banner.Banner;
-import net.sevenstars.ofhallsandheralds.dtos.banner.PatternWithColor;
+import net.sevenstars.ofhallsandheralds.dtos.Banner;
+import net.sevenstars.ofhallsandheralds.dtos.PatternWithColor;
 import net.sevenstars.ofhallsandheralds.registries.custom.BannerRegistryHH;
 
 import java.util.HashMap;

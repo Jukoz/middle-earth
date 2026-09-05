@@ -1,15 +1,5 @@
 package net.sevenstars.middleearth.resources.persistent_datas;
 
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
-import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
-
 public class PlayerData {
     /*
     private RegistryEntry<Faction> faction;

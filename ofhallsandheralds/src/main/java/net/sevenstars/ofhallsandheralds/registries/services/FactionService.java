@@ -10,8 +10,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
-import net.sevenstars.ofhallsandheralds.dtos.playerdata.PlayerDataHolderHH;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
+import net.sevenstars.ofhallsandheralds.persistentdatas.CustomPlayerDataHolderHH;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.ArrayList;
@@ -36,11 +36,11 @@ public class FactionService {
     }
 
     public static void setFactionToPlayer(PlayerEntity playerEntity, RegistryEntry<Faction> faction){
-        ((PlayerDataHolderHH) playerEntity).getPlayerDataHH().setFaction(faction.getKey().orElseThrow());
+        ((CustomPlayerDataHolderHH) playerEntity).getPlayerDataHH().setFaction(faction.getKey().orElseThrow());
     }
 
     public static Optional<RegistryEntry<Faction>> getPlayerFaction(ServerPlayerEntity serverPlayerEntity) {
-        return ((PlayerDataHolderHH) serverPlayerEntity).getPlayerDataHH().getCurrentFactionEntry(serverPlayerEntity.getWorld());
+        return ((CustomPlayerDataHolderHH) serverPlayerEntity).getPlayerDataHH().getCurrentFactionEntry(serverPlayerEntity.getWorld());
     }
 
     public static List<RegistryKey<Faction>> getAllFactionKeys(ServerWorld world) {

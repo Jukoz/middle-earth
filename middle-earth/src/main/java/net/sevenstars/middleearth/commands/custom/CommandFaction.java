@@ -19,7 +19,7 @@ import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.commands.suggestions.AllAvailableSpawnSuggestionProvider;
 import net.sevenstars.middleearth.commands.suggestions.FactionSuggestionProvider;
 import net.sevenstars.middleearth.utils.ColorsME;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.persistentdatas.PlayerPersistentDataManagerHH;
 import net.sevenstars.ofhallsandheralds.persistentdatas.origin.OriginPersistentData;
 import net.sevenstars.ofhallsandheralds.persistentdatas.reputation.ReputationPersistentData;

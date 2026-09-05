@@ -9,7 +9,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
-import net.sevenstars.ofhallsandheralds.dtos.spawn.Spawn;
+import net.sevenstars.ofhallsandheralds.dtos.Spawn;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.Optional;

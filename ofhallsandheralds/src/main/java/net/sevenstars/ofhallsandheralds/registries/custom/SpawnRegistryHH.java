@@ -7,7 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.sevenstars.api.registries.DynamicRegistriesAPI;
 import net.sevenstars.ofhallsandheralds.OfHallsAndHeralds;
 import net.sevenstars.ofhallsandheralds.content.spawns.SpawnDefault;
-import net.sevenstars.ofhallsandheralds.dtos.spawn.Spawn;
+import net.sevenstars.ofhallsandheralds.dtos.Spawn;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.HashMap;

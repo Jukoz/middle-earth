@@ -1,33 +1,20 @@
 package net.sevenstars.middleearth.resources.datas.factions;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
 import net.sevenstars.middleearth.exceptions.NoFactionException;
 import net.sevenstars.middleearth.exceptions.SpawnIdentifierException;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.utils.ColorsME;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.text.html.Option;
-import java.util.List;
 import java.util.Optional;
 
 public class FactionUtil {

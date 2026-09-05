@@ -6,8 +6,8 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
-import net.sevenstars.ofhallsandheralds.dtos.reputation.Reputation;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Reputation;
 
 import java.util.ArrayList;
 import java.util.List;

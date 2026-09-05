@@ -1,9 +1,9 @@
 package net.sevenstars.ofhallsandheralds.content.factions;
 
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.ofhallsandheralds.dtos.banner.Banner;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
-import net.sevenstars.ofhallsandheralds.dtos.spawn.Spawn;
+import net.sevenstars.ofhallsandheralds.dtos.Banner;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Spawn;
 
 import java.util.ArrayList;
 import java.util.List;

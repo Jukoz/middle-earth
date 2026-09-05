@@ -3,7 +3,7 @@ package net.sevenstars.ofhallsandheralds.content.spawns;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.dimension.DimensionTypes;
-import net.sevenstars.ofhallsandheralds.dtos.spawn.Spawn;
+import net.sevenstars.ofhallsandheralds.dtos.Spawn;
 import net.sevenstars.ofhallsandheralds.registries.custom.SpawnRegistryHH;
 
 import java.util.HashMap;

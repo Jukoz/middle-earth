@@ -15,9 +15,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.utils.ColorsME;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 

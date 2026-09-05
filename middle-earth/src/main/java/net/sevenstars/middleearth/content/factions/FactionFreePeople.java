@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.content.factions;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.registries.custom.FactionRegistryME;
 import net.sevenstars.ofhallsandheralds.content.factions.AbstractFactionPool;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.custom.BannerRegistryHH;
 import net.sevenstars.ofhallsandheralds.registries.custom.SpawnRegistryHH;
 

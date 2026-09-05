@@ -63,17 +63,13 @@ import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
-import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;

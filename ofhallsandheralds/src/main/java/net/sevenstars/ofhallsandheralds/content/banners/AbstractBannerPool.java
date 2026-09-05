@@ -1,8 +1,8 @@
 package net.sevenstars.ofhallsandheralds.content.banners;
 
 import net.minecraft.util.DyeColor;
-import net.sevenstars.ofhallsandheralds.dtos.banner.Banner;
-import net.sevenstars.ofhallsandheralds.dtos.banner.PatternWithColor;
+import net.sevenstars.ofhallsandheralds.dtos.Banner;
+import net.sevenstars.ofhallsandheralds.dtos.PatternWithColor;
 
 import java.util.List;
 

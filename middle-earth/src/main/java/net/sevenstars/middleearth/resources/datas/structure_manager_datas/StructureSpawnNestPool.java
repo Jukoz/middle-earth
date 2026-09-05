@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.Optional;

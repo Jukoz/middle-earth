@@ -1,4 +1,4 @@
-package net.sevenstars.ofhallsandheralds.dtos.playerdata;
+package net.sevenstars.ofhallsandheralds.persistentdatas.playernbt;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -6,28 +6,28 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.Optional;
 
-public class PlayerDataHH {
+public class PlayerRaceData {
     private RegistryKey<Faction> faction;
 
-    public static final Codec<PlayerDataHH> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            RegistryKey.createCodec(DynamicRegistriesHH.FACTION).optionalFieldOf("faction").forGetter(PlayerDataHH::getOptionalFactionEntry)
+    public static final Codec<PlayerRaceData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            RegistryKey.createCodec(DynamicRegistriesHH.FACTION).optionalFieldOf("faction").forGetter(PlayerRaceData::getOptionalFactionEntry)
     )
-    .apply(instance, PlayerDataHH::new));
+    .apply(instance, PlayerRaceData::new));
 
-    private PlayerDataHH(Optional<RegistryKey<Faction>> faction) {
+    private PlayerRaceData(Optional<RegistryKey<Faction>> faction) {
         this.faction = faction.orElse(null);
     }
 
-    public PlayerDataHH() {
+    public PlayerRaceData() {
         this.faction = faction;
     }
 
-    public void copyFrom(PlayerDataHH other) {
+    public void copyFrom(PlayerRaceData other) {
         this.faction = other.faction;
     }
 

@@ -1,10 +1,8 @@
-package net.sevenstars.ofhallsandheralds.dtos.faction;
+package net.sevenstars.ofhallsandheralds.dtos;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.ofhallsandheralds.dtos.banner.Banner;
-import net.sevenstars.ofhallsandheralds.dtos.spawn.Spawn;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.List;

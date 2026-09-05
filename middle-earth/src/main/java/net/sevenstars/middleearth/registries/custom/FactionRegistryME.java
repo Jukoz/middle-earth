@@ -7,7 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.sevenstars.api.registries.DynamicRegistriesAPI;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.content.factions.FactionFreePeople;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 import java.util.HashMap;

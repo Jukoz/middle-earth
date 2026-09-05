@@ -7,7 +7,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 
 import java.util.ArrayList;

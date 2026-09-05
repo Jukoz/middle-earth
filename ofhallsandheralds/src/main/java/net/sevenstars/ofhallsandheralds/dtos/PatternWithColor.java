@@ -1,4 +1,4 @@
-package net.sevenstars.ofhallsandheralds.dtos.banner;
+package net.sevenstars.ofhallsandheralds.dtos;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

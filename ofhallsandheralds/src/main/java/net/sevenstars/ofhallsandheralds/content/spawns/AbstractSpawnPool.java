@@ -3,7 +3,7 @@ package net.sevenstars.ofhallsandheralds.content.spawns;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.dimension.DimensionType;
-import net.sevenstars.ofhallsandheralds.dtos.spawn.Spawn;
+import net.sevenstars.ofhallsandheralds.dtos.Spawn;
 
 public class AbstractSpawnPool {
     public static Spawn create(Vec3d pos, RegistryKey<DimensionType> dimensionType) {

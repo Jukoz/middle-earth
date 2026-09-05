@@ -1,33 +1,10 @@
 package net.sevenstars.middleearth.commands.custom;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.sevenstars.api.enums.LangCategory;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.commands.CommandRegistryME;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
-import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
-import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.resources.datas.races.Race;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
-import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
-
-import javax.swing.text.html.Option;
-import java.util.Optional;
-
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandInformation {
     private static final String INFO_BASE_COMMAND = "info";

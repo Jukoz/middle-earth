@@ -24,9 +24,8 @@ import net.sevenstars.middleearth.registries.content.texturepresets.pools.shire.
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.wildgoblin.WildGoblinTexturePresetsPool;
 import net.sevenstars.middleearth.registries.content.texturepresets.pools.woodlandrealm.WoodlandRealmTexturePresetsPool;
 import net.sevenstars.middleearth.registries.custom.FactionRegistryME;
-import net.sevenstars.middleearth.resources.datas.factions.FactionOld;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.dtos.Faction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
