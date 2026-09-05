@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.sevenstars.ofhallsandheralds.dtos.banner.Banner;
-import net.sevenstars.ofhallsandheralds.dtos.disposition.Disposition;
 import net.sevenstars.ofhallsandheralds.dtos.spawn.Spawn;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
@@ -15,7 +14,6 @@ public class Faction {
     public static final Codec<Faction> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         // Core
         Codec.BOOL.fieldOf("joinable").forGetter(Faction::makeJoinable),
-        RegistryKey.createCodec(DynamicRegistriesHH.DISPOSITION).fieldOf("disposition").forGetter(Faction::getDispositionKey),
         // Relation
         Codec.BOOL.optionalFieldOf("isParent").forGetter(Faction::getOptionalIsParent),
         RegistryKey.createCodec(DynamicRegistriesHH.FACTION).optionalFieldOf("parent_faction").forGetter(Faction::getOptionalParentFaction),
@@ -29,7 +27,6 @@ public class Faction {
 
     // Core
     private boolean isJoinable;
-    private RegistryKey<Disposition> disposition;
     // Relation
     private boolean isParent;
     private RegistryKey<Faction> parentFaction;
@@ -40,9 +37,8 @@ public class Faction {
     private List<String> joinCommands;
     private List<String> leaveCommands;
 
-    public Faction(boolean isJoinable, RegistryKey<Disposition> disposition, Optional<Boolean> isParent, Optional<RegistryKey<Faction>> parentFaction, RegistryKey<Banner> banner, List<RegistryKey<Spawn>> spawnData, List<String> commandJoins, List<String> commandLeave) {
+    public Faction(boolean isJoinable, Optional<Boolean> isParent, Optional<RegistryKey<Faction>> parentFaction, RegistryKey<Banner> banner, List<RegistryKey<Spawn>> spawnData, List<String> commandJoins, List<String> commandLeave) {
         this.isJoinable = isJoinable;
-        this.disposition = disposition;
         this.isParent = isParent.orElse(false);
         this.parentFaction = parentFaction.orElse(null);
 
@@ -53,9 +49,8 @@ public class Faction {
         this.leaveCommands = commandLeave;
     }
 
-    public Faction(boolean isJoinable, RegistryKey<Disposition> disposition, RegistryKey<Banner> banner, List<RegistryKey<Spawn>> spawns, List<String> commandJoins, List<String> commandLeave) {
+    public Faction(boolean isJoinable, RegistryKey<Banner> banner, List<RegistryKey<Spawn>> spawns, List<String> commandJoins, List<String> commandLeave) {
         this.isJoinable = isJoinable;
-        this.disposition = disposition;
         this.banner = banner;
         this.spawns = spawns;
 
@@ -77,9 +72,6 @@ public class Faction {
 
     public boolean makeJoinable() {
         return isJoinable;
-    }
-    public RegistryKey<Disposition> getDispositionKey() {
-        return disposition;
     }
 
     public Optional<Boolean> getOptionalIsParent(){

@@ -4,18 +4,25 @@ import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
+import net.sevenstars.api.network.connections.ConnectionToClient;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.ofhallsandheralds.network.ClientNetworkHandlerHH;
+import net.sevenstars.ofhallsandheralds.network.ServerNetworkHandlerHH;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 import net.sevenstars.ofhallsandheralds.registries.RegistriesHH;
+import net.sevenstars.ofhallsandheralds.registries.custom.EventRegistryHH;
 
 public class OfHallsAndHeralds implements ModInitializer {
 	private static final String MOD_ID = "ofhallsandheralds";
 	public static final boolean IS_DEBUG = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
 
-	@Override
+    @Override
 	public void onInitialize() {
+		ServerNetworkHandlerHH.register(new ConnectionToClient());
+		EventRegistryHH.register();
+
 		RegistriesHH.register();
 		DynamicRegistriesHH.register();
 	}
@@ -25,6 +32,11 @@ public class OfHallsAndHeralds implements ModInitializer {
 		LOGGER.logDebugMsg("Registering Mod " +  registry + " for " + MOD_ID);
 	}
 	// Identifiers
+
+	public static String getNamespace() {
+		return MOD_ID;
+	}
+
 	public static Identifier id(String path){
 		return IdentifierUtil.build(MOD_ID, path);
 	}
@@ -44,4 +56,5 @@ public class OfHallsAndHeralds implements ModInitializer {
 	public static String translationKey(LangCategory category, Identifier value){
 		return value.toTranslationKey(category.Prefix);
 	}
+
 }

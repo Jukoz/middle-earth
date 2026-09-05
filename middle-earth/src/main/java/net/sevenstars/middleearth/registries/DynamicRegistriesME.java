@@ -17,11 +17,9 @@ import net.sevenstars.middleearth.entity.spider.SpiderVariant;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 import net.sevenstars.middleearth.registries.content.greathornvariants.GreatHornVariantRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
-import net.sevenstars.middleearth.registries.custom.DispositionRegistryME;
 import net.sevenstars.middleearth.registries.custom.FactionRegistryME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -30,7 +28,6 @@ import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
-import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 
 public class DynamicRegistriesME extends DynamicRegistriesAPI {
@@ -77,7 +74,6 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {
         registryBuilder.addRegistry(DynamicRegistriesHH.FACTION, FactionRegistryME::bootstrap);
-        registryBuilder.addRegistry(DynamicRegistriesHH.DISPOSITION, DispositionRegistryME::bootstrap);
 
         registryBuilder.addRegistry(RACE, RaceRegistry::bootstrap);
         //registryBuilder.addRegistry(NPC_TYPE, NpcRegistry::bootstrap);
@@ -91,8 +87,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     }
 
     public static void addProviders(FabricDataGenerator.Pack pack) {
-        pack.addProvider(DispositionProvider::new);
-        pack.addProvider(FactionProvider::new);
+         pack.addProvider(FactionProvider::new);
 
         pack.addProvider(SpiderVariantsProvider::new);
         pack.addProvider(RaceProvider::new);

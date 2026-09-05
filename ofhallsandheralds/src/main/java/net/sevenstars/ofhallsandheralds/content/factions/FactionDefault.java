@@ -11,7 +11,7 @@ import java.util.Map;
 public class FactionDefault extends AbstractFactionPool {
     protected static Map<RegistryKey<Faction>, Faction> map = new HashMap<>();
 
-    public static final Faction TEST = createNonJoinable(DispositionRegistryHH.NONE, BannerRegistryHH.NONE, List.of(SpawnRegistryHH.TEST));
+    public static final Faction TEST = createNonJoinable(BannerRegistryHH.NONE, List.of(SpawnRegistryHH.TEST));
 
     public static Map<RegistryKey<Faction>, Faction> fetch() {
         map.put(FactionRegistryHH.TEST, TEST);

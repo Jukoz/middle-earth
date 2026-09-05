@@ -18,8 +18,12 @@ import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.commands.suggestions.AllAvailableSpawnSuggestionProvider;
 import net.sevenstars.middleearth.commands.suggestions.FactionSuggestionProvider;
+import net.sevenstars.middleearth.registries.custom.FactionRegistryME;
 import net.sevenstars.middleearth.utils.ColorsME;
 import net.sevenstars.ofhallsandheralds.dtos.faction.Faction;
+import net.sevenstars.ofhallsandheralds.persistentdatas.PlayerDataManager;
+import net.sevenstars.ofhallsandheralds.persistentdatas.PlayerPersistentData;
+import net.sevenstars.ofhallsandheralds.persistentdatas.StateSaverAndLoader;
 import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 import org.jetbrains.annotations.Nullable;
 
@@ -162,10 +166,11 @@ public class CommandFaction {
                 spawnIdentifier = IdentifierArgumentType.getIdentifier(context, SPAWN_ID);
             } catch (Exception ignored){
             }
-            boolean success =  updateFactionFromCommand(targetedPlayer, context.getSource(), factionIdentifier, spawnIdentifier);
-            if(success){
-                return 1;
-            }
+            PlayerPersistentData data = PlayerDataManager.get().get(targetedPlayer.getUuid());
+            data.DiscoverFaction(FactionService.createKey(factionIdentifier));
+            data.IncreaseReputationFor(FactionService.createKey(factionIdentifier), 50);
+            //boolean success =  updateFactionFromCommand(targetedPlayer, context.getSource(), factionIdentifier, spawnIdentifier);
+            return 1;
         }
 
         return 0;
