@@ -14,7 +14,9 @@ public class PlayerPersistentDataManagerHH {
     private static OriginPersistenceManager originPersistenceManager;
 
     public static void init(MinecraftServer server) {
-        Path base = server.getSavePath(WorldSavePath.ROOT).resolve("data").resolve(OfHallsAndHeralds.getNamespace());
+        Path base = server.getSavePath(WorldSavePath.ROOT)
+                    .resolve("data")
+                    .resolve(OfHallsAndHeralds.namespace());
         // Managers
         reputationDataManager = new ReputationPersistenceManager(base.resolve("reputations"));
         originPersistenceManager = new OriginPersistenceManager(base.resolve("origins"));

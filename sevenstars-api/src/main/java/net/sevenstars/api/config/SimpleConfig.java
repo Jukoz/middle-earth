@@ -140,12 +140,12 @@ public class SimpleConfig {
         String identifier = "Config '" + request.filename + "'";
 
         if( !request.file.exists() ) {
-            SevenStarsApi.INSTANCE.logger().logDebugMsg(identifier + " is missing, generating default one..." );
+            SevenStarsApi.logger().logDebugMsg(identifier + " is missing, generating default one..." );
 
             try {
                 createConfig();
             } catch (IOException e) {
-                SevenStarsApi.INSTANCE.logger().logError( identifier + " failed to generate!", e);
+                SevenStarsApi.logger().logError( identifier + " failed to generate!", e);
                 broken = true;
             }
         }
@@ -154,7 +154,7 @@ public class SimpleConfig {
             try {
                 loadConfig();
             } catch (Exception e) {
-                SevenStarsApi.INSTANCE.logger().logError( identifier + " failed to load!", e);
+                SevenStarsApi.logger().logError( identifier + " failed to load!", e);
                 broken = true;
             }
         }
@@ -244,7 +244,7 @@ public class SimpleConfig {
      * @return true if the operation was successful
      */
     public boolean delete() {
-        SevenStarsApi.INSTANCE.logger().logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
+        SevenStarsApi.logger().logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
         return request.file.delete();
     }
 

@@ -11,10 +11,10 @@ import java.util.function.Supplier;
 public class SensorsAPI {
 
     private static <U extends Sensor<?>> SensorType<U> register(String idPath, Supplier<U> factory) {
-        return Registry.register(Registries.SENSOR_TYPE, SevenStarsApi.INSTANCE.id(idPath), new SensorType<>(factory));
+        return Registry.register(Registries.SENSOR_TYPE, SevenStarsApi.id(idPath), new SensorType<>(factory));
     }
 
     public static void register() {
-        SevenStarsApi.INSTANCE.logRegistryMessage("Sensors");
+        SevenStarsApi.logRegistryMessage("Sensors");
     }
 }

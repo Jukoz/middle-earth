@@ -26,14 +26,14 @@ public class MemoryModulesAPI<U> {
     }
 
     private static <U> MemoryModuleType<U> register(String idPath, Codec<U> codec) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, SevenStarsApi.INSTANCE.id(idPath), new MemoryModuleType<>(Optional.of(codec)));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, SevenStarsApi.id(idPath), new MemoryModuleType<>(Optional.of(codec)));
     }
 
     private static <U> MemoryModuleType<U> register(String idPath) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, SevenStarsApi.INSTANCE.id(idPath), new MemoryModuleType<>(Optional.empty()));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, SevenStarsApi.id(idPath), new MemoryModuleType<>(Optional.empty()));
     }
 
     public static void register() {
-        SevenStarsApi.INSTANCE.logRegistryMessage("Sensors");
+        SevenStarsApi.logRegistryMessage("Sensors");
     }
 }

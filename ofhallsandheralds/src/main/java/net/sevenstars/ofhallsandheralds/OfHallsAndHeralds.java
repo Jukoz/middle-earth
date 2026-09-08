@@ -3,8 +3,13 @@ package net.sevenstars.ofhallsandheralds;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.AbstractModInitializer;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.network.connections.ConnectionToClient;
+import net.sevenstars.api.registries.brain.ActivitiesAPI;
+import net.sevenstars.api.registries.brain.MemoryModulesAPI;
+import net.sevenstars.api.registries.brain.SchedulesAPI;
+import net.sevenstars.api.registries.brain.SensorsAPI;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.LoggerUtil;
 import net.sevenstars.ofhallsandheralds.network.ServerNetworkHandlerHH;
@@ -12,48 +17,20 @@ import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 import net.sevenstars.ofhallsandheralds.registries.RegistriesHH;
 import net.sevenstars.ofhallsandheralds.registries.custom.EventRegistryHH;
 
-public class OfHallsAndHeralds implements ModInitializer {
-	private static final String MOD_ID = "ofhallsandheralds";
-	public static final boolean IS_DEBUG = true;
-	public static final LoggerUtil LOGGER = new LoggerUtil(MOD_ID, IS_DEBUG);
+public class OfHallsAndHeralds extends AbstractModInitializer {
+	protected OfHallsAndHeralds(String id, boolean shouldBeDebug) {
+		super("ofhallsandheralds", shouldBeDebug);
+	}
 
-    @Override
+	@Override
 	public void onInitialize() {
+		registerAll();
+	}
+
+	private void registerAll() {
 		ServerNetworkHandlerHH.register(new ConnectionToClient());
 		EventRegistryHH.register();
-
 		RegistriesHH.register();
 		DynamicRegistriesHH.register();
 	}
-
-	// Logger
-	public static void logRegistryMsg(String registry) {
-		LOGGER.logDebugMsg("Registering Mod " +  registry + " for " + MOD_ID);
-	}
-	// Identifiers
-
-	public static String getNamespace() {
-		return MOD_ID;
-	}
-
-	public static Identifier id(String path){
-		return IdentifierUtil.build(MOD_ID, path);
-	}
-	public static Identifier idAggregate(String... names){
-		return IdentifierUtil.buildAggregate(MOD_ID, names);
-	}
-	public static String idAggregate(char splitter, String... names){
-		return IdentifierUtil.createAggregateValue(splitter, names);
-	}
-	public static Identifier ofId(String stringId){
-		return IdentifierUtil.getIdentifierFromString(stringId);
-	}
-	// Translation Keys
-	public static String translationKey(LangCategory category, String value){
-		return id(value).toTranslationKey(category.Prefix);
-	}
-	public static String translationKey(LangCategory category, Identifier value){
-		return value.toTranslationKey(category.Prefix);
-	}
-
 }
