@@ -12,7 +12,7 @@ import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 
 public class PacketLivingEntityData extends ServerToClientPacket<PacketLivingEntityData> {
-    public static final Id<PacketLivingEntityData> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_living_entity_data"));
+    public static final Id<PacketLivingEntityData> ID = new Id<>(MiddleEarth.id("packet_living_entity_data"));
     public static final PacketCodec<RegistryByteBuf, PacketLivingEntityData> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.entityId,
             StatusEffectInstance.PACKET_CODEC, p -> p.statusEffectInstance,

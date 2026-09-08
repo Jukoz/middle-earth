@@ -76,10 +76,10 @@ public class MapWidget extends CustomWidget {
         return 1f;
     }
     protected Identifier getMapTexture(){
-        return Identifier.of(MiddleEarth.MOD_ID,"textures/map.png");
+        return MiddleEarth.id("textures/map.png");
     }
     protected Identifier getOverlayMapTexture(){
-        return Identifier.of(MiddleEarth.MOD_ID,"textures/map_overlay.png");
+        return MiddleEarth.id("textures/map_overlay.png");
     }
     public void setOverlayState(boolean state){
         isOverlayEnabled = state;

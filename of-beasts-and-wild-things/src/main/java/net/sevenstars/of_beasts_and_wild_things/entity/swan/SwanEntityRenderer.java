@@ -36,7 +36,7 @@ public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntit
 
     @Override
     public Identifier getTexture(SwanEntityRenderState state) {
-        return state.baby ? Identifier.of(OfBeastsAndWildThings.MOD_ID, PATH + "swan_baby.png") : Identifier.of(OfBeastsAndWildThings.MOD_ID, LOCATION_BY_VARIANT.get(state.variant));
+        return state.baby ? OfBeastsAndWildThings.id(PATH + "swan_baby.png") : OfBeastsAndWildThings.id(LOCATION_BY_VARIANT.get(state.variant));
     }
 
     @Override

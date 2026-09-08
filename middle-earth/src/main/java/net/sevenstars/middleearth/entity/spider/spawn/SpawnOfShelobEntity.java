@@ -325,7 +325,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     }
 
     public void slowMovement(BlockState state, Vec3d multiplier) {
-        if (!state.isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")))) {
+        if (!state.isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("cobwebs")))) {
             super.slowMovement(state, multiplier);
         }
     }

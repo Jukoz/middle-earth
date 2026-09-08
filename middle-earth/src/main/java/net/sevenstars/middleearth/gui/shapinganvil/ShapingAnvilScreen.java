@@ -13,6 +13,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.packets.client2server.AnvilIndexPacket;
 
@@ -137,8 +138,13 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
 
         if (mouseX >= x + 79 && mouseX <= x + 96 && mouseY >= y + 34 && mouseY <= y + 51){
             context.drawOrderedTooltip(this.client.textRenderer,
-                    Lists.transform(List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".anvil_hammer"),
-                            Text.translatable("tooltip." + MiddleEarth.MOD_ID +".anvil_hammer_2")),
+                    Lists.transform(
+                            List.of(Text.translatable(
+                                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "anvil_hammer")
+                                    ),
+                                    Text.translatable(
+                                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "anvil_hammer_2")
+                                    )),
                             Text::asOrderedText), mouseX, mouseY);
         }
     }

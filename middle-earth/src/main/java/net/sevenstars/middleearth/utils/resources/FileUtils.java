@@ -97,7 +97,7 @@ public class FileUtils {
     public static boolean isLanguageFileExist(String languageCode) {
         MinecraftClient client = MinecraftClient.getInstance();
         ResourceManager resourceManager = client.getResourceManager();
-        Identifier path = Identifier.of(MiddleEarth.MOD_ID, String.format("lang/%s.json", languageCode));
+        Identifier path = MiddleEarth.id(String.format("lang/%s.json", languageCode));
         return resourceManager.getResource(path).isPresent();
     }
 

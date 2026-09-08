@@ -32,17 +32,17 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        var bones = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
-        var feathers = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "feathers")));
-        var cloaks = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "cloaks")));
-        var warg_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
-        var warg_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
-        var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "broadhoof_goat_armor")));
-        var great_horn_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "great_horn_armor")));
+        var bones = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")));
+        var feathers = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("feathers")));
+        var cloaks = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("cloaks")));
+        var warg_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("warg_food")));
+        var warg_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("warg_armor")));
+        var broadhoof_goat_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("broadhoof_goat_armor")));
+        var great_horn_armor = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("great_horn_armor")));
         var dyeable = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dyeable")));
-        var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
-        var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
-        var troll_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
+        var chains = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("chains")));
+        var troll_weapons = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("troll_weapons")));
+        var troll_food = valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("troll_food")));
 
         var characterHideHair = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_HIDE_HAIR);
         var characterHideBeard = valueLookupBuilder(ItemTagsME.CHARACTER_HELMET_HIDE_BEARD);
@@ -55,21 +55,21 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         TagKey<Item> saplings = TagKey.of(RegistryKeys.ITEM, Identifier.of("saplings"));
         TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"));
-        TagKey<Item> wooden_vertical_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs"));
+        TagKey<Item> wooden_vertical_slabs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("wooden_vertical_slabs"));
         TagKey<Item> wooden_fences = TagKey.of(RegistryKeys.ITEM, Identifier.of( "wooden_fences"));
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials"));
         TagKey<Item> leaves = TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves"));
 
-        TagKey<Item> ingot_shaping = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping"));
-        TagKey<Item> nugget_shaping = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping"));
+        TagKey<Item> ingot_shaping = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("ingot_shaping"));
+        TagKey<Item> nugget_shaping = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("nugget_shaping"));
 
-        TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin_ores"));
-        TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead_ores"));
-        TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "silver_ores"));
-        TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril_ores"));
-        TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "shingles"));
+        TagKey<Item> tin_ores = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("tin_ores"));
+        TagKey<Item> lead_ores = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("lead_ores"));
+        TagKey<Item> silver_ores = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("silver_ores"));
+        TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mithril_ores"));
+        TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("shingles"));
 
         TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mod_stripped_logs"));
         TagKey<Item> stripped_logs = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "stripped_logs"));

@@ -94,13 +94,13 @@ public class HotMetalsModel {
 
     public static List<ShapingTag> shapesTag = new ArrayList<>() {
         {
-            //add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.MAIL_RING, 25));
-            //add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "nugget_shaping")), ModResourceItems.SCALE, 25));
+            //add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("nugget_shaping")), ModResourceItems.MAIL_RING, 25));
+            //add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("nugget_shaping")), ModResourceItems.SCALE, 25));
 
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ResourceItemsME.SHORT_BLADE, 80));
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ResourceItemsME.SHOVEL_HEAD, 80));
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ResourceItemsME.SWORD_HILT, 80));
-            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "ingot_shaping")), ResourceItemsME.SHIELD_BORDER, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("ingot_shaping")), ResourceItemsME.SHORT_BLADE, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("ingot_shaping")), ResourceItemsME.SHOVEL_HEAD, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("ingot_shaping")), ResourceItemsME.SWORD_HILT, 80));
+            add(new ShapingTag(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("ingot_shaping")), ResourceItemsME.SHIELD_BORDER, 80));
         }
     };
 

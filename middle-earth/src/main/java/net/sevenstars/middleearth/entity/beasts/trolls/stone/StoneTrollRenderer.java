@@ -20,6 +20,6 @@ public class StoneTrollRenderer extends MobEntityRenderer<StoneTrollEntity, Trol
     }
     @Override
     public Identifier getTexture(TrollEntityRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH);
+        return MiddleEarth.id(PATH);
     }
 }

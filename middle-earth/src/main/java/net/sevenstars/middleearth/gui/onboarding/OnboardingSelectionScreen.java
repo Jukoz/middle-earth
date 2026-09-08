@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToCurrentSpawn;
@@ -23,8 +24,10 @@ import java.util.List;
 // [TODO] redo
 @Environment(EnvType.CLIENT)
 public class OnboardingSelectionScreen extends Screen {
-private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.onboarding_selection.title".formatted(MiddleEarth.MOD_ID));
-    private static final Identifier BUTTON_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/button_widget.png");
+private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable(
+        MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "onboarding_selection.title")
+);
+    private static final Identifier BUTTON_WIDGET = MiddleEarth.id("textures/gui/widget/button_widget.png");
     private boolean focusEnabled;
     public ButtonWidget continueAsCharacterButton;
     public ButtonWidget resetCharacterButton;
@@ -108,7 +111,9 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
                     startX, startY, 0, continueAsCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
-            Text continueText = Text.translatable("ui.%s.continue_character".formatted(MiddleEarth.MOD_ID));
+            Text continueText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "continue_character")
+            );
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,
@@ -138,7 +143,9 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
                     startX, startY,0, resetCharacterButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
-            Text resetText = Text.translatable("ui.%s.reset_character".formatted(MiddleEarth.MOD_ID));
+            Text resetText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "reset_character")
+            );
             context.drawText(textRenderer, resetText,
                     startX + (int) ((panelSizeX - textRenderer.getWidth(resetText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,

@@ -27,8 +27,8 @@ public class RepairItemRecipeMixin {
                 && first.contains(DataComponentTypes.DAMAGE)
                 && second.contains(DataComponentTypes.DAMAGE)
 
-                && !first.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "anvil_items")))
-                && !second.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "anvil_items")))
+                && !first.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("anvil_items")))
+                && !second.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("anvil_items")))
                 );
     }
 }

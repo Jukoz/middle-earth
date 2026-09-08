@@ -57,6 +57,6 @@ public class BiomeEventRegistryUtil {
     }
 
     public static RegistryKey<Structure> register(String name) {
-        return RegistryKey.of(RegistryKeys.STRUCTURE, Identifier.of(MiddleEarth.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.STRUCTURE, MiddleEarth.id(name));
     }
 }

@@ -487,6 +487,6 @@ public class GenericBlockSetRegistryME {
     }
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Generic Block Sets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Generic Block Sets");
     }
 }

@@ -54,11 +54,11 @@ public class ModelsME {
     public static final Model PATH_BLOCK;
 
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new Model(Optional.of(MiddleEarth.id("block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
     private static Model block(String parent, String variant, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.of(variant), requiredTextureKeys);
+        return new Model(Optional.of(MiddleEarth.id("block/" + parent)), Optional.of(variant), requiredTextureKeys);
     }
 
     static {

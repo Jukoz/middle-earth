@@ -49,7 +49,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             }
 
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
+            CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, MiddleEarth.id(texture), dyeable);
 
             if (this.chestplateAddonModel != null) {
                 contextModel.copyTransforms(this.chestplateAddonModel);
@@ -58,9 +58,9 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 this.chestplateAddonModel.rightArm.visible = true;
                 this.chestplateAddonModel.leftArm.visible = true;
                 if(texture.contains("_chestplate.png")){
-                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, MiddleEarth.id(texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
                 } else {
-                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, MiddleEarth.id(texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
             }
 
@@ -77,12 +77,12 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 capeModel.setAngles(bipedEntityRenderState);
 
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(capeDataComponent.getBackAttachment())) {
-                    BackAttachmentRenderer.renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"), true);
+                    BackAttachmentRenderer.renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, capeModel, MiddleEarth.id("textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"), true);
                     if (DyeablePiecesME.dyeableBackAttachments.get(capeDataComponent.backAttachment()).booleanValue()){
-                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + "_overlay.png"));
+                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, MiddleEarth.id("textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + "_overlay.png"));
                     }
                 } else {
-                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"));
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, MiddleEarth.id("textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"));
                 }}
         }
     }

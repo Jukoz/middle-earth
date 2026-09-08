@@ -19,6 +19,7 @@ import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.packets.client2server.InscriptionConfirmationPacket;
 import net.sevenstars.middleearth.network.packets.client2server.InscriptionWordUpdatePacket;
@@ -183,7 +184,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
 
             int color;
             String levelKey = (k == 1) ? ".level" : ".levels";
-            Text text = Text.translatable("inscription." + MiddleEarth.MOD_ID + levelKey, k);
+            Text text = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, levelKey), k
+            );
 
             if (this.client.player.isInCreativeMode() || (l >= k && k != 0)){
                 color = -8323296;
@@ -216,9 +219,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         int m = 0;
         for(String word : this.selectedWords){
             if (m != 0){
-                stringBuilder.append(Text.translatable("inscription." + MiddleEarth.MOD_ID + ".linking_dash").getString());
+                stringBuilder.append(Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, "linking_dash")
+                ).getString());
             }
-            stringBuilder.append(Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word).getString());
+            stringBuilder.append(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+            ).getString());
             m++;
         }
         StringVisitable stringVisitable = textRenderer.getTextHandler().trimToWidth(Text.literal(stringBuilder.toString()), 159, Style.EMPTY);
@@ -255,13 +262,19 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                     WidgetInscriptionButtonPage widgetButtonPage = this.words[index - indexStartOffset];
                     if(widgetButtonPage.hidden) {
 //                        Text text = Text.literal(StringUtils.capitalize(word)).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
-                        Text text = Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
+                        Text text = Text.translatable(
+                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+                        ).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
                         context.drawText(this.textRenderer, text, i + 11, n, Colors.LIGHT_GRAY, false);
                     } else {
-                        context.drawText(this.textRenderer, Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word), i + 11, n, Colors.WHITE, false);
+                        context.drawText(this.textRenderer, Text.translatable(
+                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+                        ), i + 11, n, Colors.WHITE, false);
                     }
                 } else {
-                    context.drawText(this.textRenderer, Text.translatable("inscription." + MiddleEarth.MOD_ID + "." + word), i + 11, n, Colors.WHITE, false);
+                    context.drawText(this.textRenderer, Text.translatable(
+                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+                    ), i + 11, n, Colors.WHITE, false);
                 }
                 n += 14;
             }

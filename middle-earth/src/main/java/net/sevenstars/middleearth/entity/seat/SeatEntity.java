@@ -31,10 +31,10 @@ public class SeatEntity extends VehicleEntity {
         if(!this.getWorld().isClient){
             World world = this.getWorld();
             BlockPos pos = this.getBlockPos();
-            if (!this.hasPassengers() && this.getWorld().getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
+            if (!this.hasPassengers() && this.getWorld().getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("seat")))){
                 world.setBlockState(this.getBlockPos(), world.getBlockState(pos).with(SeatBlock.OCCUPIED, false));
                 this.remove(RemovalReason.DISCARDED);
-            } else if(!this.hasPassengers() || !this.getWorld().getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")))){
+            } else if(!this.hasPassengers() || !this.getWorld().getBlockState(pos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("seat")))){
                 this.remove(RemovalReason.DISCARDED);
             }
         }

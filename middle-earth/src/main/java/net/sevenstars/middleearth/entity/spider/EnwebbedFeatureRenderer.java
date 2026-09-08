@@ -19,7 +19,7 @@ import net.sevenstars.middleearth.entity.EntityModelLayersME;
 
 @Environment(EnvType.CLIENT)
 public class EnwebbedFeatureRenderer <S extends BipedEntityRenderState, M extends EntityModel<S>> extends FeatureRenderer<S, M> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/spiders/enwebbed.png");
+    private static final Identifier TEXTURE = MiddleEarth.id("textures/entities/spiders/enwebbed.png");
 
     private final EnwebbedModel model;
 

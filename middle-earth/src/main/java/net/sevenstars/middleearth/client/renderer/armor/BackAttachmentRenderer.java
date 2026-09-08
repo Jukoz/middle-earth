@@ -55,12 +55,12 @@ public class BackAttachmentRenderer implements ArmorRenderer {
                 backAttachmentModel.setAngles(bipedEntityRenderState);
 
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(backAttachmentDataComponent.getBackAttachment())) {
-                    renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, backAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + ".png"), false);
+                    renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, backAttachmentModel, MiddleEarth.idFilePath("textures", "models", "back_attachment", backAttachmentDataComponent.backAttachment().getName() + ".png"), false);
                     if (DyeablePiecesME.dyeableBackAttachments.get(backAttachmentDataComponent.backAttachment())){
-                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, backAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + "_overlay.png"));
+                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, backAttachmentModel, MiddleEarth.idFilePath("textures", "models", "back_attachment", backAttachmentDataComponent.backAttachment().getName() + "_overlay.png"));
                     }
                 } else {
-                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, backAttachmentModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + ".png"));
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, backAttachmentModel, MiddleEarth.idFilePath("textures", "models", "back_attachment", backAttachmentDataComponent.backAttachment().getName() + ".png"));
                 }
             }
         }

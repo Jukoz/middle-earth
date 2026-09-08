@@ -29,7 +29,7 @@ import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
 import java.util.Objects;
 
 public class EventRegistryME {
-    private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
+    private static final String GOT_STARTER_ITEM = MiddleEarth.getModId() + ".received_starter_item";  // FIXME: might be a better way
 
     public static void register(){
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {

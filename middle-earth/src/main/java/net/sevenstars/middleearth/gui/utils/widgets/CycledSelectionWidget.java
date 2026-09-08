@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CycledSelectionWidget extends CustomWidget {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/cycled_selection_widget.png");
+    private static final Identifier TEXTURE = MiddleEarth.id("textures/gui/widget/cycled_selection_widget.png");
     boolean leftCanBeActive = true;
     boolean rightCanBeActive = true;
     boolean centerCanBeActive = true;

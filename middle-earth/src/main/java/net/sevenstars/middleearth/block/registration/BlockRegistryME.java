@@ -817,21 +817,21 @@ public class BlockRegistryME {
     }
 
     static void registerBlockItem(String name, Block block) {
-        var item = Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
+        var item = Registry.register(Registries.ITEM, MiddleEarth.id(name),
                 new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }
 
     public static RegistryKey<Block> keyOfBlock(String id) {
-        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, id));
+        return RegistryKey.of(RegistryKeys.BLOCK, MiddleEarth.id(id));
     }
 
     public static RegistryKey<Item> keyOfItem(String id) {
-        return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, id));
+        return RegistryKey.of(RegistryKeys.ITEM, MiddleEarth.id(id));
     }
 
     public static void registerModBlocks() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Blocks");
     }
 }

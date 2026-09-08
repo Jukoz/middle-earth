@@ -96,7 +96,7 @@ public final class EntityModelLayersME {
      * The modelData is used to know the UV map to use for the 3D model
      * **/
     private static EntityModelLayer registerEntityModelLayer(String registryName, TexturedModelData modelData) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, registryName), MAIN);
+        EntityModelLayer entityModelLayer = new EntityModelLayer(MiddleEarth.id(registryName), MAIN);
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
         return entityModelLayer;
     }
@@ -105,7 +105,7 @@ public final class EntityModelLayersME {
      * The modelData is used to know the UV map to use for the 3D model
      * **/
     private static EntityModelLayer registerEntityModelLayer(String id, String layer, TexturedModelData modelData) {
-        EntityModelLayer entityModelLayer = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, id), layer);
+        EntityModelLayer entityModelLayer = new EntityModelLayer(MiddleEarth.id(id), layer);
         EntityModelLayerRegistry.registerModelLayer(entityModelLayer, () -> modelData);
         return entityModelLayer;
     }

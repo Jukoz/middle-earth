@@ -76,11 +76,11 @@ public class OldSkullBlockEntityRenderer implements BlockEntityRenderer<OldSkull
     }
 
     public static RenderLayer getRenderLayer() {
-        return RenderLayer.getEntityCutoutNoCullZOffset(Identifier.of(MiddleEarth.MOD_ID, "model/old_skull"));
+        return RenderLayer.getEntityCutoutNoCullZOffset(MiddleEarth.idFilePath("model", "old_skull"));
     }
 
     private SpriteIdentifier getSpriteIdentifier(){
         return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/old_skull"));
+                MiddleEarth.id("model/old_skull"));
     }
 }

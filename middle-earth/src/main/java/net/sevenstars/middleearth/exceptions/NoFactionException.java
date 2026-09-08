@@ -1,9 +1,10 @@
 package net.sevenstars.middleearth.exceptions;
 
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class NoFactionException extends Exception{
-    public static final String KEY_TARGET = "exception.%s.no_faction.target".formatted(MiddleEarth.MOD_ID);
-    public static final String KEY_SOURCE = "exception.%s.no_faction.source".formatted(MiddleEarth.MOD_ID);
+    public static final String KEY_TARGET = MiddleEarth.rawTranslationKeyWithModId(LangCategory.EXCEPTION, "no_faction.target");
+    public static final String KEY_SOURCE = MiddleEarth.rawTranslationKeyWithModId(LangCategory.EXCEPTION, "no_faction.source");
 
 }

@@ -24,6 +24,6 @@ public enum RaceType {
     }
 
     public MutableText getName() {
-        return Text.translatable("race_type.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
+        return Text.translatable("race_type.".concat(MiddleEarth.id(toString()).toTranslationKey()));
     }
 }

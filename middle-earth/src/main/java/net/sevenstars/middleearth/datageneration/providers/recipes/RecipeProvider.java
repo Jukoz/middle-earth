@@ -226,7 +226,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                     .input(record.logBlocks.wood())
                                     .criterion(hasItem(record.logBlocks.wood()),
                                             conditionsFromItem(record.planksBlocks.base()))
-                                    .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_wood")));
+                                    .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_wood")));
                         }
 
                     } else if(record.mushroomStemBlocks != null) {
@@ -263,13 +263,13 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 .input(record.strippedLogBlocks.log())
                                 .criterion(hasItem(record.strippedLogBlocks.log()),
                                         conditionsFromItem(record.planksBlocks.base()))
-                                .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_stripped_log")));
+                                .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_stripped_log")));
 
                         ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, record.planksBlocks.base(), 4)
                                 .input(record.strippedLogBlocks.wood())
                                 .criterion(hasItem(record.strippedLogBlocks.wood()),
                                         conditionsFromItem(record.planksBlocks.base()))
-                                .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_stripped_wood")));
+                                .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(record.planksBlocks.base()).getPath() + "_from_stripped_wood")));
                     }
 
                     createFenceRecipe(exporter, record.planksBlocks.base().asItem(), record.planksBlocks.fence());
@@ -996,58 +996,58 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 //region Alloying
                 AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "bronze", INGOT_LIQUID_VALUE * 4,  4)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("copper")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("copper")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("copper")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("tin")))
                         .criterion(hasItem(Items.COPPER_INGOT),
                                 conditionsFromItem(Items.COPPER_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "bronze" + "_from_alloying")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("bronze" + "_from_alloying")));
 
                 AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "crude", INGOT_LIQUID_VALUE * 3, 3)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("copper")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("copper")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("tin")))
                         .input(ResourceItemsME.ASH)
                         .criterion(hasItem(Items.COPPER_INGOT),
                                 conditionsFromItem(Items.COPPER_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "crude" + "_from_alloying")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("crude" + "_from_alloying")));
 
                 AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "steel", INGOT_LIQUID_VALUE * 3, 3)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
                         .input(Items.COAL)
                         .criterion(hasItem(Items.IRON_INGOT),
                                 conditionsFromItem(Items.IRON_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "steel" + "_from_alloying_tags")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("steel" + "_from_alloying_tags")));
 
                 AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "khazad_steel", INGOT_LIQUID_VALUE * 3, 3)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("lead")))
                         .input(Items.COAL)
                         .criterion(hasItem(Items.IRON_INGOT),
                                 conditionsFromItem(Items.IRON_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "khazad_steel" + "_from_alloying_tags")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("khazad_steel" + "_from_alloying_tags")));
 
                 AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "edhel_steel", INGOT_LIQUID_VALUE * 3, 3)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
                         .input(ResourceItemsME.SILVER_NUGGET)
                         .criterion(hasItem(Items.IRON_INGOT),
                                 conditionsFromItem(Items.IRON_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "edhel_steel" + "_from_alloying_tags")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("edhel_steel" + "_from_alloying_tags")));
 
                 AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "burzum_steel", INGOT_LIQUID_VALUE * 3, 3)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("lead")))
                         .input(ResourceItemsME.ASH)
                         .criterion(hasItem(Items.IRON_INGOT),
                                 conditionsFromItem(Items.IRON_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "burzum_steel" + "_from_alloying_tags")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("burzum_steel" + "_from_alloying_tags")));
 
                 AlloyRecipeJsonBuilder.createAlloyRecipe(itemLookup, RecipeCategory.MISC, "chicken_nugget", INGOT_LIQUID_VALUE, 1)
                         .input(Items.CHICKEN)
@@ -1056,7 +1056,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(FoodItemsME.GARLIC)
                         .criterion(hasItem(ResourceItemsME.PTEROSAUR_NUGGET),
                                 conditionsFromItem(ResourceItemsME.PTEROSAUR_NUGGET))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "chicken_nugget" + "_from_alloying")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("chicken_nugget" + "_from_alloying")));
 
 
                 HotMetalsModel.nuggets.forEach(nugget -> {
@@ -1069,23 +1069,23 @@ public class RecipeProvider extends FabricRecipeProvider {
                     createAnvilShapingRecipeItem(exporter, shape.item(), shape.output(), shape.amount());
                 });
 
-                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "copper")), "copper");
-                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "tin")), "tin");
+                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("copper")), "copper");
+                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("tin")), "tin");
 
                 createMeltBulkRecipe(exporter, ResourceItemsME.BRONZE_INGOT, "bronze");
                 createMeltBulkRecipe(exporter, ResourceItemsME.CRUDE_INGOT, "crude");
 
-                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "lead")), "lead");
-                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "silver")), "silver");
-                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "iron")), "iron");
-                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "gold")), "gold");
+                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("lead")), "lead");
+                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("silver")), "silver");
+                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("iron")), "iron");
+                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("gold")), "gold");
 
                 createMeltBulkRecipe(exporter, ResourceItemsME.STEEL_INGOT, "steel");
                 createMeltBulkRecipe(exporter, ResourceItemsME.KHAZAD_STEEL_INGOT, "khazad_steel");
                 createMeltBulkRecipe(exporter, ResourceItemsME.EDHEL_STEEL_INGOT, "edhel_steel");
                 createMeltBulkRecipe(exporter, ResourceItemsME.BURZUM_STEEL_INGOT, "burzum_steel");
 
-                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril")), "mithril");
+                createMeltBulkRecipeTag(exporter, TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mithril")), "mithril");
 
                 createMeltBulkRecipe(exporter, Items.NETHERITE_INGOT, "netherite");
 
@@ -1162,7 +1162,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, BlockRegistryME.TREATED_STEEL_BARS, 16)
                         .pattern("SSS")
                         .pattern("SSS")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
@@ -1215,8 +1215,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, BlockRegistryME.TREATED_STEEL_TRAPDOOR, 2)
                         .pattern("NSN")
                         .pattern("NSN")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
@@ -1252,7 +1252,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SS")
                         .pattern("SS")
                         .pattern("SS")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
@@ -1336,7 +1336,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(GenericBlockSetRegistryME.AGED_WOOD.blockSet.base())
                         .criterion(hasItem(GenericBlockSetRegistryME.AGED_WOOD.blockSet.base()),
                                 conditionsFromItem(GenericBlockSetRegistryME.AGED_WOOD.blockSet.base()))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(GenericBlockSetRegistryME.AGED_WOOD_PLANKS.blockSet.base()).getPath() + "_from_wood")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(GenericBlockSetRegistryME.AGED_WOOD_PLANKS.blockSet.base()).getPath() + "_from_wood")));
 
                 createBrickRecipe(exporter, GenericBlockSetRegistryME.AGED_WOOD_PLANKS.blockSet.base().asItem(), GenericBlockSetRegistryME.AGED_WOOD_PANELS.blockSet.base(), 4);
 
@@ -1509,7 +1509,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("CNC")
                         .pattern("N N")
                         .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .criterion(hasItem(Items.CANDLE),
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
@@ -1519,7 +1519,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("N N")
                         .input('C', TagKey.of(RegistryKeys.ITEM, Identifier.of("candles")))
                         .input('H', DecorativeBlockRegistryME.SMALL_CHANDELIER)
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .criterion(hasItem(Items.CANDLE),
                                 conditionsFromItem(Items.CANDLE))
                         .offerTo(exporter);
@@ -1814,8 +1814,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeItemsME.SCONCE, 4)
                         .pattern("NTN")
                         .pattern(" I ")
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
-                        .input('I', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
+                        .input('I', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .input('T', Items.TORCH)
                         .criterion(hasItem(Items.TORCH),
                                 conditionsFromItem(Items.TORCH))
@@ -1851,7 +1851,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("LLL")
                         .pattern("LSL")
                         .pattern("LLL")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .input('L', WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base())
                         .criterion(hasItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()))
@@ -1861,7 +1861,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("LSL")
                         .pattern("SLL")
                         .pattern("LSL")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .input('L', Items.SPRUCE_PLANKS)
                         .criterion(hasItem(Items.SPRUCE_PLANKS),
                                 conditionsFromItem(Items.SPRUCE_PLANKS))
@@ -1925,7 +1925,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SP")
                         .pattern("PP")
                         .pattern("SP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .input('P', WoodBlockSetRegistryME.BLACK_PINE_SET.planksBlocks.base())
                         .criterion(hasItem(WoodBlockSetRegistryME.BLACK_PINE_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.BLACK_PINE_SET.planksBlocks.base()))
@@ -1934,7 +1934,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SP")
                         .pattern("PP")
                         .pattern("SP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .input('P', WoodBlockSetRegistryME.FIR_SET.planksBlocks.base())
                         .criterion(hasItem(WoodBlockSetRegistryME.FIR_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.FIR_SET.planksBlocks.base()))
@@ -1944,7 +1944,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SPP")
                         .pattern("PPP")
                         .pattern("SPP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .input('P', Items.OAK_PLANKS)
                         .criterion(hasItem(Items.OAK_PLANKS),
                                 conditionsFromItem(Items.OAK_PLANKS))
@@ -1954,7 +1954,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SPP")
                         .pattern("SPS")
                         .pattern("SPP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .input('P', WoodBlockSetRegistryME.BLACK_PINE_SET.planksBlocks.base())
                         .criterion(hasItem(WoodBlockSetRegistryME.BLACK_PINE_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.BLACK_PINE_SET.planksBlocks.base()))
@@ -1964,7 +1964,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SPP")
                         .pattern("SPS")
                         .pattern("SPP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .input('P', Items.SPRUCE_PLANKS)
                         .criterion(hasItem(Items.SPRUCE_PLANKS),
                                 conditionsFromItem(Items.SPRUCE_PLANKS))
@@ -1974,7 +1974,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SPP")
                         .pattern("PPP")
                         .pattern("SPP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .input('P', WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base())
                         .criterion(hasItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()))
@@ -1986,7 +1986,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SPP")
                         .pattern("PPP")
                         .pattern("SPP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .input('P', Items.SPRUCE_PLANKS)
                         .criterion(hasItem(Items.SPRUCE_PLANKS),
                                 conditionsFromItem(Items.SPRUCE_PLANKS))
@@ -1996,7 +1996,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SPP")
                         .pattern("PPP")
                         .pattern("SPP")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .input('P', TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))
                         .criterion(hasItem(Items.OAK_PLANKS),
                                 conditionsFromItem(Items.OAK_PLANKS))
@@ -2271,7 +2271,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("S")
                         .pattern("S")
                         .pattern("S")
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
@@ -2280,11 +2280,11 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("N")
                         .pattern("I")
                         .pattern("N")
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
-                        .input('I', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
+                        .input('I', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.CHAIN).getPath() + "_alt")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(Items.CHAIN).getPath() + "_alt")));
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.BRONZE_CHAIN, 4)
                         .pattern("N")
@@ -2330,8 +2330,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern(" N ")
                         .pattern("NIN")
                         .pattern(" N ")
-                        .input('I', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
-                        .input('N', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_nuggets")))
+                        .input('I', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
+                        .input('N', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_nuggets")))
                         .criterion(hasItem(ResourceItemsME.STEEL_INGOT),
                                 conditionsFromItem(ResourceItemsME.STEEL_INGOT))
                         .offerTo(exporter);
@@ -2367,7 +2367,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SSS")
                         .input('B', BlockRegistryME.TREATED_STEEL_BARS)
                         .input('C', Items.CAMPFIRE)
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .criterion(hasItem(Items.CAMPFIRE),
                                 conditionsFromItem(Items.CAMPFIRE))
                         .offerTo(exporter);
@@ -2388,7 +2388,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SSS")
                         .input('B', BlockRegistryME.TREATED_STEEL_BARS)
                         .input('C', Items.CAMPFIRE)
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .criterion(hasItem(Items.CAMPFIRE),
                                 conditionsFromItem(Items.CAMPFIRE))
                         .offerTo(exporter);
@@ -2407,7 +2407,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("SCS")
                         .pattern("SSS")
                         .input('C', Items.CAMPFIRE)
-                        .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "steel_ingots")))
+                        .input('S', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("steel_ingots")))
                         .criterion(hasItem(Items.CAMPFIRE),
                                 conditionsFromItem(Items.CAMPFIRE))
                         .offerTo(exporter);
@@ -2452,7 +2452,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("V V")
                         .pattern("VSV")
                         .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
-                        .input('V', TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs")))
+                        .input('V', TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("wooden_vertical_slabs")))
                         .criterion(hasItem(Items.OAK_SLAB),
                                 conditionsFromItem(Items.OAK_SLAB))
                         .offerTo(exporter);
@@ -2588,10 +2588,10 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 CookingRecipeJsonBuilder.createSmoking(Ingredient.ofTag(itemLookup.getOrThrow(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))), RecipeCategory.BUILDING_BLOCKS, WoodBlockSetRegistryME.SCORCHED_SET.planksBlocks.base(), 0.0f, 100)
                         .criterion(hasItem(Items.OAK_PLANKS),
-                                conditionsFromItem(Items.OAK_PLANKS)).offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(WoodBlockSetRegistryME.SCORCHED_SET.planksBlocks.base()).getPath() + "_from_smoking")));
+                                conditionsFromItem(Items.OAK_PLANKS)).offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(WoodBlockSetRegistryME.SCORCHED_SET.planksBlocks.base()).getPath() + "_from_smoking")));
                 CookingRecipeJsonBuilder.createSmoking(Ingredient.ofTag(itemLookup.getOrThrow(TagKey.of(RegistryKeys.ITEM, Identifier.of("logs")))), RecipeCategory.BUILDING_BLOCKS, WoodBlockSetRegistryME.SCORCHED_SET.logBlocks.log(), 0.0f, 100)
                         .criterion(hasItem(Items.OAK_LOG),
-                                conditionsFromItem(Items.OAK_LOG)).offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(WoodBlockSetRegistryME.SCORCHED_SET.logBlocks.log()).getPath() + "_from_smoking")));
+                                conditionsFromItem(Items.OAK_LOG)).offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(WoodBlockSetRegistryME.SCORCHED_SET.logBlocks.log()).getPath() + "_from_smoking")));
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, NatureBlockRegistryME.SHORT_ICICLES, 4)
                         .pattern("III")
@@ -2617,7 +2617,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('T', ResourceItemsME.TIN_INGOT)
                         .criterion(hasItem(ResourceItemsME.TIN_INGOT),
                                 conditionsFromItem(ResourceItemsME.TIN_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.BUCKET).getPath() + "_alt")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(Items.BUCKET).getPath() + "_alt")));
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Items.CAULDRON, 1)
                         .pattern("T T")
@@ -2627,7 +2627,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('B', BlockRegistryME.TIN_BLOCK)
                         .criterion(hasItem(ResourceItemsME.TIN_INGOT),
                                 conditionsFromItem(ResourceItemsME.TIN_INGOT))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(Items.CAULDRON).getPath() + "_alt")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(Items.CAULDRON).getPath() + "_alt")));
 
                 createCenterSurroundRecipe(exporter, Blocks.TUFF.asItem(), Items.RAW_COPPER, StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base().asItem(), 8);
                 createCenterSurroundRecipe(exporter, StoneBlockSetRegistryME.SLATE_SET.baseBlocks.base().asItem(), Items.RAW_COPPER, StoneBlockSetRegistryME.KHAGALABAN_SET.baseBlocks.base().asItem(), 8);
@@ -2803,37 +2803,37 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(DecorativeBlockRegistryME.COPPER_TREASURE_HEAP_LAYER)
                         .criterion(hasItem(DecorativeBlockRegistryME.COPPER_TREASURE_HEAP_LAYER),
                                 conditionsFromItem(DecorativeBlockRegistryME.COPPER_TREASURE_HEAP_LAYER))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "copper_coin_from_treasure")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("copper_coin_from_treasure")));
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ResourceItemsME.SILVER_COIN, 3)
                         .input(DecorativeBlockRegistryME.SILVER_TREASURE_HEAP_LAYER)
                         .criterion(hasItem(DecorativeBlockRegistryME.SILVER_TREASURE_HEAP_LAYER),
                                 conditionsFromItem(DecorativeBlockRegistryME.SILVER_TREASURE_HEAP_LAYER))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "silver_coin_from_treasure")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("silver_coin_from_treasure")));
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ResourceItemsME.GOLD_COIN, 3)
                         .input(DecorativeBlockRegistryME.GOLD_TREASURE_HEAP_LAYER)
                         .criterion(hasItem(DecorativeBlockRegistryME.GOLD_TREASURE_HEAP_LAYER),
                                 conditionsFromItem(DecorativeBlockRegistryME.GOLD_TREASURE_HEAP_LAYER))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_treasure")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("gold_nugget_from_treasure")));
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ResourceItemsME.COPPER_COIN, 4)
                         .input(DecorativeBlockRegistryME.COPPER_COIN_PILE)
                         .criterion(hasItem(DecorativeBlockRegistryME.COPPER_COIN_PILE),
                                 conditionsFromItem(DecorativeBlockRegistryME.COPPER_COIN_PILE))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "copper_coin_from_pile")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("copper_coin_from_pile")));
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ResourceItemsME.SILVER_COIN, 4)
                         .input(DecorativeBlockRegistryME.SILVER_COIN_PILE)
                         .criterion(hasItem(DecorativeBlockRegistryME.SILVER_COIN_PILE),
                                 conditionsFromItem(DecorativeBlockRegistryME.SILVER_COIN_PILE))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "silver_coin_from_pile")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("silver_coin_from_pile")));
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, ResourceItemsME.GOLD_COIN, 4)
                         .input(DecorativeBlockRegistryME.GOLD_COIN_PILE)
                         .criterion(hasItem(DecorativeBlockRegistryME.GOLD_COIN_PILE),
                                 conditionsFromItem(DecorativeBlockRegistryME.GOLD_COIN_PILE))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "gold_nugget_from_pile")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("gold_nugget_from_pile")));
 
                 ShapelessRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, NatureBlockRegistryME.SHORT_BULRUSH, 2)
                         .input(NatureBlockRegistryME.TALL_BULRUSH)
@@ -2869,7 +2869,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(DecorativeBlockRegistryME.POT_OF_GOLD)
                         .criterion(hasItem(DecorativeBlockRegistryME.POT_OF_GOLD),
                                 conditionsFromItem(DecorativeBlockRegistryME.POT_OF_GOLD))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "gold_from_pot_of_gold")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id("gold_from_pot_of_gold")));
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, WeaponItemsME.HELD_BANNER, 1)
                         .pattern("WWW")
@@ -3038,14 +3038,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(Items.VINE)
                         .criterion(hasItem(input),
                                 conditionsFromItem(input))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(output).getPath() + "_vine")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(output).getPath() + "_vine")));
 
                 ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.BUILDING_BLOCKS, output, 1)
                         .input(input)
                         .input(Blocks.MOSS_BLOCK)
                         .criterion(hasItem(input),
                                 conditionsFromItem(input))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(output).getPath() + "_moss")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(output).getPath() + "_moss")));
             }
 
             private void createSmeltingRecipe(RecipeExporter exporter, Item input, Item output) {
@@ -3059,7 +3059,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(input), RecipeCategory.BUILDING_BLOCKS, output, 0.1f, 200)
                         .criterion(hasItem(input),
                                 conditionsFromItem(input))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output).getPath() + "_from_smelting")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(output).getPath() + "_from_smelting")));
             }
 
             private void createMeltBulkRecipe(RecipeExporter exporter, Item input, String output) {
@@ -3075,20 +3075,20 @@ public class RecipeProvider extends FabricRecipeProvider {
                             .input(input)
                             .criterion(hasItem(input),
                                     conditionsFromItem(input))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_1_" + Registries.ITEM.getId(input).getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_1_" + Registries.ITEM.getId(input).getPath())));
                     case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2, 0)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(input),
                                     conditionsFromItem(input))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_2_" + Registries.ITEM.getId(input).getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_2_" + Registries.ITEM.getId(input).getPath())));
                     case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3,0)
                             .input(input)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(input),
                                     conditionsFromItem(input))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_3_" + Registries.ITEM.getId(input).getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_3_" + Registries.ITEM.getId(input).getPath())));
                     case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4, 0)
                             .input(input)
                             .input(input)
@@ -3096,7 +3096,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                             .input(input)
                             .criterion(hasItem(input),
                                     conditionsFromItem(input))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_4_" + Registries.ITEM.getId(input).getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_4_" + Registries.ITEM.getId(input).getPath())));
                 }
             }
 
@@ -3113,20 +3113,20 @@ public class RecipeProvider extends FabricRecipeProvider {
                             .input(input)
                             .criterion(hasItem(DecorativeItemsME.FORGE),
                                     conditionsFromItem(DecorativeItemsME.FORGE))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_1_" + input.id().getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_1_" + input.id().getPath())));
                     case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2, 0)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(DecorativeItemsME.FORGE),
                                     conditionsFromItem(DecorativeItemsME.FORGE))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_2_" + input.id().getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_2_" + input.id().getPath())));
                     case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3, 0)
                             .input(input)
                             .input(input)
                             .input(input)
                             .criterion(hasItem(DecorativeItemsME.FORGE),
                                     conditionsFromItem(DecorativeItemsME.FORGE))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_3_" + input.id().getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_3_" + input.id().getPath())));
                     case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4, 0)
                             .input(input)
                             .input(input)
@@ -3134,7 +3134,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                             .input(input)
                             .criterion(hasItem(DecorativeItemsME.FORGE),
                                     conditionsFromItem(DecorativeItemsME.FORGE))
-                            .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_4_" + input.id().getPath())));
+                            .offerTo(exporter, String.valueOf(MiddleEarth.id(output + "_from_melting_4_" + input.id().getPath())));
                 }
             }
 
@@ -3205,7 +3205,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(input)
                         .criterion(hasItem(input),
                                 conditionsFromItem(input))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.BLOCK.getId(input).getPath() + "_from_vertical")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.BLOCK.getId(input).getPath() + "_from_vertical")));
             }
 
             private void createVerticalSlabsRecipe(RecipeExporter exporter, Block input, Block output) {
@@ -3267,7 +3267,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('D', centerItem)
                         .criterion(hasItem(surroundInput),
                                 conditionsFromItem(surroundInput))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(output).getPath() + "_alt")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(output).getPath() + "_alt")));
             }
 
             private void createDyeableItemRecipe(RecipeExporter exporter, Block blockInput, Item dyeItem, Block output) {
@@ -3762,13 +3762,13 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(nugget, 9)
                         .criterion(hasItem(nugget),
                                 conditionsFromItem(nugget))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_nuggets")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(ingot).getPath() + "_from_nuggets")));
 
                 ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, nugget, 9)
                         .input(ingot)
                         .criterion(hasItem(ingot),
                                 conditionsFromItem(ingot))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(nugget).getPath() + "_from_ingot")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(nugget).getPath() + "_from_ingot")));
 
                 createFilledRecipe(exporter, ingot, block, 1);
 
@@ -3776,7 +3776,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(block)
                         .criterion(hasItem(block),
                                 conditionsFromItem(block))
-                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, Registries.ITEM.getId(ingot).getPath() + "_from_block")));
+                        .offerTo(exporter, String.valueOf(MiddleEarth.id(Registries.ITEM.getId(ingot).getPath() + "_from_block")));
             }
             //endregion
 

@@ -14,6 +14,6 @@ public class ActivitiesME {
     }
 
     public static void registerModActivities() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering ModActivities for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Activities");
     }
 }

@@ -187,7 +187,7 @@ public interface ArmorMaterialsME {
         for (EquipmentType type : EquipmentType.values()) {
             enumMap.put(type, defense.get(type));
         }
-        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, RegistryKey.of(REGISTRY_KEY, Identifier.of(MiddleEarth.MOD_ID, name)));
+        ArmorMaterial material =  new ArmorMaterial(durabilityMultiplier, enumMap, enchantability, equipSound, toughness, knockbackResistance, repairTag, RegistryKey.of(REGISTRY_KEY, MiddleEarth.id(name)));
         return new ExtendedArmorMaterial(material, durabilityMultiplier, tier);
     }
 

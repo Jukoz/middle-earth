@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
 
 public enum BackgroundContainerTypes {
-    FULLSCREEN_MAP(Identifier.of(MiddleEarth.MOD_ID,"textures/gui/map_background.png"), 5, 1, 209);
+    FULLSCREEN_MAP(MiddleEarth.id("textures/gui/map_background.png"), 5, 1, 209);
     public final Identifier textureId;
 
     public final int size;

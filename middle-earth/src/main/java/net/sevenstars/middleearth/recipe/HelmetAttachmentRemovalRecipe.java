@@ -36,7 +36,7 @@ public class HelmetAttachmentRemovalRecipe extends SpecialCraftingRecipe {
             } else if (itemStack.getItem() instanceof ShearsItem) {
                 defaultedList.set(i, itemStack.copyWithCount(1));
             }else if (itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA) != null){
-                ItemStack helmetAttachment = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachment().getName())));
+                ItemStack helmetAttachment = new ItemStack(Registries.ITEM.get(MiddleEarth.id(itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachment().getName())));
                 helmetAttachment.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA));
                 helmetAttachment.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(itemStack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachmentColor()));
                 defaultedList.set(i, helmetAttachment);

@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.gui.onboarding.onboarding_faction;
 
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
@@ -16,7 +17,9 @@ import java.util.*;
 // [TODO] Redo screen
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
-    private static final Text TITLE = Text.translatable("screen." + MiddleEarth.MOD_ID + ".onboarding_faction_screen");
+    private static final Text TITLE = Text.translatable(
+            MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "onboarding_faction_screen")
+    );
     private static final float DEFAULT_DELAY = 3;
 
     World world;

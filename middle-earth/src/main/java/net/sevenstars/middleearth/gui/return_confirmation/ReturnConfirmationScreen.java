@@ -8,6 +8,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToCurrentOverworldSpawn;
@@ -15,8 +16,10 @@ import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportTo
 import java.awt.event.KeyEvent;
 
 public class ReturnConfirmationScreen extends Screen {
-    private static final Text RETURN_CONFIRMATION_TITLE = Text.translatable("ui.%s.return_confirmation.title".formatted(MiddleEarth.MOD_ID));
-    private static final Identifier BUTTON_WIDGET = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/button_widget.png");
+    private static final Text RETURN_CONFIRMATION_TITLE = Text.translatable(
+            MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "return_confirmation.title")
+    );
+    private static final Identifier BUTTON_WIDGET = MiddleEarth.id("textures/gui/widget/button_widget.png");
     public ButtonWidget returnToOverworldButton;
     public ButtonWidget closeButton;
     float currentDelay;
@@ -30,7 +33,9 @@ public class ReturnConfirmationScreen extends Screen {
         ButtonWidget.PressAction returnToOverworldAction = button -> {
             returnToOverworld();
         };
-        returnToOverworldButton = ButtonWidget.builder(Text.translatable("ui.%s.return_confirmation.continue_character.title".formatted(MiddleEarth.MOD_ID)), returnToOverworldAction).build();
+        returnToOverworldButton = ButtonWidget.builder(Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "return_confirmation.continue_character.title")
+        ), returnToOverworldAction).build();
         addDrawableChild(returnToOverworldButton);
         if(currentDelay > 0)
             returnToOverworldButton.active = false;
@@ -70,7 +75,9 @@ public class ReturnConfirmationScreen extends Screen {
                     startX, startY,0, returnToOverworldButton.isFocused() || isMouseOver(startX, panelSizeX, startY, panelSizeY) ? 19 : 0,
                     panelSizeX, panelSizeY, 256, 256);
 
-            Text continueText = Text.translatable("ui.%s.return_confirmation.continue_character.content".formatted(MiddleEarth.MOD_ID));
+            Text continueText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "return_confirmation.continue_character.content")
+            );
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
                     startY + (int) ((panelSizeY / 2f) - (textRenderer.fontHeight / 2f)) + 1,

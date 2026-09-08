@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.Block;
@@ -115,6 +116,8 @@ public class ReinforcedChestBlockEntity extends ChestBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".reinforced_chest" );
+        return Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "reinforced_chest")
+        );
     }
 }

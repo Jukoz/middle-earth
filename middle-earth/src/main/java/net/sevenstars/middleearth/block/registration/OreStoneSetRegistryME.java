@@ -165,7 +165,7 @@ public class OreStoneSetRegistryME {
     }
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering OreSets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Ore Block Sets");
     }
 
     enum ORES{

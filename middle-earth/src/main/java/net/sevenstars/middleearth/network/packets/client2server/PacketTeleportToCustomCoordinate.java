@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class PacketTeleportToCustomCoordinate extends ClientToServerPacket<PacketTeleportToCustomCoordinate> {
-    public static final Id<PacketTeleportToCustomCoordinate> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_custom_spawn"));
+    public static final Id<PacketTeleportToCustomCoordinate> ID = new Id<>(MiddleEarth.id("packet_teleport_custom_spawn"));
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToCustomCoordinate> CODEC = PacketCodec.tuple(
             PacketCodecs.DOUBLE, p -> p.xCoordinate,
             PacketCodecs.DOUBLE, p -> p.yCoordinate,

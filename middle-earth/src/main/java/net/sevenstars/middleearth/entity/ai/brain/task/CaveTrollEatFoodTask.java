@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
     private long startTime;
-    public static TagKey<Item> TROLL_FOOD = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food"));
+    public static TagKey<Item> TROLL_FOOD = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("troll_food"));
 
     public CaveTrollEatFoodTask() {
         super(

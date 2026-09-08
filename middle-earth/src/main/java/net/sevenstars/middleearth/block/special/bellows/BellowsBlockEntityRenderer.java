@@ -98,6 +98,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
     private SpriteIdentifier getSpriteIdentifier(float animationProgress){
         int spriteState = (int) Math.max(0, Math.min(2, animationProgress * 7.5f));
         return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/bellows/bellows_" + spriteState));
+                MiddleEarth.idFilePath("model", "bellows", "bellows_" + spriteState)
+        );
     }
 }

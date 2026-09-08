@@ -22,6 +22,6 @@ public class DataWorldGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return MiddleEarth.MOD_ID;
+        return MiddleEarth.getModId();  // FIXME: might be a better way
     }
 }

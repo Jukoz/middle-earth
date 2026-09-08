@@ -1,12 +1,12 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.LoggerUtil;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
-import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.EntitiesME;
@@ -43,12 +43,12 @@ import net.sevenstars.middleearth.world.spawners.EntitySpawningME;
 
 public class MiddleEarth implements ModInitializer {
 	// [TODO] : Make the MOD_ID and OLD_MOD_ID Private, using dependencies and config files would be best.
-	public static final String MOD_ID = "middle-earth";
-	public static final String OLD_MOD_ID = "me";
-	public static final String MOD_VERSION = "1.0.0-1.21.8-beta";
+	private static final String MOD_ID = "middle-earth";
+	private static final String OLD_MOD_ID = "me";
+	private static final String MOD_VERSION = "1.0.0-1.21.8-beta";
 	public static final boolean IS_DEBUG = true;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
-	public static final LoggerUtil LOGGER = new LoggerUtil(MOD_ID, IS_DEBUG);
+	public static final LoggerUtil LOGGER = new LoggerUtil(getModId(), IS_DEBUG);
 
     @Override
 	public void onInitialize() {
@@ -59,8 +59,12 @@ public class MiddleEarth implements ModInitializer {
 
 		ServerNetworkHandlerME.register(new ConnectionToClient());
 		EventRegistryME.register();
-		ServerConfigME.registerConfigs();
-		ClientConfigME.registerConfigs();
+
+		// register on server start
+		// *** FABRIC EVENT ***
+		ServerLifecycleEvents.SERVER_STARTING.register(
+				server -> ServerConfigME.registerConfigs()
+		);
 
 		RecipesME.registerRecipes();
 		DataComponentTypesME.registerModComponentTypes();
@@ -140,36 +144,68 @@ public class MiddleEarth implements ModInitializer {
 		}
 	}
 
+	// Getter & Setter
+	public static String getModId() {
+		return MiddleEarth.MOD_ID;
+	}
+
+	public static String getOldModId() {
+		return MiddleEarth.OLD_MOD_ID;
+	}
+	public static String getModVersion() {
+		return MiddleEarth.MOD_VERSION;
+	}
+
 	// Logger
 	public static void logRegistryMsg(String registry) {
-		LOGGER.logDebugMsg("Registering Mod " +  registry + " for " + MOD_ID);
+		LOGGER.logDebugMsg("Registering Mod " +  registry + " for " + getModId());
 	}
+
 	// Identifiers
+	public static Identifier id(String namespace, String path) {
+		return IdentifierUtil.build(namespace, path);
+	}
+
+	/**
+	 * MiddleEarth.id(path) = MiddleEarth.id(path)
+	 */
 	public static Identifier id(String path){
-		return IdentifierUtil.build(MOD_ID, path);
+		return id(getModId(), path);
 	}
+
+	public static Identifier idOld(String path){
+		return id(getOldModId(), path);
+	}
+
 	public static Identifier idFilePath(String... names){
-		return IdentifierUtil.build(MOD_ID, stringAggregate('/', names));
+		return IdentifierUtil.build(getModId(), stringAggregate('/', names));
 	}
+
 	public static Identifier idVanilla(String... names){
 		return IdentifierUtil.ofVanilla(stringAggregate('/', names));
 	}
+
 	public static Identifier idAggregate(String... names){
-		return IdentifierUtil.buildAggregate(MOD_ID, names);
+		return IdentifierUtil.buildAggregate(getModId(), names);
 	}
+
 	public static String stringAggregate(char delimiter, String... names){
 		return IdentifierUtil.createAggregateValue(delimiter, names);
 	}
+
 	public static Identifier idAggregate(char delimiter, String... names){
-		return IdentifierUtil.build(MOD_ID, IdentifierUtil.createAggregateValue(delimiter, names));
+		return IdentifierUtil.build(getModId(), IdentifierUtil.createAggregateValue(delimiter, names));
 	}
+
 	public static Identifier ofId(String stringId){
 		return IdentifierUtil.getIdentifierFromString(stringId);
 	}
+
 	public static Identifier appendSuffix(Identifier base, String suffix) {
 		String id = base.toString();
 		return Identifier.of(id + suffix);
 	}
+
 	public static Identifier appendPrefix(Identifier base, Identifier prefixId) {
 		if(base == null)
 			return null;
@@ -177,14 +213,42 @@ public class MiddleEarth implements ModInitializer {
 	}
 
 	// Translation Keys
-	public static String rawTranslationKey(LangCategory category, String value){
-		return category.Prefix + "." + value;
+	// for Identifier value
+	public static String rawTranslationKey(String prefix, Identifier value){
+		return value.toTranslationKey(prefix);
 	}
 
 	public static String rawTranslationKey(LangCategory category, Identifier value){
-		return value.toTranslationKey(category.Prefix);
+		return rawTranslationKey(category.Prefix, value);
 	}
+
+	// for String value
 	public static String rawTranslationKey(String prefix, String value){
-		return prefix + "." + value;
+        if ("".equals(value)) {
+            return prefix;
+        }
+        return prefix + "." + value;
+    }
+	public static String rawTranslationKeyWithModId(String prefix, String value){
+		return rawTranslationKey(prefix + "." + getModId(), value);
+	}
+
+	public static String rawTranslationKey(LangCategory category, String value){
+		return rawTranslationKey(category.Prefix, value);
+	}
+
+	/**
+	 * <br/>Most common use,
+	 * <br/>to replace the string inside the Text.translatable()
+	 * <br/><br/>
+	 * <br/>Example:
+	 * <br/>		Text.translatable("some_category." + MOD_ID + ".something_else")
+	 * <br/>	    ->
+	 * <br/>	    Text.translatable(
+	 * <br/>	    	MiddleEarth.rawTranslationKeyWithModId(LangCategory.SOME, "something_else")
+	 * <br/>	    )
+	 */
+	public static String rawTranslationKeyWithModId(LangCategory category, String value){
+		return rawTranslationKey(category.Prefix + "." + getModId(), value);
 	}
 }

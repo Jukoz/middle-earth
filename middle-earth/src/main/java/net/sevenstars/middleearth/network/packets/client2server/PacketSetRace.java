@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 public class PacketSetRace extends ClientToServerPacket<PacketSetRace>
 {
-    public static final Id<PacketSetRace> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_set_race"));
+    public static final Id<PacketSetRace> ID = new Id<>(MiddleEarth.id("packet_set_race"));
 
     public static final PacketCodec<RegistryByteBuf, PacketSetRace> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.race,

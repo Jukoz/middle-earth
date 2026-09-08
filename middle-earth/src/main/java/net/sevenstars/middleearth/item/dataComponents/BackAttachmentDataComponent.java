@@ -10,6 +10,7 @@ import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
@@ -77,6 +78,8 @@ public record BackAttachmentDataComponent(BackAttachmentsME backAttachment, int 
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        textConsumer.accept(Text.translatable("tooltip.%s.%s".formatted(MiddleEarth.MOD_ID, this.backAttachment().getName())).formatted(Formatting.GRAY));
+        textConsumer.accept(Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, this.backAttachment().getName())
+        ).formatted(Formatting.GRAY));
     }
 }

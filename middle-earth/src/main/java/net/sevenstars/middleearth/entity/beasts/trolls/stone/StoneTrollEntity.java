@@ -114,7 +114,7 @@ public class StoneTrollEntity extends TrollEntity {
     @Override
     protected boolean isAffectedByDaylight() {
         if (this.getWorld().isDay() && !this.getWorld().isClient()) {
-            if(this.getWorld().getBiome(getBlockPos()).isIn(TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_biome_in_darkness")))){
+            if(this.getWorld().getBiome(getBlockPos()).isIn(TagKey.of(RegistryKeys.BIOME, MiddleEarth.id("is_biome_in_darkness")))){
                 return false;
             }
             float f = this.getWorld().getBlockState(getBlockPos()).getAmbientOcclusionLightLevel(getWorld(), getBlockPos());

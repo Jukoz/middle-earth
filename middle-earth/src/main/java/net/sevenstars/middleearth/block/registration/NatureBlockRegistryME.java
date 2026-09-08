@@ -667,7 +667,7 @@ public class NatureBlockRegistryME {
     }
 
     static void registerBlockItem(String name, Block block) {
-        var item =  Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
+        var item =  Registry.register(Registries.ITEM, MiddleEarth.id(name),
                new BlockItem(block, new Item.Settings().registryKey(BlockRegistryME.keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
 
@@ -676,6 +676,6 @@ public class NatureBlockRegistryME {
     }
 
     public static void registerModBlocks() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Nature Blocks");
     }
 }

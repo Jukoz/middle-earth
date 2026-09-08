@@ -18,7 +18,7 @@ import net.sevenstars.of_beasts_and_wild_things.sound.SoundEventWT;
 import net.sevenstars.of_beasts_and_wild_things.world.gen.WorldGenerationWT;
 
 public class OfBeastsAndWildThings implements ModInitializer {
-	public static final String MOD_ID = "wild-things";
+	private static final String MOD_ID = "wild-things";
 	public static final boolean IS_DEBUG = true;
 	public static final LoggerUtil LOGGER = new LoggerUtil(MOD_ID, IS_DEBUG);
 	@Override
@@ -40,23 +40,29 @@ public class OfBeastsAndWildThings implements ModInitializer {
 	public static void logRegistryMsg(String registry) {
 		LOGGER.logDebugMsg("Registering Mod " +  registry + " for " + MOD_ID);
 	}
+
 	// Identifiers
 	public static Identifier id(String path){
 		return IdentifierUtil.build(MOD_ID, path);
 	}
+
 	public static Identifier idAggregate(String... names){
 		return IdentifierUtil.buildAggregate(MOD_ID, names);
 	}
+
 	public static String idAggregate(char delimiter, String... names){
 		return IdentifierUtil.createAggregateValue(delimiter, names);
 	}
+
 	public static Identifier ofId(String stringId){
 		return IdentifierUtil.getIdentifierFromString(stringId);
 	}
+
 	// Translation Keys
 	public static String translationKey(LangCategory category, String value){
 		return id(value).toTranslationKey(category.Prefix);
 	}
+
 	public static String translationKey(LangCategory category, Identifier value){
 		return value.toTranslationKey(category.Prefix);
 	}

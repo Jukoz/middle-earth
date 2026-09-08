@@ -11,7 +11,7 @@ import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 
 public class PacketStructureManagerRespawnEntities extends ClientToServerPacket<PacketStructureManagerRespawnEntities> {
-    public static final Id<PacketStructureManagerRespawnEntities> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_manager_respawn_entities"));
+    public static final Id<PacketStructureManagerRespawnEntities> ID = new Id<>(MiddleEarth.id("structure_manager_respawn_entities"));
 
     public static final PacketCodec<RegistryByteBuf, PacketStructureManagerRespawnEntities> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,

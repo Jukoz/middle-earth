@@ -252,7 +252,7 @@ public class ItemModelProvider extends FabricModelProvider {
     public final void registerPipeItemModels(ItemModelGenerator itemModelGenerator, Item item) {
         String path = Registries.ITEM.getId(item).getPath();
         ItemModel.Unbaked unbakedHand = ItemModels.basic(ModelIds.getItemModelId(item));
-        ItemModel.Unbaked unbakedSmokingHand = ItemModels.basic(Identifier.of(MiddleEarth.MOD_ID, "item/smoking_" + path));
+        ItemModel.Unbaked unbakedSmokingHand = ItemModels.basic(MiddleEarth.id("item/smoking_" + path));
         ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
 
         itemModelGenerator.output.accept(item, ItemModels.select(new DisplayContextProperty(),
@@ -367,7 +367,7 @@ public class ItemModelProvider extends FabricModelProvider {
     }
 
     public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {
-        Identifier identifierItem = Identifier.of(MiddleEarth.MOD_ID, "item/" + Registries.ITEM.getId(item).getPath());
+        Identifier identifierItem = MiddleEarth.id("item/" + Registries.ITEM.getId(item).getPath());
 
         Identifier identifier2 = TextureMap.getId(item);
 
@@ -380,7 +380,7 @@ public class ItemModelProvider extends FabricModelProvider {
             Identifier identifier4 = identifierItem.withSuffixedPath("_" + trimMaterial.assets().base().suffix() + "_trim");
 
             itemModelGenerator.uploadArmor(identifier4, identifier2,
-                    Identifier.of(MiddleEarth.MOD_ID, "trims/" + identifierItem.getPath().replaceAll("item", "items") + "_trim" + "_" + trimMaterial.assets().base().suffix()));
+                    MiddleEarth.id("trims/" + identifierItem.getPath().replaceAll("item", "items") + "_trim" + "_" + trimMaterial.assets().base().suffix()));
             unbaked = ItemModels.basic(identifier4);
         }
 

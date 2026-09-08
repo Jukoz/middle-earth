@@ -31,7 +31,7 @@ public interface ItemSettingsME {
      * Middle-earth mod custom Settings for weapons
      */
 
-    Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
+    Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = MiddleEarth.id("entity_interaction_range");
 
     static Item.Settings createWeaponSettings(ToolMaterial material, Item.Settings settings, WeaponTypesME type){
         RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);

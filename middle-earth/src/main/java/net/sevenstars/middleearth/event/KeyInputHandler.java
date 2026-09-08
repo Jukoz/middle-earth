@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.event;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.network.packets.client2server.HoodStateTogglePacket;
 import net.minecraft.client.option.KeyBinding;
@@ -11,10 +12,10 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
 
-    public static final String ME_KEY_CATEGORY = "key.category.%s.%s".formatted(MiddleEarth.MOD_ID, MiddleEarth.MOD_ID);
-    public static final String ME_KEY_HOOD_STATE_TOGGLE = "key.%s.hood_state_toggle".formatted(MiddleEarth.MOD_ID);
-    public static final String ME_KEY_MAP_TELEPORT = "key.%s.map_teleport".formatted(MiddleEarth.MOD_ID);
-    public static final String ME_KEY_MAP_FULLSCREEN_TOGGLE = "key.%s.map_fullscreen_toggle".formatted(MiddleEarth.MOD_ID);
+    public static final String ME_KEY_CATEGORY = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY.Prefix + ".category", "");
+    public static final String ME_KEY_HOOD_STATE_TOGGLE = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY, "hood_state_toggle");
+    public static final String ME_KEY_MAP_TELEPORT = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY, "map_teleport");
+    public static final String ME_KEY_MAP_FULLSCREEN_TOGGLE = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY, "map_fullscreen_toggle");
 
     public static KeyBinding hoodStateToggleKey;
     // Used in MapScreen

@@ -298,6 +298,6 @@ public class BiomeKeyRegistryME extends BiomeKeys {
     }
 
     public static void registerModBiomes() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering ModBiomes for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Biomes");
     }
 }

@@ -100,7 +100,7 @@ public class WargEntity extends AbstractBeastEntity {
         this.goalSelector.add(3, new MeleeAttackGoal(this, 2, false));
         this.goalSelector.add(4, new ChargeAttackGoal(this, this.getDisposition(), maxChargeCooldown()));
         this.goalSelector.add(5, new AnimalMateGoal(this, 1.5));
-        this.goalSelector.add(6, new TemptGoal(this, 0.9, (stack) ->  stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food"))), false));
+        this.goalSelector.add(6, new TemptGoal(this, 0.9, (stack) ->  stack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("warg_food"))), false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 0.5));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0f));
         this.goalSelector.add(9, new LookAroundGoal(this));
@@ -248,7 +248,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("warg_food")));
     }
 
     @Override
@@ -349,7 +349,7 @@ public class WargEntity extends AbstractBeastEntity {
     }
     @Override
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")));
     }
 
     @Override
@@ -438,7 +438,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     //@Override
     public boolean isHorseArmor(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_armor")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("warg_armor")));
     }
 
     public boolean hasCharged() {
@@ -451,7 +451,7 @@ public class WargEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "warg_food")));
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("warg_food")));
     }
 
     @Override

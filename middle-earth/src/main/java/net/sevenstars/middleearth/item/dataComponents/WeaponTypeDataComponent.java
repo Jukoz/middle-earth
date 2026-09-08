@@ -11,6 +11,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.armor.ArmorMaterialsME;
 
@@ -28,8 +29,12 @@ public record WeaponTypeDataComponent(String type) implements TooltipAppender {
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        textConsumer.accept(Text.translatable("tooltip.%s.type".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GOLD)
-                .append(Text.translatable("tooltip.%s.%s".formatted(MiddleEarth.MOD_ID, this.type)).formatted(Formatting.WHITE)));
+        textConsumer.accept(Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "type")
+                ).formatted(Formatting.GOLD)
+                .append(Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, this.type)
+                ).formatted(Formatting.WHITE)));
     }
 
     @Override

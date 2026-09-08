@@ -36,7 +36,7 @@ public class BackAttachmentRemovalRecipe extends SpecialCraftingRecipe {
             } else if (itemStack.getItem() instanceof ShearsItem) {
                 defaultedList.set(i, itemStack.copyWithCount(1));
             } else if (itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA) != null){
-                ItemStack backAttachment = new ItemStack(Registries.ITEM.get(Identifier.of(MiddleEarth.MOD_ID, itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachment().getName())));
+                ItemStack backAttachment = new ItemStack(Registries.ITEM.get(MiddleEarth.id(itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachment().getName())));
                 backAttachment.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA));
                 backAttachment.set(DataComponentTypes.DYED_COLOR, new DyedColorComponent(itemStack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA).backAttachmentColor()));
                 defaultedList.set(i, backAttachment);

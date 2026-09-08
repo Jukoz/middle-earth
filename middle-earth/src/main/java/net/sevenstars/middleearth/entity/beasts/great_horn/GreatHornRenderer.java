@@ -39,15 +39,15 @@ public class GreatHornRenderer extends AgeableMobEntityRenderer<GreatHornEntity,
     public static final Map<GreatHornVariantDep, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(GreatHornVariantDep.class), (map) -> {
                 map.put(GreatHornVariantDep.BROWN,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "brown_great_horn.png"));
+                        MiddleEarth.id(PATH + "brown_great_horn.png"));
                 map.put(GreatHornVariantDep.TEMPERATE,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "temperate_great_horn.png"));
+                        MiddleEarth.id(PATH + "temperate_great_horn.png"));
                 map.put(GreatHornVariantDep.COLD,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "cold_great_horn.png"));
+                        MiddleEarth.id(PATH + "cold_great_horn.png"));
                 map.put(GreatHornVariantDep.WARM,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warm_great_horn.png"));
+                        MiddleEarth.id(PATH + "warm_great_horn.png"));
                 map.put(GreatHornVariantDep.WHITE,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "white_great_horn.png"));
+                        MiddleEarth.id(PATH + "white_great_horn.png"));
 
             });
 

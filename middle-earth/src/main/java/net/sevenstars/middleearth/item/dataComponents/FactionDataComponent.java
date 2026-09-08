@@ -13,6 +13,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.utils.ColorsME;
@@ -61,12 +62,16 @@ public class FactionDataComponent implements TooltipAppender {
     }
 
     private void appendFaction(Consumer<Text> textConsumer, RegistryKey<Faction> faction){
-        textConsumer.accept(Text.translatable("tooltip.%s.faction".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GOLD)
+        textConsumer.accept(Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "faction")
+                ).formatted(Formatting.GOLD)
                 .append(Text.translatable(faction.getValue().toTranslationKey("faction")).formatted(Formatting.WHITE)));
     }
 
     private void appendSubfaction(Consumer<Text> textConsumer, RegistryKey<Faction> faction){
-        textConsumer.accept(Text.translatable("tooltip.%s.sub_faction".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GRAY)
+        textConsumer.accept(Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "sub_faction")
+                ).formatted(Formatting.GRAY)
                 .append(Text.translatable(faction.getValue().toTranslationKey("faction")).formatted(Formatting.WHITE)));
     }
 

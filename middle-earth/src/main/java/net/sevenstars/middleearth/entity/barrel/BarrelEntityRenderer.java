@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import org.joml.Quaternionf;
 
 public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntityRenderState> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/reinforced_barrel/reinforced_barrel.png");
+    private static final Identifier TEXTURE = MiddleEarth.id("textures/entities/reinforced_barrel/reinforced_barrel.png");
     private ModelPart modelPart;
     private final Model waterMaskModel;
 

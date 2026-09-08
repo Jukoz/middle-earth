@@ -538,6 +538,6 @@ public class StoneBlockSetRegistryME {
     }
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Stone Block Sets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Stone Block Sets");
     }
 }

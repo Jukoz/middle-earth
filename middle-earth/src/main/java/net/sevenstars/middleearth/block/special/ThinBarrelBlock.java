@@ -10,6 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,9 @@ public class ThinBarrelBlock extends BarrelBlock {
         return new BarrelBlockEntity(pos, state){
             @Override
             protected Text getContainerName() {
-                return Text.translatable("container.%s.thin_barrel".formatted(MiddleEarth.MOD_ID));
+                return Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONTAINER, "thin_barrel")
+                );
             }
         };
     }

@@ -7,6 +7,7 @@ import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.inventory.CraftingResultInventory;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
@@ -39,7 +40,7 @@ import java.util.List;
 
 @Environment(value= EnvType.CLIENT)
 public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler> implements ScreenHandlerListener {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/artisan_table.png");
+    private static final Identifier TEXTURE = MiddleEarth.id("textures/gui/artisan_table.png");
     public static final int SLOT_SCALE = 18;
     public static final int SLOT_OFFSET_X = 12;
     public static final int SLOT_OFFSET_Y = 15;
@@ -382,6 +383,8 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     }
 
     private static Text getTabTranslation(String tab) {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".artisan_table." + tab);
+        return Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "artisan_table." + tab)
+        );
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class PacketTeleportToDynamicWorldCoordinate extends ClientToServerPacket<PacketTeleportToDynamicWorldCoordinate> {
-    public static final Id<PacketTeleportToDynamicWorldCoordinate> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_dynamic_world_coordinate"));
+    public static final Id<PacketTeleportToDynamicWorldCoordinate> ID = new Id<>(MiddleEarth.id("packet_teleport_dynamic_world_coordinate"));
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToDynamicWorldCoordinate> CODEC = PacketCodec.tuple(
             PacketCodecs.DOUBLE, p -> p.xCoordinate,
             PacketCodecs.DOUBLE, p -> p.zCoordinate,

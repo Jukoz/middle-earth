@@ -84,7 +84,7 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
         if (metal.isVanilla()){
             return Identifier.of(metal.getName());
         } else {
-            return Identifier.of(MiddleEarth.MOD_ID, metal.getName());
+            return MiddleEarth.id(metal.getName());
         }
     }
 
@@ -409,27 +409,27 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
 
                 ItemStack bronzeShieldBorder = new ItemStack(ResourceItemsME.SHIELD_BORDER);
                 bronzeShieldBorder.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                        Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BRONZE.getName()))), getPattern()));
+                        MiddleEarth.id(MetalTypes.BRONZE.getName()))), getPattern()));
 
                 ItemStack crudeShieldBorder = new ItemStack(ResourceItemsME.SHIELD_BORDER);
                 crudeShieldBorder.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                        Identifier.of(MiddleEarth.MOD_ID, MetalTypes.CRUDE.getName()))), getPattern()));
+                        MiddleEarth.id(MetalTypes.CRUDE.getName()))), getPattern()));
 
                 ItemStack steelShieldPlate = new ItemStack(ResourceItemsME.SHIELD_PLATE);
                 steelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                        Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+                        MiddleEarth.id(MetalTypes.STEEL.getName()))), getPattern()));
 
                 ItemStack edhelSteelShieldPlate = new ItemStack(ResourceItemsME.SHIELD_PLATE);
                 edhelSteelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                        Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
+                        MiddleEarth.id(MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
 
                 ItemStack khazadSteelShieldPlate = new ItemStack(ResourceItemsME.SHIELD_PLATE);
                 khazadSteelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                        Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
+                        MiddleEarth.id(MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
 
                 ItemStack burzumSteelShieldPlate = new ItemStack(ResourceItemsME.SHIELD_PLATE);
                 burzumSteelShieldPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                        Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
+                        MiddleEarth.id(MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, Items.SHIELD.getDefaultStack(), "medium_shield", DispositionType.NEUTRAL, XP_MEDIUM_SHIELD)
                         .input(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))

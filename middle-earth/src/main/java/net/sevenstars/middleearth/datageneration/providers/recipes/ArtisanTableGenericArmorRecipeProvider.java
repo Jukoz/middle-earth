@@ -77,7 +77,7 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
         if (metal.isVanilla()){
             return Identifier.of(metal.getName());
         } else {
-            return Identifier.of(MiddleEarth.MOD_ID, metal.getName());
+            return MiddleEarth.id(metal.getName());
         }
     }
 
@@ -89,67 +89,67 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
 
         ItemStack silverArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         silverArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.SILVER.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.SILVER.getName()))), getPattern()));
 
         ItemStack bronzeChainmail = new ItemStack(ResourceItemsME.MAIL);
         bronzeChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BRONZE.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.BRONZE.getName()))), getPattern()));
         ItemStack crudeChainmail = new ItemStack(ResourceItemsME.MAIL);
         crudeChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.CRUDE.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.CRUDE.getName()))), getPattern()));
 
 
         ItemStack steelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         steelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.STEEL.getName()))), getPattern()));
         ItemStack steelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
         steelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.STEEL.getName()))), getPattern()));
         ItemStack steelChainmail = new ItemStack(ResourceItemsME.MAIL);
         steelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.STEEL.getName()))), getPattern()));
         ItemStack steelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
         steelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.STEEL.getName()))), getPattern()));
 
         ItemStack edhelSteelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         edhelSteelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
         ItemStack edhelSteelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
         edhelSteelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
         ItemStack edhelSteelChainmail = new ItemStack(ResourceItemsME.MAIL);
         edhelSteelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
         ItemStack edhelSteelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
         edhelSteelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.EDHEL_STEEL.getName()))), getPattern()));
 
         ItemStack khazadSteelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         khazadSteelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
         ItemStack khazadSteelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
         khazadSteelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
         ItemStack khazadSteelChainmail = new ItemStack(ResourceItemsME.MAIL);
         khazadSteelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
         ItemStack khazadSteelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
         khazadSteelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.KHAZAD_STEEL.getName()))), getPattern()));
 
         ItemStack burzumSteelArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         burzumSteelArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
         ItemStack burzumSteelHelmetPlate = new ItemStack(ResourceItemsME.HELMET_PLATE);
         burzumSteelHelmetPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
         ItemStack burzumSteelChainmail = new ItemStack(ResourceItemsME.MAIL);
         burzumSteelChainmail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
         ItemStack burzumSteelScaleMail = new ItemStack(ResourceItemsME.SCALE_MAIL);
         burzumSteelScaleMail.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.BURZUM_STEEL.getName()))), getPattern()));
 
         ItemStack ironArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         ironArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -163,10 +163,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
 
         ItemStack bronzeArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         bronzeArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.BRONZE.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.BRONZE.getName()))), getPattern()));
         ItemStack crudeArmorPlate = new ItemStack(ResourceItemsME.ARMOR_PLATE);
         crudeArmorPlate.set(DataComponentTypes.TRIM, new ArmorTrim(getArmorTrimMaterialsRegistry().getOrThrow(RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
-                Identifier.of(MiddleEarth.MOD_ID, MetalTypes.CRUDE.getName()))), getPattern()));
+                MiddleEarth.id(MetalTypes.CRUDE.getName()))), getPattern()));
 
         return new RecipeGenerator(wrapperLookup, recipeExporter) {
             @Override
@@ -1517,21 +1517,21 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_CAPE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FABRIC)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .criterion(hasItem(ResourceItemsME.FABRIC),
                                 conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.ORCISH_LONG_CAPE.getDefaultStack(), "back_attachment", DispositionType.EVIL)
                         .input(ResourceItemsME.FABRIC)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
@@ -1559,10 +1559,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(ResourceItemsME.FUR)
                         .input(Items.STRING)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(Items.STRING)
                         .criterion(hasItem(ResourceItemsME.FUR),
                                 conditionsFromItem(ResourceItemsME.FUR))
@@ -1573,10 +1573,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(ResourceItemsME.FUR)
                         .input(Items.STRING)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(Items.STRING)
                         .criterion(hasItem(ResourceItemsME.FUR),
                                 conditionsFromItem(ResourceItemsME.FUR))
@@ -1587,10 +1587,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(ResourceItemsME.FUR)
                         .input(Items.STRING)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(Items.STRING)
                         .criterion(hasItem(ResourceItemsME.FUR),
                                 conditionsFromItem(ResourceItemsME.FUR))
@@ -1601,10 +1601,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(ResourceItemsME.FUR)
                         .input(Items.STRING)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(Items.STRING)
                         .criterion(hasItem(ResourceItemsME.FUR),
                                 conditionsFromItem(ResourceItemsME.FUR))
@@ -1615,10 +1615,10 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
                         .input(ResourceItemsME.FUR)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(ResourceItemsME.FUR)
                         .input(Items.STRING)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(Items.STRING)
                         .criterion(hasItem(ResourceItemsME.FUR),
                                 conditionsFromItem(ResourceItemsME.FUR))
@@ -1793,11 +1793,11 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR.getDefaultStack(), "mount_armor", DispositionType.EVIL)
                         .input(Items.LEATHER)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(EquipmentItemsME.WARG_LEATHER_ARMOR)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(Items.LEATHER)
-                        .input(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")))
                         .input(Items.LEATHER)
                         .criterion(hasItem(EquipmentItemsME.WARG_LEATHER_ARMOR),
                                 conditionsFromItem(EquipmentItemsME.WARG_LEATHER_ARMOR))

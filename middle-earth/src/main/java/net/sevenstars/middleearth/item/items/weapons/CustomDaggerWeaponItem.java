@@ -20,7 +20,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class CustomDaggerWeaponItem extends ReachWeaponItem {
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
+    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = MiddleEarth.id("entity_interaction_range");
     private static final int SNEAK_ATTACK_TIME = 40;
 
     public CustomDaggerWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {

@@ -1152,6 +1152,6 @@ public class WeaponItemsME {
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Weapon Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Weapon Items");
     }
 }

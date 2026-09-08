@@ -239,7 +239,7 @@ public class CharacterMaterialsRegistryME {
     }
     private static void register(Registerable<CharacterTextureMaterial> registerable, RegistryKey<CharacterTextureMaterial> registryKey, CharacterTextureMaterial content, RegistryKey<Registry<CharacterTextureMaterial>> registryRegistryKey) {
         String name = registryKey.getValue().getPath();
-        RegistryKey<CharacterTextureMaterial> key = RegistryKey.of(registryRegistryKey,Identifier.of(MiddleEarth.MOD_ID,name));
+        RegistryKey<CharacterTextureMaterial> key = RegistryKey.of(registryRegistryKey,MiddleEarth.id(name));
         registerable.register(key, content);
     }
 

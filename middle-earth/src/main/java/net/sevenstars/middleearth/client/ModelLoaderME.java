@@ -31,14 +31,14 @@ public class ModelLoaderME extends ModelBaker {
     }
 
     static {
-        KITE_SHIELD_BASE = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, "entity/kite_shield_base"));
-        KITE_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, "entity/kite_shield_base_nopattern"));
+        KITE_SHIELD_BASE = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idFilePath("entity", "kite_shield_base"));
+        KITE_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idFilePath("entity", "kite_shield_base_nopattern"));
 
-        HEATER_SHIELD_BASE = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, "entity/heater_shield_base"));
-        HEATER_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, "entity/heater_shield_base_nopattern"));
+        HEATER_SHIELD_BASE = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idFilePath("entity", "heater_shield_base"));
+        HEATER_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idFilePath("entity", "heater_shield_base_nopattern"));
 
-        ROUND_SHIELD_BASE = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, "entity/round_shield_base"));
-        ROUND_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of(MiddleEarth.MOD_ID, "entity/round_shield_base_nopattern"));
+        ROUND_SHIELD_BASE = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idFilePath("entity", "round_shield_base"));
+        ROUND_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idFilePath("entity", "round_shield_base_nopattern"));
     }
 
 }

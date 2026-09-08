@@ -78,10 +78,10 @@ public class DataComponentTypesME {
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.DATA_COMPONENT_TYPE, id));
-        return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), ((ComponentType.Builder)builderOperator.apply(ComponentType.builder())).build());
+        return Registry.register(Registries.DATA_COMPONENT_TYPE, MiddleEarth.id(id), ((ComponentType.Builder)builderOperator.apply(ComponentType.builder())).build());
     }
 
     public static void registerModComponentTypes() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Component Types Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Component Types Items");
     }
 }
