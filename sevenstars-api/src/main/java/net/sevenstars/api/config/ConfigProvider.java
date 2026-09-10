@@ -35,7 +35,7 @@ public class ConfigProvider implements net.sevenstars.api.config.SimpleConfig.De
     }
     public void addKeyValuePair(Pair<String, ?> keyValuePair, String acceptedValues) {
         configsList.add(keyValuePair);
-        addDescription("Accept values: " + acceptedValues + " | Default: " + keyValuePair.getSecond());
+        addDescription("Accept values: " + acceptedValues + " | Default: " + keyValuePair.getSecond());  // TODO: translatable
         configContents += VALUE_PREFIX + keyValuePair.getFirst() + "=" + keyValuePair.getSecond() + "\n";
     }
 

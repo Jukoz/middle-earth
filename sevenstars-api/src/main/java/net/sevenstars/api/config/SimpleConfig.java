@@ -260,7 +260,7 @@ public class SimpleConfig {
         try {
             loadConfig();
         } catch (IOException e) {
-            SevenStarsApi.LOGGER.logError("Config '" + this.request.filename + "' failed to reload!", e);
+            SevenStarsApi.logger().logError("Config '" + this.request.filename + "' failed to reload!", e);
             this.broken = true;
             this.config = oldConfig;
         }
