@@ -24,6 +24,6 @@ public class SchedulesAPI {
     }
 
     public static void register() {
-        SevenStarsApi.INSTANCE.logRegistryMessage("Schedules");
+        SevenStarsApi.logRegistryMessage("Schedules");
     }
 }

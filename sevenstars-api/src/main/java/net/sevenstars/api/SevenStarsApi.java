@@ -6,10 +6,8 @@ import net.sevenstars.api.registries.brain.SchedulesAPI;
 import net.sevenstars.api.registries.brain.SensorsAPI;
 
 public class SevenStarsApi extends AbstractModInitializer {
-	public static final SevenStarsApi INSTANCE = new SevenStarsApi();
-
 	public SevenStarsApi() {
-		super("sevenstars-api");
+		super("sevenstars-api", false);
 	}
 
 	@Override

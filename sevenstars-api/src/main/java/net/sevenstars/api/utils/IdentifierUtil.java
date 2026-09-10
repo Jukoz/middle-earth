@@ -1,6 +1,7 @@
 package net.sevenstars.api.utils;
 
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.AbstractModInitializer;
 import net.sevenstars.api.SevenStarsApi;
 
 public class IdentifierUtil {
@@ -10,7 +11,7 @@ public class IdentifierUtil {
         if(id.contains(":") && id.split(":").length == 2){
             return Identifier.of(id.split(":")[0], id.split(":")[1]);
         }
-        return SevenStarsApi.INSTANCE.id(id + "_error");
+        return AbstractModInitializer.id(id + "_error");
     }
 
     public static Identifier build(String key, String name) {

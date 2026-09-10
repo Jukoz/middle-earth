@@ -22,7 +22,7 @@ public class DynamicRegistriesHH {
     public static final RegistryKey<Registry<Spawn>> SPAWN = of("spawn");
 
     public static void register() {
-        OfHallsAndHeralds.logRegistryMsg("Dynamic Registries");
+        OfHallsAndHeralds.logRegistryMessage("Dynamic Registries");
         DynamicRegistries.registerSynced(FACTION, Faction.CODEC);
         DynamicRegistries.registerSynced(BANNER, Banner.CODEC);
         DynamicRegistries.registerSynced(SPAWN, Spawn.CODEC);

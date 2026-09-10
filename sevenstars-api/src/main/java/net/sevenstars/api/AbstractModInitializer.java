@@ -2,63 +2,47 @@ package net.sevenstars.api;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
-import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.LoggerUtil;
 
 public abstract class AbstractModInitializer implements ModInitializer {
+    private static AbstractModInitializer INSTANCE;
+
     protected String modId;
-    protected boolean isDebug = true;
+    protected boolean isDebug;
     protected LoggerUtil logger;
     protected String modVersion = "1.0.2-1.21.8-beta";
 
-    protected AbstractModInitializer(String id) {
+    protected AbstractModInitializer(String id, boolean shouldBeDebug) {
         modId = id;
+        isDebug = shouldBeDebug;
         logger = new LoggerUtil(modId, isDebug);
+        INSTANCE = this;
     }
 
-    public LoggerUtil logger() {
-        return logger;
+    public static LoggerUtil logger() {
+        return INSTANCE.logger;
+    }
+    public static String namespace() {
+        return INSTANCE.modId;
+    }
+    public static Identifier id(String path) {
+        return IdentifierUtil.build(INSTANCE.modId, path);
     }
 
-    public String id() {
-        return modId;
+    public static Identifier idAggregate(String... names) {
+        return IdentifierUtil.buildAggregate(INSTANCE.modId, names);
     }
 
-    public boolean isDebug() {
-        return isDebug;
-    }
-
-    public String getModVersion() {
-        return modVersion;
-    }
-
-    public Identifier id(String path) {
-        return IdentifierUtil.build(modId, path);
-    }
-
-    public Identifier idAggregate(String... names) {
-        return IdentifierUtil.buildAggregate(modId, names);
-    }
-
-    public String idAggregate(char delimiter, String... names) {
-        return IdentifierUtil.createAggregateValue(delimiter, names);
+    public Identifier idAggregate(char delimiter, String... names) {
+        return id(IdentifierUtil.createAggregateValue(delimiter, names));
     }
 
     public Identifier ofId(String stringId) {
         return IdentifierUtil.getIdentifierFromString(stringId);
     }
 
-
-    // Translation Keys
-    public String translationKey(LangCategory category, String value){
-        return id(value).toTranslationKey(category.Prefix);
-    }
-    public String translationKey(LangCategory category, Identifier value){
-        return value.toTranslationKey(category.Prefix);
-    }
-
-    public void logRegistryMessage(String registry) {
-        logger.logDebugMsg("Registering Mod " +  registry + " for " + id());
+    public static void logRegistryMessage(String registry) {
+        INSTANCE.logger.logDebugMsg("Registering Mod " +  registry + " for " + id());
     }
 }

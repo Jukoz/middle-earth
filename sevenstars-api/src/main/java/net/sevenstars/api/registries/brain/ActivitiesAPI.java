@@ -14,6 +14,6 @@ public class ActivitiesAPI {
     }
 
     public static void register() {
-        SevenStarsApi.INSTANCE.logRegistryMessage("Activities");
+        SevenStarsApi.logRegistryMessage("Activities");
     }
 }
