@@ -36,11 +36,12 @@
   ],
   "client": [
     "client.AbstractClientPlayerEntityMixin",
-    "client.BlockElementDeserializerMixin",
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
+    "client.BlockElementDeserializerMixin",
     "client.HeldItemRendererMixin",
     "client.HumanoidArmorLayerMixin",
+    "client.ItemEntityRendererMixin",
     "client.ItemRendererMixin",
     "client.PlayerEntityRendererMixin"
   ],

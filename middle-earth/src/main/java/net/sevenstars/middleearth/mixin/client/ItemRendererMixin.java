@@ -26,17 +26,20 @@ public abstract class ItemRendererMixin {
                     target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;getModel(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;I)Lnet/minecraft/client/resources/model/BakedModel;"
             )
     )
-    private BakedModel middleEarth$resolveItemModel(
-            BakedModel original,
-            LivingEntity entity,
-            ItemStack stack,
-            ItemDisplayContext displayContext,
-            boolean leftHand,
-            PoseStack poseStack,
-            MultiBufferSource bufferSource,
-            Level level
-    ) {
+    private BakedModel middleEarth$resolveItemModel(BakedModel original, LivingEntity entity, ItemStack stack,
+                                                    ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack,
+                                                    MultiBufferSource bufferSource, Level level) {
         return ItemModelRenderStateClient.resolve(original, stack, displayContext, level, entity);
+    }
+
+    @ModifyExpressionValue(
+            method = "getModel", at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/client/renderer/block/model/ItemOverrides;resolve(Lnet/minecraft/client/resources/model/BakedModel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/world/entity/LivingEntity;I)Lnet/minecraft/client/resources/model/BakedModel;"
+            )
+    )
+    private BakedModel middleEarth$resolveGuiAndGeneralModel(BakedModel original, ItemStack stack, Level level,
+            LivingEntity entity, int seed) {
+        return ItemModelRenderStateClient.resolve(original, stack, ItemDisplayContext.GUI, level, entity);
     }
 
     @ModifyVariable(

@@ -52,13 +52,8 @@ public final class ItemModelRenderStateClient {
         BAKED_MODELS = Collections.unmodifiableMap(bakedModels);
     }
 
-    public static BakedModel resolve(
-            BakedModel original,
-            ItemStack stack,
-            ItemDisplayContext displayContext,
-            Level level,
-            LivingEntity entity
-    ) {
+    public static BakedModel resolve(BakedModel original, ItemStack stack, ItemDisplayContext displayContext,
+                                     Level level, LivingEntity entity) {
         BakedModels models = BAKED_MODELS.get(stack.getItem());
         if (models == null) {
             return original;
@@ -67,11 +62,19 @@ public final class ItemModelRenderStateClient {
         boolean flat = isFlat(displayContext);
         return switch (models.kind) {
             case FLAT_ITEM -> flat ? models.orElse(ModelRole.INVENTORY, original) : original;
-            case BIG_ITEM -> flat
-                    ? models.orElse(ModelRole.INVENTORY, original)
-                    : isUsing(stack, entity) && models.has(ModelRole.USING_HAND)
-                    ? models.get(ModelRole.USING_HAND)
-                    : original;
+            case BIG_ITEM -> {
+                    if(flat) {
+                        yield models.orElse(ModelRole.INVENTORY, original);
+                    } else {
+                        if(isUsing(stack, entity) && models.has(ModelRole.USING_HAND)) {
+                            yield models.get(ModelRole.USING_HAND);
+                        } else if(models.has(ModelRole.HAND)) {
+                            yield models.get(ModelRole.HAND);
+                        } else {
+                            yield original;
+                        }
+                    }
+            }
             case PIPE -> flat
                     ? models.orElse(ModelRole.INVENTORY, original)
                     : isUsing(stack, entity)
@@ -241,11 +244,9 @@ public final class ItemModelRenderStateClient {
             put(descriptors, item, new ModelDescriptor(kind, models));
         }
         for (Item item : SimpleSpearModel.items) {
-            put(
-                    descriptors,
-                    item,
-                    new ModelDescriptor(ModelKind.FLAT_ITEM, itemModels(item, ModelRole.INVENTORY))
-            );
+            EnumMap<ModelRole, ModelResourceLocation> models = itemModels(item, ModelRole.INVENTORY);
+            models.put(ModelRole.HAND, itemModel(item));
+            put(descriptors, item, new ModelDescriptor(ModelKind.BIG_ITEM, models));
         }
         for (SimpleArtefactModels.Artefact artefact : SimpleArtefactModels.artefacts) {
             put(descriptors, artefact.artefact(), artefactDescriptor(artefact));
@@ -343,6 +344,10 @@ public final class ItemModelRenderStateClient {
 
     private static ModelResourceLocation itemModel(Item item, String suffix) {
         return standalone(BuiltInRegistries.ITEM.getKey(item).withPrefix("item/").withSuffix(suffix));
+    }
+
+    private static ModelResourceLocation itemModel(Item item) {
+        return standalone(BuiltInRegistries.ITEM.getKey(item).withPrefix("item/"));
     }
 
     private static ModelResourceLocation standalone(ResourceLocation id) {
