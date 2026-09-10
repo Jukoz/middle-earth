@@ -1,11 +1,16 @@
 package net.sevenstars.api.enums;
 
-import net.minecraft.text.MutableText;
+import net.minecraft.util.Identifier;
 import net.sevenstars.api.AbstractModInitializer;
-import net.sevenstars.api.SevenStarsApi;
+import net.sevenstars.api.lang.LangKey;
+import net.sevenstars.api.lang.LangPrefix;
 
+/**
+ * hard-coded categories that a translation key may start with
+ *
+ * <p>for translation key, check {@link LangKey} for more details
+ */
 public enum LangCategory {
-    NONE(""),
 
     BUTTON("button"),
     TOOLTIP("tooltip"),
@@ -44,20 +49,75 @@ public enum LangCategory {
     WIDGET("widget"),
     SEASON("season"),
     CONFIG("config"),
+    KEY_CATEGORY("key", "category"),
 
     // compat
     EMI("emi"),
     REI("rei"),
-    MOD_MENU("modmenu");
+    MOD_MENU("modmenu"),
 
-    public String Prefix;
-    LangCategory(String prefix){
-        this.Prefix = prefix;
+    // DEFAULT
+    NONE("");
+
+    private final LangPrefix prefix;
+
+    LangCategory(String... segments) {
+        this.prefix = LangPrefix.of(segments);
     }
 
-    public String createKey(AbstractModInitializer modInitializer, String... names) {
-        return modInitializer
-                .id(modInitializer.idAggregate('.', names).toString())
-                .toTranslationKey(Prefix);
+    /**
+     * the whole 'prefix' part of a key, rather than just a single word 'category'
+     * <p> check {@link LangPrefix} for more details
+     */
+    public LangPrefix prefix() {
+        return prefix;
+    }
+
+    /**
+     * Builds {@code PREFIX.NAMESPACE.names...}.
+     * <p>Examples:
+     * <pre>{@code
+     * LangCategory.ITEM.createKey("middle-earth", "mithril")
+     * // item.middle-earth.mithril
+     *
+     * LangCategory.KEY_CATEGORY.createKey("middle-earth")
+     * // key.category.middle-earth
+     *
+     * LangCategory.ALERT.createKey("middle-earth", "seat", "occupied")
+     * // alert.middle-earth.seat.occupied
+     * }</pre>
+     */
+    public String createKey(String namespace, String... names) {
+        return LangKey.of(prefix, namespace, names);
+    }
+
+    /**
+     * shortcut to get MOD_ID from {@link Identifier}
+     * <p>especially for the situation that MOD_ID is private
+     * <p>Examples:
+     * <pre>
+     *     {@code
+     *     LangCategory.ITEM.createKey(MiddleEarth.id(ITEM_NAME), ITEM_NAME)
+     *     // item.middle-earth.<ITEM_NAME>
+     *     }
+     * </pre>
+     */
+    public String createKey(Identifier value, String... names) {
+        return createKey(value.getNamespace(), names);
+    }
+
+
+    /**
+     * shortcut to get both MOD_ID and path from {@link Identifier}
+     * <p>Examples:
+     * <pre>
+     *     {@code
+     *     LangCategory.ITEM.createKey(MiddleEarth.id("artisan_table"))
+     *     // item.middle-earth.artisan_table
+     *     }
+     * </pre>
+     */
+    public String createKey(Identifier value) {
+        return createKey(value, value.getPath());
     }
 }

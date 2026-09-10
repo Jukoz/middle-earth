@@ -3,6 +3,8 @@ package net.sevenstars.api.utils;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.lang.LangKey;
+import net.sevenstars.api.lang.LangPrefix;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +40,8 @@ public class TooltipUtil {
 
         for(int i = startIndex; i <= endIndex; i++){
             Identifier identifier = items.get(i);
-            String translationKey = translationKeyBase + "." + identifier.getPath();
+            // FIXME: guess the `translationKeyBase` might have a better name?
+            String translationKey = LangKey.of(LangPrefix.of(translationKeyBase), identifier);
             if (identifier.equals(items.get(currentIndex))){
                 textList.add(Text.literal(">").withColor(TOOLTIP_COLOR_BLUE).append(Text.translatable(translationKey).withColor(TOOLTIP_COLOR_WHITE)).asOrderedText());
             } else {
