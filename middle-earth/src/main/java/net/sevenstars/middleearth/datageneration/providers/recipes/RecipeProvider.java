@@ -2647,6 +2647,18 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                                 has(ModNatureBlocks.RESIN_CLUMP))
                         .save(recipeOutput);
 
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.YELLOW_DYE,       ResourceItemsME.YELLOW_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GRAY_DYE,         ResourceItemsME.BROWN_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GREEN_DYE,        ResourceItemsME.GREEN_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.BLUE_DYE,         ResourceItemsME.BLUE_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GRAY_DYE,         ResourceItemsME.GRAY_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.LIGHT_GRAY_DYE,   ResourceItemsME.LIGHT_GRAY_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.WHITE_DYE,        ResourceItemsME.WHITE_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.LIME_DYE,         ResourceItemsME.LIME_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.LIGHT_BLUE_DYE,   ResourceItemsME.LIGHT_BLUE_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.RED_DYE,          ResourceItemsME.RED_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.BLACK_DYE,        ResourceItemsME.BLACK_BUNDLE);
+
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")
                         .pattern("VGV")
@@ -3428,6 +3440,15 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                         .requires(dyeItem)
                         .unlockedBy(getHasName(blockInput),
                                 has(blockInput))
+                        .save(exporter);
+            }
+
+            private void createDyeableItemRecipe(RecipeOutput exporter, Item input, Item dyeItem, Item recipeOutput) {
+                ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, recipeOutput, 1)
+                        .requires(input)
+                        .requires(dyeItem)
+                        .unlockedBy(getHasName(input),
+                                has(input))
                         .save(exporter);
             }
 

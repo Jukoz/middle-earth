@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.2,
+  "ingredient": {
+    "tag": "minecraft:leaves"
+  },
+  "result": {
+    "id": "middle-earth:leaf_litter"
+  }
+}

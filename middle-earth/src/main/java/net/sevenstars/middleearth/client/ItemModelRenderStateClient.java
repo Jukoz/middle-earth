@@ -100,13 +100,7 @@ public final class ItemModelRenderStateClient {
         };
     }
 
-    private static BakedModel resolveBigBow(
-            BakedModel original,
-            BakedModels models,
-            ItemStack stack,
-            LivingEntity entity,
-            boolean flat
-    ) {
+    private static BakedModel resolveBigBow(BakedModel original, BakedModels models, ItemStack stack, LivingEntity entity, boolean flat) {
         if (!flat) {
             return original;
         }
