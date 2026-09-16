@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
@@ -39,11 +40,11 @@ public class PlayerRaceData {
         this.faction = faction;
     }
 
-    public Optional<RegistryEntry<Faction>> getCurrentFactionEntry(ServerWorld world) {
+    public Optional<RegistryEntry<Faction>> getCurrentFactionEntry(ServerPlayerEntity player) {
         if(this.faction == null)
             return Optional.empty();
 
-        Registry<Faction> registry = world.getRegistryManager().getOrThrow(DynamicRegistriesHH.FACTION);
+        Registry<Faction> registry = player.getRegistryManager().getOrThrow(DynamicRegistriesHH.FACTION);
         return Optional.ofNullable(registry.getEntry(registry.get(this.faction.getValue())));
     }
 }

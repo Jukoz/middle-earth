@@ -13,7 +13,7 @@ public abstract class AbstractModInitializer implements ModInitializer {
     protected LoggerUtil logger;
     protected String modVersion = "1.0.2-1.21.8-beta";
 
-    protected AbstractModInitializer(String id, boolean shouldBeDebug) {
+    protected void initialize(String id, boolean shouldBeDebug) {
         modId = id;
         isDebug = shouldBeDebug;
         logger = new LoggerUtil(modId, isDebug);

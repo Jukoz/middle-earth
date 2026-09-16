@@ -7,7 +7,7 @@ import net.sevenstars.api.registries.brain.SensorsAPI;
 
 public class SevenStarsApi extends AbstractModInitializer {
 	public SevenStarsApi() {
-		super("sevenstars-api", false);
+		initialize("sevenstars-api", false);
 	}
 
 	@Override
