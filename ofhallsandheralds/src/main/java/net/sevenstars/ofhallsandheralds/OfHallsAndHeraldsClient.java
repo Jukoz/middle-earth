@@ -8,7 +8,6 @@ import net.sevenstars.ofhallsandheralds.registries.custom.AtlasRegistryHH;
 public class OfHallsAndHeraldsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-
 		AtlasRegistryHH.registerAtlas();
 		ClientNetworkHandlerHH.register(new ConnectionToServer());
 	}
