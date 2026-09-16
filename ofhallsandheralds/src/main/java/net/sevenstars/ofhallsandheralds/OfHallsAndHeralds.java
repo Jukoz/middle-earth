@@ -9,7 +9,7 @@ import net.sevenstars.ofhallsandheralds.registries.custom.EventRegistryHH;
 
 public class OfHallsAndHeralds extends AbstractModInitializer {
 	public OfHallsAndHeralds() {
-		initialize("ofhallsandheralds", false);
+		initialize("ofhallsandheralds", true);
 	}
 
 	@Override

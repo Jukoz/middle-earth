@@ -58,7 +58,7 @@ public class FactionService {
             RegistryEntry<Faction> entry = factionRegistry.getEntry(key.getValue()).orElse(null);
             if(entry == null)
                 continue;
-            if(!entry.value().makeJoinable())
+            if(!entry.value().isJoinable())
                 continue;
             availableFactions.add(entry);
         }

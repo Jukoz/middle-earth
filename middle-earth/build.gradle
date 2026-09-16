@@ -2,7 +2,10 @@ repositories {
     maven { url "https://maven.shedaniel.me" }
     mavenCentral()
 }
-
+dependencies {
+    implementation project(path: ':sevenstars-api', configuration: 'dev')
+    implementation project(path: ':ofhillsanddells', configuration: 'dev')
+}
 dependencies {
     implementation project(path: ':sevenstars-api', configuration: 'dev')
     implementation project(path: ':of-beasts-and-wild-things', configuration: 'dev')
@@ -10,7 +13,7 @@ dependencies {
     implementation project(path: ':ofhillsanddells', configuration: 'dev')
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:20.0.811"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:20.0.811"
-    modImplementation(include("me.lucko:fabric-permissions-api:0.4.0"))
+    include(modImplementation('me.lucko:fabric-permissions-api:0.6.1'))
 }
 
 loom {

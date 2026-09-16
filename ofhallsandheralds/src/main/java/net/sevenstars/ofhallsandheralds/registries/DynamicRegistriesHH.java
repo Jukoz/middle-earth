@@ -11,6 +11,7 @@ import net.sevenstars.ofhallsandheralds.datageneration.providers.FactionProvider
 import net.sevenstars.ofhallsandheralds.datageneration.providers.SpawnProvider;
 import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.dtos.Banner;
+import net.sevenstars.ofhallsandheralds.dtos.FactionPalette;
 import net.sevenstars.ofhallsandheralds.dtos.Spawn;
 import net.sevenstars.ofhallsandheralds.registries.custom.BannerRegistryHH;
 import net.sevenstars.ofhallsandheralds.registries.custom.FactionRegistryHH;
@@ -20,6 +21,7 @@ public class DynamicRegistriesHH {
     public static final RegistryKey<Registry<Faction>> FACTION = of("faction");
     public static final RegistryKey<Registry<Banner>> BANNER = of("banner");
     public static final RegistryKey<Registry<Spawn>> SPAWN = of("spawn");
+    public static final RegistryKey<Registry<FactionPalette>> FACTION_PALETTE = of("faction_palette");
 
     public static void register() {
         OfHallsAndHeralds.logRegistryMessage("Dynamic Registries");

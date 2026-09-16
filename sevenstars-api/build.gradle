@@ -1,3 +1,11 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    include(modImplementation('me.lucko:fabric-permissions-api:0.6.1'))
+}
+
 configurations {
     dev {
         canBeResolved = false

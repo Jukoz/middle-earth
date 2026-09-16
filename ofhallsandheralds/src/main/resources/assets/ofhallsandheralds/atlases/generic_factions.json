@@ -1,0 +1,13 @@
+{
+  "sources": [
+    {
+      "type": "paletted_permutations",
+      "textures": [
+      ],
+      "palette_key": "ofhallsandheralds:faction_palettes/base_palette",
+      "permutations": {
+        "none": "ofhallsandheralds:faction_palettes/generic/none"
+      }
+    }
+  ]
+}

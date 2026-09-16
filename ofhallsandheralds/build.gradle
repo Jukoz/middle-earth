@@ -1,6 +1,11 @@
+repositories {
+	mavenCentral()
+}
+
 dependencies {
 	implementation project(path: ':sevenstars-api', configuration: 'dev')
 	implementation project(path: ':ofhillsanddells', configuration: 'dev')
+	include(modImplementation('me.lucko:fabric-permissions-api:0.6.1'))
 }
 
 // Ensure dependent projects generate their sources first.

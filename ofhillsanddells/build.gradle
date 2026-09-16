@@ -1,5 +1,10 @@
+repositories {
+	mavenCentral()
+}
+
 dependencies {
 	implementation project(path: ':sevenstars-api', configuration: 'dev')
+	include(modImplementation('me.lucko:fabric-permissions-api:0.6.1'))
 }
 
 // I really don't know why it tells me errors when I use genSources

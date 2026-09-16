@@ -11,7 +11,6 @@ public abstract class AbstractModInitializer implements ModInitializer {
     protected String modId;
     protected boolean isDebug;
     protected LoggerUtil logger;
-    protected String modVersion = "1.0.2-1.21.8-beta";
 
     protected void initialize(String id, boolean shouldBeDebug) {
         modId = id;
@@ -28,6 +27,9 @@ public abstract class AbstractModInitializer implements ModInitializer {
     }
     public static Identifier id(String path) {
         return IdentifierUtil.build(INSTANCE.modId, path);
+    }
+    public static Identifier ofPath(String... names) {
+        return IdentifierUtil.build(INSTANCE.modId, IdentifierUtil.createAggregateValue('/', names));
     }
 
     public static Identifier idAggregate(String... names) {
