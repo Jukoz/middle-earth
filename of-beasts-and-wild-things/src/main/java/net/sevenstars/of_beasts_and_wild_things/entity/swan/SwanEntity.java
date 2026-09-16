@@ -45,7 +45,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.api.registries.brain.MemoryModulesAPI;
-import net.sevenstars.api.registries.brain.SchedulesAPI;
+import net.sevenstars.api.registries.brain.TimelinesAPI;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
@@ -170,7 +170,7 @@ public class SwanEntity extends AnimalEntity {
             this.setAttacking(this.getTarget() != null);
 
             if(this.isBaby()) {
-                this.getBrain().setSchedule(SchedulesAPI.DEFAULT_BABY);
+                this.getBrain().setSchedule(TimelinesAPI.DEFAULT_BABY);
             }
             else if(this.isAttacking() && !this.isFighting()) {
                 this.getBrain().setSchedule(Schedule.EMPTY);
@@ -178,7 +178,7 @@ public class SwanEntity extends AnimalEntity {
                 this.setFighting(true);
             }
             else if (!this.isAttacking() && this.isFighting()) {
-                this.getBrain().setSchedule(SchedulesAPI.DEFAULT_SLEEP);
+                this.getBrain().setSchedule(TimelinesAPI.DEFAULT_SLEEP);
                 this.getBrain().forget(MemoryModuleType.LOOK_TARGET);
                 this.getBrain().forget(MemoryModuleType.WALK_TARGET);
                 this.getBrain().forget(MemoryModulesAPI.DEFENDING_HOME);

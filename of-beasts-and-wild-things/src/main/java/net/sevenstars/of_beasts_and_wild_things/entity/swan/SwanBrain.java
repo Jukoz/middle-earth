@@ -22,7 +22,7 @@ import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.sevenstars.api.registries.brain.ActivitiesAPI;
 import net.sevenstars.api.registries.brain.MemoryModulesAPI;
-import net.sevenstars.api.registries.brain.SchedulesAPI;
+import net.sevenstars.api.registries.brain.TimelinesAPI;
 import net.sevenstars.api.entity.ai.brain.task.DefendHomeTask;
 import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
 import net.sevenstars.api.entity.ai.brain.task.StrollAroundHomeTask;
@@ -54,7 +54,7 @@ public class SwanBrain {
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.FIGHT);
 
-        brain.setSchedule(SchedulesAPI.DEFAULT_SLEEP);
+        brain.setSchedule(TimelinesAPI.DEFAULT_SLEEP);
 
         brain.refreshActivities(swanEntity.getWorld().getTimeOfDay(), swanEntity.getWorld().getTime());
         return brain;

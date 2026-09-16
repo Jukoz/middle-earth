@@ -43,6 +43,6 @@ public abstract class AbstractModInitializer implements ModInitializer {
     }
 
     public static void logRegistryMessage(String registry) {
-        INSTANCE.logger.logDebugMsg("Registering Mod " +  registry + " for " + id());
+        INSTANCE.logger.logInfoMsg("Registering Mod " +  registry + " for " + AbstractModInitializer.namespace());
     }
 }

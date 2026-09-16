@@ -6,18 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AtlasRegistryiesAPI {
-    private static Map<Identifier, Identifier> atlases;
+    private static final Map<Identifier, Identifier> ATLASES = new HashMap<>();
 
-    public static void injectAtlas(Identifier key, Identifier value){
-        if(atlases == null)
-            atlases = new HashMap<>();
-        atlases.put(key, value);
+    private AtlasRegistryiesAPI() {
+    }
+
+    public static void injectAtlas(Identifier atlasId, Identifier definitionId) {
+        ATLASES.put(atlasId, definitionId);
     }
 
     public static Map<Identifier, Identifier> getAtlases() {
-        if(atlases == null){
-            return new HashMap<>();
-        }
-        return atlases;
+        return Map.copyOf(ATLASES);
     }
 }

@@ -18,7 +18,8 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.rule.GameRule;
+import net.minecraft.world.rule.GameRules;
 
 public class EatBerriesTask extends MultiTickTask<LivingEntity> {
     public EatBerriesTask() {
@@ -63,7 +64,7 @@ public class EatBerriesTask extends MultiTickTask<LivingEntity> {
         BlockPos pos = entity.getBlockPos().add((int)Math.round(rotationVector.getX()), 0, (int)Math.round(rotationVector.getZ()));
 
         if(world.getBlockState(pos).isOf(Blocks.SWEET_BERRY_BUSH) && world.getBlockState(pos).get(SweetBerryBushBlock.AGE) >= 2) {
-            if(world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+            if(world.getGameRules().getValue(GameRules.DO_MOB_GRIEFING)) {
                 world.setBlockState(pos, world.getBlockState(pos).with(SweetBerryBushBlock.AGE, 1));
             }
 

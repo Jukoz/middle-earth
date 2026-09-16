@@ -3,16 +3,16 @@ dependencies {
 	implementation project(path: ':ofhillsanddells', configuration: 'dev')
 }
 
-// I really don't know why it tells me errors when I use genSources
-// but luckily the solution works
-// https://stackoverflow.com/questions/72194499/remove-implicit-dependency-warning-from-gradle-output
+// Ensure dependent projects generate their sources first.
 tasks.configureEach {
 	if (name == "genSourcesWithVineflower") {
 		mustRunAfter(":sevenstars-api:genSourcesWithVineflower")
 	}
+
 	if (name == "genSourcesWithFernFlower") {
 		mustRunAfter(":sevenstars-api:genSourcesWithFernFlower")
 	}
+
 	if (name == "genSourcesWithCfr") {
 		mustRunAfter(":sevenstars-api:genSourcesWithCfr")
 	}
@@ -22,12 +22,13 @@ loom {
 	runs {
 		datagenClient {
 			inherit client
-			name "Data Generation"
+			name = "Data Generation"
+
 			vmArg "-Dfabric-api.datagen"
 			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
 			vmArg "-Dfabric-api.datagen.modid=${modid}"
 
-			runDir "build/datagen"
+			runDir = "build/datagen"
 		}
 	}
 }
@@ -40,5 +41,5 @@ configurations {
 }
 
 artifacts {
-	dev jar
+	dev(tasks.jar)
 }

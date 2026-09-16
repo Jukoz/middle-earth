@@ -38,7 +38,7 @@ public class StrollAroundHomeTask {
     private static Vec3d findTargetPos(PathAwareEntity entity, int radius) {
         Optional<GlobalPos> optional = entity.getBrain().getOptionalMemory(MemoryModuleType.HOME);
         Vec3d homePos;
-        Vec3d entityPos = entity.getPos();
+        Vec3d entityPos = entity.getEntityPos();
 
         if(optional != null && optional.isPresent()) {
             homePos = optional.get().pos().toBottomCenterPos();

@@ -51,7 +51,7 @@ public class DefendHomeTask {
                         return null;
                     }
 
-                    if(player.getPos().squaredDistanceTo(optionalHome.get().pos().toCenterPos()) < (radius*radius) && !player.isInCreativeMode()) {
+                    if(player.getEntityPos().squaredDistanceTo(optionalHome.get().pos().toCenterPos()) < (radius*radius) && !player.isInCreativeMode()) {
                         return player;
                     }
                 }
