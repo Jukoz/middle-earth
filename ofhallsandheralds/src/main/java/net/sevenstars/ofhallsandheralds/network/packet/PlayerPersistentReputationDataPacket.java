@@ -9,18 +9,18 @@ import net.minecraft.network.packet.CustomPayload;
 import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 import net.sevenstars.ofhallsandheralds.OfHallsAndHeralds;
-import net.sevenstars.ofhallsandheralds.persistentdatas.reputation.ReputationPersistentData;
+import net.sevenstars.ofhallsandheralds.persistentdatas.reputation.reputationPersistentData;
 
 public class PlayerPersistentReputationDataPacket extends ServerToClientPacket<PlayerPersistentReputationDataPacket> {
     public static final CustomPayload.Id<PlayerPersistentReputationDataPacket> ID =  new Id<>(OfHallsAndHeralds.id("persistent_reputation_data"));
     public static final PacketCodec<RegistryByteBuf, PlayerPersistentReputationDataPacket> PACKET_CODEC = PacketCodec.tuple(
-            ReputationPersistentData.PACKET_CODEC, p -> p.data,
+            reputationPersistentData.PACKET_CODEC, p -> p.data,
             PlayerPersistentReputationDataPacket::new
     );
 
-    private final ReputationPersistentData data;
+    private final reputationPersistentData data;
 
-    public PlayerPersistentReputationDataPacket(ReputationPersistentData data) {
+    public PlayerPersistentReputationDataPacket(reputationPersistentData data) {
         this.data = data;
     }
 

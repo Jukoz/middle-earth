@@ -5,18 +5,18 @@ import net.sevenstars.api.persistentdata.AbstractPersistenceManager;
 
 import java.nio.file.Path;
 
-public class ReputationPersistenceManager extends AbstractPersistenceManager<ReputationPersistentData> {
+public class ReputationPersistenceManager extends AbstractPersistenceManager<reputationPersistentData> {
     public ReputationPersistenceManager(Path directory) {
         super(directory);
     }
 
     @Override
-    protected Codec<ReputationPersistentData> ObtenirCodec() {
-        return ReputationPersistentData.CODEC;
+    protected Codec<reputationPersistentData> ObtenirCodec() {
+        return reputationPersistentData.CODEC;
     }
 
     @Override
-    protected ReputationPersistentData createDefault() {
-        return new ReputationPersistentData();
+    protected reputationPersistentData createDefault() {
+        return new reputationPersistentData();
     }
 }

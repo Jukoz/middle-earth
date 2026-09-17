@@ -51,6 +51,10 @@ public class FactionService {
     }
 
     public static List<RegistryEntry<Faction>> getAllJoinableFactionEntries(ServerWorld world) {
+        return getAllFactionEntries(world, true);
+    }
+
+    public static List<RegistryEntry<Faction>> getAllFactionEntries(ServerWorld world, boolean joinableOnly) {
         Registry<Faction> factionRegistry = world.getRegistryManager().getOrThrow(DynamicRegistriesHH.FACTION);
         List<RegistryKey<Faction>> factionKeys = getAllFactionKeys(world);
         List<RegistryEntry<Faction>> availableFactions = new ArrayList<>();
@@ -58,10 +62,18 @@ public class FactionService {
             RegistryEntry<Faction> entry = factionRegistry.getEntry(key.getValue()).orElse(null);
             if(entry == null)
                 continue;
-            if(!entry.value().isJoinable())
+            if(joinableOnly && !entry.value().isJoinable())
                 continue;
             availableFactions.add(entry);
         }
         return availableFactions;
+    }
+
+    public static RegistryKey<Faction> getFactionKey(ServerWorld world, Identifier factionIdentifier) {
+        Registry<Faction> factionRegistry = world.getRegistryManager().getOrThrow(DynamicRegistriesHH.FACTION);
+        RegistryEntry<Faction> entry = factionRegistry.getEntry(factionIdentifier).orElse(null);
+        if(entry == null)
+            return null;
+        return entry.getKey().get();
     }
 }

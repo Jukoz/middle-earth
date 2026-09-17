@@ -22,7 +22,7 @@ import net.sevenstars.middleearth.utils.ColorsME;
 import net.sevenstars.ofhallsandheralds.dtos.Faction;
 import net.sevenstars.ofhallsandheralds.persistentdatas.PlayerPersistentDataManagerHH;
 import net.sevenstars.ofhallsandheralds.persistentdatas.origin.OriginPersistentData;
-import net.sevenstars.ofhallsandheralds.persistentdatas.reputation.ReputationPersistentData;
+import net.sevenstars.ofhallsandheralds.persistentdatas.reputation.reputationPersistentData;
 import net.sevenstars.ofhallsandheralds.registries.custom.SpawnRegistryHH;
 import net.sevenstars.ofhallsandheralds.registries.services.FactionService;
 import org.jetbrains.annotations.Nullable;
@@ -166,9 +166,9 @@ public class CommandFaction {
                 spawnIdentifier = IdentifierArgumentType.getIdentifier(context, SPAWN_ID);
             } catch (Exception ignored){
             }
-            ReputationPersistentData reputation = PlayerPersistentDataManagerHH.getReputation().get(targetedPlayer.getUuid());
-            reputation.DiscoverFaction(FactionService.createKey(factionIdentifier));
-            reputation.IncreaseReputationFor(FactionService.createKey(factionIdentifier), 50);
+            reputationPersistentData reputation = PlayerPersistentDataManagerHH.getReputation().get(targetedPlayer.getUuid());
+            reputation.discoverFaction(FactionService.createKey(factionIdentifier));
+            reputation.increaseReputationFor(FactionService.createKey(factionIdentifier), 50);
 
             OriginPersistentData origin = PlayerPersistentDataManagerHH.getOrigin().get(targetedPlayer.getUuid());
             origin.SetOriginSpawn(SpawnRegistryHH.TEST);

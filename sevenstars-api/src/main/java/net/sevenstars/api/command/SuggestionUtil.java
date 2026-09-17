@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.commands.suggestions;
+package net.sevenstars.api.command;
 
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
@@ -10,10 +10,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class SuggestionUtil {
     public static CompletableFuture<Suggestions> getCorrespondingIdentifiers(List<Identifier> candidates, SuggestionsBuilder builder){
-        String string = builder.getRemaining().toLowerCase(Locale.ROOT);
+        String stringRoot = builder.getRemaining().toLowerCase(Locale.ROOT);
 
         for (Identifier id : candidates){
-            if(id.toString().contains(string)){
+            if(id.toString().contains(stringRoot)){
                 builder.suggest(id.toString());
             }
         }

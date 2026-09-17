@@ -5,6 +5,7 @@ import net.sevenstars.api.network.connections.ConnectionToClient;
 import net.sevenstars.ofhallsandheralds.network.ServerNetworkHandlerHH;
 import net.sevenstars.ofhallsandheralds.registries.DynamicRegistriesHH;
 import net.sevenstars.ofhallsandheralds.registries.RegistriesHH;
+import net.sevenstars.ofhallsandheralds.registries.custom.CommandRegistryHH;
 import net.sevenstars.ofhallsandheralds.registries.custom.EventRegistryHH;
 
 public class OfHallsAndHeralds extends AbstractModInitializer {
@@ -22,5 +23,6 @@ public class OfHallsAndHeralds extends AbstractModInitializer {
 		EventRegistryHH.register();
 		RegistriesHH.register();
 		DynamicRegistriesHH.register();
+		CommandRegistryHH.register();
 	}
 }

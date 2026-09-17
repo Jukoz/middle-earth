@@ -61,4 +61,12 @@ public class Reputation {
     public void discover() {
         this.discovered = true;
     }
+
+    public void set(int amount) {
+        this.currentLevel = amount;
+    }
+
+    public int getLevel() {
+        return this.currentLevel;
+    }
 }
