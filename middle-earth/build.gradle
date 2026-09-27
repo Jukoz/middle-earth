@@ -24,10 +24,12 @@ dependencies {
 }
 
 sourceSets.main.resources.setSrcDirs(['src/main/generated', 'src/main/resources'])
+sourceSets.test.runtimeClasspath += sourceSets.main.compileClasspath
 
 tasks.named('test') {
     dependsOn tasks.named('runData')
     dependsOn tasks.named('jar')
+    systemProperty 'middleearth.playerJar', tasks.named('jar', Jar).flatMap { it.archiveFile }.get().asFile.absolutePath
     useJUnitPlatform()
 }
 

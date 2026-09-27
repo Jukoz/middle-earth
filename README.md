@@ -43,6 +43,10 @@ the [upstream repository](https://github.com/Jukoz/middle-earth).
 Target runtime: Minecraft 1.21.1, Java 21 and NeoForge 21.1.233 or newer within
 the 21.1 line. The build currently validates against NeoForge 21.1.244.
 
+The current maintenance snapshot also incorporates the upstream NeoForge fixes
+through [`7497d9e02`](https://github.com/Jukoz/middle-earth/commit/7497d9e02b99ef76c3c5991f9639774b26b7fc5b).
+The content baseline remains 1.0.2; this is not the unreleased Fabric 1.0.3 line.
+
 -----
 
 ## Current state of the mod
@@ -114,13 +118,45 @@ dylanhugh and Angmarzku for their ideas & arts for Gundabad and more.
 
 ## Building the NeoForge 1.21.1 backport
 
-Build all three source modules with Java 21:
+Use the `dev-neoforge` or `1.0.2-1.21.1-neoforge-backport` branch for this port.
+The historical `main` branch in the fork contains Fabric sources. Select the
+NeoForge branch before downloading a source ZIP, or clone it explicitly:
 
 ```shell
-./gradlew build
+git clone --branch dev-neoforge https://github.com/Campione01/middle-earth.git
+cd middle-earth
+```
+
+Extract the complete repository before building. Run the wrapper from the root
+directory containing `settings.gradle` and all three module directories. A
+Git checkout is not required; the source ZIP builds the same way.
+
+Install a **JDK 21**, then confirm `java -version` reports 21. If multiple JDKs
+are installed, point `JAVA_HOME` at JDK 21. This wrapper uses Gradle 8.10;
+running it with Java 23 or newer is unsupported. No global Gradle installation
+or separately downloaded mod dependency JARs are required.
+
+Windows PowerShell:
+
+```powershell
+.\gradlew.bat build --console=plain
+```
+
+Linux and macOS:
+
+```shell
+bash ./gradlew build --console=plain
 ```
 
 The player artifact is `middle-earth/build/libs/Middle-earth-<version>.jar`. It embeds Seven Stars API and Of Beasts and Wild Things through NeoForge Jar-in-Jar, so players should install only this outer Middle-earth jar. The standalone jars under the two subproject build directories are intermediate development artifacts and are not part of the player release.
+
+The build generates required resources and runs tests automatically. Initial
+dependency downloads need network access to Gradle, Mojang, NeoForged and the
+recipe-viewer Maven repositories. For download/SSL failures, configure any
+required proxy in your user Gradle configuration and retry; do not disable TLS
+verification. Report the first failure and `java -version` output when a build
+fails. Windows and Linux CI builds use a fresh source archive without
+local generated files or Git metadata.
 
 -----
 

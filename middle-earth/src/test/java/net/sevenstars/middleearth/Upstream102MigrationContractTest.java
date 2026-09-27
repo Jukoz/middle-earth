@@ -16,7 +16,7 @@ class Upstream102MigrationContractTest {
 
     @Test
     void allEmbeddedModulesPublishTheSameBackportVersion() throws IOException {
-        String version = "1.0.2-1.21.1-beta-backport.1";
+        String version = "1.0.2-1.21.1-beta-backport.2";
         for (Path properties : List.of(
                 MODULE.resolve("gradle.properties"),
                 MODULE.resolve("../sevenstars-api/gradle.properties"),

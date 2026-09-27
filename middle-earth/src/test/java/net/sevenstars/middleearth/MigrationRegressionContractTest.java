@@ -270,7 +270,7 @@ class MigrationRegressionContractTest {
     }
 
     private static String source(String relativePath) throws IOException {
-        return Files.readString(MAIN_JAVA.resolve(relativePath));
+        return Files.readString(MAIN_JAVA.resolve(relativePath)).replace("\r\n", "\n");
     }
 
     private static void assertStableHangingVineFeature(String feature) {

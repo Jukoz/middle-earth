@@ -5,14 +5,26 @@ on:
   push:
     branches:
       - dev
+      - dev-neoforge
       - 1.0.1-1.21.1-neoforge-backport
       - 1.0.2-1.21.1-neoforge-backport
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.sha }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: checkout repository
         uses: actions/checkout@v7
@@ -29,19 +41,23 @@ jobs:
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: make gradle wrapper executable
-        run: chmod +x ./gradlew
+      - name: prepare downloaded-source build
+        run: |
+          mkdir -p "$RUNNER_TEMP/middle-earth-source"
+          git archive --format=tar HEAD | tar -xf - -C "$RUNNER_TEMP/middle-earth-source"
 
       - name: generate data and build
-        run: ./gradlew clean build --console=plain
+        working-directory: ${{ runner.temp }}/middle-earth-source
+        run: bash ./gradlew build --console=plain
 
       - name: verify bundled modules
+        working-directory: ${{ runner.temp }}/middle-earth-source
         shell: bash
         run: |
           set -euo pipefail
           mapfile -t player_jars < <(find middle-earth/build/libs -maxdepth 1 -type f -name 'Middle-earth-*.jar' ! -name '*-sources.jar')
           test "${#player_jars[@]}" -eq 1
-          jar tf "${player_jars[0]}" > "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
+          jar tf "${player_jars[0]}" | tr -d '\r' > "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Eq '^META-INF/jarjar/.+SevenStarsAPI.+\.jar$' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Eq '^META-INF/jarjar/.+Of-Beasts-and-Wild-Things.+\.jar$' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
           grep -Fxq 'META-INF/neoforge.mods.toml' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt"
@@ -60,7 +76,7 @@ jobs:
           done
           wild_things_entry=$(grep -E '^META-INF/jarjar/.+Of-Beasts-and-Wild-Things.+\.jar$' "$RUNNER_TEMP/middle-earth-player-jar-entries.txt")
           unzip -p "${player_jars[0]}" "$wild_things_entry" > "$RUNNER_TEMP/wild-things.jar"
-          jar tf "$RUNNER_TEMP/wild-things.jar" > "$RUNNER_TEMP/wild-things-entries.txt"
+          jar tf "$RUNNER_TEMP/wild-things.jar" | tr -d '\r' > "$RUNNER_TEMP/wild-things-entries.txt"
           for item in bird_nest raw_venison cooked_venison raw_poultry cooked_poultry raw_swan cooked_swan swan_feather swan_egg deer_spawn_egg swan_spawn_egg pheasant_spawn_egg snail_spawn_egg; do
             grep -Fxq "assets/wild-things/models/item/${item}.json" "$RUNNER_TEMP/wild-things-entries.txt"
             grep -Fxq "assets/wild-things/textures/item/${item}.png" "$RUNNER_TEMP/wild-things-entries.txt"

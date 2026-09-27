@@ -23,6 +23,7 @@ public final class RecipesME {
     public static final Supplier<RecipeType<ArtisanRecipe>> ARTISAN_TABLE_SUPPLIER = () -> ARTISAN_TABLE;
 
     public static void registerRecipes() {
+        registerSerializer("bundle_dye", BundleDyeRecipe.SERIALIZER);
         registerSerializer(AlloyingRecipe.Serializer.ID, AlloyingRecipe.Serializer.INSTANCE);
         FORGE = registerType(AlloyingRecipe.Type.ID, AlloyingRecipe.Type.INSTANCE);
 

@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -17,12 +19,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
@@ -2648,7 +2653,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                         .save(recipeOutput);
 
                 createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.YELLOW_DYE,       ResourceItemsME.YELLOW_BUNDLE);
-                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GRAY_DYE,         ResourceItemsME.BROWN_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.BROWN_DYE,        ResourceItemsME.BROWN_BUNDLE);
                 createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GREEN_DYE,        ResourceItemsME.GREEN_BUNDLE);
                 createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.BLUE_DYE,         ResourceItemsME.BLUE_BUNDLE);
                 createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GRAY_DYE,         ResourceItemsME.GRAY_BUNDLE);
@@ -3449,7 +3454,18 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                         .requires(dyeItem)
                         .unlockedBy(getHasName(input),
                                 has(input))
-                        .save(exporter);
+                        .save(new RecipeOutput() {
+                            @Override
+                            public void accept(ResourceLocation id, Recipe<?> recipe, AdvancementHolder advancement,
+                                               ICondition... conditions) {
+                                exporter.accept(id, new BundleDyeRecipe((ShapelessRecipe) recipe), advancement, conditions);
+                            }
+
+                            @Override
+                            public Advancement.Builder advancement() {
+                                return exporter.advancement();
+                            }
+                        });
             }
 
             private void createCombinedItemRecipe(RecipeOutput exporter, Block blockInput, TagKey<Item> addition, Block recipeOutput) {

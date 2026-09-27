@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PaleOakModelCompatibilityContractTest {
-    private static final Path BUILD_LIBS = Path.of("build/libs");
 
     @Test
     void everyPaleOakModelUsesTexturesAvailableInMinecraft1211() throws IOException {
@@ -79,15 +78,6 @@ class PaleOakModelCompatibilityContractTest {
     }
 
     private static Path playerJar() throws IOException {
-        try (Stream<Path> files = Files.list(BUILD_LIBS)) {
-            List<Path> playerJars = files
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().startsWith("Middle-earth-"))
-                    .filter(path -> path.getFileName().toString().endsWith(".jar"))
-                    .filter(path -> !path.getFileName().toString().endsWith("-sources.jar"))
-                    .toList();
-            assertEquals(1, playerJars.size(), "Expected one packaged Middle-earth player JAR");
-            return playerJars.getFirst();
-        }
+        return TestArtifacts.playerJar();
     }
 }

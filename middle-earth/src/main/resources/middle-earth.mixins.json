@@ -39,6 +39,7 @@
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
     "client.BlockElementDeserializerMixin",
+    "client.GuiGraphicsMixin",
     "client.HeldItemRendererMixin",
     "client.HumanoidArmorLayerMixin",
     "client.ItemEntityRendererMixin",

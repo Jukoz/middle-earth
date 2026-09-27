@@ -1,0 +1,28 @@
+{
+	"gui_light": "front",
+	"textures": {
+		"particle": "block/dark_oak_planks"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, -5, 1.25],
+			"scale": [2, 2, 2]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, -5, 1.25],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_righthand": {
+			"translation": [2.5, -6.75, 0],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_lefthand": {
+			"translation": [2.5, -6.75, 0],
+			"scale": [2, 2, 2]
+		},
+		"head": {
+			"rotation": [-90, 0, 0],
+			"translation": [0, 7, 0]
+		}
+	}
+}

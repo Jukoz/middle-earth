@@ -36,7 +36,6 @@ class RecipeViewerCompatibilityContractTest {
             Path.of("src/main/generated/data/minecraft/recipe");
     private static final Path RESOURCE_RECIPES =
             Path.of("src/main/resources/data/middle-earth/recipe");
-    private static final Path BUILD_LIBS = Path.of("build/libs");
 
     @Test
     void jeiAndEmiExposeEveryActiveCustomRecipeType() throws IOException {
@@ -492,16 +491,7 @@ class RecipeViewerCompatibilityContractTest {
     }
 
     private static Path playerJar() throws IOException {
-        try (Stream<Path> files = Files.list(BUILD_LIBS)) {
-            List<Path> playerJars = files
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().startsWith("Middle-earth-"))
-                    .filter(path -> path.getFileName().toString().endsWith(".jar"))
-                    .filter(path -> !path.getFileName().toString().endsWith("-sources.jar"))
-                    .toList();
-            assertEquals(1, playerJars.size(), "Expected one packaged Middle-earth player JAR");
-            return playerJars.getFirst();
-        }
+        return TestArtifacts.playerJar();
     }
 
     private static String dependencyStanza(String metadata, String modId) {
