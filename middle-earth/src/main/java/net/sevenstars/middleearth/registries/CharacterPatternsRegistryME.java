@@ -249,7 +249,7 @@ public class CharacterPatternsRegistryME {
 
     private static void register(Registerable<CharacterTexturePattern> registerable, RegistryKey<CharacterTexturePattern> registryKey, CharacterTexturePattern content, RegistryKey<Registry<CharacterTexturePattern>> registryRegistryKey) {
         String name = registryKey.getValue().getPath();
-        RegistryKey<CharacterTexturePattern> key = RegistryKey.of(registryRegistryKey,Identifier.of(MiddleEarth.MOD_ID,name));
+        RegistryKey<CharacterTexturePattern> key = RegistryKey.of(registryRegistryKey,MiddleEarth.id(name));
         registerable.register(key, content);
     }
 

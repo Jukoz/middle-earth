@@ -12,7 +12,7 @@ import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 
 public class PacketStructureManagerShowAllEntities extends ClientToServerPacket<PacketStructureManagerShowAllEntities> {
-    public static final CustomPayload.Id<PacketStructureManagerShowAllEntities> ID = new CustomPayload.Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_manager_show_all_entities"));
+    public static final CustomPayload.Id<PacketStructureManagerShowAllEntities> ID = new CustomPayload.Id<>(MiddleEarth.id("structure_manager_show_all_entities"));
 
     public static final PacketCodec<RegistryByteBuf, PacketStructureManagerShowAllEntities> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,

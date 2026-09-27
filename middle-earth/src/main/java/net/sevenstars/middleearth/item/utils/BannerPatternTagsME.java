@@ -32,6 +32,6 @@ public class BannerPatternTagsME {
     public static final TagKey<BannerPattern> OAK_LEAF_PATTERN_ITEM = of("oak_leaf");
 
     private static TagKey<BannerPattern> of(String name) {
-        return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, "pattern_item/" + name));
+        return TagKey.of(RegistryKeys.BANNER_PATTERN, MiddleEarth.id("pattern_item/" + name));
     }
 }

@@ -13,6 +13,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.compat.REICommonPluginME;
@@ -32,7 +33,9 @@ public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
 
     @Override
     public Text getTitle() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + ".forge");
+        return Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "forge")
+        );
     }
 
     @Override
@@ -63,7 +66,9 @@ public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
         widgets.add(Widgets.createTexturedWidget(TEXTURE,startPoint.x + 106, startPoint.y + 75 - storedLiquid, 211, 76 - storedLiquid, 20, storedLiquid));
 
         widgets.add(Widgets.createLabel(new Point(startPoint.x + 77, startPoint.y + 5),
-                Text.translatable("trim_material." + MiddleEarth.MOD_ID + "." + display.output)));
+                Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TRIM_MATERIAL, display.output)
+                )));
 
         return widgets;
     }

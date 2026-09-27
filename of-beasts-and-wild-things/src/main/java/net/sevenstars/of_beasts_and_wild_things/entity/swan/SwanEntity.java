@@ -332,7 +332,7 @@ public class SwanEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.id("swan_food")));
     }
 
     @Override
@@ -384,7 +384,7 @@ public class SwanEntity extends AnimalEntity {
     }
 
     public static boolean isValidSwanFood(LivingEntity entity) {
-        return entity.getType().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
+        return entity.getType().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.id("swan_food")));
     }
 
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,

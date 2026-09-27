@@ -20,6 +20,6 @@ public class SmithingTrimPatternsME {
     }
 
     private static RegistryKey<ArmorTrimPattern> of(String id) {
-        return RegistryKey.of(RegistryKeys.TRIM_PATTERN, Identifier.of(MiddleEarth.MOD_ID, id));
+        return RegistryKey.of(RegistryKeys.TRIM_PATTERN, MiddleEarth.id(id));
     }
 }

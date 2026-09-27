@@ -150,6 +150,6 @@ public class ArtisanTableInputsShape {
     }
 
     public void register() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering ArtisanTable Inputs Shapes for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("ArtisanTable Inputs Shapes");
     }
 }

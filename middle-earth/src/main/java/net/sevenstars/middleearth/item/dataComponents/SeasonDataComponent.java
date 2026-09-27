@@ -13,6 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.utils.ColorsME;
@@ -33,8 +34,12 @@ public record SeasonDataComponent(Season season) implements TooltipAppender {
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         try{
             Identifier identifier = context.getRegistryLookup().getOrThrow(RegistryKeys.BIOME).getKey().getRegistry();
-            textConsumer.accept(Text.translatable("tooltip.%s.season".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.GOLD)
-                    .append(Text.translatable("season.%s.".formatted(MiddleEarth.MOD_ID) + season.toString()).formatted(Formatting.WHITE)));
+            textConsumer.accept(Text.translatable(
+                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "season")
+                    ).formatted(Formatting.GOLD)
+                    .append(Text.translatable(
+                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.SEASON, season.toString())
+                    ).formatted(Formatting.WHITE)));
 
         } catch (Exception e){
             textConsumer.accept(Text.translatable(FactionIdentifierException.KEY, this.season)

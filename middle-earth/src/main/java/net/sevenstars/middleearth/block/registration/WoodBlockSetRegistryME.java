@@ -482,6 +482,6 @@ public class WoodBlockSetRegistryME {
     }
 
     public static void registerModBlockSets() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Wood Block Sets for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Wood Block Sets");
     }
 }

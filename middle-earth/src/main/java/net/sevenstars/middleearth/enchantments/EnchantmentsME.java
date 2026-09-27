@@ -173,6 +173,6 @@ public class EnchantmentsME {
 
 
     public static void registerModEnchantmentEffects() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering EnchantmentEffects for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("EnchantmentEffects");
     }
 }

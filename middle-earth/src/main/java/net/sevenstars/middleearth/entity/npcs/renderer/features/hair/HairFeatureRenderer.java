@@ -45,7 +45,7 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         // TODO : Disable the beard based on the helmet
         /*
-        if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagK°.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "helmet_hides_dwarf_beard")))){
+        if (entity.getEquippedStack(EquipmentSlot.HEAD).isIn(TagK°.of(RegistryKeys.ITEM, MiddleEarth.id("helmet_hides_dwarf_beard")))){
          */
 
         if(hairAddonTextureId == null && beardAddonTextureId == null){

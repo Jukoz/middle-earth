@@ -16,10 +16,10 @@ public class SensorsME {
     public static final SensorType<NpcAttackablesSensor> NPC_ATTACKABLES = register("npc_attackables", NpcAttackablesSensor::new);
 
     private static <U extends Sensor<?>> SensorType<U> register(String id, Supplier<U> factory) {
-        return Registry.register(Registries.SENSOR_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), new SensorType<>(factory));
+        return Registry.register(Registries.SENSOR_TYPE, MiddleEarth.id(id), new SensorType<>(factory));
     }
 
     public static void registerModSensors() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Sensors for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Sensors");
     }
 }

@@ -13,8 +13,8 @@ public class ParticleTypeRegistryME {
     public static final SimpleParticleType BIOME_FOG_PARTICLE = FabricParticleTypes.simple(true);
 
     public static void registerParticleTypes(){
-        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MiddleEarth.MOD_ID, "anvil_spark_particles"), ANVIL_SPARK_PARTICLE);
-        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(MiddleEarth.MOD_ID, "biome_fog_particles"), BIOME_FOG_PARTICLE);
+        Registry.register(Registries.PARTICLE_TYPE, MiddleEarth.id("anvil_spark_particles"), ANVIL_SPARK_PARTICLE);
+        Registry.register(Registries.PARTICLE_TYPE, MiddleEarth.id("biome_fog_particles"), BIOME_FOG_PARTICLE);
     }
 
 }

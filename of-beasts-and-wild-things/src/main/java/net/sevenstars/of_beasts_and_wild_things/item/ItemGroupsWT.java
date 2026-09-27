@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
 import java.util.LinkedList;
@@ -17,7 +18,9 @@ public class ItemGroupsWT {
     public static final List<ItemStack> SPAWN_EGGS_CONTENTS = new LinkedList<>();
 
     public static final ItemGroup WILD_THINGS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + OfBeastsAndWildThings.MOD_ID + ".wild_things"))
+            .displayName(Text.translatable(
+                    OfBeastsAndWildThings.translationKey(LangCategory.ITEM_GROUP, "wild_things")
+            ))
             .icon(() -> new ItemStack(EggItemsWT.DEER_SPAWN_EGG))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : BLOCKS_CONTENTS) {

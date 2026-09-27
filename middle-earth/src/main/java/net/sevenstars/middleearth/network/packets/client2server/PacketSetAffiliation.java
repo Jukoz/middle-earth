@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliation>
 {
-    public static final Id<PacketSetAffiliation> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_set_affiliation"));
+    public static final Id<PacketSetAffiliation> ID = new Id<>(MiddleEarth.id("packet_set_affiliation"));
 
     public static final PacketCodec<RegistryByteBuf, PacketSetAffiliation> CODEC = PacketCodec.tuple(
             PacketCodecs.STRING, p -> p.dispositionName,

@@ -1,19 +1,14 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public class EntityDataSaverMixin implements IEntityDataSaver {
-    private final String KEY = MiddleEarth.MOD_ID;
+    private final String KEY = MiddleEarth.getModId();  // FIXME: might be a better way
     private NbtCompound persistentData;
 
     @Override

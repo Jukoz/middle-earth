@@ -5,8 +5,8 @@ import net.sevenstars.middleearth.MiddleEarth;
 
 public enum SearchBarResultType
 {
-    NORMAL(Identifier.of(MiddleEarth.MOD_ID, "textures/gui/widget/search_widget.png"), 0,75, 0, 89),
-    SUB(Identifier.of(MiddleEarth.MOD_ID, "textures/gui/widget/search_widget.png"), 0,103, 0, 117);
+    NORMAL(MiddleEarth.id("textures/gui/widget/search_widget.png"), 0,75, 0, 89),
+    SUB(MiddleEarth.id("textures/gui/widget/search_widget.png"), 0,103, 0, 117);
 
     public static final int WIDTH = 93;
     public static final int HEIGHT = 14;

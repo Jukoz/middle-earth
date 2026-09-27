@@ -60,19 +60,19 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
     public static final Map<WargVariant, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(WargVariant.class), (map) -> {
                 map.put(WargVariant.BROWN,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_brown.png"));
+                        MiddleEarth.id(PATH + "warg_brown.png"));
                 map.put(WargVariant.BLACK,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_black.png"));
+                        MiddleEarth.id(PATH + "warg_black.png"));
                 map.put(WargVariant.GRAY,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_gray.png"));
+                        MiddleEarth.id(PATH + "warg_gray.png"));
                 map.put(WargVariant.LIGHT_GRAY,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_light_gray.png"));
+                        MiddleEarth.id(PATH + "warg_light_gray.png"));
                 map.put(WargVariant.SNOW,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_snow.png"));
+                        MiddleEarth.id(PATH + "warg_snow.png"));
                 map.put(WargVariant.MOTTLED,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_mottled.png"));
+                        MiddleEarth.id(PATH + "warg_mottled.png"));
                 map.put(WargVariant.TAN,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_tan.png"));
+                        MiddleEarth.id(PATH + "warg_tan.png"));
             });
 
     @Override

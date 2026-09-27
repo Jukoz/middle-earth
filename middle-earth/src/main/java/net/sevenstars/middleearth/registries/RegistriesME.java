@@ -81,13 +81,13 @@ public class RegistriesME {
                     for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                         name = name.replaceAll(map.getKey(), map.getValue());
                     }
-                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
-                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
+                    alias.registry().addAlias(MiddleEarth.idOld(name), MiddleEarth.id(alias.name()));
+                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + MiddleEarth.idOld(name) + " -> " + MiddleEarth.id(alias.name()) + "\r\n");
                 }
 
                 for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
-                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
-                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
+                    alias.registry().addAlias(MiddleEarth.idOld(alias.oldName()), MiddleEarth.id(alias.newName()));
+                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + MiddleEarth.idOld(alias.oldName()) + " -> " + MiddleEarth.id(alias.newName()) + "\r\n");
                 }
 
                 myWriter.close();
@@ -101,11 +101,11 @@ public class RegistriesME {
                 for (Map.Entry<String, String> map : specialAliases.entrySet()) {
                     name = name.replaceAll(map.getKey(), map.getValue());
                 }
-                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
+                alias.registry().addAlias(MiddleEarth.idOld(name), MiddleEarth.id(alias.name()));
             }
 
             for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
-                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
+                alias.registry().addAlias(MiddleEarth.idOld(alias.oldName()), MiddleEarth.id(alias.newName()));
             }
         }
     }

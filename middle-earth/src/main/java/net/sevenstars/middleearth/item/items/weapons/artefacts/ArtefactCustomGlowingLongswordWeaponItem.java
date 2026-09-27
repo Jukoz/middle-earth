@@ -24,7 +24,7 @@ import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import org.jetbrains.annotations.Nullable;
 
 public class ArtefactCustomGlowingLongswordWeaponItem extends CustomLongswordWeaponItem {
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
+    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = MiddleEarth.id("entity_interaction_range");
 
     public boolean glowing;
     public int counter = 0;

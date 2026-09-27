@@ -16,6 +16,6 @@ public enum DispositionType {
     }
 
     public MutableText getName() {
-        return Text.translatable("disposition.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
+        return Text.translatable("disposition.".concat(MiddleEarth.id(toString()).toTranslationKey()));
     }
 }

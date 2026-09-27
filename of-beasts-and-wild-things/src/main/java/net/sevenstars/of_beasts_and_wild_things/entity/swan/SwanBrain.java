@@ -170,7 +170,7 @@ public class SwanBrain {
     }
 
     public static Predicate<ItemStack> getTemptItemPredicate() {
-        return stack -> stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(OfBeastsAndWildThings.MOD_ID, "swan_food")));
+        return stack -> stack.isIn(TagKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.id("swan_food")));
     }
 
     static {

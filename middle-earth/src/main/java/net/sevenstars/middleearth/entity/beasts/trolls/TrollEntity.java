@@ -180,7 +180,7 @@ public class TrollEntity extends AbstractBeastEntity {
     }
 
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")));
     }
 
     @Override

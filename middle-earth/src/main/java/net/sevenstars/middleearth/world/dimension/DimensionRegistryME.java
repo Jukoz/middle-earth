@@ -28,7 +28,7 @@ import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import org.joml.Vector3i;
 
 public class DimensionRegistryME {
-    public static Identifier ME_DIMENSION_ID = Identifier.of(MiddleEarth.MOD_ID, "middle_earth");
+    public static Identifier ME_DIMENSION_ID = MiddleEarth.id("middle_earth");
     public static Identifier OW_DIMENSION_ID = Identifier.of("overworld");
 
     public static final RegistryKey<DimensionOptions> ME_DIMENSION_KEY =
@@ -48,7 +48,7 @@ public class DimensionRegistryME {
         ME_WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, ME_DIMENSION_ID);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.CHUNK_GENERATOR, ME_DIMENSION_ID.getPath()));
 
-        MiddleEarth.LOGGER.logDebugMsg("Registering ModDimensions for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Dimensions");
     }
 
     public static Vector3i getDimensionHeight(int x, int z) {

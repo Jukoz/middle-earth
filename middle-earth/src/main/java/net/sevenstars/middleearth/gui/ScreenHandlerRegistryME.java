@@ -58,6 +58,6 @@ public class ScreenHandlerRegistryME {
     }
 
     private static void register(String name, ScreenHandlerType handlerType) {
-        Registry.register(Registries.SCREEN_HANDLER, Identifier.of(MiddleEarth.MOD_ID, name), handlerType);
+        Registry.register(Registries.SCREEN_HANDLER, MiddleEarth.id(name), handlerType);
     }
 }

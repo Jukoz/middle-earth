@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class PacketSetSpawnData extends ClientToServerPacket<PacketSetSpawnData>
 {
-    public static final Id<PacketSetSpawnData> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_spawn_data"));
+    public static final Id<PacketSetSpawnData> ID = new Id<>(MiddleEarth.id("packet_spawn_data"));
 
     public static final PacketCodec<RegistryByteBuf, PacketSetSpawnData> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, p -> p.overworldX,

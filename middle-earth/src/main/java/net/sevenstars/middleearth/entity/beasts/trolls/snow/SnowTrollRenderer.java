@@ -20,6 +20,6 @@ public class SnowTrollRenderer extends MobEntityRenderer<SnowTrollEntity, TrollE
     }
     @Override
     public Identifier getTexture(TrollEntityRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH);
+        return MiddleEarth.id(PATH);
     }
 }

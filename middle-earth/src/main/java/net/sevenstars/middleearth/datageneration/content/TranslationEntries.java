@@ -822,42 +822,42 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "search.screen_click_button"), "Screen Click Button");
 
 
-            put(of(LangCategory.KEY, "category", MiddleEarth.MOD_ID), "Middle-earth");
+            put(of(LangCategory.KEY, "category", ""), "Middle-earth");
             put(of(LangCategory.KEY, "hood_state_toggle"), "Toggle Worn Hood state");
             put(of(LangCategory.KEY, "map_teleport"), "Map Teleport");
             put(of(LangCategory.KEY, "map_fullscreen_toggle"), "Toggle Map Fullscreen");
 
-            put("modmenu.nameTranslation." + MiddleEarth.MOD_ID, "Middle-earth");
-            put("modmenu.descriptionTranslation." + MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
-            put("modmenu.summaryTranslation." + MiddleEarth.MOD_ID, "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put(of(LangCategory.MOD_MENU, "nameTranslation", ""), "Middle-earth");
+            put(of(LangCategory.MOD_MENU, "descriptionTranslation", ""), "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
+            put(of(LangCategory.MOD_MENU, "summaryTranslation", ""), "Join the legendary world of Tolkien's universe from The Lord of The Rings to the Hobbit and more!");
 
             put(of(LangCategory.EMI, "forge"), "Forge");
             put(of(LangCategory.EMI, "anvil_shaping"), "Shaping Anvil");
             put(of(LangCategory.EMI, "artisan_table"), "Artisan Table");
 
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "anvil_items"), "Anvil Items");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "bones"), "Bones");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "cloaks"), "Cloaks");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "cooked_poultry"), "Cooked Poultry");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "dyeable"), "Dyeable");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "feathers"), "Feathers");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "glowy"), "Glowing Items");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "ingot_shaping"), "Ingot Shaping");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "lead_ores"), "Lead Ores");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mithril_ores"), "Mithril Ores");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mod_planks"), "Middle-earth Planks");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mod_stripped_logs"), "Middle-earth Stripped Logs");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "mushroom_stew_ingredient"), "Mushroom Stew Ingredient");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "nugget_shaping"), "Nugget Shaping");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "raw_poultry"), "Raw Poultry");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "shard"), "Shard");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "shingles"), "Shingles");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "silver_ores"), "Silver Ores");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "thatchy"), "Thatch");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "tin"), "Tin");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "tin_ores"), "Tin Ores");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "warg_food"), "Warg Food");
-            put(of(LangCategory.TAG, "item." + MiddleEarth.MOD_ID, "worm"), "Worm");
+            put(of(LangCategory.TAG, "item", "anvil_items"), "Anvil Items");
+            put(of(LangCategory.TAG, "item", "bones"), "Bones");
+            put(of(LangCategory.TAG, "item", "cloaks"), "Cloaks");
+            put(of(LangCategory.TAG, "item", "cooked_poultry"), "Cooked Poultry");
+            put(of(LangCategory.TAG, "item", "dyeable"), "Dyeable");
+            put(of(LangCategory.TAG, "item", "feathers"), "Feathers");
+            put(of(LangCategory.TAG, "item", "glowy"), "Glowing Items");
+            put(of(LangCategory.TAG, "item", "ingot_shaping"), "Ingot Shaping");
+            put(of(LangCategory.TAG, "item", "lead_ores"), "Lead Ores");
+            put(of(LangCategory.TAG, "item", "mithril_ores"), "Mithril Ores");
+            put(of(LangCategory.TAG, "item", "mod_planks"), "Middle-earth Planks");
+            put(of(LangCategory.TAG, "item", "mod_stripped_logs"), "Middle-earth Stripped Logs");
+            put(of(LangCategory.TAG, "item", "mushroom_stew_ingredient"), "Mushroom Stew Ingredient");
+            put(of(LangCategory.TAG, "item", "nugget_shaping"), "Nugget Shaping");
+            put(of(LangCategory.TAG, "item", "raw_poultry"), "Raw Poultry");
+            put(of(LangCategory.TAG, "item", "shard"), "Shard");
+            put(of(LangCategory.TAG, "item", "shingles"), "Shingles");
+            put(of(LangCategory.TAG, "item", "silver_ores"), "Silver Ores");
+            put(of(LangCategory.TAG, "item", "thatchy"), "Thatch");
+            put(of(LangCategory.TAG, "item", "tin"), "Tin");
+            put(of(LangCategory.TAG, "item", "tin_ores"), "Tin Ores");
+            put(of(LangCategory.TAG, "item", "warg_food"), "Warg Food");
+            put(of(LangCategory.TAG, "item", "worm"), "Worm");
 
             put(of(LangCategory.PAINTING, "author.boenndal"), "Boenndal");
             put(of(LangCategory.PAINTING, "author.scosher"), "Scosher");
@@ -891,15 +891,86 @@ public class TranslationEntries {
             put("attribute.modifiers." + RacePools.RaceAttributes.TOTAL_DAMAGE_MODIFIER.getPath(), "Add Total Damage Multiplied");
             put("attribute.modifiers.creative_mode_block_range", "Creative Mode Block Range");
             put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
+
+            // TODO: make config translatable keys auto-generate
+            // pairs
+
+            // client config
+            put(of(LangCategory.CONFIG, "client.section.title"), "Client Configs");
+            put(of(LangCategory.CONFIG, "client.comment.title.line_1"), "This file stores client configuration options for the Middle-earth mod.");
+            put(of(LangCategory.CONFIG, "client.comment.gui"), "GUI configurations");
+            put(of(LangCategory.CONFIG, "client.description.gui.line_1"), "Should you see the map overlay button in the middle-earth map gui?");
+            put(of(LangCategory.CONFIG, "client.comment.npc"), "NPC simplified model");
+            put(of(LangCategory.CONFIG, "client.description.npc.line_1"), "Should you see the experimental npc visuals, or use the simplified version.");
+            put(of(LangCategory.CONFIG, "client.comment.lod"), "LOD distance for NPCs");
+            put(of(LangCategory.CONFIG, "client.description.lod.line_1"), "Distance of rendering armor on NPCs");
+            put(of(LangCategory.CONFIG, "client.description.lod.line_2"), "Distance of rendering NPCs features (long hair, ears, etc.)");
+            put(of(LangCategory.CONFIG, "client.comment.glint"), "Glint config");
+            put(of(LangCategory.CONFIG, "client.description.glint.line_1"), "Should glint be disabled in middle-earth");
+
+            // server config / common config
+            put(of(LangCategory.CONFIG, "server.section.title"), "Server Configs");
+            put(of(LangCategory.CONFIG, "server.comment.title.line_1"), "This file stores server/host configuration options for the Middle-earth mod.");
+            put(of(LangCategory.CONFIG, "server.comment.world"), "World configurations");
+            put(of(LangCategory.CONFIG, "server.description.world.line_1"), "Should players respawn at their selected spawn location in Middle-earth if they die without having a bed assigned?");
+            put(of(LangCategory.CONFIG, "server.description.world.line_2"), "Should players be able to return to the overworld by reusing the starlight phial?");
+            put(of(LangCategory.CONFIG, "server.description.world.line_3"), "Should procedural structures (such as Orthanc) generate in Middle-earth?");
+            put(of(LangCategory.CONFIG, "server.description.world.line_4"), "Maximum amount of non-persistent entity per type in Middle-earth");
+            put(of(LangCategory.CONFIG, "server.comment.player"), "PlayerFactionData configurations");
+            put(of(LangCategory.CONFIG, "server.description.player.line_1"), "Should players be allowed to change factions when they use the starlight phial?");
+            put(of(LangCategory.CONFIG, "server.description.player.line_2"), "Should players keep their race when returning to the Overworld");
+            put(of(LangCategory.CONFIG, "server.description.player.line_3"), "Amount of time before teleporting");
+            put(of(LangCategory.CONFIG, "server.comment.mount"), "Mount configurations");
+            put(of(LangCategory.CONFIG, "server.description.mount.line_1"), "Should players and NPCs be allowed to ride broadhoof goats?");
+            put(of(LangCategory.CONFIG, "server.comment.food"), "Food configurations");
+            put(of(LangCategory.CONFIG, "server.description.food.line_1"), "Should players be allowed to craft golden apples and golden carrots in Middle-earth?");
+            put(of(LangCategory.CONFIG, "server.comment.golem"), "Golem configurations");
+            put(of(LangCategory.CONFIG, "server.description.golem.line_1"), "Should players be allowed to place golems with block patterns in Middle-earth?");
+            put(of(LangCategory.CONFIG, "server.comment.enchant"), "Enchants configurations");
+            put(of(LangCategory.CONFIG, "server.description.enchant.line_1"), "What is the maximum level a sharpness can have in an anvil output");
+            put(of(LangCategory.CONFIG, "server.description.enchant.line_2"), "What is the maximum level a power can have in an anvil output");
+
         }
     };
 
-    public static String of(LangCategory langCategory, String otherPrefix, String value) {
-        return MiddleEarth.rawTranslationKey(langCategory.Prefix + "." + otherPrefix, value);
-    }
+    /**
+     * <br/>Most common use
+     * <br/><br/>
+     * <br/>keys like:
+     * <br/>CATEGORY.MOD_ID.VALUE
+     * <br/>->
+     * <br/>of(CATEGORY, VALUE)
+     */
     public static String of(LangCategory langCategory, String value) {
-        return of(langCategory, MiddleEarth.MOD_ID, value);
+        return of(langCategory, "", value);
     }
+
+    /**
+     * <br/>1. keys like:
+     * <br/>CATEGORY.OTHER.MOD_ID.VALUE
+     * <br/>(tag.item.middle-earth.anvil_items)
+     * <br/>->
+     * <br/>of(CATEGORY, OTHER, VALUE)
+     * <br/><br/>
+     * <br/>2. if no value:
+     * <br/>CATEGORY.OTHER.MOD_ID
+     * <br/>(modmenu.nameTranslation.middle-earth)
+     * <br/>->
+     * <br/>of(CATEGORY, OTHER, "")
+     */
+    public static String of(LangCategory langCategory, String otherPrefix, String value) {
+        String prefix = langCategory.Prefix;
+        if (!"".equals(otherPrefix)) {
+            prefix += "." + otherPrefix;
+        }
+        return MiddleEarth.rawTranslationKeyWithModId(prefix, value);
+
+    }
+
+    /**
+     * <br/>keys like:
+     * <br/>CATEGORY.VALUE
+     */
     public static String ofRaw(LangCategory langCategory, String value) {
         return MiddleEarth.rawTranslationKey(langCategory, value);
     }

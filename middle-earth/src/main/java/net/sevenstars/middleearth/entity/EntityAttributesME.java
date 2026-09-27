@@ -22,7 +22,7 @@ public class EntityAttributesME {
     }
 
     public static void register() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod attributes");
+        MiddleEarth.logRegistryMsg("Attributes");
     }
 
     static {

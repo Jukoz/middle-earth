@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerPacket<PacketStructureNestUpdateBlockEntityRequest>
 {
-    public static final Id<PacketStructureNestUpdateBlockEntityRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_nest_update_block_entity_request"));
+    public static final Id<PacketStructureNestUpdateBlockEntityRequest> ID = new Id<>(MiddleEarth.id("structure_nest_update_block_entity_request"));
 
     public static final PacketCodec<RegistryByteBuf, PacketStructureNestUpdateBlockEntityRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,

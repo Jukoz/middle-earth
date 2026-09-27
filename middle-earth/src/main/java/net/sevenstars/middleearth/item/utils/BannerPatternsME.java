@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item.utils;
 
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.registry.Registerable;
@@ -69,7 +70,7 @@ public class BannerPatternsME {
 
     private static RegistryKey<BannerPattern> key(String id) {
         TranslationEntries.bannerPatternEntries.add(id);
-        return RegistryKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(MiddleEarth.MOD_ID, id));
+        return RegistryKey.of(RegistryKeys.BANNER_PATTERN, MiddleEarth.id(id));
     }
 
     public static void register(Registerable<BannerPattern> registry) {
@@ -132,6 +133,8 @@ public class BannerPatternsME {
     }
 
     public static void register(Registerable<BannerPattern> registry, RegistryKey<BannerPattern> key) {
-        registry.register(key, new BannerPattern(key.getValue(), "block.%s.banner.".formatted(MiddleEarth.MOD_ID) + key.getValue().toShortTranslationKey()));
+        registry.register(key, new BannerPattern(key.getValue(),
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BLOCK, "banner." + key.getValue().toShortTranslationKey())
+        ));
     }
 }

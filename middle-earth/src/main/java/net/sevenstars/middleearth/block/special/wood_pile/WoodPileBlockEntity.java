@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.block.special.wood_pile;
 
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -38,7 +39,9 @@ public class WoodPileBlockEntity extends LootableContainerBlockEntity implements
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("screen." + MiddleEarth.MOD_ID + "." + ID);
+        return Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, ID)
+        );
     }
 
     @Override

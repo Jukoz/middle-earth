@@ -41,7 +41,7 @@ public class TrackedDataHandlerRegistryME {
     }
 
     private static void of(String name, TrackedDataHandler<?> dataHandler) {
-        FabricTrackedDataRegistry.register(Identifier.of(MiddleEarth.MOD_ID, name), dataHandler);
+        FabricTrackedDataRegistry.register(MiddleEarth.id(name), dataHandler);
     }
 
     static {

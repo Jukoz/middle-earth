@@ -21,7 +21,7 @@ import org.joml.Quaternionf;
 public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProjectileEntity, SmokeRingProjectileRenderState> {
     private final Sprite[] frames;
 
-    private static final Identifier SPRITES_ATLAS_ID = Identifier.of(MiddleEarth.MOD_ID, "sprites");
+    private static final Identifier SPRITES_ATLAS_ID = MiddleEarth.id("sprites");
     private static final String SPRITE_PATH_PREFIX = "sprites/smoke_ring/big_smoke_ring_";
     private static final int FRAME_COUNT = 12;
     private static final int FAILED_FIRST_FRAME = 7;
@@ -91,7 +91,7 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
 
         Sprite[] sprites = new Sprite[FRAME_COUNT];
         for (int i = 0; i < FRAME_COUNT; i++) {
-            Identifier spriteId = Identifier.of(MiddleEarth.MOD_ID, SPRITE_PATH_PREFIX + i);
+            Identifier spriteId = MiddleEarth.id(SPRITE_PATH_PREFIX + i);
             sprites[i] = atlas.getSprite(spriteId);
         }
         return sprites;

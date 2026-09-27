@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 
 public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardingRequest>
 {
-    public static final Id<PacketOnboardingRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_onboarding_request"));
+    public static final Id<PacketOnboardingRequest> ID = new Id<>(MiddleEarth.id("packet_onboarding_request"));
     public static final PacketOnboardingRequest INSTANCE = new PacketOnboardingRequest();
     public static final PacketCodec<RegistryByteBuf, PacketOnboardingRequest> CODEC = PacketCodec.unit(INSTANCE);
 

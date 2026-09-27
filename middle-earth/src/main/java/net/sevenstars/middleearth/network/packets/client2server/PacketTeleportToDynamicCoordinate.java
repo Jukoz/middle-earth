@@ -14,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import org.joml.Vector2d;
 
 public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<PacketTeleportToDynamicCoordinate> {
-    public static final Id<PacketTeleportToDynamicCoordinate> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_dynamic_spawn"));
+    public static final Id<PacketTeleportToDynamicCoordinate> ID = new Id<>(MiddleEarth.id("packet_teleport_dynamic_spawn"));
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToDynamicCoordinate> CODEC = PacketCodec.tuple(
             PacketCodecs.DOUBLE, p -> p.xCoordinate,
             PacketCodecs.DOUBLE, p -> p.zCoordinate,

@@ -101,7 +101,7 @@ public class EntitiesME {
     }
 
     private static RegistryKey<EntityType<?>> keyOf(String id) {
-        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(MiddleEarth.MOD_ID, id));
+        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, MiddleEarth.id(id));
     }
 
     private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
@@ -110,7 +110,7 @@ public class EntitiesME {
 
 
     public static void registerModEntities() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Entities for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Entities");
 
         FabricDefaultAttributeRegistry.register(STONE_TROLL, StoneTrollEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(PETRIFIED_TROLL, PetrifiedTrollEntity.setAttributes());

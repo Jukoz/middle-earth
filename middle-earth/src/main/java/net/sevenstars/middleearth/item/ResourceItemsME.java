@@ -306,16 +306,16 @@ public class ResourceItemsME {
         ItemGroupsME.RESOURCES_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, MiddleEarth.id(name), item);
     }
     private static Item registerHiddenItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, MiddleEarth.id(name), item);
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Resource Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Resource Items");
     }
 }

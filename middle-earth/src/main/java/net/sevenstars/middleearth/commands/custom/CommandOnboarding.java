@@ -11,6 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandUtils;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
@@ -77,7 +78,9 @@ public class CommandOnboarding {
                 if(playerPassedOnboarding){
                     ServerPlayNetworking.send(playerSource, new PacketForceOnboardingScreen(ServerConfigME.DELAY_ON_TELEPORT_CONFIRMATION, playerSource));
                 } else {
-                    MutableText sourceText = Text.translatable("command.%s.open.onboarding.error".formatted(MiddleEarth.MOD_ID));
+                    MutableText sourceText = Text.translatable(
+                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "open.onboarding.error")
+                    );
                     playerSource.sendMessage(sourceText.withColor(ColorsME.WARNING.color));
                 }
             }
@@ -91,10 +94,14 @@ public class CommandOnboarding {
             boolean playerPassedOnboarding = PlayerDataService.playerPassedOnboarding(playerTarget);
             if(playerPassedOnboarding){
                 ServerPlayNetworking.send(playerTarget, new PacketForceOnboardingScreen(ServerConfigME.DELAY_ON_TELEPORT_CONFIRMATION, playerTarget));
-                MutableText sourceText = Text.translatable("command.%s.open_target.onboarding.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName());
+                MutableText sourceText = Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "open_target.onboarding.success"),
+                        playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             } else {
-                MutableText sourceText = Text.translatable("command.%s.open_target.onboarding.error".formatted(MiddleEarth.MOD_ID), playerTarget.getName());
+                MutableText sourceText = Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "open_target.onboarding.error"),
+                        playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             }
         }

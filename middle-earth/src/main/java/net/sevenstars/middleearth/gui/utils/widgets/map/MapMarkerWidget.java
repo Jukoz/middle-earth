@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.gui.utils.widgets.map;
 
 import net.minecraft.client.gl.RenderPipelines;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.UiDirections;
@@ -21,8 +22,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class MapMarkerWidget extends CustomWidget {
-    private static final Identifier MAP_MARKERS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/map_markers.png");
-    private static final Identifier MAP_ARROWS = Identifier.of(MiddleEarth.MOD_ID,"textures/gui/widget/map_arrows.png");
+    private static final Identifier MAP_MARKERS = MiddleEarth.id("textures/gui/widget/map_markers.png");
+    private static final Identifier MAP_ARROWS = MiddleEarth.id("textures/gui/widget/map_arrows.png");
 
     private ButtonWidget markerButton;
     private MapMarkerType type;
@@ -169,7 +170,9 @@ public class MapMarkerWidget extends CustomWidget {
                     texts.addAll(childs.get(i).getContent());
                 }
                 if(childs.size() > maxChildDisplay){
-                    texts.add(Text.translatable("widget.%s.marker.more".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.BLUE));
+                    texts.add(Text.translatable(
+                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.more")
+                    ).formatted(Formatting.BLUE));
                 }
             }
             context.drawTooltip(client.textRenderer, texts, Optional.empty(), drawStart.x + (drawSize.x / 2), drawStart.y + (drawSize.y / 2));
@@ -194,9 +197,13 @@ public class MapMarkerWidget extends CustomWidget {
         if(isSelected){
             List<Text> modifiedList = new ArrayList<>();
             modifiedList.add(
-                    Text.translatable("widget.%s.marker.selected_title_container.before".formatted(MiddleEarth.MOD_ID))
+                    Text.translatable(
+                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.selected_title_container.before")
+                            )
                             .append(content.get(0).copy().withColor(ColorsME.SUCCESS.color))
-                            .append(Text.translatable("widget.%s.marker.selected_title_container.after".formatted(MiddleEarth.MOD_ID))));
+                            .append(Text.translatable(
+                                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.selected_title_container.after")
+                            )));
             for(int i = 1; i < content.size(); i++){
                 modifiedList.add(content.get(i));
             }

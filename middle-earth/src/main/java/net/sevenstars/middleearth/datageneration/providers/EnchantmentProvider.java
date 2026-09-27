@@ -27,6 +27,6 @@ public class EnchantmentProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return MiddleEarth.MOD_ID + " Enchantments";
+        return MiddleEarth.getModId() + " Enchantments";  // FIXME: might be a better way
     }
 }

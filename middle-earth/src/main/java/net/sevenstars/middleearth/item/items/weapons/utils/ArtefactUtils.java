@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.List;
@@ -17,8 +18,12 @@ public class ArtefactUtils {
 
     public static LoreComponent getArtefactLore(String item){
         return new LoreComponent(List.of(
-                Text.translatable("tooltip.%s.%s_lore_0".formatted(MiddleEarth.MOD_ID, item)).formatted(Formatting.GRAY),
-                Text.translatable("tooltip.%s.%s_lore_1".formatted(MiddleEarth.MOD_ID, item)).formatted(Formatting.GRAY)
+                Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, item + "_lore_0")
+                ).formatted(Formatting.GRAY),
+                Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, item + "_lore_1")
+                ).formatted(Formatting.GRAY)
         ));
     }
 }

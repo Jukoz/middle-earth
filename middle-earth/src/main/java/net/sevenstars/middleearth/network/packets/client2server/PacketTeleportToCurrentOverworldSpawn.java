@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 
 
 public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<PacketTeleportToCurrentOverworldSpawn> {
-    public static final Id<PacketTeleportToCurrentOverworldSpawn> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_teleport_to_current_overworld_spawn"));
+    public static final Id<PacketTeleportToCurrentOverworldSpawn> ID = new Id<>(MiddleEarth.id("packet_teleport_to_current_overworld_spawn"));
     public static final PacketTeleportToCurrentOverworldSpawn INSTANCE = new PacketTeleportToCurrentOverworldSpawn();
     public static final PacketCodec<RegistryByteBuf, PacketTeleportToCurrentOverworldSpawn> CODEC = PacketCodec.unit(INSTANCE);
 

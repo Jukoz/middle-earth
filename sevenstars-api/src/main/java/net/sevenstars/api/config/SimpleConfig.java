@@ -36,7 +36,7 @@ import java.util.Scanner;
 
 public class SimpleConfig {
 
-    private final HashMap<String, String> config = new HashMap<>();
+    private HashMap<String, String> config = new HashMap<>();
     private final ConfigRequest request;
     private boolean broken = false;
     private static final String FILE_TYPE = ".toml";
@@ -246,6 +246,24 @@ public class SimpleConfig {
     public boolean delete() {
         SevenStarsApi.logger().logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
         return request.file.delete();
+    }
+
+    /**
+     * To make the edit work without restart the game
+     * by the command ingame
+     * /middle_earth config reload
+     */
+    public void reload() {
+        HashMap<String, String> oldConfig = this.config;
+        this.config.clear();
+        this.broken = false;
+        try {
+            loadConfig();
+        } catch (IOException e) {
+            SevenStarsApi.INSTANCE.logger().logError("Config '" + this.request.filename + "' failed to reload!", e);
+            this.broken = true;
+            this.config = oldConfig;
+        }
     }
 
 }

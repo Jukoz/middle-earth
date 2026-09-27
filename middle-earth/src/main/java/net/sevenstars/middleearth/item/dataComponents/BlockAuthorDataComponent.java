@@ -9,6 +9,7 @@ import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.text.Text;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.utils.BlockAuthor;
 
@@ -29,6 +30,8 @@ public record BlockAuthorDataComponent(BlockAuthor author) implements TooltipApp
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        textConsumer.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".author").append(this.author.getAuthorName()));
+        textConsumer.accept(Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "author")
+        ).append(this.author.getAuthorName()));
     }
 }

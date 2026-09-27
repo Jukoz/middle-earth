@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
 
 public class CaveTrollDroolFeatureRenderer extends FeatureRenderer<CaveTrollEntityRenderState, CaveTrollEntityModel> {
-    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/trolls/cave/cave_troll_green_drooling.png");
+    private static final Identifier TEXTURE = MiddleEarth.id("textures/entities/trolls/cave/cave_troll_green_drooling.png");
     public CaveTrollDroolFeatureRenderer(FeatureRendererContext<CaveTrollEntityRenderState, CaveTrollEntityModel> featureRendererContext) {
         super(featureRendererContext);
     }

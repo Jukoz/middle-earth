@@ -15,6 +15,6 @@ public enum FactionType {
     }
 
     public MutableText getName() {
-        return Text.translatable("faction_type.".concat(Identifier.of(MiddleEarth.MOD_ID, toString()).toTranslationKey()));
+        return Text.translatable("faction_type.".concat(MiddleEarth.id(toString()).toTranslationKey()));
     }
 }

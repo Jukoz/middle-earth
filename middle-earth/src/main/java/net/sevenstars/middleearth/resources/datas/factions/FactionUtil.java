@@ -5,6 +5,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.exceptions.IdenticalFactionException;
@@ -36,7 +37,9 @@ public class FactionUtil {
         if(previousFaction.isPresent()){
             //sendOnLeaveCommand(player, previousFaction);
             // Send leaving message to affected player
-            MutableText targetText = Text.translatable("event.%s.leave.faction.success".formatted(MiddleEarth.MOD_ID), previousFaction.get().getKey());
+            MutableText targetText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "leave.faction.success"),
+                    previousFaction.get().getKey());
             player.sendMessage(targetText.withColor(ColorsME.WARNING.color));
         }
 
@@ -51,7 +54,9 @@ public class FactionUtil {
         //sendOnJoinCommand(player, faction);
 
         // Send join message to affected player
-        MutableText targetText = Text.translatable("event.%s.join.faction.success".formatted(MiddleEarth.MOD_ID), newFaction.getIdAsString());
+        MutableText targetText = Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "join.faction.success"),
+                newFaction.getIdAsString());
         player.sendMessage(targetText.withColor(ColorsME.SUCCESS.color));
 
         //sendOnFactionJoinMessage(player);
@@ -132,7 +137,9 @@ public class FactionUtil {
         }
 
 
-        MutableText targetText = Text.translatable("event.%s.join.faction.success".formatted(MiddleEarth.MOD_ID), faction.getFullName());
+        MutableText targetText = Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "join.faction.success"),
+                faction.getFullName());
         ((ServerPlayerEntity) player).networkHandler.sendPacket(
             new TitleS2CPacket(Text.of(""))
         );
@@ -148,7 +155,9 @@ public class FactionUtil {
             throw new NoFactionException();
         if(PlayerDataService.clearPlayerData(player)){
             sendOnLeaveCommand(player, faction);
-            MutableText targetText = Text.translatable("event.%s.leave.faction.success".formatted(MiddleEarth.MOD_ID), faction.getFullName());
+            MutableText targetText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "leave.faction.success"),
+                    faction.getFullName());
             player.sendMessage(targetText.withColor(ColorsME.WARNING.color));
             return true;
         }

@@ -34,7 +34,7 @@ public class GreatHornSaddleFeatureRenderer extends FeatureRenderer<GreatHornEnt
         if(blueSaddle) suffix = "_blue";
         if(!itemStack.isEmpty()) {
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers,
-                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, PATH + suffix + ".png")), itemStack.hasGlint());
+                    RenderLayer.getArmorCutoutNoCull(MiddleEarth.id(PATH + suffix + ".png")), itemStack.hasGlint());
 
             model.setAngles(state);
             model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);

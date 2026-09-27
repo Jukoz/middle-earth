@@ -33,14 +33,14 @@ public class MemoryModulesME<U> {
     }
 
     private static <U> MemoryModuleType<U> register(String id, Codec<U> codec) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), new MemoryModuleType<>(Optional.of(codec)));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, MiddleEarth.id(id), new MemoryModuleType<>(Optional.of(codec)));
     }
 
     private static <U> MemoryModuleType<U> register(String id) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), new MemoryModuleType<>(Optional.empty()));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, MiddleEarth.id(id), new MemoryModuleType<>(Optional.empty()));
     }
 
     public static void registerModMemoryModules() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Sensors for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Memory Modules");
     }
 }

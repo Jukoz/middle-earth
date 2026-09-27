@@ -791,6 +791,6 @@ public class DecorativeBlockRegistryME {
     }
 
     public static void registerModBlocks() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering ModBlocks for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Decorative Blocks");
     }
 }

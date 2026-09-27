@@ -22,7 +22,7 @@ import java.time.Month;
 @Environment(EnvType.CLIENT)
 public class GreatHornNoseFeatureRenderer extends FeatureRenderer<GreatHornEntityRenderState, GreatHornModel> {
 	private final GreatHornModel model;
-	private final static Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/great_horn/feature/great_horn_red_nose.png");
+	private final static Identifier TEXTURE = MiddleEarth.id("textures/entities/great_horn/feature/great_horn_red_nose.png");
 
 	public GreatHornNoseFeatureRenderer(FeatureRendererContext<GreatHornEntityRenderState, GreatHornModel> context, LoadedEntityModels loader) {
 		super(context);

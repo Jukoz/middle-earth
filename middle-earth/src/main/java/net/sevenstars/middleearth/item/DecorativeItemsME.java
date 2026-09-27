@@ -245,10 +245,10 @@ public class DecorativeItemsME {
         ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, MiddleEarth.id(name), item);
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Decorative Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Decorative Items");
     }
 }

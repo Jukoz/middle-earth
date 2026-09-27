@@ -132,10 +132,10 @@ public class FoodItemsME {
         ItemGroupsME.FOOD_CONTENTS.add(item.getDefaultStack());
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, MiddleEarth.id(name), item);
     }
 
     public static void registerModItems() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Food Items for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Food Items");
     }
 }

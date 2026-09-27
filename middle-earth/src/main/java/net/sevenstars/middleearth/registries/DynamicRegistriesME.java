@@ -52,7 +52,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("great_horn_variants"));
 
     public static void register() {
-        MiddleEarth.logRegistryMsg("Dynamic Registries");
+        MiddleEarth.logRegistryMsg("Dynamic Entries");
         DynamicRegistries.registerSynced(RACE, Race.CODEC);
         DynamicRegistries.registerSynced(NPC_TYPE, NpcType.CODEC);
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);

@@ -16,10 +16,10 @@ public class StatusEffectRegistryME {
             .addAttributeModifier(EntityAttributes.ATTACK_DAMAGE, Identifier.ofVanilla("effect.weakness"), -5.0, EntityAttributeModifier.Operation.ADD_VALUE));
 
     private static RegistryEntry<StatusEffect> register(String id, StatusEffect statusEffect) {
-        return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(MiddleEarth.MOD_ID, id), statusEffect);
+        return Registry.registerReference(Registries.STATUS_EFFECT, MiddleEarth.id(id), statusEffect);
     }
 
     public static void registerStatusEffects() {
-        MiddleEarth.LOGGER.logDebugMsg("Registering Mod Status Effects for " + MiddleEarth.MOD_ID);
+        MiddleEarth.logRegistryMsg("Status Effects");
     }
 }

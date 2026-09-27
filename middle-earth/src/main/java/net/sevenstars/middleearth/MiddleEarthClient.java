@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.model.loading.v1.SimpleUnbakedExtraModel;
@@ -17,10 +18,13 @@ import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.client.render.item.property.bool.BooleanProperties;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resource.language.I18n;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.*;
+import net.sevenstars.middleearth.config.ClientConfigME;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.block.special.forge.ForgeEntityRenderer;
 import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
@@ -91,19 +95,21 @@ import net.sevenstars.middleearth.registries.AtlasesME;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
-    public static final EntityModelLayer CUSTOM_ARMOR_HELMET = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_1");
-    public static final EntityModelLayer CUSTOM_ARMOR_CHESTPLATE = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_2");
-    public static final EntityModelLayer CUSTOM_ARMOR_LEGGINGS = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_3");
-    public static final EntityModelLayer CUSTOM_ARMOR_BOOTS = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "_4");
-    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "helmet_addon");
-    public static final EntityModelLayer BACK_ATTACHMENT_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "back_attachment");
-    public static final EntityModelLayer HELMET_ATTACHMENT_MODEL_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "armor"), "helmet_attachment");
+    public static final EntityModelLayer CUSTOM_ARMOR_HELMET = new EntityModelLayer(MiddleEarth.id("armor"), "_1");
+    public static final EntityModelLayer CUSTOM_ARMOR_CHESTPLATE = new EntityModelLayer(MiddleEarth.id("armor"), "_2");
+    public static final EntityModelLayer CUSTOM_ARMOR_LEGGINGS = new EntityModelLayer(MiddleEarth.id("armor"), "_3");
+    public static final EntityModelLayer CUSTOM_ARMOR_BOOTS = new EntityModelLayer(MiddleEarth.id("armor"), "_4");
+    public static final EntityModelLayer HELMET_ADDON_MODEL_LAYER = new EntityModelLayer(MiddleEarth.id("armor"), "helmet_addon");
+    public static final EntityModelLayer BACK_ATTACHMENT_MODEL_LAYER = new EntityModelLayer(MiddleEarth.id("armor"), "back_attachment");
+    public static final EntityModelLayer HELMET_ATTACHMENT_MODEL_LAYER = new EntityModelLayer(MiddleEarth.id("armor"), "helmet_attachment");
 
-    public static final EntityModelLayer HEATER_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "heater_shield"), "main");
-    public static final EntityModelLayer KITE_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "kite_shield"), "main");
-    public static final EntityModelLayer ROUND_SHIELD_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), "main");
+    public static final EntityModelLayer HEATER_SHIELD_LAYER = new EntityModelLayer(MiddleEarth.id("heater_shield"), "main");
+    public static final EntityModelLayer KITE_SHIELD_LAYER = new EntityModelLayer(MiddleEarth.id("kite_shield"), "main");
+    public static final EntityModelLayer ROUND_SHIELD_LAYER = new EntityModelLayer(MiddleEarth.id("round_shield"), "main");
 
-    public static final EntityModelLayer HELD_BANNER_LAYER = new EntityModelLayer(Identifier.of(MiddleEarth.MOD_ID, "held_banner"), "main");
+    public static final EntityModelLayer HELD_BANNER_LAYER = new EntityModelLayer(MiddleEarth.id("held_banner"), "main");
+
+    private static boolean configsRegistered = false;
 
     @Override
     public void onInitializeClient() {
@@ -112,6 +118,16 @@ public class MiddleEarthClient implements ClientModInitializer {
         KeyInputHandler.register();
 
         AtlasesME.registerAtlas();
+
+        // config are only generated AFTER the client language files loaded
+        // TODO: there might be a better way for this
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (!configsRegistered && I18n.hasTranslation(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.section.title"))) {
+                configsRegistered = true;
+                ServerConfigME.registerConfigs();
+                ClientConfigME.registerConfigs();
+            }
+        });
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);
@@ -191,11 +207,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(HELD_BANNER_LAYER, HeldBannerEntityModel::getTexturedModelData);
 
 
-        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "held_banner"), HeldBannerModelRenderer.Unbaked.CODEC);
+        SpecialModelTypes.ID_MAPPER.put(MiddleEarth.id("held_banner"), HeldBannerModelRenderer.Unbaked.CODEC);
 
-        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "heater_shield"), HeaterShieldModelRenderer.Unbaked.CODEC);
-        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "kite_shield"), KiteShieldModelRenderer.Unbaked.CODEC);
-        SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "round_shield"), RoundShieldModelRenderer.Unbaked.CODEC);
+        SpecialModelTypes.ID_MAPPER.put(MiddleEarth.id("heater_shield"), HeaterShieldModelRenderer.Unbaked.CODEC);
+        SpecialModelTypes.ID_MAPPER.put(MiddleEarth.id("kite_shield"), KiteShieldModelRenderer.Unbaked.CODEC);
+        SpecialModelTypes.ID_MAPPER.put(MiddleEarth.id("round_shield"), RoundShieldModelRenderer.Unbaked.CODEC);
 
         for(ArmorModelsME.CustomHelmetModels model : ArmorModelsME.CustomHelmetModels.values()){
             ArmorRenderer.register(new HelmetArmorRenderer(model.getModel()), model.getItem());

@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 import java.util.Objects;
 
 public class HoodStateTogglePacket extends ClientToServerPacket<HoodStateTogglePacket> {
-    public static final Id<HoodStateTogglePacket> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "hood_state_toggle_packet"));
+    public static final Id<HoodStateTogglePacket> ID = new Id<>(MiddleEarth.id("hood_state_toggle_packet"));
     public static final HoodStateTogglePacket INSTANCE = new HoodStateTogglePacket();
     public static final PacketCodec<RegistryByteBuf, HoodStateTogglePacket> CODEC = PacketCodec.unit(INSTANCE);
 

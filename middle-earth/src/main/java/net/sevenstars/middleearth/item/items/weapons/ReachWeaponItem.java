@@ -19,7 +19,7 @@ import net.sevenstars.middleearth.item.utils.ItemSettingsME;
 
 public class ReachWeaponItem extends Item {
 
-    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = Identifier.of(MiddleEarth.MOD_ID, "entity_interaction_range");
+    public static final Identifier ENTITY_INTERACTION_RANGE_MODIFIER_ID = MiddleEarth.id("entity_interaction_range");
 
     public WeaponTypesME type;
 

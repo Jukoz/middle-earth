@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.component.type.DyedColorComponent;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.commands.suggestions.AllBackAttachmentsSuggestionProvider;
@@ -63,18 +64,26 @@ public class CommandCustomEquipment {
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
 
         if (handStack.isEmpty()){
-            MutableText sourceText = Text.translatable("command.%s.back_attachment.hand_empty".formatted(MiddleEarth.MOD_ID));
+            MutableText sourceText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "back_attachment.hand_empty")
+            );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
         }
 
         if ((handStack.getItem() instanceof CustomChestplateItem || handStack.getItem() instanceof BackAttachmentItem)){
             handStack.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(backAttachment));
-            MutableText sourceText = Text.translatable("command.%s.back_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + backAttachment.getName()));
+            MutableText sourceText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "back_attachment.success")
+            ).append(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, backAttachment.getName())
+            ));
             context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             return 0;
         } else {
-            MutableText sourceText = Text.translatable("command.%s.back_attachment.wrong_item".formatted(MiddleEarth.MOD_ID));
+            MutableText sourceText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "back_attachment.wrong_item")
+            );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
         }
@@ -86,7 +95,9 @@ public class CommandCustomEquipment {
         ItemStack handStack = Objects.requireNonNull(context.getSource().getPlayer()).getInventory().getSelectedStack();
 
         if (handStack.isEmpty()){
-            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.hand_empty".formatted(MiddleEarth.MOD_ID));
+            MutableText sourceText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "helmet_attachment.hand_empty")
+            );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
         }
@@ -97,11 +108,17 @@ public class CommandCustomEquipment {
             } else if (helmetAttachment.getConstantState() == HelmetAttachmentsStatesME.UP || helmetAttachment.getConstantState() == null){
                 handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachment, DyedColorComponent.DEFAULT_COLOR));
             }
-            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.success".formatted(MiddleEarth.MOD_ID)).append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + "." + helmetAttachment.getName()));
+            MutableText sourceText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "helmet_attachment.success")
+            ).append(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, helmetAttachment.getName())
+            ));
             context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             return 0;
         } else {
-            MutableText sourceText = Text.translatable("command.%s.helmet_attachment.wrong_item".formatted(MiddleEarth.MOD_ID));
+            MutableText sourceText = Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "helmet_attachment.wrong_item")
+            );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
         }

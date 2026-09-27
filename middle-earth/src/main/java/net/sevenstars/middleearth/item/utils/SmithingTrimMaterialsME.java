@@ -46,6 +46,6 @@ public class SmithingTrimMaterialsME {
     }
 
     private static RegistryKey<ArmorTrimMaterial> of(String id) {
-        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of(MiddleEarth.MOD_ID, id));
+        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, MiddleEarth.id(id));
     }
 }

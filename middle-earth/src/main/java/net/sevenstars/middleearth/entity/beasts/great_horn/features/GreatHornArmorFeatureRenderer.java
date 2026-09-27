@@ -45,14 +45,14 @@ public class GreatHornArmorFeatureRenderer extends FeatureRenderer<GreatHornEnti
                 dyeable = true;
             }
             VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers,
-                    RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, path)), itemStack.hasGlint());
+                    RenderLayer.getArmorCutoutNoCull(MiddleEarth.id(path)), itemStack.hasGlint());
 
             if(dyeable){
                 int color = DyedColorComponent.getColor(itemStack, DyedColorComponent.DEFAULT_COLOR);
                 model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, color);
                 if(DyeablePiecesME.dyeablePieces.get(itemStack.getItem())) {
                     ArmorRenderer.renderPart(matrices, vertexConsumers, light, itemStack, model,
-                            Identifier.of(MiddleEarth.MOD_ID, path.replaceAll(".png", "_overlay.png")));
+                            MiddleEarth.id(path.replaceAll(".png", "_overlay.png")));
                 }
             } else {
                 model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);

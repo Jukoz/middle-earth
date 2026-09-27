@@ -89,7 +89,7 @@ public class BlockModelProvider extends FabricModelProvider {
 
         for (Block wood : SimpleBlockModel.woodBlocks) {
             TextureMap textureMap = new TextureMap().put(TextureKey.ALL,
-                    Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(wood).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
+                    MiddleEarth.id("block/" + Registries.BLOCK.getId(wood).getPath().replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood")));
             WeightedVariant identifier = createWeightedVariant(Models.CUBE_COLUMN.upload(wood, textureMap, blockStateModelGenerator.modelCollector));
             blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(wood, identifier));
         }
@@ -1039,7 +1039,7 @@ public class BlockModelProvider extends FabricModelProvider {
         }  else if (fullBlock.getNamespace().contains("minecraft")) {
             fullBlockVariant = createWeightedVariant(Identifier.ofVanilla(fullBlock.getPath()));
         }else {
-            fullBlockVariant = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, fullBlock.getPath()));
+            fullBlockVariant = createWeightedVariant(MiddleEarth.id(fullBlock.getPath()));
         }
 
         VariantsBlockModelDefinitionCreator blockstate = VariantsBlockModelDefinitionCreator.of(block).with(
@@ -1091,7 +1091,7 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public void registerWoodStoolModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath().replaceAll("stool", "chair"));
+        Identifier texture = MiddleEarth.id("block/" + Registries.BLOCK.getId(block).getPath().replaceAll("stool", "chair"));
         WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(ModelsME.WOOD_STOOL.upload(block,
                 new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
 
@@ -1107,7 +1107,7 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public void registerWoodBenchModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath());
+        Identifier texture = MiddleEarth.id("block/" + Registries.BLOCK.getId(block).getPath());
         WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(ModelsME.WOOD_BENCH.upload(block,
                 new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
 
@@ -1123,7 +1123,7 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public void registerWoodTableModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath());
+        Identifier texture = MiddleEarth.id("block/" + Registries.BLOCK.getId(block).getPath());
         WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(ModelsME.WOOD_TABLE.upload(block,
                 new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
 
@@ -1132,7 +1132,7 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public void registerWoodChairModelBlockStates(BlockStateModelGenerator blockStateModelGenerator, Block block){
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath());
+        Identifier texture = MiddleEarth.id("block/" + Registries.BLOCK.getId(block).getPath());
         WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(ModelsME.WOOD_CHAIR.upload(block,
                 new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
 
@@ -1238,10 +1238,10 @@ public class BlockModelProvider extends FabricModelProvider {
                     default -> rot;
                 };
 
-                WeightedVariant weightedVariantLeft = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
-                WeightedVariant weightedVariantLeftOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
-                WeightedVariant weightedVarianRight = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
-                WeightedVariant weightedVarianRightOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
+                WeightedVariant weightedVariantLeft = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
+                WeightedVariant weightedVariantLeftOpen = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
+                WeightedVariant weightedVarianRight = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
+                WeightedVariant weightedVarianRightOpen = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
 
                 statesMap.register(Direction.byIndex(k), false, DoorHinge.LEFT, i,
                         weightedVariantLeft.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
@@ -1257,23 +1257,23 @@ public class BlockModelProvider extends FabricModelProvider {
 
                 if (k == 2) {
                     ModelsME.LARGE_DOOR_LEFT.upload(largeDoor, "_left_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
 
                     ModelsME.LARGE_DOOR_LEFT_OPEN.upload(largeDoor, "_left_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
 
                     ModelsME.LARGE_DOOR_RIGHT.upload(largeDoor, "_right_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
 
                     ModelsME.LARGE_DOOR_RIGHT_OPEN.upload(largeDoor, "_right_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
                 }
             }
@@ -1296,10 +1296,10 @@ public class BlockModelProvider extends FabricModelProvider {
                     default -> rot;
                 };
 
-                WeightedVariant weightedVariantLeft = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
-                WeightedVariant weightedVariantLeftOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
-                WeightedVariant weightedVarianRight = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
-                WeightedVariant weightedVarianRightOpen = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
+                WeightedVariant weightedVariantLeft = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_" + i));
+                WeightedVariant weightedVariantLeftOpen = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_left_open_" + i));
+                WeightedVariant weightedVarianRight = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_" + i));
+                WeightedVariant weightedVarianRightOpen = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_right_open_" + i));
 
                 statesMap.register(Direction.byIndex(k), false, DoorHinge.LEFT, i,
                         weightedVariantLeft.apply(ModelVariantOperator.ROTATION_Y.withValue(AxisRotation.valueOf("R" + rot))));
@@ -1315,23 +1315,23 @@ public class BlockModelProvider extends FabricModelProvider {
 
                 if (k == 2) {
                     ModelsME.LARGE_THICK_DOOR_LEFT.upload(largeDoor, "_left_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
 
                     ModelsME.LARGE_THICK_DOOR_LEFT_OPEN.upload(largeDoor, "_left_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
 
                     ModelsME.LARGE_THICK_DOOR_RIGHT.upload(largeDoor, "_right_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
 
                     ModelsME.LARGE_THICK_DOOR_RIGHT_OPEN.upload(largeDoor, "_right_open_" + i,
-                            (new TextureMap()).put(TextureKey.ALL, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
-                                    .put(TextureKey.PARTICLE, Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
+                            (new TextureMap()).put(TextureKey.ALL, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i))
+                                    .put(TextureKey.PARTICLE, MiddleEarth.id("block/" + Registries.BLOCK.getId(largeDoor).getPath() + "_" + i)),
                             blockStateModelGenerator.modelCollector);
                 }
             }
@@ -1398,7 +1398,7 @@ public class BlockModelProvider extends FabricModelProvider {
             WeightedVariant var2;
             if (integer < 8) {
                 int var10001 = integer;
-                var2 = createWeightedVariant(Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(origin).getPath() +  "_layer_height" + var10001 * 2));
+                var2 = createWeightedVariant(MiddleEarth.id("block/" + Registries.BLOCK.getId(origin).getPath() +  "_layer_height" + var10001 * 2));
             } else {
                 var2 = weightedVariant;
             }
@@ -1494,7 +1494,7 @@ public class BlockModelProvider extends FabricModelProvider {
     }
 
     public void registerOrientableThickLadder(BlockStateModelGenerator blockStateModelGenerator, Block ladderBlock) {
-        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(ladderBlock).getPath());
+        Identifier texture = MiddleEarth.id("block/" + Registries.BLOCK.getId(ladderBlock).getPath());
 
         WeightedVariant weightedVariant = createWeightedVariant(ModelsME.THICK_LADDER.upload(ladderBlock, TextureMap.of(TextureKey.ALL, texture), blockStateModelGenerator.modelCollector));
 

@@ -50,7 +50,7 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
     @Override
     public void render(T entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
         SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/reinforced_chest"));
+                MiddleEarth.idFilePath("model", "reinforced_chest"));
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
 
         World world = entity.getWorld();

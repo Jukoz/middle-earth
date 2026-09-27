@@ -26,7 +26,7 @@ public class CustomArmorRenderer implements ArmorRenderer {
         if(dyeable){
             renderDyeable(matrices, vertexConsumers, light, stack, model, texture);
             if(DyeablePiecesME.dyeablePieces.get(stack.getItem())) {
-                ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, Identifier.of(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
+                ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, MiddleEarth.id(texture.getPath().replaceAll(".png", "_overlay.png")));
             }
         } else {
             ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);

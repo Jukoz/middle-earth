@@ -22,6 +22,6 @@ public class PetrifiedTrollRenderer extends MobEntityRenderer<PetrifiedTrollEnti
 
     @Override
     public Identifier getTexture(LivingEntityRenderState state) {
-        return Identifier.of(MiddleEarth.MOD_ID, PATH + "petrified_stone_troll.png");
+        return MiddleEarth.id(PATH + "petrified_stone_troll.png");
     }
 }

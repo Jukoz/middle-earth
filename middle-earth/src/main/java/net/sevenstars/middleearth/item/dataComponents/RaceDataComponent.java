@@ -12,6 +12,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.races.Race;
@@ -31,7 +32,9 @@ public record RaceDataComponent(Identifier raceId) implements TooltipAppender {
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         Race race = context.getRegistryLookup().getOrThrow(DynamicRegistriesME.RACE).getOrThrow(RegistryKey.of(DynamicRegistriesME.RACE, this.raceId)).value();
-        textConsumer.accept(Text.translatable("tooltip.%s.race".formatted(MiddleEarth.MOD_ID)).formatted(Formatting.DARK_RED)
+        textConsumer.accept(Text.translatable(
+                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "race")
+                ).formatted(Formatting.DARK_RED)
             .append(Text.translatable(race.getId().toTranslationKey("race")).formatted(Formatting.WHITE)));
     }
 

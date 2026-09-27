@@ -15,7 +15,7 @@ import net.sevenstars.api.network.packets.ServerToClientPacket;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 
 public class PacketForceOnboardingScreen extends ServerToClientPacket<PacketForceOnboardingScreen> {
-    public static final Id<PacketForceOnboardingScreen> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "packet_force_onboarding_screen"));
+    public static final Id<PacketForceOnboardingScreen> ID = new Id<>(MiddleEarth.id("packet_force_onboarding_screen"));
     public static final PacketCodec<RegistryByteBuf, PacketForceOnboardingScreen> CODEC = PacketCodec.tuple(
             PacketCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
             PacketCodecs.NBT_COMPOUND, p -> p.attributeList,

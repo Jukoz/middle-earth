@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -60,7 +61,10 @@ public class LanguageProvider extends FabricLanguageProvider {
             if(!path.contains("_spawn_egg"))
                 path += "_spawn_egg";
 
-            translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
+            translationBuilder.add(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM, path),
+                    generateName(path)
+            );
         });
 
         TranslationEntries.itemEntries.forEach(item -> {
@@ -72,7 +76,10 @@ public class LanguageProvider extends FabricLanguageProvider {
         });
 
         TranslationEntries.biomeEntries.forEach(name -> {
-            translationBuilder.add("biome." + MiddleEarth.MOD_ID + "." + name, generateName(name));
+            translationBuilder.add(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.BIOME, name),
+                    generateName(name)
+            );
         });
 
         TranslationEntries.bannerPatternEntries.forEach(name -> {
@@ -142,7 +149,10 @@ public class LanguageProvider extends FabricLanguageProvider {
             String [] sub = suffix.split("\\.");
             suffixSplit = Arrays.stream(sub).toList().getLast();
         }
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generateName(suffixSplit));
+        translationBuilder.add(
+                MiddleEarth.rawTranslationKeyWithModId(prefix, suffix),
+                generateName(suffixSplit)
+        );
     }
 
     public void createNpcDataTranslation(TranslationBuilder translationBuilder, String prefix, String suffix) {
@@ -164,11 +174,14 @@ public class LanguageProvider extends FabricLanguageProvider {
             }
         }
 
-        translationBuilder.add(prefix + "." + MiddleEarth.MOD_ID + "." + suffix, generatedName.toString());
+        translationBuilder.add(
+                MiddleEarth.rawTranslationKeyWithModId(prefix, suffix),
+                generatedName.toString()
+        );
     }
 
     public void createBannerTranslation(TranslationBuilder translationBuilder, String prefix, String suffix){
-        String baseTranslationKey = prefix + "." + MiddleEarth.MOD_ID + "." + suffix;
+        String baseTranslationKey = MiddleEarth.rawTranslationKeyWithModId(prefix, suffix);
 
         translationBuilder.add(baseTranslationKey + ".black", "Black " + generateName(suffix));
         translationBuilder.add(baseTranslationKey + ".blue", "Blue " + generateName(suffix));

@@ -23,7 +23,7 @@ public class PowderSnowBlockMixin {
 
     @WrapOperation(method = "canWalkOnPowderSnow", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))
     private static boolean canWalkOnPowderSnowTag(ItemStack instance, Item item, Operation<Boolean> original) {
-        return original.call(instance, item) || instance.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "powder_snow_walk_on")));
+        return original.call(instance, item) || instance.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("powder_snow_walk_on")));
     }
 
     @Inject(method = "canWalkOnPowderSnow", at = @At("HEAD"), cancellable = true)

@@ -17,13 +17,13 @@ import java.util.Map;
 
 public class WargEyesFeatureRenderer extends FeatureRenderer<WargEntityRenderState, WargModel> {
     private static final String PATH = "textures/entities/warg/eyes/";
-    private static final Identifier EMISSIVE_TEXTURE = Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_eyes_emissive.png");
+    private static final Identifier EMISSIVE_TEXTURE = MiddleEarth.id(PATH + "warg_eyes_emissive.png");
     private static final Map<WargEyeVariant, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(WargEyeVariant.class), (map) -> {
                 map.put(WargEyeVariant.BLUE,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_eyes_blue.png"));
+                        MiddleEarth.id(PATH + "warg_eyes_blue.png"));
                 map.put(WargEyeVariant.ORANGE,
-                        Identifier.of(MiddleEarth.MOD_ID, PATH + "warg_eyes_orange.png"));
+                        MiddleEarth.id(PATH + "warg_eyes_orange.png"));
             });
 
     public WargEyesFeatureRenderer(FeatureRendererContext<WargEntityRenderState, WargModel> featureRendererContext) {

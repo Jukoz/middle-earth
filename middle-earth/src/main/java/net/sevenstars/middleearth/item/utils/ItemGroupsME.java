@@ -5,6 +5,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.*;
 import net.minecraft.text.Text;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -41,7 +42,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> MISC_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup MISC_BLOCKS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".misc_blocks"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "misc_blocks")
+            ))
             .icon(() -> new ItemStack(GenericBlockSetRegistryME.STRAW.blockSet.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : MISC_BLOCKS_CONTENTS) {
@@ -52,7 +55,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> DECORATIVES_BLOCKS_CONTENT = new LinkedList<>();
     public static final ItemGroup DECORATIVES_BLOCKS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".decorative_blocks"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "decorative_blocks")
+            ))
             .icon(() -> new ItemStack(DecorativeItemsME.DWARVEN_LANTERN))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : DECORATIVES_BLOCKS_CONTENT) {
@@ -64,7 +69,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> NATURE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup NATURE_BLOCKS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".nature_blocks"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "nature_blocks")
+            ))
             .icon(() -> new ItemStack(NatureBlockRegistryME.HEATHER.asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : NATURE_BLOCKS_CONTENTS) {
@@ -75,7 +82,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> FOOD_CONTENTS = new LinkedList<>();
     public static final ItemGroup FOOD = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".food_items"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "food_items")
+            ))
             .icon(() -> new ItemStack(FoodItemsME.LEMBAS))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : FOOD_CONTENTS) {
@@ -86,7 +95,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> WEAPONS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WEAPONS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".weapon_items"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "weapon_items")
+            ))
             .icon(() -> new ItemStack(WeaponItemsME.GONDORIAN_SWORD))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WEAPONS_CONTENTS) {
@@ -97,7 +108,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> EQUIPMENT_CONTENTS = new LinkedList<>();
     public static final ItemGroup EQUIPMENT = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".equipment_items"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "equipment_items")
+            ))
             .icon(() -> new ItemStack(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_HELMET))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : EQUIPMENT_CONTENTS) {
@@ -108,7 +121,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> TOOLS_CONTENTS = new LinkedList<>();
     public static final ItemGroup TOOLS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".tool_items"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "tool_items")
+            ))
             .icon(() -> new ItemStack(ToolItemsME.KHAZAD_STEEL_PICKAXE))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : TOOLS_CONTENTS) {
@@ -119,7 +134,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> RESOURCES_CONTENTS = new LinkedList<>();
     public static final ItemGroup RESOURCES = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".resource_items"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "resource_items")
+            ))
             .icon(() -> new ItemStack(ResourceItemsME.MITHRIL_INGOT))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : RESOURCES_CONTENTS) {
@@ -130,7 +147,9 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> SPAWN_EGGS_CONTENTS = new LinkedList<>();
     public static final ItemGroup SPAWN_EGGS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".spawn_egg_items"))
+            .displayName(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM_GROUP, "spawn_egg_items")
+            ))
             .icon(() -> new ItemStack(EggItemsME.BROADHOOF_GOAT_SPAWN_EGG))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {

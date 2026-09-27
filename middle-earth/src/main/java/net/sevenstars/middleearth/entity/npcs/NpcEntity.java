@@ -44,6 +44,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
@@ -681,7 +682,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     @Override
     protected Text getDefaultName() {
         if(this.getNpcTypeIdentifier() == null) {
-            return Text.translatable("npc_type."+ MiddleEarth.MOD_ID +".npc");
+            return Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.NPC_TYPE, "npc")
+            );
         }
         return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_type"));
     }

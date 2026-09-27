@@ -13,7 +13,7 @@ import net.sevenstars.api.network.packets.ClientToServerPacket;
 
 public class PacketStructureManagerUpdateBlockEntityRequest extends ClientToServerPacket<PacketStructureManagerUpdateBlockEntityRequest>
 {
-    public static final Id<PacketStructureManagerUpdateBlockEntityRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_manager_update_block_entity_request"));
+    public static final Id<PacketStructureManagerUpdateBlockEntityRequest> ID = new Id<>(MiddleEarth.id("structure_manager_update_block_entity_request"));
 
     public static final PacketCodec<RegistryByteBuf, PacketStructureManagerUpdateBlockEntityRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,

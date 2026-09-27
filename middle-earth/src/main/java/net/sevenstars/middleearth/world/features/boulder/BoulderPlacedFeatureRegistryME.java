@@ -251,6 +251,6 @@ public class BoulderPlacedFeatureRegistryME {
     }
 
     public static RegistryKey<PlacedFeature> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of(MiddleEarth.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, MiddleEarth.id(name));
     }
 }

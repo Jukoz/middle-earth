@@ -12,6 +12,7 @@ import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.network.packets.client2server.ForgeModeSwitchPacket;
@@ -92,11 +93,15 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             }
 
             ClientPlayNetworking.send(new ForgeOutputPacket(amount, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ(), outputMode));
-            }, Text.translatable("button." + MiddleEarth.MOD_ID + ".extract_metal")
+            }, Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BUTTON, "extract_metal")
+        )
         );
 
         if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
-            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode_await")));
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_output_mode_await")
+            )));
         } else {
             setExtractButtonTooltip();
         }
@@ -107,17 +112,25 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             this.modeSwitchToAlloyButton.active = false;
             this.modeSwitchToHeatingButton.visible = true;
             this.modeSwitchToHeatingButton.active = true;
-        }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
+        }, Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BUTTON, "switch_mode")
+        ));
         this.modeSwitchToHeatingButton = new TexturedButtonWidget(x + 23, y + 60, 10 ,10, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
             ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
             this.modeSwitchToHeatingButton.visible = false;
             this.modeSwitchToHeatingButton.active = false;
             this.modeSwitchToAlloyButton.visible = true;
             this.modeSwitchToAlloyButton.active = true;
-        }, Text.translatable("button." + MiddleEarth.MOD_ID + ".switch_mode"));
+        }, Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BUTTON, "switch_mode")
+        ));
 
-        this.modeSwitchToHeatingButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_heating")));
-        this.modeSwitchToAlloyButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".forge_mode_switch_alloying")));
+        this.modeSwitchToHeatingButton.setTooltip(Tooltip.of(Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_mode_switch_heating")
+        )));
+        this.modeSwitchToAlloyButton.setTooltip(Tooltip.of(Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_mode_switch_alloying")
+        )));
 
         addDrawableChild(leftExtractCycleButton);
         addDrawableChild(extractButton);
@@ -164,7 +177,9 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         }
 
         if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
-            this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode_await")));
+            this.extractButton.setTooltip(Tooltip.of(Text.translatable(
+                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_output_mode_await")
+            )));
         } else {
             setExtractButtonTooltip();
         }
@@ -199,7 +214,9 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     protected void setExtractButtonTooltip() {
         int id = outputMode;
         if(outputMode == 4) id = 3;
-        this.extractButton.setTooltip(Tooltip.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".forge_output_mode" + id)));
+        this.extractButton.setTooltip(Tooltip.of(Text.translatable(
+                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_output_mode" + id)
+        )));
     }
 
     protected void updateSwitchState() {
@@ -262,9 +279,15 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             MetalTypes metal = MetalTypes.getValue(handler.getCurrentMetal());
             if(metal != MetalTypes.EMPTY){
                 context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
-                        List.of(Text.translatable("tooltip." + MiddleEarth.MOD_ID +".liquid_" + metal.asString().toLowerCase()).withColor(metal.getColor()),
-                                Text.literal(handler.getStoredLiquid() / 144  + " ").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".ingots_number")),
-                                Text.literal(handler.getStoredLiquid() % 144 / 16  + " ").append(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".nuggets_number"))
+                        List.of(Text.translatable(
+                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "liquid_" + metal.asString().toLowerCase())
+                                ).withColor(metal.getColor()),
+                                Text.literal(handler.getStoredLiquid() / 144  + " ").append(Text.translatable(
+                                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "ingots_number")
+                                )),
+                                Text.literal(handler.getStoredLiquid() % 144 / 16  + " ").append(Text.translatable(
+                                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "nuggets_number")
+                                ))
                         ), Text::asOrderedText), mouseX, mouseY);
             }
         }

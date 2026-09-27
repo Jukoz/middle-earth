@@ -91,7 +91,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(scavengeLootTable == null && !world.isClient()) {
             if(world instanceof ServerWorld serverWorld) {
 
-                LootTable lootTable = serverWorld.getServer().getReloadableRegistries().getLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MiddleEarth.MOD_ID, "gameplay/cave_troll_scavenging")));
+                LootTable lootTable = serverWorld.getServer().getReloadableRegistries().getLootTable(RegistryKey.of(RegistryKeys.LOOT_TABLE, MiddleEarth.id("gameplay/cave_troll_scavenging")));
 
                 if(lootTable != null) {
                     scavengeLootTable = lootTable;
@@ -244,7 +244,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     public boolean isTrollWeapon(ItemStack itemStack) {
-        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_weapons")));
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("troll_weapons")));
     }
 
     @Override
@@ -691,17 +691,17 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public boolean isCommandItem(ItemStack stack) {
-        return stack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "bones")));
+        return stack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones")));
     }
 
     @Override
     public boolean isFoodItem(ItemStack itemStack) {
-        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "troll_food")));
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("troll_food")));
     }
 
     @Override
     public boolean isBondingItem(ItemStack itemStack) {
-        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "chains")));
+        return itemStack.isIn(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("chains")));
     }
 
     public static boolean shouldTarget(LivingEntity target) {
