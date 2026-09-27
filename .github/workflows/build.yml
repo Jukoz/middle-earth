@@ -43,8 +43,12 @@ jobs:
 
       - name: prepare downloaded-source build
         run: |
-          mkdir -p "$RUNNER_TEMP/middle-earth-source"
-          git archive --format=tar HEAD | tar -xf - -C "$RUNNER_TEMP/middle-earth-source"
+          source_root="$RUNNER_TEMP/middle-earth-source"
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            source_root="$(cygpath -u "$RUNNER_TEMP")/middle-earth-source"
+          fi
+          mkdir -p "$source_root"
+          git archive --format=tar HEAD | tar -xf - -C "$source_root"
 
       - name: generate data and build
         working-directory: ${{ runner.temp }}/middle-earth-source
