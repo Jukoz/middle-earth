@@ -540,10 +540,7 @@ public class BlockModelProvider implements DataProvider {
         for (Block block : TintableCrossModel.notTintedBlocks()) {
             if (block != null
                     && block != ModNatureBlocks.PALE_OAK_SAPLING
-                    && block != ModNatureBlocks.BUSH
-                    && block != ModNatureBlocks.FIREFLY_BUSH
-                    && block != ModNatureBlocks.SHORT_DRY_GRASS
-                    && block != ModNatureBlocks.TALL_DRY_GRASS)
+                    && block != ModNatureBlocks.BUSH)
                 blockStateModelGenerator.createCrossBlockWithDefaultItem(block, GenerationContext.PlantType.NOT_TINTED);
         }
         registerCrossBlockWithTexture(
@@ -551,18 +548,6 @@ public class BlockModelProvider implements DataProvider {
                 ModNatureBlocks.BUSH,
                 TextureMapping.getBlockTexture(ModNatureBlocks.LARGE_BUSH),
                 GenerationContext.PlantType.TINTED);
-        registerCrossBlockWithTexture(
-                blockStateModelGenerator,
-                ModNatureBlocks.FIREFLY_BUSH,
-                TextureMapping.getBlockTexture(ModNatureBlocks.TOUGH_BERRY_BUSH, "_stage3"));
-        registerCrossBlockWithTexture(
-                blockStateModelGenerator,
-                ModNatureBlocks.SHORT_DRY_GRASS,
-                TextureMapping.getBlockTexture(ModNatureBlocks.DEAD_HEATHER));
-        registerCrossBlockWithTexture(
-                blockStateModelGenerator,
-                ModNatureBlocks.TALL_DRY_GRASS,
-                TextureMapping.getBlockTexture(ModNatureBlocks.DEAD_HEATHER_BUSH));
         registerCrossBlockWithTexture(
                 blockStateModelGenerator,
                 ModNatureBlocks.PALE_OAK_SAPLING,

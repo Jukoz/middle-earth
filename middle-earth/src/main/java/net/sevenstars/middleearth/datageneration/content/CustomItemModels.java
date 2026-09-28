@@ -11,6 +11,8 @@ public class CustomItemModels {
             MiddleEarth.of("item/big_weapon")), Optional.empty(), TextureSlot.LAYER0);
     public static final ModelTemplate BIG_WEAPON_STAFF = new ModelTemplate(Optional.of(
             MiddleEarth.of("item/big_weapon_staff")), Optional.empty(), TextureSlot.LAYER0);
+    public static final ModelTemplate SPEAR = new ModelTemplate(Optional.of(
+            MiddleEarth.of("item/spear")), Optional.empty(), TextureSlot.LAYER0);
     public static final ModelTemplate BIG_WEAPON_BLOCKING = new ModelTemplate(Optional.of(
             MiddleEarth.of("item/big_weapon_blocking")), Optional.of("_blocking"), TextureSlot.LAYER0);
     public static final ModelTemplate BOW = new ModelTemplate(Optional.of(

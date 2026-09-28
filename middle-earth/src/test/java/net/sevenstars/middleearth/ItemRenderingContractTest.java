@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -128,6 +130,9 @@ class ItemRenderingContractTest {
     @Test
     void everyStandaloneInventoryAndStateModelHasACompleteAssetGraph() throws IOException {
         Map<String, Path> models = effectiveModels();
+        Set<String> spearInventoryModels = spearIds().stream()
+                .map(id -> "item/" + id + "_inventory")
+                .collect(Collectors.toSet());
         int checkedStates = 0;
         int checkedInventory = 0;
 
@@ -167,7 +172,9 @@ class ItemRenderingContractTest {
 
             if (modelId.startsWith("item/") && modelId.endsWith("_inventory")) {
                 checkedInventory++;
-                assertEquals("minecraft:item/generated", model.get("parent").getAsString(), modelId);
+                String expectedParent = spearInventoryModels.contains(modelId)
+                        ? "minecraft:item/handheld" : "minecraft:item/generated";
+                assertEquals(expectedParent, model.get("parent").getAsString(), modelId);
                 String expectedTexture = modelId.equals("item/troll_mace_inventory")
                         ? "middle-earth:item/troll_mace"
                         : "middle-earth:" + modelId;
@@ -181,6 +188,25 @@ class ItemRenderingContractTest {
 
         assertEquals(615, checkedStates, "Unexpected standalone state model coverage");
         assertEquals(260, checkedInventory, "Unexpected standalone inventory model coverage");
+    }
+
+    @Test
+    void allRegisteredSpearsHaveCompleteHandAndInventoryAssets() throws IOException {
+        Map<String, Path> models = effectiveModels();
+        Set<String> spears = spearIds();
+        assertFalse(spears.isEmpty());
+        for (String spear : spears) {
+            for (String suffix : new String[]{"", "_inventory"}) {
+                String modelId = "item/" + spear + suffix;
+                assertTrue(models.containsKey(modelId), "Missing spear model " + modelId);
+                JsonObject model = JsonParser.parseString(Files.readString(models.get(modelId)))
+                        .getAsJsonObject();
+                assertModelReferenceExists(models, model.get("parent").getAsString(), modelId);
+                for (JsonElement texture : model.getAsJsonObject("textures").asMap().values()) {
+                    assertTextureReferenceExists(texture.getAsString(), modelId);
+                }
+            }
+        }
     }
 
     @Test
@@ -279,6 +305,12 @@ class ItemRenderingContractTest {
 
     private static String source(String relative) throws IOException {
         return Files.readString(MAIN_JAVA.resolve(relative));
+    }
+
+    private static Set<String> spearIds() throws IOException {
+        String weapons = source("net/sevenstars/middleearth/item/WeaponItemsME.java");
+        return Pattern.compile("registerItemWithSpearModel\\(\"([^\"]+)\"")
+                .matcher(weapons).results().map(match -> match.group(1)).collect(Collectors.toSet());
     }
 
     private static String between(String source, String startMarker, String endMarker) {

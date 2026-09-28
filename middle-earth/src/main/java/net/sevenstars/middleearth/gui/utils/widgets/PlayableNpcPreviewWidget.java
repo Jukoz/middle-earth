@@ -149,7 +149,7 @@ public class PlayableNpcPreviewWidget extends ModWidget{
             }
         }
 
-        int entityY = y + 85;
+        int entityY = y - 12;
         InventoryScreen.renderEntityInInventory(
                 context,
                 x,

@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PackagedDataDeterminismContractTest {
-    private static final Path BUILD_LIBS = Path.of("build/libs");
     private static final List<String> NPC_RANK_ORDER = List.of(
             "CIVILIAN", "MILITIA", "SOLDIER", "KNIGHT", "VETERAN", "LEADER"
     );
@@ -87,15 +86,6 @@ class PackagedDataDeterminismContractTest {
     }
 
     private static Path playerJar() throws IOException {
-        try (var files = Files.list(BUILD_LIBS)) {
-            List<Path> playerJars = files
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().startsWith("Middle-earth-"))
-                    .filter(path -> path.getFileName().toString().endsWith(".jar"))
-                    .filter(path -> !path.getFileName().toString().endsWith("-sources.jar"))
-                    .toList();
-            assertEquals(1, playerJars.size(), "Expected one packaged Middle-earth player JAR");
-            return playerJars.getFirst();
-        }
+        return TestArtifacts.playerJar();
     }
 }

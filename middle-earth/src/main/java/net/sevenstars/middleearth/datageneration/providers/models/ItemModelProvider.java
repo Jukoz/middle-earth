@@ -302,7 +302,8 @@ public class ItemModelProvider implements DataProvider {
     }
 
     private void registerSpearModels(Item item) {
-        createFlatItem(item, "_inventory", ModelTemplates.FLAT_ITEM);
+        createFlatItem(item, "_inventory", ModelTemplates.FLAT_HANDHELD_ITEM);
+        createFlatItem(item, CustomItemModels.SPEAR);
     }
 
     private void registerShield(Item item) {

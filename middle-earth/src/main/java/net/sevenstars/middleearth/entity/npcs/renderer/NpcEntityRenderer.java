@@ -150,7 +150,7 @@ public class NpcEntityRenderer extends HumanoidMobRenderer<NpcEntity, NpcEntityM
     }
 
     private static boolean shouldRenderEquipment(NpcEntity entity) {
-        return getLOD(entity.position()) < ModClientConfigs.LOD_NPC_ARMOR_DISTANCE;
+        return entity.isNoAi() || getLOD(entity.position()) < ModClientConfigs.LOD_NPC_ARMOR_DISTANCE;
     }
 
     private static final class LodItemInHandLayer extends ItemInHandLayer<NpcEntity, NpcEntityModel> {

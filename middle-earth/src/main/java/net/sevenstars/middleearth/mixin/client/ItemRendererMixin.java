@@ -26,16 +26,9 @@ public abstract class ItemRendererMixin {
                     target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;getModel(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;I)Lnet/minecraft/client/resources/model/BakedModel;"
             )
     )
-    private BakedModel middleEarth$resolveItemModel(
-            BakedModel original,
-            LivingEntity entity,
-            ItemStack stack,
-            ItemDisplayContext displayContext,
-            boolean leftHand,
-            PoseStack poseStack,
-            MultiBufferSource bufferSource,
-            Level level
-    ) {
+    private BakedModel middleEarth$resolveItemModel(BakedModel original, LivingEntity entity, ItemStack stack,
+                                                    ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack,
+                                                    MultiBufferSource bufferSource, Level level) {
         return ItemModelRenderStateClient.resolve(original, stack, displayContext, level, entity);
     }
 

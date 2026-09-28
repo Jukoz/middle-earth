@@ -108,6 +108,10 @@ public class MapScreen extends Screen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        if(mapWidget == null) {
+            init();
+            return;
+        }
         renderBackground(context, mouseX, mouseY, delta);
         if(isFullscreen){
             renderFullscreen(context);

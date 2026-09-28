@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -17,12 +19,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
@@ -976,7 +981,6 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
                 createSpearRecipeTag(recipeOutput, Items.STICK, TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")), WeaponItemsME.WOODEN_SPEAR);
                 createSpearRecipeTag(recipeOutput, Items.STICK, TagKey.create(Registries.ITEM, ResourceLocation.parse("stone_tool_materials")), WeaponItemsME.STONE_SPEAR);
-                createSpearRecipe(recipeOutput, Items.STICK, Items.DIAMOND, WeaponItemsME.DIAMOND_SPEAR);
 
                 createToolSetRecipes(recipeOutput, Items.STICK, ResourceItemsME.BRONZE_INGOT, ToolItemsME.BRONZE_PICKAXE, ToolItemsME.BRONZE_AXE, ToolItemsME.BRONZE_SHOVEL, ToolItemsME.BRONZE_HOE);
 
@@ -2647,6 +2651,18 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                                 has(ModNatureBlocks.RESIN_CLUMP))
                         .save(recipeOutput);
 
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.YELLOW_DYE,       ResourceItemsME.YELLOW_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.BROWN_DYE,        ResourceItemsME.BROWN_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GREEN_DYE,        ResourceItemsME.GREEN_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.BLUE_DYE,         ResourceItemsME.BLUE_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.GRAY_DYE,         ResourceItemsME.GRAY_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.LIGHT_GRAY_DYE,   ResourceItemsME.LIGHT_GRAY_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.WHITE_DYE,        ResourceItemsME.WHITE_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.LIME_DYE,         ResourceItemsME.LIME_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.LIGHT_BLUE_DYE,   ResourceItemsME.LIGHT_BLUE_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.RED_DYE,          ResourceItemsME.RED_BUNDLE);
+                createDyeableItemRecipe(recipeOutput, Items.BUNDLE, Items.BLACK_DYE,        ResourceItemsME.BLACK_BUNDLE);
+
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")
                         .pattern("VGV")
@@ -3429,6 +3445,26 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                         .unlockedBy(getHasName(blockInput),
                                 has(blockInput))
                         .save(exporter);
+            }
+
+            private void createDyeableItemRecipe(RecipeOutput exporter, Item input, Item dyeItem, Item recipeOutput) {
+                ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, recipeOutput, 1)
+                        .requires(input)
+                        .requires(dyeItem)
+                        .unlockedBy(getHasName(input),
+                                has(input))
+                        .save(new RecipeOutput() {
+                            @Override
+                            public void accept(ResourceLocation id, Recipe<?> recipe, AdvancementHolder advancement,
+                                               ICondition... conditions) {
+                                exporter.accept(id, new BundleDyeRecipe((ShapelessRecipe) recipe), advancement, conditions);
+                            }
+
+                            @Override
+                            public Advancement.Builder advancement() {
+                                return exporter.advancement();
+                            }
+                        });
             }
 
             private void createCombinedItemRecipe(RecipeOutput exporter, Block blockInput, TagKey<Item> addition, Block recipeOutput) {
