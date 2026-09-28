@@ -91,8 +91,6 @@ public class WeaponItemsME {
 
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
             (settings) -> new CustomDaggerWeaponItem(Tiers.GOLD, settings), new Item.Properties(), false);
-    public static final Item GOLDEN_SPEAR = registerItemWithSpearModel("golden_spear",
-            (settings) -> new CustomSpearWeaponItem(Tiers.GOLD, settings), new Item.Properties());
 
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Properties(), true);
@@ -116,13 +114,9 @@ public class WeaponItemsME {
 
     public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
             (settings) -> new CustomDaggerWeaponItem(Tiers.DIAMOND, settings), new Item.Properties(), false);
-    public static final Item DIAMOND_SPEAR = registerItemWithSpearModel("diamond_spear",
-            (settings) -> new CustomSpearWeaponItem(Tiers.DIAMOND, settings), new Item.Properties());
 
     public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
             (settings) -> new CustomDaggerWeaponItem(Tiers.NETHERITE, settings), new Item.Properties(), false);
-    public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
-            (settings) -> new CustomSpearWeaponItem(Tiers.NETHERITE, settings), new Item.Properties());
 
     public static final Item WEAVER_STING = registerItemWithModel("weaver_sting",
             (settings) -> new WeaverStingItem(ToolMaterialsME.WEAVER_STING, settings), new Item.Properties().rarity(Rarity.EPIC), false);

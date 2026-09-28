@@ -96,11 +96,9 @@ public class ArtisanTableHandheldRecipeProvider extends RecipeProvider {
 
                 createArtisanTableSwordRecipe(itemLookup, output, MetalTypes.GOLD, Items.GOLDEN_SWORD.getDefaultInstance(), false, DispositionType.NEUTRAL);
                 createArtisanTableDaggerRecipe(itemLookup, output, MetalTypes.GOLD, WeaponItemsME.GOLDEN_DAGGER.getDefaultInstance(), false, DispositionType.NEUTRAL);
-                createArtisanTableSpearRecipe(itemLookup, output, MetalTypes.GOLD, WeaponItemsME.GOLDEN_SPEAR.getDefaultInstance(), false, DispositionType.NEUTRAL);
 
                 createArtisanTableSwordRecipe(itemLookup, output, MetalTypes.NETHERITE, Items.NETHERITE_SWORD.getDefaultInstance(), false, DispositionType.NEUTRAL);
                 createArtisanTableDaggerRecipe(itemLookup, output, MetalTypes.NETHERITE, WeaponItemsME.NETHERITE_DAGGER.getDefaultInstance(), false, DispositionType.NEUTRAL);
-                createArtisanTableSpearRecipe(itemLookup, output, MetalTypes.NETHERITE, WeaponItemsME.NETHERITE_SPEAR.getDefaultInstance(), false, DispositionType.NEUTRAL);
 
                 createArtisanTableSwordRecipe(itemLookup, output, MetalTypes.BRONZE, WeaponItemsME.BRONZE_SWORD.getDefaultInstance(), false, DispositionType.NEUTRAL);
                 createArtisanTableDaggerRecipe(itemLookup, output, MetalTypes.BRONZE, WeaponItemsME.BRONZE_DAGGER.getDefaultInstance(), false, DispositionType.NEUTRAL);

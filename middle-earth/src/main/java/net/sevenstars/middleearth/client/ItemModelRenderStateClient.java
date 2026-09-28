@@ -246,37 +246,21 @@ public final class ItemModelRenderStateClient {
             put(descriptors, artefact.artefact(), artefactDescriptor(artefact));
         }
 
-        put(
-                descriptors,
-                WeaponItemsME.TROLL_MACE,
-                new ModelDescriptor(
-                        ModelKind.FLAT_ITEM,
-                        explicitModels(ModelRole.INVENTORY, MiddleEarth.of("item/troll_mace_inventory"))
-                )
-        );
-        put(
-                descriptors,
-                ModDecorativeBlocks.CANDLE_HOLDER.asItem(),
-                new ModelDescriptor(
-                        ModelKind.EXPLICIT_HAND,
+        put(descriptors, WeaponItemsME.TROLL_MACE, new ModelDescriptor(ModelKind.FLAT_ITEM,
+                        explicitModels(ModelRole.INVENTORY, MiddleEarth.of("item/troll_mace_inventory"))));
+
+        put(descriptors, ModDecorativeBlocks.CANDLE_HOLDER.asItem(), new ModelDescriptor(ModelKind.EXPLICIT_HAND,
                         explicitModels(
                                 ModelRole.INVENTORY, MiddleEarth.of("item/candle_holder"),
                                 ModelRole.HAND, MiddleEarth.of("block/candle_holder")
-                        )
-                )
-        );
-        put(
-                descriptors,
-                DecorativeItemsME.WATERING_CAN,
-                new ModelDescriptor(
-                        ModelKind.EXPLICIT_USING_HAND,
+                        )));
+
+        put(descriptors, DecorativeItemsME.WATERING_CAN, new ModelDescriptor(ModelKind.EXPLICIT_USING_HAND,
                         explicitModels(
                                 ModelRole.INVENTORY, MiddleEarth.of("item/watering_can"),
                                 ModelRole.HAND, MiddleEarth.of("block/watering_can"),
                                 ModelRole.USING_HAND, MiddleEarth.of("block/watering_can_sprinkling")
-                        )
-                )
-        );
+                        )));
         return descriptors;
     }
 

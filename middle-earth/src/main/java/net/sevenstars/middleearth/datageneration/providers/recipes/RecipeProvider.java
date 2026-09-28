@@ -981,7 +981,6 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
                 createSpearRecipeTag(recipeOutput, Items.STICK, TagKey.create(Registries.ITEM, ResourceLocation.parse("planks")), WeaponItemsME.WOODEN_SPEAR);
                 createSpearRecipeTag(recipeOutput, Items.STICK, TagKey.create(Registries.ITEM, ResourceLocation.parse("stone_tool_materials")), WeaponItemsME.STONE_SPEAR);
-                createSpearRecipe(recipeOutput, Items.STICK, Items.DIAMOND, WeaponItemsME.DIAMOND_SPEAR);
 
                 createToolSetRecipes(recipeOutput, Items.STICK, ResourceItemsME.BRONZE_INGOT, ToolItemsME.BRONZE_PICKAXE, ToolItemsME.BRONZE_AXE, ToolItemsME.BRONZE_SHOVEL, ToolItemsME.BRONZE_HOE);
 
