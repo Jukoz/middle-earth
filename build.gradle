@@ -77,6 +77,58 @@ subprojects() {
 	}
 }
 
+// FIXME: I hate gradle.
+// there are some weird compiling errors exist (sometimes) for `genSources` and `runDatagenClient`
+// after some searching and vibe coding, things just work
+def loomProjects = subprojects.toList()
+
+// genSources: all projects share the same loom cache below the root project
+// (.gradle/loom-cache/minecraftMaven). A GenerateSourcesTask declares that shared
+// minecraft jar both as an output (getClassesOutputJar) and as an input (the
+// compile classpath), so Gradle's implicit dependency validation fails with:
+//
+//   Task ':a:genSourcesWithVineflower' uses this output of task
+//   ':b:genSourcesWithVineflower' without declaring an explicit or implicit dependency
+//
+// Gradle only requires that *some* order is declared between the two tasks - it
+// does not matter which direction (see MissingTaskDependencyDetector#hasNoSpecifiedOrder).
+// So every genSources task is ordered after the genSources tasks of the projects
+// that come before it in the (deterministic) set of subprojects.
+loomProjects.eachWithIndex { subproject, index ->
+	subproject.tasks.configureEach { task ->
+		if (task instanceof net.fabricmc.loom.task.GenerateSourcesTask) {
+			loomProjects.take(index).each { earlierProject ->
+				task.mustRunAfter(earlierProject.tasks.withType(net.fabricmc.loom.task.GenerateSourcesTask))
+			}
+		}
+	}
+}
+
+// Run tasks: loom 1.11 decides whether it may pass the classpath through an arg
+// file with a single static CharsetEncoder that is shared by every run task
+// (AbstractRunTask.ASCII_ENCODER). CharsetEncoder is not thread safe, so as soon
+// as two run tasks are evaluated at the same time (org.gradle.parallel=true) the
+// second one fails with:
+//
+//   Execution failed for task ':b:runDatagenClient'.
+//   > Failed to query the value of property 'jvmArguments'.
+//      > Failed to calculate the value of task ':b:runDatagenClient' property 'useArgFile'.
+//         > Current state = CODING_END, new state = CODING
+//            at net.fabricmc.loom.task.AbstractRunTask.canPathBeASCIIEncoded(AbstractRunTask.java:119)
+//
+// Loom creates a new encoder per call since 1.17, so this can be dropped once the
+// loom version is updated. Run tasks of the same project are not affected: only
+// tasks of different projects can run in parallel.
+loomProjects.eachWithIndex { subproject, index ->
+	subproject.tasks.configureEach { task ->
+		if (task instanceof net.fabricmc.loom.task.AbstractRunTask) {
+			loomProjects.take(index).each { earlierProject ->
+				task.mustRunAfter(earlierProject.tasks.withType(net.fabricmc.loom.task.AbstractRunTask))
+			}
+		}
+	}
+}
+
 // root project will not build anything
 jar.enabled = false
 
