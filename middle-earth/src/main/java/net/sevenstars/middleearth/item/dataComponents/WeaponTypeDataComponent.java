@@ -30,10 +30,10 @@ public record WeaponTypeDataComponent(String type) implements TooltipAppender {
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         textConsumer.accept(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "type")
+                        LangCategory.TOOLTIP.createKey(MiddleEarth.id("type"))
                 ).formatted(Formatting.GOLD)
                 .append(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, this.type)
+                        LangCategory.TOOLTIP.createKey(MiddleEarth.id(this.type))
                 ).formatted(Formatting.WHITE)));
     }
 

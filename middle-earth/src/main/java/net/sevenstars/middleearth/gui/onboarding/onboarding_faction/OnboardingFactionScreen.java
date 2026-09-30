@@ -100,7 +100,7 @@ public class OnboardingFactionScreen extends Screen {
     }
 
     private static final Text TITLE = Text.translatable(
-            MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "onboarding_faction_screen")
+            LangCategory.SCREEN.createKey(MiddleEarth.id("onboarding_faction_screen"))
     );
 
 
@@ -162,26 +162,26 @@ public class OnboardingFactionScreen extends Screen {
 
         // PlayerFactionPayload Randomizer
         elements.npcRandomizerButton = ButtonWidget.builder(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "button.faction_randomizer")
+                    LangCategory.SCREEN.createKey(MiddleEarth.id("button.faction_randomizer"))
                 ),
                 x -> this.controller.randomizeNpc()).build();
         addDrawableChild(elements.npcRandomizerButton);
 
         // Map Widget
         elements.mapFocusButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "button.focus_current")
+                LangCategory.SCREEN.createKey(MiddleEarth.id("button.focus_current"))
         ), this::mapFocusToggle).build(); // TODO
         elements.mapFocusButton.setDimensions(10, 10);
         addDrawableChild(elements.mapFocusButton);
 
         elements.mapZoomInButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "button.zoom_in")
+                LangCategory.SCREEN.createKey(MiddleEarth.id("button.zoom_in"))
         ), this::mapZoomIn).build();
         elements.mapZoomInButton.setDimensions(10, 10);
         addDrawableChild(elements.mapZoomInButton);
 
         elements.mapZoomOutButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "button.zoom_out")
+                LangCategory.SCREEN.createKey(MiddleEarth.id("button.zoom_out"))
         ), this::mapZoomOut).build();
 
         elements.mapZoomOutButton.setDimensions(10, 10);
@@ -206,13 +206,13 @@ public class OnboardingFactionScreen extends Screen {
 
         // Random spawn selection
         elements.fullRandomizerButton = ButtonWidget.builder(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "button.full_randomizer")
+                    LangCategory.SCREEN.createKey(MiddleEarth.id("button.full_randomizer"))
                 ),
                 x -> controller.randomizeAll()).build();
         addDrawableChild(elements.fullRandomizerButton);
 
         elements.spawnConfirmButton = ButtonWidget.builder(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "button.confirm")
+                    LangCategory.SCREEN.createKey(MiddleEarth.id("button.confirm"))
                 ),
                 x -> controller.confirmSelection()).build();
         addDrawableChild(elements.spawnConfirmButton);
@@ -273,7 +273,7 @@ public class OnboardingFactionScreen extends Screen {
         if(elements.subfactionName != null){
             startY += textRenderer.fontHeight + 3;
             Text subfactionTitle = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "information.subfaction")
+                    LangCategory.SCREEN.createKey(MiddleEarth.id("information.subfaction"))
             );
 
             context.drawText(textRenderer, subfactionTitle, startX, startY, TEXT_COLOR, false);
@@ -286,8 +286,8 @@ public class OnboardingFactionScreen extends Screen {
             boolean hasManyRaces = text.contains(",");
             Text raceTitle = Text.translatable(
                     (hasManyRaces)
-                            ? MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "information.races.many")
-                            : MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "information.races")
+                            ? LangCategory.SCREEN.createKey(MiddleEarth.id("information.races.many"))
+                            : LangCategory.SCREEN.createKey(MiddleEarth.id("information.races"))
             ).formatted(Formatting.UNDERLINE);
 
             context.drawText(client.textRenderer, raceTitle, startX, startY, TEXT_COLOR, false);
@@ -302,7 +302,7 @@ public class OnboardingFactionScreen extends Screen {
         startY =  elements.informationPanel.startY + 90;
 
         context.drawText(client.textRenderer, Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "information.description")
+                        LangCategory.SCREEN.createKey(MiddleEarth.id("information.description"))
                 ).formatted(Formatting.UNDERLINE),
                 startX,startY - textRenderer.fontHeight, TEXT_COLOR, false);
         startY += 3;

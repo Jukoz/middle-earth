@@ -683,7 +683,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     protected Text getDefaultName() {
         if(this.getNpcTypeIdentifier() == null) {
             return Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.NPC_TYPE, "npc")
+                    LangCategory.NPC_TYPE.createKey(MiddleEarth.id("npc"))
             );
         }
         return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_type"));

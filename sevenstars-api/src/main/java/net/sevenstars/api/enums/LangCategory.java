@@ -74,7 +74,7 @@ public enum LangCategory {
     }
 
     /**
-     * Builds {@code PREFIX.NAMESPACE.names...}.
+     * Build the key {@code PREFIX.NAMESPACE.NAMES}
      * <p>Examples:
      * <pre>{@code
      * LangCategory.ITEM.createKey("middle-earth", "mithril")
@@ -119,5 +119,25 @@ public enum LangCategory {
      */
     public String createKey(Identifier value) {
         return createKey(value, value.getPath());
+    }
+
+    /**
+     * Another way to build the key {@code PREFIX.NAMESPACE.NAMES},
+     * <p>this is for seven stars mods based on {@link AbstractModInitializer}
+     * <p>Examples:
+     * <pre>
+     *     {@code
+     *     LangCategory.SCREEN.createKey(MiddleEarth.INSTANCE, "artisan_table", "crafting_shaped")
+     *     // screen.middle-earth.artisan_table.crafting_shaped
+     *     }
+     * </pre>
+     * <p>Note:
+     * <p>The biggest difference between {@code IdentifierUtil.createAggregateValue()} and {@code LangKey.append()}
+     * is that the former does not allow empty path (which will be replaced to 'not_enough_parameters')
+     * <p>so for special keys without 'NAMES' part such as 'modmenu.nameTranslation.middle-earth' (whose PREFIX is 'modmenu.nameTranslation' and NAMES is empty)
+     * do not use {@code IdentifierUtil.createAggregateValue()} to create their translatable keys
+     */
+    public String createKey(AbstractModInitializer modInitializer, String... names) {
+        return createKey(modInitializer.idAggregate('.', names));
     }
 }

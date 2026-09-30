@@ -171,7 +171,7 @@ public class MapMarkerWidget extends CustomWidget {
                 }
                 if(childs.size() > maxChildDisplay){
                     texts.add(Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.more")
+                            LangCategory.WIDGET.createKey(MiddleEarth.id("marker.more"))
                     ).formatted(Formatting.BLUE));
                 }
             }
@@ -198,11 +198,11 @@ public class MapMarkerWidget extends CustomWidget {
             List<Text> modifiedList = new ArrayList<>();
             modifiedList.add(
                     Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.selected_title_container.before")
+                            LangCategory.WIDGET.createKey(MiddleEarth.id("marker.selected_title_container.before"))
                             )
                             .append(content.get(0).copy().withColor(ColorsME.SUCCESS.color))
                             .append(Text.translatable(
-                                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.selected_title_container.after")
+                                    LangCategory.WIDGET.createKey(MiddleEarth.id("marker.selected_title_container.after"))
                             )));
             for(int i = 1; i < content.size(); i++){
                 modifiedList.add(content.get(i));

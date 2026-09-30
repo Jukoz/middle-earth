@@ -33,7 +33,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
     @Override
     public Text getTitle() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONTAINER, "artisan_table")
+                LangCategory.CONTAINER.createKey(MiddleEarth.id("artisan_table"))
         );
     }
 
@@ -73,7 +73,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
 
         widgets.add(Widgets.createLabel(new Point(startPoint.x + 63, startPoint.y + 5),
                 Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "artisan_table." + display.getCategory())
+                        LangCategory.SCREEN.createKey(MiddleEarth.id("artisan_table." + display.getCategory()))
                 )));
 
         return widgets;

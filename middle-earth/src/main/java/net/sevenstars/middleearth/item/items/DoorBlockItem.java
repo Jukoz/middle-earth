@@ -23,7 +23,7 @@ public class DoorBlockItem extends BlockItem {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "door_size")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("door_size"))
         ).append(block.getDoorWidth() + "x" + block.getDoorHeight()));
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }

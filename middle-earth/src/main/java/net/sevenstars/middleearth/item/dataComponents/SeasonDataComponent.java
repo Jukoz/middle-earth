@@ -35,10 +35,10 @@ public record SeasonDataComponent(Season season) implements TooltipAppender {
         try{
             Identifier identifier = context.getRegistryLookup().getOrThrow(RegistryKeys.BIOME).getKey().getRegistry();
             textConsumer.accept(Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "season")
+                            LangCategory.TOOLTIP.createKey(MiddleEarth.id("season"))
                     ).formatted(Formatting.GOLD)
                     .append(Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.SEASON, season.toString())
+                            LangCategory.SEASON.createKey(MiddleEarth.id(season.toString()))
                     ).formatted(Formatting.WHITE)));
 
         } catch (Exception e){

@@ -63,12 +63,12 @@ public class SeatBlock extends Block {
             return ActionResult.SUCCESS;
         } else if (world.getBlockState(pos.up()).isOpaque()){
             player.sendMessage(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ALERT, "seat.space_not_empty")
+                    LangCategory.ALERT.createKey(MiddleEarth.id("seat.space_not_empty"))
             ), true);
             return ActionResult.SUCCESS;
         }else if (state.get(OCCUPIED)){
         player.sendMessage(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.ALERT, "seat.occupied")
+                LangCategory.ALERT.createKey(MiddleEarth.id("seat.occupied"))
         ), true);
             return ActionResult.SUCCESS;
         } else {

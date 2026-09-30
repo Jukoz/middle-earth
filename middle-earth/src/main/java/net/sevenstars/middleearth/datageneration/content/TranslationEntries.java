@@ -933,45 +933,37 @@ public class TranslationEntries {
         }
     };
 
-    /**
-     * <br/>Most common use
-     * <br/><br/>
-     * <br/>keys like:
-     * <br/>CATEGORY.MOD_ID.VALUE
-     * <br/>->
-     * <br/>of(CATEGORY, VALUE)
-     */
-    public static String of(LangCategory langCategory, String value) {
-        return of(langCategory, "", value);
-    }
 
-    /**
-     * <br/>1. keys like:
-     * <br/>CATEGORY.OTHER.MOD_ID.VALUE
-     * <br/>(tag.item.middle-earth.anvil_items)
-     * <br/>->
-     * <br/>of(CATEGORY, OTHER, VALUE)
-     * <br/><br/>
-     * <br/>2. if no value:
-     * <br/>CATEGORY.OTHER.MOD_ID
-     * <br/>(modmenu.nameTranslation.middle-earth)
-     * <br/>->
-     * <br/>of(CATEGORY, OTHER, "")
-     */
-    public static String of(LangCategory langCategory, String otherPrefix, String value) {
-        String prefix = langCategory.Prefix;
-        if (!"".equals(otherPrefix)) {
-            prefix += "." + otherPrefix;
+    public static String of(LangCategory langCategory, LangPrefix extras, String... names) {
+        if (names == null || names.length == 0) {
+            /*
+              NOTE: the reason for this part:
+
+              idAggregate() will add 'not_enough_parameters',
+              so it cannot be used to build the key like 'PREFIX.MOD_ID'
+
+              e.g.
+                if we use:
+                LangKey.of(
+                      LangCategory.MOD_MENU.prefix().then("nameTranslation"),
+                      MiddleEarth.idAggregate(names)
+                )
+
+                what we expected:         modmenu.nameTranslation.middle-earth
+                what we'll actually get:  modmenu.nameTranslation.middle-earth.not_enough_parameters
+             */
+            return LangKey.of(
+                    langCategory.prefix().then(extras),
+                    MiddleEarth.idAggregate(names).getNamespace()
+            );
         }
-        return MiddleEarth.rawTranslationKeyWithModId(prefix, value);
-
+        return LangKey.of(
+                langCategory.prefix().then(extras),
+                MiddleEarth.idAggregate(names)
+        );
     }
 
-    /**
-     * <br/>keys like:
-     * <br/>CATEGORY.VALUE
-     */
-    public static String ofRaw(LangCategory langCategory, String value) {
-        return MiddleEarth.rawTranslationKey(langCategory, value);
+    public static String of(LangCategory langCategory, String... names) {
+        return of(langCategory, LangPrefix.ROOT, names);
     }
 }

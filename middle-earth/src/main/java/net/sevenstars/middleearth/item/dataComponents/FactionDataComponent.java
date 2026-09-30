@@ -63,14 +63,14 @@ public class FactionDataComponent implements TooltipAppender {
 
     private void appendFaction(Consumer<Text> textConsumer, RegistryKey<Faction> faction){
         textConsumer.accept(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "faction")
+                        LangCategory.TOOLTIP.createKey(MiddleEarth.id("faction"))
                 ).formatted(Formatting.GOLD)
                 .append(Text.translatable(faction.getValue().toTranslationKey("faction")).formatted(Formatting.WHITE)));
     }
 
     private void appendSubfaction(Consumer<Text> textConsumer, RegistryKey<Faction> faction){
         textConsumer.accept(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "sub_faction")
+                        LangCategory.TOOLTIP.createKey(MiddleEarth.id("sub_faction"))
                 ).formatted(Formatting.GRAY)
                 .append(Text.translatable(faction.getValue().toTranslationKey("faction")).formatted(Formatting.WHITE)));
     }

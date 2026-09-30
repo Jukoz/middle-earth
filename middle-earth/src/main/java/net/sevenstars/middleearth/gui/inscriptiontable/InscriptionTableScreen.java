@@ -183,9 +183,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             int l = this.handler.getPlayerLevels();
 
             int color;
-            String levelKey = (k == 1) ? ".level" : ".levels";
+            String levelKey = (k == 1) ? "level" : "levels";
             Text text = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, levelKey), k
+                    LangCategory.INSCRIPTION.createKey(MiddleEarth.id(levelKey)), k
             );
 
             if (this.client.player.isInCreativeMode() || (l >= k && k != 0)){
@@ -220,11 +220,11 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         for(String word : this.selectedWords){
             if (m != 0){
                 stringBuilder.append(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, "linking_dash")
+                        LangCategory.INSCRIPTION.createKey(MiddleEarth.id("linking_dash"))
                 ).getString());
             }
             stringBuilder.append(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+                    LangCategory.INSCRIPTION.createKey(MiddleEarth.id(word))
             ).getString());
             m++;
         }
@@ -263,17 +263,17 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                     if(widgetButtonPage.hidden) {
 //                        Text text = Text.literal(StringUtils.capitalize(word)).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
                         Text text = Text.translatable(
-                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+                                LangCategory.INSCRIPTION.createKey(MiddleEarth.id(word))
                         ).setStyle(Style.EMPTY.withStrikethrough(widgetButtonPage.hidden));
                         context.drawText(this.textRenderer, text, i + 11, n, Colors.LIGHT_GRAY, false);
                     } else {
                         context.drawText(this.textRenderer, Text.translatable(
-                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+                                LangCategory.INSCRIPTION.createKey(MiddleEarth.id(word))
                         ), i + 11, n, Colors.WHITE, false);
                     }
                 } else {
                     context.drawText(this.textRenderer, Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.INSCRIPTION, word)
+                            LangCategory.INSCRIPTION.createKey(MiddleEarth.id(word))
                     ), i + 11, n, Colors.WHITE, false);
                 }
                 n += 14;

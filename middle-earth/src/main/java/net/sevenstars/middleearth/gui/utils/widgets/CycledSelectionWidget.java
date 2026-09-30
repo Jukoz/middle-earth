@@ -8,6 +8,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
+import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.utils.CycledSelectionButtonType;
 
@@ -141,7 +142,7 @@ public class CycledSelectionWidget extends CustomWidget {
                     PANEL_SIZE_X, PANEL_SIZE_Y, 256, 256);
 
         if(text == null)
-            text = Text.translatable("me.ui.selection.none");
+            text = Text.translatable(LangCategory.UI.createKey(MiddleEarth.id("selection.none")));
         context.drawText(textRenderer, text,
                 x + (int)((PANEL_SIZE_X - textRenderer.getWidth(text)) / 2f),
                 startY + (int) ((PANEL_SIZE_Y / 2f) - (textRenderer.fontHeight / 2f)) + 1,

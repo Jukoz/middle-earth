@@ -56,13 +56,13 @@ public class SearchBarWidget extends CustomWidget {
                 searchBarToggle = true;
         };
         searchBarToggleButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "search.toggle_button")
+                LangCategory.UI.createKey(MiddleEarth.id("search.toggle_button"))
         ), searchBarInputToggle).build();
         searchBarToggleButton.setDimensions(desiredWidth, searchBarToggleButton.getHeight());
 
         // Screen click
         screenClick = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "search.screen_click_button")
+                LangCategory.UI.createKey(MiddleEarth.id("search.screen_click_button"))
         ), button -> clickOnScreen(button, additionalScreenClickAction)).build();
         screenClick.setAlpha(0);
         screenClick.setMessage(Text.of(""));
@@ -123,7 +123,7 @@ public class SearchBarWidget extends CustomWidget {
 
         MutableText text = Text.translatable(
                 (!searchBarToggle && searchBarInput.isEmpty())
-                        ? MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "search.label")
+                        ? LangCategory.UI.createKey(MiddleEarth.id("search.label"))
                         : searchBarInput
         );
         context.drawText(textRenderer, text,

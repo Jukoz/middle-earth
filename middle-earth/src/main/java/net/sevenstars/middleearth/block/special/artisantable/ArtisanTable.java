@@ -38,7 +38,7 @@ import java.util.stream.Stream;
 public class ArtisanTable extends HorizontalFacingBlock {
     public static final EnumProperty<ArtisanTablePart> PART = EnumProperty.of("part", ArtisanTablePart.class);
     private static final Text TITLE = Text.translatable(
-            MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONTAINER, "artisan_table")
+            LangCategory.CONTAINER.createKey(MiddleEarth.id("artisan_table"))
     );
 
 

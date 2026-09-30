@@ -19,7 +19,7 @@ public class ItemGroupsWT {
 
     public static final ItemGroup WILD_THINGS = FabricItemGroup.builder()
             .displayName(Text.translatable(
-                    OfBeastsAndWildThings.translationKey(LangCategory.ITEM_GROUP, "wild_things")
+                    LangCategory.ITEM_GROUP.createKey(OfBeastsAndWildThings.INSTANCE, "wild_things")
             ))
             .icon(() -> new ItemStack(EggItemsWT.DEER_SPAWN_EGG))
             .entries((displayContext, entries) -> {
@@ -36,7 +36,7 @@ public class ItemGroupsWT {
             .build();
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Item Groups");
+        OfBeastsAndWildThings.logRegistryMessage("Item Groups");
 
         Registry.register(Registries.ITEM_GROUP, OfBeastsAndWildThings.id("wild_things"), WILD_THINGS);
     }

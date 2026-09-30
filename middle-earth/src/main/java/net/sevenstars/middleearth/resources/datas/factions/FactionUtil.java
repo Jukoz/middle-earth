@@ -38,7 +38,7 @@ public class FactionUtil {
             //sendOnLeaveCommand(player, previousFaction);
             // Send leaving message to affected player
             MutableText targetText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "leave.faction.success"),
+                    LangCategory.EVENT.createKey(MiddleEarth.id("leave.faction.success")),
                     previousFaction.get().getKey());
             player.sendMessage(targetText.withColor(ColorsME.WARNING.color));
         }
@@ -55,7 +55,7 @@ public class FactionUtil {
 
         // Send join message to affected player
         MutableText targetText = Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "join.faction.success"),
+                LangCategory.EVENT.createKey(MiddleEarth.id("join.faction.success")),
                 newFaction.getIdAsString());
         player.sendMessage(targetText.withColor(ColorsME.SUCCESS.color));
 
@@ -138,7 +138,7 @@ public class FactionUtil {
 
 
         MutableText targetText = Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "join.faction.success"),
+                LangCategory.EVENT.createKey(MiddleEarth.id("join.faction.success")),
                 faction.getFullName());
         ((ServerPlayerEntity) player).networkHandler.sendPacket(
             new TitleS2CPacket(Text.of(""))
@@ -156,7 +156,7 @@ public class FactionUtil {
         if(PlayerDataService.clearPlayerData(player)){
             sendOnLeaveCommand(player, faction);
             MutableText targetText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.EVENT, "leave.faction.success"),
+                    LangCategory.EVENT.createKey(MiddleEarth.id("leave.faction.success")),
                     faction.getFullName());
             player.sendMessage(targetText.withColor(ColorsME.WARNING.color));
             return true;

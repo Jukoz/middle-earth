@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
+import net.sevenstars.api.lang.LangKey;
 import net.sevenstars.api.utils.LoggerUtil;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
@@ -210,45 +211,5 @@ public class MiddleEarth implements ModInitializer {
 		if(base == null)
 			return null;
 		return base.withPrefixedPath(String.format("%s/", prefixId.getPath()));
-	}
-
-	// Translation Keys
-	// for Identifier value
-	public static String rawTranslationKey(String prefix, Identifier value){
-		return value.toTranslationKey(prefix);
-	}
-
-	public static String rawTranslationKey(LangCategory category, Identifier value){
-		return rawTranslationKey(category.Prefix, value);
-	}
-
-	// for String value
-	public static String rawTranslationKey(String prefix, String value){
-        if ("".equals(value)) {
-            return prefix;
-        }
-        return prefix + "." + value;
-    }
-	public static String rawTranslationKeyWithModId(String prefix, String value){
-		return rawTranslationKey(prefix + "." + getModId(), value);
-	}
-
-	public static String rawTranslationKey(LangCategory category, String value){
-		return rawTranslationKey(category.Prefix, value);
-	}
-
-	/**
-	 * <br/>Most common use,
-	 * <br/>to replace the string inside the Text.translatable()
-	 * <br/><br/>
-	 * <br/>Example:
-	 * <br/>		Text.translatable("some_category." + MOD_ID + ".something_else")
-	 * <br/>	    ->
-	 * <br/>	    Text.translatable(
-	 * <br/>	    	MiddleEarth.rawTranslationKeyWithModId(LangCategory.SOME, "something_else")
-	 * <br/>	    )
-	 */
-	public static String rawTranslationKeyWithModId(LangCategory category, String value){
-		return rawTranslationKey(category.Prefix + "." + getModId(), value);
 	}
 }

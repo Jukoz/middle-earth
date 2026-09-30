@@ -19,10 +19,10 @@ public class ArtefactUtils {
     public static LoreComponent getArtefactLore(String item){
         return new LoreComponent(List.of(
                 Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, item + "_lore_0")
+                        LangCategory.TOOLTIP.createKey(MiddleEarth.id(item + "_lore_0"))
                 ).formatted(Formatting.GRAY),
                 Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, item + "_lore_1")
+                        LangCategory.TOOLTIP.createKey(MiddleEarth.id(item + "_lore_1"))
                 ).formatted(Formatting.GRAY)
         ));
     }

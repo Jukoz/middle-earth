@@ -134,7 +134,7 @@ public class BannerPatternsME {
 
     public static void register(Registerable<BannerPattern> registry, RegistryKey<BannerPattern> key) {
         registry.register(key, new BannerPattern(key.getValue(),
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BLOCK, "banner." + key.getValue().toShortTranslationKey())
+                LangCategory.BLOCK.createKey(MiddleEarth.id("banner." + key.getValue().toShortTranslationKey()))
         ));
     }
 }

@@ -40,13 +40,15 @@ public class WoodPileBlockEntity extends LootableContainerBlockEntity implements
     @Override
     public Text getDisplayName() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, ID)
+                LangCategory.SCREEN.createKey(MiddleEarth.id(ID))
         );
     }
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable("me.container.wood_pile");
+        return Text.translatable(
+                LangCategory.CONTAINER.createKey(MiddleEarth.id(ID))
+        );
     }
 
     @Override

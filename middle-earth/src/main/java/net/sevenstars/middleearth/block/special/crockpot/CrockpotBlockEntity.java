@@ -322,7 +322,7 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
     @Override
     public Text getDisplayName() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, ID)
+                LangCategory.SCREEN.createKey(MiddleEarth.id(ID))
         );
     }
 

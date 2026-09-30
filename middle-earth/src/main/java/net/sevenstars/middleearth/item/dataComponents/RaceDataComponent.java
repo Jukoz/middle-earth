@@ -33,7 +33,7 @@ public record RaceDataComponent(Identifier raceId) implements TooltipAppender {
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         Race race = context.getRegistryLookup().getOrThrow(DynamicRegistriesME.RACE).getOrThrow(RegistryKey.of(DynamicRegistriesME.RACE, this.raceId)).value();
         textConsumer.accept(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "race")
+                        LangCategory.TOOLTIP.createKey(MiddleEarth.id("race"))
                 ).formatted(Formatting.DARK_RED)
             .append(Text.translatable(race.getId().toTranslationKey("race")).formatted(Formatting.WHITE)));
     }

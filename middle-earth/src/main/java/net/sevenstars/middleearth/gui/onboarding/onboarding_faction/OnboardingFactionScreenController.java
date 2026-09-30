@@ -18,7 +18,7 @@ import java.util.*;
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
     private static final Text TITLE = Text.translatable(
-            MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "onboarding_faction_screen")
+            LangCategory.SCREEN.createKey(MiddleEarth.id("onboarding_faction_screen"))
     );
     private static final float DEFAULT_DELAY = 3;
 

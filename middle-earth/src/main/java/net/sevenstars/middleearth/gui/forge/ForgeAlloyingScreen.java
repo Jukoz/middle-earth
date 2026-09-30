@@ -94,13 +94,13 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
             ClientPlayNetworking.send(new ForgeOutputPacket(amount, handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ(), outputMode));
             }, Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BUTTON, "extract_metal")
+                LangCategory.BUTTON.createKey(MiddleEarth.id("extract_metal"))
         )
         );
 
         if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
             this.extractButton.setTooltip(Tooltip.of(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_output_mode_await")
+                    LangCategory.TOOLTIP.createKey(MiddleEarth.id("forge_output_mode_await"))
             )));
         } else {
             setExtractButtonTooltip();
@@ -113,7 +113,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             this.modeSwitchToHeatingButton.visible = true;
             this.modeSwitchToHeatingButton.active = true;
         }, Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BUTTON, "switch_mode")
+                LangCategory.BUTTON.createKey(MiddleEarth.id("switch_mode"))
         ));
         this.modeSwitchToHeatingButton = new TexturedButtonWidget(x + 23, y + 60, 10 ,10, ALLOYING_SWITCH_BUTTON_TEXTURES, (button)-> {
             ClientPlayNetworking.send(new ForgeModeSwitchPacket(handler.getPos().getX(),handler.getPos().getY(),handler.getPos().getZ()));
@@ -122,14 +122,14 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             this.modeSwitchToAlloyButton.visible = true;
             this.modeSwitchToAlloyButton.active = true;
         }, Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BUTTON, "switch_mode")
+                LangCategory.BUTTON.createKey(MiddleEarth.id("switch_mode"))
         ));
 
         this.modeSwitchToHeatingButton.setTooltip(Tooltip.of(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_mode_switch_heating")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("forge_mode_switch_heating"))
         )));
         this.modeSwitchToAlloyButton.setTooltip(Tooltip.of(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_mode_switch_alloying")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("forge_mode_switch_alloying"))
         )));
 
         addDrawableChild(leftExtractCycleButton);
@@ -178,7 +178,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
 
         if(this.outputMode == 0 && handler.checkMaxOutput() > 0) {
             this.extractButton.setTooltip(Tooltip.of(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_output_mode_await")
+                    LangCategory.TOOLTIP.createKey(MiddleEarth.id("forge_output_mode_await"))
             )));
         } else {
             setExtractButtonTooltip();
@@ -215,7 +215,7 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int id = outputMode;
         if(outputMode == 4) id = 3;
         this.extractButton.setTooltip(Tooltip.of(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "forge_output_mode" + id)
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("forge_output_mode" + id))
         )));
     }
 
@@ -280,13 +280,13 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
             if(metal != MetalTypes.EMPTY){
                 context.drawOrderedTooltip(this.client.textRenderer, Lists.transform(
                         List.of(Text.translatable(
-                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "liquid_" + metal.asString().toLowerCase())
+                                LangCategory.TOOLTIP.createKey(MiddleEarth.id("liquid_" + metal.asString().toLowerCase()))
                                 ).withColor(metal.getColor()),
                                 Text.literal(handler.getStoredLiquid() / 144  + " ").append(Text.translatable(
-                                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "ingots_number")
+                                        LangCategory.TOOLTIP.createKey(MiddleEarth.id("ingots_number"))
                                 )),
                                 Text.literal(handler.getStoredLiquid() % 144 / 16  + " ").append(Text.translatable(
-                                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "nuggets_number")
+                                        LangCategory.TOOLTIP.createKey(MiddleEarth.id("nuggets_number"))
                                 ))
                         ), Text::asOrderedText), mouseX, mouseY);
             }

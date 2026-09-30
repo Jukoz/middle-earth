@@ -23,12 +23,12 @@ public class HelmetAttachmentItem extends Item{
             if (helmetAttachmentDataComponent.down() && helmetAttachmentDataComponent.getHelmetAttachment().getConstantState() == null) {
                 stack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachmentDataComponent.helmetAttachment(), helmetAttachmentDataComponent.helmetAttachmentColor()));
                 player.sendMessage(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.ALERT, "hood_up")
+                        LangCategory.ALERT.createKey(MiddleEarth.id("hood_up"))
                 ), true);
             } else if (!helmetAttachmentDataComponent.down() && helmetAttachmentDataComponent.getHelmetAttachment().getConstantState() == null){
                 stack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(true, helmetAttachmentDataComponent.helmetAttachment(), helmetAttachmentDataComponent.helmetAttachmentColor()));
                 player.sendMessage(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.ALERT, "hood_down")
+                        LangCategory.ALERT.createKey(MiddleEarth.id("hood_down"))
                 ), true);
             }
         }

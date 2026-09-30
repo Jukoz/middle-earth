@@ -117,7 +117,7 @@ public class ReinforcedChestBlockEntity extends ChestBlockEntity {
     @Override
     public Text getDisplayName() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "reinforced_chest")
+                LangCategory.SCREEN.createKey(MiddleEarth.id("reinforced_chest"))
         );
     }
 }

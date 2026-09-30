@@ -140,10 +140,10 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
             context.drawOrderedTooltip(this.client.textRenderer,
                     Lists.transform(
                             List.of(Text.translatable(
-                                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "anvil_hammer")
+                                            LangCategory.TOOLTIP.createKey(MiddleEarth.id("anvil_hammer"))
                                     ),
                                     Text.translatable(
-                                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "anvil_hammer_2")
+                                            LangCategory.TOOLTIP.createKey(MiddleEarth.id("anvil_hammer_2"))
                                     )),
                             Text::asOrderedText), mouseX, mouseY);
         }

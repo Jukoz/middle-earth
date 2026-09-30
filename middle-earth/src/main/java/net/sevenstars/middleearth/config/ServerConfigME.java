@@ -45,52 +45,52 @@ public class ServerConfigME {
     }
 
     private static void createServerConfigs() {
-        configs.addSection(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.section.title")));
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.comment.title.line_1")));
+        configs.addSection(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.section.title"))));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.comment.title.line_1"))));
         configs.addLineJump();
 
         // World configurations
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.comment.world")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.world.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.comment.world"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.world.line_1"))));
         configs.addKeyValuePair(new Pair<>("enableSpawnOverride", true), "boolean");
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.world.line_2")));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.world.line_2"))));
         configs.addKeyValuePair(new Pair<>("enableReturnToOverworld", true), "boolean");
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.world.line_3")));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.world.line_3"))));
         configs.addKeyValuePair(new Pair<>("enableProceduralStructures", true), "boolean");
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.world.line_4")));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.world.line_4"))));
         configs.addKeyValuePair(new Pair<>("globalMobCap", 50), "int");
         configs.addLineJump();
 
         // PlayerFactionPayload configurations
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.comment.player")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.player.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.comment.player"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.player.line_1"))));
         configs.addKeyValuePair(new Pair<>("enableFactionReset", true), "boolean");
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.player.line_2")));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.player.line_2"))));
         configs.addKeyValuePair(new Pair<>("enableKeepRaceOnDimensionSwap", true), "boolean");
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.player.line_3")));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.player.line_3"))));
         configs.addKeyValuePair(new Pair<>("delayOnTeleportConfirmation", 3), "int");
         configs.addLineJump();
 
         // Mount configurations
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.comment.mount")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.mount.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.comment.mount"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.mount.line_1"))));
         configs.addKeyValuePair(new Pair<>("enableMountBroadhoofGoat", true), "boolean");
 
         // Food configurations
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.comment.food")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.food.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.comment.food"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.food.line_1"))));
         configs.addKeyValuePair(new Pair<>("enableGoldenFoodRecipes", false), "boolean");
 
         // Golem configurations
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.comment.golem")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.golem.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.comment.golem"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.golem.line_1"))));
         configs.addKeyValuePair(new Pair<>("enableGolems", false), "boolean");
 
         // Enchants configurations
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.comment.enchant")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.enchant.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.comment.enchant"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.enchant.line_1"))));
         configs.addKeyValuePair(new Pair<>("sharpnessMaxLevel", 3), "int");
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "server.description.enchant.line_2")));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("server.description.enchant.line_2"))));
         configs.addKeyValuePair(new Pair<>("powerMaxLevel", 3), "int");
     }
 

@@ -65,7 +65,7 @@ public class CommandCustomEquipment {
 
         if (handStack.isEmpty()){
             MutableText sourceText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "back_attachment.hand_empty")
+                    LangCategory.COMMAND.createKey(MiddleEarth.id("back_attachment.hand_empty"))
             );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
@@ -74,15 +74,15 @@ public class CommandCustomEquipment {
         if ((handStack.getItem() instanceof CustomChestplateItem || handStack.getItem() instanceof BackAttachmentItem)){
             handStack.set(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(backAttachment));
             MutableText sourceText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "back_attachment.success")
+                    LangCategory.COMMAND.createKey(MiddleEarth.id("back_attachment.success"))
             ).append(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, backAttachment.getName())
+                    LangCategory.TOOLTIP.createKey(MiddleEarth.id(backAttachment.getName()))
             ));
             context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             return 0;
         } else {
             MutableText sourceText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "back_attachment.wrong_item")
+                    LangCategory.COMMAND.createKey(MiddleEarth.id("back_attachment.wrong_item"))
             );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
@@ -96,7 +96,7 @@ public class CommandCustomEquipment {
 
         if (handStack.isEmpty()){
             MutableText sourceText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "helmet_attachment.hand_empty")
+                    LangCategory.COMMAND.createKey(MiddleEarth.id("helmet_attachment.hand_empty"))
             );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
@@ -109,15 +109,15 @@ public class CommandCustomEquipment {
                 handStack.set(DataComponentTypesME.HELMET_ATTACHMENT_DATA, new HelmetAttachmentDataComponent(false, helmetAttachment, DyedColorComponent.DEFAULT_COLOR));
             }
             MutableText sourceText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "helmet_attachment.success")
+                    LangCategory.COMMAND.createKey(MiddleEarth.id("helmet_attachment.success"))
             ).append(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, helmetAttachment.getName())
+                    LangCategory.TOOLTIP.createKey(MiddleEarth.id(helmetAttachment.getName()))
             ));
             context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             return 0;
         } else {
             MutableText sourceText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "helmet_attachment.wrong_item")
+                    LangCategory.COMMAND.createKey(MiddleEarth.id("helmet_attachment.wrong_item"))
             );
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;

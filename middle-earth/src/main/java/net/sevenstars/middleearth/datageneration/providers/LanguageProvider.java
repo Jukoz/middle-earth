@@ -6,6 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.api.enums.LangCategory;
+import net.sevenstars.api.lang.LangKey;
+import net.sevenstars.api.lang.LangPrefix;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -62,7 +64,7 @@ public class LanguageProvider extends FabricLanguageProvider {
                 path += "_spawn_egg";
 
             translationBuilder.add(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ITEM, path),
+                    LangCategory.ITEM.createKey(MiddleEarth.id(path)),
                     generateName(path)
             );
         });
@@ -77,7 +79,7 @@ public class LanguageProvider extends FabricLanguageProvider {
 
         TranslationEntries.biomeEntries.forEach(name -> {
             translationBuilder.add(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.BIOME, name),
+                    LangCategory.BIOME.createKey(MiddleEarth.id(name)),
                     generateName(name)
             );
         });
@@ -150,7 +152,7 @@ public class LanguageProvider extends FabricLanguageProvider {
             suffixSplit = Arrays.stream(sub).toList().getLast();
         }
         translationBuilder.add(
-                MiddleEarth.rawTranslationKeyWithModId(prefix, suffix),
+                LangKey.of(LangPrefix.of(prefix), MiddleEarth.id(suffix)),
                 generateName(suffixSplit)
         );
     }
@@ -175,13 +177,13 @@ public class LanguageProvider extends FabricLanguageProvider {
         }
 
         translationBuilder.add(
-                MiddleEarth.rawTranslationKeyWithModId(prefix, suffix),
+                LangKey.of(LangPrefix.of(prefix), MiddleEarth.id(suffix)),
                 generatedName.toString()
         );
     }
 
     public void createBannerTranslation(TranslationBuilder translationBuilder, String prefix, String suffix){
-        String baseTranslationKey = MiddleEarth.rawTranslationKeyWithModId(prefix, suffix);
+        String baseTranslationKey = LangKey.of(LangPrefix.of(prefix), MiddleEarth.id(suffix));
 
         translationBuilder.add(baseTranslationKey + ".black", "Black " + generateName(suffix));
         translationBuilder.add(baseTranslationKey + ".blue", "Blue " + generateName(suffix));

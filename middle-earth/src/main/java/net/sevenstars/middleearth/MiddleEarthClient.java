@@ -122,7 +122,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         // config are only generated AFTER the client language files loaded
         // TODO: there might be a better way for this
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (!configsRegistered && I18n.hasTranslation(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.section.title"))) {
+            if (!configsRegistered && I18n.hasTranslation(LangCategory.CONFIG.createKey(MiddleEarth.id("client.section.title")))) {
                 configsRegistered = true;
                 ServerConfigME.registerConfigs();
                 ClientConfigME.registerConfigs();

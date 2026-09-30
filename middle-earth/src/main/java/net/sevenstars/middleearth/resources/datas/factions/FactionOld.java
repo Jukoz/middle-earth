@@ -360,7 +360,7 @@ public class FactionOld {
     public ItemStack getBannerItem(RegistryWrapper.WrapperLookup wrapper){
         if(bannerData == null) return ItemStack.EMPTY;
         return bannerData.getBannerItem(wrapper, Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.BLOCK, "faction_banner"),
+                LangCategory.BLOCK.createKey(MiddleEarth.id("faction_banner")),
                 getFullName()).formatted(Formatting.GOLD));
     }
 
@@ -442,7 +442,7 @@ public class FactionOld {
         descriptions = new ArrayList<>();
         boolean hasDescription = true;
 
-        String base = MiddleEarth.rawTranslationKeyWithModId(LangCategory.DESCRIPTION, id.getPath() + ".description_%s");
+        String base = LangCategory.DESCRIPTION.createKey(MiddleEarth.id(id.getPath() + ".description_%s"));
 
         while(hasDescription){
             String langPath = base.formatted(descriptions.size());

@@ -38,7 +38,7 @@ public class CommandInformation {
 
         Optional<RegistryEntry<Faction>> faction = FactionService.getPlayerFaction(source);
         if(faction.isPresent())
-            source.sendMessage(Text.literal("Faction : ").append(Text.translatable(MiddleEarth.rawTranslationKey(LangCategory.FACTION, faction.get().getIdAsString()))));
+            source.sendMessage(Text.literal("Faction : ").append(Text.translatable(LangCategory.FACTION.createKey(faction.get().getIdAsString()))));
 
         SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(source, source.getWorld());
         if(spawnData != null){
@@ -64,7 +64,7 @@ public class CommandInformation {
 
         Optional<RegistryEntry<Faction>> faction =  FactionService.getPlayerFaction(targettedPlayer);
         if(faction.isPresent())
-            context.getSource().sendMessage(Text.literal("Faction : ").append(Text.translatable(MiddleEarth.rawTranslationKey(LangCategory.FACTION, faction.get().getIdAsString()))));
+            context.getSource().sendMessage(Text.literal("Faction : ").append(Text.translatable(LangCategory.FACTION.createKey(faction.get().getIdAsString()))));
         return 0;
     }
 

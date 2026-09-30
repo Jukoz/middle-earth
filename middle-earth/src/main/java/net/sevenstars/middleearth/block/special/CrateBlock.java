@@ -41,7 +41,7 @@ public class CrateBlock extends BarrelBlock {
             @Override
             protected Text getContainerName() {
                 return Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONTAINER, "small_crate")
+                        LangCategory.CONTAINER.createKey(MiddleEarth.id("small_crate"))
                 );
             }
         };

@@ -79,7 +79,7 @@ public class CommandOnboarding {
                     ServerPlayNetworking.send(playerSource, new PacketForceOnboardingScreen(ServerConfigME.DELAY_ON_TELEPORT_CONFIRMATION, playerSource));
                 } else {
                     MutableText sourceText = Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "open.onboarding.error")
+                            LangCategory.COMMAND.createKey(MiddleEarth.id("open.onboarding.error"))
                     );
                     playerSource.sendMessage(sourceText.withColor(ColorsME.WARNING.color));
                 }
@@ -95,12 +95,12 @@ public class CommandOnboarding {
             if(playerPassedOnboarding){
                 ServerPlayNetworking.send(playerTarget, new PacketForceOnboardingScreen(ServerConfigME.DELAY_ON_TELEPORT_CONFIRMATION, playerTarget));
                 MutableText sourceText = Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "open_target.onboarding.success"),
+                        LangCategory.COMMAND.createKey(MiddleEarth.id("open_target.onboarding.success")),
                         playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             } else {
                 MutableText sourceText = Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "open_target.onboarding.error"),
+                        LangCategory.COMMAND.createKey(MiddleEarth.id("open_target.onboarding.error")),
                         playerTarget.getName());
                 context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             }

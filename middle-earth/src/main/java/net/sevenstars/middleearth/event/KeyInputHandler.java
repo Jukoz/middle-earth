@@ -12,10 +12,10 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
 
-    public static final String ME_KEY_CATEGORY = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY.Prefix + ".category", "");
-    public static final String ME_KEY_HOOD_STATE_TOGGLE = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY, "hood_state_toggle");
-    public static final String ME_KEY_MAP_TELEPORT = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY, "map_teleport");
-    public static final String ME_KEY_MAP_FULLSCREEN_TOGGLE = MiddleEarth.rawTranslationKeyWithModId(LangCategory.KEY, "map_fullscreen_toggle");
+    public static final String ME_KEY_CATEGORY = LangCategory.KEY_CATEGORY.createKey(MiddleEarth.id(""));
+    public static final String ME_KEY_HOOD_STATE_TOGGLE = LangCategory.KEY.createKey(MiddleEarth.id("hood_state_toggle"));
+    public static final String ME_KEY_MAP_TELEPORT = LangCategory.KEY.createKey(MiddleEarth.id("map_teleport"));
+    public static final String ME_KEY_MAP_FULLSCREEN_TOGGLE = LangCategory.KEY.createKey(MiddleEarth.id("map_fullscreen_toggle"));
 
     public static KeyBinding hoodStateToggleKey;
     // Used in MapScreen

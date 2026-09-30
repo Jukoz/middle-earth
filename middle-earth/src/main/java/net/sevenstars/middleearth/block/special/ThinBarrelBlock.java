@@ -35,7 +35,7 @@ public class ThinBarrelBlock extends BarrelBlock {
             @Override
             protected Text getContainerName() {
                 return Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONTAINER, "thin_barrel")
+                        LangCategory.CONTAINER.createKey(MiddleEarth.id("thin_barrel"))
                 );
             }
         };

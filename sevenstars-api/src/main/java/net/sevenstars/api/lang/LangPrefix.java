@@ -6,16 +6,25 @@ import java.util.Arrays;
  * This class helps build the 'prefix' part of translatable keys,
  * <p>aka the part before the namespace / MOD_ID, which is:
  * <pre>
- *     {@code
  *     common key form:
- *     PREFIX[.extra.xxx].NAMESPACE[.name.xxx]
- *     ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+ *                        Identifier is this part
+ *                        ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+ *     {@code
+ *     category.[extra.xxx.]namespace.[path.xxx]
+ *     }
+ *     ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
  *     LangPrefix is this part
+ *
+ *     so it also would be:
+ *     {@code
+ *     LangPrefix DOT Identifier.namespace DOT Identifier.path
  *     }
  * </pre>
- * <p>the reason for this class is that some prefixes only have one word ({@code item.middle-earth.something})
- * <p>while some have multiple words ({@code tag.item.middle-earth.something_else})
- * <p>which are not that easy to be seen as one thing in the old method
+ * <p>
+ *     the reason for this class is that some prefixes only have one word ({@code item.middle-earth.something})
+ *     while some have multiple words ({@code tag.item.middle-earth.something_else})
+ *     which are not that easy to be seen as one thing in the old method
+ * </p>
  */
 public final class LangPrefix {
 
@@ -89,6 +98,13 @@ public final class LangPrefix {
         System.arraycopy(combined, 0, combined, 1, segments.length);
         combined[0] = value;
         return of(combined);
+    }
+
+    public LangPrefix then(LangPrefix extra) {
+        if (extra == null) {
+            return this;
+        }
+        return then(extra.value);
     }
 
     /**

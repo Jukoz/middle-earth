@@ -33,7 +33,7 @@ public class MapScreen extends Screen {
     private static final Identifier MAP_UI_TEXTURE = MiddleEarth.id("textures/gui/map_ui.png");
 
     private static final Text MAP_TITLE_TEXT = Text.translatable(
-            MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.map_title_text")
+            LangCategory.UI.createKey(MiddleEarth.id("map_screen.map_title_text"))
     );
     private static final Vector2i NORMAL_BUTTON_SIZE = new Vector2i(15,15);
 
@@ -71,7 +71,7 @@ public class MapScreen extends Screen {
 
         // Fullscreen toggle button register
         fullscreenButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.button.fullscreen_toggle")
+                LangCategory.UI.createKey(MiddleEarth.id("map_screen.button.fullscreen_toggle"))
         ), x -> {
             isFullscreen = !isFullscreen;
         }).build();
@@ -80,7 +80,7 @@ public class MapScreen extends Screen {
 
         // Overlay toggle
         overlayToggleButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.button.map_overlay_toggle")
+                LangCategory.UI.createKey(MiddleEarth.id("map_screen.button.map_overlay_toggle"))
         ), x -> {
             mapWidget.setOverlayState(!mapWidget.isOverlayEnabled());
         }).build();
@@ -90,7 +90,7 @@ public class MapScreen extends Screen {
 
         // Recenter on player
         recenterButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.button.recenter_on_player")
+                LangCategory.UI.createKey(MiddleEarth.id("map_screen.button.recenter_on_player"))
         ), x -> {
             Vector2d playerCoords = new Vector2d(playerBlockPos.getX(), playerBlockPos.getZ());
             playerCoords.x /= MiddleEarthMapConfigs.FULL_MAP_SIZE;
@@ -102,7 +102,7 @@ public class MapScreen extends Screen {
 
         // Zoom in button register
         zoomInButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.button.zoom_in")
+                LangCategory.UI.createKey(MiddleEarth.id("map_screen.button.zoom_in"))
         ), x -> {
             mapWidget.zoomClick();
         }).build();
@@ -111,7 +111,7 @@ public class MapScreen extends Screen {
 
         // Zoom out button register
         zoomOutButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.button.zoom_out")
+                LangCategory.UI.createKey(MiddleEarth.id("map_screen.button.zoom_out"))
         ), x -> {
             mapWidget.dezoomClick();
         }).build();
@@ -138,27 +138,27 @@ public class MapScreen extends Screen {
         if(mapRatio != null) {
             List<Text> texts = new ArrayList<>();
             texts.add(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.tooltip.coordinates_title")
+                    LangCategory.UI.createKey(MiddleEarth.id("map_screen.tooltip.coordinates_title"))
             ).formatted(Formatting.UNDERLINE));
             double x = Math.round((mapRatio.x * MiddleEarthMapConfigs.FULL_MAP_SIZE) * 10) / 10.0;
             double z = Math.round((mapRatio.y * MiddleEarthMapConfigs.FULL_MAP_SIZE) * 10) / 10.0;
             texts.add(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.tooltip.coordinates_label")
+                    LangCategory.UI.createKey(MiddleEarth.id("map_screen.tooltip.coordinates_label"))
                     ).formatted(Formatting.GRAY)
                     .append(Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.tooltip.coordinates_content"),
+                            LangCategory.UI.createKey(MiddleEarth.id("map_screen.tooltip.coordinates_content")),
                             x, z).formatted(Formatting.WHITE)));
 
             MapBasedCustomBiome biome = mapWidget.getBiomeAt((int) (mapRatio.x * MiddleEarthMapConfigs.REGION_SIZE), (int) (mapRatio.y * MiddleEarthMapConfigs.REGION_SIZE));
             texts.add(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.tooltip.biome_label")
+                    LangCategory.UI.createKey(MiddleEarth.id("map_screen.tooltip.biome_label"))
                     ).formatted(Formatting.GRAY)
                     .append(Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.tooltip.biome_content"),
+                            LangCategory.UI.createKey(MiddleEarth.id("map_screen.tooltip.biome_content")),
                             Text.translatable(biome.getBiome().getBiomeRegistryKey().getValue().toTranslationKey("biome"))).formatted(Formatting.WHITE)));
             if(hasTeleportPermission){
                 texts.add(Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "map_screen.tooltip.teleport_keybind"),
+                        LangCategory.UI.createKey(MiddleEarth.id("map_screen.tooltip.teleport_keybind")),
                         KeyInputHandler.mapTeleportKey.getBoundKeyLocalizedText().getString()).formatted(Formatting.ITALIC).withColor(ColorsME.PENDING.color));
             }
             context.drawTooltip(textRenderer, texts, mouseX, mouseY);

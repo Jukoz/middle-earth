@@ -57,13 +57,4 @@ public class OfBeastsAndWildThings implements ModInitializer {
 	public static Identifier ofId(String stringId){
 		return IdentifierUtil.getIdentifierFromString(stringId);
 	}
-
-	// Translation Keys
-	public static String translationKey(LangCategory category, String value){
-		return id(value).toTranslationKey(category.Prefix);
-	}
-
-	public static String translationKey(LangCategory category, Identifier value){
-		return value.toTranslationKey(category.Prefix);
-	}
 }

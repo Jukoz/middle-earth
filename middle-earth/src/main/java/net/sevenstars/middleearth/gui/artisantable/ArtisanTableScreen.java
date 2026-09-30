@@ -384,7 +384,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     private static Text getTabTranslation(String tab) {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "artisan_table." + tab)
+                LangCategory.SCREEN.createKey(MiddleEarth.id("artisan_table." + tab))
         );
     }
 }

@@ -31,7 +31,7 @@ public record BlockAuthorDataComponent(BlockAuthor author) implements TooltipApp
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "author")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("author"))
         ).append(this.author.getAuthorName()));
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class OnboardingSelectionScreen extends Screen {
 private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable(
-        MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "onboarding_selection.title")
+        LangCategory.UI.createKey(MiddleEarth.id("onboarding_selection.title"))
 );
     private static final Identifier BUTTON_WIDGET = MiddleEarth.id("textures/gui/widget/button_widget.png");
     private boolean focusEnabled;
@@ -112,7 +112,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable(
                     panelSizeX, panelSizeY, 256, 256);
 
             Text continueText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "continue_character")
+                    LangCategory.UI.createKey(MiddleEarth.id("continue_character"))
             );
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),
@@ -144,7 +144,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable(
                     panelSizeX, panelSizeY, 256, 256);
 
             Text resetText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "reset_character")
+                    LangCategory.UI.createKey(MiddleEarth.id("reset_character"))
             );
             context.drawText(textRenderer, resetText,
                     startX + (int) ((panelSizeX - textRenderer.getWidth(resetText)) / 2f),

@@ -34,7 +34,7 @@ public record ArmorTierDataComponent(ArmorMaterialsME.Tiers tier) implements Too
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, tier.getName())
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id(tier.getName()))
         ).withColor(tier.getColor()));
     }
 

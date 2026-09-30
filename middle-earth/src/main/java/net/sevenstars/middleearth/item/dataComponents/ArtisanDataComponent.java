@@ -39,7 +39,7 @@ public record ArtisanDataComponent(UUID uuid) implements TooltipAppender {
             if (profile.get().isPresent()){
                 try {
                     textConsumer.accept(Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "artisan")
+                            LangCategory.TOOLTIP.createKey(MiddleEarth.id("artisan"))
                     ).append(
                             profile.get().get().getName()).formatted(Formatting.GRAY));
                 } catch (InterruptedException | ExecutionException e) {

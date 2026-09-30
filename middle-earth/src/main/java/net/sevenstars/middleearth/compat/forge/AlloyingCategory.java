@@ -34,7 +34,7 @@ public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
     @Override
     public Text getTitle() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, "forge")
+                LangCategory.SCREEN.createKey(MiddleEarth.id("forge"))
         );
     }
 
@@ -67,7 +67,7 @@ public class AlloyingCategory implements DisplayCategory<AlloyingDisplay> {
 
         widgets.add(Widgets.createLabel(new Point(startPoint.x + 77, startPoint.y + 5),
                 Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.TRIM_MATERIAL, display.output)
+                        LangCategory.TRIM_MATERIAL.createKey(MiddleEarth.id(display.output))
                 )));
 
         return widgets;

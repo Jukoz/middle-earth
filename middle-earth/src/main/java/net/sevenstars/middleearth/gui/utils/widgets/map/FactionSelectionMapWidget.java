@@ -30,7 +30,7 @@ public class FactionSelectionMapWidget extends MapWidget {
             spawnMapMarkers[i].setType(MapMarkerType.DYNAMIC_SPAWN);
         }
         MapMarkerWidget.setTitle(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "spawn_tooltip_title")
+                LangCategory.WIDGET.createKey(MiddleEarth.id("spawn_tooltip_title"))
         ).formatted(Formatting.UNDERLINE));
     }
     public ButtonWidget[] getButtons() {
@@ -81,12 +81,12 @@ public class FactionSelectionMapWidget extends MapWidget {
                                         "spawn." + spawnData.getIdentifier().toTranslationKey()
                                 ).formatted(Formatting.GOLD),
                                 Text.translatable(
-                                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.margin_front")
+                                        LangCategory.WIDGET.createKey(MiddleEarth.id("marker.margin_front"))
                                 ).append(Text.translatable(
-                                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.SPAWN, "coordinates_base.dynamic")
+                                        LangCategory.SPAWN.createKey(MiddleEarth.id("coordinates_base.dynamic"))
                                         ).formatted(Formatting.GRAY)
                                         .append(Text.translatable(
-                                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SPAWN, "coordinates_base_values.dynamic"),
+                                                LangCategory.SPAWN.createKey(MiddleEarth.id("coordinates_base_values.dynamic")),
                                                 spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
                         ));
             } else {
@@ -98,12 +98,12 @@ public class FactionSelectionMapWidget extends MapWidget {
                                         "spawn." + spawnData.getIdentifier().toTranslationKey()
                                 ).formatted(Formatting.GOLD),
                                 Text.translatable(
-                                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.WIDGET, "marker.margin_front")
+                                        LangCategory.WIDGET.createKey(MiddleEarth.id("marker.margin_front"))
                                 ).append(Text.translatable(
-                                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SPAWN, "coordinates_base.custom")
+                                                LangCategory.SPAWN.createKey(MiddleEarth.id("coordinates_base.custom"))
                                         ).formatted(Formatting.GRAY)
                                         .append(Text.translatable(
-                                                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SPAWN, "coordinates_base_values.custom"),
+                                                LangCategory.SPAWN.createKey(MiddleEarth.id("coordinates_base_values.custom")),
                                                 spawnData.getWorldCoordinates().x, spawnData.getWorldCoordinates().y, spawnData.getWorldCoordinates().z).formatted(Formatting.WHITE)))
                         ));
             }

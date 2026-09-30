@@ -297,7 +297,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     @Override
     public Text getDisplayName() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, ID)
+                LangCategory.SCREEN.createKey(MiddleEarth.id(ID))
         );
     }
 

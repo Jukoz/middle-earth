@@ -98,14 +98,15 @@ public class CommandFaction {
                 Optional<RegistryEntry<Faction>> currentFaction = FactionService.getPlayerFaction(source);
                 if(currentFaction.isEmpty()){
                     MutableText sourceText = Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "get.faction.no_faction")
+                            LangCategory.COMMAND.createKey(MiddleEarth.id("get.faction.no_faction"))
                     );
                     source.sendMessage(sourceText.withColor(ColorsME.WARNING.color));
                     return 0;
                 }
                 MutableText sourceText = Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "get.faction.success"),
-                        MiddleEarth.rawTranslationKey(LangCategory.FACTION, currentFaction.get().getIdAsString()));
+                        LangCategory.COMMAND.createKey(MiddleEarth.id("get.faction.success")),
+                        LangCategory.FACTION.createKey(MiddleEarth.id(currentFaction.get().getIdAsString()))
+                );
                 source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             }
         }
@@ -120,15 +121,16 @@ public class CommandFaction {
                 Optional<RegistryEntry<Faction>> currentFaction = FactionService.getPlayerFaction(source);
                 if(currentFaction.isEmpty()){
                     MutableText sourceText = Text.translatable(
-                            MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "get.player.faction.no_faction"),
+                            LangCategory.COMMAND.createKey(MiddleEarth.id("get.player.faction.no_faction")),
                             targetedPlayer.getName());
                     source.sendMessage(sourceText.withColor(ColorsME.WARNING.color));
                     return 0;
                 }
                 MutableText sourceText = Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "get.player.faction.success"),
+                        LangCategory.COMMAND.createKey(MiddleEarth.id("get.player.faction.success")),
                         targetedPlayer.getName(),
-                        MiddleEarth.rawTranslationKey(LangCategory.FACTION, currentFaction.get().getIdAsString()));
+                        LangCategory.FACTION.createKey(MiddleEarth.id(currentFaction.get().getIdAsString()))
+                );
                 source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             }
         }
@@ -141,7 +143,7 @@ public class CommandFaction {
             if(source != null) {
                 FactionService.setFactionToPlayer(source,null);
                 MutableText sourceText = Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "clear.faction.success")
+                        LangCategory.COMMAND.createKey(MiddleEarth.id("clear.faction.success"))
                 );
                 source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
                 return 1;
@@ -161,7 +163,7 @@ public class CommandFaction {
             if(context.getSource() != null) {
                 FactionService.setFactionToPlayer(playerSource,null);
                 MutableText sourceText = Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "clear.player.faction.success"),
+                        LangCategory.COMMAND.createKey(MiddleEarth.id("clear.player.faction.success")),
                         targetedPlayer.getName());
                 context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
                 return 1;
@@ -208,9 +210,10 @@ public class CommandFaction {
             if(faction != null && context.getSource().isExecutedByPlayer()){
                 ServerPlayerEntity source = context.getSource().getPlayer();
                 MutableText sourceText = Text.translatable(
-                        MiddleEarth.rawTranslationKeyWithModId(LangCategory.COMMAND, "join.faction.join.success"),
+                        LangCategory.COMMAND.createKey(MiddleEarth.id("join.faction.join.success")),
                         targetedPlayer.getName(),
-                        MiddleEarth.rawTranslationKey(LangCategory.FACTION, factionIdentifier));
+                        LangCategory.FACTION.createKey(factionIdentifier)
+                );
                 source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             }
             return 1;

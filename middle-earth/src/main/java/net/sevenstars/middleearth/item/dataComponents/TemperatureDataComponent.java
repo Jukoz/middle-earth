@@ -32,19 +32,19 @@ public record TemperatureDataComponent(int temperature) implements TooltipAppend
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (this.temperature >= 80) textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "temp_5")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("temp_5"))
         ).withColor(ColorsME.TEMP_5.color));
         if (this.temperature < 80 && this.temperature >= 60) textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "temp_4")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("temp_4"))
         ).withColor(ColorsME.TEMP_4.color));
         if (this.temperature < 60 && this.temperature >= 40) textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "temp_3")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("temp_3"))
         ).withColor(ColorsME.TEMP_3.color));
         if (this.temperature < 40 && this.temperature >= 20) textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "temp_2")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("temp_2"))
         ).withColor(ColorsME.TEMP_2.color));
         if (this.temperature < 20 && this.temperature >= 0) textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, "temp_1")
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id("temp_1"))
         ).withColor(ColorsME.TEMP_1.color));
     }
 }

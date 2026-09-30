@@ -92,7 +92,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public Text getDisplayName() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, ID)
+                LangCategory.SCREEN.createKey(MiddleEarth.id(ID))
         );
     }
 

@@ -38,6 +38,6 @@ public class TranslationEntries {
     };
 
     public static String of(LangCategory langCategory, String value) {
-        return OfBeastsAndWildThings.translationKey(langCategory, value);
+        return langCategory.createKey(OfBeastsAndWildThings.INSTANCE, value);
     }
 }

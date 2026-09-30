@@ -67,7 +67,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
 
     public Text getDisplayName() {
         return Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.SCREEN, ID)
+                LangCategory.SCREEN.createKey(MiddleEarth.id(ID))
         );
     }
 

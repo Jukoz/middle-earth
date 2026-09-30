@@ -32,25 +32,25 @@ public class ClientConfigME {
     }
 
     private static void createClientConfigs() {
-        configs.addSection(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.section.title")));
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.comment.title.line_1")));
+        configs.addSection(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.section.title"))));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.comment.title.line_1"))));
         configs.addLineJump();
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.comment.gui")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.description.gui.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.comment.gui"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.description.gui.line_1"))));
         configs.addKeyValuePair(new Pair<>("enableMapOverlay", false), "boolean");
         configs.addLineJump();
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.comment.npc")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.description.npc.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.comment.npc"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.description.npc.line_1"))));
         configs.addKeyValuePair(new Pair<>("enableSimplifiedCharacterRendering", false), "boolean");
         configs.addLineJump();
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.comment.lod")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.description.lod.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.comment.lod"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.description.lod.line_1"))));
         configs.addKeyValuePair(new Pair<>("npcsArmorDistanceLOD", 48), "int");
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.description.lod.line_2")));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.description.lod.line_2"))));
         configs.addKeyValuePair(new Pair<>("npcsFeaturesDistanceLOD", 24), "int");
         configs.addLineJump();
-        configs.addComment(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.comment.glint")));
-        configs.addDescription(I18n.translate(MiddleEarth.rawTranslationKeyWithModId(LangCategory.CONFIG, "client.description.glint.line_1")));
+        configs.addComment(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.comment.glint"))));
+        configs.addDescription(I18n.translate(LangCategory.CONFIG.createKey(MiddleEarth.id("client.description.glint.line_1"))));
         configs.addKeyValuePair(new Pair<>("disableGlint", true), "boolean");
     }
 

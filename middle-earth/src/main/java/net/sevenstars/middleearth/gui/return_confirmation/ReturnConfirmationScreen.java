@@ -17,7 +17,7 @@ import java.awt.event.KeyEvent;
 
 public class ReturnConfirmationScreen extends Screen {
     private static final Text RETURN_CONFIRMATION_TITLE = Text.translatable(
-            MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "return_confirmation.title")
+            LangCategory.UI.createKey(MiddleEarth.id("return_confirmation.title"))
     );
     private static final Identifier BUTTON_WIDGET = MiddleEarth.id("textures/gui/widget/button_widget.png");
     public ButtonWidget returnToOverworldButton;
@@ -34,7 +34,7 @@ public class ReturnConfirmationScreen extends Screen {
             returnToOverworld();
         };
         returnToOverworldButton = ButtonWidget.builder(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "return_confirmation.continue_character.title")
+                LangCategory.UI.createKey(MiddleEarth.id("return_confirmation.continue_character.title"))
         ), returnToOverworldAction).build();
         addDrawableChild(returnToOverworldButton);
         if(currentDelay > 0)
@@ -76,7 +76,7 @@ public class ReturnConfirmationScreen extends Screen {
                     panelSizeX, panelSizeY, 256, 256);
 
             Text continueText = Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.UI, "return_confirmation.continue_character.content")
+                    LangCategory.UI.createKey(MiddleEarth.id("return_confirmation.continue_character.content"))
             );
             context.drawText(textRenderer, continueText,
                     startX + (int)((panelSizeX - textRenderer.getWidth(continueText)) / 2f),

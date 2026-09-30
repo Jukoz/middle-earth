@@ -302,7 +302,7 @@ public class LargeDoorBlock extends Block {
             world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         } else {
             player.sendMessage(Text.translatable(
-                    MiddleEarth.rawTranslationKeyWithModId(LangCategory.ALERT, "large_door.blocked")
+                    LangCategory.ALERT.createKey(MiddleEarth.id("large_door.blocked"))
             ), true);
         }
 

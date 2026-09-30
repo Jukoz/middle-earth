@@ -79,7 +79,7 @@ public record BackAttachmentDataComponent(BackAttachmentsME backAttachment, int 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         textConsumer.accept(Text.translatable(
-                MiddleEarth.rawTranslationKeyWithModId(LangCategory.TOOLTIP, this.backAttachment().getName())
+                LangCategory.TOOLTIP.createKey(MiddleEarth.id(this.backAttachment().getName()))
         ).formatted(Formatting.GRAY));
     }
 }
