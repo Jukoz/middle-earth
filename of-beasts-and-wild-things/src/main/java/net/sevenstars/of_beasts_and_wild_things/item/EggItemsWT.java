@@ -38,6 +38,6 @@ public class EggItemsWT {
     }
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Egg Items");
+        OfBeastsAndWildThings.logRegistryMessage("Egg Items");
     }
 }

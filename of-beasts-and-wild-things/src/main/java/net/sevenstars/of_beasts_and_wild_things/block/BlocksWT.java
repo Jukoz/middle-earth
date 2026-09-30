@@ -47,6 +47,6 @@ public class BlocksWT {
     }
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Blocks");
+        OfBeastsAndWildThings.logRegistryMessage("Blocks");
     }
 }

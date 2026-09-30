@@ -24,6 +24,6 @@ public class SoundEventWT {
     }
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Sound Events");
+        OfBeastsAndWildThings.logRegistryMessage("Sound Events");
     }
 }

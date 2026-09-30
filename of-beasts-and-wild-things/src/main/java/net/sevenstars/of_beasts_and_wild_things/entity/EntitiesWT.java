@@ -47,6 +47,6 @@ public class EntitiesWT {
         FabricDefaultAttributeRegistry.register(SWAN, SwanEntity.createSwanAttributes());
         FabricDefaultAttributeRegistry.register(DEER, DeerEntity.createDeerAttributes());
 
-        OfBeastsAndWildThings.logRegistryMsg("Entities");
+        OfBeastsAndWildThings.logRegistryMessage("Entities");
     }
 }

@@ -21,7 +21,7 @@ public class SensorsWT {
     }
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Sensors");
+        OfBeastsAndWildThings.logRegistryMessage("Sensors");
     }
 
 

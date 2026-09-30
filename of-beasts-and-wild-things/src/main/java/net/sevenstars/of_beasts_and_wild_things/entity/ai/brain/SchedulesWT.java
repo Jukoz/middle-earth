@@ -14,6 +14,6 @@ public class SchedulesWT {
     }
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Schedules");
+        OfBeastsAndWildThings.logRegistryMessage("Schedules");
     }
 }

@@ -52,6 +52,6 @@ public class ItemsWT {
     }
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Items");
+        OfBeastsAndWildThings.logRegistryMessage("Items");
     }
 }

@@ -32,6 +32,6 @@ public class MemoryModulesWT<U> {
     }
 
     public static void register() {
-        OfBeastsAndWildThings.logRegistryMsg("Memory Modules");
+        OfBeastsAndWildThings.logRegistryMessage("Memory Modules");
     }
 }
