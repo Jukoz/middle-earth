@@ -16,7 +16,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.middle_earth.arkenstone.description"
+      "translate": "advancements.middle-earth.middle_earth.arkenstone.description"
     },
     "frame": "challenge",
     "icon": {
@@ -24,7 +24,7 @@
       "id": "middle-earth:arkenstone"
     },
     "title": {
-      "translate": "advancements.middle_earth.arkenstone.title"
+      "translate": "advancements.middle-earth.middle_earth.arkenstone.title"
     },
     "announce_to_chat": true,
     "hidden": true

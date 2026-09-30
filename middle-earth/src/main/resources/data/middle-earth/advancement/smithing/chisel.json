@@ -41,7 +41,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.smithing.chisel.description"
+      "translate": "advancements.middle-earth.smithing.chisel.description"
     },
     "frame": "task",
     "hidden": false,
@@ -51,7 +51,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.smithing.chisel.title"
+      "translate": "advancements.middle-earth.smithing.chisel.title"
     }
   },
   "requirements": [

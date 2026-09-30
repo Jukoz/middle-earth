@@ -24,7 +24,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_lothlorien.description"
+      "translate": "advancements.middle-earth.middle_earth.enter_lothlorien.description"
     },
     "frame": "task",
     "icon": {
@@ -33,7 +33,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_lothlorien.title"
+      "translate": "advancements.middle-earth.middle_earth.enter_lothlorien.title"
     }
   },
   "requirements": [

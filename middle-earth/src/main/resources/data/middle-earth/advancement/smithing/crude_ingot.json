@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.smithing.crude_ingot.description"
+      "translate": "advancements.middle-earth.smithing.crude_ingot.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.smithing.crude_ingot.title"
+      "translate": "advancements.middle-earth.smithing.crude_ingot.title"
     }
   },
   "requirements": [

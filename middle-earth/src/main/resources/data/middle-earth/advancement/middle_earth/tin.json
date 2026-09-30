@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.tin.description"
+      "translate": "advancements.middle-earth.middle_earth.tin.description"
     },
     "frame": "task",
     "hidden": true,
@@ -25,7 +25,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.tin.title"
+      "translate": "advancements.middle-earth.middle_earth.tin.title"
     }
   },
   "requirements": [

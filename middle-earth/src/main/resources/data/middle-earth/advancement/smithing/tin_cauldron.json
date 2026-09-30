@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.smithing.tin_cauldron.description"
+      "translate": "advancements.middle-earth.smithing.tin_cauldron.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.smithing.tin_cauldron.title"
+      "translate": "advancements.middle-earth.smithing.tin_cauldron.title"
     }
   },
   "requirements": [

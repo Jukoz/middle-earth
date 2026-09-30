@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.smithing.treated_anvil.description"
+      "translate": "advancements.middle-earth.smithing.treated_anvil.description"
     },
     "frame": "goal",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.smithing.treated_anvil.title"
+      "translate": "advancements.middle-earth.smithing.treated_anvil.title"
     }
   },
   "requirements": [

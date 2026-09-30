@@ -24,7 +24,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_dol_guldur.description"
+      "translate": "advancements.middle-earth.middle_earth.enter_dol_guldur.description"
     },
     "frame": "task",
     "hidden": false,
@@ -34,7 +34,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_dol_guldur.title"
+      "translate": "advancements.middle-earth.middle_earth.enter_dol_guldur.title"
     }
   },
   "requirements": [

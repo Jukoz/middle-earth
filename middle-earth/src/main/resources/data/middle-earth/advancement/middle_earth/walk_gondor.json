@@ -45,7 +45,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_gondor.description"
+      "translate": "advancements.middle-earth.middle_earth.enter_gondor.description"
     },
     "frame": "task",
     "hidden": false,
@@ -55,7 +55,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_gondor.title"
+      "translate": "advancements.middle-earth.middle_earth.enter_gondor.title"
     }
   },
   "requirements": [
