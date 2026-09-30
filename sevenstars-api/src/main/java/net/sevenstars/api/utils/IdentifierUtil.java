@@ -5,6 +5,9 @@ import net.sevenstars.api.AbstractModInitializer;
 import net.sevenstars.api.SevenStarsApi;
 
 public class IdentifierUtil {
+
+    private IdentifierUtil() {}
+
     public static Identifier getIdentifierFromString(String id){
         if(id == null)
             return null;
@@ -30,7 +33,7 @@ public class IdentifierUtil {
     }
 
     public static String createAggregateValue(char character, String... names){
-        if(names.length == 0)
+        if(names == null || names.length == 0)
             return "not_enough_parameters";
 
         if(names.length == 1)
