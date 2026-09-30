@@ -1,10 +1,6 @@
 package net.sevenstars.of_beasts_and_wild_things;
 
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.util.Identifier;
-import net.sevenstars.api.enums.LangCategory;
-import net.sevenstars.api.utils.IdentifierUtil;
-import net.sevenstars.api.utils.LoggerUtil;
+import net.sevenstars.api.AbstractModInitializer;
 import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.ActivitiesWT;
@@ -17,12 +13,18 @@ import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 import net.sevenstars.of_beasts_and_wild_things.sound.SoundEventWT;
 import net.sevenstars.of_beasts_and_wild_things.world.gen.WorldGenerationWT;
 
-public class OfBeastsAndWildThings implements ModInitializer {
-	private static final String MOD_ID = "wild-things";
-	public static final boolean IS_DEBUG = true;
-	public static final LoggerUtil LOGGER = new LoggerUtil(MOD_ID, IS_DEBUG);
+public class OfBeastsAndWildThings extends AbstractModInitializer {
+
+	public OfBeastsAndWildThings() {
+		super("wild-things", false);
+	}
+
 	@Override
 	public void onInitialize() {
+		registerAll();
+	}
+
+	public void registerAll() {
 		EntitiesWT.register();
 		SchedulesWT.register();
 		ActivitiesWT.register();

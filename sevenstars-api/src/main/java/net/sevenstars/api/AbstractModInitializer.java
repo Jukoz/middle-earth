@@ -6,7 +6,7 @@ import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.api.utils.LoggerUtil;
 
 public abstract class AbstractModInitializer implements ModInitializer {
-    private static AbstractModInitializer INSTANCE;
+    public static AbstractModInitializer INSTANCE;
 
     protected String modId;
     protected boolean isDebug;
@@ -23,9 +23,11 @@ public abstract class AbstractModInitializer implements ModInitializer {
     public static LoggerUtil logger() {
         return INSTANCE.logger;
     }
+
     public static String namespace() {
         return INSTANCE.modId;
     }
+
     public static Identifier id(String path) {
         return IdentifierUtil.build(INSTANCE.modId, path);
     }

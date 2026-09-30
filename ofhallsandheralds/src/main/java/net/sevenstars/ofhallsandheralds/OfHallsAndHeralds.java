@@ -18,8 +18,9 @@ import net.sevenstars.ofhallsandheralds.registries.RegistriesHH;
 import net.sevenstars.ofhallsandheralds.registries.custom.EventRegistryHH;
 
 public class OfHallsAndHeralds extends AbstractModInitializer {
-	protected OfHallsAndHeralds(String id, boolean shouldBeDebug) {
-		super("ofhallsandheralds", shouldBeDebug);
+
+	public OfHallsAndHeralds() {
+		super("ofhallsandheralds", false);
 	}
 
 	@Override
