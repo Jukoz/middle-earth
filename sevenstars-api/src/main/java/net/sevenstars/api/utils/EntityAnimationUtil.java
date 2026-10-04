@@ -46,6 +46,16 @@ public class EntityAnimationUtil {
     }
 
     /**
+     * Checks if the last animation of the sequence is running
+     * @param animationList     A list of Pairs containing the AnimationStates and the animation's duration in ms as integer
+     * @param animationSequenceStateIdx     An integer defined in the class in which this method is called to keep track of the current index in the animationList
+     * @return true if the last animation of the sequence is running
+     */
+    public static boolean isSequenceAtLastAnim(List<Pair<AnimationState, Integer>> animationList, int animationSequenceStateIdx) {
+        return animationSequenceStateIdx > animationList.size();
+    }
+
+    /**
      * Stops every animation in a sequence
      * @param animationList     A list of Pairs containing the AnimationStates and the animation's duration in ms as integer
      */

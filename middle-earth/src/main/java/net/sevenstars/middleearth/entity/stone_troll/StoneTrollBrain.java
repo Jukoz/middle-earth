@@ -21,6 +21,10 @@ import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
 import net.sevenstars.api.entity.ai.brain.task.PlaceBlockNearbyTask;
 import net.sevenstars.api.entity.ai.brain.task.RememberBlockLocationTask;
 import net.sevenstars.api.entity.ai.brain.task.SleepOnGroundTask;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
+import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollSleepTask;
 
 import java.util.Optional;
 
@@ -63,15 +67,16 @@ public class StoneTrollBrain {
     private static void addIdleActivities(Brain<StoneTrollEntity> brain, StoneTrollEntity troll) {
         brain.setTaskList(Activity.IDLE, ImmutableList.of(
                     Pair.of(0, LookAtMobTask.create(5)),
-                    Pair.of(1, new CompositeTask<>(ImmutableMap.of(MemoryModuleType.MEETING_POINT, MemoryModuleState.VALUE_ABSENT), ImmutableSet.of(), // Find or build new campfire
-                            CompositeTask.Order.ORDERED, CompositeTask.RunMode.TRY_ALL,
+                    Pair.of(1, RememberBlockLocationTask.create(Blocks.CAMPFIRE, MemoryModuleType.MEETING_POINT)),
+                    Pair.of(2, new RandomTask<>(
+                            ImmutableMap.of(
+                                    MemoryModuleType.MEETING_POINT, MemoryModuleState.VALUE_ABSENT),
                             ImmutableList.of(
-                                    Pair.of(RememberBlockLocationTask.create(Blocks.CAMPFIRE, MemoryModuleType.MEETING_POINT), 1),
-                                    Pair.of(PlaceBlockNearbyTask.create(() -> true, MemoryModuleType.MEETING_POINT, Blocks.CAMPFIRE), 1),
-                                    Pair.of(StrollTask.create(1.0f), 1)
-                            ))),
-                    Pair.of(2, ForgetMemorizedPosTask.create(() -> shouldForgetMeetingPoint(troll), MemoryModuleType.MEETING_POINT)),
-                    Pair.of(3, MoveTowardsPosMemoryTask.create(MemoryModuleType.MEETING_POINT, 1.0f, 5, 30, 300)),
+                                    Pair.of(StrollTask.create(1.0F), 5),
+                                    Pair.of(PlaceBlockNearbyTask.create(() -> true, MemoryModuleType.MEETING_POINT, Blocks.CAMPFIRE), 1)
+                    ))),
+                    Pair.of(3, ForgetMemorizedPosTask.create(() -> shouldForgetMeetingPoint(troll), MemoryModuleType.MEETING_POINT)),
+                    Pair.of(4, MoveTowardsPosMemoryTask.create(MemoryModuleType.MEETING_POINT, 1.0f, 5, 30, 300)),
                     // Sit down
                     Pair.of(99, ScheduleActivityTask.create())
         ));

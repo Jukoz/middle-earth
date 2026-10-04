@@ -12,7 +12,7 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
     private final Animation walkUpsetAnimation;
     private final Animation sleepingAnimation;
     private final Animation lieDownAnimation;
-    private final Animation sitUpAnimation;
+    private final Animation wakeUpAnimation;
     private final Animation sitDownAnimation;
     private final Animation standUpAnimation;
 
@@ -25,7 +25,7 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
         this.walkUpsetAnimation = StoneTrollAnimations.AGGRESSIVE_WALK.createAnimation(root);
         this.sleepingAnimation = StoneTrollAnimations.SLEEPING.createAnimation(root);
         this.lieDownAnimation = StoneTrollAnimations.SIT_TO_SLEEP.createAnimation(root);
-        this.sitUpAnimation = StoneTrollAnimations.SLEEP_TO_SIT.createAnimation(root);
+        this.wakeUpAnimation = StoneTrollAnimations.WAKE_UP.createAnimation(root);
         this.sitDownAnimation = StoneTrollAnimations.SIT_DOWN.createAnimation(root);
         this.standUpAnimation = StoneTrollAnimations.STAND_UP.createAnimation(root);
     }
@@ -67,7 +67,7 @@ public class StoneTrollModel extends EntityModel<StoneTrollRenderState> {
         this.walkContentAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.8F, 2.8F); // Walk Animation when Anger is below 50
         this.sleepingAnimation.apply(state.sleepingAnimationState, state.age);
         this.lieDownAnimation.apply(state.lieDownAnimationState, state.age);
-        this.sitUpAnimation.apply(state.sitUpAnimationState, state.age);
+        this.wakeUpAnimation.apply(state.wakeUpAnimationState, state.age);
         this.sitDownAnimation.apply(state.sitDownAnimationState, state.age);
         this.standUpAnimation.apply(state.standUpAnimationState, state.age);
     }

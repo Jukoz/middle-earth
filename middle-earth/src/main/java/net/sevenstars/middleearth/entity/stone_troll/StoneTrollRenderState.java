@@ -9,7 +9,7 @@ import net.minecraft.entity.AnimationState;
 public class StoneTrollRenderState extends LivingEntityRenderState {
     public AnimationState sleepingAnimationState;
     public AnimationState lieDownAnimationState;
-    public AnimationState sitUpAnimationState; // lying to sitting
+    public AnimationState wakeUpAnimationState; // lying to sitting
     public AnimationState sitDownAnimationState; // standing to sitting
     public AnimationState standUpAnimationState; // sitting to standing
 }

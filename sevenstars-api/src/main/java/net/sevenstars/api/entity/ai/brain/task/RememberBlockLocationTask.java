@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class RememberBlockLocationTask {
-    private static final int DEFAULT_HORIZONTAL_RADIUS = 12;
+    private static final int DEFAULT_HORIZONTAL_RADIUS = 20;
     private static final int DEFAULT_VERTICAL_RADIUS = 7;
 
     public static SingleTickTask<LivingEntity> create(TagKey<Block> blockTag) {

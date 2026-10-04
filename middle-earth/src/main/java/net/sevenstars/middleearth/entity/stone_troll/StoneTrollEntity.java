@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.entity.stone_troll;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -41,11 +40,9 @@ import net.sevenstars.api.utils.EntityAnimationUtil;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
-import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity, SittingEntity {
@@ -55,20 +52,17 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
     private final int PETRIFYING_DURATION = 600;
     public final AnimationState sleepingAnimationState = new AnimationState();
     public final AnimationState lieDownAnimationState = new AnimationState();
-    public final AnimationState sitUpAnimationState = new AnimationState();
+    public final AnimationState wakeUpAnimationState = new AnimationState();
     public final AnimationState sitDownAnimationState = new AnimationState();
     public final AnimationState standUpAnimationState = new AnimationState();
     private int startSleepingAnimationSequenceStateIdx = 0;
-    private int wakeUpAnimationSequenceStateIdx = 0;
-    private List<Pair<AnimationState, Integer>> startSleepingSequence = List.of(
+
+    private final List<Pair<AnimationState, Integer>> startSleepingSequence = List.of(
             Pair.of(sitDownAnimationState, 2050),
             Pair.of(lieDownAnimationState, 2000),
             Pair.of(sleepingAnimationState, -1)
     );
-    private List<Pair<AnimationState, Integer>> wakeUpSequence = List.of(
-            Pair.of(sitUpAnimationState, 1050),
-            Pair.of(standUpAnimationState, 2050)
-    );
+
     public static final List<RegistryKey<Biome>> darkBiomes = List.of(
     );
 
@@ -192,6 +186,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
         }
 
         this.setSleeping(true);
+        this.stopSitting();
         this.setVelocity(Vec3d.ZERO);
         this.velocityDirty = true;
 
@@ -232,7 +227,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
 
     @Override
     public void stopSitting() {
-        this.setSleeping(false);
+        this.setSitting(false);
     }
     //endregion
 
@@ -281,14 +276,13 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
 
     //region Rendering
     private void setupAnimationStates() {
-        if(this.isAsleep() && !this.isSitting()) {
-            this.wakeUpAnimationSequenceStateIdx = 0;
+        if(this.isAsleep() && !EntityAnimationUtil.isSequenceAtLastAnim(startSleepingSequence, startSleepingAnimationSequenceStateIdx)) {
             this.startSleepingAnimationSequenceStateIdx = EntityAnimationUtil.playAnimationSequence(startSleepingSequence, startSleepingAnimationSequenceStateIdx, this.age);
-            EntityAnimationUtil.stopSequence(wakeUpSequence);
+            this.wakeUpAnimationState.stop();
         }
-        else if(!this.isAsleep() && this.startSleepingAnimationSequenceStateIdx == 3) {
+        else if (!this.isAsleep() && EntityAnimationUtil.isSequenceRunning(startSleepingSequence)){
             this.startSleepingAnimationSequenceStateIdx = 0;
-            this.wakeUpAnimationSequenceStateIdx = EntityAnimationUtil.playAnimationSequence(wakeUpSequence, wakeUpAnimationSequenceStateIdx, this.age);
+            this.wakeUpAnimationState.startIfNotRunning(this.age);
             EntityAnimationUtil.stopSequence(startSleepingSequence);
         }
 
