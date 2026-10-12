@@ -14,6 +14,8 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -45,7 +47,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity, SittingEntity {
+public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity, SittingEntity, InventoryOwner {
     public static final TrackedData<Integer> PETRIFYING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> SITTING = DataTracker.registerData(StoneTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -56,6 +58,7 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
     public final AnimationState sitDownAnimationState = new AnimationState();
     public final AnimationState standUpAnimationState = new AnimationState();
     private int startSleepingAnimationSequenceStateIdx = 0;
+    private final SimpleInventory inventory = new SimpleInventory(8);
 
     private final List<Pair<AnimationState, Integer>> startSleepingSequence = List.of(
             Pair.of(sitDownAnimationState, 2050),
@@ -118,6 +121,23 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
     public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
         return true;
     }
+
+    //region Inventory
+
+    @Override
+    public SimpleInventory getInventory() {
+        return this.inventory;
+    }
+
+    protected ItemStack addItem(ItemStack stack) {
+        return this.inventory.addStack(stack);
+    }
+
+    protected boolean canInsertIntoInventory(ItemStack stack) {
+        return this.inventory.canInsert(stack);
+    }
+
+    //endregion
 
     //endregion
 

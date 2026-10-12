@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.gui.ModScreenHandlers;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
+import net.sevenstars.middleearth.loot.LootTablesME;
 import net.sevenstars.middleearth.network.ModServerNetworkHandler;
 import net.sevenstars.middleearth.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ModParticleTypes;
@@ -113,6 +114,8 @@ public class MiddleEarth implements ModInitializer {
 		SensorsME.registerModSensors();
 		ActivitiesME.registerModActivities();
 		MemoryModulesME.registerModMemoryModules();
+
+		LootTablesME.registerModLootTables();
 
 		SoundsME.registerModSounds();
 		ModParticleTypes.registerParticleTypes();
