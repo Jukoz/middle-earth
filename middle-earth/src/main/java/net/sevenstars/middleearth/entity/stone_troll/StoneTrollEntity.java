@@ -122,6 +122,8 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
         return true;
     }
 
+    //endregion
+
     //region Inventory
 
     @Override
@@ -136,8 +138,6 @@ public class StoneTrollEntity extends PathAwareEntity implements SleepingEntity,
     protected boolean canInsertIntoInventory(ItemStack stack) {
         return this.inventory.canInsert(stack);
     }
-
-    //endregion
 
     //endregion
 

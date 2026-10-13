@@ -29,11 +29,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
-import net.sevenstars.api.entity.ai.brain.task.ForgetMemorizedPosTask;
-import net.sevenstars.api.entity.ai.brain.task.MoveTowardsPosMemoryTask;
-import net.sevenstars.api.entity.ai.brain.task.PlaceBlockNearbyTask;
-import net.sevenstars.api.entity.ai.brain.task.RememberBlockLocationTask;
-import net.sevenstars.api.entity.ai.brain.task.SleepOnGroundTask;
+import net.sevenstars.api.entity.ai.brain.task.*;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollDigForFoodTask;
 import net.sevenstars.middleearth.entity.ai.brain.task.CaveTrollEatFoodTask;
@@ -94,7 +90,7 @@ public class StoneTrollBrain {
                     ))),
                     Pair.of(3, ForgetMemorizedPosTask.create(() -> shouldForgetMeetingPoint(troll), MemoryModuleType.MEETING_POINT)),
                     Pair.of(4, MoveTowardsPosMemoryTask.create(MemoryModuleType.MEETING_POINT, 1.0f, 5, 30, 300)),
-                    // Sit down
+                    Pair.of(5, new SitDownTask(MemoryModuleType.MEETING_POINT, 5)),
                     Pair.of(99, ScheduleActivityTask.create())
         ));
     }
