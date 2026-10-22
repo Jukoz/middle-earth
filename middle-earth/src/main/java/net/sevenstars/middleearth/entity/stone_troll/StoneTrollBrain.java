@@ -46,7 +46,7 @@ import java.util.Optional;
 // TODO FIND SHADE DURING DAY
 // TODO MOVE BARTERING TO UNIQUE CLASS
 // TODO IDEA: Split schedule during the night into hunting and idling.
-// TODO IDEA: Troll will want food during the hunting phase and treasures during the idling phase
+// TODO IDEA: Troll will want food during the hunting phase and treasures during the idling phase 
 public class StoneTrollBrain {
     protected static final ImmutableList<SensorType<? extends Sensor<? super StoneTrollEntity>>> SENSORS;
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES;
