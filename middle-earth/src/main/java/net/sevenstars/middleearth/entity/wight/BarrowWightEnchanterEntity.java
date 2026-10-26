@@ -6,6 +6,9 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.random.Random;
@@ -14,6 +17,10 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
 
 public class BarrowWightEnchanterEntity extends BarrowWightEntity{
+    public static final int HALLUCINATION_CAST_COOLDOWN = 67;
+    private static final TrackedData<Integer> HALLUCINATION_CAST;
+
+    private int hallucinationCastAnimationCooldown = 0;
 
     public BarrowWightEnchanterEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -28,12 +35,44 @@ public class BarrowWightEnchanterEntity extends BarrowWightEntity{
     }
 
     @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(HALLUCINATION_CAST, 0);
+    }
+
+    @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         if(random.nextBoolean()) {
             this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModDecorativeBlocks.GROUND_BOOK));
         }
     }
 
+    @Override
+    protected void setupAnimationStates() {
+        super.setupAnimationStates();
+
+        setTrackerState(HALLUCINATION_CAST, incantationAnimation);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.getWorld().isClient) {
+            setupAnimationStates();
+        } else {
+            if (hallucinationCastAnimationCooldown <= 1) {
+                this.dataTracker.set(HALLUCINATION_CAST, -1);
+            }
+            hallucinationCastAnimationCooldown = Math.max(hallucinationCastAnimationCooldown - 1, 0);
+        }
+    }
+
+    public void tryHallucinationCast() {
+        if(hallucinationCastAnimationCooldown == 0) {
+            hallucinationCastAnimationCooldown = HALLUCINATION_CAST_COOLDOWN;
+            this.dataTracker.set(HALLUCINATION_CAST, 1);
+        }
+    }
 
     @Override
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -45,4 +84,7 @@ public class BarrowWightEnchanterEntity extends BarrowWightEntity{
         return (Brain<BarrowWightEntity>)super.getBrain();
     }
 
+    static {
+        HALLUCINATION_CAST = DataTracker.registerData(BarrowWightEnchanterEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    }
 }

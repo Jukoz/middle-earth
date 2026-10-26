@@ -4,6 +4,7 @@ import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -29,8 +30,12 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class BarrowWightEntity extends HostileEntity {
     private static final TrackedData<Integer> ATTACK_FLAG;
+    private static final TrackedData<Integer> SCREAM_FLAG;
+    private static final int SLOWNESS_DURATION = 400;
 
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
@@ -39,6 +44,7 @@ public class BarrowWightEntity extends HostileEntity {
     public final AnimationState incantationAnimation = new AnimationState();
 
     private int attackAnimationCooldown = 0;
+    private int screamAnimationCooldown = 0;
 
     public BarrowWightEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -85,6 +91,7 @@ public class BarrowWightEntity extends HostileEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(ATTACK_FLAG, 0);
+        builder.add(SCREAM_FLAG, 0);
     }
 
     @Override
@@ -126,6 +133,16 @@ public class BarrowWightEntity extends HostileEntity {
         return result;
     }
 
+    public void tryScream(ServerWorld world, Entity target) {
+        if(screamAnimationCooldown == 0 && target instanceof LivingEntity livingEntity) {
+            if(!livingEntity.hasStatusEffect(StatusEffects.SLOWNESS)) {
+                screamAnimationCooldown = SLOWNESS_DURATION;
+                livingEntity.addStatusEffect( new StatusEffectInstance(StatusEffects.SLOWNESS, SLOWNESS_DURATION, 0), this);
+                this.dataTracker.set(SCREAM_FLAG, 1);
+            }
+        }
+    }
+
     public void tick() {
         super.tick();
         if (this.getWorld().isClient) {
@@ -147,6 +164,14 @@ public class BarrowWightEntity extends HostileEntity {
         BarrowWightBrain.updateActivities(this);
         profiler.pop();
         super.mobTick(world);
+    }
+
+    public Optional<LivingEntity> getHurtBy() {
+        return this.getBrain()
+                .getOptionalRegisteredMemory(MemoryModuleType.HURT_BY)
+                .map(DamageSource::getAttacker)
+                .filter(attacker -> attacker instanceof LivingEntity)
+                .map(livingAttacker -> (LivingEntity)livingAttacker);
     }
 
     @Override
@@ -182,6 +207,7 @@ public class BarrowWightEntity extends HostileEntity {
 
     static {
         ATTACK_FLAG = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        SCREAM_FLAG = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
 
     public static boolean canSpawn(EntityType<BarrowWightEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {

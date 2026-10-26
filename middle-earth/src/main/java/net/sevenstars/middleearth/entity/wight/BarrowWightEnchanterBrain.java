@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
@@ -57,7 +58,10 @@ public class BarrowWightEnchanterBrain {
                 Activity.IDLE,
                 10,
                 ImmutableList.of(
-                        UpdateAttackTargetTask.<BarrowWightEnchanterEntity>create(BarrowWightBrain::getTarget),
+                        UpdateAttackTargetTask.create(BarrowWightBrain::getTarget),
+                        UpdateAttackTargetTask.create((world, barrowWight) ->
+                                barrowWight.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE)),
+                        UpdateAttackTargetTask.create((world, barrowWight) -> barrowWight.getHurtBy()),
                         makeRandomWanderTask(),
                         FindInteractionTargetTask.create(EntityType.PLAYER, 4)
                 )
@@ -70,11 +74,25 @@ public class BarrowWightEnchanterBrain {
                 10,
                 ImmutableList.of(
                         UpdateAttackTargetTask.create(BarrowWightEnchanterBrain::getAttackTarget),
+                        StartRidingTask.create(0.8F),
+                        LookAtMobTask.create(LivingEntity::isAlive, 36.0F),
+
+                        new SingleTickTask<>() {
+                            @Override
+                            public boolean trigger(ServerWorld world, BarrowWightEnchanterEntity entity, long time) {
+                                entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(target -> {
+                                    entity.getBrain().remember(MemoryModuleType.LOOK_TARGET, new net.minecraft.entity.ai.brain.EntityLookTarget(target, true));
+                                });
+                                return true;
+                            }
+                        },
+
                         new BarrowWightIllusionTask(),
                         ForgetAttackTargetTask.create((world, target) -> !isTarget(world, barrowWightEntity, target))
                 ),
                 ImmutableSet.of(
-                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT),
+                        Pair.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT)
                 )
         );
     }
