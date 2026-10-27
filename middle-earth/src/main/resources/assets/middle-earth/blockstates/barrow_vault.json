@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active",
+      "y": 90
+    },
+    "facing=east,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting",
+      "y": 90
+    },
+    "facing=east,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault",
+      "y": 90
+    },
+    "facing=east,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault",
+      "y": 90
+    },
+    "facing=east,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking",
+      "y": 90
+    },
+    "facing=north,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active"
+    },
+    "facing=north,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting"
+    },
+    "facing=north,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault"
+    },
+    "facing=north,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking"
+    },
+    "facing=north,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active"
+    },
+    "facing=north,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting"
+    },
+    "facing=north,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault"
+    },
+    "facing=north,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking"
+    },
+    "facing=south,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active",
+      "y": 180
+    },
+    "facing=south,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting",
+      "y": 180
+    },
+    "facing=south,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault",
+      "y": 180
+    },
+    "facing=south,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault",
+      "y": 180
+    },
+    "facing=south,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking",
+      "y": 180
+    },
+    "facing=west,ominous=false,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active",
+      "y": 270
+    },
+    "facing=west,ominous=false,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting",
+      "y": 270
+    },
+    "facing=west,ominous=false,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault",
+      "y": 270
+    },
+    "facing=west,ominous=false,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=active": {
+      "model": "middle-earth:block/barrow_vault_active",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=ejecting": {
+      "model": "middle-earth:block/barrow_vault_ejecting",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=inactive": {
+      "model": "middle-earth:block/barrow_vault",
+      "y": 270
+    },
+    "facing=west,ominous=true,vault_state=unlocking": {
+      "model": "middle-earth:block/barrow_vault_unlocking",
+      "y": 270
+    }
+  }
+}

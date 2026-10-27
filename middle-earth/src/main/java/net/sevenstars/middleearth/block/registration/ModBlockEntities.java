@@ -104,6 +104,7 @@ public class ModBlockEntities {
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(ModDecorativeBlocks.BARROW_SARCOPHAGUS_SPAWNER);
         BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.BRIGAND_VAULT);
         BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.SPIDER_VAULT);
+        BlockEntityType.VAULT.addSupportedBlock(ModDecorativeBlocks.BARROW_VAULT);
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name,

@@ -1,0 +1,7 @@
+{
+  "parent": "middle-earth:block/barrow_vault",
+  "textures": {
+    "1": "middle-earth:block/barrow_vault_active",
+    "particle": "middle-earth:block/barrow_vault_active"
+  }
+}
