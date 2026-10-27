@@ -19,10 +19,13 @@ import net.sevenstars.middleearth.entity.EntityModelLayersME;
 public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, BarrowWightRenderState, BarrowWightModel> {
     private static final String PATH = "textures/entities/barrow_wights/";
     private static final String NOBLE_TEXTURE = PATH + "noble.png";
+    private static final String WARRIOR_TEXTURE = PATH + "warrior.png";
     private static final String PRIEST_TEXTURE = PATH + "priest.png";
+    private static final String BALD_TEXTURE = PATH + "bald.png";
 
     public BarrowWightRenderer(EntityRendererFactory.Context context) {
         this(context, 0.4F, EntityModelLayersME.BARROW_WIGHT);
+        this.addFeature(new BarrowWightEyesFeatureRenderer(this));
     }
 
     @Override
@@ -38,9 +41,11 @@ public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, Ba
     @Override
     public Identifier getTexture(BarrowWightRenderState state) {
         if(state.isEnchanter) {
-            return MiddleEarth.of(PRIEST_TEXTURE);
+            if(state.variant == 1) return MiddleEarth.of(BALD_TEXTURE);
+            else return MiddleEarth.of(PRIEST_TEXTURE);
         }
-        return MiddleEarth.of(NOBLE_TEXTURE);
+        if(state.variant == 1) return MiddleEarth.of(WARRIOR_TEXTURE);
+        else return MiddleEarth.of(NOBLE_TEXTURE);
     }
 
     public void updateRenderState(BarrowWightEntity barrowWightEntity, BarrowWightRenderState state, float f) {
@@ -52,6 +57,7 @@ public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, Ba
         state.incantationAnimationState.copyFrom(barrowWightEntity.incantationAnimation);
 
         state.isEnchanter = barrowWightEntity instanceof BarrowWightEnchanterEntity;
+        state.variant = barrowWightEntity.getTypeVariant();
 
         // Resolve left & right hand item state (super call is buggy idk why)
         this.itemModelResolver.updateForLivingEntity(state.rightHandItemState, barrowWightEntity.getStackInArm(Arm.RIGHT),

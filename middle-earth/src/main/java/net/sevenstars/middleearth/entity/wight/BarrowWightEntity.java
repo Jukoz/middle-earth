@@ -18,6 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
@@ -26,6 +28,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.beasts.warg.WargVariant;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
@@ -36,6 +39,7 @@ public class BarrowWightEntity extends HostileEntity {
     private static final TrackedData<Integer> ATTACK_FLAG;
     private static final TrackedData<Integer> SCREAM_FLAG;
     private static final int SLOWNESS_DURATION = 400;
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(BarrowWightEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public final AnimationState idleAnimation = new AnimationState();
     public final AnimationState walkingAnimation = new AnimationState();
@@ -73,6 +77,7 @@ public class BarrowWightEntity extends HostileEntity {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         this.initEquipment(world.getRandom(), difficulty);
+        setVariant(world.getRandom().nextInt(2));
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
@@ -92,6 +97,7 @@ public class BarrowWightEntity extends HostileEntity {
         super.initDataTracker(builder);
         builder.add(ATTACK_FLAG, 0);
         builder.add(SCREAM_FLAG, 0);
+        builder.add(VARIANT, 0);
     }
 
     @Override
@@ -123,6 +129,18 @@ public class BarrowWightEntity extends HostileEntity {
             animationState.stop();
         }
         this.dataTracker.set(trackedData, 0);
+    }
+
+    @Override
+    protected void writeCustomData(WriteView view) {
+        super.writeCustomData(view);
+        view.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
+        this.dataTracker.set(VARIANT, view.getInt("Variant", 0));
     }
 
     @Override
@@ -172,6 +190,14 @@ public class BarrowWightEntity extends HostileEntity {
                 .map(DamageSource::getAttacker)
                 .filter(attacker -> attacker instanceof LivingEntity)
                 .map(livingAttacker -> (LivingEntity)livingAttacker);
+    }
+
+    public int getTypeVariant() {
+        return this.dataTracker.get(VARIANT);
+    }
+
+    private void setVariant(int variant) {
+        this.dataTracker.set(VARIANT, variant);
     }
 
     @Override

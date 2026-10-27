@@ -17,6 +17,7 @@ public class BarrowWightRenderState extends ArmedEntityRenderState {
     public final AnimationState incantationAnimationState = new AnimationState();
 
     public boolean isEnchanter = false;
+    public int variant = 0;
 
     public BarrowWightRenderState() {
 
