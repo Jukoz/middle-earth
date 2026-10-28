@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 
 public class BarrowWightEnchanterEntity extends BarrowWightEntity{
@@ -44,11 +44,11 @@ public class BarrowWightEnchanterEntity extends BarrowWightEntity{
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         if(random.nextBoolean()) {
-            this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModDecorativeBlocks.GROUND_BOOK));
+            this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(DecorativeBlockRegistryME.GROUND_BOOK));
         } else if(random.nextBoolean()) {
             this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponItemsME.BARROW_BLADE));
             if(random.nextBoolean()) {
-                this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(ModDecorativeBlocks.GROUND_BOOK));
+                this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(DecorativeBlockRegistryME.GROUND_BOOK));
             }
         }
     }

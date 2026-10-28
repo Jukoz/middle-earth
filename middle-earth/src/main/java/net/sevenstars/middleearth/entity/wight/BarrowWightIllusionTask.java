@@ -1,11 +1,9 @@
 package net.sevenstars.middleearth.entity.wight;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.EntityLookTarget;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
@@ -13,7 +11,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 
 public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterEntity> {
     private static final int SHOOT_CHARGING_EXPIRY = Math.round(15.0F);
@@ -53,7 +51,7 @@ public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterE
         LivingEntity livingEntity = (LivingEntity)brain.getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
         if (livingEntity != null) {
             livingEntity.addStatusEffect(
-                    new StatusEffectInstance(ModStatusEffects.HALLUCINATION, 160, 0),
+                    new StatusEffectInstance(StatusEffectRegistryME.HALLUCINATION, 160, 0),
                     barrowWightEnchanterEntity
             );
         }

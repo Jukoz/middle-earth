@@ -62,7 +62,6 @@ public class MiddleEarth implements ModInitializer {
 		ServerConfigME.registerConfigs();
 		ClientConfigME.registerConfigs();
 
-		AtlasesME.registerAtlas();
 		RecipesME.registerRecipes();
 		DataComponentTypesME.registerModComponentTypes();
 

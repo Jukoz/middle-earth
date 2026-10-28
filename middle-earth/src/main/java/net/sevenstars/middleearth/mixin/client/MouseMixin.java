@@ -4,25 +4,15 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.wight.BarrowWightEntity;
-import net.sevenstars.middleearth.statusEffects.HallucinationStatusEffect;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
-import org.spongepowered.asm.mixin.Final;
+import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
@@ -35,12 +25,12 @@ public abstract class MouseMixin {
     @Inject(method ="updateMouse", at = @At("HEAD"), cancellable = true)
     private void injected(double timeDelta, CallbackInfo cir) {
         PlayerEntity player = MinecraftClient.getInstance().player;
-        if ( player != null && player.hasStatusEffect(ModStatusEffects.HALLUCINATION)) {
+        if ( player != null && player.hasStatusEffect(StatusEffectRegistryME.HALLUCINATION)) {
             if (lookAt != null && !lookAt.isDead() && id != -1) {
                 lookAt = (LivingEntity) player.getWorld().getEntityById(id);
 
                 if(lookAt == null){
-                    player.removeStatusEffect(ModStatusEffects.HALLUCINATION);
+                    player.removeStatusEffect(StatusEffectRegistryME.HALLUCINATION);
                     id = -1;
                     return;
                 }

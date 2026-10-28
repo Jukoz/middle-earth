@@ -41,11 +41,11 @@ public class BarrowWightRenderer extends MobEntityRenderer<BarrowWightEntity, Ba
     @Override
     public Identifier getTexture(BarrowWightRenderState state) {
         if(state.isEnchanter) {
-            if(state.variant == 1) return MiddleEarth.of(BALD_TEXTURE);
-            else return MiddleEarth.of(PRIEST_TEXTURE);
+            if(state.variant == 1) return MiddleEarth.id(BALD_TEXTURE);
+            else return MiddleEarth.id(PRIEST_TEXTURE);
         }
-        if(state.variant == 1) return MiddleEarth.of(WARRIOR_TEXTURE);
-        else return MiddleEarth.of(NOBLE_TEXTURE);
+        if(state.variant == 1) return MiddleEarth.id(WARRIOR_TEXTURE);
+        else return MiddleEarth.id(NOBLE_TEXTURE);
     }
 
     public void updateRenderState(BarrowWightEntity barrowWightEntity, BarrowWightRenderState state, float f) {

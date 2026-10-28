@@ -38,6 +38,7 @@ public class AtlasesME {
         pack.addProvider(CharacterAtlasTexturesProvider::new);
     }
 
+    @Environment(EnvType.CLIENT)
     public static void registerAtlas(){
         AtlasRegistryiesAPI.injectAtlas(TexturedRenderLayersME.CHARACTER_ATLAS_TEXTURES, CHARACTER_TEXTURES);
         AtlasRegistryiesAPI.injectAtlas(MiddleEarth.id("sprites"), MiddleEarth.id("sprites"));
