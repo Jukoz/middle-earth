@@ -15,6 +15,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.entity.wight.brain.BarrowWightEnchanterBrain;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 
 public class BarrowWightEnchanterEntity extends BarrowWightEntity{
@@ -73,7 +74,7 @@ public class BarrowWightEnchanterEntity extends BarrowWightEntity{
         }
     }
 
-    public void tryHallucinationCast() {
+    public void tryCastingAnimation() {
         if(hallucinationCastAnimationCooldown == 0) {
             hallucinationCastAnimationCooldown = HALLUCINATION_CAST_COOLDOWN;
             this.dataTracker.set(HALLUCINATION_CAST, 1);

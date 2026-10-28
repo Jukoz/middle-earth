@@ -28,7 +28,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.beasts.warg.WargVariant;
+import net.sevenstars.middleearth.entity.wight.brain.BarrowWightBrain;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;

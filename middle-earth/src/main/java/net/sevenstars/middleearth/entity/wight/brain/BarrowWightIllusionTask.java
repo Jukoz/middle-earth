@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.wight;
+package net.sevenstars.middleearth.entity.wight.brain;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.EntityPose;
@@ -11,12 +11,14 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
+import net.sevenstars.middleearth.entity.wight.BarrowWightEnchanterEntity;
+import net.sevenstars.middleearth.entity.wight.BarrowWightEntity;
 import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 
 public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterEntity> {
     private static final int SHOOT_CHARGING_EXPIRY = Math.round(15.0F);
     private static final int RECOVER_EXPIRY = Math.round(4.0F);
-    private static final int SHOOT_COOLDOWN_EXPIRY = BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN;
+    private static final int SHOOT_COOLDOWN_EXPIRY = BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN * 4;
 
     public BarrowWightIllusionTask() {
         super(
@@ -24,14 +26,20 @@ public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterE
                         MemoryModuleType.ATTACK_TARGET,
                         MemoryModuleState.VALUE_PRESENT,
                         MemoryModulesME.CAST_COOLDOWN,
-                        MemoryModuleState.VALUE_ABSENT
+                        MemoryModuleState.VALUE_ABSENT,
+                        MemoryModulesME.SUMMON_CAST_COOLDOWN,
+                        MemoryModuleState.VALUE_PRESENT
                 ),
                 SHOOT_CHARGING_EXPIRY + 1 + RECOVER_EXPIRY
         );
     }
 
     protected boolean shouldRun(ServerWorld serverWorld, BarrowWightEnchanterEntity BarrowWightEnchanterEntity) {
-        if(BarrowWightEnchanterEntity.getBrain().hasMemoryModule(MemoryModulesME.CAST_COOLDOWN)) return false;
+        Brain<BarrowWightEntity> brain = BarrowWightEnchanterEntity.getBrain();
+        if(!brain.hasMemoryModule(MemoryModulesME.SUMMON_CAST_COOLDOWN)) return false;
+        int cooldown = brain.getOptionalMemory(MemoryModulesME.SUMMON_CAST_COOLDOWN).orElse(0);
+        if(cooldown <= BarrowWightSummonTask.SHOOT_COOLDOWN_EXPIRY * 0.85f)
+        if(brain.hasMemoryModule(MemoryModulesME.CAST_COOLDOWN)) return false;
         return (Boolean)BarrowWightEnchanterEntity.getBrain()
                 .getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET)
                 .map(target -> isTargetWithinRange(BarrowWightEnchanterEntity, target))
@@ -51,13 +59,13 @@ public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterE
         LivingEntity livingEntity = (LivingEntity)brain.getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
         if (livingEntity != null) {
             livingEntity.addStatusEffect(
-                    new StatusEffectInstance(StatusEffectRegistryME.HALLUCINATION, 160, 0),
+                    new StatusEffectInstance(StatusEffectRegistryME.HALLUCINATION, 80, 0),
                     barrowWightEnchanterEntity
             );
         }
 
         if(!brain.hasMemoryModule(MemoryModulesME.CAST_COOLDOWN)) {
-            barrowWightEnchanterEntity.tryHallucinationCast();
+            barrowWightEnchanterEntity.tryCastingAnimation();
             brain.remember(MemoryModulesME.CAST_COOLDOWN, SHOOT_COOLDOWN_EXPIRY);
         }
         barrowWightEnchanterEntity.playSound(SoundEvents.ENTITY_BREEZE_INHALE, 1.0F, 1.0F);
