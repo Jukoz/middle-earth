@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:block/chandelier",
+	"textures": {
+		"1": "middle-earth:block/bronze_chandelier",
+		"particle": "middle-earth:block/bronze_chandelier"
+	}
+}

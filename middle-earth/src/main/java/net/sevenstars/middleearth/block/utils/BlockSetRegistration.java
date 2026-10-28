@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.TransparentVerticalSlab;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
@@ -287,19 +287,19 @@ public class BlockSetRegistration {
 
     public static BlockRecordTypes.WoodFurnitureBlocks createWoodFurnitureSet(String name, float hardness, float blastResistance, MapColor mapColor, BlockSoundGroup soundGroup, Block base, List<ItemStack> group) {
 
-        Block table = ModBlocks.registerWoodBlock(name + "_table", WoodTableBlock::new,
+        Block table = BlockRegistryME.registerWoodBlock(name + "_table", WoodTableBlock::new,
                 AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
 
-        Block chair = ModBlocks.registerWoodBlock(name + "_chair", WoodChairBlock::new,
+        Block chair = BlockRegistryME.registerWoodBlock(name + "_chair", WoodChairBlock::new,
                 AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
 
-        Block stool = ModBlocks.registerWoodBlock(name + "_stool", WoodStoolBlock::new,
+        Block stool = BlockRegistryME.registerWoodBlock(name + "_stool", WoodStoolBlock::new,
                 AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
 
-        Block bench = ModBlocks.registerWoodBlock(name + "_bench", WoodBenchBlock::new,
+        Block bench = BlockRegistryME.registerWoodBlock(name + "_bench", WoodBenchBlock::new,
                 AbstractBlock.Settings.copy(base).strength(hardness, blastResistance).mapColor(mapColor).sounds(soundGroup).nonOpaque(),false);
 
-        Block ladder = ModBlocks.registerWoodBlock(name + "_ladder", ThickLadderBlock::new,
+        Block ladder = BlockRegistryME.registerWoodBlock(name + "_ladder", ThickLadderBlock::new,
                 AbstractBlock.Settings.copy(base).sounds(BlockSoundGroup.LADDER).nonOpaque(),false);
 
         FlammableBlockRegistry.getDefaultInstance().add(stool, 5, 20);
@@ -414,7 +414,7 @@ public class BlockSetRegistration {
 
     public static Block getVanillaOrCreateNew(String path, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, List<ItemStack> group){
         if (Registries.BLOCK.get(Identifier.ofVanilla(path)) == Blocks.AIR){
-            return ModBlocks.registerBlock(path, factory, settings, false, group);
+            return BlockRegistryME.registerBlock(path, factory, settings, false, group);
         } else {
             return Registries.BLOCK.get(Identifier.ofVanilla(path));
         }

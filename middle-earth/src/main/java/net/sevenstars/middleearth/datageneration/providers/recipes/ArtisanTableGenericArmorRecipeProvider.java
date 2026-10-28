@@ -20,9 +20,8 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
-import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -186,6 +185,44 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                 //region GENERIC
 
                 //T1
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BAGGY_HAT.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.CHAPERON.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(ResourceItemsME.FABRIC),
+                                conditionsFromItem(ResourceItemsME.FABRIC))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.GLASSES.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(ResourceItemsME.BRONZE_INGOT)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(Items.GLASS)
+                        .input(Items.GLASS)
+                        .criterion(hasItem(ResourceItemsME.BRONZE_INGOT),
+                                conditionsFromItem(ResourceItemsME.BRONZE_INGOT))
+                        .offerTo(exporter);
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.DWARVEN_MONOCLE.getDefaultStack(), "hat", DispositionType.GOOD)
+                        .input(ResourceItemsME.BRONZE_NUGGET)
+                        .input(ResourceItemsME.BRONZE_INGOT)
+                        .input(Items.LEATHER)
+                        .input(Items.GLASS)
+                        .input(Items.LEATHER)
+                        .criterion(hasItem(ResourceItemsME.BRONZE_INGOT),
+                                conditionsFromItem(ResourceItemsME.BRONZE_INGOT))
+                        .offerTo(exporter);
+
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.STRAW_HAT.getDefaultStack(), "hat", DispositionType.NEUTRAL)
                         .input(Items.STRING)
                         .input(ResourceItemsME.STRAW)
@@ -214,6 +251,16 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(Items.STRING)
                         .criterion(hasItem(Items.WHITE_WOOL),
                                 conditionsFromItem(Items.WHITE_WOOL))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BEEKEEPER_MASK.getDefaultStack(), "hat", DispositionType.NEUTRAL)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.STRAW)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(ResourceItemsME.FABRIC),
+                                conditionsFromItem(ResourceItemsME.FABRIC))
                         .offerTo(exporter);
 
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WANDERER_HAT.getDefaultStack(), "hat", DispositionType.NEUTRAL)
@@ -319,6 +366,19 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
                         .input(ResourceItemsME.FABRIC)
+                        .criterion(hasItem(Items.LEATHER),
+                                conditionsFromItem(Items.LEATHER))
+                        .offerTo(exporter);
+
+                ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.BLACKSMITH_APRON.getDefaultStack(), "chestplate", DispositionType.NEUTRAL)
+                        .input(Items.STRING)
+                        .input(Items.STRING)
+                        .input(ResourceItemsME.TIN_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(ResourceItemsME.TIN_NUGGET)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
+                        .input(Items.LEATHER)
                         .criterion(hasItem(Items.LEATHER),
                                 conditionsFromItem(Items.LEATHER))
                         .offerTo(exporter);
@@ -430,9 +490,9 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(ironChainmail.getItem()))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.WINGED_HELMET.getDefaultStack(), "helmet", DispositionType.NEUTRAL, XP_T3)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("feathers")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("feathers")))
                         .input(EquipmentItemsME.OPEN_FACE_HELMET)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("feathers")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("feathers")))
                         .criterion(hasItem(EquipmentItemsME.OPEN_FACE_HELMET),
                                 conditionsFromItem(EquipmentItemsME.OPEN_FACE_HELMET))
                         .offerTo(exporter);
@@ -666,41 +726,41 @@ public class ArtisanTableGenericArmorRecipeProvider extends RecipeProvider {
                                 conditionsFromItem(Items.LEAF_LITTER))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MIRK_LEAF_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
                         .input(Items.STRING)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
-                        .input(WoodBlockSets.MIRKWOOD_SET.leaves)
-                        .criterion(hasItem(WoodBlockSets.MIRKWOOD_SET.leaves),
-                                conditionsFromItem(WoodBlockSets.MIRKWOOD_SET.leaves))
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves)
+                        .criterion(hasItem(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves),
+                                conditionsFromItem(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.MIRK_BARK_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
                         .input(Items.STRING)
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
-                        .input(WoodBlockSets.MIRKWOOD_SET.logBlocks.log())
-                        .criterion(hasItem(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()),
-                                conditionsFromItem(WoodBlockSets.MIRKWOOD_SET.logBlocks.log()))
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
+                        .input(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log())
+                        .criterion(hasItem(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log()),
+                                conditionsFromItem(WoodBlockSetRegistryME.MIRKWOOD_SET.logBlocks.log()))
                         .offerTo(exporter);
                 ArtisanTableRecipeJsonBuilder.createArtisanRecipe(itemLookup, RecipeCategory.COMBAT, EquipmentItemsME.AUTUMN_LEAF_CAPE.getDefaultStack(), "back_attachment", DispositionType.NEUTRAL)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
                         .input(Items.STRING)
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
-                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
+                        .input(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("autumn_leaves")))
                         .criterion(hasItem(Items.STRING),
                                 conditionsFromItem(Items.STRING))
                         .offerTo(exporter);

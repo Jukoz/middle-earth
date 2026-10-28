@@ -19,7 +19,6 @@ import net.sevenstars.of_beasts_and_wild_things.entity.swan.SwanEntityRenderer;
 public class OfBeastsAndWildThingsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-
         EntityModelsWT.getModels();
 
         EntityRendererRegistry.register(EntitiesWT.SNAIL, SnailEntityRenderer::new);

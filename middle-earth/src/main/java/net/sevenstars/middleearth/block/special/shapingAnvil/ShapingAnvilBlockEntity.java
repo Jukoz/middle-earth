@@ -12,14 +12,14 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
+import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -74,7 +74,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
     //TODO make work in creative somehow
 
     public ShapingAnvilBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.TREATED_ANVIL, pos, state);
+        super(BlockEntityRegistryME.TREATED_ANVIL, pos, state);
 
         this.propertyDelegate = new PropertyDelegate() {
             @Override
@@ -180,7 +180,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
             World serverWorld = this.getWorld();
             if (serverWorld instanceof ServerWorld) {
-                ((ServerWorld)serverWorld).spawnParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, Math.max(temperature / 10, 3), 0.0, 0.0, 0.0, 0.0);
+                ((ServerWorld)serverWorld).spawnParticles(ParticleTypeRegistryME.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, Math.max(temperature / 10, 3), 0.0, 0.0, 0.0, 0.0);
             }
 
             int minRandTemperature = 10;
@@ -233,7 +233,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
         } else {
             World serverWorld = this.getWorld();
             if (serverWorld instanceof ServerWorld) {
-                ((ServerWorld)serverWorld).spawnParticles(ModParticleTypes.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 2, 0.0, 0.0, 0.0, 0.0);
+                ((ServerWorld)serverWorld).spawnParticles(ParticleTypeRegistryME.ANVIL_SPARK_PARTICLE, pos.getX()+ 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 2, 0.0, 0.0, 0.0, 0.0);
             }
             entity.getWorld().playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.5f, 1.0f);
         }

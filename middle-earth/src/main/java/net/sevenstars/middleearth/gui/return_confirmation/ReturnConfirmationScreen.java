@@ -9,8 +9,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
-import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentOverworldSpawn;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
+import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToCurrentOverworldSpawn;
 
 import java.awt.event.KeyEvent;
 
@@ -42,7 +42,7 @@ public class ReturnConfirmationScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        ModWidget.updateMouse(mouseX, mouseY);
+        CustomWidget.updateMouse(mouseX, mouseY);
         this.drawContent(context);
     }
 
@@ -77,7 +77,7 @@ public class ReturnConfirmationScreen extends Screen {
                     Colors.BLACK, false);
 
             returnToOverworldButton.setDimensionsAndPosition(panelSizeX, panelSizeY, startX, startY);
-            if(ModWidget.getFocusEnabled() && returnToOverworldButton.isFocused()){
+            if(CustomWidget.getFocusEnabled() && returnToOverworldButton.isFocused()){
                 context.drawTexture(RenderPipelines.GUI_TEXTURED, BUTTON_WIDGET,
                         startX, startY,103, 0,
                         panelSizeX, panelSizeY, 256, 256);
@@ -97,8 +97,8 @@ public class ReturnConfirmationScreen extends Screen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         // Keybind : Tabulation
-        if(keyCode == KeyEvent.VK_CODE_INPUT && !ModWidget.getFocusEnabled()){
-            ModWidget.enableFocus(true);
+        if(keyCode == KeyEvent.VK_CODE_INPUT && !CustomWidget.getFocusEnabled()){
+            CustomWidget.enableFocus(true);
             return true;
         }
 
@@ -106,6 +106,6 @@ public class ReturnConfirmationScreen extends Screen {
     }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {
-        return ModWidget.isMouseOver(sizeX, sizeY, startX, startY);
+        return CustomWidget.isMouseOver(sizeX, sizeY, startX, startY);
     }
 }

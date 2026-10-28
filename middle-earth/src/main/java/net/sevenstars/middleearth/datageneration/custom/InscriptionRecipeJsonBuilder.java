@@ -9,7 +9,6 @@ import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -71,7 +70,7 @@ public class InscriptionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
         Objects.requireNonNull(builder);
         this.criteria.forEach(builder::criterion);
         InscriptionRecipe inscriptionRecipeBuilder = new InscriptionRecipe(this.enchant, this.level, this.inputWords, this.chiselInput, this.levelCost);
-        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.ofPath( "recipes",
+        exporter.accept(recipeKey, inscriptionRecipeBuilder, builder.build(MiddleEarth.idFilePath( "recipes",
                 this.category.getName(), "inscription%s%s".formatted(enchant.getKey().get().getRegistry().getPath(), level))));
     }
 

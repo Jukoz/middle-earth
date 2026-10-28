@@ -180,8 +180,8 @@ public class ItemModelProvider extends FabricModelProvider {
             String id = npcDataRegistryKey.getValue().getPath().replaceAll("npc_data.middle-earth.", "").replaceAll("\\.", "_") + "_spawn_egg";
 
             var item = ItemModels.switchCase(id,
-                    ItemModels.basic(Models.GENERATED.upload(MiddleEarth.of("item/" + id),
-                            TextureMap.layer0(MiddleEarth.of( "item/" + id)),
+                    ItemModels.basic(Models.GENERATED.upload(MiddleEarth.id("item/" + id),
+                            TextureMap.layer0(MiddleEarth.id( "item/" + id)),
                             itemModelGenerator.modelCollector
                     )));
 
@@ -192,8 +192,8 @@ public class ItemModelProvider extends FabricModelProvider {
 
         String randomNpcEggId = "npc_random_spawn_egg";
         var randomNpcEgg = ItemModels.switchCase(randomNpcEggId,
-            ItemModels.basic(Models.GENERATED.upload(MiddleEarth.ofPath( "item", randomNpcEggId),
-                    TextureMap.layer0(MiddleEarth.ofPath( "item", randomNpcEggId)),
+            ItemModels.basic(Models.GENERATED.upload(MiddleEarth.idFilePath( "item", randomNpcEggId),
+                    TextureMap.layer0(MiddleEarth.idFilePath( "item", randomNpcEggId)),
                     itemModelGenerator.modelCollector
             )));
 
@@ -407,7 +407,7 @@ public class ItemModelProvider extends FabricModelProvider {
             idPath = "thick_ingot_hot";
         }
 
-        Identifier textureId = MiddleEarth.ofPath( "item", idPath);
+        Identifier textureId = MiddleEarth.idFilePath( "item", idPath);
         ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
                 TextureMap.layer0(textureId), itemModelGenerator.modelCollector));
 
@@ -417,7 +417,7 @@ public class ItemModelProvider extends FabricModelProvider {
     public final void registerHotNuggetItem(Item item, ItemModelGenerator itemModelGenerator) {
         ItemModel.Unbaked unbakedItem = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
         ItemModel.Unbaked unbakedHotItem = ItemModels.basic(Models.GENERATED.upload(ModelIds.getItemSubModelId(item, "_hot"),
-                TextureMap.layer0(MiddleEarth.ofPath( "item", "nugget_hot")), itemModelGenerator.modelCollector));
+                TextureMap.layer0(MiddleEarth.idFilePath( "item", "nugget_hot")), itemModelGenerator.modelCollector));
 
         itemModelGenerator.output.accept(item, ItemModels.condition(new HotComponentProperty(), unbakedHotItem, unbakedItem));
     }

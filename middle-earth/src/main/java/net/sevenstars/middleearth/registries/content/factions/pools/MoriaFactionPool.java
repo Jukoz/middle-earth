@@ -50,9 +50,9 @@ public class MoriaFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.SCREECHING_SKULL, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of("moria",  "east_gate"), new Vector2d(1522, 1143)),
-                        new SpawnData(MiddleEarth.of("moria",  "west_gate"), new Vector2d(1465, 1143)),
-                        new SpawnData(MiddleEarth.of("moria",  "goblin_camp"), new Vector2d(1546, 1115))
+                        new SpawnData(MiddleEarth.idAggregate("moria",  "east_gate"), new Vector2d(1522, 1143)),
+                        new SpawnData(MiddleEarth.idAggregate("moria",  "west_gate"), new Vector2d(1465, 1143)),
+                        new SpawnData(MiddleEarth.idAggregate("moria",  "goblin_camp"), new Vector2d(1546, 1115))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

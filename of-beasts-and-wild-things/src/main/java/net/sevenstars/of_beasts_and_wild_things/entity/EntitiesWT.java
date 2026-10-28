@@ -38,15 +38,15 @@ public class EntitiesWT {
     }
 
     private static RegistryKey<EntityType<?>> keyOf(String id) {
-        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.of(id));
+        return RegistryKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.id(id));
     }
 
-    public static void registerModEntities() {
+    public static void register() {
         FabricDefaultAttributeRegistry.register(SNAIL, SnailEntity.createSnailAttributes());
         FabricDefaultAttributeRegistry.register(PHEASANT, PheasantEntity.createPheasantAttributes());
         FabricDefaultAttributeRegistry.register(SWAN, SwanEntity.createSwanAttributes());
         FabricDefaultAttributeRegistry.register(DEER, DeerEntity.createDeerAttributes());
 
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Entities for " + OfBeastsAndWildThings.MOD_ID);
+        OfBeastsAndWildThings.logRegistryMsg("Entities");
     }
 }

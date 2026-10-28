@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -13,49 +13,49 @@ public class SimpleFlowerPotModel {
 
     public static List<FlowerPot> pots = new ArrayList<>() {
         {
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_ASPEN_SAPLING, ModNatureBlocks.ASPEN_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_BEECH_SAPLING, ModNatureBlocks.BEECH_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_CHESTNUT_SAPLING, ModNatureBlocks.CHESTNUT_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_HOLLY_SAPLING, ModNatureBlocks.HOLLY_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_FIR_SAPLING, ModNatureBlocks.FIR_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_LARCH_SAPLING, ModNatureBlocks.LARCH_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_LEBETHRON_SAPLING, ModNatureBlocks.LEBETHRON_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_LEBETHRON_SAPLING, ModNatureBlocks.WHITE_LEBETHRON_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_MALLORN_SAPLING, ModNatureBlocks.MALLORN_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_MAPLE_SAPLING, ModNatureBlocks.MAPLE_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_SILVER_MAPLE_SAPLING, ModNatureBlocks.SILVER_MAPLE_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_MIRKWOOD_SAPLING, ModNatureBlocks.MIRKWOOD_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_PALM_SAPLING, ModNatureBlocks.PALM_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_PALM_SAPLING, ModNatureBlocks.WHITE_PALM_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_PINE_SAPLING, ModNatureBlocks.PINE_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_BLACK_PINE_SAPLING, ModNatureBlocks.BLACK_PINE_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_SPRUCE_SAPLING, ModNatureBlocks.WHITE_SPRUCE_SAPLING));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_WILLOW_SAPLING, ModNatureBlocks.WILLOW_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_ASPEN_SAPLING, NatureBlockRegistryME.ASPEN_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_BEECH_SAPLING, NatureBlockRegistryME.BEECH_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_CHESTNUT_SAPLING, NatureBlockRegistryME.CHESTNUT_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_HOLLY_SAPLING, NatureBlockRegistryME.HOLLY_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_FIR_SAPLING, NatureBlockRegistryME.FIR_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_LARCH_SAPLING, NatureBlockRegistryME.LARCH_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_LEBETHRON_SAPLING, NatureBlockRegistryME.LEBETHRON_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_WHITE_LEBETHRON_SAPLING, NatureBlockRegistryME.WHITE_LEBETHRON_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_MALLORN_SAPLING, NatureBlockRegistryME.MALLORN_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_MAPLE_SAPLING, NatureBlockRegistryME.MAPLE_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_SILVER_MAPLE_SAPLING, NatureBlockRegistryME.SILVER_MAPLE_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_MIRKWOOD_SAPLING, NatureBlockRegistryME.MIRKWOOD_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_PALM_SAPLING, NatureBlockRegistryME.PALM_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_WHITE_PALM_SAPLING, NatureBlockRegistryME.WHITE_PALM_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_PINE_SAPLING, NatureBlockRegistryME.PINE_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_BLACK_PINE_SAPLING, NatureBlockRegistryME.BLACK_PINE_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_WHITE_SPRUCE_SAPLING, NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_WILLOW_SAPLING, NatureBlockRegistryME.WILLOW_SAPLING));
 
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_GREEN_SHRUB, ModNatureBlocks.GREEN_SHRUB));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_ELANOR, ModNatureBlocks.ELANOR));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_MALLOS, ModNatureBlocks.MALLOS));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_NIPHREDIL, ModNatureBlocks.NIPHREDIL));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_SIMBELMYNE, ModNatureBlocks.SIMBELMYNE));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_FLOWER, ModNatureBlocks.YELLOW_FLOWER));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_TROLLIUS, ModNatureBlocks.YELLOW_TROLLIUS));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_TAN_SHRUB, ModNatureBlocks.TAN_SHRUB));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_BLUE_GENTIAN, ModNatureBlocks.BLUE_GENTIAN));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_GREEN_JEWEL_CORNFLOWER, ModNatureBlocks.GREEN_JEWEL_CORNFLOWER));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_NOBLEWHITE, ModNatureBlocks.NOBLEWHITE));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_SCORCHED_SHRUB, ModNatureBlocks.SCORCHED_SHRUB));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_FROZEN_SHRUB, ModNatureBlocks.FROZEN_SHRUB));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_GREEN_SHRUB, NatureBlockRegistryME.GREEN_SHRUB));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_ELANOR, NatureBlockRegistryME.ELANOR));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_MALLOS, NatureBlockRegistryME.MALLOS));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_NIPHREDIL, NatureBlockRegistryME.NIPHREDIL));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_SIMBELMYNE, NatureBlockRegistryME.SIMBELMYNE));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_YELLOW_FLOWER, NatureBlockRegistryME.YELLOW_FLOWER));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_YELLOW_TROLLIUS, NatureBlockRegistryME.YELLOW_TROLLIUS));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_TAN_SHRUB, NatureBlockRegistryME.TAN_SHRUB));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_BLUE_GENTIAN, NatureBlockRegistryME.BLUE_GENTIAN));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_GREEN_JEWEL_CORNFLOWER, NatureBlockRegistryME.GREEN_JEWEL_CORNFLOWER));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_NOBLEWHITE, NatureBlockRegistryME.NOBLEWHITE));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_SCORCHED_SHRUB, NatureBlockRegistryME.SCORCHED_SHRUB));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_FROZEN_SHRUB, NatureBlockRegistryME.FROZEN_SHRUB));
 
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_CAVE_AMANITA, ModNatureBlocks.CAVE_AMANITA));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_DEEP_FIRECAP, ModNatureBlocks.DEEP_FIRECAP));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_GHOSTSHROOM, ModNatureBlocks.GHOSTSHROOM));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_MORSEL, ModNatureBlocks.MORSEL));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_SKYFIRECAP, ModNatureBlocks.SKY_FIRECAP));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_TRUMPET_SHROOM, ModNatureBlocks.TRUMPET_SHROOM));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_TUBESHROOM, ModNatureBlocks.TUBESHRROM));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_VIOLET_CAPS, ModNatureBlocks.VIOLET_CAPS));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_WHITE_MUSHROOM, ModNatureBlocks.WHITE_MUSHROOM));
-            add(new FlowerPot(ModDecorativeBlocks.POTTED_YELLOW_AMANITA, ModNatureBlocks.YELLOW_AMANITA));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_CAVE_AMANITA, NatureBlockRegistryME.CAVE_AMANITA));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_DEEP_FIRECAP, NatureBlockRegistryME.DEEP_FIRECAP));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_GHOSTSHROOM, NatureBlockRegistryME.GHOSTSHROOM));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_MORSEL, NatureBlockRegistryME.MORSEL));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_SKYFIRECAP, NatureBlockRegistryME.SKY_FIRECAP));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_TRUMPET_SHROOM, NatureBlockRegistryME.TRUMPET_SHROOM));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_TUBESHROOM, NatureBlockRegistryME.TUBESHRROM));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_VIOLET_CAPS, NatureBlockRegistryME.VIOLET_CAPS));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_WHITE_MUSHROOM, NatureBlockRegistryME.WHITE_MUSHROOM));
+            add(new FlowerPot(DecorativeBlockRegistryME.POTTED_YELLOW_AMANITA, NatureBlockRegistryME.YELLOW_AMANITA));
         }
     };
 }

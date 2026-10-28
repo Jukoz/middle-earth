@@ -26,9 +26,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
+import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.client.RenderUtil;
-import net.sevenstars.middleearth.config.ModClientConfigs;
+import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
@@ -64,7 +64,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.addFeature(new NoseFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new FeetFeatureRenderer(this, context.getEntityModels()));
 
-        characterTextureAtlas = AtlasesME.getAtlasFromPath(ModTexturedRenderLayers.CHARACTER_ATLAS_TEXTURES);
+        characterTextureAtlas = AtlasesME.getAtlasFromPath(TexturedRenderLayersME.CHARACTER_ATLAS_TEXTURES);
 
         this.shadowRadius = 0.5f;
     }
@@ -110,7 +110,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         npcEntityRenderState.simplifiedHairAddonId = npcTextureData.getSimplifiedHair();
         npcEntityRenderState.simplifiedNoseId = npcTextureData.getSimplifiedNose();
 
-        if(!ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING || npcEntityRenderState.simplifiedSkinId == null){
+        if(!ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING || npcEntityRenderState.simplifiedSkinId == null){
             npcEntityRenderState.skinId = npcTextureData.get(NpcRenderedPart.BODY);
             npcEntityRenderState.feetId = npcTextureData.get(NpcRenderedPart.FEET);
             npcEntityRenderState.headId = npcTextureData.get(NpcRenderedPart.HEAD);
@@ -168,7 +168,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
 
     @Override
     public void render(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        boolean simplified = ModClientConfigs.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
+        boolean simplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
 
         if(!simplified && (state.skinId == null || state.headId == null || state.eyesId == null))
             return;
@@ -199,26 +199,26 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         int overlay = state.hurt ? getOverlay(state, this.getAnimationCounter(state)) : OverlayTexture.DEFAULT_UV;
 
         if(simplified){
-            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
+            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesRenderLayer());
             renderTexture(matrices, vertexConsumer, state.simplifiedSkinId, light, overlay, false);
         } else {
             renderComplexVersion(matrices, vertexConsumers, light, overlay, state);
         }
 
-        if (this.shouldRenderFeatures(state) && state.LOD < ModClientConfigs.LOD_NPC_ARMOR_DISTANCE) {
+        if (this.shouldRenderFeatures(state) && state.LOD < ClientConfigME.LOD_NPC_ARMOR_DISTANCE) {
             for (FeatureRenderer<NpcEntityRenderState, NpcEntityModel> feature : this.features) {
                 if (feature instanceof EarFeatureRenderer)
-                    if ((state.simplifiedEarId == null && state.earId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
+                    if ((state.simplifiedEarId == null && state.earId == null) || state.LOD > ClientConfigME.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if (feature instanceof NoseFeatureRenderer)
-                    if ((state.simplifiedNoseId == null && state.noseId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
+                    if ((state.simplifiedNoseId == null && state.noseId == null) || state.LOD > ClientConfigME.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if (feature instanceof HairFeatureRenderer)
                     if ((state.simplifiedHairAddonId == null && state.hairAddonId == null && state.beardAddonId == null)
-                            || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
+                            || state.LOD > ClientConfigME.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 if(feature instanceof FeetFeatureRenderer)
-                    if((state.simplifiedFeetId == null && state.feetId == null) || state.LOD > ModClientConfigs.LOD_NPC_FEATURES_DISTANCE)
+                    if((state.simplifiedFeetId == null && state.feetId == null) || state.LOD > ClientConfigME.LOD_NPC_FEATURES_DISTANCE)
                         continue;
                 feature.render(matrices, vertexConsumers, light, state, state.relativeHeadYaw, state.pitch);
             }
@@ -232,46 +232,46 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     }
 
     private void renderComplexVersion(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, NpcEntityRenderState state) {
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesRenderLayer());
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesRenderLayer());
 
         // Will always be shown
-        renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.skinId, AtlasesME.SKIN_PREFIX), light, overlay, false);
+        renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.skinId, AtlasesME.SKIN_PREFIX), light, overlay, false);
 
-        renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.headId, AtlasesME.SKIN_PREFIX), light, overlay, false);
+        renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.headId, AtlasesME.SKIN_PREFIX), light, overlay, false);
 
         if(!state.blinking){
-            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.eyesId, AtlasesME.EYE_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.eyesId, AtlasesME.EYE_PREFIX), light, overlay, false);
         }
         // Optionally shown, only if the value is present
         if(state.eyebrowId != null)
-            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.eyebrowId, AtlasesME.HAIR_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.eyebrowId, AtlasesME.HAIR_PREFIX), light, overlay, false);
 
         if(state.scarId != null)
-            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.scarId, AtlasesME.SKIN_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.scarId, AtlasesME.SKIN_PREFIX), light, overlay, false);
 
         if(state.beardId != null)
-            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.beardId, AtlasesME.HAIR_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.beardId, AtlasesME.HAIR_PREFIX), light, overlay, false);
 
         if(state.clothingBase == null && state.clothingOver == null && state.clothingExtra == null){
-            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(CharacterClothesRegistryME.Base.THONG_BROWN, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(CharacterClothesRegistryME.Base.THONG_BROWN, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
         }
         else {
             if(state.clothingBase != null)
-                renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.clothingBase, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
+                renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.clothingBase, AtlasesME.CLOTHES_BASE_PREFIX), light, overlay, false);
 
             if(state.clothingOver != null)
-                renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.clothingOver, AtlasesME.CLOTHES_OVER_PREFIX), light, overlay, false);
+                renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.clothingOver, AtlasesME.CLOTHES_OVER_PREFIX), light, overlay, false);
 
             if(state.clothingExtra != null)
-                renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.clothingExtra, AtlasesME.CLOTHES_EXTRA_PREFIX), light, overlay, false);
+                renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.clothingExtra, AtlasesME.CLOTHES_EXTRA_PREFIX), light, overlay, false);
         }
 
         if(state.hairId != null)
-            renderTexture(matrices, vertexConsumer, MiddleEarth.ofPrefix(state.hairId, AtlasesME.HAIR_PREFIX), light, overlay, false);
+            renderTexture(matrices, vertexConsumer, MiddleEarth.appendPrefix(state.hairId, AtlasesME.HAIR_PREFIX), light, overlay, false);
 
         if(!state.blinking && state.haveEmissiveEyes){
-            VertexConsumer vertexConsumerEmissive = vertexConsumers.getBuffer(ModTexturedRenderLayers.getCharacterTexturesEmissiveRenderLayer());
-            renderTexture(matrices, vertexConsumerEmissive, MiddleEarth.ofPrefix(state.eyesEmissiveId, AtlasesME.EYE_PREFIX), light, overlay, true);
+            VertexConsumer vertexConsumerEmissive = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesEmissiveRenderLayer());
+            renderTexture(matrices, vertexConsumerEmissive, MiddleEarth.appendPrefix(state.eyesEmissiveId, AtlasesME.EYE_PREFIX), light, overlay, true);
         }
     }
 

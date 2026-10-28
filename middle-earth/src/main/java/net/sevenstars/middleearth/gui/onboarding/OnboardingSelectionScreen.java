@@ -9,14 +9,12 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
-import net.sevenstars.middleearth.network.packets.C2S.PacketTeleportToCurrentSpawn;
-import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
+import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToCurrentSpawn;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 
 import java.awt.event.KeyEvent;

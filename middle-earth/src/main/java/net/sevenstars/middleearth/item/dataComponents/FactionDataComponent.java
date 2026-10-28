@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.utils.ModColors;
+import net.sevenstars.middleearth.utils.ColorsME;
 
 import java.util.function.Consumer;
 
@@ -51,7 +51,7 @@ public class FactionDataComponent implements TooltipAppender {
             }
         } catch (Exception e){
             textConsumer.accept(Text.translatable(FactionIdentifierException.KEY, this.factionId)
-                    .withColor(ModColors.ALERT.color));
+                    .withColor(ColorsME.ALERT.color));
         }
     }
 

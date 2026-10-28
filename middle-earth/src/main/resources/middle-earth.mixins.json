@@ -7,6 +7,7 @@
     "AbstractHorseEntityMixin",
     "AnvilScreenHandlerMixin",
     "BannerPatternRegisterMixin",
+    "BeehiveBlockMixin",
     "BlockEntityTypeMixin",
     "BlockMixin",
     "CarvedPumpkinBlockMixin",
@@ -39,7 +40,6 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
-    "client.BakedModelManagerMixin",
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
     "client.BipedEntityRenderStateMixin",

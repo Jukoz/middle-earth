@@ -54,7 +54,7 @@ public class IsengardFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.HAND, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(FACTION_PATH, "orthanc"), new Vector2d(1402, 1467))
+                        new SpawnData(MiddleEarth.idAggregate(FACTION_PATH, "orthanc"), new Vector2d(1402, 1467))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

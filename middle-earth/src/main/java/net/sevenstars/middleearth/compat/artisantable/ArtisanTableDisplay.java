@@ -66,7 +66,7 @@ public class ArtisanTableDisplay extends BasicDisplay {
                 ComponentChanges changedComponents = ingredientComponentsAccessor.getComponentChanges();
                 if(changedComponents != null && changedComponents.get(DataComponentTypes.TRIM).isPresent()) {
                     ArmorTrim trim = changedComponents.get(DataComponentTypes.TRIM).get();
-                    if(trim.pattern().matchesId(MiddleEarth.of("smithing_part"))) {
+                    if(trim.pattern().matchesId(MiddleEarth.id("smithing_part"))) {
                         ItemStack stackComponentsSmithing = new ItemStack(customIngredient.getMatchingItems().toList().getFirst());
                         stackComponentsSmithing.set(DataComponentTypes.TRIM, trim);
                         EntryIngredient entryIngredient = EntryIngredients.of(stackComponentsSmithing);

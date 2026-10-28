@@ -1,12 +1,12 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 
 public class SmallBrazierBlockEntity extends ToggleableFireBlockEntity {
 
     public SmallBrazierBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SMALL_BRAZIER, pos, state);
+        super(BlockEntityRegistryME.SMALL_BRAZIER, pos, state);
     }
 }

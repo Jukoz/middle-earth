@@ -47,9 +47,10 @@ public class ShireNpcTypePool {
         PEASANT = new NpcType(NpcRegistry.SHIRE_PEASANT.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_PEASANT, List.of(
                 WeightedGearData.create()
                         .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.CHAPERON).withWeight(2))
                                 .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(2))
                                 .add(WeightedItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
-                                .add(WeightedItemData.create().withWeight(10))
+                                .add(WeightedItemData.create().withWeight(12))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 

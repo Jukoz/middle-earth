@@ -443,6 +443,8 @@ public class MordorNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_PAVISE))
                                 .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_ARMRUST_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_HEAVY_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         ),
                 WeightedGearData.create()
@@ -468,6 +470,8 @@ public class MordorNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_PAVISE))
                                 .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_ARMRUST_SHIELD))
+                                .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_HEAVY_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);

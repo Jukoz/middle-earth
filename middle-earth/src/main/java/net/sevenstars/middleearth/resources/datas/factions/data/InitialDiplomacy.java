@@ -21,7 +21,7 @@ public class InitialDiplomacy {
     AffinityLevel affinity;
 
     public InitialDiplomacy(String factionId, String affinity) {
-        this.factionId = MiddleEarth.fetchId(factionId);
+        this.factionId = MiddleEarth.ofId(factionId);
         this.affinity = AffinityLevel.valueOf(affinity);
     }
 

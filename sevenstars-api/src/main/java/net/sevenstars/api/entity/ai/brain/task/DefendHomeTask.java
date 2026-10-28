@@ -8,7 +8,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.GlobalPos;
-import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
+import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 
 import java.util.List;
 import java.util.Optional;

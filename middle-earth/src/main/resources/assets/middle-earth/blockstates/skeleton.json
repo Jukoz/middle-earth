@@ -1,0 +1,147 @@
+{
+  "variants": {
+    "pose=1,facing=east": {
+      "model": "middle-earth:block/skeleton1",
+      "y": 90
+    },
+    "pose=1,facing=north": {
+      "model": "middle-earth:block/skeleton1"
+    },
+    "pose=1,facing=south": {
+      "model": "middle-earth:block/skeleton1",
+      "y": 180
+    },
+    "pose=1,facing=west": {
+      "model": "middle-earth:block/skeleton1",
+      "y": 270
+    },
+
+    "pose=2,facing=east": {
+      "model": "middle-earth:block/skeleton2",
+      "y": 90
+    },
+    "pose=2,facing=north": {
+      "model": "middle-earth:block/skeleton2"
+    },
+    "pose=2,facing=south": {
+      "model": "middle-earth:block/skeleton2",
+      "y": 180
+    },
+    "pose=2,facing=west": {
+      "model": "middle-earth:block/skeleton2",
+      "y": 270
+    },
+
+    "pose=3,facing=east": {
+      "model": "middle-earth:block/skeleton3",
+      "y": 90
+    },
+    "pose=3,facing=north": {
+      "model": "middle-earth:block/skeleton3"
+    },
+    "pose=3,facing=south": {
+      "model": "middle-earth:block/skeleton3",
+      "y": 180
+    },
+    "pose=3,facing=west": {
+      "model": "middle-earth:block/skeleton3",
+      "y": 270
+    },
+
+    "pose=4,facing=east": {
+      "model": "middle-earth:block/skeleton4",
+      "y": 90
+    },
+    "pose=4,facing=north": {
+      "model": "middle-earth:block/skeleton4"
+    },
+    "pose=4,facing=south": {
+      "model": "middle-earth:block/skeleton4",
+      "y": 180
+    },
+    "pose=4,facing=west": {
+      "model": "middle-earth:block/skeleton4",
+      "y": 270
+    },
+
+    "pose=5,facing=east": {
+      "model": "middle-earth:block/skeleton5",
+      "y": 90
+    },
+    "pose=5,facing=north": {
+      "model": "middle-earth:block/skeleton5"
+    },
+    "pose=5,facing=south": {
+      "model": "middle-earth:block/skeleton5",
+      "y": 180
+    },
+    "pose=5,facing=west": {
+      "model": "middle-earth:block/skeleton5",
+      "y": 270
+    },
+
+    "pose=6,facing=east": {
+      "model": "middle-earth:block/skeleton6",
+      "y": 90
+    },
+    "pose=6,facing=north": {
+      "model": "middle-earth:block/skeleton6"
+    },
+    "pose=6,facing=south": {
+      "model": "middle-earth:block/skeleton6",
+      "y": 180
+    },
+    "pose=6,facing=west": {
+      "model": "middle-earth:block/skeleton6",
+      "y": 270
+    },
+
+    "pose=7,facing=east": {
+      "model": "middle-earth:block/skeleton7",
+      "y": 90
+    },
+    "pose=7,facing=north": {
+      "model": "middle-earth:block/skeleton7"
+    },
+    "pose=7,facing=south": {
+      "model": "middle-earth:block/skeleton7",
+      "y": 180
+    },
+    "pose=7,facing=west": {
+      "model": "middle-earth:block/skeleton7",
+      "y": 270
+    },
+
+    "pose=8,facing=east": {
+      "model": "middle-earth:block/skeleton8",
+      "y": 90
+    },
+    "pose=8,facing=north": {
+      "model": "middle-earth:block/skeleton8"
+    },
+    "pose=8,facing=south": {
+      "model": "middle-earth:block/skeleton8",
+      "y": 180
+    },
+    "pose=8,facing=west": {
+      "model": "middle-earth:block/skeleton8",
+      "y": 270
+    },
+
+    "pose=9,facing=east": {
+      "model": "middle-earth:block/skeleton9",
+      "y": 90
+    },
+    "pose=9,facing=north": {
+      "model": "middle-earth:block/skeleton9"
+    },
+    "pose=9,facing=south": {
+      "model": "middle-earth:block/skeleton9",
+      "y": 180
+    },
+    "pose=9,facing=west": {
+      "model": "middle-earth:block/skeleton9",
+      "y": 270
+    }
+  }
+}

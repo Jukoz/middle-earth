@@ -18,7 +18,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 public class PlayerDataService {
     private static PlayerData getPlayerData(PlayerEntity player){
@@ -103,8 +103,8 @@ public class PlayerDataService {
             PlayerData data = getPlayerData(player);
             data.assignNewFactionInformation(faction.getId(), spawnId);
 
-            if(ModDimensions.isInMiddleEarth(player.getWorld())){
-                ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(ModDimensions.ME_WORLD_KEY, getPlayerSpawnData(player, world).getBlockPos(), 0, true);
+            if(DimensionRegistryME.isInMiddleEarth(player.getWorld())){
+                ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, getPlayerSpawnData(player, world).getBlockPos(), 0, true);
                 player.setSpawnPoint(respawn, true);
                 return true;
             }

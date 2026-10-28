@@ -58,9 +58,9 @@ public class HobgoblinTribesFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.EVIL_EYE, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "gundabad"), new Vector2d(1595, 640)),
-                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "grey_mountains"), new Vector2d(1652, 640)),
-                        new SpawnData(MiddleEarth.of(HOBGOBLIN_TRIBES.getName(), "gundabad",  "mount_gram"), new Vector2d(1401, 686))
+                        new SpawnData(MiddleEarth.idAggregate(HOBGOBLIN_TRIBES.getName(), "gundabad",  "gundabad"), new Vector2d(1595, 640)),
+                        new SpawnData(MiddleEarth.idAggregate(HOBGOBLIN_TRIBES.getName(), "gundabad",  "grey_mountains"), new Vector2d(1652, 640)),
+                        new SpawnData(MiddleEarth.idAggregate(HOBGOBLIN_TRIBES.getName(), "gundabad",  "mount_gram"), new Vector2d(1401, 686))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

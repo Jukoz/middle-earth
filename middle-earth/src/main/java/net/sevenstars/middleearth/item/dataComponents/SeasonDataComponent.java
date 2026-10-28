@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
-import net.sevenstars.middleearth.utils.ModColors;
+import net.sevenstars.middleearth.utils.ColorsME;
 
 import java.util.function.Consumer;
 
@@ -38,7 +38,7 @@ public record SeasonDataComponent(Season season) implements TooltipAppender {
 
         } catch (Exception e){
             textConsumer.accept(Text.translatable(FactionIdentifierException.KEY, this.season)
-                    .withColor(ModColors.ALERT.color));
+                    .withColor(ColorsME.ALERT.color));
         }
     }
 

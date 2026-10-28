@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.entity.npcs.initializer;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.NbtComponent;
@@ -8,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
@@ -43,11 +41,11 @@ public class NpcSpawnEggHelper {
         if(npcType == null)
             return ItemStack.EMPTY;
 
-        Identifier itemId = MiddleEarth.append(npcType.getId(), "_spawn_egg");
+        Identifier itemId = MiddleEarth.appendSuffix(npcType.getId(), "_spawn_egg");
         ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
         NbtCompound compoundData = new NbtCompound();
-        compoundData.putString("id", MiddleEarth.of("npc").toString());
+        compoundData.putString("id", MiddleEarth.id("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(npcType.getId(), false);
 

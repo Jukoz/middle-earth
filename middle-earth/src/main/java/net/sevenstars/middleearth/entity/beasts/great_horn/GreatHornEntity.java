@@ -36,11 +36,10 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
 import net.sevenstars.middleearth.entity.goals.BowAtEntityGoal;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
@@ -151,7 +150,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
         Variants.readVariantFromNbt(view, DynamicRegistriesME.GREAT_HORN_VARIANTS).ifPresent(this::setVariant);
-        this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+        this.dataTracker.set(MOUNTABLE, ServerConfigME.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {

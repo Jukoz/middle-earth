@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.block.special.forge;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
 import net.minecraft.block.*;
@@ -156,7 +156,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(world, type, ModBlockEntities.FORGE);
+        return validateTicker(world, type, BlockEntityRegistryME.FORGE);
     }
 
     @Nullable

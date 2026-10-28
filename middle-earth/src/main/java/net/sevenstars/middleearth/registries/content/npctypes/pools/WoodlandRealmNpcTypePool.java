@@ -36,7 +36,7 @@ import java.util.List;
 public class WoodlandRealmNpcTypePool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.WOODLAND_REALM;
 
-    public static final Identifier TOTAL_DAMAGE_MODIFIER = MiddleEarth.of("total_damage");
+    public static final Identifier TOTAL_DAMAGE_MODIFIER = MiddleEarth.id("total_damage");
 
     public final static NpcType ARTISAN; // Citizen / Artisans
     public final static NpcType HUNTER; // Very lightly armored, focusing entities (spiders and deer (cooldown) rather than orcs)

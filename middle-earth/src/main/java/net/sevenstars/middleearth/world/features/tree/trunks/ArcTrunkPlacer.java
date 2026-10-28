@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.sevenstars.middleearth.world.gen.ModTreeGeneration;
+import net.sevenstars.middleearth.world.gen.TreeGenerationME;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -53,7 +53,7 @@ public class ArcTrunkPlacer extends TrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModTreeGeneration.ARC_TRUNK_PLACER;
+        return TreeGenerationME.ARC_TRUNK_PLACER;
     }
 
     @Override

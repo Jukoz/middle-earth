@@ -41,7 +41,7 @@ public class NpcInitializationData {
 
 
     public NpcInitializationData(Optional<String> type, Optional<Boolean> isRandom) {
-        this.type = type.map(MiddleEarth::fetchId).orElse(null);
+        this.type = type.map(MiddleEarth::ofId).orElse(null);
         this.isRandom = isRandom == null || isRandom.isEmpty() || isRandom.get() == false ? null : isRandom.get();
     }
 

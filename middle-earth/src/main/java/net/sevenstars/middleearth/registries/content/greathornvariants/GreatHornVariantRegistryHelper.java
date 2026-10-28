@@ -17,7 +17,7 @@ public class GreatHornVariantRegistryHelper {
 
     public static GreatHornVariant.GreatHornAssetInfo createAssetInfos(String textureName){
         return new GreatHornVariant.GreatHornAssetInfo(
-                new AssetInfo(MiddleEarth.of(TEXTURE_PATH + textureName + ENTITY_NAME)));
+                new AssetInfo(MiddleEarth.id(TEXTURE_PATH + textureName + ENTITY_NAME)));
     }
 
     public static SpawnConditionSelectors createSpawnConditions(Registerable<GreatHornVariant> registry, TagKey<Biome> biomeTag, int priority) {

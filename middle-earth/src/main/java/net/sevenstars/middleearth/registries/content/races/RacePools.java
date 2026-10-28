@@ -15,7 +15,7 @@ import java.util.List;
 
 public class RacePools {
     public static class RaceAttributes {
-        public static final Identifier TOTAL_DAMAGE_MODIFIER = MiddleEarth.of("total_damage");
+        public static final Identifier TOTAL_DAMAGE_MODIFIER = MiddleEarth.id("total_damage");
     }
 
     public final static Race DWARF;
@@ -28,7 +28,7 @@ public class RacePools {
     public final static Race SNAGA;
 
     static {
-        DWARF = new Race(MiddleEarth.of("dwarf"), RaceType.DWARF,
+        DWARF = new Race(MiddleEarth.id("dwarf"), RaceType.DWARF,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.81))
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 22.0))
@@ -49,7 +49,7 @@ public class RacePools {
             }},
             List.of(), List.of());
 
-        ELF = new Race(MiddleEarth.of("elf"), RaceType.ELF,
+        ELF = new Race(MiddleEarth.id("elf"), RaceType.ELF,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.06))
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 20.0))
@@ -72,7 +72,7 @@ public class RacePools {
             }},
             List.of(), List.of());
 
-        HOBBIT = new Race(MiddleEarth.of("hobbit"), RaceType.HOBBIT,
+        HOBBIT = new Race(MiddleEarth.id("hobbit"), RaceType.HOBBIT,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
                 .addElement(AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1.0).withModifier(RaceAttributes.TOTAL_DAMAGE_MODIFIER, -0.2))
@@ -95,7 +95,7 @@ public class RacePools {
             }},
             List.of(), List.of());
 
-        HUMAN = new Race(MiddleEarth.of("human"), RaceType.HUMAN,
+        HUMAN = new Race(MiddleEarth.id("human"), RaceType.HUMAN,
             new AttributePool(),
             new HashMap<>(){{
                 put(EntityCategories.SHARED, new AttributePool()
@@ -110,7 +110,7 @@ public class RacePools {
             }},
             List.of(), List.of());
 
-        ORC = new Race(MiddleEarth.of("orc"), RaceType.ORC,
+        ORC = new Race(MiddleEarth.id("orc"), RaceType.ORC,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.79))
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 16.0))
@@ -128,7 +128,7 @@ public class RacePools {
             }},
             List.of(), List.of());
 
-        URUK = new Race(MiddleEarth.of("uruk"), RaceType.URUK,
+        URUK = new Race(MiddleEarth.id("uruk"), RaceType.URUK,
             new AttributePool()
                 .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 1.0))
                 .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 18.0))
@@ -148,7 +148,7 @@ public class RacePools {
             List.of(), List.of());
 
 
-        GOBLIN = new Race(MiddleEarth.of("goblin"), RaceType.GOBLIN,
+        GOBLIN = new Race(MiddleEarth.id("goblin"), RaceType.GOBLIN,
                 new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.75))
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 14.0))
@@ -169,7 +169,7 @@ public class RacePools {
                 }},
                 List.of(), List.of());
 
-        SNAGA = new Race(MiddleEarth.of("snaga"), RaceType.SNAGA,
+        SNAGA = new Race(MiddleEarth.id("snaga"), RaceType.SNAGA,
                 new AttributePool()
                         .addElement(AttributePoolElement.create(EntityAttributes.SCALE, 0.71))
                         .addElement(AttributePoolElement.create(EntityAttributes.MAX_HEALTH, 12.0))

@@ -55,11 +55,11 @@ public class MordorFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.EYE_OF_SAURON, DyeColor.RED)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of("mordor",  "gorgoroth"), new Vector2d(2161, 1717)),
-                        new SpawnData(MiddleEarth.of("mordor",  "black_gates"), new Vector2d(2010, 1608)),
-                        new SpawnData(MiddleEarth.of("mordor",  "minas_morgul"), new Vector2d(2029, 1770)),
-                        new SpawnData(MiddleEarth.of("mordor",  "nurn"), new Vector2d(2345, 1915)),
-                        new SpawnData(MiddleEarth.of("mordor",  "dol_guldur"), new Vector2d(1793, 1210))
+                        new SpawnData(MiddleEarth.idAggregate("mordor",  "gorgoroth"), new Vector2d(2161, 1717)),
+                        new SpawnData(MiddleEarth.idAggregate("mordor",  "black_gates"), new Vector2d(2010, 1608)),
+                        new SpawnData(MiddleEarth.idAggregate("mordor",  "minas_morgul"), new Vector2d(2029, 1770)),
+                        new SpawnData(MiddleEarth.idAggregate("mordor",  "nurn"), new Vector2d(2345, 1915)),
+                        new SpawnData(MiddleEarth.idAggregate("mordor",  "dol_guldur"), new Vector2d(1793, 1210))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

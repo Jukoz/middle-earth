@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.network.packets.C2S.PacketOnboardingRequest;
+import net.sevenstars.middleearth.network.packets.client2server.PacketOnboardingRequest;
 
 public class StarlightPhialItem extends Item {
     public StarlightPhialItem(Settings settings) {

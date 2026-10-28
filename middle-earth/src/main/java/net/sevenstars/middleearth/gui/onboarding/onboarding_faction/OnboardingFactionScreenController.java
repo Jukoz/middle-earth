@@ -21,7 +21,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
-import net.sevenstars.middleearth.network.packets.C2S.*;
+import net.sevenstars.middleearth.network.packets.client2server.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;

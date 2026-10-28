@@ -5,13 +5,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
-import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.ComponentMap;
@@ -21,9 +19,8 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarthClient;
-import net.sevenstars.middleearth.client.MEModelLoader;
-import net.sevenstars.middleearth.client.ModTexturedRenderLayers;
-import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
+import net.sevenstars.middleearth.client.ModelLoaderME;
+import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -46,7 +43,7 @@ public class KiteShieldModelRenderer implements SpecialModelRenderer<ComponentMa
         boolean bl2 = !bannerPatternsComponent.layers().isEmpty() || dyeColor != null;
         matrices.push();
         matrices.scale(1.0F, -1.0F, -1.0F);
-        SpriteIdentifier spriteIdentifier = bl2 ? MEModelLoader.KITE_SHIELD_BASE : MEModelLoader.KITE_SHIELD_BASE_NO_PATTERN;
+        SpriteIdentifier spriteIdentifier = bl2 ? ModelLoaderME.KITE_SHIELD_BASE : ModelLoaderME.KITE_SHIELD_BASE_NO_PATTERN;
         VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(spriteIdentifier.getAtlasId()), displayContext == ItemDisplayContext.GUI, glint));
         this.model.getHandle().render(matrices, vertexConsumer, light, overlay);
         if (bl2) {
@@ -67,10 +64,10 @@ public class KiteShieldModelRenderer implements SpecialModelRenderer<ComponentMa
 
     public static void renderCanvas(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, ModelPart canvas, SpriteIdentifier baseSprite, boolean isBanner, DyeColor color, BannerPatternsComponent patterns, boolean glint, boolean solid) {
         canvas.render(matrices, baseSprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, solid, glint), light, overlay);
-        renderLayer(matrices, vertexConsumers, light, overlay, canvas, ModTexturedRenderLayers.KITE_SHIELD_BASE, color);
+        renderLayer(matrices, vertexConsumers, light, overlay, canvas, TexturedRenderLayersME.KITE_SHIELD_BASE, color);
         for(int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
             BannerPatternsComponent.Layer layer = patterns.layers().get(i);
-            SpriteIdentifier spriteIdentifier = ModTexturedRenderLayers.getKiteShieldPatternTextureId(layer.pattern());
+            SpriteIdentifier spriteIdentifier = TexturedRenderLayersME.getKiteShieldPatternTextureId(layer.pattern());
 
             renderLayer(matrices, vertexConsumers, light, overlay, canvas, spriteIdentifier, layer.color());
         }}

@@ -25,7 +25,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 public class WoodenBucketBlock extends Block implements Waterloggable {
@@ -68,7 +68,7 @@ public class WoodenBucketBlock extends Block implements Waterloggable {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (player.getStackInHand(player.getActiveHand()).isEmpty() && !player.isInCreativeMode()){
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
-            player.equipStack(EquipmentSlot.MAINHAND,  new ItemStack(ModDecorativeBlocks.WOODEN_BUCKET.asItem()));
+            player.equipStack(EquipmentSlot.MAINHAND,  new ItemStack(DecorativeBlockRegistryME.WOODEN_BUCKET.asItem()));
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f - 1.0f);
             return ActionResult.PASS;
         } else{

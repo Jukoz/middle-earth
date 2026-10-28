@@ -43,7 +43,7 @@ public class EnchantmentsME {
     public static final RegistryKey<Enchantment> VANTAGE = of("vantage");
 
     private static RegistryKey<Enchantment> of(String path) {
-        Identifier id = MiddleEarth.of(path);
+        Identifier id = MiddleEarth.id(path);
         return RegistryKey.of(RegistryKeys.ENCHANTMENT, id);
     }
 
@@ -85,7 +85,7 @@ public class EnchantmentsME {
                         Enchantment.leveledCost(40, 20), 4,
                         AttributeModifierSlot.MAINHAND))
                 .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
-                        new AttributeEnchantmentEffect(MiddleEarth.of("enchantment.celerity"),
+                        new AttributeEnchantmentEffect(MiddleEarth.id("enchantment.celerity"),
                                 EntityAttributes.ATTACK_SPEED, new EnchantmentLevelBasedValue.Linear(0.2f, 0.2f), EntityAttributeModifier.Operation.ADD_VALUE)));
 
         register(registry, FIRST_STRIKE, Enchantment.builder(
@@ -102,7 +102,7 @@ public class EnchantmentsME {
                                 AttributeModifierSlot.ARMOR))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
                 .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
-                        new AttributeEnchantmentEffect(MiddleEarth.of("enchantment.grounded"),
+                        new AttributeEnchantmentEffect(MiddleEarth.id("enchantment.grounded"),
                                 EntityAttributes.KNOCKBACK_RESISTANCE, EnchantmentLevelBasedValue.linear(0.025F),
                                 EntityAttributeModifier.Operation.ADD_VALUE)));
 
@@ -163,7 +163,7 @@ public class EnchantmentsME {
                         Enchantment.leveledCost(40, 20), 4,
                         AttributeModifierSlot.MAINHAND))
                 .addEffect(EnchantmentEffectComponentTypes.ATTRIBUTES,
-                        new AttributeEnchantmentEffect(MiddleEarth.of("enchantment.vantage"),
+                        new AttributeEnchantmentEffect(MiddleEarth.id("enchantment.vantage"),
                                 EntityAttributes.ENTITY_INTERACTION_RANGE, new EnchantmentLevelBasedValue.Linear(0.5f, 0.5f), EntityAttributeModifier.Operation.ADD_VALUE)));
     }
 

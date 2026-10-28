@@ -8,7 +8,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
@@ -160,6 +160,16 @@ public class EquipmentItemsME {
             (settings) -> new BackAttachmentItem(settings, ArmorMaterialsME.FUR_T0), new Item.Settings()
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.WHITE_FUR)));
 
+    public static final Item BAGGY_HAT = registerCustomModelArmorPiece("baggy_hat",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.LEATHER_T1, settings), new Item.Settings());
+    public static final Item CHAPERON = registerCustomModelArmorPiece("chaperon",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings());
+
+    public static final Item GLASSES = registerCustomModelArmorPiece("glasses",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BRONZE_T1, settings), new Item.Settings());
+    public static final Item DWARVEN_MONOCLE = registerCustomModelArmorPiece("dwarven_monocle",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.BRONZE_T1, settings), new Item.Settings());
+
     public static final Item STRAW_HAT = registerCustomModelArmorPiece("straw_hat",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings());
 
@@ -169,6 +179,10 @@ public class EquipmentItemsME {
     public static final Item BYCOCKET = registerDyeableArmorPiece("bycocket",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.WOOL_T1, settings), new Item.Settings()
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(-6265536)));
+
+    public static final Item BEEKEEPER_MASK = registerDyeableArmorPiece("beekeeper_mask",
+            (settings) -> new CustomHelmetItem(ArmorMaterialsME.STRAW_T1, settings), new Item.Settings()
+                    .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(11246676)));
 
     public static final Item WANDERER_HAT = registerDyeableCustomModelArmorPiece("wanderer_hat",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.FABRIC_T1, settings), new Item.Settings()
@@ -200,6 +214,10 @@ public class EquipmentItemsME {
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent( 15256475)));
     public static final Item KETTLE_HAT = registerCustomModelArmorPiece("kettle_hat",
             (settings) -> new CustomHelmetItem(ArmorMaterialsME.IRON_T2, settings), new Item.Settings());
+
+
+    public static final Item BLACKSMITH_APRON = registerArmorPiece("blacksmith_apron",
+            (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings());
 
     public static final Item GAMBESON = registerDyeableArmorPiece("gambeson",
             (settings) -> new CustomChestplateItem(ArmorMaterialsME.LEATHER_T2, settings), new Item.Settings()
@@ -2053,7 +2071,7 @@ public class EquipmentItemsME {
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("helmet_of_helm_hammerhand")));
 
     private static Item registerHelmetAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         helmetAttachments.add(item);
@@ -2061,7 +2079,7 @@ public class EquipmentItemsME {
     }
 
     private static Item registerDyeableHelmetAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         helmetAttachments.add(item);
@@ -2069,7 +2087,7 @@ public class EquipmentItemsME {
     }
 
     private static Item registerBackAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         backAttachments.add(item);
@@ -2077,7 +2095,7 @@ public class EquipmentItemsME {
     }
 
     private static Item registerDyeableBackAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         backAttachments.add(item);
@@ -2085,14 +2103,14 @@ public class EquipmentItemsME {
     }
 
     private static Item registerGeneratedItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         return registerItem(item, name);
     }
 
     private static Item registerDyeableArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         switch (item){
@@ -2106,7 +2124,7 @@ public class EquipmentItemsME {
     }
 
     private static Item registerArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         switch (item){
@@ -2120,14 +2138,14 @@ public class EquipmentItemsME {
     }
 
     private static Item registerCustomModelArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleItemModel.items.add(item);
         return registerItem(item, name);
     }
 
     private static Item registerDyeableCustomModelArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
         SimpleDyeableItemModel.items.add(item);
         return registerItem(item, name);
@@ -2169,7 +2187,7 @@ public class EquipmentItemsME {
 
         }
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return Registry.register(Registries.ITEM, BlockRegistryME.keyOfItem(name), item);
     }
 
     public static void registerModItems() {

@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 
 public class LarchCofferBlock extends ChestBlock {
 
     public LarchCofferBlock(Settings settings) {
-        super(() -> ModBlockEntities.LARCH_COFFER, settings);
+        super(() -> BlockEntityRegistryME.LARCH_COFFER, settings);
     }
 
     @Override

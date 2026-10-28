@@ -6,19 +6,18 @@ import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModClientConfigs;
+import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.event.KeyInputHandler;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.backgrounds.BackgroundContainerWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.backgrounds.types.BackgroundContainerTypes;
 import net.sevenstars.middleearth.gui.utils.widgets.map.FullscreenToggeableMapWidget;
-import net.sevenstars.middleearth.utils.ModColors;
+import net.sevenstars.middleearth.utils.ColorsME;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
 import org.joml.Vector2d;
@@ -78,7 +77,7 @@ public class MapScreen extends Screen {
         overlayToggleButton = ButtonWidget.builder(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.button.map_overlay_toggle"), x -> {
             mapWidget.setOverlayState(!mapWidget.isOverlayEnabled());
         }).build();
-        overlayToggleButton.active = ModClientConfigs.ENABLE_MAP_OVERLAY;
+        overlayToggleButton.active = ClientConfigME.ENABLE_MAP_OVERLAY;
         overlayToggleButton.setDimensions(NORMAL_BUTTON_SIZE.x,NORMAL_BUTTON_SIZE.y);
         addDrawableChild(overlayToggleButton);
 
@@ -115,7 +114,7 @@ public class MapScreen extends Screen {
         } else {
             renderNormal(context);
         }
-        ModWidget.updateMouse(mouseX, mouseY);
+        CustomWidget.updateMouse(mouseX, mouseY);
         this.mouseX = mouseX;
         this.mouseY = mouseY;
         showCursorInformationTooltip(context, mouseX, mouseY);
@@ -135,7 +134,7 @@ public class MapScreen extends Screen {
             texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.biome_label").formatted(Formatting.GRAY)
                     .append(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.biome_content", Text.translatable(biome.getBiome().getBiomeRegistryKey().getValue().toTranslationKey("biome"))).formatted(Formatting.WHITE)));
             if(hasTeleportPermission){
-                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.teleport_keybind", KeyInputHandler.mapTeleportKey.getBoundKeyLocalizedText().getString()).formatted(Formatting.ITALIC).withColor(ModColors.PENDING.color));
+                texts.add(Text.translatable("ui." + MiddleEarth.MOD_ID + ".map_screen.tooltip.teleport_keybind", KeyInputHandler.mapTeleportKey.getBoundKeyLocalizedText().getString()).formatted(Formatting.ITALIC).withColor(ColorsME.PENDING.color));
             }
             context.drawTooltip(textRenderer, texts, mouseX, mouseY);
         }
@@ -196,7 +195,7 @@ public class MapScreen extends Screen {
     }
 
     private void drawFullscreenToggleButton(DrawContext context){
-        int fullscreenToggleButtonUvY = ((ModWidget.isMouseOver(fullscreenButton) || fullscreenButton.isFocused()) ? 18 : 1);
+        int fullscreenToggleButtonUvY = ((CustomWidget.isMouseOver(fullscreenButton) || fullscreenButton.isFocused()) ? 18 : 1);
         if(!fullscreenButton.active)
             fullscreenToggleButtonUvY = 35;
         if(isFullscreen){
@@ -216,7 +215,7 @@ public class MapScreen extends Screen {
     }
 
     private void drawMapOverlayToggleButton(DrawContext context){
-        int overlayToggleButtonUvY = (ModWidget.isMouseOver(overlayToggleButton) || overlayToggleButton.isFocused()) ? 69 : 52;
+        int overlayToggleButtonUvY = (CustomWidget.isMouseOver(overlayToggleButton) || overlayToggleButton.isFocused()) ? 69 : 52;
         if(!overlayToggleButton.active)
             overlayToggleButtonUvY = 86;
 
@@ -232,7 +231,7 @@ public class MapScreen extends Screen {
     private void drawRecenterButton(DrawContext context){
         recenterButton.active = playerIsInDimension;
 
-        int recenterButtonUvY = (ModWidget.isMouseOver(recenterButton) || recenterButton.isFocused()) ? 18 : 1;
+        int recenterButtonUvY = (CustomWidget.isMouseOver(recenterButton) || recenterButton.isFocused()) ? 18 : 1;
         if(!recenterButton.active)
             recenterButtonUvY = 35;
 
@@ -246,12 +245,12 @@ public class MapScreen extends Screen {
 
     private void drawZoomButtons(DrawContext context){
         int zoomInButtonUvX = 86;
-        int zoomInButtonUvY = (ModWidget.isMouseOver(zoomInButton) || zoomInButton.isFocused()) ? 18 : 1;
+        int zoomInButtonUvY = (CustomWidget.isMouseOver(zoomInButton) || zoomInButton.isFocused()) ? 18 : 1;
         zoomInButton.active = mapWidget.canZoomIn();
         if(!zoomInButton.active)
             zoomInButtonUvY = 35;
         int zoomOutButtonUvX = 69;
-        int zoomOutButtonUvY = (ModWidget.isMouseOver(zoomOutButton)|| zoomOutButton.isFocused()) ? 18 : 1;
+        int zoomOutButtonUvY = (CustomWidget.isMouseOver(zoomOutButton)|| zoomOutButton.isFocused()) ? 18 : 1;
         zoomOutButton.active = mapWidget.canZoomOut();
         if(!zoomOutButton.active)
             zoomOutButtonUvY = 35;

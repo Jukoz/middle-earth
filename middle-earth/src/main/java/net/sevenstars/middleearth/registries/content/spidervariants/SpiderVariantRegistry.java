@@ -10,9 +10,9 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 public class SpiderVariantRegistry {
     private static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS_KEY = DynamicRegistriesME.SPIDER_VARIANTS;
 
-    public static final RegistryKey<SpiderVariant> MIRKWOOD = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, MiddleEarth.of("mirkwood"));
-    public static final RegistryKey<SpiderVariant> CAVE = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, MiddleEarth.of("cave"));
-    public static final RegistryKey<SpiderVariant> MORDOR = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, MiddleEarth.of("mordor"));
+    public static final RegistryKey<SpiderVariant> MIRKWOOD = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, MiddleEarth.id("mirkwood"));
+    public static final RegistryKey<SpiderVariant> CAVE = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, MiddleEarth.id("cave"));
+    public static final RegistryKey<SpiderVariant> MORDOR = DynamicRegistriesME.of(SPIDER_VARIANTS_KEY, MiddleEarth.id("mordor"));
     public static final RegistryKey<SpiderVariant> DEFAULT = MIRKWOOD;
 
 
@@ -24,10 +24,10 @@ public class SpiderVariantRegistry {
             SpawnConditionSelectors.createFallback(0)));
         register(context, registryEntryLookup, CAVE, new SpiderVariant(
             SpiderVariantRegistryHelper.createAssetInfos("blind"),
-            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, MiddleEarth.of("is_cave")), 1)));
+            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, MiddleEarth.id("is_cave")), 1)));
         register(context, registryEntryLookup, MORDOR, new SpiderVariant(
             SpiderVariantRegistryHelper.createAssetInfos("mordor"),
-            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, MiddleEarth.of("is_mordor")), 2)));
+            SpiderVariantRegistryHelper.createSpawnConditions(context, TagKey.of(RegistryKeys.BIOME, MiddleEarth.id("is_mordor")), 2)));
     }
 
     private static void register(Registerable<SpiderVariant> context, RegistryEntryLookup<SpiderVariant> registryEntryLookup, RegistryKey<SpiderVariant> registryKey, SpiderVariant element){

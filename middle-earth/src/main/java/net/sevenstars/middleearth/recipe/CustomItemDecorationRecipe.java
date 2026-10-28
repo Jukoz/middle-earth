@@ -89,6 +89,6 @@ public class CustomItemDecorationRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_ITEM_DECORATION;
+        return RecipeSerializerRegistryME.CUSTOM_ITEM_DECORATION;
     }
 }

@@ -5,7 +5,7 @@
         {
           "type": "minecraft:item",
           "name": "middle-earth:spider_stinger",
-		  "weight": 2
+		  "weight": 3
         },
         {
           "type": "minecraft:item",

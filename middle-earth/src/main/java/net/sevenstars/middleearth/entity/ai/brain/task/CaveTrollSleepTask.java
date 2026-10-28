@@ -5,6 +5,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.server.world.ServerWorld;
+import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 
@@ -48,6 +49,6 @@ public class CaveTrollSleepTask extends MultiTickTask<CaveTrollEntity> {
     protected void finishRunning(ServerWorld world, CaveTrollEntity entity, long time) {
         entity.stopSleeping();
         entity.getBrain().remember(MemoryModulesME.DIG_FOR_FOOD_COOLDOWN, 600);
-        entity.getBrain().remember(MemoryModulesME.ACTION_TIMEOUT, 200);
+        entity.getBrain().remember(MemoryModulesAPI.ACTION_TIMEOUT, 200);
     }
 }

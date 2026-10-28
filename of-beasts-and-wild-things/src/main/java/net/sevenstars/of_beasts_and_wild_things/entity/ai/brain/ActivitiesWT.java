@@ -6,13 +6,11 @@ import net.minecraft.registry.Registry;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 
 public class ActivitiesWT {
-
-
     private static Activity register(String id) {
         return Registry.register(Registries.ACTIVITY, id, new Activity(id));
     }
 
-    public static void registerModActivities() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering ModActivities for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Activities");
     }
 }

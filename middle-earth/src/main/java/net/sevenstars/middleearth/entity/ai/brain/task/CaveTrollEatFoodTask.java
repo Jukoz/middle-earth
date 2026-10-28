@@ -12,6 +12,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
@@ -68,7 +69,7 @@ public class CaveTrollEatFoodTask extends MultiTickTask<CaveTrollEntity> {
                 count -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, count + 1), // If present
                 () -> entity.getBrain().remember(MemoryModulesME.FOOD_EATEN_COUNT, 1)); // If absent
 
-        entity.getBrain().remember(MemoryModulesME.ACTION_TIMEOUT, 200);
+        entity.getBrain().remember(MemoryModulesAPI.ACTION_TIMEOUT, 200);
         entity.setSitting(false);
 
         entity.getMainHandStack().decrement(1);

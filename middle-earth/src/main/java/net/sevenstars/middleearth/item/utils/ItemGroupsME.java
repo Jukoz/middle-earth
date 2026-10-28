@@ -1,42 +1,26 @@
 package net.sevenstars.middleearth.item.utils;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.*;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.GenericBlockSets;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
-import net.sevenstars.middleearth.block.registration.WoodBlockSets;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
-import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class ItemGroupsME {
     public static final List<ItemStack> STONE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup STONE_BLOCKS = FabricItemGroup.builder()
-            .displayName(Text.translatable(MiddleEarth.of("stone_blocks").toTranslationKey("itemGroup")))
-            .icon(() -> new ItemStack(StoneBlockSets.CALCITE_SET.brickBlocks.base().asItem()))
+            .displayName(Text.translatable(MiddleEarth.id("stone_blocks").toTranslationKey("itemGroup")))
+            .icon(() -> new ItemStack(StoneBlockSetRegistryME.CALCITE_SET.brickBlocks.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : STONE_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -46,8 +30,8 @@ public class ItemGroupsME {
 
     public static final List<ItemStack> WOOD_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup WOOD_BLOCKS = FabricItemGroup.builder()
-            .displayName(Text.translatable(MiddleEarth.of("wood_blocks").toTranslationKey("itemGroup")))
-            .icon(() -> new ItemStack(WoodBlockSets.WILLOW_SET.logBlocks.log().asItem()))
+            .displayName(Text.translatable(MiddleEarth.id("wood_blocks").toTranslationKey("itemGroup")))
+            .icon(() -> new ItemStack(WoodBlockSetRegistryME.WILLOW_SET.logBlocks.log().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : WOOD_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -58,7 +42,7 @@ public class ItemGroupsME {
     public static final List<ItemStack> MISC_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup MISC_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".misc_blocks"))
-            .icon(() -> new ItemStack(GenericBlockSets.STRAW.blockSet.base().asItem()))
+            .icon(() -> new ItemStack(GenericBlockSetRegistryME.STRAW.blockSet.base().asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : MISC_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -81,7 +65,7 @@ public class ItemGroupsME {
     public static final List<ItemStack> NATURE_BLOCKS_CONTENTS = new LinkedList<>();
     public static final ItemGroup NATURE_BLOCKS = FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup." + MiddleEarth.MOD_ID + ".nature_blocks"))
-            .icon(() -> new ItemStack(ModNatureBlocks.HEATHER.asItem()))
+            .icon(() -> new ItemStack(NatureBlockRegistryME.HEATHER.asItem()))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : NATURE_BLOCKS_CONTENTS) {
                     entries.add(item);
@@ -163,17 +147,17 @@ public class ItemGroupsME {
             .build();
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("stone_blocks"), STONE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("wood_blocks"), WOOD_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("misc_blocks"), MISC_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("decorative"), DECORATIVES_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("nature_blocks"), NATURE_BLOCKS);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("food_items"), FOOD);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("weapon_items"), WEAPONS);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("equipment_items"), EQUIPMENT);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("tool_items"), TOOLS);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("resource_items"), RESOURCES);
-        Registry.register(Registries.ITEM_GROUP, MiddleEarth.of("spawn_egg_items"), SPAWN_EGGS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("stone_blocks"), STONE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("wood_blocks"), WOOD_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("misc_blocks"), MISC_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("decorative"), DECORATIVES_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("nature_blocks"), NATURE_BLOCKS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("food_items"), FOOD);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("weapon_items"), WEAPONS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("equipment_items"), EQUIPMENT);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("tool_items"), TOOLS);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("resource_items"), RESOURCES);
+        Registry.register(Registries.ITEM_GROUP, MiddleEarth.id("spawn_egg_items"), SPAWN_EGGS);
     }
 
 }

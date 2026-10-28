@@ -50,7 +50,7 @@ public class GoblinTownFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.GOBLIN_SKULL, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of("goblin_town", "goblin_town"), new Vector2d(1583, 869))
+                        new SpawnData(MiddleEarth.idAggregate("goblin_town", "goblin_town"), new Vector2d(1583, 869))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.HOSTILE),

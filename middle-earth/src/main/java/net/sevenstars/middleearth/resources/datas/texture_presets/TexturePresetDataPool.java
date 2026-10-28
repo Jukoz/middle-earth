@@ -45,11 +45,11 @@ public class TexturePresetDataPool {
     public static Identifier buildId(Identifier pattern, Identifier material) {
         if(pattern == null || material == null)
             return null;
-        return MiddleEarth.of(pattern.getPath() + "_" + material.getPath());
+        return MiddleEarth.id(pattern.getPath() + "_" + material.getPath());
     }
 
     public static Identifier buildAddonId(Identifier pattern, Identifier material) {
-        return MiddleEarth.of(pattern.getPath() + "_addon_" + material.getPath());
+        return MiddleEarth.id(pattern.getPath() + "_addon_" + material.getPath());
     }
 
     public static ClothingSelection getClothing(Identity textureIdentity) {

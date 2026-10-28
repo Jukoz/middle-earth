@@ -3,9 +3,8 @@ package net.sevenstars.middleearth.block.special.bellows;
 
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.sound.SoundsME;
 import net.minecraft.block.BlockState;
@@ -39,7 +38,7 @@ public class BellowsBlockEntity extends BlockEntity {
     public boolean pumping;
     
     public BellowsBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.BELLOWS, pos, state);
+        super(BlockEntityRegistryME.BELLOWS, pos, state);
         if(RANDOM == null)
             RANDOM = new Random();
     }
@@ -55,7 +54,7 @@ public class BellowsBlockEntity extends BlockEntity {
             if (!world.isClient){
                 if(blockEntity.activate(direction)){
                     BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
-                    if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.of("forge")))) {
+                    if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("forge")))) {
                         ForgeBlockEntity forgeBlockEntity = (ForgeBlockEntity) world.getBlockEntity(forgePos);
                         if(forgeBlockEntity != null) {
                             forgeBlockEntity.bellowsBoost();

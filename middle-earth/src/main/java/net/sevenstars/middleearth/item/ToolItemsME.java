@@ -6,7 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Unit;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleBigItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleHandheldItemModel;
@@ -155,7 +155,7 @@ public class ToolItemsME {
             (settings) -> new PipeItem(settings, 5), new Item.Settings().maxCount(1));
     
     private static Item registerItemHandheld(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);
         return registerItem(item, name);
@@ -168,14 +168,14 @@ public class ToolItemsME {
     }
 
     private static Item registerItemDualModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleBigItemModel.items.add(item);
         return registerItem(item, name);
     }
     
     public static Item registerItem2dGUI3dPerson(String name, Function<Item.Settings, Item> factory, Item.Settings settings){
-        Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
+        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         SimpleBigItemModel.genericItems.add(item);
         ItemGroupsME.TOOLS_CONTENTS.add(item.getDefaultStack());
         return registerItem(item, name);
@@ -184,7 +184,7 @@ public class ToolItemsME {
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, ModBlocks.keyOfItem(name), item);
+        return Registry.register(Registries.ITEM, BlockRegistryME.keyOfItem(name), item);
     }
 
     public static void registerModItems() {

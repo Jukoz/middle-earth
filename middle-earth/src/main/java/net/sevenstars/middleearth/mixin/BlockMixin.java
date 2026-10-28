@@ -1,11 +1,10 @@
 package net.sevenstars.middleearth.mixin;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldView;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -38,7 +37,7 @@ public abstract class BlockMixin {
         Block block = this.asBlock();
 
         if(explosion.getEntity() == null || explosion.getEntity().getType() == EntitiesME.FIRE_OF_ORTHANC) {
-            if(block != Blocks.TNT && block != ModDecorativeBlocks.FIRE_OF_ORTHANC) {
+            if(block != Blocks.TNT && block != DecorativeBlockRegistryME.FIRE_OF_ORTHANC) {
                 if(Math.random() < RANDOM_FLYING_BLOCK) {
                     float distance = (float) pos.getSquaredDistance(explosion.getPosition());
                     if(distance < explosion.getPower() / DISCARD_DISTANCE) return;
@@ -59,6 +58,6 @@ public abstract class BlockMixin {
     @Inject(method = "sideCoversSmallSquare", at = @At("RETURN"), cancellable = true)
     private static void sideCoversSmallSquare(WorldView world, BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
         BlockState blockState = world.getBlockState(pos);
-        if(blockState.getBlock() == ModDecorativeBlocks.ROPE) cir.setReturnValue(true);
+        if(blockState.getBlock() == DecorativeBlockRegistryME.ROPE) cir.setReturnValue(true);
     }
 }

@@ -89,6 +89,6 @@ public class BackAttachmentRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_ARMOR_BACK_ATTACHMENT;
+        return RecipeSerializerRegistryME.CUSTOM_ARMOR_BACK_ATTACHMENT;
     }
 }

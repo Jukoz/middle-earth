@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 
 public class SpruceCofferBlock extends ChestBlock {
 
     public SpruceCofferBlock(Settings settings) {
-        super(() -> ModBlockEntities.SPRUCE_COFFER, settings);
+        super(() -> BlockEntityRegistryME.SPRUCE_COFFER, settings);
     }
 
     @Override

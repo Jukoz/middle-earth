@@ -4,7 +4,6 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -13,7 +12,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributeModifierElement;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
@@ -56,16 +54,16 @@ public class RaceStatTooltip {
     }
 
     private static void addAttributeListHeader() {
-        tooltipText.add(Text.translatable(MiddleEarth.of("attribute_header").toTranslationKey("race_tooltip")).formatted(Formatting.GRAY));
+        tooltipText.add(Text.translatable(MiddleEarth.id("race_stats.attribute_header").toTranslationKey("tooltip")).formatted(Formatting.GRAY));
     }
 
     private static void addNoAttributeChanges() {
-        tooltipText.add(Text.translatable(MiddleEarth.of("no_attribute_change").toTranslationKey("race_tooltip")).formatted(Formatting.DARK_GRAY));
+        tooltipText.add(Text.translatable(MiddleEarth.id("race_stats.no_attribute_change").toTranslationKey("tooltip")).formatted(Formatting.DARK_GRAY));
     }
 
     private static boolean addAttributeLine(LivingEntity entity, Registry<EntityAttribute> registry, AttributePoolElement currentEntityAttribute, List<AttributePoolElement> nextBoundAttributes, boolean detailed) {
         Identifier attributeId = currentEntityAttribute.getIdentifier();
-        boolean buffIsReversed = registry.getEntry(attributeId).get().isIn(TagKey.of(RegistryKeys.ATTRIBUTE, MiddleEarth.of("is_buff_reversed")));
+        boolean buffIsReversed = registry.getEntry(attributeId).get().isIn(TagKey.of(RegistryKeys.ATTRIBUTE, MiddleEarth.id("is_buff_reversed")));
 
         AttributePoolElement nextAttribute = nextBoundAttributes.stream().filter(attribute -> attributeId.equals(attribute.getIdentifier())).findFirst().orElse(null);
 

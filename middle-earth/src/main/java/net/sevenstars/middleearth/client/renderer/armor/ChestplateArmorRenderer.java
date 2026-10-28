@@ -8,7 +8,6 @@ import net.sevenstars.middleearth.client.model.equipment.CustomChestplateModel;
 import net.sevenstars.middleearth.client.model.equipment.chest.ChestplateAddonModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
-import net.sevenstars.middleearth.item.items.armor.CustomChestplateItem;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -50,7 +49,7 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             }
 
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
+            CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
             if (this.chestplateAddonModel != null) {
                 contextModel.copyTransforms(this.chestplateAddonModel);
@@ -59,15 +58,15 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
                 this.chestplateAddonModel.rightArm.visible = true;
                 this.chestplateAddonModel.leftArm.visible = true;
                 if(texture.contains("_chestplate.png")){
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
                 } else {
-                    ModArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
             }
 
             BackAttachmentDataComponent capeDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
             if (capeDataComponent != null) {
-                ChestplateAddonModel capeModel = ArmorModelsME.ModBackAttachmentPairedModels.valueOf(capeDataComponent.backAttachment().getName().toUpperCase()).getModel().getArmoredModel();
+                ChestplateAddonModel capeModel = ArmorModelsME.CustomBackAttachmentPairedModels.valueOf(capeDataComponent.backAttachment().getName().toUpperCase()).getModel().getArmoredModel();
                 contextModel.copyTransforms(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;

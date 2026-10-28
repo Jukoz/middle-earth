@@ -10,9 +10,9 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.OreRockSets;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.OreStoneSetRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
@@ -71,9 +71,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> mithril_ores = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "mithril_ores"));
         TagKey<Item> shingles = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "shingles"));
 
-        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_stripped_logs"));
+        TagKey<Item> mod_stripped_logs = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mod_stripped_logs"));
         TagKey<Item> stripped_logs = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "stripped_logs"));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("mod_planks"))).add(Planks.getItemPlanksWithoutVanilla().toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mod_planks"))).add(Planks.getItemPlanksWithoutVanilla().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks"))).add(Planks.getItemPlanks().toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"))).add(Planks.getItemPlanksSlabs().toArray(new Item[0]));
@@ -82,9 +82,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("leaves"))).add(LeavesSets.getItemLeaves().toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("axes"))).add(WeaponEnchants.axes.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.of("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sword"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
 
@@ -97,6 +97,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(ArmorTags.armors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(ToolItemsME.smithingHammers.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(Crossbows.crossbows.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/vanishing"))).add(ArmorTags.armors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/vanishing"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/vanishing"))).add(ToolItemsME.smithingHammers.toArray(new Item[0]));
@@ -123,13 +124,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM,Identifier.of( "minecraft", "enchantable/leg_armor"))).add(ArmorTags.legArmors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM,Identifier.of( "minecraft", "enchantable/foot_armor"))).add(ArmorTags.footArmors.toArray(new Item[0]));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "basic_armor"))).add(ArmorTags.basicArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "medium_armor"))).add(ArmorTags.mediumArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "sturdy_armor"))).add(ArmorTags.sturdyArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "basic_armor"))).add(ArmorTags.basicArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "light_armor"))).add(ArmorTags.lightArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "medium_armor"))).add(ArmorTags.mediumArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "sturdy_armor"))).add(ArmorTags.sturdyArmors.toArray(new Item[0]));
 
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "heavy_armor"))).add(ArmorTags.heavyArmors.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "incomplete_armors"))).add(ArmorTags.incompleteArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "heavy_armor"))).add(ArmorTags.heavyArmors.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "incomplete_armors"))).add(ArmorTags.incompleteArmors.toArray(new Item[0]));
 
         ArrayList<Item> upToArmor = (ArrayList<Item>) ArmorTags.basicArmors;
         upToArmor.addAll(ArmorTags.lightArmors);
@@ -146,8 +147,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 lightLegging.add(legItem);
             }
         }
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "light_chest"))).add(lightChest);
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "light_leg"))).add(lightLegging);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "light_chest"))).add(lightChest);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "light_leg"))).add(lightLegging);
 
         upToArmor.addAll(ArmorTags.mediumArmors);
 
@@ -157,7 +158,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 mediumBoots.add(bootItem);
             }
         }
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.ofPath( "enchantable", "medium_foot"))).add(mediumBoots);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.idFilePath( "enchantable", "medium_foot"))).add(mediumBoots);
 
         warg_food.add(Items.RABBIT);
         warg_food.add(Items.CHICKEN);
@@ -206,11 +207,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
 
         chains.add(Items.CHAIN);
-        chains.add(ModDecorativeBlocks.BRONZE_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.BRONZE_BROAD_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.CRUDE_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem());
-        chains.add(ModDecorativeBlocks.SPIKY_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.BRONZE_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.BRONZE_BROAD_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.CRUDE_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.CRUDE_BROAD_CHAIN.asItem());
+        chains.add(DecorativeBlockRegistryME.SPIKY_CHAIN.asItem());
 
         troll_weapons.add(WeaponItemsME.TROLL_MACE);
         troll_weapons.add(WeaponItemsME.MACE_OF_SAURON);
@@ -271,7 +272,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         characterHideBeard.add(EquipmentItemsME.CLOSED_MAIL_COIF);
         characterHideBeard.add(EquipmentItemsME.KETTLE_HAT_WITH_CLOSED_COIF);
 
-        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+        for (OreStoneSetRegistryME.OreRockSet set : OreStoneSetRegistryME.sets) {
             if(set.coal_ore() != null) {
                 valueLookupBuilder(coal_ores)
                         .add(set.coal_ore().asItem());
@@ -348,7 +349,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             valueLookupBuilder(nugget_shaping).add(nugget);
         });
 
-        StoneBlockSets.stoneSetsList.forEach(stone -> {
+        StoneBlockSetRegistryME.stoneSetsList.forEach(stone -> {
             if(stone.cobblestoneBlocks != null) {
                 valueLookupBuilder(stone_crafting_materials).add(stone.cobblestoneBlocks.base().asItem());
                 valueLookupBuilder(stone_tool_materials).add(stone.cobblestoneBlocks.base().asItem());

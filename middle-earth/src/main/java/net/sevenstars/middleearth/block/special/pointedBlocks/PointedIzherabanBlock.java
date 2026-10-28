@@ -3,8 +3,8 @@ package net.sevenstars.middleearth.block.special.pointedBlocks;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Thickness;
 import net.minecraft.entity.Entity;
@@ -330,7 +330,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static void place(WorldAccess world, BlockPos pos, Direction direction, Thickness thickness) {
-        BlockState blockState = (BlockState)((BlockState)((BlockState)ModBlocks.POINTED_IZHERABAN.getDefaultState().with(VERTICAL_DIRECTION, direction)).with(THICKNESS, thickness)).with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER);
+        BlockState blockState = (BlockState)((BlockState)((BlockState) BlockRegistryME.POINTED_IZHERABAN.getDefaultState().with(VERTICAL_DIRECTION, direction)).with(THICKNESS, thickness)).with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER);
         world.setBlockState(pos, blockState, 3);
     }
 
@@ -373,7 +373,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
         } else {
             Direction direction = (Direction)state.get(VERTICAL_DIRECTION);
             BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
-                return statex.isOf(ModBlocks.POINTED_IZHERABAN) && statex.get(VERTICAL_DIRECTION) == direction;
+                return statex.isOf(BlockRegistryME.POINTED_IZHERABAN) && statex.get(VERTICAL_DIRECTION) == direction;
             };
             return (BlockPos)searchInDirection(world, pos, direction.getDirection(), biPredicate, (statex) -> {
                 return isTip(statex, allowMerged);
@@ -433,10 +433,10 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     private static Optional<BlockPos> getSupportingPos(World world, BlockPos pos, BlockState state, int range) {
         Direction direction = (Direction)state.get(VERTICAL_DIRECTION);
         BiPredicate<BlockPos, BlockState> biPredicate = (posx, statex) -> {
-            return statex.isOf(ModBlocks.POINTED_IZHERABAN) && statex.get(VERTICAL_DIRECTION) == direction;
+            return statex.isOf(BlockRegistryME.POINTED_IZHERABAN) && statex.get(VERTICAL_DIRECTION) == direction;
         };
         return searchInDirection(world, pos, direction.getOpposite().getDirection(), biPredicate, (statex) -> {
-            return !statex.isOf(ModBlocks.POINTED_IZHERABAN);
+            return !statex.isOf(BlockRegistryME.POINTED_IZHERABAN);
         }, range);
     }
 
@@ -447,7 +447,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean isTip(BlockState state, boolean allowMerged) {
-        if (!state.isOf(ModBlocks.POINTED_IZHERABAN)) {
+        if (!state.isOf(BlockRegistryME.POINTED_IZHERABAN)) {
             return false;
         } else {
             Thickness thickness = (Thickness)state.get(THICKNESS);
@@ -468,7 +468,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean isHeldByPointedDripstone(BlockState state, WorldView world, BlockPos pos) {
-        return isPointingDown(state) && !world.getBlockState(pos.up()).isOf(ModBlocks.POINTED_IZHERABAN);
+        return isPointingDown(state) && !world.getBlockState(pos.up()).isOf(BlockRegistryME.POINTED_IZHERABAN);
     }
 
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {
@@ -476,7 +476,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean isPointedDripstoneFacingDirection(BlockState state, Direction direction) {
-        return state.isOf(ModBlocks.POINTED_IZHERABAN) && state.get(VERTICAL_DIRECTION) == direction;
+        return state.isOf(BlockRegistryME.POINTED_IZHERABAN) && state.get(VERTICAL_DIRECTION) == direction;
     }
 
     @Nullable
@@ -524,7 +524,7 @@ public class PointedIzherabanBlock extends Block implements Falling, Waterloggab
     }
 
     private static boolean canGrow(BlockState dripstoneBlockState, BlockState waterState) {
-        return dripstoneBlockState.isOf(StoneBlockSets.IZHERABAN_SET.baseBlocks.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
+        return dripstoneBlockState.isOf(StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
     }
 
     private static Fluid getDripFluid(World world, Fluid fluid) {

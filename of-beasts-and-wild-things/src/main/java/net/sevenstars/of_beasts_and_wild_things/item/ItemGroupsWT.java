@@ -33,7 +33,9 @@ public class ItemGroupsWT {
             .build();
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP, OfBeastsAndWildThings.of("wild_things"), WILD_THINGS);
+        OfBeastsAndWildThings.logRegistryMsg("Item Groups");
+
+        Registry.register(Registries.ITEM_GROUP, OfBeastsAndWildThings.id("wild_things"), WILD_THINGS);
     }
 
 }

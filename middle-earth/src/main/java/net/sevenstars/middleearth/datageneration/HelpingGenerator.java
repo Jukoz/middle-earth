@@ -23,7 +23,7 @@ public class HelpingGenerator {
 
     public static void generateFiles() {
 
-        for (StoneBlockSetBuilder set : StoneBlockSets.stoneSetsList){
+        for (StoneBlockSetBuilder set : StoneBlockSetRegistryME.stoneSetsList){
             set.existingList.forEach(stoneBlockTypes -> {
                 switch (stoneBlockTypes){
                     case BASE_BLOCKS -> {
@@ -88,7 +88,7 @@ public class HelpingGenerator {
             });
         }
 
-        for (WoodBlockSetBuilder set : WoodBlockSets.woodSetsList){
+        for (WoodBlockSetBuilder set : WoodBlockSetRegistryME.woodSetsList){
             set.existingList.forEach(woodBlockTypes -> {
                 switch (woodBlockTypes){
                     case LOG_BLOCKS, NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
@@ -118,7 +118,7 @@ public class HelpingGenerator {
             });
         }
 
-        for (GenericBlockSetBuilder set : GenericBlockSets.genericSetsList) {
+        for (GenericBlockSetBuilder set : GenericBlockSetRegistryME.genericSetsList) {
             int tool = -1;
             if(set.requiresTool) {
                 if(set.setName.contains("wood")) tool = 0;
@@ -128,7 +128,7 @@ public class HelpingGenerator {
             }
             regularBlocks(set.blockSet, tool);
         }
-        for (SimpleBlockSetBuilder set : GenericBlockSets.simpleSetsList) {
+        for (SimpleBlockSetBuilder set : GenericBlockSetRegistryME.simpleSetsList) {
             regularBlocks(set.blockSet, -1);
         }
 
@@ -183,7 +183,7 @@ public class HelpingGenerator {
         });
         
 
-        for (OreRockSets.OreRockSet set : OreRockSets.sets) {
+        for (OreStoneSetRegistryME.OreRockSet set : OreStoneSetRegistryME.sets) {
             if(set.coal_ore() != null){
                 SimpleBlockModel.blocks.add(set.coal_ore());
                 MineablePickaxe.blocks.add(set.coal_ore());

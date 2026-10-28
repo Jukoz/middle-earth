@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.special.beds;
 
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -16,7 +16,7 @@ public class CustomBedBlock extends BedBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CustomBedBlockEntity(ModBlockEntities.BED, pos, state);
+        return new CustomBedBlockEntity(BlockEntityRegistryME.BED, pos, state);
     }
 
     @Override

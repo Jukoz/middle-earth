@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special;
 
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.AbstractPlantStemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -29,7 +29,7 @@ public class GlowWormBottomBlock extends AbstractPlantStemBlock {
     }
 
     protected Block getPlant() {
-        return ModNatureBlocks.GLOWWORM_MAIN;
+        return NatureBlockRegistryME.GLOWWORM_MAIN;
     }
 
     protected boolean chooseStemState(BlockState state) {

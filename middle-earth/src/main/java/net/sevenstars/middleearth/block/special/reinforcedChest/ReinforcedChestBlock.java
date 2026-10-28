@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -17,7 +17,7 @@ import net.minecraft.world.BlockView;
 public class ReinforcedChestBlock extends ChestBlock {
 
     public ReinforcedChestBlock(Settings settings) {
-        super(() -> ModBlockEntities.REINFORCED_CHEST, settings);
+        super(() -> BlockEntityRegistryME.REINFORCED_CHEST, settings);
     }
 
     @Override

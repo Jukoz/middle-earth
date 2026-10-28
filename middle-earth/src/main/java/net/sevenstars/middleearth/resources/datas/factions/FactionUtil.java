@@ -19,8 +19,8 @@ import net.sevenstars.middleearth.exceptions.SpawnIdentifierException;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
-import net.sevenstars.middleearth.utils.ModColors;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.utils.ColorsME;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class FactionUtil {
             sendOnLeaveCommand(player, previousFaction);
             // Send leaving message to affected player
             MutableText targetText = Text.translatable("event.%s.leave.faction.success".formatted(MiddleEarth.MOD_ID), previousFaction.getFullName());
-            player.sendMessage(targetText.withColor(ModColors.WARNING.color));
+            player.sendMessage(targetText.withColor(ColorsME.WARNING.color));
         }
 
         // [JOIN] Add new affiliation data
@@ -56,7 +56,7 @@ public class FactionUtil {
 
         // Send join message to affected player
         MutableText targetText = Text.translatable("event.%s.join.faction.success".formatted(MiddleEarth.MOD_ID), faction.getFullName());
-        player.sendMessage(targetText.withColor(ModColors.SUCCESS.color));
+        player.sendMessage(targetText.withColor(ColorsME.SUCCESS.color));
 
         sendOnFactionJoinMessage(player);
         return true;
@@ -139,7 +139,7 @@ public class FactionUtil {
             new TitleS2CPacket(Text.of(""))
         );
         ((ServerPlayerEntity) player).networkHandler.sendPacket(
-                new SubtitleS2CPacket(targetText.withColor(ModColors.SUCCESS.color))
+                new SubtitleS2CPacket(targetText.withColor(ColorsME.SUCCESS.color))
         );
 
     }
@@ -151,7 +151,7 @@ public class FactionUtil {
         if(PlayerDataService.clearPlayerData(player)){
             sendOnLeaveCommand(player, faction);
             MutableText targetText = Text.translatable("event.%s.leave.faction.success".formatted(MiddleEarth.MOD_ID), faction.getFullName());
-            player.sendMessage(targetText.withColor(ModColors.WARNING.color));
+            player.sendMessage(targetText.withColor(ColorsME.WARNING.color));
             return true;
         }
         return false;
@@ -168,7 +168,7 @@ public class FactionUtil {
         spawnBlockPos = getSpawnBlockPos(target.getWorld(), spawnId);
         if(spawnBlockPos == null)
             return false;
-        ModDimensions.teleportPlayerToMe(target, new Vec3d(spawnBlockPos.getX(), spawnBlockPos.getY(), spawnBlockPos.getZ()), false, false);
+        DimensionRegistryME.teleportPlayerToMe(target, new Vec3d(spawnBlockPos.getX(), spawnBlockPos.getY(), spawnBlockPos.getZ()), false, false);
         return true;
     }
 

@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.block.special;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -58,7 +58,7 @@ public class ChaliceBlock extends Block {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (player.getStackInHand(player.getActiveHand()).isEmpty() && !player.isInCreativeMode()){
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
-            player.equipStack(EquipmentSlot.MAINHAND,  new ItemStack(ModDecorativeBlocks.GOLDEN_CHALICE.asItem()));
+            player.equipStack(EquipmentSlot.MAINHAND,  new ItemStack(DecorativeBlockRegistryME.GOLDEN_CHALICE.asItem()));
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.5f, world.random.nextFloat() * 0.1f - 1.0f);
             return ActionResult.PASS;
         } else{

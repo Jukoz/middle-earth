@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
-import net.sevenstars.middleearth.block.registration.WoodBlockSets;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -12,24 +12,24 @@ public class LeavesDrops {
     public record LeavesDrop(Block block, Block drop) {}
     public static List<LeavesDrop> blocks = new ArrayList<>() {
         {
-            add(new LeavesDrop(WoodBlockSets.ASPEN_SET.leaves, ModNatureBlocks.ASPEN_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.BEECH_SET.leaves, ModNatureBlocks.BEECH_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.LARCH_SET.leaves, ModNatureBlocks.LARCH_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.CHESTNUT_SET.leaves, ModNatureBlocks.CHESTNUT_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.FIR_SET.leaves, ModNatureBlocks.FIR_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.HOLLY_SET.leaves, ModNatureBlocks.HOLLY_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.MALLORN_SET.leaves, ModNatureBlocks.MALLORN_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.MIRKWOOD_SET.leaves, ModNatureBlocks.MIRKWOOD_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.PALM_SET.leaves, ModNatureBlocks.PALM_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.PINE_SET.leaves, ModNatureBlocks.PINE_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.BLACK_PINE_SET.leaves, ModNatureBlocks.BLACK_PINE_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.WHITE_SPRUCE_SET.leaves, ModNatureBlocks.WHITE_SPRUCE_SAPLING));
-            add(new LeavesDrop(WoodBlockSets.WILLOW_SET.leaves, ModNatureBlocks.WILLOW_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.LEBETHRON_LEAVES, ModNatureBlocks.LEBETHRON_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.BERRY_HOLLY_LEAVES, ModNatureBlocks.HOLLY_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.DRY_LARCH_LEAVES, ModNatureBlocks.LARCH_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.FLOWERING_MALLORN_LEAVES, ModNatureBlocks.MALLORN_SAPLING));
-            add(new LeavesDrop(ModNatureBlocks.DRY_PINE_LEAVES, ModNatureBlocks.PINE_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.ASPEN_SET.leaves, NatureBlockRegistryME.ASPEN_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.BEECH_SET.leaves, NatureBlockRegistryME.BEECH_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.LARCH_SET.leaves, NatureBlockRegistryME.LARCH_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.CHESTNUT_SET.leaves, NatureBlockRegistryME.CHESTNUT_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.FIR_SET.leaves, NatureBlockRegistryME.FIR_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.HOLLY_SET.leaves, NatureBlockRegistryME.HOLLY_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.MALLORN_SET.leaves, NatureBlockRegistryME.MALLORN_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.MIRKWOOD_SET.leaves, NatureBlockRegistryME.MIRKWOOD_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.PALM_SET.leaves, NatureBlockRegistryME.PALM_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.PINE_SET.leaves, NatureBlockRegistryME.PINE_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.BLACK_PINE_SET.leaves, NatureBlockRegistryME.BLACK_PINE_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.WHITE_SPRUCE_SET.leaves, NatureBlockRegistryME.WHITE_SPRUCE_SAPLING));
+            add(new LeavesDrop(WoodBlockSetRegistryME.WILLOW_SET.leaves, NatureBlockRegistryME.WILLOW_SAPLING));
+            add(new LeavesDrop(NatureBlockRegistryME.LEBETHRON_LEAVES, NatureBlockRegistryME.LEBETHRON_SAPLING));
+            add(new LeavesDrop(NatureBlockRegistryME.BERRY_HOLLY_LEAVES, NatureBlockRegistryME.HOLLY_SAPLING));
+            add(new LeavesDrop(NatureBlockRegistryME.DRY_LARCH_LEAVES, NatureBlockRegistryME.LARCH_SAPLING));
+            add(new LeavesDrop(NatureBlockRegistryME.FLOWERING_MALLORN_LEAVES, NatureBlockRegistryME.MALLORN_SAPLING));
+            add(new LeavesDrop(NatureBlockRegistryME.DRY_PINE_LEAVES, NatureBlockRegistryME.PINE_SAPLING));
         }
     };
 }

@@ -17,6 +17,10 @@
       "resource": "middle-earth:model/bellows/bellows_2"
     },
     {
+      "type": "single",
+      "resource": "middle-earth:model/old_skull"
+    },
+    {
       "type": "paletted_permutations",
       "textures": [
         "middle-earth:trims/items/axe_head_trim",

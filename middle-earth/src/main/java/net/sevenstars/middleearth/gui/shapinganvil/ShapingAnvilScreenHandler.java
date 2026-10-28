@@ -2,9 +2,7 @@ package net.sevenstars.middleearth.gui.shapinganvil;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -19,18 +17,12 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
-import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
-import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
-import net.sevenstars.middleearth.network.packets.S2C.InscriptionEnchantInfoPacket;
-import net.sevenstars.middleearth.network.packets.S2C.ShapingAnvilRecipePacket;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
+import net.sevenstars.middleearth.network.packets.client2server.AnvilIndexPacket;
+import net.sevenstars.middleearth.network.packets.server2client.ShapingAnvilRecipePacket;
 import net.sevenstars.middleearth.recipe.AnvilShapingRecipe;
-import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.RecipesME;
 
 import java.util.List;
@@ -52,7 +44,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     }
 
     public ShapingAnvilScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate delegate) {
-        super(ModScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.TREATED_ANVIL_SCREEN_HANDLER, syncId);
         checkSize(inventory, 1);
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);

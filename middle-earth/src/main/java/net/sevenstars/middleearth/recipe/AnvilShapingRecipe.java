@@ -5,9 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.registry.RegistryKeys;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -34,7 +32,7 @@ public class AnvilShapingRecipe implements Recipe<SingleStackRecipeInput> {
     }
 
     public ItemStack createIcon() {
-        return new ItemStack(ModDecorativeBlocks.TREATED_ANVIL);
+        return new ItemStack(DecorativeBlockRegistryME.TREATED_ANVIL);
     }
 
     @Override
