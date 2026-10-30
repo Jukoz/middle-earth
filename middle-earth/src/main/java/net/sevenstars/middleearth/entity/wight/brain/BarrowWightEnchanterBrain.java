@@ -48,8 +48,9 @@ public class BarrowWightEnchanterBrain {
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
-                new TickCooldownTask(MemoryModulesME.CAST_COOLDOWN),
+                new TickCooldownTask(MemoryModulesME.HALLUCINATION_CAST_COOLDOWN),
                 new TickCooldownTask(MemoryModulesME.SUMMON_CAST_COOLDOWN),
+                new TickCooldownTask(MemoryModulesME.CAST_COOLDOWN),
                 //UpdateAttackTargetTask.create((world, npc) -> npc.getHurtBy()),
                 UpdateAttackTargetTask.create(BarrowWightBrain::getAttackTarget))
         );
@@ -91,8 +92,9 @@ public class BarrowWightEnchanterBrain {
                         },
 
                         new BarrowWightSummonTask(),
+                        new BarrowWightHallucinationTask(),
+                        new BarrowWightFangTask(),
 
-                        new BarrowWightIllusionTask(),
                         ForgetAttackTargetTask.create((world, target) -> !isTarget(world, barrowWightEntity, target))
                 ),
                 ImmutableSet.of(
@@ -155,8 +157,9 @@ public class BarrowWightEnchanterBrain {
                 MemoryModuleType.ATTACK_TARGET,
                 MemoryModuleType.ATTACK_COOLING_DOWN,
                 MemoryModuleType.NEAREST_ATTACKABLE,
-                MemoryModulesME.CAST_COOLDOWN,
-                MemoryModulesME.SUMMON_CAST_COOLDOWN
+                MemoryModulesME.HALLUCINATION_CAST_COOLDOWN,
+                MemoryModulesME.SUMMON_CAST_COOLDOWN,
+                MemoryModulesME.CAST_COOLDOWN
         );
     }
 }

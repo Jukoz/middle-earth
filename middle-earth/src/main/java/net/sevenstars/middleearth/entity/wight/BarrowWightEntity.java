@@ -15,6 +15,9 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.Team;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -77,8 +80,30 @@ public class BarrowWightEntity extends HostileEntity {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         this.initEquipment(world.getRandom(), difficulty);
+
         setVariant(world.getRandom().nextInt(2));
+
+        if(!world.isClient() && this.getWorld() != null && this.getWorld().getServer() != null) {
+            addEntityToBarrowWightsTeam(this.getWorld().getServer(), getNameForScoreboard());
+        }
+
         return super.initialize(world, difficulty, spawnReason, entityData);
+    }
+
+    public static void addEntityToBarrowWightsTeam(MinecraftServer serverWorld, String friend) {
+        Scoreboard scoreboard = serverWorld.getScoreboard();
+        String teamName = "barrow_wight_team";
+        Team team = scoreboard.getTeam(teamName);
+
+        if (team == null) {
+            team = scoreboard.addTeam(teamName);
+            team.setFriendlyFireAllowed(false);
+        }
+        scoreboard.addScoreHolderToTeam(friend, team);
+    }
+
+    public static void addEntityToBarrowWightsTeam(ServerWorld serverWorld, String friend) {
+        addEntityToBarrowWightsTeam((MinecraftServer)serverWorld.getServer(), friend);
     }
 
     @Override

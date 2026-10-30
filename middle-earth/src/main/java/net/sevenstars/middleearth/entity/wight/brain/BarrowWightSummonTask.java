@@ -81,6 +81,7 @@ public class BarrowWightSummonTask extends MultiTickTask<BarrowWightEnchanterEnt
             if (strayEntity != null) {
                 strayEntity.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
                 strayEntity.initialize(serverWorld, serverWorld.getLocalDifficulty(blockPos), SpawnReason.MOB_SUMMONED, (EntityData)null);
+                BarrowWightEntity.addEntityToBarrowWightsTeam(serverWorld, strayEntity.getNameForScoreboard());
 
                 float randomChance = random.nextFloat();
                 if(randomChance < 0.225f) {

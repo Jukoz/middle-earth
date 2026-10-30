@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.entity.wight;
 
 import com.mojang.serialization.Dynamic;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.Brain;
@@ -9,6 +10,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.EvokerFangsEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.random.Random;
@@ -79,6 +81,13 @@ public class BarrowWightEnchanterEntity extends BarrowWightEntity{
             hallucinationCastAnimationCooldown = HALLUCINATION_CAST_COOLDOWN;
             this.dataTracker.set(HALLUCINATION_CAST, 1);
         }
+    }
+
+    @Override
+    protected boolean isInSameTeam(Entity other) {
+        if(other instanceof BarrowWightEntity) return true;
+        if(other instanceof EvokerFangsEntity) return true;
+        return super.isInSameTeam(other);
     }
 
     @Override

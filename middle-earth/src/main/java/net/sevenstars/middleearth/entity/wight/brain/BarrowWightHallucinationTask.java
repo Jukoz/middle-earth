@@ -15,17 +15,17 @@ import net.sevenstars.middleearth.entity.wight.BarrowWightEnchanterEntity;
 import net.sevenstars.middleearth.entity.wight.BarrowWightEntity;
 import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 
-public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterEntity> {
+public class BarrowWightHallucinationTask extends MultiTickTask<BarrowWightEnchanterEntity> {
     private static final int SHOOT_CHARGING_EXPIRY = Math.round(15.0F);
     private static final int RECOVER_EXPIRY = Math.round(4.0F);
-    private static final int SHOOT_COOLDOWN_EXPIRY = BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN * 4;
+    public static final int SHOOT_COOLDOWN_EXPIRY = BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN * 4;
 
-    public BarrowWightIllusionTask() {
+    public BarrowWightHallucinationTask() {
         super(
                 ImmutableMap.of(
                         MemoryModuleType.ATTACK_TARGET,
                         MemoryModuleState.VALUE_PRESENT,
-                        MemoryModulesME.CAST_COOLDOWN,
+                        MemoryModulesME.HALLUCINATION_CAST_COOLDOWN,
                         MemoryModuleState.VALUE_ABSENT,
                         MemoryModulesME.SUMMON_CAST_COOLDOWN,
                         MemoryModuleState.VALUE_PRESENT
@@ -36,10 +36,12 @@ public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterE
 
     protected boolean shouldRun(ServerWorld serverWorld, BarrowWightEnchanterEntity BarrowWightEnchanterEntity) {
         Brain<BarrowWightEntity> brain = BarrowWightEnchanterEntity.getBrain();
+
         if(!brain.hasMemoryModule(MemoryModulesME.SUMMON_CAST_COOLDOWN)) return false;
         int cooldown = brain.getOptionalMemory(MemoryModulesME.SUMMON_CAST_COOLDOWN).orElse(0);
-        if(cooldown <= BarrowWightSummonTask.SHOOT_COOLDOWN_EXPIRY * 0.85f)
-        if(brain.hasMemoryModule(MemoryModulesME.CAST_COOLDOWN)) return false;
+        if(cooldown <= BarrowWightSummonTask.SHOOT_COOLDOWN_EXPIRY * 0.85f) return false;
+
+        if(brain.hasMemoryModule(MemoryModulesME.HALLUCINATION_CAST_COOLDOWN)) return false;
         return (Boolean)BarrowWightEnchanterEntity.getBrain()
                 .getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET)
                 .map(target -> isTargetWithinRange(BarrowWightEnchanterEntity, target))
@@ -64,9 +66,9 @@ public class BarrowWightIllusionTask extends MultiTickTask<BarrowWightEnchanterE
             );
         }
 
-        if(!brain.hasMemoryModule(MemoryModulesME.CAST_COOLDOWN)) {
+        if(!brain.hasMemoryModule(MemoryModulesME.HALLUCINATION_CAST_COOLDOWN)) {
             barrowWightEnchanterEntity.tryCastingAnimation();
-            brain.remember(MemoryModulesME.CAST_COOLDOWN, SHOOT_COOLDOWN_EXPIRY);
+            brain.remember(MemoryModulesME.HALLUCINATION_CAST_COOLDOWN, SHOOT_COOLDOWN_EXPIRY);
         }
         barrowWightEnchanterEntity.playSound(SoundEvents.ENTITY_BREEZE_INHALE, 1.0F, 1.0F);
     }
