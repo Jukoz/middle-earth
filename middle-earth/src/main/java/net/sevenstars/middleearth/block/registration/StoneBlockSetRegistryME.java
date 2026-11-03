@@ -322,6 +322,10 @@ public class StoneBlockSetRegistryME {
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS_NO_RESTRICTION));
 
+    public static StoneBlockSetBuilder BRONZE_DOLOMITE_SET = registerStoneSet(new StoneBlockSetBuilder("bronzed_dolomite",
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BROWN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            .addToSet(StoneBlockTypes.CHISELED_BLOCKS_NO_RESTRICTION));
+
     public static StoneBlockSetBuilder ASHENSTONE_SET = registerStoneSet(new StoneBlockSetBuilder("ashenstone",
             STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLACK, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.DEEPSLATE, false, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)

@@ -750,6 +750,54 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter);
                 //createStoneSetRecipes(StoneBlockSets.BURZUM_GABBRO_SET.chiseledTilesBlocks);
 
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSetRegistryME.BRONZE_DOLOMITE_SET.chiseledBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base())
+                        .input('N', ResourceItemsME.BRONZE_NUGGET)
+                        .criterion(hasItem(StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base()),
+                                conditionsFromItem(StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base()))
+                        .offerTo(exporter);
+                //createStoneSetRecipes(StoneBlockSets.BRONZE_DOLOMITE_SET.chiseledBlocks);
+
+                createBrickRecipe(exporter, StoneBlockSetRegistryME.BRONZE_DOLOMITE_SET.chiseledBlocks.base().asItem(), StoneBlockSetRegistryME.BRONZE_DOLOMITE_SET.chiseledBricksBlocks.base(), 4);
+                //createStoneSetRecipes(StoneBlockSets.BRONZE_DOLOMITE_SET.chiseledBricksBlocks);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSetRegistryME.BRONZE_DOLOMITE_SET.chiseledSmoothBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSetRegistryME.DOLOMITE_SET.smoothBlocks.base())
+                        .input('N', ResourceItemsME.BRONZE_NUGGET)
+                        .criterion(hasItem(StoneBlockSetRegistryME.DOLOMITE_SET.smoothBlocks.base()),
+                                conditionsFromItem(StoneBlockSetRegistryME.DOLOMITE_SET.smoothBlocks.base()))
+                        .offerTo(exporter);
+                //createStoneSetRecipes(StoneBlockSets.BRONZE_DOLOMITE_SET.chiseledSmoothBlocks);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSetRegistryME.BRONZE_DOLOMITE_SET.chiseledPolishedBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSetRegistryME.DOLOMITE_SET.polishedBlocks.base())
+                        .input('N', ResourceItemsME.BRONZE_NUGGET)
+                        .criterion(hasItem(StoneBlockSetRegistryME.DOLOMITE_SET.polishedBlocks.base()),
+                                conditionsFromItem(StoneBlockSetRegistryME.DOLOMITE_SET.polishedBlocks.base()))
+                        .offerTo(exporter);
+                //createStoneSetRecipes(StoneBlockSets.BRONZE_DOLOMITE_SET.chiseledPolishedBlocks);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StoneBlockSetRegistryME.BRONZE_DOLOMITE_SET.chiseledTilesBlocks.base(), 5)
+                        .pattern("TNT")
+                        .pattern("NTN")
+                        .pattern("TNT")
+                        .input('T', StoneBlockSetRegistryME.DOLOMITE_SET.tileBlocks.base())
+                        .input('N', ResourceItemsME.BRONZE_NUGGET)
+                        .criterion(hasItem(StoneBlockSetRegistryME.DOLOMITE_SET.tileBlocks.base()),
+                                conditionsFromItem(StoneBlockSetRegistryME.DOLOMITE_SET.tileBlocks.base()))
+                        .offerTo(exporter);
+                //createStoneSetRecipes(StoneBlockSets.BRONZE_DOLOMITE_SET.chiseledTilesBlocks);
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, BlockRegistryME.WATTLE_TRAPDOOR, 2)
                         .pattern("PLP")
                         .pattern("PLP")
