@@ -163,7 +163,6 @@ public class BlockDrops {
 
             add(DecorativeBlockRegistryME.STONE_LECTERN);
             add(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF);
-            add(DecorativeBlockRegistryME.DOLOMITE_BOOKSHELF);
 
             add(DecorativeBlockRegistryME.BIG_BRAZIER);
             add(DecorativeBlockRegistryME.SMALL_BRAZIER);
