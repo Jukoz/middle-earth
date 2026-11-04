@@ -61,7 +61,7 @@ public class BarrowWightEntity extends HostileEntity {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, 30.0)
                 .add(EntityAttributes.ARMOR, 12.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.24)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.26)
                 .add(EntityAttributes.FOLLOW_RANGE, 36.0);
     }
 

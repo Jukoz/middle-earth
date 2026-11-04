@@ -175,6 +175,6 @@ public class BarrowWightModel extends EntityModel<BarrowWightRenderState> implem
 
     @Override
     public ModelPart getHead() {
-        return null;
+        return head;
     }
 }

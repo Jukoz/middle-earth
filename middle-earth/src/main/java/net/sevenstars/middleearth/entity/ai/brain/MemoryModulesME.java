@@ -20,6 +20,7 @@ public class MemoryModulesME<U> {
     public static final MemoryModuleType<Integer> HALLUCINATION_CAST_COOLDOWN = register("hallucination_cast_cooldown", Codec.INT);
     public static final MemoryModuleType<Integer> SUMMON_CAST_COOLDOWN = register("summon_cast_cooldown", Codec.INT);
     public static final MemoryModuleType<Integer> CAST_COOLDOWN = register("cast_cooldown", Codec.INT);
+    public static final MemoryModuleType<Boolean> RETREATING = register("retreating", Codec.BOOL);
     public static final MemoryModuleType<Boolean> TAME = register("tame", Codec.BOOL);
     public static final MemoryModuleType<Boolean> SITTING = register("sitting", Codec.BOOL);
     public static final MemoryModuleType<BlockPos> ASSIGNED_BED_POS = register("assigned_bed_pos", BlockPos.CODEC);

@@ -107,6 +107,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.FABRIC);
 
             add(ResourceItemsME.BRIGAND_KEY);
+            add(ResourceItemsME.BARROW_WIGHT_HAND);
             add(ResourceItemsME.DWARVEN_KEY);
 
             add(ResourceItemsME.RED_AGATE_SHARD);

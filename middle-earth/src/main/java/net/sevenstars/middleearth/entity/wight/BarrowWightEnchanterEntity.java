@@ -1,10 +1,13 @@
 package net.sevenstars.middleearth.entity.wight;
 
 import com.mojang.serialization.Dynamic;
+import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -13,10 +16,12 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.EvokerFangsEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.wight.brain.BarrowWightEnchanterBrain;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 
@@ -73,6 +78,16 @@ public class BarrowWightEnchanterEntity extends BarrowWightEntity{
                 this.dataTracker.set(HALLUCINATION_CAST, -1);
             }
             hallucinationCastAnimationCooldown = Math.max(hallucinationCastAnimationCooldown - 1, 0);
+        }
+
+        LivingEntity target = this.brain.getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+        boolean retreating = this.brain.getOptionalRegisteredMemory(MemoryModulesME.RETREATING).orElse(false);
+        if (target != null && !retreating) {
+            this.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, target.getPos());
+            double dx = target.getX() - this.getX();
+            double dz = target.getZ() - this.getZ();
+            float targetYaw = (float)(MathHelper.atan2(dz, dx) * (180.0 / Math.PI)) - 90.0F;
+            this.setBodyYaw(MathHelper.lerpAngleDegrees(0.1F, this.getBodyYaw(), targetYaw));
         }
     }
 

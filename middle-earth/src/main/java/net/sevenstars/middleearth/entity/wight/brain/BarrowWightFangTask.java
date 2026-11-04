@@ -25,7 +25,7 @@ import net.sevenstars.middleearth.entity.wight.BarrowWightEntity;
 public class BarrowWightFangTask extends MultiTickTask<BarrowWightEnchanterEntity> {
     private static final int SHOOT_CHARGING_EXPIRY = Math.round(15.0F);
     private static final int RECOVER_EXPIRY = Math.round(4.0F);
-    private static final int SHOOT_COOLDOWN_EXPIRY = (int)(BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN * 1.5f);
+    private static final int SHOOT_COOLDOWN_EXPIRY = (int)(BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN * 1.3f);
 
     public BarrowWightFangTask() {
         super(
@@ -87,7 +87,7 @@ public class BarrowWightFangTask extends MultiTickTask<BarrowWightEnchanterEntit
         double maxY = Math.max(target.getY(), owner.getY()) + 1.0;
         float atan = (float) MathHelper.atan2(target.getZ() - owner.getZ(), target.getX() - owner.getX());
         int i;
-        if (owner.squaredDistanceTo(target) < 9.0) {
+        if (owner.squaredDistanceTo(target) < 8.0) {
             float g;
             for(i = 0; i < 5; ++i) {
                 g = atan + (float)i * 3.1415927F * 0.4F;
@@ -99,7 +99,7 @@ public class BarrowWightFangTask extends MultiTickTask<BarrowWightEnchanterEntit
                 this.conjureFangs(serverWorld, owner, owner.getX() + (double)MathHelper.cos(g) * 2.5, owner.getZ() + (double)MathHelper.sin(g) * 2.5, minY, maxY, g, 3);
             }
         } else {
-            for(i = 3; i < 16; ++i) {
+            for(i = 2; i < 16; ++i) {
                 double h = 1.25 * (double)(i + 1);
                 this.conjureFangs(serverWorld, owner, owner.getX() + (double)MathHelper.cos(atan) * h, owner.getZ() + (double)MathHelper.sin(atan) * h, minY, maxY, atan, i);
             }

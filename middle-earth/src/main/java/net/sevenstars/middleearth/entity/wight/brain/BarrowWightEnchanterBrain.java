@@ -6,18 +6,18 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.sevenstars.api.entity.ai.brain.task.FleeFromEntityTask;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.wight.BarrowWightEnchanterEntity;
 import net.sevenstars.middleearth.entity.wight.BarrowWightEntity;
+import net.sevenstars.of_beasts_and_wild_things.entity.deer.DeerEntity;
 
 import java.util.Optional;
 
@@ -80,16 +80,7 @@ public class BarrowWightEnchanterBrain {
                         StartRidingTask.create(0.8F),
                         LookAtMobTask.create(LivingEntity::isAlive, 36.0F),
 
-                        // Stare at target
-                        new SingleTickTask<>() {
-                            @Override
-                            public boolean trigger(ServerWorld world, BarrowWightEnchanterEntity entity, long time) {
-                                entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).ifPresent(target -> {
-                                    entity.getBrain().remember(MemoryModuleType.LOOK_TARGET, new net.minecraft.entity.ai.brain.EntityLookTarget(target, true));
-                                });
-                                return true;
-                            }
-                        },
+                        new BarrowWightRepositionTask(1f, 1.3f, 14, 21),
 
                         new BarrowWightSummonTask(),
                         new BarrowWightHallucinationTask(),
@@ -159,7 +150,8 @@ public class BarrowWightEnchanterBrain {
                 MemoryModuleType.NEAREST_ATTACKABLE,
                 MemoryModulesME.HALLUCINATION_CAST_COOLDOWN,
                 MemoryModulesME.SUMMON_CAST_COOLDOWN,
-                MemoryModulesME.CAST_COOLDOWN
+                MemoryModulesME.CAST_COOLDOWN,
+                MemoryModulesME.RETREATING
         );
     }
 }
