@@ -23,6 +23,7 @@ public class MineablePickaxe {
 
             add(DecorativeBlockRegistryME.STONE_LECTERN);
             add(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF);
+            add(DecorativeBlockRegistryME.DOLOMITE_BOOKSHELF);
 
             add(DecorativeBlockRegistryME.BASALT_STATUE);
             add(DecorativeBlockRegistryME.CALCITE_STATUE);
