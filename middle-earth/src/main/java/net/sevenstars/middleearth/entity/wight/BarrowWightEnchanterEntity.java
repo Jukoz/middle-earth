@@ -26,7 +26,7 @@ import net.sevenstars.middleearth.entity.wight.brain.BarrowWightEnchanterBrain;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 
 public class BarrowWightEnchanterEntity extends BarrowWightEntity{
-    public static final int HALLUCINATION_CAST_COOLDOWN = 67;
+    public static final int BASE_CAST_COOLDOWN = 67;
     private static final TrackedData<Integer> HALLUCINATION_CAST;
 
     private int hallucinationCastAnimationCooldown = 0;
@@ -93,7 +93,7 @@ public class BarrowWightEnchanterEntity extends BarrowWightEntity{
 
     public void tryCastingAnimation() {
         if(hallucinationCastAnimationCooldown == 0) {
-            hallucinationCastAnimationCooldown = HALLUCINATION_CAST_COOLDOWN;
+            hallucinationCastAnimationCooldown = BASE_CAST_COOLDOWN;
             this.dataTracker.set(HALLUCINATION_CAST, 1);
         }
     }

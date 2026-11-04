@@ -18,7 +18,7 @@ import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 public class BarrowWightHallucinationTask extends MultiTickTask<BarrowWightEnchanterEntity> {
     private static final int SHOOT_CHARGING_EXPIRY = Math.round(15.0F);
     private static final int RECOVER_EXPIRY = Math.round(4.0F);
-    public static final int SHOOT_COOLDOWN_EXPIRY = BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN * 4;
+    public static final int SHOOT_COOLDOWN_EXPIRY = BarrowWightEnchanterEntity.BASE_CAST_COOLDOWN * 4;
 
     public BarrowWightHallucinationTask() {
         super(

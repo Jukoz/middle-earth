@@ -66,6 +66,7 @@ public class BarrowWightEnchanterBrain {
                                 barrowWight.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE)),
                         UpdateAttackTargetTask.create((world, barrowWight) -> barrowWight.getHurtBy()),
                         makeRandomWanderTask(),
+                        new BarrowWightWololoTask(),
                         FindInteractionTargetTask.create(EntityType.PLAYER, 4)
                 )
         );

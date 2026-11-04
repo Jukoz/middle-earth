@@ -9,9 +9,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.EvokerFangsEntity;
-import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -25,7 +23,7 @@ import net.sevenstars.middleearth.entity.wight.BarrowWightEntity;
 public class BarrowWightFangTask extends MultiTickTask<BarrowWightEnchanterEntity> {
     private static final int SHOOT_CHARGING_EXPIRY = Math.round(15.0F);
     private static final int RECOVER_EXPIRY = Math.round(4.0F);
-    private static final int SHOOT_COOLDOWN_EXPIRY = (int)(BarrowWightEnchanterEntity.HALLUCINATION_CAST_COOLDOWN * 1.3f);
+    private static final int SHOOT_COOLDOWN_EXPIRY = (int)(BarrowWightEnchanterEntity.BASE_CAST_COOLDOWN * 1.3f);
 
     public BarrowWightFangTask() {
         super(
@@ -43,8 +41,8 @@ public class BarrowWightFangTask extends MultiTickTask<BarrowWightEnchanterEntit
         );
     }
 
-    protected boolean shouldRun(ServerWorld serverWorld, BarrowWightEnchanterEntity BarrowWightEnchanterEntity) {
-        Brain<BarrowWightEntity> brain = BarrowWightEnchanterEntity.getBrain();
+    protected boolean shouldRun(ServerWorld serverWorld, BarrowWightEnchanterEntity enchanterEntity) {
+        Brain<BarrowWightEntity> brain = enchanterEntity.getBrain();
 
         if(!brain.hasMemoryModule(MemoryModulesME.SUMMON_CAST_COOLDOWN)) return false;
         int cooldown = brain.getOptionalMemory(MemoryModulesME.SUMMON_CAST_COOLDOWN).orElse(0);
@@ -55,15 +53,15 @@ public class BarrowWightFangTask extends MultiTickTask<BarrowWightEnchanterEntit
         if(cooldown >= BarrowWightHallucinationTask.SHOOT_COOLDOWN_EXPIRY * 0.85f) return false;
 
         if(brain.hasMemoryModule(MemoryModulesME.CAST_COOLDOWN)) return false;
-        return (Boolean)BarrowWightEnchanterEntity.getBrain()
+        return (Boolean)enchanterEntity.getBrain()
                 .getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET)
-                .map(target -> isTargetWithinRange(BarrowWightEnchanterEntity, target))
+                .map(target -> isTargetWithinRange(enchanterEntity, target))
                 .orElse(false);
     }
 
     @Override
-    protected boolean shouldKeepRunning(ServerWorld serverWorld, BarrowWightEnchanterEntity BarrowWightEnchanterEntity, long l) {
-        return BarrowWightEnchanterEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET);
+    protected boolean shouldKeepRunning(ServerWorld serverWorld, BarrowWightEnchanterEntity enchanterEntity, long l) {
+        return enchanterEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET);
     }
 
     @Override
