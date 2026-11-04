@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "middle-earth:block/dolomite_tiles",
+    "side": "middle-earth:block/dolomite_bookshelf"
+  }
+}

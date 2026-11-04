@@ -198,6 +198,8 @@ public class DecorativeBlockRegistryME {
             StoneLecternBlock::new, AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque().requiresTool());
     public static final Block CHISELED_DOLOMITE_BOOKSHELF = registerBlockWithItem("chiseled_dolomite_bookshelf",
             ChiseledBookshelfBlock::new, AbstractBlock.Settings.copy(Blocks.CHISELED_BOOKSHELF).nonOpaque().requiresTool().sounds(BlockSoundGroup.STONE));
+    public static final Block DOLOMITE_BOOKSHELF = registerBlockWithItem("dolomite_bookshelf",
+            Block::new, AbstractBlock.Settings.copy(Blocks.BOOKSHELF).nonOpaque().requiresTool().sounds(BlockSoundGroup.STONE));
 
     public static final Block BASALT_STATUE = registerBlock("basalt_statue",
             StatueBlock::new, AbstractBlock.Settings.copy(Blocks.BASALT).nonOpaque().requiresTool());
