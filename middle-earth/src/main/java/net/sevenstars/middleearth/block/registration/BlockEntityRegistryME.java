@@ -53,7 +53,10 @@ public class BlockEntityRegistryME {
 
     public static BlockEntityType<OldSkullBlockEntity> OLD_SKULL = register("old_skull", OldSkullBlockEntity::new, DecorativeBlockRegistryME.OLD_SKULL);
 
-    public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new, DecorativeBlockRegistryME.SACK);
+    public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new,
+            DecorativeBlockRegistryME.SACK,
+            DecorativeBlockRegistryME.WHITE_SACK);
+
 
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             DecorativeBlockRegistryME.REINFORCED_CHEST);

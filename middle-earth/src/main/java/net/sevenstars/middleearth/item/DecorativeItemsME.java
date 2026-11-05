@@ -124,6 +124,9 @@ public class DecorativeItemsME {
     public static final Item SACK = registerItem("sack",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.SACK, settings), new Item.Settings().maxCount(1));
 
+    public static final Item WHITE_SACK = registerItem("white_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.WHITE_SACK, settings), new Item.Settings().maxCount(1));
+
     public static final Item WOOD_PILE = registerItem("wood_pile",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.WOOD_PILE, settings), new Item.Settings());
 
