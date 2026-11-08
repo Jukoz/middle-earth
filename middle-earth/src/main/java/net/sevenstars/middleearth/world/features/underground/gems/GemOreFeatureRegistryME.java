@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Where gems hide: each gem lives inside the clusters of one kind of host ore, in a depth band, and the
+ * Where gems hide: each gem lives in the rock beside the clusters of one kind of host ore, in a depth band, and the
  * racial gems only under their people's lands (surface biome tags data/middle-earth/tags/worldgen/biome/gem_region).
  * Numbers tuned in play to ~3-4 gems per chunk of a gem's region (adamant ~0.5). The features run in the
  * underground decoration step of every cave biome, after the ores they look for.

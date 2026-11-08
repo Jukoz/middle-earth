@@ -7,16 +7,16 @@ import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
@@ -24,10 +24,11 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 /**
- * Hides gems inside host ore clusters. Runs once per chunk after the ores (underground decoration step):
- * finds the host ore blocks in the chunk's y band, groups touching blocks into clusters, and gives each
- * cluster a 1-in-N chance to have one of its ore blocks swapped for a gem ore disguised as the
- * surrounding stone (or several, see {@link GemOreFeatureConfig#perCluster()}).
+ * Hides gems in the rock beside host ore clusters. Runs once per chunk after the ores (underground decoration
+ * step): finds the host ore blocks in the chunk's y band, groups touching blocks into clusters, and gives each
+ * cluster a 1-in-N chance to have one of the stone blocks touching it (face to face) turned into a gem ore
+ * disguised as that very stone (or several, see {@link GemOreFeatureConfig#perCluster()}). The ore itself is
+ * never replaced, so a gem is found by mining around the vein.
  */
 public class GemOreFeature extends Feature<GemOreFeatureConfig> {
     public GemOreFeature() {
@@ -70,13 +71,13 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
             if (random.nextInt(config.oneIn()) != 0) {
                 continue;
             }
-            // Swap up to perCluster distinct ore blocks of this cluster for gems.
-            List<Long> members = new ArrayList<>(cluster);
-            for (int i = 0; i < config.perCluster() && !members.isEmpty(); i++) {
-                BlockPos gemPos = BlockPos.fromLong(members.remove(random.nextInt(members.size())));
+            // Turn up to perCluster distinct stone blocks touching this cluster into gems.
+            List<Long> rock = rockAround(world, cluster, hosts, chunk);
+            for (int i = 0; i < config.perCluster() && !rock.isEmpty(); i++) {
+                BlockPos gemPos = BlockPos.fromLong(rock.remove(random.nextInt(rock.size())));
                 BlockState gemOre = NatureBlockRegistryME.GEM_ORE.getDefaultState()
                     .with(GemOreBlock.GEM, config.gem())
-                    .with(GemOreBlock.STONE, disguiseFor(world, gemPos));
+                    .with(GemOreBlock.STONE, GemOreStone.of(world.getBlockState(gemPos).getBlock()));
                 world.setBlockState(gemPos, gemOre, Block.NOTIFY_LISTENERS);
                 placed = true;
             }
@@ -124,26 +125,24 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
     }
 
     /**
-     * The most common known stone around the gem (5x5x5, since a gem inside an ore cluster is mostly
-     * surrounded by ore); Middle-earth's layer for that depth if none.
+     * The stone blocks touching a cluster face to face, inside this chunk: only stones a gem ore can disguise
+     * itself as (see {@link GemOreStone}), so the gem looks exactly like the block it took the place of.
      */
-    private static GemOreStone disguiseFor(StructureWorldAccess world, BlockPos pos) {
-        Map<GemOreStone, Integer> counts = new EnumMap<>(GemOreStone.class);
-        BlockPos.Mutable around = new BlockPos.Mutable();
-        for (int dx = -2; dx <= 2; dx++) {
-            for (int dy = -2; dy <= 2; dy++) {
-                for (int dz = -2; dz <= 2; dz++) {
-                    around.set(pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz);
-                    GemOreStone stone = GemOreStone.of(world.getBlockState(around).getBlock());
-                    if (stone != null) {
-                        counts.merge(stone, 1, Integer::sum);
-                    }
+    private static List<Long> rockAround(StructureWorldAccess world, List<Long> cluster, Set<Long> hosts, ChunkPos chunk) {
+        Set<Long> rock = new LinkedHashSet<>();
+        BlockPos.Mutable next = new BlockPos.Mutable();
+        for (long member : cluster) {
+            BlockPos p = BlockPos.fromLong(member);
+            for (Direction side : Direction.values()) {
+                next.set(p, side);
+                long key = next.asLong();
+                if (hosts.contains(key) || next.getX() >> 4 != chunk.x || next.getZ() >> 4 != chunk.z
+                    || world.isOutOfHeightLimit(next) || GemOreStone.of(world.getBlockState(next).getBlock()) == null) {
+                    continue;
                 }
+                rock.add(key);
             }
         }
-        return counts.entrySet().stream()
-            .max(Map.Entry.comparingByValue())
-            .map(Map.Entry::getKey)
-            .orElse(GemOreStone.forDepth(pos.getY()));
+        return new ArrayList<>(rock);
     }
 }
