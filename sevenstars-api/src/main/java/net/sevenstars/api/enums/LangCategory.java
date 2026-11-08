@@ -6,7 +6,7 @@ public enum LangCategory {
     SCREEN("screen"),
     CONTAINER("container"),
     ADVANCEMENTS("advancements"),
-    ITEM_GROUP("item_group"),
+    ITEM_GROUP("itemGroup"),
     EFFECT("effect"),
     ENCHANTMENT("enchantment"),
     BLOCK("block"),
