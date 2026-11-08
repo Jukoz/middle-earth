@@ -268,23 +268,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(OreStoneSetRegistryME.DEEPSLATE.tin_ore());
         needsStoneTools.add(OreStoneSetRegistryME.DEEPSLATE.lead_ore());
 
+        needsIronTools.add(net.sevenstars.middleearth.block.registration.NatureBlockRegistryME.GEM_ORE);
         needsIronTools.add(OreStoneSetRegistryME.NURGON.tin_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.lead_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.silver_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.gold_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.iron_ore());
-        needsIronTools.add(OreStoneSetRegistryME.NURGON.sapphire_ore());
-        needsIronTools.add(OreStoneSetRegistryME.NURGON.emerald_ore());
-        needsIronTools.add(OreStoneSetRegistryME.NURGON.ruby_ore());
 
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.lead_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.silver_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.gold_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.iron_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.emerald_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.ruby_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.sapphire_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.adamant_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.mithril_ore());
 
         needsStoneTools.add(DecorativeBlockRegistryME.STONE_ANVIL);
@@ -384,6 +378,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableAxe.add(DecorativeBlockRegistryME.ARTISAN_TABLE);
         mineableAxe.add(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE);
         mineableAxe.add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+        mineableAxe.add(DecorativeBlockRegistryME.LAPIDARY_TABLE);
 
         mineablePickaxe.add(BlockRegistryME.BRICK_VERTICAL_SLAB);
         mineablePickaxe.add(BlockRegistryME.MUD_BRICK_VERTICAL_SLAB);

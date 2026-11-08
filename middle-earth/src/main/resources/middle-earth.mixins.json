@@ -22,6 +22,8 @@
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",
     "GrassBlockMixin",
+    "LapidaryCrafterMixin",
+    "LapidaryCraftingResultMixin",
     "LivingEntityMixin",
     "PigEntityMixin",
     "PlayerEntityMixin",

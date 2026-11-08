@@ -51,7 +51,8 @@ public class PlayerBookScreen extends Screen {
                 new Chapter("playerbook.chapter_smithing", PlayerBookChapters.SMITHING, ToolItemsME.SMITHING_HAMMER),
                 new Chapter("playerbook.chapter_enchanting", PlayerBookChapters.ENCHANTING, DecorativeItemsME.INSCRIPTION_TABLE),
                 new Chapter("playerbook.chapter_mounts", PlayerBookChapters.MOUNTS, EggItemsME.WARG_SPAWN_EGG),
-                new Chapter("playerbook.chapter_dungeons", PlayerBookChapters.DUNGEONS, DecorativeItemsME.SPIDER_TRIAL_SPAWNER.asItem()));
+                new Chapter("playerbook.chapter_dungeons", PlayerBookChapters.DUNGEONS, DecorativeItemsME.SPIDER_TRIAL_SPAWNER.asItem()),
+                new Chapter("playerbook.chapter_gem_studies", PlayerBookChapters.GEM_STUDIES, ResourceItemsME.RAW_RUBY));
     }
 
     @Override
@@ -136,6 +137,12 @@ public class PlayerBookScreen extends Screen {
 
                     if (mouseX >= startTooltipX && mouseX <= startTooltipX + textWidth + 5 &&
                             mouseY >= startTooltipY && mouseY <= startTooltipY + 9) {
+                        if (chapter.chapter == PlayerBookChapters.GEM_STUDIES) {
+                            // Its pages come from the notes bound into this book, so it has its own screen.
+                            this.client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+                            this.client.setScreen(new GemStudiesScreen(this));
+                            return true;
+                        }
                         this.currentChapter = chapter.chapter;
                         this.currentPage = 1;
                         updatePageButtons();

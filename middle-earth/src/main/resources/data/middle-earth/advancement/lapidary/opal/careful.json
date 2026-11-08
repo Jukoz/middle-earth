@@ -1,0 +1,34 @@
+{
+  "parent": "middle-earth:lapidary/opal/rough_notes",
+  "display": {
+    "icon": {
+      "id": "middle-earth:hexagon_cut_gem",
+      "components": {
+        "middle-earth:gem_type": "middle-earth:opal"
+      }
+    },
+    "title": {
+      "translate": "advancement.middle-earth.lapidary.grade_title",
+      "with": [
+        {
+          "translate": "gem_type.middle-earth.opal"
+        },
+        {
+          "translate": "study_grade.middle-earth.careful"
+        }
+      ]
+    },
+    "description": {
+      "translate": "gem_info.middle-earth.opal.depth"
+    },
+    "frame": "task",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "studied": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

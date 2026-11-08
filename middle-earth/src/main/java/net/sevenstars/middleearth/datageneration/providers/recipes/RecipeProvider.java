@@ -998,22 +998,52 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createMetalsRecipe(exporter, ResourceItemsME.EDHEL_STEEL_NUGGET, ResourceItemsME.EDHEL_STEEL_INGOT, BlockRegistryME.EDHEL_STEEL_BLOCK);
                 createMetalsRecipe(exporter, ResourceItemsME.KHAZAD_STEEL_NUGGET, ResourceItemsME.KHAZAD_STEEL_INGOT, BlockRegistryME.KHAZAD_STEEL_BLOCK);
 
-                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.ADAMANT, 9)
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_ADAMANT, 9)
                         .input(BlockRegistryME.ADAMANT_BLOCK)
                         .criterion(hasItem(BlockRegistryME.ADAMANT_BLOCK),
                                 conditionsFromItem(BlockRegistryME.ADAMANT_BLOCK))
                         .offerTo(exporter);
 
-                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RUBY, 9)
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_RUBY, 9)
                         .input(BlockRegistryME.RUBY_BLOCK)
                         .criterion(hasItem(BlockRegistryME.RUBY_BLOCK),
                                 conditionsFromItem(BlockRegistryME.RUBY_BLOCK))
                         .offerTo(exporter);
 
-                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.SAPPHIRE, 9)
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_SAPPHIRE, 9)
                         .input(BlockRegistryME.SAPPHIRE_BLOCK)
                         .criterion(hasItem(BlockRegistryME.SAPPHIRE_BLOCK),
                                 conditionsFromItem(BlockRegistryME.SAPPHIRE_BLOCK))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_BERYL, 9)
+                        .input(BlockRegistryME.BERYL_BLOCK)
+                        .criterion(hasItem(BlockRegistryME.BERYL_BLOCK),
+                                conditionsFromItem(BlockRegistryME.BERYL_BLOCK))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_HADORITE, 9)
+                        .input(BlockRegistryME.HADORITE_BLOCK)
+                        .criterion(hasItem(BlockRegistryME.HADORITE_BLOCK),
+                                conditionsFromItem(BlockRegistryME.HADORITE_BLOCK))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_OPAL, 9)
+                        .input(BlockRegistryME.OPAL_BLOCK)
+                        .criterion(hasItem(BlockRegistryME.OPAL_BLOCK),
+                                conditionsFromItem(BlockRegistryME.OPAL_BLOCK))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_ONYX, 9)
+                        .input(BlockRegistryME.ONYX_BLOCK)
+                        .criterion(hasItem(BlockRegistryME.ONYX_BLOCK),
+                                conditionsFromItem(BlockRegistryME.ONYX_BLOCK))
+                        .offerTo(exporter);
+
+                ShapelessRecipeJsonBuilder.create(this.itemLookup, RecipeCategory.MISC, ResourceItemsME.RAW_MOONSTONE, 9)
+                        .input(BlockRegistryME.MOONSTONE_BLOCK)
+                        .criterion(hasItem(BlockRegistryME.MOONSTONE_BLOCK),
+                                conditionsFromItem(BlockRegistryME.MOONSTONE_BLOCK))
                         .offerTo(exporter);
                 //endregion
 

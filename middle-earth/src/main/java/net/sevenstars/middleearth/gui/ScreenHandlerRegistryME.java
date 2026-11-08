@@ -33,6 +33,9 @@ public class ScreenHandlerRegistryME {
     public static ScreenHandlerType<InscriptionTableScreenHandler> INSCRIPTION_SCREEN_HANDLER
             = new ScreenHandlerType<>(InscriptionTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
 
+    public static final ScreenHandlerType<net.sevenstars.middleearth.gui.lapidarytable.LapidaryScreenHandler> LAPIDARY_SCREEN_HANDLER
+            = new ScreenHandlerType<>(net.sevenstars.middleearth.gui.lapidarytable.LapidaryScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
+
     public static ScreenHandlerType<ShapingAnvilScreenHandler> TREATED_ANVIL_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(ShapingAnvilScreenHandler::new, BlockPos.PACKET_CODEC.cast());
 
@@ -51,6 +54,7 @@ public class ScreenHandlerRegistryME {
         register("forge_alloying", FORGE_ALLOYING_SCREEN_HANDLER);
         register("artisan_table", ARTISAN_SCREEN_HANDLER);
         register("inscription_table", INSCRIPTION_SCREEN_HANDLER);
+        register("lapidary_table", LAPIDARY_SCREEN_HANDLER);
         register("treated_anvil", TREATED_ANVIL_SCREEN_HANDLER);
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
         register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);

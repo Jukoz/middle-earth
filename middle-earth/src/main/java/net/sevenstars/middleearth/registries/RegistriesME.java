@@ -108,6 +108,11 @@ public class RegistriesME {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
             }
         }
+
+        for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.renamedAliases) {
+            alias.registry().addAlias(Identifier.of(MiddleEarth.MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
+            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
+        }
     }
 
     public static void registerToolTipAppenders() {

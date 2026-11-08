@@ -92,8 +92,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("fierce")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_thorns_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -101,8 +101,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("fierce")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_thorns_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -110,8 +110,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("fierce")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_thorns_3")));
                 //endregion
 
@@ -121,8 +121,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("pierce")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_projectile_protection_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -130,8 +130,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("pierce")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_projectile_protection_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -139,8 +139,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("pierce")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_projectile_protection_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -148,8 +148,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("pierce")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_projectile_protection_4")));
                 //endregion
 
@@ -159,8 +159,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("flame")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_fire_protection_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -168,8 +168,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("flame")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_fire_protection_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -177,8 +177,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("flame")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_fire_protection_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -186,8 +186,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("flame")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_fire_protection_4")));
                 //endregion
 
@@ -198,8 +198,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("flame")
                         .addWord("sturdy")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_blast_protection_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -208,8 +208,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("flame")
                         .addWord("sturdy")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_blast_protection_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -218,8 +218,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("flame")
                         .addWord("sturdy")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_blast_protection_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -228,8 +228,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("flame")
                         .addWord("sturdy")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_blast_protection_4")));
                 //endregion
 
@@ -272,8 +272,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_feather_falling_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -282,8 +282,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_feather_falling_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -292,8 +292,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_feather_falling_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -302,8 +302,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_feather_falling_4")));
                 //endregion
 
@@ -314,8 +314,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("careful")
                         .addWord("tidal")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aqua_affinity")));
                 // endregion
 
@@ -326,8 +326,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("swift")
                         .addWord("tidal")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_depth_strider_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -336,8 +336,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("swift")
                         .addWord("tidal")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_depth_strider_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -346,8 +346,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("swift")
                         .addWord("tidal")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_depth_strider_3")));
                 //endregion
 
@@ -358,8 +358,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("swift")
                         .addWord("tidal")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_lure_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -368,8 +368,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("swift")
                         .addWord("tidal")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_lure_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -378,8 +378,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("swift")
                         .addWord("tidal")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_lure_3")));
                 //endregion
 
@@ -389,8 +389,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("forceful")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -398,8 +398,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("forceful")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -407,8 +407,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.LATE_CHISELS)
                         .addWord("forceful")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_3")));
 
                 /*InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -416,8 +416,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("forceful")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_4")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -425,8 +425,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.LATE_CHISELS)
                         .addWord("forceful")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_sharpness_5")));*/
                 //endregion
 
@@ -436,8 +436,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("forceful")
                         .addWord("edge")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_knockback_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -445,8 +445,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("forceful")
                         .addWord("edge")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_knockback_2")));
                 //endregion
 
@@ -489,8 +489,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("spirit")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_smite_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -499,8 +499,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("spirit")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_smite_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -509,8 +509,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("spirit")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_smite_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -519,8 +519,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("spirit")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_smite_4")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -529,8 +529,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("spirit")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_smite_5")));
                 //endregion
 
@@ -572,8 +572,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("fierce")
                         .addWord("point")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -581,8 +581,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("fierce")
                         .addWord("point")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -590,8 +590,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.LATE_CHISELS)
                         .addWord("fierce")
                         .addWord("point")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_3")));
 
                 /*InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -599,8 +599,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("fierce")
                         .addWord("point")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_4")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -608,8 +608,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.LATE_CHISELS)
                         .addWord("fierce")
                         .addWord("point")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_power_5")));*/
                 //endregion
 
@@ -619,8 +619,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("forceful")
                         .addWord("draw")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_punch_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -628,8 +628,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("forceful")
                         .addWord("draw")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_punch_2")));
                 //endregion
 
@@ -678,8 +678,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("swift")
                         .addWord("draw")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_quick_charge_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -687,8 +687,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("swift")
                         .addWord("draw")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_quick_charge_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -696,8 +696,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("swift")
                         .addWord("draw")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_quick_charge_3")));
                 //endregion
 
@@ -707,8 +707,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("swift")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -716,8 +716,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("swift")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -725,8 +725,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("swift")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -734,8 +734,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("swift")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_4")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -743,8 +743,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.LATE_CHISELS)
                         .addWord("swift")
                         .addWord("collector")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_efficiency_5")));
                 //endregion
 
@@ -800,8 +800,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -810,8 +810,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -820,8 +820,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -830,8 +830,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("resilient")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_ailment_protection_4")));
                 //endregion
 
@@ -871,8 +871,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("giant")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -881,8 +881,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("giant")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -891,8 +891,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("giant")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -901,8 +901,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("giant")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_4")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -911,8 +911,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("giant")
                         .addWord("bane")
                         .addWord("cutter")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_bane_of_giants_5")));
                 //endregion
 
@@ -922,8 +922,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("swift")
                         .addWord("edge")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_celerity")));
                 //endregion
 
@@ -934,8 +934,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("edge")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -944,8 +944,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("edge")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -954,8 +954,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("edge")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_3")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -964,8 +964,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("edge")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_grounded_4")));
                 //endregion
 
@@ -1055,8 +1055,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("noiseless")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stealthy_trail_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -1064,8 +1064,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("noiseless")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stealthy_trail_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -1073,8 +1073,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("noiseless")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.RUBY),
-                                conditionsFromItem(ResourceItemsME.RUBY))
+                        .criterion(hasItem(ResourceItemsME.RAW_RUBY),
+                                conditionsFromItem(ResourceItemsME.RAW_RUBY))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stealthy_trail_3")));
                 //endregion
 
@@ -1085,8 +1085,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .addWord("sturdy")
                         .addWord("point")
                         .addWord("warded")
-                        .criterion(hasItem(ResourceItemsME.SAPPHIRE),
-                                conditionsFromItem(ResourceItemsME.SAPPHIRE))
+                        .criterion(hasItem(ResourceItemsME.RAW_SAPPHIRE),
+                                conditionsFromItem(ResourceItemsME.RAW_SAPPHIRE))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stalwart")));
                 //endregion
 
@@ -1096,8 +1096,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.EARLY_CHISELS)
                         .addWord("swift")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stride_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -1105,8 +1105,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("swift")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stride_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
@@ -1114,8 +1114,8 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("swift")
                         .addWord("traveller")
-                        .criterion(hasItem(ResourceItemsME.ADAMANT),
-                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .criterion(hasItem(ResourceItemsME.RAW_ADAMANT),
+                                conditionsFromItem(ResourceItemsME.RAW_ADAMANT))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_stride_3")));
                 //endregion
 

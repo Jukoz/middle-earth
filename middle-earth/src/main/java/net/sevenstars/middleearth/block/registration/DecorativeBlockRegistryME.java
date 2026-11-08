@@ -116,6 +116,12 @@ public class DecorativeBlockRegistryME {
     public static final Block INSCRIPTION_TABLE = registerBlock("inscription_table",
             InscriptionTableblock::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
 
+    public static final Block LAPIDARY_TABLE = registerBlock("lapidary_table",
+            net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock::new,
+            AbstractBlock.Settings.create().mapColor(net.minecraft.block.MapColor.OAK_TAN)
+                    .instrument(net.minecraft.block.enums.NoteBlockInstrument.BASS).strength(2.5F)
+                    .sounds(net.minecraft.sound.BlockSoundGroup.WOOD).nonOpaque());
+
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block ORC_STRUCTURE_MANAGER = registerBlock("orc_structure_manager",

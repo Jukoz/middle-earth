@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "id": "middle-earth:lapidary_table"
+    },
+    "title": {
+      "translate": "advancement.middle-earth.lapidary.root.title"
+    },
+    "description": {
+      "translate": "advancement.middle-earth.lapidary.root.description"
+    },
+    "background": "minecraft:block/deepslate_tiles",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "has_raw_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "middle-earth:raw_adamant",
+              "middle-earth:raw_ruby",
+              "middle-earth:raw_sapphire",
+              "middle-earth:raw_beryl",
+              "middle-earth:raw_hadorite",
+              "middle-earth:raw_opal",
+              "middle-earth:raw_onyx",
+              "middle-earth:raw_moonstone"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

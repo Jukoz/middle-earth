@@ -1,0 +1,34 @@
+{
+  "parent": "middle-earth:lapidary/adamant/careful",
+  "display": {
+    "icon": {
+      "id": "middle-earth:emerald_cut_gem",
+      "components": {
+        "middle-earth:gem_type": "middle-earth:adamant"
+      }
+    },
+    "title": {
+      "translate": "advancement.middle-earth.lapidary.grade_title",
+      "with": [
+        {
+          "translate": "gem_type.middle-earth.adamant"
+        },
+        {
+          "translate": "study_grade.middle-earth.thorough"
+        }
+      ]
+    },
+    "description": {
+      "translate": "gem_info.middle-earth.adamant.region"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "studied": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

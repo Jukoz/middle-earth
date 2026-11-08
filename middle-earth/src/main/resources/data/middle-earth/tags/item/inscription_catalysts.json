@@ -2,8 +2,29 @@
   "values": [
     "minecraft:lapis_lazuli",
     "minecraft:emerald",
-    "middle-earth:ruby",
-    "middle-earth:sapphire",
-    "middle-earth:adamant"
+    "middle-earth:raw_adamant",
+    "middle-earth:raw_ruby",
+    "middle-earth:raw_sapphire",
+    "middle-earth:raw_beryl",
+    "middle-earth:raw_hadorite",
+    "middle-earth:raw_opal",
+    "middle-earth:raw_onyx",
+    "middle-earth:raw_moonstone",
+    "middle-earth:round_cut_gem",
+    "middle-earth:sphere_cut_gem",
+    "middle-earth:oval_cut_gem",
+    "middle-earth:hexagon_cut_gem",
+    "middle-earth:octagon_cut_gem",
+    "middle-earth:pentagon_cut_gem",
+    "middle-earth:rhombus_cut_gem",
+    "middle-earth:pear_cut_gem",
+    "middle-earth:tapered_cut_gem",
+    "middle-earth:pointed_lozenge_cut_gem",
+    "middle-earth:emerald_cut_gem",
+    "middle-earth:asscher_cut_gem",
+    "middle-earth:marquis_cut_gem",
+    "middle-earth:brilliant_cut_gem",
+    "middle-earth:radiant_cut_gem",
+    "middle-earth:briolette_cut_gem"
   ]
 }

@@ -1,0 +1,39 @@
+{
+  "parent": "middle-earth:lapidary/hadorite/thorough",
+  "display": {
+    "icon": {
+      "id": "middle-earth:brilliant_cut_gem",
+      "components": {
+        "middle-earth:gem_type": "middle-earth:hadorite"
+      }
+    },
+    "title": {
+      "translate": "advancement.middle-earth.lapidary.grade_title",
+      "with": [
+        {
+          "translate": "gem_type.middle-earth.hadorite"
+        },
+        {
+          "translate": "study_grade.middle-earth.masterful"
+        }
+      ]
+    },
+    "description": {
+      "translate": "advancement.middle-earth.lapidary.mastered",
+      "with": [
+        {
+          "translate": "gem_type.middle-earth.hadorite"
+        }
+      ]
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "studied": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -59,6 +59,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(BlockModelProvider::new);
         pack.addProvider(ItemModelProvider::new);
         pack.addProvider(RecipeProvider::new);
+        pack.addProvider(LapidaryRecipeProvider::new);
         pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
         pack.addProvider(ArtisanTableArmorRecipeProvider::new);
         pack.addProvider(ArtisanTableGenericArmorRecipeProvider::new);
@@ -86,6 +87,8 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, OrePlacedFeatureRegistryME::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatureRegistryME::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, MiscPlacedFeatureRegistryME::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, net.sevenstars.middleearth.world.features.underground.gems.GemOreFeatureRegistryME::bootstrapConfigured);
+        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, net.sevenstars.middleearth.world.features.underground.gems.GemOreFeatureRegistryME::bootstrapPlaced);
 
         registryBuilder.addRegistry(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsRegistryME::bootstrapSkins);
         registryBuilder.addRegistry(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsRegistryME::bootstrapSkins);

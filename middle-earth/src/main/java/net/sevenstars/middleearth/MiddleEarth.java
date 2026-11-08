@@ -129,6 +129,8 @@ public class MiddleEarth implements ModInitializer {
 		CustomWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 		InscriptionWordBank.addWordsToBank();
+		net.sevenstars.middleearth.recipe.lapidary.GemKnowledge.register();
+		net.sevenstars.middleearth.recipe.lapidary.LapidaryKnowledge.register();
 
 		// Dynamic Data
         DynamicRegistriesME.register();

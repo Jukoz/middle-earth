@@ -93,6 +93,41 @@
         "khazad_steel": "middle-earth:trims/color_palettes/khazad_steel",
         "mithril": "middle-earth:trims/color_palettes/mithril"
       }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "middle-earth:item/raw_gem/raw_1",
+        "middle-earth:item/raw_gem/raw_2",
+        "middle-earth:item/raw_gem/raw_3",
+        "middle-earth:item/cut_gem/round",
+        "middle-earth:item/cut_gem/sphere",
+        "middle-earth:item/cut_gem/oval",
+        "middle-earth:item/cut_gem/hexagon",
+        "middle-earth:item/cut_gem/octagon",
+        "middle-earth:item/cut_gem/pentagon",
+        "middle-earth:item/cut_gem/rhombus",
+        "middle-earth:item/cut_gem/pear",
+        "middle-earth:item/cut_gem/tapered",
+        "middle-earth:item/cut_gem/pointed_lozenge",
+        "middle-earth:item/cut_gem/emerald",
+        "middle-earth:item/cut_gem/asscher",
+        "middle-earth:item/cut_gem/marquis",
+        "middle-earth:item/cut_gem/brilliant",
+        "middle-earth:item/cut_gem/radiant",
+        "middle-earth:item/cut_gem/briolette"
+      ],
+      "palette_key": "middle-earth:gem_palettes/key",
+      "permutations": {
+        "adamant": "middle-earth:gem_palettes/adamant",
+        "ruby": "middle-earth:gem_palettes/ruby",
+        "sapphire": "middle-earth:gem_palettes/sapphire",
+        "beryl": "middle-earth:gem_palettes/beryl",
+        "hadorite": "middle-earth:gem_palettes/hadorite",
+        "opal": "middle-earth:gem_palettes/opal",
+        "onyx": "middle-earth:gem_palettes/onyx",
+        "moonstone": "middle-earth:gem_palettes/moonstone"
+      }
     }
   ]
 }

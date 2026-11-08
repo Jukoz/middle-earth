@@ -4,6 +4,9 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatColor;
 import net.sevenstars.middleearth.item.dataComponents.*;
 import net.minecraft.component.ComponentType;
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.gems.GemType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -75,6 +78,35 @@ public class DataComponentTypesME {
     public static final ComponentType<BroadhoofGoatColor> GOAT_VARIANT = register(
             "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)
     );
+
+    /** Which gem type a gem item is made of (raw gems carry it by default, cut gems per stack). */
+    public static final ComponentType<RegistryKey<GemType>> GEM_TYPE = register("gem_type", builder -> builder
+            .codec(RegistryKey.createCodec(DynamicRegistriesME.GEM_TYPE))
+            .packetCodec(RegistryKey.createPacketCodec(DynamicRegistriesME.GEM_TYPE)));
+
+    /** How well this raw gem was studied at the Lapidary Table; absent = unstudied (cannot be cut yet). */
+    public static final ComponentType<net.sevenstars.middleearth.recipe.lapidary.StudyGrade> STUDY_GRADE = register("study_grade", builder -> builder
+            .codec(net.sevenstars.middleearth.recipe.lapidary.StudyGrade.CODEC)
+            .packetCodec(net.sevenstars.middleearth.recipe.lapidary.StudyGrade.PACKET_CODEC));
+
+    /**
+     * A cut gem's hidden quality value, 0-100, from its faceting runs (see
+     * {@link net.sevenstars.middleearth.recipe.lapidary.GemQuality}); absent = never faceted (counts as 0).
+     */
+    public static final ComponentType<Integer> GEM_QUALITY = register("gem_quality", builder -> builder
+            .codec(com.mojang.serialization.Codec.intRange(0, 100))
+            .packetCodec(net.minecraft.network.codec.PacketCodecs.VAR_INT));
+
+    /** The best gem notes bound into a Player Book, per gem type (its Gem Studies chapter). */
+    public static final ComponentType<java.util.Map<Identifier, net.sevenstars.middleearth.recipe.lapidary.StudyGrade>> GEM_STUDIES = register("gem_studies", builder -> builder
+            .codec(com.mojang.serialization.Codec.unboundedMap(Identifier.CODEC, net.sevenstars.middleearth.recipe.lapidary.StudyGrade.CODEC))
+            .packetCodec(net.minecraft.network.codec.PacketCodecs.map(java.util.HashMap::new, Identifier.PACKET_CODEC, net.sevenstars.middleearth.recipe.lapidary.StudyGrade.PACKET_CODEC)
+                    .<java.util.Map<Identifier, net.sevenstars.middleearth.recipe.lapidary.StudyGrade>>xmap(java.util.Map::copyOf, java.util.HashMap::new)));
+
+    /** The lapidary scrolls bound into a Player Book ("masterwork", "relic"): pages in its Gem Studies chapter. */
+    public static final ComponentType<java.util.List<String>> LAPIDARY_PAGES = register("lapidary_pages", builder -> builder
+            .codec(com.mojang.serialization.Codec.STRING.listOf())
+            .packetCodec(net.minecraft.network.codec.PacketCodecs.STRING.collect(net.minecraft.network.codec.PacketCodecs.toList())));
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.DATA_COMPONENT_TYPE, id));

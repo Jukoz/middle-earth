@@ -111,6 +111,7 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.RED_AGATE_SHARD);
             add(ResourceItemsME.CITRINE_SHARD);
+            addAll(ResourceItemsME.LAPIDARY_ITEMS);
             add(ResourceItemsME.QUARTZ_SHARD);
 
             add(ResourceItemsME.DIRTY_BONE);
@@ -126,9 +127,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.RAW_SILVER);
             add(ResourceItemsME.RAW_MITHRIL);
 
-            add(ResourceItemsME.ADAMANT);
-            add(ResourceItemsME.RUBY);
-            add(ResourceItemsME.SAPPHIRE);
 
             add(ResourceItemsME.PEBBLE);
             add(ResourceItemsME.PINECONE);

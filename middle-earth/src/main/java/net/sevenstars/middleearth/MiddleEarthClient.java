@@ -150,6 +150,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         HandledScreens.register(ScreenHandlerRegistryME.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.LAPIDARY_SCREEN_HANDLER, net.sevenstars.middleearth.gui.lapidarytable.LapidaryScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
@@ -158,6 +159,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockEntityRegistryME.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.FORGE, ForgeEntityRenderer::new);
+        // Lapidary Table: turns the crank and wheel while cutting.
+        BlockEntityRendererFactories.register(BlockEntityRegistryME.LAPIDARY_TABLE, net.sevenstars.middleearth.client.renderer.block.LapidaryTableRenderer::new);
+        // What the player knows about a gem type, on raw and cut gem tooltips.
+        net.sevenstars.middleearth.client.renderer.GemKnowledgeTooltip.register();
         BlockEntityRendererFactories.register(BlockEntityRegistryME.LARCH_COFFER, LarchCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.PINE_COFFER, PineCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
@@ -239,6 +244,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     private void initializeRenderLayerMap() {
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.MORGUL_IVY, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.LAPIDARY_TABLE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.HANGING_WEBS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.CORNER_COBWEB, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.SHELOBITE_LARVA_EGG, BlockRenderLayer.CUTOUT);

@@ -1,0 +1,82 @@
+{
+  "variants": {
+    "cutting=false,facing=north,part=table": {
+      "model": "middle-earth:block/lapidary_table"
+    },
+    "cutting=false,facing=north,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=north,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=north,part=table": {
+      "model": "middle-earth:block/lapidary_table_base"
+    },
+    "cutting=true,facing=north,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=north,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=false,facing=east,part=table": {
+      "model": "middle-earth:block/lapidary_table",
+      "y": 90
+    },
+    "cutting=false,facing=east,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=east,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=east,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 90
+    },
+    "cutting=true,facing=east,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=east,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=false,facing=south,part=table": {
+      "model": "middle-earth:block/lapidary_table",
+      "y": 180
+    },
+    "cutting=false,facing=south,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=south,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=south,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 180
+    },
+    "cutting=true,facing=south,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=south,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=false,facing=west,part=table": {
+      "model": "middle-earth:block/lapidary_table",
+      "y": 270
+    },
+    "cutting=false,facing=west,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=west,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=west,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 270
+    },
+    "cutting=true,facing=west,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=west,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    }
+  }
+}

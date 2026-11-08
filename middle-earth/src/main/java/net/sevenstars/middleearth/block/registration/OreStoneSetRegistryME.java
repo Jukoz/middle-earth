@@ -42,12 +42,10 @@ public class OreStoneSetRegistryME {
             Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE), Blocks.DEEPSLATE);
 
     public static OreRockSet NURGON = registerOreSet("nurgon_", NURGON_STRENGTH,
-            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE,
-                    ORES.EMERALD_ORE, ORES.RUBY_ORE, ORES.SAPPHIRE_ORE), StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base());
+            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE), StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base());
 
     public static OreRockSet MEDGON = registerOreSet("medgon_", MEDGON_STRENGTH,
-            Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE,
-            ORES.ADAMANT_ORE, ORES.EMERALD_ORE, ORES.RUBY_ORE, ORES.SAPPHIRE_ORE), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base());
+            Arrays.asList(ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base());
 
     public static OreRockSet[] sets = new OreRockSet[] {
             STONE,
@@ -70,7 +68,7 @@ public class OreStoneSetRegistryME {
     };
 
     public record OreRockSet(Block coal_ore, Block copper_ore, Block tin_ore, Block lead_ore, Block silver_ore, Block gold_ore, Block iron_ore, 
-                             Block mithril_ore, Block adamant_ore, Block emerald_ore, Block ruby_ore, Block sapphire_ore, Block origin) {
+                             Block mithril_ore, Block origin) {
     }
 
     public static OreRockSet registerOreSet(String rockName, float strength_mult, List<ORES> ores, Block origin) {
@@ -83,10 +81,6 @@ public class OreStoneSetRegistryME {
         Block gold_ore = null;
         Block iron_ore = null;
         Block mithril_ore = null;
-        Block adamant_ore = null;
-        Block emerald_ore = null;
-        Block ruby_ore = null;
-        Block sapphire_ore = null;
 
         if(ores.contains(ORES.COAL_ORE)){
             coal_ore = NatureBlockRegistryME.registerBlock(
@@ -130,38 +124,13 @@ public class OreStoneSetRegistryME {
                             STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
         }
 
-        if(ores.contains(ORES.EMERALD_ORE)) {
-            emerald_ore = NatureBlockRegistryME.registerBlock(
-                    rockName + "emerald_ore", Block::new, AbstractBlock.Settings.copy(Blocks.EMERALD_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
-        }
-
-        if(ores.contains(ORES.RUBY_ORE)) {
-            ruby_ore = NatureBlockRegistryME.registerBlock(
-                    rockName + "ruby_ore", Block::new, AbstractBlock.Settings.copy(Blocks.EMERALD_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
-        }
-
-        if(ores.contains(ORES.SAPPHIRE_ORE)) {
-            sapphire_ore = NatureBlockRegistryME.registerBlock(
-                    rockName + "sapphire_ore", Block::new, AbstractBlock.Settings.copy(Blocks.EMERALD_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
-        }
-
-        if(ores.contains(ORES.ADAMANT_ORE)) {
-            adamant_ore = NatureBlockRegistryME.registerBlock(
-                    rockName + "adamant_ore", Block::new, AbstractBlock.Settings.copy(Blocks.DIAMOND_ORE).strength(
-                            STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
-        }
-
         if(ores.contains(ORES.MITHRIL_ORE)) {
             mithril_ore = NatureBlockRegistryME.registerBlock(
                     rockName + "mithril_ore", Block::new, AbstractBlock.Settings.copy(Blocks.DIAMOND_ORE).strength(
                             STONE_STRENGTH * strength_mult, 3*strength_mult).requiresTool(), true);
         }
 
-        return new OreRockSet(coal_ore, copper_ore, tin_ore, lead_ore, silver_ore, gold_ore, iron_ore, mithril_ore,
-                adamant_ore, emerald_ore, ruby_ore, sapphire_ore, origin);
+        return new OreRockSet(coal_ore, copper_ore, tin_ore, lead_ore, silver_ore, gold_ore, iron_ore, mithril_ore, origin);
     }
 
     public static void registerModBlockSets() {
@@ -177,10 +146,6 @@ public class OreStoneSetRegistryME {
         GOLD_ORE,
         IRON_ORE,
         MITHRIL_ORE,
-        ADAMANT_ORE,
-        EMERALD_ORE,
-        RUBY_ORE,
-        SAPPHIRE_ORE,
         ;
     }
 }

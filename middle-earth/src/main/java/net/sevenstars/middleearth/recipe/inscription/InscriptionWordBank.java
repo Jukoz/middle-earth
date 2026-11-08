@@ -28,21 +28,23 @@ public class InscriptionWordBank {
         wordBank.put(null, "draw");
         wordBank.put(null, "point");
 
-        wordBank.put(ResourceItemsME.RUBY, "fierce");
-        wordBank.put(ResourceItemsME.RUBY, "forceful");
-        wordBank.put(ResourceItemsME.RUBY, "noiseless");
-        wordBank.put(ResourceItemsME.RUBY, "bane");
+        // Gems take their words from their gem type (see InscriptionTableScreenHandler#catalystWords); these
+        // raw gem entries stay so every word keeps its translation.
+        wordBank.put(ResourceItemsME.RAW_RUBY, "fierce");
+        wordBank.put(ResourceItemsME.RAW_RUBY, "forceful");
+        wordBank.put(ResourceItemsME.RAW_RUBY, "noiseless");
+        wordBank.put(ResourceItemsME.RAW_RUBY, "bane");
 
-        wordBank.put(ResourceItemsME.SAPPHIRE, "pierce");
-        wordBank.put(ResourceItemsME.SAPPHIRE, "flame");
-        wordBank.put(ResourceItemsME.SAPPHIRE, "sturdy");
+        wordBank.put(ResourceItemsME.RAW_SAPPHIRE, "pierce");
+        wordBank.put(ResourceItemsME.RAW_SAPPHIRE, "flame");
+        wordBank.put(ResourceItemsME.RAW_SAPPHIRE, "sturdy");
 
         wordBank.put(Items.EMERALD, "broad");
         wordBank.put(Items.EMERALD, "careful");
         wordBank.put(Items.EMERALD, "long");
         wordBank.put(Items.EMERALD, "gifted");
 
-        wordBank.put(ResourceItemsME.ADAMANT, "swift");
+        wordBank.put(ResourceItemsME.RAW_ADAMANT, "swift");
 
         TranslationEntries.inscriptionEntries.addAll(wordBank.values());
     }

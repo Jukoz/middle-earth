@@ -1,0 +1,73 @@
+{
+  "variants": {
+    "stone=stone": {
+      "model": "minecraft:block/stone"
+    },
+    "stone=deepslate": {
+      "model": "minecraft:block/deepslate"
+    },
+    "stone=granite": {
+      "model": "minecraft:block/granite"
+    },
+    "stone=andesite": {
+      "model": "minecraft:block/andesite"
+    },
+    "stone=diorite": {
+      "model": "minecraft:block/diorite"
+    },
+    "stone=calcite": {
+      "model": "minecraft:block/calcite"
+    },
+    "stone=tuff": {
+      "model": "minecraft:block/tuff"
+    },
+    "stone=medgon": {
+      "model": "middle-earth:block/medgon"
+    },
+    "stone=nurgon": {
+      "model": "middle-earth:block/nurgon"
+    },
+    "stone=ashenstone": {
+      "model": "middle-earth:block/ashenstone"
+    },
+    "stone=limestone": {
+      "model": "middle-earth:block/limestone"
+    },
+    "stone=chalk": {
+      "model": "middle-earth:block/chalk"
+    },
+    "stone=travertine": {
+      "model": "middle-earth:block/travertine"
+    },
+    "stone=gabbro": {
+      "model": "middle-earth:block/gabbro"
+    },
+    "stone=slate": {
+      "model": "middle-earth:block/slate"
+    },
+    "stone=khagalaban": {
+      "model": "middle-earth:block/khagalaban"
+    },
+    "stone=ironstone": {
+      "model": "middle-earth:block/ironstone"
+    },
+    "stone=hematite": {
+      "model": "middle-earth:block/hematite"
+    },
+    "stone=galonn": {
+      "model": "middle-earth:block/galonn"
+    },
+    "stone=izheraban": {
+      "model": "middle-earth:block/izheraban"
+    },
+    "stone=dolomite": {
+      "model": "middle-earth:block/dolomite"
+    },
+    "stone=green_tuff": {
+      "model": "middle-earth:block/green_tuff"
+    },
+    "stone=blue_tuff": {
+      "model": "middle-earth:block/blue_tuff"
+    }
+  }
+}
