@@ -2597,7 +2597,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.RESIN_CLUMP))
                         .offerTo(exporter);
 
-                //createDyeableItemRecipe(exporter, DecorativeBlockRegistryME.SACK, Items.WHITE_DYE, DecorativeBlockRegistryME.WHITE_SACK);
+                TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
+                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                Ingredient.ofItem(Items.WHITE_DYE),
+                                DecorativeItemsME.WHITE_SACK)
+                        .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
+                        .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                         .pattern("VSV")
