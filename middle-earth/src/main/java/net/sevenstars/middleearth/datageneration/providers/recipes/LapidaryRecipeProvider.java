@@ -52,6 +52,20 @@ public class LapidaryRecipeProvider extends FabricRecipeProvider {
 
             @Override
             public void generate() {
+                // The Lapidary Table: a lens held between fine gold stands, over a grindstone turned by a crank, on a wooden table.
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.DECORATIONS, net.sevenstars.middleearth.item.DecorativeItemsME.LAPIDARY_TABLE)
+                    .pattern("nln")
+                    .pattern("gwc")
+                    .pattern("ppp")
+                    .input('n', net.minecraft.item.Items.GOLD_NUGGET)
+                    .input('l', net.minecraft.item.Items.GLASS_PANE)
+                    .input('g', metal(net.sevenstars.middleearth.item.ResourceItemsME.ROD, "gold"))
+                    .input('w', net.minecraft.item.Items.GRINDSTONE)
+                    .input('c', metal(net.sevenstars.middleearth.item.ResourceItemsME.ROD, "steel"))
+                    .input('p', ingredientFromTag(net.minecraft.registry.tag.ItemTags.PLANKS))
+                    .criterion(hasItem(net.minecraft.item.Items.GRINDSTONE), conditionsFromItem(net.minecraft.item.Items.GRINDSTONE))
+                    .offerTo(exporter);
+
                 for (LapidaryTools tools : LapidaryTools.values()) {
                     for (LapidaryRecipeLayouts.Layout layout : LapidaryRecipeLayouts.all(tools)) {
                         ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.MISC,
