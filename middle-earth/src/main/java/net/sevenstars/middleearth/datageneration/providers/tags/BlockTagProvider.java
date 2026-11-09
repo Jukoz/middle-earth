@@ -353,6 +353,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(DecorativeBlockRegistryME.WALL_LEAD_LANTERN);
         mineablePickaxe.add(DecorativeBlockRegistryME.CRYSTAL_LAMP);
         mineablePickaxe.add(DecorativeBlockRegistryME.WALL_CRYSTAL_LAMP);
+        mineablePickaxe.add(DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP);
+        mineablePickaxe.add(DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP);
         mineablePickaxe.add(DecorativeBlockRegistryME.SILVER_LANTERN);
         mineablePickaxe.add(DecorativeBlockRegistryME.WALL_SILVER_LANTERN);
         mineablePickaxe.add(DecorativeBlockRegistryME.ELVEN_LANTERN);

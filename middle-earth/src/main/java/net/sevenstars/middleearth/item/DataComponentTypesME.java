@@ -108,6 +108,11 @@ public class DataComponentTypesME {
             .codec(com.mojang.serialization.Codec.STRING.listOf())
             .packetCodec(net.minecraft.network.codec.PacketCodecs.STRING.collect(net.minecraft.network.codec.PacketCodecs.toList())));
 
+    /** Whether a lamp or lantern carried in the off hand is lit (lanterns: lit unless set). */
+    public static final ComponentType<Boolean> LAMP_ON = register("lamp_on", builder -> builder
+            .codec(com.mojang.serialization.Codec.BOOL)
+            .packetCodec(net.minecraft.network.codec.PacketCodecs.BOOLEAN));
+
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.DATA_COMPONENT_TYPE, id));
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), ((ComponentType.Builder)builderOperator.apply(ComponentType.builder())).build());

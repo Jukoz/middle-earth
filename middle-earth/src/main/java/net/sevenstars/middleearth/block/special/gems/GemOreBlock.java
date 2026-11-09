@@ -8,9 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ExperienceDroppingBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +19,7 @@ import net.minecraft.world.World;
 
 /**
  * A gem hidden in the rock. It looks exactly like the stone named by {@link #STONE} and mines at that
- * stone's speed; the only tell is a glint of dust in the gem's colour on its open faces.
+ * stone's speed; the only tell is a glint of sparks in the gem's colour on its open faces.
  * Drops its raw gem (loot table, Fortune applies; Silk Touch also gives the raw gem) and 3-7 XP.
  * Needs an iron pickaxe or better (block tags).
  */
@@ -31,10 +28,17 @@ public class GemOreBlock extends ExperienceDroppingBlock {
     public static final EnumProperty<GemKind> GEM = EnumProperty.of("gem", GemKind.class);
     public static final EnumProperty<GemOreStone> STONE = EnumProperty.of("stone", GemOreStone.class);
 
-    /** Glint tuning: dust size (redstone ore uses 1.0), coloured specks per open face per call, white spark odds. */
-    private static final float GLINT_SIZE = 1.2F;
-    private static final int SPECKS_PER_FACE = 2;
-    private static final int SPARK_ONE_IN = 2;
+    /**
+     * Glint tuning. Sparks on an open face come with the light falling on it (none in pitch dark, most in full
+     * light: about one a second) and are as bright as that light, up to a lantern's (15). A lamp's beam on the
+     * gem adds a quarter again. (The client gives each block a display tick about every two seconds; a beam
+     * that lands on a gem gleams it every tick.)
+     */
+    private static final float SPARKS_PER_TICK_AT_FULL_LIGHT = 2.0F;
+    private static final float GLEAM_SHARE = 0.25F;
+    private static final float DISPLAY_TICKS_PER_SECOND = 0.46F;
+    private static final float FULL_LIGHT = 15;
+    private static final float DIMMEST = 0.2F;
 
     public GemOreBlock(Settings settings) {
         super(UniformIntProvider.create(3, 7), settings);
@@ -65,31 +69,43 @@ public class GemOreBlock extends ExperienceDroppingBlock {
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        // The client already calls this only every few seconds per nearby block, so every call glints.
+        glint(world, pos, state, random, SPARKS_PER_TICK_AT_FULL_LIGHT);
+    }
+
+    /** A lamp's beam falling on the gem (called on the client each tick it does): a few sparks more. */
+    public static void gleam(World world, BlockPos pos, BlockState state, Random random) {
+        glint(world, pos, state, random, SPARKS_PER_TICK_AT_FULL_LIGHT * GLEAM_SHARE * DISPLAY_TICKS_PER_SECOND / 20);
+    }
+
+    /**
+     * Sparks in the gem's colour just off every open face (placed as redstone ore's are): on average
+     * {@code atFullLight} a face in full light, fewer and dimmer as the light there falls.
+     */
+    private static void glint(World world, BlockPos pos, BlockState state, Random random, float atFullLight) {
+        if (!world.isClient) {
+            return;
+        }
         int rgb = GemTypeRegistry.get(world.getRegistryManager(), state.get(GEM).key())
             .map(gemType -> gemType.color().getRgb())
             .orElse(0xFFFFFF);
-        DustParticleEffect glint = new DustParticleEffect(rgb, GLINT_SIZE);
-        // Every open face gets a couple of coloured specks, and now and then a white spark, just off the
-        // surface (same placement as redstone ore).
         for (Direction face : Direction.values()) {
-            if (world.getBlockState(pos.offset(face)).isOpaqueFullCube()) {
+            BlockPos open = pos.offset(face);
+            if (world.getBlockState(open).isOpaqueFullCube()) {
                 continue;
             }
-            for (int i = 0; i < SPECKS_PER_FACE; i++) {
-                spawnOnFace(world, pos, face, random, glint);
-            }
-            if (random.nextInt(SPARK_ONE_IN) == 0) {
-                spawnOnFace(world, pos, face, random, ParticleTypes.ELECTRIC_SPARK);
+            float light = Math.min(world.getLightLevel(open), FULL_LIGHT) / FULL_LIGHT;
+            float expected = atFullLight * light;
+            int sparks = (int) expected + (random.nextFloat() < expected - (int) expected ? 1 : 0);
+            float brightness = DIMMEST + (1 - DIMMEST) * light;
+            int dimmed = ((int) (((rgb >> 16) & 0xFF) * brightness) << 16) | ((int) (((rgb >> 8) & 0xFF) * brightness) << 8)
+                | (int) ((rgb & 0xFF) * brightness);
+            for (int i = 0; i < sparks; i++) {
+                Direction.Axis axis = face.getAxis();
+                double x = axis == Direction.Axis.X ? 0.5 + 0.5625 * face.getOffsetX() : random.nextFloat();
+                double y = axis == Direction.Axis.Y ? 0.5 + 0.5625 * face.getOffsetY() : random.nextFloat();
+                double z = axis == Direction.Axis.Z ? 0.5 + 0.5625 * face.getOffsetZ() : random.nextFloat();
+                net.sevenstars.middleearth.client.particle.GemSparks.spark(pos.getX() + x, pos.getY() + y, pos.getZ() + z, dimmed);
             }
         }
-    }
-
-    private static void spawnOnFace(World world, BlockPos pos, Direction face, Random random, ParticleEffect particle) {
-        Direction.Axis axis = face.getAxis();
-        double x = axis == Direction.Axis.X ? 0.5 + 0.5625 * face.getOffsetX() : random.nextFloat();
-        double y = axis == Direction.Axis.Y ? 0.5 + 0.5625 * face.getOffsetY() : random.nextFloat();
-        double z = axis == Direction.Axis.Z ? 0.5 + 0.5625 * face.getOffsetZ() : random.nextFloat();
-        world.addParticleClient(particle, pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0.0, 0.0, 0.0);
     }
 }

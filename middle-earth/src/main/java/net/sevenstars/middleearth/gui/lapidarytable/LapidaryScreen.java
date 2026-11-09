@@ -79,7 +79,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final Identifier FLAME = Identifier.ofVanilla("textures/particle/flame.png");
     private static final Identifier SMOKE = Identifier.ofVanilla("textures/particle/generic_0.png");
     private static final Identifier GLINT = Identifier.ofVanilla("textures/particle/glint.png");
-    private static final Identifier XP_ORB = Identifier.ofVanilla("textures/entity/experience_orb.png");
 
     private static final int WIDTH = 248;
     private static final int HEIGHT = 260;
@@ -201,6 +200,11 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private long aimChanged;
     private long lastFrame;
     private float flameSpawn;
+    /** Where the light met the ring last frame (relative to the board centre), for its golden motes. */
+    private boolean beamHit;
+    private int beamHitX;
+    private int beamHitY;
+    private float beamMoteSpawn;
     private float smokeSpawn;
     /** How much the whole screen is shrunk to fit the window (1 = full size); see {@link #init()}. */
     private float fit = 1.0F;
@@ -275,7 +279,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         for (int rune = 0; rune < LapidaryScreenHandler.MAX_RUNES; rune++) {
             if ((locked & ~lastLocked & (1 << rune)) != 0) {
                 lockFlash[rune] = Util.getMeasuringTimeMs();
-                burst(runeOffset(rune), 10, 0xFFFFD060);
+                burst(runeOffset(rune), 10, 0xFFBFE6FF);
             }
         }
         lastLocked = locked;
@@ -1111,6 +1115,9 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         int lx = (int) Math.round(cx + Math.cos(lampAngle) * RefractionReading.LAMP_RING * SCALE);
         int ly = (int) Math.round(cy - Math.sin(lampAngle) * RefractionReading.LAMP_RING * SCALE);
         drawCandle(context, lx, ly, time);
+        if (studying() && (draggingLamp || Math.hypot(mouseX - lx, mouseY - ly) <= 9)) {
+            drawCandleHover(context, lx, ly, time);
+        }
         spawnFlame(lx - cx, ly - cy);
         drawParticles(context, cx, cy);
 
@@ -1154,9 +1161,31 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         if (beam.escaped()) {
             int ex = (int) Math.round(cx + points[points.length - 2] * SCALE);
             int ey = (int) Math.round(cy - points[points.length - 1] * SCALE);
-            int size = 6 + (int) (MathHelper.sin(time * 0.7F) * 1.5F + 1.5F);
-            drawSprite(context, GLINT, ex - size / 2, ey - size / 2, size, 8, 0xE0FFE8A0);
+            drawBeamSpark(context, ex, ey, time);
+            beamHit = true;
+            beamHitX = ex - cx;
+            beamHitY = ey - cy;
         }
+    }
+
+    /**
+     * Where the light meets the ring: a small golden star that breathes, with a faint warm glow behind it.
+     * Kept small so the rune it lights stays readable.
+     */
+    private static void drawBeamSpark(DrawContext context, int ex, int ey, float time) {
+        float breathe = MathHelper.sin(time * 0.7F) * 0.5F + 0.5F;
+        fillCircle(context, ex, ey, 4 + Math.round(breathe), 0x1CFFC94A);
+        fillCircle(context, ex, ey, 2, 0x38FFD870);
+        int arm = 2 + Math.round(breathe);
+        int gold = 0xD0FFC94A;
+        context.fill(ex - arm, ey, ex + arm + 1, ey + 1, gold);
+        context.fill(ex, ey - arm, ex + 1, ey + arm + 1, gold);
+        int diagonal = 0x80FFD27A;
+        context.fill(ex - 1, ey - 1, ex, ey, diagonal);
+        context.fill(ex + 1, ey - 1, ex + 2, ey, diagonal);
+        context.fill(ex - 1, ey + 1, ex, ey + 2, diagonal);
+        context.fill(ex + 1, ey + 1, ex + 2, ey + 2, diagonal);
+        context.fill(ex, ey, ex + 1, ey + 1, 0xFFFFF6D0);
     }
 
     /** The runes engraved all round the brass rim, one per slot; always there, lit or not. */
@@ -1167,29 +1196,78 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
+    /** The light blue the inlaid runes glow with when the light reaches them, and the hovered candle's halo. */
+    private static final int COLOR_RUNE_GLOW = 0x8FD4FF;
+
     /**
-     * A rune the study needs lit: glowing amber so it stands out on the rim, brighter while the light is on it,
-     * gold with a ring once locked.
+     * A rune the study needs lit: its inlaid script glows a soft light blue so it stands out on the rim. The glow
+     * grows strong and pulses while the light is on it, and stays strongest, steady, inside a gold ring once locked.
      */
     private void drawRune(DrawContext context, int rune, RefractionReading.Beam beam, float pulse, long now) {
         int[] pos = runePosition(rune);
         boolean locked = handler.isLocked(rune);
         boolean lit = beam != null && RefractionReading.lights(beam.exitDegrees(), handler.getRune(rune));
+        String[] glyph = glyphFor(handler.getRune(rune));
         if (locked) {
-            fillCircle(context, pos[0], pos[1], 6, 0x60FFB000);
+            fillCircle(context, pos[0], pos[1], 6, 0x502A6FB0);
             drawCircle(context, pos[0], pos[1], 6.5, 0xD0FFC94A);
+            drawGlyphGlow(context, glyph, pos[0], pos[1], (0x48 << 24) | COLOR_RUNE_GLOW);
         } else if (lit) {
-            fillCircle(context, pos[0], pos[1], 6, ((int) (90 + pulse * 90) << 24) | 0xFFF4C8);
+            fillCircle(context, pos[0], pos[1], 6, ((int) (50 + pulse * 60) << 24) | 0x6FB8F0);
+            drawGlyphGlow(context, glyph, pos[0], pos[1], ((int) (40 + pulse * 40) << 24) | COLOR_RUNE_GLOW);
         } else {
-            fillCircle(context, pos[0], pos[1], 5, ((int) (35 + pulse * 45) << 24) | 0xFF9A2E);
+            fillCircle(context, pos[0], pos[1], 5, ((int) (25 + pulse * 30) << 24) | 0x3E7FC0);
+            drawGlyphGlow(context, glyph, pos[0], pos[1], ((int) (12 + pulse * 14) << 24) | COLOR_RUNE_GLOW);
         }
         float flash = (now - lockFlash[rune]) / 500.0F;
         if (lockFlash[rune] > 0 && flash < 1) {
-            drawCircle(context, pos[0], pos[1], 5 + flash * 9, ((int) ((1 - flash) * 255) << 24) | 0xFFE080);
+            drawCircle(context, pos[0], pos[1], 5 + flash * 9, ((int) ((1 - flash) * 255) << 24) | 0xBFE6FF);
         }
-        int color = locked ? 0xFFFFD45A : lit ? 0xFF000000 | lerpColor(0xFFF2B0, 0xFFFFFF, pulse)
-            : 0xFF000000 | lerpColor(0xE07A1E, 0xFFB347, pulse);
-        drawGlyph(context, glyphFor(handler.getRune(rune)), pos[0], pos[1], color, 0x80000000);
+        int color = locked ? 0xFF000000 | lerpColor(COLOR_RUNE_GLOW, 0xFFFFFF, 0.45F)
+            : lit ? 0xFF000000 | lerpColor(COLOR_RUNE_GLOW, 0xFFFFFF, 0.3F + 0.6F * pulse)
+            : 0xFF000000 | lerpColor(0x4A86C0, COLOR_RUNE_GLOW, 0.35F + 0.4F * pulse);
+        drawGlyph(context, glyph, pos[0], pos[1], color, 0x80000000);
+    }
+
+    /** A soft glow round a glyph's strokes: each stroke pixel lights the 3 x 3 around it (overlaps add up). */
+    private static void drawGlyphGlow(DrawContext context, String[] glyph, int cx, int cy, int color) {
+        for (int row = 0; row < glyph.length; row++) {
+            for (int col = 0; col < glyph[row].length(); col++) {
+                if (glyph[row].charAt(col) == '#') {
+                    int gx = cx - 2 + col;
+                    int gy = cy - 3 + row;
+                    context.fill(gx - 1, gy - 1, gx + 2, gy + 2, color);
+                }
+            }
+        }
+    }
+
+    /**
+     * The candle while it can be picked up (hovered or dragged during a study): a light blue outline that
+     * breathes, with sparkles twinkling round it.
+     */
+    private static void drawCandleHover(DrawContext context, int fx, int fy, float time) {
+        float breathe = 0.5F + 0.5F * MathHelper.sin(time * 0.35F);
+        drawCircle(context, fx, fy, 9.5, ((int) (150 + breathe * 90) << 24) | COLOR_RUNE_GLOW);
+        drawCircle(context, fx, fy, 10.5, ((int) (50 + breathe * 50) << 24) | COLOR_RUNE_GLOW);
+        for (int k = 0; k < 5; k++) {
+            // Each sparkle drifts slowly round the outline and twinkles on its own beat.
+            double angle = time * 0.05 + k * MathHelper.TAU / 5;
+            float twinkle = MathHelper.sin(time * 0.5F + k * 2.1F);
+            if (twinkle < 0.2F) {
+                continue;
+            }
+            int sx = (int) Math.round(fx + Math.cos(angle) * 10);
+            int sy = (int) Math.round(fy - Math.sin(angle) * 10);
+            int alpha = (int) (twinkle * 255) << 24;
+            context.fill(sx, sy, sx + 1, sy + 1, alpha | 0xFFFFFF);
+            if (twinkle > 0.7F) {
+                context.fill(sx - 1, sy, sx, sy + 1, (alpha >>> 1 & 0xFF000000) | COLOR_RUNE_GLOW);
+                context.fill(sx + 1, sy, sx + 2, sy + 1, (alpha >>> 1 & 0xFF000000) | COLOR_RUNE_GLOW);
+                context.fill(sx, sy - 1, sx + 1, sy, (alpha >>> 1 & 0xFF000000) | COLOR_RUNE_GLOW);
+                context.fill(sx, sy + 1, sx + 1, sy + 2, (alpha >>> 1 & 0xFF000000) | COLOR_RUNE_GLOW);
+            }
+        }
     }
 
     private static String[] glyphFor(int degrees) {
@@ -1317,6 +1395,27 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
+    /** A few golden motes drifting off where the light meets the ring: small, slow and short-lived. */
+    private void spawnBeamMotes(float seconds) {
+        beamMoteSpawn += seconds * 7;
+        while (beamMoteSpawn >= 1) {
+            beamMoteSpawn -= 1;
+            Particle p = new Particle();
+            float angle = random.nextFloat() * MathHelper.TAU;
+            float speed = 3 + random.nextFloat() * 5;
+            p.px = beamHitX + random.nextFloat() * 2 - 1;
+            p.py = beamHitY + random.nextFloat() * 2 - 1;
+            p.vx = MathHelper.cos(angle) * speed;
+            p.vy = MathHelper.sin(angle) * speed;
+            p.gravity = -4;
+            p.life = 0.5F + random.nextFloat() * 0.4F;
+            p.size0 = 1;
+            p.size1 = 1;
+            p.color = random.nextBoolean() ? 0xE0FFD25A : 0xC0FFF0B0;
+            particles.add(p);
+        }
+    }
+
     /** Sparks flying out from a point, e.g. a rune as it locks. */
     private void burst(int[] at, int count, int color) {
         for (int i = 0; i < count; i++) {
@@ -1339,6 +1438,10 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private void updateParticles(float seconds) {
         flameSpawn += seconds * 28;
         smokeSpawn += seconds * 3;
+        if (beamHit) {
+            spawnBeamMotes(seconds);
+            beamHit = false;
+        }
         Iterator<Particle> it = particles.iterator();
         while (it.hasNext()) {
             Particle p = it.next();
@@ -1441,17 +1544,14 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         boolean creative = client.player.isCreative();
         int cost = setup.band().xpLevels();
         boolean affordable = creative || client.player.experienceLevel >= cost;
-        // Cost, like the enchanting table: an experience orb and the levels, then the paper.
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, XP_ORB, px - 1, line - 2, 0, 0, 11, 11, 16, 16, 64, 64,
-            0xFF000000 | (affordable ? 0x80FF20 : 0xB04040));
-        context.drawText(textRenderer, String.valueOf(cost), px + 12, line, affordable ? INK_GOOD : INK_BAD, false);
-        boolean paper = handler.hasPaper();
+        // Cost: the levels a study takes, in ink, shrunk to fit the parchment if need be.
+        Text costText = Text.translatable(cost == 1 ? "gui.middle-earth.lapidary.xp_cost_one" : "gui.middle-earth.lapidary.xp_cost", cost);
+        float costScale = Math.min(1F, 72F / textRenderer.getWidth(costText));
         context.getMatrices().pushMatrix();
-        context.getMatrices().translate(px + 30, line - 2);
-        context.getMatrices().scale(0.6875F);
-        context.drawItem(new ItemStack(Items.PAPER), 0, 0);
+        context.getMatrices().translate(px, line + (1 - costScale) * 4);
+        context.getMatrices().scale(costScale);
+        context.drawText(textRenderer, costText, 0, 0, affordable ? INK_GOOD : INK_BAD, false);
         context.getMatrices().popMatrix();
-        context.drawText(textRenderer, "1", px + 43, line, paper ? INK_GOOD : INK_BAD, false);
         line += 13;
 
         // Rune pips: hollow, lit by the light, or locked.

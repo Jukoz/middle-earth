@@ -25,6 +25,10 @@ public class LivingEntityRenderStateMixin extends EntityRenderState implements A
         return offHandStack.copy();
     }
     @Override
+    public ItemStack getOffHandStackItself() {
+        return offHandStack;
+    }
+    @Override
     public boolean isRestrained() {
         return restrained;
     }

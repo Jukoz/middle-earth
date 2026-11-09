@@ -36,8 +36,15 @@ public final class Faceting {
     public static final int BARE_BENCH_CAP = GemQuality.EXCEPTIONAL.maxValue();
 
     private static final int[] FACETS_BY_TIER = {3, 4, 5, 6, 8};
-    /** Half the zone's width, as a share of the bar, per tier. */
-    private static final double[] ZONE_HALF_WIDTH = {0.17, 0.15, 0.14, 0.135, 0.13};
+    /**
+     * The smallest and largest the zone gets, as half its width in shares of the bar, per tier. From tier 2 up the
+     * zone keeps changing size between the two, and both shrink every tier; tier 1 (cutting a raw gem) holds
+     * steady. Tiers 4 and 5 are the user's tuned anchors; tiers 2 and 3 continue their steps.
+     */
+    private static final double[] ZONE_MAX_HALF = {0.17, 0.145, 0.13, 0.115, 0.10};
+    private static final double[] ZONE_MIN_HALF = {0.17, 0.066, 0.059, 0.052, 0.045};
+    /** How much of the zone's travel is off-beat wandering (less predictable), per tier. */
+    private static final double[] WANDER = {0.10, 0.14, 0.18, 0.24, 0.30};
     /** How fast the zone travels, in bars per second, per tier. */
     private static final double[] ZONE_SPEED = {0.16, 0.20, 0.23, 0.25, 0.27};
     /** How much easier the study grade makes the bar: Rough Notes, Careful, Thorough, Masterful. */
@@ -106,22 +113,30 @@ public final class Faceting {
     public static Zone zone(GemCut cut, int facet, @Nullable StudyGrade grade, double seconds) {
         int tier = cut.tier() - 1;
         double ease = grade == null ? 0 : GRADE_EASE[grade.ordinal()];
-        double halfWidth = ZONE_HALF_WIDTH[tier] * (1 + ease);
+        double maxHalf = ZONE_MAX_HALF[tier] * (1 + ease);
+        double minHalf = ZONE_MIN_HALF[tier] * (1 + ease);
+        double halfWidth = maxHalf;
         double speed = ZONE_SPEED[tier] * (1 - ease);
         // A fixed phase per cut and facet, so each facet starts somewhere different.
         double phase = (cut.ordinal() * 7 + facet * 13) % 23 / 23.0 * Math.PI * 2;
         double amplitude = 0.5 - halfWidth - 0.02;
         // A sine of amplitude A at angular speed w averages 2Aw/pi bars per second.
         double w = speed * Math.PI / (2 * amplitude);
-        double center = switch (pattern(cut, facet)) {
-            case DRIFT -> 0.5 + amplitude * Math.sin(w * seconds + phase);
-            case JITTER -> 0.5 + amplitude * 0.7 * Math.sin(w * 0.8 * seconds + phase)
-                + amplitude * 0.3 * Math.sin(w * 2.9 * seconds + phase * 2);
-            case PULSE -> 0.5 + amplitude * Math.sin(w * 0.7 * seconds + phase);
+        double sweep = switch (pattern(cut, facet)) {
+            case DRIFT -> Math.sin(w * seconds + phase);
+            case JITTER -> 0.7 * Math.sin(w * 0.8 * seconds + phase) + 0.3 * Math.sin(w * 2.9 * seconds + phase * 2);
+            case PULSE -> Math.sin(w * 0.7 * seconds + phase);
         };
-        if (pattern(cut, facet) == Pattern.PULSE) {
-            halfWidth *= 0.8 + 0.35 * Math.sin(w * 1.9 * seconds + phase);
-        }
+        // Off-beat wandering: two waves at speeds that never line up with the sweep (or each other), so the zone
+        // speeds up, slows and turns back at less regular moments. A larger share at higher tiers.
+        double wander = 0.6 * Math.sin(w * 1.73 * seconds + phase * 3 + 1.1) + 0.4 * Math.sin(w * 3.37 * seconds + phase * 5 + 2.3);
+        double center = 0.5 + amplitude * ((1 - WANDER[tier]) * sweep + WANDER[tier] * wander);
+        // The zone's size swings between its tier's smallest and largest: a steady breath on PULSE facets, an
+        // uneven one (two waves out of step) on the others.
+        double breath = pattern(cut, facet) == Pattern.PULSE
+            ? 0.5 + 0.5 * Math.sin(w * 1.9 * seconds + phase)
+            : 0.5 + 0.5 * (0.6 * Math.sin(w * 1.1 * seconds + phase * 2) + 0.4 * Math.sin(w * 2.3 * seconds + phase * 4 + 0.7));
+        halfWidth = minHalf + (maxHalf - minHalf) * MathHelper.clamp(breath, 0, 1);
         return new Zone(MathHelper.clamp(center, halfWidth, 1 - halfWidth), halfWidth);
     }
 

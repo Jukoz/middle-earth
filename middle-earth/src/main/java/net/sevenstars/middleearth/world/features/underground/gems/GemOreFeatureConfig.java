@@ -25,19 +25,19 @@ import net.minecraft.world.gen.feature.FeatureConfig;
  * @param targets host ore blocks whose clusters can hold the gem
  * @param minY    lowest y (inclusive)
  * @param maxY    highest y (inclusive)
- * @param oneIn      each host cluster in the band has a 1-in-this chance to get gems
- * @param perCluster how many of that cluster's ore blocks become gems (capped at the cluster's size)
- * @param region     if set, the SURFACE biome above the chunk must be in this tag (underground is cave biomes)
+ * @param minPerChunk fewest gems a chunk gets (if it has host ore in the band to hide them by)
+ * @param maxPerChunk most gems a chunk gets; each chunk rolls between the two
+ * @param region      if set, the SURFACE biome above the chunk must be in this tag (underground is cave biomes)
  */
-public record GemOreFeatureConfig(GemKind gem, List<Block> targets, int minY, int maxY, int oneIn, int perCluster,
+public record GemOreFeatureConfig(GemKind gem, List<Block> targets, int minY, int maxY, int minPerChunk, int maxPerChunk,
                                   Optional<TagKey<Biome>> region) implements FeatureConfig {
     public static final Codec<GemOreFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         GemKind.CODEC.fieldOf("gem").forGetter(GemOreFeatureConfig::gem),
         Registries.BLOCK.getCodec().listOf().fieldOf("targets").forGetter(GemOreFeatureConfig::targets),
         Codec.INT.fieldOf("min_y").forGetter(GemOreFeatureConfig::minY),
         Codec.INT.fieldOf("max_y").forGetter(GemOreFeatureConfig::maxY),
-        Codec.intRange(1, 1000).fieldOf("one_in").forGetter(GemOreFeatureConfig::oneIn),
-        Codec.intRange(1, 64).optionalFieldOf("per_cluster", 1).forGetter(GemOreFeatureConfig::perCluster),
+        Codec.intRange(0, 64).fieldOf("min_per_chunk").forGetter(GemOreFeatureConfig::minPerChunk),
+        Codec.intRange(0, 64).fieldOf("max_per_chunk").forGetter(GemOreFeatureConfig::maxPerChunk),
         TagKey.codec(RegistryKeys.BIOME).optionalFieldOf("region").forGetter(GemOreFeatureConfig::region)
     ).apply(instance, GemOreFeatureConfig::new));
 }

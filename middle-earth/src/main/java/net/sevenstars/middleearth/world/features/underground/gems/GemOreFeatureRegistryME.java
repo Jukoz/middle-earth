@@ -28,11 +28,12 @@ import java.util.Optional;
 /**
  * Where gems hide: each gem lives in the rock beside the clusters of one kind of host ore, in a depth band, and the
  * racial gems only under their people's lands (surface biome tags data/middle-earth/tags/worldgen/biome/gem_region).
- * Numbers tuned in play to ~3-4 gems per chunk of a gem's region (adamant ~0.5). The features run in the
+ * Gems per chunk (when the chunk has the host ore): sapphire, ruby and beryl 2-3; the regional gems 1-2; adamant
+ * 0-1. The features run in the
  * underground decoration step of every cave biome, after the ores they look for.
  */
 public class GemOreFeatureRegistryME {
-    private record Placement(GemKind gem, int minY, int maxY, int oneIn, int perCluster, String region, List<String> hosts) {
+    private record Placement(GemKind gem, int minY, int maxY, int minPerChunk, int maxPerChunk, String region, List<String> hosts) {
     }
 
     private static final List<String> COAL_HOSTS = List.of("middle-earth:ashen_coal_ore", "minecraft:coal_ore",
@@ -43,17 +44,17 @@ public class GemOreFeatureRegistryME {
     private static final Map<String, Placement> PLACEMENTS = new LinkedHashMap<>();
 
     static {
-        add("adamant", new Placement(GemKind.ADAMANT, -64, -48, 7, 1, null, List.of("minecraft:magma_block")));
-        add("ruby", new Placement(GemKind.RUBY, -50, -25, 1, 3, null,
+        add("adamant", new Placement(GemKind.ADAMANT, -64, -48, 0, 1, null, List.of("minecraft:magma_block")));
+        add("ruby", new Placement(GemKind.RUBY, -50, -25, 2, 3, null,
                 List.of("middle-earth:nurgon_silver_ore", "middle-earth:medgon_silver_ore")));
-        add("sapphire", new Placement(GemKind.SAPPHIRE, -32, -1, 1, 2, null, List.of("middle-earth:nurgon_iron_ore")));
-        add("beryl", new Placement(GemKind.BERYL, -48, -16, 1, 2, null,
+        add("sapphire", new Placement(GemKind.SAPPHIRE, -32, -1, 2, 3, null, List.of("middle-earth:nurgon_iron_ore")));
+        add("beryl", new Placement(GemKind.BERYL, -48, -16, 2, 3, null,
                 List.of("middle-earth:nurgon_gold_ore", "middle-earth:medgon_gold_ore")));
-        add("hadorite", new Placement(GemKind.HADORITE, -24, -1, 1, 1, "men", List.of("middle-earth:nurgon_lead_ore")));
-        add("opal", new Placement(GemKind.OPAL, -64, -32, 1, 1, "dwarves", List.of("middle-earth:medgon_iron_ore")));
-        add("onyx", new Placement(GemKind.ONYX, 42, 59, 1, 1, "morgul", COAL_HOSTS));
+        add("hadorite", new Placement(GemKind.HADORITE, -24, -1, 1, 2, "men", List.of("middle-earth:nurgon_lead_ore")));
+        add("opal", new Placement(GemKind.OPAL, -64, -32, 1, 2, "dwarves", List.of("middle-earth:medgon_iron_ore")));
+        add("onyx", new Placement(GemKind.ONYX, 42, 59, 1, 2, "morgul", COAL_HOSTS));
         // The northern strongholds' plain coal is denser than Mordor's ashen coal, so they get a narrower band.
-        add("onyx_north", new Placement(GemKind.ONYX, 44, 57, 1, 1, "morgul_north", COAL_HOSTS));
+        add("onyx_north", new Placement(GemKind.ONYX, 44, 57, 1, 2, "morgul_north", COAL_HOSTS));
         add("moonstone", new Placement(GemKind.MOONSTONE, 40, 64, 1, 2, "elves", List.of("middle-earth:tin_ore",
                 "middle-earth:limestone_tin_ore", "middle-earth:calcite_tin_ore", "middle-earth:chalk_tin_ore",
                 "middle-earth:travertine_tin_ore", "middle-earth:slate_tin_ore", "middle-earth:gabbro_tin_ore",
@@ -82,7 +83,7 @@ public class GemOreFeatureRegistryME {
         PLACEMENTS.forEach((name, p) -> {
             List<Block> hosts = p.hosts().stream().map(id -> Registries.BLOCK.get(Identifier.of(id))).toList();
             ConfiguredFeatures.register(context, CONFIGURED.get(name), FeatureRegistryME.GEM_ORE,
-                    new GemOreFeatureConfig(p.gem(), hosts, p.minY(), p.maxY(), p.oneIn(), p.perCluster(),
+                    new GemOreFeatureConfig(p.gem(), hosts, p.minY(), p.maxY(), p.minPerChunk(), p.maxPerChunk(),
                             Optional.ofNullable(p.region()).map(GemOreFeatureRegistryME::regionTag)));
         });
     }

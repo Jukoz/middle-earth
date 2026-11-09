@@ -111,7 +111,12 @@ public class SimpleItemModel {
 
             add(ResourceItemsME.RED_AGATE_SHARD);
             add(ResourceItemsME.CITRINE_SHARD);
-            addAll(ResourceItemsME.LAPIDARY_ITEMS);
+            // The focused lamps show their 3D block model instead (assets/middle-earth/items).
+            for (net.minecraft.item.Item lapidary : ResourceItemsME.LAPIDARY_ITEMS) {
+                if (!(lapidary instanceof net.sevenstars.middleearth.block.special.beamlamp.BeamLampItem)) {
+                    add(lapidary);
+                }
+            }
             add(ResourceItemsME.QUARTZ_SHARD);
 
             add(ResourceItemsME.DIRTY_BONE);
@@ -132,8 +137,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
 
-            add(DecorativeBlockRegistryME.CANDLESTICK.asItem());
-            add(DecorativeBlockRegistryME.CERAMIC_LAMP.asItem());
             add(DecorativeBlockRegistryME.SMALL_BRONZE_CHANDELIER.asItem());
             add(DecorativeBlockRegistryME.BRONZE_CHANDELIER.asItem());
             add(DecorativeBlockRegistryME.SMALL_CHANDELIER.asItem());

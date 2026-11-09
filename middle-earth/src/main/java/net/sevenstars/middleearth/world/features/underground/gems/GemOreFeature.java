@@ -14,6 +14,7 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
@@ -25,10 +26,11 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 
 /**
  * Hides gems in the rock beside host ore clusters. Runs once per chunk after the ores (underground decoration
- * step): finds the host ore blocks in the chunk's y band, groups touching blocks into clusters, and gives each
- * cluster a 1-in-N chance to have one of the stone blocks touching it (face to face) turned into a gem ore
- * disguised as that very stone (or several, see {@link GemOreFeatureConfig#perCluster()}). The ore itself is
- * never replaced, so a gem is found by mining around the vein.
+ * step): finds the host ore blocks in the chunk's y band, groups touching blocks into clusters, rolls how many
+ * gems the chunk gets ({@link GemOreFeatureConfig#minPerChunk()} to {@link GemOreFeatureConfig#maxPerChunk()}),
+ * and gives that many clusters, one gem each (going round again if there are fewer clusters), a stone block
+ * touching the cluster face to face, turned into a gem ore disguised as that very stone. Only plain stone is
+ * taken: never a host ore or any other ore, so every gem sits against its vein and is found by mining round it.
  */
 public class GemOreFeature extends Feature<GemOreFeatureConfig> {
     public GemOreFeature() {
@@ -66,23 +68,36 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
             }
         }
 
-        boolean placed = false;
+        int wanted = config.minPerChunk() + random.nextInt(Math.max(1, config.maxPerChunk() - config.minPerChunk() + 1));
+        if (wanted <= 0 || hosts.isEmpty()) {
+            return false;
+        }
+        // The stone round each cluster, clusters in a random order; those with no stone to take are dropped.
+        List<List<Long>> rocks = new ArrayList<>();
         for (List<Long> cluster : clusters(hosts)) {
-            if (random.nextInt(config.oneIn()) != 0) {
-                continue;
-            }
-            // Turn up to perCluster distinct stone blocks touching this cluster into gems.
             List<Long> rock = rockAround(world, cluster, hosts, chunk);
-            for (int i = 0; i < config.perCluster() && !rock.isEmpty(); i++) {
+            if (!rock.isEmpty()) {
+                rocks.add(rock);
+            }
+        }
+        Util.shuffle(rocks, random);
+        int placed = 0;
+        while (placed < wanted && !rocks.isEmpty()) {
+            for (int i = 0; i < rocks.size() && placed < wanted; i++) {
+                List<Long> rock = rocks.get(i);
+                if (rock.isEmpty()) {
+                    continue;
+                }
                 BlockPos gemPos = BlockPos.fromLong(rock.remove(random.nextInt(rock.size())));
                 BlockState gemOre = NatureBlockRegistryME.GEM_ORE.getDefaultState()
                     .with(GemOreBlock.GEM, config.gem())
                     .with(GemOreBlock.STONE, GemOreStone.of(world.getBlockState(gemPos).getBlock()));
                 world.setBlockState(gemPos, gemOre, Block.NOTIFY_LISTENERS);
-                placed = true;
+                placed++;
             }
+            rocks.removeIf(List::isEmpty);
         }
-        return placed;
+        return placed > 0;
     }
 
     /** Region gems: check the surface biome in the middle of the chunk (underground is cave biomes). */

@@ -103,6 +103,8 @@ public class GemTranslations {
         put("gui.middle-earth.lapidary.study_again", "Study Again");
         put("gui.middle-earth.lapidary.cost", "%s levels");
         put("gui.middle-earth.lapidary.place_gem", "Place a raw gem to study it");
+        put("gui.middle-earth.lapidary.xp_cost", "XP Cost: %s Levels");
+        put("gui.middle-earth.lapidary.xp_cost_one", "XP Cost: %s Level");
         put("gui.middle-earth.lapidary.runes", "Runes %s/%s");
         put("gui.middle-earth.lapidary.moves", "Moves %s");
         put("gui.middle-earth.lapidary.turn_left", "Turn gem left");
@@ -164,22 +166,29 @@ public class GemTranslations {
         put("screen.middle-earth.gem_studies.arts", "Lapidary Arts");
         put("screen.middle-earth.gem_studies.arts.parts", "Parts:");
         put("screen.middle-earth.gem_studies.arts.missing", "This page is missing. Bind the lost writing on this art into your Player Book to keep its page here.");
-        put("screen.middle-earth.gem_studies.arts.masterwork_lapidary_tools", "Installed in a Lapidary Table's tools slot, it lets cuts reach Masterwork. Made at a crafting table from the four parts.");
-        put("screen.middle-earth.gem_studies.arts.relic_lapidary_tools", "Installed in a Lapidary Table's tools slot, it lets cuts reach Relic. Made at a crafting table from the four parts.");
-        put("screen.middle-earth.gem_studies.arts.refined_focusing_lenses", "Citrine, amethyst, red agate and quartz glass held on gold rods. Gem glass: the gem's crystal block ringed with four glowstone dust.");
-        put("screen.middle-earth.gem_studies.arts.enhanced_grinding_wheel", "Smooth Nurgon bound with khazad steel nuggets around a steel rod.");
-        put("screen.middle-earth.gem_studies.arts.refraction_lamp", "Edhel steel plates and rods around glass, with a silver plate to cast the light.");
-        put("screen.middle-earth.gem_studies.arts.water_pump", "Planks sealed with honeycomb, bronze rods and nuggets, and leather.");
-        put("screen.middle-earth.gem_studies.arts.exquisite_focusing_lenses", "Adamant, ruby, sapphire and beryl glass held on mithril rods.");
-        put("screen.middle-earth.gem_studies.arts.khazad_grinding_wheel", "Smooth Medgon and obsidian bound with mithril nuggets around a mithril rod.");
-        put("screen.middle-earth.gem_studies.arts.edhel_beam_lamp", "Mithril plates and rods around adamant glass.");
-        put("screen.middle-earth.gem_studies.arts.hobbit_work_pump", "Mallorn planks sealed with honeycomb, silver rods and nuggets, steel rods, leather and a slimeball.");
+        put("screen.middle-earth.gem_studies.arts.masterwork_lapidary_tools", "Set in a Lapidary Table, cuts can reach Masterwork.");
+        put("screen.middle-earth.gem_studies.arts.relic_lapidary_tools", "Set in a Lapidary Table, cuts can reach Relic.");
+        put("screen.middle-earth.gem_studies.arts.refined_focusing_lenses", "Gem glass held in loops of gold.");
+        put("screen.middle-earth.gem_studies.arts.enhanced_grinding_wheel", "Nurgon bound in khazad steel.");
+        put("screen.middle-earth.gem_studies.arts.citrine_bullseye_lamp", "A candle in gold, shining through citrine.");
+        put("screen.middle-earth.gem_studies.arts.water_pump", "Keeps the wheel wet and cool.");
+        put("screen.middle-earth.gem_studies.arts.exquisite_focusing_lenses", "Gem glass held in loops of mithril.");
+        put("screen.middle-earth.gem_studies.arts.khazad_grinding_wheel", "Medgon and obsidian bound in mithril.");
+        put("screen.middle-earth.gem_studies.arts.mirdain_beam_lamp", "Candlelight gathered through adamant.");
+        put("screen.middle-earth.gem_studies.arts.numenorean_water_pump", "Mithril workings sealed with fabric.");
         put("advancement.middle-earth.lapidary.tools.masterwork", "Lost Arts: Masterwork");
         put("advancement.middle-earth.lapidary.tools.masterwork.description", "Read the Lost Master's Study of Gems");
         put("advancement.middle-earth.lapidary.tools.relic", "Lost Arts: Relic");
         put("advancement.middle-earth.lapidary.tools.relic.description", "Read the Ancient Eregion Gemcraft Folio");
+        // The focused lamps as blocks, and as off-hand lamps.
+        put("block.middle-earth.citrine_bullseye_lamp", "Citrine Bullseye Lamp");
+        put("block.middle-earth.mirdain_beam_lamp", "Mirdain Beam Lamp");
+        put("block.middle-earth.beam_light", "Beam Light");
+        put("item.middle-earth.beam_lamp.lit", "Lit");
+        put("item.middle-earth.beam_lamp.shaded", "Shaded");
+        put("item.middle-earth.beam_lamp.hint", "Carry in your off hand and use it to light or shade it");
         // Lapidary arts item names: from their ids, with a few overrides.
-        java.util.Map<String, String> lapidaryNames = java.util.Map.of("hobbit_work_pump", "Hobbit-Work Pump", "masterwork_lapidary_scroll", "Lost Master's Study of Gems", "relic_lapidary_scroll", "Ancient Eregion Gemcraft Folio");
+        java.util.Map<String, String> lapidaryNames = java.util.Map.of("numenorean_water_pump", "Númenórean Water Pump", "masterwork_lapidary_scroll", "Lost Master's Study of Gems", "relic_lapidary_scroll", "Ancient Eregion Gemcraft Folio");
         for (net.minecraft.item.Item item : net.sevenstars.middleearth.item.ResourceItemsME.LAPIDARY_ITEMS) {
             String path = net.minecraft.registry.Registries.ITEM.getId(item).getPath();
             String name = lapidaryNames.get(path);

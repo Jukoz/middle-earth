@@ -131,6 +131,9 @@ public class MiddleEarth implements ModInitializer {
 		InscriptionWordBank.addWordsToBank();
 		net.sevenstars.middleearth.recipe.lapidary.GemKnowledge.register();
 		net.sevenstars.middleearth.recipe.lapidary.LapidaryKnowledge.register();
+		net.sevenstars.middleearth.light.HeldLights.registerDefaults();
+		net.sevenstars.middleearth.light.BeamLights.register();
+		net.sevenstars.middleearth.light.LanternToggling.register();
 
 		// Dynamic Data
         DynamicRegistriesME.register();

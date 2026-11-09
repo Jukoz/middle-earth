@@ -161,6 +161,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockEntityRegistryME.FORGE, ForgeEntityRenderer::new);
         // Lapidary Table: turns the crank and wheel while cutting.
         BlockEntityRendererFactories.register(BlockEntityRegistryME.LAPIDARY_TABLE, net.sevenstars.middleearth.client.renderer.block.LapidaryTableRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityRegistryME.BEAM_LAMP, net.sevenstars.middleearth.client.renderer.light.BeamLampRenderer::new);
+        net.sevenstars.middleearth.client.renderer.light.LampBeams.register();
+        net.sevenstars.middleearth.client.renderer.light.HeldFlames.register();
         // What the player knows about a gem type, on raw and cut gem tooltips.
         net.sevenstars.middleearth.client.renderer.GemKnowledgeTooltip.register();
         BlockEntityRendererFactories.register(BlockEntityRegistryME.LARCH_COFFER, LarchCofferEntityRenderer::new);
@@ -524,6 +527,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.WALL_TREATED_STEEL_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CRYSTAL_LAMP, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.WALL_CRYSTAL_LAMP, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.SILVER_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.WALL_SILVER_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ELVEN_LANTERN, BlockRenderLayer.CUTOUT);

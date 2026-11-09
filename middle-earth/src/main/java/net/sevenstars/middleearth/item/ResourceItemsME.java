@@ -166,12 +166,12 @@ public class ResourceItemsME {
 
     public static final Item REFINED_FOCUSING_LENSES = registerLapidary("refined_focusing_lenses", Item::new, part(Rarity.UNCOMMON));
     public static final Item ENHANCED_GRINDING_WHEEL = registerLapidary("enhanced_grinding_wheel", Item::new, part(Rarity.UNCOMMON));
-    public static final Item REFRACTION_LAMP = registerLapidary("refraction_lamp", Item::new, part(Rarity.UNCOMMON));
+    public static final Item CITRINE_BULLSEYE_LAMP = registerLamp("citrine_bullseye_lamp", net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP, Rarity.UNCOMMON);
     public static final Item WATER_PUMP = registerLapidary("water_pump", Item::new, part(Rarity.UNCOMMON));
     public static final Item EXQUISITE_FOCUSING_LENSES = registerLapidary("exquisite_focusing_lenses", Item::new, part(Rarity.RARE));
     public static final Item KHAZAD_GRINDING_WHEEL = registerLapidary("khazad_grinding_wheel", Item::new, part(Rarity.RARE));
-    public static final Item EDHEL_BEAM_LAMP = registerLapidary("edhel_beam_lamp", Item::new, part(Rarity.RARE));
-    public static final Item HOBBIT_WORK_PUMP = registerLapidary("hobbit_work_pump", Item::new, part(Rarity.RARE));
+    public static final Item MIRDAIN_BEAM_LAMP = registerLamp("mirdain_beam_lamp", net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP, Rarity.RARE);
+    public static final Item NUMENOREAN_WATER_PUMP = registerLapidary("numenorean_water_pump", Item::new, part(Rarity.RARE));
 
     public static final Item MASTERWORK_LAPIDARY_TOOLS = registerLapidary("masterwork_lapidary_tools",
             settings -> new net.sevenstars.middleearth.item.items.gems.LapidaryToolsItem(settings,
@@ -385,6 +385,14 @@ public class ResourceItemsME {
         ItemGroupsME.RESOURCES_CONTENTS.add(item.getDefaultStack());
         LAPIDARY_ITEMS.add(item);
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    /** A focused lamp: a lapidary part that is also a placeable block and an off-hand lamp. */
+    private static Item registerLamp(String name, net.minecraft.block.Block block, Rarity rarity) {
+        Item item = registerLapidary(name, settings -> new net.sevenstars.middleearth.block.special.beamlamp.BeamLampItem(block, settings),
+            part(rarity).component(DataComponentTypesME.LAMP_ON, false));
+        Item.BLOCK_ITEMS.put(block, item);
+        return item;
     }
 
     private static Item.Settings part(Rarity rarity) {
