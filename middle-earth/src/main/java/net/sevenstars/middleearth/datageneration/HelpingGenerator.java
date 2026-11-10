@@ -121,9 +121,10 @@ public class HelpingGenerator {
         for (GenericBlockSetBuilder set : GenericBlockSetRegistryME.genericSetsList) {
             int tool = -1;
             if(set.requiresTool) {
-                if(set.setName.contains("wood")) tool = 0;
+                if(set.setName.contains("wood") || set.setName.contains("shingles")) tool = 0;
                 else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick")
-                        || set.setName.contains("tiles") || set.setName.contains("stucco")) tool = 1;
+                        || set.setName.contains("tiles") || set.setName.contains("stucco")
+                        || set.setName.contains("daub") || set.setName.contains("mire") || set.setName.startsWith("cut_")) tool = 1;
                 else if(set.setName.contains("plaster")) tool = 2;
             }
             regularBlocks(set.blockSet, tool);
@@ -322,7 +323,8 @@ public class HelpingGenerator {
                     SimplePressurePlateModel.pressurePlates.add(new SimplePressurePlateModel.PressurePlate(base, pressurePlateBlock));
                 }
                 case ButtonBlock buttonBlock -> {
-                    if(woodModel) Buttons.woodButtons.add(buttonBlock);
+                    // Wooden buttons are named "<wood>_button", so the "_wood" name check above misses them; use the tool instead
+                    if(tool == 0) Buttons.woodButtons.add(buttonBlock);
                     else Buttons.stoneButtons.add(buttonBlock);
                     SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 }
