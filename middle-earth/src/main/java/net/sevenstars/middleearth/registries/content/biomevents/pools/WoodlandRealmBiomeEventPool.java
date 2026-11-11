@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class WoodlandRealmBiomeEventPool {
         ));
 
         SCOUTS = new BiomeEventData(false, List.of(
-                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4).withSameNpcType(3, 256),
+                new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(4).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.WOODLAND_REALM_RANGER, 1, 2)),
                 new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_SENTINEL).withWeight(3).withSameNpcType(0, 256),
                 new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_NIGHTSHADE).withSameNpcType(0, 512).requireNight().lightShouldBeBetween(0,7)
         ));

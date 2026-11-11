@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.biome_events.data;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
@@ -63,6 +64,7 @@ public class WildSpawnEventData {
 
         public static final String DISCARD_CHANCE = "discard_chance";
         public static final String BROADCAST = "broadcast";
+        public static final String PARTY = "party";
     }
 
     public static final Codec<WildSpawnEventData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -88,7 +90,7 @@ public class WildSpawnEventData {
 
             Codec.DOUBLE.optionalFieldOf(Fields.DISCARD_CHANCE).forGetter(WildSpawnEventData::getDiscardChances),
 
-            BroadcastData.CODEC.optionalFieldOf(Fields.BROADCAST).forGetter(WildSpawnEventData::getBroadcast)
+            Extras.CODEC.forGetter(data -> new Extras(data.getBroadcast(), data.getOptionalParty()))
     ).apply(instance, WildSpawnEventData::new));
 
     private final Identifier entityType;
@@ -107,6 +109,7 @@ public class WildSpawnEventData {
     private Boolean requireNight = null;
     private Double discardChance = null;
     private BroadcastData broadcastData = null;
+    private PartyData partyData = null;
 
 
     private WildSpawnEventData(
@@ -125,7 +128,7 @@ public class WildSpawnEventData {
             Optional<Boolean> requireUnderground,
             Optional<Boolean> requireNight,
             Optional<Double> discardChance,
-            Optional<BroadcastData> broadcastData) {
+            Extras extras) {
         this.entityType = entityType;
         this.npcType = npcType.orElse(null);
         this.weight = weight.orElse(null);
@@ -141,7 +144,8 @@ public class WildSpawnEventData {
         this.requireUnderground = requireUnderground.orElse(null);
         this.requireNight = requireNight.orElse(null);
         this.discardChance = discardChance.orElse(null);
-        this.broadcastData = broadcastData.orElse(null);
+        this.broadcastData = extras.broadcast().orElse(null);
+        this.partyData = extras.party().orElse(null);
     }
 
     public WildSpawnEventData(EntityType<?> entityType){
@@ -430,9 +434,30 @@ public class WildSpawnEventData {
         return this;
     }
 
+    private Optional<PartyData> getOptionalParty() {
+        return Optional.ofNullable(partyData);
+    }
+
+    public PartyData getParty() {
+        return partyData;
+    }
+
+    public WildSpawnEventData withParty(PartyData party) {
+        this.partyData = party;
+        return this;
+    }
+
     public void broadcastMessage(ServerWorld world, BlockPos pos){
         if(broadcastData == null)
             return;
         broadcastData.broadcastMessage(world, pos);
+    }
+
+    // Split off for the 16-field codec limit, still encoded at the top level
+    private record Extras(Optional<BroadcastData> broadcast, Optional<PartyData> party) {
+        private static final MapCodec<Extras> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                BroadcastData.CODEC.optionalFieldOf(Fields.BROADCAST).forGetter(Extras::broadcast),
+                PartyData.CODEC.optionalFieldOf(Fields.PARTY).forGetter(Extras::party)
+        ).apply(instance, Extras::new));
     }
 }

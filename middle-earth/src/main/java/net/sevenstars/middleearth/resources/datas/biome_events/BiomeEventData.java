@@ -17,9 +17,12 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnEventDataUtil;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,7 +95,7 @@ public class BiomeEventData {
         Identifier npcId = spawningData.getNpcType(null);
         NpcType foundNpcType = (npcId != null) ? npcDataRegistry.get(npcId) : null;
 
-        return new ContextualizedBiomeData(foundNpcType);
+        return new ContextualizedBiomeData(foundNpcType, spawningData.getParty());
     }
 
     public boolean canSpawn(EntityType<?> type, ServerWorld world, BlockPos pos, Random random) {
@@ -144,7 +147,7 @@ public class BiomeEventData {
     }
 
 
-    public record ContextualizedBiomeData(NpcType npcType){
+    public record ContextualizedBiomeData(NpcType npcType, @Nullable PartyData party){
 
     }
 }

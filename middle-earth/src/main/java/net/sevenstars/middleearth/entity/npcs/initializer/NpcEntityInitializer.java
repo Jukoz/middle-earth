@@ -14,6 +14,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
@@ -27,6 +28,7 @@ public class NpcEntityInitializer {
 
     private static void initializeForServer(ServerWorld serverWorld, NpcEntity npcEntity){
         Identifier npcTypeId = npcEntity.getNpcTypeIdentifier();
+        PartyData party = null;
         if(!NpcEntityInitializerUtil.characterIdentifierExist(serverWorld, npcTypeId))
         {
             BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = null;
@@ -39,6 +41,7 @@ public class NpcEntityInitializer {
                 }
                 NpcType npcType = contextualizedBiomeData.npcType();
                 npcTypeId = npcType.getId();
+                party = contextualizedBiomeData.party();
             } catch (Exception e){
                 MiddleEarth.LOGGER.logError("NpcEntity initializer failed : ", e);
                 npcEntity.discard();
@@ -50,6 +53,9 @@ public class NpcEntityInitializer {
         npcEntity.prepare();
         NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
         npcEntity.updateTargetGoals();
+
+        if(party != null)
+            NpcPartySpawner.spawn(serverWorld, npcEntity, party);
     }
 
     private static BiomeEventData.ContextualizedBiomeData findContextualizedNpcData(ServerWorld world, NpcEntity npcEntity)  {

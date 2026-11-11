@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class LothlorienBiomeEventPool {
         ));
 
         SCOUTS = new BiomeEventData(false, List.of(
-                new WildSpawnEventData(NpcRegistry.LOTHLORIEN_RANGER).withWeight(4).withSameNpcType(2, 256).shouldSpawnAbove(64),
+                new WildSpawnEventData(NpcRegistry.LOTHLORIEN_RANGER).withWeight(4).withSameNpcType(2, 256).shouldSpawnAbove(64).withParty(PartyData.create().add(NpcRegistry.LOTHLORIEN_RANGER, 1, 2)),
                 new WildSpawnEventData(NpcRegistry.LOTHLORIEN_SENTINEL).withWeight(1).withSameNpcType(1, 256).shouldSpawnAbove(64)
         ));
     }

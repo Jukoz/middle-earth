@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.registries.content.biomevents.pools;
 import net.minecraft.entity.EntityType;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class GondorBiomeEventPool {
                 new WildSpawnEventData(NpcRegistry.GONDOR_PEASANT).withWeight(5).withSameNpcType(2, 256).lightShouldBeAtLeast(8),
                 new WildSpawnEventData(NpcRegistry.GONDOR_MILITIA).withWeight(5).withSameNpcType(5, 128),
                 new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(4).withSameNpcType(3, 128),
-                new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(2).withSameNpcType(1, 256),
+                new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(2).withSameNpcType(1, 256).withParty(PartyData.create().add(NpcRegistry.GONDOR_SOLDIER, 2, 3)),
                 new WildSpawnEventData(NpcRegistry.GONDOR_VETERAN).withWeight(2).withSameNpcType(0, 256),
                 new WildSpawnEventData(NpcRegistry.GONDOR_LEADER).withSameNpcType(0, 512)
         ));

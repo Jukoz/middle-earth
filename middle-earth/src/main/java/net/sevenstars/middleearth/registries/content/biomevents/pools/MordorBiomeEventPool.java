@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.registries.content.biomevents.pools;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class MordorBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.MORDOR_SNAGA).withWeight(5).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(5).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(5).withSameNpcType(2, 256),
-            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(5).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.MORDOR_SNAGA, 2, 3)),
             new WildSpawnEventData(NpcRegistry.MORDOR_VETERAN).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_CAPTAIN).withSameNpcType(0, 512),
             new WildSpawnEventData(EntitiesME.CAVE_TROLL).withSameEntity(1, 256).withEntitySurfaceOnly()
@@ -33,7 +34,7 @@ public class MordorBiomeEventPool {
         ));
 
         SCOUTS = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.MORDOR_SCOUT).withWeight(4).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.MORDOR_SCOUT, 1, 2)),
             new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2).withSameNpcType(0, 256)
         ));
@@ -43,7 +44,7 @@ public class MordorBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3).withSameNpcType(1, 256).requireNight(),
             new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2).withSameNpcType(2, 256).requireNight(),
 
-            new WildSpawnEventData(NpcRegistry.GONDOR_ITHILIEN_RANGER).withWeight(5).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.GONDOR_ITHILIEN_RANGER).withWeight(5).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.GONDOR_ITHILIEN_RANGER, 1, 2)),
             new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(4).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(1).withSameNpcType(0, 256)
         ));

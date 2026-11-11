@@ -4,6 +4,7 @@ import net.minecraft.util.math.Vec3i;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class GenericHostilesBiomeEventPool {
         WILD_BRIGANDS_EASY = List.of(
                 new WildSpawnEventData(NpcRegistry.BRIGAND_CHIEFTAIN).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 512),
                 new WildSpawnEventData(NpcRegistry.BRIGAND_MERCENARY).withWeight(3).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(0, 256),
-                new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(3, 256),
+                new WildSpawnEventData(NpcRegistry.BRIGAND_THIEF).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.BRIGAND_THUG, 1, 2)),
                 new WildSpawnEventData(NpcRegistry.BRIGAND_THUG).withWeight(5).lightShouldBeBetween(0, 7).requireNight().withSameNpcType(5, 256)
         );
 

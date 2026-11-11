@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class RohanBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.ROHAN_PEASANT).withWeight(9).withSameNpcType(3, 256).lightShouldBeAtLeast(8),
             new WildSpawnEventData(NpcRegistry.ROHAN_MILITIA).withWeight(7).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.ROHAN_SOLDIER).withWeight(3).withSameNpcType(2, 256),
-            new WildSpawnEventData(NpcRegistry.ROHAN_KNIGHT).withWeight(2).withSameNpcType(1, 256),
+            new WildSpawnEventData(NpcRegistry.ROHAN_KNIGHT).withWeight(2).withSameNpcType(1, 256).withParty(PartyData.create().add(NpcRegistry.ROHAN_SOLDIER, 2, 3)),
             new WildSpawnEventData(NpcRegistry.ROHAN_EORLING_MARSHAL).withWeight(1).withSameNpcType(0, 512)
         ));
     }

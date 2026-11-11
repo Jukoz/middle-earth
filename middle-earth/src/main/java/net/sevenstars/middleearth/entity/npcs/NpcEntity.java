@@ -37,6 +37,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.Uuids;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -79,6 +80,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 public class NpcEntity extends PathAwareEntity implements EquipmentHolder, CrossbowUser {
     public static class KeyStrings {
@@ -86,6 +88,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         public static final String INITIALIZATION_DATA = "InitializationData";
         public static final String TEXTURE_DATA = "TextureData";
         public static final String IS_FIGHTING = "IsFighting";
+        public static final String PARTY_LEADER = "PartyLeader";
+        public static final String TRAVEL_HEADING = "TravelHeading";
     }
     // [TrackedDatas]
     private static final TrackedData<NpcData> NPC_DATA;
@@ -95,6 +99,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    private @Nullable UUID partyLeader = null;
+    private @Nullable Float travelHeading = null;
 
     private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 16.0F);
     private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, 1.0, 11.0F);
@@ -231,7 +238,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
+        this.goalSelector.add(5, new NpcTravelGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
@@ -269,6 +276,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         view.put(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC, this.retrieveNpcInitializationData());
         view.put(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC, this.retrieveNpcTextureData());
         view.put(KeyStrings.IS_FIGHTING, Codec.BOOL, this.getFighting());
+        view.putNullable(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC, this.partyLeader);
+        view.putNullable(KeyStrings.TRAVEL_HEADING, Codec.FLOAT, this.travelHeading);
     }
 
     @Override
@@ -284,6 +293,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         NpcInitializationData foundNpcInitializationData = view.read(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC).orElse(new NpcInitializationData());
         NpcTextureData foundNpcTextureData = view.read(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC).orElse(new NpcTextureData());
         boolean isFighting = view.read(KeyStrings.IS_FIGHTING, Codec.BOOL).orElse(false);
+        this.partyLeader = view.read(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC).orElse(null);
+        this.travelHeading = view.read(KeyStrings.TRAVEL_HEADING, Codec.FLOAT).orElse(null);
 
         String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
         if(npcDataId != null){
@@ -357,6 +368,23 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(faction == null) return null;
         return faction.getId();
     }
+    public @Nullable UUID getPartyLeader() {
+        return partyLeader;
+    }
+
+    public void setPartyLeader(@Nullable UUID partyLeader) {
+        this.partyLeader = partyLeader;
+    }
+
+    // In degrees
+    public @Nullable Float getTravelHeading() {
+        return travelHeading;
+    }
+
+    public void setTravelHeading(@Nullable Float travelHeading) {
+        this.travelHeading = travelHeading;
+    }
+
     public BlockPos getStructureManagerHostPos() {
         return this.retrieveNpcData().getStructureManagerPos();
     }
