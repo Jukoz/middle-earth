@@ -98,7 +98,6 @@ public class HelpingGenerator {
                     case NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
                     case MUSHROOM_STEM_BLOCKS -> mushroomStemBlocks(set.mushroomStemBlocks);
                     case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> {
-                        ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
                         woodBlocks(set.strippedLogBlocks);
                     }
                     case PLANK_BLOCKS -> plankBlocks(set.planksBlocks, set.vanilla);
