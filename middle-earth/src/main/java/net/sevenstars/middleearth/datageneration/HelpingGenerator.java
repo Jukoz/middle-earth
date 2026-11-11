@@ -91,7 +91,11 @@ public class HelpingGenerator {
         for (WoodBlockSetBuilder set : WoodBlockSetRegistryME.woodSetsList){
             set.existingList.forEach(woodBlockTypes -> {
                 switch (woodBlockTypes){
-                    case LOG_BLOCKS, NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
+                    case LOG_BLOCKS -> {
+                        woodBlocks(set.logBlocks);
+                        if (!set.vanilla) NaturalLogs.logs.add(set.logBlocks.log());
+                    }
+                    case NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
                     case MUSHROOM_STEM_BLOCKS -> mushroomStemBlocks(set.mushroomStemBlocks);
                     case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> {
                         ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
@@ -166,11 +170,13 @@ public class HelpingGenerator {
         SimpleWallModel.vanillaWoodWalls.forEach(block -> {
             Walls.walls.add(block.wall());
             MineableAxe.blocks.add(block.wall());
+            NotMineableWithPickaxe.walls.add(block.wall());
         });
 
         SimpleWallModel.vanillaStrippedWalls.forEach(block -> {
             Walls.walls.add(block.wall());
             MineableAxe.blocks.add(block.wall());
+            NotMineableWithPickaxe.walls.add(block.wall());
         });
 
         SimpleFenceModel.vanillaWoodFences.forEach(block -> {
@@ -297,6 +303,7 @@ public class HelpingGenerator {
                 }
                 case WallBlock wallBlock -> {
                     Walls.walls.add(wallBlock);
+                    if (tool != 1) NotMineableWithPickaxe.walls.add(wallBlock);
                     if (isPillar){
                         SimpleWallModel.columnWalls.add(new SimpleWallModel.Wall(base, wallBlock));
                     } else if (blockName.contains("stripped")){
@@ -386,6 +393,7 @@ public class HelpingGenerator {
         Planks.planks.add(set.base());
         if(!vanilla) Planks.moddedPlanks.add(set.base());
         Planks.planksSlabs.add(set.slab());
+        if(!vanilla) WoodenVariants.stairs.add(set.stairs());
     }
 
     public static void woodBlocks(BlockRecordTypes.WoodSet set) {
@@ -404,5 +412,10 @@ public class HelpingGenerator {
 
     public static void woodRedstoneBlocks(BlockRecordTypes.WoodRedstoneBlocks set, Block base) {
         BlockRecordTypes.WoodRedstoneBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null, 0));
+        if (!Objects.equals(Registries.BLOCK.getId(set.door()).getNamespace(), "minecraft")) {
+            WoodenVariants.doors.add(set.door());
+            WoodenVariants.trapdoors.add(set.trapdoor());
+            WoodenVariants.pressurePlates.add(set.pressurePlate());
+        }
     }
 }
