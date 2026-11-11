@@ -14,6 +14,7 @@ public class GondorBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
+                new WildSpawnEventData(NpcRegistry.GONDOR_PEASANT).withWeight(5).withSameNpcType(2, 256).lightShouldBeAtLeast(8),
                 new WildSpawnEventData(NpcRegistry.GONDOR_MILITIA).withWeight(5).withSameNpcType(5, 128),
                 new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(4).withSameNpcType(3, 128),
                 new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(2).withSameNpcType(1, 256),
@@ -22,6 +23,7 @@ public class GondorBiomeEventPool {
         ));
 
         PEASANT_FIEF = new BiomeEventData(false, List.of(
+                new WildSpawnEventData(NpcRegistry.GONDOR_PEASANT).withWeight(10).withSameNpcType(4, 256).lightShouldBeAtLeast(8),
                 new WildSpawnEventData(NpcRegistry.GONDOR_MILITIA).withWeight(6).withSameNpcType(4, 256),
                 new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(3).withSameNpcType(2, 256),
                 new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(1).withSameNpcType(0, 256)

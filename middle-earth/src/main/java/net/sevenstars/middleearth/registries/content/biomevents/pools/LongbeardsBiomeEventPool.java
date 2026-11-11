@@ -12,6 +12,8 @@ public class LongbeardsBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(NpcRegistry.EREBOR_PEASANT).withWeight(6).withSameNpcType(3, 256).lightShouldBeAtLeast(8),
+            new WildSpawnEventData(NpcRegistry.EREBOR_MINER).withWeight(5).withSameNpcType(2, 256).lightShouldBeAtLeast(8),
             new WildSpawnEventData(NpcRegistry.EREBOR_MILITIA).withWeight(6).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.EREBOR_SOLDIER).withWeight(5).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.EREBOR_VETERAN).withWeight(2).withSameNpcType(0, 256),

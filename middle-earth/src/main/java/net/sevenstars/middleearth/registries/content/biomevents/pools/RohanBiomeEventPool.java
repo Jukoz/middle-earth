@@ -11,6 +11,7 @@ public class RohanBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(NpcRegistry.ROHAN_PEASANT).withWeight(9).withSameNpcType(3, 256).lightShouldBeAtLeast(8),
             new WildSpawnEventData(NpcRegistry.ROHAN_MILITIA).withWeight(7).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.ROHAN_SOLDIER).withWeight(3).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.ROHAN_KNIGHT).withWeight(2).withSameNpcType(1, 256),
