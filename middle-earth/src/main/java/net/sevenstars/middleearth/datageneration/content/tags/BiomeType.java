@@ -16,6 +16,8 @@ public enum BiomeType {
     SWAMP(ConventionalBiomeTags.IS_SWAMP),
     RIVER(ConventionalBiomeTags.IS_RIVER),
     OCEAN(ConventionalBiomeTags.IS_OCEAN),
+    DEEP_OCEAN(ConventionalBiomeTags.IS_DEEP_OCEAN),
+    SHALLOW_OCEAN(ConventionalBiomeTags.IS_SHALLOW_OCEAN),
     BEACH(ConventionalBiomeTags.IS_BEACH),
     STONY_SHORES(ConventionalBiomeTags.IS_STONY_SHORES),
     DESERT(ConventionalBiomeTags.IS_DESERT),
