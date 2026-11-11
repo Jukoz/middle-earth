@@ -144,7 +144,8 @@ public class StructureManagerDataPools {
 
         GONDOR_VILLAGE_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "gondor_village_pool"), List.of(
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.peasant"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT).SetFixAmount(1)
+                new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT).SetFixAmount(1),
+                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_MILITIA).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("gondor_village_nests.lumber"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT).SetFixAmount(1)
@@ -237,11 +238,12 @@ public class StructureManagerDataPools {
 
         LOTHLORIEN_HAMLET_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "lothlorien_hamlet_pool"), List.of(
                 new SpawnNestNodeData(createIdentifier("lothlorien_hamlet_nests.civilian"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LOTHLORIEN, NpcRegistry.LOTHLORIEN_RANGER).SetFixAmount(1),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LOTHLORIEN, NpcRegistry.LOTHLORIEN_SENTINEL).SetFixAmount(1)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 4).SetNpcData(FactionRegistry.LOTHLORIEN, NpcRegistry.LOTHLORIEN_CIVILIAN).SetFixAmount(1),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LOTHLORIEN, NpcRegistry.LOTHLORIEN_SENTINEL).SetFixAmount(1),
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LOTHLORIEN, NpcRegistry.LOTHLORIEN_RANGER).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("lothlorien_hamlet_nests.innkeeper"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LOTHLORIEN, NpcRegistry.LOTHLORIEN_RANGER).SetFixAmount(1)
+                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LOTHLORIEN, NpcRegistry.LOTHLORIEN_CIVILIAN).SetFixAmount(1)
                 )),
                 new SpawnNestNodeData(createIdentifier("lothlorien_hamlet_nests.smith"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.LOTHLORIEN,  NpcRegistry.LOTHLORIEN_WARRIOR).SetFixAmount(1)
