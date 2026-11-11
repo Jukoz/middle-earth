@@ -284,11 +284,72 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, SHIRE_EDGE   , ShireBiomeEventPool.DEFAULT);
 
 
+        registerAll(context, registryEntryLookup, ShireBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.SHIRE_FOREST, BiomeKeyRegistryME.SHIRE_HILLS, BiomeKeyRegistryME.SHIRE_WOODS,
+                BiomeKeyRegistryME.THE_WHITE_DOWNS);
+        registerAll(context, registryEntryLookup, RohanBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.ROHAN_FOREST);
+        registerAll(context, registryEntryLookup, GondorBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.ANORIEN_FOOTHILLS, BiomeKeyRegistryME.ANORIEN_RIVERSIDE, BiomeKeyRegistryME.BELFALAS_BEACH,
+                BiomeKeyRegistryME.BELFALAS_FOREST, BiomeKeyRegistryME.BELFALAS_HILLS, BiomeKeyRegistryME.LEBENNIN_HILLS,
+                BiomeKeyRegistryME.LEBENNIN_SHORES, BiomeKeyRegistryME.PELENNOR_WHEAT_FIELD);
+        registerAll(context, registryEntryLookup, GondorBiomeEventPool.PEASANT_FIEF,
+                BiomeKeyRegistryME.GONDOR_FOREST, BiomeKeyRegistryME.GONDOR_HILL, BiomeKeyRegistryME.LAMEDON_HILLS,
+                BiomeKeyRegistryME.BLACKROOT_FOREST, BiomeKeyRegistryME.LOSSARNACH_CHERRY_BLOSSOM, BiomeKeyRegistryME.LOSSARNACH_VALLEY_GREEN,
+                BiomeKeyRegistryME.LOSSARNACH_VALLEY_ORANGE, BiomeKeyRegistryME.LOSSARNACH_VALLEY_RED, BiomeKeyRegistryME.LOSSARNACH_VALLEY_YELLOW,
+                BiomeKeyRegistryME.ETHIR_ANDUIN);
+        registerAll(context, registryEntryLookup, DaleBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.DALE_FOREST, BiomeKeyRegistryME.DALE_RIVERSIDE, BiomeKeyRegistryME.LONG_LAKE_SHORES);
+        registerAll(context, registryEntryLookup, LongbeardsBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.IRON_HILLS, BiomeKeyRegistryME.IRON_FOOTHILLS, BiomeKeyRegistryME.LONELY_MOUNTAIN_BASE,
+                BiomeKeyRegistryME.LONELY_MOUNTAIN);
+        registerAll(context, registryEntryLookup, LongbeardsBiomeEventPool.GREY_PLAINS,
+                BiomeKeyRegistryME.GREY_FOREST, BiomeKeyRegistryME.GREY_ASHEN_WOODS);
+        registerAll(context, registryEntryLookup, WoodlandRealmBiomeEventPool.SCOUTS,
+                BiomeKeyRegistryME.WOODLAND_HILLS, BiomeKeyRegistryME.MIRKWOOD_EDGE, BiomeKeyRegistryME.MIRKWOOD_FOOTHILLS,
+                BiomeKeyRegistryME.MIRKWOOD_MARSHES, BiomeKeyRegistryME.MIRKWOOD_SWAMP, BiomeKeyRegistryME.MIRKWOOD_MOUNTAINS_BASE,
+                BiomeKeyRegistryME.NORTHERN_MIRKWOOD_MARSHES, BiomeKeyRegistryME.NORTHERN_MIRKWOOD_SWAMP, BiomeKeyRegistryME.WEBBED_WOODS);
+        registerAll(context, registryEntryLookup, MordorBiomeEventPool.DOL_GULDUR,
+                BiomeKeyRegistryME.WEBBED_DARK_WOODS, BiomeKeyRegistryME.DARK_ANDUIN_VALES);
+        registerAll(context, registryEntryLookup, GenericHostilesBiomeEventPool.ANDUIN,
+                BiomeKeyRegistryME.ANDUIN_VALES_FOREST);
+        registerAll(context, registryEntryLookup, GenericHostilesBiomeEventPool.BRIGANDS,
+                BiomeKeyRegistryME.OLD_ARTHEDAIN, BiomeKeyRegistryME.OLD_ARTHEDAIN_FOOTHILL, BiomeKeyRegistryME.OLD_ARTHEDAIN_FOREST,
+                BiomeKeyRegistryME.OLD_ARTHEDAIN_MEADOW, BiomeKeyRegistryME.OLD_CARDOLAN, BiomeKeyRegistryME.OLD_CARDOLAN_FOREST,
+                BiomeKeyRegistryME.OLD_CARDOLAN_HILL, BiomeKeyRegistryME.OLD_RHUDAUR_FOREST, BiomeKeyRegistryME.OLD_RHUDAUR_HILL,
+                BiomeKeyRegistryME.NORTH_DOWNS, BiomeKeyRegistryME.HILLS_OF_EVENDIM, BiomeKeyRegistryME.THE_ANGLE,
+                BiomeKeyRegistryME.ENEDWAITH_FIELD, BiomeKeyRegistryME.ENEDWAITH_WHEAT_FIELD, BiomeKeyRegistryME.MINHIRIATH_WHEAT_FIELD,
+                BiomeKeyRegistryME.DUNLAND, BiomeKeyRegistryME.DUNLAND_FOOTHILLS, BiomeKeyRegistryME.DUNLAND_HILLS,
+                BiomeKeyRegistryME.NORTHERN_DUNLAND_GLADE);
+        registerAll(context, registryEntryLookup, GundabadBiomeEventPool.SCOUTS,
+                BiomeKeyRegistryME.OLD_ANGMAR, BiomeKeyRegistryME.OLD_ANGMAR_COLD_HILL, BiomeKeyRegistryME.OLD_ANGMAR_FOREST,
+                BiomeKeyRegistryME.OLD_ANGMAR_FROZEN_HILL, BiomeKeyRegistryME.GREY_MOUNTAINS, BiomeKeyRegistryME.GREY_MOUNTAINS_BASE,
+                BiomeKeyRegistryME.MISTY_MOUNTAINS_BASE);
+        registerAll(context, registryEntryLookup, MoriaBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.CARADHRAS_BASE, BiomeKeyRegistryME.FANUIDHOL_BASE);
+        registerAll(context, registryEntryLookup, MoriaBiomeEventPool.EREGION,
+                BiomeKeyRegistryME.EREGION_FOREST, BiomeKeyRegistryME.EREGION_GLADE);
+        registerAll(context, registryEntryLookup, IsengardBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.ISENGARD_HILL);
+        registerAll(context, registryEntryLookup, MordorBiomeEventPool.DEFAULT,
+                BiomeKeyRegistryME.MORGUL_RIVER);
+        registerAll(context, registryEntryLookup, MordorBiomeEventPool.NURN,
+                BiomeKeyRegistryME.NURN_RIVER);
+        registerAll(context, registryEntryLookup, MordorBiomeEventPool.SCOUTS,
+                BiomeKeyRegistryME.EMYN_MUIL, BiomeKeyRegistryME.EMYN_MUIL_CLIFFS, BiomeKeyRegistryME.SARN_GEBIR_SHORES,
+                BiomeKeyRegistryME.SARN_GEBIR_WILDLANDS);
+
         BiomeEventRegistryUtil.registerDefaults(context, registryEntryLookup);
     }
 
     private static void register(Registerable<BiomeEventData> context, RegistryEntryLookup<BiomeEventData> registryEntryLookup, RegistryKey<BiomeEventData> registryKey, BiomeEventData element) {
         BiomeEventRegistryUtil.register(context, registryEntryLookup, registryKey, element);
+    }
+
+    @SafeVarargs
+    private static void registerAll(Registerable<BiomeEventData> context, RegistryEntryLookup<BiomeEventData> registryEntryLookup, BiomeEventData element, RegistryKey<Biome>... biomes) {
+        for(RegistryKey<Biome> biome : biomes)
+            register(context, registryEntryLookup, of(biome), element);
     }
 
     public static RegistryKey<BiomeEventData> of(RegistryKey<Biome> key) {
