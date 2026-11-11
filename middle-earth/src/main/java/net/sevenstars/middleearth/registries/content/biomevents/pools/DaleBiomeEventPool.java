@@ -8,6 +8,7 @@ import java.util.List;
 
 public class DaleBiomeEventPool {
     public final static BiomeEventData DEFAULT;
+    public final static BiomeEventData LAKE;
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
@@ -16,7 +17,15 @@ public class DaleBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(3).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.DALE_ELITE_ARCHER).withWeight(3).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.DALE_KNIGHT).withWeight(1).withSameNpcType(0, 256),
+            new WildSpawnEventData(NpcRegistry.EREBOR_TRAVELLER).withWeight(1).withSameNpcType(1, 512).lightShouldBeAtLeast(8),
             new WildSpawnEventData(NpcRegistry.DALE_SERGEANT).withWeight(0).withSameNpcType(0, 512)
+        ));
+
+        LAKE = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(NpcRegistry.DALE_FISHERMAN).withWeight(10).withSameNpcType(4, 256).lightShouldBeAtLeast(8),
+            new WildSpawnEventData(NpcRegistry.DALE_PEASANT).withWeight(4).withSameNpcType(2, 256).lightShouldBeAtLeast(8),
+            new WildSpawnEventData(NpcRegistry.DALE_MILITIA).withWeight(4).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(2).withSameNpcType(2, 256)
         ));
     }
 }

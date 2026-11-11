@@ -33,12 +33,14 @@ public class ShireNpcTypePool {
 
     public final static NpcType PEASANT;
     public final static NpcType MILITIA;
+    public final static NpcType BOUNDER;
     public final static NpcType SHIRRIFF;
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.SHIRE_PEASANT, PEASANT),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.SHIRE_MILITIA, MILITIA),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.SHIRE_BOUNDER, BOUNDER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.SHIRE_SHIRRIFF, SHIRRIFF)
         );
     }
@@ -78,6 +80,29 @@ public class ShireNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+
+        BOUNDER = new NpcType(NpcRegistry.SHIRE_BOUNDER.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withColor(DARK_GREEN).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.BYCOCKET).withColor(BROWN).withWeight(2))
+                                .add(WeightedItemData.create(EquipmentItemsME.CHAPERON))
+                                .add(WeightedItemData.create().withWeight(2))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GAMBESON).withColor(DARK_GREEN).withCape(BackAttachmentsME.CLOAK, BROWN))
+                                .add(WeightedItemData.create(EquipmentItemsME.GAMBESON).withColor(BROWN).withCape(BackAttachmentsME.CLOAK, DARK_GREEN))
+                                .add(WeightedItemData.create(EquipmentItemsME.ARMING_COAT).withColor(DARK_BEIGE).withCape(BackAttachmentsME.CLOAK, DARK_GREEN))
+                        )
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.BOW).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.BRONZE_SWORD))
+                                .add(WeightedItemData.create(Items.IRON_SWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 

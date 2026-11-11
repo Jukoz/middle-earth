@@ -28,9 +28,13 @@ public class EreborNpcTypePool {
     private final static int LIGHT_RED = 0x7f4442;
     private final static int DARK_RED = 0x56302d;
     private final static int DARK_BROWN = 0x3b291e;
+    // Dark-green, scarlet, blue, purple, grey, brown, white, yellow, pale green and sky-blue
+    private final static List<Integer> TRAVELLER_HOOD_COLORS = List.of(0x1f4a2a, 0xa32222, 0x2c4a8c, 0x5a2d73, 0x6f6f6f, 0x5a3b22, 0xd8d4c8, 0xc9a227, 0x8fb88a, 0x7fb4d6);
+    private final static List<Integer> TRAVELLER_COAT_COLORS = List.of(0x3b2f26, 0x4a3a28, 0x2f3a33, 0x3a3340);
 
     public final static NpcType PEASANT;
     public final static NpcType MINER;
+    public final static NpcType TRAVELLER;
     public final static NpcType MILITIA;
     public final static NpcType SOLDIER;
     public final static NpcType ARCHER;
@@ -43,6 +47,7 @@ public class EreborNpcTypePool {
         return List.of(
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_PEASANT, PEASANT),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_MINER, MINER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_TRAVELLER, TRAVELLER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_MILITIA, MILITIA),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_SOLDIER, SOLDIER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.EREBOR_ARCHER, ARCHER),
@@ -112,6 +117,28 @@ public class EreborNpcTypePool {
                         .add(WeightedItemData.create(Items.AIR))
                 )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
+
+        TRAVELLER = new NpcType(NpcRegistry.EREBOR_TRAVELLER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.HOOD).withColors(TRAVELLER_HOOD_COLORS))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GAMBESON).withColors(TRAVELLER_COAT_COLORS).withCape(BackAttachmentsME.CLOAK, TRAVELLER_COAT_COLORS))
+                                .add(WeightedItemData.create(EquipmentItemsME.ARMING_COAT).withColors(TRAVELLER_COAT_COLORS).withCape(BackAttachmentsME.CLOAK, TRAVELLER_COAT_COLORS))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.TRAVELLING_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.EREBOR_DAGGER))
+                                .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
+                                .add(WeightedItemData.create(Items.AIR).withWeight(3))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR).withWeight(4))
+                                .add(WeightedItemData.create(ToolItemsME.PIPE))
+                                .add(WeightedItemData.create(ToolItemsME.CLAY_PIPE))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
         MILITIA = new NpcType(NpcRegistry.EREBOR_MILITIA.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
                 WeightedGearData.create()

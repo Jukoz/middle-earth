@@ -8,12 +8,20 @@ import java.util.List;
 
 public class ShireBiomeEventPool {
     public final static BiomeEventData DEFAULT;
+    public final static BiomeEventData EDGE;
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(12).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.SHIRE_MILITIA).withWeight(3).withSameNpcType(1, 256),
             new WildSpawnEventData(NpcRegistry.SHIRE_SHIRRIFF).withSameNpcType(0, 256)
+        ));
+
+        EDGE = new BiomeEventData(false, List.of(
+            new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(8).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.SHIRE_BOUNDER).withWeight(5).withSameNpcType(2, 256),
+            new WildSpawnEventData(NpcRegistry.SHIRE_MILITIA).withWeight(2).withSameNpcType(1, 256),
+            new WildSpawnEventData(NpcRegistry.EREBOR_TRAVELLER).withWeight(1).withSameNpcType(1, 512).lightShouldBeAtLeast(8)
         ));
     }
 }

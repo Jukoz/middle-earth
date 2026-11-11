@@ -281,7 +281,7 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, MIRKWOOD             , WoodlandRealmBiomeEventPool.SCOUTS);
 
         register(context, registryEntryLookup, SHIRE        , ShireBiomeEventPool.DEFAULT);
-        register(context, registryEntryLookup, SHIRE_EDGE   , ShireBiomeEventPool.DEFAULT);
+        register(context, registryEntryLookup, SHIRE_EDGE   , ShireBiomeEventPool.EDGE);
 
 
         registerAll(context, registryEntryLookup, ShireBiomeEventPool.DEFAULT,
@@ -299,7 +299,9 @@ public class BiomeEventRegistry {
                 BiomeKeyRegistryME.LOSSARNACH_VALLEY_ORANGE, BiomeKeyRegistryME.LOSSARNACH_VALLEY_RED, BiomeKeyRegistryME.LOSSARNACH_VALLEY_YELLOW,
                 BiomeKeyRegistryME.ETHIR_ANDUIN);
         registerAll(context, registryEntryLookup, DaleBiomeEventPool.DEFAULT,
-                BiomeKeyRegistryME.DALE_FOREST, BiomeKeyRegistryME.DALE_RIVERSIDE, BiomeKeyRegistryME.LONG_LAKE_SHORES);
+                BiomeKeyRegistryME.DALE_FOREST);
+        registerAll(context, registryEntryLookup, DaleBiomeEventPool.LAKE,
+                BiomeKeyRegistryME.DALE_RIVERSIDE, BiomeKeyRegistryME.LONG_LAKE_SHORES);
         registerAll(context, registryEntryLookup, LongbeardsBiomeEventPool.DEFAULT,
                 BiomeKeyRegistryME.IRON_HILLS, BiomeKeyRegistryME.IRON_FOOTHILLS, BiomeKeyRegistryME.LONELY_MOUNTAIN_BASE,
                 BiomeKeyRegistryME.LONELY_MOUNTAIN);

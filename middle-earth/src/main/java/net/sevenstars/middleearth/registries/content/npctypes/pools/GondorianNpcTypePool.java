@@ -34,10 +34,13 @@ public class GondorianNpcTypePool {
     private final static int DARK_GRAY = 0x555666;
     private final static int LIGHT_GREEN = 0x435353;
     private final static int DARK_GREEN = 0x262f2f;
+    private final static int RANGER_GREEN = 0x2f4026;
+    private final static int RANGER_BROWN = 0x4a3a28;
 
     public final static NpcType PEASANT;
     public final static NpcType MILITIA;
     public final static NpcType SOLDIER;
+    public final static NpcType ITHILIEN_RANGER;
     public final static NpcType KNIGHT;
     public final static NpcType VETERAN;
     public final static NpcType FOUNTAIN_GUARD;
@@ -50,6 +53,7 @@ public class GondorianNpcTypePool {
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_PEASANT, PEASANT),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_MILITIA, MILITIA),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_SOLDIER, SOLDIER),
+                new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_ITHILIEN_RANGER, ITHILIEN_RANGER),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_KNIGHT, KNIGHT),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_VETERAN, VETERAN),
                 new NpcRegistry.RegisterableNpcData(NpcRegistry.GONDOR_FOUNTAIN_GUARD, FOUNTAIN_GUARD),
@@ -192,6 +196,34 @@ public class GondorianNpcTypePool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create())
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_SHIELD))
+                        )
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+
+        ITHILIEN_RANGER = new NpcType(NpcRegistry.GONDOR_ITHILIEN_RANGER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
+                WeightedGearData.create()
+                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.HOOD).withColor(RANGER_GREEN))
+                                .add(WeightedItemData.create(EquipmentItemsME.HOOD).withColor(RANGER_BROWN))
+                        )
+                        .add(EquipmentSlot.CHEST, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.GAMBESON).withColor(RANGER_GREEN).withCape(BackAttachmentsME.CLOAK, RANGER_BROWN))
+                                .add(WeightedItemData.create(EquipmentItemsME.GAMBESON).withColor(RANGER_BROWN).withCape(BackAttachmentsME.CLOAK, RANGER_GREEN))
+                                .add(WeightedItemData.create(EquipmentItemsME.ARMING_COAT).withColor(RANGER_GREEN).withCape(BackAttachmentsME.CLOAK, RANGER_GREEN))
+                                .add(WeightedItemData.create(EquipmentItemsME.ARMING_COAT).withColor(RANGER_BROWN).withCape(BackAttachmentsME.CLOAK, RANGER_BROWN))
+                        )
+                        .add(EquipmentSlot.LEGS, GearSlotPool.create()
+                                .add(WeightedItemData.create(EquipmentItemsME.ARMING_SKIRT).withColor(RANGER_GREEN))
+                                .add(WeightedItemData.create(EquipmentItemsME.ARMING_SKIRT).withColor(RANGER_BROWN))
+                                .add(WeightedItemData.create().withWeight(2))
+                        )
+                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.TRAVELLING_BOOTS)))
+                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_LONGBOW).withWeight(3))
+                                .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_BOW).withWeight(2))
+                                .add(WeightedItemData.create(Items.IRON_SWORD))
+                        )
+                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
+                                .add(WeightedItemData.create(Items.AIR))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 

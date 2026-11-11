@@ -47,6 +47,7 @@ public class NpcRegistry {
 
     // [DALE]
     public final static RegistryKey<NpcType> DALE_PEASANT = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "peasant"));
+    public final static RegistryKey<NpcType> DALE_FISHERMAN = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "fisherman"));
     public final static RegistryKey<NpcType> DALE_MILITIA = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "militia"));
     public final static RegistryKey<NpcType> DALE_SOLDIER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "soldier"));
     public final static RegistryKey<NpcType> DALE_ARCHER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "archer"));
@@ -59,6 +60,7 @@ public class NpcRegistry {
     public final static RegistryKey<NpcType> GONDOR_PEASANT = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.GONDOR, "peasant"));
     public final static RegistryKey<NpcType> GONDOR_MILITIA = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.GONDOR, "militia"));
     public final static RegistryKey<NpcType> GONDOR_SOLDIER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.GONDOR, "soldier"));
+    public final static RegistryKey<NpcType> GONDOR_ITHILIEN_RANGER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.GONDOR, "ithilien_ranger"));
     public final static RegistryKey<NpcType> GONDOR_KNIGHT = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.GONDOR, "knight"));
     public final static RegistryKey<NpcType> GONDOR_VETERAN = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.GONDOR, "veteran"));
     public final static RegistryKey<NpcType> GONDOR_FOUNTAIN_GUARD = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.GONDOR, "fountain_guard"));
@@ -78,12 +80,14 @@ public class NpcRegistry {
     // [SHIRE]
     public final static RegistryKey<NpcType> SHIRE_PEASANT = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.SHIRE, "peasant"));
     public final static RegistryKey<NpcType> SHIRE_MILITIA = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.SHIRE, "militia"));
+    public final static RegistryKey<NpcType> SHIRE_BOUNDER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.SHIRE, "bounder"));
     public final static RegistryKey<NpcType> SHIRE_SHIRRIFF = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.SHIRE, "shirriff"));
 
     // [LONGBEARDS]
     // [EREBOR]
     public final static RegistryKey<NpcType> EREBOR_PEASANT = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "peasant"));
     public final static RegistryKey<NpcType> EREBOR_MINER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "miner"));
+    public final static RegistryKey<NpcType> EREBOR_TRAVELLER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "traveller"));
     public final static RegistryKey<NpcType> EREBOR_MILITIA = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "militia"));
     public final static RegistryKey<NpcType> EREBOR_SOLDIER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "soldier"));
     public final static RegistryKey<NpcType> EREBOR_ARCHER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "archer"));

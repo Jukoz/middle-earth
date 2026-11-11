@@ -43,6 +43,7 @@ public class MordorBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.MORDOR_MILITIA).withWeight(3).withSameNpcType(1, 256).requireNight(),
             new WildSpawnEventData(NpcRegistry.MORDOR_WARRIOR).withWeight(2).withSameNpcType(2, 256).requireNight(),
 
+            new WildSpawnEventData(NpcRegistry.GONDOR_ITHILIEN_RANGER).withWeight(5).withSameNpcType(3, 256),
             new WildSpawnEventData(NpcRegistry.GONDOR_SOLDIER).withWeight(4).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.GONDOR_KNIGHT).withWeight(1).withSameNpcType(0, 256)
         ));
