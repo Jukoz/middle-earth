@@ -87,6 +87,7 @@ import net.sevenstars.api.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -106,6 +107,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        AtlasesME.registerAtlas();
 		// Lensed eyewear says which lenses it has.
 		net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, tooltipContext, type, lines) -> {
 			int lenses = net.sevenstars.middleearth.recipe.lapidary.LapidaryEyewear.fitted(stack);
