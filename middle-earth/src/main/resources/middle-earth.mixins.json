@@ -41,6 +41,7 @@
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
+    "client.AtmosphericFogModifierMixin",
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
     "client.BipedEntityRenderStateMixin",
