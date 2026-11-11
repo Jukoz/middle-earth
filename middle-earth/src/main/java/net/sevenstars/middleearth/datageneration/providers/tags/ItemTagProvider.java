@@ -57,6 +57,12 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"));
         TagKey<Item> wooden_vertical_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs"));
         TagKey<Item> wooden_fences = TagKey.of(RegistryKeys.ITEM, Identifier.of( "wooden_fences"));
+        TagKey<Item> wooden_stairs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_stairs"));
+        TagKey<Item> wooden_doors = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_doors"));
+        TagKey<Item> wooden_trapdoors = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_trapdoors"));
+        TagKey<Item> wooden_pressure_plates = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_pressure_plates"));
+        TagKey<Item> wooden_buttons = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_buttons"));
+        TagKey<Item> fence_gates = TagKey.of(RegistryKeys.ITEM, Identifier.of("fence_gates"));
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials"));
@@ -320,6 +326,32 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         Fences.fences.forEach(block -> {
             valueLookupBuilder(wooden_fences).add(block.asItem());
         });
+
+        WoodenVariants.stairs.forEach(block -> {
+            valueLookupBuilder(wooden_stairs).add(block.asItem());
+        });
+
+        WoodenVariants.doors.forEach(block -> {
+            valueLookupBuilder(wooden_doors).add(block.asItem());
+        });
+
+        WoodenVariants.trapdoors.forEach(block -> {
+            valueLookupBuilder(wooden_trapdoors).add(block.asItem());
+        });
+
+        WoodenVariants.pressurePlates.forEach(block -> {
+            valueLookupBuilder(wooden_pressure_plates).add(block.asItem());
+        });
+
+        Buttons.woodButtons.forEach(block -> {
+            valueLookupBuilder(wooden_buttons).add(block.asItem());
+        });
+
+        FenceGates.fenceGates.forEach(block -> {
+            valueLookupBuilder(fence_gates).add(block.asItem());
+        });
+        valueLookupBuilder(fence_gates).add(DecorativeBlockRegistryME.LARGE_BEECH_FENCE_GATE.asItem());
+        valueLookupBuilder(fence_gates).add(DecorativeBlockRegistryME.SIMPLE_LARCH_GATE.asItem());
 
         ModdedStrippedLogs.strippedLogs.forEach(block -> {
             valueLookupBuilder(mod_stripped_logs).add(block.asItem());

@@ -31,54 +31,54 @@ public class HelpingGenerator {
                         MineablePickaxe.baseStoneOverworld.add(set.baseBlocks.base());
                     }
                     case COBBLED_BLOCKS,COBBLESTONE_BLOCKS,PILLAR_BASE_BLOCKS -> {
-                        regularBlocks(set.cobblestoneBlocks, 1);
-                        if(set.hasMossy) regularBlocks(set.mossyCobblestoneBlocks, 1);
+                        regularBlocks(set.cobblestoneBlocks, MiningTool.PICKAXE);
+                        if(set.hasMossy) regularBlocks(set.mossyCobblestoneBlocks, MiningTool.PICKAXE);
                     }
                     case BRICK_BLOCKS, POLISHED_BRICK_BLOCKS -> {
-                        regularBlocks(set.brickBlocks, 1);
-                        if(set.hasMossy) regularBlocks(set.mossyBrickBlocks, 1);
-                        if(set.hasCracked) regularBlocks(set.crackedBrickBlocks, 1);
+                        regularBlocks(set.brickBlocks, MiningTool.PICKAXE);
+                        if(set.hasMossy) regularBlocks(set.mossyBrickBlocks, MiningTool.PICKAXE);
+                        if(set.hasCracked) regularBlocks(set.crackedBrickBlocks, MiningTool.PICKAXE);
                     }
                     case TILE_BLOCKS -> {
-                        regularBlocks(set.tileBlocks, 1);
-                        if(set.hasMossy) regularBlocks(set.mossyTileBlocks, 1);
-                        if(set.hasCracked) regularBlocks(set.crackedTileBlocks, 1);
+                        regularBlocks(set.tileBlocks, MiningTool.PICKAXE);
+                        if(set.hasMossy) regularBlocks(set.mossyTileBlocks, MiningTool.PICKAXE);
+                        if(set.hasCracked) regularBlocks(set.crackedTileBlocks, MiningTool.PICKAXE);
                     }
                     case SMOOTH_BLOCKS -> {
-                        regularBlocks(set.smoothBlocks, 1);
-                        if(set.hasMossy) regularBlocks(set.mossySmoothBlocks, 1);
-                        if(set.hasCracked) regularBlocks(set.crackedSmoothBlocks, 1);
+                        regularBlocks(set.smoothBlocks, MiningTool.PICKAXE);
+                        if(set.hasMossy) regularBlocks(set.mossySmoothBlocks, MiningTool.PICKAXE);
+                        if(set.hasCracked) regularBlocks(set.crackedSmoothBlocks, MiningTool.PICKAXE);
                     }
                     case POLISHED_BLOCKS, POLISHED_BLOCKS_PILLAR -> {
-                        regularBlocks(set.polishedBlocks, 1);
-                        if(set.hasMossy) regularBlocks(set.mossyPolishedBlocks, 1);
-                        if(set.hasCracked) regularBlocks(set.crackedPolishedBlocks, 1);
+                        regularBlocks(set.polishedBlocks, MiningTool.PICKAXE);
+                        if(set.hasMossy) regularBlocks(set.mossyPolishedBlocks, MiningTool.PICKAXE);
+                        if(set.hasCracked) regularBlocks(set.crackedPolishedBlocks, MiningTool.PICKAXE);
                     }
-                    case BRICKWORK_BLOCKS -> regularBlocks(set.brickworkBlocks, 1);
+                    case BRICKWORK_BLOCKS -> regularBlocks(set.brickworkBlocks, MiningTool.PICKAXE);
                     case OLD_BLOCKS, OLD_BLOCKS_PILLAR -> {
-                        regularBlocks(set.oldBlocks, 1);
+                        regularBlocks(set.oldBlocks, MiningTool.PICKAXE);
                         MineablePickaxe.baseStoneOverworld.add(set.oldBlocks.base());
                     }
                     case PILLAR_BLOCKS -> {
-                        pillarBlocks(set.pillarBlocks, set.brickBlocks.base(), 1);
-                        if(set.hasMossy) pillarBlocks(set.mossyPillarBlocks, set.pillarBlocks.base(), 1);
-                        if(set.hasCracked) pillarBlocks(set.crackedPillarBlocks, set.pillarBlocks.base(), 1);
+                        pillarBlocks(set.pillarBlocks, set.brickBlocks.base(), MiningTool.PICKAXE);
+                        if(set.hasMossy) pillarBlocks(set.mossyPillarBlocks, set.pillarBlocks.base(), MiningTool.PICKAXE);
+                        if(set.hasCracked) pillarBlocks(set.crackedPillarBlocks, set.pillarBlocks.base(), MiningTool.PICKAXE);
                     }
                     case CHISELED_BLOCKS -> {
-                        if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) pillarBlocks(set.chiseledBlocks, set.baseBlocks.base(), 1);
-                        if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base(), 1);
-                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base(), 1);
+                        if (set.existingList.contains(StoneBlockTypes.BASE_BLOCKS)) pillarBlocks(set.chiseledBlocks, set.baseBlocks.base(), MiningTool.PICKAXE);
+                        if (set.existingList.contains(StoneBlockTypes.BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base(), MiningTool.PICKAXE);
+                        if (set.existingList.contains(StoneBlockTypes.POLISHED_BRICK_BLOCKS)) pillarBlocks(set.chiseledBricksBlocks, set.brickBlocks.base(), MiningTool.PICKAXE);
                         if (set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS) || set.existingList.contains(StoneBlockTypes.POLISHED_BLOCKS_PILLAR))
-                            pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.base(), 1);
-                        if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.base(), 1);
-                        if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.base(), 1);
+                            pillarBlocks(set.chiseledPolishedBlocks, set.polishedBlocks.base(), MiningTool.PICKAXE);
+                        if (set.existingList.contains(StoneBlockTypes.TILE_BLOCKS)) pillarBlocks(set.chiseledTilesBlocks, set.tileBlocks.base(), MiningTool.PICKAXE);
+                        if (set.existingList.contains(StoneBlockTypes.SMOOTH_BLOCKS)) pillarBlocks(set.chiseledSmoothBlocks, set.smoothBlocks.base(), MiningTool.PICKAXE);
                     }
                     case CHISELED_BLOCKS_NO_RESTRICTION -> {
-                        pillarBlocks(set.chiseledBlocks, null, 1);
-                        pillarBlocks(set.chiseledBricksBlocks, null, 1);
-                        pillarBlocks(set.chiseledPolishedBlocks, null, 1);
-                        pillarBlocks(set.chiseledTilesBlocks, null, 1);
-                        pillarBlocks(set.chiseledSmoothBlocks, null, 1);
+                        pillarBlocks(set.chiseledBlocks, null, MiningTool.PICKAXE);
+                        pillarBlocks(set.chiseledBricksBlocks, null, MiningTool.PICKAXE);
+                        pillarBlocks(set.chiseledPolishedBlocks, null, MiningTool.PICKAXE);
+                        pillarBlocks(set.chiseledTilesBlocks, null, MiningTool.PICKAXE);
+                        pillarBlocks(set.chiseledSmoothBlocks, null, MiningTool.PICKAXE);
                     }
                     case CARVED_WINDOW -> {
                         if(set.baseBlocks == null) carvedWindowBlocks(set.carvedWindows, set.cobblestoneBlocks.base());
@@ -91,7 +91,11 @@ public class HelpingGenerator {
         for (WoodBlockSetBuilder set : WoodBlockSetRegistryME.woodSetsList){
             set.existingList.forEach(woodBlockTypes -> {
                 switch (woodBlockTypes){
-                    case LOG_BLOCKS, NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
+                    case LOG_BLOCKS -> {
+                        woodBlocks(set.logBlocks);
+                        if (!set.vanilla) NaturalLogs.logs.add(set.logBlocks.log());
+                    }
+                    case NETHER_STEM_BLOCKS -> woodBlocks(set.logBlocks);
                     case MUSHROOM_STEM_BLOCKS -> mushroomStemBlocks(set.mushroomStemBlocks);
                     case STRIPPED_LOG_BLOCKS, STRIPPED_STEM_BLOCKS -> {
                         ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
@@ -100,9 +104,9 @@ public class HelpingGenerator {
                     case PLANK_BLOCKS -> plankBlocks(set.planksBlocks, set.vanilla);
                     case SHINGLE_BLOCKS -> {
                         Shingles.shingles.add(set.shinglesBlocks.base());
-                        regularBlocks(set.shinglesBlocks, 0);
+                        regularBlocks(set.shinglesBlocks, MiningTool.AXE);
                     }
-                    case ROOFING_BLOCKS -> regularBlocks(set.roofingBlocks, 0);
+                    case ROOFING_BLOCKS -> regularBlocks(set.roofingBlocks, MiningTool.AXE);
                     case FURNITURE_BLOCKS -> furnitureBlocks(set.furnitureBlocks, set.planksBlocks.base());
                     case REDSTONE_BLOCKS -> woodRedstoneBlocks(set.redstoneBlocks, set.planksBlocks.base());
                     case LEAVES -> {
@@ -119,18 +123,10 @@ public class HelpingGenerator {
         }
 
         for (GenericBlockSetBuilder set : GenericBlockSetRegistryME.genericSetsList) {
-            int tool = -1;
-            if(set.requiresTool) {
-                if(set.setName.contains("wood") || set.setName.contains("shingles")) tool = 0;
-                else if(set.setName.contains("clay") || set.setName.contains("stone") || set.setName.contains("brick")
-                        || set.setName.contains("tiles") || set.setName.contains("stucco")
-                        || set.setName.contains("daub") || set.setName.contains("mire") || set.setName.startsWith("cut_")) tool = 1;
-                else if(set.setName.contains("plaster")) tool = 2;
-            }
-            regularBlocks(set.blockSet, tool);
+            regularBlocks(set.blockSet, BlockSetTools.of(set));
         }
         for (SimpleBlockSetBuilder set : GenericBlockSetRegistryME.simpleSetsList) {
-            regularBlocks(set.blockSet, -1);
+            regularBlocks(set.blockSet, BlockSetTools.of(set));
         }
 
         SimpleBlockModel.blocks.addAll(LeavesSets.leaves);
@@ -166,11 +162,13 @@ public class HelpingGenerator {
         SimpleWallModel.vanillaWoodWalls.forEach(block -> {
             Walls.walls.add(block.wall());
             MineableAxe.blocks.add(block.wall());
+            NotMineableWithPickaxe.walls.add(block.wall());
         });
 
         SimpleWallModel.vanillaStrippedWalls.forEach(block -> {
             Walls.walls.add(block.wall());
             MineableAxe.blocks.add(block.wall());
+            NotMineableWithPickaxe.walls.add(block.wall());
         });
 
         SimpleFenceModel.vanillaWoodFences.forEach(block -> {
@@ -236,13 +234,13 @@ public class HelpingGenerator {
         }
     }
 
-    // -1 == nothing, 0 == axe, 1 == pickaxe, 2 == shovel, 3 == hoe
-    public static void addBlocksToLists(Block block, Block base, Block origin, int tool){
+    public static void addBlocksToLists(Block block, Block base, Block origin, MiningTool tool){
         switch(tool) {
-            case 0 -> MineableAxe.blocks.add(block);
-            case 1 -> MineablePickaxe.blocks.add(block);
-            case 2 -> MineableShovel.blocks.add(block);
-            case 3 -> MineableHoe.blocks.add(block);
+            case AXE -> MineableAxe.blocks.add(block);
+            case PICKAXE -> MineablePickaxe.blocks.add(block);
+            case SHOVEL -> MineableShovel.blocks.add(block);
+            case HOE -> MineableHoe.blocks.add(block);
+            case NONE -> {}
         }
 
         BlockDrops.blocks.add(block);
@@ -297,6 +295,7 @@ public class HelpingGenerator {
                 }
                 case WallBlock wallBlock -> {
                     Walls.walls.add(wallBlock);
+                    if (tool != MiningTool.PICKAXE) NotMineableWithPickaxe.walls.add(wallBlock);
                     if (isPillar){
                         SimpleWallModel.columnWalls.add(new SimpleWallModel.Wall(base, wallBlock));
                     } else if (blockName.contains("stripped")){
@@ -324,7 +323,7 @@ public class HelpingGenerator {
                 }
                 case ButtonBlock buttonBlock -> {
                     // Wooden buttons are named "<wood>_button", so the "_wood" name check above misses them; use the tool instead
-                    if(tool == 0) Buttons.woodButtons.add(buttonBlock);
+                    if(tool == MiningTool.AXE) Buttons.woodButtons.add(buttonBlock);
                     else Buttons.stoneButtons.add(buttonBlock);
                     SimpleButtonModel.buttons.add(new SimpleButtonModel.Button(base, buttonBlock));
                 }
@@ -360,49 +359,55 @@ public class HelpingGenerator {
         }
     }
 
-    public static void regularBlocks(BlockRecordTypes.RegularSet set, int tool) {
+    public static void regularBlocks(BlockRecordTypes.RegularSet set, MiningTool tool) {
         BlockRecordTypes.RegularSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), tool));
     }
 
-    public static void regularBlocks(BlockRecordTypes.SimpleBlocks set, int tool) {
+    public static void regularBlocks(BlockRecordTypes.SimpleBlocks set, MiningTool tool) {
         BlockRecordTypes.SimpleBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), tool));
     }
 
-    public static void pillarBlocks(BlockRecordTypes.PillarSet set, Block origin, int tool) {
+    public static void pillarBlocks(BlockRecordTypes.PillarSet set, Block origin, MiningTool tool) {
         BlockRecordTypes.PillarSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.verticalSlab(), tool));
     }
 
     public static void carvedWindowBlocks(BlockRecordTypes.CarvedWindow set, Block origin) {
-        BlockRecordTypes.CarvedWindow.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.block(), origin, 1));
+        BlockRecordTypes.CarvedWindow.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.block(), origin, MiningTool.PICKAXE));
     }
 
     public static void mainStoneBlocks(BlockRecordTypes.BaseStoneSet set){
-        BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 1));
+        BlockRecordTypes.BaseStoneSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), MiningTool.PICKAXE));
     }
 
     public static void plankBlocks(BlockRecordTypes.PlanksSet set, boolean vanilla) {
-        BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), 0));
+        BlockRecordTypes.PlanksSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.base(), set.slab(), MiningTool.AXE));
         WoodenVerticalSlabs.woodenVericalSlabs.add(set.verticalSlab());
         Planks.planks.add(set.base());
         if(!vanilla) Planks.moddedPlanks.add(set.base());
         Planks.planksSlabs.add(set.slab());
+        if(!vanilla) WoodenVariants.stairs.add(set.stairs());
     }
 
     public static void woodBlocks(BlockRecordTypes.WoodSet set) {
-        BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.wood(), set.slab(), 0));
+        BlockRecordTypes.WoodSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.wood(), set.slab(), MiningTool.AXE));
         Logs.logs.add(set.log());
         Logs.logs.add(set.wood());
     }
 
     public static void mushroomStemBlocks(BlockRecordTypes.MushroomStemSet set) {
-        BlockRecordTypes.MushroomStemSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.stem(), set.slab(), 0));
+        BlockRecordTypes.MushroomStemSet.getAllBlocks(set).forEach(block -> addBlocksToLists(block, set.stem(), set.slab(), MiningTool.AXE));
     }
 
     public static void furnitureBlocks(BlockRecordTypes.WoodFurnitureBlocks set, Block base) {
-        BlockRecordTypes.WoodFurnitureBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null, 0));
+        BlockRecordTypes.WoodFurnitureBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null, MiningTool.AXE));
     }
 
     public static void woodRedstoneBlocks(BlockRecordTypes.WoodRedstoneBlocks set, Block base) {
-        BlockRecordTypes.WoodRedstoneBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null, 0));
+        BlockRecordTypes.WoodRedstoneBlocks.getAllBlocks(set).forEach(block -> addBlocksToLists(block, base, null, MiningTool.AXE));
+        if (!Objects.equals(Registries.BLOCK.getId(set.door()).getNamespace(), "minecraft")) {
+            WoodenVariants.doors.add(set.door());
+            WoodenVariants.trapdoors.add(set.trapdoor());
+            WoodenVariants.pressurePlates.add(set.pressurePlate());
+        }
     }
 }
