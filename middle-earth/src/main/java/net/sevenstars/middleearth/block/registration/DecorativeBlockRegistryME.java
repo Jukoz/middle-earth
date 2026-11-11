@@ -165,6 +165,7 @@ public class DecorativeBlockRegistryME {
 
     public static final Block SACK = registerBlock("sack",
             SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+
     public static final Block WHITE_SACK = registerBlock("white_sack",
             SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
     public static final Block BLACK_SACK = registerBlock("black_sack",
@@ -172,6 +173,30 @@ public class DecorativeBlockRegistryME {
     public static final Block BLUE_SACK = registerBlock("blue_sack",
             SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
     public static final Block BROWN_SACK = registerBlock("brown_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block CYAN_SACK = registerBlock("cyan_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block GREEN_SACK = registerBlock("green_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block GRAY_SACK = registerBlock("gray_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block LIGHT_BLUE_SACK = registerBlock("light_blue_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block LIGHT_GRAY_SACK = registerBlock("light_gray_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block LIME_SACK = registerBlock("lime_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block MAGENTA_SACK = registerBlock("magenta_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block ORANGE_SACK = registerBlock("orange_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block PINK_SACK = registerBlock("pink_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block PURPLE_SACK = registerBlock("purple_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block RED_SACK = registerBlock("red_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block YELLOW_SACK = registerBlock("yellow_sack",
             SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
 
 
