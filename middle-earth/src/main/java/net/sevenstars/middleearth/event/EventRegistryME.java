@@ -18,6 +18,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -235,6 +236,7 @@ public class EventRegistryME {
                             ? world.getBlockEntity(blockpos)
                             : null;
 
+                    player.incrementStat(Stats.MINED.getOrCreateStat(blockState.getBlock()));
                     Block.dropStacks(blockState, world, blockpos, blockEntity, player, stack);
                     world.breakBlock(blockpos, false, player);
                     stack.postMine(world, blockState, blockpos, player);
