@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.world.biomes.surface;
 
 import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
+import net.sevenstars.middleearth.world.biomes.BiomeSkyPresetME;
 import net.sevenstars.middleearth.world.biomes.BiomeDataConfigsME;
 import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.world.biomes.caves.CaveType;
@@ -26,6 +27,7 @@ public class MapBiomeData {
     public static final int nearHaradSkyFog = 12902399;
 
     private static void addBiome(BiomeData biome){
+        BiomeSkyPresetME.apply(biome.getBiomeRegistryKey(), biome.getBiomeColors());
         biomes.put(biome.getBiomeRegistryKey(), biome);
     }
 
