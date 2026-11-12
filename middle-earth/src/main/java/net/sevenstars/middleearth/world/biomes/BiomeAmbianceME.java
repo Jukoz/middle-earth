@@ -70,7 +70,7 @@ public final class BiomeAmbianceME {
             .withParticles(Particles.MIST_THICK)
             .withSounds(Sounds.HAUNTED);
     // Plains of Mordor
-    public static final BiomeAmbianceME ASH = sky(0x292023, 0x1D151B)
+    public static final BiomeAmbianceME ASH = sky(0x292023, 0x1D151B).withFog(0.15f, 0.7f)
             .withParticles(Particles.ASHFALL_LIGHT)
             .withSounds(Sounds.MORDOR);
     // Mountains of Mordor & Udun
@@ -189,10 +189,10 @@ public final class BiomeAmbianceME {
     // The probability is the chance for each air block around the player to spawn a particle, every tick
     public record Particles(ParticleEffect particle, float probability) {
         public static final Particles ASHFALL_HEAVY = new Particles(ParticleTypes.WHITE_ASH, 0.1f);
-        public static final Particles ASHFALL = new Particles(ParticleTypes.WHITE_ASH, 0.045f);
-        public static final Particles ASHFALL_LIGHT = new Particles(ParticleTypes.WHITE_ASH, 0.02f);
-        public static final Particles CINDERS = new Particles(ParticleTypes.ASH, 0.012f);
-        public static final Particles DUST = new Particles(ParticleTypes.ASH, 0.005f);
+        public static final Particles ASHFALL = new Particles(ParticleTypes.WHITE_ASH, 0.07f);
+        public static final Particles ASHFALL_LIGHT = new Particles(ParticleTypes.WHITE_ASH, 0.04f);
+        public static final Particles CINDERS = new Particles(ParticleTypes.ASH, 0.03f);
+        public static final Particles DUST = new Particles(ParticleTypes.ASH, 0.015f);
 
         public static final Particles MIST_THICK = new Particles(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, 0.004f);
         public static final Particles MIST = new Particles(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, 0.003f);
@@ -202,8 +202,8 @@ public final class BiomeAmbianceME {
         public static final Particles MOTES_SPARSE = new Particles(ParticleTypes.MYCELIUM, 0.006f);
         public static final Particles STUFFY_AIR = new Particles(ParticleTypes.SPORE_BLOSSOM_AIR, 0.006f);
 
-        public static final Particles SNOW_HEAVY = new Particles(ParticleTypes.SNOWFLAKE, 0.03f);
-        public static final Particles SNOW = new Particles(ParticleTypes.SNOWFLAKE, 0.015f);
+        public static final Particles SNOW_HEAVY = new Particles(ParticleTypes.SNOWFLAKE, 0.05f);
+        public static final Particles SNOW = new Particles(ParticleTypes.SNOWFLAKE, 0.025f);
 
         public Particles {
             if(!(probability > 0 && probability <= 1))
