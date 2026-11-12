@@ -110,8 +110,8 @@ public class CaveBiomesME {
 
         context.register(BiomeKeyRegistryME.MITHRIL_CAVE, createMithrilCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
 
-        context.register(BiomeKeyRegistryME.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS, 6450777, 1513734, 3550502, 2169880)));
-        context.register(BiomeKeyRegistryME.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS, 6450777, 1513734, 3550502, 2169880)));
+        context.register(BiomeKeyRegistryME.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
+        context.register(BiomeKeyRegistryME.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
 
         context.register(BiomeKeyRegistryME.DRY_CAVE, createDryCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10928742, 11259497)));
         context.register(BiomeKeyRegistryME.ICE_CAVE, createIceCaves(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 11121530, 10990723)));
