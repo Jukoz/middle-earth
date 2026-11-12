@@ -17,6 +17,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -94,8 +95,8 @@ public abstract class AbstractShapingAnvilBlock extends BlockWithEntity implemen
         if (!world.isClient) {
             if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackCooldownProgress(0.5f) > 0.9f) {
                 player.incrementStat(Stats.USED.getOrCreateStat(hammer));
-                stack.use(world, player, player.getActiveHand());
-                player.getStackInHand(player.getActiveHand()).damage(1, player, EquipmentSlot.MAINHAND);
+                stack.use(world, player, Hand.MAIN_HAND);
+                stack.damage(1, player, EquipmentSlot.MAINHAND);
                 if (blockEntity instanceof ShapingAnvilBlockEntity shapingAnvilBlockEntity) {
                     ServerWorld serverWorld = (ServerWorld) world;
                     shapingAnvilBlockEntity.bonk(shapingAnvilBlockEntity, serverWorld, stack);
