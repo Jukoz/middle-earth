@@ -2,6 +2,14 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.BedPart;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.world.poi.PointOfInterestTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -428,6 +436,18 @@ public class RegistriesME {
             builder.add(WeaponItemsME.MORIA_GOBLIN_BOW, 300);
             builder.add(WeaponItemsME.GOBLIN_TOWN_BOW, 300);
         }));
+    }
+
+    // Vanilla only lists its own beds as villager homes
+    public static void registerBedPointsOfInterest() {
+        RegistryEntry<PointOfInterestType> home = Registries.POINT_OF_INTEREST_TYPE.getOrThrow(PointOfInterestTypes.HOME);
+        for (Block bed : List.of(DecorativeBlockRegistryME.FANCY_BED, DecorativeBlockRegistryME.FUR_BED, DecorativeBlockRegistryME.STRAW_BED)) {
+            for (BlockState state : bed.getStateManager().getStates()) {
+                if (state.get(BedBlock.PART) == BedPart.HEAD) {
+                    PointOfInterestTypes.POI_STATES_TO_TYPE.putIfAbsent(state, home);
+                }
+            }
+        }
     }
 
     public static void registerComposterBlocks() {

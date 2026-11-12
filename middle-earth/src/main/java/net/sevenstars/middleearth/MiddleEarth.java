@@ -97,6 +97,7 @@ public class MiddleEarth implements ModInitializer {
 		RegistriesME.registerTillableBlocks();
 		RegistriesME.registerAgingCopperBlocks();
 		RegistriesME.registerComposterBlocks();
+		RegistriesME.registerBedPointsOfInterest();
 		RegistriesME.registerCauldronBehaviour();
 		RegistriesME.registerLandPathNodeTypesBlocks();
 
