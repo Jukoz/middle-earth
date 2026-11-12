@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.gui.shapinganvil;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -28,6 +27,13 @@ import net.sevenstars.middleearth.recipe.RecipesME;
 import java.util.List;
 
 public class ShapingAnvilScreenHandler extends ScreenHandler {
+    /**
+     * Run on the client when the anvil's input changes: the client sets it (in MiddleEarthClient) to clear the open
+     * anvil screen's outputs. The handler never names the screen itself, so a dedicated server never loads client
+     * classes through it; there it stays a no-op.
+     */
+    public static volatile Runnable clientInputChanged = () -> {};
+
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
     protected BlockPos pos;
@@ -65,8 +71,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
             public void markDirty() {
                 super.markDirty();
                 if(player.getWorld().isClient) {
-                    ShapingAnvilScreen screen = (ShapingAnvilScreen)MinecraftClient.getInstance().currentScreen;
-                    if(screen != null) screen.clearOutputs();
+                    clientInputChanged.run();
                 }
                 ShapingAnvilScreenHandler.this.updateStack(ShapingAnvilScreenHandler.this.inventory);
             }
