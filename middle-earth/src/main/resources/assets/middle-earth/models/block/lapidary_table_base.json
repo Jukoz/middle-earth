@@ -7,6 +7,7 @@
     "0": "middle-earth:block/lapidary_table",
     "particle": "middle-earth:block/lapidary_table_top",
     "top": "middle-earth:block/lapidary_table_top",
+		"under": "middle-earth:block/lapidary_table_underside",
     "edge": "middle-earth:block/lapidary_table_edge"
   },
   "elements": [
@@ -38,7 +39,7 @@
             7,
             16
           ],
-          "texture": "#top"
+          "texture": "#under"
         },
         "south": {
           "uv": [
@@ -106,7 +107,7 @@
             9,
             16
           ],
-          "texture": "#top"
+          "texture": "#under"
         },
         "south": {
           "uv": [
@@ -174,7 +175,7 @@
             9,
             3
           ],
-          "texture": "#top"
+          "texture": "#under"
         },
         "south": {
           "uv": [
@@ -242,7 +243,7 @@
             16,
             16
           ],
-          "texture": "#top"
+          "texture": "#under"
         },
         "south": {
           "uv": [

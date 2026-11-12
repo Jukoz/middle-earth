@@ -562,14 +562,13 @@ public class LapidaryTableBlockEntity extends BlockEntity {
     }
 
     /**
-     * The study candle burns while a gem rests on the pedestal, and a fitted pump's water drips onto the wheel while
-     * it grinds.
+     * The study candle always burns, and a fitted pump's water drips onto the wheel while it grinds.
      */
     public static void clientTick(World world, BlockPos pos, BlockState state, LapidaryTableBlockEntity table) {
         Direction facing = state.get(LapidaryTableBlock.FACING);
-        if (!table.studyGem.isEmpty() && world.getRandom().nextInt(4) == 0) {
+        if (world.getRandom().nextInt(4) == 0) {
             // The wick, on the study half (model x 16..32).
-            spawn(world, pos, facing, 24, 17.5, 13, net.minecraft.particle.ParticleTypes.SMALL_FLAME);
+            spawn(world, pos, facing, 24, 18, 13, net.minecraft.particle.ParticleTypes.SMALL_FLAME);
         }
         if (state.get(LapidaryTableBlock.CUTTING) && world.getRandom().nextInt(3) == 0 && table.pumpTier() != null) {
             spawn(world, pos, facing, NOZZLE_X,

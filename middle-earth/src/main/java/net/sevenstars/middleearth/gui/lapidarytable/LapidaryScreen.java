@@ -243,12 +243,11 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             new ItemStack(Items.CANDLE), 0, Text.translatable("gui.middle-earth.lapidary.mode.reading"),
             () -> setMode(false)));
         facetingButton = addDrawableChild(new IconButton(modeX, y + LapidaryScreenHandler.INVENTORY_Y + 22,
-            ResourceItemsME.cutGem(GemCut.BRILLIANT, GemTypeRegistry.RUBY), 1,
-            // The brilliant cut's art fills rows 2-15 of its frame, a pixel below centre.
+            ResourceItemsME.cutGem(GemCut.BRILLIANT, GemTypeRegistry.RUBY), 0,
             Text.translatable("gui.middle-earth.lapidary.mode.faceting"), () -> setMode(true)));
         cutButton = addDrawableChild(ButtonWidget.builder(Text.translatable("gui.middle-earth.lapidary.faceting.cut"),
                 button -> pressCut())
-            .dimensions(x + PANEL_X + 4, y + 44, 72, 18).build());
+            .dimensions(x + PANEL_X + 3, y + 44, 73, 18).build());
         for (GemCut cut : GemCut.values()) {
             cutChoices[cut.ordinal()] = addDrawableChild(new IconButton(0, 0, 18,
                 ResourceItemsME.cutGem(cut, GemTypeRegistry.RUBY), 0, Text.translatable(cut.translationKey()),
@@ -349,7 +348,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
         RegistryKey<GemType> type = cutGemType();
         // Buttons side by side (18 px each), centred on the parchment so four still fit inside its border.
-        int rowX = x + PANEL_X + 39 - cuts.size() * 18 / 2;
+        int rowX = x + PANEL_X + 40 - cuts.size() * 18 / 2;
         for (IconButton button : cutChoices) {
             button.visible = false;
         }
@@ -358,7 +357,8 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             IconButton button = cutChoices[cut.ordinal()];
             button.visible = true;
             button.active = cut != chosenCut;
-            button.setX(rowX + i * 18);
+            // An even row splits a pixel in the middle (the left half a pixel further left), so it sits centred.
+            button.setX(rowX + i * 18 - (cuts.size() % 2 == 0 && i < cuts.size() / 2 ? 1 : 0));
             button.setY(y + 66);
             if (type != null) {
                 button.setIcon(ResourceItemsME.cutGem(cut, type));

@@ -55,6 +55,8 @@ public class LapidaryTableRenderer implements BlockEntityRenderer<LapidaryTableB
      * end on the crank side ({@link #RISER_X}, {@link #RISER_Z}) to an arm over the wheel's rim.
      */
     private static final float PIPE_Y = 1.75F, PIPE_HALF = 0.75F;
+    /** The pipes' metal: a 16 texel patch at these texels of the 48 texel pump texture. */
+    private static final float PIPE_U = 0, PIPE_V = 32, PUMP_TEXTURE = 48;
     private static final float RISER_X = 6, RISER_Z = 12.5F, RISER_TOP = 14.5F, ARM_TO_X = 7.9F;
     /** The pedal's lid: raised this far at rest, pressed down by up to {@link #PEDAL_PRESS} once a second in use. */
     private static final float PEDAL_UP = 20, PEDAL_PRESS = 11;
@@ -67,10 +69,11 @@ public class LapidaryTableRenderer implements BlockEntityRenderer<LapidaryTableB
     private static final float GEM_Y = 14.25F + 1.44F + 0.1F;
     private static final int WATER_COLOR = 0xC03F76E4;
     /**
-     * The gem being cut, on the dop's wax (model pixels): centred over the wheel slot, its foot (the sprite 2.9 px
-     * tall) clear of the turning wheel, which reaches y 15.45 at its corners.
+     * The gem being cut, on the dop's wax (model pixels): centred over the wheel slot, set down into the wax. Its
+     * foot (the sprite 2.9 px tall) comes to y 15.2, so the tips of the turning wheel's corners (up to y 15.45) just
+     * graze it, as a gem held to the wheel would be.
      */
-    private static final float DOP_GEM_X = 7.95F, DOP_GEM_Y = 16.95F, DOP_GEM_Z = 8;
+    private static final float DOP_GEM_X = 7.95F, DOP_GEM_Y = 16.65F, DOP_GEM_Z = 8;
 
     private final BlockRenderManager blocks;
     private final ItemRenderer items;
@@ -215,10 +218,10 @@ public class LapidaryTableRenderer implements BlockEntityRenderer<LapidaryTableB
         var atlas = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
         VertexConsumer cutout = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE));
         MatrixStack.Entry e = matrices.peek();
-        leather(cutout, e, atlas.apply(MiddleEarth.id(relic ? "block/foot_pump_numenorean" : "block/foot_pump_standard")),
-            angle, light, overlay);
+        // The pump texture also holds the pipes' metal (a smooth patch in its hoop's colours).
+        Sprite metal = atlas.apply(MiddleEarth.id(relic ? "block/foot_pump_numenorean" : "block/foot_pump_standard"));
+        leather(cutout, e, metal, angle, light, overlay);
 
-        Sprite metal = atlas.apply(MiddleEarth.id(relic ? "block/mithril_block" : "block/steel_block"));
         float h = PIPE_HALF, s = 1.25F;
         // The outlet on the tall end, and the pipe on from it: back, across to the crank side, forward to the riser.
         px(cutout, e, metal, 7.5F, 0, 10, 10.5F, 3, 11.5F, light, overlay);
@@ -303,16 +306,32 @@ public class LapidaryTableRenderer implements BlockEntityRenderer<LapidaryTableB
         box(v, e, s, x0 / 16, y0 / 16, z0 / 16, x1 / 16, y1 / 16, z1 / 16, light, overlay);
     }
 
-    /** An axis-aligned box textured with a few pixels of {@code sprite} on each face. */
+    /**
+     * An axis-aligned box (block units) textured one texel per model pixel, as the table's models are: each face
+     * takes a piece of the pump texture's pipe patch ({@link #PIPE_U}, {@link #PIPE_V}, 16 texels square) its own size.
+     */
     private static void box(VertexConsumer v, MatrixStack.Entry e, Sprite s, float x0, float y0, float z0,
                             float x1, float y1, float z1, int light, int overlay) {
-        float u0 = s.getFrameU(0.25F), u1 = s.getFrameU(0.4F), v0 = s.getFrameV(0.25F), v1 = s.getFrameV(0.4F);
-        quad(v, e, light, overlay, u0, u1, v0, v1, 0, -1, 0, x0, y0, z0, x1, y0, z0, x1, y0, z1, x0, y0, z1);
-        quad(v, e, light, overlay, u0, u1, v0, v1, 0, 1, 0, x0, y1, z1, x1, y1, z1, x1, y1, z0, x0, y1, z0);
-        quad(v, e, light, overlay, u0, u1, v0, v1, 0, 0, -1, x0, y1, z0, x1, y1, z0, x1, y0, z0, x0, y0, z0);
-        quad(v, e, light, overlay, u0, u1, v0, v1, 0, 0, 1, x0, y0, z1, x1, y0, z1, x1, y1, z1, x0, y1, z1);
-        quad(v, e, light, overlay, u0, u1, v0, v1, -1, 0, 0, x0, y0, z0, x0, y0, z1, x0, y1, z1, x0, y1, z0);
-        quad(v, e, light, overlay, u0, u1, v0, v1, 1, 0, 0, x1, y1, z0, x1, y1, z1, x1, y0, z1, x1, y0, z0);
+        float dx = x1 - x0, dy = y1 - y0, dz = z1 - z0;
+        float xu0 = u(s, dx, false), xu1 = u(s, dx, true), zu0 = u(s, dz, false), zu1 = u(s, dz, true);
+        float yv0 = v(s, dy, false), yv1 = v(s, dy, true), zv0 = v(s, dz, false), zv1 = v(s, dz, true);
+        quad(v, e, light, overlay, xu0, xu1, zv0, zv1, 0, -1, 0, x0, y0, z0, x1, y0, z0, x1, y0, z1, x0, y0, z1);
+        quad(v, e, light, overlay, xu0, xu1, zv0, zv1, 0, 1, 0, x0, y1, z1, x1, y1, z1, x1, y1, z0, x0, y1, z0);
+        quad(v, e, light, overlay, xu0, xu1, yv0, yv1, 0, 0, -1, x0, y1, z0, x1, y1, z0, x1, y0, z0, x0, y0, z0);
+        quad(v, e, light, overlay, xu0, xu1, yv0, yv1, 0, 0, 1, x0, y0, z1, x1, y0, z1, x1, y1, z1, x0, y1, z1);
+        quad(v, e, light, overlay, zu0, zu1, yv0, yv1, -1, 0, 0, x0, y0, z0, x0, y0, z1, x0, y1, z1, x0, y1, z0);
+        quad(v, e, light, overlay, zu0, zu1, yv0, yv1, 1, 0, 0, x1, y1, z0, x1, y1, z1, x1, y0, z1, x1, y0, z0);
+    }
+
+    /** One end of a face's piece along u, {@code size} block units long, centred in the pipe patch. */
+    private static float u(Sprite s, float size, boolean end) {
+        float span = Math.min(1, size), from = (1 - span) / 2;
+        return s.getFrameU((PIPE_U + 16 * (end ? from + span : from)) / PUMP_TEXTURE);
+    }
+
+    private static float v(Sprite s, float size, boolean end) {
+        float span = Math.min(1, size), from = (1 - span) / 2;
+        return s.getFrameV((PIPE_V + 16 * (end ? from + span : from)) / PUMP_TEXTURE);
     }
 
     private static void quad(VertexConsumer v, MatrixStack.Entry e, int light, int overlay, float u0, float u1,

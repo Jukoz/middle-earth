@@ -120,7 +120,10 @@ public class DecorativeBlockRegistryME {
             net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock::new,
             AbstractBlock.Settings.create().mapColor(net.minecraft.block.MapColor.OAK_TAN)
                     .instrument(net.minecraft.block.enums.NoteBlockInstrument.BASS).strength(2.5F)
-                    .sounds(net.minecraft.sound.BlockSoundGroup.WOOD).nonOpaque().dynamicBounds());
+                    .sounds(net.minecraft.sound.BlockSoundGroup.WOOD).nonOpaque().dynamicBounds()
+                    // the study half's candle is always lit: a mild glow
+                    .luminance(state -> state.get(net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.PART)
+                            == net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.Part.STUDY ? 5 : 0));
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
