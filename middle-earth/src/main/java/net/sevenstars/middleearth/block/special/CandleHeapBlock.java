@@ -65,7 +65,9 @@ public class CandleHeapBlock extends Block {
             } else {
                 ItemStack itemStack = player.getMainHandStack();
                 if (state.get(LIT) && player.getMainHandStack().isEmpty()) {
-                    extinguish((Entity)null, world, pos, state);
+                    setLit(world, state, pos, false);
+                    world.playSound(null, pos, SoundEvents.BLOCK_CANDLE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    extinguish(null, world, pos, state);
                 } else if (!state.get(LIT) && (itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH))) {
                     setLit(world, state, pos, true);
                 }
