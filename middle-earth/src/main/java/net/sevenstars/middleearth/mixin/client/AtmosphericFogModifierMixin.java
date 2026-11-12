@@ -11,7 +11,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
-import net.sevenstars.middleearth.world.biomes.BiomeFogDatasME;
+import net.sevenstars.middleearth.world.biomes.BiomeAmbianceME;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -47,16 +47,17 @@ public class AtmosphericFogModifierMixin {
 
         float deltaTicks = tickCounter.getDynamicDeltaTicks();
         Optional<RegistryKey<Biome>> biome = world.getBiome(cameraPos).getKey();
-        BiomeFogDatasME biomeFog = biome.map(BiomeFogDatasME.DATA::get).orElse(null);
+        BiomeAmbianceME ambiance = biome.map(BiomeAmbianceME::of).orElse(null);
+        BiomeAmbianceME.Fog biomeFog = ambiance == null ? null : ambiance.getFog();
         if(biomeFog == null) {
             blend = approach(blend, 0, deltaTicks * BLEND_SPEED);
         } else {
             if(blend <= 0) {
-                fogStartMultiplier = biomeFog.fogStart;
-                fogEndMultiplier = biomeFog.fogEnd;
+                fogStartMultiplier = biomeFog.start();
+                fogEndMultiplier = biomeFog.end();
             } else {
-                fogStartMultiplier = approach(fogStartMultiplier, biomeFog.fogStart, deltaTicks * TRANSITION_SPEED);
-                fogEndMultiplier = approach(fogEndMultiplier, biomeFog.fogEnd, deltaTicks * TRANSITION_SPEED);
+                fogStartMultiplier = approach(fogStartMultiplier, biomeFog.start(), deltaTicks * TRANSITION_SPEED);
+                fogEndMultiplier = approach(fogEndMultiplier, biomeFog.end(), deltaTicks * TRANSITION_SPEED);
             }
             blend = approach(blend, 1, deltaTicks * BLEND_SPEED);
         }

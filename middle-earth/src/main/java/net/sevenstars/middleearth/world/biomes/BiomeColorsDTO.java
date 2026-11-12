@@ -1,38 +1,39 @@
 package net.sevenstars.middleearth.world.biomes;
 
+import net.minecraft.world.biome.BiomeEffects;
+
+import java.util.Objects;
+
 public class BiomeColorsDTO {
-    public int skyColor;
-    public int fogColor;
+    public BiomeAmbianceME ambiance;
     public int waterColor;
     public int waterFogColor;
     public int grassColor;
     public int foliageColor;
 
     public BiomeColorsDTO(BiomeColorsDTO copy) {
-        this.skyColor = copy.skyColor;
-        this.fogColor = copy.fogColor;
+        this.ambiance = copy.ambiance;
         this.waterColor = copy.waterColor;
         this.waterFogColor = copy.waterFogColor;
         this.grassColor = copy.grassColor;
         this.foliageColor = copy.foliageColor;
     }
 
-    public BiomeColorsDTO(int grassColor, int foliageColor) {
-        // Default vanilla values
-        this.skyColor = BiomeSkyPresetME.CLEAR.skyColor;
-        this.fogColor = BiomeSkyPresetME.CLEAR.fogColor;
-        this.waterColor = 4159204;
-        this.waterFogColor = 329011;
-        this.grassColor = grassColor;
-        this.foliageColor = foliageColor;
-    }
-
-    public BiomeColorsDTO(BiomeSkyPresetME sky, int waterColor, int waterFogColor, int grassColor, int foliageColor) {
-        this.skyColor = sky.skyColor;
-        this.fogColor = sky.fogColor;
+    public BiomeColorsDTO(BiomeAmbianceME ambiance, int waterColor, int waterFogColor, int grassColor, int foliageColor) {
+        this.ambiance = Objects.requireNonNull(ambiance, "A biome needs an ambiance");
         this.waterColor = waterColor;
         this.waterFogColor = waterFogColor;
         this.grassColor = grassColor;
         this.foliageColor = foliageColor;
+    }
+
+    public BiomeEffects.Builder createEffects() {
+        BiomeEffects.Builder effects = new BiomeEffects.Builder()
+                .waterColor(waterColor)
+                .waterFogColor(waterFogColor)
+                .grassColor(grassColor)
+                .foliageColor(foliageColor);
+        ambiance.applyTo(effects);
+        return effects;
     }
 }
