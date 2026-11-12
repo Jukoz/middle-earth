@@ -7,6 +7,7 @@ import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootWorldContext;
@@ -69,9 +70,10 @@ public class SackBlock extends BlockWithEntity {
 
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
+
         if (blockEntity instanceof SackBlockEntity sackBlockEntity) {
             if (!world.isClient && player.shouldSkipBlockDrops() && !sackBlockEntity.isEmpty()) {
-                ItemStack itemStack = new ItemStack(DecorativeItemsME.SACK);
+                ItemStack itemStack = new ItemStack(state.getBlock());
                 itemStack.applyComponentsFrom(blockEntity.createComponentMap());
                 ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();

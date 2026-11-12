@@ -1,0 +1,7 @@
+{
+	"parent": "middle-earth:block/sack",
+	"textures": {
+		"particle": "middle-earth:block/white_sack",
+		"0": "middle-earth:block/white_sack_open"
+	}
+}
