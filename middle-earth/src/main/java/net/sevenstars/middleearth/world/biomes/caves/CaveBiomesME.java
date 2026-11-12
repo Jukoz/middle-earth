@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.world.biomes.caves;
 
 import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
+import net.sevenstars.middleearth.world.biomes.BiomeAmbianceME;
 import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.world.biomes.surface.BiomeData;
 import net.sevenstars.middleearth.world.features.underground.CavesPlacedFeatureRegistryME;
@@ -21,8 +22,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class CaveBiomesME {
-    public static final int defaultSky = 7907327;
-    public static final int defaultFog = 12638463;
     public static final int defaultWater = 4159204;
     public static final int defaultWaterFog = 329011;
 
@@ -97,41 +96,25 @@ public class CaveBiomesME {
     }
 
     public static void bootstrap(Registerable<Biome> context) {
-        context.register(BiomeKeyRegistryME.BASIC_CAVE, createBasicCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.MOUNTAIN_CAVE, createMountainCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.LUSH_CAVE, createLushCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 8703593, 8703593)));
-        context.register(BiomeKeyRegistryME.DRIPSTONE_CAVE, createDripstoneCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.DOLOMITE_CAVE, createDolomiteCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.GALONN_CAVE, createGalonnCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.GILDED_CAVE, createGildedCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.IZHERABAN_CAVE, createIzherAbanCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.LIMESTONE_CAVE, createLimestoneCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
-        context.register(BiomeKeyRegistryME.MUD_CAVE, createMudCaves(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 7435337, 7905386)));
-        context.register(BiomeKeyRegistryME.FUNGUS_CAVE, createFungusCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 5869935, 6263141)));
+        context.register(BiomeKeyRegistryME.BASIC_CAVE, createBasicCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.MOUNTAIN_CAVE, createMountainCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.LUSH_CAVE, createLushCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 8703593, 8703593)));
+        context.register(BiomeKeyRegistryME.DRIPSTONE_CAVE, createDripstoneCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.DOLOMITE_CAVE, createDolomiteCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.GALONN_CAVE, createGalonnCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.GILDED_CAVE, createGildedCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.IZHERABAN_CAVE, createIzherAbanCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.LIMESTONE_CAVE, createLimestoneCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.MUD_CAVE, createMudCaves(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 7435337, 7905386)));
+        context.register(BiomeKeyRegistryME.FUNGUS_CAVE, createFungusCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 5869935, 6263141)));
 
-        context.register(BiomeKeyRegistryME.MITHRIL_CAVE, createMithrilCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.MITHRIL_CAVE, createMithrilCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
 
-        context.register(BiomeKeyRegistryME.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(
-                4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
-        context.register(BiomeKeyRegistryME.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(
-                4142646, 3090215, 6450777, 1513734, 3550502, 2169880)));
+        context.register(BiomeKeyRegistryME.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
+        context.register(BiomeKeyRegistryME.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
 
-        context.register(BiomeKeyRegistryME.DRY_CAVE, createDryCave(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 10928742, 11259497)));
-        context.register(BiomeKeyRegistryME.ICE_CAVE, createIceCaves(context, new BiomeColorsDTO(
-                defaultSky, defaultFog, defaultWater, defaultWaterFog, 11121530, 10990723)));
+        context.register(BiomeKeyRegistryME.DRY_CAVE, createDryCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10928742, 11259497)));
+        context.register(BiomeKeyRegistryME.ICE_CAVE, createIceCaves(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 11121530, 10990723)));
     }
 
     public static Biome createBasicCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
@@ -458,13 +441,7 @@ public class CaveBiomesME {
                 .precipitation(precipitation)
                 .temperature(temperature)
                 .downfall(0.5F)
-                .effects((new BiomeEffects.Builder())
-                        .skyColor(biomeColors.skyColor)
-                        .fogColor(biomeColors.fogColor)
-                        .waterColor(biomeColors.waterColor)
-                        .waterFogColor(biomeColors.waterFogColor)
-                        .grassColor(biomeColors.grassColor)
-                        .foliageColor(biomeColors.foliageColor)
+                .effects(biomeColors.createEffects()
                         .build())
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build())

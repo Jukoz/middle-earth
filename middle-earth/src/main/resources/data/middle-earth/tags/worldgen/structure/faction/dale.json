@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:dale_village",
+    "middle-earth:dale_house",
+    "middle-earth:dale_keep",
+    "middle-earth:dale_watch_tower",
+    "middle-earth:dale_windmill"
+  ]
+}
