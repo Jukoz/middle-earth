@@ -10,6 +10,7 @@ import net.minecraft.block.StairsBlock;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
@@ -105,6 +106,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "crops"))).add(Crops.crops.toArray(new Block[0]));
+        valueLookupBuilder(BlockTags.MAINTAINS_FARMLAND).add(Crops.crops.toArray(new Block[0]));
 
         //Ores
         TagKey<Block> iron_ores = TagKey.of(RegistryKeys.BLOCK, Identifier.of( "iron_ores"));
