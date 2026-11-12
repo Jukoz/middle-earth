@@ -108,8 +108,13 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
             }
             BlockState blockState = world.getBlockState(blockPos);
             if (blockState.isOf(this) && blockState.get(PART) == forgePartOpposite) {
-                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-                world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+                if (forgePart == ForgePart.BOTTOM) {
+                    // The loot table only drops the forge from its top half
+                    world.breakBlock(blockPos, !player.isCreative() && player.canHarvest(blockState), player);
+                } else {
+                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
+                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+                }
             }
         }
         return super.onBreak(world, pos, state, player);
