@@ -25,6 +25,11 @@ public class BlockColorsME {
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0x324931, WoodBlockSetRegistryME.BLACK_PINE_SET.leaves);
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0x415730, WoodBlockSetRegistryME.WILLOW_SET.leaves);
 
+        // These leaf models are not tinted, the colour only reaches their falling leaf particles
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0xd3ab11, WoodBlockSetRegistryME.ASPEN_SET.leaves);
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0x4a6052, WoodBlockSetRegistryME.WHITE_SPRUCE_SET.leaves);
+        ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0x446344, NatureBlockRegistryME.BERRY_HOLLY_LEAVES);
+
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0x876b00, NatureBlockRegistryME.DRY_LARCH_LEAVES);
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0x5b4f2c, NatureBlockRegistryME.DRY_PINE_LEAVES);
         ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> 0x244324, NatureBlockRegistryME.LEBETHRON_LEAVES);
