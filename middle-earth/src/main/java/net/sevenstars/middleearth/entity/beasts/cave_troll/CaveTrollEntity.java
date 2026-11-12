@@ -740,6 +740,15 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return SoundsME.CAVE_TROLL_IDLE;
     }
 
+    // The horse base class plays hoof sounds on jumps and landings
+    @Override
+    public void playSound(SoundEvent sound, float volume, float pitch) {
+        if(sound == SoundEvents.ENTITY_HORSE_JUMP || sound == SoundEvents.ENTITY_HORSE_LAND) {
+            sound = SoundsME.CAVE_TROLL_STEP;
+        }
+        super.playSound(sound, volume, pitch);
+    }
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if(this.hasControllingPassenger() && this.getControllingPassenger().isSprinting()) {
