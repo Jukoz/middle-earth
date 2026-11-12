@@ -23,7 +23,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.light.HeldLight;
 import net.sevenstars.middleearth.light.HeldLights;
 import org.jetbrains.annotations.Nullable;
@@ -82,10 +81,10 @@ public final class HeldFlames {
     private static final Kind SOUL_TORCH = new Kind(8, 3, 8, 0.85F, 3, 0.9F, 8, 11.5F, 8, ParticleTypes.SOUL_FIRE_FLAME);
     private static final Kind CANDLE = new Kind(8, 0.5F, 8, 0.9F, 5, 1.0F, 8, 7.7F, 8, ParticleTypes.SMALL_FLAME);
     private static final Kind CANDLESTICK = new Kind(8, 4, 8, 0.6F, 1, 0.6F, 8, 16.7F, 8, ParticleTypes.SMALL_FLAME);
-    private static final Kind CANDLE_HOLDER = new Kind(7, 2.5F, 4, 0.6F, 1, 0.6F, 8, 11.7F, 8, ParticleTypes.SMALL_FLAME);
+    // Held by its loop (turned 45 degrees on the model, at the north-west corner), the loop turned to the hand.
+    private static final Kind CANDLE_HOLDER = new Kind(4.59F, 2.5F, 4.59F, 0.6F, 1, 0.6F, 8, 11.7F, 8, ParticleTypes.SMALL_FLAME).turned(135);
     private static final Kind SKULL_CANDLE = new Kind(10, 0, 7, 0.5F, 1, 0.55F, 8, 15.7F, 8, ParticleTypes.SMALL_FLAME).turned(-67.5F);
     private static final Kind CERAMIC_LAMP = new Kind(8, 2.5F, 12.5F, 0.6F, 1, 0.6F, 8, 6, 3, ParticleTypes.SMALL_FLAME);
-    private static final Kind TORCH_OF_ORTHANC = new Kind(8, 4, 8, 0.85F, -1, 0.6F, 8, 22.5F, 8, ParticleTypes.END_ROD).tinted(0xBBD7E4);
     private static final Map<Item, Kind> KINDS = new IdentityHashMap<>();
 
     static {
@@ -95,7 +94,6 @@ public final class HeldFlames {
         KINDS.put(DecorativeBlockRegistryME.CANDLE_HOLDER.asItem(), CANDLE_HOLDER);
         KINDS.put(DecorativeBlockRegistryME.SKULL_CANDLE.asItem(), SKULL_CANDLE);
         KINDS.put(DecorativeBlockRegistryME.CERAMIC_LAMP.asItem(), CERAMIC_LAMP);
-        KINDS.put(DecorativeItemsME.TORCH_OF_ORTHANC, TORCH_OF_ORTHANC);
     }
 
     /** How long a noted flame stays good, in ms (it is noted every frame its holder is drawn). */
@@ -106,6 +104,23 @@ public final class HeldFlames {
     private static final List<Vector3f> firstPerson = new ArrayList<>();
     private static long firstPersonNoted;
     private static final Map<ItemStack, Seen> THIRD_PERSON = new WeakHashMap<>();
+    /** Worn lights' flames (the Dwarven Miner Helmet's candles), in the world, by the worn stack. */
+    private static final Map<ItemStack, Seen> WORN = new WeakHashMap<>();
+    /**
+     * Helmets with candles on them, and their wicks in the head's frame (pixels), as their models have the flames:
+     * the Dwarven Miner Helmet's two before the brow, the Goblin Town Tunneler's two stubs on its crown.
+     */
+    private static final Map<Item, List<Vector3f>> WORN_WICKS = Map.of(
+        net.sevenstars.middleearth.item.EquipmentItemsME.DWARVEN_MINER_HELMET,
+        List.of(new Vector3f(-5.5F, -10.5F, -6.5F), new Vector3f(5.5F, -10.5F, -6.5F)),
+        net.sevenstars.middleearth.item.EquipmentItemsME.GOBLIN_TOWN_TUNNELER_HELMET,
+        List.of(new Vector3f(1.4F, -12.5F, 1.5F), new Vector3f(-1.6F, -13.5F, -0.6F)));
+    private static final Kind WORN_CANDLE = new Kind(8, 8, 8, 1, 0, 1, 8, 8, 8, ParticleTypes.SMALL_FLAME);
+
+    /** Whether a worn stack has candles that burn on it. */
+    public static boolean hasWornFlames(ItemStack stack) {
+        return WORN_WICKS.containsKey(stack.getItem());
+    }
 
     private record Seen(List<Vec3d> at, long time) {
     }
@@ -159,6 +174,21 @@ public final class HeldFlames {
         }
     }
 
+    /** As a candle helmet is drawn on its wearer; the matrix is its head's, camera-relative, world-turned. */
+    public static void noteWorn(ItemStack stack, Matrix4f matrix) {
+        List<Vector3f> wicks = stack == null ? null : WORN_WICKS.get(stack.getItem());
+        if (wicks == null) {
+            return;
+        }
+        Vec3d camera = MinecraftClient.getInstance().gameRenderer.getCamera().getPos();
+        List<Vec3d> flames = new ArrayList<>();
+        for (Vector3f wick : wicks) {
+            Vector3f at = matrix.transformPosition(new Vector3f(wick).div(16));
+            flames.add(camera.add(at.x, at.y, at.z));
+        }
+        WORN.put(stack, new Seen(flames, Util.getMeasuringTimeMs()));
+    }
+
     private static void tick(MinecraftClient client) {
         ClientWorld world = client.world;
         if (world == null || client.isPaused()) {
@@ -183,6 +213,22 @@ public final class HeldFlames {
                     for (Vec3d at : seen.at()) {
                         flicker(world, at, kind);
                     }
+                }
+            }
+        }
+        // Worn candles burn on whoever wears them, as they are drawn (not on your own head in first person).
+        for (net.minecraft.entity.Entity entity : world.getEntities()) {
+            if (!(entity instanceof net.minecraft.entity.LivingEntity living) || living.isInvisible() || living.isSpectator()) {
+                continue;
+            }
+            ItemStack head = living.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD);
+            if (!hasWornFlames(head)) {
+                continue;
+            }
+            Seen seen = WORN.get(head);
+            if (seen != null && now - seen.time() <= FRESH_MS) {
+                for (Vec3d at : seen.at()) {
+                    flicker(world, at, WORN_CANDLE);
                 }
             }
         }

@@ -4,11 +4,7 @@
     "property": "minecraft:display_context",
     "cases": [
       {
-        "when": [
-          "gui",
-          "ground",
-          "fixed"
-        ],
+        "when": ["gui", "ground", "fixed"],
         "model": {
           "type": "minecraft:model",
           "model": "minecraft:item/torch"

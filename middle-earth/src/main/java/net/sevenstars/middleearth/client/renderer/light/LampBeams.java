@@ -57,6 +57,10 @@ public final class LampBeams {
     private static final int SEGMENTS = 12;
     /** How far along its reach a beam is seen before it has faded away (its light still goes the whole way). */
     private static final double FADE_SHARE = 0.75;
+    /** A held lamp's beam is seen only near its holder: gone this many blocks from the lens. */
+    private static final double HELD_FADE = 5;
+    /** How far a beam is seen past the face it lands on (through a thin wall, leaves and the like). */
+    private static final double SHINE_THROUGH = 1;
     /** Where your own off-hand lamp's lens sits in view, until the hand has been drawn: ahead, to the side, and up. */
     private static final double FIRST_PERSON_AHEAD = 0.8;
     private static final double FIRST_PERSON_SIDE = 0.56;
@@ -79,8 +83,8 @@ public final class LampBeams {
     /** How long a noted first-person lens stays good, in ms (it is noted every frame the hand is drawn). */
     private static final long FIRST_PERSON_FRESH_MS = 200;
     /** The beam's radius at the lens, and how much it widens per block it travels. */
-    private static final float START_RADIUS = 0.07F;
-    private static final float SPREAD = 0.08F;
+    private static final float START_RADIUS = 0.09F;
+    private static final float SPREAD = 0.1F;
     private static final int START_ALPHA = 26;
     /** Gem ore checks per beam per tick: random points in the beam's cone. */
     private static final int GLEAM_SAMPLES = 6;
@@ -211,7 +215,7 @@ public final class LampBeams {
             if (HeldLights.held(player) instanceof HeldLight.Beam light) {
                 Beam beam = held(player, light, tickProgress);
                 draw(matrices.peek().getPositionMatrix(), consumers.getBuffer(layer()),
-                    beam.from().subtract(camera), beam.to().subtract(camera), beam.color(), fadeLength(light.range()));
+                    beam.from().subtract(camera), beam.to().subtract(camera), beam.color(), HELD_FADE);
             }
         }
     }
@@ -235,9 +239,9 @@ public final class LampBeams {
      */
     public static void draw(Matrix4f matrix, VertexConsumer buffer, Vec3d from, Vec3d to, int rgb, double fadeLength) {
         Vec3d axis = to.subtract(from);
-        // Always its whole fading length, whatever it lands on: the beam passes on behind a near wall (which hides it)
-        // and has faded to nothing before it ends, so its end is never seen; the light still goes where it lands.
-        double length = fadeLength;
+        // Its whole fading length, but no more than a block past what it lands on: the light still goes where it
+        // lands; the beam is not seen beyond the face it hits but for the skin of it.
+        double length = Math.min(fadeLength, axis.length() + SHINE_THROUGH);
         if (length < 1.0E-2) {
             return;
         }

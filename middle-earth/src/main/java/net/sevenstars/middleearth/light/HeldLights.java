@@ -26,8 +26,8 @@ import org.jetbrains.annotations.Nullable;
  * the off hand ({@link LanternToggling}).
  */
 public final class HeldLights {
-    /** One candle's light (a placed candle gives 3 a candle). */
-    private static final int CANDLE_LEVEL = 3;
+    /** A candle carried in the hand: brighter than one placed (3), so it lights the way, yet short of a torch (14). */
+    private static final int CANDLE_LEVEL = 10;
 
     private static final Map<Item, HeldLight> LIGHTS = new IdentityHashMap<>();
 
@@ -99,6 +99,20 @@ public final class HeldLights {
 
     /** The light a player holds in the off hand right now, or null. */
     public static @Nullable HeldLight held(PlayerEntity player) {
-        return player.isSpectator() ? null : active(player.getOffHandStack());
+        if (player.isSpectator()) {
+            return null;
+        }
+        HeldLight light = active(player.getOffHandStack());
+        return light != null ? light : worn(player);
+    }
+
+    /** Two candles worn on a helmet: always lit, flickering; brighter than one carried candle. */
+    private static final HeldLight.Glow CANDLE_HELMET = HeldLight.Glow.flame(12);
+
+    /** A light worn on the head (the Dwarven Miner and Goblin Town Tunneler helmets' candles), or null. */
+    public static @Nullable HeldLight worn(PlayerEntity player) {
+        ItemStack head = player.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD);
+        return head.isOf(net.sevenstars.middleearth.item.EquipmentItemsME.DWARVEN_MINER_HELMET)
+            || head.isOf(net.sevenstars.middleearth.item.EquipmentItemsME.GOBLIN_TOWN_TUNNELER_HELMET) ? CANDLE_HELMET : null;
     }
 }

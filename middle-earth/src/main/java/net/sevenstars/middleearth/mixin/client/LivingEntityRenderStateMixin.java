@@ -15,6 +15,8 @@ public class LivingEntityRenderStateMixin extends EntityRenderState implements A
     private ItemStack offHandStack;
     @Unique
     private boolean restrained;
+    @Unique
+    private ItemStack headStack = ItemStack.EMPTY;
 
     @Override
     public ItemStack getMainHandStack() {
@@ -27,6 +29,14 @@ public class LivingEntityRenderStateMixin extends EntityRenderState implements A
     @Override
     public ItemStack getOffHandStackItself() {
         return offHandStack;
+    }
+    @Override
+    public ItemStack getHeadStackItself() {
+        return headStack;
+    }
+    @Override
+    public void setHeadStackItself(ItemStack headStack) {
+        this.headStack = headStack;
     }
     @Override
     public boolean isRestrained() {

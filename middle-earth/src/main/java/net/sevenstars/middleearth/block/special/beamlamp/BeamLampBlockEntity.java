@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.special.beamlamp;
 
+import java.util.List;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -17,6 +19,8 @@ public class BeamLampBlockEntity extends BlockEntity {
 
     /** The light this lamp keeps, if any (not saved: it lights again within a few ticks of loading). */
     private @Nullable BlockPos spot;
+    /** The lights it keeps along its beam, where walls are near. */
+    private List<BlockPos> path = List.of();
 
     public BeamLampBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistryME.BEAM_LAMP, pos, state);
@@ -28,10 +32,12 @@ public class BeamLampBlockEntity extends BlockEntity {
             return;
         }
         BlockPos target = null;
+        List<BlockPos> way = List.of();
         if (state.get(BeamLampBlock.LIT)) {
             Vec3d direction = BeamLampBlock.direction(state);
             Vec3d from = BeamLampBlock.lens(pos, state).add(direction.multiply(0.3));
             target = BeamLights.beamSpot(world, from, direction, block.kind().range());
+            way = BeamLights.beamPath(world, from, direction, block.kind().range());
         }
         if (state.get(BeamLampBlock.LIT) && Math.floorMod(world.getTime() + pos.hashCode(), LampDazzle.CHECK_TICKS * AIM_TICKS) == 0) {
             Vec3d direction = BeamLampBlock.direction(state);
@@ -40,6 +46,8 @@ public class BeamLampBlockEntity extends BlockEntity {
         if (lamp.spot != null && !lamp.spot.equals(target)) {
             BeamLights.remove(server, lamp.spot);
         }
+        lamp.path = BeamLights.movePath(server, lamp.path, way, block.kind().spotLevel() - BeamLights.PATH_DIMMER,
+            target == null ? List.of() : List.of(target));
         lamp.spot = target != null && BeamLights.place(server, target, block.kind().spotLevel()) ? target : null;
     }
 }
