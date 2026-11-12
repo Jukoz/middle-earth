@@ -817,8 +817,12 @@ public class BlockRegistryME {
     }
 
     static void registerBlockItem(String name, Block block) {
+        registerBlockItem(name, block, new Item.Settings());
+    }
+
+    static void registerBlockItem(String name, Block block, Item.Settings itemSettings) {
         var item = Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
-                new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
+                new BlockItem(block, itemSettings.registryKey(keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
     }

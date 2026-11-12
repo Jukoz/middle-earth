@@ -44,6 +44,7 @@ import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -758,11 +759,14 @@ public class DecorativeBlockRegistryME {
             LargeDoor10x4::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque().pistonBehavior(PistonBehavior.BLOCK));
 
     public static final Block FANCY_BED = registerBlockWithItem("fancy_bed",
-            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED));
+            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED),
+            new Item.Settings().maxCount(1));
     public static final Block FUR_BED = registerBlockWithItem("fur_bed",
-            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED));
+            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED),
+            new Item.Settings().maxCount(1));
     public static final Block STRAW_BED = registerBlockWithItem("straw_bed",
-            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED));
+            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED),
+            new Item.Settings().maxCount(1));
 
     public static final Block ARKENSTONE = registerBlock("arkenstone",
             ArkenstoneBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool());
@@ -780,8 +784,12 @@ public class DecorativeBlockRegistryME {
     }
 
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
+        return registerBlockWithItem(name, factory, settings, new Item.Settings());
+    }
+
+    public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, Item.Settings itemSettings) {
         Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
-        BlockRegistryME.registerBlockItem(name, block);
+        BlockRegistryME.registerBlockItem(name, block, itemSettings);
         ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
