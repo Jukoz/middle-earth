@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.gui.lapidarytable;
 
+import net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlockEntity;
+import net.sevenstars.middleearth.recipe.lapidary.LapidaryTools;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.recipe.RecipeSerializerRegistryME;
 
@@ -72,10 +74,11 @@ import net.minecraft.util.math.MathHelper;
 @Environment(EnvType.CLIENT)
 public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final Identifier BACKGROUND = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/lapidary_table.png");
+    /**
+     * The Faceting screen in one texture: the screen with the table bare of its fittings, and beside it each fitting's
+     * piece in each tier (where they go: {@link LapidaryBoardSprites}).
+     */
     private static final Identifier BACKGROUND_FACETING = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/lapidary_faceting.png");
-    /** The Faceting board with each tool set installed: its wheel, lenses, lantern and pump fitting on the table. */
-    private static final Identifier BACKGROUND_FACETING_MASTERWORK = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/lapidary_faceting_masterwork.png");
-    private static final Identifier BACKGROUND_FACETING_RELIC = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/lapidary_faceting_relic.png");
     private static final Identifier FLAME = Identifier.ofVanilla("textures/particle/flame.png");
     private static final Identifier SMOKE = Identifier.ofVanilla("textures/particle/generic_0.png");
     private static final Identifier GLINT = Identifier.ofVanilla("textures/particle/glint.png");
@@ -412,10 +415,24 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         if (active) {
             cutButton.setMessage(Text.translatable("gui.middle-earth.lapidary.faceting.grind"));
             cutButton.active = phase == Phase.IDLE && !handler.isFacetRunning();
-        } else {
+            cutButton.setTooltip(null);
+        } else if (chosenCut == null) {
             cutButton.setMessage(Text.translatable("gui.middle-earth.lapidary.faceting.cut"));
-            cutButton.active = chosenCut != null && handler.hasWater();
+            cutButton.active = false;
+            cutButton.setTooltip(null);
+        } else {
+            // The cut's price in levels is listed on the parchment below; the button only cuts when it can be paid.
+            boolean canPay = client != null && client.player != null && LapidaryTableBlockEntity.canPay(client.player, chosenCut);
+            cutButton.setMessage(Text.translatable("gui.middle-earth.lapidary.faceting.cut"));
+            cutButton.active = handler.hasWater() && canPay;
+            cutButton.setTooltip(null);
         }
+    }
+
+    /** How much easier the player's lensed eyewear makes the bar. */
+    private double eyewearEase() {
+        return client != null && client.player != null
+            ? net.sevenstars.middleearth.recipe.lapidary.LapidaryEyewear.ease(client.player) : 0;
     }
 
     private @org.jetbrains.annotations.Nullable StudyGrade cutGrade() {
@@ -442,7 +459,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             markerSpeed = 0;
         }
         runSeconds += dt;
-        if (Faceting.zone(handler.getCut(), runFacet, cutGrade(), runSeconds).contains(marker)) {
+        if (Faceting.zone(handler.getCut(), runFacet, cutGrade(), eyewearEase(), runSeconds).contains(marker)) {
             inZoneSeconds += dt;
         }
         if (runSeconds >= Faceting.FACET_SECONDS) {
@@ -499,7 +516,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.fill(left, top, right, top + 8, 0xFF3A3028);
         double seconds = phase == Phase.RUNNING ? runSeconds : 0;
         int facet = phase == Phase.IDLE ? done : runFacet;
-        Faceting.Zone zone = Faceting.zone(cut, facet, cutGrade(), seconds);
+        Faceting.Zone zone = Faceting.zone(cut, facet, cutGrade(), eyewearEase(), seconds);
         int zoneLeft = left + (int) Math.round((zone.center() - zone.halfWidth()) * BAR_HALF * 2);
         int zoneRight = left + (int) Math.round((zone.center() + zone.halfWidth()) * BAR_HALF * 2);
         boolean inZone = zone.contains(marker);
@@ -770,8 +787,8 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         if (phase != Phase.RUNNING) {
             return;
         }
-        boolean inZone = Faceting.zone(handler.getCut(), runFacet, cutGrade(), runSeconds).contains(marker);
-        if (!handler.getTools().isEmpty()) {
+        boolean inZone = Faceting.zone(handler.getCut(), runFacet, cutGrade(), eyewearEase(), runSeconds).contains(marker);
+        if (handler.getPumpTier() > 0) {
             pumpWater(seconds);
         }
         sparkSpawn += seconds * (inZone ? 40 : 10);
@@ -919,6 +936,19 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.drawText(textRenderer, Text.translatable("gui.middle-earth.lapidary.faceting.facets",
             Faceting.facets(tier)), px, line, INK_DIM, false);
         line += 12;
+        if (chosenCut != null && client != null && client.player != null) {
+            // The cut's price, as the study shows its own: good ink if it can be paid (or in creative), bad if not.
+            int cost = LapidaryTableBlockEntity.levelCost(chosenCut);
+            boolean canPay = LapidaryTableBlockEntity.canPay(client.player, chosenCut);
+            Text costText = Text.translatable(cost == 1 ? "gui.middle-earth.lapidary.xp_cost_one" : "gui.middle-earth.lapidary.xp_cost", cost);
+            float costScale = Math.min(1F, 72F / textRenderer.getWidth(costText));
+            context.getMatrices().pushMatrix();
+            context.getMatrices().translate(px, line);
+            context.getMatrices().scale(costScale);
+            context.drawText(textRenderer, costText, 0, 0, canPay ? INK_GOOD : INK_BAD, false);
+            context.getMatrices().popMatrix();
+            line += 12;
+        }
         if (!handler.hasWater()) {
             context.drawText(textRenderer, Text.translatable("gui.middle-earth.lapidary.faceting.water"),
                 px, line, INK_BAD, false);
@@ -931,16 +961,75 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.drawText(textRenderer, Text.translatable(cap.translationKey()), px, line + 10, qualityInk(cap), false);
     }
 
-    private Identifier facetingBackground() {
-        net.sevenstars.middleearth.recipe.lapidary.LapidaryTools tools =
-            net.sevenstars.middleearth.recipe.lapidary.LapidaryTools.of(handler.getTools());
-        if (tools == null) {
-            return BACKGROUND_FACETING;
+    /**
+     * The table's fittings over the bare table, each in its tier (the bare table's own when none is fitted): the
+     * wheel, the lenses with the dop stand, the lamp and the pump's spout. Where one lies over another and lets it
+     * show through (the big lens's glass over the wheel, the lamp's light on it), a patch for that pairing follows.
+     */
+    private void drawUpgrades(DrawContext context) {
+        int wheel = handler.getUpgradeTier(LapidaryTools.Slot.WHEEL);
+        int lenses = handler.getUpgradeTier(LapidaryTools.Slot.LENSES);
+        int lamp = handler.getUpgradeTier(LapidaryTools.Slot.LAMP);
+        int pump = handler.getPumpTier();
+        drawPiece(context, LapidaryBoardSprites.WHEEL[wheel]);
+        drawPiece(context, LapidaryBoardSprites.LENSES[lenses]);
+        drawPiece(context, LapidaryBoardSprites.LENS_PATCH[lenses * 3 + wheel]);
+        if (lamp > 0) {
+            drawPiece(context, LapidaryBoardSprites.LAMP[lamp]);
+            drawPiece(context, LapidaryBoardSprites.LAMP_PATCH[(lamp * 3 + wheel) * 3 + lenses]);
         }
-        return switch (tools) {
-            case MASTERWORK -> BACKGROUND_FACETING_MASTERWORK;
-            case RELIC -> BACKGROUND_FACETING_RELIC;
-        };
+        if (pump > 0) {
+            drawPiece(context, LapidaryBoardSprites.PUMP[pump]);
+            drawPiece(context, LapidaryBoardSprites.PUMP_PATCH[((pump * 3 + wheel) * 3 + lenses) * 3 + lamp]);
+        }
+    }
+
+    /** One piece of the Faceting texture in its place: {u, v, width, height, screen x, screen y}; null for none. */
+    private void drawPiece(DrawContext context, int @org.jetbrains.annotations.Nullable [] piece) {
+        if (piece != null) {
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_FACETING, x + piece[4], y + piece[5],
+                piece[0], piece[1], piece[2], piece[3], LapidaryBoardSprites.TEXTURE_WIDTH, LapidaryBoardSprites.TEXTURE_HEIGHT);
+        }
+    }
+
+    /** The water slot's inside rows on the vessel icons: its water rises from the bottom row. */
+    private static final int VESSEL_TOP = 4, VESSEL_BOTTOM = 13;
+
+    /**
+     * With a pump fitted the water slot is its fill meter: the pump's vessel (the wooden bucket, or the Relic mithril
+     * basin) cut away to show how much water it holds.
+     */
+    private void drawWaterMeter(DrawContext context) {
+        // The vessel and its water in the Faceting texture: Masterwork's, then the Relic's.
+        int[] vessel = LapidaryBoardSprites.VESSELS[handler.getPumpTier() == 2 ? 2 : 0];
+        int[] water = LapidaryBoardSprites.VESSELS[handler.getPumpTier() == 2 ? 3 : 1];
+        int sx = x + LapidaryScreenHandler.FACET_WATER_X, sy = y + LapidaryScreenHandler.GEM_SLOT_Y;
+        // A little smaller than the slot, its drawn pixels centred in it (the bucket is drawn high, the basin low).
+        float centreY = handler.getPumpTier() == 2 ? VESSEL_CENTRE_Y_RELIC : VESSEL_CENTRE_Y_MASTERWORK;
+        context.getMatrices().pushMatrix();
+        context.getMatrices().translate(sx + 8, sy + 8);
+        context.getMatrices().scale(VESSEL_SCALE, VESSEL_SCALE);
+        context.getMatrices().translate(-8, -centreY);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_FACETING, 0, 0, vessel[0], vessel[1], 16, 16,
+            LapidaryBoardSprites.TEXTURE_WIDTH, LapidaryBoardSprites.TEXTURE_HEIGHT);
+        int capacity = Math.max(1, handler.getWaterCapacity());
+        int rows = Math.round((VESSEL_BOTTOM - VESSEL_TOP + 1) * (float) Math.min(handler.getWater(), capacity) / capacity);
+        if (rows > 0) {
+            int top = VESSEL_BOTTOM + 1 - rows;
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_FACETING, 0, top, water[0], water[1] + top,
+                16, rows, LapidaryBoardSprites.TEXTURE_WIDTH, LapidaryBoardSprites.TEXTURE_HEIGHT);
+        }
+        context.getMatrices().popMatrix();
+    }
+
+    /** The vessel icons' size in the water slot. */
+    private static final float VESSEL_SCALE = 0.8F;
+    /** The middle of each vessel's drawn pixels, top to bottom: the bucket's rows 0 to 14, the basin's 3 to 14. */
+    private static final float VESSEL_CENTRE_Y_MASTERWORK = 7.5F, VESSEL_CENTRE_Y_RELIC = 9F;
+
+    private boolean overWaterSlot(int mouseX, int mouseY) {
+        int sx = x + LapidaryScreenHandler.FACET_WATER_X, sy = y + LapidaryScreenHandler.GEM_SLOT_Y;
+        return mouseX >= sx && mouseX < sx + 16 && mouseY >= sy && mouseY < sy + 16;
     }
 
     /** Quality colours dark enough to read on parchment. */
@@ -1037,6 +1126,12 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
 
         super.render(context, mouseX, mouseY, deltaTicks);
         drawMouseoverTooltip(context, mouseX, mouseY);
+        if (!reading() && handler.getPumpTier() > 0 && handler.getSlot(3).getStack().isEmpty() && overWaterSlot(mouseX, mouseY)) {
+            context.drawTooltip(textRenderer, List.of(
+                Text.translatable("gui.middle-earth.lapidary.faceting.basin", handler.getWater(), handler.getWaterCapacity()),
+                Text.translatable("gui.middle-earth.lapidary.faceting.basin.fill").formatted(net.minecraft.util.Formatting.GRAY)),
+                mouseX, mouseY);
+        }
         if (reading() && isOverHelp(mouseX, mouseY)) {
             List<Text> help = new ArrayList<>();
             for (int i = 1; i <= 6; i++) {
@@ -1048,21 +1143,23 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, reading() ? BACKGROUND : facetingBackground(), x, y, 0, 0,
-            WIDTH, HEIGHT, WIDTH, HEIGHT);
-        if (!reading() && handler.getSlot(3).getStack().isEmpty()) {
+        if (reading()) {
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND, x, y, 0, 0, WIDTH, HEIGHT, WIDTH, HEIGHT);
+        } else {
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_FACETING, x, y, 0, 0, WIDTH, HEIGHT,
+                LapidaryBoardSprites.TEXTURE_WIDTH, LapidaryBoardSprites.TEXTURE_HEIGHT);
+        }
+        if (!reading()) {
+            drawUpgrades(context);
+        }
+        if (!reading() && handler.getPumpTier() > 0 && handler.getSlot(3).getStack().isEmpty()) {
+            drawWaterMeter(context);
+        } else if (!reading() && handler.getSlot(3).getStack().isEmpty()) {
             // A faint water bucket in the empty water slot.
             context.drawItem(new ItemStack(Items.WATER_BUCKET), x + LapidaryScreenHandler.FACET_WATER_X,
                 y + LapidaryScreenHandler.GEM_SLOT_Y);
             context.fill(x + LapidaryScreenHandler.FACET_WATER_X, y + LapidaryScreenHandler.GEM_SLOT_Y,
                 x + LapidaryScreenHandler.FACET_WATER_X + 16, y + LapidaryScreenHandler.GEM_SLOT_Y + 16, 0xAA8B8B8B);
-        }
-        if (!reading() && handler.getTools().isEmpty()) {
-            // Faint tools in the empty tools slot.
-            context.drawItem(new ItemStack(ResourceItemsME.MASTERWORK_LAPIDARY_TOOLS),
-                x + LapidaryScreenHandler.FACET_TOOLS_X, y + LapidaryScreenHandler.GEM_SLOT_Y);
-            context.fill(x + LapidaryScreenHandler.FACET_TOOLS_X, y + LapidaryScreenHandler.GEM_SLOT_Y,
-                x + LapidaryScreenHandler.FACET_TOOLS_X + 16, y + LapidaryScreenHandler.GEM_SLOT_Y + 16, 0xAA8B8B8B);
         }
         if (reading() && handler.getSlot(1).getStack().isEmpty()) {
             // A faint paper in the empty paper slot.

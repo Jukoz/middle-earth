@@ -190,6 +190,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         cobbleDrops(BlockRegistryME.STONE_MYCELIUM, Blocks.COBBLESTONE);
 
+        addDrop(DecorativeBlockRegistryME.LAPIDARY_TABLE, LootTable.builder().pool(this.addSurvivesExplosionCondition(DecorativeBlockRegistryME.LAPIDARY_TABLE, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(DecorativeBlockRegistryME.LAPIDARY_TABLE).conditionally(BlockStatePropertyLootCondition.builder(DecorativeBlockRegistryME.LAPIDARY_TABLE).properties(StatePredicate.Builder.create().exactMatch(net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.PART, net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.Part.TABLE)))))));
         largeDoorDrop(DecorativeBlockRegistryME.LARCH_HOBBIT_DOOR);
         largeDoorDrop(DecorativeBlockRegistryME.SPRUCE_HOBBIT_DOOR);
         largeDoorDrop(DecorativeBlockRegistryME.BLUE_HOBBIT_DOOR);

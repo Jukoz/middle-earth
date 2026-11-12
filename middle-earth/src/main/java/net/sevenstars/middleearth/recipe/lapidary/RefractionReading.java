@@ -201,6 +201,14 @@ public final class RefractionReading {
      * lands the light, so every puzzle can be solved; none is lit at the start.
      */
     public static Puzzle generate(long seed, double[][] outline, double index, int runeCount) {
+        return generate(seed, outline, index, runeCount, false);
+    }
+
+    /**
+     * As {@link #generate(long, double[][], double, int)}; with {@code candleRune} (lensed eyewear), the first rune
+     * is one the candle alone can light, with the gem left as it starts.
+     */
+    public static Puzzle generate(long seed, double[][] outline, double index, int runeCount, boolean candleRune) {
         Random random = new Random(seed);
         int states = STEPS * STEPS;
         double[] exits = new double[states];
@@ -227,6 +235,9 @@ public final class RefractionReading {
                 if (!lights(exits[state], angle) || lights(exits[start], angle)) {
                     continue;
                 }
+                if (candleRune && found == 0 && state % STEPS != start % STEPS) {
+                    continue;
+                }
                 boolean clear = true;
                 for (int i = 0; i < found; i++) {
                     clear &= angleBetween(runes[i], angle) >= RUNE_SPACING;
@@ -246,6 +257,9 @@ public final class RefractionReading {
             if (puzzle.par() > runeCount + 1) {
                 return puzzle;
             }
+        }
+        if (best == null && candleRune) {
+            return generate(seed, outline, index, runeCount, false);
         }
         return best != null ? best : new Puzzle(0, 0, new int[0], 0);
     }

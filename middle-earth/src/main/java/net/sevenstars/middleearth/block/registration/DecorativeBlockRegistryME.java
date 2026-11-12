@@ -120,7 +120,7 @@ public class DecorativeBlockRegistryME {
             net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock::new,
             AbstractBlock.Settings.create().mapColor(net.minecraft.block.MapColor.OAK_TAN)
                     .instrument(net.minecraft.block.enums.NoteBlockInstrument.BASS).strength(2.5F)
-                    .sounds(net.minecraft.sound.BlockSoundGroup.WOOD).nonOpaque());
+                    .sounds(net.minecraft.sound.BlockSoundGroup.WOOD).nonOpaque().dynamicBounds());
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());

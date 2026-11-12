@@ -113,6 +113,11 @@ public class DataComponentTypesME {
             .codec(com.mojang.serialization.Codec.BOOL)
             .packetCodec(net.minecraft.network.codec.PacketCodecs.BOOLEAN));
 
+    /** The lenses fitted in Glasses or a Dwarven Monocle: 1 Refined, 2 Exquisite (see LapidaryEyewear). */
+    public static final ComponentType<Integer> EYEWEAR_LENSES = register("eyewear_lenses", builder -> builder
+            .codec(com.mojang.serialization.Codec.intRange(1, 2))
+            .packetCodec(net.minecraft.network.codec.PacketCodecs.VAR_INT));
+
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.DATA_COMPONENT_TYPE, id));
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(MiddleEarth.MOD_ID, id), ((ComponentType.Builder)builderOperator.apply(ComponentType.builder())).build());

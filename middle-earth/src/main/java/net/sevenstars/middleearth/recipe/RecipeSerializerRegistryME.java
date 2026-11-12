@@ -22,6 +22,7 @@ public class RecipeSerializerRegistryME<T extends Recipe<?>> {
     public static final SpecialCraftingRecipe.SpecialRecipeSerializer<CustomItemDecorationRecipe> CUSTOM_ITEM_DECORATION = register("custom_item_decoration", new SpecialCraftingRecipe.SpecialRecipeSerializer<>(CustomItemDecorationRecipe::new));
 
     /** Player Book + any gem notes: binds the notes' Gem Studies into the book. */
+    public static final SpecialCraftingRecipe.SpecialRecipeSerializer<net.sevenstars.middleearth.recipe.lapidary.EyewearLensesRecipe> EYEWEAR_LENSES = register("eyewear_lenses", new SpecialCraftingRecipe.SpecialRecipeSerializer<>(net.sevenstars.middleearth.recipe.lapidary.EyewearLensesRecipe::new));
     public static final SpecialCraftingRecipe.SpecialRecipeSerializer<net.sevenstars.middleearth.recipe.lapidary.GemStudiesBookRecipe> GEM_STUDIES_BOOK = register("gem_studies_book", new SpecialCraftingRecipe.SpecialRecipeSerializer<>(net.sevenstars.middleearth.recipe.lapidary.GemStudiesBookRecipe::new));
 
     static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String id, S serializer) {

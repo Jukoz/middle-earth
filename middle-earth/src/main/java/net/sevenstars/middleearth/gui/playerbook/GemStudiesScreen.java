@@ -111,19 +111,21 @@ public class GemStudiesScreen extends Screen {
     private static List<Item> parts(LapidaryTools tools) {
         return tools == LapidaryTools.MASTERWORK
             ? List.of(ResourceItemsME.REFINED_FOCUSING_LENSES, ResourceItemsME.ENHANCED_GRINDING_WHEEL,
-                ResourceItemsME.CITRINE_BULLSEYE_LAMP, ResourceItemsME.WATER_PUMP)
+                ResourceItemsME.CITRINE_BULLSEYE_LAMP, ResourceItemsME.STANDARD_PUMP)
             : List.of(ResourceItemsME.EXQUISITE_FOCUSING_LENSES, ResourceItemsME.KHAZAD_GRINDING_WHEEL,
-                ResourceItemsME.MIRDAIN_BEAM_LAMP, ResourceItemsME.NUMENOREAN_WATER_PUMP);
+                ResourceItemsME.MIRDAIN_BEAM_LAMP, ResourceItemsME.NUMENOREAN_PUMP);
     }
 
-    private static Item toolsItem(LapidaryTools tools) {
-        return tools == LapidaryTools.MASTERWORK ? ResourceItemsME.MASTERWORK_LAPIDARY_TOOLS : ResourceItemsME.RELIC_LAPIDARY_TOOLS;
+    /** A tier's icon in the book: its lenses. */
+    private static Item tierIcon(LapidaryTools tools) {
+        return tools.upgrade(LapidaryTools.Slot.LENSES);
     }
 
-    private static final int ARTS_SET_Y = 38;
-    private static final int ARTS_PART_Y = 96;
-    /** Row pitch of the Lapidary Arts lists: room for a two-line, underlined name. */
-    private static final int ARTS_ROW = 22;
+    private static final int ARTS_SET_Y = 36;
+    /** Space between rows of the Lapidary Arts lists (each row as tall as its wrapped name, at least an icon). */
+    private static final int ARTS_GAP = 4;
+    /** Below the tool sets: space before the "Parts" heading, and from the heading to the first part. */
+    private static final int ARTS_PARTS_GAP = 5, ARTS_HEADING = 11;
     /** Left page: items at ICON_X, their names at NAME_X wrapped to NAME_W so they stay off the spine. */
     private static final int ICON_X = 42;
     private static final int NAME_X = 60;
@@ -153,13 +155,64 @@ public class GemStudiesScreen extends Screen {
     }
 
     /** Draws a list name wrapped to the left page's width, centred on its 18 px row. */
+    /** A row's name, wrapped, from the top of its row. */
     private void drawRowName(DrawContext context, Text name, int x, int rowY, int color) {
-        List<OrderedText> lines = textRenderer.wrapLines(name, NAME_W);
-        int y = rowY + 9 - lines.size() * 9 / 2;
-        for (OrderedText line : lines) {
+        int y = rowY;
+        for (OrderedText line : textRenderer.wrapLines(name, NAME_W)) {
             context.drawText(textRenderer, line, x, y, color, false);
             y += 9;
         }
+    }
+
+    /** A row's height: its wrapped name's (with the underline below the last line), at least an icon's. */
+    private int rowHeight(Text name) {
+        return Math.max(16, textRenderer.wrapLines(name, NAME_W).size() * 9 + 1);
+    }
+
+    /** The rows of a list from {@code y} (page-relative): each {y, height}, a gap apart. */
+    private int[][] rows(List<Text> names, int y) {
+        int[][] rows = new int[names.size()][];
+        for (int i = 0; i < names.size(); i++) {
+            int h = rowHeight(names.get(i));
+            rows[i] = new int[]{y, h};
+            y += h + ARTS_GAP;
+        }
+        return rows;
+    }
+
+    private int[][] setRows() {
+        List<Text> names = new java.util.ArrayList<>();
+        for (LapidaryTools tools : LapidaryTools.values()) {
+            names.add(Text.translatable(tools.translationKey()));
+        }
+        return rows(names, ARTS_SET_Y);
+    }
+
+    /** Where the "Parts" heading goes: below the last tool set. */
+    private int partsHeadingY() {
+        int[][] sets = setRows();
+        int[] last = sets[sets.length - 1];
+        return last[0] + last[1] + ARTS_PARTS_GAP;
+    }
+
+    private int[][] partRows(List<Item> parts) {
+        List<Text> names = new java.util.ArrayList<>();
+        for (Item part : parts) {
+            names.add(part.getName());
+        }
+        return rows(names, partsHeadingY() + ARTS_HEADING);
+    }
+
+    /** An icon centred on the height of its row's name. */
+    private static int iconY(int[] row) {
+        return row[0] + (row[1] - 16) / 2;
+    }
+
+    /** Whether the mouse is on a row (its icon and name, and half the gap either side). */
+    private boolean inRow(double mouseX, double mouseY, int[] row) {
+        int y = top() + row[0] - ARTS_GAP / 2;
+        return mouseX >= left() + ICON_X - 2 && mouseX <= left() + NAME_X + NAME_W
+            && mouseY >= y && mouseY < y + row[1] + ARTS_GAP;
     }
 
     /**
@@ -175,15 +228,15 @@ public class GemStudiesScreen extends Screen {
             drawWrapped(context, Text.translatable("screen.middle-earth.gem_studies.no_book"), left + ICON_X, top + 44, NAME_W + 18, FADED);
             return;
         }
+        int[][] setRows = setRows();
         for (int i = 0; i < LapidaryTools.values().length; i++) {
             LapidaryTools tools = LapidaryTools.values()[i];
-            int rowY = top + ARTS_SET_Y + i * ARTS_ROW;
-            context.drawItem(new ItemStack(toolsItem(tools)), left + ICON_X, rowY);
+            context.drawItem(new ItemStack(tierIcon(tools)), left + ICON_X, top + iconY(setRows[i]));
             Text name = Text.translatable(tools.translationKey());
             if (tools == selectedTools && selectedPart == null) {
                 name = name.copy().formatted(Formatting.UNDERLINE);
             }
-            drawRowName(context, name, left + NAME_X, rowY - 1, pages.contains(tools.id()) ? BLACK : FADED);
+            drawRowName(context, name, left + NAME_X, top + setRows[i][0], pages.contains(tools.id()) ? BLACK : FADED);
         }
         boolean bound = pages.contains(selectedTools.id());
         int rightX = left + RIGHT_X;
@@ -194,24 +247,33 @@ public class GemStudiesScreen extends Screen {
             return;
         }
         context.drawText(textRenderer, Text.translatable("screen.middle-earth.gem_studies.arts.parts"),
-            left + ICON_X, top + ARTS_PART_Y - 11, FADED, false);
+            left + ICON_X, top + partsHeadingY(), FADED, false);
         List<Item> parts = parts(selectedTools);
+        int[][] partRows = partRows(parts);
         for (int i = 0; i < parts.size(); i++) {
-            int rowY = top + ARTS_PART_Y + i * ARTS_ROW;
-            context.drawItem(new ItemStack(parts.get(i)), left + ICON_X, rowY);
+            context.drawItem(new ItemStack(parts.get(i)), left + ICON_X, top + iconY(partRows[i]));
             Text name = parts.get(i).getName();
             if (parts.get(i) == selectedPart) {
                 name = name.copy().formatted(Formatting.UNDERLINE);
             }
-            drawRowName(context, name, left + NAME_X, rowY - 1, BLACK);
+            drawRowName(context, name, left + NAME_X, top + partRows[i][0], BLACK);
         }
-        Item shown = selectedPart != null ? selectedPart : toolsItem(selectedTools);
+        if (selectedPart == null) {
+            // The tier itself: what its upgrades do on a Lapidary Table.
+            int y = drawWrapped(context, Text.translatable(selectedTools.translationKey()).formatted(Formatting.BOLD),
+                rightX, top + 20, RIGHT_W, BLACK) + 3;
+            drawWrapped(context, Text.translatable("screen.middle-earth.gem_studies.arts." + selectedTools.id() + "_lapidary_tools"),
+                rightX, y, RIGHT_W, BLACK);
+            return;
+        }
+        Item shown = selectedPart;
         String id = net.minecraft.registry.Registries.ITEM.getId(shown).getPath();
-        int y = drawWrapped(context, shown.getName().copy().formatted(Formatting.BOLD), rightX, top + 20, RIGHT_W, BLACK) + 3;
-        y = drawWrapped(context, Text.translatable("screen.middle-earth.gem_studies.arts." + id), rightX, y, RIGHT_W, BLACK) + 5;
+        // Kept tight: the lenses' page holds a two-line name, four lines of text and two recipes above the page's foot.
+        int y = drawWrapped(context, shown.getName().copy().formatted(Formatting.BOLD), rightX, top + 20, RIGHT_W, BLACK) + 2;
+        y = drawWrapped(context, Text.translatable("screen.middle-earth.gem_studies.arts." + id), rightX, y, RIGHT_W, BLACK) + 3;
         LapidaryRecipeLayouts.Layout layout = LapidaryRecipeLayouts.of(shown);
         if (layout != null) {
-            y = drawRecipe(context, layout, left + GRID_X, y, mouseX, mouseY) + 6;
+            y = drawRecipe(context, layout, left + GRID_X, y, mouseX, mouseY) + 3;
         }
         if (shown == ResourceItemsME.REFINED_FOCUSING_LENSES || shown == ResourceItemsME.EXQUISITE_FOCUSING_LENSES) {
             // The lenses need gem glass first: one diagram that turns through each gem's glass.
@@ -297,9 +359,9 @@ public class GemStudiesScreen extends Screen {
     }
 
     private boolean clickArts(double mouseX, double mouseY) {
+        int[][] setRows = setRows();
         for (int i = 0; i < LapidaryTools.values().length; i++) {
-            int rowY = top() + ARTS_SET_Y + i * ARTS_ROW;
-            if (mouseX >= left() + ICON_X - 2 && mouseX <= left() + NAME_X + NAME_W && mouseY >= rowY && mouseY < rowY + ARTS_ROW) {
+            if (inRow(mouseX, mouseY, setRows[i])) {
                 selectedTools = LapidaryTools.values()[i];
                 selectedPart = null;
                 return true;
@@ -309,9 +371,9 @@ public class GemStudiesScreen extends Screen {
             return false;
         }
         List<Item> parts = parts(selectedTools);
+        int[][] partRows = partRows(parts);
         for (int i = 0; i < parts.size(); i++) {
-            int rowY = top() + ARTS_PART_Y + i * ARTS_ROW;
-            if (mouseX >= left() + ICON_X - 2 && mouseX <= left() + NAME_X + NAME_W && mouseY >= rowY && mouseY < rowY + ARTS_ROW) {
+            if (inRow(mouseX, mouseY, partRows[i])) {
                 selectedPart = parts.get(i);
                 return true;
             }

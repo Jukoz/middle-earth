@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "middle-earth:block/lapidary_table"
+    "model": "middle-earth:item/lapidary_table"
   }
 }

@@ -14,8 +14,7 @@ import net.sevenstars.middleearth.resources.datas.gems.GemType;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
 import net.sevenstars.middleearth.item.items.gems.CutGemItem;
 import net.sevenstars.middleearth.item.items.gems.GemCut;
-import net.sevenstars.middleearth.item.items.gems.LapidaryToolsItem;
-import net.sevenstars.middleearth.recipe.lapidary.LapidaryTools;
+import net.sevenstars.middleearth.recipe.lapidary.LapidaryEyewear;
 import net.sevenstars.middleearth.item.items.gems.RawGemItem;
 import net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlockEntity;
 import net.sevenstars.middleearth.recipe.lapidary.RefractionReading;
@@ -108,17 +107,15 @@ public class LapidaryScreenHandler extends ScreenHandler {
     public static final int GEM_SLOT_X = 196;
     public static final int NOTES_SLOT_X = 222;
     public static final int GEM_SLOT_Y = 22;
-    /** The Faceting screen's three slots, water, gem and tools, centred on the parchment. */
-    public static final int FACET_WATER_X = 170;
-    public static final int FACET_GEM_X = 196;
-    public static final int FACET_TOOLS_X = 222;
+    /** The Faceting screen's two slots, water and gem, on the parchment. */
+    public static final int FACET_WATER_X = 183;
+    public static final int FACET_GEM_X = 209;
     private static final int GEM = 0;
     private static final int PAPER = 1;
     private static final int NOTES = 2;
     private static final int WATER_SLOT = 3;
     private static final int CUT_GEM_SLOT = 4;
-    private static final int TOOLS_SLOT = 5;
-    private static final int PLAYER_SLOTS = 6;
+    private static final int PLAYER_SLOTS = 5;
     public static final int INVENTORY_X = 44;
     public static final int INVENTORY_Y = 177;
 
@@ -146,18 +143,19 @@ public class LapidaryScreenHandler extends ScreenHandler {
     private boolean dragPaid;
 
     public LapidaryScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, new SimpleInventory(1), new SimpleInventory(3),
-            new ArrayPropertyDelegate(LapidaryTableBlockEntity.F_COUNT), null);
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, new SimpleInventory(1), new SimpleInventory(2),
+            new ArrayPropertyDelegate(LapidaryTableBlockEntity.F_COUNT), null, false);
     }
 
+    /** The screen of {@code table}, opened at its wheel (on Faceting) or at its study half (on the study). */
     public LapidaryScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context,
-                                 LapidaryTableBlockEntity table) {
-        this(syncId, playerInventory, context, table.getPaper(), table.getFaceting(), table.getFacetState(), table);
+                                 LapidaryTableBlockEntity table, boolean atWheel) {
+        this(syncId, playerInventory, context, table.getPaper(), table.getFaceting(), table.getFacetState(), table, atWheel);
     }
 
     private LapidaryScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context,
                                   Inventory paperInventory, Inventory facetingInventory, PropertyDelegate facetState,
-                                  @Nullable LapidaryTableBlockEntity table) {
+                                  @Nullable LapidaryTableBlockEntity table, boolean atWheel) {
         super(ScreenHandlerRegistryME.LAPIDARY_SCREEN_HANDLER, syncId);
         this.context = context;
         this.paperInventory = paperInventory;
@@ -166,8 +164,11 @@ public class LapidaryScreenHandler extends ScreenHandler {
         this.table = table;
         this.player = playerInventory.player;
         this.properties = new ArrayPropertyDelegate(PROPERTY_COUNT);
-        // A table with a cut in progress opens on it.
-        properties.set(P_MODE, table != null && table.isCutActive() ? FACETING : READING);
+        // The table opens on the half it was opened at: Faceting at the wheel, the study at the study half.
+        properties.set(P_MODE, table != null && atWheel ? FACETING : READING);
+        if (table != null && !player.getWorld().isClient()) {
+            table.claim(player.getUuid(), atWheel);
+        }
 
         addSlot(new Slot(gemInventory, 0, GEM_SLOT_X, GEM_SLOT_Y) {
             @Override
@@ -216,7 +217,8 @@ public class LapidaryScreenHandler extends ScreenHandler {
         addSlot(new Slot(facetingInventory, LapidaryTableBlockEntity.WATER, FACET_WATER_X, GEM_SLOT_Y) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return stack.isOf(Items.WATER_BUCKET);
+                // A fitted pump waters the wheel: the slot takes nothing (a bucket left in it can still come out).
+                return stack.isOf(Items.WATER_BUCKET) && getPumpTier() == 0;
             }
 
             @Override
@@ -251,31 +253,13 @@ public class LapidaryScreenHandler extends ScreenHandler {
                 return isFaceting();
             }
         });
-        addSlot(new Slot(facetingInventory, LapidaryTableBlockEntity.TOOLS, FACET_TOOLS_X, GEM_SLOT_Y) {
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return stack.getItem() instanceof LapidaryToolsItem && !isCutActive();
-            }
-
-            @Override
-            public int getMaxItemCount() {
-                return 1;
-            }
-
-            @Override
-            public boolean canTakeItems(PlayerEntity playerEntity) {
-                // The tools stay installed until the cut is finished.
-                return !isCutActive();
-            }
-
-            @Override
-            public boolean isEnabled() {
-                return isFaceting();
-            }
-        });
         addPlayerSlots(playerInventory, INVENTORY_X, INVENTORY_Y);
         addProperties(properties);
         addProperties(facetState);
+        // A gem left on the study pedestal is still there.
+        if (!atWheel) {
+            takeStudyGem();
+        }
     }
 
     // ---- State, readable on both sides ----
@@ -336,18 +320,41 @@ public class LapidaryScreenHandler extends ScreenHandler {
         return facetingInventory.getStack(LapidaryTableBlockEntity.CUT_GEM);
     }
 
-    /** The installed tool set, or empty. */
-    public ItemStack getTools() {
-        return facetingInventory.getStack(LapidaryTableBlockEntity.TOOLS);
-    }
-
-    /** The highest quality value a cut on this table can reach with the installed tools. */
+    /** The highest quality value a cut on this table can reach with its upgrades. */
     public int getBenchCap() {
-        return LapidaryTools.cap(getTools());
+        return facetState.get(LapidaryTableBlockEntity.F_CAP);
     }
 
+    /** The tier of the upgrade fitted in {@code slot} (lenses, wheel or lamp): 0 none, 1 Masterwork, 2 Relic. */
+    public int getUpgradeTier(net.sevenstars.middleearth.recipe.lapidary.LapidaryTools.Slot slot) {
+        int packed = facetState.get(LapidaryTableBlockEntity.F_UPGRADES);
+        return switch (slot) {
+            case WHEEL -> packed % 3;
+            case LENSES -> packed / 3 % 3;
+            case LAMP -> packed / 9 % 3;
+            case PUMP -> getPumpTier();
+        };
+    }
+
+    /** The tier of the pump fitted to the table: 0 none, 1 Standard, 2 Numenorean. */
+    public int getPumpTier() {
+        return facetState.get(LapidaryTableBlockEntity.F_PUMP);
+    }
+
+    /** Buckets of water in the fitted pump's vessel. */
+    public int getWater() {
+        return facetState.get(LapidaryTableBlockEntity.F_WATER);
+    }
+
+    /** How many buckets the fitted pump's vessel holds (0 without a pump). */
+    public int getWaterCapacity() {
+        int pump = getPumpTier();
+        return pump == 2 ? 10 : pump == 1 ? 5 : 0;
+    }
+
+    /** Whether the wheel has water for a cut: water in the pump's vessel, or (without a pump) a water bucket. */
     public boolean hasWater() {
-        return facetingInventory.getStack(LapidaryTableBlockEntity.WATER).isOf(Items.WATER_BUCKET);
+        return getPumpTier() > 0 ? getWater() > 0 : facetingInventory.getStack(LapidaryTableBlockEntity.WATER).isOf(Items.WATER_BUCKET);
     }
 
     public boolean isCutActive() {
@@ -402,10 +409,27 @@ public class LapidaryScreenHandler extends ScreenHandler {
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (id == MODE_READING || id == MODE_FACETING) {
             // No switching screens in the middle of a study or a cut.
-            if (getState() == STATE_STUDYING || isCutActive()) {
+            boolean faceting = id == MODE_FACETING;
+            if (getState() == STATE_STUDYING || isCutActive() || faceting == isFaceting()) {
                 return false;
             }
-            properties.set(P_MODE, id == MODE_FACETING ? FACETING : READING);
+            // Each half has one player at a time: the other half has to be free.
+            if (table != null && !player.getWorld().isClient()) {
+                net.minecraft.server.network.ServerPlayerEntity other = table.otherUser(player, faceting);
+                if (other != null) {
+                    player.sendMessage(net.minecraft.text.Text.translatable("message.middle-earth.lapidary_table.in_use",
+                        other.getDisplayName()), true);
+                    return false;
+                }
+                if (faceting) {
+                    leaveStudyGem();
+                }
+                table.claim(player.getUuid(), faceting);
+            }
+            properties.set(P_MODE, faceting ? FACETING : READING);
+            if (!faceting) {
+                takeStudyGem();
+            }
             return true;
         }
         if (isFaceting()) {
@@ -448,7 +472,7 @@ public class LapidaryScreenHandler extends ScreenHandler {
             return false;
         }
         if (id >= START_CUT && id < START_CUT + GemCut.values().length) {
-            return table.startCut(GemCut.values()[id - START_CUT]);
+            return table.startCut(GemCut.values()[id - START_CUT], player);
         }
         if (id == FACET_BEGIN) {
             return table.beginFacet(player.getUuid());
@@ -477,8 +501,9 @@ public class LapidaryScreenHandler extends ScreenHandler {
         }
         paperInventory.removeStack(0, 1);
         paperInventory.markDirty();
+        // Lensed eyewear: one rune can be lit by moving the candle alone.
         RefractionReading.Puzzle puzzle = RefractionReading.generate(player.getRandom().nextLong(), setup.outline(),
-            setup.band().index(), setup.band().runes());
+            setup.band().index(), setup.band().runes(), LapidaryEyewear.wornTier(player) > 0);
         outline = setup.outline();
         index = setup.band().index();
         properties.set(P_LAMP, puzzle.startLamp());
@@ -542,6 +567,25 @@ public class LapidaryScreenHandler extends ScreenHandler {
             properties.set(P_STATE, STATE_IDLE);
             properties.set(P_GRADE, 0);
         }
+        // The gem being studied sits on the table's plinth.
+        if (inventory == gemInventory && table != null && !player.getWorld().isClient()) {
+            table.setStudyGem(getGem());
+        }
+    }
+
+    /** The study screen shows the table's pedestal gem in its slot (server side; the slot syncs). */
+    private void takeStudyGem() {
+        if (table != null && !player.getWorld().isClient() && !table.getStudyGem().isEmpty() && getGem().isEmpty()) {
+            gemInventory.setStack(GEM, table.getStudyGem().copy());
+        }
+    }
+
+    /** Leaving the study screen leaves its gem on the table's pedestal. */
+    private void leaveStudyGem() {
+        if (table != null && !player.getWorld().isClient()) {
+            ItemStack gem = gemInventory.removeStack(GEM);
+            table.setStudyGem(gem);
+        }
     }
 
     // ---- Usual screen handler duties ----
@@ -560,8 +604,7 @@ public class LapidaryScreenHandler extends ScreenHandler {
             }
             slot.onQuickTransfer(stack, original);
         } else if (isFaceting()) {
-            Slot into = slots.get(stack.isOf(Items.WATER_BUCKET) ? WATER_SLOT
-                : stack.getItem() instanceof LapidaryToolsItem ? TOOLS_SLOT : CUT_GEM_SLOT);
+            Slot into = slots.get(stack.isOf(Items.WATER_BUCKET) ? WATER_SLOT : CUT_GEM_SLOT);
             if (into.hasStack() || !into.canInsert(stack)) {
                 return ItemStack.EMPTY;
             }
@@ -586,6 +629,11 @@ public class LapidaryScreenHandler extends ScreenHandler {
         return original;
     }
 
+    /** Whether this is the screen of {@code table}. */
+    public boolean isFor(LapidaryTableBlockEntity table) {
+        return this.table == table;
+    }
+
     @Override
     public boolean canUse(PlayerEntity player) {
         return canUse(context, player, DecorativeBlockRegistryME.LAPIDARY_TABLE);
@@ -594,12 +642,18 @@ public class LapidaryScreenHandler extends ScreenHandler {
     @Override
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
-        // Like the enchanting table: the gem and notes go back to the player (the paper stays in the table).
+        // The gem stays on the table's study pedestal and the paper in the table; the notes go back to the player.
         // An unfinished study is lost.
+        boolean studying = !isFaceting();
+        ItemStack gem = table != null && !player.getWorld().isClient() ? gemInventory.removeStack(GEM) : ItemStack.EMPTY;
         context.run((world, pos) -> dropInventory(player, gemInventory));
         // A facet being ground when the screen closes scores 0; the rest of the cut waits in the table.
         if (table != null) {
             table.abandonFacet(player.getUuid());
+            table.release(player.getUuid());
+            if (!player.getWorld().isClient() && studying) {
+                table.setStudyGem(gem);
+            }
         }
     }
 }

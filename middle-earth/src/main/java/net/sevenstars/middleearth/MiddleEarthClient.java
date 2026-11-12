@@ -106,6 +106,14 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+		// Lensed eyewear says which lenses it has.
+		net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, tooltipContext, type, lines) -> {
+			int lenses = net.sevenstars.middleearth.recipe.lapidary.LapidaryEyewear.fitted(stack);
+			if (lenses > 0) {
+				lines.add(net.minecraft.text.Text.translatable("tooltip.middle-earth.eyewear_lenses." + (lenses == 1 ? "refined" : "exquisite"))
+					.formatted(net.minecraft.util.Formatting.AQUA));
+			}
+		});
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();

@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.item.utils.SmithingTrimPatternsME;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -95,18 +94,12 @@ public final class LapidaryRecipeLayouts {
             'R', metal(ResourceItemsME.ROD, metal)));
     }
 
-    /** A tool set: its four parts. */
-    private static Layout toolSet(LapidaryTools tools, Item set, Item lenses, Item wheel, Item lamp, Item pump) {
-        return new Layout(tools.id(), set, 1, List.of(" L ", "WAP"),
-            Map.of('L', item(lenses), 'W', item(wheel), 'A', item(lamp), 'P', item(pump)));
-    }
-
     /** The gem glass of a tool set's lenses, in the lenses' order. */
     public static List<Layout> gemGlass(LapidaryTools tools) {
         return tools == LapidaryTools.MASTERWORK ? masterworkGlass() : relicGlass();
     }
 
-    /** Every lapidary recipe of a tool set: its gem glass, its four parts, then the set. */
+    /** Every lapidary recipe of a tier: its gem glass and its four upgrades. */
     public static List<Layout> all(LapidaryTools tools) {
         return tools == LapidaryTools.MASTERWORK ? masterwork() : relic();
     }
@@ -137,12 +130,10 @@ public final class LapidaryRecipeLayouts {
                 'E', metal(ResourceItemsME.ARMOR_PLATE, "gold"), 'S', metal(ResourceItemsME.SHIELD_BORDER, "gold"),
                 'R', metal(ResourceItemsME.ROD, "gold"), 'C', item(Items.CANDLE),
                 'G', item(ResourceItemsME.CITRINE_GLASS))),
-            new Layout(art, ResourceItemsME.WATER_PUMP, 1, List.of("PRP", "LCL", "PBP"), Map.of(
-                'P', new OfTag(ItemTags.PLANKS), 'R', metal(ResourceItemsME.ROD, "bronze"),
-                'L', item(Items.LEATHER), 'C', item(Items.RESIN_CLUMP),
-                'B', metal(ResourceItemsME.ARMOR_PLATE, "bronze"))),
-            toolSet(LapidaryTools.MASTERWORK, ResourceItemsME.MASTERWORK_LAPIDARY_TOOLS, ResourceItemsME.REFINED_FOCUSING_LENSES,
-                ResourceItemsME.ENHANCED_GRINDING_WHEEL, ResourceItemsME.CITRINE_BULLSEYE_LAMP, ResourceItemsME.WATER_PUMP));
+            // A bellows on a steel plate, steel rods for its pipes, and its wooden bucket.
+            new Layout(art, ResourceItemsME.STANDARD_PUMP, 1, List.of(" PR", "RLR", "WP "), Map.of(
+                'P', metal(ResourceItemsME.ARMOR_PLATE, "steel"), 'R', metal(ResourceItemsME.ROD, "steel"),
+                'L', item(DecorativeBlockRegistryME.BELLOWS), 'W', item(DecorativeBlockRegistryME.WOODEN_BUCKET))));
     }
 
     private static List<Layout> relic() {
@@ -159,10 +150,9 @@ public final class LapidaryRecipeLayouts {
                 'S', metal(ResourceItemsME.SHIELD_BORDER, "mithril"), 'R', metal(ResourceItemsME.ROD, "mithril"),
                 'C', item(DecorativeBlockRegistryME.CANDLE_HOLDER), 'A', item(ResourceItemsME.ADAMANT_GLASS),
                 'E', metal(ResourceItemsME.ARMOR_PLATE, "edhel_steel"))),
-            new Layout(art, ResourceItemsME.NUMENOREAN_WATER_PUMP, 1, List.of("RRN", "FWF", "NNN"), Map.of(
-                'R', metal(ResourceItemsME.ROD, "mithril"), 'N', item(ResourceItemsME.MITHRIL_NUGGET),
-                'F', item(ResourceItemsME.FABRIC), 'W', item(ResourceItemsME.WATER_PUMP))),
-            toolSet(LapidaryTools.RELIC, ResourceItemsME.RELIC_LAPIDARY_TOOLS, ResourceItemsME.EXQUISITE_FOCUSING_LENSES,
-                ResourceItemsME.KHAZAD_GRINDING_WHEEL, ResourceItemsME.MIRDAIN_BEAM_LAMP, ResourceItemsME.NUMENOREAN_WATER_PUMP));
+            // The Standard Pump refitted in mithril, its basin a mithril plate.
+            new Layout(art, ResourceItemsME.NUMENOREAN_PUMP, 1, List.of(" NR", "RSR", "PN "), Map.of(
+                'N', item(ResourceItemsME.MITHRIL_NUGGET), 'R', metal(ResourceItemsME.ROD, "mithril"),
+                'S', item(ResourceItemsME.STANDARD_PUMP), 'P', metal(ResourceItemsME.ARMOR_PLATE, "mithril"))));
     }
 }

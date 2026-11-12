@@ -25,6 +25,9 @@ public class RegistryAliasesME {
             // The lapidary lamps became the focused lamps.
             add(new ManualAlias(Registries.ITEM, "refraction_lamp", "citrine_bullseye_lamp"));
             add(new ManualAlias(Registries.ITEM, "edhel_beam_lamp", "mirdain_beam_lamp"));
+            // The water pumps became the placeable pumps.
+            add(new ManualAlias(Registries.ITEM, "water_pump", "standard_pump"));
+            add(new ManualAlias(Registries.ITEM, "numenorean_water_pump", "numenorean_pump"));
             // The old gem ores are no longer items; stacks of them become their gem.
             add(new ManualAlias(Registries.ITEM, "nurgon_emerald_ore", "raw_beryl"));
             add(new ManualAlias(Registries.ITEM, "nurgon_ruby_ore", "raw_ruby"));

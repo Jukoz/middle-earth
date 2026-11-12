@@ -167,18 +167,12 @@ public class ResourceItemsME {
     public static final Item REFINED_FOCUSING_LENSES = registerLapidary("refined_focusing_lenses", Item::new, part(Rarity.UNCOMMON));
     public static final Item ENHANCED_GRINDING_WHEEL = registerLapidary("enhanced_grinding_wheel", Item::new, part(Rarity.UNCOMMON));
     public static final Item CITRINE_BULLSEYE_LAMP = registerLamp("citrine_bullseye_lamp", net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP, Rarity.UNCOMMON);
-    public static final Item WATER_PUMP = registerLapidary("water_pump", Item::new, part(Rarity.UNCOMMON));
+    public static final Item STANDARD_PUMP = registerLapidary("standard_pump", Item::new, part(Rarity.UNCOMMON));
     public static final Item EXQUISITE_FOCUSING_LENSES = registerLapidary("exquisite_focusing_lenses", Item::new, part(Rarity.RARE));
     public static final Item KHAZAD_GRINDING_WHEEL = registerLapidary("khazad_grinding_wheel", Item::new, part(Rarity.RARE));
     public static final Item MIRDAIN_BEAM_LAMP = registerLamp("mirdain_beam_lamp", net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP, Rarity.RARE);
-    public static final Item NUMENOREAN_WATER_PUMP = registerLapidary("numenorean_water_pump", Item::new, part(Rarity.RARE));
+    public static final Item NUMENOREAN_PUMP = registerLapidary("numenorean_pump", Item::new, part(Rarity.RARE));
 
-    public static final Item MASTERWORK_LAPIDARY_TOOLS = registerLapidary("masterwork_lapidary_tools",
-            settings -> new net.sevenstars.middleearth.item.items.gems.LapidaryToolsItem(settings,
-                    net.sevenstars.middleearth.recipe.lapidary.LapidaryTools.MASTERWORK), part(Rarity.RARE));
-    public static final Item RELIC_LAPIDARY_TOOLS = registerLapidary("relic_lapidary_tools",
-            settings -> new net.sevenstars.middleearth.item.items.gems.LapidaryToolsItem(settings,
-                    net.sevenstars.middleearth.recipe.lapidary.LapidaryTools.RELIC), part(Rarity.EPIC).fireproof());
     public static final Item MASTERWORK_LAPIDARY_SCROLL = registerLapidary("masterwork_lapidary_scroll",
             settings -> new net.sevenstars.middleearth.item.items.gems.LapidaryScrollItem(settings,
                     net.sevenstars.middleearth.recipe.lapidary.LapidaryTools.MASTERWORK), part(Rarity.RARE));

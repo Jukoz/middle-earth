@@ -113,7 +113,8 @@ public class SimpleItemModel {
             add(ResourceItemsME.CITRINE_SHARD);
             // The focused lamps show their 3D block model instead (assets/middle-earth/items).
             for (net.minecraft.item.Item lapidary : ResourceItemsME.LAPIDARY_ITEMS) {
-                if (!(lapidary instanceof net.sevenstars.middleearth.block.special.beamlamp.BeamLampItem)) {
+                if (!(lapidary instanceof net.minecraft.item.BlockItem) // the lamps and pumps have their own models
+                        && lapidary != ResourceItemsME.STANDARD_PUMP && lapidary != ResourceItemsME.NUMENOREAN_PUMP) {
                     add(lapidary);
                 }
             }

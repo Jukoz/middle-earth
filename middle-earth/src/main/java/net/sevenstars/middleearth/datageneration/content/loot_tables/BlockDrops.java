@@ -152,7 +152,6 @@ public class BlockDrops {
             add(NatureBlockRegistryME.WHITE_PALM_SAPLING);
 
             add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
-            add(DecorativeBlockRegistryME.LAPIDARY_TABLE);
 
             add(DecorativeBlockRegistryME.LARCH_COFFER);
             add(DecorativeBlockRegistryME.PINE_COFFER);

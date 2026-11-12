@@ -134,6 +134,7 @@ public class MiddleEarth implements ModInitializer {
 		net.sevenstars.middleearth.light.HeldLights.registerDefaults();
 		net.sevenstars.middleearth.light.BeamLights.register();
 		net.sevenstars.middleearth.light.LanternToggling.register();
+		net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.registerEvents();
 
 		// Dynamic Data
         DynamicRegistriesME.register();

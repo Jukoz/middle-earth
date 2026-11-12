@@ -32,8 +32,6 @@ import java.util.List;
 public final class Faceting {
     /** How long one facet is ground. */
     public static final float FACET_SECONDS = 6.0F;
-    /** Best quality value without lapidary tools: Exceptional is the most a bare bench allows. */
-    public static final int BARE_BENCH_CAP = GemQuality.EXCEPTIONAL.maxValue();
 
     private static final int[] FACETS_BY_TIER = {3, 4, 5, 6, 8};
     /**
@@ -109,10 +107,13 @@ public final class Faceting {
         return patterns[Math.floorMod(facet * (indexInTier + 1) + indexInTier, patterns.length)];
     }
 
-    /** The zone at {@code seconds} into a facet, for this cut, facet and study grade. */
-    public static Zone zone(GemCut cut, int facet, @Nullable StudyGrade grade, double seconds) {
+    /**
+     * The zone at {@code seconds} into a facet, for this cut, facet and study grade, made easier still by
+     * {@code eyewearEase} (lensed eyewear, see {@link LapidaryEyewear#ease}).
+     */
+    public static Zone zone(GemCut cut, int facet, @Nullable StudyGrade grade, double eyewearEase, double seconds) {
         int tier = cut.tier() - 1;
-        double ease = grade == null ? 0 : GRADE_EASE[grade.ordinal()];
+        double ease = (grade == null ? 0 : GRADE_EASE[grade.ordinal()]) + eyewearEase;
         double maxHalf = ZONE_MAX_HALF[tier] * (1 + ease);
         double minHalf = ZONE_MIN_HALF[tier] * (1 + ease);
         double halfWidth = maxHalf;
