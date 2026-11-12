@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.gui.inscriptiontable;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -221,7 +222,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
             List<RecipeEntry<InscriptionRecipe>> availableRecipes = serverRecipeManager.getAllOfType(RecipesME.INSCRIPTION_TABLE)
                     .stream().filter((inscriptionRecipeRecipeEntry -> {
-                            if(!inscriptionRecipeRecipeEntry.value().enchant.value().isAcceptableItem(input.getStack(2))) return false;
+                            if(!isAcceptableItem(inscriptionRecipeRecipeEntry.value().enchant, input.getStack(2))) return false;
                             if(selectedWords.isEmpty()) return true;
                             else return inscriptionRecipeRecipeEntry.value().inputWords.getFirst().equals(selectedWords.getFirst());
                     })).toList();
@@ -274,8 +275,16 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         }
     }
 
+    private static boolean isAcceptableItem(RegistryEntry<Enchantment> enchant, ItemStack stack) {
+        if (stack.contains(DataComponentTypes.UNBREAKABLE)
+                && (enchant.matchesKey(Enchantments.UNBREAKING) || enchant.matchesKey(Enchantments.MENDING))) {
+            return false;
+        }
+        return enchant.value().isAcceptableItem(stack);
+    }
+
     private boolean canEnchant(ItemStack stack, RegistryEntry<Enchantment> enchant, int level) {
-        boolean acceptableItem = enchant.value().isAcceptableItem(stack);
+        boolean acceptableItem = isAcceptableItem(enchant, stack);
         if (acceptableItem && EnchantmentHelper.isCompatible(stack.getEnchantments().getEnchantments(), enchant)){
             return stack.getEnchantments().getLevel(enchant) == level - 1;
         } else {
