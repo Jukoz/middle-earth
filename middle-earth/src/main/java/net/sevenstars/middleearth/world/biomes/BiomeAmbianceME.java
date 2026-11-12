@@ -187,7 +187,8 @@ public final class BiomeAmbianceME {
     }
 
     // The probability is the chance for each air block around the player to spawn a particle, every tick
-    public record Particles(ParticleEffect particle, float probability) {
+    // Under cover means below trees & roofs only, which the biome particle mixin enforces
+    public record Particles(ParticleEffect particle, float probability, boolean underCover) {
         public static final Particles ASHFALL_HEAVY = new Particles(ParticleTypes.WHITE_ASH, 0.1f);
         public static final Particles ASHFALL = new Particles(ParticleTypes.WHITE_ASH, 0.07f);
         public static final Particles ASHFALL_LIGHT = new Particles(ParticleTypes.WHITE_ASH, 0.04f);
@@ -197,10 +198,10 @@ public final class BiomeAmbianceME {
         public static final Particles MIST_THICK = new Particles(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, 0.004f);
         public static final Particles MIST = new Particles(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, 0.003f);
 
-        public static final Particles MOTES_THICK = new Particles(ParticleTypes.MYCELIUM, 0.02f);
-        public static final Particles MOTES = new Particles(ParticleTypes.MYCELIUM, 0.012f);
-        public static final Particles MOTES_SPARSE = new Particles(ParticleTypes.MYCELIUM, 0.006f);
-        public static final Particles STUFFY_AIR = new Particles(ParticleTypes.SPORE_BLOSSOM_AIR, 0.006f);
+        public static final Particles MOTES_THICK = new Particles(ParticleTypes.MYCELIUM, 0.02f).onlyUnderCover();
+        public static final Particles MOTES = new Particles(ParticleTypes.MYCELIUM, 0.012f).onlyUnderCover();
+        public static final Particles MOTES_SPARSE = new Particles(ParticleTypes.MYCELIUM, 0.006f).onlyUnderCover();
+        public static final Particles STUFFY_AIR = new Particles(ParticleTypes.SPORE_BLOSSOM_AIR, 0.006f).onlyUnderCover();
 
         public static final Particles SNOW_HEAVY = new Particles(ParticleTypes.SNOWFLAKE, 0.05f);
         public static final Particles SNOW = new Particles(ParticleTypes.SNOWFLAKE, 0.025f);
@@ -208,6 +209,14 @@ public final class BiomeAmbianceME {
         public Particles {
             if(!(probability > 0 && probability <= 1))
                 throw new IllegalArgumentException("The particle probability %s must be above 0 and at most 1".formatted(probability));
+        }
+
+        public Particles(ParticleEffect particle, float probability) {
+            this(particle, probability, false);
+        }
+
+        public Particles onlyUnderCover() {
+            return new Particles(particle, probability, true);
         }
     }
 
