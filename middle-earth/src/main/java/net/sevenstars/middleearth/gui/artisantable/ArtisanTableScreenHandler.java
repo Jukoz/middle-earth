@@ -43,7 +43,6 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     private final World world;
     private List<RecipeEntry<ArtisanRecipe>> availableRecipes;
     private List<ItemStack> outputs;
-    private ItemStack inputStack;
     long lastTakeTime;
     private ArtisanTableSlot[][] inputSlots;
     final Slot outputSlot;
@@ -71,7 +70,6 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         this.recipesSize = Property.create();
         this.availableRecipes = Lists.newArrayList();
         this.outputs = new ArrayList<>();
-        this.inputStack = ItemStack.EMPTY;
         this.contentsChangedListener = () -> {
         };
 
@@ -212,9 +210,12 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     public void onContentChanged(Inventory inventory) {
-        ItemStack itemStack = this.inputSlots[0][0].getStack();
-        this.inputStack = itemStack.copy();
-        this.updateInput(inventory);
+        // Bundles call this with the player inventory
+        if(inventory != this.input) {
+            super.onContentChanged(inventory);
+            return;
+        }
+        this.updateInput();
     }
 
     public void updateIndex(int index){
@@ -243,15 +244,16 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         }
     }
 
-    private void updateInput(Inventory inventory) {
+    private void updateInput() {
+        if(this.inputsShape == null) return;
         String currentCategory = this.inputsShape.getId();
         if(currentCategory == null) return;
 
         List<ItemStack> inputs = new ArrayList<>();
-        for (int i = 0; i < inventory.size(); i++) {
+        for (int i = 0; i < this.input.size(); i++) {
             ArtisanTableSlot slot = inputSlots[i / 3][i % 3];
             if(slot.isEnabled()) {
-                inputs.add(inventory.getStack(i));
+                inputs.add(this.input.getStack(i));
             }
         }
         this.availableRecipes.clear();
